@@ -120,7 +120,7 @@ Quy tắc:
 
 ## 7. Git
 
-- Nhánh: `main` (luôn chạy được), `feat/<tên>`, `fix/<tên>`, `content/<tên>`.
+- Nhánh: `master` (nhánh mặc định, luôn chạy được), `feat/<tên>`, `fix/<tên>`, `content/<tên>`.
 - Commit theo Conventional Commits: `feat(mascot): add drag and fall animation`, `fix(srs): ...`, `content(a2): add 5 shopping lessons`, `docs: ...`.
 - PR nhỏ, có mô tả + ảnh/GIF nếu thay đổi UI. Checklist PR:
   - [ ] `pnpm lint && pnpm test` pass

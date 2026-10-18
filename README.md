@@ -18,3 +18,7 @@ pnpm build:win            # build installer NSIS vào dist/
 ```
 
 Thoát app: chuột phải icon ở khay hệ thống → **Thoát**.
+
+## Giấy phép
+
+Mã nguồn phát hành theo giấy phép [MIT](LICENSE). Nội dung bài học lấy từ nguồn bên ngoài giữ nguyên giấy phép gốc của từng nguồn — xem [docs/08-content-sources.md](docs/08-content-sources.md).

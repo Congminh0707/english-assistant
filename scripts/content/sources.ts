@@ -127,6 +127,15 @@ export const SOURCES = {
       'Level tags and level decks compiled by the English Assistant project from CEFR-J, Octanove, NGSL and TSL (see their entries). As an adaptation of CC BY-SA material it is licensed under CC BY-SA 4.0.',
     files: []
   },
+  generated: {
+    id: 'generated',
+    name: 'English Assistant — AI-generated Vietnamese meanings',
+    url: 'https://github.com/Congminh0707/english-assistant',
+    license: 'proprietary-own',
+    attribution:
+      'Short Vietnamese meanings for words that have no Vietnamese translation in Wiktionary, generated at build time with an LLM (model and date in each record: generatedBy) and reviewed by the English Assistant project (content/curated/vocab/vi-generated.json).',
+    files: []
+  },
   tatoeba: {
     id: 'tatoeba',
     name: 'Tatoeba',

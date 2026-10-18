@@ -59,3 +59,9 @@ Mẫu:
 **Quyết định:** Script dùng `node:sqlite` (`DatabaseSync`, có sẵn trong Node 22, có FTS5) để ghi/đọc `content.db`; `fflate` (MIT, JS thuần) để zip theo luồng; `seek-bzip` (MIT) giải nén dump Tatoeba; chạy bằng `tsx`. Schema dùng chung đặt ở `src/shared/schemas/content/` (zod).
 **Lý do:** Không cần build native cho script, không đụng tới binary `better-sqlite3` của app; file `content.db` là SQLite chuẩn nên app vẫn mở bằng `better-sqlite3` (read-only) như kế hoạch.
 **Hệ quả:** `node:sqlite` còn gắn nhãn experimental (in cảnh báo khi chạy) — chỉ dùng trong script build, không dùng trong app. Nếu API đổi, chỉ phải sửa `scripts/content/build.ts`, `validate.ts`, `lookup.ts`.
+
+## #10 — Sinh nghĩa tiếng Việt thiếu bằng Claude lúc build, lưu thành file curated (2026-10-18) — Chấp nhận
+**Bối cảnh:** 2.762 từ trong top 10k không có nghĩa Việt nào từ Wiktionary; docs/08 §3 chọn sinh nghĩa ngắn bằng LLM lúc build rồi duyệt.
+**Quyết định:** Lệnh `pnpm content:enrich vi` gọi Claude API (`@anthropic-ai/sdk`, devDependency; mặc định `claude-opus-5-5`, structured outputs + zod), kết quả ghi vào `content/curated/vocab/vi-generated.json` (commit, khoá = word id, `source.id = "generated"`, `generatedBy = model@ngày`, `review.status`). Stage `merge` chỉ đọc file này — không gọi API — và chỉ dùng cho từ không có nghĩa Wiktionary. Key chỉ lấy từ `ANTHROPIC_API_KEY`; có `--dry-run` và `--import` để chạy không cần key.
+**Lý do:** Build lặp lại được và không tốn tiền/không cần mạng (API chỉ chạy một lần cho mỗi từ, idempotent); người duyệt sửa trực tiếp file JSON qua PR; nghĩa đã duyệt không bao giờ bị ghi đè khi chạy lại.
+**Hệ quả:** Bản build dev chứa nghĩa `draft`; `content:validate --release` chặn phát hành khi còn nghĩa AI sinh chưa `approved`. Đổi model/prompt không tự sinh lại các mục cũ — muốn sinh lại phải xoá mục.

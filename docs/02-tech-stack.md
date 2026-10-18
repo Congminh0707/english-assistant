@@ -87,8 +87,9 @@ Nếu sau này dung lượng/RAM thành vấn đề lớn, phần giao diện Vu
 | `fflate` | Đóng/mở zip `.eapack` theo luồng | `ZipArchive` |
 | `seek-bzip` | Giải nén dump `.bz2` của Tatoeba | — |
 | `zod` | Schema nội dung dùng chung (`src/shared/schemas/content/`) | Validator |
+| `@anthropic-ai/sdk` (devDependency) | Gọi Claude lúc build để sinh nghĩa tiếng Việt ngắn (`content:enrich vi`, structured outputs + zod) — không đóng gói vào app | Guzzle + SDK |
 
-Chi tiết: [09](09-content-pipeline.md#10-đã-làm-pipeline-core-dictionary-v1) · lý do dùng `node:sqlite` trong script: [decisions.md](decisions.md) #9.
+Chi tiết: [09](09-content-pipeline.md#10-đã-làm-pipeline-core-dictionary-v1) · lý do dùng `node:sqlite` trong script: [decisions.md](decisions.md) #9 · sinh nghĩa Việt bằng Claude lúc build: #10.
 
 ### AI & giọng nói (chi tiết ở [11](11-ai-and-speech.md))
 | Chức năng | Mặc định miễn phí | Tuỳ chọn tốt hơn |

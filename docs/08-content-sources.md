@@ -69,7 +69,7 @@ Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được n
 | **CMU Pronouncing Dictionary** | BSD-style | ✅ | Phiên âm US (ARPAbet → IPA), cặp âm tối thiểu, chấm phát âm | Giữ thông báo bản quyền |
 | Free Vietnamese Dictionary Project (Hồ Ngọc Đức) — từ điển Anh–Việt ~109.000 mục | GPL v2+ (một số database có license riêng) | ❌ (mặc định) | — | Copyleft cho dữ liệu → rủi ro. Chỉ cân nhắc nếu app mở mã GPL; nếu dùng phải đọc mục `00-database-info` của từng database |
 
-**Chiến lược nghĩa tiếng Việt:** Wiktionary không đủ nghĩa tiếng Việt cho mọi từ. Với ~10.000 từ phổ biến nhất (theo NGSL/CEFR-J), sinh nghĩa tiếng Việt ngắn gọn bằng **LLM lúc build** rồi duyệt dần → nội dung `proprietary-own`. Đây là phần đáng đầu tư nhất.
+**Chiến lược nghĩa tiếng Việt:** Wiktionary không đủ nghĩa tiếng Việt cho mọi từ. Với ~10.000 từ phổ biến nhất (theo NGSL/CEFR-J), sinh nghĩa tiếng Việt ngắn gọn bằng **LLM lúc build** rồi duyệt dần → nội dung `proprietary-own`. Đây là phần đáng đầu tư nhất. Đã có công cụ: `pnpm content:enrich vi` (Claude API) → `content/curated/vocab/vi-generated.json`, chỉ dùng cho từ không có nghĩa Wiktionary, phải `approved` trước khi phát hành — xem [09 §10.5](09-content-pipeline.md#105-nghĩa-tiếng-việt-do-llm-sinh-contentenrich-vi).
 
 ## 4. Câu ví dụ & song ngữ
 
@@ -155,9 +155,10 @@ Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được n
 
 Phần lớn bài học có cấu trúc (lesson, bài tập ngữ pháp, hội thoại, đề TOEIC/IELTS mô phỏng, nghĩa tiếng Việt ngắn gọn) sẽ là **nội dung tự soạn**, với AI hỗ trợ:
 
-- `source.id = "original"` (người soạn) hoặc `"generated"` (AI sinh, ghi model + ngày) → license `proprietary-own`.
+- `source.id = "original"` (người soạn) hoặc `"generated"` (AI sinh, ghi model + ngày) → license `proprietary-own`. Nguồn `generated` đã khai báo trong `scripts/content/sources.ts` (ghi công tự động trong `LICENSES.md` khi pack có nội dung AI sinh).
 - Được dùng dữ liệu mở ở trên làm **nguyên liệu** (danh sách từ, câu ví dụ), nhưng nếu nguyên liệu là CC BY-SA thì phần phái sinh trực tiếp phải theo CC BY-SA.
 - **Không** đưa văn bản có bản quyền vào prompt để "viết lại" (sách giáo khoa, đề thi thật, bài báo có bản quyền).
+- Định nghĩa tiếng Anh từ Wiktionary (CC BY-SA) được đưa vào prompt sinh nghĩa Việt **chỉ làm ngữ cảnh phân biệt nghĩa** (dịch từ, không dịch câu định nghĩa). Nghĩa sinh ra hiện nằm trong pack CC BY-SA nên không phát sinh vấn đề; ⚠️ nếu tách ra pack khác license, rà lại.
 - Mô phỏng **format** đề TOEIC/IELTS là được; sao chép câu hỏi thật là không.
 
 ## 11. Quy trình thêm một nguồn mới

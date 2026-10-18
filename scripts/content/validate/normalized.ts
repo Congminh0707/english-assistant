@@ -9,6 +9,7 @@ import {
   isAllowedLicense,
   type SourceRef
 } from '../../../src/shared/schemas/content'
+import { loadViGenerated } from '../enrich/vi-generated'
 import { readJsonl } from '../lib/io'
 import { normalizedPath } from '../lib/paths'
 import { isSourceId } from '../sources'
@@ -18,6 +19,8 @@ export interface ValidationResult {
   counts: { words: number; sentences: number; decks: number }
   /** Id nguồn thực sự được dùng → bảng `sources` của pack */
   sourceIds: Set<string>
+  /** Từ dùng nghĩa Việt do LLM sinh, theo review.status của mục curated */
+  generated: Record<string, number>
 }
 
 const MAX_ERRORS = 200
@@ -59,6 +62,13 @@ export async function validateNormalized(): Promise<ValidationResult> {
     return out
   }
 
+  let viGenerated: Awaited<ReturnType<typeof loadViGenerated>>['entries'] = {}
+  try {
+    viGenerated = (await loadViGenerated()).entries
+  } catch (e) {
+    err((e as Error).message)
+  }
+
   const words = await load('words.jsonl', Word)
   const sentences = await load('sentences.jsonl', Sentence)
   const decks = await load('decks.jsonl', Deck)
@@ -88,6 +98,7 @@ export async function validateNormalized(): Promise<ValidationResult> {
 
   // Nguồn & tham chiếu
   const wordIds = new Set(words.map((w) => w.id))
+  const generated: Record<string, number> = {}
   const sentenceIds = new Set(sentences.map((s) => s.id))
   for (const w of words) {
     checkSource(w.id, w.source)
@@ -97,6 +108,20 @@ export async function validateNormalized(): Promise<ValidationResult> {
         err(`${w.id}: example ${ex.sourceId} not in sentences`)
     }
     if (!w.senses.length && !w.vi.length) err(`${w.id}: no meaning (no senses, no vi)`)
+    // Nghĩa LLM sinh: chỉ khi không có nghĩa Wiktionary, có ghi công 'generated' + model@ngày, có mục curated
+    const gen = w.vi.filter((v) => v.origin === 'generated')
+    if (gen.length) {
+      if (gen.length !== w.vi.length) err(`${w.id}: generated meanings mixed with Wiktionary ones`)
+      const ref = w.attributions.find((a) => a.id === 'generated')
+      if (!ref?.generatedBy || ref.license !== 'proprietary-own')
+        err(
+          `${w.id}: generated meanings need attribution generated/proprietary-own with generatedBy`
+        )
+      const entry = viGenerated[w.id]
+      if (!entry || entry.review.status === 'rejected')
+        err(`${w.id}: generated meanings without a usable entry in curated/vocab/vi-generated.json`)
+      else generated[entry.review.status] = (generated[entry.review.status] ?? 0) + 1
+    }
   }
   for (const s of sentences) {
     checkSource(s.id, s.source)
@@ -112,6 +137,7 @@ export async function validateNormalized(): Promise<ValidationResult> {
   return {
     errors,
     counts: { words: words.length, sentences: sentences.length, decks: decks.length },
-    sourceIds
+    sourceIds,
+    generated
   }
 }

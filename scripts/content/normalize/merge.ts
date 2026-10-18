@@ -16,6 +16,12 @@ import { log, JsonlWriter, readJson, readJsonl, requireFile } from '../lib/io'
 import { normalizedPath } from '../lib/paths'
 import { tokenize, tokenVariants, type Token } from '../lib/text'
 import { sourceRef } from '../sources'
+import {
+  isUsable,
+  loadViGenerated,
+  toViMeanings,
+  type GeneratedViEntry
+} from '../enrich/vi-generated'
 import type { CmudictFile } from './cmudict'
 import type { TatoebaCandidate, TatoebaFreqFile, TatoebaNamesFile } from './tatoeba'
 import type { ViReverseFile, WikiEntry, WikiSense } from './wiktionary'
@@ -164,6 +170,8 @@ export async function mergeWords(): Promise<void> {
   const freq = await readJson<TatoebaFreqFile>(normalizedPath('tatoeba-freq.json'))
   const viReverse = await readJson<ViReverseFile>(normalizedPath('wiktionary-vi-reverse.json'))
   const names = new Set(await readJson<TatoebaNamesFile>(normalizedPath('tatoeba-names.json')))
+  // Nghĩa Việt do LLM sinh (content:enrich vi) — tuỳ chọn, chỉ dùng khi từ không có nghĩa Wiktionary
+  const viGenerated = (await loadViGenerated()).entries
 
   // ---- 1. Nạp mục từ Wiktionary, nhóm theo khoá ----
   const byKey = new Map<string, WikiEntry[]>()
@@ -252,6 +260,7 @@ export async function mergeWords(): Promise<void> {
 
   // ---- 5. Ghi Word ----
   const out = new JsonlWriter(normalizedPath('words.base.jsonl'))
+  let generatedUsed = 0
   for (const key of selected) {
     const listEntry: ListEntry | undefined = lists[key]
     const entries = byKey.get(key)!
@@ -263,8 +272,10 @@ export async function mergeWords(): Promise<void> {
       examples: examples.get(key) ?? [],
       rankVi: (texts) =>
         viIndex.rank(key, texts, new Set((viReverse[key] ?? []).map((r) => ViIndex.norm(r.text)))),
-      byKey
+      byKey,
+      generated: viGenerated[wordId(key)]
     })
+    if (word.vi[0]?.origin === 'generated') generatedUsed++
     await out.write(word)
   }
   await out.close()
@@ -275,6 +286,11 @@ export async function mergeWords(): Promise<void> {
   log(
     `merge: ${out.count} words (${listKeys.size - noEntry.length} from lists, ${extra.length} by Tatoeba frequency), ${sOut.count} sentences`
   )
+  const generatedTotal = Object.keys(viGenerated).length
+  if (generatedTotal)
+    log(
+      `merge: ${generatedUsed} words use generated Vietnamese meanings (curated/vocab/vi-generated.json: ${generatedTotal} entries; rejected ones and words that now have a Wiktionary meaning are skipped)`
+    )
   if (noEntry.length)
     log(
       `merge: skipped ${noEntry.length} list words without Wiktionary entry: ${noEntry.join(', ')}`
@@ -290,6 +306,8 @@ interface BuildCtx {
   /** Sắp xếp nghĩa tiếng Việt: hay gặp trong bản dịch Tatoeba của câu chứa từ này lên trước */
   rankVi: (texts: string[]) => string[]
   byKey: Map<string, WikiEntry[]>
+  /** Mục curated do LLM sinh cho từ này (nếu có) */
+  generated?: GeneratedViEntry
 }
 
 function buildWord(
@@ -367,6 +385,12 @@ function buildWord(
   const order = ctx.rankVi(vi.map((v) => v.text))
   vi.sort((a, b) => order.indexOf(a.text) - order.indexOf(b.text))
   if (vi.length) attribute(wikiRef)
+  // Không có nghĩa Wiktionary nào → nghĩa LLM sinh (giữ đúng thứ tự đã duyệt, không xếp lại)
+  else if (ctx.generated && isUsable(ctx.generated)) {
+    for (const m of toViMeanings(ctx.generated)) pushVi(m)
+    const { id, license, generatedBy } = ctx.generated.source
+    attributions.push({ id, license, generatedBy })
+  }
 
   // IPA: Wiktionary trước, CMUdict làm dự phòng cho giọng Mỹ
   const ipaEntry = entries.find((e) => e.ipa.us || e.ipa.uk || e.ipa.any)

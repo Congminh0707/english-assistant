@@ -173,24 +173,34 @@ Ví dụ key: `hotkeys.translate`, `mascot.scale`, `mascot.reminderMinutes`, `qu
 ## 4. Schema `content.db` (mỗi pack)
 
 Content pack được build từ JSON đã duyệt; bảng tối ưu cho đọc & tìm kiếm.
+Các bảng từ `meta` tới `sources` dưới đây **đã hiện thực** (schemaVersion 1) trong
+[`scripts/content/build/schema.ts`](../scripts/content/build/schema.ts) — pack `core-dictionary` dùng chúng.
+Các bảng còn lại là kế hoạch cho pack bài học.
 
 | Bảng | Cột chính | Ghi chú |
 |---|---|---|
-| `meta` | key, value | id pack, version, schemaVersion |
-| `words` | id, lemma, pos (JSON), ipa_us, ipa_uk, level, freq_rank, lists (JSON), data (JSON đầy đủ) | INDEX(lemma), INDEX(level) |
-| `word_forms` | form, word_id | `went` → `word:en:go` (tra từ đã chia) |
-| `words_fts` | FTS5(lemma, vi_meanings) | Tìm kiếm toàn văn, gõ tiếng Việt tìm ngược |
-| `sentences` | id, en, vi, level, audio, source (JSON) | Câu ví dụ |
-| `sentence_words` | sentence_id, word_id | Tìm câu ví dụ theo từ |
-| `decks` | id, title (JSON), level, tracks, kind (`level`/`topic`/`exam`), word_ids (JSON) | Bộ từ |
-| `grammar_points` | id, level, title (JSON), data (JSON) | |
-| `courses` | id, track, level, title, data | |
-| `units` | id, course_id, order, title, data | |
-| `lessons` | id, unit_id, order, level, skills, data (JSON gồm items) | |
-| `library_items` | id, kind (`reading`/`listening`/`video`/`phrase`), level, topics, title, data (JSON) | |
-| `exams` | id, exam (`toeic`/`ielts`), part, level, data (JSON) | |
-| `media` | path, mime, bytes, sha256 | |
-| `sources` | id, name, url, license, attribution | Sinh màn hình "Giấy phép & ghi công" |
+| `meta` | key, value | `pack_id`, `version`, `schema_version`, `license`, `built_at`, `counts` (JSON) |
+| `words` | id, lemma, pos (JSON), ipa_us, ipa_uk, level, freq_rank, lists (JSON), vi_short, data (JSON `Word` đầy đủ) | INDEX(lemma COLLATE NOCASE), INDEX(level, freq_rank), INDEX(freq_rank). `vi_short` = nghĩa ngắn cho popup (NULL nếu chưa có) |
+| `word_forms` | form (chữ thường), word_id, tags (JSON) — PK(form, word_id), WITHOUT ROWID | `went` → `word:en:go` (tags `["past"]`), `colour` → `word:en:color` (`["alternative", ...]`). Một dạng có thể trỏ nhiều lemma (`found` → find, found) |
+| `words_fts` | FTS5(word_id UNINDEXED, lemma, vi_meanings), `tokenize='unicode61 remove_diacritics 2'`, `prefix='2 3'` | Tìm tiền tố tiếng Anh + tra ngược tiếng Việt; bỏ dấu được (`ngan hang` khớp `ngân hàng`) → app nên ưu tiên kết quả khớp đúng dấu |
+| `sentences` | id, en, vi (bản dịch đầu tiên), level, audio, source (JSON), data (JSON `Sentence`, bỏ `wordIds`) | INDEX(level). URL Tatoeba suy ra từ id: `https://tatoeba.org/en/sentences/show/<n>` |
+| `sentence_words` | word_id, sentence_id — PK(word_id, sentence_id), WITHOUT ROWID | Tìm câu ví dụ theo từ. Từ quá phổ biến (freq_rank ≤ 100: the, be...) chỉ được liên kết với câu chọn riêng cho nó |
+| `decks` | id, kind (`level`/`topic`/`exam`/`list`), level, tracks (JSON), title (JSON), word_ids (JSON), data | Bộ từ |
+| `grammar_points` | id, level, title (JSON), data (JSON) | (kế hoạch) |
+| `courses` | id, track, level, title, data | (kế hoạch) |
+| `units` | id, course_id, order, title, data | (kế hoạch) |
+| `lessons` | id, unit_id, order, level, skills, data (JSON gồm items) | (kế hoạch) |
+| `library_items` | id, kind (`reading`/`listening`/`video`/`phrase`), level, topics, title, data (JSON) | (kế hoạch) |
+| `exams` | id, exam (`toeic`/`ielts`), part, level, data (JSON) | (kế hoạch) |
+| `media` | path, mime, bytes, sha256 | (kế hoạch) |
+| `sources` | id, name, url, license, attribution | Sinh màn hình "Giấy phép & ghi công" + `LICENSES.md` |
+
+**Tra từ (gợi ý cho `DictionaryService`)** — demo chạy được: `pnpm content:lookup went táo`
+([`scripts/content/lookup.ts`](../scripts/content/lookup.ts)):
+1. `SELECT … FROM words WHERE lemma = ? COLLATE NOCASE` (khớp lemma).
+2. `SELECT … FROM word_forms f JOIN words w ON w.id = f.word_id WHERE f.form = lower(?)` (dạng đã chia).
+3. Không có kết quả → `words_fts MATCH 'vi_meanings : "<q>" OR lemma : "<q>"*'`, rồi xếp: nghĩa trùng nguyên văn > chứa đúng dấu > còn lại, sau đó theo `freq_rank`.
+4. Câu ví dụ: `data.examples` của từ; thêm từ `sentence_words` (ưu tiên câu có `vi`, câu ngắn).
 
 Nguyên tắc: cột hay lọc/sắp xếp → tách cột riêng có index; phần còn lại để trong `data` JSON (đã validate bằng zod khi build).
 

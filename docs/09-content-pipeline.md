@@ -38,15 +38,17 @@ content/
 
 Lệnh (khai báo trong `package.json`):
 
-| Lệnh | Việc làm |
-|---|---|
-| `pnpm content:fetch <source>` | Tải dữ liệu thô của một nguồn (vd `tatoeba`, `ngsl`, `kaikki`) |
-| `pnpm content:normalize <source>` | Chuyển về schema chung |
-| `pnpm content:enrich` | Bổ sung IPA, dịch, audio TTS, ví dụ |
-| `pnpm content:level` | Gắn/kiểm tra level |
-| `pnpm content:generate <kind>` | Sinh bài tập (rule-based hoặc AI) |
-| `pnpm content:validate` | Kiểm tra schema + QA tự động |
-| `pnpm content:build [packId]` | Đóng gói pack |
+| Lệnh | Việc làm | Trạng thái |
+|---|---|---|
+| `pnpm content:fetch [source...] [--force]` | Tải dữ liệu thô (`ngsl`, `tsl`, `cefrj`, `octanove`, `cmudict`, `wiktionary`, `tatoeba`), ghi checksum vào `content/raw/SOURCES.md` | ✅ |
+| `pnpm content:normalize [stage...]` | Chuyển về schema chung: `wordlists` → `cmudict` → `tatoeba` → `wiktionary` → `merge` → `level` | ✅ |
+| `pnpm content:enrich` | Bổ sung IPA, dịch, audio TTS, ví dụ | chưa có (IPA + ví dụ hiện làm trong `merge`) |
+| `pnpm content:level` | Gắn lại level (sau khi sửa `content/curated/vocab/level-overrides.json` hoặc ngưỡng) + sinh decks | ✅ |
+| `pnpm content:generate <kind>` | Sinh bài tập (rule-based hoặc AI) | chưa có |
+| `pnpm content:validate [--pack file.eapack]` | Kiểm tra schema + QA tự động (+ kiểm tra pack đã build) | ✅ |
+| `pnpm content:build [packId]` | Đóng gói pack (mặc định `core-dictionary`) | ✅ |
+| `pnpm content:lookup [từ...]` | Demo tra từ trên pack đã build | ✅ |
+| `pnpm content:typecheck` | Typecheck `scripts/content` + `src/shared` | ✅ |
 
 ## 2. Nguyên tắc bắt buộc
 
@@ -83,31 +85,46 @@ const Meta = z.object({
 
 ### 3.2 Từ vựng (`word`)
 
+Schema thật: [`src/shared/schemas/content/word.ts`](../src/shared/schemas/content/word.ts). Ví dụ (rút gọn) từ pack `core-dictionary`:
+
 ```json
 {
   "id": "word:en:appointment",
   "lemma": "appointment",
   "pos": ["noun"],
-  "ipa": { "us": "/əˈpɔɪntmənt/", "uk": "/əˈpɔɪntmənt/" },
+  "ipa": { "us": "/əˈpɔɪnt.mɛnt/", "uk": "/əˈpɔɪnt.mɛnt/" },
   "senses": [
     {
-      "id": "s1",
-      "vi": "cuộc hẹn (gặp bác sĩ, đối tác...)",
-      "en": "an arrangement to meet someone at a particular time",
-      "examples": [{ "en": "I have a dental appointment at 3.", "vi": "Tôi có hẹn nha sĩ lúc 3 giờ.", "sourceId": "tatoeba:12345" }]
+      "id": "s4",
+      "pos": "noun",
+      "en": "An arrangement between people to meet; an engagement.",
+      "vi": ["hẹn"],
+      "tags": [],
+      "examples": [{ "en": "They made an appointment to meet at six.", "sourceId": "wiktionary" }]
     }
   ],
-  "forms": { "plural": "appointments" },
-  "family": ["appoint", "appointee"],
-  "collocations": ["make an appointment", "cancel an appointment"],
-  "lists": ["ngsl", "tsl"],
-  "freqRank": 1834,
+  "vi": [{ "text": "hẹn", "pos": "noun", "origin": "wiktionary" }],
+  "viShort": "hẹn",
+  "forms": [{ "form": "appointments", "tags": ["plural"] }],
+  "examples": [
+    { "en": "I have an appointment at three.", "vi": "Tôi có một cuộc hẹn lúc ba giờ.", "sourceId": "tatoeba:12345" }
+  ],
+  "lists": ["ngsl", "cefrj"],
+  "freqRank": 1839,
+  "cefr": "A2",
   "level": "A2_2",
-  "audio": { "us": "media/words/us/appointment.mp3" },
-  "image": null,
-  "source": { "id": "composite", "license": "see-fields" }
+  "tracks": [],
+  "topics": [],
+  "source": { "id": "wiktionary", "url": "https://en.wiktionary.org/wiki/appointment", "license": "CC-BY-SA-4.0" },
+  "attributions": [{ "id": "wiktionary", "license": "CC-BY-SA-4.0" }, { "id": "ngsl", "license": "CC-BY-SA-4.0" }],
+  "review": { "status": "draft", "by": "pipeline" }
 }
 ```
+
+- `source` = nguồn chính (mục Wiktionary); `attributions` = mọi nguồn đóng góp (chi tiết ở bảng `sources`).
+- `vi[].origin`: `wiktionary` (bảng dịch của mục tiếng Anh), `wiktionary-vi` (suy ngược từ mục từ tiếng Việt có định nghĩa đúng bằng từ này), `generated` (LLM — cần duyệt).
+- `examples` ở cấp từ là câu Tatoeba chứa từ (không gắn nghĩa); `senses[].examples` là ví dụ Wiktionary của đúng nghĩa đó.
+- Dữ liệu nhập từ nguồn mở có `review.status = "draft"` (chưa có người duyệt); quy tắc "phải approved" ở §2 áp dụng cho nội dung AI sinh.
 
 ### 3.3 Bài học & bài tập (`lesson`, `exercise`)
 
@@ -191,11 +208,14 @@ Mỗi `type` có schema riêng (zod discriminated union theo `type`) — danh s�
 Script `content:level` tính **gợi ý level**, người duyệt có thể ghi đè (`levelOverride`).
 
 ### Với từ vựng
-Thứ tự ưu tiên:
-1. Có trong bộ từ trẻ em tự soạn (sight words, từ chủ đề mầm non/tiểu học) → `PA1_*`.
-2. Có level trong CEFR-J (nếu dùng) → map trực tiếp.
-3. Theo **thứ hạng tần suất** trong NGSL/NAWL/TSL (ví dụ: top 500 → A1_1, 500–1000 → A1_2, 1000–1500 → A2_1, 1500–2000 → A2_2, 2000–2800 (hết NGSL) → B1, NAWL → B2, ngoài danh sách nhưng có tần suất → C1/C2).
-4. Từ học thuật/TOEIC giữ tag `lists` để lọc theo kỳ thi.
+Thứ tự ưu tiên (đã hiện thực trong [`scripts/content/level/thresholds.ts`](../scripts/content/level/thresholds.ts)):
+1. Có trong bộ từ trẻ em tự soạn (sight words, từ chủ đề mầm non/tiểu học) → `PA1_*`. *(chưa có bộ từ này)*
+2. Có level trong CEFR-J (A1–B2) / Octanove (C1–C2) → lấy level thấp nhất trong các dòng POS, tách nửa bậc theo `freqRank`: A1 → `A1_1` nếu rank < 500, còn lại `A1_2`; A2 → `A2_1` nếu < 1500; B1 → `B1_1` nếu < 2700; B2 → `B2_1` nếu < 4200; C1/C2 giữ nguyên.
+3. Theo **thứ hạng NGSL**: ≤ 500 → A1_1, ≤ 1000 → A1_2, ≤ 1500 → A2_1, ≤ 2000 → A2_2, ≤ 2400 → B1_1, ≤ 2809 → B1_2. NGSL supplementary (thứ, tháng, số) → A1_1. TSL → B2_1 (rank TSL < 600) / B2_2. NAWL → B2 (chưa dùng — license chưa xác minh).
+4. Ngoài mọi danh sách → theo `freqRank` gộp (NGSL rồi tần suất Tatoeba): ≤ 5000 → B1_2, ≤ 8000 → B2_1, ≤ 12000 → B2_2, ≤ 18000 → C1, còn lại C2. (Tách băng thay vì dồn hết vào C1/C2 vì nhiều từ hội thoại rất thông dụng — goodbye, butterfly — không có trong CEFR-J.)
+5. Dạng rút gọn ngoài danh sách (`don't`, `it's`) lấy level của từ gốc.
+6. Ghi đè tay: `content/curated/vocab/level-overrides.json` (`{ "levels": { "word:en:xyz": "A2_1" } }`) → `pnpm content:level`.
+7. Từ học thuật/TOEIC giữ tag `lists` để lọc theo kỳ thi.
 
 ### Với câu / đoạn văn
 Kết hợp 3 tín hiệu, lấy kết quả có trọng số:
@@ -273,7 +293,7 @@ general-a2-v3.eapack
 └─ LICENSES.md         # tổng hợp nguồn & giấy phép, sinh tự động
 ```
 
-`manifest.json`:
+`manifest.json` (schema: [`src/shared/schemas/content/pack.ts`](../src/shared/schemas/content/pack.ts)):
 ```json
 {
   "id": "general-a2",
@@ -282,12 +302,15 @@ general-a2-v3.eapack
   "title": { "vi": "Tiếng Anh tổng quát A2", "en": "General English A2" },
   "levels": ["A2_1", "A2_2"],
   "tracks": ["general"],
-  "license": "mixed — xem LICENSES.md",
-  "sizeBytes": 48211234,
+  "license": "CC-BY-SA-4.0",
   "requires": ["core-dictionary@>=1.0.0"],
-  "sha256": "..."
+  "builtAt": "2026-10-18T08:00:00.000Z",
+  "counts": { "words": 1200, "sentences": 3000, "decks": 4 },
+  "files": [{ "path": "content.db", "sizeBytes": 48211234, "sha256": "..." }]
 }
 ```
+Zip không tự chứa hash của chính nó → `sha256` của cả file `.eapack` nằm ở file `<pack>.eapack.sha256` cạnh pack (và sau này trong danh mục pack trên server);
+`files[].sha256` trong manifest để app kiểm tra `content.db` sau khi giải nén.
 
 Các pack dự kiến:
 
@@ -314,3 +337,54 @@ Nội dung giữa các pack tham chiếu bằng **id chuỗi** ổn định, kh�
 | Bài nghe A1–B1 | 30 | VOA Learning English |
 | Điểm ngữ pháp A1–B1 | 40 | Tự soạn (AI hỗ trợ + duyệt) |
 | Bài học lộ trình A1–A2 | 2 course × 8 unit × 4 lesson | Tự soạn từ các nguồn trên |
+
+## 10. Đã làm: pipeline `core-dictionary` v1
+
+Chạy từ đầu (máy sạch, cần mạng, ~1,5 phút + thời gian tải ~650 MB):
+
+```bash
+pnpm install
+pnpm content:fetch && pnpm content:normalize && pnpm content:build
+pnpm content:lookup went táo "ngan hang"
+```
+
+### 10.1 Luồng dữ liệu
+
+| Stage | Đầu vào (`content/raw/…`) | Đầu ra (`content/normalized/…`) | Ghi chú |
+|---|---|---|---|
+| `fetch` | — | `raw/<source>/*`, `raw/sources.lock.json`, **`raw/SOURCES.md`** (commit) | Bỏ qua file đã tải (idempotent); `--force` để tải lại. `.bz2` của Tatoeba được giải nén sẵn. |
+| `wordlists` | NGSL 1.2 (+ supplementary), TSL 1.2, CEFR-J 1.5, Octanove C1/C2 | `wordlists.json` | Rank NGSL/TSL, level CEFR thấp nhất theo POS, word family. TSL là ISO-8859-1. |
+| `cmudict` | `cmudict.dict` | `cmudict.json` | ARPAbet → IPA kiểu Mỹ, có dấu nhấn theo nguyên tắc maximal onset ([`lib/arpabet.ts`](../scripts/content/lib/arpabet.ts)). |
+| `tatoeba` | câu EN/VI + liên kết EN–VI | `tatoeba-eng.jsonl`, `tatoeba-freq.json`, `tatoeba-names.json` | Tần suất token (tách riêng viết hoa giữa câu → phát hiện tên riêng như "Tom"). |
+| `wiktionary` | kaikki English `.jsonl.gz` (3,3 GB giải nén, **đọc theo luồng**), kaikki Vietnamese | `wiktionary.jsonl`, `wiktionary-vi-reverse.json` | Chỉ giữ mục từ thuộc danh sách hoặc token Tatoeba ≥ 3 lần (~65k/1,49 triệu mục). Lọc nhanh bằng regex trước `JSON.parse`. |
+| `merge` | tất cả ở trên | `words.base.jsonl`, `sentences.base.jsonl` | Chọn lemma, dạng từ, nghĩa, IPA, nghĩa Việt, câu ví dụ. |
+| `level` | `*.base.jsonl` + `curated/vocab/level-overrides.json` | `words.jsonl`, `sentences.jsonl`, `decks.jsonl`, `missing-vi.json` | §4. |
+| `build` | `normalized/*.jsonl` | `packs/core-dictionary-<ver>.eapack` (+ `.sha256`), `packs/samples/*.sample.json` (commit) | Validate trước, lỗi → dừng. |
+
+### 10.2 Quy tắc chính trong `merge`
+- **Chọn từ**: mọi từ trong NGSL/TSL/CEFR-J/Octanove có mục Wiktionary + từ ngoài danh sách theo tần suất Tatoeba (đã gộp dạng chia, ≥ 3 lần), tối đa 30.000 mục. 15 từ trong danh sách không có mục Wiktionary (vd `check-in counter`, `wornout`) bị bỏ qua và được in ra log.
+- **`freqRank`**: rank NGSL (1–2809) cho từ NGSL; còn lại xếp theo tần suất Tatoeba từ 2810 trở đi. "Top 10k" = `freqRank ≤ 10000`.
+- **Nghĩa**: bỏ nghĩa cổ/hiếm/phương ngữ khi còn nghĩa khác; tối đa 6 nghĩa/POS, 16 nghĩa/từ (nghĩa có bản dịch Việt luôn giữ). Mục chỉ là "American spelling of X" mượn nghĩa của X.
+- **Nghĩa tiếng Việt**: (1) bản dịch `vi` của Wiktionary — gán vào đúng nghĩa khi wiktextract chắc chắn (`_dis1` ≥ 40); (2) nếu không có, suy ngược từ mục tiếng Việt định nghĩa đúng bằng từ đó (`origin: "wiktionary-vi"`). Thứ tự: hay xuất hiện trong bản dịch Tatoeba của câu chứa từ → có trong tra ngược → thứ tự gốc. `viShort` = 3 nghĩa đầu.
+- **Dạng từ** (`word_forms`): `form_of` của Wiktionary (went → go), bảng biến tố (chỉ nhãn biến tố thật: plural, past, participle, comparative…), cách viết theo vùng (colour → color), word family NGSL/TSL. Bỏ quan hệ mang nhãn slang/viết tắt/phương ngữ… để không quy sai (`a` → `of`, `ho` → …).
+- **IPA**: Wiktionary (GA/US cho `us`, RP/UK cho `uk`); thiếu giọng Mỹ thì lấy CMUdict.
+- **Câu ví dụ**: ≤ 3 câu Tatoeba/từ, ưu tiên câu có bản dịch Việt, dài ~8 từ, không chứa từ khó hơn nhiều; mọi cặp EN–VI của Tatoeba đều được giữ. Câu gần trùng (khác hoa/thường, dấu câu) bị loại.
+
+### 10.3 Kết quả build 2026-10-18 (`core-dictionary` 1.0.0)
+
+| Hạng mục | Số lượng |
+|---|---|
+| File `.eapack` / `content.db` giải nén | 21,3 MB / 115 MB |
+| Mục từ (`words`) | 26.605 (9.064 từ danh sách + 17.541 theo tần suất) — 12.587 có nghĩa Việt, 25.351 có IPA |
+| Dạng từ (`word_forms`) | 52.677 |
+| Câu (`sentences`) / có bản dịch Việt | 74.167 / 19.594 |
+| `sentence_words` | 364.769 |
+| Decks | 12 (10 theo level A1_1…C2, NGSL, TOEIC/TSL) |
+| Từ trong top 10k **chưa có nghĩa Việt** | **2.762** → danh sách ở `normalized/missing-vi.json` (đầu vào cho bước sinh nghĩa bằng LLM) |
+
+### 10.4 Hạn chế đã biết / việc tiếp theo
+- Nghĩa Việt từ Wiktionary không đều và đôi khi gán sai nghĩa (wiktextract đoán); cần bước LLM sinh nghĩa ngắn (`origin: "generated"`, `source.id = "generated"`) cho `missing-vi.json` + duyệt.
+- Level câu chỉ dựa trên độ phủ từ vựng (chưa có độ dễ đọc và ngữ pháp như §4).
+- Chưa có cụm động từ/thành ngữ ngoài các cụm có sẵn trong CEFR-J.
+- Từ điển có cả từ tục/nhạy cảm (như mọi từ điển) — track trẻ em phải lọc trước khi hiển thị.
+- `content.db` còn lưu `data` JSON đầy đủ (≈ 60 MB); có thể rút gọn nếu dung lượng cài đặt thành vấn đề.

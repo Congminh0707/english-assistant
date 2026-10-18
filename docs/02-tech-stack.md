@@ -79,6 +79,17 @@ Nếu sau này dung lượng/RAM thành vấn đề lớn, phần giao diện Vu
 | `playwright` (có hỗ trợ Electron) | E2E test | Laravel Dusk |
 | `eslint` + `prettier` | Lint/format | Pint / PHP-CS-Fixer |
 
+### Pipeline nội dung (`scripts/content/`, chỉ chạy lúc build — không vào app)
+| Thư viện | Vai trò | Tương đương |
+|---|---|---|
+| `tsx` | Chạy script TypeScript trực tiếp (`pnpm content:*`) | `php artisan <command>` |
+| `node:sqlite` (có sẵn trong Node 22) | Ghi `content.db` của content pack (có FTS5) — không cần build native | — |
+| `fflate` | Đóng/mở zip `.eapack` theo luồng | `ZipArchive` |
+| `seek-bzip` | Giải nén dump `.bz2` của Tatoeba | — |
+| `zod` | Schema nội dung dùng chung (`src/shared/schemas/content/`) | Validator |
+
+Chi tiết: [09](09-content-pipeline.md#10-đã-làm-pipeline-core-dictionary-v1) · lý do dùng `node:sqlite` trong script: [decisions.md](decisions.md) #9.
+
 ### AI & giọng nói (chi tiết ở [11](11-ai-and-speech.md))
 | Chức năng | Mặc định miễn phí | Tuỳ chọn tốt hơn |
 |---|---|---|

@@ -7,3 +7,11 @@ out
 
 # Worktree của các phiên Claude Code chạy song song
 .claude/worktrees/
+
+# Content pipeline (scripts/content) — dữ liệu lớn không commit
+content/raw/*
+!content/raw/SOURCES.md
+content/normalized/
+content/.build/
+content/packs/*
+!content/packs/samples/

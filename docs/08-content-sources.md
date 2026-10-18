@@ -171,6 +171,8 @@ Phần lớn bài học có cấu trúc (lesson, bài tập ngữ pháp, hội t
 
 ## 12. Gợi ý thứ tự khai thác cho MVP
 
+> **Đã dùng trong pipeline** (`pnpm content:fetch`, 2026-10-18): NGSL 1.2 (+ supplementary), TSL 1.2, CEFR-J 1.5, Octanove C1/C2, CMUdict, kaikki English + Vietnamese (Wiktionary), Tatoeba (EN, VI, liên kết EN–VI). URL tải, ngày tải và sha256 từng file: [content/raw/SOURCES.md](../content/raw/SOURCES.md). Pack `core-dictionary` mang **CC BY-SA 4.0**. Chi tiết: [09 §10](09-content-pipeline.md#10-đã-làm-pipeline-core-dictionary-v1).
+
 1. **NGSL + CEFR-J** → khung từ vựng có level.
 2. **Wiktionary (kaikki) + CMUdict + Open English WordNet** → từ điển, IPA, định nghĩa.
 3. **LLM sinh nghĩa tiếng Việt ngắn** cho ~10.000 từ phổ biến → duyệt dần.

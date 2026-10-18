@@ -76,7 +76,8 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 **Nội dung (song song)**
 - [x] Pipeline: fetch + normalize Tatoeba, NGSL, CEFR-J, kaikki (Wiktionary), CMUdict
 - [x] Build `core-dictionary` + `decks` theo level (v1.0.0 — [09 §10](09-content-pipeline.md#10-đã-làm-pipeline-core-dictionary-v1))
-- [ ] Sinh nghĩa tiếng Việt ngắn bằng LLM cho từ phổ biến còn thiếu (`normalized/missing-vi.json`) + duyệt
+- [x] Công cụ sinh nghĩa tiếng Việt ngắn bằng LLM cho từ phổ biến còn thiếu (`pnpm content:enrich vi` → `curated/vocab/vi-generated.json`, [09 §10.5](09-content-pipeline.md#105-nghĩa-tiếng-việt-do-llm-sinh-contentenrich-vi)) — mẫu 50 từ
+- [ ] Sinh đủ ~2.700 từ còn lại (cần `ANTHROPIC_API_KEY`) + duyệt tới `approved` (`content:validate --release` đạt)
 
 **DoD:** Dùng liên tục 1 tuần không lỗi nghiêm trọng; dịch từ < 1s; học & ôn từ vựng hằng ngày được; thú cưng phản ứng với việc học.
 

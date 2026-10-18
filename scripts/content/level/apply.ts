@@ -186,20 +186,35 @@ export async function applyLevels(): Promise<LevelReport> {
   await dOut.close()
   report.decks = decks.length
 
-  // Danh sách việc cho bước sinh nghĩa tiếng Việt bằng LLM (docs/08 §3): từ phổ biến chưa có nghĩa Việt
+  // Danh sách việc cho bước sinh nghĩa tiếng Việt bằng LLM (docs/08 §3, content:enrich vi): từ phổ biến
+  // không có nghĩa Việt từ Wiktionary. Từ đã có nghĩa sinh (origin 'generated') vẫn nằm trong danh sách
+  // (generated: true) để danh sách ổn định; content:enrich bỏ qua từ đã có mục trong file curated.
   const missingVi = words
-    .filter((w) => !w.vi.length && (w.freqRank ?? Infinity) <= MISSING_VI_TOP)
+    .filter(
+      (w) =>
+        (w.freqRank ?? Infinity) <= MISSING_VI_TOP && w.vi.every((v) => v.origin === 'generated')
+    )
     .sort(byRank)
-    .map((w) => ({ id: w.id, lemma: w.lemma, pos: w.pos, level: w.level, freqRank: w.freqRank }))
+    .map((w) => ({
+      id: w.id,
+      lemma: w.lemma,
+      pos: w.pos,
+      level: w.level,
+      freqRank: w.freqRank,
+      generated: w.vi.length > 0
+    }))
+  const generatedCount = missingVi.filter((w) => w.generated).length
   await writeJson(normalizedPath('missing-vi.json'), {
-    $comment: `Words with freqRank <= ${MISSING_VI_TOP} that have no Vietnamese meaning yet`,
+    $comment: `Words with freqRank <= ${MISSING_VI_TOP} that have no Vietnamese meaning from Wiktionary (generated = covered by content/curated/vocab/vi-generated.json)`,
     count: missingVi.length,
+    generated: generatedCount,
+    remaining: missingVi.length - generatedCount,
     words: missingVi
   })
 
   log(`level: words ${fmt(report.words)}`)
   log(
-    `level: ${missingVi.length} of the top ${MISSING_VI_TOP} words lack a Vietnamese meaning → normalized/missing-vi.json`
+    `level: ${missingVi.length} of the top ${MISSING_VI_TOP} words have no Wiktionary Vietnamese meaning; ${generatedCount} covered by generated meanings, ${missingVi.length - generatedCount} still without any → normalized/missing-vi.json`
   )
   log(`level: sentences ${fmt(report.sentences)}`)
   log(`level: ${report.overrides} overrides applied, ${report.decks} decks`)

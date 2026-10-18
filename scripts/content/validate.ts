@@ -1,6 +1,7 @@
-// pnpm content:validate [--pack path/to/file.eapack]
+// pnpm content:validate [--pack path/to/file.eapack] [--release]
 // Không có --pack: kiểm tra normalized/*.jsonl (schema, license, nguồn, trùng lặp, tham chiếu).
 // Có --pack: kiểm tra thêm một file .eapack đã build (manifest, sha256, integrity, license trong DB).
+// Có --release: thêm quy tắc phát hành — mọi nghĩa do AI sinh phải review.status = approved (docs/09 §2).
 import { mkdtemp, rm, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
@@ -62,6 +63,19 @@ async function main(): Promise<void> {
     `normalized: ${v.counts.words} words, ${v.counts.sentences} sentences, ${v.counts.decks} decks; sources: ${[...v.sourceIds].sort().join(', ')}`
   )
   const errors = [...v.errors]
+  const genTotal = Object.values(v.generated).reduce((a, b) => a + b, 0)
+  if (genTotal) {
+    const unapproved = genTotal - (v.generated.approved ?? 0)
+    log(
+      `generated vi meanings: ${genTotal} words (${Object.entries(v.generated)
+        .map(([s, n]) => `${s}=${n}`)
+        .join(' ')})${unapproved ? ` — ${unapproved} not approved yet, not releasable` : ''}`
+    )
+    if (unapproved && args.includes('--release'))
+      errors.push(
+        `${unapproved} words use AI-generated Vietnamese meanings that are not approved (content/curated/vocab/vi-generated.json)`
+      )
+  }
   if (packIdx >= 0) {
     const path = args[packIdx + 1]
     if (!path) throw new Error('--pack needs a file path')

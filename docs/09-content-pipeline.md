@@ -42,10 +42,10 @@ Lệnh (khai báo trong `package.json`):
 |---|---|---|
 | `pnpm content:fetch [source...] [--force]` | Tải dữ liệu thô (`ngsl`, `tsl`, `cefrj`, `octanove`, `cmudict`, `wiktionary`, `tatoeba`), ghi checksum vào `content/raw/SOURCES.md` | ✅ |
 | `pnpm content:normalize [stage...]` | Chuyển về schema chung: `wordlists` → `cmudict` → `tatoeba` → `wiktionary` → `merge` → `level` | ✅ |
-| `pnpm content:enrich` | Bổ sung IPA, dịch, audio TTS, ví dụ | chưa có (IPA + ví dụ hiện làm trong `merge`) |
+| `pnpm content:enrich vi [--dry-run] [--limit N] [--import file]` | Sinh nghĩa tiếng Việt ngắn bằng LLM cho từ thiếu nghĩa → `curated/vocab/vi-generated.json` (§10.5) | ✅ `vi` (IPA + ví dụ làm trong `merge`; audio TTS chưa có) |
 | `pnpm content:level` | Gắn lại level (sau khi sửa `content/curated/vocab/level-overrides.json` hoặc ngưỡng) + sinh decks | ✅ |
 | `pnpm content:generate <kind>` | Sinh bài tập (rule-based hoặc AI) | chưa có |
-| `pnpm content:validate [--pack file.eapack]` | Kiểm tra schema + QA tự động (+ kiểm tra pack đã build) | ✅ |
+| `pnpm content:validate [--pack file.eapack] [--release]` | Kiểm tra schema + QA tự động (+ kiểm tra pack đã build; `--release`: nội dung AI sinh phải `approved`) | ✅ |
 | `pnpm content:build [packId]` | Đóng gói pack (mặc định `core-dictionary`) | ✅ |
 | `pnpm content:lookup [từ...]` | Demo tra từ trên pack đã build | ✅ |
 | `pnpm content:typecheck` | Typecheck `scripts/content` + `src/shared` | ✅ |
@@ -357,15 +357,16 @@ pnpm content:lookup went táo "ngan hang"
 | `cmudict` | `cmudict.dict` | `cmudict.json` | ARPAbet → IPA kiểu Mỹ, có dấu nhấn theo nguyên tắc maximal onset ([`lib/arpabet.ts`](../scripts/content/lib/arpabet.ts)). |
 | `tatoeba` | câu EN/VI + liên kết EN–VI | `tatoeba-eng.jsonl`, `tatoeba-freq.json`, `tatoeba-names.json` | Tần suất token (tách riêng viết hoa giữa câu → phát hiện tên riêng như "Tom"). |
 | `wiktionary` | kaikki English `.jsonl.gz` (3,3 GB giải nén, **đọc theo luồng**), kaikki Vietnamese | `wiktionary.jsonl`, `wiktionary-vi-reverse.json` | Chỉ giữ mục từ thuộc danh sách hoặc token Tatoeba ≥ 3 lần (~65k/1,49 triệu mục). Lọc nhanh bằng regex trước `JSON.parse`. |
-| `merge` | tất cả ở trên | `words.base.jsonl`, `sentences.base.jsonl` | Chọn lemma, dạng từ, nghĩa, IPA, nghĩa Việt, câu ví dụ. |
+| `merge` | tất cả ở trên + `curated/vocab/vi-generated.json` (nếu có) | `words.base.jsonl`, `sentences.base.jsonl` | Chọn lemma, dạng từ, nghĩa, IPA, nghĩa Việt, câu ví dụ. |
 | `level` | `*.base.jsonl` + `curated/vocab/level-overrides.json` | `words.jsonl`, `sentences.jsonl`, `decks.jsonl`, `missing-vi.json` | §4. |
+| `enrich vi` (lệnh riêng `content:enrich vi`) | `missing-vi.json` + `words.jsonl` | **`curated/vocab/vi-generated.json`** (commit) | §10.5. Chạy xong → `content:normalize merge level`. |
 | `build` | `normalized/*.jsonl` | `packs/core-dictionary-<ver>.eapack` (+ `.sha256`), `packs/samples/*.sample.json` (commit) | Validate trước, lỗi → dừng. |
 
 ### 10.2 Quy tắc chính trong `merge`
 - **Chọn từ**: mọi từ trong NGSL/TSL/CEFR-J/Octanove có mục Wiktionary + từ ngoài danh sách theo tần suất Tatoeba (đã gộp dạng chia, ≥ 3 lần), tối đa 30.000 mục. 15 từ trong danh sách không có mục Wiktionary (vd `check-in counter`, `wornout`) bị bỏ qua và được in ra log.
 - **`freqRank`**: rank NGSL (1–2809) cho từ NGSL; còn lại xếp theo tần suất Tatoeba từ 2810 trở đi. "Top 10k" = `freqRank ≤ 10000`.
 - **Nghĩa**: bỏ nghĩa cổ/hiếm/phương ngữ khi còn nghĩa khác; tối đa 6 nghĩa/POS, 16 nghĩa/từ (nghĩa có bản dịch Việt luôn giữ). Mục chỉ là "American spelling of X" mượn nghĩa của X.
-- **Nghĩa tiếng Việt**: (1) bản dịch `vi` của Wiktionary — gán vào đúng nghĩa khi wiktextract chắc chắn (`_dis1` ≥ 40); (2) nếu không có, suy ngược từ mục tiếng Việt định nghĩa đúng bằng từ đó (`origin: "wiktionary-vi"`). Thứ tự: hay xuất hiện trong bản dịch Tatoeba của câu chứa từ → có trong tra ngược → thứ tự gốc. `viShort` = 3 nghĩa đầu.
+- **Nghĩa tiếng Việt**: (1) bản dịch `vi` của Wiktionary — gán vào đúng nghĩa khi wiktextract chắc chắn (`_dis1` ≥ 40); (2) nếu không có, suy ngược từ mục tiếng Việt định nghĩa đúng bằng từ đó (`origin: "wiktionary-vi"`); (3) nếu vẫn không có, lấy nghĩa LLM sinh trong `curated/vocab/vi-generated.json` (`origin: "generated"`, giữ đúng thứ tự trong file, bỏ mục `rejected`) và thêm attribution `{ id: "generated", license: "proprietary-own", generatedBy }` (§10.5). Thứ tự: hay xuất hiện trong bản dịch Tatoeba của câu chứa từ → có trong tra ngược → thứ tự gốc. `viShort` = 3 nghĩa đầu.
 - **Dạng từ** (`word_forms`): `form_of` của Wiktionary (went → go), bảng biến tố (chỉ nhãn biến tố thật: plural, past, participle, comparative…), cách viết theo vùng (colour → color), word family NGSL/TSL. Bỏ quan hệ mang nhãn slang/viết tắt/phương ngữ… để không quy sai (`a` → `of`, `ho` → …).
 - **IPA**: Wiktionary (GA/US cho `us`, RP/UK cho `uk`); thiếu giọng Mỹ thì lấy CMUdict.
 - **Câu ví dụ**: ≤ 3 câu Tatoeba/từ, ưu tiên câu có bản dịch Việt, dài ~8 từ, không chứa từ khó hơn nhiều; mọi cặp EN–VI của Tatoeba đều được giữ. Câu gần trùng (khác hoa/thường, dấu câu) bị loại.
@@ -380,11 +381,47 @@ pnpm content:lookup went táo "ngan hang"
 | Câu (`sentences`) / có bản dịch Việt | 74.167 / 19.594 |
 | `sentence_words` | 364.769 |
 | Decks | 12 (10 theo level A1_1…C2, NGSL, TOEIC/TSL) |
-| Từ trong top 10k **chưa có nghĩa Việt** | **2.762** → danh sách ở `normalized/missing-vi.json` (đầu vào cho bước sinh nghĩa bằng LLM) |
+| Từ trong top 10k **chưa có nghĩa Việt** | **2.762** → danh sách ở `normalized/missing-vi.json` (đầu vào cho bước sinh nghĩa bằng LLM, §10.5) |
 
 ### 10.4 Hạn chế đã biết / việc tiếp theo
-- Nghĩa Việt từ Wiktionary không đều và đôi khi gán sai nghĩa (wiktextract đoán); cần bước LLM sinh nghĩa ngắn (`origin: "generated"`, `source.id = "generated"`) cho `missing-vi.json` + duyệt.
+- Nghĩa Việt từ Wiktionary không đều và đôi khi gán sai nghĩa (wiktextract đoán). Từ không có nghĩa Wiktionary được bù bằng nghĩa LLM sinh (§10.5) — mới có mẫu 50 từ, còn ~2.700 từ cần sinh + duyệt trước khi phát hành.
 - Level câu chỉ dựa trên độ phủ từ vựng (chưa có độ dễ đọc và ngữ pháp như §4).
 - Chưa có cụm động từ/thành ngữ ngoài các cụm có sẵn trong CEFR-J.
 - Từ điển có cả từ tục/nhạy cảm (như mọi từ điển) — track trẻ em phải lọc trước khi hiển thị.
 - `content.db` còn lưu `data` JSON đầy đủ (≈ 60 MB); có thể rút gọn nếu dung lượng cài đặt thành vấn đề.
+
+### 10.5 Nghĩa tiếng Việt do LLM sinh (`content:enrich vi`)
+
+Bù nghĩa Việt cho các từ trong top 10k **không có nghĩa Việt nào từ Wiktionary** (`normalized/missing-vi.json`) — chiến lược ở [08 §3](08-content-sources.md#3-từ-điển-nghĩa-phát-âm). Code: [`scripts/content/enrich/vi.ts`](../scripts/content/enrich/vi.ts), prompt: [`scripts/content/prompts/vi-meanings.md`](../scripts/content/prompts/vi-meanings.md), schema file curated: [`enrich/vi-generated.ts`](../scripts/content/enrich/vi-generated.ts).
+
+```bash
+pnpm content:enrich vi --dry-run --limit 50   # không cần key: in thống kê, ghi request vào content/.build/enrich-vi/requests.json
+ANTHROPIC_API_KEY=... pnpm content:enrich vi  # sinh cho mọi từ còn thiếu (--limit N, --batch 40, --concurrency 3, --model, --effort)
+pnpm content:enrich vi --import results.json  # nhập kết quả sinh ở nơi khác (Batch API, console…) — cùng schema đầu ra
+pnpm content:normalize merge level && pnpm content:validate
+```
+
+- **Đầu vào cho model**: lô ~40 từ, mỗi từ có `lemma`, `pos`, `level`, tối đa 5 định nghĩa tiếng Anh (cắt 140 ký tự) và 1 câu ví dụ — chỉ để phân biệt nghĩa; prompt yêu cầu dịch **từ**, không dịch câu định nghĩa.
+- **Gọi API**: Claude (`@anthropic-ai/sdk`), mặc định `claude-opus-5-5`, effort `medium`, structured outputs (`betaZodOutputFormat`) → kết quả được zod validate rồi chuẩn hoá thêm (tách "a; b", bỏ trùng, bỏ nghĩa lặp lại chính từ tiếng Anh, tối đa 4 nghĩa × 60 ký tự, `pos` phải thuộc `pos` của từ). Bật server-side fallback (`fallbacks: "default"`): nếu model từ chối vì chính sách, server chạy lại trên model dự phòng và `generatedBy` ghi **model thực sự trả lời**. Lô bị từ chối / hết `max_tokens` / lỗi API thì bỏ qua — các từ đó vẫn nằm trong danh sách chờ.
+- **Key**: chỉ lấy từ biến môi trường `ANTHROPIC_API_KEY` (không đọc profile/token khác), không bao giờ in ra log; lỗi xác thực dừng toàn bộ. `--dry-run` và `--import` không cần key.
+- **Idempotent**: từ đã có mục trong file curated (mọi trạng thái, kể cả `rejected`) không bao giờ bị gửi lại; muốn sinh lại một từ → xoá mục của nó. File được ghi sau mỗi lô (dừng giữa chừng không mất kết quả).
+- **File curated** `content/curated/vocab/vi-generated.json` (commit, mỗi từ một dòng để diff dễ đọc):
+
+  ```json
+  "word:en:himself": {"lemma":"himself","meanings":[{"text":"chính anh ấy","pos":"pronoun"},{"text":"tự mình (anh ấy)","pos":"pronoun"}],"confidence":"high","source":{"id":"generated","license":"proprietary-own","generatedBy":"claude-opus-5-5@2026-10-18"},"review":{"status":"draft"}}
+  ```
+
+  `review.status`: `draft` (vừa sinh) → `ai_checked` (nếu có bước kiểm tra tự động bằng AI) → `approved` / `rejected` (người duyệt, ghi `review.by`, lý do vào `note`).
+- **Merge**: chỉ dùng khi từ không có nghĩa Wiktionary (cả `wiktionary` lẫn `wiktionary-vi`); mục `rejected` bị bỏ qua; mục của từ nay đã có nghĩa Wiktionary cũng bị bỏ qua (giữ trong file, không xoá tự động). `missing-vi.json` vẫn liệt kê mọi từ không có nghĩa Wiktionary, kèm `generated: true` nếu đã được bù — log của stage `level` in số đã bù / còn thiếu.
+- **Validate**: nghĩa `generated` không được trộn với nghĩa Wiktionary, phải có attribution `generated`/`proprietary-own`/`generatedBy` và mục curated còn dùng được; in số từ theo `review.status`. **`content:validate --release` báo lỗi nếu còn nghĩa AI sinh chưa `approved`** (§2.3) — bản build dev vẫn chứa nghĩa `draft`.
+- **License**: bản ghi mang `proprietary-own` (`source.id = "generated"`, nguồn `generated` trong `scripts/content/sources.ts` → bảng `sources` + `LICENSES.md`). Định nghĩa tiếng Anh từ Wiktionary (CC BY-SA) chỉ được đưa vào prompt làm ngữ cảnh phân biệt nghĩa; trong pack `core-dictionary` mọi thứ vẫn phát hành dưới CC BY-SA của pack. ⚠️ Nếu sau này tách nghĩa sinh ra khỏi pack CC BY-SA, cần rà lại câu hỏi "phái sinh trực tiếp" ở [08 §10](08-content-sources.md#10-nội-dung-tự-tạo-nguồn-quan-trọng-nhất).
+
+**Checklist duyệt** (sửa trực tiếp file JSON qua PR; ưu tiên `confidence: "low"/"medium"` và từ level thấp):
+- [ ] Nghĩa đầu tiên là nghĩa phổ biến nhất ở level của từ; các nghĩa chính (danh/động/tính từ) đều có.
+- [ ] Đúng loại từ (`pos`) và đúng nghĩa so với định nghĩa tiếng Anh; không dịch nhầm sang từ đồng âm/đồng dạng.
+- [ ] Ngắn (1–4 từ), tự nhiên, đúng chính tả và **đủ dấu**; mỗi chuỗi một ý.
+- [ ] Từ chức năng (mạo từ, trợ động từ, đại từ phản thân…) có cách diễn đạt người học hiểu được (vd `(mạo từ xác định)`).
+- [ ] Không thô tục hơn từ gốc, không định kiến; từ nhạy cảm vẫn dịch trung tính.
+- [ ] Đặt `review.status = "approved"` (hoặc `"rejected"` + `note`), `review.by` = tên người duyệt → `pnpm content:normalize merge level && pnpm content:validate`.
+
+**Kết quả mẫu (2026-10-18)**: chưa có `ANTHROPIC_API_KEY` trong môi trường làm việc nên 50 từ đầu danh sách (the, would, could, off… provision) được sinh bằng `claude-opus-5-5` theo đúng prompt + schema rồi nhập qua `--import`. Sau `merge` + `level`: **50/2.762 từ được bù nghĩa (2.712 còn thiếu)**; số từ có nghĩa Việt trong pack 12.587 → 12.637; tất cả đang `draft` nên `content:validate` đạt, `content:validate --release` báo 50 lỗi chưa duyệt (đúng thiết kế).

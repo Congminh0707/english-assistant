@@ -53,3 +53,13 @@ Mẫu:
 **Quyết định:** Dùng `koffi` (FFI, MIT) gọi trực tiếp `GetForegroundWindow`, `GetWindowRect`, `MonitorFromWindow`, `GetMonitorInfoW`, `GetClassNameW`, `GetWindowThreadProcessId`, `SHQueryUserNotificationState` — gom trong `src/main/system/win32.ts`.
 **Lý do:** koffi có binary dựng sẵn theo N-API (không cần biên dịch lại cho từng phiên bản Electron), kiểm soát được chính xác logic (so màn hình của mascot, loại trừ cửa sổ shell), và dùng lại được cho các nhu cầu Win32 khác. `SHQueryUserNotificationState` là API chính thức của Windows cho câu hỏi "có nên hiện thông báo không".
 **Hệ quả:** Code Win32 chỉ chạy trên Windows (service tự tắt trên nền tảng khác). koffi cần được duyệt install script trong pnpm; electron-builder tự giải nén `koffi.node` ra `app.asar.unpacked`.
+
+## #9 — Nền tảng Phase 1: IPC tách tên kênh, settings theo scope, menu gốc Windows (2026-10-18) — Chấp nhận
+**Quyết định:**
+- Tên kênh IPC nằm ở `ipc-channels.ts` (không dependency), schema zod ở `ipc-contract.ts`. Lý do: preload chạy sandbox, không `require` được `zod`; tách ra để preload vẫn kiểm tra được tên kênh.
+- Bảng `settings` dùng khoá chính `(scope, key)` với `scope = 'global' | <profile id>` thay vì `profile_id NULL` (SQLite coi các NULL là khác nhau nên khoá chính không chặn trùng).
+- `better-sqlite3` v13 (N-API, có binary dựng sẵn) → test chạy bằng Vitest trong Node, không cần chạy Vitest bằng Electron hay `electron-rebuild`.
+- Menu chuột phải của mascot dùng **menu gốc của Windows** (`Menu.popup`) thay vì vẽ bằng Vue: quen thuộc, không bị cắt bởi kích thước cửa sổ mascot. Vì cửa sổ mascot `focusable: false`, tạm bật focusable trong lúc menu mở để menu đóng đúng khi click ra ngoài.
+- Câu thoại mascot nằm trong i18n (`mascot.lines.*`, mảng nhiều biến thể); main chỉ gửi loại phản ứng (`mascot:react`), renderer chọn câu & animation.
+
+**Hệ quả:** container/services/repositories không được import `electron` (để test trong Node); phần phụ thuộc Electron nối ở `src/main/index.ts`.

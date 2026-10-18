@@ -1,10 +1,6 @@
-import { ipcMain } from 'electron'
-import { IpcChannel } from '@shared/ipc'
 import type { PopupWindow } from '../windows/PopupWindow'
+import { onSend } from './handle'
 
 export function registerPopupIpc(popup: PopupWindow): void {
-  ipcMain.on(IpcChannel.popupHide, (e) => {
-    if (e.sender !== popup.win.webContents) return
-    popup.hide()
-  })
+  onSend('popup:hide', () => popup.hide(), { from: () => popup.win.webContents })
 }

@@ -39,6 +39,12 @@
       "fps": 10,
       "loop": false,
       "next": "idle"
+    },
+    "eat": {
+      "frames": [18, 19, 20, 21],
+      "fps": 5,
+      "loop": false,
+      "next": "idle"
     }
   }
 }

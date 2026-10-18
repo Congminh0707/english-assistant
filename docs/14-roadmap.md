@@ -45,20 +45,21 @@ Mục tiêu: chứng minh các kỹ thuật khó nhất chạy được trên Wi
 Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựng.
 
 **Nền tảng**
-- [ ] Cấu trúc thư mục theo [03](03-architecture.md), `ipc-contract`, container, event bus, Clock
-- [ ] SQLite `user.db` + Drizzle + migration tự chạy
-- [ ] Profile (tạo, chọn, nhiều profile), onboarding: chọn track, tự đánh giá level
-- [ ] Cài đặt cơ bản (phím tắt, tần suất nhắc, kích thước mascot, khởi động cùng Windows)
-- [ ] i18n vi/en, design tokens, bộ component `Px*`
+- [x] Cấu trúc thư mục theo [03](03-architecture.md), `ipc-contract` (zod), container, event bus, Clock, AppError
+- [x] SQLite `user.db` + Drizzle + migration tự chạy (cả bản đóng gói)
+- [x] Vitest: 19 test cho logic thú cưng/XP, i18n, services (SQLite in-memory + FakeClock)
+- [ ] Profile: ✅ tự tạo profile mặc định + thú cưng + túi đồ khởi đầu — **còn** màn hình tạo/chọn profile, onboarding (cần cửa sổ Học tập)
+- [ ] Cài đặt: ✅ ngôn ngữ, kích thước mascot, khởi động cùng Windows (chỉ bản cài) qua menu chuột phải — **còn** đổi phím tắt, tần suất nhắc (cần cửa sổ Học tập)
+- [x] i18n vi/en dùng chung main + renderer, design tokens, `PxPanel`, `PxBar`
 - [ ] Cài content pack (`core-dictionary`, bộ từ NGSL/CEFR-J) — `ContentPackService`
 
 **Mascot**
-- [ ] State machine: idle, walk, sleep, drag, fall, land, happy, talk, eat
-- [ ] Bong bóng thoại + hàng đợi
-- [ ] Menu chuột phải
-- [ ] Chỉ số nuôi + `PetDecayJob` + cho ăn + túi đồ
-- [ ] XP, xu, level thú cưng, `xp_events`
-- [ ] Chế độ yên lặng đầy đủ (fullscreen, app họp, hẹn giờ ẩn, giờ không làm phiền)
+- [ ] State machine: ✅ idle, walk, drag, fall, land, happy, eat — **còn** sleep (năng lượng thấp / người dùng vắng mặt)
+- [x] Bong bóng thoại + hàng đợi ưu tiên, lời chào theo giờ, thẻ chỉ số khi rê chuột, vuốt ve (click)
+- [x] Menu chuột phải (Cho ăn, Ẩn 30 phút/1 giờ, Kích thước, Ngôn ngữ, Khởi động cùng Windows, Thoát)
+- [x] Chỉ số nuôi + `PetDecayJob` + nhắc đói + cho ăn + túi đồ
+- [ ] XP, xu, level thú cưng: ✅ sổ cái `xp_events` + `XpService` + test — **chưa có nguồn XP** cho tới khi có bài học/SRS
+- [ ] Chế độ yên lặng: ✅ fullscreen, hẹn giờ ẩn — **còn** app họp, giờ không làm phiền
 
 **Dịch & từ điển**
 - [ ] Popup dịch: copy + phím tắt → tra từ điển offline

@@ -1,0 +1,70 @@
+{
+  "tray": {
+    "tooltip": "English Assistant",
+    "tooltipQuiet": "English Assistant — hidden for now (a fullscreen app is open)",
+    "quietNote": "Hidden because a fullscreen app is open",
+    "snoozedNote": "Hidden until {time}",
+    "showNow": "Show now",
+    "show": "Show mascot",
+    "hide": "Hide mascot",
+    "resetPosition": "Move mascot back to the corner",
+    "quickTranslate": "Quick translate: {shortcut}",
+    "quit": "Quit"
+  },
+  "menu": {
+    "studyNow": "Study now (coming soon)",
+    "feed": "Feed",
+    "bagEmpty": "Bag is empty",
+    "hideFor30": "Hide for 30 minutes",
+    "hideFor60": "Hide for 1 hour",
+    "size": "Size",
+    "sizeSmall": "Small",
+    "sizeMedium": "Medium",
+    "sizeLarge": "Large",
+    "language": "Ngôn ngữ / Language",
+    "launchAtLogin": "Start with Windows",
+    "quit": "Quit"
+  },
+  "items": {
+    "onigiri": "Rice ball",
+    "cake": "Cake",
+    "watermelon": "Watermelon",
+    "milk-tea": "Milk tea",
+    "birthday-cake": "Birthday cake"
+  },
+  "stats": {
+    "hunger": "Full",
+    "mood": "Mood",
+    "energy": "Energy",
+    "level": "Lv {level}",
+    "coins": "{coins} coins"
+  },
+  "popup": {
+    "title": "Quick translate",
+    "close": "Close",
+    "empty": "Nothing here yet.",
+    "hint": "Coming soon: copy English text and press {shortcut} to look it up right here.",
+    "footer": "Press Esc or click outside to close"
+  },
+  "mascot": {
+    "lines": {
+      "greetingMorning": ["Good morning! ☀️", "Morning! Fancy a 5-minute lesson?"],
+      "greetingAfternoon": ["Good afternoon!", "Hi there, Bi is here."],
+      "greetingEvening": ["Good evening! 🌙", "How was your day?"],
+      "greetingNight": ["It's getting late... 😴", "Don't stay up too late!"],
+      "pat": ["Hehe, that tickles!", "Bi loves this ♥", "Yay!", "Thank you! ♥"],
+      "patTired": ["Bi needs a little break~"],
+      "fed": ["Yummy! Thank you 😋", "Delicious!", "So full now~"],
+      "full": ["Bi is too full to eat more!"],
+      "hungry": ["Bi is hungry... 🍙", "Feed me, please~", "My tummy is rumbling..."],
+      "levelUp": ["Level up! 🎉", "Bi got stronger!"]
+    }
+  },
+  "errors": {
+    "validation": "Invalid data.",
+    "itemUnknown": "This item doesn't exist.",
+    "itemNotOwned": "You don't have this item anymore.",
+    "notFound": "Data not found.",
+    "unknown": "Something went wrong, please try again."
+  }
+}

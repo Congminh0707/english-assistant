@@ -41,7 +41,17 @@ Phân lớp giống Laravel:
 
 ## 3. IPC
 
-**Một nguồn định nghĩa duy nhất** cho mọi kênh: `src/shared/ipc-contract.ts`. Main và preload đều import từ đây → sai kiểu là lỗi compile.
+**Một nguồn định nghĩa duy nhất** cho mọi kênh, gồm 2 file (✅ đã làm):
+
+| File | Nội dung | Ai dùng |
+|---|---|---|
+| `src/shared/ipc-channels.ts` | Chỉ **tên** kênh: `INVOKE_CHANNELS`, `SEND_CHANNELS`, `EVENT_NAMES`. Không import thư viện nào. | preload (chạy trong sandbox, **không** `require` được node_modules như zod) |
+| `src/shared/ipc-contract.ts` | Schema zod input/output của từng kênh (`invokeContract`, `sendContract`, `eventContract`) + kiểu `AppApi` | main (validate), renderer & preload (chỉ `import type`) |
+
+`satisfies Record<InvokeChannel, …>` bắt buộc hai file khớp nhau: thiếu/thừa kênh là lỗi compile.
+Main đăng ký bằng `handle()` / `onSend()` trong `src/main/ipc/handle.ts`; renderer gọi qua `invoke()` trong `src/renderer/shared/ipc.ts` (tự ném `IpcError` khi `ok: false`).
+
+Ví dụ minh hoạ ý tưởng (code thật đầy đủ hơn):
 
 ```ts
 // src/shared/ipc-contract.ts
@@ -115,7 +125,9 @@ Quy tắc:
 | E2E | Playwright (Electron) | Luồng chính: mở app → mascot hiện → dịch nhanh → học 1 bài → nhận XP |
 | Content | `pnpm content:validate` | Mọi thay đổi trong `content/curated/` |
 
-- Service test dùng SQLite **in-memory** (`:memory:`) + chạy migration thật + `FakeClock`.
+- Service test dùng SQLite **in-memory** (`:memory:`) + chạy migration thật + `FakeClock` — xem `src/main/services/services.test.ts` (dựng cả container bằng `createContainer`).
+- Chạy: `pnpm test` (một lần) / `pnpm test:watch`. Test chạy trong Node thường (better-sqlite3 v13 là N-API nên không cần Electron).
+- Vì vậy `container.ts`, services, repositories **không được import `electron`**; phần cần Electron (tray, cửa sổ, autostart) nối ở `src/main/index.ts`.
 - Đặt file test cạnh file nguồn (`PetService.test.ts`) hoặc trong `tests/` — chọn một và thống nhất (mặc định: cạnh file nguồn cho unit, `tests/e2e/` cho E2E).
 
 ## 7. Git

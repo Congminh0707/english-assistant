@@ -1,0 +1,19 @@
+/* Design tokens — docs/12-ui-ux-guidelines.md#2. Component dùng biến, không viết mã màu cứng. */
+:root {
+  --c-bg: #fdf6e3;
+  --c-surface: #ffffff;
+  --c-ink: #2b2b3a;
+  --c-ink-soft: #6b6b80;
+  --c-primary: #5b8def;
+  --c-success: #4caf6a;
+  --c-warning: #f2b33d;
+  --c-danger: #e05a5a;
+  --c-xp: #9b6bff;
+  --c-coin: #f5c542;
+  --c-border: #2b2b3a;
+
+  --px: 2px;
+  --font-ui: 'Segoe UI', system-ui, sans-serif;
+  /* Font pixel có dấu tiếng Việt (VT323) sẽ được đóng gói ở bước làm cửa sổ Học tập */
+  --font-pixel: 'VT323', 'Consolas', monospace;
+}

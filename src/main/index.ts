@@ -1,26 +1,43 @@
 import { app, screen } from 'electron'
 import { join } from 'path'
 import { electronApp } from '@electron-toolkit/utils'
+import { systemClock } from './core/Clock'
+import { paths } from './core/paths'
+import { openUserDb, type UserDbConnection } from './db/client'
+import { createContainer } from './container'
 import { MascotWindow } from './windows/MascotWindow'
 import { PopupWindow } from './windows/PopupWindow'
+import { registerAppIpc } from './ipc/app.ipc'
 import { registerMascotIpc } from './ipc/mascot.ipc'
 import { registerPopupIpc } from './ipc/popup.ipc'
+import { broadcast, sendTo } from './ipc/broadcast'
 import { createTray, type AppTray } from './system/tray'
+import { showMascotMenu } from './system/mascotMenu'
 import { DEFAULT_SHORTCUTS, registerShortcuts, shortcutLabel } from './system/shortcuts'
 import { applySecurityDefaults } from './system/security'
+import { applyLaunchAtLogin } from './system/autostart'
 import { monitorOfNativeHandle } from './system/win32'
 import { QuietModeService } from './services/QuietModeService'
+import { Scheduler } from './jobs/Scheduler'
+import { schedulePetJobs } from './jobs/petJobs'
 
 const APP_ID = 'net.gonbi.englishassistant'
+
+// Dev: REMOTE_DEBUG_PORT=9222 mở Chrome DevTools Protocol để công cụ/AI agent kiểm tra renderer từ ngoài
+if (!app.isPackaged && process.env['REMOTE_DEBUG_PORT']) {
+  app.commandLine.appendSwitch('remote-debugging-port', process.env['REMOTE_DEBUG_PORT'])
+}
 
 // Cố định thư mục dữ liệu là %APPDATA%\english-assistant (productName khi đóng gói có dấu cách sẽ đổi đường dẫn mặc định)
 app.setPath('userData', join(app.getPath('appData'), 'english-assistant'))
 
 // Giữ tham chiếu ở cấp module để không bị garbage collect
+let conn: UserDbConnection | null = null
 let mascot: MascotWindow | null = null
 let popup: PopupWindow | null = null
 let tray: AppTray | null = null
 let quietMode: QuietModeService | null = null
+const scheduler = new Scheduler()
 
 // Chỉ cho chạy 1 instance: mở lần 2 thì hiện lại mascot đang có
 if (!app.requestSingleInstanceLock()) {
@@ -28,32 +45,57 @@ if (!app.requestSingleInstanceLock()) {
 } else {
   applySecurityDefaults()
 
-  app.on('second-instance', () => {
-    mascot?.show()
-    tray?.refresh()
-  })
+  app.on('second-instance', () => mascot?.show())
 
   app.whenReady().then(() => {
     electronApp.setAppUserModelId(APP_ID)
 
-    const m = new MascotWindow()
+    // Dữ liệu: mở user.db (tự migrate) và dựng các service
+    conn = openUserDb(paths.userDb(), paths.migrations())
+    const c = createContainer(conn, systemClock)
+    c.profiles.active() // lần đầu chạy: tạo profile + thú cưng + túi đồ khởi đầu
+
+    // Cửa sổ & IPC
+    const m = new MascotWindow(c.settings.get('mascot.scale'))
     const p = new PopupWindow()
     mascot = m
     popup = p
-    registerMascotIpc(m)
+    registerAppIpc(c)
+    registerMascotIpc(m, () => showMascotMenu(c, m))
     registerPopupIpc(p)
     registerShortcuts(p)
-    tray = createTray(m, shortcutLabel(DEFAULT_SHORTCUTS.quickTranslate))
+    tray = createTray(m, shortcutLabel(DEFAULT_SHORTCUTS.quickTranslate), () =>
+      c.settings.get('ui.language')
+    )
+    m.onVisibilityChanged = () => tray?.refresh()
 
+    // Sự kiện nội bộ → đẩy xuống các cửa sổ
+    c.bus.on('pet.updated', (state) => broadcast('pet:updated', state))
+    c.bus.on('pet.fed', () => sendTo(m.win, 'mascot:react', { kind: 'eat' }))
+    c.bus.on('pet.hungry', () => sendTo(m.win, 'mascot:react', { kind: 'hungry' }))
+    c.bus.on('level.up', () => sendTo(m.win, 'mascot:react', { kind: 'level-up' }))
+    c.bus.on('settings.changed', ({ key, settings }) => {
+      broadcast('settings:changed', settings)
+      if (key === 'mascot.scale') {
+        m.setScale(settings['mascot.scale'])
+        m.ensureOnScreen()
+      }
+      if (key === 'ui.language') tray?.refresh()
+      if (key === 'app.launchAtLogin') applyLaunchAtLogin(settings['app.launchAtLogin'])
+    })
+
+    // Chế độ yên lặng: tự ẩn khi có app toàn màn hình
     quietMode = new QuietModeService(
       () => (m.win.isDestroyed() ? null : monitorOfNativeHandle(m.win.getNativeWindowHandle())),
       ({ quiet, reason }) => {
         console.info(`[quiet-mode] ${quiet ? `tạm ẩn mascot (${reason})` : 'hiện lại mascot'}`)
         m.setQuiet(quiet)
-        tray?.refresh()
       }
     )
     quietMode.start()
+
+    // Tác vụ định kỳ
+    schedulePetJobs(scheduler, c, () => !m.win.isVisible())
 
     const keepOnScreen = (): void => m.ensureOnScreen()
     screen.on('display-metrics-changed', keepOnScreen)
@@ -65,9 +107,12 @@ if (!app.requestSingleInstanceLock()) {
   app.on('window-all-closed', () => {})
 
   app.on('before-quit', () => {
+    scheduler.stopAll()
     quietMode?.stop()
     popup?.win.destroy()
     tray?.tray.destroy()
     tray = null
+    conn?.close()
+    conn = null
   })
 }

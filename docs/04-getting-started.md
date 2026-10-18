@@ -30,7 +30,7 @@ kéo thả được, click xuyên qua phần trống** — tức là "Phase 0" t
    $env:VOLTA_FEATURE_PNPM = 1; volta pin pnpm@12
    ```
    Kết quả trong `package.json`: `"volta": { "node": "22.23.3", "pnpm": "12.14.0" }` (đã ghim). Vào thư mục project là Volta tự đổi đúng phiên bản.
-   > Lưu ý: Electron dùng **Node riêng tích hợp sẵn** khi chạy app. Node của Volta chỉ dùng cho công cụ (Vite, pnpm, script, test). Native module như `better-sqlite3` vẫn phải build lại cho Electron (Bước 9).
+   > Lưu ý: Electron dùng **Node riêng tích hợp sẵn** khi chạy app. Node của Volta chỉ dùng cho công cụ (Vite, pnpm, script, test). Native module kiểu cũ phải build lại cho Electron; `better-sqlite3` v13 và `koffi` dùng N-API nên một binary chạy được cả Node lẫn Electron (Bước 9).
 2. **pnpm** — cài qua Volta (không dùng `npm install -g`, để Volta quản lý):
    ```powershell
    volta install pnpm
@@ -386,24 +386,26 @@ Chạy `pnpm dev` → nhân vật nổi trên desktop, click vào khoảng trố
 | `pnpm lint` / `pnpm format` | ESLint / Prettier | `pint` |
 | `pnpm content:build` | Chạy pipeline đóng gói nội dung (xem [09](09-content-pipeline.md)) | `artisan db:seed` (gần giống) |
 
-## Bước 9 — Thêm SQLite (khi bắt đầu Phase 1)
+## Bước 9 — SQLite (✅ đã làm ở Phase 1)
 
-```powershell
-pnpm add better-sqlite3 drizzle-orm
-```
-```powershell
-pnpm add -D drizzle-kit @types/better-sqlite3 @electron/rebuild
-```
+Đã cài `better-sqlite3` (v13) + `drizzle-orm`, dev: `drizzle-kit`, `vitest`. **better-sqlite3 v13 dùng N-API và kèm binary dựng sẵn** → cùng một file `.node` chạy được trong Node (Vitest) lẫn Electron, không cần `electron-rebuild`. `postinstall` (`electron-builder install-app-deps`) vẫn giữ để lo các native module khác.
 
-`better-sqlite3` là **native module** (có phần C++), phải build đúng cho phiên bản Node của Electron. Thêm vào `package.json`:
-
-```json
-"scripts": { "postinstall": "electron-builder install-app-deps" }
-```
-
-Nếu `pnpm dev` báo lỗi kiểu *"was compiled against a different Node.js version"* → chạy `pnpm exec electron-rebuild -f -w better-sqlite3`.
+- Sửa schema ở `src/main/db/schema/index.ts` → chạy `pnpm db:generate` → file SQL mới trong `src/main/db/migrations/` (commit cả thư mục `meta/`).
+- App tự chạy migration lúc khởi động (`openUserDb` trong `src/main/db/client.ts`); bản đóng gói đọc migration từ `resources/migrations` (khai báo `extraResources` trong `electron-builder.yml`).
+- Không sửa migration đã phát hành — luôn tạo migration mới.
+- Nếu một native module kiểu cũ báo *"was compiled against a different Node.js version"* → `pnpm exec electron-rebuild -f -w <tên-module>`.
 
 Vị trí file DB của người dùng: `app.getPath('userData')` → thường là `C:\Users\<tên>\AppData\Roaming\english-assistant\user.db`.
+
+## Debug
+
+| Cần | Cách làm |
+|---|---|
+| Xem lỗi/console của renderer | Bản dev tự in console của mọi cửa sổ ra terminal chạy `pnpm dev`, dạng `[mascot:error] ...` (`src/main/windows/devConsole.ts`). |
+| Mở DevTools cửa sổ mascot | `$env:MASCOT_DEVTOOLS=1; pnpm dev` |
+| Kiểm tra renderer từ bên ngoài (script, AI agent) | `$env:REMOTE_DEBUG_PORT=9222; pnpm dev` → Chrome DevTools Protocol ở `http://127.0.0.1:9222/json` (chỉ bản dev). Dùng `Runtime.evaluate` để gọi `window.api.invoke('pet:get')`... |
+| Xem dữ liệu | Mở `%APPDATA%\english-assistant\user.db` bằng DB Browser for SQLite (đóng app trước khi sửa tay). |
+| Sửa main/preload | `pnpm dev` **không** tự khởi động lại khi sửa main — tắt rồi chạy lại. Sửa Vue thì có hot reload. |
 
 ## Lỗi thường gặp
 

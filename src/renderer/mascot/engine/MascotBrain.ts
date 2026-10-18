@@ -1,7 +1,12 @@
-import type { AppApi } from '@shared/ipc'
+import type { WalkResult } from '@shared/ipc-contract'
 import type { SpriteAnimator } from './SpriteAnimator'
 
-export type MascotState = 'idle' | 'walk' | 'drag' | 'fall' | 'land' | 'happy'
+export type MascotState = 'idle' | 'walk' | 'drag' | 'fall' | 'land' | 'happy' | 'eat'
+
+/** Phản ứng một lần (animation không lặp rồi quay về nghỉ) */
+export type MascotReactionAnim = 'happy' | 'eat'
+
+const ONE_SHOT_STATES: MascotState[] = ['land', 'happy', 'eat']
 
 const WALK_SPEED = 30 // px/s
 const WALK_CHANCE = 0.6
@@ -22,14 +27,14 @@ export class MascotBrain {
 
   constructor(
     private readonly animator: SpriteAnimator,
-    private readonly mascotApi: AppApi['mascot'],
+    private readonly walk: (dx: number) => Promise<WalkResult>,
     /** Báo cửa sổ vừa dịch đi bao nhiêu px (để kiểm tra lại con trỏ có còn trên nhân vật) */
     private readonly onMoved: (dx: number) => void,
     /** Mỗi bước đi = 1 pixel art (= scale px màn hình): ít lần di chuyển cửa sổ hơn → nhẹ CPU */
-    private readonly stepPx = 1
+    private stepPx = 1
   ) {
     animator.onFinish = (name) => {
-      if ((name === 'land' || name === 'happy') && this.state === name) this.enter('idle')
+      if (ONE_SHOT_STATES.includes(name as MascotState) && this.state === name) this.enter('idle')
     }
     animator.play('idle')
   }
@@ -53,6 +58,16 @@ export class MascotBrain {
 
   landed(): void {
     if (this.state === 'fall') this.enter('land')
+  }
+
+  /** Chơi một phản ứng (vd ăn, vui) nếu không đang bị kéo/rơi */
+  react(anim: MascotReactionAnim): void {
+    if (this.state === 'drag' || this.state === 'fall') return
+    this.enter(anim)
+  }
+
+  setStepPx(stepPx: number): void {
+    this.stepPx = stepPx
   }
 
   /** Về trạng thái nghỉ (vd khi mascot bị ẩn giữa chừng lúc đang kéo/rơi) */
@@ -83,8 +98,7 @@ export class MascotBrain {
     const step = Math.trunc(this.pendingDx / this.stepPx) * this.stepPx
     this.pendingDx -= step
     this.walkInFlight = true
-    this.mascotApi
-      .walk(step)
+    this.walk(step)
       .then(({ blocked }) => {
         this.onMoved(step)
         if (blocked && this.state === 'walk') {

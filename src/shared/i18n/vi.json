@@ -1,0 +1,70 @@
+{
+  "tray": {
+    "tooltip": "English Assistant",
+    "tooltipQuiet": "English Assistant — đang tạm ẩn (có app toàn màn hình)",
+    "quietNote": "Đang tạm ẩn vì có app toàn màn hình",
+    "snoozedNote": "Đang ẩn đến {time}",
+    "showNow": "Hiện lại ngay",
+    "show": "Hiện mascot",
+    "hide": "Ẩn mascot",
+    "resetPosition": "Đưa mascot về góc màn hình",
+    "quickTranslate": "Dịch nhanh: {shortcut}",
+    "quit": "Thoát"
+  },
+  "menu": {
+    "studyNow": "Học ngay (sắp có)",
+    "feed": "Cho ăn",
+    "bagEmpty": "Túi đồ trống",
+    "hideFor30": "Ẩn 30 phút",
+    "hideFor60": "Ẩn 1 giờ",
+    "size": "Kích thước",
+    "sizeSmall": "Nhỏ",
+    "sizeMedium": "Vừa",
+    "sizeLarge": "Lớn",
+    "language": "Ngôn ngữ / Language",
+    "launchAtLogin": "Khởi động cùng Windows",
+    "quit": "Thoát"
+  },
+  "items": {
+    "onigiri": "Cơm nắm",
+    "cake": "Bánh ngọt",
+    "watermelon": "Dưa hấu",
+    "milk-tea": "Trà sữa",
+    "birthday-cake": "Bánh kem"
+  },
+  "stats": {
+    "hunger": "No",
+    "mood": "Vui",
+    "energy": "Sức",
+    "level": "Lv {level}",
+    "coins": "{coins} xu"
+  },
+  "popup": {
+    "title": "Dịch nhanh",
+    "close": "Đóng",
+    "empty": "Chưa có nội dung.",
+    "hint": "Sắp có: copy chữ tiếng Anh rồi bấm {shortcut} để tra nghĩa ngay tại đây.",
+    "footer": "Esc hoặc click ra ngoài để đóng"
+  },
+  "mascot": {
+    "lines": {
+      "greetingMorning": ["Chào buổi sáng! ☀️", "Good morning! Học 5 phút nhé?"],
+      "greetingAfternoon": ["Chào buổi chiều!", "Good afternoon! Bi ở đây nè."],
+      "greetingEvening": ["Chào buổi tối! 🌙", "Good evening! Hôm nay thế nào?"],
+      "greetingNight": ["Khuya rồi đó... 😴", "Nhớ ngủ sớm nha!"],
+      "pat": ["Hihi, nhột quá!", "Bi thích được vuốt ve ♥", "Yay!", "Thank you! ♥"],
+      "patTired": ["Bi hơi mỏi rồi, để lát nhé~"],
+      "fed": ["Ngon quá! Cảm ơn nha 😋", "Yummy! Thank you!", "No căng bụng rồi~"],
+      "full": ["Bi no lắm rồi, không ăn nổi nữa!"],
+      "hungry": ["Bi đói rồi... 🍙", "I'm hungry! Cho Bi ăn với~", "Bụng Bi kêu ọt ọt..."],
+      "levelUp": ["Lên cấp rồi! 🎉", "Level up! Bi mạnh hơn rồi!"]
+    }
+  },
+  "errors": {
+    "validation": "Dữ liệu không hợp lệ.",
+    "itemUnknown": "Không có món này.",
+    "itemNotOwned": "Túi đồ không còn món này.",
+    "notFound": "Không tìm thấy dữ liệu.",
+    "unknown": "Có lỗi xảy ra, thử lại nhé."
+  }
+}

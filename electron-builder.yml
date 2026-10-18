@@ -11,6 +11,10 @@ files:
   - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
 asarUnpack:
   - resources/**
+extraResources:
+  # File SQL migration của user.db, đọc lúc khởi động (src/main/core/paths.ts)
+  - from: src/main/db/migrations
+    to: migrations
 win:
   executableName: english-assistant
 nsis:

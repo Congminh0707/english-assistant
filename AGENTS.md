@@ -15,7 +15,7 @@ Electron + electron-vite · Vue 3 (`<script setup lang="ts">`) + Pinia + Tailwin
 ```bash
 pnpm dev            # chạy app dev
 pnpm lint           # ESLint
-pnpm test           # Vitest
+pnpm test           # Vitest (logic + services với SQLite in-memory)
 pnpm db:generate    # sinh migration từ Drizzle schema
 pnpm content:validate
 pnpm build:win      # build installer
@@ -23,7 +23,8 @@ pnpm build:win      # build installer
 
 ## Quy tắc cứng
 - Renderer **không** truy cập DB/file/hệ thống trực tiếp — chỉ qua `window.api` → IPC → main.
-- Kênh IPC mới: sửa `src/shared/ipc-contract.ts` trước (zod input/output), rồi handler, rồi store.
+- Kênh IPC mới: thêm tên vào `src/shared/ipc-channels.ts` + schema vào `src/shared/ipc-contract.ts` (zod input/output), rồi handler (`handle`/`onSend`), rồi store. Preload không được import thư viện (sandbox).
+- `container.ts`, services, repositories không import `electron` (để test bằng Vitest trong Node).
 - `src/shared/` không import `electron`, `node:*`, hay Vue.
 - Giữ `contextIsolation: true`, `nodeIntegration: false`, `sandbox: true`. Không bao giờ hạ cấu hình bảo mật để "cho chạy được".
 - Đổi schema DB → migration mới (không sửa migration đã phát hành) + cập nhật [docs/10-data-model.md](docs/10-data-model.md).

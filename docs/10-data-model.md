@@ -22,6 +22,8 @@ Liên kết giữa hai bên bằng **id chuỗi ổn định** (`content_id = 'w
 
 ## 3. Schema `user.db`
 
+> ✅ **Đã có (Phase 1, migration `0000`)**: `profiles`, `pet_states`, `xp_events`, `inventory_items`, `settings` — code ở `src/main/db/schema/index.ts`. Các bảng còn lại thêm dần theo module. Cột `profiles` hiện tối giản (`name`, `track`, `is_child`); các cột khác (mục tiêu, streak, PIN phụ huynh...) thêm khi làm tính năng tương ứng.
+
 ```mermaid
 erDiagram
   profiles ||--|| pet_states : has
@@ -162,7 +164,9 @@ Tổng XP/xu luôn tính lại được từ bảng này → tránh lỗi cộng
 `id (pack id) PK, version, path, schema_version, installed_at, enabled`.
 
 ### settings
-Key–value theo profile: `profile_id NULL (NULL = cài đặt toàn máy), key, value (JSON)`. PRIMARY KEY(profile_id, key).
+Key–value: `scope ('global' hoặc id profile), key, value (JSON), updated_at`. PRIMARY KEY(scope, key).
+(Không dùng `profile_id NULL` làm khoá chính vì SQLite coi các giá trị NULL là khác nhau.)
+Danh sách khoá + kiểu + mặc định định nghĩa bằng zod ở `src/shared/schemas/settings.ts`; giá trị lưu sai/cũ tự rơi về mặc định.
 Ví dụ key: `hotkeys.translate`, `mascot.scale`, `mascot.reminderMinutes`, `quiet.apps`, `quiet.dndHours`, `tts.voice`, `ai.provider`, `clipboard.watch`.
 > **API key KHÔNG lưu ở đây** — lưu mã hoá bằng `safeStorage` của Electron vào file riêng (xem [16](16-privacy-and-security.md)).
 

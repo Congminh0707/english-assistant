@@ -1,22 +1,26 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import { IpcChannel, IpcEvent, type AppApi, type IpcEventName } from '@shared/ipc'
+// Chỉ import file không có dependency: preload chạy trong sandbox, không require được node_modules
+import { EVENT_NAMES, INVOKE_CHANNELS, SEND_CHANNELS } from '@shared/ipc-channels'
+import type { AppApi } from '@shared/ipc-contract'
 
-const allowedEvents = new Set<string>(Object.values(IpcEvent))
+const invokeChannels = new Set<string>(INVOKE_CHANNELS)
+const sendChannels = new Set<string>(SEND_CHANNELS)
+const eventNames = new Set<string>(EVENT_NAMES)
 
-// Chỉ expose các hàm có kiểu — không bao giờ expose ipcRenderer thô cho renderer.
+// Chỉ cho phép các kênh trong hợp đồng — không bao giờ expose ipcRenderer thô cho renderer.
 const api: AppApi = {
-  mascot: {
-    setClickThrough: (enabled) => ipcRenderer.send(IpcChannel.mascotSetClickThrough, enabled),
-    dragStart: () => ipcRenderer.send(IpcChannel.mascotDragStart),
-    dragEnd: () => ipcRenderer.invoke(IpcChannel.mascotDragEnd),
-    walk: (dx) => ipcRenderer.invoke(IpcChannel.mascotWalk, dx)
+  invoke: (channel, ...args) => {
+    if (!invokeChannels.has(channel)) throw new Error(`Unknown IPC channel: ${channel}`)
+    return ipcRenderer.invoke(channel, ...args)
   },
-  popup: {
-    hide: () => ipcRenderer.send(IpcChannel.popupHide)
+  send: (channel, ...args) => {
+    if (!sendChannels.has(channel)) throw new Error(`Unknown IPC channel: ${channel}`)
+    ipcRenderer.send(channel, ...args)
   },
-  on: (event: IpcEventName, cb) => {
-    if (!allowedEvents.has(event)) throw new Error(`Unknown event: ${event}`)
-    const listener = (): void => cb()
+  on: (event, cb) => {
+    if (!eventNames.has(event)) throw new Error(`Unknown IPC event: ${event}`)
+    const listener = (_e: Electron.IpcRendererEvent, payload: unknown): void =>
+      cb(payload as Parameters<typeof cb>[0])
     ipcRenderer.on(event, listener)
     return () => ipcRenderer.removeListener(event, listener)
   }

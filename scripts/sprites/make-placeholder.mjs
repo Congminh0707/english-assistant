@@ -36,6 +36,12 @@ const animations = {
     { jump: 9, eyes: 'happy' },
     { jump: 4, eyes: 'happy' },
     { squash: 2, eyes: 'happy' }
+  ],
+  eat: [
+    { eyes: 'happy', mouth: 'open' },
+    { bob: 1, mouth: 'chew' },
+    { eyes: 'happy', mouth: 'open' },
+    { bob: 1, eyes: 'happy', mouth: 'chew' }
   ]
 }
 const timing = {
@@ -44,7 +50,8 @@ const timing = {
   drag: { fps: 6, loop: true },
   fall: { fps: 1, loop: true },
   land: { fps: 12, loop: false, next: 'idle' },
-  happy: { fps: 10, loop: false, next: 'idle' }
+  happy: { fps: 10, loop: false, next: 'idle' },
+  eat: { fps: 5, loop: false, next: 'idle' }
 }
 
 const frames = Object.values(animations).flat()
@@ -146,6 +153,17 @@ function drawFrame(p) {
   const eyeY = Math.round(cy - 1)
   drawEyes(cx, eyeY, p.eyes ?? 'open')
   for (const x of [cx - 10, cx - 9, cx + 8, cx + 9]) set(x, eyeY + 3, C.blush)
+  if (p.mouth === 'open') {
+    // Miệng há to khi ăn
+    for (let y = 4; y <= 6; y++) for (let x = -2; x <= 1; x++) set(cx + x, eyeY + y, C.eye)
+    set(cx - 1, eyeY + 6, C.blush)
+    set(cx, eyeY + 6, C.blush)
+    return
+  }
+  if (p.mouth === 'chew') {
+    for (let x = -2; x <= 1; x++) set(cx + x, eyeY + 5, C.eye)
+    return
+  }
   set(cx - 1, eyeY + 4, C.eye)
   set(cx, eyeY + 4, C.eye)
   if (p.eyes === 'wide') {

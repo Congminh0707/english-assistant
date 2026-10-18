@@ -29,9 +29,22 @@ export class SpriteAnimator {
     private readonly image: HTMLImageElement,
     private readonly meta: SpriteSheetMeta,
     private readonly ctx: CanvasRenderingContext2D,
-    private readonly scale: number
+    private scale: number
   ) {
     this.columns = Math.floor(image.width / meta.frameSize.w)
+    this.resizeCanvas()
+  }
+
+  /** Đổi hệ số phóng to (cài đặt kích thước mascot) */
+  setScale(scale: number): void {
+    this.scale = scale
+    this.resizeCanvas()
+  }
+
+  private resizeCanvas(): void {
+    this.ctx.canvas.width = this.meta.frameSize.w * this.scale
+    this.ctx.canvas.height = this.meta.frameSize.h * this.scale
+    this.drawnFrame = -1 // canvas bị xoá khi đổi kích thước → buộc vẽ lại
   }
 
   get animation(): string {

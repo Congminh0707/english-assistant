@@ -1,54 +1,65 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, watch } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useSettingsStore } from '@renderer/shared/stores/settings'
 
-// Phase 0: popup trống. Phase 1 hiển thị kết quả tra từ/dịch (docs/12-ui-ux-guidelines.md#popup-dịch-nhanh).
-// Chuỗi viết cứng tiếng Việt, Phase 1 chuyển sang i18n.
+// Phase 1 (nền tảng): popup vẫn trống. Bước sau gắn tra từ điển offline (docs/12-ui-ux-guidelines.md#popup-dịch-nhanh).
+const SHORTCUT = 'Ctrl + Alt + T'
+
+const { t, locale } = useI18n()
+const settingsStore = useSettingsStore()
+const cleanups: Array<() => void> = []
 
 function hide(): void {
-  window.api.popup.hide()
+  window.api.send('popup:hide')
 }
 
 function onKeyDown(e: KeyboardEvent): void {
   if (e.key === 'Escape') hide()
 }
 
-onMounted(() => window.addEventListener('keydown', onKeyDown))
-onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
+watch(
+  () => settingsStore.settings['ui.language'],
+  (lang) => {
+    locale.value = lang
+  }
+)
+
+onMounted(async () => {
+  window.addEventListener('keydown', onKeyDown)
+  cleanups.push(settingsStore.listen())
+  await settingsStore.load()
+})
+onUnmounted(() => {
+  window.removeEventListener('keydown', onKeyDown)
+  cleanups.forEach((fn) => fn())
+})
 </script>
 
 <template>
   <div class="popup">
     <header class="header">
-      <span class="title">Dịch nhanh</span>
-      <button class="close" type="button" aria-label="Đóng" @click="hide">✕</button>
+      <span class="title">{{ t('popup.title') }}</span>
+      <button class="close" type="button" :aria-label="t('popup.close')" @click="hide">✕</button>
     </header>
     <main class="body">
-      <p class="empty">Chưa có nội dung.</p>
-      <p class="hint">
-        Sắp có: copy chữ tiếng Anh rồi bấm <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>T</kbd> để tra
-        nghĩa ngay tại đây.
-      </p>
+      <p class="empty">{{ t('popup.empty') }}</p>
+      <p class="hint">{{ t('popup.hint', { shortcut: SHORTCUT }) }}</p>
     </main>
-    <footer class="footer"><kbd>Esc</kbd> hoặc click ra ngoài để đóng</footer>
+    <footer class="footer">{{ t('popup.footer') }}</footer>
   </div>
 </template>
 
 <style scoped>
 .popup {
-  --c-bg: #fdf6e3;
-  --c-ink: #2b2b3a;
-  --c-ink-soft: #6b6b80;
-  --c-border: #2b2b3a;
-  --c-primary: #5b8def;
-
   box-sizing: border-box;
   height: 100vh;
   display: flex;
   flex-direction: column;
   background: var(--c-bg);
   color: var(--c-ink);
-  border: 2px solid var(--c-border);
-  font-family: system-ui, 'Segoe UI', sans-serif;
+  border: var(--px) solid var(--c-border);
+  font-family: var(--font-ui);
   font-size: 14px;
 }
 .header {
@@ -58,7 +69,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   padding: 8px 12px;
   background: var(--c-primary);
   color: #fff;
-  border-bottom: 2px solid var(--c-border);
+  border-bottom: var(--px) solid var(--c-border);
 }
 .title {
   font-weight: 700;
@@ -88,13 +99,5 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   font-size: 12px;
   color: var(--c-ink-soft);
   border-top: 1px dashed var(--c-ink-soft);
-}
-kbd {
-  padding: 0 4px;
-  border: 1px solid var(--c-ink-soft);
-  border-bottom-width: 2px;
-  font-family: inherit;
-  font-size: 12px;
-  background: #fff;
 }
 </style>

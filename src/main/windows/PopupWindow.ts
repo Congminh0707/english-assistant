@@ -1,6 +1,7 @@
 import { BrowserWindow, screen } from 'electron'
 import { join } from 'path'
 import { loadPage } from './loadPage'
+import { forwardConsoleInDev } from './devConsole'
 
 const SIZE = { width: 380, height: 260 }
 /** Khoảng cách từ con trỏ chuột tới góc popup */
@@ -35,6 +36,7 @@ export class PopupWindow {
     })
     this.win.setAlwaysOnTop(true, 'pop-up-menu')
     this.win.on('blur', () => this.hide())
+    forwardConsoleInDev(this.win, 'popup')
     loadPage(this.win, 'popup')
   }
 

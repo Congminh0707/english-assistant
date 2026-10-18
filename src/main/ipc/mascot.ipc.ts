@@ -1,31 +1,13 @@
-import { ipcMain, type IpcMainEvent, type IpcMainInvokeEvent } from 'electron'
-import { IpcChannel, type DragEndResult, type WalkResult } from '@shared/ipc'
 import type { MascotWindow } from '../windows/MascotWindow'
+import { handle, onSend } from './handle'
 
-const MAX_STEP = 20
-
-export function registerMascotIpc(mascot: MascotWindow): void {
+export function registerMascotIpc(mascot: MascotWindow, showContextMenu: () => void): void {
   // Chỉ nhận lệnh từ chính cửa sổ mascot
-  const fromMascot = (e: IpcMainEvent | IpcMainInvokeEvent): boolean =>
-    e.sender === mascot.win.webContents
+  const from = (): Electron.WebContents => mascot.win.webContents
 
-  ipcMain.on(IpcChannel.mascotSetClickThrough, (e, enabled: unknown) => {
-    if (!fromMascot(e) || typeof enabled !== 'boolean') return
-    mascot.setClickThrough(enabled)
-  })
-
-  ipcMain.on(IpcChannel.mascotDragStart, (e) => {
-    if (!fromMascot(e)) return
-    mascot.startDrag()
-  })
-
-  ipcMain.handle(IpcChannel.mascotDragEnd, (e): DragEndResult => {
-    if (!fromMascot(e)) return { falling: false }
-    return mascot.endDrag()
-  })
-
-  ipcMain.handle(IpcChannel.mascotWalk, (e, dx: unknown): WalkResult => {
-    if (!fromMascot(e) || typeof dx !== 'number' || !Number.isFinite(dx)) return { blocked: null }
-    return mascot.walk(Math.max(-MAX_STEP, Math.min(MAX_STEP, dx)))
-  })
+  onSend('mascot:set-click-through', (enabled) => mascot.setClickThrough(enabled), { from })
+  onSend('mascot:drag-start', () => mascot.startDrag(), { from })
+  onSend('mascot:context-menu', () => showContextMenu(), { from })
+  handle('mascot:drag-end', () => mascot.endDrag(), { from })
+  handle('mascot:walk', (dx) => mascot.walk(dx), { from })
 }

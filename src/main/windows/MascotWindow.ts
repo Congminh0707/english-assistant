@@ -1,13 +1,14 @@
 import { BrowserWindow, screen, type Rectangle } from 'electron'
 import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
-import { IpcEvent, type DragEndResult, type WalkResult } from '@shared/ipc'
+import type { DragEndResult, WalkResult } from '@shared/ipc-contract'
+import { sendTo } from '../ipc/broadcast'
 import { loadPage } from './loadPage'
+import { forwardConsoleInDev } from './devConsole'
 
 const SIZE = { width: 320, height: 320 }
-/** Phần trong suốt hai bên nhân vật được phép thò ra ngoài mép màn hình, để nhân vật đi sát mép.
- *  Cửa sổ rộng 320px, nhân vật 96px ở giữa → mỗi bên trống 112px. */
-const EDGE_OVERHANG = 104
+/** Kích thước khung sprite gốc (px); hiển thị = FRAME_PX × scale */
+const FRAME_PX = 48
 const FRAME_MS = 16
 const GRAVITY = 2600 // px/s²
 
@@ -24,8 +25,16 @@ export class MascotWindow {
   private userHidden = false
   /** Tạm ẩn do chế độ yên lặng (app toàn màn hình...) */
   private quiet = false
+  /** Người dùng chọn "Ẩn 30 phút / 1 giờ" */
+  private snoozeUntil: number | null = null
+  private snoozeTimer: NodeJS.Timeout | null = null
+  /** Phần trong suốt hai bên nhân vật được thò ra ngoài mép màn hình, để nhân vật đi sát mép */
+  private edgeOverhang = 0
+  /** Gọi mỗi khi trạng thái hiện/ẩn thay đổi (để tray vẽ lại menu) */
+  onVisibilityChanged: (() => void) | null = null
 
-  constructor() {
+  constructor(scale: number) {
+    this.setScale(scale)
     const start = this.homePosition()
     this.win = new BrowserWindow({
       ...SIZE,
@@ -62,6 +71,7 @@ export class MascotWindow {
     })
     this.win.on('closed', () => this.stopTimers())
 
+    forwardConsoleInDev(this.win, 'mascot')
     loadPage(this.win, 'mascot')
   }
 
@@ -148,7 +158,36 @@ export class MascotWindow {
     return this.quiet
   }
 
+  get snoozedUntil(): number | null {
+    return this.snoozeUntil
+  }
+
+  /** Đổi kích thước hiển thị của sprite → tính lại phần được thò ra mép màn hình */
+  setScale(scale: number): void {
+    const spriteWidth = FRAME_PX * scale
+    this.edgeOverhang = Math.max(0, (SIZE.width - spriteWidth) / 2 - 8)
+  }
+
+  /** Ẩn trong một khoảng thời gian rồi tự hiện lại */
+  snooze(ms: number): void {
+    if (this.snoozeTimer) clearTimeout(this.snoozeTimer)
+    this.snoozeUntil = Date.now() + ms
+    this.snoozeTimer = setTimeout(() => this.unsnooze(), ms)
+    this.applyVisibility()
+  }
+
+  unsnooze(): void {
+    if (this.snoozeTimer) clearTimeout(this.snoozeTimer)
+    this.snoozeTimer = null
+    this.snoozeUntil = null
+    this.applyVisibility()
+  }
+
   toggleVisible(): void {
+    if (this.snoozeUntil) {
+      this.show()
+      return
+    }
     this.userHidden = !this.userHidden
     this.applyVisibility()
   }
@@ -156,7 +195,8 @@ export class MascotWindow {
   /** Người dùng yêu cầu hiện (vd mở app lần 2). Chế độ yên lặng vẫn được tôn trọng. */
   show(): void {
     this.userHidden = false
-    this.applyVisibility()
+    if (this.snoozeUntil) this.unsnooze()
+    else this.applyVisibility()
   }
 
   setQuiet(quiet: boolean): void {
@@ -166,7 +206,7 @@ export class MascotWindow {
 
   private applyVisibility(): void {
     if (this.win.isDestroyed()) return
-    const shouldShow = !this.userHidden && !this.quiet
+    const shouldShow = !this.userHidden && !this.quiet && !this.snoozeUntil
     if (shouldShow && !this.win.isVisible()) {
       this.win.showInactive() // hiện mà không lấy focus
     } else if (!shouldShow && this.win.isVisible()) {
@@ -174,6 +214,7 @@ export class MascotWindow {
       if (this.dragTimer) this.endDrag()
       this.win.hide()
     }
+    this.onVisibilityChanged?.()
   }
 
   private startFall(groundY: number): void {
@@ -189,7 +230,7 @@ export class MascotWindow {
       if (ny >= groundY) {
         this.moveTo(x, groundY)
         this.stopFall()
-        if (!this.win.isDestroyed()) this.win.webContents.send(IpcEvent.mascotLanded)
+        sendTo(this.win, 'mascot:landed', undefined)
       } else {
         this.moveTo(x, ny)
       }
@@ -216,8 +257,8 @@ export class MascotWindow {
   }
 
   private clampX(x: number, area: Rectangle): number {
-    const min = area.x - EDGE_OVERHANG
-    const max = area.x + area.width - SIZE.width + EDGE_OVERHANG
+    const min = area.x - this.edgeOverhang
+    const max = area.x + area.width - SIZE.width + this.edgeOverhang
     return Math.min(Math.max(x, min), max)
   }
 
@@ -240,5 +281,6 @@ export class MascotWindow {
   private stopTimers(): void {
     this.stopDrag()
     this.stopFall()
+    if (this.snoozeTimer) clearTimeout(this.snoozeTimer)
   }
 }

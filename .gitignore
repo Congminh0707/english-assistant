@@ -4,3 +4,11 @@ out
 .DS_Store
 .eslintcache
 *.log*
+
+# Content pipeline (scripts/content) — dữ liệu lớn không commit
+content/raw/*
+!content/raw/SOURCES.md
+content/normalized/
+content/.build/
+content/packs/*
+!content/packs/samples/

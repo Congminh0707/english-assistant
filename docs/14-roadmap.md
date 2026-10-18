@@ -73,8 +73,9 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 - [ ] Placement rút gọn (từ vựng + ngữ pháp) & rating theo kỹ năng
 
 **Nội dung (song song)**
-- [ ] Pipeline: fetch + normalize Tatoeba, NGSL, CEFR-J, kaikki (Wiktionary), CMUdict
-- [ ] Build `core-dictionary` + `decks` theo level
+- [x] Pipeline: fetch + normalize Tatoeba, NGSL, CEFR-J, kaikki (Wiktionary), CMUdict
+- [x] Build `core-dictionary` + `decks` theo level (v1.0.0 — [09 §10](09-content-pipeline.md#10-đã-làm-pipeline-core-dictionary-v1))
+- [ ] Sinh nghĩa tiếng Việt ngắn bằng LLM cho từ phổ biến còn thiếu (`normalized/missing-vi.json`) + duyệt
 
 **DoD:** Dùng liên tục 1 tuần không lỗi nghiêm trọng; dịch từ < 1s; học & ôn từ vựng hằng ngày được; thú cưng phản ứng với việc học.
 

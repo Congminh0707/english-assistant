@@ -19,13 +19,21 @@
     "build:unpack": "npm run build && electron-builder --dir",
     "build:win": "npm run build && electron-builder --win",
     "build:mac": "npm run build && electron-builder --mac",
-    "build:linux": "npm run build && electron-builder --linux"
+    "build:linux": "npm run build && electron-builder --linux",
+    "content:fetch": "tsx scripts/content/fetch.ts",
+    "content:normalize": "tsx scripts/content/normalize.ts",
+    "content:level": "tsx scripts/content/level.ts",
+    "content:validate": "tsx scripts/content/validate.ts",
+    "content:build": "tsx scripts/content/build.ts",
+    "content:lookup": "tsx scripts/content/lookup.ts",
+    "content:typecheck": "tsc --noEmit -p scripts/content/tsconfig.json"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
     "@electron-toolkit/utils": "^4.0.0",
     "electron-updater": "^6.8.9",
-    "koffi": "^3.3.3"
+    "koffi": "^3.3.3",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@electron-toolkit/eslint-config-prettier": "3.0.1",
@@ -38,7 +46,10 @@
     "electron-vite": "^6.0.0",
     "eslint": "^10.12.0",
     "eslint-plugin-vue": "^10.11.1",
+    "fflate": "^0.8.3",
     "prettier": "^3.9.10",
+    "seek-bzip": "^2.0.0",
+    "tsx": "^4.23.15",
     "typescript": "^5.9.3",
     "vite": "^8.3.4",
     "vue": "^3.5.44",

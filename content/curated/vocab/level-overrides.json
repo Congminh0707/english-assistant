@@ -1,0 +1,4 @@
+{
+  "$comment": "Ghi đè level gợi ý tự động của content:level. Khoá = word id, giá trị = LevelCode (PA1_1 … C2). Sửa xong chạy: pnpm content:level && pnpm content:build",
+  "levels": {}
+}

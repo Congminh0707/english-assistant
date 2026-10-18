@@ -1,0 +1,316 @@
+# 09 — Pipeline nội dung
+
+Vấn đề lớn nhất của dự án: **chưa có sẵn kho bài học**. Tài liệu này mô tả cách biến dữ liệu thô từ nhiều nguồn miễn phí ([08](08-content-sources.md))
+thành bài học có cấu trúc, gắn level, kiểm duyệt và đóng gói để app dùng offline.
+
+## 1. Tổng quan
+
+```mermaid
+flowchart LR
+  A["1. Thu thập<br/>(download dump/API)"] --> B["2. Chuẩn hoá<br/>(về schema chung)"]
+  B --> C["3. Làm giàu<br/>(dịch, IPA, audio, ví dụ)"]
+  C --> D["4. Gắn level<br/>(tự động + chỉnh tay)"]
+  D --> E["5. Sinh bài tập<br/>(rule-based + AI)"]
+  E --> F["6. Kiểm duyệt<br/>(script QA + người)"]
+  F --> G["7. Đóng gói<br/>(content pack .eapack)"]
+  G --> H["8. Phân phối<br/>(kèm installer / tải về)"]
+```
+
+Mọi bước là **script TypeScript** trong `scripts/content/` chạy bằng `tsx` (giống Artisan command). Dữ liệu trung gian lưu ở `content/`:
+
+```text
+content/
+├─ raw/          # 1. dữ liệu tải về nguyên bản (KHÔNG commit nếu lớn; có file SOURCES.md ghi nguồn + ngày tải + license)
+├─ normalized/   # 2–4. JSONL theo schema chung (mỗi dòng 1 bản ghi)
+├─ curated/      # 5–6. YAML/JSON đã duyệt — đây là "source code" của nội dung, CÓ commit vào git
+│  ├─ curriculum/      # khung chương trình, grammar inventory
+│  ├─ vocab-decks/
+│  ├─ grammar/
+│  ├─ readings/
+│  ├─ listenings/
+│  ├─ videos/
+│  ├─ phrasebook/
+│  ├─ courses/         # track → course → unit → lesson
+│  └─ exams/
+├─ media/        # audio/ảnh đã xử lý (git LFS hoặc lưu ngoài)
+└─ packs/        # 7. file .eapack đã build
+```
+
+Lệnh (khai báo trong `package.json`):
+
+| Lệnh | Việc làm |
+|---|---|
+| `pnpm content:fetch <source>` | Tải dữ liệu thô của một nguồn (vd `tatoeba`, `ngsl`, `kaikki`) |
+| `pnpm content:normalize <source>` | Chuyển về schema chung |
+| `pnpm content:enrich` | Bổ sung IPA, dịch, audio TTS, ví dụ |
+| `pnpm content:level` | Gắn/kiểm tra level |
+| `pnpm content:generate <kind>` | Sinh bài tập (rule-based hoặc AI) |
+| `pnpm content:validate` | Kiểm tra schema + QA tự động |
+| `pnpm content:build [packId]` | Đóng gói pack |
+
+## 2. Nguyên tắc bắt buộc
+
+1. **Mỗi bản ghi phải có `source`** (id nguồn, url, tác giả nếu có, license). Không có license → không được vào `curated/`.
+2. Nội dung **share-alike** (CC BY-SA) đóng gói riêng pack và giữ nguyên license đó cho pack (xem [08](08-content-sources.md#1-chính-sách-giấy-phép)).
+3. Nội dung do AI sinh: `source.id = "generated"`, ghi model + ngày, **bắt buộc qua kiểm duyệt** trước khi phát hành (`review.status = "approved"`).
+4. Nội dung cho trẻ em phải qua checklist an toàn (mục 7).
+5. Script phải **idempotent** (chạy lại không nhân đôi dữ liệu) — dùng id ổn định (hash từ nguồn + id gốc).
+
+## 3. Schema nội dung
+
+Schema định nghĩa bằng **zod** trong `src/shared/schemas/content/` — dùng chung cho script pipeline, validate khi import pack, và kiểu TypeScript cho app.
+
+### 3.1 Trường dùng chung
+
+```ts
+const SourceRef = z.object({
+  id: z.string(),                 // 'tatoeba' | 'ngsl' | 'voa' | 'generated' | 'original' ...
+  url: z.string().url().optional(),
+  author: z.string().optional(),
+  license: z.string(),            // 'CC-BY-2.0-FR' | 'CC-BY-SA-4.0' | 'PD' | 'CC0' | 'proprietary-own' ...
+  generatedBy: z.string().optional(), // vd 'claude-sonnet-5-5@2026-10-18'
+})
+
+const Meta = z.object({
+  id: z.string(),                 // ổn định, vd 'word:en:apple', 'lesson:general-a2:u03:l02'
+  level: LevelCode,               // 'PA1_1' ... 'C2'
+  tracks: z.array(Track).default([]),  // rỗng = mọi track
+  topics: z.array(z.string()).default([]), // 'food', 'travel', 'business'...
+  source: SourceRef,
+  review: z.object({ status: z.enum(['draft', 'ai_checked', 'approved', 'rejected']), by: z.string().optional() }),
+})
+```
+
+### 3.2 Từ vựng (`word`)
+
+```json
+{
+  "id": "word:en:appointment",
+  "lemma": "appointment",
+  "pos": ["noun"],
+  "ipa": { "us": "/əˈpɔɪntmənt/", "uk": "/əˈpɔɪntmənt/" },
+  "senses": [
+    {
+      "id": "s1",
+      "vi": "cuộc hẹn (gặp bác sĩ, đối tác...)",
+      "en": "an arrangement to meet someone at a particular time",
+      "examples": [{ "en": "I have a dental appointment at 3.", "vi": "Tôi có hẹn nha sĩ lúc 3 giờ.", "sourceId": "tatoeba:12345" }]
+    }
+  ],
+  "forms": { "plural": "appointments" },
+  "family": ["appoint", "appointee"],
+  "collocations": ["make an appointment", "cancel an appointment"],
+  "lists": ["ngsl", "tsl"],
+  "freqRank": 1834,
+  "level": "A2_2",
+  "audio": { "us": "media/words/us/appointment.mp3" },
+  "image": null,
+  "source": { "id": "composite", "license": "see-fields" }
+}
+```
+
+### 3.3 Bài học & bài tập (`lesson`, `exercise`)
+
+```json
+{
+  "id": "lesson:general-a2:u03:l02",
+  "title": { "vi": "Hỏi giá & mặc cả", "en": "Asking prices" },
+  "level": "A2_1",
+  "tracks": ["general"],
+  "skills": ["speaking", "vocabulary"],
+  "estimatedMinutes": 8,
+  "intro": { "vi": "Học cách hỏi giá và trả giá lịch sự." },
+  "vocab": ["word:en:price", "word:en:discount", "word:en:expensive"],
+  "grammar": ["grammar:how-much-many"],
+  "items": [
+    {
+      "id": "ex:1",
+      "type": "listen_choice",
+      "audio": "media/lessons/general-a2-u03-l02/1.mp3",
+      "transcript": "How much is this T-shirt?",
+      "question": { "vi": "Người nói hỏi gì?" },
+      "choices": ["Giá áo", "Màu áo", "Cỡ áo"],
+      "answer": 0,
+      "explain": { "vi": "\"How much is...?\" dùng để hỏi giá." }
+    },
+    {
+      "id": "ex:2",
+      "type": "word_order",
+      "tokens": ["Can", "you", "give", "me", "a", "discount", "?"],
+      "answers": [["Can", "you", "give", "me", "a", "discount", "?"]],
+      "translation": { "vi": "Bạn có thể giảm giá cho tôi không?" }
+    },
+    {
+      "id": "ex:3",
+      "type": "gap_fill",
+      "text": "It's too {{1}}. Do you have a cheaper one?",
+      "blanks": { "1": { "accept": ["expensive"], "bank": ["expensive", "cheap", "big"] } }
+    }
+  ],
+  "source": { "id": "original", "license": "proprietary-own" },
+  "review": { "status": "approved", "by": "huy" }
+}
+```
+
+Mỗi `type` có schema riêng (zod discriminated union theo `type`) — danh sách dạng bài ở [07](07-learning-modules.md#2-danh-mục-dạng-bài-tập-exercise-types).
+
+### 3.4 Bài đọc / bài nghe / video
+
+```json
+{
+  "id": "reading:storyweaver:12345",
+  "kind": "reading",
+  "title": "The Thirsty Crow",
+  "level": "A1_1",
+  "wordCount": 142,
+  "paragraphs": [
+    { "en": "A crow was very thirsty.", "vi": "Một con quạ rất khát nước.", "audio": { "src": "media/...mp3", "start": 0.0, "end": 2.1 } }
+  ],
+  "images": [{ "src": "media/...png", "afterParagraph": 0 }],
+  "questions": [ { "type": "mcq", "...": "..." } ],
+  "newWords": ["word:en:thirsty", "word:en:crow"],
+  "source": { "id": "storyweaver", "url": "https://storyweaver.org.in/...", "author": "...", "license": "CC-BY-4.0" }
+}
+```
+
+```json
+{
+  "id": "video:yt:abc123:intro",
+  "kind": "video",
+  "provider": "youtube",
+  "videoId": "abc123XYZ",
+  "start": 30, "end": 150,
+  "level": "A2_2",
+  "checkpoints": [ { "at": 75, "item": { "type": "mcq", "...": "..." } } ],
+  "source": { "id": "youtube-embed", "url": "https://www.youtube.com/watch?v=abc123XYZ", "license": "embed-only" }
+}
+```
+
+## 4. Gắn level tự động
+
+Script `content:level` tính **gợi ý level**, người duyệt có thể ghi đè (`levelOverride`).
+
+### Với từ vựng
+Thứ tự ưu tiên:
+1. Có trong bộ từ trẻ em tự soạn (sight words, từ chủ đề mầm non/tiểu học) → `PA1_*`.
+2. Có level trong CEFR-J (nếu dùng) → map trực tiếp.
+3. Theo **thứ hạng tần suất** trong NGSL/NAWL/TSL (ví dụ: top 500 → A1_1, 500–1000 → A1_2, 1000–1500 → A2_1, 1500–2000 → A2_2, 2000–2800 (hết NGSL) → B1, NAWL → B2, ngoài danh sách nhưng có tần suất → C1/C2).
+4. Từ học thuật/TOEIC giữ tag `lists` để lọc theo kỳ thi.
+
+### Với câu / đoạn văn
+Kết hợp 3 tín hiệu, lấy kết quả có trọng số:
+- **Độ phủ từ vựng**: level thấp nhất mà ≥ 95% từ (đã lemmatize) nằm trong vốn từ tích luỹ của level đó.
+- **Độ dễ đọc**: Flesch-Kincaid Grade, độ dài câu trung bình, số âm tiết/từ.
+- **Ngữ pháp**: dò cấu trúc (regex/pattern) từ grammar inventory — có cấu trúc B2 thì không thể dưới B2.
+
+Bảng ngưỡng nằm trong `scripts/content/level/thresholds.ts` và được hiệu chỉnh dần bằng dữ liệu (độ khó item tự điều chỉnh theo Elo — [06](06-levels-and-progression.md#2-rating-theo-từng-kỹ-năng)).
+
+## 5. Xử lý audio
+
+| Trường hợp | Cách làm |
+|---|---|
+| Nguồn có audio gốc (VOA, LibriVox, Tatoeba) | Chuẩn hoá: mono, 22–24 kHz, **Opus/OGG** hoặc MP3 64–96 kbps, chuẩn hoá âm lượng (ffmpeg `loudnorm`). |
+| Bài dài cần tách câu | Căn chỉnh transcript với audio bằng Whisper (word timestamps) → lưu `start/end` từng câu. |
+| Không có audio | Sinh bằng TTS lúc build (Piper với giọng có license thương mại — **không** dùng lessac/amy/ryan, xem [08](08-content-sources.md#9-model-ai--thư-viện-có-license-cần-chú-ý) — hoặc TTS của provider) — hoặc để app đọc bằng TTS hệ thống lúc chạy (nhẹ hơn, chất lượng thấp hơn). |
+| Hội thoại nhiều người | TTS nhiều giọng (nam/nữ, US/UK/AU — IELTS cần nhiều giọng). |
+
+Công cụ: `ffmpeg` (cài qua `winget install Gyan.FFmpeg`), gọi từ script bằng `execa`.
+
+## 6. Sinh bài tập
+
+### 6.1 Rule-based (miễn phí, chạy offline, nên dùng tối đa)
+| Từ dữ liệu | Sinh ra |
+|---|---|
+| Câu song ngữ Tatoeba | `word_order`, `translate_sentence`, `dictation` (nếu có audio), `gap_fill` (đục từ mục tiêu) |
+| Từ vựng + nghĩa | `mcq` nghĩa (đáp án nhiễu: từ cùng loại, cùng level, khác nghĩa), `tap_pairs`, `picture_choice` (nếu có ảnh) |
+| Bài đọc | `gap_fill` tóm tắt, câu hỏi từ vựng trong ngữ cảnh |
+| Cặp âm tối thiểu (CMUdict) | `pronounce_word`, `listen_choice` phân biệt âm |
+
+### 6.2 Sinh bằng AI (cần duyệt)
+Dùng cho: hội thoại theo tình huống, câu hỏi đọc hiểu, giải thích ngữ pháp, đề TOEIC/IELTS mô phỏng, truyện ngắn phân level, câu đố trẻ em.
+
+Prompt mẫu đặt ở `scripts/content/prompts/*.md`, luôn gồm:
+- Level mục tiêu + danh sách từ được phép/khuyến khích dùng (từ vốn từ tích luỹ của level).
+- Danh sách điểm ngữ pháp được phép.
+- Track & chủ đề, độ dài.
+- **Định dạng đầu ra JSON đúng schema** (kèm schema rút gọn) → script validate bằng zod ngay.
+- Yêu cầu: nội dung gốc, không trích sách/đề thi có bản quyền, phù hợp văn hoá, an toàn cho trẻ em nếu track trẻ em.
+
+Sau khi sinh: chạy `content:level` để kiểm tra level thực tế có khớp yêu cầu không (lệch > 1 bậc → loại hoặc sinh lại).
+
+Khi có backend Laravel, bước này chuyển thành **Job** trong Content Studio (queue + màn hình duyệt) — xem [03](03-architecture.md#7-backend-laravel-tuỳ-chọn-giai-đoạn-sau).
+
+## 7. Kiểm duyệt (QA)
+
+### Tự động (`content:validate`)
+- [ ] Đúng schema zod.
+- [ ] Có `source.license` hợp lệ trong danh sách cho phép.
+- [ ] File media tồn tại, đúng định dạng, dung lượng hợp lý.
+- [ ] Đáp án hợp lệ (index trong khoảng, `word_order` ghép lại khớp đáp án...).
+- [ ] Level gợi ý lệch ≤ 1 bậc so với level gán.
+- [ ] Lọc từ cấm / nội dung không phù hợp (danh sách từ cấm, đặc biệt cho track trẻ em).
+- [ ] Không trùng lặp (hash nội dung chuẩn hoá).
+- [ ] Chính tả tiếng Anh (LanguageTool) và tiếng Việt có dấu đầy đủ.
+
+### Người duyệt (checklist)
+- [ ] Đáp án đúng, giải thích dễ hiểu, không mơ hồ.
+- [ ] Bản dịch tiếng Việt tự nhiên.
+- [ ] Phù hợp lứa tuổi & văn hoá (không bạo lực, không chính trị, không định kiến).
+- [ ] Audio rõ, khớp transcript.
+- [ ] Đánh dấu `review.status = approved`.
+
+Trong giai đoạn chưa có Content Studio: duyệt trực tiếp file YAML trong `content/curated/` qua Pull Request.
+
+## 8. Đóng gói — Content pack
+
+Một pack = file `.eapack` (thực chất là **zip**):
+
+```text
+general-a2-v3.eapack
+├─ manifest.json
+├─ content.db          # SQLite read-only chứa toàn bộ nội dung pack
+├─ media/              # audio (ogg/mp3), ảnh (png/webp)
+└─ LICENSES.md         # tổng hợp nguồn & giấy phép, sinh tự động
+```
+
+`manifest.json`:
+```json
+{
+  "id": "general-a2",
+  "version": "3.0.0",
+  "schemaVersion": 1,
+  "title": { "vi": "Tiếng Anh tổng quát A2", "en": "General English A2" },
+  "levels": ["A2_1", "A2_2"],
+  "tracks": ["general"],
+  "license": "mixed — xem LICENSES.md",
+  "sizeBytes": 48211234,
+  "requires": ["core-dictionary@>=1.0.0"],
+  "sha256": "..."
+}
+```
+
+Các pack dự kiến:
+
+| Pack | Nội dung | Kèm installer? |
+|---|---|---|
+| `core-dictionary` | Từ điển Anh–Việt, IPA, câu ví dụ | Có |
+| `core-kids` | Phonics, từ mầm non/tiểu học, truyện tranh | Có |
+| `core-a1-a2`, `core-b1-b2`, `core-c1-c2` | Lộ trình tổng quát theo bậc | A1–A2 có, còn lại tải về |
+| `toeic`, `ielts` | Bộ từ + đề luyện | Tải về |
+| `phrasebook` | Mẫu câu giao tiếp | Có |
+| `share-alike-*` | Nội dung CC BY-SA tách riêng | Tuỳ |
+
+**Cài pack trong app** (`ContentPackService`): kiểm tra sha256 → giải nén vào `userData/packs/<id>/<version>/` → validate `schemaVersion` → mở `content.db` read-only → đăng ký vào bảng `installed_packs` của `user.db`.
+Nội dung giữa các pack tham chiếu bằng **id chuỗi** ổn định, không dùng id số tự tăng — để cập nhật pack không làm hỏng tiến độ người dùng (SRS, attempts lưu theo id chuỗi).
+
+## 9. Kế hoạch nội dung tối thiểu cho MVP
+
+| Hạng mục | Số lượng | Nguồn |
+|---|---|---|
+| Từ điển | ~ 30.000 mục từ (ưu tiên 10.000 từ phổ biến có nghĩa tiếng Việt tốt) | Wiktionary (kaikki) + danh sách tần suất |
+| Bộ từ có level | NGSL (~2.800), CEFR-J (~7.800), TSL (~1.200), bộ từ trẻ em tự soạn (~500) | Xem 08 |
+| Câu ví dụ song ngữ | 10.000+ cặp Anh–Việt (Tatoeba có ít câu tiếng Việt → bổ sung bằng dịch máy + duyệt) | Tatoeba + tự dịch |
+| Bài đọc A1–B1 | 50 | StoryWeaver + tự soạn |
+| Bài nghe A1–B1 | 30 | VOA Learning English |
+| Điểm ngữ pháp A1–B1 | 40 | Tự soạn (AI hỗ trợ + duyệt) |
+| Bài học lộ trình A1–A2 | 2 course × 8 unit × 4 lesson | Tự soạn từ các nguồn trên |

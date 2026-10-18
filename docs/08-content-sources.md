@@ -1,0 +1,180 @@
+# 08 — Nguồn nội dung miễn phí & giấy phép
+
+> Thông tin giấy phép được **kiểm tra ngày 2026-10-18** trên trang chính thức của từng nguồn. Giấy phép có thể thay đổi — **kiểm tra lại trước mỗi lần phát hành**.
+> Tài liệu này không phải tư vấn pháp lý. Trước khi phát hành thương mại, nên nhờ người có chuyên môn rà soát các mục ⚠️.
+
+Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được nhưng có điều kiện/rủi ro · 🔗 chỉ nhúng hoặc dẫn link · ❌ không dùng · ❓ chưa xác minh được.
+
+---
+
+## 1. Chính sách giấy phép
+
+### 1.1 Bốn cách dùng nội dung
+
+| Cấp | Cách dùng | Điều kiện | Ví dụ |
+|---|---|---|---|
+| **Bundle** | Đóng gói vào content pack, chỉnh sửa, sinh bài tập | License cho phép phân phối lại (PD, CC0, CC BY, CC BY-SA, MIT, Apache, BSD...) | Tatoeba, NGSL, VOA, StoryWeaver |
+| **Embed** | Nhúng qua trình phát chính thức, không tải về | Điều khoản của nền tảng cho phép nhúng | YouTube IFrame |
+| **Link-out** | Chỉ mở link trong trình duyệt | Không | BBC Learning English, British Council |
+| **Reference** | Chỉ dùng để đối chiếu khi tự soạn (không sao chép) | Không sao chép nguyên văn | English Vocabulary/Grammar Profile, Oxford 3000, đề thi thật |
+
+### 1.2 Danh sách license được phép trong `source.license`
+
+| Mã | Đóng gói | Ghi chú bắt buộc |
+|---|---|---|
+| `PD`, `CC0` | ✅ | Không cần ghi công (vẫn nên ghi) |
+| `CC-BY-*` | ✅ | Ghi công: tên tác phẩm, tác giả, nguồn, license, có thay đổi hay không |
+| `CC-BY-SA-*` | ✅ ⚠️ | Ghi công + **phần dữ liệu phái sinh phải giữ CC BY-SA** → đóng vào pack riêng, pack đó mang license CC BY-SA |
+| `MIT`, `Apache-2.0`, `BSD-*`, `WordNet` | ✅ | Giữ thông báo bản quyền trong `LICENSES.md` |
+| `CEFR-J` (license riêng) | ✅ | Ghi trích dẫn đúng như tác giả yêu cầu |
+| `proprietary-own` | ✅ | Nội dung tự soạn / AI sinh đã duyệt |
+| `embed-only` | 🔗 | Chỉ lưu id/link, không lưu file |
+| `*-NC-*` (phi thương mại), `*-ND-*` (không phái sinh) | ❌ | Không đóng gói (app có thể thương mại hoá về sau) |
+| `GPL-*` cho **dữ liệu** | ❌ (mặc định) | Copyleft — rủi ro cho app không mở mã |
+
+### 1.3 Ghi công trong app
+- Mỗi pack có `LICENSES.md` sinh tự động từ bảng `sources`.
+- Màn hình **Cài đặt → Giấy phép & ghi công** liệt kê toàn bộ nguồn của các pack đã cài + license phần mềm (thư viện npm, model).
+- Nội dung CC BY/CC BY-SA hiển thị dòng ghi công nhỏ ngay dưới bài đọc/bài nghe (vd: *"The Thirsty Crow" — StoryWeaver, CC BY 4.0*).
+
+---
+
+## 2. Từ vựng và danh sách từ theo level
+
+| Nguồn | License | Trạng thái | Dùng cho | Ghi chú |
+|---|---|---|---|---|
+| **NGSL** — New General Service List (newgeneralservicelist.com) | CC BY-SA 4.0 (cho phép thương mại) | ✅ ⚠️ SA | ~2.800 từ phổ biến nhất, xếp hạng tần suất → level A1–B1 | Tải CSV/TXT/XLSX (bản 1.2). Ghi công Browne, Culligan, Phillips. |
+| **TSL** — TOEIC Service List (cùng site) | CC BY-SA 4.0 | ✅ ⚠️ SA | ~1.200 từ đặc trưng TOEIC | Track `toeic` |
+| **NAWL** — New Academic Word List (cùng site) | ❓ (site ghi "Creative Commons", chưa xác minh từng trang) | ⚠️ | ~960 từ học thuật → IELTS, B2–C1 | Xác minh license trước khi đóng gói |
+| **BSL** — Business Service List (cùng site) | ❓ (như trên) | ⚠️ | Từ vựng kinh doanh | Như trên |
+| **CEFR-J Wordlist** (openlanguageprofiles/olp-en-cefrj, GitHub) | License riêng của Tono Lab (TUFS): miễn phí cho nghiên cứu & thương mại, **phải trích dẫn** | ✅ | Gán level CEFR A1–B2 cho ~7.800 từ | CSV. Ghi trích dẫn đúng yêu cầu. |
+| **Octanove C1/C2 Vocabulary Profile** (cùng repo) | CC BY-SA 4.0 | ✅ ⚠️ SA | Level C1–C2 | |
+| **Dolch sight words** | ❓ chưa xác nhận public domain | ⚠️ | Sight words trẻ em | Danh sách từ ngắn mang tính "dữ kiện"; an toàn nhất là **tự lập danh sách sight words** dựa trên tần suất (NGSL top + từ chủ đề mầm non), dùng Dolch chỉ để đối chiếu |
+| **Fry words** | ❓ có thể còn bản quyền (sách 1979) | Reference | Đối chiếu | Không sao chép nguyên danh sách |
+| Oxford 3000/5000 | Bản quyền Oxford | Reference / ❌ | Đối chiếu | Không đưa vào repo |
+| English Vocabulary Profile (Cambridge) | Không mở | Reference / ❌ | Đối chiếu | |
+| Cambridge YLE wordlists (Starters/Movers/Flyers) | Bản quyền Cambridge (PDF công khai) | Reference | Đối chiếu độ phủ khi tự soạn bộ từ trẻ em | Không sao chép nguyên văn |
+
+**Bộ từ trẻ em** (mầm non, tiểu học) nên **tự soạn** theo chủ đề (màu sắc, con vật, gia đình, đồ ăn, trường học, cơ thể, số đếm...) — vừa sạch bản quyền vừa đúng văn hoá Việt Nam.
+
+## 3. Từ điển, nghĩa, phát âm
+
+| Nguồn | License | Trạng thái | Dùng cho | Ghi chú |
+|---|---|---|---|---|
+| **English Wiktionary** qua **kaikki.org** (wiktextract) | Dữ liệu: CC BY-SA 4.0 + GFDL (kế thừa Wiktionary); code wiktextract: MIT | ✅ ⚠️ SA | Định nghĩa tiếng Anh, loại từ, IPA, dạng từ, **bản dịch sang tiếng Việt** (có nhưng không đều), ví dụ | File JSONL tiếng Anh ~3 GB → lọc theo danh sách từ cần dùng. Tải ở kaikki.org/dictionary/rawdata.html. Đóng pack `core-dictionary` dưới CC BY-SA. |
+| Từ điển tiếng Việt trích từ English Wiktionary (kaikki) | CC BY-SA 4.0 + GFDL | ✅ ⚠️ SA | Tra ngược Việt → Anh | |
+| Vietnamese Wiktionary (vi.wiktionary.org) | CC BY-SA 4.0 + GFDL | ⚠️ | Bổ sung nghĩa Anh–Việt | Chưa có bản trích sẵn trên kaikki — phải tự xử lý dump Wikimedia |
+| **Open English WordNet** (2025) | CC BY 4.0 | ✅ | Định nghĩa, từ đồng nghĩa, quan hệ từ | LMF XML / JSON |
+| Princeton WordNet 3.0 | License WordNet (dễ dãi, giữ thông báo) | ✅ | Như trên (bản cũ) | Không dùng tên Princeton để quảng bá |
+| **CMU Pronouncing Dictionary** | BSD-style | ✅ | Phiên âm US (ARPAbet → IPA), cặp âm tối thiểu, chấm phát âm | Giữ thông báo bản quyền |
+| Free Vietnamese Dictionary Project (Hồ Ngọc Đức) — từ điển Anh–Việt ~109.000 mục | GPL v2+ (một số database có license riêng) | ❌ (mặc định) | — | Copyleft cho dữ liệu → rủi ro. Chỉ cân nhắc nếu app mở mã GPL; nếu dùng phải đọc mục `00-database-info` của từng database |
+
+**Chiến lược nghĩa tiếng Việt:** Wiktionary không đủ nghĩa tiếng Việt cho mọi từ. Với ~10.000 từ phổ biến nhất (theo NGSL/CEFR-J), sinh nghĩa tiếng Việt ngắn gọn bằng **LLM lúc build** rồi duyệt dần → nội dung `proprietary-own`. Đây là phần đáng đầu tư nhất.
+
+## 4. Câu ví dụ & song ngữ
+
+| Nguồn | License | Trạng thái | Ghi chú |
+|---|---|---|---|
+| **Tatoeba** (tatoeba.org/en/downloads) | Câu & liên kết dịch: **CC BY 2.0 FR** (có thêm bản export CC0 một phần) | ✅ | Dump TSV hằng tuần (`sentences`, `links`). Lưu ý: tiếng Việt chỉ ~33.000 câu (so với ~2 triệu câu tiếng Anh) → **số cặp Anh–Việt hạn chế**; câu tiếng Anh không có bản dịch Việt có thể dịch máy + duyệt. |
+| Tatoeba **audio** | Từng người đóng góp chọn license; trường license rỗng = **không được dùng ngoài Tatoeba** | ⚠️ | Chỉ lấy audio có license CC BY / CC BY-SA; **bỏ** NC và rỗng |
+| Simple English Wikipedia | CC BY-SA 4.0 + GFDL | ✅ ⚠️ SA | Câu/đoạn văn đơn giản cho B1–B2 |
+
+## 5. Bài đọc
+
+| Nguồn | License | Trạng thái | Level | Ghi chú |
+|---|---|---|---|---|
+| **StoryWeaver** (Pratham Books) | Sách: **CC BY 4.0**. Readalong & video: CC BY-NC-ND 4.0 | ✅ (sách) / ❌ (readalong, video) | PA1–A2 (truyện tranh có level 1–4) | Tải từng sách; chưa thấy API/bulk download chính thức — không cào hàng loạt trái điều khoản |
+| **African Storybook** | CC BY 4.0 (theo chân trang; kiểm tra từng sách) | ✅ ⚠️ | PA1–A2 | Kiểm tra license từng cuốn |
+| **Project Gutenberg** | Hầu hết public domain tại Mỹ + **điều khoản thương hiệu** | ✅ ⚠️ | B2–C2 (nguyên bản), hoặc làm nguồn để **viết lại rút gọn** cho A2–B1 | Nếu giữ tên "Project Gutenberg" phải giữ nguyên license text; muốn tự do → **bỏ toàn bộ header/footer và mọi nhắc đến Gutenberg**. Kiểm tra tình trạng bản quyền từng cuốn. |
+| **Standard Ebooks** | CC0 (phần biên tập của họ; tác phẩm gốc PD) | ✅ | B2–C2 | Bản sạch, đẹp; tải từng cuốn (bulk chỉ cho Patrons) |
+| **VOA Learning English** | **Public domain** (văn bản, MP3, ảnh, video), **trừ** nội dung của AP/Reuters/AFP | ✅ ⚠️ | A1–B2 (có chuyên mục theo cấp độ, có transcript) | Ghi công `learningenglish.voanews.com`. Bỏ qua bài/ảnh ghi nguồn hãng tin. |
+| Simple English Wikipedia | CC BY-SA 4.0 + GFDL | ✅ ⚠️ SA | B1–B2 | Bài đọc kiến thức |
+| OneStopEnglish corpus (GitHub) | CC BY-SA 4.0 (repo) | ⚠️ | 3 mức | Nguồn bài gốc chưa rõ quyền → chỉ dùng nghiên cứu/hiệu chỉnh level, không đóng gói |
+| Newsela | Hạn chế (chỉ nghiên cứu, NDA) | ❌ | | |
+
+## 6. Bài nghe / audio
+
+| Nguồn | License | Trạng thái | Ghi chú |
+|---|---|---|---|
+| **VOA Learning English** (MP3 + transcript) | Public domain (trừ nội dung hãng tin) | ✅ | Nguồn bài nghe chính A1–B2. Chuẩn hoá audio + căn câu (xem [09](09-content-pipeline.md#5-xử-lý-audio)). |
+| **LibriVox** | Public domain (theo luật Mỹ) | ✅ | Sách nói văn học — B2–C2, luyện nghe dài. Không bắt buộc ghi công (nên dẫn link). |
+| Tatoeba audio | Theo từng người đóng góp | ⚠️ | Lọc license như mục 4 |
+| Mozilla Common Voice | CC0 (dữ liệu), nhưng điều khoản tải về cấm re-host/chia sẻ lại (ít nhất với bộ Spontaneous) | ❌ cho đóng gói | Chỉ phù hợp nghiên cứu/huấn luyện; dung lượng ~87 GB |
+| **Audio TTS tự sinh** | Theo license engine/giọng | ✅ ⚠️ | Xem mục 9 về giọng Piper |
+
+## 7. Video
+
+| Nguồn | Cách dùng | Trạng thái | Ghi chú |
+|---|---|---|---|
+| **YouTube** (các kênh học tiếng Anh, VOA Learning English, kênh giáo dục) | **Embed** bằng IFrame Player API | 🔗 | Chỉ lưu `videoId` + mốc thời gian + câu hỏi tự soạn. Không tải video, không cào phụ đề. |
+| VOA Learning English video | Public domain | ✅ / 🔗 | Có thể nhúng YouTube của VOA thay vì tải về (nhẹ app) |
+| **TED Talks** | CC BY-NC-ND 4.0; nhúng chỉ dành cho blog/báo/tổ chức phi lợi nhuận | ❌ / 🔗 | **Không** đóng gói, không cắt clip, không dịch lại. Tối đa: dẫn link. |
+| StoryWeaver video/readalong | CC BY-NC-ND 4.0 | ❌ | |
+| BBC Learning English, British Council LearnEnglish (Kids) | Bản quyền | 🔗 | Chỉ link-out / embed YouTube chính thức của họ |
+
+## 8. Hình ảnh, âm thanh, font cho giao diện
+
+| Nguồn | License | Trạng thái | Dùng cho |
+|---|---|---|---|
+| **Kenney** (kenney.nl) | CC0 | ✅ | Sprite, icon, UI pixel, hiệu ứng âm thanh — làm prototype và dùng thật |
+| **OpenMoji** | Đồ hoạ CC BY-SA 4.0 | ✅ ⚠️ SA | Icon/hình minh hoạ từ vựng (con vật, đồ ăn...) |
+| **Twemoji** (jdecked/twemoji) | Đồ hoạ CC BY 4.0 | ✅ | Hình minh hoạ từ vựng — ghi công ở màn hình Giới thiệu |
+| OpenGameArt.org | Mỗi asset một license | ⚠️ | Chỉ chọn CC0/CC BY; ghi lại nguồn từng file |
+| **Unsplash** / **Pexels** | License riêng: dùng thương mại miễn phí, không cần ghi công; cấm bán lại nguyên bản / tạo dịch vụ cạnh tranh | ⚠️ | Ảnh TOEIC Part 1, ảnh bài đọc. Việc **đóng gói vào app** không được điều khoản nói rõ → giữ bản ghi nguồn từng ảnh, ưu tiên ảnh minh hoạ tự vẽ/AI cho chắc chắn |
+
+**Font** (đã kiểm tra trực tiếp bộ ký tự tiếng Việt trong file font):
+
+| Font | License | Có đủ dấu tiếng Việt? | Dùng cho |
+|---|---|---|---|
+| **Be Vietnam Pro** | OFL | ✅ Đủ | Chữ nội dung & UI (mặc định) |
+| **VT323** | OFL | ✅ Đủ | Font pixel cho tiêu đề, số liệu |
+| Pixelify Sans | OFL | ❌ Thiếu phần lớn ký tự có dấu | Chỉ dùng cho chữ/số không dấu (vd "XP", "LV 12") |
+| Silkscreen | OFL | ❌ Thiếu | Như trên |
+| Press Start 2P | OFL | ❌ Thiếu | Như trên |
+
+Đóng gói file font + file `OFL.txt` vào app. Cần font IPA → kiểm tra Be Vietnam Pro, nếu thiếu ký tự IPA dùng thêm Noto Sans / Charis SIL (OFL).
+
+## 9. Model AI & thư viện có license cần chú ý
+
+| Thành phần | License | Trạng thái | Ghi chú |
+|---|---|---|---|
+| **Helsinki-NLP opus-mt-en-vi / opus-mt-vi-en** | Apache-2.0 | ✅ | BLEU (Tatoeba-test) ~37 (en→vi), ~43 (vi→en) — chất lượng trung bình. Bản ONNX cho transformers.js có sẵn (Xenova, nhiều mức lượng tử hoá). Model en→vi có thể cần token đích `>>vie<<` ở đầu câu — kiểm tra model card. |
+| Argos Translate en↔vi | Engine MIT; license file model ❓ | ⚠️ | Phương án dự phòng; xác minh license model trước khi dùng |
+| **Whisper** (model + code), **whisper.cpp** | MIT | ✅ | STT local |
+| **Piper TTS** | Repo cũ `rhasspy/piper` MIT (đã lưu trữ 10/2025); repo mới `OHF-Voice/piper1-gpl` **GPL-3.0** | ⚠️ | Không liên kết code GPL vào app; nếu dùng, chạy như **công cụ build** để sinh audio sẵn |
+| Giọng Piper `lessac` (và `amy` — tinh chỉnh từ lessac) | Dữ liệu Blizzard 2013: **chỉ nghiên cứu**, cấm thương mại | ❌ | Không dùng cho sản phẩm |
+| Giọng Piper `ryan` | CC BY-NC-SA 4.0 | ❌ | Phi thương mại |
+| Giọng Piper khác | Theo dataset từng giọng | ❓ | Đọc model card từng giọng; chỉ chọn giọng có license cho phép thương mại |
+| **LanguageTool** server | LGPL 2.1+ | ✅ | Chạy như server riêng (không nhúng code) |
+| LanguageTool **public API** | Miễn phí có giới hạn: 20 request/phút/IP, 75 KB/phút/IP, 20 KB/request | ⚠️ | Phải có **link hiển thị tới languagetool.org** và thông báo cho người dùng văn bản được gửi đi đâu. Giới hạn có thể thay đổi. |
+| **MyMemory** translation API | Miễn phí 5.000 ký tự/ngày (50.000 nếu gửi email hợp lệ), 500 byte/request | ⚠️ | Chỉ là dự phòng; không phù hợp làm engine chính |
+| **ts-fsrs** | MIT | ✅ | |
+| **tesseract.js** | Apache-2.0 (file traineddata: ❓ kiểm tra) | ✅ | |
+
+## 10. Nội dung tự tạo (nguồn quan trọng nhất)
+
+Phần lớn bài học có cấu trúc (lesson, bài tập ngữ pháp, hội thoại, đề TOEIC/IELTS mô phỏng, nghĩa tiếng Việt ngắn gọn) sẽ là **nội dung tự soạn**, với AI hỗ trợ:
+
+- `source.id = "original"` (người soạn) hoặc `"generated"` (AI sinh, ghi model + ngày) → license `proprietary-own`.
+- Được dùng dữ liệu mở ở trên làm **nguyên liệu** (danh sách từ, câu ví dụ), nhưng nếu nguyên liệu là CC BY-SA thì phần phái sinh trực tiếp phải theo CC BY-SA.
+- **Không** đưa văn bản có bản quyền vào prompt để "viết lại" (sách giáo khoa, đề thi thật, bài báo có bản quyền).
+- Mô phỏng **format** đề TOEIC/IELTS là được; sao chép câu hỏi thật là không.
+
+## 11. Quy trình thêm một nguồn mới
+
+1. Tìm trang license/terms chính thức. Chụp lại hoặc lưu URL + ngày kiểm tra.
+2. Xếp vào một trong 4 cấp (Bundle / Embed / Link-out / Reference) theo mục 1.
+3. Thêm một dòng vào bảng tương ứng trong file này (license, trạng thái, ghi chú).
+4. Ghi vào `content/raw/SOURCES.md`: id nguồn, URL tải, ngày tải, license, checksum file.
+5. Thêm id nguồn vào bảng `sources` của pipeline để sinh ghi công tự động.
+6. Nếu ⚠️ hoặc ❓ → mở issue "license review" trước khi đóng gói vào bản phát hành.
+
+## 12. Gợi ý thứ tự khai thác cho MVP
+
+1. **NGSL + CEFR-J** → khung từ vựng có level.
+2. **Wiktionary (kaikki) + CMUdict + Open English WordNet** → từ điển, IPA, định nghĩa.
+3. **LLM sinh nghĩa tiếng Việt ngắn** cho ~10.000 từ phổ biến → duyệt dần.
+4. **Tatoeba** → câu ví dụ & bài tập câu (bổ sung dịch máy cho câu chưa có bản Việt).
+5. **VOA Learning English** → bài nghe + bài đọc A1–B2.
+6. **StoryWeaver** → truyện tranh trẻ em.
+7. **Kenney + Twemoji** → hình ảnh, âm thanh, icon.

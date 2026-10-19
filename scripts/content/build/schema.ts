@@ -24,6 +24,7 @@ CREATE TABLE words (
   freq_rank INTEGER,
   lists     TEXT NOT NULL,              -- JSON array: ngsl, tsl, cefrj...
   vi_short  TEXT,                       -- nghĩa ngắn cho popup
+  sensitive INTEGER NOT NULL DEFAULT 0, -- 1 = từ nhạy cảm, ẩn ở profile trẻ em
   data      TEXT NOT NULL               -- JSON Word đầy đủ
 );
 CREATE INDEX words_lemma ON words (lemma COLLATE NOCASE);

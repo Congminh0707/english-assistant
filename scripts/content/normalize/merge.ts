@@ -1,6 +1,8 @@
 // Gộp mọi nguồn đã chuẩn hoá thành bản ghi Word + câu ví dụ (chưa gắn level):
 //   normalized/words.base.jsonl, normalized/sentences.base.jsonl
 // Bước content:level đọc hai file này để gắn level và sinh decks.
+import { existsSync } from 'node:fs'
+import { join } from 'node:path'
 import type {
   Example,
   Pos,
@@ -13,7 +15,7 @@ import type {
 } from '../../../src/shared/schemas/content'
 import { tatoebaSentenceId, wordId, wordKey } from '../../../src/shared/schemas/content'
 import { log, JsonlWriter, readJson, readJsonl, requireFile } from '../lib/io'
-import { normalizedPath } from '../lib/paths'
+import { CURATED_DIR, normalizedPath } from '../lib/paths'
 import { tokenize, tokenVariants, type Token } from '../lib/text'
 import { sourceRef } from '../sources'
 import {
@@ -222,14 +224,52 @@ export async function mergeWords(): Promise<void> {
     if (!n) continue
     for (const l of lemmas.keys()) if (folded.has(l)) folded.set(l, folded.get(l)! + n)
   }
+  // Dạng biến tố có mục riêng (came, ran, apples, peed) chỉ mang nghĩa hiếm/lóng: nếu là dạng chia
+  // của một lemma sẽ có trong từ điển thì không lập mục riêng — tra "came" vẫn ra "come" qua word_forms.
+  // Giữ lại khi mục đó là từ thật: có tính từ/trạng từ riêng (broke, accomplished, born) hoặc nghĩa riêng
+  // đã có bản dịch Việt của Wiktionary (abode, arts). Các trường hợp còn sót (looked = "có vẻ ngoài")
+  // xử lý bằng danh sách loại trừ curated/vocab/excluded-words.json.
+  const droppedInflected: string[] = []
+  const DROP_TAGS = new Set([
+    'plural',
+    'past',
+    'participle',
+    'third-person',
+    'comparative',
+    'superlative'
+  ])
+  const STANDALONE_POS = new Set<Pos>(['adjective', 'adverb'])
+  const hasOwnMeaning = (key: string): boolean =>
+    (byKey.get(key) ?? []).some((e) =>
+      e.senses.some((s) => isGoodSense(s) && (STANDALONE_POS.has(e.pos) || s.vi.length > 0))
+    )
+  const isWeakInflection = (key: string): boolean => {
+    const lemmas = forms.map.get(key)
+    if (!lemmas || hasOwnMeaning(key)) return false
+    for (const [lemma, tags] of lemmas) {
+      if (lemma === key || !tags.some((t) => DROP_TAGS.has(t))) continue
+      if (listKeys.has(lemma) || (folded.get(lemma) ?? 0) >= MIN_FOLDED_COUNT) return true
+    }
+    return false
+  }
   const extra = [...folded.entries()]
     .filter(([k, n]) => !listKeys.has(k) && n >= MIN_FOLDED_COUNT)
+    .filter(([k]) => {
+      if (!isWeakInflection(k)) return true
+      droppedInflected.push(k)
+      return false
+    })
     .sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))
     .slice(0, Math.max(0, MAX_WORDS - listKeys.size))
     .map(([k]) => k)
   // Từ trong danh sách mà Wiktionary không có mục từ (check-in counter, wornout...) → chưa có nghĩa, bỏ qua
   const noEntry = [...listKeys].filter((k) => !byKey.has(k)).map((k) => lists[k].lemma)
-  const selected = [...[...listKeys].filter((k) => byKey.has(k)), ...extra]
+  // Mục từ bị loại thủ công (curated/vocab/excluded-words.json)
+  const excluded = await loadExcluded()
+  const sensitive = await loadSensitive()
+  const selected = [...[...listKeys].filter((k) => byKey.has(k)), ...extra].filter(
+    (k) => !excluded.has(wordId(k))
+  )
 
   // freqRank: NGSL trước, phần còn lại theo tần suất Tatoeba (đã gộp dạng chia)
   const rest = selected
@@ -261,6 +301,7 @@ export async function mergeWords(): Promise<void> {
   // ---- 5. Ghi Word ----
   const out = new JsonlWriter(normalizedPath('words.base.jsonl'))
   let generatedUsed = 0
+  let sensitiveCount = 0
   for (const key of selected) {
     const listEntry: ListEntry | undefined = lists[key]
     const entries = byKey.get(key)!
@@ -276,6 +317,10 @@ export async function mergeWords(): Promise<void> {
       generated: viGenerated[wordId(key)]
     })
     if (word.vi[0]?.origin === 'generated') generatedUsed++
+    if (sensitive.has(word.lemma.toLowerCase())) {
+      word.sensitive = true
+      sensitiveCount++
+    }
     await out.write(word)
   }
   await out.close()
@@ -291,10 +336,35 @@ export async function mergeWords(): Promise<void> {
     log(
       `merge: ${generatedUsed} words use generated Vietnamese meanings (curated/vocab/vi-generated.json: ${generatedTotal} entries; rejected ones and words that now have a Wiktionary meaning are skipped)`
     )
+  const missingSensitive = [...sensitive].filter((l) => !selected.some((k) => k === wordKey(l)))
+  log(
+    `merge: ${sensitiveCount} words flagged sensitive (child profiles hide them)${missingSensitive.length ? `; not in the dictionary: ${missingSensitive.join(', ')}` : ''}`
+  )
+  if (droppedInflected.length)
+    log(
+      `merge: dropped ${droppedInflected.length} standalone entries of inflected forms (they resolve through word_forms): ${droppedInflected.slice(0, 40).join(', ')}...`
+    )
   if (noEntry.length)
     log(
       `merge: skipped ${noEntry.length} list words without Wiktionary entry: ${noEntry.join(', ')}`
     )
+}
+
+const EXCLUDED_PATH = join(CURATED_DIR, 'vocab', 'excluded-words.json')
+const SENSITIVE_PATH = join(CURATED_DIR, 'vocab', 'sensitive-words.json')
+
+/** Tập lemma (chữ thường) nhạy cảm; không có file → rỗng */
+async function loadSensitive(): Promise<Set<string>> {
+  if (!existsSync(SENSITIVE_PATH)) return new Set()
+  const file = await readJson<{ entries: Record<string, string> }>(SENSITIVE_PATH)
+  return new Set(Object.keys(file.entries))
+}
+
+/** Tập word id bị loại thủ công; không có file → rỗng */
+async function loadExcluded(): Promise<Set<string>> {
+  if (!existsSync(EXCLUDED_PATH)) return new Set()
+  const file = await readJson<{ entries: Record<string, string> }>(EXCLUDED_PATH)
+  return new Set(Object.keys(file.entries))
 }
 
 interface BuildCtx {
@@ -361,6 +431,34 @@ function buildWord(
         tags: s.tags,
         examples: s.examples.slice(0, 2).map((en) => ({ en, sourceId: 'wiktionary' }))
       })
+    }
+  }
+
+  // Loại từ chỉ có dạng "cách viết khác của X" (jewelry n. = American spelling of jewellery) trong khi từ
+  // còn có nghĩa riêng ở loại từ khác (jewelry v.) → mượn nghĩa cùng loại từ của X để không mất nghĩa chính
+  if (senses.length) {
+    for (const e of entries) {
+      if (e.senses.some(isLemmaSense) || senses.some((s) => s.pos === e.pos)) continue
+      const targets = new Set(e.senses.flatMap((s) => s.altOf))
+      for (const t of targets)
+        for (const te of ctx.byKey.get(wordKey(t)) ?? []) {
+          if (te.pos !== e.pos) continue
+          for (const s of te.senses) {
+            if (
+              !isGoodSense(s) ||
+              senses.filter((x) => x.pos === e.pos).length >= MAX_SENSES_PER_POS
+            )
+              continue
+            senses.push({
+              id: `s${senses.length + 1}`,
+              pos: e.pos,
+              en: s.gloss,
+              vi: ctx.rankVi(s.vi),
+              tags: s.tags,
+              examples: s.examples.slice(0, 2).map((en) => ({ en, sourceId: 'wiktionary' }))
+            })
+          }
+        }
     }
   }
 

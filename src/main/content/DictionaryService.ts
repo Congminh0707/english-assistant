@@ -19,7 +19,14 @@ interface WordRow {
   ipa_uk: string | null
   vi_short: string | null
   freq_rank: number | null
+  /** 1 = từ nhạy cảm (gói cũ chưa có cột này → undefined) */
+  sensitive?: number
   data: string
+}
+
+/** Lọc theo hồ sơ: profile trẻ em không thấy từ nhạy cảm (tục, tình dục, xúc phạm...) */
+export interface DictionaryOptions {
+  childSafe?: boolean
 }
 
 interface Hit {
@@ -28,7 +35,8 @@ interface Hit {
   formTags: string[]
 }
 
-const COLS = 'w.id, w.lemma, w.lists, w.level, w.ipa_us, w.ipa_uk, w.vi_short, w.freq_rank, w.data'
+const BASE_COLS =
+  'w.id, w.lemma, w.lists, w.level, w.ipa_us, w.ipa_uk, w.vi_short, w.freq_rank, w.data'
 
 /** Nhãn biến tố thật (went → go, apples → apple), khác với cách viết khác (colour → color) */
 const INFLECTION_TAGS = new Set([
@@ -54,13 +62,17 @@ export class DictionaryService {
     forms: Database.Statement
     fts: Database.Statement
     sentences: Database.Statement
+    hasSensitive: boolean
+    /** Danh sách cột SELECT: thêm w.sensitive nếu gói có cột này */
+    cols: string
   } | null = null
 
   constructor(private readonly packs: ContentPackService) {}
 
   lookup(
     raw: string,
-    isSaved: (contentIds: string[]) => Set<string> = () => new Set()
+    isSaved: (contentIds: string[]) => Set<string> = () => new Set(),
+    options: DictionaryOptions = {}
   ): LookupResult {
     const { query, kind } = normalizeQuery(raw)
     const stmts = this.prepare()
@@ -69,7 +81,7 @@ export class DictionaryService {
       return { query, kind, entries: [], packMissing: false }
     }
 
-    const hits = this.find(stmts, query)
+    const hits = this.find(stmts, query).filter((h) => !isHidden(h.row, options))
     const saved = isSaved(hits.map((h) => h.row.id))
     const entries = hits.slice(0, MAX_ENTRIES).map((hit) => this.toEntry(stmts, hit, saved))
     return { query, kind, entries, packMissing: false }
@@ -84,7 +96,7 @@ export class DictionaryService {
   entryById(id: string): DictEntry | null {
     const stmts = this.prepare()
     if (!stmts) return null
-    const row = stmts.db.prepare(`SELECT ${COLS} FROM words w WHERE w.id = ?`).get(id) as
+    const row = stmts.db.prepare(`SELECT ${stmts.cols} FROM words w WHERE w.id = ?`).get(id) as
       WordRow | undefined
     return row ? this.toEntry(stmts, { row, via: 'lemma', formTags: [] }, new Set()) : null
   }
@@ -93,24 +105,28 @@ export class DictionaryService {
    * Dữ liệu câu hỏi trắc nghiệm cho một từ: nghĩa đúng + tối đa 3 nghĩa nhiễu của từ khác cùng level
    * (khác nghĩa đúng, không trùng nhau). null nếu từ không có nghĩa tiếng Việt.
    */
-  quizData(id: string): { entry: DictEntry; correct: string; distractors: string[] } | null {
+  quizData(
+    id: string,
+    options: DictionaryOptions = {}
+  ): { entry: DictEntry; correct: string; distractors: string[] } | null {
     const entry = this.entryById(id)
     const correct = entry?.vi[0]
     if (!entry || !correct) return null
     const stmts = this.prepare()!
+    const safe = options.childSafe && stmts.hasSensitive ? ' AND sensitive = 0' : ''
     const pick = (sql: string, ...params: unknown[]): string[] =>
       (stmts.db.prepare(sql).all(...params) as { vi_short: string }[]).map(
         (r) => r.vi_short.split(/\s*;\s*/)[0]
       )
     const pool = [
       ...pick(
-        `SELECT vi_short FROM words WHERE level = ? AND vi_short IS NOT NULL AND id != ?
+        `SELECT vi_short FROM words WHERE level = ? AND vi_short IS NOT NULL AND id != ?${safe}
          ORDER BY random() LIMIT 30`,
         entry.level,
         id
       ),
       ...pick(
-        `SELECT vi_short FROM words WHERE vi_short IS NOT NULL AND id != ? AND freq_rank <= 5000
+        `SELECT vi_short FROM words WHERE vi_short IS NOT NULL AND id != ? AND freq_rank <= 5000${safe}
          ORDER BY random() LIMIT 30`,
         id
       )
@@ -128,13 +144,18 @@ export class DictionaryService {
   }
 
   /** Chọn ngẫu nhiên một từ có nghĩa tiếng Việt, thuộc danh sách từ chuẩn, ở các level cho trước */
-  randomWord(levels: string[], exclude: Set<string>): DictEntry | null {
+  randomWord(
+    levels: string[],
+    exclude: Set<string>,
+    options: DictionaryOptions = {}
+  ): DictEntry | null {
     const stmts = this.prepare()
     if (!stmts || !levels.length) return null
+    const safe = options.childSafe && stmts.hasSensitive ? ' AND sensitive = 0' : ''
     const rows = stmts.db
       .prepare(
         `SELECT id FROM words WHERE level IN (${levels.map(() => '?').join(',')})
-         AND vi_short IS NOT NULL AND lists != '[]' ORDER BY random() LIMIT 40`
+         AND vi_short IS NOT NULL AND lists != '[]'${safe} ORDER BY random() LIMIT 40`
       )
       .all(...levels) as { id: string }[]
     const id = rows.find((r) => !exclude.has(r.id))?.id
@@ -145,8 +166,14 @@ export class DictionaryService {
     const db = this.packs.db(DICTIONARY_PACK)
     if (!db) return null
     if (this.statements?.db === db) return this.statements
+    const hasSensitive = (db.pragma('table_info(words)') as { name: string }[]).some(
+      (c) => c.name === 'sensitive'
+    )
+    const COLS = hasSensitive ? `${BASE_COLS}, w.sensitive` : BASE_COLS
     this.statements = {
       db,
+      cols: COLS,
+      hasSensitive,
       exact: db.prepare(
         `SELECT ${COLS} FROM words w WHERE w.lemma = ? COLLATE NOCASE ORDER BY w.freq_rank`
       ),
@@ -261,6 +288,10 @@ export class DictionaryService {
     // Ưu tiên câu có bản dịch tiếng Việt
     return out.sort((a, b) => Number(!!b.vi) - Number(!!a.vi)).slice(0, MAX_EXAMPLES)
   }
+}
+
+function isHidden(row: WordRow, options: DictionaryOptions): boolean {
+  return !!options.childSafe && row.sensitive === 1
 }
 
 function parseJson<T>(text: string, fallback: T): T {

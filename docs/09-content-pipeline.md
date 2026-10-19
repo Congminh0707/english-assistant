@@ -367,6 +367,10 @@ pnpm content:lookup went táo "ngan hang"
 - **`freqRank`**: rank NGSL (1–2809) cho từ NGSL; còn lại xếp theo tần suất Tatoeba từ 2810 trở đi. "Top 10k" = `freqRank ≤ 10000`.
 - **Nghĩa**: bỏ nghĩa cổ/hiếm/phương ngữ khi còn nghĩa khác; tối đa 6 nghĩa/POS, 16 nghĩa/từ (nghĩa có bản dịch Việt luôn giữ). Mục chỉ là "American spelling of X" mượn nghĩa của X.
 - **Nghĩa tiếng Việt**: (1) bản dịch `vi` của Wiktionary — gán vào đúng nghĩa khi wiktextract chắc chắn (`_dis1` ≥ 40); (2) nếu không có, suy ngược từ mục tiếng Việt định nghĩa đúng bằng từ đó (`origin: "wiktionary-vi"`); (3) nếu vẫn không có, lấy nghĩa LLM sinh trong `curated/vocab/vi-generated.json` (`origin: "generated"`, giữ đúng thứ tự trong file, bỏ mục `rejected`) và thêm attribution `{ id: "generated", license: "proprietary-own", generatedBy }` (§10.5). Thứ tự: hay xuất hiện trong bản dịch Tatoeba của câu chứa từ → có trong tra ngược → thứ tự gốc. `viShort` = 3 nghĩa đầu.
+- **Dạng biến tố có mục riêng** (came, ran, apples, peed…): không lập mục riêng khi đó là dạng chia (plural/past/participle/third-person/comparative/superlative) của một lemma có trong từ điển và mục đó không có tính từ/trạng từ riêng hay nghĩa riêng đã có bản dịch Việt của Wiktionary (đã bỏ 1.885 mục ở bản 1.2.0). Tra "came" vẫn ra "come" nhờ `word_forms`. Dạng -ing (building, meeting) luôn giữ vì thường là danh từ riêng.
+- **Loại trừ thủ công**: `curated/vocab/excluded-words.json` (`{ entries: { "word:en:looked": "lý do" } }`) — mục từ có nghĩa riêng sai/vô ích (chữ cái, tiền tố, từ lóng hiếm) bị loại dù được chọn theo tần suất/danh sách.
+- **Mượn nghĩa cùng loại từ**: loại từ chỉ có dạng "cách viết khác của X" (jewelry n. = American spelling of jewellery) trong khi từ còn nghĩa riêng ở loại từ khác (jewelry v.) → mượn nghĩa cùng loại từ của X.
+- **Từ nhạy cảm**: `curated/vocab/sensitive-words.json` (`{ entries: { "fuck": "profanity" } }`, nhóm profanity/sexual/slur/drugs/other) → `Word.sensitive = true` → cột `words.sensitive`; app ẩn từ này ở profile trẻ em. Chỉ liệt kê từ không nên hiện cho trẻ; từ đời thường (kill, die, beer) không đưa vào.
 - **Dạng từ** (`word_forms`): `form_of` của Wiktionary (went → go), bảng biến tố (chỉ nhãn biến tố thật: plural, past, participle, comparative…), cách viết theo vùng (colour → color), word family NGSL/TSL. Bỏ quan hệ mang nhãn slang/viết tắt/phương ngữ… để không quy sai (`a` → `of`, `ho` → …).
 - **IPA**: Wiktionary (GA/US cho `us`, RP/UK cho `uk`); thiếu giọng Mỹ thì lấy CMUdict.
 - **Câu ví dụ**: ≤ 3 câu Tatoeba/từ, ưu tiên câu có bản dịch Việt, dài ~8 từ, không chứa từ khó hơn nhiều; mọi cặp EN–VI của Tatoeba đều được giữ. Câu gần trùng (khác hoa/thường, dấu câu) bị loại.
@@ -376,20 +380,21 @@ pnpm content:lookup went táo "ngan hang"
 | Hạng mục | Số lượng |
 |---|---|
 | File `.eapack` / `content.db` giải nén | 21,3 MB / 115 MB |
-| Mục từ (`words`) | 26.605 (9.064 từ danh sách + 17.541 theo tần suất) — 12.587 có nghĩa Việt, 25.351 có IPA |
+| Mục từ (`words`) | 26.605 (9.064 từ danh sách + 17.541 theo tần suất) — 12.587 có nghĩa Việt, 25.351 có IPA (bản 1.0.0; bản 1.2.0 xem dưới) |
 | Dạng từ (`word_forms`) | 52.677 |
 | Câu (`sentences`) / có bản dịch Việt | 74.167 / 19.594 |
 | `sentence_words` | 364.769 |
 | Decks | 12 (10 theo level A1_1…C2, NGSL, TOEIC/TSL) |
 | Từ trong top 10k **chưa có nghĩa Việt** | **2.762** → danh sách ở `normalized/missing-vi.json` (đầu vào cho bước sinh nghĩa bằng LLM, §10.5) |
 | **Cập nhật 1.1.0 (2026-10-19)** | 2.693/2.762 từ có nghĩa AI sinh (`draft`): nhập 2.162 mục độ tin cậy cao + 481 trung bình; **69 mục thấp giữ lại** chờ duyệt (phần lớn là dạng biến tố mang nghĩa hiếm như `came` = “thanh chì ghép kính”). Pack 21,6 MB |
+| **Cập nhật 1.2.0 (2026-10-19)** | Dọn từ điển: bỏ 1.885 mục riêng của dạng biến tố, loại 68 mục vô ích (69 mục thấp đã xử lý hết), gắn cờ 104 từ nhạy cảm. **24.616 từ** (9.064 danh sách + 15.552 theo tần suất), 51.115 dạng từ, 70.480 câu, 2.139 từ dùng nghĩa AI sinh (`draft`). Pack 20,5 MB |
 
 ### 10.4 Hạn chế đã biết / việc tiếp theo
 - Nghĩa Việt từ Wiktionary không đều và đôi khi gán sai nghĩa (wiktextract đoán, vd `appointment` → “kèo”). Từ không có nghĩa Wiktionary được bù bằng nghĩa LLM sinh (§10.5) — đã sinh 2.693 từ (`draft`), cần duyệt trước khi phát hành.
-- **Dạng biến tố có mục riêng**: Wiktionary có mục riêng cho nhiều dạng chia (`came`, `ran`, `apples`, `peed`…) chỉ mang nghĩa hiếm/lóng; `merge` đang chọn chúng như từ độc lập theo tần suất Tatoeba. App (`DictionaryService`) và `content:lookup` tạm xếp từ gốc lên trước khi mục riêng không thuộc danh sách chuẩn nào. Nên sửa tận gốc ở `merge`.
+- ~~Dạng biến tố có mục riêng~~ — đã sửa ở `merge` (1.2.0, §10.2). `DictionaryService` vẫn giữ quy tắc xếp từ gốc lên trước cho các mục riêng còn lại (left, found…).
 - Level câu chỉ dựa trên độ phủ từ vựng (chưa có độ dễ đọc và ngữ pháp như §4).
 - Chưa có cụm động từ/thành ngữ ngoài các cụm có sẵn trong CEFR-J.
-- Từ điển có cả từ tục/nhạy cảm (như mọi từ điển) — track trẻ em phải lọc trước khi hiển thị.
+- Từ điển có cả từ tục/nhạy cảm (như mọi từ điển): 104 từ được gắn cờ `sensitive` và ẩn ở profile trẻ em; **câu ví dụ** Tatoeba chứa từ nhạy cảm chưa được lọc.
 - `content.db` còn lưu `data` JSON đầy đủ (≈ 60 MB); có thể rút gọn nếu dung lượng cài đặt thành vấn đề.
 
 ### 10.5 Nghĩa tiếng Việt do LLM sinh (`content:enrich vi`)

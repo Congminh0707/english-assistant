@@ -69,7 +69,7 @@ export class MicroLearningService {
   private nextReview(): ReviewQuiz | null {
     const due = this.deps.srs.dueCards(10)
     for (const card of due) {
-      const data = this.deps.dictionary.quizData(card.contentId)
+      const data = this.deps.dictionary.quizData(card.contentId, this.dictionaryOptions())
       if (!data || data.distractors.length < 1) continue
       const choices = this.shuffle([data.correct, ...data.distractors])
       const id = this.newId('review')
@@ -96,7 +96,11 @@ export class MicroLearningService {
   private nextNewWord(): NewWordQuiz | null {
     const level = this.deps.settings.get('learning.level')
     const saved = new Set(this.deps.vocab.savedContentIdList(this.deps.profiles.activeId()))
-    const entry = this.deps.dictionary.randomWord(nearbyLevels(level), saved)
+    const entry = this.deps.dictionary.randomWord(
+      nearbyLevels(level),
+      saved,
+      this.dictionaryOptions()
+    )
     if (!entry) return null
     return {
       kind: 'new',
@@ -109,6 +113,11 @@ export class MicroLearningService {
       vi: entry.vi.slice(0, 3),
       example: entry.examples[0] ?? null
     }
+  }
+
+  /** Profile trẻ em không được hỏi/gợi ý từ nhạy cảm */
+  private dictionaryOptions(): { childSafe: boolean } {
+    return { childSafe: this.deps.profiles.active().isChild }
   }
 
   private shuffle<T>(items: T[]): T[] {

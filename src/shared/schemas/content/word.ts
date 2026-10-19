@@ -90,6 +90,8 @@ export const Word = Meta.extend({
   lists: z.array(WordList).default([]),
   /** Thứ hạng tần suất gộp: NGSL rank (1–2809) rồi tới tần suất trong Tatoeba */
   freqRank: z.number().int().positive().optional(),
+  /** Từ nhạy cảm (tục, tình dục, xúc phạm...) — ẩn ở profile trẻ em; danh sách ở curated/vocab/sensitive-words.json */
+  sensitive: z.boolean().optional(),
   /** Level CEFR gốc từ CEFR-J/Octanove (nếu có), vd 'A2' */
   cefr: z.enum(['A1', 'A2', 'B1', 'B2', 'C1', 'C2']).optional(),
   /** Mọi nguồn đóng góp vào bản ghi (source chính nằm ở `source`) */

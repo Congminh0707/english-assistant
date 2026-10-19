@@ -64,7 +64,7 @@ async function buildDb(
   }
 
   const insWord = db.prepare(
-    'INSERT INTO words (id, lemma, pos, ipa_us, ipa_uk, level, freq_rank, lists, vi_short, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    'INSERT INTO words (id, lemma, pos, ipa_us, ipa_uk, level, freq_rank, lists, vi_short, sensitive, data) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
   )
   const insForm = db.prepare(
     'INSERT OR IGNORE INTO word_forms (form, word_id, tags) VALUES (?, ?, ?)'
@@ -81,6 +81,7 @@ async function buildDb(
       w.freqRank ?? null,
       JSON.stringify(w.lists),
       w.viShort ?? null,
+      w.sensitive ? 1 : 0,
       JSON.stringify(w)
     )
     counts.words++

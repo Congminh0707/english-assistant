@@ -10,7 +10,9 @@ export function registerAppIpc(c: Container): void {
   handle('settings:get-all', () => c.settings.all())
   handle('settings:set', ({ key, value }) => c.settings.set(key, value))
   handle('dictionary:lookup', ({ text }) =>
-    c.dictionary.lookup(text, (ids) => c.vocab.savedContentIds(ids))
+    c.dictionary.lookup(text, (ids) => c.vocab.savedContentIds(ids), {
+      childSafe: c.profiles.active().isChild
+    })
   )
   handle('vocab:save', (input) => c.vocab.save(input))
   handle('quiz:answer', ({ quizId, choiceIndex, elapsedMs }) =>

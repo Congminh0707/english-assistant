@@ -180,7 +180,7 @@ Các bảng còn lại là kế hoạch cho pack bài học.
 | Bảng | Cột chính | Ghi chú |
 |---|---|---|
 | `meta` | key, value | `pack_id`, `version`, `schema_version`, `license`, `built_at`, `counts` (JSON) |
-| `words` | id, lemma, pos (JSON), ipa_us, ipa_uk, level, freq_rank, lists (JSON), vi_short, data (JSON `Word` đầy đủ) | INDEX(lemma COLLATE NOCASE), INDEX(level, freq_rank), INDEX(freq_rank). `vi_short` = nghĩa ngắn cho popup (NULL nếu chưa có) |
+| `words` | id, lemma, pos (JSON), ipa_us, ipa_uk, level, freq_rank, lists (JSON), vi_short, sensitive (0/1), data (JSON `Word` đầy đủ) | INDEX(lemma COLLATE NOCASE), INDEX(level, freq_rank), INDEX(freq_rank). `vi_short` = nghĩa ngắn cho popup (NULL nếu chưa có). `sensitive = 1` = từ nhạy cảm, ẩn ở profile trẻ em (app vẫn đọc được gói cũ chưa có cột này) |
 | `word_forms` | form (chữ thường), word_id, tags (JSON) — PK(form, word_id), WITHOUT ROWID | `went` → `word:en:go` (tags `["past"]`), `colour` → `word:en:color` (`["alternative", ...]`). Một dạng có thể trỏ nhiều lemma (`found` → find, found) |
 | `words_fts` | FTS5(word_id UNINDEXED, lemma, vi_meanings), `tokenize='unicode61 remove_diacritics 2'`, `prefix='2 3'` | Tìm tiền tố tiếng Anh + tra ngược tiếng Việt; bỏ dấu được (`ngan hang` khớp `ngân hàng`) → app nên ưu tiên kết quả khớp đúng dấu |
 | `sentences` | id, en, vi (bản dịch đầu tiên), level, audio, source (JSON), data (JSON `Sentence`, bỏ `wordIds`) | INDEX(level). URL Tatoeba suy ra từ id: `https://tatoeba.org/en/sentences/show/<n>` |

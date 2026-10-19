@@ -62,6 +62,9 @@ function buildFixturePack(dir: string, version = '1.0.0'): string {
   word('word:en:went', 'went', 3000, ['(nghĩa hiếm)'])
   word('word:en:left', 'left', 150, ['trái', 'bên trái'], 'wiktionary', ['ngsl'])
   word('word:en:leave', 'leave', 120, ['rời đi'], 'wiktionary', ['ngsl'])
+  // Từ nhạy cảm: ẩn ở profile trẻ em
+  word('word:en:crap', 'crap', 4000, ['đồ tồi'])
+  db.prepare("UPDATE words SET sensitive = 1 WHERE id = 'word:en:crap'").run()
   const form = db.prepare('INSERT INTO word_forms (form, word_id, tags) VALUES (?, ?, ?)')
   form.run('went', 'word:en:go', '["past"]')
   form.run('left', 'word:en:leave', '["past"]')
@@ -338,5 +341,38 @@ describe('computeStreak', () => {
     expect(computeStreak(['2026-03-09', '2026-03-08'], '2026-03-10')).toBe(2)
     expect(computeStreak(['2026-03-10', '2026-03-08'], '2026-03-10')).toBe(1)
     expect(computeStreak(['2026-03-08'], '2026-03-10')).toBe(0)
+  })
+})
+
+describe('Lọc từ nhạy cảm cho profile trẻ em', () => {
+  beforeEach(async () => {
+    await c.packs.install(buildFixturePack(tmp))
+  })
+
+  it('tra từ: người lớn thấy, trẻ em không thấy', () => {
+    expect(c.dictionary.lookup('crap').entries.map((e) => e.lemma)).toEqual(['crap'])
+    expect(c.dictionary.lookup('crap', undefined, { childSafe: true }).entries).toEqual([])
+    // Tra ngược theo nghĩa tiếng Việt cũng bị ẩn
+    expect(c.dictionary.lookup('đồ tồi', undefined, { childSafe: true }).entries).toEqual([])
+    // Từ bình thường vẫn tra được
+    expect(c.dictionary.lookup('go', undefined, { childSafe: true }).entries).toHaveLength(1)
+  })
+
+  it('câu hỏi ôn: đáp án nhiễu không lấy nghĩa của từ nhạy cảm khi là profile trẻ em', () => {
+    for (let i = 0; i < 30; i++) {
+      const data = c.dictionary.quizData('word:en:go', { childSafe: true })
+      expect(data?.distractors).not.toContain('đồ tồi')
+    }
+    const seen = new Set<string>()
+    for (let i = 0; i < 60; i++) {
+      for (const d of c.dictionary.quizData('word:en:go')?.distractors ?? []) seen.add(d)
+    }
+    expect(seen.has('đồ tồi')).toBe(true)
+  })
+
+  it('profile trẻ em: cờ isChild lưu theo profile đang dùng', () => {
+    const kid = c.profiles.create({ name: 'Bé', track: 'primary', isChild: true })
+    c.profiles.switchTo(kid.id)
+    expect(c.profiles.active().isChild).toBe(true)
   })
 })

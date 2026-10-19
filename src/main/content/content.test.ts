@@ -11,6 +11,7 @@ import { FakeClock } from '../core/Clock'
 import { openUserDb, type UserDbConnection } from '../db/client'
 import { createContainer, type Container } from '../container'
 import { compareVersions } from './ContentPackService'
+import { computeStreak } from '../services/StudyService'
 
 const MIGRATIONS = resolve('src/main/db/migrations')
 
@@ -262,5 +263,80 @@ describe('SrsService + MicroLearningService', () => {
     expect(res.correct).toBe(false)
     expect(res.intervalDays).toBeLessThan(1)
     expect(conn.sqlite.prepare('SELECT rating FROM srs_reviews').get()).toEqual({ rating: 1 })
+  })
+})
+
+describe('StudyService', () => {
+  let clock: FakeClock
+
+  beforeEach(async () => {
+    conn.close()
+    conn = openUserDb(':memory:', MIGRATIONS)
+    clock = new FakeClock()
+    c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    await c.packs.install(buildFixturePack(tmp))
+  })
+
+  it('trang chủ: đếm thẻ, ôn hôm nay, streak', () => {
+    expect(c.study.overview()).toMatchObject({ dueCount: 0, totalCards: 0, streakDays: 0 })
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    c.vocab.save({ contentId: 'word:en:leave', text: 'leave' })
+    expect(c.study.overview()).toMatchObject({ dueCount: 2, totalCards: 2, reviewedToday: 0 })
+
+    const { card } = c.study.next()
+    c.study.rate(card!.cardId, 3, 1500)
+    expect(c.study.overview()).toMatchObject({
+      dueCount: 1,
+      reviewedToday: 1,
+      streakDays: 1,
+      packMissing: false
+    })
+  })
+
+  it('phiên ôn: lấy thẻ kèm nghĩa + khoảng cách dự kiến, chấm điểm ghi nguồn "study"', () => {
+    c.vocab.save({ contentId: 'word:en:go', text: 'go', context: 'Let us go home.' })
+    const first = c.study.next()
+    expect(first.dueCount).toBe(1)
+    expect(first.card).toMatchObject({ lemma: 'go', isNew: true, context: 'Let us go home.' })
+    expect(first.card?.vi[0]).toBe('đi')
+    const [again, , good, easy] = first.card!.intervals
+    expect(again).toBeLessThan(good)
+    expect(good).toBeLessThanOrEqual(easy)
+
+    const xpBefore = c.pet.get().totalXp
+    const res = c.study.rate(first.card!.cardId, 4, 900)
+    expect(res.dueCount).toBe(0)
+    expect(res.intervalDays).toBeGreaterThan(0)
+    expect(c.pet.get().totalXp).toBe(xpBefore + 2)
+    expect(conn.sqlite.prepare('SELECT rating, source FROM srs_reviews').all()).toEqual([
+      { rating: 4, source: 'study' }
+    ])
+    expect(c.study.next().card).toBeNull()
+  })
+
+  it('xoá từ: ngừng ôn, biến khỏi sổ từ; lưu lại thì dùng lại thẻ cũ', () => {
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    expect(c.study.words().map((w) => w.lemma)).toEqual(['go'])
+    expect(c.study.removeWord('word:en:go')).toBe(true)
+    expect(c.study.words()).toEqual([])
+    expect(c.study.overview()).toMatchObject({ dueCount: 0, totalCards: 0 })
+    expect(c.dictionary.lookup('go', (ids) => c.vocab.savedContentIds(ids)).entries[0].saved).toBe(
+      false
+    )
+
+    const again = c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    expect(again.cardCreated).toBe(true)
+    expect(c.study.words()).toHaveLength(1)
+    expect(conn.sqlite.prepare('SELECT count(*) AS n FROM srs_cards').get()).toEqual({ n: 1 })
+  })
+})
+
+describe('computeStreak', () => {
+  it('tính ngày liên tiếp, hôm nay chưa ôn vẫn giữ streak', () => {
+    expect(computeStreak([], '2026-03-10')).toBe(0)
+    expect(computeStreak(['2026-03-10', '2026-03-09', '2026-03-08'], '2026-03-10')).toBe(3)
+    expect(computeStreak(['2026-03-09', '2026-03-08'], '2026-03-10')).toBe(2)
+    expect(computeStreak(['2026-03-10', '2026-03-08'], '2026-03-10')).toBe(1)
+    expect(computeStreak(['2026-03-08'], '2026-03-10')).toBe(0)
   })
 })

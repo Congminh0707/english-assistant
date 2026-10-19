@@ -21,7 +21,7 @@ const LEVEL_CHOICES: Array<{ level: LevelCode; label: string }> = [
 export function showMascotMenu(
   c: Container,
   mascot: MascotWindow,
-  actions: { quizNow: () => void }
+  actions: { quizNow: () => void; openStudy: () => void }
 ): void {
   const lang = c.settings.get('ui.language')
   const scale = c.settings.get('mascot.scale')
@@ -58,7 +58,7 @@ export function showMascotMenu(
         : t(lang, 'menu.reviewNow'),
       click: actions.quizNow
     },
-    { label: t(lang, 'menu.studyNow'), enabled: false },
+    { label: t(lang, 'menu.studyNow'), click: actions.openStudy },
     { label: t(lang, 'menu.feed'), submenu: feedItems },
     { type: 'separator' },
     {

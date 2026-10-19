@@ -12,7 +12,8 @@ export interface AppTray {
 export function createTray(
   mascot: MascotWindow,
   shortcutLabel: string,
-  getLanguage: () => Language
+  getLanguage: () => Language,
+  openStudy: () => void
 ): AppTray {
   const tray = new Tray(nativeImage.createFromPath(icon).resize({ width: 16, height: 16 }))
 
@@ -40,6 +41,7 @@ export function createTray(
     tray.setContextMenu(
       Menu.buildFromTemplate([
         ...status,
+        { label: t(lang, 'tray.openStudy'), click: openStudy },
         {
           label: t(lang, mascot.isUserHidden ? 'tray.show' : 'tray.hide'),
           click: () => mascot.toggleVisible()

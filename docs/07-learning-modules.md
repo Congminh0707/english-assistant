@@ -62,7 +62,7 @@ Thêm dạng bài mới = thêm đủ 3 thứ này + đăng ký vào `exerciseRe
 
 ## 3. Module Từ vựng + SRS (P0)
 
-> ✅ **Đã làm (Phase 1)**: lưu từ từ popup → thẻ `en_vi`; `SrsService` (ts-fsrs, có fuzz) tính lịch, ghi `srs_reviews`; mascot hỏi ôn thẻ đến hạn bằng trắc nghiệm 4 đáp án (`MicroLearningService`, đáp án nhiễu là nghĩa của từ cùng level), quy đổi: đúng ≤ 6 giây → *Được*, đúng chậm hơn → *Khó*, sai → *Quên*. Chưa làm: các hướng thẻ khác (`vi_en`, `audio_en`, `cloze`), giới hạn từ mới/ngày, phiên ôn trong cửa sổ Study.
+> ✅ **Đã làm (Phase 1)**: lưu từ từ popup → thẻ `en_vi`; `SrsService` (ts-fsrs, có fuzz) tính lịch, ghi `srs_reviews`; mascot hỏi ôn thẻ đến hạn bằng trắc nghiệm 4 đáp án (`MicroLearningService`, đáp án nhiễu là nghĩa của từ cùng level), quy đổi: đúng ≤ 6 giây → *Được*, đúng chậm hơn → *Khó*, sai → *Quên*. Cửa sổ Học tập (`StudyService`) có phiên ôn đầy đủ: lật thẻ → người dùng tự chấm *Quên/Khó/Được/Dễ* (phím `Space`/`1–4`, nút hiện khoảng ôn lại dự kiến), nguồn ghi `srs_reviews.source = 'study'`; sổ từ cho phép xoá từ (xoá mềm thẻ `deleted_at` + `suspended`, giữ nhật ký ôn; lưu lại từ sẽ dùng lại thẻ cũ). Streak tính theo ngày cục bộ có ít nhất một lần ôn. Chưa làm: các hướng thẻ khác (`vi_en`, `audio_en`, `cloze`), giới hạn từ mới/ngày.
 
 - **Nguồn từ**: bộ từ có sẵn theo level (NGSL, CEFR-J, TSL, NAWL..., bộ từ trẻ em tự soạn) + từ người dùng tự lưu khi dịch/đọc.
 - **Thẻ (card)**: mặt trước có thể là từ tiếng Anh, hình ảnh, âm thanh hoặc nghĩa tiếng Việt. Mỗi từ sinh nhiều "hướng" thẻ:

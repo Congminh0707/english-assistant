@@ -21,6 +21,7 @@ import { ContentPackService } from './content/ContentPackService'
 import { DictionaryService } from './content/DictionaryService'
 import { SrsService } from './services/SrsService'
 import { MicroLearningService } from './services/MicroLearningService'
+import { StudyService } from './services/StudyService'
 
 export interface Container {
   clock: Clock
@@ -35,6 +36,7 @@ export interface Container {
   vocab: VocabService
   srs: SrsService
   micro: MicroLearningService
+  study: StudyService
 }
 
 export interface ContainerOptions {
@@ -109,6 +111,14 @@ export function createContainer(
     settings,
     clock
   })
+  const study = new StudyService({
+    vocab: repos.vocab,
+    vocabService: vocab,
+    srs,
+    dictionary,
+    profiles,
+    clock
+  })
 
   return {
     clock,
@@ -122,6 +132,7 @@ export function createContainer(
     dictionary,
     vocab,
     srs,
-    micro
+    micro,
+    study
   }
 }

@@ -68,10 +68,10 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 - [x] Lưu từ → sổ từ (`saved_words`) + tạo thẻ SRS FSRS (`srs_cards`) kèm câu ngữ cảnh, +1 XP cho từ mới
 
 **Học**
-- [ ] SRS với ts-fsrs: ✅ `SrsService` (lịch FSRS, nhật ký `srs_reviews`, +2 XP/lần ôn) — **còn** phiên ôn đầy đủ trong cửa sổ Study
+- [x] SRS với ts-fsrs: `SrsService` (lịch FSRS, nhật ký `srs_reviews`, +2 XP/lần ôn) + phiên ôn đầy đủ trong cửa sổ Học tập (lật thẻ → chấm Quên/Khó/Được/Dễ, phím Space/1–4, hiện khoảng ôn lại dự kiến) — chưa thử tay
 - [x] Micro-learning: quiz thẻ đến hạn (4 đáp án, chấm ở main: đúng nhanh → Được, đúng chậm → Khó, sai → Quên) + "Từ của khoảnh khắc" đúng trình độ khi không có thẻ đến hạn; tự nhắc mỗi 15/25/45 phút hoặc tắt, "🧠 Ôn từ ngay" trong menu chuột phải — đã thử tay OK (2026-10-19)
 - [ ] Trình độ: ✅ chọn tay trong menu chuột phải (`learning.level`) — **còn** bài kiểm tra đầu vào
-- [ ] Trang chủ Study: lộ trình hôm nay, streak, nhiệm vụ ngày
+- [ ] Cửa sổ Học tập: ✅ thanh bên (thú cưng, level, XP), trang chủ (thẻ đến hạn, streak, ôn hôm nay, tổng thẻ), phiên ôn, sổ từ (tìm, nghe, xoá), mở từ menu mascot/tray — **còn** nhiệm vụ ngày, lộ trình theo bài, chọn/tạo profile, onboarding, cài đặt
 - [ ] Placement rút gọn (từ vựng + ngữ pháp) & rating theo kỹ năng
 
 **Nội dung (song song)**

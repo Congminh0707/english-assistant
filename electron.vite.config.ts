@@ -31,7 +31,8 @@ export default defineConfig({
       rollupOptions: {
         input: {
           mascot: resolve('src/renderer/mascot/index.html'),
-          popup: resolve('src/renderer/popup/index.html')
+          popup: resolve('src/renderer/popup/index.html'),
+          study: resolve('src/renderer/study/index.html')
         }
       }
     }

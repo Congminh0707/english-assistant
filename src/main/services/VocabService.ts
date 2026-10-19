@@ -38,7 +38,13 @@ export class VocabService {
       vocab.upsertSaved(profileId, { contentId: input.contentId, text, context }, now)
 
       let cardCreated = false
-      if (input.contentId && !vocab.hasCard(profileId, input.contentId, 'en_vi')) {
+      const existing = input.contentId
+        ? vocab.findCardByContent(profileId, input.contentId, 'en_vi')
+        : undefined
+      if (existing?.deletedAt) {
+        vocab.reviveCard(existing.id, now) // lưu lại từ đã xoá → dùng lại thẻ cũ
+        cardCreated = true
+      } else if (input.contentId && !existing) {
         const card = createEmptyCard(new Date(now))
         vocab.insertCard(
           {
@@ -70,6 +76,15 @@ export class VocabService {
       this.deps.xp.grant({ amount: XP_WORD_SAVED, reason: 'word.saved', refId: input.contentId })
     }
     return result
+  }
+
+  /** Xoá từ khỏi sổ từ và ngừng ôn thẻ của nó */
+  remove(contentId: string): boolean {
+    return this.deps.vocab.removeWord(
+      this.deps.profiles.activeId(),
+      contentId,
+      this.deps.clock.now()
+    )
   }
 
   savedContentIds(contentIds: string[]): Set<string> {

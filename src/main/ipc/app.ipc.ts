@@ -16,4 +16,9 @@ export function registerAppIpc(c: Container): void {
   handle('quiz:answer', ({ quizId, choiceIndex, elapsedMs }) =>
     c.micro.answer(quizId, choiceIndex, elapsedMs)
   )
+  handle('study:overview', () => c.study.overview())
+  handle('study:next', () => c.study.next())
+  handle('study:rate', ({ cardId, rating, elapsedMs }) => c.study.rate(cardId, rating, elapsedMs))
+  handle('vocab:list', () => c.study.words())
+  handle('vocab:remove', ({ contentId }) => c.study.removeWord(contentId))
 }

@@ -13,7 +13,12 @@ export const INVOKE_CHANNELS = [
   'settings:set',
   'dictionary:lookup',
   'vocab:save',
-  'quiz:answer'
+  'quiz:answer',
+  'study:overview',
+  'study:next',
+  'study:rate',
+  'vocab:list',
+  'vocab:remove'
 ] as const
 
 /** renderer → main, không chờ kết quả (ipcRenderer.send) */

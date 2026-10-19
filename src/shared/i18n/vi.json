@@ -9,10 +9,11 @@
     "hide": "Ẩn mascot",
     "resetPosition": "Đưa mascot về góc màn hình",
     "quickTranslate": "Dịch nhanh: {shortcut}",
-    "quit": "Thoát"
+    "quit": "Thoát",
+    "openStudy": "Mở cửa sổ Học tập"
   },
   "menu": {
-    "studyNow": "Học ngay (sắp có)",
+    "studyNow": "📚 Mở cửa sổ Học tập",
     "feed": "Cho ăn",
     "bagEmpty": "Túi đồ trống",
     "hideFor30": "Ẩn 30 phút",
@@ -106,5 +107,55 @@
     "hours": "{n} giờ",
     "days": "{n} ngày",
     "noContent": "Chưa có gói từ điển để ôn."
+  },
+  "study": {
+    "title": "Học tập",
+    "nav": {
+      "home": "Trang chủ",
+      "review": "Ôn từ",
+      "words": "Sổ từ"
+    },
+    "home": {
+      "welcome": "Chào bạn, hôm nay học gì nào?",
+      "due": "Thẻ đến hạn",
+      "total": "Tổng số thẻ",
+      "learned": "Đã vào ôn dài hạn",
+      "today": "Đã ôn hôm nay",
+      "streak": "Chuỗi ngày ôn",
+      "streakDays": "{n} ngày",
+      "start": "Bắt đầu ôn ({count} thẻ)",
+      "nothingDue": "Hôm nay hết thẻ để ôn 🎉",
+      "noCards": "Chưa có từ nào trong sổ. Copy một từ rồi bấm {shortcut} để tra và lưu nhé!",
+      "packMissing": "Chưa cài gói từ điển nên chưa ôn được."
+    },
+    "review": {
+      "show": "Hiện đáp án",
+      "again": "Quên",
+      "hard": "Khó",
+      "good": "Được",
+      "easy": "Dễ",
+      "new": "Mới",
+      "context": "Câu bạn đã lưu",
+      "hint": "Space: lật thẻ · 1–4: chấm điểm",
+      "remaining": "Còn {count} thẻ",
+      "doneTitle": "Xong rồi! 🎉",
+      "doneBody": "Bạn đã ôn hết thẻ đến hạn. Phiên này: {n} thẻ.",
+      "backHome": "Về trang chủ",
+      "noAnswer": "(chưa có nghĩa tiếng Việt)"
+    },
+    "words": {
+      "count": "Sổ từ ({count})",
+      "empty": "Sổ từ trống.",
+      "search": "Tìm trong sổ từ…",
+      "remove": "Xoá",
+      "confirmRemove": "Xoá từ “{word}” khỏi sổ từ? Thẻ ôn của từ này cũng sẽ dừng.",
+      "state0": "Mới",
+      "state1": "Đang học",
+      "state2": "Ôn dài hạn",
+      "state3": "Học lại",
+      "dueNow": "Đến hạn",
+      "dueIn": "Ôn lại sau {time}",
+      "lapses": "Quên {n} lần"
+    }
   }
 }

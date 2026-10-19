@@ -2,7 +2,7 @@ import { BrowserWindow } from 'electron'
 import { join } from 'path'
 import { is } from '@electron-toolkit/utils'
 
-export type PageName = 'mascot' | 'popup'
+export type PageName = 'mascot' | 'popup' | 'study'
 
 /** Nạp trang của một cửa sổ: dev lấy từ Vite dev server (HMR), production lấy file đã build. */
 export function loadPage(win: BrowserWindow, page: PageName): void {

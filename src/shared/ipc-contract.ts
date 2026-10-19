@@ -11,6 +11,13 @@ import {
   SaveWordResultSchema
 } from './schemas/dictionary'
 import { QuizAnswerInputSchema, QuizAnswerResultSchema, QuizSchema } from './schemas/quiz'
+import {
+  StudyNextSchema,
+  StudyOverviewSchema,
+  StudyRateInputSchema,
+  StudyRateResultSchema,
+  WordListItemSchema
+} from './schemas/study'
 
 export const WalkResultSchema = z.object({ blocked: z.enum(['left', 'right']).nullable() })
 export const DragEndResultSchema = z.object({ falling: z.boolean() })
@@ -31,7 +38,12 @@ export const invokeContract = {
     output: LookupResultSchema
   },
   'vocab:save': { input: SaveWordInputSchema, output: SaveWordResultSchema },
-  'quiz:answer': { input: QuizAnswerInputSchema, output: QuizAnswerResultSchema }
+  'quiz:answer': { input: QuizAnswerInputSchema, output: QuizAnswerResultSchema },
+  'study:overview': { input: z.void(), output: StudyOverviewSchema },
+  'study:next': { input: z.void(), output: StudyNextSchema },
+  'study:rate': { input: StudyRateInputSchema, output: StudyRateResultSchema },
+  'vocab:list': { input: z.void(), output: z.array(WordListItemSchema) },
+  'vocab:remove': { input: z.object({ contentId: z.string().min(1) }), output: z.boolean() }
 } satisfies Record<InvokeChannel, { input: z.ZodType; output: z.ZodType }>
 
 export const sendContract = {

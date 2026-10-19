@@ -1,4 +1,4 @@
-import { and, asc, eq, inArray, lte, sql } from 'drizzle-orm'
+import { and, asc, desc, eq, inArray, isNull, lte, sql } from 'drizzle-orm'
 import { uuidv7 } from '@shared/ids'
 import type { UserDb } from '../client'
 import { savedWords, srsCards, srsReviews } from '../schema'
@@ -111,6 +111,7 @@ export class VocabRepository {
         and(
           eq(srsCards.profileId, profileId),
           eq(srsCards.suspended, false),
+          isNull(srsCards.deletedAt),
           lte(srsCards.due, now)
         )
       )
@@ -127,6 +128,7 @@ export class VocabRepository {
         and(
           eq(srsCards.profileId, profileId),
           eq(srsCards.suspended, false),
+          isNull(srsCards.deletedAt),
           lte(srsCards.due, now)
         )
       )
@@ -167,11 +169,103 @@ export class VocabRepository {
       .filter((id): id is string => !!id)
   }
 
+  /** Thẻ (kể cả đã xoá mềm) của một từ, để lưu lại từ cũ thì dùng lại thẻ */
+  findCardByContent(
+    profileId: string,
+    contentId: string,
+    direction: SrsCardRow['direction']
+  ): SrsCardRow | undefined {
+    return this.db
+      .select()
+      .from(srsCards)
+      .where(
+        and(
+          eq(srsCards.profileId, profileId),
+          eq(srsCards.contentId, contentId),
+          eq(srsCards.direction, direction)
+        )
+      )
+      .get()
+  }
+
+  reviveCard(id: string, now: number): void {
+    this.db
+      .update(srsCards)
+      .set({ deletedAt: null, suspended: false, due: now, updatedAt: now })
+      .where(eq(srsCards.id, id))
+      .run()
+  }
+
+  /** Thẻ đang học, mới lưu trước */
+  listCards(profileId: string, limit: number): SrsCardRow[] {
+    return this.db
+      .select()
+      .from(srsCards)
+      .where(and(eq(srsCards.profileId, profileId), isNull(srsCards.deletedAt)))
+      .orderBy(desc(srsCards.createdAt))
+      .limit(limit)
+      .all()
+  }
+
+  /** Xoá từ khỏi sổ: bỏ saved_words, xoá mềm thẻ (giữ nhật ký ôn để thống kê) */
+  removeWord(profileId: string, contentId: string, now: number): boolean {
+    const card = this.db
+      .update(srsCards)
+      .set({ deletedAt: now, suspended: true, updatedAt: now })
+      .where(
+        and(
+          eq(srsCards.profileId, profileId),
+          eq(srsCards.contentId, contentId),
+          isNull(srsCards.deletedAt)
+        )
+      )
+      .run()
+    const saved = this.db
+      .delete(savedWords)
+      .where(and(eq(savedWords.profileId, profileId), eq(savedWords.contentId, contentId)))
+      .run()
+    return card.changes + saved.changes > 0
+  }
+
   countCards(profileId: string): number {
     const row = this.db
       .select({ n: sql<number>`count(*)` })
       .from(srsCards)
-      .where(eq(srsCards.profileId, profileId))
+      .where(and(eq(srsCards.profileId, profileId), isNull(srsCards.deletedAt)))
+      .get()
+    return Number(row?.n ?? 0)
+  }
+
+  /** Số thẻ đã vào giai đoạn ôn dài hạn (state = 2) */
+  countLearned(profileId: string): number {
+    const row = this.db
+      .select({ n: sql<number>`count(*)` })
+      .from(srsCards)
+      .where(
+        and(eq(srsCards.profileId, profileId), isNull(srsCards.deletedAt), eq(srsCards.state, 2))
+      )
+      .get()
+    return Number(row?.n ?? 0)
+  }
+
+  /** Các ngày (YYYY-MM-DD theo múi giờ cục bộ) có ôn từ, mới nhất trước */
+  reviewDays(profileId: string, sinceMs: number, tzOffsetSeconds: number): string[] {
+    const day = sql<string>`strftime('%Y-%m-%d', ${srsReviews.reviewedAt} / 1000 + ${tzOffsetSeconds}, 'unixepoch')`
+    const rows = this.db
+      .select({ day })
+      .from(srsReviews)
+      .where(and(eq(srsReviews.profileId, profileId), sql`${srsReviews.reviewedAt} >= ${sinceMs}`))
+      .groupBy(day)
+      .orderBy(desc(day))
+      .all()
+    return rows.map((r) => r.day)
+  }
+
+  countReviewsSince(profileId: string, sinceMs: number): number {
+    const row = this.db
+      .select({ n: sql<number>`count(*)` })
+      .from(srsReviews)
+      .where(and(eq(srsReviews.profileId, profileId), sql`${srsReviews.reviewedAt} >= ${sinceMs}`))
       .get()
     return Number(row?.n ?? 0)
   }

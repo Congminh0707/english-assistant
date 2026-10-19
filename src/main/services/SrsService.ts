@@ -1,4 +1,4 @@
-import { fsrs, type Card, type Grade } from 'ts-fsrs'
+import { fsrs, Rating, type Card, type Grade } from 'ts-fsrs'
 import { AppError } from '../core/AppError'
 import type { Clock } from '../core/Clock'
 import type { EventBus } from '../core/EventBus'
@@ -38,6 +38,16 @@ export class SrsService {
 
   dueCards(limit = 20): SrsCardRow[] {
     return this.deps.vocab.dueCards(this.deps.profiles.activeId(), this.deps.clock.now(), limit)
+  }
+
+  /** Bao lâu nữa (ngày) sẽ ôn lại thẻ nếu chấm 1/2/3/4 — để hiện trên nút chấm điểm */
+  previewIntervals(cardId: string): [number, number, number, number] {
+    const row = this.deps.vocab.findCard(this.deps.profiles.activeId(), cardId)
+    if (!row) throw new AppError('NOT_FOUND', 'errors.notFound')
+    const now = this.deps.clock.now()
+    const options = this.scheduler.repeat(toFsrsCard(row), new Date(now))
+    const days = (grade: Grade): number => (options[grade].card.due.getTime() - now) / DAY_MS
+    return [days(Rating.Again), days(Rating.Hard), days(Rating.Good), days(Rating.Easy)]
   }
 
   review(

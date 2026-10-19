@@ -9,10 +9,11 @@
     "hide": "Hide mascot",
     "resetPosition": "Move mascot back to the corner",
     "quickTranslate": "Quick translate: {shortcut}",
-    "quit": "Quit"
+    "quit": "Quit",
+    "openStudy": "Open Study window"
   },
   "menu": {
-    "studyNow": "Study now (coming soon)",
+    "studyNow": "📚 Open Study window",
     "feed": "Feed",
     "bagEmpty": "Bag is empty",
     "hideFor30": "Hide for 30 minutes",
@@ -106,5 +107,55 @@
     "hours": "{n} h",
     "days": "{n} days",
     "noContent": "No dictionary pack to review yet."
+  },
+  "study": {
+    "title": "Study",
+    "nav": {
+      "home": "Home",
+      "review": "Review",
+      "words": "Word list"
+    },
+    "home": {
+      "welcome": "Hi, what shall we learn today?",
+      "due": "Cards due",
+      "total": "Total cards",
+      "learned": "In long-term review",
+      "today": "Reviewed today",
+      "streak": "Review streak",
+      "streakDays": "{n} days",
+      "start": "Start review ({count} cards)",
+      "nothingDue": "Nothing left to review today 🎉",
+      "noCards": "No words yet. Copy a word and press {shortcut} to look it up and save it!",
+      "packMissing": "The dictionary pack is not installed yet, so reviewing is unavailable."
+    },
+    "review": {
+      "show": "Show answer",
+      "again": "Again",
+      "hard": "Hard",
+      "good": "Good",
+      "easy": "Easy",
+      "new": "New",
+      "context": "Your saved sentence",
+      "hint": "Space: flip · 1–4: rate",
+      "remaining": "{count} cards left",
+      "doneTitle": "All done! 🎉",
+      "doneBody": "You reviewed every due card. This session: {n} cards.",
+      "backHome": "Back to home",
+      "noAnswer": "(no Vietnamese meaning yet)"
+    },
+    "words": {
+      "count": "Word list ({count})",
+      "empty": "Your word list is empty.",
+      "search": "Search your words…",
+      "remove": "Remove",
+      "confirmRemove": "Remove “{word}” from your word list? Its review card will stop too.",
+      "state0": "New",
+      "state1": "Learning",
+      "state2": "Long-term",
+      "state3": "Relearning",
+      "dueNow": "Due",
+      "dueIn": "Review in {time}",
+      "lapses": "Forgotten {n} times"
+    }
   }
 }

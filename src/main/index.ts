@@ -7,6 +7,7 @@ import { openUserDb, type UserDbConnection } from './db/client'
 import { createContainer } from './container'
 import { MascotWindow } from './windows/MascotWindow'
 import { PopupWindow } from './windows/PopupWindow'
+import { StudyWindow } from './windows/StudyWindow'
 import { registerAppIpc } from './ipc/app.ipc'
 import { registerMascotIpc } from './ipc/mascot.ipc'
 import { registerPopupIpc } from './ipc/popup.ipc'
@@ -38,6 +39,7 @@ let conn: UserDbConnection | null = null
 let container: ReturnType<typeof createContainer> | null = null
 let mascot: MascotWindow | null = null
 let popup: PopupWindow | null = null
+let study: StudyWindow | null = null
 let tray: AppTray | null = null
 let quietMode: QuietModeService | null = null
 const scheduler = new Scheduler()
@@ -68,13 +70,17 @@ if (!app.requestSingleInstanceLock()) {
     const p = new PopupWindow()
     mascot = m
     popup = p
+    const s = new StudyWindow()
+    study = s
     registerAppIpc(c)
     // Micro-learning: mascot hỏi ôn thẻ đến hạn / giới thiệu từ mới định kỳ
     const quizJob = scheduleQuizJob(scheduler, c, {
       canShow: () => m.win.isVisible() && !p.win.isVisible(),
       show: (quiz) => sendTo(m.win, 'mascot:quiz', quiz)
     })
-    registerMascotIpc(m, () => showMascotMenu(c, m, { quizNow: () => quizJob.trigger() }))
+    registerMascotIpc(m, () =>
+      showMascotMenu(c, m, { quizNow: () => quizJob.trigger(), openStudy: () => s.open() })
+    )
     registerPopupIpc(p)
     registerShortcuts({
       // Copy chữ rồi bấm phím tắt → popup tra từ cạnh con trỏ
@@ -85,8 +91,11 @@ if (!app.requestSingleInstanceLock()) {
         sendTo(p.win, 'popup:query', { text })
       }
     })
-    tray = createTray(m, shortcutLabel(DEFAULT_SHORTCUTS.quickTranslate), () =>
-      c.settings.get('ui.language')
+    tray = createTray(
+      m,
+      shortcutLabel(DEFAULT_SHORTCUTS.quickTranslate),
+      () => c.settings.get('ui.language'),
+      () => s.open()
     )
     m.onVisibilityChanged = () => tray?.refresh()
 
@@ -131,6 +140,7 @@ if (!app.requestSingleInstanceLock()) {
     scheduler.stopAll()
     quietMode?.stop()
     popup?.win.destroy()
+    study?.destroy()
     tray?.tray.destroy()
     tray = null
     container?.packs.closeAll()

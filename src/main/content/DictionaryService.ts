@@ -75,6 +75,11 @@ export class DictionaryService {
     return { query, kind, entries, packMissing: false }
   }
 
+  /** Đã cài gói từ điển chưa */
+  available(): boolean {
+    return this.prepare() !== null
+  }
+
   /** Một mục từ theo id (dùng cho thẻ ôn tập / từ của khoảnh khắc) */
   entryById(id: string): DictEntry | null {
     const stmts = this.prepare()

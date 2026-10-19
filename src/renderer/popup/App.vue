@@ -353,7 +353,7 @@ onUnmounted(() => {
 
         <div v-if="entry.examples.length" class="examples">
           <div v-for="(ex, i) in entry.examples" :key="i" class="example">
-            <button type="button" class="say mini" @click="speak(ex.en, 'us')">🔊</button>
+            <button type="button" class="say mini" @click="speak(ex.en)">🔊</button>
             <div>
               <div>{{ ex.en }}</div>
               <div v-if="ex.vi" class="muted">{{ ex.vi }}</div>

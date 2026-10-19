@@ -137,7 +137,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
             <span class="muted">{{ t('study.review.context') }}:</span> {{ card.context }}
           </div>
           <div v-for="(ex, i) in card.examples" :key="i" class="example">
-            <button type="button" class="say mini" @click="speak(ex.en, 'us')">🔊</button>
+            <button type="button" class="say mini" @click="speak(ex.en)">🔊</button>
             <div>
               <div>{{ ex.en }}</div>
               <div v-if="ex.vi" class="muted">{{ ex.vi }}</div>

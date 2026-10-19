@@ -58,7 +58,7 @@ function enter(): void {
     pairMap.value = e.pairs.map(() => null)
     rightOrder.value = shuffle(e.pairs.map((_, i) => i))
   }
-  if (e.type === 'listen') window.setTimeout(() => speak(e.say, 'us', 0.9), 250)
+  if (e.type === 'listen') window.setTimeout(() => speak(e.say, undefined, 0.9), 250)
   if (e.type === 'gap' && !e.choices) void nextTick(() => typedInput.value?.focus())
 }
 
@@ -129,7 +129,7 @@ function check(): void {
   isCorrect.value = evaluate(e)
   if (isCorrect.value) correctCount.value++
   checked.value = true
-  if (e.type === 'gap' || e.type === 'order') speak(solution(e), 'us', 0.9)
+  if (e.type === 'gap' || e.type === 'order') speak(solution(e), undefined, 0.9)
 }
 
 function next(): void {
@@ -191,7 +191,7 @@ onMounted(() => {
     props.lesson.exercises.flatMap((e) =>
       e.type === 'listen' ? [e.say] : e.type === 'order' ? [e.answer] : []
     ),
-    'us',
+    undefined,
     0.9
   )
   enter()
@@ -219,10 +219,10 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       <template v-else-if="ex.type === 'listen'">
         <p class="prompt">{{ ex.prompt ?? t('study.lessons.listenPrompt') }}</p>
         <div class="play">
-          <button type="button" class="play-btn" @click="speak(ex.say, 'us', 0.9)">
+          <button type="button" class="play-btn" @click="speak(ex.say, undefined, 0.9)">
             🔊 {{ t('study.lessons.play') }}
           </button>
-          <button type="button" class="play-btn" @click="speak(ex.say, 'us', 0.6)">
+          <button type="button" class="play-btn" @click="speak(ex.say, undefined, 0.6)">
             🐢 {{ t('study.lessons.slow') }}
           </button>
         </div>

@@ -209,6 +209,16 @@ onMounted(loadProfiles)
     <PxPanel class="block">
       <h2>{{ t('tts.title') }}</h2>
       <label class="row">
+        {{ t('tts.accent') }}
+        <select
+          :value="settingsStore.settings['tts.accent']"
+          @change="setSetting('tts.accent', ($event.target as HTMLSelectElement).value as never)"
+        >
+          <option value="us">{{ t('tts.accentUs') }}</option>
+          <option value="uk">{{ t('tts.accentUk') }}</option>
+        </select>
+      </label>
+      <label class="row">
         <span class="inline">
           <input
             type="radio"

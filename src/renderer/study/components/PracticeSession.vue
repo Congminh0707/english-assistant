@@ -79,7 +79,7 @@ function show(e: Exercise): void {
   resetInput(e)
   phase.value = 'question'
   if (e.kind === 'listen_choice' || e.kind === 'dictation') {
-    window.setTimeout(() => speak(e.audioText, 'us', 0.9), 250)
+    window.setTimeout(() => speak(e.audioText, undefined, 0.9), 250)
   }
   if (e.kind === 'dictation') void nextTick(() => dictationInput.value?.focus())
 }
@@ -122,7 +122,7 @@ async function check(): Promise<void> {
       answer: buildAnswer(e)
     })
     phase.value = 'feedback'
-    if (e.kind === 'cloze' || e.kind === 'word_order') speak(result.value.solution, 'us', 0.9)
+    if (e.kind === 'cloze' || e.kind === 'word_order') speak(result.value.solution, undefined, 0.9)
   } catch (err) {
     console.warn('[practice] answer failed', err)
   } finally {
@@ -286,10 +286,18 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
         <template v-else-if="exercise.kind === 'listen_choice'">
           <p class="instruction">{{ t('study.practice.listenHelp') }}</p>
           <div class="play">
-            <button type="button" class="play-btn" @click="speak(exercise.audioText, 'us', 0.9)">
+            <button
+              type="button"
+              class="play-btn"
+              @click="speak(exercise.audioText, undefined, 0.9)"
+            >
               🔊 {{ t('study.practice.play') }}
             </button>
-            <button type="button" class="play-btn" @click="speak(exercise.audioText, 'us', 0.6)">
+            <button
+              type="button"
+              class="play-btn"
+              @click="speak(exercise.audioText, undefined, 0.6)"
+            >
               🐢 {{ t('study.practice.slow') }}
             </button>
           </div>
@@ -314,10 +322,18 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
             {{ t('study.practice.dictationHelp', { n: exercise.wordCount }) }}
           </p>
           <div class="play">
-            <button type="button" class="play-btn" @click="speak(exercise.audioText, 'us', 0.9)">
+            <button
+              type="button"
+              class="play-btn"
+              @click="speak(exercise.audioText, undefined, 0.9)"
+            >
               🔊 {{ t('study.practice.play') }}
             </button>
-            <button type="button" class="play-btn" @click="speak(exercise.audioText, 'us', 0.6)">
+            <button
+              type="button"
+              class="play-btn"
+              @click="speak(exercise.audioText, undefined, 0.6)"
+            >
               🐢 {{ t('study.practice.slow') }}
             </button>
           </div>

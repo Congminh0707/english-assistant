@@ -50,6 +50,7 @@ export function useTts(): {
 } {
   startStatus()
   const settings = useSettingsStore()
+  const defaultAccent = (): Accent => settings.settings['tts.accent']
   const available = ref(false)
   const naturalVoice = computed(
     () => settings.settings['tts.engine'] === 'kokoro' && ttsStatus.value?.state === 'ready'
@@ -122,14 +123,14 @@ export function useTts(): {
     }
   }
 
-  function speak(text: string, accent: Accent = 'us', rate = 0.9): void {
+  function speak(text: string, accent: Accent = defaultAccent(), rate = 0.9): void {
     if (!text.trim()) return
     stop()
     if (naturalVoice.value) void speakNatural(text, accent, rate)
     else speakSystem(text, accent, rate)
   }
 
-  function prefetch(texts: string[], accent: Accent = 'us', rate = 0.9): void {
+  function prefetch(texts: string[], accent: Accent = defaultAccent(), rate = 0.9): void {
     if (!naturalVoice.value || !texts.length) return
     void invoke('tts:prefetch', { texts, accent, speed: kokoroSpeed(rate) }).catch(() => undefined)
   }

@@ -411,6 +411,9 @@
   },
   "tts": {
     "title": "Giọng đọc",
+    "accent": "Giọng mặc định",
+    "accentUs": "Mỹ (US)",
+    "accentUk": "Anh (UK)",
     "system": "Giọng Windows (có sẵn)",
     "kokoro": "Giọng tự nhiên (Kokoro, offline)",
     "needModel": "Giọng tự nhiên cần tải model một lần ({size} MB, miễn phí, chạy hoàn toàn trên máy bạn).",

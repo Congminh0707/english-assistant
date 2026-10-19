@@ -133,7 +133,7 @@ onUnmounted(() => {
       <PxPanel class="box">
         <div class="word">
           <strong>{{ question.lemma }}</strong>
-          <button type="button" class="say" @click="speak(question.lemma, 'us')">🔊</button>
+          <button type="button" class="say" @click="speak(question.lemma)">🔊</button>
           <span v-if="question.ipa" class="muted">{{ question.ipa }}</span>
         </div>
         <div class="choices">

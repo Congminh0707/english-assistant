@@ -26,6 +26,8 @@ export const settingDefinitions = {
     .default(25),
   /** Giọng đọc: 'system' = giọng Windows có sẵn; 'kokoro' = giọng tự nhiên offline (cần tải model) */
   'tts.engine': z.enum(['system', 'kokoro']).default('system'),
+  /** Giọng mặc định khi đọc bài học, bài tập, câu hỏi (nút có ghi rõ Mỹ/Anh vẫn đọc đúng giọng đó) */
+  'tts.accent': z.enum(['us', 'uk']).default('us'),
   'tts.voiceUs': z.enum(US_VOICE_IDS).default('af_heart'),
   'tts.voiceUk': z.enum(UK_VOICE_IDS).default('bf_emma'),
   /** Chế độ yên lặng: tạm ẩn mascot khi đang họp trực tuyến (Zoom, Teams, Meet...) */

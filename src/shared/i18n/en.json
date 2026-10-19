@@ -411,6 +411,9 @@
   },
   "tts": {
     "title": "Voice",
+    "accent": "Default accent",
+    "accentUs": "American (US)",
+    "accentUk": "British (UK)",
     "system": "Windows voice (built in)",
     "kokoro": "Natural voice (Kokoro, offline)",
     "needModel": "The natural voice needs a one-time model download ({size} MB, free, runs entirely on your computer).",

@@ -20,7 +20,7 @@ onMounted(() => {
     if (block.type === 'examples') texts.push(...block.items.map((i) => i.en))
     if (block.type === 'sounds') texts.push(...block.items.map((i) => i.say ?? i.text))
   }
-  prefetch(texts.slice(0, 40), 'us', 0.9)
+  prefetch(texts.slice(0, 40), undefined, 0.9)
 })
 </script>
 
@@ -50,7 +50,7 @@ onMounted(() => {
               type="button"
               class="say"
               :title="t('study.lessons.listen')"
-              @click="speak(ex.en, 'us', 0.9)"
+              @click="speak(ex.en, undefined, 0.9)"
             >
               🔊
             </button>
@@ -89,7 +89,7 @@ onMounted(() => {
             :key="j"
             type="button"
             class="sound"
-            @click="speak(item.say ?? item.text, 'us', 0.8)"
+            @click="speak(item.say ?? item.text, undefined, 0.8)"
           >
             <span class="sound-text">{{ item.text }}</span>
             <span v-if="item.ipa" class="sound-ipa">{{ item.ipa }}</span>

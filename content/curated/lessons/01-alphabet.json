@@ -1,0 +1,2151 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "alphabet",
+    "title": "Bảng chữ cái & phát âm",
+    "summary": "Làm quen 26 chữ cái, các âm cơ bản và những quy tắc phát âm nền tảng của tiếng Anh Mỹ.",
+    "icon": "🔤",
+    "order": 1
+  },
+  "lessons": [
+    {
+      "id": "alphabet.letters",
+      "title": "Bảng chữ cái tiếng Anh",
+      "summary": "26 chữ cái, tên chữ và cách đánh vần tên của bạn.",
+      "level": "PA1_1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Tiếng Anh có **26 chữ cái**. Mỗi chữ có **chữ hoa** (A, B, C) và **chữ thường** (a, b, c).\n\nCần phân biệt hai thứ:\n\n- **Tên chữ cái**: cách đọc khi đánh vần, ví dụ `B` đọc là /bi/.\n- **Âm của chữ** trong từ: `b` trong `ball` là âm /b/.\n\nBài này học **tên chữ cái**. Bấm vào từng ô để nghe, đọc theo, rồi nhìn từ ví dụ bên dưới."
+        },
+        {
+          "type": "sounds",
+          "title": "A – I",
+          "items": [
+            {
+              "text": "A a",
+              "ipa": "/eɪ/",
+              "note": "apple – quả táo",
+              "say": "ay"
+            },
+            {
+              "text": "B b",
+              "ipa": "/bi/",
+              "note": "ball – quả bóng",
+              "say": "bee"
+            },
+            {
+              "text": "C c",
+              "ipa": "/si/",
+              "note": "cat – con mèo",
+              "say": "see"
+            },
+            {
+              "text": "D d",
+              "ipa": "/di/",
+              "note": "dog – con chó",
+              "say": "dee"
+            },
+            {
+              "text": "E e",
+              "ipa": "/i/",
+              "note": "egg – quả trứng",
+              "say": "ee"
+            },
+            {
+              "text": "F f",
+              "ipa": "/ɛf/",
+              "note": "fish – con cá",
+              "say": "eff"
+            },
+            {
+              "text": "G g",
+              "ipa": "/dʒi/",
+              "note": "girl – cô bé",
+              "say": "gee"
+            },
+            {
+              "text": "H h",
+              "ipa": "/eɪtʃ/",
+              "note": "hat – cái mũ",
+              "say": "aitch"
+            },
+            {
+              "text": "I i",
+              "ipa": "/aɪ/",
+              "note": "ink – mực",
+              "say": "eye"
+            }
+          ]
+        },
+        {
+          "type": "sounds",
+          "title": "J – R",
+          "items": [
+            {
+              "text": "J j",
+              "ipa": "/dʒeɪ/",
+              "note": "juice – nước ép",
+              "say": "jay"
+            },
+            {
+              "text": "K k",
+              "ipa": "/keɪ/",
+              "note": "kite – con diều",
+              "say": "kay"
+            },
+            {
+              "text": "L l",
+              "ipa": "/ɛl/",
+              "note": "lion – sư tử",
+              "say": "el"
+            },
+            {
+              "text": "M m",
+              "ipa": "/ɛm/",
+              "note": "moon – mặt trăng",
+              "say": "em"
+            },
+            {
+              "text": "N n",
+              "ipa": "/ɛn/",
+              "note": "nose – cái mũi",
+              "say": "en"
+            },
+            {
+              "text": "O o",
+              "ipa": "/oʊ/",
+              "note": "orange – quả cam",
+              "say": "oh"
+            },
+            {
+              "text": "P p",
+              "ipa": "/pi/",
+              "note": "pen – cây bút",
+              "say": "pee"
+            },
+            {
+              "text": "Q q",
+              "ipa": "/kju/",
+              "note": "queen – nữ hoàng",
+              "say": "cue"
+            },
+            {
+              "text": "R r",
+              "ipa": "/ɑr/",
+              "note": "rabbit – con thỏ",
+              "say": "are"
+            }
+          ]
+        },
+        {
+          "type": "sounds",
+          "title": "S – Z",
+          "items": [
+            {
+              "text": "S s",
+              "ipa": "/ɛs/",
+              "note": "sun – mặt trời",
+              "say": "ess"
+            },
+            {
+              "text": "T t",
+              "ipa": "/ti/",
+              "note": "tree – cái cây",
+              "say": "tee"
+            },
+            {
+              "text": "U u",
+              "ipa": "/ju/",
+              "note": "umbrella – cái ô",
+              "say": "you"
+            },
+            {
+              "text": "V v",
+              "ipa": "/vi/",
+              "note": "van – xe tải nhỏ",
+              "say": "vee"
+            },
+            {
+              "text": "W w",
+              "ipa": "/ˈdʌbəlju/",
+              "note": "water – nước",
+              "say": "double-you"
+            },
+            {
+              "text": "X x",
+              "ipa": "/ɛks/",
+              "note": "box – cái hộp (x ở cuối từ)",
+              "say": "ex"
+            },
+            {
+              "text": "Y y",
+              "ipa": "/waɪ/",
+              "note": "yellow – màu vàng",
+              "say": "why"
+            },
+            {
+              "text": "Z z",
+              "ipa": "/zi/",
+              "note": "zoo – sở thú",
+              "say": "zee"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Lỗi hay gặp**: đọc tên chữ theo kiểu tiếng Việt.\n\n- `A` là /eɪ/ (gần “ây”), không phải “a”.\n- `E` là /i/ (“i”), còn `I` là /aɪ/ (“ai”) — hai chữ này rất hay bị đảo.\n- `G` là /dʒi/, `J` là /dʒeɪ/ — không đọc “giê” hay “gi”.\n- `H` là /eɪtʃ/ (gần “ây-ch”), không phải “hát”.\n- `R` là /ɑr/ (“a” rồi cong lưỡi), không phải “e-rờ”.\n- `W` là /ˈdʌbəlju/ (gần “đắp-bồ-liu”), không phải “vê kép”.\n- `Y` là /waɪ/ (gần “oai”), không phải “i dài”.\n- Người Mỹ đọc `Z` là /zi/; người Anh đọc là “zed”."
+        },
+        {
+          "type": "examples",
+          "title": "Hỏi và đánh vần",
+          "items": [
+            {
+              "en": "My name is Lan.",
+              "vi": "Mình tên là Lan."
+            },
+            {
+              "en": "How do you spell your name?",
+              "vi": "Tên bạn đánh vần thế nào?"
+            },
+            {
+              "en": "Can you spell that, please?",
+              "vi": "Bạn đánh vần giúp mình nhé?"
+            },
+            {
+              "en": "B as in ball.",
+              "vi": "Chữ B như trong từ ball.",
+              "note": "Cách nói rõ chữ cái khi đánh vần, nhất là qua điện thoại."
+            },
+            {
+              "en": "Is that M or N?",
+              "vi": "Đó là chữ M hay chữ N?"
+            },
+            {
+              "en": "Sorry, is it G or J?",
+              "vi": "Xin lỗi, là G hay J vậy?"
+            },
+            {
+              "en": "My name starts with H.",
+              "vi": "Tên mình bắt đầu bằng chữ H."
+            },
+            {
+              "en": "This word has five letters.",
+              "vi": "Từ này có năm chữ cái."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "listen",
+          "say": "bee",
+          "prompt": "Bạn nghe được chữ cái nào?",
+          "choices": [
+            "P",
+            "B",
+            "D"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép chữ hoa với chữ thường",
+          "pairs": [
+            {
+              "left": "B",
+              "right": "b"
+            },
+            {
+              "left": "D",
+              "right": "d"
+            },
+            {
+              "left": "P",
+              "right": "p"
+            },
+            {
+              "left": "Q",
+              "right": "q"
+            },
+            {
+              "left": "G",
+              "right": "g"
+            }
+          ]
+        },
+        {
+          "type": "listen",
+          "say": "ee",
+          "prompt": "Bạn nghe được chữ cái nào?",
+          "choices": [
+            "A",
+            "I",
+            "E"
+          ],
+          "answer": 2,
+          "explain": "E đọc là /i/, còn I đọc là /aɪ/."
+        },
+        {
+          "type": "listen",
+          "say": "gee",
+          "prompt": "Bạn nghe được chữ cái nào?",
+          "choices": [
+            "J",
+            "G"
+          ],
+          "answer": 1,
+          "explain": "G là /dʒi/, J là /dʒeɪ/."
+        },
+        {
+          "type": "listen",
+          "say": "why",
+          "prompt": "Bạn nghe được chữ cái nào?",
+          "choices": [
+            "Y",
+            "I",
+            "W"
+          ],
+          "answer": 0,
+          "explain": "Y là /waɪ/, có âm /w/ ở đầu; I chỉ là /aɪ/."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép chữ cái với từ bắt đầu bằng chữ đó",
+          "pairs": [
+            {
+              "left": "J",
+              "right": "juice"
+            },
+            {
+              "left": "G",
+              "right": "girl"
+            },
+            {
+              "left": "Y",
+              "right": "yellow"
+            },
+            {
+              "left": "W",
+              "right": "water"
+            },
+            {
+              "left": "H",
+              "right": "hat"
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Chữ `H` đọc đúng là gì?",
+          "choices": [
+            "“hát”",
+            "/eɪ/",
+            "/eɪtʃ/"
+          ],
+          "answer": 2,
+          "explain": "H là /eɪtʃ/; /eɪ/ là tên chữ A."
+        },
+        {
+          "type": "gap",
+          "prompt": "B ___ in ball.",
+          "answers": [
+            "as"
+          ],
+          "choices": [
+            "is",
+            "as",
+            "at"
+          ],
+          "explain": "Mẫu “B as in ball” dùng để nói rõ chữ cái khi đánh vần."
+        },
+        {
+          "type": "order",
+          "hint": "Tên bạn đánh vần thế nào?",
+          "answer": "How do you spell your name?"
+        },
+        {
+          "type": "listen",
+          "say": "em, eye, en, aitch.",
+          "prompt": "Nghe đánh vần. Đây là tên nào?",
+          "choices": [
+            "Linh",
+            "Minh",
+            "Vinh"
+          ],
+          "answer": 1,
+          "explain": "M là /ɛm/ (khép môi ở cuối), L là /ɛl/."
+        }
+      ]
+    },
+    {
+      "id": "alphabet.vowels-consonants",
+      "title": "Nguyên âm và phụ âm",
+      "summary": "Phân biệt chữ cái với âm; nguyên âm, phụ âm, âm hữu thanh và vô thanh.",
+      "level": "PA1_1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Chữ cái** là thứ ta viết; **âm** là thứ ta nghe. Hai thứ này không trùng nhau.\n\n- Tiếng Anh có **5 chữ nguyên âm**: `a e i o u`. Chữ `y` đôi khi cũng làm nguyên âm (`my`, `gym`, `happy`).\n- Nhưng tiếng Anh Mỹ có khoảng **15–20 âm nguyên âm** (tuỳ cách tính), vì một chữ có thể đọc nhiều kiểu: `a` trong `cat`, `cake`, `car` là ba âm khác nhau.\n- 21 chữ còn lại là **chữ phụ âm**. Tiếng Anh có **24 âm phụ âm**; có âm viết bằng hai chữ như `sh` /ʃ/, `ng` /ŋ/, `th` /θ/.\n\nVì vậy số chữ và số âm trong một từ có thể khác nhau."
+        },
+        {
+          "type": "table",
+          "title": "Đếm chữ và đếm âm",
+          "head": [
+            "Từ",
+            "Số chữ cái",
+            "Số âm",
+            "Phiên âm"
+          ],
+          "rows": [
+            [
+              "cat",
+              "3",
+              "3",
+              "/kæt/"
+            ],
+            [
+              "ship",
+              "4",
+              "3",
+              "/ʃɪp/"
+            ],
+            [
+              "book",
+              "4",
+              "3",
+              "/bʊk/"
+            ],
+            [
+              "phone",
+              "5",
+              "3",
+              "/foʊn/"
+            ],
+            [
+              "the",
+              "3",
+              "2",
+              "/ðə/"
+            ],
+            [
+              "box",
+              "3",
+              "4",
+              "/bɑks/"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Hữu thanh và vô thanh**: đặt tay lên cổ rồi đọc kéo dài.\n\n- Đọc “zzzz” /z/: cổ **rung** → âm **hữu thanh**.\n- Đọc “ssss” /s/: cổ **không rung**, chỉ có hơi → âm **vô thanh**.\n\nNhiều phụ âm đi thành cặp: khẩu hình giống nhau, chỉ khác rung hay không: /p/–/b/, /t/–/d/, /k/–/g/, /f/–/v/, /s/–/z/. Mọi nguyên âm đều hữu thanh."
+        },
+        {
+          "type": "sounds",
+          "title": "Cặp vô thanh – hữu thanh",
+          "items": [
+            {
+              "text": "pig",
+              "ipa": "/pɪg/",
+              "note": "/p/ vô thanh"
+            },
+            {
+              "text": "big",
+              "ipa": "/bɪg/",
+              "note": "/b/ hữu thanh"
+            },
+            {
+              "text": "fan",
+              "ipa": "/fæn/",
+              "note": "/f/ vô thanh"
+            },
+            {
+              "text": "van",
+              "ipa": "/væn/",
+              "note": "/v/ hữu thanh"
+            },
+            {
+              "text": "sip",
+              "ipa": "/sɪp/",
+              "note": "/s/ vô thanh"
+            },
+            {
+              "text": "zip",
+              "ipa": "/zɪp/",
+              "note": "/z/ hữu thanh"
+            },
+            {
+              "text": "coat",
+              "ipa": "/koʊt/",
+              "note": "/k/ vô thanh"
+            },
+            {
+              "text": "goat",
+              "ipa": "/goʊt/",
+              "note": "/g/ hữu thanh"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Lỗi hay gặp**: đếm theo chữ viết. Hãy đếm theo **âm** bạn nghe: `sh` trong `ship` chỉ là một âm, còn `x` trong `box` lại là hai âm /ks/.\n\nChữ `y` ở đầu từ (`yes`, `yellow`) là **phụ âm** /j/; ở giữa hoặc cuối từ (`my`, `gym`, `happy`) thường là **nguyên âm**."
+        },
+        {
+          "type": "examples",
+          "title": "Nghe và đọc theo",
+          "items": [
+            {
+              "en": "The cat is on the mat.",
+              "vi": "Con mèo ở trên tấm thảm."
+            },
+            {
+              "en": "I see a big pig.",
+              "vi": "Mình thấy một con lợn to."
+            },
+            {
+              "en": "My van is red.",
+              "vi": "Xe tải nhỏ của mình màu đỏ."
+            },
+            {
+              "en": "Zip your bag.",
+              "vi": "Kéo khoá túi của bạn lại."
+            },
+            {
+              "en": "The goat is in the yard.",
+              "vi": "Con dê ở ngoài sân."
+            },
+            {
+              "en": "Yes, I like yellow.",
+              "vi": "Ừ, mình thích màu vàng."
+            },
+            {
+              "en": "The gym is open.",
+              "vi": "Phòng tập đang mở cửa."
+            },
+            {
+              "en": "Look at that ship.",
+              "vi": "Nhìn con tàu kia kìa."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Chữ nào là chữ nguyên âm?",
+          "choices": [
+            "b",
+            "o",
+            "t",
+            "k"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Trong từ nào chữ `y` là **phụ âm**?",
+          "choices": [
+            "my",
+            "happy",
+            "yes"
+          ],
+          "answer": 2,
+          "explain": "Ở đầu từ, y đọc là /j/ — một phụ âm."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ `ship` /ʃɪp/ có mấy âm?",
+          "choices": [
+            "2",
+            "3",
+            "4"
+          ],
+          "answer": 1,
+          "explain": "sh chỉ là một âm /ʃ/: /ʃ/ + /ɪ/ + /p/."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ `book` /bʊk/ có mấy âm?",
+          "choices": [
+            "4",
+            "2",
+            "3"
+          ],
+          "answer": 2,
+          "explain": "oo ở đây chỉ là một âm /ʊ/."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Đặt tay lên cổ và đọc kéo dài /v/. Cổ có rung không?",
+          "choices": [
+            "Không rung — vô thanh",
+            "Có rung — hữu thanh"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép âm vô thanh với âm hữu thanh cùng cặp",
+          "pairs": [
+            {
+              "left": "/p/",
+              "right": "/b/"
+            },
+            {
+              "left": "/t/",
+              "right": "/d/"
+            },
+            {
+              "left": "/k/",
+              "right": "/g/"
+            },
+            {
+              "left": "/f/",
+              "right": "/v/"
+            },
+            {
+              "left": "/s/",
+              "right": "/z/"
+            }
+          ]
+        },
+        {
+          "type": "listen",
+          "say": "van",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "fan",
+            "van"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "big",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "big",
+            "pig"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "listen",
+          "say": "goat",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "coat",
+            "goat"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ `box` /bɑks/ có mấy âm?",
+          "choices": [
+            "4",
+            "3",
+            "2"
+          ],
+          "answer": 0,
+          "explain": "Chữ x đọc thành hai âm /ks/, nên box có 3 chữ nhưng 4 âm."
+        }
+      ]
+    },
+    {
+      "id": "alphabet.short-vowels",
+      "title": "Nguyên âm ngắn",
+      "summary": "Sáu nguyên âm ngắn /æ/, /ɛ/, /ɪ/, /ɑ/, /ʌ/, /ʊ/ và các cặp dễ nhầm.",
+      "level": "PA1_2",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Nguyên âm ngắn được đọc **nhanh, gọn, không kéo dài**. Chúng hay xuất hiện trong từ ngắn dạng phụ âm – nguyên âm – phụ âm: `cat`, `bed`, `sit`, `hot`, `cup`.\n\nTiếng Anh Mỹ có 6 nguyên âm ngắn chính dưới đây. Nghe từ mẫu, đọc mẹo khẩu hình rồi nói theo nhiều lần."
+        },
+        {
+          "type": "sounds",
+          "title": "Sáu nguyên âm ngắn",
+          "items": [
+            {
+              "text": "cat",
+              "ipa": "/kæt/",
+              "note": "/æ/: như nói “e” nhưng hạ hàm thật thấp, miệng mở gần như “a”"
+            },
+            {
+              "text": "bed",
+              "ipa": "/bɛd/",
+              "note": "/ɛ/: gần “e” tiếng Việt (“me”), đọc ngắn"
+            },
+            {
+              "text": "sit",
+              "ipa": "/sɪt/",
+              "note": "/ɪ/: giữa “i” và “ê”, ngắn và lỏng, không kéo dài"
+            },
+            {
+              "text": "hot",
+              "ipa": "/hɑt/",
+              "note": "/ɑ/: mở miệng rộng như “a”, lưỡi hạ thấp và lùi về sau"
+            },
+            {
+              "text": "cup",
+              "ipa": "/kʌp/",
+              "note": "/ʌ/: gần “â” ngắn, miệng mở vừa, thả lỏng"
+            },
+            {
+              "text": "book",
+              "ipa": "/bʊk/",
+              "note": "/ʊ/: gần “u” nhưng ngắn, môi chỉ hơi tròn"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Thêm từ mẫu",
+          "head": [
+            "Âm",
+            "Từ mẫu",
+            "Cách viết hay gặp"
+          ],
+          "rows": [
+            [
+              "/æ/",
+              "bag, map, hand",
+              "a"
+            ],
+            [
+              "/ɛ/",
+              "pen, red, bread",
+              "e, ea"
+            ],
+            [
+              "/ɪ/",
+              "big, fish, milk",
+              "i"
+            ],
+            [
+              "/ɑ/",
+              "box, stop, clock",
+              "o"
+            ],
+            [
+              "/ʌ/",
+              "sun, bus, love",
+              "u, o"
+            ],
+            [
+              "/ʊ/",
+              "good, foot, put",
+              "oo, u"
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Cặp dễ nhầm:**\n\n- /ɛ/ – /æ/: `bed` – `bad`. Với /æ/, hạ hàm thấp hơn hẳn.\n- /ɪ/ – /i/: `sit` – `seat`. /ɪ/ ngắn và lỏng; /i/ dài, căng, miệng như cười.\n- /æ/ – /ʌ/: `cat` – `cut`. /ʌ/ mở miệng vừa phải, gần “â”.\n- /ɑ/ – /æ/: `hot` – `hat`.\n\n**Lỗi hay gặp**: đọc `hot`, `box` với “o” tròn môi như tiếng Việt (“hót”). Giọng Mỹ đọc /ɑ/: môi không tròn, miệng mở rộng."
+        },
+        {
+          "type": "examples",
+          "title": "Nghe và đọc theo",
+          "items": [
+            {
+              "en": "The cat has a hat.",
+              "vi": "Con mèo có một cái mũ."
+            },
+            {
+              "en": "My bed is red.",
+              "vi": "Giường của mình màu đỏ."
+            },
+            {
+              "en": "Sit in this big chair.",
+              "vi": "Ngồi vào cái ghế to này đi."
+            },
+            {
+              "en": "Stop! The pot is hot.",
+              "vi": "Dừng lại! Cái nồi đang nóng."
+            },
+            {
+              "en": "Run to the bus.",
+              "vi": "Chạy ra xe buýt đi."
+            },
+            {
+              "en": "This is a good book.",
+              "vi": "Đây là một cuốn sách hay."
+            },
+            {
+              "en": "Put your foot here.",
+              "vi": "Đặt chân bạn vào đây."
+            },
+            {
+              "en": "Pack your bag.",
+              "vi": "Xếp đồ vào túi đi."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "listen",
+          "say": "cat",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "cut",
+            "cat"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "bed",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "bed",
+            "bad"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ nào có âm /ʌ/ như trong `cup`?",
+          "choices": [
+            "pen",
+            "sun",
+            "hot",
+            "book"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ nào có âm /ʊ/ như trong `book`?",
+          "choices": [
+            "bus",
+            "box",
+            "good"
+          ],
+          "answer": 2,
+          "explain": "good /gʊd/; bus có /ʌ/, box có /ɑ/."
+        },
+        {
+          "type": "listen",
+          "say": "seat",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "sit",
+            "seat"
+          ],
+          "answer": 1,
+          "explain": "seat có /i/ dài và căng; sit có /ɪ/ ngắn."
+        },
+        {
+          "type": "listen",
+          "say": "hat",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "hat",
+            "hot"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "listen",
+          "say": "cup",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "cap",
+            "cop",
+            "cup"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "listen",
+          "say": "look",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "luck",
+            "look"
+          ],
+          "answer": 1,
+          "explain": "look có /ʊ/ (môi hơi tròn); luck có /ʌ/."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép âm với từ mẫu",
+          "pairs": [
+            {
+              "left": "/æ/",
+              "right": "map"
+            },
+            {
+              "left": "/ɛ/",
+              "right": "pen"
+            },
+            {
+              "left": "/ɪ/",
+              "right": "fish"
+            },
+            {
+              "left": "/ɑ/",
+              "right": "box"
+            },
+            {
+              "left": "/ʌ/",
+              "right": "bus"
+            },
+            {
+              "left": "/ʊ/",
+              "right": "foot"
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ nào **không** có nguyên âm ngắn /ɪ/?",
+          "choices": [
+            "big",
+            "milk",
+            "seat",
+            "fish"
+          ],
+          "answer": 2,
+          "explain": "seat có /i/ dài."
+        }
+      ]
+    },
+    {
+      "id": "alphabet.long-vowels",
+      "title": "Nguyên âm dài và nguyên âm đôi",
+      "summary": "Các âm /i/, /u/, /eɪ/, /aɪ/, /oʊ/, /aʊ/, /ɔɪ/ và quy tắc “e câm”.",
+      "level": "PA1_2",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Nguyên âm dài** được đọc kéo dài và căng hơn nguyên âm ngắn. **Nguyên âm đôi** là hai âm lướt liền nhau trong một hơi: /aɪ/ là “a” lướt sang “i”.\n\nTừ điển có thể ghi /i/, /u/ thành /iː/, /uː/ — dấu `ː` nghĩa là âm dài. Bài này dùng cách ghi kiểu Mỹ /i/, /u/."
+        },
+        {
+          "type": "sounds",
+          "title": "Nguyên âm dài và nguyên âm đôi",
+          "items": [
+            {
+              "text": "see",
+              "ipa": "/si/",
+              "note": "/i/: dài, căng, kéo khoé miệng như cười"
+            },
+            {
+              "text": "blue",
+              "ipa": "/blu/",
+              "note": "/u/: dài, môi tròn và chu ra"
+            },
+            {
+              "text": "day",
+              "ipa": "/deɪ/",
+              "note": "/eɪ/: “ê” lướt sang “i”"
+            },
+            {
+              "text": "my",
+              "ipa": "/maɪ/",
+              "note": "/aɪ/: “a” lướt sang “i” (gần “mai”)"
+            },
+            {
+              "text": "go",
+              "ipa": "/goʊ/",
+              "note": "/oʊ/: “ô” lướt sang “u”, môi tròn dần"
+            },
+            {
+              "text": "now",
+              "ipa": "/naʊ/",
+              "note": "/aʊ/: “a” lướt sang “u” (gần “nao”)"
+            },
+            {
+              "text": "boy",
+              "ipa": "/bɔɪ/",
+              "note": "/ɔɪ/: “o” lướt sang “i” (gần “boi”)"
+            },
+            {
+              "text": "saw",
+              "ipa": "/sɔ/",
+              "note": "/ɔ/: miệng mở, môi hơi tròn; nhiều người Mỹ đọc gần /ɑ/"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Âm /ɔ/** (`saw`, `law`, `talk`): giọng Anh đọc tròn môi rõ; ở nhiều vùng nước Mỹ, âm này được đọc gần như /ɑ/ (`saw` gần “sa”). Cả hai đều được hiểu, đừng lo khi nghe thấy khác nhau.\n\n**Lỗi hay gặp**: đọc nguyên âm đôi thành một âm đơn, ví dụ `go` thành “gô”, `day` thành “đê”. Hãy lướt hẳn sang âm thứ hai."
+        },
+        {
+          "type": "text",
+          "md": "**Quy tắc “e câm” (magic e)**: khi từ có dạng **phụ âm – nguyên âm – phụ âm – e**, chữ `e` cuối **thường không đọc** và làm nguyên âm phía trước đọc giống **tên chữ cái**:\n\n- `cap` /kæp/ → `cape` /keɪp/\n- `kit` /kɪt/ → `kite` /kaɪt/\n- `hop` /hɑp/ → `hope` /hoʊp/\n- `cut` /kʌt/ → `cute` /kjut/\n\nĐây là quy tắc **thường đúng**, có ngoại lệ hay gặp: `have`, `give`, `love`, `come`, `some`."
+        },
+        {
+          "type": "examples",
+          "title": "Nghe và đọc theo",
+          "items": [
+            {
+              "en": "I see three green trees.",
+              "vi": "Mình thấy ba cái cây xanh."
+            },
+            {
+              "en": "Today is a great day.",
+              "vi": "Hôm nay là một ngày tuyệt vời."
+            },
+            {
+              "en": "I like my new kite.",
+              "vi": "Mình thích con diều mới của mình."
+            },
+            {
+              "en": "Let's go home.",
+              "vi": "Mình về nhà thôi."
+            },
+            {
+              "en": "The sky is blue.",
+              "vi": "Bầu trời màu xanh."
+            },
+            {
+              "en": "How about now?",
+              "vi": "Bây giờ thì sao?"
+            },
+            {
+              "en": "The boy has a toy.",
+              "vi": "Cậu bé có một món đồ chơi."
+            },
+            {
+              "en": "I hope you like it.",
+              "vi": "Mong là bạn thích nó."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "listen",
+          "say": "sheep",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "ship",
+            "sheep"
+          ],
+          "answer": 1,
+          "explain": "sheep có /i/ dài; ship có /ɪ/ ngắn."
+        },
+        {
+          "type": "listen",
+          "say": "kite",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "kite",
+            "kit"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép âm với từ mẫu",
+          "pairs": [
+            {
+              "left": "/i/",
+              "right": "see"
+            },
+            {
+              "left": "/eɪ/",
+              "right": "day"
+            },
+            {
+              "left": "/aɪ/",
+              "right": "my"
+            },
+            {
+              "left": "/oʊ/",
+              "right": "go"
+            },
+            {
+              "left": "/u/",
+              "right": "blue"
+            },
+            {
+              "left": "/ɔɪ/",
+              "right": "boy"
+            }
+          ]
+        },
+        {
+          "type": "listen",
+          "say": "hope",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "hop",
+            "hope"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "note",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "not",
+            "nut",
+            "note"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "listen",
+          "say": "boy",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "bay",
+            "boy",
+            "buy"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Thêm `e` vào `tap` ta được `tape`. Chữ `a` bây giờ đọc là gì?",
+          "choices": [
+            "/æ/",
+            "/ɑ/",
+            "/eɪ/"
+          ],
+          "answer": 2,
+          "explain": "e câm làm a đọc giống tên chữ A: /eɪ/."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`pin` thêm `e` thành `pine`. `pine` đọc là gì?",
+          "choices": [
+            "/pɪn/",
+            "/paɪn/",
+            "/pin/"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ nào có âm /aʊ/ như trong `now`?",
+          "choices": [
+            "snow",
+            "go",
+            "cow"
+          ],
+          "answer": 2,
+          "explain": "ow trong snow lại đọc là /oʊ/."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ nào là **ngoại lệ** của quy tắc e câm?",
+          "choices": [
+            "home",
+            "bike",
+            "cake",
+            "give"
+          ],
+          "answer": 3,
+          "explain": "give đọc /gɪv/, chữ i vẫn ngắn."
+        }
+      ]
+    },
+    {
+      "id": "alphabet.spelling",
+      "title": "Tổ hợp chữ cái thường gặp",
+      "summary": "Cách đọc thường gặp của sh, ch, th, ph, ee, ea, oo, ai/ay, ow/ou, ar, or…",
+      "level": "A1_1",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Nhiều âm tiếng Anh được viết bằng **hai chữ cái ghép**. Nhận ra các tổ hợp này giúp bạn đoán cách đọc từ mới.\n\nLưu ý: chính tả tiếng Anh **không hoàn toàn đều đặn**. Các bảng dưới đây là cách đọc **thường gặp**, luôn có ngoại lệ — gặp từ mới hãy xem phiên âm."
+        },
+        {
+          "type": "table",
+          "title": "Tổ hợp phụ âm",
+          "head": [
+            "Tổ hợp",
+            "Âm",
+            "Từ mẫu",
+            "Ghi chú"
+          ],
+          "rows": [
+            [
+              "sh",
+              "/ʃ/",
+              "ship, fish",
+              "—"
+            ],
+            [
+              "ch",
+              "/tʃ/",
+              "chair, lunch",
+              "ngoại lệ: school đọc /k/"
+            ],
+            [
+              "th",
+              "/θ/ hoặc /ð/",
+              "think, this",
+              "có hai cách đọc"
+            ],
+            [
+              "ph",
+              "/f/",
+              "phone, photo",
+              "không đọc “p”"
+            ],
+            [
+              "ck",
+              "/k/",
+              "back, duck",
+              "thường ngay sau một chữ nguyên âm đọc ngắn"
+            ],
+            [
+              "ng",
+              "/ŋ/",
+              "sing, long",
+              "giống “ng” cuối của tiếng Việt"
+            ],
+            [
+              "wh",
+              "/w/",
+              "what, when",
+              "ngoại lệ: who, whole đọc /h/"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Tổ hợp nguyên âm",
+          "head": [
+            "Tổ hợp",
+            "Âm thường gặp",
+            "Từ mẫu",
+            "Ngoại lệ hay gặp"
+          ],
+          "rows": [
+            [
+              "ee",
+              "/i/",
+              "see, green, sleep",
+              "—"
+            ],
+            [
+              "ea",
+              "/i/",
+              "eat, teach, sea",
+              "bread, head /ɛ/; great /eɪ/"
+            ],
+            [
+              "oo",
+              "/u/",
+              "moon, food, school",
+              "book, good, foot /ʊ/"
+            ],
+            [
+              "ai, ay",
+              "/eɪ/",
+              "rain, wait, day, play",
+              "said /ɛ/"
+            ],
+            [
+              "ow",
+              "/aʊ/ hoặc /oʊ/",
+              "cow, now; snow, slow",
+              "phải nhớ theo từng từ"
+            ],
+            [
+              "ou",
+              "/aʊ/",
+              "out, house, mouth",
+              "you, soup /u/"
+            ],
+            [
+              "ar",
+              "/ɑr/",
+              "car, park, star",
+              "—"
+            ],
+            [
+              "or",
+              "/ɔr/",
+              "for, short, horse",
+              "word, work đọc khác"
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Lỗi hay gặp:**\n\n- Đọc `ph` thành “p”: đúng là /f/, `phone` /foʊn/.\n- Đọc `oo` lúc nào cũng là /u/ dài: `book`, `good` có /ʊ/ ngắn.\n- Đọc `ea` lúc nào cũng là /i/: `bread`, `head` có /ɛ/.\n\n**Mẹo chính tả**: `ck` thường đứng ngay sau **một** chữ nguyên âm đọc ngắn (`back`, `duck`, `kick`); sau hai chữ nguyên âm thì thường chỉ viết `k` (`book`, `week`)."
+        },
+        {
+          "type": "examples",
+          "title": "Nghe và đọc theo",
+          "items": [
+            {
+              "en": "She has a pet fish.",
+              "vi": "Cô ấy nuôi một con cá."
+            },
+            {
+              "en": "Sit on the chair.",
+              "vi": "Ngồi lên ghế đi."
+            },
+            {
+              "en": "Thank you for the photo.",
+              "vi": "Cảm ơn bạn vì tấm ảnh."
+            },
+            {
+              "en": "What do you want for lunch?",
+              "vi": "Bạn muốn ăn gì vào bữa trưa?"
+            },
+            {
+              "en": "Look at the moon.",
+              "vi": "Nhìn mặt trăng kìa.",
+              "note": "`look` có /ʊ/ ngắn, `moon` có /u/ dài."
+            },
+            {
+              "en": "It is raining today.",
+              "vi": "Hôm nay trời mưa."
+            },
+            {
+              "en": "The cow is near the house.",
+              "vi": "Con bò ở gần ngôi nhà."
+            },
+            {
+              "en": "Park the car here.",
+              "vi": "Đỗ xe ở đây nhé."
+            },
+            {
+              "en": "I eat bread every morning.",
+              "vi": "Sáng nào mình cũng ăn bánh mì.",
+              "note": "`eat` có /i/, `bread` có /ɛ/."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "fi___ (con cá)",
+          "answers": [
+            "sh"
+          ],
+          "choices": [
+            "ch",
+            "sh",
+            "th"
+          ],
+          "explain": "fish /fɪʃ/ — âm /ʃ/ viết là sh."
+        },
+        {
+          "type": "gap",
+          "prompt": "___one (điện thoại)",
+          "answers": [
+            "ph"
+          ],
+          "choices": [
+            "p",
+            "f",
+            "ph"
+          ],
+          "explain": "phone /foʊn/ — âm /f/ ở đây viết là ph."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép tổ hợp chữ với từ có tổ hợp đó",
+          "pairs": [
+            {
+              "left": "ng",
+              "right": "sing"
+            },
+            {
+              "left": "ck",
+              "right": "duck"
+            },
+            {
+              "left": "wh",
+              "right": "when"
+            },
+            {
+              "left": "ar",
+              "right": "park"
+            },
+            {
+              "left": "ai",
+              "right": "wait"
+            },
+            {
+              "left": "ou",
+              "right": "house"
+            }
+          ]
+        },
+        {
+          "type": "listen",
+          "say": "green",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "grain",
+            "green"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "rain",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "rain",
+            "ran"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "listen",
+          "say": "short",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "shot",
+            "short"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Trong từ nào `ea` **không** đọc là /i/?",
+          "choices": [
+            "eat",
+            "teach",
+            "bread",
+            "sea"
+          ],
+          "answer": 2,
+          "explain": "bread đọc /brɛd/."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`oo` trong `book` đọc là gì?",
+          "choices": [
+            "/u/ như trong moon",
+            "/ʊ/ ngắn",
+            "/oʊ/ như trong go"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ nào có `ow` đọc là /oʊ/?",
+          "choices": [
+            "cow",
+            "now",
+            "how",
+            "snow"
+          ],
+          "answer": 3
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ nào có `wh` đọc là /h/?",
+          "choices": [
+            "what",
+            "who",
+            "white",
+            "when"
+          ],
+          "answer": 1,
+          "explain": "who /hu/ là ngoại lệ; đa số wh đọc /w/."
+        }
+      ]
+    },
+    {
+      "id": "alphabet.consonants",
+      "title": "Phụ âm khó với người Việt",
+      "summary": "th, r/l, sh/ch/j, v/w, s/z và cách giữ âm cuối.",
+      "level": "A1_1",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Một số phụ âm tiếng Anh **không có trong tiếng Việt** hoặc dễ bị đọc lẫn. Đọc sai có thể đổi nghĩa từ: `think` (nghĩ) khác `sink` (bồn rửa).\n\nHãy tập chậm trước gương: để ý vị trí lưỡi, môi, răng, rồi mới tăng tốc."
+        },
+        {
+          "type": "sounds",
+          "title": "Nghe và so sánh",
+          "items": [
+            {
+              "text": "think",
+              "ipa": "/θɪŋk/",
+              "note": "/θ/: đầu lưỡi đặt nhẹ giữa hai hàm răng, thổi hơi, cổ không rung"
+            },
+            {
+              "text": "this",
+              "ipa": "/ðɪs/",
+              "note": "/ð/: giống /θ/ nhưng cổ rung"
+            },
+            {
+              "text": "right",
+              "ipa": "/raɪt/",
+              "note": "/r/: cong lưỡi lên, không chạm vòm miệng, môi hơi tròn"
+            },
+            {
+              "text": "light",
+              "ipa": "/laɪt/",
+              "note": "/l/: đầu lưỡi chạm lợi ngay sau răng trên"
+            },
+            {
+              "text": "ship",
+              "ipa": "/ʃɪp/",
+              "note": "/ʃ/: môi chu ra, thổi hơi như khi nói “suỵt”"
+            },
+            {
+              "text": "chip",
+              "ipa": "/tʃɪp/",
+              "note": "/tʃ/: bật /t/ rồi chuyển ngay sang /ʃ/, môi chu"
+            },
+            {
+              "text": "jeep",
+              "ipa": "/dʒip/",
+              "note": "/dʒ/: giống /tʃ/ nhưng cổ rung; không đọc thành “gi”"
+            },
+            {
+              "text": "van",
+              "ipa": "/væn/",
+              "note": "/v/: răng trên chạm nhẹ môi dưới, cổ rung"
+            },
+            {
+              "text": "wet",
+              "ipa": "/wɛt/",
+              "note": "/w/: môi tròn chu ra rồi mở nhanh, răng không chạm môi"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Lỗi hay gặp của người Việt:**\n\n- Đọc `th` thành “t”, “th”, “s” hay “đ”: `three` nghe thành `tree`, `this` thành “đis”. Hãy đưa đầu lưỡi ra giữa hai răng.\n- Đọc `j` như “gi” tiếng Việt: `jeep` thành “zíp”.\n- Đọc `w` như “v”: `wet` nghe thành `vet`.\n- Lẫn `r` và `l`: `right` với `light`."
+        },
+        {
+          "type": "text",
+          "md": "**Đừng bỏ âm cuối.** Âm cuối tiếng Việt không bật hơi, nên người Việt hay nuốt hoặc bỏ âm cuối tiếng Anh. Nhưng âm cuối giúp phân biệt từ:\n\n- `bike` /baɪk/ – `buy` /baɪ/\n- `bus` /bʌs/ – `but` /bʌt/\n- `rice` /raɪs/ (cuối là /s/, không rung) – `rise` /raɪz/ (cuối là /z/, có rung)\n\nHãy đọc rõ /t/, /d/, /k/, /s/, /z/ ở cuối: `cat`, `bed`, `book`, `bus`."
+        },
+        {
+          "type": "examples",
+          "title": "Nghe và đọc theo",
+          "items": [
+            {
+              "en": "I think this is right.",
+              "vi": "Mình nghĩ cái này đúng."
+            },
+            {
+              "en": "Thank you very much.",
+              "vi": "Cảm ơn bạn rất nhiều."
+            },
+            {
+              "en": "Turn on the light.",
+              "vi": "Bật đèn lên."
+            },
+            {
+              "en": "The ship is very big.",
+              "vi": "Con tàu rất to."
+            },
+            {
+              "en": "Wear your jacket.",
+              "vi": "Mặc áo khoác vào."
+            },
+            {
+              "en": "We wait for the white van.",
+              "vi": "Tụi mình chờ chiếc xe tải nhỏ màu trắng."
+            },
+            {
+              "en": "My bike is fast.",
+              "vi": "Xe đạp của mình chạy nhanh."
+            },
+            {
+              "en": "The bus is late.",
+              "vi": "Xe buýt đến muộn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Khi phát âm /θ/ trong `think`, đầu lưỡi đặt ở đâu?",
+          "choices": [
+            "Chạm vòm miệng",
+            "Giữa hai hàm răng",
+            "Sau răng dưới"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "think",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "sink",
+            "think"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "three",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "three",
+            "tree"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "listen",
+          "say": "light",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "right",
+            "light"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "grass",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "grass",
+            "glass"
+          ],
+          "answer": 0,
+          "explain": "grass có /r/ (lưỡi không chạm vòm), glass có /l/."
+        },
+        {
+          "type": "listen",
+          "say": "chip",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "ship",
+            "chip"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "vest",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "west",
+            "vest"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "bike",
+          "prompt": "Bạn nghe được từ nào? Chú ý âm cuối.",
+          "choices": [
+            "bite",
+            "bye",
+            "bike"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép từ với âm đầu của nó",
+          "pairs": [
+            {
+              "left": "think",
+              "right": "/θ/"
+            },
+            {
+              "left": "this",
+              "right": "/ð/"
+            },
+            {
+              "left": "ship",
+              "right": "/ʃ/"
+            },
+            {
+              "left": "chip",
+              "right": "/tʃ/"
+            },
+            {
+              "left": "jeep",
+              "right": "/dʒ/"
+            },
+            {
+              "left": "wet",
+              "right": "/w/"
+            }
+          ]
+        },
+        {
+          "type": "listen",
+          "say": "rise",
+          "prompt": "Bạn nghe được từ nào? Chú ý âm cuối.",
+          "choices": [
+            "rice",
+            "rise"
+          ],
+          "answer": 1,
+          "explain": "rise kết thúc bằng /z/ (có rung), rice kết thúc bằng /s/."
+        }
+      ]
+    },
+    {
+      "id": "alphabet.syllables",
+      "title": "Âm tiết và trọng âm",
+      "summary": "Đếm âm tiết, nhấn trọng âm từ hai âm tiết và âm /ə/ trong âm tiết không nhấn.",
+      "level": "A1_2",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Âm tiết** là một nhịp nói, có **một âm nguyên âm** làm lõi. Tiếng Việt mỗi chữ là một âm tiết; tiếng Anh một từ có thể có nhiều âm tiết.\n\nCách đếm: vỗ tay theo nhịp khi đọc từ, hoặc đặt tay dưới cằm — mỗi lần cằm hạ xuống là một âm tiết.\n\n- `cat` (1) · `ta-ble` (2) · `ba-na-na` (3) · `wa-ter-mel-on` (4)\n\nĐếm theo **âm**, không theo chữ: `cake` có hai chữ nguyên âm nhưng chỉ **1** âm tiết vì chữ `e` câm."
+        },
+        {
+          "type": "sounds",
+          "title": "Vỗ tay đếm âm tiết",
+          "items": [
+            {
+              "text": "school",
+              "ipa": "/skul/",
+              "note": "1 âm tiết"
+            },
+            {
+              "text": "pencil",
+              "ipa": "/ˈpɛnsəl/",
+              "note": "2: PEN-cil"
+            },
+            {
+              "text": "teacher",
+              "ipa": "/ˈtitʃər/",
+              "note": "2: TEA-cher"
+            },
+            {
+              "text": "banana",
+              "ipa": "/bəˈnænə/",
+              "note": "3: ba-NA-na"
+            },
+            {
+              "text": "tomato",
+              "ipa": "/təˈmeɪtoʊ/",
+              "note": "3: to-MA-to"
+            },
+            {
+              "text": "umbrella",
+              "ipa": "/ʌmˈbrɛlə/",
+              "note": "3: um-BREL-la"
+            },
+            {
+              "text": "watermelon",
+              "ipa": "/ˈwɔtərˌmɛlən/",
+              "note": "4: WA-ter-mel-on"
+            },
+            {
+              "text": "television",
+              "ipa": "/ˈtɛləˌvɪʒən/",
+              "note": "4: TEL-e-vi-sion"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Trọng âm**: trong từ nhiều âm tiết, **một âm tiết được nhấn** — đọc to hơn, dài hơn, cao hơn. Bài này viết âm tiết được nhấn bằng CHỮ HOA.\n\nVới từ **2 âm tiết**:\n\n- Danh từ và tính từ **thường** nhấn âm tiết đầu: `TA-ble`, `PEN-cil`, `HAP-py`, `YEL-low`.\n- Động từ **thường** nhấn âm tiết sau: `re-LAX`, `be-GIN`, `de-CIDE`, `for-GET`.\n\nCó ngoại lệ: `ho-TEL`, `po-LICE` là danh từ nhưng nhấn âm sau; `O-pen`, `VIS-it` là động từ nhưng nhấn âm đầu. Gặp từ mới hãy tra từ điển: dấu ˈ đứng trước âm tiết được nhấn."
+        },
+        {
+          "type": "tip",
+          "md": "**Âm tiết không nhấn thường đọc nhẹ thành /ə/** (schwa) — một âm “ơ” rất ngắn, miệng thả lỏng: `about` /əˈbaʊt/, `banana` /bəˈnænə/, `today` /təˈdeɪ/, `sofa` /ˈsoʊfə/.\n\nCác từ chức năng như `a`, `the`, `to`, `of`, `and` cũng thường đọc nhẹ trong câu: `a cup of tea` nghe gần như “ơ cấp ơv ti”.\n\n**Lỗi hay gặp**: đọc mọi âm tiết to rõ như nhau (“ba-na-na” đều đều). Hãy nhấn rõ một âm tiết và đọc lướt các âm tiết còn lại."
+        },
+        {
+          "type": "examples",
+          "title": "Nghe nhịp nhấn trong câu",
+          "items": [
+            {
+              "en": "I want to relax today.",
+              "vi": "Hôm nay mình muốn thư giãn."
+            },
+            {
+              "en": "The table is yellow.",
+              "vi": "Cái bàn màu vàng."
+            },
+            {
+              "en": "Don't forget your pencil.",
+              "vi": "Đừng quên bút chì của bạn."
+            },
+            {
+              "en": "Let's begin the lesson.",
+              "vi": "Chúng ta bắt đầu bài học nhé."
+            },
+            {
+              "en": "I'm happy about it.",
+              "vi": "Mình thấy vui về chuyện đó."
+            },
+            {
+              "en": "A cup of tea, please.",
+              "vi": "Cho mình một tách trà."
+            },
+            {
+              "en": "The hotel is open.",
+              "vi": "Khách sạn đang mở cửa."
+            },
+            {
+              "en": "My teacher likes bananas.",
+              "vi": "Giáo viên của mình thích chuối."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Từ `cake` có mấy âm tiết?",
+          "choices": [
+            "2",
+            "1",
+            "3"
+          ],
+          "answer": 1,
+          "explain": "Chữ e cuối câm, cake chỉ có một âm nguyên âm /eɪ/."
+        },
+        {
+          "type": "listen",
+          "say": "pencil",
+          "prompt": "Từ bạn nghe có mấy âm tiết?",
+          "choices": [
+            "1",
+            "2",
+            "3"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "banana",
+          "prompt": "Từ bạn nghe có mấy âm tiết?",
+          "choices": [
+            "2",
+            "4",
+            "3"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "listen",
+          "say": "watermelon",
+          "prompt": "Từ bạn nghe có mấy âm tiết?",
+          "choices": [
+            "4",
+            "3",
+            "5"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép từ với số âm tiết",
+          "pairs": [
+            {
+              "left": "school",
+              "right": "1 âm tiết"
+            },
+            {
+              "left": "teacher",
+              "right": "2 âm tiết"
+            },
+            {
+              "left": "tomato",
+              "right": "3 âm tiết"
+            },
+            {
+              "left": "television",
+              "right": "4 âm tiết"
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Trọng âm của danh từ `table`?",
+          "choices": [
+            "TA-ble (nhấn âm 1)",
+            "ta-BLE (nhấn âm 2)"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Trọng âm của động từ `relax`?",
+          "choices": [
+            "RE-lax (nhấn âm 1)",
+            "re-LAX (nhấn âm 2)"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Trọng âm của tính từ `happy`?",
+          "choices": [
+            "hap-PY (nhấn âm 2)",
+            "HAP-py (nhấn âm 1)"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Trọng âm của danh từ `hotel`?",
+          "choices": [
+            "HO-tel (nhấn âm 1)",
+            "ho-TEL (nhấn âm 2)"
+          ],
+          "answer": 1,
+          "explain": "Ngoại lệ: hotel là danh từ nhưng nhấn âm tiết sau."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Trong `about` /əˈbaʊt/, phần nào đọc nhẹ thành /ə/?",
+          "choices": [
+            "-bout",
+            "a-"
+          ],
+          "answer": 1,
+          "explain": "Âm tiết đầu không nhấn nên đọc nhẹ thành /ə/."
+        }
+      ]
+    },
+    {
+      "id": "alphabet.endings",
+      "title": "Cách đọc đuôi -s/-es và -ed",
+      "summary": "Ba cách đọc đuôi -s/-es (/s/, /z/, /ɪz/) và -ed (/t/, /d/, /ɪd/).",
+      "level": "A1_2",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Đuôi `-s/-es` (danh từ số nhiều, động từ ngôi thứ ba số ít) và đuôi `-ed` (quá khứ) đều có **3 cách đọc**.\n\nCách đọc phụ thuộc vào **âm cuối** của từ gốc — âm nghe được, không phải chữ viết. Vì vậy cần biết âm cuối là **vô thanh** (cổ không rung) hay **hữu thanh** (cổ rung)."
+        },
+        {
+          "type": "table",
+          "title": "Đuôi -s / -es",
+          "head": [
+            "Âm cuối của từ gốc",
+            "Đọc đuôi",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Vô thanh: /p/, /t/, /k/, /f/, /θ/",
+              "/s/",
+              "stops, cats, books, laughs, months"
+            ],
+            [
+              "Hữu thanh còn lại (kể cả nguyên âm)",
+              "/z/",
+              "dogs, cars, plays, pens, calls"
+            ],
+            [
+              "/s/, /z/, /ʃ/, /tʃ/, /dʒ/ (thường viết s, x, z, sh, ch, ge)",
+              "/ɪz/ — thêm một âm tiết",
+              "buses, boxes, washes, watches, oranges"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Đuôi -ed",
+          "head": [
+            "Âm cuối của từ gốc",
+            "Đọc đuôi",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Vô thanh (trừ /t/): /p/, /k/, /f/, /s/, /ʃ/, /tʃ/",
+              "/t/",
+              "stopped, worked, laughed, missed, washed, watched"
+            ],
+            [
+              "Hữu thanh (trừ /d/), kể cả nguyên âm",
+              "/d/",
+              "played, opened, called, lived, cleaned"
+            ],
+            [
+              "/t/, /d/",
+              "/ɪd/ — thêm một âm tiết",
+              "wanted, needed, visited"
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Mẹo nhớ**: âm cuối vô thanh → đuôi vô thanh (/s/, /t/); âm cuối hữu thanh → đuôi hữu thanh (/z/, /d/). Chỉ /ɪz/ và /ɪd/ mới thêm một âm tiết. Một số từ điển ghi /ɪz/, /ɪd/ là /əz/, /əd/.\n\nXét **âm**, không xét chữ: `laughs` (gh đọc /f/) → /s/; `boxes` (x đọc /ks/) → /ɪz/; `likes` tận cùng bằng chữ e nhưng âm cuối là /k/ → /s/.\n\n**Lỗi hay gặp**: bỏ hẳn đuôi, hoặc đọc mọi `-ed` thành “ét”, “đờ”. `worked` chỉ có **một** âm tiết, kết thúc bằng /t/."
+        },
+        {
+          "type": "examples",
+          "title": "Nghe và đọc theo",
+          "items": [
+            {
+              "en": "I have two cats and three dogs.",
+              "vi": "Mình có hai con mèo và ba con chó."
+            },
+            {
+              "en": "She watches movies at night.",
+              "vi": "Cô ấy xem phim vào buổi tối."
+            },
+            {
+              "en": "He works in a big office.",
+              "vi": "Anh ấy làm việc trong một văn phòng lớn."
+            },
+            {
+              "en": "The buses are late.",
+              "vi": "Mấy chuyến xe buýt đến muộn."
+            },
+            {
+              "en": "We played games yesterday.",
+              "vi": "Hôm qua tụi mình chơi trò chơi."
+            },
+            {
+              "en": "I worked all day.",
+              "vi": "Mình đã làm việc cả ngày."
+            },
+            {
+              "en": "She wanted some water.",
+              "vi": "Cô ấy muốn uống chút nước."
+            },
+            {
+              "en": "He cleaned his room.",
+              "vi": "Cậu ấy đã dọn phòng."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Đuôi -s trong `cats` đọc là gì?",
+          "choices": [
+            "/z/",
+            "/s/",
+            "/ɪz/"
+          ],
+          "answer": 1,
+          "explain": "cat kết thúc bằng /t/ vô thanh → /s/."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Đuôi -s trong `dogs` đọc là gì?",
+          "choices": [
+            "/s/",
+            "/ɪz/",
+            "/z/"
+          ],
+          "answer": 2,
+          "explain": "dog kết thúc bằng /g/ hữu thanh → /z/."
+        },
+        {
+          "type": "listen",
+          "say": "buses",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "bus",
+            "buses"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "wanted",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "wanted",
+            "want"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "listen",
+          "say": "watches",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "watch",
+            "watches"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Đuôi -es trong `buses` đọc là gì?",
+          "choices": [
+            "/ɪz/",
+            "/s/",
+            "/z/"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Đuôi -ed trong `played` đọc là gì?",
+          "choices": [
+            "/t/",
+            "/d/",
+            "/ɪd/"
+          ],
+          "answer": 1,
+          "explain": "play kết thúc bằng nguyên âm (hữu thanh) → /d/."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Đuôi -ed trong `laughed` đọc là gì?",
+          "choices": [
+            "/ɪd/",
+            "/d/",
+            "/t/"
+          ],
+          "answer": 2,
+          "explain": "gh trong laugh đọc /f/ — âm vô thanh → /t/."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ nào có đuôi -ed **thêm một âm tiết**?",
+          "choices": [
+            "worked",
+            "cleaned",
+            "needed",
+            "stopped"
+          ],
+          "answer": 2,
+          "explain": "need kết thúc bằng /d/ → đuôi đọc /ɪd/."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép từ với cách đọc đuôi",
+          "pairs": [
+            {
+              "left": "maps",
+              "right": "/s/"
+            },
+            {
+              "left": "pens",
+              "right": "/z/"
+            },
+            {
+              "left": "boxes",
+              "right": "/ɪz/"
+            },
+            {
+              "left": "missed",
+              "right": "/t/"
+            },
+            {
+              "left": "opened",
+              "right": "/d/"
+            },
+            {
+              "left": "visited",
+              "right": "/ɪd/"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

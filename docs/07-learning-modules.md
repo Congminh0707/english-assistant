@@ -75,6 +75,20 @@ Thêm dạng bài mới = thêm đủ 3 thứ này + đăng ký vào `exerciseRe
 - **Ôn qua mascot**: thẻ đến hạn được mascot hỏi dạng trắc nghiệm nhanh trong bong bóng (D2). Kết quả trắc nghiệm quy đổi: đúng nhanh → *Được*, đúng chậm → *Khó*, sai → *Quên*.
 - **Trang từ**: nghĩa, IPA US/UK, loại từ, level, ví dụ (từ Tatoeba), collocation, word family, ảnh (nếu có), câu ngữ cảnh người dùng đã gặp.
 
+## 3b. Bài học nền tảng (Foundation) — ✅ đã làm
+
+Lộ trình học từ đầu cho người Việt, **tự soạn** (`proprietary-own`, [08](08-content-sources.md)), nằm ở `content/curated/lessons/*.json` — hướng dẫn soạn: [`AUTHORING.md`](../content/curated/lessons/AUTHORING.md), schema: `src/shared/schemas/lesson.ts`. File JSON được đóng gói thẳng vào app (`bundledLessons.ts`), kiểm tra bằng `src/main/content/lessons.test.ts` (schema + đáp án hợp lệ + id không trùng).
+
+| Chương | Bài |
+|---|---|
+| 1. 🔤 Bảng chữ cái & phát âm | chữ cái, nguyên âm/phụ âm, nguyên âm ngắn, nguyên âm dài & đôi, tổ hợp chữ cái, phụ âm khó với người Việt, âm tiết & trọng âm, đuôi -s/-es/-ed |
+| 2. 📝 Mẫu câu cơ bản (1) | to be, đại từ & tính từ sở hữu, a/an/the, số nhiều & không đếm được, this/that/these/those, there is/are |
+| 3. ⏰ Các thì | hiện tại đơn, hiện tại tiếp diễn, đơn vs tiếp diễn, quá khứ đơn, quá khứ tiếp diễn, tương lai (will/going to), hiện tại hoàn thành, ôn tập |
+| 4. 🧱 Mẫu câu cơ bản (2) | have/has (got), can/can't & mệnh lệnh, câu hỏi Wh-, in/on/at, so sánh tính từ, từ nối |
+| 5. 💬 Giao tiếp hằng ngày | chào hỏi, số đếm, giờ/thứ/ngày, lịch sự, hỏi đường, mua sắm |
+
+34 bài, ~340 bài tập. Mỗi bài: giải thích tiếng Việt ngắn, bảng, ví dụ có nút nghe (TTS), mẹo lỗi người Việt hay mắc, lưới âm bấm nghe, 8–12 bài tập (trắc nghiệm, điền chỗ trống, sắp xếp câu, ghép cặp, nghe rồi chọn) chấm tại chỗ. Tiến độ lưu ở `lesson_progress` (điểm cao nhất, số lần làm); **lần đầu đạt ≥ 70% thưởng +15 XP, +5 xu** (+5 XP nếu 100%), mỗi bài thưởng một lần. Câu `say` của chữ cái viết thành tên chữ ("bee", "double-you") để giọng máy đọc đúng. Hạn chế: giọng TTS của Windows có thể là giọng Anh (vd "zed"); phần giải thích chỉ có tiếng Việt; chưa có bài đọc hiểu/viết; chưa có phiên bản cho trẻ em (phonics từng chữ có hình).
+
 ## 4. Module Ngữ pháp (P1)
 
 - Mỗi **điểm ngữ pháp** (grammar point) có: id, tên vi/en, bậc, giải thích ngắn (≤ 150 từ), công thức, 3–5 ví dụ, lỗi người Việt hay mắc, liên kết điểm liên quan.

@@ -105,6 +105,17 @@ erDiagram
 | suspended | INTEGER | |
 | INDEX(profile_id, due) | |
 
+### lesson_progress (bài học nền tảng — migration 0004)
+| Cột | Kiểu | Ghi chú |
+|---|---|---|
+| id | TEXT PK | UUID v7 |
+| profile_id | TEXT FK | |
+| lesson_id | TEXT | id bài trong `content/curated/lessons` (vd `tenses.present-simple`); UNIQUE(profile_id, lesson_id) |
+| best | INTEGER | điểm cao nhất (0–100) |
+| attempts | INTEGER | số lần làm bài tập |
+| completed_at | INTEGER NULL | lần đầu đạt ngưỡng 70% (NULL = chưa hoàn thành) |
+| created_at / updated_at / deleted_at | INTEGER | |
+
 ### srs_reviews (log — giúp tối ưu tham số FSRS về sau)
 `id, profile_id, card_id, rating (1–4), state_before, due_before, elapsed_ms, reviewed_at, source ('study'|'mascot')`
 

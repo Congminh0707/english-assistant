@@ -175,3 +175,23 @@ export const srsReviews = sqliteTable(
   },
   (t) => [index('srs_reviews_profile_time').on(t.profileId, t.reviewedAt)]
 )
+
+/** Tiến độ bài học nền tảng (chữ cái, mẫu câu, các thì...) của từng hồ sơ */
+export const lessonProgress = sqliteTable(
+  'lesson_progress',
+  {
+    id: text('id').primaryKey(), // UUID v7
+    profileId: text('profile_id')
+      .notNull()
+      .references(() => profiles.id),
+    /** 'tenses.present-simple' — id bài trong content/curated/lessons */
+    lessonId: text('lesson_id').notNull(),
+    /** Điểm cao nhất (0–100) */
+    best: integer('best').notNull(),
+    attempts: integer('attempts').notNull().default(1),
+    /** Lần đầu đạt ngưỡng hoàn thành (null = chưa đạt) */
+    completedAt: integer('completed_at'),
+    ...timestamps
+  },
+  (t) => [uniqueIndex('lesson_progress_profile_lesson').on(t.profileId, t.lessonId)]
+)

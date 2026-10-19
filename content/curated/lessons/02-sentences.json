@@ -1,0 +1,1314 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "sentences",
+    "title": "Mẫu câu cơ bản (1)",
+    "summary": "Những viên gạch đầu tiên để đặt câu: động từ to be, đại từ, mạo từ, số nhiều, this/that và there is/there are.",
+    "icon": "📝",
+    "order": 2
+  },
+  "lessons": [
+    {
+      "id": "sentences.to-be",
+      "title": "Động từ to be: am / is / are",
+      "summary": "Nói “là”, “thì”, “ở” bằng am / is / are: khẳng định, phủ định, câu hỏi và trả lời ngắn.",
+      "level": "PA1_2",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Động từ **to be** có ba dạng ở hiện tại: `am`, `is`, `are`. Nó mang nghĩa “là”, “thì”, “ở”, và dùng để nói tên, nghề nghiệp, tuổi, quê quán, tính chất, vị trí.\n\nChọn dạng theo **chủ ngữ**:\n\n- `I` đi với `am`\n- `he / she / it` (một người, một vật) đi với `is`\n- `you / we / they` (và danh từ số nhiều) đi với `are`\n\nKhi nói, người Mỹ thường dùng **dạng viết tắt**: `I'm`, `you're`, `he's`, `she's`, `it's`, `we're`, `they're`."
+        },
+        {
+          "type": "table",
+          "title": "Bảng tóm tắt",
+          "head": [
+            "Chủ ngữ",
+            "Khẳng định",
+            "Phủ định",
+            "Câu hỏi"
+          ],
+          "rows": [
+            [
+              "I",
+              "I am (I'm)",
+              "I am not (I'm not)",
+              "Am I…?"
+            ],
+            [
+              "he / she / it",
+              "she is (she's)",
+              "she is not (she isn't)",
+              "Is she…?"
+            ],
+            [
+              "you / we / they",
+              "they are (they're)",
+              "they are not (they aren't)",
+              "Are they…?"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Phủ định**: thêm `not` sau am/is/are. Viết tắt: `isn't`, `aren't`; riêng `am not` thường chỉ rút gọn thành `I'm not`.\n\n**Câu hỏi Yes/No**: đưa am/is/are lên trước chủ ngữ: `Are you tired?` `Is he your brother?`\n\n**Trả lời ngắn**: `Yes, I am.` / `No, I'm not.` · `Yes, he is.` / `No, he isn't.` Câu trả lời “Yes” **không** viết tắt: nói `Yes, I am.`, không nói `Yes, I'm.`"
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I'm a student.",
+              "vi": "Tôi là học sinh."
+            },
+            {
+              "en": "She is my teacher.",
+              "vi": "Cô ấy là giáo viên của tôi."
+            },
+            {
+              "en": "We're from Vietnam.",
+              "vi": "Chúng tôi đến từ Việt Nam."
+            },
+            {
+              "en": "I'm not hungry.",
+              "vi": "Tôi không đói."
+            },
+            {
+              "en": "It isn't cold today.",
+              "vi": "Hôm nay trời không lạnh."
+            },
+            {
+              "en": "They aren't at home.",
+              "vi": "Họ không có ở nhà."
+            },
+            {
+              "en": "Are you tired? Yes, I am.",
+              "vi": "Bạn mệt à? Ừ, mình mệt."
+            },
+            {
+              "en": "Is he your brother? No, he isn't.",
+              "vi": "Anh ấy là anh trai bạn à? Không phải."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- **Quên động từ be**, vì tiếng Việt nói “Cô ấy giáo viên”, “Tôi đói” mà không cần “là”. Tiếng Anh bắt buộc có be: `She is a teacher.` (không phải `She teacher.`), `I am hungry.` (không phải `I hungry.`).\n- **Dùng `is` cho mọi chủ ngữ**: `They is…`, `You is…` đều sai. Nhớ: I → am, he/she/it → is, you/we/they → are.\n- Viết tắt sai câu trả lời: `Yes, I'm.` → đúng là `Yes, I am.`"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "She ___ a teacher.",
+          "answers": [
+            "is"
+          ],
+          "choices": [
+            "am",
+            "is",
+            "are"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "They ___ my friends.",
+          "answers": [
+            "are"
+          ],
+          "choices": [
+            "is",
+            "am",
+            "are"
+          ],
+          "explain": "They (họ, số nhiều) đi với are."
+        },
+        {
+          "type": "gap",
+          "prompt": "I ___ hungry.",
+          "answers": [
+            "am"
+          ],
+          "choices": [
+            "am",
+            "is",
+            "are"
+          ],
+          "explain": "Tiếng Việt nói “Tôi đói” nhưng tiếng Anh vẫn cần am."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng nghĩa “Anh ấy là bác sĩ.”?",
+          "choices": [
+            "He is a doctor.",
+            "He doctor.",
+            "He are a doctor.",
+            "He a doctor is."
+          ],
+          "answer": 0,
+          "explain": "He đi với is, và không được bỏ động từ be."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép với dạng viết tắt",
+          "pairs": [
+            {
+              "left": "I am",
+              "right": "I'm"
+            },
+            {
+              "left": "she is",
+              "right": "she's"
+            },
+            {
+              "left": "they are",
+              "right": "they're"
+            },
+            {
+              "left": "is not",
+              "right": "isn't"
+            },
+            {
+              "left": "are not",
+              "right": "aren't"
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "“Are you a student?” — Câu trả lời ngắn nào đúng?",
+          "choices": [
+            "Yes, I'm.",
+            "Yes, I am.",
+            "Yes, I is.",
+            "Yes, you am."
+          ],
+          "answer": 1,
+          "explain": "Câu trả lời “Yes” không viết tắt: Yes, I am."
+        },
+        {
+          "type": "gap",
+          "prompt": "We ___ late. (phủ định: Chúng tôi không trễ.)",
+          "answers": [
+            "aren't",
+            "are not"
+          ],
+          "explain": "We đi với are; phủ định là are not / aren't."
+        },
+        {
+          "type": "gap",
+          "prompt": "Is he your brother? No, he ___.",
+          "answers": [
+            "isn't",
+            "is not"
+          ],
+          "explain": "Trả lời ngắn phủ định: No, he isn't."
+        },
+        {
+          "type": "order",
+          "hint": "Chúng tôi không mệt.",
+          "answer": "We are not tired."
+        },
+        {
+          "type": "order",
+          "hint": "Mẹ của bạn có ở nhà không?",
+          "answer": "Is your mother at home?",
+          "explain": "Câu hỏi Yes/No: đưa is lên trước chủ ngữ."
+        }
+      ]
+    },
+    {
+      "id": "sentences.pronouns",
+      "title": "Đại từ nhân xưng và tính từ sở hữu",
+      "summary": "I / you / he / she / it / we / they, my / your / his / her…, và me / him / her / us / them.",
+      "level": "PA1_2",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Tiếng Việt có rất nhiều cách xưng hô (anh, chị, em, cô, chú, bạn…). Tiếng Anh đơn giản hơn: người nói luôn là `I`, người nghe luôn là `you`, bất kể tuổi tác.\n\nVới ngôi thứ ba số ít, phải chọn theo giới tính:\n\n- `he`: một người nam (anh ấy, ông ấy, cậu bé)\n- `she`: một người nữ (cô ấy, bà ấy, bé gái)\n- `it`: một đồ vật, một con vật (thường), thời tiết, thời gian\n\nSố nhiều dùng `we` (chúng tôi, chúng ta) và `they` (họ, chúng nó, những cái đó). Thú cưng trong nhà đôi khi được gọi là he/she."
+        },
+        {
+          "type": "table",
+          "title": "Bảng đại từ",
+          "head": [
+            "Chủ ngữ",
+            "Tân ngữ",
+            "Sở hữu (+ danh từ)",
+            "Nghĩa"
+          ],
+          "rows": [
+            [
+              "I",
+              "me",
+              "my",
+              "tôi"
+            ],
+            [
+              "you",
+              "you",
+              "your",
+              "bạn, các bạn"
+            ],
+            [
+              "he",
+              "him",
+              "his",
+              "anh ấy"
+            ],
+            [
+              "she",
+              "her",
+              "her",
+              "cô ấy"
+            ],
+            [
+              "it",
+              "it",
+              "its",
+              "nó"
+            ],
+            [
+              "we",
+              "us",
+              "our",
+              "chúng tôi"
+            ],
+            [
+              "they",
+              "them",
+              "their",
+              "họ"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "- **Chủ ngữ** đứng trước động từ: `She likes cats.`\n- **Tân ngữ** đứng sau động từ hoặc giới từ: `Call me.` `I live with them.`\n- **Tính từ sở hữu** đứng trước danh từ: `my phone`, `their house`. Chọn theo **người sở hữu**, không theo đồ vật: `Lan and her brother` (anh trai của Lan → her)."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "He is my dad.",
+              "vi": "Ông ấy là bố tôi."
+            },
+            {
+              "en": "She likes her new job.",
+              "vi": "Cô ấy thích công việc mới của mình."
+            },
+            {
+              "en": "This is our house.",
+              "vi": "Đây là nhà của chúng tôi."
+            },
+            {
+              "en": "Our cat is small. Its eyes are green.",
+              "vi": "Con mèo nhà mình nhỏ xíu. Mắt nó màu xanh lá."
+            },
+            {
+              "en": "It's very hot today.",
+              "vi": "Hôm nay trời nóng quá."
+            },
+            {
+              "en": "Please call me tonight.",
+              "vi": "Tối nay gọi cho mình nhé."
+            },
+            {
+              "en": "I like them a lot.",
+              "vi": "Tôi rất quý họ."
+            },
+            {
+              "en": "Their son is a doctor.",
+              "vi": "Con trai họ là bác sĩ."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- **Nhầm he và she** khi nói nhanh, vì tiếng Việt “nó”, “bạn ấy” không phân biệt nam nữ. Hãy dừng một giây để chọn đúng.\n- **Dùng chủ ngữ làm tân ngữ**: `Help I.` → `Help me.`; `I love she.` → `I love her.`\n- **`its` và `it's`**: `its` = của nó (`its tail`); `it's` = it is hoặc it has (`It's late.`). Nghe giống hệt nhau nên chỉ phân biệt khi viết."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "This is Mai. ___ is my sister.",
+          "answers": [
+            "She"
+          ],
+          "choices": [
+            "He",
+            "She",
+            "It"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Can you help ___?",
+          "answers": [
+            "me"
+          ],
+          "choices": [
+            "I",
+            "my",
+            "me"
+          ],
+          "explain": "Sau động từ help cần tân ngữ: me."
+        },
+        {
+          "type": "gap",
+          "prompt": "Peter and ___ wife live in Hanoi.",
+          "answers": [
+            "his"
+          ],
+          "choices": [
+            "he",
+            "his",
+            "him"
+          ],
+          "explain": "Trước danh từ (wife) dùng tính từ sở hữu; Peter là nam → his."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng nghĩa “Đây là anh trai tôi. Anh ấy 20 tuổi.”?",
+          "choices": [
+            "This is my brother. She is 20.",
+            "This is me brother. He is 20.",
+            "This is my brother. He is 20.",
+            "This is my brother. His is 20."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép chủ ngữ với tính từ sở hữu",
+          "pairs": [
+            {
+              "left": "I",
+              "right": "my"
+            },
+            {
+              "left": "he",
+              "right": "his"
+            },
+            {
+              "left": "she",
+              "right": "her"
+            },
+            {
+              "left": "we",
+              "right": "our"
+            },
+            {
+              "left": "they",
+              "right": "their"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The table is old. ___ legs are short.",
+          "answers": [
+            "Its"
+          ],
+          "choices": [
+            "It's",
+            "It",
+            "Its"
+          ],
+          "explain": "Its = của nó; It's = It is."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng nghĩa “Tôi yêu cô ấy.”?",
+          "choices": [
+            "I love she.",
+            "I love her.",
+            "Me love her.",
+            "I love he."
+          ],
+          "answer": 1,
+          "explain": "Chủ ngữ dùng I, tân ngữ sau động từ dùng her."
+        },
+        {
+          "type": "gap",
+          "prompt": "My grandparents live in Hue. I visit ___ every summer.",
+          "answers": [
+            "them"
+          ],
+          "choices": [
+            "they",
+            "them",
+            "their"
+          ],
+          "explain": "Ông bà là số nhiều, đứng sau động từ → them."
+        },
+        {
+          "type": "order",
+          "hint": "Họ là bạn của chúng tôi.",
+          "answer": "They are our friends."
+        },
+        {
+          "type": "order",
+          "hint": "Cô giáo của chúng tôi giúp đỡ chúng tôi.",
+          "answer": "Our teacher helps us."
+        }
+      ]
+    },
+    {
+      "id": "sentences.articles",
+      "title": "Mạo từ a / an / the",
+      "summary": "Khi nào dùng a, an, the — và khi nào không cần mạo từ.",
+      "level": "A1_1",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Tiếng Việt nói “Tôi là học sinh”, nhưng tiếng Anh cần thêm một từ nhỏ: `I am a student.` Đó là **mạo từ**.\n\n**`a` / `an`** = “một”, đi với danh từ **số ít, đếm được**, khi nói tới một cái bất kỳ hoặc nhắc lần đầu. Nói nghề nghiệp cũng cần a/an: `She is a nurse.`\n\nChọn a hay an theo **âm đầu** (cách đọc), không theo chữ cái:\n\n- `a` trước phụ âm: `a book`, `a car`, `a university` (đọc /ju/), `a uniform`\n- `an` trước nguyên âm: `an apple`, `an egg`, `an umbrella`, `an hour` (chữ h câm)"
+        },
+        {
+          "type": "text",
+          "md": "**`the`** = “cái đó”, khi người nghe biết rõ đang nói tới cái nào:\n\n- đã nhắc tới trước: `I have a dog. The dog is friendly.`\n- rõ trong ngữ cảnh: `Close the door, please.`\n- chỉ có một: `the sun`, `the moon`, `the sky`\n\n**Không dùng mạo từ** khi nói chung chung về danh từ số nhiều hoặc không đếm được: `I like cats.` `I like music.` `Water is important.` Tên người và hầu hết tên nước cũng không có mạo từ: `Lan`, `Vietnam`."
+        },
+        {
+          "type": "table",
+          "title": "Tóm tắt",
+          "head": [
+            "Mạo từ",
+            "Khi nào dùng",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "a",
+              "số ít, âm đầu là phụ âm",
+              "a cat, a university"
+            ],
+            [
+              "an",
+              "số ít, âm đầu là nguyên âm",
+              "an egg, an hour"
+            ],
+            [
+              "the",
+              "đã xác định hoặc duy nhất",
+              "the door, the sun"
+            ],
+            [
+              "(không)",
+              "số nhiều / không đếm được, nói chung",
+              "I like cats. I like music."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I have a brother and a sister.",
+              "vi": "Tôi có một anh trai và một chị gái."
+            },
+            {
+              "en": "He is an engineer.",
+              "vi": "Anh ấy là kỹ sư."
+            },
+            {
+              "en": "She eats an apple every day.",
+              "vi": "Ngày nào cô ấy cũng ăn một quả táo."
+            },
+            {
+              "en": "The trip takes an hour.",
+              "vi": "Chuyến đi mất một tiếng."
+            },
+            {
+              "en": "She studies at a university in Hue.",
+              "vi": "Cô ấy học ở một trường đại học ở Huế."
+            },
+            {
+              "en": "I have a dog. The dog is very friendly.",
+              "vi": "Tôi có một con chó. Con chó ấy rất thân thiện."
+            },
+            {
+              "en": "The sun is very hot today.",
+              "vi": "Hôm nay nắng gắt quá."
+            },
+            {
+              "en": "I like music and movies.",
+              "vi": "Tôi thích âm nhạc và phim ảnh."
+            },
+            {
+              "en": "Can you close the door, please?",
+              "vi": "Bạn đóng cửa giúp mình nhé?"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- **Bỏ mạo từ** trước danh từ số ít: `I am student.` → `I am a student.`; `He is doctor.` → `He is a doctor.`\n- **Chọn a/an theo chữ cái**: `an university` → `a university`; `a hour` → `an hour`.\n- **Thêm the khi nói chung**: `I like the music.` nghĩa là “thích bản nhạc (cụ thể) này”. Muốn nói thích âm nhạc nói chung: `I like music.`"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I have ___ apple.",
+          "answers": [
+            "an"
+          ],
+          "choices": [
+            "a",
+            "an"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She is ___ nurse.",
+          "answers": [
+            "a"
+          ],
+          "choices": [
+            "an",
+            "a"
+          ],
+          "explain": "Nói nghề nghiệp cần a/an; nurse bắt đầu bằng phụ âm."
+        },
+        {
+          "type": "gap",
+          "prompt": "We waited for ___ hour.",
+          "answers": [
+            "an"
+          ],
+          "choices": [
+            "a",
+            "an"
+          ],
+          "explain": "Chữ h trong hour câm, âm đầu là nguyên âm → an."
+        },
+        {
+          "type": "gap",
+          "prompt": "He studies at ___ university in Hanoi.",
+          "answers": [
+            "a"
+          ],
+          "choices": [
+            "an",
+            "a"
+          ],
+          "explain": "University đọc bắt đầu bằng âm /j/ (phụ âm) → a."
+        },
+        {
+          "type": "gap",
+          "prompt": "Look at ___ moon! It's beautiful.",
+          "answers": [
+            "the"
+          ],
+          "choices": [
+            "a",
+            "the"
+          ],
+          "explain": "Mặt trăng chỉ có một → the."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Cụm nào đúng?",
+          "choices": [
+            "a umbrella",
+            "an uniform",
+            "an hour",
+            "a apple"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "I have a dog and a cat. ___ dog is black.",
+          "answers": [
+            "The"
+          ],
+          "choices": [
+            "A",
+            "An",
+            "The"
+          ],
+          "explain": "Con chó đã được nhắc tới → the."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng nghĩa “Tôi thích âm nhạc (nói chung).”?",
+          "choices": [
+            "I like the music.",
+            "I like a music.",
+            "I like musics.",
+            "I like music."
+          ],
+          "answer": 3,
+          "explain": "Danh từ không đếm được, nói chung → không dùng mạo từ."
+        },
+        {
+          "type": "order",
+          "hint": "Cô ấy là giáo viên tiếng Anh.",
+          "answer": "She is an English teacher."
+        },
+        {
+          "type": "order",
+          "hint": "Tôi không có ô tô.",
+          "answer": "I don't have a car."
+        }
+      ]
+    },
+    {
+      "id": "sentences.plurals",
+      "title": "Số ít, số nhiều và danh từ không đếm được",
+      "summary": "Thêm -s/-es/-ies, các dạng bất quy tắc, danh từ không đếm được và much / many / some / any.",
+      "level": "A1_1",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Tiếng Việt thêm “những, các, hai…” mà danh từ không đổi. Tiếng Anh thì **danh từ phải đổi sang số nhiều** khi có từ hai trở lên: `one book` → `two books`.\n\nĐa số chỉ cần thêm `-s`. Một số từ đổi theo quy tắc riêng, vài từ thông dụng **bất quy tắc** phải học thuộc. Ngoài ra, các từ kết thúc bằng -o hoặc -f/-fe có thể thay đổi khác nhau (`tomatoes` nhưng `photos`; `knives` nhưng `roofs`), gặp từ nào nhớ từ đó."
+        },
+        {
+          "type": "table",
+          "title": "Cách tạo số nhiều",
+          "head": [
+            "Quy tắc",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "thêm -s (đa số)",
+              "book → books, car → cars"
+            ],
+            [
+              "tận cùng s, ss, sh, ch, x → thêm -es",
+              "bus → buses, class → classes, dish → dishes, watch → watches, box → boxes"
+            ],
+            [
+              "phụ âm + y → bỏ y, thêm -ies",
+              "city → cities, baby → babies"
+            ],
+            [
+              "nguyên âm + y → chỉ thêm -s",
+              "day → days, boy → boys"
+            ],
+            [
+              "bất quy tắc",
+              "man → men, woman → women, child → children, person → people, foot → feet, tooth → teeth"
+            ],
+            [
+              "không đổi",
+              "fish → fish, sheep → sheep"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Danh từ không đếm được** không thêm -s, không đi với a/an, động từ chia số ít: `water`, `rice`, `milk`, `money`, `advice`, `information`, `news`, `music`. Ví dụ: `The news is good.`\n\nMuốn đếm, dùng đơn vị: `a glass of water`, `a bowl of rice`, `a piece of advice`."
+        },
+        {
+          "type": "table",
+          "title": "much / many / a lot of / some / any",
+          "head": [
+            "Từ",
+            "Đi với",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "many",
+              "đếm được số nhiều",
+              "How many books?"
+            ],
+            [
+              "much",
+              "không đếm được (thường trong câu hỏi, phủ định)",
+              "How much water? not much time"
+            ],
+            [
+              "a lot of",
+              "cả hai (thường trong câu khẳng định)",
+              "a lot of friends, a lot of money"
+            ],
+            [
+              "some",
+              "cả hai; thường câu khẳng định, lời mời",
+              "some eggs, some milk"
+            ],
+            [
+              "any",
+              "cả hai; thường câu phủ định, câu hỏi",
+              "any eggs? not any milk"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I have two brothers.",
+              "vi": "Tôi có hai anh trai."
+            },
+            {
+              "en": "My children love cats.",
+              "vi": "Các con tôi rất thích mèo."
+            },
+            {
+              "en": "The boxes are very heavy.",
+              "vi": "Mấy cái hộp nặng lắm."
+            },
+            {
+              "en": "Can I have some water?",
+              "vi": "Cho mình xin ít nước nhé?"
+            },
+            {
+              "en": "I need some advice.",
+              "vi": "Tôi cần vài lời khuyên."
+            },
+            {
+              "en": "The news is very good.",
+              "vi": "Tin này tốt quá."
+            },
+            {
+              "en": "We need a lot of eggs.",
+              "vi": "Chúng ta cần nhiều trứng."
+            },
+            {
+              "en": "I don't have much time.",
+              "vi": "Tôi không có nhiều thời gian."
+            },
+            {
+              "en": "Do you have any questions?",
+              "vi": "Bạn có câu hỏi nào không?"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- **Quên -s**: `two book`, `many student` → `two books`, `many students`. Khi nói, nhớ phát âm cả âm cuối /s/ hoặc /z/.\n- **Thêm -s cho danh từ không đếm được**: `informations`, `advices`, `an advice` đều sai → `information`, `some advice`, `a piece of advice`.\n- **`people` đã là số nhiều**: `People are friendly.` (khi nghĩa là “người, mọi người”, không viết `peoples are`)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Số nhiều của “box” là gì?",
+          "choices": [
+            "boxs",
+            "boxes",
+            "boxies"
+          ],
+          "answer": 1,
+          "explain": "Tận cùng bằng x → thêm -es."
+        },
+        {
+          "type": "gap",
+          "prompt": "I love big ___. (city)",
+          "answers": [
+            "cities"
+          ],
+          "choices": [
+            "citys",
+            "cityes",
+            "cities"
+          ],
+          "explain": "Phụ âm + y → bỏ y, thêm -ies."
+        },
+        {
+          "type": "listen",
+          "say": "men",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "men",
+            "man"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép danh từ với dạng số nhiều",
+          "pairs": [
+            {
+              "left": "man",
+              "right": "men"
+            },
+            {
+              "left": "woman",
+              "right": "women"
+            },
+            {
+              "left": "foot",
+              "right": "feet"
+            },
+            {
+              "left": "tooth",
+              "right": "teeth"
+            },
+            {
+              "left": "person",
+              "right": "people"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She has three ___. (child)",
+          "answers": [
+            "children"
+          ],
+          "explain": "Child là danh từ bất quy tắc: child → children."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "Can you give me an advice?",
+            "Can you give me some advices?",
+            "Can you give me some advice?"
+          ],
+          "answer": 2,
+          "explain": "Advice không đếm được: không có -s, không đi với an."
+        },
+        {
+          "type": "gap",
+          "prompt": "How ___ water do you drink a day?",
+          "answers": [
+            "much"
+          ],
+          "choices": [
+            "many",
+            "much"
+          ],
+          "explain": "Water không đếm được → much."
+        },
+        {
+          "type": "gap",
+          "prompt": "I don't have ___ money.",
+          "answers": [
+            "any"
+          ],
+          "choices": [
+            "some",
+            "any"
+          ],
+          "explain": "Câu phủ định thường dùng any."
+        },
+        {
+          "type": "gap",
+          "prompt": "The news ___ very good.",
+          "answers": [
+            "is"
+          ],
+          "choices": [
+            "are",
+            "is"
+          ],
+          "explain": "News trông như số nhiều nhưng là danh từ không đếm được → is."
+        },
+        {
+          "type": "order",
+          "hint": "Tôi muốn một cốc nước.",
+          "answer": "I want a glass of water."
+        }
+      ]
+    },
+    {
+      "id": "sentences.demonstratives",
+      "title": "This / that / these / those",
+      "summary": "Chỉ đồ vật, người ở gần hay ở xa, số ít hay số nhiều; hỏi “What's this?”, “Who is that?”.",
+      "level": "A1_1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Bốn từ này giống “này” và “kia” trong tiếng Việt, nhưng phải chọn theo **hai điều**: gần hay xa, và một hay nhiều.\n\n- `this`: một cái ở gần (cái này)\n- `that`: một cái ở xa (cái kia)\n- `these`: nhiều cái ở gần (những cái này)\n- `those`: nhiều cái ở xa (những cái kia)"
+        },
+        {
+          "type": "table",
+          "title": "Bảng tóm tắt",
+          "head": [
+            "Số lượng",
+            "Gần (here)",
+            "Xa (there)"
+          ],
+          "rows": [
+            [
+              "Số ít",
+              "this",
+              "that"
+            ],
+            [
+              "Số nhiều",
+              "these",
+              "those"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "Có hai cách dùng:\n\n- **Đứng một mình** làm chủ ngữ: `This is my phone.` `Those are my friends.`\n- **Đứng trước danh từ**: `this phone`, `those friends`. Danh từ phải hợp số: `this book`, `these books`.\n\nCâu hỏi thường gặp:\n\n- `What's this?` → `It's a pen.`\n- `What are these?` → `They're keys.`\n- `Who is that?` → `That's my uncle.` hoặc `He's my uncle.`"
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "This is my phone.",
+              "vi": "Đây là điện thoại của tôi."
+            },
+            {
+              "en": "That is our school.",
+              "vi": "Kia là trường của chúng tôi."
+            },
+            {
+              "en": "These shoes are new.",
+              "vi": "Đôi giày này mới."
+            },
+            {
+              "en": "Those are my friends.",
+              "vi": "Kia là các bạn của tôi."
+            },
+            {
+              "en": "What's this? It's a pen.",
+              "vi": "Đây là cái gì? Là cái bút."
+            },
+            {
+              "en": "What are those? They're birds.",
+              "vi": "Kia là gì vậy? Là chim đấy."
+            },
+            {
+              "en": "Who is that? That's my uncle.",
+              "vi": "Ai kia? Chú tôi đấy."
+            },
+            {
+              "en": "I like this song.",
+              "vi": "Mình thích bài hát này."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- **Không hợp số**: `this books`, `these book` → `these books`. Động từ cũng phải hợp: `These are…`, không phải `These is…`.\n- **Đọc this và these giống nhau**: `this` có âm i ngắn /ðɪs/, `these` có âm i dài /ðiːz/ và kết thúc bằng âm /z/. Âm /ð/ đọc bằng cách đặt đầu lưỡi giữa hai hàm răng, không đọc thành “đ”.\n- Trả lời `What are these?` bằng `They're…`, không phải `It's…`."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "___ is my bag. (ở ngay đây, trên tay tôi)",
+          "answers": [
+            "This"
+          ],
+          "choices": [
+            "These",
+            "This",
+            "Those"
+          ]
+        },
+        {
+          "type": "listen",
+          "say": "these",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "this",
+            "these"
+          ],
+          "answer": 1,
+          "explain": "These có âm i dài và kết thúc bằng /z/."
+        },
+        {
+          "type": "gap",
+          "prompt": "___ shoes over there are nice.",
+          "answers": [
+            "Those"
+          ],
+          "choices": [
+            "That",
+            "These",
+            "Those"
+          ],
+          "explain": "Ở xa (over there) và số nhiều → those."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép từ với nghĩa",
+          "pairs": [
+            {
+              "left": "this",
+              "right": "cái này (một, ở gần)"
+            },
+            {
+              "left": "that",
+              "right": "cái kia (một, ở xa)"
+            },
+            {
+              "left": "these",
+              "right": "những cái này (ở gần)"
+            },
+            {
+              "left": "those",
+              "right": "những cái kia (ở xa)"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Look at ___ birds in the sky!",
+          "answers": [
+            "those"
+          ],
+          "choices": [
+            "this",
+            "that",
+            "those"
+          ],
+          "explain": "Chim trên trời: ở xa, số nhiều → those."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "These book is new.",
+            "This books are new.",
+            "These books are new.",
+            "This book are new."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "mcq",
+          "prompt": "“What are these?” — Câu trả lời nào đúng?",
+          "choices": [
+            "They're keys.",
+            "It's a key.",
+            "This is keys.",
+            "These is keys."
+          ],
+          "answer": 0,
+          "explain": "Hỏi về nhiều vật → trả lời bằng They're."
+        },
+        {
+          "type": "gap",
+          "prompt": "Who is ___ man over there?",
+          "answers": [
+            "that"
+          ],
+          "choices": [
+            "this",
+            "these",
+            "that"
+          ],
+          "explain": "Một người ở xa → that."
+        },
+        {
+          "type": "order",
+          "hint": "Những quả táo này rất ngọt.",
+          "answer": "These apples are very sweet."
+        },
+        {
+          "type": "order",
+          "hint": "Cô gái kia là ai?",
+          "answer": "Who is that girl?"
+        }
+      ]
+    },
+    {
+      "id": "sentences.there-is",
+      "title": "There is / There are",
+      "summary": "Nói “có cái gì ở đâu”: khẳng định, phủ định, câu hỏi; phân biệt với It is và I have.",
+      "level": "A1_2",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Muốn nói **“ở đâu đó có cái gì”**, tiếng Anh dùng `there is` / `there are`:\n\n- `There is` (viết tắt `There's`) + danh từ số ít hoặc không đếm được: `There is a bed in my room.` `There's some milk.`\n- `There are` + danh từ số nhiều: `There are two windows.`\n\nPhủ định: `There isn't…` / `There aren't…`, thường đi với `any`: `There aren't any trees.`\n\nCâu hỏi: đưa is/are lên đầu: `Is there a park near here?` `Are there any shops?` Hỏi số lượng: `How many people are there?`"
+        },
+        {
+          "type": "table",
+          "title": "Bảng tóm tắt",
+          "head": [
+            "Dạng",
+            "Số ít / không đếm được",
+            "Số nhiều"
+          ],
+          "rows": [
+            [
+              "Khẳng định",
+              "There is a cat. / There's some milk.",
+              "There are two cats."
+            ],
+            [
+              "Phủ định",
+              "There isn't a bank. / There isn't any milk.",
+              "There aren't any shops."
+            ],
+            [
+              "Câu hỏi",
+              "Is there a park?",
+              "Are there any trees?"
+            ],
+            [
+              "Trả lời ngắn",
+              "Yes, there is. / No, there isn't.",
+              "Yes, there are. / No, there aren't."
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "Ba câu dễ nhầm:\n\n- `There is a book on the table.`: Trên bàn **có** một quyển sách (giới thiệu là nó tồn tại ở đó).\n- `It is a book.`: **Nó là** một quyển sách (nói đó là cái gì).\n- `I have a book.`: Tôi **có** một quyển sách (của tôi, tôi sở hữu).\n\nThường giới thiệu bằng there is trước, rồi nói tiếp bằng it: `There is a box on the desk. It is heavy.`"
+        },
+        {
+          "type": "examples",
+          "title": "Mô tả căn phòng và thành phố",
+          "items": [
+            {
+              "en": "There is a bed in my room.",
+              "vi": "Trong phòng tôi có một cái giường."
+            },
+            {
+              "en": "There's a big window in the kitchen.",
+              "vi": "Bếp có một cửa sổ lớn."
+            },
+            {
+              "en": "There are two parks near my house.",
+              "vi": "Gần nhà tôi có hai công viên."
+            },
+            {
+              "en": "There isn't a TV in the bedroom.",
+              "vi": "Phòng ngủ không có ti vi."
+            },
+            {
+              "en": "There aren't any shops on this street.",
+              "vi": "Phố này không có cửa hàng nào."
+            },
+            {
+              "en": "Is there a bank near here? Yes, there is.",
+              "vi": "Gần đây có ngân hàng không? Có."
+            },
+            {
+              "en": "Are there any eggs? No, there aren't.",
+              "vi": "Còn trứng không? Hết rồi."
+            },
+            {
+              "en": "There are a lot of motorbikes in Hanoi.",
+              "vi": "Ở Hà Nội có rất nhiều xe máy."
+            },
+            {
+              "en": "How many people are there in your family?",
+              "vi": "Nhà bạn có mấy người?"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc: chữ “có” trong tiếng Việt vừa là **sở hữu** vừa là **tồn tại**, nên hay dịch sai thành `have`.\n\n- `In my room have a bed.` → `There is a bed in my room.`\n- `Have a lot of people here.` → `There are a lot of people here.`\n- `There have a…` / `There has a…` để nói “có” là sai.\n\nChỉ dùng `have` khi có người sở hữu làm chủ ngữ: `I have a bed.`"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "There ___ a cat in the garden.",
+          "answers": [
+            "is"
+          ],
+          "choices": [
+            "are",
+            "is"
+          ]
+        },
+        {
+          "type": "listen",
+          "say": "There are cats.",
+          "prompt": "Bạn nghe được câu nào?",
+          "choices": [
+            "There is a cat.",
+            "There are cats."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "There ___ two beds in my room.",
+          "answers": [
+            "are"
+          ],
+          "choices": [
+            "is",
+            "are"
+          ],
+          "explain": "Two beds là số nhiều → there are."
+        },
+        {
+          "type": "gap",
+          "prompt": "There isn't ___ milk in the fridge.",
+          "answers": [
+            "any"
+          ],
+          "choices": [
+            "some",
+            "a",
+            "any"
+          ],
+          "explain": "Câu phủ định với danh từ không đếm được → any."
+        },
+        {
+          "type": "gap",
+          "prompt": "Is there ___ bank near here?",
+          "answers": [
+            "a"
+          ],
+          "choices": [
+            "an",
+            "a",
+            "some"
+          ],
+          "explain": "Bank là danh từ số ít, bắt đầu bằng phụ âm → a."
+        },
+        {
+          "type": "mcq",
+          "prompt": "“Are there any chairs in the room?” — Không có. Câu trả lời ngắn nào đúng?",
+          "choices": [
+            "No, there isn't.",
+            "No, they aren't.",
+            "No, it isn't.",
+            "No, there aren't."
+          ],
+          "answer": 3,
+          "explain": "Hỏi Are there… thì trả lời No, there aren't."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng nghĩa “Trong phòng tôi có một cái giường.”?",
+          "choices": [
+            "In my room have a bed.",
+            "There is a bed in my room.",
+            "It is a bed in my room.",
+            "There are a bed in my room."
+          ],
+          "answer": 1,
+          "explain": "“Có” chỉ sự tồn tại → there is, không dùng have."
+        },
+        {
+          "type": "gap",
+          "prompt": "There is a box on the desk. ___ is very heavy.",
+          "answers": [
+            "It"
+          ],
+          "choices": [
+            "There",
+            "It"
+          ],
+          "explain": "Đã giới thiệu cái hộp rồi, nói tiếp về nó → It."
+        },
+        {
+          "type": "order",
+          "hint": "Có bao nhiêu phòng?",
+          "answer": "How many rooms are there?"
+        },
+        {
+          "type": "order",
+          "hint": "Không còn chút đường nào cả.",
+          "answer": "There isn't any sugar."
+        }
+      ]
+    }
+  ]
+}

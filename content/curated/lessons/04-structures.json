@@ -1,0 +1,1365 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "structures",
+    "title": "Mẫu câu cơ bản (2)",
+    "summary": "Have/has, can, câu hỏi Wh-, giới từ in/on/at, so sánh và từ nối để nói câu dài và rõ ý hơn.",
+    "icon": "🧱",
+    "order": 4
+  },
+  "lessons": [
+    {
+      "id": "structures.have-got",
+      "title": "Have / has và have got",
+      "summary": "Nói ai có cái gì: gia đình, đồ vật, đặc điểm.",
+      "level": "A1_1",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Dùng `have` / `has` để nói ai **có** cái gì: đồ vật, người thân, đặc điểm ngoại hình.\n\n- `I / you / we / they` + `have`: `I have a cat.`\n- `he / she / it` + `has`: `She has long hair.`\n\n**Phủ định** và **câu hỏi** mượn trợ động từ `do` / `does`, còn động từ chính trở về `have`: `He doesn't have a car.` · `Does she have a brother?` Trả lời ngắn: `Yes, she does.` / `No, she doesn't.`"
+        },
+        {
+          "type": "text",
+          "md": "`have got` / `has got` cũng có nghĩa là “có”. Trong tiếng Anh Mỹ, `have` là cách nói phổ biến nhất; `have got` thường gặp trong văn nói thân mật, nhất là dạng viết tắt `I've got`, `She's got`.\n\nVới `have got`, phủ định và câu hỏi **không** dùng do/does: `I haven't got a pen.` · `Have you got a pen?` → `Yes, I have.` / `No, I haven't.`"
+        },
+        {
+          "type": "table",
+          "title": "Tóm tắt",
+          "head": [
+            "Dạng",
+            "I / you / we / they",
+            "he / she / it"
+          ],
+          "rows": [
+            [
+              "Khẳng định",
+              "I have a bike.",
+              "She has a bike."
+            ],
+            [
+              "Phủ định",
+              "I don't have a bike.",
+              "She doesn't have a bike."
+            ],
+            [
+              "Câu hỏi",
+              "Do you have a bike?",
+              "Does she have a bike?"
+            ],
+            [
+              "have got (khẳng định)",
+              "I've got a bike.",
+              "She's got a bike."
+            ],
+            [
+              "have got (phủ định)",
+              "I haven't got a bike.",
+              "She hasn't got a bike."
+            ],
+            [
+              "have got (câu hỏi)",
+              "Have you got a bike?",
+              "Has she got a bike?"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I have two younger brothers.",
+              "vi": "Tôi có hai em trai."
+            },
+            {
+              "en": "My sister has a small dog.",
+              "vi": "Chị tôi có một con chó nhỏ."
+            },
+            {
+              "en": "We don't have a car.",
+              "vi": "Nhà tôi không có xe hơi."
+            },
+            {
+              "en": "Does your father have a beard?",
+              "vi": "Bố bạn có để râu không?"
+            },
+            {
+              "en": "Yes, he does.",
+              "vi": "Có, bố mình có để râu."
+            },
+            {
+              "en": "I've got a new phone.",
+              "vi": "Mình có điện thoại mới rồi."
+            },
+            {
+              "en": "Have you got a pen?",
+              "vi": "Bạn có bút không?"
+            },
+            {
+              "en": "She hasn't got any brothers.",
+              "vi": "Cô ấy không có anh em trai nào."
+            },
+            {
+              "en": "This house has three bedrooms.",
+              "vi": "Ngôi nhà này có ba phòng ngủ."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- Sai: `He have a cat.` → Đúng: `He has a cat.` (he/she/it dùng `has`).\n- Sai: `Does he has a cat?` → Đúng: `Does he have a cat?` Sau `does` / `doesn't`, động từ luôn là `have`.\n- Không trộn hai kiểu: `Do you have got...?` là sai.\n- “Có” để chỉ sự tồn tại (ở đâu đó có gì) **không** dùng have: “Trong phòng có một con mèo” là `There is a cat in the room.`"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "My brother ___ a new bike.",
+          "answers": [
+            "has"
+          ],
+          "choices": [
+            "have",
+            "has",
+            "having"
+          ],
+          "explain": "My brother = he → dùng has."
+        },
+        {
+          "type": "gap",
+          "prompt": "We ___ two cats.",
+          "answers": [
+            "have"
+          ],
+          "choices": [
+            "has",
+            "have"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "He have two sisters.",
+            "He has two sisters.",
+            "He haves two sisters."
+          ],
+          "answer": 1,
+          "explain": "Ngôi he/she/it dùng has; không có dạng “haves”."
+        },
+        {
+          "type": "gap",
+          "prompt": "She ___ have any brothers.",
+          "answers": [
+            "doesn't",
+            "does not"
+          ],
+          "choices": [
+            "don't",
+            "isn't",
+            "doesn't"
+          ],
+          "explain": "She → phủ định với doesn't + have."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu hỏi nào đúng?",
+          "choices": [
+            "Do he have a car?",
+            "Does he has a car?",
+            "Does he have a car?"
+          ],
+          "answer": 2,
+          "explain": "He → does; sau does động từ về nguyên mẫu have."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép câu hỏi với câu trả lời ngắn",
+          "pairs": [
+            {
+              "left": "Do you have a pen?",
+              "right": "Yes, I do."
+            },
+            {
+              "left": "Has she got a cat?",
+              "right": "No, she hasn't."
+            },
+            {
+              "left": "Does he have a car?",
+              "right": "No, he doesn't."
+            },
+            {
+              "left": "Have they got a garden?",
+              "right": "Yes, they have."
+            }
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Bố tôi không có xe hơi.",
+          "answer": "My father doesn't have a car."
+        },
+        {
+          "type": "gap",
+          "prompt": "Have you ___ a pen? – Yes, I have.",
+          "answers": [
+            "got"
+          ],
+          "explain": "Câu hỏi với have got: Have + chủ ngữ + got...?"
+        },
+        {
+          "type": "order",
+          "hint": "Chị của bạn có xe đạp không?",
+          "answer": "Has your sister got a bike?"
+        },
+        {
+          "type": "gap",
+          "prompt": "They ___ got a big house. (phủ định: họ không có)",
+          "answers": [
+            "haven't",
+            "have not"
+          ],
+          "explain": "Phủ định của have got: haven't got / hasn't got, không dùng don't."
+        }
+      ]
+    },
+    {
+      "id": "structures.can",
+      "title": "Can / can't và câu mệnh lệnh",
+      "summary": "Nói điều mình làm được, xin phép, nhờ vả; ra lệnh và rủ rê với Let's.",
+      "level": "A1_1",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "`can` + **động từ nguyên mẫu** dùng để:\n\n- nói khả năng: `I can swim.` (Tôi biết bơi.)\n- xin phép: `Can I sit here?` (Tôi ngồi đây được không?)\n- nhờ ai làm gì: `Can you help me?`\n\n`can` giống nhau với mọi ngôi: không thêm -s, sau nó không có `to`, động từ theo sau cũng không thêm -s. Phủ định: `can't` = `cannot` (viết liền). Câu hỏi: đưa `can` lên trước chủ ngữ."
+        },
+        {
+          "type": "table",
+          "title": "Tóm tắt can",
+          "head": [
+            "Dạng",
+            "Cấu trúc",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Khẳng định",
+              "S + can + V",
+              "She can swim."
+            ],
+            [
+              "Phủ định",
+              "S + can't / cannot + V",
+              "He can't drive."
+            ],
+            [
+              "Câu hỏi",
+              "Can + S + V?",
+              "Can you cook?"
+            ],
+            [
+              "Trả lời ngắn",
+              "Yes, S + can. / No, S + can't.",
+              "Yes, I can. / No, I can't."
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Câu mệnh lệnh** bắt đầu bằng động từ nguyên mẫu, không có chủ ngữ: `Open the door.` · `Sit down, please.`\n\n- Phủ định: `Don't` + V: `Don't run.`\n- Thêm `please` cho lịch sự hơn.\n- Rủ cùng làm: `Let's` + V: `Let's go!` (Mình đi thôi!)"
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I can swim.",
+              "vi": "Tôi biết bơi."
+            },
+            {
+              "en": "She can't drive.",
+              "vi": "Cô ấy không biết lái xe."
+            },
+            {
+              "en": "Can you speak English?",
+              "vi": "Bạn có nói được tiếng Anh không?"
+            },
+            {
+              "en": "Yes, I can.",
+              "vi": "Có, mình nói được."
+            },
+            {
+              "en": "Can I sit here?",
+              "vi": "Tôi ngồi đây được không?"
+            },
+            {
+              "en": "Can you help me, please?",
+              "vi": "Bạn giúp tôi một chút được không?"
+            },
+            {
+              "en": "Close the window, please.",
+              "vi": "Làm ơn đóng cửa sổ lại."
+            },
+            {
+              "en": "Don't run in the classroom.",
+              "vi": "Đừng chạy trong lớp."
+            },
+            {
+              "en": "Let's go home.",
+              "vi": "Mình về nhà thôi."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp:\n\n- Sai: `She cans swim.` / `He can swims.` / `I can to swim.` → Đúng: `She can swim.`\n- Sai: `No run!` / `Don't to run.` → Đúng: `Don't run.`\n- Phát âm: trong câu khẳng định, `can` thường đọc nhẹ /kən/; còn `can't` đọc rõ và nhấn mạnh /kænt/. Nghe trọng âm để phân biệt, vì âm /t/ cuối thường rất nhỏ."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "She ___ speak English very well.",
+          "answers": [
+            "can"
+          ],
+          "choices": [
+            "cans",
+            "can",
+            "can to"
+          ],
+          "explain": "can giống nhau với mọi ngôi và không đi với to."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "He can swims.",
+            "He can to swim.",
+            "He can swim."
+          ],
+          "answer": 2,
+          "explain": "can + động từ nguyên mẫu (không -s, không to)."
+        },
+        {
+          "type": "gap",
+          "prompt": "___ I open the window? (xin phép)",
+          "answers": [
+            "Can"
+          ],
+          "choices": [
+            "Do",
+            "Can",
+            "Am"
+          ]
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép câu với nghĩa",
+          "pairs": [
+            {
+              "left": "Sit down.",
+              "right": "Ngồi xuống."
+            },
+            {
+              "left": "Don't run.",
+              "right": "Đừng chạy."
+            },
+            {
+              "left": "Let's go.",
+              "right": "Mình đi thôi."
+            },
+            {
+              "left": "Open the door, please.",
+              "right": "Làm ơn mở cửa."
+            },
+            {
+              "left": "Be quiet.",
+              "right": "Trật tự nào."
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "___ touch that! It's hot.",
+          "answers": [
+            "Don't",
+            "Do not"
+          ],
+          "choices": [
+            "No",
+            "Not",
+            "Don't"
+          ],
+          "explain": "Mệnh lệnh phủ định: Don't + động từ nguyên mẫu."
+        },
+        {
+          "type": "listen",
+          "say": "I can't swim.",
+          "prompt": "Bạn nghe được câu nào?",
+          "choices": [
+            "I can swim.",
+            "I can't swim."
+          ],
+          "answer": 1,
+          "explain": "can't được nhấn mạnh /kænt/; can trong câu khẳng định thường đọc nhẹ /kən/."
+        },
+        {
+          "type": "order",
+          "hint": "Bạn có biết chơi ghi-ta không?",
+          "answer": "Can you play the guitar?"
+        },
+        {
+          "type": "order",
+          "hint": "Chúng ta đi công viên đi.",
+          "answer": "Let's go to the park."
+        },
+        {
+          "type": "gap",
+          "prompt": "My grandma ___ use a computer, but she can use a phone.",
+          "answers": [
+            "can't",
+            "cannot"
+          ],
+          "choices": [
+            "can",
+            "can't",
+            "cans"
+          ],
+          "explain": "Có but → ý trái ngược với “can use a phone”, nên dùng can't."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu mệnh lệnh nào đúng?",
+          "choices": [
+            "Don't to be late.",
+            "Don't be late.",
+            "Not be late."
+          ],
+          "answer": 1,
+          "explain": "Don't + động từ nguyên mẫu (be)."
+        }
+      ]
+    },
+    {
+      "id": "structures.wh-questions",
+      "title": "Câu hỏi Wh-: what, where, who, when, why, how",
+      "summary": "Đặt câu hỏi lấy thông tin với đúng trật tự từ.",
+      "level": "A1_2",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Các từ để hỏi",
+          "head": [
+            "Từ để hỏi",
+            "Hỏi về",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "what",
+              "cái gì, việc gì",
+              "What is your name?"
+            ],
+            [
+              "where",
+              "ở đâu",
+              "Where do you live?"
+            ],
+            [
+              "who",
+              "ai",
+              "Who is that man?"
+            ],
+            [
+              "when",
+              "khi nào",
+              "When is your birthday?"
+            ],
+            [
+              "why",
+              "tại sao",
+              "Why are you late?"
+            ],
+            [
+              "how",
+              "thế nào, bằng cách nào",
+              "How do you go to school?"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "Trong tiếng Việt, từ để hỏi thường ở **cuối** câu (“Bạn sống **ở đâu**?”). Tiếng Anh đưa nó lên **đầu** câu:\n\n- Với to be: **Từ để hỏi + be + chủ ngữ**: `Where is my bag?`\n- Với động từ thường: **Từ để hỏi + do/does + chủ ngữ + động từ nguyên mẫu**: `Where do you live?` · `What does she do?`\n\nNgoại lệ: khi `who` / `what` chính là chủ ngữ thì không dùng do/does: `Who lives here?`"
+        },
+        {
+          "type": "text",
+          "md": "Một số cụm với `how`:\n\n- `how many` + danh từ đếm được số nhiều: `How many brothers do you have?`\n- `how much` + danh từ không đếm được, hoặc hỏi giá: `How much water do you drink?` · `How much is it?`\n- `how old`: hỏi tuổi; `how often`: hỏi mức độ thường xuyên.\n\nTrả lời câu hỏi `Why...?` bằng `Because...`: `Why are you tired? – Because I work late.`"
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "What do you do?",
+              "vi": "Bạn làm nghề gì?"
+            },
+            {
+              "en": "Where is the bathroom?",
+              "vi": "Nhà vệ sinh ở đâu?"
+            },
+            {
+              "en": "Who is your English teacher?",
+              "vi": "Giáo viên tiếng Anh của bạn là ai?"
+            },
+            {
+              "en": "When does the movie start?",
+              "vi": "Khi nào phim bắt đầu?"
+            },
+            {
+              "en": "Why do you like English?",
+              "vi": "Sao bạn thích tiếng Anh?"
+            },
+            {
+              "en": "Because it's fun.",
+              "vi": "Vì nó thú vị."
+            },
+            {
+              "en": "How many people are in your family?",
+              "vi": "Nhà bạn có mấy người?"
+            },
+            {
+              "en": "How much is this shirt?",
+              "vi": "Cái áo này bao nhiêu tiền?"
+            },
+            {
+              "en": "How old is your son?",
+              "vi": "Con trai bạn mấy tuổi?"
+            },
+            {
+              "en": "How often do you play soccer?",
+              "vi": "Bạn đá bóng bao lâu một lần?"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- Sai: `Where you live?` → Đúng: `Where do you live?` (thiếu trợ động từ).\n- Sai: `Where does she lives?` → Đúng: `Where does she live?` (đã có does thì động từ không thêm -s).\n- Sai: `What your name?` → Đúng: `What is your name?` (không bỏ is)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "match",
+          "prompt": "Ghép từ để hỏi với nghĩa",
+          "pairs": [
+            {
+              "left": "what",
+              "right": "cái gì"
+            },
+            {
+              "left": "where",
+              "right": "ở đâu"
+            },
+            {
+              "left": "who",
+              "right": "ai"
+            },
+            {
+              "left": "when",
+              "right": "khi nào"
+            },
+            {
+              "left": "why",
+              "right": "tại sao"
+            },
+            {
+              "left": "how",
+              "right": "như thế nào"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "___ do you live? – In Da Nang.",
+          "answers": [
+            "Where"
+          ],
+          "choices": [
+            "What",
+            "Where",
+            "When"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "___ is your birthday? – In May.",
+          "answers": [
+            "When"
+          ],
+          "choices": [
+            "Who",
+            "Why",
+            "When"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu hỏi nào đúng?",
+          "choices": [
+            "Where you live?",
+            "Where do you live?",
+            "Where you do live?"
+          ],
+          "answer": 1,
+          "explain": "Từ để hỏi + do + chủ ngữ + động từ."
+        },
+        {
+          "type": "gap",
+          "prompt": "What time ___ she get up?",
+          "answers": [
+            "does"
+          ],
+          "choices": [
+            "do",
+            "is",
+            "does"
+          ],
+          "explain": "She → does; động từ get giữ nguyên."
+        },
+        {
+          "type": "mcq",
+          "prompt": "___ brothers do you have?",
+          "choices": [
+            "How much",
+            "How old",
+            "How many"
+          ],
+          "answer": 2,
+          "explain": "brothers là danh từ đếm được số nhiều → How many."
+        },
+        {
+          "type": "order",
+          "hint": "Cô ấy làm việc ở đâu?",
+          "answer": "Where does she work?"
+        },
+        {
+          "type": "order",
+          "hint": "Tại sao bạn buồn?",
+          "answer": "Why are you sad?"
+        },
+        {
+          "type": "gap",
+          "prompt": "Why are you tired? – ___ I work at night.",
+          "answers": [
+            "Because"
+          ],
+          "choices": [
+            "So",
+            "Because",
+            "But"
+          ],
+          "explain": "Trả lời câu hỏi Why bằng Because."
+        },
+        {
+          "type": "mcq",
+          "prompt": "___ do you play soccer? – Twice a week.",
+          "choices": [
+            "How often",
+            "How old",
+            "How many"
+          ],
+          "answer": 0,
+          "explain": "Twice a week (hai lần một tuần) trả lời cho How often."
+        }
+      ]
+    },
+    {
+      "id": "structures.prepositions",
+      "title": "Giới từ nơi chốn và thời gian: in / on / at",
+      "summary": "Dùng đúng in, on, at và các giới từ chỉ vị trí thường gặp.",
+      "level": "A1_2",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Tiếng Việt thường chỉ dùng “ở” hoặc “vào”, còn tiếng Anh chia ra `in`, `on`, `at`. Mẹo nhớ: đi từ **rộng** đến **hẹp**.\n\n- `in`: khoảng rộng — tháng, năm, mùa, buổi trong ngày; bên trong một không gian, thành phố, quốc gia.\n- `on`: ngày, thứ, ngày cụ thể; trên bề mặt.\n- `at`: một điểm — giờ, thời điểm; một địa điểm cụ thể.\n\nNgoại lệ cần thuộc: `at night` (vào ban đêm), nhưng `in the morning / afternoon / evening`."
+        },
+        {
+          "type": "table",
+          "title": "in / on / at",
+          "head": [
+            "Giới từ",
+            "Thời gian",
+            "Nơi chốn"
+          ],
+          "rows": [
+            [
+              "at",
+              "at 5 o'clock, at noon, at night",
+              "at home, at school, at work, at the door"
+            ],
+            [
+              "on",
+              "on Monday, on May 1st, on my birthday",
+              "on the table, on the wall, on the floor"
+            ],
+            [
+              "in",
+              "in July, in 2025, in summer, in the morning",
+              "in the box, in the room, in Hanoi, in Vietnam"
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Giới từ chỉ vị trí",
+          "head": [
+            "Giới từ",
+            "Nghĩa",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "next to",
+              "bên cạnh",
+              "The bank is next to the school."
+            ],
+            [
+              "between",
+              "ở giữa (hai người/vật)",
+              "I sit between Nam and Lan."
+            ],
+            [
+              "under",
+              "ở dưới",
+              "The ball is under the bed."
+            ],
+            [
+              "behind",
+              "phía sau",
+              "The garden is behind the house."
+            ],
+            [
+              "in front of",
+              "phía trước",
+              "The car is in front of the gate."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "The meeting is at 9 o'clock.",
+              "vi": "Cuộc họp lúc 9 giờ."
+            },
+            {
+              "en": "I don't drink coffee at night.",
+              "vi": "Tôi không uống cà phê vào ban đêm."
+            },
+            {
+              "en": "We have a test on Friday.",
+              "vi": "Thứ Sáu chúng tôi có bài kiểm tra."
+            },
+            {
+              "en": "My birthday is in October.",
+              "vi": "Sinh nhật tôi vào tháng Mười."
+            },
+            {
+              "en": "She lives in Hanoi.",
+              "vi": "Cô ấy sống ở Hà Nội."
+            },
+            {
+              "en": "Your phone is on the table.",
+              "vi": "Điện thoại của bạn ở trên bàn."
+            },
+            {
+              "en": "I'm at work now.",
+              "vi": "Giờ tôi đang ở chỗ làm."
+            },
+            {
+              "en": "The cat is behind the sofa.",
+              "vi": "Con mèo ở sau ghế sofa."
+            },
+            {
+              "en": "There's a bus stop in front of my house.",
+              "vi": "Trước nhà tôi có một trạm xe buýt."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- Sai: `in Monday` → Đúng: `on Monday`.\n- Sai: `at the morning` → Đúng: `in the morning`.\n- Sai: `in night` → Đúng: `at night`.\n- Không dùng in/on/at trước `next`, `last`, `this`, `every`, `tomorrow`: `See you next Friday.` (không nói `on next Friday`)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I get up ___ 6 o'clock.",
+          "answers": [
+            "at"
+          ],
+          "choices": [
+            "in",
+            "on",
+            "at"
+          ],
+          "explain": "Giờ cụ thể → at."
+        },
+        {
+          "type": "gap",
+          "prompt": "My birthday is ___ June.",
+          "answers": [
+            "in"
+          ],
+          "choices": [
+            "on",
+            "in",
+            "at"
+          ],
+          "explain": "Tháng → in."
+        },
+        {
+          "type": "gap",
+          "prompt": "We have English ___ Monday.",
+          "answers": [
+            "on"
+          ],
+          "choices": [
+            "at",
+            "on",
+            "in"
+          ],
+          "explain": "Thứ trong tuần → on."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "I study at the morning.",
+            "I study in the morning.",
+            "I study on the morning."
+          ],
+          "answer": 1,
+          "explain": "in the morning / afternoon / evening."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép giới từ với nghĩa",
+          "pairs": [
+            {
+              "left": "next to",
+              "right": "bên cạnh"
+            },
+            {
+              "left": "between",
+              "right": "ở giữa"
+            },
+            {
+              "left": "under",
+              "right": "ở dưới"
+            },
+            {
+              "left": "behind",
+              "right": "phía sau"
+            },
+            {
+              "left": "in front of",
+              "right": "phía trước"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She is ___ home now.",
+          "answers": [
+            "at"
+          ],
+          "choices": [
+            "in",
+            "at",
+            "on"
+          ],
+          "explain": "Cụm cố định: at home."
+        },
+        {
+          "type": "order",
+          "hint": "Con mèo ở dưới gầm giường.",
+          "answer": "The cat is under the bed."
+        },
+        {
+          "type": "order",
+          "hint": "Tôi sống ở Việt Nam.",
+          "answer": "I live in Vietnam."
+        },
+        {
+          "type": "gap",
+          "prompt": "The bank is ___ the school and the post office. (ở giữa)",
+          "answers": [
+            "between"
+          ],
+          "explain": "between A and B: ở giữa A và B."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "See you on next Friday.",
+            "See you in next Friday.",
+            "See you next Friday."
+          ],
+          "answer": 2,
+          "explain": "Trước next / last / this / every không dùng in/on/at."
+        }
+      ]
+    },
+    {
+      "id": "structures.comparison",
+      "title": "So sánh tính từ",
+      "summary": "So sánh hơn, so sánh nhất, so sánh bằng as...as.",
+      "level": "A2_1",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "- **So sánh hơn** (hai người/vật): tính từ ngắn + `-er` + `than`; tính từ dài: `more` + tính từ + `than`. `Nam is taller than Minh.` · `This bag is more expensive than that one.`\n- **So sánh nhất** (từ ba trở lên): `the` + tính từ ngắn + `-est`; `the most` + tính từ dài. `He is the tallest in my class.`\n\nTính từ ngắn: một âm tiết (`tall`, `cheap`) và tính từ hai âm tiết tận cùng bằng `-y` (`happy`, `easy`). Tính từ dài: thường từ hai âm tiết trở lên (`modern`, `expensive`). Một vài tính từ hai âm tiết dùng được cả hai cách (`quiet` → `quieter` / `more quiet`)."
+        },
+        {
+          "type": "table",
+          "title": "Cách thêm -er / -est",
+          "head": [
+            "Quy tắc",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Thêm -er / -est",
+              "tall → taller → the tallest"
+            ],
+            [
+              "Tận cùng -e: thêm -r / -st",
+              "nice → nicer → the nicest"
+            ],
+            [
+              "Từ một âm tiết, kết thúc bằng phụ âm + 1 nguyên âm + 1 phụ âm: nhân đôi phụ âm cuối (trừ w, x, y)",
+              "big → bigger → the biggest; hot → hotter"
+            ],
+            [
+              "Phụ âm + y: đổi y → i",
+              "happy → happier → the happiest"
+            ],
+            [
+              "Tính từ dài: more / the most",
+              "beautiful → more beautiful → the most beautiful"
+            ],
+            [
+              "Bất quy tắc",
+              "good → better → the best; bad → worse → the worst"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**So sánh bằng**: `as` + tính từ + `as` (bằng). Phủ định `not as` + tính từ + `as` (không bằng): `Lan is as tall as her mother.` · `The bus is not as fast as the train.`"
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "My brother is taller than me.",
+              "vi": "Anh tôi cao hơn tôi."
+            },
+            {
+              "en": "This bag is cheaper than that one.",
+              "vi": "Cái túi này rẻ hơn cái kia."
+            },
+            {
+              "en": "Summer is hotter than spring.",
+              "vi": "Mùa hè nóng hơn mùa xuân."
+            },
+            {
+              "en": "She is happier now.",
+              "vi": "Bây giờ cô ấy vui hơn rồi."
+            },
+            {
+              "en": "This phone is more expensive than mine.",
+              "vi": "Điện thoại này đắt hơn của tôi."
+            },
+            {
+              "en": "He is the tallest boy in my class.",
+              "vi": "Cậu ấy là bạn nam cao nhất lớp tôi."
+            },
+            {
+              "en": "Your English is better than mine.",
+              "vi": "Tiếng Anh của bạn giỏi hơn của tôi."
+            },
+            {
+              "en": "Today is worse than yesterday.",
+              "vi": "Hôm nay còn tệ hơn hôm qua."
+            },
+            {
+              "en": "Lan is as tall as her mother.",
+              "vi": "Lan cao bằng mẹ."
+            },
+            {
+              "en": "The bus is not as fast as the train.",
+              "vi": "Xe buýt không nhanh bằng tàu hỏa."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- Sai: `more bigger`, `the most best` → Đúng: `bigger`, `the best`. Không dùng `more` và `-er` cùng lúc.\n- Viết `than` (hơn), không phải `then` hay `that`: `She is taller than me.`\n- Quên `the` ở so sánh nhất: `He is tallest in the class.` → `He is the tallest in the class.`"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "An elephant is ___ than a horse.",
+          "answers": [
+            "bigger"
+          ],
+          "choices": [
+            "biger",
+            "bigger",
+            "more big"
+          ],
+          "explain": "big: nhân đôi g → bigger."
+        },
+        {
+          "type": "gap",
+          "prompt": "This book is ___ than that one. (interesting)",
+          "answers": [
+            "more interesting"
+          ],
+          "choices": [
+            "interestinger",
+            "most interesting",
+            "more interesting"
+          ],
+          "explain": "Tính từ dài → more + tính từ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "My house is more bigger than yours.",
+            "My house is bigger than yours.",
+            "My house is biggest than yours."
+          ],
+          "answer": 1,
+          "explain": "Không dùng more cùng với -er."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép tính từ với dạng so sánh hơn",
+          "pairs": [
+            {
+              "left": "good",
+              "right": "better"
+            },
+            {
+              "left": "bad",
+              "right": "worse"
+            },
+            {
+              "left": "happy",
+              "right": "happier"
+            },
+            {
+              "left": "hot",
+              "right": "hotter"
+            },
+            {
+              "left": "expensive",
+              "right": "more expensive"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "My sister is as tall ___ my mother.",
+          "answers": [
+            "as"
+          ],
+          "choices": [
+            "than",
+            "as",
+            "like"
+          ],
+          "explain": "So sánh bằng: as + tính từ + as."
+        },
+        {
+          "type": "mcq",
+          "prompt": "This is ___ day of my life! (good)",
+          "choices": [
+            "the goodest",
+            "the better",
+            "the best",
+            "the most good"
+          ],
+          "answer": 2,
+          "explain": "good → better → the best (bất quy tắc)."
+        },
+        {
+          "type": "gap",
+          "prompt": "Today is ___ than yesterday. (hot)",
+          "answers": [
+            "hotter"
+          ],
+          "explain": "hot: nhân đôi t → hotter."
+        },
+        {
+          "type": "order",
+          "hint": "Mèo nhỏ hơn chó.",
+          "answer": "Cats are smaller than dogs."
+        },
+        {
+          "type": "gap",
+          "prompt": "Mount Everest is ___ mountain in the world. (high)",
+          "answers": [
+            "the highest"
+          ],
+          "explain": "So sánh nhất của tính từ ngắn: the + -est."
+        },
+        {
+          "type": "order",
+          "hint": "Đó là chiếc váy đắt nhất trong cửa hàng.",
+          "answer": "It is the most expensive dress in the store."
+        }
+      ]
+    },
+    {
+      "id": "structures.connectors",
+      "title": "Từ nối: and, but, or, because, so, then",
+      "summary": "Nối hai ý thành một câu dài hơn, đúng logic nguyên nhân – kết quả.",
+      "level": "A1_2",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Các từ nối cơ bản",
+          "head": [
+            "Từ nối",
+            "Nghĩa",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "and",
+              "và (thêm ý)",
+              "I have a cat and a dog."
+            ],
+            [
+              "but",
+              "nhưng (ý trái ngược)",
+              "It's small, but it's cheap."
+            ],
+            [
+              "or",
+              "hoặc, hay (lựa chọn)",
+              "Tea or coffee?"
+            ],
+            [
+              "because",
+              "vì (nguyên nhân)",
+              "I'm tired because I work late."
+            ],
+            [
+              "so",
+              "nên, vì vậy (kết quả)",
+              "I'm tired, so I go to bed early."
+            ],
+            [
+              "then",
+              "rồi, sau đó (việc tiếp theo)",
+              "I get up and then have breakfast."
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**because** đứng trước **nguyên nhân**, **so** đứng trước **kết quả**. Hai câu sau cùng nghĩa:\n\n- `I stay home because it's raining.` (Tôi ở nhà **vì** trời mưa.)\n- `It's raining, so I stay home.` (Trời mưa **nên** tôi ở nhà.)\n\nKhi `but` hoặc `so` nối hai mệnh đề đầy đủ, **thường** có dấu phẩy trước nó. Trước `because` (ở giữa câu) thường không có dấu phẩy.\n\n`then` thường đi với `and` trong cùng một câu (`and then`), hoặc mở đầu câu mới: `Finish your homework. Then you can play.`"
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I have a cat and a dog.",
+              "vi": "Tôi có một con mèo và một con chó."
+            },
+            {
+              "en": "It's small, but it's very cheap.",
+              "vi": "Nó nhỏ nhưng rất rẻ."
+            },
+            {
+              "en": "Do you want water or juice?",
+              "vi": "Bạn muốn uống nước lọc hay nước ép?"
+            },
+            {
+              "en": "I'm tired, so I want to sleep.",
+              "vi": "Tôi mệt nên muốn đi ngủ."
+            },
+            {
+              "en": "She is happy because she has a new job.",
+              "vi": "Cô ấy vui vì có việc mới."
+            },
+            {
+              "en": "We stay inside because it's very hot.",
+              "vi": "Chúng tôi ở trong nhà vì trời rất nóng."
+            },
+            {
+              "en": "I get up and then brush my teeth.",
+              "vi": "Tôi thức dậy rồi đánh răng."
+            },
+            {
+              "en": "Finish your homework. Then you can play.",
+              "vi": "Làm xong bài tập rồi con mới được chơi."
+            },
+            {
+              "en": "It's raining, so let's take a taxi.",
+              "vi": "Trời mưa nên mình đi taxi nhé."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc: dịch “**Vì**... **nên**...” thành `Because... so...`. Tiếng Anh chỉ dùng **một** trong hai từ:\n\n- Sai: `Because it's cold, so I wear a coat.`\n- Đúng: `Because it's cold, I wear a coat.`\n- Đúng: `It's cold, so I wear a coat.`\n\nĐừng nhầm chiều: `I'm hungry because I eat.` (vì ăn nên đói) là sai logic; đúng là `I'm hungry, so I eat.`"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "match",
+          "prompt": "Ghép từ nối với nghĩa",
+          "pairs": [
+            {
+              "left": "and",
+              "right": "và"
+            },
+            {
+              "left": "but",
+              "right": "nhưng"
+            },
+            {
+              "left": "or",
+              "right": "hoặc"
+            },
+            {
+              "left": "because",
+              "right": "bởi vì"
+            },
+            {
+              "left": "so",
+              "right": "vì vậy, nên"
+            },
+            {
+              "left": "then",
+              "right": "sau đó"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Do you want tea ___ coffee?",
+          "answers": [
+            "or"
+          ],
+          "choices": [
+            "so",
+            "or",
+            "because"
+          ],
+          "explain": "Hỏi lựa chọn → or."
+        },
+        {
+          "type": "gap",
+          "prompt": "She is tired, ___ she goes to bed early.",
+          "answers": [
+            "so"
+          ],
+          "choices": [
+            "because",
+            "but",
+            "so"
+          ],
+          "explain": "Đi ngủ sớm là kết quả → so."
+        },
+        {
+          "type": "gap",
+          "prompt": "I stay home ___ it is raining.",
+          "answers": [
+            "because"
+          ],
+          "choices": [
+            "so",
+            "because",
+            "or"
+          ],
+          "explain": "Trời mưa là nguyên nhân → because."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "Because it is cold, so I wear a coat.",
+            "It is cold, because I wear a coat.",
+            "It is cold, so I wear a coat."
+          ],
+          "answer": 2,
+          "explain": "Không dùng because và so cùng lúc; so đứng trước kết quả."
+        },
+        {
+          "type": "gap",
+          "prompt": "I want this phone, ___ it is too expensive.",
+          "answers": [
+            "but"
+          ],
+          "choices": [
+            "but",
+            "so",
+            "and"
+          ],
+          "explain": "Hai ý trái ngược (muốn mua – quá đắt) → but."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Nối hai câu “I am hungry. I eat a sandwich.” thành một câu:",
+          "choices": [
+            "I am hungry because I eat a sandwich.",
+            "I am hungry, but I eat a sandwich.",
+            "I am hungry, so I eat a sandwich."
+          ],
+          "answer": 2,
+          "explain": "Đói là nguyên nhân, ăn bánh là kết quả → so."
+        },
+        {
+          "type": "gap",
+          "prompt": "First, wash your hands. ___ eat your lunch.",
+          "answers": [
+            "Then"
+          ],
+          "choices": [
+            "Because",
+            "Then",
+            "Or"
+          ],
+          "explain": "Việc tiếp theo → Then."
+        },
+        {
+          "type": "order",
+          "hint": "Phòng tôi nhỏ nhưng nó đẹp.",
+          "answer": "My room is small, but it is nice."
+        },
+        {
+          "type": "order",
+          "hint": "Cái túi nặng nên tôi không mang được.",
+          "answer": "The bag is heavy, so I can't carry it."
+        }
+      ]
+    }
+  ]
+}

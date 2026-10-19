@@ -47,6 +47,11 @@ export function registerAppIpc(c: Container, translation: TranslationService): v
   handle('shop:buy', ({ itemId }) => c.shop.buy(itemId))
   handle('shop:equip', ({ itemId, equipped }) => c.shop.equip(itemId, equipped))
   handle('study:stats', () => c.stats.stats())
+  handle('lesson:catalog', () => c.lessons.catalog())
+  handle('lesson:get', ({ id }) => c.lessons.get(id))
+  handle('lesson:complete', ({ lessonId, correct, total }) =>
+    c.lessons.complete(lessonId, correct, total)
+  )
   handle('vocab:list', () => c.study.words())
   handle('vocab:remove', ({ contentId }) => c.study.removeWord(contentId))
 }

@@ -13,11 +13,13 @@ import PlacementTest from './components/PlacementTest.vue'
 import PracticeSession from './components/PracticeSession.vue'
 import ShopPage from './components/ShopPage.vue'
 import StatsPage from './components/StatsPage.vue'
+import LessonsPage from './components/LessonsPage.vue'
 import SettingsPage from './components/SettingsPage.vue'
 import Onboarding from './components/Onboarding.vue'
 
 // Cửa sổ Học tập (docs/12-ui-ux-guidelines.md#cửa-sổ-học-tập-study): thanh bên + trang nội dung.
-type Page = 'home' | 'review' | 'practice' | 'words' | 'shop' | 'stats' | 'placement' | 'settings'
+type Page =
+  'home' | 'lessons' | 'review' | 'practice' | 'words' | 'shop' | 'stats' | 'placement' | 'settings'
 
 const { t, locale } = useI18n()
 const settingsStore = useSettingsStore()
@@ -33,6 +35,7 @@ const cleanups: Array<() => void> = []
 
 const pages = computed<Array<{ id: Page; icon: string; label: string }>>(() => [
   { id: 'home', icon: '🏠', label: t('study.nav.home') },
+  { id: 'lessons', icon: '📚', label: t('study.nav.lessons') },
   { id: 'review', icon: '🧠', label: t('study.nav.review') },
   { id: 'practice', icon: '🎯', label: t('study.nav.practice') },
   { id: 'words', icon: '🗂', label: t('study.nav.words') },
@@ -146,6 +149,7 @@ onUnmounted(() => {
         @start="go('review')"
         @goal="setGoal"
       />
+      <LessonsPage v-else-if="page === 'lessons'" @changed="refresh" />
       <ReviewSession v-else-if="page === 'review'" @exit="go('home')" @changed="refresh" />
       <PracticeSession v-else-if="page === 'practice'" @changed="refresh" />
       <WordList v-else-if="page === 'words'" @changed="refresh" />

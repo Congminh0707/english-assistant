@@ -139,7 +139,8 @@
       "settings": "Cài đặt",
       "practice": "Luyện tập",
       "shop": "Cửa hàng",
-      "stats": "Thống kê"
+      "stats": "Thống kê",
+      "lessons": "Bài học"
     },
     "home": {
       "welcome": "Chào bạn, hôm nay học gì nào?",
@@ -326,6 +327,41 @@
         "5": "T7",
         "6": "CN"
       }
+    },
+    "lessons": {
+      "title": "Bài học nền tảng",
+      "intro": "Học từ đầu: chữ cái và phát âm, mẫu câu cơ bản, các thì, giao tiếp hằng ngày. Mỗi bài có phần giải thích, ví dụ nghe được và bài tập.",
+      "progress": "Đã hoàn thành {done}/{total} bài",
+      "continue": "Học tiếp",
+      "allDone": "Bạn đã hoàn thành toàn bộ bài học nền tảng!",
+      "empty": "Chưa có bài học nào.",
+      "minutes": "{n} phút",
+      "back": "Danh sách bài học",
+      "backToLesson": "Xem lại bài",
+      "listen": "Nghe",
+      "tapToHear": "Bấm vào ô để nghe phát âm.",
+      "startExercises": "Làm bài tập ({n} câu)",
+      "counter": "Câu {index}/{total}",
+      "listenPrompt": "Nghe và chọn đáp án đúng:",
+      "play": "Nghe",
+      "slow": "Chậm",
+      "gapHelp": "Điền từ vào chỗ trống:",
+      "typeHere": "Gõ đáp án…",
+      "orderHelp": "Bấm các từ theo đúng thứ tự để ghép thành câu:",
+      "matchHelp": "Bấm một mục bên trái, rồi bấm mục tương ứng bên phải:",
+      "check": "Kiểm tra",
+      "next": "Câu tiếp",
+      "finish": "Xem kết quả",
+      "correct": "Chính xác! ✓",
+      "wrong": "Chưa đúng — đáp án:",
+      "passed": "Hoàn thành bài! {score}%",
+      "notPassed": "Bạn đạt {score}%",
+      "best": "điểm cao nhất {n}%",
+      "needMore": "Cần đạt từ {n}% để hoàn thành bài — đọc lại bài rồi thử lại nhé!",
+      "nextLesson": "Bài tiếp theo",
+      "reread": "Đọc lại bài",
+      "retry": "Làm lại",
+      "toList": "Danh sách bài"
     }
   },
   "translate": {

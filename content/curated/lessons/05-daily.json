@@ -1,0 +1,1569 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "daily",
+    "title": "Giao tiếp hằng ngày",
+    "summary": "Những mẫu câu dùng mỗi ngày: chào hỏi, số đếm, giờ giấc, lịch sự, hỏi đường và mua sắm.",
+    "icon": "💬",
+    "order": 5
+  },
+  "lessons": [
+    {
+      "id": "daily.greetings",
+      "title": "Chào hỏi và giới thiệu bản thân",
+      "summary": "Chào theo thời gian trong ngày, hỏi thăm, nói tên, quê, tuổi và đánh vần tên.",
+      "level": "PA1_1",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Chào hỏi là câu đầu tiên của mọi cuộc trò chuyện. Tiếng Anh có cách chào **thân mật** và **lịch sự**:\n\n- `Hi` / `Hello`: dùng mọi lúc; `Hi` thân mật hơn.\n- `Good morning` (buổi sáng), `Good afternoon` (buổi chiều, sau 12 giờ trưa), `Good evening` (buổi tối): lịch sự hơn, hợp với nơi làm việc.\n- `Good night` **không** dùng để chào khi gặp — chỉ nói khi chia tay buổi tối hoặc trước khi đi ngủ.\n\nKhi chia tay: `Goodbye` / `Bye` (tạm biệt), `See you later` (hẹn gặp lại), `See you tomorrow` (mai gặp nhé)."
+        },
+        {
+          "type": "table",
+          "title": "Hỏi thăm và giới thiệu bản thân",
+          "head": [
+            "Mục đích",
+            "Câu hỏi",
+            "Câu trả lời"
+          ],
+          "rows": [
+            [
+              "Hỏi thăm",
+              "How are you?",
+              "I'm fine, thanks. And you?"
+            ],
+            [
+              "Tên",
+              "What's your name?",
+              "My name is Lan. / I'm Lan."
+            ],
+            [
+              "Quê, quốc gia",
+              "Where are you from?",
+              "I'm from Vietnam."
+            ],
+            [
+              "Tuổi",
+              "How old are you?",
+              "I'm 25. / I'm 25 years old."
+            ],
+            [
+              "Làm quen",
+              "Nice to meet you.",
+              "Nice to meet you, too."
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "Tên tiếng Việt khá lạ với người nước ngoài, nên bạn sẽ hay được hỏi `How do you spell that?` (Đánh vần thế nào?).\n\nHãy đọc **tên từng chữ cái** theo bảng chữ cái tiếng Anh và bỏ dấu tiếng Việt: Lan → `L-A-N`, Hùng → `H-U-N-G`. Nói chậm, ngắt nhẹ giữa các chữ."
+        },
+        {
+          "type": "examples",
+          "title": "Hội thoại mẫu",
+          "items": [
+            {
+              "en": "Hi! I'm Tom. What's your name?",
+              "vi": "Chào bạn! Mình là Tom. Bạn tên gì?",
+              "note": "Tom"
+            },
+            {
+              "en": "Hello, Tom. My name is Lan.",
+              "vi": "Chào Tom. Mình tên là Lan.",
+              "note": "Lan"
+            },
+            {
+              "en": "Nice to meet you, Lan.",
+              "vi": "Rất vui được gặp bạn, Lan.",
+              "note": "Tom"
+            },
+            {
+              "en": "Nice to meet you, too.",
+              "vi": "Mình cũng rất vui được gặp bạn.",
+              "note": "Lan"
+            },
+            {
+              "en": "Where are you from?",
+              "vi": "Bạn đến từ đâu?",
+              "note": "Tom"
+            },
+            {
+              "en": "I'm from Vietnam. How about you?",
+              "vi": "Mình đến từ Việt Nam. Còn bạn?",
+              "note": "Lan"
+            },
+            {
+              "en": "I'm from Canada. How do you spell your name?",
+              "vi": "Mình đến từ Canada. Tên bạn đánh vần thế nào?",
+              "note": "Tom"
+            },
+            {
+              "en": "L, A, N. Lan.",
+              "vi": "L, A, N. Lan.",
+              "note": "Lan"
+            },
+            {
+              "en": "See you later, Lan!",
+              "vi": "Hẹn gặp lại nhé, Lan!",
+              "note": "Tom"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- Nói `I have 25 years old` (dịch từ “có 25 tuổi”) là **sai**. Đúng: `I'm 25` hoặc `I'm 25 years old`.\n- Dùng `Good night` để chào khi gặp nhau buổi tối — hãy dùng `Good evening`.\n- Chỉ đáp `I'm fine.` rồi thôi: nên hỏi lại `And you?` cho lịch sự.\n- Trong đời sống, `How are you?` gần như một lời chào; đáp ngắn `Good, thanks!` là đủ."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "8 giờ sáng, bạn gặp đồng nghiệp ở văn phòng. Bạn chào:",
+          "choices": [
+            "Good night!",
+            "Good morning!",
+            "Good evening!"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "Good evening!",
+          "prompt": "Bạn nghe được lời chào nào?",
+          "choices": [
+            "Good morning!",
+            "Good afternoon!",
+            "Good evening!"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép câu với nghĩa",
+          "pairs": [
+            {
+              "left": "Goodbye.",
+              "right": "Tạm biệt."
+            },
+            {
+              "left": "See you later.",
+              "right": "Hẹn gặp lại."
+            },
+            {
+              "left": "How are you?",
+              "right": "Bạn khỏe không?"
+            },
+            {
+              "left": "Nice to meet you.",
+              "right": "Rất vui được gặp bạn."
+            },
+            {
+              "left": "Where are you from?",
+              "right": "Bạn đến từ đâu?"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "My ___ is Lan.",
+          "answers": [
+            "name"
+          ],
+          "choices": [
+            "age",
+            "name",
+            "from"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Where are you from? — I'm ___ Vietnam.",
+          "answers": [
+            "from"
+          ],
+          "choices": [
+            "from",
+            "in",
+            "at"
+          ],
+          "explain": "Nói quê/quốc gia: I'm from + nơi chốn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "A: How are you?\nB: ___",
+          "choices": [
+            "I'm 25.",
+            "Nice to meet you.",
+            "I'm fine, thanks. And you?"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng khi nói “Tôi 25 tuổi”?",
+          "choices": [
+            "I have 25 years old.",
+            "I'm 25 years old.",
+            "I'm have 25 years."
+          ],
+          "answer": 1,
+          "explain": "Tiếng Anh dùng be để nói tuổi: I'm 25 (years old), không dùng have."
+        },
+        {
+          "type": "listen",
+          "say": "bee, eye, en, aitch.",
+          "prompt": "Người đó đánh vần tên nào?",
+          "choices": [
+            "Vinh",
+            "Minh",
+            "Binh"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "order",
+          "hint": "Mình cũng rất vui được gặp bạn.",
+          "answer": "Nice to meet you too"
+        },
+        {
+          "type": "order",
+          "hint": "Tên bạn đánh vần thế nào?",
+          "answer": "How do you spell your name"
+        }
+      ]
+    },
+    {
+      "id": "daily.numbers",
+      "title": "Số đếm và số thứ tự",
+      "summary": "Đếm từ 0 đến 1,000, đọc năm, phân biệt -teen/-ty, số thứ tự và số điện thoại.",
+      "level": "PA1_1",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "table",
+          "title": "Số từ 0 đến 20",
+          "head": [
+            "Số",
+            "Tiếng Anh",
+            "Số",
+            "Tiếng Anh"
+          ],
+          "rows": [
+            [
+              "0",
+              "zero",
+              "11",
+              "eleven"
+            ],
+            [
+              "1",
+              "one",
+              "12",
+              "twelve"
+            ],
+            [
+              "2",
+              "two",
+              "13",
+              "thirteen"
+            ],
+            [
+              "3",
+              "three",
+              "14",
+              "fourteen"
+            ],
+            [
+              "4",
+              "four",
+              "15",
+              "fifteen"
+            ],
+            [
+              "5",
+              "five",
+              "16",
+              "sixteen"
+            ],
+            [
+              "6",
+              "six",
+              "17",
+              "seventeen"
+            ],
+            [
+              "7",
+              "seven",
+              "18",
+              "eighteen"
+            ],
+            [
+              "8",
+              "eight",
+              "19",
+              "nineteen"
+            ],
+            [
+              "9",
+              "nine",
+              "20",
+              "twenty"
+            ],
+            [
+              "10",
+              "ten",
+              "",
+              ""
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Hàng chục:** `twenty` (20), `thirty` (30), `forty` (40), `fifty` (50), `sixty`, `seventy`, `eighty`, `ninety`, `one hundred` (100).\n\n**Số ghép** = hàng chục + gạch nối + đơn vị: 21 `twenty-one`, 45 `forty-five`, 99 `ninety-nine`.\n\n- 100 `one hundred` hoặc `a hundred`; 1,000 `one thousand`.\n- 250 `two hundred fifty` (người Anh thường thêm `and`: two hundred and fifty). Không thêm -s: `two hundred`, không nói `two hundreds`.\n- Năm thường đọc theo **từng cặp hai số**: 1990 `nineteen ninety`, 1985 `nineteen eighty-five`. Năm 2000 đọc `two thousand`; 2025 đọc `twenty twenty-five` hoặc `two thousand twenty-five`.\n- Số điện thoại: đọc **từng chữ số**, số 0 thường đọc là `oh`, nghỉ ngắn giữa các nhóm."
+        },
+        {
+          "type": "sounds",
+          "title": "-teen hay -ty? Bấm nghe và so sánh",
+          "items": [
+            {
+              "text": "13 thirteen",
+              "ipa": "/θɝːˈtiːn/",
+              "note": "đuôi -teen dài, có /n/",
+              "say": "thirteen"
+            },
+            {
+              "text": "30 thirty",
+              "ipa": "/ˈθɝːti/",
+              "note": "nhấn âm đầu, đuôi ngắn",
+              "say": "thirty"
+            },
+            {
+              "text": "14 fourteen",
+              "ipa": "/ˌfɔːrˈtiːn/",
+              "note": "đuôi -teen dài, có /n/",
+              "say": "fourteen"
+            },
+            {
+              "text": "40 forty",
+              "ipa": "/ˈfɔːrti/",
+              "note": "nhấn âm đầu, đuôi ngắn",
+              "say": "forty"
+            },
+            {
+              "text": "15 fifteen",
+              "ipa": "/fɪfˈtiːn/",
+              "note": "đuôi -teen dài, có /n/",
+              "say": "fifteen"
+            },
+            {
+              "text": "50 fifty",
+              "ipa": "/ˈfɪfti/",
+              "note": "nhấn âm đầu, đuôi ngắn",
+              "say": "fifty"
+            }
+          ]
+        },
+        {
+          "type": "sounds",
+          "title": "Số thứ tự (dùng cho ngày, tầng, thứ hạng) — bấm nghe",
+          "items": [
+            {
+              "text": "1st first",
+              "ipa": "/fɝːst/",
+              "say": "first"
+            },
+            {
+              "text": "2nd second",
+              "ipa": "/ˈsɛkənd/",
+              "say": "second"
+            },
+            {
+              "text": "3rd third",
+              "ipa": "/θɝːd/",
+              "say": "third"
+            },
+            {
+              "text": "4th fourth",
+              "ipa": "/fɔːrθ/",
+              "say": "fourth"
+            },
+            {
+              "text": "5th fifth",
+              "ipa": "/fɪfθ/",
+              "say": "fifth"
+            },
+            {
+              "text": "6th sixth",
+              "ipa": "/sɪksθ/",
+              "say": "sixth"
+            },
+            {
+              "text": "7th seventh",
+              "ipa": "/ˈsɛvənθ/",
+              "say": "seventh"
+            },
+            {
+              "text": "8th eighth",
+              "ipa": "/eɪtθ/",
+              "say": "eighth"
+            },
+            {
+              "text": "9th ninth",
+              "ipa": "/naɪnθ/",
+              "say": "ninth"
+            },
+            {
+              "text": "10th tenth",
+              "ipa": "/tɛnθ/",
+              "say": "tenth"
+            }
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Nghe và đọc theo",
+          "items": [
+            {
+              "en": "There are 15 students in my class.",
+              "vi": "Lớp tôi có 15 học sinh."
+            },
+            {
+              "en": "My dad is 50 years old.",
+              "vi": "Bố tôi 50 tuổi."
+            },
+            {
+              "en": "This book has 240 pages.",
+              "vi": "Cuốn sách này dày 240 trang.",
+              "note": "two hundred forty"
+            },
+            {
+              "en": "My grandma was born in 1958.",
+              "vi": "Bà tôi sinh năm 1958.",
+              "note": "nineteen fifty-eight"
+            },
+            {
+              "en": "I live on the third floor.",
+              "vi": "Tôi sống ở tầng ba."
+            },
+            {
+              "en": "Today is her first day at work.",
+              "vi": "Hôm nay là ngày đầu tiên cô ấy đi làm."
+            },
+            {
+              "en": "My number is five-five-five, oh-one-three-four.",
+              "vi": "Số của tôi là 555-0134."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- Nghe nhầm **-teen** và **-ty**: khi đọc riêng, `thirTEEN` thường nhấn âm sau; `THIRty` nhấn âm đầu. Dấu hiệu chắc chắn nhất là phần đuôi: -teen dài và kết thúc bằng âm /n/ rõ (“tin”), còn -ty ngắn, không có /n/ (giọng Mỹ nghe gần như “thơ-đi”). Không chắc thì hỏi lại: `Fifteen? One-five?`\n- Đọc số thứ tự nhớ giữ âm cuối “th”: `fifth`, `sixth` khác với `fif`, `six`.\n- Viết sai chính tả: `forty` (không có u), `ninth` (không có e), `eighth`, `twelfth`.\n- Dấu ngược với tiếng Việt: tiếng Anh dùng **dấu phẩy** cho hàng nghìn (1,000) và **dấu chấm** cho số thập phân (2.5 đọc `two point five`)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "listen",
+          "say": "thirteen",
+          "prompt": "Bạn nghe được số nào?",
+          "choices": [
+            "30",
+            "13"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "forty",
+          "prompt": "Bạn nghe được số nào?",
+          "choices": [
+            "40",
+            "14"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "listen",
+          "say": "fifteen",
+          "prompt": "Bạn nghe được số nào?",
+          "choices": [
+            "5",
+            "50",
+            "15"
+          ],
+          "answer": 2,
+          "explain": "fifteen nhấn âm sau, đuôi -teen dài."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép số với cách viết",
+          "pairs": [
+            {
+              "left": "12",
+              "right": "twelve"
+            },
+            {
+              "left": "20",
+              "right": "twenty"
+            },
+            {
+              "left": "45",
+              "right": "forty-five"
+            },
+            {
+              "left": "99",
+              "right": "ninety-nine"
+            },
+            {
+              "left": "100",
+              "right": "one hundred"
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Số 40 viết bằng chữ là:",
+          "choices": [
+            "fourty",
+            "forty",
+            "fourteen"
+          ],
+          "answer": 1,
+          "explain": "forty không có chữ u, dù four có u."
+        },
+        {
+          "type": "listen",
+          "say": "seventy-eight",
+          "prompt": "Bạn nghe được số nào?",
+          "choices": [
+            "17",
+            "87",
+            "78",
+            "70"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "listen",
+          "say": "third",
+          "prompt": "Bạn nghe được số thứ tự nào?",
+          "choices": [
+            "1st",
+            "3rd",
+            "13th"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "May is the ___ month of the year.",
+          "answers": [
+            "fifth",
+            "5th"
+          ],
+          "choices": [
+            "five",
+            "fifteenth",
+            "fifth"
+          ],
+          "explain": "Nói thứ tự (tháng thứ năm) dùng số thứ tự: fifth."
+        },
+        {
+          "type": "listen",
+          "say": "nineteen ninety-nine",
+          "prompt": "Bạn nghe được năm nào?",
+          "choices": [
+            "1990",
+            "1999",
+            "1919"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "five five five, oh one three four",
+          "prompt": "Bạn nghe được số điện thoại nào?",
+          "choices": [
+            "555-0143",
+            "555-1034",
+            "555-0134"
+          ],
+          "answer": 2
+        }
+      ]
+    },
+    {
+      "id": "daily.time-date",
+      "title": "Giờ, thứ, ngày, tháng",
+      "summary": "Hỏi và nói giờ, các thứ trong tuần, 12 tháng, nói ngày và dùng in/on/at.",
+      "level": "PA1_2",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Hỏi giờ: `What time is it?` (Mấy giờ rồi?). Câu trả lời bắt đầu bằng `It's…`.\n\n- Giờ đúng: `It's three o'clock.` (`o'clock` chỉ dùng cho giờ chẵn).\n- Cách dễ nhất là đọc giờ rồi đến phút: 3:15 `three fifteen`, 3:30 `three thirty`, 3:45 `three forty-five`. Phút từ 01 đến 09 đọc có `oh`: 7:05 `seven oh five`.\n- Cách truyền thống: 3:15 `a quarter past three` (người Mỹ cũng nói `a quarter after three`), 3:30 `half past three`, 3:45 `a quarter to four` (4 giờ kém 15).\n- `a.m.` là từ nửa đêm đến trước trưa, `p.m.` là từ trưa đến trước nửa đêm. 12 giờ trưa gọi là `noon`, 12 giờ đêm là `midnight`."
+        },
+        {
+          "type": "table",
+          "title": "Thứ trong tuần và tháng trong năm",
+          "head": [
+            "Thứ",
+            "Tiếng Anh",
+            "Tháng",
+            "Tiếng Anh"
+          ],
+          "rows": [
+            [
+              "Thứ Hai",
+              "Monday",
+              "Tháng 1",
+              "January"
+            ],
+            [
+              "Thứ Ba",
+              "Tuesday",
+              "Tháng 2",
+              "February"
+            ],
+            [
+              "Thứ Tư",
+              "Wednesday",
+              "Tháng 3",
+              "March"
+            ],
+            [
+              "Thứ Năm",
+              "Thursday",
+              "Tháng 4",
+              "April"
+            ],
+            [
+              "Thứ Sáu",
+              "Friday",
+              "Tháng 5",
+              "May"
+            ],
+            [
+              "Thứ Bảy",
+              "Saturday",
+              "Tháng 6",
+              "June"
+            ],
+            [
+              "Chủ nhật",
+              "Sunday",
+              "Tháng 7",
+              "July"
+            ],
+            [
+              "",
+              "",
+              "Tháng 8",
+              "August"
+            ],
+            [
+              "",
+              "",
+              "Tháng 9",
+              "September"
+            ],
+            [
+              "",
+              "",
+              "Tháng 10",
+              "October"
+            ],
+            [
+              "",
+              "",
+              "Tháng 11",
+              "November"
+            ],
+            [
+              "",
+              "",
+              "Tháng 12",
+              "December"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "Hỏi thứ: `What day is it today?` → `It's Monday.`\nHỏi ngày: `What's the date today?` → `It's May 5th.`\n\nNgày dùng **số thứ tự**: viết `May 5th` hoặc `May 5`, nhưng đọc là `May fifth`. Hỏi sự kiện diễn ra hôm nào: `When is your birthday?` → `It's on March 8th.`\n\n**Giới từ chỉ thời gian** (ôn nhanh):\n\n- `at` + giờ: at 7 o'clock, at noon, at night\n- `on` + thứ, ngày: on Monday, on May 5th, on the weekend\n- `in` + tháng, năm, buổi: in May, in 2024, in the morning"
+        },
+        {
+          "type": "examples",
+          "title": "Nghe và đọc theo",
+          "items": [
+            {
+              "en": "What time is it?",
+              "vi": "Mấy giờ rồi?"
+            },
+            {
+              "en": "It's half past seven.",
+              "vi": "Bảy giờ rưỡi."
+            },
+            {
+              "en": "The movie starts at 8:45 p.m.",
+              "vi": "Phim bắt đầu lúc 8 giờ 45 tối."
+            },
+            {
+              "en": "I have lunch at noon.",
+              "vi": "Tôi ăn trưa lúc 12 giờ trưa."
+            },
+            {
+              "en": "What day is it today? It's Friday.",
+              "vi": "Hôm nay thứ mấy? Thứ Sáu."
+            },
+            {
+              "en": "My birthday is on June 2nd.",
+              "vi": "Sinh nhật tôi vào ngày 2 tháng 6.",
+              "note": "June second"
+            },
+            {
+              "en": "We have a test on Monday.",
+              "vi": "Thứ Hai bọn mình có bài kiểm tra."
+            },
+            {
+              "en": "School starts in September.",
+              "vi": "Năm học bắt đầu vào tháng 9."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- Viết thường thứ và tháng. Tiếng Anh luôn **viết hoa**: `Monday`, `May`.\n- Đọc ngày bằng số đếm: `May five` → phải đọc `May fifth`.\n- Nhầm cách viết ngày kiểu Mỹ: người Mỹ viết **tháng/ngày**, nên 5/3 là ngày 3 tháng 5 (May 3rd).\n- Nhầm giới từ: nói `on Monday` (không phải in Monday), `at 7 o'clock` (không phải on 7 o'clock).\n- `a quarter to four` là **3:45** (4 giờ kém 15), không phải 4:15."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "listen",
+          "say": "It's three o'clock.",
+          "prompt": "Bây giờ là mấy giờ?",
+          "choices": [
+            "2:00",
+            "3:00",
+            "3:30"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "It's half past seven.",
+          "prompt": "Bây giờ là mấy giờ?",
+          "choices": [
+            "7:30",
+            "6:30",
+            "7:15"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "listen",
+          "say": "It's six forty.",
+          "prompt": "Bây giờ là mấy giờ?",
+          "choices": [
+            "6:14",
+            "4:06",
+            "6:40"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "listen",
+          "say": "Thursday",
+          "prompt": "Bạn nghe được thứ nào?",
+          "choices": [
+            "Tuesday",
+            "Thursday"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép thứ với nghĩa",
+          "pairs": [
+            {
+              "left": "Monday",
+              "right": "Thứ Hai"
+            },
+            {
+              "left": "Wednesday",
+              "right": "Thứ Tư"
+            },
+            {
+              "left": "Thursday",
+              "right": "Thứ Năm"
+            },
+            {
+              "left": "Saturday",
+              "right": "Thứ Bảy"
+            },
+            {
+              "left": "Sunday",
+              "right": "Chủ nhật"
+            }
+          ]
+        },
+        {
+          "type": "listen",
+          "say": "It's a quarter to four.",
+          "prompt": "Bây giờ là mấy giờ?",
+          "choices": [
+            "4:15",
+            "4:45",
+            "3:45"
+          ],
+          "answer": 2,
+          "explain": "a quarter to four = 4 giờ kém 15 phút = 3:45."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Ngày 8 tháng 3 (March 8th) đọc là:",
+          "choices": [
+            "March eight",
+            "March eighth",
+            "Eight March"
+          ],
+          "answer": 1,
+          "explain": "Ngày luôn đọc bằng số thứ tự: eighth."
+        },
+        {
+          "type": "gap",
+          "prompt": "My birthday is ___ June 2nd.",
+          "answers": [
+            "on"
+          ],
+          "choices": [
+            "in",
+            "on",
+            "at"
+          ],
+          "explain": "Ngày cụ thể dùng on."
+        },
+        {
+          "type": "gap",
+          "prompt": "The class starts ___ 9 a.m.",
+          "answers": [
+            "at"
+          ],
+          "choices": [
+            "at",
+            "on",
+            "in"
+          ],
+          "explain": "Giờ cụ thể dùng at."
+        },
+        {
+          "type": "order",
+          "hint": "Phim bắt đầu lúc mấy giờ?",
+          "answer": "What time does the movie start"
+        }
+      ]
+    },
+    {
+      "id": "daily.polite",
+      "title": "Lịch sự: please, thank you, sorry, excuse me",
+      "summary": "Nhờ, cảm ơn, xin lỗi và cách đáp lại; mời và từ chối một cách lịch sự.",
+      "level": "A1_1",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Bốn cụm từ giúp bạn lịch sự trong hầu hết tình huống:\n\n- `please` (làm ơn): thêm vào lời đề nghị cho mềm mại: `A coffee, please.`\n- `Thank you` / `Thanks` (cảm ơn). Đáp lại: `You're welcome.` / `No problem.` / `Sure.`\n- `Sorry` / `I'm sorry` (xin lỗi) khi bạn đã làm sai hoặc làm phiền ai. Đáp lại: `That's OK.` / `No worries.` / `Don't worry about it.`\n- `Excuse me` thường dùng **trước khi làm phiền**: gọi người lạ, xin đi qua, hỏi đường, hỏi thông tin."
+        },
+        {
+          "type": "table",
+          "title": "Nhờ, xin phép và mời",
+          "head": [
+            "Mẫu câu",
+            "Dùng khi",
+            "Cách đáp"
+          ],
+          "rows": [
+            [
+              "Could you + động từ…?",
+              "Nhờ người khác làm gì (lịch sự hơn Can you…?)",
+              "Sure. / Of course."
+            ],
+            [
+              "Can I…? / May I…?",
+              "Xin phép để mình làm gì (May I trang trọng hơn)",
+              "Sure, go ahead."
+            ],
+            [
+              "Would you like…?",
+              "Mời ai đó món gì, việc gì",
+              "Yes, please. / No, thanks."
+            ],
+            [
+              "Excuse me.",
+              "Gọi ai đó, xin đi qua",
+              "Yes? / Sure."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Nghe và đọc theo",
+          "items": [
+            {
+              "en": "Excuse me, can I get through?",
+              "vi": "Xin lỗi, cho tôi đi qua được không?"
+            },
+            {
+              "en": "Could you open the window, please?",
+              "vi": "Bạn mở giúp cửa sổ được không?"
+            },
+            {
+              "en": "Sure, no problem.",
+              "vi": "Được chứ, không sao."
+            },
+            {
+              "en": "Can I use your pen?",
+              "vi": "Mình dùng bút của bạn được không?"
+            },
+            {
+              "en": "Thank you so much!",
+              "vi": "Cảm ơn bạn nhiều lắm!"
+            },
+            {
+              "en": "You're welcome.",
+              "vi": "Không có gì."
+            },
+            {
+              "en": "I'm sorry I'm late.",
+              "vi": "Xin lỗi, tôi đến muộn."
+            },
+            {
+              "en": "That's OK. Don't worry.",
+              "vi": "Không sao đâu. Đừng lo."
+            },
+            {
+              "en": "Would you like some water?",
+              "vi": "Bạn uống chút nước không?"
+            },
+            {
+              "en": "No, thanks. I'm good.",
+              "vi": "Thôi, cảm ơn. Tôi không cần đâu."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- Đáp lời mời `Would you like…?` bằng `Yes, I like.` là **sai**. Hãy nói `Yes, please.` hoặc `No, thanks.`\n- Viết `Thanks you` — sai. Chỉ có `Thank you` hoặc `Thanks`.\n- Nói trống không: `Give me the menu.` nghe cộc lốc. Hãy nói `Could I have the menu, please?`\n- Muốn gọi người lạ, hãy mở đầu bằng `Excuse me`. Còn `Sorry` dùng khi bạn đã va vào ai, làm sai, hoặc không nghe rõ (`Sorry?` = Xin lỗi, bạn nói gì cơ?)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "match",
+          "prompt": "Ghép câu với nghĩa",
+          "pairs": [
+            {
+              "left": "Excuse me.",
+              "right": "Xin lỗi (cho tôi hỏi / cho tôi qua)."
+            },
+            {
+              "left": "I'm sorry.",
+              "right": "Tôi xin lỗi (vì đã làm sai)."
+            },
+            {
+              "left": "You're welcome.",
+              "right": "Không có gì."
+            },
+            {
+              "left": "No, thanks.",
+              "right": "Thôi, cảm ơn."
+            },
+            {
+              "left": "Yes, please.",
+              "right": "Vâng, cho tôi nhé."
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Bạn lỡ va vào một người trên phố. Bạn nói:",
+          "choices": [
+            "Thank you!",
+            "You're welcome!",
+            "I'm sorry!"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "mcq",
+          "prompt": "Bạn muốn gọi người phục vụ trong quán. Bạn nói:",
+          "choices": [
+            "Excuse me!",
+            "You're welcome!",
+            "No, thanks!"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "A: Thank you for your help!\nB: ___",
+          "choices": [
+            "Yes, please.",
+            "You're welcome.",
+            "I'm sorry."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "Would you like some coffee? — Yes, ___.",
+          "answers": [
+            "please",
+            "thanks"
+          ],
+          "choices": [
+            "like",
+            "please",
+            "welcome"
+          ],
+          "explain": "Nhận lời mời: Yes, please. — không nói Yes, I like."
+        },
+        {
+          "type": "gap",
+          "prompt": "___ I use your phone?",
+          "answers": [
+            "Can",
+            "May",
+            "Could"
+          ],
+          "choices": [
+            "Would",
+            "Are",
+            "Can"
+          ],
+          "explain": "Xin phép để mình làm gì: Can I / May I…?"
+        },
+        {
+          "type": "gap",
+          "prompt": "___ you like some tea?",
+          "answers": [
+            "Would"
+          ],
+          "choices": [
+            "Do",
+            "Would",
+            "Are"
+          ],
+          "explain": "Mời ai đó dùng Would you like…?"
+        },
+        {
+          "type": "mcq",
+          "prompt": "A: I'm sorry I'm late.\nB: ___",
+          "choices": [
+            "That's OK.",
+            "You're welcome.",
+            "Yes, please."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "order",
+          "hint": "Cảm ơn bạn đã giúp đỡ.",
+          "answer": "Thank you for your help"
+        },
+        {
+          "type": "order",
+          "hint": "Bạn muốn uống gì?",
+          "answer": "What would you like to drink"
+        }
+      ]
+    },
+    {
+      "id": "daily.directions",
+      "title": "Hỏi và chỉ đường",
+      "summary": "Hỏi địa điểm ở đâu, chỉ đường rẽ trái/phải, mô tả vị trí và hỏi đi bộ mất bao lâu.",
+      "level": "A1_2",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Ba cách hỏi đường thông dụng (nhớ mở đầu bằng `Excuse me`):\n\n- `Where is the…?` — … ở đâu? Ví dụ: `Where is the bank?`\n- `How do I get to…?` — Đi đến … bằng cách nào? Ví dụ: `How do I get to the station?`\n- `Is there a … near here?` — Gần đây có … không? Ví dụ: `Is there a pharmacy near here?`\n\nHỏi xa hay gần: `Is it far?` hoặc `How long does it take to walk?` Câu trả lời: `It's about five minutes on foot.` / `It's a ten-minute walk.`"
+        },
+        {
+          "type": "table",
+          "title": "Chỉ đường và vị trí",
+          "head": [
+            "Tiếng Anh",
+            "Nghĩa"
+          ],
+          "rows": [
+            [
+              "go straight",
+              "đi thẳng"
+            ],
+            [
+              "turn left / turn right",
+              "rẽ trái / rẽ phải"
+            ],
+            [
+              "take the second right",
+              "rẽ phải ở ngã rẽ thứ hai"
+            ],
+            [
+              "at the corner",
+              "ở góc đường"
+            ],
+            [
+              "at the traffic light",
+              "ở chỗ đèn giao thông"
+            ],
+            [
+              "on the left / on the right",
+              "ở bên trái / ở bên phải"
+            ],
+            [
+              "next to",
+              "bên cạnh"
+            ],
+            [
+              "opposite / across from",
+              "đối diện"
+            ],
+            [
+              "between A and B",
+              "ở giữa A và B"
+            ]
+          ]
+        },
+        {
+          "type": "sounds",
+          "title": "Địa điểm thông dụng",
+          "items": [
+            {
+              "text": "station",
+              "ipa": "/ˈsteɪʃən/",
+              "note": "nhà ga"
+            },
+            {
+              "text": "bank",
+              "ipa": "/bæŋk/",
+              "note": "ngân hàng"
+            },
+            {
+              "text": "hospital",
+              "ipa": "/ˈhɑːspɪtəl/",
+              "note": "bệnh viện"
+            },
+            {
+              "text": "supermarket",
+              "ipa": "/ˈsuːpɚˌmɑːrkɪt/",
+              "note": "siêu thị"
+            },
+            {
+              "text": "post office",
+              "ipa": "/ˈpoʊst ˌɑːfɪs/",
+              "note": "bưu điện"
+            },
+            {
+              "text": "park",
+              "ipa": "/pɑːrk/",
+              "note": "công viên"
+            },
+            {
+              "text": "pharmacy",
+              "ipa": "/ˈfɑːrməsi/",
+              "note": "hiệu thuốc"
+            },
+            {
+              "text": "bus stop",
+              "ipa": "/ˈbʌs stɑːp/",
+              "note": "trạm xe buýt"
+            }
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Hội thoại mẫu",
+          "items": [
+            {
+              "en": "Excuse me, is there a bank near here?",
+              "vi": "Xin lỗi, gần đây có ngân hàng nào không?"
+            },
+            {
+              "en": "Yes, there's one on Main Street.",
+              "vi": "Có, có một cái ở phố Main."
+            },
+            {
+              "en": "How do I get there?",
+              "vi": "Tôi đến đó bằng cách nào?"
+            },
+            {
+              "en": "Go straight and turn left at the corner.",
+              "vi": "Đi thẳng rồi rẽ trái ở góc đường."
+            },
+            {
+              "en": "The bank is next to the post office.",
+              "vi": "Ngân hàng ở cạnh bưu điện."
+            },
+            {
+              "en": "It's across from the park.",
+              "vi": "Nó nằm đối diện công viên."
+            },
+            {
+              "en": "Is it far?",
+              "vi": "Có xa không?"
+            },
+            {
+              "en": "No, it's about five minutes on foot.",
+              "vi": "Không, đi bộ khoảng năm phút thôi."
+            },
+            {
+              "en": "Thank you so much!",
+              "vi": "Cảm ơn bạn nhiều!"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- Quên mạo từ: `Where is bank?` → đúng là `Where is the bank?`\n- Nói `Turn on the left` → đúng là `Turn left`. Cụm `on the left` dùng để nói vị trí: `It's on the left.`\n- `How can I go to…?` vẫn hiểu được, nhưng `How do I get to…?` tự nhiên hơn.\n- Nhầm `opposite` (đối diện, bên kia đường) với `next to` (sát bên cạnh).\n- Không nghe kịp thì hỏi lại: `Sorry, could you say that again?`"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "match",
+          "prompt": "Ghép địa điểm với nghĩa",
+          "pairs": [
+            {
+              "left": "station",
+              "right": "nhà ga"
+            },
+            {
+              "left": "hospital",
+              "right": "bệnh viện"
+            },
+            {
+              "left": "post office",
+              "right": "bưu điện"
+            },
+            {
+              "left": "supermarket",
+              "right": "siêu thị"
+            },
+            {
+              "left": "pharmacy",
+              "right": "hiệu thuốc"
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "`next to` nghĩa là:",
+          "choices": [
+            "đối diện",
+            "bên cạnh",
+            "ở góc đường"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "listen",
+          "say": "Turn left at the traffic light.",
+          "prompt": "Người đó bảo bạn làm gì?",
+          "choices": [
+            "Rẽ phải ở đèn giao thông",
+            "Đi thẳng qua đèn giao thông",
+            "Rẽ trái ở đèn giao thông"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "Excuse me, ___ is the post office?",
+          "answers": [
+            "where"
+          ],
+          "choices": [
+            "what",
+            "where",
+            "when"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Is there a pharmacy ___ here?",
+          "answers": [
+            "near",
+            "around"
+          ],
+          "choices": [
+            "near",
+            "next",
+            "far"
+          ],
+          "explain": "Is there a … near here? = Gần đây có … không?"
+        },
+        {
+          "type": "listen",
+          "say": "It's across from the bank.",
+          "prompt": "Địa điểm đó ở đâu?",
+          "choices": [
+            "Đối diện ngân hàng",
+            "Cạnh ngân hàng",
+            "Phía sau ngân hàng"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "“It's a ten-minute walk.” nghĩa là:",
+          "choices": [
+            "Đi xe mất mười phút.",
+            "Cách mười cây số.",
+            "Đi bộ mất mười phút."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "Go straight and turn ___ at the corner.",
+          "answers": [
+            "left",
+            "right"
+          ],
+          "choices": [
+            "on",
+            "left",
+            "to"
+          ],
+          "explain": "Nói turn left / turn right, không cần giới từ."
+        },
+        {
+          "type": "order",
+          "hint": "Làm sao để tôi đến nhà ga?",
+          "answer": "How do I get to the station"
+        },
+        {
+          "type": "order",
+          "hint": "Đi bộ mất bao lâu?",
+          "answer": "How long does it take to walk"
+        }
+      ]
+    },
+    {
+      "id": "daily.shopping",
+      "title": "Mua sắm và tiền",
+      "summary": "Hỏi giá, đọc giá tiền, thử đồ, mua theo đơn vị (chai, cân), thanh toán và gọi món.",
+      "level": "A1_2",
+      "minutes": 14,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Hỏi giá:**\n\n- Một món: `How much is this shirt?` → `It's $15.`\n- Nhiều món (danh từ số nhiều): `How much are these shoes?` → `They're $40.`\n\n**Đọc giá:** $5 `five dollars`; $12.50 `twelve fifty` hoặc `twelve dollars and fifty cents`; $0.99 `ninety-nine cents`. Ký hiệu `$` viết **trước** số nhưng `dollars` đọc **sau** số.\n\n**Nói muốn mua:** `I'd like…` (lịch sự hơn `I want…`). Gọi món ở quán: `I'll have a sandwich, please.`"
+        },
+        {
+          "type": "table",
+          "title": "Mẫu câu ở cửa hàng",
+          "head": [
+            "Tình huống",
+            "Câu tiếng Anh",
+            "Nghĩa"
+          ],
+          "rows": [
+            [
+              "Thử đồ",
+              "Can I try it on?",
+              "Tôi mặc thử được không?"
+            ],
+            [
+              "Hỏi cỡ",
+              "Do you have this in a medium?",
+              "Cái này có cỡ M không?"
+            ],
+            [
+              "Chê đắt",
+              "It's too expensive.",
+              "Đắt quá."
+            ],
+            [
+              "Tìm đồ rẻ hơn",
+              "Do you have a cheaper one?",
+              "Có cái nào rẻ hơn không?"
+            ],
+            [
+              "Quyết định mua",
+              "I'll take it.",
+              "Tôi lấy cái này."
+            ],
+            [
+              "Thanh toán",
+              "Cash or card?",
+              "Trả tiền mặt hay thẻ?"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "Danh từ **không đếm được** như `water`, `rice`, `milk`, `bread` không đi với `a` và không thêm `-s`. Muốn nói số lượng, hãy dùng **đơn vị**:\n\n- `a bottle of water` (một chai nước), `two bottles of water`\n- `a kilo of rice` (một cân gạo), `two kilos of rice`\n- `a cup of coffee`, `a loaf of bread`, `a carton of milk`\n\nHỏi số lượng: `How many apples?` (đếm được) / `How much rice?` (không đếm được)."
+        },
+        {
+          "type": "examples",
+          "title": "Ở cửa hàng và quán ăn",
+          "items": [
+            {
+              "en": "Hi, can I help you?",
+              "vi": "Xin chào, tôi giúp gì được cho bạn?"
+            },
+            {
+              "en": "Yes, I'd like this T-shirt.",
+              "vi": "Vâng, tôi muốn mua cái áo phông này."
+            },
+            {
+              "en": "How much is it?",
+              "vi": "Cái này bao nhiêu tiền?"
+            },
+            {
+              "en": "It's $12.50.",
+              "vi": "12 đô 50.",
+              "note": "twelve fifty"
+            },
+            {
+              "en": "Can I try it on?",
+              "vi": "Tôi mặc thử được không?"
+            },
+            {
+              "en": "Sure. The fitting room is over there.",
+              "vi": "Được chứ. Phòng thử đồ ở đằng kia."
+            },
+            {
+              "en": "Cash or card?",
+              "vi": "Bạn trả tiền mặt hay thẻ?"
+            },
+            {
+              "en": "Card, please.",
+              "vi": "Thẻ nhé."
+            },
+            {
+              "en": "I'll have a chicken sandwich, please.",
+              "vi": "Cho tôi một bánh mì kẹp gà."
+            },
+            {
+              "en": "And a bottle of water.",
+              "vi": "Thêm một chai nước nữa."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi người Việt hay mắc:\n\n- `How much is these shoes?` → **sai**, vì `shoes` số nhiều: phải là `How much are these shoes?` → `They're…`\n- Thêm -s cho danh từ không đếm được: không nói `two rices`, hãy nói `two kilos of rice`.\n- `too` nghĩa là **quá mức**, thường mang ý chê: `It's too expensive.` Muốn khen rẻ thì nói `It's very cheap.` hoặc `That's a good price.`\n- `Can I try on it?` → **sai**. Với `it`/`them`, đại từ đứng giữa: `Can I try it on?`"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "listen",
+          "say": "thirty dollars",
+          "prompt": "Món này giá bao nhiêu?",
+          "choices": [
+            "$30",
+            "$13",
+            "$3"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "listen",
+          "say": "twelve dollars and fifty cents",
+          "prompt": "Món này giá bao nhiêu?",
+          "choices": [
+            "$12.15",
+            "$12.50",
+            "$20.50"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "How much ___ this bag?",
+          "answers": [
+            "is"
+          ],
+          "choices": [
+            "are",
+            "is",
+            "be"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "How much ___ these jeans?",
+          "answers": [
+            "are"
+          ],
+          "explain": "jeans là danh từ số nhiều nên dùng are."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép cụm từ với nghĩa",
+          "pairs": [
+            {
+              "left": "a bottle of water",
+              "right": "một chai nước"
+            },
+            {
+              "left": "two kilos of rice",
+              "right": "hai cân gạo"
+            },
+            {
+              "left": "a cup of coffee",
+              "right": "một tách cà phê"
+            },
+            {
+              "left": "a loaf of bread",
+              "right": "một ổ bánh mì"
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Người bán hỏi: “Cash or card?” Bạn đáp:",
+          "choices": [
+            "Yes, please.",
+            "Card, please.",
+            "I'm fine."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "Can I try on it?",
+            "Can I on try it?",
+            "Can I try it on?"
+          ],
+          "answer": 2,
+          "explain": "Với đại từ it, nói try it on, không nói try on it."
+        },
+        {
+          "type": "gap",
+          "prompt": "I'd like two ___ of rice.",
+          "answers": [
+            "kilos",
+            "kilograms"
+          ],
+          "choices": [
+            "kilo",
+            "kilos",
+            "rices"
+          ],
+          "explain": "Đơn vị mới thêm -s (two kilos), còn rice giữ nguyên."
+        },
+        {
+          "type": "order",
+          "hint": "Tôi muốn mua một chai nước.",
+          "answer": "I'd like a bottle of water"
+        },
+        {
+          "type": "order",
+          "hint": "Cho tôi một bánh mì kẹp gà.",
+          "answer": "I'll have a chicken sandwich"
+        }
+      ]
+    }
+  ]
+}

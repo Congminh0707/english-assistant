@@ -27,6 +27,10 @@ import { PlacementService } from './services/PlacementService'
 import { PracticeService } from './services/PracticeService'
 import { ShopService } from './services/ShopService'
 import { StatsService } from './services/StatsService'
+import { LessonService } from './services/LessonService'
+import { LessonLibrary } from './content/LessonLibrary'
+import { bundledLessonFiles } from './content/bundledLessons'
+import { LessonRepository } from './db/repositories/LessonRepository'
 
 export interface Container {
   clock: Clock
@@ -47,6 +51,7 @@ export interface Container {
   practice: PracticeService
   shop: ShopService
   stats: StatsService
+  lessons: LessonService
 }
 
 export interface ContainerOptions {
@@ -70,6 +75,7 @@ export function createContainer(
     xp: new XpRepository(db),
     settings: new SettingsRepository(db),
     vocab: new VocabRepository(db),
+    lessons: new LessonRepository(db),
     packs: new InstalledPackRepository(db)
   }
 
@@ -171,6 +177,16 @@ export function createContainer(
     clock
   })
 
+  const lessons = new LessonService({
+    library: new LessonLibrary(bundledLessonFiles),
+    repo: repos.lessons,
+    xpRepo: repos.xp,
+    xp,
+    profiles,
+    clock,
+    transaction
+  })
+
   return {
     clock,
     bus,
@@ -189,6 +205,7 @@ export function createContainer(
     placement,
     practice,
     shop,
-    stats
+    stats,
+    lessons
   }
 }

@@ -1,0 +1,1963 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "tenses",
+    "title": "Các thì trong tiếng Anh",
+    "summary": "Học các thì quan trọng nhất: công thức, khi nào dùng, dấu hiệu nhận biết và lỗi người Việt hay mắc.",
+    "icon": "⏰",
+    "order": 3
+  },
+  "lessons": [
+    {
+      "id": "tenses.present-simple",
+      "title": "Thì hiện tại đơn",
+      "summary": "Nói về thói quen và sự thật; thêm -s/-es cho he/she/it; dùng do/does.",
+      "level": "A1_1",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Trong tiếng Việt, động từ không bao giờ đổi: “tôi đi”, “anh ấy đi”, “hôm qua tôi đi”. Tiếng Anh thì khác: động từ đổi dạng theo **thì** (thời gian) và theo **chủ ngữ**.\n\n**Thì hiện tại đơn** dùng để nói về:\n\n- Thói quen, việc lặp lại: `I drink milk every morning.`\n- Sự thật, điều luôn đúng: `The sun rises in the east.`\n- Lịch trình cố định: `The bus leaves at seven.`\n\nDấu hiệu thường gặp: `every day`, `every week`, `on Mondays`, `in the morning`, `once a week` và các trạng từ tần suất."
+        },
+        {
+          "type": "table",
+          "title": "Công thức (động từ thường)",
+          "head": [
+            "Dạng",
+            "I / you / we / they",
+            "he / she / it"
+          ],
+          "rows": [
+            [
+              "Khẳng định",
+              "I work.",
+              "She works."
+            ],
+            [
+              "Phủ định",
+              "I don't (do not) work.",
+              "She doesn't (does not) work."
+            ],
+            [
+              "Nghi vấn",
+              "Do you work?",
+              "Does she work?"
+            ],
+            [
+              "Trả lời ngắn",
+              "Yes, I do. / No, I don't.",
+              "Yes, she does. / No, she doesn't."
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Thêm -s / -es cho he / she / it",
+          "head": [
+            "Động từ tận cùng bằng",
+            "Cách thêm",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Hầu hết động từ",
+              "+ s",
+              "work → works, read → reads"
+            ],
+            [
+              "-s, -ss, -sh, -ch, -x, -z và thường cả -o",
+              "+ es",
+              "miss → misses, wash → washes, watch → watches, fix → fixes, buzz → buzzes, go → goes, do → does"
+            ],
+            [
+              "Phụ âm + y",
+              "bỏ y, thêm -ies",
+              "study → studies, try → tries"
+            ],
+            [
+              "Nguyên âm + y",
+              "+ s",
+              "play → plays, buy → buys"
+            ],
+            [
+              "Bất quy tắc",
+              "phải nhớ",
+              "have → has"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Trạng từ tần suất** cho biết việc xảy ra thường xuyên đến mức nào:\n\n- `always` (luôn luôn) → `usually` (thường thường) → `often` (hay) → `sometimes` (thỉnh thoảng) → `never` (không bao giờ)\n\nVị trí: **đứng trước động từ thường** (`She often walks to school.`) nhưng **đứng sau động từ to be** (`He is always late.`). `Usually` và `sometimes` còn có thể đứng đầu câu, nhưng vị trí trước động từ là phổ biến và an toàn nhất."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I get up at six every day.",
+              "vi": "Ngày nào tôi cũng dậy lúc sáu giờ."
+            },
+            {
+              "en": "My mother works in a hospital.",
+              "vi": "Mẹ tôi làm việc ở bệnh viện."
+            },
+            {
+              "en": "He watches TV in the evening.",
+              "vi": "Buổi tối anh ấy xem ti vi."
+            },
+            {
+              "en": "Water boils at 100 degrees Celsius.",
+              "vi": "Nước sôi ở 100 độ C.",
+              "note": "sự thật"
+            },
+            {
+              "en": "We don't eat meat.",
+              "vi": "Chúng tôi không ăn thịt."
+            },
+            {
+              "en": "Does your brother play the guitar?",
+              "vi": "Anh trai bạn có chơi đàn ghi-ta không?"
+            },
+            {
+              "en": "She always drinks tea after lunch.",
+              "vi": "Cô ấy luôn uống trà sau bữa trưa."
+            },
+            {
+              "en": "They are never late for class.",
+              "vi": "Họ không bao giờ đi học muộn."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Lỗi người Việt hay mắc:**\n\n- `He go to school.` ✗ → `He goes to school.` ✓ — quên thêm -s cho he/she/it.\n- `Does he goes?` ✗ → `Does he go?` ✓ — `does` đã mang -s, nên động từ chính giữ **nguyên mẫu**.\n- `She don't like it.` ✗ → `She doesn't like it.` ✓\n- `I am go to school.` ✗ → `I go to school.` ✓ — không đặt `am/is/are` trước động từ thường."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "She ___ to work by bus every day.",
+          "answers": [
+            "goes"
+          ],
+          "choices": [
+            "go",
+            "going",
+            "goes"
+          ],
+          "explain": "Chủ ngữ she → thêm -es: go → goes."
+        },
+        {
+          "type": "gap",
+          "prompt": "He ___ English every evening.",
+          "answers": [
+            "studies"
+          ],
+          "choices": [
+            "studys",
+            "study",
+            "studies"
+          ],
+          "explain": "Phụ âm + y → bỏ y, thêm -ies."
+        },
+        {
+          "type": "gap",
+          "prompt": "Tom ___ like coffee.",
+          "answers": [
+            "doesn't",
+            "does not"
+          ],
+          "choices": [
+            "don't",
+            "doesn't",
+            "isn't"
+          ],
+          "explain": "Chủ ngữ số ít (Tom = he) → doesn't + V nguyên mẫu."
+        },
+        {
+          "type": "gap",
+          "prompt": "___ your sister work in a bank?",
+          "answers": [
+            "Does"
+          ],
+          "choices": [
+            "Do",
+            "Is",
+            "Does"
+          ],
+          "explain": "Your sister = she → câu hỏi dùng Does."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Chọn câu đúng:",
+          "choices": [
+            "Does he goes to school?",
+            "Do he go to school?",
+            "Does he go to school?"
+          ],
+          "answer": 2,
+          "explain": "Sau does, động từ chính về nguyên mẫu."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đặt trạng từ tần suất đúng?",
+          "choices": [
+            "I get always up at six.",
+            "I always get up at six.",
+            "I get up always at six."
+          ],
+          "answer": 1,
+          "explain": "Trạng từ tần suất đứng trước động từ thường."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Chọn câu đúng:",
+          "choices": [
+            "He always late.",
+            "He always be late.",
+            "He is always late."
+          ],
+          "answer": 2,
+          "explain": "Với to be, trạng từ tần suất đứng sau is."
+        },
+        {
+          "type": "order",
+          "hint": "Cô ấy không bao giờ uống cà phê.",
+          "answer": "She never drinks coffee."
+        },
+        {
+          "type": "order",
+          "hint": "Lớp học của bạn bắt đầu lúc mấy giờ?",
+          "answer": "What time does your class start?"
+        },
+        {
+          "type": "gap",
+          "prompt": "Water ___ at 100 degrees Celsius. (boil)",
+          "answers": [
+            "boils"
+          ],
+          "explain": "Sự thật luôn đúng → hiện tại đơn; water = it → boils."
+        }
+      ]
+    },
+    {
+      "id": "tenses.present-continuous",
+      "title": "Thì hiện tại tiếp diễn",
+      "summary": "Nói về việc đang xảy ra và kế hoạch gần với am/is/are + V-ing.",
+      "level": "A1_2",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Tiếng Việt dùng chữ **“đang”** để nói việc đang diễn ra. Tiếng Anh dùng **am / is / are + V-ing**.\n\nThì hiện tại tiếp diễn dùng để nói về:\n\n- Việc đang xảy ra lúc nói: `She is cooking now.`\n- Việc tạm thời trong giai đoạn này: `I'm reading a good book this week.`\n- Kế hoạch gần đã sắp xếp (thường kèm thời gian): `I'm meeting Lan tomorrow.`\n\nDấu hiệu: `now`, `right now`, `at the moment`, `today`, `this week`, và các câu như `Look!`, `Listen!`.\n\nViết tắt: `I'm`, `you're`, `he's`, `she's`, `it's`, `we're`, `they're`; phủ định `isn't`, `aren't`, riêng I dùng `I'm not`."
+        },
+        {
+          "type": "table",
+          "title": "Công thức",
+          "head": [
+            "Dạng",
+            "Công thức",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Khẳng định",
+              "Chủ ngữ + am / is / are + V-ing",
+              "I'm reading. She's cooking."
+            ],
+            [
+              "Phủ định",
+              "Chủ ngữ + am / is / are + not + V-ing",
+              "I'm not reading. They aren't playing."
+            ],
+            [
+              "Nghi vấn",
+              "Am / Is / Are + chủ ngữ + V-ing?",
+              "Are you listening? — Yes, I am."
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Cách thêm -ing",
+          "head": [
+            "Quy tắc",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Hầu hết động từ: + ing",
+              "read → reading, play → playing"
+            ],
+            [
+              "Tận cùng -e câm: bỏ e, thêm -ing",
+              "make → making, write → writing"
+            ],
+            [
+              "Tận cùng -ee: giữ nguyên, thêm -ing",
+              "see → seeing"
+            ],
+            [
+              "Một âm tiết, tận cùng phụ âm + một nguyên âm + phụ âm: gấp đôi phụ âm cuối",
+              "run → running, sit → sitting, swim → swimming"
+            ],
+            [
+              "Không gấp đôi w, x, y",
+              "snow → snowing, fix → fixing"
+            ],
+            [
+              "Hai âm tiết, trọng âm ở âm tiết cuối: thường gấp đôi",
+              "begin → beginning (nhưng travel → traveling)"
+            ],
+            [
+              "Tận cùng -ie: đổi thành y, thêm -ing",
+              "lie → lying, die → dying"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I'm doing my homework now.",
+              "vi": "Bây giờ tôi đang làm bài tập."
+            },
+            {
+              "en": "Look! The bus is coming.",
+              "vi": "Nhìn kìa! Xe buýt đang tới."
+            },
+            {
+              "en": "She's talking on the phone.",
+              "vi": "Cô ấy đang nói chuyện điện thoại."
+            },
+            {
+              "en": "They aren't sleeping. They're playing games.",
+              "vi": "Họ không ngủ đâu, họ đang chơi game."
+            },
+            {
+              "en": "Are you listening to me?",
+              "vi": "Bạn có đang nghe tôi nói không?"
+            },
+            {
+              "en": "It's raining at the moment.",
+              "vi": "Lúc này trời đang mưa."
+            },
+            {
+              "en": "My dad is working from home this week.",
+              "vi": "Tuần này bố tôi làm việc ở nhà.",
+              "note": "việc tạm thời"
+            },
+            {
+              "en": "I'm meeting my friends tonight.",
+              "vi": "Tối nay tôi có hẹn gặp bạn bè.",
+              "note": "kế hoạch đã hẹn"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Lỗi người Việt hay mắc:**\n\n- `I reading.` ✗ → `I'm reading.` ✓ — không được bỏ `am/is/are`.\n- `She is cook.` ✗ → `She is cooking.` ✓ — phải có -ing.\n- `makeing`, `runing` ✗ → `making`, `running` ✓\n- Không phải chữ “đang” nào cũng dịch sang tiếp diễn: “Tôi đang cần tiền” là `I need money.` (xem bài sau)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "Listen! The baby ___ crying.",
+          "answers": [
+            "is"
+          ],
+          "choices": [
+            "am",
+            "are",
+            "is"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "We ___ watching TV right now.",
+          "answers": [
+            "are"
+          ],
+          "choices": [
+            "is",
+            "are",
+            "am"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She is ___ a letter to her friend. (write)",
+          "answers": [
+            "writing"
+          ],
+          "choices": [
+            "writeing",
+            "writting",
+            "writing"
+          ],
+          "explain": "Tận cùng -e câm → bỏ e rồi thêm -ing."
+        },
+        {
+          "type": "gap",
+          "prompt": "The children are ___ in the pool. (swim)",
+          "answers": [
+            "swimming"
+          ],
+          "choices": [
+            "swiming",
+            "swimming",
+            "swims"
+          ],
+          "explain": "swim: phụ âm + một nguyên âm + phụ âm → gấp đôi m."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Chọn câu đúng:",
+          "choices": [
+            "I am read a book now.",
+            "I reading a book now.",
+            "I am reading a book now."
+          ],
+          "answer": 2,
+          "explain": "Cần đủ cả am và V-ing."
+        },
+        {
+          "type": "gap",
+          "prompt": "He ___ working at the moment. He's on vacation.",
+          "answers": [
+            "isn't",
+            "is not"
+          ],
+          "choices": [
+            "doesn't",
+            "isn't",
+            "aren't"
+          ],
+          "explain": "Phủ định của tiếp diễn: is not + V-ing."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu “I'm meeting Lan tomorrow.” nói về điều gì?",
+          "choices": [
+            "Việc đang xảy ra lúc nói",
+            "Kế hoạch đã hẹn trong tương lai gần",
+            "Thói quen hằng ngày"
+          ],
+          "answer": 1,
+          "explain": "Có tomorrow → kế hoạch đã sắp xếp."
+        },
+        {
+          "type": "order",
+          "hint": "Bố tôi đang nấu bữa tối.",
+          "answer": "My father is cooking dinner."
+        },
+        {
+          "type": "order",
+          "hint": "Em trai bạn đang làm gì vậy?",
+          "answer": "What is your brother doing?"
+        },
+        {
+          "type": "gap",
+          "prompt": "Why is the dog ___ on my bed? (lie)",
+          "answers": [
+            "lying"
+          ],
+          "explain": "Tận cùng -ie → đổi thành y rồi thêm -ing."
+        }
+      ]
+    },
+    {
+      "id": "tenses.simple-vs-continuous",
+      "title": "Hiện tại đơn hay tiếp diễn?",
+      "summary": "Phân biệt thói quen với việc đang diễn ra; động từ trạng thái không dùng tiếp diễn.",
+      "level": "A2_1",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Cả hai thì đều nói về hiện tại, nhưng khác nhau về **ý nghĩa**:\n\n- Hiện tại đơn: việc **thường xuyên, lâu dài**, sự thật.\n- Hiện tại tiếp diễn: việc **đang diễn ra** hoặc **tạm thời**.\n\nHãy tìm dấu hiệu thời gian trong câu — đó là manh mối nhanh nhất."
+        },
+        {
+          "type": "table",
+          "title": "So sánh",
+          "head": [
+            "Tiêu chí",
+            "Hiện tại đơn",
+            "Hiện tại tiếp diễn"
+          ],
+          "rows": [
+            [
+              "Dùng cho",
+              "thói quen, sự thật, việc lâu dài",
+              "việc đang xảy ra, việc tạm thời"
+            ],
+            [
+              "Dấu hiệu",
+              "always, usually, every day, on Sundays",
+              "now, right now, at the moment, Look!, this week"
+            ],
+            [
+              "Ví dụ",
+              "I usually drink tea.",
+              "I'm drinking coffee today."
+            ],
+            [
+              "Ví dụ",
+              "I work in a bank.",
+              "I'm working from home this week."
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Động từ chỉ trạng thái** (suy nghĩ, cảm xúc, mong muốn, sở hữu) **thường không dùng ở dạng tiếp diễn**, kể cả khi nói về ngay lúc này:\n\n- Suy nghĩ: `know`, `understand`, `believe`, `remember`, `mean`\n- Cảm xúc: `like`, `love`, `hate`, `prefer`\n- Mong muốn, nhu cầu: `want`, `need`\n- Sở hữu: `have` (có), `own`, `belong`\n\nVí dụ: `I know the answer now.` (không nói `I'm knowing`).\n\nMột số động từ đổi nghĩa thì dùng được tiếp diễn: `I have a car.` (có) nhưng `I'm having lunch.` (đang ăn trưa); `I think it's good.` (cho rằng) nhưng `I'm thinking about you.` (đang nghĩ về)."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "He plays football every Sunday.",
+              "vi": "Chủ nhật nào anh ấy cũng đá bóng."
+            },
+            {
+              "en": "He's playing football right now.",
+              "vi": "Ngay lúc này anh ấy đang đá bóng."
+            },
+            {
+              "en": "I usually walk to work.",
+              "vi": "Tôi thường đi bộ đi làm."
+            },
+            {
+              "en": "Today I'm taking a taxi.",
+              "vi": "Hôm nay tôi đi taxi."
+            },
+            {
+              "en": "She speaks three languages.",
+              "vi": "Cô ấy nói được ba thứ tiếng."
+            },
+            {
+              "en": "I understand you now.",
+              "vi": "Giờ thì tôi hiểu bạn rồi."
+            },
+            {
+              "en": "We need more time.",
+              "vi": "Chúng tôi cần thêm thời gian."
+            },
+            {
+              "en": "I'm having dinner with my family.",
+              "vi": "Tôi đang ăn tối với gia đình."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt hay dịch chữ “đang” thành tiếp diễn với mọi động từ:\n\n- “Tôi đang cần giúp đỡ” → `I need help.` ✓ (không nói `I'm needing help.`)\n- “Tôi đang muốn ngủ” → `I want to sleep.` ✓\n- `I'm go to school every day.` ✗ → `I go to school every day.` ✓ — thói quen dùng hiện tại đơn, và không ghép `am` với động từ nguyên mẫu."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I usually ___ to work by bike.",
+          "answers": [
+            "go"
+          ],
+          "choices": [
+            "am going",
+            "go",
+            "goes"
+          ],
+          "explain": "usually → thói quen → hiện tại đơn."
+        },
+        {
+          "type": "gap",
+          "prompt": "Be quiet! The baby ___.",
+          "answers": [
+            "is sleeping"
+          ],
+          "choices": [
+            "sleeps",
+            "sleep",
+            "is sleeping"
+          ],
+          "explain": "Be quiet! → việc đang xảy ra lúc nói."
+        },
+        {
+          "type": "gap",
+          "prompt": "The sun always ___ in the east.",
+          "answers": [
+            "rises"
+          ],
+          "choices": [
+            "is rising",
+            "rises",
+            "rise"
+          ],
+          "explain": "Sự thật, có always → hiện tại đơn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "I'm wanting a glass of water.",
+            "I want a glass of water.",
+            "I wanting a glass of water."
+          ],
+          "answer": 1,
+          "explain": "want là động từ trạng thái, thường không dùng tiếp diễn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "This bag ___ to my sister.",
+          "choices": [
+            "is belonging",
+            "belong",
+            "belongs"
+          ],
+          "answer": 2,
+          "explain": "belong chỉ sở hữu → hiện tại đơn; this bag = it → belongs."
+        },
+        {
+          "type": "gap",
+          "prompt": "Sorry, I ___ this word. (not / understand)",
+          "answers": [
+            "don't understand",
+            "do not understand"
+          ],
+          "explain": "understand là động từ trạng thái → hiện tại đơn."
+        },
+        {
+          "type": "gap",
+          "prompt": "Shh! I ___ on the phone right now. (talk)",
+          "answers": [
+            "am talking"
+          ],
+          "explain": "right now → hiện tại tiếp diễn."
+        },
+        {
+          "type": "gap",
+          "prompt": "My dad ___ dinner on weekends. (cook)",
+          "answers": [
+            "cooks"
+          ],
+          "explain": "on weekends → thói quen → hiện tại đơn."
+        },
+        {
+          "type": "order",
+          "hint": "Anh ấy không hiểu câu hỏi.",
+          "answer": "He doesn't understand the question."
+        },
+        {
+          "type": "order",
+          "hint": "Bạn đang nghĩ gì vậy?",
+          "answer": "What are you thinking about?"
+        }
+      ]
+    },
+    {
+      "id": "tenses.past-simple",
+      "title": "Thì quá khứ đơn",
+      "summary": "Kể việc đã xảy ra: was/were, đuôi -ed, động từ bất quy tắc và did.",
+      "level": "A1_2",
+      "minutes": 15,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Tiếng Việt kể chuyện quá khứ bằng từ chỉ thời gian (“hôm qua”, “năm ngoái”) hoặc chữ “đã”, còn động từ giữ nguyên. Tiếng Anh thì **động từ phải đổi sang dạng quá khứ**.\n\n**Thì quá khứ đơn** dùng cho việc đã xảy ra và **đã kết thúc** trong quá khứ, thường có thời điểm rõ ràng.\n\nDấu hiệu: `yesterday`, `last night`, `last week`, `two days ago`, `in 2019`, `when I was a child`.\n\nĐộng từ to be: `I / he / she / it` → `was`; `you / we / they` → `were`."
+        },
+        {
+          "type": "table",
+          "title": "Công thức",
+          "head": [
+            "Dạng",
+            "Động từ to be",
+            "Động từ thường"
+          ],
+          "rows": [
+            [
+              "Khẳng định",
+              "I was tired. They were at home.",
+              "She worked. He went home."
+            ],
+            [
+              "Phủ định",
+              "I wasn't (was not) tired.",
+              "She didn't (did not) work."
+            ],
+            [
+              "Nghi vấn",
+              "Were you at home? — Yes, I was.",
+              "Did she work? — Yes, she did."
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Động từ có quy tắc**: thêm `-ed`.\n\n- Thường: `work → worked`, `play → played`\n- Tận cùng -e: chỉ thêm -d: `live → lived`\n- Phụ âm + y: bỏ y, thêm -ied: `study → studied` (nhưng `play → played`)\n- Một âm tiết, tận cùng phụ âm + một nguyên âm + phụ âm: gấp đôi phụ âm cuối: `stop → stopped`, `plan → planned` (không gấp đôi w, x, y: `fix → fixed`)\n\n**Cách đọc đuôi -ed** (theo âm cuối, không theo chữ cái):\n\n- /t/ sau âm vô thanh /p/, /k/, /f/, /s/, /ʃ/, /tʃ/, /θ/: `stopped`, `worked`, `washed`, `watched`\n- /ɪd/ sau /t/, /d/: `wanted`, `needed`\n- /d/ sau các âm còn lại: `played`, `lived`, `cleaned`\n\n**Động từ bất quy tắc** không theo quy luật, phải học thuộc."
+        },
+        {
+          "type": "table",
+          "title": "25 động từ bất quy tắc thường gặp",
+          "head": [
+            "Nguyên mẫu",
+            "Quá khứ",
+            "Nghĩa"
+          ],
+          "rows": [
+            [
+              "be",
+              "was / were",
+              "thì, là, ở"
+            ],
+            [
+              "have",
+              "had",
+              "có"
+            ],
+            [
+              "do",
+              "did",
+              "làm"
+            ],
+            [
+              "go",
+              "went",
+              "đi"
+            ],
+            [
+              "come",
+              "came",
+              "đến"
+            ],
+            [
+              "get",
+              "got",
+              "nhận, có được"
+            ],
+            [
+              "make",
+              "made",
+              "làm, chế tạo"
+            ],
+            [
+              "take",
+              "took",
+              "lấy, cầm"
+            ],
+            [
+              "see",
+              "saw",
+              "nhìn thấy"
+            ],
+            [
+              "say",
+              "said",
+              "nói"
+            ],
+            [
+              "eat",
+              "ate",
+              "ăn"
+            ],
+            [
+              "drink",
+              "drank",
+              "uống"
+            ],
+            [
+              "buy",
+              "bought",
+              "mua"
+            ],
+            [
+              "think",
+              "thought",
+              "nghĩ"
+            ],
+            [
+              "give",
+              "gave",
+              "cho, tặng"
+            ],
+            [
+              "find",
+              "found",
+              "tìm thấy"
+            ],
+            [
+              "know",
+              "knew",
+              "biết"
+            ],
+            [
+              "tell",
+              "told",
+              "kể, bảo"
+            ],
+            [
+              "write",
+              "wrote",
+              "viết"
+            ],
+            [
+              "read",
+              "read (đọc là /rɛd/)",
+              "đọc"
+            ],
+            [
+              "meet",
+              "met",
+              "gặp"
+            ],
+            [
+              "leave",
+              "left",
+              "rời đi"
+            ],
+            [
+              "sleep",
+              "slept",
+              "ngủ"
+            ],
+            [
+              "put",
+              "put",
+              "đặt, để"
+            ],
+            [
+              "begin",
+              "began",
+              "bắt đầu"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I was at home last night.",
+              "vi": "Tối qua tôi ở nhà."
+            },
+            {
+              "en": "We watched a movie yesterday.",
+              "vi": "Hôm qua chúng tôi xem một bộ phim."
+            },
+            {
+              "en": "She went to Da Nang last summer.",
+              "vi": "Hè năm ngoái cô ấy đi Đà Nẵng."
+            },
+            {
+              "en": "I bought this phone two weeks ago.",
+              "vi": "Tôi mua chiếc điện thoại này hai tuần trước."
+            },
+            {
+              "en": "They didn't come to the party.",
+              "vi": "Họ đã không đến bữa tiệc."
+            },
+            {
+              "en": "Did you see the game last night?",
+              "vi": "Tối qua bạn có xem trận đấu không?"
+            },
+            {
+              "en": "The children were very happy.",
+              "vi": "Bọn trẻ đã rất vui."
+            },
+            {
+              "en": "He studied English when he was young.",
+              "vi": "Hồi nhỏ anh ấy học tiếng Anh."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Lỗi người Việt hay mắc:**\n\n- `Did he went?` ✗ → `Did he go?` ✓ — `did` đã mang nghĩa quá khứ, động từ chính về **nguyên mẫu**.\n- `I didn't saw it.` ✗ → `I didn't see it.` ✓\n- `Yesterday I go to school.` ✗ → `Yesterday I went to school.` ✓ — có `yesterday` vẫn phải đổi động từ.\n- `I was go home.` ✗ → `I went home.` ✓ — không dùng `was/were` với động từ thường."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I ___ very tired last night.",
+          "answers": [
+            "was"
+          ],
+          "choices": [
+            "were",
+            "was",
+            "am"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She ___ to the market two hours ago.",
+          "answers": [
+            "went"
+          ],
+          "choices": [
+            "goes",
+            "goed",
+            "went"
+          ],
+          "explain": "go là động từ bất quy tắc: go → went."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép động từ với dạng quá khứ",
+          "pairs": [
+            {
+              "left": "buy",
+              "right": "bought"
+            },
+            {
+              "left": "eat",
+              "right": "ate"
+            },
+            {
+              "left": "see",
+              "right": "saw"
+            },
+            {
+              "left": "take",
+              "right": "took"
+            },
+            {
+              "left": "make",
+              "right": "made"
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Chọn câu đúng:",
+          "choices": [
+            "Did he went to school yesterday?",
+            "Did he go to school yesterday?",
+            "Does he went to school yesterday?"
+          ],
+          "answer": 1,
+          "explain": "Sau did, động từ chính về nguyên mẫu."
+        },
+        {
+          "type": "gap",
+          "prompt": "I ___ see him at the party yesterday.",
+          "answers": [
+            "didn't",
+            "did not"
+          ],
+          "choices": [
+            "don't",
+            "didn't",
+            "wasn't"
+          ],
+          "explain": "yesterday → quá khứ; phủ định động từ thường dùng didn't."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Đuôi -ed trong “wanted” đọc là gì?",
+          "choices": [
+            "/t/",
+            "/d/",
+            "/ɪd/"
+          ],
+          "answer": 2,
+          "explain": "Sau âm /t/ hoặc /d/, đuôi -ed đọc là /ɪd/."
+        },
+        {
+          "type": "gap",
+          "prompt": "He ___ his homework last night. (do)",
+          "answers": [
+            "did"
+          ],
+          "explain": "do → did."
+        },
+        {
+          "type": "gap",
+          "prompt": "My mom ___ me a new bike last year. (buy)",
+          "answers": [
+            "bought"
+          ],
+          "explain": "buy → bought."
+        },
+        {
+          "type": "order",
+          "hint": "Cô ấy đã không mua cái túi đó.",
+          "answer": "She didn't buy that bag."
+        },
+        {
+          "type": "order",
+          "hint": "Cô ấy đã nói gì với bạn?",
+          "answer": "What did she say to you?"
+        }
+      ]
+    },
+    {
+      "id": "tenses.past-continuous",
+      "title": "Thì quá khứ tiếp diễn",
+      "summary": "Nói việc đang diễn ra tại một lúc trong quá khứ; kết hợp với when và while.",
+      "level": "A2_1",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Tiếng Việt nói “lúc đó tôi **đang** nấu ăn”. Trong tiếng Anh, việc **đang diễn ra tại một thời điểm trong quá khứ** dùng **was / were + V-ing**: `At 8 p.m. yesterday, I was cooking dinner.`\n\nThì này hay đi cùng **quá khứ đơn**: một việc dài đang diễn ra (quá khứ tiếp diễn) thì một việc ngắn xen vào (quá khứ đơn).\n\n- `when` + việc ngắn: `I was cooking when she called.`\n- `while` + việc dài: `While I was walking home, it started to rain.`\n- Hai việc diễn ra song song: `While I was reading, my brother was playing games.`\n\nDấu hiệu: `at 8 p.m. yesterday`, `at that time`, `at this time last week`, `when`, `while`."
+        },
+        {
+          "type": "table",
+          "title": "Công thức",
+          "head": [
+            "Dạng",
+            "Công thức",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Khẳng định",
+              "I / he / she / it + was + V-ing; you / we / they + were + V-ing",
+              "She was reading."
+            ],
+            [
+              "Phủ định",
+              "was not (wasn't) / were not (weren't) + V-ing",
+              "They weren't sleeping."
+            ],
+            [
+              "Nghi vấn",
+              "Was / Were + chủ ngữ + V-ing?",
+              "Were you studying? — Yes, I was."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "At 7 a.m., I was eating breakfast.",
+              "vi": "Lúc 7 giờ sáng, tôi đang ăn sáng."
+            },
+            {
+              "en": "What were you doing last night?",
+              "vi": "Tối qua bạn đang làm gì thế?"
+            },
+            {
+              "en": "She was sleeping when the phone rang.",
+              "vi": "Cô ấy đang ngủ thì điện thoại reo."
+            },
+            {
+              "en": "We weren't watching TV at that time.",
+              "vi": "Lúc đó chúng tôi không xem ti vi."
+            },
+            {
+              "en": "While he was driving, he saw an accident.",
+              "vi": "Đang lái xe thì anh ấy thấy một vụ tai nạn."
+            },
+            {
+              "en": "Were they playing football at 5 p.m.?",
+              "vi": "Lúc 5 giờ chiều họ đang đá bóng à?"
+            },
+            {
+              "en": "I was doing homework while Mom was cooking.",
+              "vi": "Tôi làm bài tập trong lúc mẹ nấu ăn."
+            },
+            {
+              "en": "The sun was shining and the birds were singing.",
+              "vi": "Trời nắng đẹp, chim hót líu lo."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Lỗi người Việt hay mắc:**\n\n- `I was cooking when she was calling.` ✗ → `I was cooking when she called.` ✓ — việc ngắn xen vào dùng **quá khứ đơn**.\n- `I cooking at 8 p.m.` ✗ → `I was cooking at 8 p.m.` ✓ — không bỏ `was/were`.\n- Chú ý nghĩa: `When I arrived, they were eating.` = họ đang ăn dở thì tôi đến; `When I arrived, they started eating.` = tôi đến rồi họ mới bắt đầu ăn.\n- Động từ trạng thái (`know`, `want`...) thường không dùng tiếp diễn: `I knew the answer.` ✓"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "At 9 p.m. yesterday, I ___ watching TV.",
+          "answers": [
+            "was"
+          ],
+          "choices": [
+            "were",
+            "am",
+            "was"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "They ___ playing football at 4 p.m. yesterday.",
+          "answers": [
+            "were"
+          ],
+          "choices": [
+            "was",
+            "were",
+            "did"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She was ___ a shower when the phone rang. (take)",
+          "answers": [
+            "taking"
+          ],
+          "choices": [
+            "take",
+            "taking",
+            "took"
+          ],
+          "explain": "was + V-ing; take bỏ e → taking."
+        },
+        {
+          "type": "gap",
+          "prompt": "I was walking home when I ___ an old friend.",
+          "answers": [
+            "met"
+          ],
+          "choices": [
+            "was meeting",
+            "meet",
+            "met"
+          ],
+          "explain": "Việc ngắn xen vào sau when → quá khứ đơn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Chọn câu đúng:",
+          "choices": [
+            "While I cooked dinner, the lights were going out.",
+            "While I was cooking dinner, the lights were going out.",
+            "While I was cooking dinner, the lights went out."
+          ],
+          "answer": 2,
+          "explain": "Việc dài (while) dùng quá khứ tiếp diễn, việc ngắn dùng quá khứ đơn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "“When I arrived, they were eating.” nghĩa là gì?",
+          "choices": [
+            "Tôi đến rồi họ mới bắt đầu ăn.",
+            "Họ đang ăn dở thì tôi đến.",
+            "Họ đã ăn xong trước khi tôi đến."
+          ],
+          "answer": 1,
+          "explain": "were eating = lúc tôi đến, họ đang ăn."
+        },
+        {
+          "type": "gap",
+          "prompt": "What ___ you doing at 8 o'clock last night?",
+          "answers": [
+            "were"
+          ],
+          "explain": "Chủ ngữ you → were + V-ing."
+        },
+        {
+          "type": "gap",
+          "prompt": "We ___ when the storm started. (not / sleep)",
+          "answers": [
+            "weren't sleeping",
+            "were not sleeping"
+          ],
+          "explain": "Phủ định: were not + V-ing."
+        },
+        {
+          "type": "order",
+          "hint": "Bố tôi đang lái xe đi làm (lúc đó).",
+          "answer": "My father was driving to work."
+        },
+        {
+          "type": "order",
+          "hint": "Lúc đó bạn đang nói chuyện với ai?",
+          "answer": "Who were you talking to?"
+        }
+      ]
+    },
+    {
+      "id": "tenses.future",
+      "title": "Tương lai: will và be going to",
+      "summary": "Nói về tương lai với will, be going to và hiện tại tiếp diễn cho lịch hẹn.",
+      "level": "A2_1",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Tiếng Việt chỉ cần thêm “sẽ” hoặc “định”. Tiếng Anh chọn cách nói tuỳ **ý định** của người nói.\n\n**will + V nguyên mẫu** (viết tắt `'ll`, phủ định `won't`):\n\n- Quyết định ngay lúc nói: `I'm hungry. I'll make a sandwich.`\n- Dự đoán theo ý kiến (hay đi với `I think`, `probably`): `I think it will be sunny.`\n- Lời hứa, lời đề nghị giúp: `I'll help you.`\n\n**am / is / are going to + V nguyên mẫu**:\n\n- Kế hoạch, ý định đã có từ trước: `I'm going to learn to swim this summer.`\n- Dự đoán có căn cứ trước mắt: `Look at the clouds! It's going to rain.`\n\n**Hiện tại tiếp diễn** cho lịch hẹn đã sắp xếp: `I'm seeing the dentist on Friday.`\n\nDấu hiệu: `tomorrow`, `tonight`, `next week`, `soon`, `in two days`."
+        },
+        {
+          "type": "table",
+          "title": "Công thức",
+          "head": [
+            "Dạng",
+            "will",
+            "be going to"
+          ],
+          "rows": [
+            [
+              "Khẳng định",
+              "I will (I'll) help you.",
+              "She is going to study abroad."
+            ],
+            [
+              "Phủ định",
+              "I will not (won't) be late.",
+              "We aren't going to buy a car."
+            ],
+            [
+              "Nghi vấn",
+              "Will you come? — Yes, I will.",
+              "Are you going to cook? — Yes, I am."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I'll call you tonight.",
+              "vi": "Tối nay mình sẽ gọi cho bạn.",
+              "note": "lời hứa"
+            },
+            {
+              "en": "It's cold. I'll close the window.",
+              "vi": "Trời lạnh. Để tôi đóng cửa sổ.",
+              "note": "quyết định ngay"
+            },
+            {
+              "en": "I think she will pass the exam.",
+              "vi": "Tôi nghĩ cô ấy sẽ thi đỗ."
+            },
+            {
+              "en": "We won't be late, I promise.",
+              "vi": "Chúng tôi sẽ không đến muộn đâu, hứa đấy."
+            },
+            {
+              "en": "I'm going to visit my grandparents next week.",
+              "vi": "Tuần sau tôi định về thăm ông bà.",
+              "note": "kế hoạch"
+            },
+            {
+              "en": "Be careful! You're going to fall.",
+              "vi": "Cẩn thận! Bạn sắp ngã đấy.",
+              "note": "có căn cứ"
+            },
+            {
+              "en": "Are you going to watch the game tomorrow?",
+              "vi": "Mai bạn có định xem trận đấu không?"
+            },
+            {
+              "en": "We're flying to Hanoi on Monday.",
+              "vi": "Thứ Hai chúng tôi bay ra Hà Nội.",
+              "note": "lịch đã đặt"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Lỗi người Việt hay mắc:**\n\n- `I will to go.` ✗ → `I will go.` ✓ — sau `will` là động từ nguyên mẫu, **không** có `to`.\n- `She wills come.` ✗ → `She will come.` ✓ — `will` không thêm -s.\n- `I going to study.` ✗ → `I'm going to study.` ✓ — không được bỏ `am/is/are`.\n- `I'm going to went.` ✗ → `I'm going to go.` ✓"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I ___ call you tonight. I promise.",
+          "answers": [
+            "will"
+          ],
+          "choices": [
+            "am going",
+            "will",
+            "going"
+          ],
+          "explain": "Lời hứa → will + V nguyên mẫu."
+        },
+        {
+          "type": "gap",
+          "prompt": "Look at those dark clouds! It's going ___ rain.",
+          "answers": [
+            "to"
+          ],
+          "choices": [
+            "will",
+            "for",
+            "to"
+          ],
+          "explain": "be going to + V nguyên mẫu."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Chọn câu đúng:",
+          "choices": [
+            "I will to visit my aunt.",
+            "I will visit my aunt.",
+            "I will visiting my aunt."
+          ],
+          "answer": 1,
+          "explain": "Sau will không có to, động từ giữ nguyên mẫu."
+        },
+        {
+          "type": "gap",
+          "prompt": "She ___ come to the party tonight. She's sick.",
+          "answers": [
+            "won't",
+            "will not"
+          ],
+          "choices": [
+            "doesn't",
+            "won't",
+            "isn't"
+          ],
+          "explain": "Phủ định của will là won't (will not)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "A: “The phone is ringing.” — B: “___”",
+          "choices": [
+            "I'm going to answer it.",
+            "I answer it.",
+            "I'll answer it."
+          ],
+          "answer": 2,
+          "explain": "Quyết định ngay lúc nói → will."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Bạn đã mua vé đi Đà Lạt từ tháng trước. Câu nào phù hợp nhất?",
+          "choices": [
+            "I'm going to go to Da Lat next week.",
+            "I go to Da Lat yesterday.",
+            "I'll going to Da Lat next week."
+          ],
+          "answer": 0,
+          "explain": "Kế hoạch đã có từ trước → be going to."
+        },
+        {
+          "type": "gap",
+          "prompt": "___ you help me with my homework, please?",
+          "answers": [
+            "Will"
+          ],
+          "choices": [
+            "Are",
+            "Will",
+            "Do"
+          ],
+          "explain": "Lời nhờ vả lịch sự: Will you...?"
+        },
+        {
+          "type": "gap",
+          "prompt": "My parents ___ a new car next month. (be going to / buy)",
+          "answers": [
+            "are going to buy"
+          ],
+          "explain": "My parents = they → are going to + V nguyên mẫu."
+        },
+        {
+          "type": "order",
+          "hint": "Bạn định nấu món gì?",
+          "answer": "What are you going to cook?"
+        },
+        {
+          "type": "order",
+          "hint": "Tôi sẽ không đến muộn nữa.",
+          "answer": "I won't be late again."
+        }
+      ]
+    },
+    {
+      "id": "tenses.present-perfect",
+      "title": "Thì hiện tại hoàn thành",
+      "summary": "have/has + V3 để nói về kinh nghiệm, kết quả ở hiện tại, since và for.",
+      "level": "A2_2",
+      "minutes": 15,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Thì **hiện tại hoàn thành** nối quá khứ với hiện tại: **have / has + V3** (quá khứ phân từ). Tiếng Việt thường nói “đã… rồi”, “từng”, “chưa… bao giờ”, “được… rồi”.\n\nDùng để nói về:\n\n- **Kinh nghiệm**, không nói khi nào: `Have you ever been to Hue?` / `I've never eaten durian.`\n- **Việc vừa xảy ra, kết quả còn ở hiện tại**: `I've just finished.` / `She has already left.` / `I haven't eaten yet.` (`yet` dùng trong phủ định và câu hỏi, đứng cuối câu)\n- **Việc bắt đầu trong quá khứ, kéo dài tới nay**: `since` + mốc thời gian (`since 2020`), `for` + khoảng thời gian (`for ten years`).\n\n`been to` = đã từng đến (và đã rời đi)."
+        },
+        {
+          "type": "table",
+          "title": "Công thức",
+          "head": [
+            "Dạng",
+            "Công thức",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Khẳng định",
+              "I / you / we / they + have ('ve) + V3; he / she / it + has ('s) + V3",
+              "I've finished. She has finished."
+            ],
+            [
+              "Phủ định",
+              "haven't / hasn't + V3",
+              "I haven't seen it."
+            ],
+            [
+              "Nghi vấn",
+              "Have / Has + chủ ngữ + V3?",
+              "Have you eaten? — Yes, I have."
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "title": "V3 của động từ thường gặp",
+          "head": [
+            "V1",
+            "V2",
+            "V3",
+            "Nghĩa"
+          ],
+          "rows": [
+            [
+              "be",
+              "was / were",
+              "been",
+              "thì, là, ở"
+            ],
+            [
+              "go",
+              "went",
+              "gone",
+              "đi"
+            ],
+            [
+              "see",
+              "saw",
+              "seen",
+              "nhìn thấy"
+            ],
+            [
+              "eat",
+              "ate",
+              "eaten",
+              "ăn"
+            ],
+            [
+              "do",
+              "did",
+              "done",
+              "làm"
+            ],
+            [
+              "take",
+              "took",
+              "taken",
+              "lấy, cầm"
+            ],
+            [
+              "write",
+              "wrote",
+              "written",
+              "viết"
+            ],
+            [
+              "give",
+              "gave",
+              "given",
+              "cho, tặng"
+            ],
+            [
+              "break",
+              "broke",
+              "broken",
+              "làm vỡ"
+            ],
+            [
+              "know",
+              "knew",
+              "known",
+              "biết"
+            ],
+            [
+              "have",
+              "had",
+              "had",
+              "có"
+            ],
+            [
+              "make",
+              "made",
+              "made",
+              "làm"
+            ],
+            [
+              "buy",
+              "bought",
+              "bought",
+              "mua"
+            ],
+            [
+              "lose",
+              "lost",
+              "lost",
+              "làm mất"
+            ],
+            [
+              "come",
+              "came",
+              "come",
+              "đến"
+            ],
+            [
+              "work",
+              "worked",
+              "worked",
+              "làm việc (có quy tắc: V2 = V3 = -ed)"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Hiện tại hoàn thành hay quá khứ đơn?**\n\n- Có thời điểm xác định trong quá khứ (`yesterday`, `last week`, `in 2019`, `two days ago`, câu hỏi `When...?`) → **quá khứ đơn**: `I saw that movie last Sunday.`\n- Không nói khi nào, hoặc còn liên quan tới hiện tại → **hiện tại hoàn thành**: `I've seen that movie.`\n\nLưu ý: người Mỹ khi nói chuyện cũng hay dùng quá khứ đơn với `just`, `already`, `yet` (`I already ate.`). Trong bài này, hãy luyện dạng hiện tại hoàn thành."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I've visited Hanoi twice.",
+              "vi": "Tôi đã đến Hà Nội hai lần."
+            },
+            {
+              "en": "Have you ever tried pho?",
+              "vi": "Bạn đã bao giờ ăn thử phở chưa?"
+            },
+            {
+              "en": "She has never seen snow.",
+              "vi": "Cô ấy chưa bao giờ thấy tuyết."
+            },
+            {
+              "en": "I've lost my keys.",
+              "vi": "Tôi làm mất chìa khoá rồi.",
+              "note": "giờ không có chìa"
+            },
+            {
+              "en": "He has just arrived home.",
+              "vi": "Anh ấy vừa mới về đến nhà."
+            },
+            {
+              "en": "We haven't finished yet.",
+              "vi": "Chúng tôi vẫn chưa xong."
+            },
+            {
+              "en": "They have lived here since 2018.",
+              "vi": "Họ sống ở đây từ năm 2018."
+            },
+            {
+              "en": "I have known her for five years.",
+              "vi": "Tôi quen cô ấy được năm năm rồi."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Lỗi người Việt hay mắc:**\n\n- `I have seen him yesterday.` ✗ → `I saw him yesterday.` ✓ — có thời điểm xác định thì dùng quá khứ đơn.\n- `I have went.` ✗ → `I have gone.` ✓ — sau have/has là **V3**, không phải V2.\n- `She have finished.` ✗ → `She has finished.` ✓\n- `since three years` ✗ → `for three years` ✓"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I ___ never eaten sushi.",
+          "answers": [
+            "have"
+          ],
+          "choices": [
+            "has",
+            "am",
+            "have"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Oh no! She ___ lost her phone.",
+          "answers": [
+            "has"
+          ],
+          "choices": [
+            "have",
+            "has",
+            "is"
+          ],
+          "explain": "She → has + V3."
+        },
+        {
+          "type": "gap",
+          "prompt": "We have lived here ___ 2015.",
+          "answers": [
+            "since"
+          ],
+          "choices": [
+            "for",
+            "ago",
+            "since"
+          ],
+          "explain": "2015 là mốc thời gian → since."
+        },
+        {
+          "type": "gap",
+          "prompt": "He has worked at this company ___ ten years.",
+          "answers": [
+            "for"
+          ],
+          "choices": [
+            "since",
+            "for",
+            "in"
+          ],
+          "explain": "ten years là khoảng thời gian → for."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Chọn câu đúng:",
+          "choices": [
+            "I have saw him yesterday.",
+            "I have seen him yesterday.",
+            "I saw him yesterday."
+          ],
+          "answer": 2,
+          "explain": "Có yesterday (thời điểm xác định) → quá khứ đơn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "___ you see the game last night?",
+          "choices": [
+            "Have",
+            "Did",
+            "Has"
+          ],
+          "answer": 1,
+          "explain": "last night → quá khứ đơn → Did."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép động từ với dạng V3",
+          "pairs": [
+            {
+              "left": "go",
+              "right": "gone"
+            },
+            {
+              "left": "eat",
+              "right": "eaten"
+            },
+            {
+              "left": "write",
+              "right": "written"
+            },
+            {
+              "left": "take",
+              "right": "taken"
+            },
+            {
+              "left": "buy",
+              "right": "bought"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I haven't finished my homework ___.",
+          "answers": [
+            "yet"
+          ],
+          "choices": [
+            "already",
+            "just",
+            "yet"
+          ],
+          "explain": "yet dùng trong câu phủ định, đứng cuối câu."
+        },
+        {
+          "type": "gap",
+          "prompt": "She ___ the office. (hiện tại hoàn thành: just / leave)",
+          "answers": [
+            "has just left"
+          ],
+          "explain": "has + just + V3; leave → left."
+        },
+        {
+          "type": "order",
+          "hint": "Bạn đã từng đến Hà Nội chưa?",
+          "answer": "Have you ever been to Hanoi?"
+        }
+      ]
+    },
+    {
+      "id": "tenses.review",
+      "title": "Ôn tập các thì",
+      "summary": "Tổng hợp 7 cách diễn đạt thời gian và luyện chọn thì đúng trong ngữ cảnh.",
+      "level": "A2_2",
+      "minutes": 15,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Bài này ôn lại các thì đã học. Khi gặp một câu, hãy tự hỏi:\n\n- Việc này là **thói quen / sự thật** hay **đang diễn ra**?\n- Việc đã **kết thúc ở thời điểm xác định** trong quá khứ, hay **còn liên quan tới hiện tại**?\n- Là **quyết định tức thì** hay **kế hoạch đã có**?\n\nSau đó tìm **dấu hiệu thời gian** trong câu — đây là manh mối nhanh nhất."
+        },
+        {
+          "type": "table",
+          "title": "Bảng tổng hợp",
+          "head": [
+            "Thì",
+            "Công thức (khẳng định)",
+            "Dấu hiệu",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Hiện tại đơn",
+              "V / V-s, V-es",
+              "always, usually, every day",
+              "She walks to school."
+            ],
+            [
+              "Hiện tại tiếp diễn",
+              "am / is / are + V-ing",
+              "now, at the moment, Look!",
+              "She is walking now."
+            ],
+            [
+              "Quá khứ đơn",
+              "V2 / V-ed",
+              "yesterday, last week, ago",
+              "She walked home yesterday."
+            ],
+            [
+              "Quá khứ tiếp diễn",
+              "was / were + V-ing",
+              "at 8 p.m. yesterday, when, while",
+              "She was walking when it started to rain."
+            ],
+            [
+              "Tương lai với will",
+              "will + V nguyên mẫu",
+              "I think, tomorrow, quyết định ngay",
+              "I'll walk with you."
+            ],
+            [
+              "be going to",
+              "am / is / are going to + V nguyên mẫu",
+              "kế hoạch, next week, có căn cứ",
+              "She's going to walk to work tomorrow."
+            ],
+            [
+              "Hiện tại hoàn thành",
+              "have / has + V3",
+              "ever, never, just, already, yet, since, for",
+              "She has walked a lot today."
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Phủ định và câu hỏi",
+          "head": [
+            "Thì",
+            "Phủ định",
+            "Câu hỏi"
+          ],
+          "rows": [
+            [
+              "Hiện tại đơn",
+              "don't / doesn't + V",
+              "Do / Does + chủ ngữ + V?"
+            ],
+            [
+              "Hiện tại tiếp diễn",
+              "am / is / are + not + V-ing",
+              "Am / Is / Are + chủ ngữ + V-ing?"
+            ],
+            [
+              "Quá khứ đơn",
+              "didn't + V",
+              "Did + chủ ngữ + V?"
+            ],
+            [
+              "Quá khứ tiếp diễn",
+              "wasn't / weren't + V-ing",
+              "Was / Were + chủ ngữ + V-ing?"
+            ],
+            [
+              "will",
+              "won't + V",
+              "Will + chủ ngữ + V?"
+            ],
+            [
+              "be going to",
+              "am / is / are + not going to + V",
+              "Am / Is / Are + chủ ngữ + going to + V?"
+            ],
+            [
+              "Hiện tại hoàn thành",
+              "haven't / hasn't + V3",
+              "Have / Has + chủ ngữ + V3?"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Một động từ, bảy cách nói",
+          "items": [
+            {
+              "en": "She walks to school every day.",
+              "vi": "Ngày nào cô ấy cũng đi bộ đến trường."
+            },
+            {
+              "en": "She is walking to school now.",
+              "vi": "Bây giờ cô ấy đang đi bộ đến trường."
+            },
+            {
+              "en": "She walked to school yesterday.",
+              "vi": "Hôm qua cô ấy đi bộ đến trường."
+            },
+            {
+              "en": "She was walking when it started to rain.",
+              "vi": "Cô ấy đang đi bộ thì trời bắt đầu mưa."
+            },
+            {
+              "en": "Wait for me. I'll walk with you.",
+              "vi": "Chờ mình với. Mình đi bộ cùng bạn."
+            },
+            {
+              "en": "She's going to walk to work tomorrow.",
+              "vi": "Mai cô ấy định đi bộ đi làm."
+            },
+            {
+              "en": "She has walked five kilometers today.",
+              "vi": "Hôm nay cô ấy đã đi bộ được năm cây số."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Mẹo chọn dạng động từ:**\n\n- Sau `do / does / did / will` và `going to` → động từ **nguyên mẫu**: `Did she go?`, `He will come.`\n- Sau `am / is / are / was / were` (nghĩa “đang”) → **V-ing**.\n- Sau `have / has` trong thì hoàn thành → **V3**.\n- Chỉ chia **một lần**: trợ động từ đã chia (`does`, `did`, `has`) thì động từ chính không chia nữa.\n- Có `yesterday`, `ago`, `last...` → quá khứ đơn, kể cả khi tiếng Việt không có chữ “đã”."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "My sister ___ coffee every morning.",
+          "answers": [
+            "drinks"
+          ],
+          "choices": [
+            "is drinking",
+            "drinks",
+            "drink"
+          ],
+          "explain": "every morning → thói quen → hiện tại đơn."
+        },
+        {
+          "type": "gap",
+          "prompt": "Shh! The teacher ___ right now.",
+          "answers": [
+            "is talking"
+          ],
+          "choices": [
+            "talks",
+            "talked",
+            "is talking"
+          ],
+          "explain": "right now → hiện tại tiếp diễn."
+        },
+        {
+          "type": "gap",
+          "prompt": "We ___ to the zoo last Sunday.",
+          "answers": [
+            "went"
+          ],
+          "choices": [
+            "went",
+            "go",
+            "have gone"
+          ],
+          "explain": "last Sunday → quá khứ đơn."
+        },
+        {
+          "type": "gap",
+          "prompt": "I ___ a shower when you called, so I didn't answer.",
+          "answers": [
+            "was taking"
+          ],
+          "choices": [
+            "take",
+            "was taking",
+            "am taking"
+          ],
+          "explain": "Việc dài đang diễn ra thì việc ngắn xen vào → quá khứ tiếp diễn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "A: “I'm cold.” — B: “___”",
+          "choices": [
+            "I close the window.",
+            "I'll close the window.",
+            "I closed the window."
+          ],
+          "answer": 1,
+          "explain": "Đề nghị, quyết định ngay lúc nói → will."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào SAI?",
+          "choices": [
+            "She has lived here since 2018.",
+            "They were sleeping at midnight.",
+            "He doesn't eat meat.",
+            "I have visited Hue last year."
+          ],
+          "answer": 3,
+          "explain": "last year → phải dùng quá khứ đơn: I visited Hue last year."
+        },
+        {
+          "type": "gap",
+          "prompt": "Look at those dark clouds! It ___ rain. (be going to)",
+          "answers": [
+            "is going to"
+          ],
+          "explain": "Dự đoán có căn cứ trước mắt → be going to."
+        },
+        {
+          "type": "gap",
+          "prompt": "___ you ever tried pho?",
+          "answers": [
+            "Have"
+          ],
+          "explain": "ever + V3 (tried) → hiện tại hoàn thành."
+        },
+        {
+          "type": "gap",
+          "prompt": "He ___ to work yesterday because he was sick. (not / go)",
+          "answers": [
+            "didn't go",
+            "did not go"
+          ],
+          "explain": "yesterday → didn't + V nguyên mẫu."
+        },
+        {
+          "type": "gap",
+          "prompt": "My parents ___ in this house since 1995. (live)",
+          "answers": [
+            "have lived",
+            "have been living"
+          ],
+          "explain": "since + mốc → hiện tại hoàn thành."
+        },
+        {
+          "type": "order",
+          "hint": "Bạn để chìa khoá của tôi ở đâu?",
+          "answer": "Where did you put my keys?"
+        },
+        {
+          "type": "order",
+          "hint": "Cô ấy không biết câu trả lời.",
+          "answer": "She doesn't know the answer."
+        }
+      ]
+    }
+  ]
+}

@@ -17,6 +17,12 @@ import {
 } from './schemas/dictionary'
 import { QuizAnswerInputSchema, QuizAnswerResultSchema, QuizSchema } from './schemas/quiz'
 import { ShopBuyInputSchema, ShopEquipInputSchema, ShopStateSchema } from './schemas/shop'
+import {
+  LessonCatalogSchema,
+  LessonCompleteInputSchema,
+  LessonCompleteResultSchema,
+  LessonSchema
+} from './schemas/lesson'
 import { StatsSchema } from './schemas/stats'
 import {
   PracticeAnswerInputSchema,
@@ -85,7 +91,10 @@ export const invokeContract = {
   'shop:state': { input: z.void(), output: ShopStateSchema },
   'shop:buy': { input: ShopBuyInputSchema, output: ShopStateSchema },
   'shop:equip': { input: ShopEquipInputSchema, output: ShopStateSchema },
-  'study:stats': { input: z.void(), output: StatsSchema }
+  'study:stats': { input: z.void(), output: StatsSchema },
+  'lesson:catalog': { input: z.void(), output: LessonCatalogSchema },
+  'lesson:get': { input: z.object({ id: z.string().min(1) }), output: LessonSchema },
+  'lesson:complete': { input: LessonCompleteInputSchema, output: LessonCompleteResultSchema }
 } satisfies Record<InvokeChannel, { input: z.ZodType; output: z.ZodType }>
 
 export const sendContract = {

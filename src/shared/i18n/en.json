@@ -139,7 +139,8 @@
       "settings": "Settings",
       "practice": "Practice",
       "shop": "Shop",
-      "stats": "Statistics"
+      "stats": "Statistics",
+      "lessons": "Lessons"
     },
     "home": {
       "welcome": "Hi, what shall we learn today?",
@@ -326,6 +327,41 @@
         "5": "Sat",
         "6": "Sun"
       }
+    },
+    "lessons": {
+      "title": "Foundation lessons",
+      "intro": "Start from scratch: alphabet and pronunciation, basic sentence patterns, tenses, everyday communication. Each lesson has an explanation, examples you can listen to, and exercises. (Lesson text is in Vietnamese.)",
+      "progress": "{done}/{total} lessons completed",
+      "continue": "Continue",
+      "allDone": "You have completed all the foundation lessons!",
+      "empty": "No lessons yet.",
+      "minutes": "{n} min",
+      "back": "Lesson list",
+      "backToLesson": "Back to the lesson",
+      "listen": "Listen",
+      "tapToHear": "Tap a tile to hear the pronunciation.",
+      "startExercises": "Start exercises ({n} questions)",
+      "counter": "Question {index}/{total}",
+      "listenPrompt": "Listen and choose the right answer:",
+      "play": "Play",
+      "slow": "Slow",
+      "gapHelp": "Fill in the blank:",
+      "typeHere": "Type your answer…",
+      "orderHelp": "Tap the words in the right order to build the sentence:",
+      "matchHelp": "Tap an item on the left, then its match on the right:",
+      "check": "Check",
+      "next": "Next",
+      "finish": "See results",
+      "correct": "Correct! ✓",
+      "wrong": "Not quite — answer:",
+      "passed": "Lesson complete! {score}%",
+      "notPassed": "You scored {score}%",
+      "best": "best score {n}%",
+      "needMore": "You need {n}% to complete the lesson — reread it and try again!",
+      "nextLesson": "Next lesson",
+      "reread": "Reread the lesson",
+      "retry": "Try again",
+      "toList": "Lesson list"
     }
   },
   "translate": {

@@ -7,3 +7,22 @@ const modules = import.meta.glob('../../../content/curated/lessons/*.json', {
 export const bundledLessonFiles: unknown[] = Object.entries(modules)
   .sort(([a], [b]) => (a < b ? -1 : 1))
   .map(([, file]) => file)
+
+// Ngữ pháp và bài đọc tự soạn: cùng cách đóng gói (thư mục chưa có file thì danh sách rỗng)
+const load = (modules: Record<string, unknown>): unknown[] =>
+  Object.entries(modules)
+    .sort(([a], [b]) => (a < b ? -1 : 1))
+    .map(([, file]) => file)
+
+export const bundledGrammarFiles: unknown[] = load(
+  import.meta.glob('../../../content/curated/grammar/*.json', { eager: true, import: 'default' })
+)
+export const bundledReadingFiles: unknown[] = load(
+  import.meta.glob('../../../content/curated/readings/*.json', { eager: true, import: 'default' })
+)
+export const bundledPhrasebookFiles: unknown[] = load(
+  import.meta.glob('../../../content/curated/phrasebook/*.json', { eager: true, import: 'default' })
+)
+export const bundledPlacementFiles: unknown[] = load(
+  import.meta.glob('../../../content/curated/placement/*.json', { eager: true, import: 'default' })
+)

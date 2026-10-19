@@ -1,4 +1,5 @@
 import { LessonUnitFileSchema, type Lesson, type LessonUnitFile } from '@shared/schemas/lesson'
+import type { z } from 'zod'
 
 export interface LibraryUnit {
   id: string
@@ -18,10 +19,14 @@ export class LessonLibrary {
   private readonly byId = new Map<string, Lesson>()
   private readonly order: string[] = []
 
-  constructor(files: unknown[], warn: (message: string) => void = console.warn) {
+  constructor(
+    files: unknown[],
+    warn: (message: string) => void = console.warn,
+    schema: z.ZodType<LessonUnitFile> = LessonUnitFileSchema
+  ) {
     const parsed: LessonUnitFile[] = []
     for (const file of files) {
-      const result = LessonUnitFileSchema.safeParse(file)
+      const result = schema.safeParse(file)
       if (result.success) parsed.push(result.data)
       else warn(`[lessons] bỏ qua file nội dung sai schema: ${result.error.issues[0]?.message}`)
     }

@@ -21,8 +21,10 @@ import {
   LessonCatalogSchema,
   LessonCompleteInputSchema,
   LessonCompleteResultSchema,
+  LessonKindInputSchema,
   LessonSchema
 } from './schemas/lesson'
+import { PhrasebookSchema } from './schemas/phrasebook'
 import { StatsSchema } from './schemas/stats'
 import { TtsPrefetchInputSchema, TtsSpeakInputSchema, TtsSpeakResultSchema } from './schemas/tts'
 import {
@@ -71,6 +73,11 @@ export const invokeContract = {
     input: z.object({ text: z.string().max(2000) }),
     output: LookupResultSchema
   },
+  /** Level của từng từ trong bài đọc (từ không có trong từ điển thì bỏ qua) — để tô màu từ khó */
+  'dictionary:levels': {
+    input: z.object({ words: z.array(z.string().max(60)).max(600) }),
+    output: z.record(z.string(), z.string())
+  },
   'vocab:save': { input: SaveWordInputSchema, output: SaveWordResultSchema },
   'quiz:answer': { input: QuizAnswerInputSchema, output: QuizAnswerResultSchema },
   'study:overview': { input: z.void(), output: StudyOverviewSchema },
@@ -96,9 +103,16 @@ export const invokeContract = {
   'shop:buy': { input: ShopBuyInputSchema, output: ShopStateSchema },
   'shop:equip': { input: ShopEquipInputSchema, output: ShopStateSchema },
   'study:stats': { input: z.void(), output: StatsSchema },
-  'lesson:catalog': { input: z.void(), output: LessonCatalogSchema },
-  'lesson:get': { input: z.object({ id: z.string().min(1) }), output: LessonSchema },
-  'lesson:complete': { input: LessonCompleteInputSchema, output: LessonCompleteResultSchema },
+  'phrasebook:list': { input: z.void(), output: PhrasebookSchema },
+  'lesson:catalog': { input: LessonKindInputSchema, output: LessonCatalogSchema },
+  'lesson:get': {
+    input: LessonKindInputSchema.extend({ id: z.string().min(1) }),
+    output: LessonSchema
+  },
+  'lesson:complete': {
+    input: LessonKindInputSchema.extend(LessonCompleteInputSchema.shape),
+    output: LessonCompleteResultSchema
+  },
   'tts:status': { input: z.void(), output: TranslateStatusSchema },
   'tts:install': { input: z.void(), output: TranslateStatusSchema },
   'tts:cancel': { input: z.void(), output: z.void() },

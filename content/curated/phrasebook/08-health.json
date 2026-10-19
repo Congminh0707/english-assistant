@@ -1,0 +1,52 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "health",
+    "title": "Sức khỏe & hiệu thuốc",
+    "icon": "💊",
+    "order": 8
+  },
+  "phrases": [
+    {
+      "en": "I don't feel well.",
+      "vi": "Tôi thấy không khỏe.",
+      "level": "A1_2"
+    },
+    {
+      "en": "I have a headache.",
+      "vi": "Tôi bị đau đầu.",
+      "level": "A1_2"
+    },
+    {
+      "en": "I have a sore throat and a cough.",
+      "vi": "Tôi bị đau họng và ho.",
+      "level": "A2_1"
+    },
+    {
+      "en": "I need to see a doctor.",
+      "vi": "Tôi cần đi khám bác sĩ.",
+      "level": "A2_1"
+    },
+    {
+      "en": "How often should I take this medicine?",
+      "vi": "Tôi nên uống thuốc này bao lâu một lần?",
+      "level": "A2_2"
+    },
+    {
+      "en": "I'm allergic to penicillin.",
+      "vi": "Tôi bị dị ứng penicillin.",
+      "level": "A2_2"
+    },
+    {
+      "en": "It hurts here.",
+      "vi": "Chỗ này đau.",
+      "level": "A1_2",
+      "note": "Vừa nói vừa chỉ vào chỗ đau."
+    },
+    {
+      "en": "Do I need a prescription?",
+      "vi": "Tôi có cần đơn thuốc không?",
+      "level": "B1_1"
+    }
+  ]
+}

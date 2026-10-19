@@ -1,0 +1,52 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "introductions",
+    "title": "Giới thiệu bản thân",
+    "icon": "🙋",
+    "order": 2
+  },
+  "phrases": [
+    {
+      "en": "My name is Lan, and I am from Vietnam.",
+      "vi": "Tên tôi là Lan và tôi đến từ Việt Nam.",
+      "level": "PA1_2"
+    },
+    {
+      "en": "I'm a student.",
+      "vi": "Tôi là sinh viên.",
+      "level": "PA1_2"
+    },
+    {
+      "en": "I work as an engineer.",
+      "vi": "Tôi làm kỹ sư.",
+      "level": "A1_2",
+      "note": "Dùng “work as” để nói nghề nghiệp."
+    },
+    {
+      "en": "I live in Ho Chi Minh City.",
+      "vi": "Tôi sống ở Thành phố Hồ Chí Minh.",
+      "level": "A1_1"
+    },
+    {
+      "en": "I'm twenty-five years old.",
+      "vi": "Tôi hai mươi lăm tuổi.",
+      "level": "A1_1"
+    },
+    {
+      "en": "I like reading and playing football.",
+      "vi": "Tôi thích đọc sách và chơi bóng đá.",
+      "level": "A1_2"
+    },
+    {
+      "en": "I'm learning English because I want to travel.",
+      "vi": "Tôi học tiếng Anh vì muốn đi du lịch.",
+      "level": "A2_1"
+    },
+    {
+      "en": "Let me introduce my friend, Nam.",
+      "vi": "Để tôi giới thiệu bạn tôi, Nam.",
+      "level": "A2_1"
+    }
+  ]
+}

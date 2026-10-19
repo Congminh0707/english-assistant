@@ -149,6 +149,14 @@ if (!app.requestSingleInstanceLock()) {
     c.bus.on('pet.hungry', () => sendTo(m.win, 'mascot:react', { kind: 'hungry' }))
     c.bus.on('level.up', () => sendTo(m.win, 'mascot:react', { kind: 'level-up' }))
     c.bus.on('mission.completed', () => sendTo(m.win, 'mascot:react', { kind: 'mission' }))
+    c.bus.on('achievement.unlocked', ({ ids }) => {
+      // Thông báo thành tựu cao nhất (cuối danh sách: nhóm sau thường khó hơn) kèm số lượng
+      sendTo(m.win, 'mascot:react', {
+        kind: 'achievement',
+        achievementId: ids[ids.length - 1],
+        count: ids.length
+      })
+    })
     c.bus.on('settings.changed', ({ key, settings }) => {
       broadcast('settings:changed', settings)
       if (key === 'mascot.scale') {

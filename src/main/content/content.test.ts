@@ -572,28 +572,49 @@ describe('Hồ sơ & bài kiểm tra đầu vào', () => {
     expect(c.pet.get().name).toBe('Bi')
   })
 
-  it('kiểm tra đầu vào: hỏi từng câu, chấm ở main, kết thúc thì lưu trình độ', () => {
+  it('kiểm tra đầu vào: xen kẽ từ vựng/ngữ pháp/đọc hiểu, chấm ở main, lưu trình độ từng kỹ năng', () => {
     const meaning: Record<string, string> = { go: 'đi', left: 'trái', leave: 'rời đi' }
     let question = c.placement.start()
     expect(question).not.toBeNull()
     expect(question?.total).toBe(20)
 
-    const seen: string[] = []
+    const kinds = new Set<string>()
+    const lemmas: string[] = []
     let result = null as PlacementResult | null
     let guard = 0
     while (question && guard++ < 30) {
-      seen.push(question.lemma)
-      const pick = question.choices.indexOf(meaning[question.lemma])
-      expect(pick).toBeGreaterThanOrEqual(0)
+      kinds.add(question.kind)
+      let pick = 0
+      if (question.kind === 'vocab') {
+        lemmas.push(question.lemma)
+        pick = question.choices.indexOf(meaning[question.lemma])
+        expect(pick).toBeGreaterThanOrEqual(0)
+      } else {
+        // Ngữ pháp / đọc hiểu: có câu hỏi, đủ lựa chọn; đáp án đúng chỉ ở main nên chọn tạm đáp án đầu
+        expect(question.prompt).toBeTruthy()
+        expect(question.choices.length).toBeGreaterThanOrEqual(2)
+        if (question.kind === 'reading') expect(question.passage).toBeTruthy()
+      }
       const res = c.placement.answer(question.sessionId, question.id, pick)
-      expect(res.correct).toBe(true)
+      if (question.kind === 'vocab') expect(res.correct).toBe(true)
       question = res.next
       result = res.result
     }
-    // Gói mẫu chỉ có 3 từ thuộc danh sách chuẩn → bài kết thúc sớm, không lặp từ
-    expect(new Set(seen).size).toBe(seen.length)
-    expect(result).toMatchObject({ correct: seen.length, total: seen.length })
+    // Gói mẫu chỉ có 3 từ vựng → không lặp từ; ngân hàng ngữ pháp/đọc hiểu bù cho các câu còn lại
+    expect(new Set(lemmas).size).toBe(lemmas.length)
+    expect(kinds).toEqual(new Set(['vocab', 'grammar', 'reading']))
+    expect(result).not.toBeNull()
+    expect(result!.skills.map((s) => s.skill).sort()).toEqual(['grammar', 'reading', 'vocab'])
+    expect(result!.total).toBe(result!.skills.reduce((n, s) => n + s.total, 0))
     expect(c.settings.get('learning.level')).toBe(result!.level)
+    for (const s of result!.skills) {
+      const key = {
+        vocab: 'learning.levelVocab',
+        grammar: 'learning.levelGrammar',
+        reading: 'learning.levelReading'
+      }[s.skill] as 'learning.levelVocab' | 'learning.levelGrammar' | 'learning.levelReading'
+      expect(c.settings.get(key)).toBe(s.level)
+    }
   })
 
   it('kiểm tra đầu vào: trả lời "không biết" tính là sai; không trả lời lại câu cũ', () => {
@@ -708,13 +729,16 @@ describe('PracticeService', () => {
       }
       return summary!
     }
+    // Thưởng mở khoá thành tựu cộng thêm vào tổng XP: tách riêng để kiểm tra phần thưởng của phiên
+    let achievementXp = 0
+    c.bus.on('achievement.unlocked', (e) => (achievementXp += e.xp))
     const xpBefore = c.pet.get().totalXp
     const first = runSession()
     expect(first.correct).toBe(first.total)
     expect(first.total).toBeGreaterThanOrEqual(8)
     expect(first.xp).toBe(5 + first.correct)
     expect(first.coins).toBe(5)
-    expect(c.pet.get().totalXp).toBe(xpBefore + first.xp)
+    expect(c.pet.get().totalXp).toBe(xpBefore + first.xp + achievementXp)
 
     for (let i = 0; i < 4; i++) expect(runSession().xp).toBeGreaterThan(0)
     expect(runSession().xp).toBe(0) // phiên thứ 6 trong ngày
@@ -824,5 +848,45 @@ describe('StatsService', () => {
     expect(s.hardest[0].lapses).toBeGreaterThan(s.hardest[1].lapses)
     expect(s.achievements.find((a) => a.id === 'reviews100')).toMatchObject({ unlocked: false })
     expect(s.achievements.find((a) => a.id === 'words10')).toMatchObject({ current: 2 })
+  })
+
+  it('mở khoá thành tựu: thưởng XP đúng một lần và báo cho mascot', () => {
+    const events: Array<{ ids: string[]; xp: number }> = []
+    c.bus.on('achievement.unlocked', (e) => events.push(e))
+    // 'go' ôn ngày đầu → chưa đủ ngưỡng nào ngoài các thành tựu nhỏ có sẵn
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    const [card] = c.study.words().map((w) => w.cardId)
+    for (let i = 0; i < 3; i++) {
+      c.srs.review(card, 3, { source: 'study' })
+      clock.advance(DAY)
+    }
+    // Ôn 3 ngày liên tiếp → mở khoá "chuỗi 3 ngày"
+    expect(events.flatMap((e) => e.ids)).toContain('streak3')
+    const xpAfter = c.pet.get().totalXp
+    expect(c.achievements.evaluate()).toEqual([]) // không thưởng lại
+    expect(c.pet.get().totalXp).toBe(xpAfter)
+    const streak = events.flatMap((e) => e.ids).filter((id) => id === 'streak3')
+    expect(streak).toHaveLength(1)
+  })
+
+  it('bài đọc, ngữ pháp và mẫu câu nạp được từ nội dung đóng gói và dùng chung tiến độ', () => {
+    const reading = c.readings.catalog()
+    expect(reading.totalCount).toBeGreaterThanOrEqual(12)
+    const first = reading.units[0].lessons[0]
+    expect(first.progress.done).toBe(false)
+    const lesson = c.readings.get(first.id)
+    expect(lesson.blocks.some((b) => b.type === 'passage')).toBe(true)
+    const done = c.readings.complete(first.id, lesson.exercises.length, lesson.exercises.length)
+    expect(done).toMatchObject({ firstCompletion: true, xp: 20 })
+    expect(c.readings.catalog().doneCount).toBe(1)
+    expect(c.lessons.catalog().doneCount).toBe(0) // tiến độ bài học nền tảng không bị lẫn
+
+    const grammar = c.grammar.catalog()
+    expect(grammar.totalCount).toBeGreaterThanOrEqual(14)
+    expect(c.grammar.get(grammar.units[0].lessons[0].id).exercises.length).toBeGreaterThanOrEqual(4)
+
+    const book = c.phrasebook.list()
+    expect(book.categories.length).toBeGreaterThanOrEqual(10)
+    expect(book.categories.every((cat) => cat.phrases.length >= 5)).toBe(true)
   })
 })

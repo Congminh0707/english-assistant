@@ -1,0 +1,53 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "work",
+    "title": "Công việc & họp",
+    "icon": "💼",
+    "order": 10
+  },
+  "phrases": [
+    {
+      "en": "Let's get started.",
+      "vi": "Chúng ta bắt đầu nhé.",
+      "level": "A2_2"
+    },
+    {
+      "en": "Could you send me the report by Friday?",
+      "vi": "Bạn gửi báo cáo cho tôi trước thứ Sáu được không?",
+      "level": "A2_2"
+    },
+    {
+      "en": "I'll get back to you as soon as possible.",
+      "vi": "Tôi sẽ phản hồi bạn sớm nhất có thể.",
+      "level": "B1_1"
+    },
+    {
+      "en": "Do you have any questions?",
+      "vi": "Bạn có câu hỏi nào không?",
+      "level": "A2_1"
+    },
+    {
+      "en": "I'm afraid I can't attend the meeting.",
+      "vi": "Tôi e là tôi không dự họp được.",
+      "level": "B1_1",
+      "note": "Cách từ chối lịch sự."
+    },
+    {
+      "en": "Let's schedule a meeting for next week.",
+      "vi": "Hãy hẹn một buổi họp vào tuần sau.",
+      "level": "B1_1"
+    },
+    {
+      "en": "That's a good point.",
+      "vi": "Ý đó hay đấy.",
+      "level": "B1_1"
+    },
+    {
+      "en": "Thank you for your time.",
+      "vi": "Cảm ơn bạn đã dành thời gian.",
+      "level": "A2_2",
+      "note": "Dùng cuối buổi họp/phỏng vấn."
+    }
+  ]
+}

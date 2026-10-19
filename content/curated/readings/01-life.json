@@ -1,0 +1,305 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readlife",
+    "title": "Cuộc sống hằng ngày",
+    "summary": "Những bài đọc ngắn về gia đình, chợ búa và một ngày bình thường.",
+    "icon": "📅",
+    "order": 1
+  },
+  "lessons": [
+    {
+      "id": "readlife.my-morning",
+      "title": "Buổi sáng của Lan",
+      "summary": "Một buổi sáng quen thuộc: dậy, ăn sáng, đi học.",
+      "level": "A1_1",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc chậm một lần, bấm vào từ lạ để tra, rồi bấm “Nghe cả bài”. Chú ý các từ chỉ thời gian: **o'clock**, **first**, **then**."
+        },
+        {
+          "type": "passage",
+          "title": "My Morning",
+          "paragraphs": [
+            {
+              "en": "My name is Lan. I get up at six o'clock every day. First, I wash my face and brush my teeth. Then I eat breakfast with my family.",
+              "vi": "Tên mình là Lan. Ngày nào mình cũng dậy lúc sáu giờ. Đầu tiên, mình rửa mặt và đánh răng. Sau đó mình ăn sáng cùng gia đình."
+            },
+            {
+              "en": "I usually have bread and an egg. My brother likes rice and fish. We drink tea or milk.",
+              "vi": "Mình thường ăn bánh mì và một quả trứng. Em trai mình thích cơm và cá. Chúng mình uống trà hoặc sữa."
+            },
+            {
+              "en": "At seven o'clock, I go to school by bike. The school is not far from my house. I like my morning.",
+              "vi": "Lúc bảy giờ, mình đi học bằng xe đạp. Trường không xa nhà mình. Mình thích buổi sáng của mình."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What time does Lan get up?",
+          "choices": [
+            "At five o'clock",
+            "At six o'clock",
+            "At seven o'clock"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "Lan eats breakfast alone.",
+          "answer": "false",
+          "explain": "Cô ấy ăn sáng cùng gia đình (with my family)."
+        },
+        {
+          "type": "tf",
+          "statement": "Lan's brother likes rice and fish.",
+          "answer": "true"
+        },
+        {
+          "type": "mcq",
+          "prompt": "How does Lan go to school?",
+          "choices": [
+            "By bus",
+            "On foot",
+            "By bike"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "tf",
+          "statement": "Lan has a dog.",
+          "answer": "ng",
+          "ng": true,
+          "explain": "Bài đọc không nhắc đến con chó."
+        }
+      ]
+    },
+    {
+      "id": "readlife.my-family",
+      "title": "Gia đình của tôi",
+      "summary": "Giới thiệu các thành viên trong gia đình và nghề nghiệp.",
+      "level": "A1_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Chú ý các từ chỉ người thân (**grandmother**, **parents**, **sister**) và nghề nghiệp (**driver**, **nurse**)."
+        },
+        {
+          "type": "passage",
+          "title": "My Family",
+          "paragraphs": [
+            {
+              "en": "There are five people in my family: my grandmother, my parents, my sister and me. We live in a small house in Hue.",
+              "vi": "Gia đình mình có năm người: bà, bố mẹ, em gái và mình. Chúng mình sống trong một ngôi nhà nhỏ ở Huế."
+            },
+            {
+              "en": "My father is a driver. He works hard and comes home late. My mother is a nurse. She helps sick people at the hospital.",
+              "vi": "Bố mình là tài xế. Bố làm việc chăm chỉ và về nhà muộn. Mẹ mình là y tá. Mẹ giúp những người bệnh ở bệnh viện."
+            },
+            {
+              "en": "My sister Mai is ten years old. She is funny and likes to draw. My grandmother is seventy. She cooks very good food. On Sundays, we all eat dinner together. I love my family.",
+              "vi": "Em gái mình là Mai, mười tuổi. Em hài hước và thích vẽ. Bà mình bảy mươi tuổi. Bà nấu ăn rất ngon. Chủ nhật, cả nhà ăn tối cùng nhau. Mình yêu gia đình mình."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How many people are in the family?",
+          "choices": [
+            "Four",
+            "Five",
+            "Six"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the writer's mother's job?",
+          "choices": [
+            "She is a driver.",
+            "She is a teacher.",
+            "She is a nurse."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "tf",
+          "statement": "Mai is twelve years old.",
+          "answer": "false",
+          "explain": "Mai ten years old = mười tuổi."
+        },
+        {
+          "type": "tf",
+          "statement": "The grandmother cooks good food.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The family has a car.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "My father is a ___.",
+          "answers": [
+            "driver"
+          ],
+          "choices": [
+            "driver",
+            "nurse",
+            "student"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readlife.at-the-market",
+      "title": "Ở chợ",
+      "summary": "Đi chợ cùng mẹ vào sáng thứ Bảy và hỏi giá.",
+      "level": "A1_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Học cách hỏi giá: **How much is this?** Chú ý các từ chỉ đồ ăn: **tomatoes**, **onions**, **apples**."
+        },
+        {
+          "type": "passage",
+          "title": "At the Market",
+          "paragraphs": [
+            {
+              "en": "On Saturday morning, I go to the market with my mother. The market is busy and noisy. There are many fruits, vegetables, and fish.",
+              "vi": "Sáng thứ Bảy, mình đi chợ với mẹ. Chợ đông và ồn ào. Có rất nhiều trái cây, rau và cá."
+            },
+            {
+              "en": "My mother buys tomatoes, onions, and a big fish. I carry the bag. She asks the seller, 'How much is this?' The fish is fifty thousand dong.",
+              "vi": "Mẹ mua cà chua, hành tây và một con cá to. Mình xách túi. Mẹ hỏi người bán: “Cái này bao nhiêu?” Con cá giá năm mươi nghìn đồng."
+            },
+            {
+              "en": "Then we buy some apples for me. They are sweet and red. We go home at nine o'clock. My mother makes a good lunch.",
+              "vi": "Rồi chúng mình mua vài quả táo cho mình. Chúng ngọt và đỏ. Chín giờ chúng mình về nhà. Mẹ nấu một bữa trưa ngon."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "When do they go to the market?",
+          "choices": [
+            "On Saturday morning",
+            "On Sunday afternoon",
+            "Every evening"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The market is quiet.",
+          "answer": "false",
+          "explain": "Chợ busy and noisy = đông và ồn."
+        },
+        {
+          "type": "tf",
+          "statement": "The fish costs fifty thousand dong.",
+          "answer": "true"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What fruit do they buy for the writer?",
+          "choices": [
+            "Bananas",
+            "Apples",
+            "Oranges"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "They go home by bus.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readlife.weekend-plans",
+      "title": "Kế hoạch cuối tuần",
+      "summary": "Dự định về quê thăm dì: dùng will và going to.",
+      "level": "A2_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Bài này dùng nhiều cách nói về tương lai: **am going to**, **will**, **if it rains**. Thử tìm từng câu."
+        },
+        {
+          "type": "passage",
+          "title": "Weekend Plans",
+          "paragraphs": [
+            {
+              "en": "This weekend, I am going to visit my aunt in the countryside. She lives near a river, and her house has a big garden. I haven't seen her for two months, so I am very excited.",
+              "vi": "Cuối tuần này, mình sẽ về quê thăm dì. Dì sống gần một con sông và nhà dì có khu vườn lớn. Hai tháng rồi mình chưa gặp dì nên mình rất háo hức."
+            },
+            {
+              "en": "On Saturday, we are going to pick vegetables in the garden. In the afternoon, my cousin will take me fishing. If it rains, we will stay at home and play board games.",
+              "vi": "Thứ Bảy, chúng mình sẽ hái rau trong vườn. Buổi chiều, anh họ sẽ dẫn mình đi câu cá. Nếu trời mưa, chúng mình sẽ ở nhà chơi cờ bàn."
+            },
+            {
+              "en": "On Sunday, I will help my aunt cook lunch. After that, I have to take the bus back to the city because I have class on Monday. I hope the weather will be nice.",
+              "vi": "Chủ nhật, mình sẽ giúp dì nấu bữa trưa. Sau đó, mình phải đi xe buýt về thành phố vì thứ Hai có lớp học. Mình hy vọng thời tiết sẽ đẹp."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Who will the writer visit?",
+          "choices": [
+            "A friend",
+            "An aunt",
+            "A teacher"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What will they do if it rains?",
+          "choices": [
+            "Go fishing anyway",
+            "Play board games at home",
+            "Go back to the city"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The writer saw the aunt last week.",
+          "answer": "false",
+          "explain": "Họ chưa gặp nhau for two months (hai tháng)."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer will go back to the city on Sunday.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The aunt has two dogs.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,369 @@
+{
+  "license": "proprietary-own",
+  "skill": "grammar",
+  "items": [
+    {
+      "id": "g-pa11-be",
+      "level": "PA1_1",
+      "prompt": "I ___ a student.",
+      "choices": [
+        "am",
+        "is",
+        "are"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "g-pa11-an",
+      "level": "PA1_1",
+      "prompt": "This is ___ apple.",
+      "choices": [
+        "a",
+        "an",
+        "the"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-pa11-she",
+      "level": "PA1_1",
+      "prompt": "She ___ my sister.",
+      "choices": [
+        "am",
+        "is",
+        "are"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-pa12-they",
+      "level": "PA1_2",
+      "prompt": "They ___ from Japan.",
+      "choices": [
+        "is",
+        "are",
+        "am"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-pa12-wh",
+      "level": "PA1_2",
+      "prompt": "___ is your name?",
+      "choices": [
+        "What",
+        "Where",
+        "Who"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "g-pa12-has",
+      "level": "PA1_2",
+      "prompt": "He ___ two brothers.",
+      "choices": [
+        "have",
+        "has",
+        "haves"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-a11-go",
+      "level": "A1_1",
+      "prompt": "I ___ to school every day.",
+      "choices": [
+        "go",
+        "goes",
+        "going"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "g-a11-there",
+      "level": "A1_1",
+      "prompt": "There ___ three books on the desk.",
+      "choices": [
+        "is",
+        "are",
+        "am"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-a11-cooking",
+      "level": "A1_1",
+      "prompt": "My mother ___ cooking now.",
+      "choices": [
+        "is",
+        "are",
+        "do"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "g-a12-drinks",
+      "level": "A1_2",
+      "prompt": "She ___ coffee in the morning.",
+      "choices": [
+        "drink",
+        "drinks",
+        "drinking"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-a12-played",
+      "level": "A1_2",
+      "prompt": "We ___ football yesterday.",
+      "choices": [
+        "play",
+        "played",
+        "playing"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-a12-any",
+      "level": "A1_2",
+      "prompt": "Is there ___ milk in the fridge?",
+      "choices": [
+        "some",
+        "any",
+        "many"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-a21-past-cont",
+      "level": "A2_1",
+      "prompt": "I ___ my homework when you called.",
+      "choices": [
+        "did",
+        "was doing",
+        "do"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-a21-than",
+      "level": "A2_1",
+      "prompt": "He is taller ___ his brother.",
+      "choices": [
+        "than",
+        "then",
+        "as"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "g-a21-cond1",
+      "level": "A2_1",
+      "prompt": "If it rains, we ___ at home.",
+      "choices": [
+        "stay",
+        "will stay",
+        "stayed"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-a22-since",
+      "level": "A2_2",
+      "prompt": "I have lived here ___ 2015.",
+      "choices": [
+        "for",
+        "since",
+        "from"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-a22-mustnt",
+      "level": "A2_2",
+      "prompt": "You ___ smoke here. It's forbidden.",
+      "choices": [
+        "mustn't",
+        "don't have to",
+        "should"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "g-a22-best",
+      "level": "A2_2",
+      "prompt": "This is the ___ film I have ever seen.",
+      "choices": [
+        "good",
+        "better",
+        "best"
+      ],
+      "answer": 2
+    },
+    {
+      "id": "g-b11-reported",
+      "level": "B1_1",
+      "prompt": "She asked me where I ___.",
+      "choices": [
+        "live",
+        "lived",
+        "am living"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-b11-cond2",
+      "level": "B1_1",
+      "prompt": "If I ___ rich, I would travel the world.",
+      "choices": [
+        "am",
+        "were",
+        "will be"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-b11-suggest",
+      "level": "B1_1",
+      "prompt": "He suggested ___ a taxi.",
+      "choices": [
+        "take",
+        "to take",
+        "taking"
+      ],
+      "answer": 2
+    },
+    {
+      "id": "g-b12-passive",
+      "level": "B1_2",
+      "prompt": "The house ___ in 1990.",
+      "choices": [
+        "built",
+        "was built",
+        "has built"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-b12-wish",
+      "level": "B1_2",
+      "prompt": "I wish I ___ more time.",
+      "choices": [
+        "have",
+        "had",
+        "will have"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-b12-past-perfect",
+      "level": "B1_2",
+      "prompt": "By the time we arrived, the film ___.",
+      "choices": [
+        "already started",
+        "had already started",
+        "has already started"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-b21-inversion",
+      "level": "B2_1",
+      "prompt": "Hardly ___ the station when the train left.",
+      "choices": [
+        "he reached",
+        "had he reached",
+        "he had reached"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-b21-said",
+      "level": "B2_1",
+      "prompt": "She is said ___ ten languages.",
+      "choices": [
+        "to speak",
+        "speaking",
+        "speaks"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "g-b21-should-have",
+      "level": "B2_1",
+      "prompt": "You ___ have called me! I was waiting all night.",
+      "choices": [
+        "should",
+        "can",
+        "will"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "g-b22-not-only",
+      "level": "B2_2",
+      "prompt": "Not only ___ late, but he also forgot the documents.",
+      "choices": [
+        "he was",
+        "was he",
+        "he is"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-b22-rather",
+      "level": "B2_2",
+      "prompt": "I'd rather you ___ smoke in here.",
+      "choices": [
+        "don't",
+        "didn't",
+        "not"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-b22-which",
+      "level": "B2_2",
+      "prompt": "The proposal, ___ was rejected, had many supporters.",
+      "choices": [
+        "that",
+        "which",
+        "what"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-c1-third",
+      "level": "C1",
+      "prompt": "Had I known, I ___ differently.",
+      "choices": [
+        "would act",
+        "would have acted",
+        "will act"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-c1-seldom",
+      "level": "C1",
+      "prompt": "Seldom ___ such a beautiful view.",
+      "choices": [
+        "I have seen",
+        "have I seen",
+        "I saw"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "g-c2-subjunctive",
+      "level": "C2",
+      "prompt": "She insisted that he ___ present at the meeting.",
+      "choices": [
+        "be",
+        "is",
+        "was"
+      ],
+      "answer": 0
+    }
+  ]
+}

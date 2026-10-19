@@ -1,0 +1,641 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "gramverbs",
+    "title": "Động từ",
+    "summary": "Động từ khuyết thiếu, V-ing/to V, used to, bị động, cụm động từ.",
+    "icon": "🏃",
+    "order": 1
+  },
+  "lessons": [
+    {
+      "id": "gramverbs.modals-obligation",
+      "title": "Must, have to, should",
+      "summary": "Nghĩa vụ, lời khuyên và điều cấm.",
+      "level": "A2_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Dùng để nói về **nghĩa vụ**, **lời khuyên** và **điều bị cấm**.\n\n- **must**: bắt buộc mạnh, thường do người nói tự đặt ra: `I must study tonight.`\n- **have to**: bắt buộc do quy định hay hoàn cảnh bên ngoài: `I have to wear a uniform.`\n- **should**: lời khuyên, nên làm: `You should sleep more.`\n- **mustn't**: cấm đoán: `You mustn't smoke here.`\n- **don't have to**: không cần, không bắt buộc: `You don't have to come.`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Cấu trúc",
+            "Nghĩa",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "must + V",
+              "phải (mạnh)",
+              "I must go now."
+            ],
+            [
+              "have to + V",
+              "phải (quy định)",
+              "She has to work on Sunday."
+            ],
+            [
+              "should + V",
+              "nên",
+              "You should rest."
+            ],
+            [
+              "mustn't + V",
+              "cấm / không được",
+              "You mustn't be late."
+            ],
+            [
+              "don't have to + V",
+              "không cần",
+              "We don't have to hurry."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "You must wear a seat belt.",
+              "vi": "Bạn phải thắt dây an toàn."
+            },
+            {
+              "en": "He has to get up at five every day.",
+              "vi": "Anh ấy phải dậy lúc năm giờ mỗi ngày."
+            },
+            {
+              "en": "You should drink more water.",
+              "vi": "Bạn nên uống nhiều nước hơn."
+            },
+            {
+              "en": "You mustn't use your phone in the exam.",
+              "vi": "Bạn không được dùng điện thoại trong kỳ thi."
+            },
+            {
+              "en": "Tomorrow is a holiday, so we don't have to go to school.",
+              "vi": "Mai là ngày lễ nên chúng ta không cần đi học."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt hay nhầm **mustn't** (cấm) với **don't have to** (không cần). Hai cụm có nghĩa rất khác nhau: *You mustn't go* = bạn không được đi; *You don't have to go* = bạn không cần đi (nhưng đi cũng được)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "You ___ park here. It's forbidden.",
+          "choices": [
+            "mustn't",
+            "don't have to",
+            "should"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "gap",
+          "prompt": "She ___ wear a helmet. It is the law.",
+          "answers": [
+            "has to"
+          ],
+          "choices": [
+            "has to",
+            "should",
+            "mustn't"
+          ],
+          "explain": "Quy định bên ngoài → have to; chủ ngữ she → has to."
+        },
+        {
+          "type": "gap",
+          "prompt": "You ___ come if you don't want to.",
+          "answers": [
+            "don't have to"
+          ],
+          "choices": [
+            "don't have to",
+            "mustn't",
+            "must"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Bạn nên uống nhiều nước hơn.",
+          "answer": "You should drink more water"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence gives advice?",
+          "choices": [
+            "You should see a doctor.",
+            "You must see a doctor.",
+            "You mustn't see a doctor."
+          ],
+          "answer": 0,
+          "explain": "Advice (lời khuyên) dùng should."
+        },
+        {
+          "type": "tf",
+          "statement": "“You mustn't go” means “You don't need to go”.",
+          "answer": "false",
+          "explain": "mustn't = cấm; don't have to = không cần."
+        }
+      ]
+    },
+    {
+      "id": "gramverbs.gerund-infinitive",
+      "title": "Danh động từ và động từ nguyên mẫu",
+      "summary": "Sau enjoy dùng V-ing, sau want dùng to V.",
+      "level": "B1_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Một số động từ phải đi với **V-ing** (danh động từ), số khác đi với **to + V** (nguyên mẫu có to). Cần học thuộc theo nhóm.\n\n**+ V-ing:** enjoy, finish, avoid, mind, keep, suggest, practise\n\n**+ to V:** want, need, decide, hope, plan, learn, promise, would like\n\n**Cả hai (nghĩa gần như giống):** like, love, hate, start, begin"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "I enjoy listening to music.",
+              "vi": "Tôi thích nghe nhạc."
+            },
+            {
+              "en": "She finished doing her homework.",
+              "vi": "Cô ấy làm xong bài tập."
+            },
+            {
+              "en": "We want to visit Japan next year.",
+              "vi": "Chúng tôi muốn thăm Nhật Bản năm sau."
+            },
+            {
+              "en": "He decided to learn English.",
+              "vi": "Anh ấy quyết định học tiếng Anh."
+            },
+            {
+              "en": "Would you mind opening the window?",
+              "vi": "Bạn có phiền mở cửa sổ không?"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Sau **giới từ** (in, about, of, for...) luôn dùng **V-ing**: `I am interested in learning French.`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Nhóm",
+            "Động từ thường gặp"
+          ],
+          "rows": [
+            [
+              "+ V-ing",
+              "enjoy, finish, avoid, mind, suggest, practise"
+            ],
+            [
+              "+ to V",
+              "want, need, decide, hope, plan, learn"
+            ],
+            [
+              "cả hai",
+              "like, love, hate, start, begin"
+            ]
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I enjoy ___ football with my friends.",
+          "answers": [
+            "playing"
+          ],
+          "choices": [
+            "playing",
+            "to play",
+            "play"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She wants ___ a new bike.",
+          "answers": [
+            "to buy"
+          ],
+          "choices": [
+            "to buy",
+            "buying",
+            "buy"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "He avoided to talk to her.",
+            "He avoided talking to her.",
+            "He avoided talk to her."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "They decided going home.",
+            "They decided to go home.",
+            "They decided go home."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "She is good at ___ pictures.",
+          "answers": [
+            "drawing"
+          ],
+          "choices": [
+            "drawing",
+            "to draw",
+            "draw"
+          ],
+          "explain": "Sau giới từ at → V-ing."
+        },
+        {
+          "type": "order",
+          "hint": "Tôi hy vọng gặp lại bạn sớm.",
+          "answer": "I hope to see you soon"
+        }
+      ]
+    },
+    {
+      "id": "gramverbs.used-to",
+      "title": "Used to",
+      "summary": "Thói quen và tình huống trong quá khứ.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**used to + V** nói về thói quen hoặc trạng thái **trong quá khứ nhưng bây giờ không còn nữa**.\n\n- Khẳng định: `I used to play football every day.`\n- Phủ định: `I didn't use to like coffee.` (hoặc `never used to`)\n- Câu hỏi: `Did you use to live here?`\n\nChú ý: sau **did/didn't** dùng **use to** (không có -d)."
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "I used to live in a small village.",
+              "vi": "Trước đây tôi sống ở một ngôi làng nhỏ."
+            },
+            {
+              "en": "She used to be shy, but now she is confident.",
+              "vi": "Cô ấy từng nhút nhát, nhưng giờ thì tự tin."
+            },
+            {
+              "en": "We didn't use to have a computer.",
+              "vi": "Ngày trước chúng tôi không có máy tính."
+            },
+            {
+              "en": "Did you use to walk to school?",
+              "vi": "Trước đây bạn có đi bộ đến trường không?"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Đừng nhầm với **be used to + V-ing** (quen với việc gì): `I am used to getting up early.` — nghĩa hoàn toàn khác."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I ___ to play the guitar when I was young.",
+          "answers": [
+            "used"
+          ],
+          "choices": [
+            "used",
+            "use",
+            "am used"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Did you ___ to live in Hanoi?",
+          "answers": [
+            "use"
+          ],
+          "choices": [
+            "use",
+            "used",
+            "using"
+          ],
+          "explain": "Sau Did dùng use to (không có -d)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence means “not true now”?",
+          "choices": [
+            "He lives in Hue.",
+            "He used to live in Hue.",
+            "He is living in Hue."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Chúng tôi từng chơi ở công viên này.",
+          "answer": "We used to play in this park"
+        },
+        {
+          "type": "tf",
+          "statement": "“I used to smoke” means I still smoke now.",
+          "answer": "false",
+          "explain": "used to nói về việc đã chấm dứt ở hiện tại."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the negative form?",
+          "choices": [
+            "I didn't used to like it.",
+            "I didn't use to like it.",
+            "I don't used to like it."
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "gramverbs.passive-voice",
+      "title": "Câu bị động",
+      "summary": "Be + quá khứ phân từ: nhấn mạnh việc được làm.",
+      "level": "B1_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Câu bị động** dùng khi muốn nhấn mạnh **hành động hoặc đối tượng chịu tác động**, không cần biết ai làm.\n\nCấu trúc: **be + quá khứ phân từ (V3)**\n\n- Hiện tại đơn: `English is spoken in many countries.`\n- Quá khứ đơn: `The window was broken yesterday.`\n- Tương lai: `The report will be finished tomorrow.`\n- Hiện tại hoàn thành: `The room has been cleaned.`\n\nCó thể thêm người làm bằng **by**: `The book was written by a famous author.`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Thì",
+            "Chủ động",
+            "Bị động"
+          ],
+          "rows": [
+            [
+              "Hiện tại đơn",
+              "They make cars here.",
+              "Cars are made here."
+            ],
+            [
+              "Quá khứ đơn",
+              "Someone stole my bike.",
+              "My bike was stolen."
+            ],
+            [
+              "Tương lai",
+              "We will finish it.",
+              "It will be finished."
+            ],
+            [
+              "Hiện tại hoàn thành",
+              "She has opened the door.",
+              "The door has been opened."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "This bridge was built in 1990.",
+              "vi": "Cây cầu này được xây vào năm 1990."
+            },
+            {
+              "en": "Rice is grown in the south.",
+              "vi": "Lúa được trồng ở miền Nam."
+            },
+            {
+              "en": "The email will be sent tonight.",
+              "vi": "Email sẽ được gửi tối nay."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Chỉ động từ **có tân ngữ** mới chuyển được sang bị động. Không nói *It was happened* — *happen* không có bị động."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "English ___ in many countries.",
+          "answers": [
+            "is spoken"
+          ],
+          "choices": [
+            "is spoken",
+            "speaks",
+            "is speaking"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The window ___ yesterday.",
+          "answers": [
+            "was broken"
+          ],
+          "choices": [
+            "was broken",
+            "broke",
+            "is broken"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is passive?",
+          "choices": [
+            "The chef cooked dinner.",
+            "Dinner was cooked by the chef.",
+            "The chef is cooking dinner."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Ngôi nhà này được xây vào năm 1990.",
+          "answer": "This house was built in 1990"
+        },
+        {
+          "type": "gap",
+          "prompt": "The report will ___ finished tomorrow.",
+          "answers": [
+            "be"
+          ],
+          "choices": [
+            "be",
+            "been",
+            "being"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Choose the correct sentence.",
+          "choices": [
+            "The thief was caught by the police.",
+            "The thief caught by the police.",
+            "The thief is catch by the police."
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "gramverbs.phrasal-verbs",
+      "title": "Cụm động từ thông dụng",
+      "summary": "Verb + giới từ: nghĩa mới, không đoán từng từ.",
+      "level": "A2_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Cụm động từ (phrasal verb)** = động từ + trạng từ/giới từ, thường có **nghĩa khác** với từng từ riêng lẻ. Cần học cả cụm.\n\n- **get up**: thức dậy\n- **turn on / turn off**: bật / tắt\n- **look for**: tìm kiếm\n- **look after**: chăm sóc\n- **give up**: từ bỏ\n- **put on / take off**: mặc vào / cởi ra\n- **come back**: quay lại\n- **find out**: tìm ra, biết được"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Cụm",
+            "Nghĩa",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "get up",
+              "thức dậy",
+              "I get up at six."
+            ],
+            [
+              "turn off",
+              "tắt",
+              "Please turn off the light."
+            ],
+            [
+              "look for",
+              "tìm",
+              "I am looking for my keys."
+            ],
+            [
+              "give up",
+              "từ bỏ",
+              "Don't give up!"
+            ],
+            [
+              "look after",
+              "chăm sóc",
+              "She looks after her grandmother."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "Please turn off your phone.",
+              "vi": "Làm ơn tắt điện thoại."
+            },
+            {
+              "en": "I can't find my wallet. I'm looking for it.",
+              "vi": "Tôi không tìm thấy ví. Tôi đang tìm nó."
+            },
+            {
+              "en": "Don't give up. You can do it!",
+              "vi": "Đừng bỏ cuộc. Bạn làm được!"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Khi tân ngữ là **đại từ** (it, them, him...), đặt đại từ **giữa** động từ và giới từ: `Turn it off.` (không nói *Turn off it*)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "match",
+          "pairs": [
+            {
+              "left": "get up",
+              "right": "thức dậy"
+            },
+            {
+              "left": "turn off",
+              "right": "tắt"
+            },
+            {
+              "left": "look for",
+              "right": "tìm kiếm"
+            },
+            {
+              "left": "give up",
+              "right": "từ bỏ"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Please ___ the TV. It is too loud.",
+          "answers": [
+            "turn off"
+          ],
+          "choices": [
+            "turn off",
+            "look for",
+            "give up"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She ___ her little brother while her parents work.",
+          "answers": [
+            "looks after"
+          ],
+          "choices": [
+            "looks after",
+            "gets up",
+            "puts on"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "Turn off it.",
+            "Turn it off.",
+            "Off turn it."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Tôi đang tìm chìa khóa của mình.",
+          "answer": "I am looking for my keys"
+        },
+        {
+          "type": "gap",
+          "prompt": "It is cold. ___ your jacket.",
+          "answers": [
+            "Put on"
+          ],
+          "choices": [
+            "Put on",
+            "Take off",
+            "Give up"
+          ]
+        }
+      ]
+    }
+  ]
+}

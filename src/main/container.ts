@@ -22,6 +22,7 @@ import { DictionaryService } from './content/DictionaryService'
 import { SrsService } from './services/SrsService'
 import { MicroLearningService } from './services/MicroLearningService'
 import { StudyService } from './services/StudyService'
+import { AchievementService } from './services/AchievementService'
 import { MissionService } from './services/MissionService'
 import { PlacementService } from './services/PlacementService'
 import { PracticeService } from './services/PracticeService'
@@ -29,7 +30,16 @@ import { ShopService } from './services/ShopService'
 import { StatsService } from './services/StatsService'
 import { LessonService } from './services/LessonService'
 import { LessonLibrary } from './content/LessonLibrary'
-import { bundledLessonFiles } from './content/bundledLessons'
+import {
+  bundledGrammarFiles,
+  bundledLessonFiles,
+  bundledPhrasebookFiles,
+  bundledPlacementFiles,
+  bundledReadingFiles
+} from './content/bundledLessons'
+import { PhrasebookLibrary } from './content/PhrasebookLibrary'
+import { PlacementBank } from './content/PlacementBank'
+import { GrammarUnitFileSchema, ReadingUnitFileSchema } from '@shared/schemas/lesson'
 import { LessonRepository } from './db/repositories/LessonRepository'
 
 export interface Container {
@@ -47,11 +57,16 @@ export interface Container {
   micro: MicroLearningService
   study: StudyService
   missions: MissionService
+  achievements: AchievementService
   placement: PlacementService
   practice: PracticeService
   shop: ShopService
   stats: StatsService
   lessons: LessonService
+  /** Điểm ngữ pháp và bài đọc: cùng cơ chế với bài học nền tảng */
+  grammar: LessonService
+  readings: LessonService
+  phrasebook: PhrasebookLibrary
 }
 
 export interface ContainerOptions {
@@ -147,7 +162,13 @@ export function createContainer(
     bus
   })
 
-  const placement = new PlacementService({ dictionary, profiles, settings, clock })
+  const placement = new PlacementService({
+    dictionary,
+    bank: new PlacementBank(bundledPlacementFiles),
+    profiles,
+    settings,
+    clock
+  })
 
   const practice = new PracticeService({
     dictionary,
@@ -178,14 +199,20 @@ export function createContainer(
     clock
   })
 
+  const achievements = new AchievementService({ stats, xpRepo: repos.xp, xp, profiles, bus })
+
+  const lessonDeps = { repo: repos.lessons, xpRepo: repos.xp, xp, profiles, clock, transaction }
   const lessons = new LessonService({
     library: new LessonLibrary(bundledLessonFiles),
-    repo: repos.lessons,
-    xpRepo: repos.xp,
-    xp,
-    profiles,
-    clock,
-    transaction
+    ...lessonDeps
+  })
+  const grammar = new LessonService({
+    library: new LessonLibrary(bundledGrammarFiles, console.warn, GrammarUnitFileSchema),
+    ...lessonDeps
+  })
+  const readings = new LessonService({
+    library: new LessonLibrary(bundledReadingFiles, console.warn, ReadingUnitFileSchema),
+    ...lessonDeps
   })
 
   return {
@@ -207,6 +234,10 @@ export function createContainer(
     practice,
     shop,
     stats,
-    lessons
+    achievements,
+    lessons,
+    grammar,
+    readings,
+    phrasebook: new PhrasebookLibrary(bundledPhrasebookFiles)
   }
 }

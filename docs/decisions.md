@@ -99,3 +99,12 @@ Mẫu:
 - Kokoro huấn luyện trên dữ liệu "permissive/non-copyrighted" gồm cả giọng tổng hợp từ TTS đóng và âm thanh CC BY (Koniwa CC BY 3.0, SIWIS CC BY 4.0) → ghi công trong Cài đặt → "Giấy phép & ghi công" (đã làm).
 - Giọng nói chất lượng khác nhau theo giọng (bảng đánh giá của Kokoro: Heart A, Bella A-, Emma B-, Michael C+, George C).
 - Câu mới nghe lần đầu có độ trễ 1–3 giây (rồi được lưu); khi hết nội dung cố định có thể sinh sẵn audio lúc build để tức thì.
+
+## #15 — Bài đọc, ngữ pháp, bài học nền tảng dùng chung một cơ chế "lesson" (2026-10-19) — Chấp nhận
+**Bối cảnh:** Phase 2 cần bài đọc tương tác, trang ngữ pháp và thêm dạng bài tập; mỗi thứ đều là "nội dung tự soạn có giải thích + bài tập chấm tại chỗ + tiến độ + thưởng lần đầu đạt" — giống hệt bài học nền tảng đã có.
+**Quyết định:** Mở rộng thay vì viết dịch vụ mới: `LessonLibrary` nhận schema theo loại (`ReadingUnitFileSchema`, `GrammarUnitFileSchema`), `LessonService` được tạo ba bản (`lessons`, `grammar`, `readings`), các kênh `lesson:*` nhận thêm `kind`, `LessonsPage.vue` nhận prop `kind`. Thêm block `passage` (đoạn văn tương tác) và hai dạng bài tập `tf`, `picture` vào schema bài học. Tiến độ dùng chung bảng `lesson_progress` (id không trùng giữa các loại — có test) nên không cần migration. Mẫu câu giao tiếp và ngân hàng placement là thư viện riêng vì không có bài tập/tiến độ.
+**Lý do:** Ít code mới, giao diện và thưởng nhất quán, thêm loại nội dung sau này chỉ cần thêm thư mục + schema.
+**Hệ quả:** "Số bài đã học" (thành tựu, thống kê) đếm cả bài đọc và ngữ pháp. Thưởng XP bài đọc/ngữ pháp bằng bài học (15 XP, 5 xu, +5 nếu 100%).
+
+## #16 — Thưởng khi mở khoá thành tựu (2026-10-19) — Chấp nhận
+**Quyết định:** `AchievementService` tính thành tựu từ thống kê (không bảng riêng) và ghi sổ XP `reason = achievement.unlocked`, `refId = <id thành tựu>` để mỗi hồ sơ chỉ nhận một lần; thưởng theo hạng (đồng 20 XP/5 xu … kim cương 300/60). Lần đầu sau khi cập nhật sẽ thưởng bù các thành tựu đã đạt và báo gộp một thông báo ở mascot.

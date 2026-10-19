@@ -5,6 +5,7 @@ import type { Lesson } from '@shared/schemas/lesson'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import MdText from './MdText.vue'
+import ReadingPassage from './ReadingPassage.vue'
 
 // Đọc một bài: giải thích, bảng, ví dụ có nút nghe, lưới âm bấm nghe, mẹo.
 const props = defineProps<{ lesson: Lesson }>()
@@ -98,6 +99,12 @@ onMounted(() => {
         </div>
         <p class="hint">🔊 {{ t('study.lessons.tapToHear') }}</p>
       </PxPanel>
+
+      <ReadingPassage
+        v-else-if="block.type === 'passage'"
+        :title="block.title"
+        :paragraphs="block.paragraphs"
+      />
     </template>
 
     <div class="actions">

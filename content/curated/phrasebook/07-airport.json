@@ -1,0 +1,52 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "airport",
+    "title": "Sân bay & chuyến bay",
+    "icon": "✈️",
+    "order": 7
+  },
+  "phrases": [
+    {
+      "en": "Where is the check-in counter?",
+      "vi": "Quầy làm thủ tục ở đâu?",
+      "level": "A2_1"
+    },
+    {
+      "en": "Here is my passport and boarding pass.",
+      "vi": "Đây là hộ chiếu và thẻ lên máy bay của tôi.",
+      "level": "A2_1"
+    },
+    {
+      "en": "Is this the gate for flight VN123?",
+      "vi": "Đây có phải cổng cho chuyến VN123 không?",
+      "level": "A2_2"
+    },
+    {
+      "en": "My flight has been delayed.",
+      "vi": "Chuyến bay của tôi bị hoãn.",
+      "level": "A2_2"
+    },
+    {
+      "en": "I would like a window seat, please.",
+      "vi": "Tôi muốn ngồi cạnh cửa sổ.",
+      "level": "A2_1"
+    },
+    {
+      "en": "I have nothing to declare.",
+      "vi": "Tôi không có gì để khai báo.",
+      "level": "B1_1",
+      "note": "Nói với hải quan."
+    },
+    {
+      "en": "Where can I collect my luggage?",
+      "vi": "Tôi lấy hành lý ở đâu?",
+      "level": "A2_2"
+    },
+    {
+      "en": "My suitcase is missing.",
+      "vi": "Vali của tôi bị mất.",
+      "level": "A2_2"
+    }
+  ]
+}

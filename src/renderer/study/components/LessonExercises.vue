@@ -59,16 +59,29 @@ function enter(): void {
     rightOrder.value = shuffle(e.pairs.map((_, i) => i))
   }
   if (e.type === 'listen') window.setTimeout(() => speak(e.say, undefined, 0.9), 250)
+  if (e.type === 'picture' && e.listen) window.setTimeout(() => speak(e.word, undefined, 0.9), 250)
   if (e.type === 'gap' && !e.choices) void nextTick(() => typedInput.value?.focus())
 }
 
+/** Đúng / Sai / Không có thông tin: thứ tự lựa chọn của dạng `tf` */
+const TF_ORDER = ['true', 'false', 'ng'] as const
+
 const hasChoices = computed(() => {
   const e = ex.value
-  return e.type === 'mcq' || e.type === 'listen' || (e.type === 'gap' && !!e.choices)
+  return (
+    e.type === 'mcq' ||
+    e.type === 'listen' ||
+    e.type === 'tf' ||
+    e.type === 'picture' ||
+    (e.type === 'gap' && !!e.choices)
+  )
 })
 const choices = computed<string[]>(() => {
   const e = ex.value
-  return e.type === 'mcq' || e.type === 'listen'
+  if (e.type === 'tf') {
+    return TF_ORDER.slice(0, e.ng ? 3 : 2).map((k) => t(`study.lessons.tf.${k}`))
+  }
+  return e.type === 'mcq' || e.type === 'listen' || e.type === 'picture'
     ? e.choices
     : e.type === 'gap'
       ? (e.choices ?? [])
@@ -81,6 +94,8 @@ const canCheck = computed(() => {
   switch (e.type) {
     case 'mcq':
     case 'listen':
+    case 'tf':
+    case 'picture':
       return chosen.value !== null
     case 'gap':
       return e.choices ? chosen.value !== null : typed.value.trim().length > 0
@@ -97,7 +112,10 @@ function evaluate(e: LessonExercise): boolean {
   switch (e.type) {
     case 'mcq':
     case 'listen':
+    case 'picture':
       return chosen.value === e.answer
+    case 'tf':
+      return chosen.value === TF_ORDER.indexOf(e.answer)
     case 'gap':
       return e.choices
         ? chosen.value !== null && isGapCorrect(e.choices[chosen.value], e.answers)
@@ -114,6 +132,10 @@ function solution(e: LessonExercise): string {
     case 'mcq':
     case 'listen':
       return e.choices[e.answer]
+    case 'picture':
+      return `${e.choices[e.answer]} = ${e.word}`
+    case 'tf':
+      return t(`study.lessons.tf.${e.answer}`)
     case 'gap':
       return e.prompt.replace('___', e.answers[0])
     case 'order':
@@ -189,7 +211,13 @@ onMounted(() => {
   // Giọng tự nhiên: tạo trước âm thanh các câu nghe và lời giải của bài tập
   prefetch(
     props.lesson.exercises.flatMap((e) =>
-      e.type === 'listen' ? [e.say] : e.type === 'order' ? [e.answer] : []
+      e.type === 'listen'
+        ? [e.say]
+        : e.type === 'order'
+          ? [e.answer]
+          : e.type === 'picture' && e.listen
+            ? [e.word]
+            : []
     ),
     undefined,
     0.9
@@ -223,6 +251,30 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
             🔊 {{ t('study.lessons.play') }}
           </button>
           <button type="button" class="play-btn" @click="speak(ex.say, undefined, 0.6)">
+            🐢 {{ t('study.lessons.slow') }}
+          </button>
+        </div>
+      </template>
+
+      <!-- Đúng / Sai (/ Không có thông tin) -->
+      <template v-else-if="ex.type === 'tf'">
+        <p class="instruction">
+          {{ ex.ng ? t('study.lessons.tfHelpNg') : t('study.lessons.tfHelp') }}
+        </p>
+        <p class="prompt">{{ ex.statement }}</p>
+      </template>
+
+      <!-- Chọn hình -->
+      <template v-else-if="ex.type === 'picture'">
+        <p class="instruction">
+          {{ ex.listen ? t('study.lessons.pictureListen') : t('study.lessons.pictureHelp') }}
+        </p>
+        <p v-if="!ex.listen" class="prompt">{{ ex.word }}</p>
+        <div v-else class="play">
+          <button type="button" class="play-btn" @click="speak(ex.word, undefined, 0.9)">
+            🔊 {{ t('study.lessons.play') }}
+          </button>
+          <button type="button" class="play-btn" @click="speak(ex.word, undefined, 0.6)">
             🐢 {{ t('study.lessons.slow') }}
           </button>
         </div>
@@ -283,7 +335,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       </template>
 
       <!-- Ghép cặp -->
-      <template v-else>
+      <template v-else-if="ex.type === 'match'">
         <p class="instruction">{{ ex.prompt ?? t('study.lessons.matchHelp') }}</p>
         <div class="pairs">
           <div class="col">
@@ -322,7 +374,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           :key="i"
           type="button"
           class="choice"
-          :class="{ picked: chosen === i && !checked }"
+          :class="{ picked: chosen === i && !checked, pic: ex.type === 'picture' }"
           :disabled="checked"
           @click="pick(i)"
         >
@@ -547,5 +599,10 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 .primary:disabled {
   opacity: 0.5;
   cursor: default;
+}
+.choice.pic {
+  min-width: 72px;
+  font-size: 34px;
+  line-height: 1.2;
 }
 </style>

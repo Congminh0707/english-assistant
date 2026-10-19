@@ -92,6 +92,9 @@ describe('LessonService', () => {
   })
 
   it('đạt ≥ 70% lần đầu: thưởng XP/xu một lần, lưu điểm cao nhất', () => {
+    // Thưởng mở khoá thành tựu cộng thêm vào tổng XP: tách riêng để kiểm tra phần thưởng của bài học
+    let achievementXp = 0
+    c.bus.on('achievement.unlocked', (e) => (achievementXp += e.xp))
     const xp0 = c.pet.get().totalXp
     const first = service.complete('a.one', 6, 8) // 75%
     expect(first).toMatchObject({
@@ -102,12 +105,12 @@ describe('LessonService', () => {
       coins: 5,
       nextLessonId: 'a.two'
     })
-    expect(c.pet.get().totalXp).toBe(xp0 + 15)
+    expect(c.pet.get().totalXp).toBe(xp0 + 15 + achievementXp)
 
     // Làm lại với điểm cao hơn: không thưởng thêm nhưng điểm cao nhất tăng
     const again = service.complete('a.one', 8, 8)
     expect(again).toMatchObject({ score: 100, best: 100, firstCompletion: false, xp: 0 })
-    expect(c.pet.get().totalXp).toBe(xp0 + 15)
+    expect(c.pet.get().totalXp).toBe(xp0 + 15 + achievementXp)
 
     const lesson = service.catalog().units[0].lessons[0]
     expect(lesson.progress).toEqual({ best: 100, done: true })

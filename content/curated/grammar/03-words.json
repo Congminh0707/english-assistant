@@ -1,0 +1,517 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "gramwords",
+    "title": "Từ loại & cụm từ",
+    "summary": "Danh từ đếm được, trạng từ tần suất, sở hữu, too/enough.",
+    "icon": "🔤",
+    "order": 3
+  },
+  "lessons": [
+    {
+      "id": "gramwords.countable",
+      "title": "Danh từ đếm được và không đếm được",
+      "summary": "Some, any, much, many, a lot of.",
+      "level": "A1_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Đếm được** (apple, book, chair): có số nhiều, dùng **a/an**, **many**, **few**.\n**Không đếm được** (water, rice, money, advice): không có số nhiều, dùng **much**, **little**.\n\n- **some**: câu khẳng định — `I have some apples.`\n- **any**: câu phủ định và câu hỏi — `I don't have any milk. Do you have any friends?`\n- **a lot of**: dùng với cả hai loại, hay dùng trong câu khẳng định."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Loại",
+            "Đếm được",
+            "Không đếm được"
+          ],
+          "rows": [
+            [
+              "Ví dụ",
+              "apple, book, student",
+              "water, rice, money"
+            ],
+            [
+              "Số lượng nhiều",
+              "many",
+              "much"
+            ],
+            [
+              "Số lượng ít",
+              "few",
+              "little"
+            ],
+            [
+              "Hỏi số lượng",
+              "How many ...?",
+              "How much ...?"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "How many eggs do you need?",
+              "vi": "Bạn cần bao nhiêu quả trứng?"
+            },
+            {
+              "en": "There isn't much water.",
+              "vi": "Không còn nhiều nước."
+            },
+            {
+              "en": "I need some advice.",
+              "vi": "Tôi cần một vài lời khuyên."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Advice, information, furniture, news, homework** là danh từ **không đếm được** dù trong tiếng Việt ta có thể đếm. Không nói *an advice*, *informations*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "How ___ money do you have?",
+          "answers": [
+            "much"
+          ],
+          "choices": [
+            "much",
+            "many",
+            "few"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "How ___ students are in your class?",
+          "answers": [
+            "many"
+          ],
+          "choices": [
+            "many",
+            "much",
+            "little"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I don't have ___ milk.",
+          "answers": [
+            "any"
+          ],
+          "choices": [
+            "any",
+            "some",
+            "a"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which noun is uncountable?",
+          "choices": [
+            "book",
+            "advice",
+            "chair"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "I need an advice.",
+            "I need some advice.",
+            "I need some advices."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "There are ___ apples on the table.",
+          "answers": [
+            "some"
+          ],
+          "choices": [
+            "some",
+            "much",
+            "any"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gramwords.frequency",
+      "title": "Trạng từ chỉ tần suất",
+      "summary": "Always, usually, often, sometimes, never — đặt ở đâu trong câu.",
+      "level": "A1_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Trạng từ tần suất trả lời câu hỏi **How often?** (bao lâu một lần?).\n\n100% **always** → **usually** → **often** → **sometimes** → **rarely** → **never** 0%\n\n**Vị trí:** thường đứng **trước động từ thường** và **sau động từ be**.\n\n- `I always get up early.`\n- `She is never late.`\n- `They sometimes eat out.`"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "I usually have breakfast at seven.",
+              "vi": "Tôi thường ăn sáng lúc bảy giờ."
+            },
+            {
+              "en": "He is always on time.",
+              "vi": "Anh ấy lúc nào cũng đúng giờ."
+            },
+            {
+              "en": "We don't often go to the cinema.",
+              "vi": "Chúng tôi không hay đi xem phim."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Sometimes** có thể đứng đầu hoặc cuối câu: *Sometimes I walk to work.* **Never** đã mang nghĩa phủ định nên không dùng thêm *not*: *I never smoke* (không nói *I don't never smoke*)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "order",
+          "hint": "Tôi luôn dậy sớm.",
+          "answer": "I always get up early"
+        },
+        {
+          "type": "order",
+          "hint": "Cô ấy không bao giờ đến muộn.",
+          "answer": "She is never late"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "I go usually to school by bike.",
+            "I usually go to school by bike.",
+            "Usually I to school go by bike."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "He ___ eats breakfast. He always skips it.",
+          "answers": [
+            "never",
+            "rarely"
+          ],
+          "choices": [
+            "never",
+            "always",
+            "usually"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which means 'không bao giờ'?",
+          "choices": [
+            "always",
+            "sometimes",
+            "never"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "My brother is ___ hungry. He eats all day.",
+          "answers": [
+            "always",
+            "often",
+            "usually"
+          ],
+          "choices": [
+            "always",
+            "never",
+            "rarely"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gramwords.possessives",
+      "title": "Sở hữu: my, mine, 's",
+      "summary": "Tính từ sở hữu, đại từ sở hữu và dạng 's.",
+      "level": "A1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Tính từ sở hữu** đi trước danh từ: **my, your, his, her, its, our, their** — `This is my book.`\n\n**Đại từ sở hữu** đứng một mình: **mine, yours, his, hers, ours, theirs** — `This book is mine.`\n\n**'s** chỉ sở hữu của người/vật: `Anna's bag`, `my brother's car`. Với danh từ số nhiều có -s chỉ thêm dấu nháy: `the students' books`."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Chủ ngữ",
+            "Tính từ sở hữu",
+            "Đại từ sở hữu"
+          ],
+          "rows": [
+            [
+              "I",
+              "my",
+              "mine"
+            ],
+            [
+              "you",
+              "your",
+              "yours"
+            ],
+            [
+              "he",
+              "his",
+              "his"
+            ],
+            [
+              "she",
+              "her",
+              "hers"
+            ],
+            [
+              "we",
+              "our",
+              "ours"
+            ],
+            [
+              "they",
+              "their",
+              "theirs"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "That is my sister's room.",
+              "vi": "Đó là phòng của chị gái tôi."
+            },
+            {
+              "en": "Is this pen yours or mine?",
+              "vi": "Cây bút này của bạn hay của tôi?"
+            },
+            {
+              "en": "The teachers' room is on the second floor.",
+              "vi": "Phòng giáo viên ở tầng hai."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**its** (của nó, không dấu nháy) khác **it's** (= it is). Đừng nhầm: *The dog wagged its tail.* / *It's a nice dog.*"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "This is ___ book. (tôi)",
+          "answers": [
+            "my"
+          ],
+          "choices": [
+            "my",
+            "mine",
+            "me"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "This pen is ___. It belongs to me.",
+          "answers": [
+            "mine"
+          ],
+          "choices": [
+            "mine",
+            "my",
+            "me"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "This is Anna's bag. It is ___.",
+          "answers": [
+            "hers"
+          ],
+          "choices": [
+            "hers",
+            "her",
+            "she"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The dog wagged ___ tail.",
+          "answers": [
+            "its"
+          ],
+          "choices": [
+            "its",
+            "it's",
+            "his"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "the students book",
+            "the student's books for one student",
+            "the studentes book"
+          ],
+          "answer": 1,
+          "explain": "Một học sinh → student's."
+        },
+        {
+          "type": "match",
+          "pairs": [
+            {
+              "left": "I",
+              "right": "mine"
+            },
+            {
+              "left": "you",
+              "right": "yours"
+            },
+            {
+              "left": "she",
+              "right": "hers"
+            },
+            {
+              "left": "they",
+              "right": "theirs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gramwords.too-enough",
+      "title": "Too và enough",
+      "summary": "Quá ... hay đủ ...?",
+      "level": "A2_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**too + tính từ / trạng từ** = **quá** (nhiều hơn mức cần, mang nghĩa tiêu cực).\n`It is too hot to go out.`\n\n**tính từ / trạng từ + enough** = **đủ**.\n`She is old enough to drive.`\n\n**enough + danh từ** = đủ cái gì.\n`We have enough time.`\n\nThường đi với **to + V**: `too tired to walk`, `fast enough to win`."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Cấu trúc",
+            "Nghĩa",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "too + adj",
+              "quá",
+              "too expensive"
+            ],
+            [
+              "adj + enough",
+              "đủ",
+              "cheap enough"
+            ],
+            [
+              "enough + noun",
+              "đủ (cái gì)",
+              "enough money"
+            ],
+            [
+              "too + adj + to V",
+              "quá ... để làm",
+              "too young to vote"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "This bag is too heavy to carry.",
+              "vi": "Cái túi này quá nặng để mang."
+            },
+            {
+              "en": "He isn't tall enough to reach the shelf.",
+              "vi": "Anh ấy không đủ cao để với tới cái kệ."
+            },
+            {
+              "en": "We don't have enough chairs.",
+              "vi": "Chúng ta không đủ ghế."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**enough** đứng **sau** tính từ nhưng **trước** danh từ: *good enough* nhưng *enough time*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "It is ___ cold to swim today.",
+          "answers": [
+            "too"
+          ],
+          "choices": [
+            "too",
+            "enough",
+            "very enough"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She is old ___ to drive a car.",
+          "answers": [
+            "enough"
+          ],
+          "choices": [
+            "enough",
+            "too",
+            "so"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "We don't have ___ money to buy it.",
+          "answers": [
+            "enough"
+          ],
+          "choices": [
+            "enough",
+            "too",
+            "much too"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "He is enough tall.",
+            "He is tall enough.",
+            "He is too tall enough."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Món canh này quá nóng để ăn.",
+          "answer": "This soup is too hot to eat"
+        },
+        {
+          "type": "tf",
+          "statement": "“Too” usually has a negative meaning (more than you want).",
+          "answer": "true"
+        }
+      ]
+    }
+  ]
+}

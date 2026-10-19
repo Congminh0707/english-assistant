@@ -1,0 +1,51 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "emergency",
+    "title": "Khẩn cấp",
+    "icon": "🚨",
+    "order": 12
+  },
+  "phrases": [
+    {
+      "en": "Help!",
+      "vi": "Cứu với!",
+      "level": "PA1_2"
+    },
+    {
+      "en": "Call the police!",
+      "vi": "Gọi cảnh sát!",
+      "level": "A1_1"
+    },
+    {
+      "en": "Call an ambulance, please.",
+      "vi": "Làm ơn gọi xe cấp cứu.",
+      "level": "A1_2"
+    },
+    {
+      "en": "There has been an accident.",
+      "vi": "Có tai nạn xảy ra.",
+      "level": "A2_1"
+    },
+    {
+      "en": "I have lost my passport.",
+      "vi": "Tôi bị mất hộ chiếu.",
+      "level": "A2_1"
+    },
+    {
+      "en": "My wallet was stolen.",
+      "vi": "Ví của tôi bị trộm.",
+      "level": "A2_1"
+    },
+    {
+      "en": "I'm lost. Can you help me?",
+      "vi": "Tôi bị lạc. Bạn giúp tôi được không?",
+      "level": "A1_2"
+    },
+    {
+      "en": "Is there a hospital nearby?",
+      "vi": "Gần đây có bệnh viện không?",
+      "level": "A1_2"
+    }
+  ]
+}

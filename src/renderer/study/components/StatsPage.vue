@@ -5,12 +5,25 @@ import type { Stats, StatsDay } from '@shared/schemas/stats'
 import { ACHIEVEMENT_GROUPS } from '@shared/achievements'
 import { activityLevel, activityScore, weekdayIndex } from '@shared/stats'
 import { invoke } from '@renderer/shared/ipc'
+import { cefrLabel } from '@shared/placement'
+import { useSettingsStore } from '@renderer/shared/stores/settings'
 import PixelBadge from '@renderer/shared/components/PixelBadge.vue'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 
 // Thống kê: streak, lịch hoạt động 16 tuần, 14 ngày gần nhất, thẻ theo trạng thái, từ theo level.
 const { t } = useI18n()
 const stats = ref<Stats | null>(null)
+const settingsStore = useSettingsStore()
+/** Trình độ theo kỹ năng (cập nhật sau mỗi lần làm bài kiểm tra đầu vào) */
+const skillLevels = computed(() =>
+  (
+    [
+      ['vocab', settingsStore.settings['learning.levelVocab']],
+      ['grammar', settingsStore.settings['learning.levelGrammar']],
+      ['reading', settingsStore.settings['learning.levelReading']]
+    ] as const
+  ).map(([skill, level]) => ({ skill, cefr: cefrLabel(level), level: level.replace('_', '.') }))
+)
 
 async function load(): Promise<void> {
   stats.value = await invoke('study:stats')
@@ -203,6 +216,17 @@ onMounted(load)
       </div>
 
       <PxPanel class="block">
+        <h2>{{ t('study.stats.skills') }}</h2>
+        <ul class="skill-levels">
+          <li v-for="s in skillLevels" :key="s.skill">
+            <strong>{{ t(`study.placement.skill.${s.skill}`) }}</strong>
+            <span class="skill-tag">{{ s.level }}</span>
+          </li>
+        </ul>
+        <p class="muted small">{{ t('study.stats.skillsHint') }}</p>
+      </PxPanel>
+
+      <PxPanel class="block">
         <h2>{{ t('study.stats.achievements') }}</h2>
         <p class="muted small">
           {{
@@ -378,6 +402,23 @@ h2 {
 .bar-day {
   font-size: 10px;
   color: var(--c-ink-soft);
+}
+.skill-levels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0 0 6px;
+  padding: 0;
+  list-style: none;
+}
+.skill-tag {
+  margin-left: 8px;
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--c-xp);
+  border: 1px solid var(--c-border);
 }
 .ach-group + .ach-group {
   margin-top: 10px;

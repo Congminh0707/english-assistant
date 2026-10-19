@@ -2,7 +2,12 @@
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { cefrLabel } from '@shared/placement'
-import type { Lesson, LessonCatalog, LessonCompleteResult } from '@shared/schemas/lesson'
+import type {
+  Lesson,
+  LessonCatalog,
+  LessonCompleteResult,
+  LessonKind
+} from '@shared/schemas/lesson'
 import { LESSON_PASS_PERCENT } from '@shared/schemas/lesson'
 import { invoke } from '@renderer/shared/ipc'
 import PxBar from '@renderer/shared/components/PxBar.vue'
@@ -11,7 +16,13 @@ import LessonExercises from './LessonExercises.vue'
 import LessonViewer from './LessonViewer.vue'
 
 // Bài học nền tảng: danh sách theo chương → đọc bài → làm bài tập → kết quả (thưởng lần đầu đạt).
+const props = withDefaults(defineProps<{ kind?: LessonKind }>(), { kind: 'lesson' })
 const emit = defineEmits<{ changed: [] }>()
+
+/** Khoá i18n theo loại nội dung: study.lessons / study.grammar / study.reading */
+const kindKey = computed(() =>
+  props.kind === 'grammar' ? 'grammar' : props.kind === 'reading' ? 'reading' : 'lessons'
+)
 
 const { t } = useI18n()
 
@@ -36,14 +47,14 @@ const stars = computed(() => {
 })
 
 async function loadCatalog(): Promise<void> {
-  catalog.value = await invoke('lesson:catalog')
+  catalog.value = await invoke('lesson:catalog', { kind: props.kind })
 }
 
 async function open(id: string): Promise<void> {
   if (busy.value) return
   busy.value = true
   try {
-    lesson.value = await invoke('lesson:get', { id })
+    lesson.value = await invoke('lesson:get', { kind: props.kind, id })
     result.value = null
     mode.value = 'read'
   } finally {
@@ -55,7 +66,12 @@ async function finish(correct: number, total: number): Promise<void> {
   if (!lesson.value) return
   busy.value = true
   try {
-    result.value = await invoke('lesson:complete', { lessonId: lesson.value.id, correct, total })
+    result.value = await invoke('lesson:complete', {
+      kind: props.kind,
+      lessonId: lesson.value.id,
+      correct,
+      total
+    })
     mode.value = 'result'
     await loadCatalog()
     emit('changed')
@@ -127,8 +143,8 @@ onMounted(loadCatalog)
     </PxPanel>
 
     <template v-else-if="catalog">
-      <h1>{{ t('study.lessons.title') }}</h1>
-      <p class="muted">{{ t('study.lessons.intro') }}</p>
+      <h1>{{ t(`study.${kindKey}.title`) }}</h1>
+      <p class="muted">{{ t(`study.${kindKey}.intro`) }}</p>
 
       <PxPanel class="progress">
         <div class="progress-text">

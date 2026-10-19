@@ -1,0 +1,52 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "phone",
+    "title": "Điện thoại & nhắn tin",
+    "icon": "📱",
+    "order": 9
+  },
+  "phrases": [
+    {
+      "en": "Hello, this is Lan speaking.",
+      "vi": "Alô, Lan đang nghe đây.",
+      "level": "A2_1",
+      "note": "Mở đầu cuộc gọi."
+    },
+    {
+      "en": "Could I speak to Mr. Brown, please?",
+      "vi": "Cho tôi nói chuyện với ông Brown được không?",
+      "level": "A2_1"
+    },
+    {
+      "en": "I'm sorry, he's not available right now.",
+      "vi": "Xin lỗi, hiện ông ấy không rảnh.",
+      "level": "A2_2"
+    },
+    {
+      "en": "Can I take a message?",
+      "vi": "Tôi ghi lại lời nhắn được không?",
+      "level": "A2_2"
+    },
+    {
+      "en": "Could you say that again, please?",
+      "vi": "Bạn nói lại được không?",
+      "level": "A1_2"
+    },
+    {
+      "en": "Could you speak more slowly, please?",
+      "vi": "Bạn nói chậm hơn được không?",
+      "level": "A1_2"
+    },
+    {
+      "en": "I'll call you back later.",
+      "vi": "Lát nữa tôi gọi lại cho bạn.",
+      "level": "A2_1"
+    },
+    {
+      "en": "The line is bad. I can hardly hear you.",
+      "vi": "Sóng yếu quá. Tôi gần như không nghe thấy bạn.",
+      "level": "B1_1"
+    }
+  ]
+}

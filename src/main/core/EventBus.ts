@@ -12,6 +12,7 @@ export interface AppEvents {
   'settings.changed': { key: SettingKey; settings: Settings }
   'word.saved': { text: string; contentId: string | null }
   'card.reviewed': { cardId: string; rating: number }
+  'achievement.unlocked': { ids: string[]; xp: number; coins: number }
   'mission.completed': { id: string; xp: number; coins: number; all: boolean }
 }
 

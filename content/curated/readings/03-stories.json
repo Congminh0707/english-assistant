@@ -1,0 +1,248 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readstories",
+    "title": "Truyện ngắn",
+    "summary": "Truyện vui, truyện ngụ ngôn và câu chuyện đời thường.",
+    "icon": "📚",
+    "order": 3
+  },
+  "lessons": [
+    {
+      "id": "readstories.the-lost-key",
+      "title": "Chiếc chìa khóa bị mất",
+      "summary": "Tom làm mất chìa khóa — hay là không?",
+      "level": "A2_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Truyện ngắn dùng **thì quá khứ**: ran, stopped, found, looked. Đoán nghĩa từ ngữ cảnh trước khi tra từ."
+        },
+        {
+          "type": "passage",
+          "title": "The Lost Key",
+          "paragraphs": [
+            {
+              "en": "Tom was in a hurry. He had a test at nine o'clock, and he was already late. He ran out of his apartment, closed the door, and then he stopped. His key was not in his pocket.",
+              "vi": "Tom đang vội. Cậu có bài kiểm tra lúc chín giờ và đã trễ rồi. Cậu chạy ra khỏi căn hộ, đóng cửa rồi dừng lại. Chìa khóa không có trong túi cậu."
+            },
+            {
+              "en": "He looked in his bag, but he only found a pen and a banana. He felt worried. 'Did I leave it inside?' he thought. He knocked on the door of his neighbour, Mrs. Green, and asked for help.",
+              "vi": "Cậu tìm trong cặp nhưng chỉ thấy một cây bút và một quả chuối. Cậu thấy lo. “Mình để quên nó bên trong sao?” cậu nghĩ. Cậu gõ cửa nhà bà hàng xóm, bà Green, và nhờ giúp."
+            },
+            {
+              "en": "Mrs. Green smiled. 'Look at your hand, Tom,' she said. Tom looked down. The key was in his hand the whole time! He laughed, thanked her, and ran to school. He arrived at five past nine, but the teacher was kind and let him in.",
+              "vi": "Bà Green mỉm cười. “Nhìn vào tay cháu đi, Tom,” bà nói. Tom nhìn xuống. Chiếc chìa khóa nằm trong tay cậu suốt từ nãy! Cậu bật cười, cảm ơn bà rồi chạy đến trường. Cậu đến lúc chín giờ năm phút nhưng thầy giáo tốt bụng cho cậu vào lớp."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What time was Tom's test?",
+          "choices": [
+            "At eight o'clock",
+            "At nine o'clock",
+            "At ten o'clock"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "Tom found his key in his bag.",
+          "answer": "false",
+          "explain": "Trong cặp chỉ có bút và chuối; chìa khóa nằm trong tay cậu."
+        },
+        {
+          "type": "tf",
+          "statement": "The key was in his hand.",
+          "answer": "true"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What did Tom find in his bag?",
+          "choices": [
+            "A pen and a banana",
+            "A book and a phone",
+            "Nothing"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Tom failed the test.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readstories.the-clever-crow",
+      "title": "Con quạ thông minh",
+      "summary": "Một con quạ khát nước tìm ra cách uống nước trong chiếc bình cao.",
+      "level": "A2_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Truyện ngụ ngôn có bài học ở cuối. Chú ý các từ nối thứ tự: **at last**, **then**, **slowly**, **after many stones**."
+        },
+        {
+          "type": "passage",
+          "title": "The Clever Crow",
+          "paragraphs": [
+            {
+              "en": "One hot summer day, a crow was very thirsty. He flew for a long time but could not find any water. At last, he saw a tall jar under a tree. There was some water at the bottom.",
+              "vi": "Một ngày hè nóng nực, một con quạ rất khát. Nó bay một lúc lâu mà không tìm được nước. Cuối cùng, nó thấy một chiếc bình cao dưới gốc cây. Ở đáy bình có chút nước."
+            },
+            {
+              "en": "The crow put his head into the jar, but the water was too low. He could not reach it with his beak. He tried to push the jar over, but it was too heavy. He felt sad and tired.",
+              "vi": "Quạ thò đầu vào bình nhưng nước thấp quá. Nó không thể với tới bằng mỏ. Nó thử đẩy đổ bình nhưng bình quá nặng. Nó thấy buồn và mệt."
+            },
+            {
+              "en": "Then he had an idea. He picked up small stones, one by one, and dropped them into the jar. Slowly, the water rose higher. After many stones, the crow could drink at last.",
+              "vi": "Rồi nó nảy ra một ý. Nó nhặt từng viên đá nhỏ và thả vào bình. Dần dần, nước dâng cao hơn. Sau nhiều viên đá, cuối cùng quạ cũng uống được nước."
+            },
+            {
+              "en": "'Where there is a will, there is a way,' he said happily and flew away. The story teaches us that if we think carefully, we can solve a problem.",
+              "vi": "“Có chí thì nên,” nó vui vẻ nói rồi bay đi. Câu chuyện dạy chúng ta rằng nếu suy nghĩ cẩn thận, ta có thể giải quyết vấn đề."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why was the crow thirsty?",
+          "choices": [
+            "It was a hot summer day.",
+            "It was raining.",
+            "It was winter."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "How did the crow get the water higher?",
+          "choices": [
+            "He pushed the jar.",
+            "He dropped stones into the jar.",
+            "He poured more water in."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The crow could reach the water with his beak at first.",
+          "answer": "false",
+          "explain": "Lúc đầu nước too low, quạ không với tới."
+        },
+        {
+          "type": "tf",
+          "statement": "The crow felt happy at the end.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The crow lived in a big forest.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "The story teaches us that we can solve a problem if we ___ carefully.",
+          "answers": [
+            "think"
+          ],
+          "choices": [
+            "think",
+            "run",
+            "sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readstories.a-surprise-party",
+      "title": "Bữa tiệc bất ngờ",
+      "summary": "Các bạn bí mật chuẩn bị sinh nhật cho Mai.",
+      "level": "B1_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Chú ý thì quá khứ hoàn thành và các từ nối: **although**, **until**, **so**. Cố hiểu ý chính trước, đừng dừng ở mỗi từ lạ."
+        },
+        {
+          "type": "passage",
+          "title": "A Surprise Party",
+          "paragraphs": [
+            {
+              "en": "Last Friday was Mai's birthday, and her friends decided to give her a surprise party. They had been planning it for two weeks. Linh was in charge of the cake, Nam bought the decorations, and I had to keep Mai away from her flat until everything was ready.",
+              "vi": "Thứ Sáu tuần trước là sinh nhật của Mai và các bạn quyết định tổ chức cho bạn ấy một bữa tiệc bất ngờ. Họ đã lên kế hoạch hai tuần. Linh phụ trách bánh, Nam mua đồ trang trí còn mình phải giữ Mai tránh xa căn hộ của bạn ấy cho đến khi mọi thứ sẵn sàng."
+            },
+            {
+              "en": "I invited her to see a film that evening. Although she was suspicious at first, because I rarely go to the cinema, she agreed. We left the cinema at eight, and I told her I was hungry and we should drop by her flat to pick up her umbrella. Mai was confused, but she opened the door anyway.",
+              "vi": "Mình rủ bạn ấy đi xem phim tối hôm đó. Dù ban đầu bạn ấy nghi ngờ vì mình hiếm khi đi xem phim, bạn ấy vẫn đồng ý. Chúng mình rời rạp lúc tám giờ và mình nói mình đói, rồi bảo ghé căn hộ của bạn ấy lấy ô. Mai thấy khó hiểu nhưng vẫn mở cửa."
+            },
+            {
+              "en": "The lights went on, and everybody shouted, 'Happy birthday!' Mai put her hands on her face and started to cry from happiness. She said it was the best birthday she had ever had. We ate cake, sang songs, and talked until midnight. I think the secret was worth the effort.",
+              "vi": "Đèn bật sáng và mọi người hét lên: “Chúc mừng sinh nhật!” Mai đưa tay che mặt và bật khóc vì hạnh phúc. Bạn ấy nói đó là sinh nhật tuyệt nhất từ trước đến nay. Chúng mình ăn bánh, hát và trò chuyện đến nửa đêm. Mình nghĩ bí mật này rất xứng đáng với công sức bỏ ra."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How long had the friends been planning the party?",
+          "choices": [
+            "For two days",
+            "For two weeks",
+            "For two months"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Who bought the decorations?",
+          "choices": [
+            "Linh",
+            "Nam",
+            "The writer"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "Mai knew about the party before she arrived.",
+          "answer": "false",
+          "explain": "Mai thấy confused (khó hiểu) và bật khóc vì bất ngờ."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer took Mai to the cinema.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Mai received a present from her parents.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why did the writer say they should go to her flat?",
+          "choices": [
+            "To pick up her umbrella",
+            "To watch another film",
+            "To meet her parents"
+          ],
+          "answer": 0
+        }
+      ]
+    }
+  ]
+}

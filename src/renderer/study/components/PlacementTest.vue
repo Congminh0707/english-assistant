@@ -7,7 +7,7 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import PxBar from '@renderer/shared/components/PxBar.vue'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 
-// Bài kiểm tra đầu vào: 20 câu chọn nghĩa, độ khó thích nghi; chấm ở main.
+// Bài kiểm tra đầu vào: 20 câu xen kẽ từ vựng / ngữ pháp / đọc hiểu, độ khó thích nghi; chấm ở main.
 const props = defineProps<{ autostart?: boolean }>()
 const emit = defineEmits<{ done: [] }>()
 
@@ -128,14 +128,23 @@ onUnmounted(() => {
     <template v-else-if="(phase === 'question' || phase === 'feedback') && question">
       <PxBar :value="progress" :max="question.total" label="progress" />
       <p class="muted">
-        {{ t('study.placement.question', { index: question.index, total: question.total }) }}
+        {{
+          t(`study.placement.question.${question.kind}`, {
+            index: question.index,
+            total: question.total
+          })
+        }}
       </p>
       <PxPanel class="box">
-        <div class="word">
+        <div v-if="question.kind === 'vocab'" class="word">
           <strong>{{ question.lemma }}</strong>
           <button type="button" class="say" @click="speak(question.lemma)">🔊</button>
           <span v-if="question.ipa" class="muted">{{ question.ipa }}</span>
         </div>
+        <template v-else>
+          <p v-if="question.passage" class="passage">{{ question.passage }}</p>
+          <p class="prompt">{{ question.prompt }}</p>
+        </template>
         <div class="choices">
           <button
             v-for="(choice, i) in question.choices"
@@ -172,6 +181,13 @@ onUnmounted(() => {
       <p>
         {{ t('study.placement.resultBody', { correct: result.correct, total: result.total }) }}
       </p>
+      <ul class="skills">
+        <li v-for="s in result.skills" :key="s.skill">
+          <strong>{{ t(`study.placement.skill.${s.skill}`) }}</strong>
+          <span class="tag">{{ s.cefr }}</span>
+          <span class="muted">{{ s.correct }}/{{ s.total }}</span>
+        </li>
+      </ul>
       <div class="row">
         <button type="button" class="primary" @click="emit('done')">
           {{ t('study.placement.done') }}
@@ -291,5 +307,37 @@ h1 {
   font: inherit;
   text-decoration: underline;
   cursor: pointer;
+}
+.passage {
+  margin: 0;
+  padding: 8px 12px;
+  background: #fff8dc;
+  border-left: 3px solid var(--c-primary);
+  line-height: 1.6;
+}
+.prompt {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+}
+.skills {
+  display: grid;
+  gap: 4px;
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+}
+.skills li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tag {
+  padding: 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: var(--c-xp);
+  border: 1px solid var(--c-border);
 }
 </style>

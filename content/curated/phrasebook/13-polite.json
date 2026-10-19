@@ -1,0 +1,56 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "polite",
+    "title": "Lịch sự thường dùng",
+    "icon": "🙏",
+    "order": 13
+  },
+  "phrases": [
+    {
+      "en": "Thank you very much.",
+      "vi": "Cảm ơn bạn rất nhiều.",
+      "level": "PA1_1"
+    },
+    {
+      "en": "You're welcome.",
+      "vi": "Không có chi.",
+      "level": "PA1_1"
+    },
+    {
+      "en": "Excuse me.",
+      "vi": "Xin lỗi (để gây chú ý hoặc xin đi qua).",
+      "level": "PA1_2"
+    },
+    {
+      "en": "I'm sorry.",
+      "vi": "Tôi xin lỗi.",
+      "level": "PA1_1"
+    },
+    {
+      "en": "No problem.",
+      "vi": "Không sao đâu.",
+      "level": "PA1_2"
+    },
+    {
+      "en": "Could you help me, please?",
+      "vi": "Bạn giúp tôi được không?",
+      "level": "A1_1"
+    },
+    {
+      "en": "I don't understand.",
+      "vi": "Tôi không hiểu.",
+      "level": "A1_1"
+    },
+    {
+      "en": "How do you say this in English?",
+      "vi": "Cái này nói bằng tiếng Anh thế nào?",
+      "level": "A1_2"
+    },
+    {
+      "en": "Sorry, I didn't catch that.",
+      "vi": "Xin lỗi, tôi chưa nghe rõ.",
+      "level": "A2_1"
+    }
+  ]
+}

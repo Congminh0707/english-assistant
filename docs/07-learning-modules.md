@@ -98,6 +98,8 @@ Lộ trình học từ đầu cho người Việt, **tự soạn** (`proprietary
 
 ## 5. Module Đọc — Reading (P1)
 
+> ✅ **Đã làm (Phase 2)** — bài đọc dùng chung cơ chế với bài học nền tảng (`LessonService` + `kind`): file `content/curated/readings/*.json`, block `passage` (đoạn văn + bản dịch Việt từng đoạn) hiển thị bằng `ReadingPassage.vue`; câu hỏi đọc hiểu là các bài tập `mcq`/`tf`/`gap`; thưởng XP như bài học. Ngữ pháp (`content/curated/grammar`) cũng dùng cơ chế này; mẫu câu (`content/curated/phrasebook`) là thư viện riêng (`PhrasebookLibrary`). Tiến độ lưu chung ở `lesson_progress` (id bài không trùng nhau giữa các loại — có test).
+
 - **Thư viện truyện/bài đọc** phân level (nguồn: StoryWeaver, Gutenberg rút gọn, VOA, bài tự soạn — xem [08](08-content-sources.md)).
 - **Trình đọc tương tác**:
   - Bấm vào từ → popup nghĩa trong ngữ cảnh + 💾 lưu.

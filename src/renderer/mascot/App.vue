@@ -30,7 +30,7 @@ const TICK_MS = 50
 const HOVER_STATS_MS = 900
 const HUNGRY_THRESHOLD = 30
 
-const { locale } = useI18n()
+const { locale, t } = useI18n()
 const petStore = usePetStore()
 const settingsStore = useSettingsStore()
 const bubble = useBubble()
@@ -142,7 +142,7 @@ async function onPat(): Promise<void> {
   }
 }
 
-function onReaction({ kind }: MascotReaction): void {
+function onReaction({ kind, achievementId, count }: MascotReaction): void {
   if (kind === 'eat') {
     brain?.react('eat')
     bubble.say(line('fed'))
@@ -151,6 +151,15 @@ function onReaction({ kind }: MascotReaction): void {
   } else if (kind === 'mission') {
     brain?.react('happy')
     bubble.say(line('missionDone'), BubblePriority.important)
+  } else if (kind === 'achievement' && achievementId) {
+    brain?.react('happy')
+    const name = t(`study.stats.ach.${achievementId}`)
+    bubble.say(
+      count && count > 1
+        ? t('mascot.achievementMany', { name, n: count - 1 })
+        : t('mascot.achievementOne', { name }),
+      BubblePriority.important
+    )
   } else if (kind === 'level-up') {
     brain?.react('happy')
     bubble.say(line('levelUp'), BubblePriority.important)

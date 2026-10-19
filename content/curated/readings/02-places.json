@@ -1,0 +1,242 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readplaces",
+    "title": "Địa điểm & du lịch",
+    "summary": "Giới thiệu thành phố, kể chuyện đi chơi, đi máy bay.",
+    "icon": "🗺️",
+    "order": 2
+  },
+  "lessons": [
+    {
+      "id": "readplaces.my-city",
+      "title": "Thành phố của tôi",
+      "summary": "Giới thiệu Đà Nẵng: thời tiết, mùa đẹp nhất và các điểm tham quan.",
+      "level": "A2_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Chú ý cách miêu tả: **famous for**, **the best time to visit**, **one of the most ...**."
+        },
+        {
+          "type": "passage",
+          "title": "My City",
+          "paragraphs": [
+            {
+              "en": "I live in Da Nang, a city in the middle of Vietnam. It is famous for its clean beaches and its beautiful bridges. About one million people live here, but it never feels too crowded.",
+              "vi": "Mình sống ở Đà Nẵng, một thành phố ở miền Trung Việt Nam. Nơi đây nổi tiếng với những bãi biển sạch và những cây cầu đẹp. Khoảng một triệu người sống ở đây nhưng thành phố chẳng bao giờ quá đông."
+            },
+            {
+              "en": "The weather is warm for most of the year. From September to December, it often rains a lot. Summer is the best time to visit because you can swim and eat fresh seafood.",
+              "vi": "Thời tiết ấm gần như quanh năm. Từ tháng Chín đến tháng Mười hai, trời thường mưa nhiều. Mùa hè là thời điểm tốt nhất để đến vì bạn có thể bơi và ăn hải sản tươi."
+            },
+            {
+              "en": "There are many things to do. You can walk along the river at night and watch the Dragon Bridge breathe fire on weekends. You can also take a short trip to Hoi An, an old town with yellow houses and lanterns. I think Da Nang is one of the most comfortable cities in the country.",
+              "vi": "Có rất nhiều thứ để làm. Bạn có thể đi dạo dọc sông vào buổi tối và xem Cầu Rồng phun lửa vào cuối tuần. Bạn cũng có thể đi một chuyến ngắn đến Hội An, một phố cổ với những ngôi nhà vàng và đèn lồng. Mình nghĩ Đà Nẵng là một trong những thành phố dễ sống nhất cả nước."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why is Da Nang famous?",
+          "choices": [
+            "Mountains and snow",
+            "Clean beaches and beautiful bridges",
+            "Big factories"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "When is the best time to visit?",
+          "choices": [
+            "In summer",
+            "In winter",
+            "In autumn"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "It often rains a lot from September to December.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "About ten million people live in Da Nang.",
+          "answer": "false",
+          "explain": "Khoảng one million = một triệu."
+        },
+        {
+          "type": "tf",
+          "statement": "Hoi An has more tourists than Da Nang.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readplaces.a-trip-to-da-lat",
+      "title": "Chuyến đi Đà Lạt",
+      "summary": "Kể lại chuyến đi Đà Lạt bằng thì quá khứ.",
+      "level": "A2_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là bài kể chuyện nên dùng **thì quá khứ đơn**: took, stayed, rented, got. Thử gạch chân các động từ bất quy tắc."
+        },
+        {
+          "type": "passage",
+          "title": "A Trip to Da Lat",
+          "paragraphs": [
+            {
+              "en": "Last December, my friends and I took a bus to Da Lat. The trip took about seven hours, and we felt tired when we arrived. However, the cool air made us feel better right away.",
+              "vi": "Tháng Mười hai năm ngoái, mình và các bạn đi xe buýt lên Đà Lạt. Chuyến đi mất khoảng bảy tiếng và chúng mình thấy mệt khi đến nơi. Tuy nhiên, không khí mát mẻ khiến chúng mình khỏe lại ngay."
+            },
+            {
+              "en": "We stayed in a small hotel near the central market. The owner was very kind. She gave us a map and told us the best places to eat. In the evening, we tried hot soy milk and grilled rice paper in the street, and the food was delicious.",
+              "vi": "Chúng mình ở một khách sạn nhỏ gần chợ trung tâm. Bà chủ rất tốt bụng. Bà đưa cho chúng mình một tấm bản đồ và chỉ những chỗ ăn ngon nhất. Buổi tối, chúng mình thử sữa đậu nành nóng và bánh tráng nướng ngoài phố, đồ ăn rất ngon."
+            },
+            {
+              "en": "The next day, we rented motorbikes and visited a waterfall and a flower garden. Unfortunately, it started to rain in the afternoon, so we got wet. We went back to the hotel, drank hot tea, and talked until midnight.",
+              "vi": "Hôm sau, chúng mình thuê xe máy và đi thăm một thác nước và một vườn hoa. Không may, buổi chiều trời bắt đầu mưa nên chúng mình bị ướt. Chúng mình về khách sạn, uống trà nóng và nói chuyện đến nửa đêm."
+            },
+            {
+              "en": "I took more than two hundred photos. I would love to go back one day, but next time I will bring a warm jacket.",
+              "vi": "Mình chụp hơn hai trăm tấm ảnh. Mình rất muốn quay lại vào một ngày nào đó, nhưng lần sau mình sẽ mang theo một chiếc áo khoác ấm."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How did they travel to Da Lat?",
+          "choices": [
+            "By plane",
+            "By bus",
+            "By train"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The owner of the hotel was unfriendly.",
+          "answer": "false",
+          "explain": "Bà chủ very kind = rất tốt bụng."
+        },
+        {
+          "type": "tf",
+          "statement": "They rented motorbikes.",
+          "answer": "true"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What happened in the afternoon of the second day?",
+          "choices": [
+            "It rained.",
+            "They got lost.",
+            "They went home."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "They went to Da Lat in summer.",
+          "answer": "false",
+          "explain": "Họ đi vào Last December = tháng Mười hai."
+        },
+        {
+          "type": "tf",
+          "statement": "All the writer's friends are students.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readplaces.at-the-airport",
+      "title": "Ở sân bay",
+      "summary": "Các bước làm thủ tục ở sân bay: check-in, an ninh, lên máy bay.",
+      "level": "B1_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Bài này có nhiều từ vựng sân bay hữu ích: **check in**, **boarding pass**, **security**, **gate**. Hãy lưu những từ mới vào sổ từ."
+        },
+        {
+          "type": "passage",
+          "title": "At the Airport",
+          "paragraphs": [
+            {
+              "en": "Arriving at the airport two hours early is usually a good idea, especially if you are travelling abroad. First, you need to check in at the airline counter, where staff will weigh your suitcase and give you a boarding pass. If your bag is heavier than twenty kilos, you may have to pay an extra fee.",
+              "vi": "Đến sân bay sớm hai tiếng thường là ý hay, nhất là khi bạn đi nước ngoài. Trước hết, bạn cần làm thủ tục tại quầy của hãng bay, nơi nhân viên sẽ cân vali và đưa thẻ lên máy bay. Nếu hành lý nặng hơn hai mươi ký, bạn có thể phải trả thêm phí."
+            },
+            {
+              "en": "After that, you go through security. You must take out your laptop and any liquids from your bag, and walk through the metal detector. It can be stressful when the line is long, so it helps to stay calm and keep your documents ready.",
+              "vi": "Sau đó, bạn đi qua cửa an ninh. Bạn phải lấy máy tính xách tay và mọi chất lỏng ra khỏi túi, rồi đi qua máy dò kim loại. Có thể căng thẳng khi hàng dài, nên giữ bình tĩnh và chuẩn bị sẵn giấy tờ sẽ có ích."
+            },
+            {
+              "en": "Finally, you find your gate and wait for the boarding announcement. Many passengers buy snacks or coffee while they wait. Remember to check the screens regularly, because gates sometimes change at the last minute. Once you are on the plane, switch your phone to flight mode and enjoy the flight.",
+              "vi": "Cuối cùng, bạn tìm cổng và chờ thông báo lên máy bay. Nhiều hành khách mua đồ ăn vặt hoặc cà phê trong lúc chờ. Hãy nhớ xem màn hình thường xuyên vì đôi khi cổng thay đổi vào phút chót. Khi đã lên máy bay, hãy chuyển điện thoại sang chế độ máy bay và tận hưởng chuyến bay."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Where do you get a boarding pass?",
+          "choices": [
+            "At security",
+            "At the airline counter",
+            "At the gate"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What must you take out of your bag at security?",
+          "choices": [
+            "Your passport",
+            "Your laptop and liquids",
+            "Your shoes only"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "A heavy bag may cost extra money.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The gate number never changes.",
+          "answer": "false",
+          "explain": "Bài viết nói gates sometimes change at the last minute."
+        },
+        {
+          "type": "tf",
+          "statement": "Coffee at the airport is cheap.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "mcq",
+          "prompt": "What should you do with your phone on the plane?",
+          "choices": [
+            "Turn it off completely",
+            "Switch it to flight mode",
+            "Leave it in your suitcase"
+          ],
+          "answer": 1
+        }
+      ]
+    }
+  ]
+}

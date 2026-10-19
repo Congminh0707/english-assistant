@@ -1,0 +1,150 @@
+{
+  "license": "proprietary-own",
+  "skill": "reading",
+  "items": [
+    {
+      "id": "r-a11-dog",
+      "level": "A1_1",
+      "passage": "Tom has a dog. The dog is big and brown. Tom walks the dog every morning.",
+      "prompt": "What does Tom do every morning?",
+      "choices": [
+        "He feeds the cat.",
+        "He walks his dog.",
+        "He reads a book."
+      ],
+      "answer": 1
+    },
+    {
+      "id": "r-a12-routine",
+      "level": "A1_2",
+      "passage": "I get up at seven. I have breakfast at half past seven. I go to work at eight.",
+      "prompt": "When does the writer have breakfast?",
+      "choices": [
+        "At seven",
+        "At half past seven",
+        "At eight"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "r-a12-shop",
+      "level": "A1_2",
+      "passage": "The shop opens at nine and closes at six. On Sunday it is closed.",
+      "prompt": "When can you NOT buy things in the shop?",
+      "choices": [
+        "On Saturday",
+        "On Sunday",
+        "At nine o'clock"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "r-a21-rain",
+      "level": "A2_1",
+      "passage": "Anna wanted to go to the beach, but it rained all weekend. So she stayed at home, read a book and cooked pasta.",
+      "prompt": "Why did Anna stay at home?",
+      "choices": [
+        "She was tired.",
+        "It was raining.",
+        "She had no money."
+      ],
+      "answer": 1
+    },
+    {
+      "id": "r-a21-note",
+      "level": "A2_1",
+      "passage": "Dear Sam, thank you for the birthday present. I love the book! I am going to start reading it tonight. See you on Saturday. Best wishes, Kim",
+      "prompt": "Why is Kim writing to Sam?",
+      "choices": [
+        "To say thank you",
+        "To invite him to a party",
+        "To ask for help"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "r-a22-library",
+      "level": "A2_2",
+      "passage": "Notice: The library will close early on Friday because of a staff meeting. It will close at 3 p.m. instead of 6 p.m. Books can be returned in the box outside.",
+      "prompt": "What can people do on Friday evening?",
+      "choices": [
+        "Borrow books",
+        "Return books in the box outside",
+        "Attend the meeting"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "r-b11-cycling",
+      "level": "B1_1",
+      "passage": "Many cities are encouraging people to cycle instead of driving. Cycling reduces traffic and pollution, and it keeps people healthy. However, some cyclists say there are not enough safe bike lanes.",
+      "prompt": "What problem do some cyclists mention?",
+      "choices": [
+        "Bikes are too expensive.",
+        "There are not enough safe bike lanes.",
+        "Cycling is bad for health."
+      ],
+      "answer": 1
+    },
+    {
+      "id": "r-b11-mountains",
+      "level": "B1_1",
+      "passage": "Last summer we visited my grandparents in the mountains. There was no internet, so we spent time playing cards and walking in the forest. At first I felt bored, but by the end of the week I did not want to leave.",
+      "prompt": "How did the writer feel at the end of the week?",
+      "choices": [
+        "Bored",
+        "Reluctant to leave",
+        "Angry"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "r-b12-shopping",
+      "level": "B1_2",
+      "passage": "Although online shopping is convenient, it is not always cheaper. Delivery fees and returns can add extra costs, and some people end up buying things they do not need because the process is so easy.",
+      "prompt": "What is the writer's main point?",
+      "choices": [
+        "Online shopping is always cheaper.",
+        "Online shopping may cost more than expected.",
+        "People should never shop online."
+      ],
+      "answer": 1
+    },
+    {
+      "id": "r-b21-sleep",
+      "level": "B2_1",
+      "passage": "The study found that students who slept at least eight hours scored significantly higher than those who stayed up late, even when the total time spent studying was identical. The researchers concluded that sleep, rather than extra study hours, played the decisive role.",
+      "prompt": "What did the researchers conclude?",
+      "choices": [
+        "Studying more hours is the most important factor.",
+        "Sleep was more important than extra study time.",
+        "Sleep has no effect on results."
+      ],
+      "answer": 1
+    },
+    {
+      "id": "r-b22-policy",
+      "level": "B2_2",
+      "passage": "Critics of the policy argue that it addresses the symptoms rather than the causes of unemployment. Supporters, by contrast, maintain that short-term relief is necessary while long-term reforms are developed.",
+      "prompt": "What do supporters of the policy believe?",
+      "choices": [
+        "It will solve the causes of unemployment.",
+        "Short-term relief is needed while reforms are developed.",
+        "The policy should be abandoned."
+      ],
+      "answer": 1
+    },
+    {
+      "id": "r-c1-press",
+      "level": "C1",
+      "passage": "Far from being a mere technological curiosity, the printing press fundamentally altered the distribution of knowledge, eroding the monopoly that institutions had held over information for centuries.",
+      "prompt": "What does the writer suggest about the printing press?",
+      "choices": [
+        "It was only a curiosity.",
+        "It weakened institutions' control of information.",
+        "It made books more expensive."
+      ],
+      "answer": 1
+    }
+  ]
+}

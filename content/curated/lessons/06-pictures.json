@@ -1,0 +1,860 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "pictures",
+    "title": "Từ vựng bằng hình",
+    "summary": "Học từ qua hình: nghe và chọn hình đúng.",
+    "icon": "🖼️",
+    "order": 6
+  },
+  "lessons": [
+    {
+      "id": "pictures.animals",
+      "title": "Con vật (có hình)",
+      "summary": "Học tên các con vật quen thuộc qua hình.",
+      "level": "PA1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Hôm nay học **con vật** bằng hình. Bấm vào từng ô để nghe cách đọc, rồi làm bài tập chọn hình."
+        },
+        {
+          "type": "sounds",
+          "title": "Con vật",
+          "items": [
+            {
+              "text": "🐶 dog",
+              "note": "con chó",
+              "say": "dog"
+            },
+            {
+              "text": "🐱 cat",
+              "note": "con mèo",
+              "say": "cat"
+            },
+            {
+              "text": "🐟 fish",
+              "note": "con cá",
+              "say": "fish"
+            },
+            {
+              "text": "🐦 bird",
+              "note": "con chim",
+              "say": "bird"
+            },
+            {
+              "text": "🐴 horse",
+              "note": "con ngựa",
+              "say": "horse"
+            },
+            {
+              "text": "🐮 cow",
+              "note": "con bò",
+              "say": "cow"
+            },
+            {
+              "text": "🐷 pig",
+              "note": "con heo",
+              "say": "pig"
+            },
+            {
+              "text": "🐘 elephant",
+              "note": "con voi",
+              "say": "elephant"
+            },
+            {
+              "text": "🐰 rabbit",
+              "note": "con thỏ",
+              "say": "rabbit"
+            },
+            {
+              "text": "🐵 monkey",
+              "note": "con khỉ",
+              "say": "monkey"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Thử vừa nhìn hình vừa nói to từ tiếng Anh. Nhớ bằng hình nhanh hơn nhớ qua dịch nghĩa."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "picture",
+          "word": "horse",
+          "choices": [
+            "🐴",
+            "🐮",
+            "🐰",
+            "🐘"
+          ],
+          "answer": 0,
+          "explain": "🐴 = horse (con ngựa)"
+        },
+        {
+          "type": "picture",
+          "word": "dog",
+          "choices": [
+            "🐱",
+            "🐵",
+            "🐶",
+            "🐷"
+          ],
+          "answer": 2,
+          "explain": "🐶 = dog (con chó)"
+        },
+        {
+          "type": "picture",
+          "word": "cow",
+          "choices": [
+            "🐟",
+            "🐷",
+            "🐰",
+            "🐮"
+          ],
+          "answer": 3,
+          "explain": "🐮 = cow (con bò)"
+        },
+        {
+          "type": "picture",
+          "word": "monkey",
+          "choices": [
+            "🐵",
+            "🐮",
+            "🐘",
+            "🐴"
+          ],
+          "answer": 0,
+          "explain": "🐵 = monkey (con khỉ)"
+        },
+        {
+          "type": "picture",
+          "word": "bird",
+          "choices": [
+            "🐵",
+            "🐶",
+            "🐱",
+            "🐦"
+          ],
+          "answer": 3,
+          "explain": "🐦 = bird (con chim)",
+          "listen": true
+        },
+        {
+          "type": "picture",
+          "word": "cat",
+          "choices": [
+            "🐶",
+            "🐘",
+            "🐰",
+            "🐱"
+          ],
+          "answer": 3,
+          "explain": "🐱 = cat (con mèo)",
+          "listen": true
+        },
+        {
+          "type": "picture",
+          "word": "pig",
+          "choices": [
+            "🐦",
+            "🐷",
+            "🐰",
+            "🐘"
+          ],
+          "answer": 1,
+          "explain": "🐷 = pig (con heo)",
+          "listen": true
+        },
+        {
+          "type": "picture",
+          "word": "rabbit",
+          "choices": [
+            "🐵",
+            "🐰",
+            "🐮",
+            "🐶"
+          ],
+          "answer": 1,
+          "explain": "🐰 = rabbit (con thỏ)",
+          "listen": true
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép hình với từ tiếng Anh:",
+          "pairs": [
+            {
+              "left": "🐘",
+              "right": "elephant"
+            },
+            {
+              "left": "🐦",
+              "right": "bird"
+            },
+            {
+              "left": "🐱",
+              "right": "cat"
+            },
+            {
+              "left": "🐮",
+              "right": "cow"
+            },
+            {
+              "left": "🐴",
+              "right": "horse"
+            }
+          ]
+        },
+        {
+          "type": "listen",
+          "say": "horse",
+          "choices": [
+            "cat",
+            "cow",
+            "horse"
+          ],
+          "answer": 2,
+          "explain": "horse = con ngựa"
+        }
+      ]
+    },
+    {
+      "id": "pictures.fruits",
+      "title": "Trái cây (có hình)",
+      "summary": "Tên các loại trái cây thường gặp.",
+      "level": "PA1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Hôm nay học **trái cây** bằng hình. Bấm vào từng ô để nghe cách đọc, rồi làm bài tập chọn hình."
+        },
+        {
+          "type": "sounds",
+          "title": "Trái cây",
+          "items": [
+            {
+              "text": "🍎 apple",
+              "note": "quả táo",
+              "say": "apple"
+            },
+            {
+              "text": "🍌 banana",
+              "note": "quả chuối",
+              "say": "banana"
+            },
+            {
+              "text": "🍊 orange",
+              "note": "quả cam",
+              "say": "orange"
+            },
+            {
+              "text": "🍇 grapes",
+              "note": "chùm nho",
+              "say": "grapes"
+            },
+            {
+              "text": "🍓 strawberry",
+              "note": "quả dâu tây",
+              "say": "strawberry"
+            },
+            {
+              "text": "🍉 watermelon",
+              "note": "dưa hấu",
+              "say": "watermelon"
+            },
+            {
+              "text": "🍍 pineapple",
+              "note": "quả dứa",
+              "say": "pineapple"
+            },
+            {
+              "text": "🍑 peach",
+              "note": "quả đào",
+              "say": "peach"
+            },
+            {
+              "text": "🍋 lemon",
+              "note": "quả chanh vàng",
+              "say": "lemon"
+            },
+            {
+              "text": "🥭 mango",
+              "note": "quả xoài",
+              "say": "mango"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Thử vừa nhìn hình vừa nói to từ tiếng Anh. Nhớ bằng hình nhanh hơn nhớ qua dịch nghĩa."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "picture",
+          "word": "pineapple",
+          "choices": [
+            "🍍",
+            "🍎",
+            "🥭",
+            "🍑"
+          ],
+          "answer": 0,
+          "explain": "🍍 = pineapple (quả dứa)"
+        },
+        {
+          "type": "picture",
+          "word": "peach",
+          "choices": [
+            "🥭",
+            "🍓",
+            "🍎",
+            "🍑"
+          ],
+          "answer": 3,
+          "explain": "🍑 = peach (quả đào)"
+        },
+        {
+          "type": "picture",
+          "word": "orange",
+          "choices": [
+            "🍓",
+            "🍉",
+            "🍍",
+            "🍊"
+          ],
+          "answer": 3,
+          "explain": "🍊 = orange (quả cam)"
+        },
+        {
+          "type": "picture",
+          "word": "banana",
+          "choices": [
+            "🍋",
+            "🍌",
+            "🍉",
+            "🍇"
+          ],
+          "answer": 1,
+          "explain": "🍌 = banana (quả chuối)"
+        },
+        {
+          "type": "picture",
+          "word": "strawberry",
+          "choices": [
+            "🍑",
+            "🍋",
+            "🍓",
+            "🍇"
+          ],
+          "answer": 2,
+          "explain": "🍓 = strawberry (quả dâu tây)",
+          "listen": true
+        },
+        {
+          "type": "picture",
+          "word": "apple",
+          "choices": [
+            "🍊",
+            "🍎",
+            "🍉",
+            "🍌"
+          ],
+          "answer": 1,
+          "explain": "🍎 = apple (quả táo)",
+          "listen": true
+        },
+        {
+          "type": "picture",
+          "word": "lemon",
+          "choices": [
+            "🍋",
+            "🍉",
+            "🍍",
+            "🍑"
+          ],
+          "answer": 0,
+          "explain": "🍋 = lemon (quả chanh vàng)",
+          "listen": true
+        },
+        {
+          "type": "picture",
+          "word": "watermelon",
+          "choices": [
+            "🍓",
+            "🥭",
+            "🍉",
+            "🍍"
+          ],
+          "answer": 2,
+          "explain": "🍉 = watermelon (dưa hấu)",
+          "listen": true
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép hình với từ tiếng Anh:",
+          "pairs": [
+            {
+              "left": "🍑",
+              "right": "peach"
+            },
+            {
+              "left": "🍎",
+              "right": "apple"
+            },
+            {
+              "left": "🍇",
+              "right": "grapes"
+            },
+            {
+              "left": "🍊",
+              "right": "orange"
+            },
+            {
+              "left": "🍉",
+              "right": "watermelon"
+            }
+          ]
+        },
+        {
+          "type": "listen",
+          "say": "pineapple",
+          "choices": [
+            "pineapple",
+            "mango",
+            "strawberry"
+          ],
+          "answer": 0,
+          "explain": "pineapple = quả dứa"
+        }
+      ]
+    },
+    {
+      "id": "pictures.food",
+      "title": "Đồ ăn & thức uống (có hình)",
+      "summary": "Món ăn, đồ uống hằng ngày.",
+      "level": "PA1_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Hôm nay học **đồ ăn & thức uống** bằng hình. Bấm vào từng ô để nghe cách đọc, rồi làm bài tập chọn hình."
+        },
+        {
+          "type": "sounds",
+          "title": "Đồ ăn & thức uống",
+          "items": [
+            {
+              "text": "🍞 bread",
+              "note": "bánh mì",
+              "say": "bread"
+            },
+            {
+              "text": "🍚 rice",
+              "note": "cơm",
+              "say": "rice"
+            },
+            {
+              "text": "🥚 egg",
+              "note": "quả trứng",
+              "say": "egg"
+            },
+            {
+              "text": "🍜 noodles",
+              "note": "mì, phở",
+              "say": "noodles"
+            },
+            {
+              "text": "🍕 pizza",
+              "note": "bánh pizza",
+              "say": "pizza"
+            },
+            {
+              "text": "🍔 hamburger",
+              "note": "bánh hamburger",
+              "say": "hamburger"
+            },
+            {
+              "text": "☕ coffee",
+              "note": "cà phê",
+              "say": "coffee"
+            },
+            {
+              "text": "🥛 milk",
+              "note": "sữa",
+              "say": "milk"
+            },
+            {
+              "text": "🍵 tea",
+              "note": "trà",
+              "say": "tea"
+            },
+            {
+              "text": "🧀 cheese",
+              "note": "phô mai",
+              "say": "cheese"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Thử vừa nhìn hình vừa nói to từ tiếng Anh. Nhớ bằng hình nhanh hơn nhớ qua dịch nghĩa."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "picture",
+          "word": "bread",
+          "choices": [
+            "🍕",
+            "🍜",
+            "🍵",
+            "🍞"
+          ],
+          "answer": 3,
+          "explain": "🍞 = bread (bánh mì)"
+        },
+        {
+          "type": "picture",
+          "word": "milk",
+          "choices": [
+            "☕",
+            "🥚",
+            "🥛",
+            "🍵"
+          ],
+          "answer": 2,
+          "explain": "🥛 = milk (sữa)"
+        },
+        {
+          "type": "picture",
+          "word": "noodles",
+          "choices": [
+            "🍕",
+            "☕",
+            "🥛",
+            "🍜"
+          ],
+          "answer": 3,
+          "explain": "🍜 = noodles (mì, phở)"
+        },
+        {
+          "type": "picture",
+          "word": "rice",
+          "choices": [
+            "🍚",
+            "🍕",
+            "🍔",
+            "🍞"
+          ],
+          "answer": 0,
+          "explain": "🍚 = rice (cơm)"
+        },
+        {
+          "type": "picture",
+          "word": "coffee",
+          "choices": [
+            "🍕",
+            "🍞",
+            "☕",
+            "🍚"
+          ],
+          "answer": 2,
+          "explain": "☕ = coffee (cà phê)",
+          "listen": true
+        },
+        {
+          "type": "picture",
+          "word": "tea",
+          "choices": [
+            "🍚",
+            "🧀",
+            "🍔",
+            "🍵"
+          ],
+          "answer": 3,
+          "explain": "🍵 = tea (trà)",
+          "listen": true
+        },
+        {
+          "type": "picture",
+          "word": "pizza",
+          "choices": [
+            "🍔",
+            "🍞",
+            "🍵",
+            "🍕"
+          ],
+          "answer": 3,
+          "explain": "🍕 = pizza (bánh pizza)",
+          "listen": true
+        },
+        {
+          "type": "picture",
+          "word": "cheese",
+          "choices": [
+            "🍞",
+            "🥚",
+            "🧀",
+            "🍔"
+          ],
+          "answer": 2,
+          "explain": "🧀 = cheese (phô mai)",
+          "listen": true
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép hình với từ tiếng Anh:",
+          "pairs": [
+            {
+              "left": "☕",
+              "right": "coffee"
+            },
+            {
+              "left": "🍕",
+              "right": "pizza"
+            },
+            {
+              "left": "🥚",
+              "right": "egg"
+            },
+            {
+              "left": "🍞",
+              "right": "bread"
+            },
+            {
+              "left": "🧀",
+              "right": "cheese"
+            }
+          ]
+        },
+        {
+          "type": "listen",
+          "say": "bread",
+          "choices": [
+            "bread",
+            "tea",
+            "egg"
+          ],
+          "answer": 0,
+          "explain": "bread = bánh mì"
+        }
+      ]
+    },
+    {
+      "id": "pictures.things",
+      "title": "Đồ vật quanh ta (có hình)",
+      "summary": "Đồ vật trong nhà và ở trường.",
+      "level": "A1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Hôm nay học **đồ vật quanh ta** bằng hình. Bấm vào từng ô để nghe cách đọc, rồi làm bài tập chọn hình."
+        },
+        {
+          "type": "sounds",
+          "title": "Đồ vật quanh ta",
+          "items": [
+            {
+              "text": "📚 books",
+              "note": "những quyển sách",
+              "say": "books"
+            },
+            {
+              "text": "✏️ pencil",
+              "note": "bút chì",
+              "say": "pencil"
+            },
+            {
+              "text": "🎒 backpack",
+              "note": "ba lô",
+              "say": "backpack"
+            },
+            {
+              "text": "⌚ watch",
+              "note": "đồng hồ đeo tay",
+              "say": "watch"
+            },
+            {
+              "text": "📱 phone",
+              "note": "điện thoại",
+              "say": "phone"
+            },
+            {
+              "text": "💻 laptop",
+              "note": "máy tính xách tay",
+              "say": "laptop"
+            },
+            {
+              "text": "🔑 key",
+              "note": "chìa khóa",
+              "say": "key"
+            },
+            {
+              "text": "🪑 chair",
+              "note": "cái ghế",
+              "say": "chair"
+            },
+            {
+              "text": "🛏️ bed",
+              "note": "cái giường",
+              "say": "bed"
+            },
+            {
+              "text": "☂️ umbrella",
+              "note": "cái ô",
+              "say": "umbrella"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Thử vừa nhìn hình vừa nói to từ tiếng Anh. Nhớ bằng hình nhanh hơn nhớ qua dịch nghĩa."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "picture",
+          "word": "key",
+          "choices": [
+            "🎒",
+            "🔑",
+            "⌚",
+            "📱"
+          ],
+          "answer": 1,
+          "explain": "🔑 = key (chìa khóa)"
+        },
+        {
+          "type": "picture",
+          "word": "backpack",
+          "choices": [
+            "📚",
+            "🎒",
+            "⌚",
+            "🪑"
+          ],
+          "answer": 1,
+          "explain": "🎒 = backpack (ba lô)"
+        },
+        {
+          "type": "picture",
+          "word": "umbrella",
+          "choices": [
+            "📚",
+            "☂️",
+            "📱",
+            "🛏️"
+          ],
+          "answer": 1,
+          "explain": "☂️ = umbrella (cái ô)"
+        },
+        {
+          "type": "picture",
+          "word": "bed",
+          "choices": [
+            "🛏️",
+            "🎒",
+            "📱",
+            "☂️"
+          ],
+          "answer": 0,
+          "explain": "🛏️ = bed (cái giường)"
+        },
+        {
+          "type": "picture",
+          "word": "books",
+          "choices": [
+            "📚",
+            "🛏️",
+            "🔑",
+            "🪑"
+          ],
+          "answer": 0,
+          "explain": "📚 = books (những quyển sách)",
+          "listen": true
+        },
+        {
+          "type": "picture",
+          "word": "laptop",
+          "choices": [
+            "📱",
+            "✏️",
+            "💻",
+            "📚"
+          ],
+          "answer": 2,
+          "explain": "💻 = laptop (máy tính xách tay)",
+          "listen": true
+        },
+        {
+          "type": "picture",
+          "word": "phone",
+          "choices": [
+            "🎒",
+            "📱",
+            "⌚",
+            "☂️"
+          ],
+          "answer": 1,
+          "explain": "📱 = phone (điện thoại)",
+          "listen": true
+        },
+        {
+          "type": "picture",
+          "word": "pencil",
+          "choices": [
+            "☂️",
+            "✏️",
+            "💻",
+            "🛏️"
+          ],
+          "answer": 1,
+          "explain": "✏️ = pencil (bút chì)",
+          "listen": true
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép hình với từ tiếng Anh:",
+          "pairs": [
+            {
+              "left": "📚",
+              "right": "books"
+            },
+            {
+              "left": "💻",
+              "right": "laptop"
+            },
+            {
+              "left": "📱",
+              "right": "phone"
+            },
+            {
+              "left": "🛏️",
+              "right": "bed"
+            },
+            {
+              "left": "🔑",
+              "right": "key"
+            }
+          ]
+        },
+        {
+          "type": "listen",
+          "say": "key",
+          "choices": [
+            "key",
+            "laptop",
+            "phone"
+          ],
+          "answer": 0,
+          "explain": "key = chìa khóa"
+        }
+      ]
+    }
+  ]
+}

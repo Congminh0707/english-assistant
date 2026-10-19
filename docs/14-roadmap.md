@@ -76,7 +76,7 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 - [x] Trình độ: bài kiểm tra đầu vào từ vựng thích nghi (20 câu, `PlacementService`) + chọn tay (menu chuột phải, Cài đặt, màn hình chào) → `learning.level`
 - [x] Cửa sổ Học tập: thanh bên (thú cưng, level, XP), trang chủ (thẻ đến hạn, streak, ôn hôm nay, tổng thẻ, **nhiệm vụ ngày**), phiên ôn, sổ từ, kiểm tra trình độ, cài đặt, màn hình chào; mở từ menu mascot/tray — **còn** lộ trình theo bài
 - [x] Luyện tập: 5 dạng bài (điền từ, sắp xếp câu, nghe chọn nghĩa, nghe chép, ghép cặp) sinh từ câu Tatoeba + từ vựng đúng trình độ, phiên 10 bài, thưởng XP (tối đa 5 phiên/ngày) — đã thử tay OK (2026-10-19)
-- [ ] Placement đầy đủ (ngữ pháp, đọc, nghe) & rating theo kỹ năng — hiện chỉ từ vựng
+- [x] Placement nhiều kỹ năng: 20 câu xen kẽ từ vựng (12) / ngữ pháp (5) / đọc hiểu (3), mỗi kỹ năng một "bậc thang" độ khó riêng, lưu trình độ theo kỹ năng (`learning.levelVocab/Grammar/Reading`) và trình độ chung; ngân hàng 33 câu ngữ pháp + 12 câu đọc hiểu tự soạn (`content/curated/placement`). **Còn**: phần nghe (cần audio), Elo theo kỹ năng — chưa thử tay
 
 **Nội dung (song song)**
 - [x] Pipeline: fetch + normalize Tatoeba, NGSL, CEFR-J, kaikki (Wiktionary), CMUdict
@@ -93,12 +93,12 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 
 ## Phase 2 — Đọc, Nghe, Trẻ em (≈ 8 tuần)
 
-- [ ] Hệ thống dạng bài tập (registry) + các dạng: `mcq`, `gap_fill`, `word_order`, `tap_pairs`, `picture_choice`, `listen_choice`, `dictation`, `true_false_ng`
+- [ ] (một phần: đã thêm `tf` đúng/sai/không có thông tin, `picture` chọn hình — nhìn từ/nghe từ, `match` = tap_pairs; unit "Từ vựng bằng hình" 4 bài; còn registry tách component, `speak_repeat`...) Hệ thống dạng bài tập (registry) + các dạng: `mcq`, `gap_fill`, `word_order`, `tap_pairs`, `picture_choice`, `listen_choice`, `dictation`, `true_false_ng`
 - [ ] Course → Unit → Lesson player, lưu tiến độ, chấm điểm, rating Elo
-- [ ] Trình đọc tương tác (bấm từ tra, highlight từ trên level, TTS theo câu, song ngữ)
+- [x] Trình đọc tương tác (bấm từ tra + lưu kèm câu ngữ cảnh, gạch chân từ trên level, TTS theo câu/cả bài, song ngữ từng đoạn) + 12 bài đọc A1–B1 có câu hỏi đọc hiểu (`ReadingPassage.vue`, `content/curated/readings`) — chưa thử tay. **Còn**: nhiều bài đọc hơn (mục tiêu 50), từ mới của bài vào SRS tự động
 - [ ] Trình nghe (tốc độ, A–B loop, theo câu, transcript)
-- [ ] Ngữ pháp: trang điểm ngữ pháp + bài tập
-- [ ] Phrasebook
+- [x] Ngữ pháp: trang "Ngữ pháp" với 14 điểm (động từ khuyết thiếu, V-ing/to V, used to, bị động, cụm động từ, điều kiện 0/1/2, mệnh đề quan hệ, tường thuật, câu hỏi đuôi, đếm được/không đếm được, trạng từ tần suất, sở hữu, too/enough) + bài tập — chưa thử tay. **Còn**: đủ 40 điểm
+- [x] Phrasebook: 12 nhóm tình huống, ~100 mẫu câu có nghe (TTS), nghĩa Việt, tìm kiếm, bấm để sao chép — chưa thử tay. **Còn**: lưu mẫu câu vào SRS
 - [ ] Track trẻ em: phonics, chữ cái, picture book, chế độ phụ huynh (PIN, giới hạn thời gian)
 - [x] Cửa hàng: mua đồ ăn + phụ kiện (nơ, kính, khăn, mũ chóp Lv5, vương miện Lv10) bằng xu, đeo/tháo, mascot vẽ lớp phụ kiện (`ShopService`, `acc-*.png` sinh từ `make-placeholder.mjs`) — chưa thử tay
 - [ ] Checkpoint lên cấp, tiến hoá thú cưng — **đã xong phần thành tựu**: 32 huy hiệu pixel art 32×32 (vẽ bằng hình cơ bản + tự đổ bóng) ở 9 nhóm (chuỗi ngày, ôn tập, từ vựng, luyện tập, bài học, điểm tuyệt đối, chuyên cần, XP, trí nhớ) với 4 hạng đồng/bạc/vàng/kim cương, tính thuần từ số liệu thống kê (`src/shared/achievements.ts`, `badgeArt.ts`, `PixelBadge.vue`, không bảng riêng), hiện trong trang Thống kê; chưa có thông báo mascot khi mở khoá — chưa thử tay

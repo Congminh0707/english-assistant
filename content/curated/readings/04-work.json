@@ -1,0 +1,178 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readwork",
+    "title": "Học tập & công việc",
+    "summary": "Bài đọc về cách học ngoại ngữ và phỏng vấn xin việc.",
+    "icon": "💼",
+    "order": 4
+  },
+  "lessons": [
+    {
+      "id": "readwork.learning-english",
+      "title": "Cách tôi học tiếng Anh",
+      "summary": "Chia sẻ thói quen học đều mỗi ngày và học qua điều mình thích.",
+      "level": "B1_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Bài văn nghị luận ngắn. Tìm câu chủ đề của mỗi đoạn (thường là câu đầu) và các từ nối: **but**, **also**, **because**."
+        },
+        {
+          "type": "passage",
+          "title": "Learning English",
+          "paragraphs": [
+            {
+              "en": "Many people believe that learning a language requires talent, but in my experience, regular practice matters much more. When I started learning English five years ago, I could barely introduce myself. Now I can read news articles and have simple conversations with tourists.",
+              "vi": "Nhiều người tin rằng học ngoại ngữ cần năng khiếu, nhưng theo kinh nghiệm của mình, luyện tập đều đặn quan trọng hơn nhiều. Khi mình bắt đầu học tiếng Anh năm năm trước, mình hầu như không thể giới thiệu bản thân. Giờ mình có thể đọc báo và trò chuyện đơn giản với khách du lịch."
+            },
+            {
+              "en": "The first thing that helped me was a daily habit. I studied for only twenty minutes a day, but I never skipped it. Gradually, new words became familiar. I also stopped worrying about mistakes. Whenever I made one, I wrote it down and checked the correct form later.",
+              "vi": "Điều đầu tiên giúp mình là thói quen hằng ngày. Mình chỉ học hai mươi phút mỗi ngày nhưng không bao giờ bỏ buổi nào. Dần dần, từ mới trở nên quen thuộc. Mình cũng thôi lo sợ mắc lỗi. Mỗi khi sai, mình ghi lại và kiểm tra dạng đúng sau đó."
+            },
+            {
+              "en": "Another useful method is to connect English with things you enjoy. I like football, so I started watching match reports and listening to podcasts about the sport. Because I was interested, I remembered much more vocabulary than I did from lists in a textbook.",
+              "vi": "Một phương pháp hữu ích khác là gắn tiếng Anh với những điều mình thích. Mình thích bóng đá nên bắt đầu xem bản tin trận đấu và nghe podcast về môn này. Vì hứng thú, mình nhớ được nhiều từ vựng hơn nhiều so với học danh sách trong sách giáo khoa."
+            },
+            {
+              "en": "If you are just beginning, my advice is simple: be patient, study every day, and enjoy the process.",
+              "vi": "Nếu bạn mới bắt đầu, lời khuyên của mình rất đơn giản: hãy kiên nhẫn, học mỗi ngày và tận hưởng quá trình này."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "According to the writer, what matters most in learning a language?",
+          "choices": [
+            "Talent",
+            "Regular practice",
+            "A good textbook"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "How long did the writer study each day?",
+          "choices": [
+            "Twenty minutes",
+            "One hour",
+            "Two hours"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The writer stopped worrying about mistakes.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The writer learned English by watching films only.",
+          "answer": "false",
+          "explain": "Tác giả xem bản tin bóng đá và nghe podcast, không chỉ xem phim."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer studied English at a language school.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "Whenever he made a mistake, he wrote it ___.",
+          "answers": [
+            "down"
+          ],
+          "choices": [
+            "down",
+            "up",
+            "out"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readwork.a-job-interview",
+      "title": "Buổi phỏng vấn đầu tiên",
+      "summary": "Chuẩn bị và trải qua buổi phỏng vấn xin việc.",
+      "level": "B1_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Bài có nhiều cách diễn đạt về công việc: **job interview**, **strengths**, **deadline**, **offer a position**. Thử diễn đạt lại bằng lời của bạn."
+        },
+        {
+          "type": "passage",
+          "title": "A Job Interview",
+          "paragraphs": [
+            {
+              "en": "Last month, I had my first job interview at a software company. I was nervous for days, so I prepared carefully. I researched the company, practised answers to common questions, and chose a neat shirt to wear.",
+              "vi": "Tháng trước, mình có buổi phỏng vấn xin việc đầu tiên ở một công ty phần mềm. Mình lo lắng suốt mấy ngày nên chuẩn bị rất kỹ. Mình tìm hiểu về công ty, luyện trả lời những câu hỏi thường gặp và chọn một chiếc áo sơ mi gọn gàng để mặc."
+            },
+            {
+              "en": "On the day, I arrived fifteen minutes early. The interviewer, Ms. Hanh, welcomed me with a warm smile, which immediately made me feel more relaxed. She asked me about my education, my strengths, and a time when I solved a difficult problem. I described a school project in which our team had to fix a broken website before a deadline.",
+              "vi": "Hôm đó, mình đến sớm mười lăm phút. Người phỏng vấn, chị Hạnh, chào đón mình bằng nụ cười ấm áp khiến mình thấy thoải mái hơn ngay. Chị hỏi về học vấn, điểm mạnh và một lần mình giải quyết vấn đề khó. Mình kể về một dự án ở trường, khi nhóm phải sửa một trang web hỏng trước hạn chót."
+            },
+            {
+              "en": "At the end, she asked whether I had any questions. I asked what a typical day in the team looks like, and she gave a detailed answer. Although I didn't know the result straight away, I felt proud of myself. A week later, I received an email offering me the position. The experience taught me that preparation is the best way to reduce stress.",
+              "vi": "Cuối buổi, chị hỏi mình có câu hỏi nào không. Mình hỏi một ngày làm việc điển hình của nhóm trông như thế nào và chị trả lời rất chi tiết. Dù không biết kết quả ngay, mình vẫn thấy tự hào về bản thân. Một tuần sau, mình nhận được email mời nhận vị trí đó. Trải nghiệm này dạy mình rằng chuẩn bị là cách tốt nhất để giảm căng thẳng."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How did the writer prepare for the interview?",
+          "choices": [
+            "By asking a friend to go too",
+            "By researching the company and practising answers",
+            "By buying a new laptop"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What made the writer feel more relaxed?",
+          "choices": [
+            "The interviewer's warm smile",
+            "A cup of coffee",
+            "A short test"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The writer arrived late.",
+          "answer": "false",
+          "explain": "Tác giả đến sớm fifteen minutes early."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer got a job offer by email.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The company is in Ho Chi Minh City.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "mcq",
+          "prompt": "What did the writer learn from the experience?",
+          "choices": [
+            "Interviews are always easy.",
+            "Preparation reduces stress.",
+            "It is better to arrive late."
+          ],
+          "answer": 1
+        }
+      ]
+    }
+  ]
+}

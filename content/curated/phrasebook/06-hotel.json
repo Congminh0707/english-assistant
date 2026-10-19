@@ -1,0 +1,51 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "hotel",
+    "title": "Khách sạn",
+    "icon": "🏨",
+    "order": 6
+  },
+  "phrases": [
+    {
+      "en": "I have a reservation under the name Tran.",
+      "vi": "Tôi có đặt phòng dưới tên Trần.",
+      "level": "A2_1"
+    },
+    {
+      "en": "Do you have any rooms available?",
+      "vi": "Còn phòng trống không?",
+      "level": "A2_1"
+    },
+    {
+      "en": "I'd like a double room for two nights.",
+      "vi": "Tôi muốn một phòng đôi trong hai đêm.",
+      "level": "A2_1"
+    },
+    {
+      "en": "What time is breakfast?",
+      "vi": "Bữa sáng lúc mấy giờ?",
+      "level": "A1_2"
+    },
+    {
+      "en": "What's the Wi-Fi password?",
+      "vi": "Mật khẩu Wi-Fi là gì?",
+      "level": "A1_2"
+    },
+    {
+      "en": "The air conditioner is not working.",
+      "vi": "Máy lạnh không hoạt động.",
+      "level": "A2_1"
+    },
+    {
+      "en": "Could I have an extra towel, please?",
+      "vi": "Cho tôi thêm một chiếc khăn tắm được không?",
+      "level": "A2_1"
+    },
+    {
+      "en": "What time is check-out?",
+      "vi": "Trả phòng lúc mấy giờ?",
+      "level": "A2_1"
+    }
+  ]
+}

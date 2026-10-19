@@ -1,0 +1,57 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "shopping",
+    "title": "Mua sắm",
+    "icon": "🛍",
+    "order": 4
+  },
+  "phrases": [
+    {
+      "en": "How much is this?",
+      "vi": "Cái này bao nhiêu tiền?",
+      "level": "A1_1"
+    },
+    {
+      "en": "It's too expensive.",
+      "vi": "Đắt quá.",
+      "level": "A1_1"
+    },
+    {
+      "en": "Do you have this in a larger size?",
+      "vi": "Cái này có cỡ lớn hơn không?",
+      "level": "A2_1"
+    },
+    {
+      "en": "Can I try it on?",
+      "vi": "Tôi mặc thử được không?",
+      "level": "A1_2"
+    },
+    {
+      "en": "I'm just looking, thank you.",
+      "vi": "Tôi chỉ xem thôi, cảm ơn.",
+      "level": "A1_2",
+      "note": "Khi nhân viên hỏi bạn có cần giúp không."
+    },
+    {
+      "en": "Can you give me a discount?",
+      "vi": "Bạn giảm giá cho tôi được không?",
+      "level": "A2_1"
+    },
+    {
+      "en": "I'll take it.",
+      "vi": "Tôi lấy cái này.",
+      "level": "A1_2"
+    },
+    {
+      "en": "Do you accept credit cards?",
+      "vi": "Bên bạn có nhận thẻ tín dụng không?",
+      "level": "A2_1"
+    },
+    {
+      "en": "Could I get a receipt?",
+      "vi": "Cho tôi xin biên lai được không?",
+      "level": "A2_1"
+    }
+  ]
+}

@@ -1,4 +1,6 @@
+import type { LessonKind } from '@shared/schemas/lesson'
 import type { Container } from '../container'
+import type { LessonService } from '../services/LessonService'
 import type { TranslationService } from '../services/TranslationService'
 import type { TtsService } from '../services/TtsService'
 import { handle } from './handle'
@@ -20,6 +22,15 @@ export function registerAppIpc(
       childSafe: c.profiles.active().isChild
     })
   )
+  handle('dictionary:levels', ({ words }) => {
+    const options = { childSafe: c.profiles.active().isChild }
+    const out: Record<string, string> = {}
+    for (const word of new Set(words.map((w) => w.toLowerCase()))) {
+      const entry = c.dictionary.lookup(word, undefined, options).entries[0]
+      if (entry && entry.via !== 'search') out[word] = entry.level
+    }
+    return out
+  })
   handle('vocab:save', (input) => c.vocab.save(input))
   handle('quiz:answer', ({ quizId, choiceIndex, elapsedMs }) =>
     c.micro.answer(quizId, choiceIndex, elapsedMs)
@@ -53,10 +64,14 @@ export function registerAppIpc(
   handle('shop:buy', ({ itemId }) => c.shop.buy(itemId))
   handle('shop:equip', ({ itemId, equipped }) => c.shop.equip(itemId, equipped))
   handle('study:stats', () => c.stats.stats())
-  handle('lesson:catalog', () => c.lessons.catalog())
-  handle('lesson:get', ({ id }) => c.lessons.get(id))
-  handle('lesson:complete', ({ lessonId, correct, total }) =>
-    c.lessons.complete(lessonId, correct, total)
+  handle('phrasebook:list', () => c.phrasebook.list())
+  // Bài học nền tảng, điểm ngữ pháp và bài đọc dùng chung kênh, phân biệt bằng `kind`
+  const lessonService = (kind: LessonKind): LessonService =>
+    kind === 'grammar' ? c.grammar : kind === 'reading' ? c.readings : c.lessons
+  handle('lesson:catalog', ({ kind }) => lessonService(kind).catalog())
+  handle('lesson:get', ({ kind, id }) => lessonService(kind).get(id))
+  handle('lesson:complete', ({ kind, lessonId, correct, total }) =>
+    lessonService(kind).complete(lessonId, correct, total)
   )
   handle('tts:status', () => tts.status())
   handle('tts:install', () => tts.install())

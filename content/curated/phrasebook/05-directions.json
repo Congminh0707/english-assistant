@@ -1,0 +1,56 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "directions",
+    "title": "Hỏi đường & phương tiện",
+    "icon": "🧭",
+    "order": 5
+  },
+  "phrases": [
+    {
+      "en": "Excuse me, where is the station?",
+      "vi": "Xin lỗi, nhà ga ở đâu vậy?",
+      "level": "A1_2"
+    },
+    {
+      "en": "How do I get to the airport?",
+      "vi": "Tôi đến sân bay bằng cách nào?",
+      "level": "A2_1"
+    },
+    {
+      "en": "Turn left at the traffic lights.",
+      "vi": "Rẽ trái ở chỗ đèn giao thông.",
+      "level": "A1_2"
+    },
+    {
+      "en": "Go straight and turn right.",
+      "vi": "Đi thẳng rồi rẽ phải.",
+      "level": "A1_2"
+    },
+    {
+      "en": "Is it far from here?",
+      "vi": "Chỗ đó có xa đây không?",
+      "level": "A1_2"
+    },
+    {
+      "en": "It's about ten minutes on foot.",
+      "vi": "Đi bộ khoảng mười phút.",
+      "level": "A2_1"
+    },
+    {
+      "en": "Which bus goes to the city centre?",
+      "vi": "Xe buýt nào đi vào trung tâm thành phố?",
+      "level": "A2_1"
+    },
+    {
+      "en": "One ticket to Da Nang, please.",
+      "vi": "Cho tôi một vé đi Đà Nẵng.",
+      "level": "A1_2"
+    },
+    {
+      "en": "Could you tell me when to get off?",
+      "vi": "Bạn có thể báo tôi khi nào xuống không?",
+      "level": "A2_2"
+    }
+  ]
+}

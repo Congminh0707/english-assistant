@@ -1,0 +1,51 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "smalltalk",
+    "title": "Trò chuyện thông thường",
+    "icon": "☕",
+    "order": 11
+  },
+  "phrases": [
+    {
+      "en": "What do you do for a living?",
+      "vi": "Bạn làm nghề gì?",
+      "level": "A2_1"
+    },
+    {
+      "en": "Where are you from?",
+      "vi": "Bạn đến từ đâu?",
+      "level": "A1_1"
+    },
+    {
+      "en": "How was your weekend?",
+      "vi": "Cuối tuần của bạn thế nào?",
+      "level": "A2_1"
+    },
+    {
+      "en": "What do you like to do in your free time?",
+      "vi": "Bạn thích làm gì khi rảnh?",
+      "level": "A2_1"
+    },
+    {
+      "en": "The weather is lovely today, isn't it?",
+      "vi": "Hôm nay trời đẹp nhỉ?",
+      "level": "A2_2"
+    },
+    {
+      "en": "That sounds great!",
+      "vi": "Nghe tuyệt đấy!",
+      "level": "A2_1"
+    },
+    {
+      "en": "I couldn't agree more.",
+      "vi": "Tôi hoàn toàn đồng ý.",
+      "level": "B1_1"
+    },
+    {
+      "en": "Let's keep in touch.",
+      "vi": "Chúng ta giữ liên lạc nhé.",
+      "level": "A2_2"
+    }
+  ]
+}

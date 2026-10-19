@@ -77,6 +77,8 @@
     "footer": "Esc đóng · Enter tra · Ctrl+S lưu"
   },
   "mascot": {
+    "achievementOne": "Thành tựu mới: {name}! 🏅",
+    "achievementMany": "Thành tựu mới: {name} và {n} huy hiệu nữa! 🏅",
     "lines": {
       "greetingMorning": ["Chào buổi sáng! ☀️", "Good morning! Học 5 phút nhé?"],
       "greetingAfternoon": ["Chào buổi chiều!", "Good afternoon! %PET% ở đây nè."],
@@ -141,7 +143,10 @@
       "practice": "Luyện tập",
       "shop": "Cửa hàng",
       "stats": "Thống kê",
-      "lessons": "Bài học"
+      "lessons": "Bài học",
+      "reading": "Bài đọc",
+      "grammar": "Ngữ pháp",
+      "phrasebook": "Mẫu câu"
     },
     "home": {
       "welcome": "Chào bạn, hôm nay học gì nào?",
@@ -222,11 +227,16 @@
       "finish": "Bắt đầu học"
     },
     "placement": {
-      "title": "Kiểm tra trình độ từ vựng",
-      "intro": "20 câu trắc nghiệm, khó dần nếu bạn trả lời đúng. Không biết thì chọn “Tôi không biết” — đừng đoán bừa nhé!",
+      "title": "Kiểm tra trình độ",
+      "intro": "20 câu trắc nghiệm gồm từ vựng, ngữ pháp và đọc hiểu, khó dần nếu bạn trả lời đúng. Không biết thì chọn “Tôi không biết” — đừng đoán bừa nhé!",
       "start": "Bắt đầu",
       "noPack": "Chưa cài gói từ điển nên chưa làm bài kiểm tra được.",
-      "question": "Câu {index}/{total}: nghĩa của từ này là gì?",
+      "question": {
+        "vocab": "Câu {index}/{total}: nghĩa của từ này là gì?",
+        "grammar": "Câu {index}/{total}: chọn đáp án đúng để điền vào chỗ trống.",
+        "reading": "Câu {index}/{total}: đọc đoạn văn rồi trả lời."
+      },
+      "skill": { "vocab": "Từ vựng", "grammar": "Ngữ pháp", "reading": "Đọc hiểu" },
       "dontKnow": "Tôi không biết",
       "correct": "Đúng rồi! ✓",
       "wrong": "Chưa đúng — đáp án: {answer}",
@@ -318,6 +328,8 @@
         "relearning": "Học lại"
       },
       "levels": "Từ trong sổ theo level",
+      "skills": "Trình độ theo kỹ năng",
+      "skillsHint": "Cập nhật sau mỗi lần làm bài kiểm tra trình độ.",
       "achievements": "Thành tựu",
       "achProgress": "Đã mở khoá {done}/{total}",
       "hardest": "Từ hay quên nhất",
@@ -390,12 +402,41 @@
         "6": "CN"
       }
     },
+    "reading": {
+      "title": "Bài đọc",
+      "intro": "Đọc các bài ngắn theo trình độ. Bấm vào từ để tra nghĩa và lưu vào sổ từ, bấm 🔊 để nghe từng câu. Cuối bài có câu hỏi đọc hiểu.",
+      "listenAll": "Nghe cả bài",
+      "toggleVi": "Bản dịch",
+      "hint": "Bấm vào một từ để tra · bấm 🔊 cạnh câu để nghe câu đó.",
+      "listenSentence": "Nghe câu này",
+      "showVi": "Xem bản dịch",
+      "hideVi": "Ẩn bản dịch",
+      "hardLegend": "từ khó hơn trình độ hiện tại của bạn",
+      "saved": "Đã lưu vào sổ từ",
+      "savedShort": "Đã lưu",
+      "save": "Lưu từ",
+      "noMeaning": "(chưa có nghĩa tiếng Việt)",
+      "notFound": "Không tìm thấy “{word}” trong từ điển."
+    },
+    "grammar": {
+      "title": "Ngữ pháp",
+      "intro": "Tra từng điểm ngữ pháp: giải thích ngắn bằng tiếng Việt, ví dụ nghe được, mẹo cho người Việt và bài tập nhanh."
+    },
+    "phrasebook": {
+      "title": "Mẫu câu giao tiếp",
+      "intro": "Các câu thường dùng theo tình huống. Bấm 🔊 để nghe, bấm vào câu để sao chép.",
+      "search": "Tìm mẫu câu…",
+      "empty": "Không có mẫu câu phù hợp.",
+      "all": "Tất cả",
+      "copied": "Đã sao chép",
+      "copy": "Sao chép"
+    },
     "lessons": {
       "title": "Bài học nền tảng",
       "intro": "Học từ đầu: chữ cái và phát âm, mẫu câu cơ bản, các thì, giao tiếp hằng ngày. Mỗi bài có phần giải thích, ví dụ nghe được và bài tập.",
       "progress": "Đã hoàn thành {done}/{total} bài",
       "continue": "Học tiếp",
-      "allDone": "Bạn đã hoàn thành toàn bộ bài học nền tảng!",
+      "allDone": "Bạn đã hoàn thành tất cả bài ở đây!",
       "empty": "Chưa có bài học nào.",
       "minutes": "{n} phút",
       "back": "Danh sách bài học",
@@ -404,6 +445,11 @@
       "tapToHear": "Bấm vào ô để nghe phát âm.",
       "startExercises": "Làm bài tập ({n} câu)",
       "counter": "Câu {index}/{total}",
+      "tf": { "true": "Đúng", "false": "Sai", "ng": "Không có thông tin" },
+      "tfHelp": "Câu sau đúng hay sai?",
+      "tfHelpNg": "Câu sau đúng, sai hay bài đọc không nói đến?",
+      "pictureHelp": "Chọn hình đúng với từ:",
+      "pictureListen": "Nghe và chọn hình đúng:",
       "listenPrompt": "Nghe và chọn đáp án đúng:",
       "play": "Nghe",
       "slow": "Chậm",

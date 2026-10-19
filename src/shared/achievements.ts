@@ -83,6 +83,14 @@ const TABLE: ReadonlyArray<readonly [AchievementGroup, number, BadgeTier]> = [
   ['memory', 90, 'gold']
 ]
 
+/** Thưởng khi mở khoá, theo hạng */
+export const ACHIEVEMENT_REWARDS: Record<BadgeTier, { xp: number; coins: number }> = {
+  bronze: { xp: 20, coins: 5 },
+  silver: { xp: 50, coins: 10 },
+  gold: { xp: 120, coins: 25 },
+  diamond: { xp: 300, coins: 60 }
+}
+
 export const ACHIEVEMENTS: readonly AchievementDef[] = TABLE.map(([group, target, tier]) => ({
   id: `${group}${target}`,
   group,

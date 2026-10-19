@@ -77,6 +77,8 @@
     "footer": "Esc close · Enter search · Ctrl+S save"
   },
   "mascot": {
+    "achievementOne": "New achievement: {name}! 🏅",
+    "achievementMany": "New achievement: {name} and {n} more! 🏅",
     "lines": {
       "greetingMorning": ["Good morning! ☀️", "Morning! Fancy a 5-minute lesson?"],
       "greetingAfternoon": ["Good afternoon!", "Hi there, %PET% is here."],
@@ -141,7 +143,10 @@
       "practice": "Practice",
       "shop": "Shop",
       "stats": "Statistics",
-      "lessons": "Lessons"
+      "lessons": "Lessons",
+      "reading": "Reading",
+      "grammar": "Grammar",
+      "phrasebook": "Phrasebook"
     },
     "home": {
       "welcome": "Hi, what shall we learn today?",
@@ -222,11 +227,16 @@
       "finish": "Start learning"
     },
     "placement": {
-      "title": "Vocabulary level test",
-      "intro": "20 multiple-choice questions that get harder as you answer correctly. If you do not know, choose “I don’t know” — no wild guesses!",
+      "title": "Level test",
+      "intro": "20 multiple-choice questions on vocabulary, grammar and reading; they get harder as you answer correctly. If you don't know, choose “I don't know” — don't guess!",
       "start": "Start",
       "noPack": "The dictionary pack is not installed yet, so the test is unavailable.",
-      "question": "Question {index}/{total}: what does this word mean?",
+      "question": {
+        "vocab": "Question {index}/{total}: what does this word mean?",
+        "grammar": "Question {index}/{total}: choose the correct answer for the blank.",
+        "reading": "Question {index}/{total}: read the passage and answer."
+      },
+      "skill": { "vocab": "Vocabulary", "grammar": "Grammar", "reading": "Reading" },
       "dontKnow": "I don’t know",
       "correct": "Correct! ✓",
       "wrong": "Not quite — answer: {answer}",
@@ -318,6 +328,8 @@
         "relearning": "Relearning"
       },
       "levels": "Saved words by level",
+      "skills": "Level by skill",
+      "skillsHint": "Updated each time you take the level test.",
       "achievements": "Achievements",
       "achProgress": "{done}/{total} unlocked",
       "hardest": "Most forgotten words",
@@ -390,12 +402,41 @@
         "6": "Sun"
       }
     },
+    "reading": {
+      "title": "Reading",
+      "intro": "Read short passages at your level. Tap a word to look it up and save it, tap 🔊 to hear a sentence. Comprehension questions follow.",
+      "listenAll": "Listen to all",
+      "toggleVi": "Translation",
+      "hint": "Tap a word to look it up · tap 🔊 next to a sentence to hear it.",
+      "listenSentence": "Hear this sentence",
+      "showVi": "Show translation",
+      "hideVi": "Hide translation",
+      "hardLegend": "harder than your current level",
+      "saved": "Saved to your word list",
+      "savedShort": "Saved",
+      "save": "Save word",
+      "noMeaning": "(no Vietnamese meaning yet)",
+      "notFound": "“{word}” not found in the dictionary."
+    },
+    "grammar": {
+      "title": "Grammar",
+      "intro": "Look up grammar points: short explanations, audio examples, tips and quick exercises."
+    },
+    "phrasebook": {
+      "title": "Phrasebook",
+      "intro": "Useful phrases by situation. Tap 🔊 to listen, tap a phrase to copy it.",
+      "search": "Search phrases…",
+      "empty": "No matching phrases.",
+      "all": "All",
+      "copied": "Copied",
+      "copy": "Copy"
+    },
     "lessons": {
       "title": "Foundation lessons",
       "intro": "Start from scratch: alphabet and pronunciation, basic sentence patterns, tenses, everyday communication. Each lesson has an explanation, examples you can listen to, and exercises. (Lesson text is in Vietnamese.)",
       "progress": "{done}/{total} lessons completed",
       "continue": "Continue",
-      "allDone": "You have completed all the foundation lessons!",
+      "allDone": "You have completed everything here!",
       "empty": "No lessons yet.",
       "minutes": "{n} min",
       "back": "Lesson list",
@@ -404,6 +445,11 @@
       "tapToHear": "Tap a tile to hear the pronunciation.",
       "startExercises": "Start exercises ({n} questions)",
       "counter": "Question {index}/{total}",
+      "tf": { "true": "True", "false": "False", "ng": "Not given" },
+      "tfHelp": "Is the statement true or false?",
+      "tfHelpNg": "Is the statement true, false, or not given?",
+      "pictureHelp": "Pick the picture that matches the word:",
+      "pictureListen": "Listen and pick the right picture:",
       "listenPrompt": "Listen and choose the right answer:",
       "play": "Play",
       "slow": "Slow",

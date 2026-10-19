@@ -1,0 +1,54 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "greetings",
+    "title": "Chào hỏi",
+    "icon": "👋",
+    "order": 1
+  },
+  "phrases": [
+    {
+      "en": "Hello! How are you?",
+      "vi": "Xin chào! Bạn khỏe không?",
+      "level": "PA1_1"
+    },
+    {
+      "en": "I'm fine, thank you. And you?",
+      "vi": "Tôi khỏe, cảm ơn. Còn bạn?",
+      "level": "PA1_1"
+    },
+    {
+      "en": "Good morning!",
+      "vi": "Chào buổi sáng!",
+      "level": "PA1_1",
+      "note": "Dùng đến khoảng 12 giờ trưa."
+    },
+    {
+      "en": "Nice to meet you.",
+      "vi": "Rất vui được gặp bạn.",
+      "level": "PA1_2",
+      "note": "Dùng lần đầu gặp nhau."
+    },
+    {
+      "en": "What's your name?",
+      "vi": "Bạn tên là gì?",
+      "level": "PA1_1"
+    },
+    {
+      "en": "See you tomorrow!",
+      "vi": "Hẹn gặp lại ngày mai!",
+      "level": "A1_1"
+    },
+    {
+      "en": "Have a nice day!",
+      "vi": "Chúc một ngày tốt lành!",
+      "level": "A1_1"
+    },
+    {
+      "en": "Long time no see! How have you been?",
+      "vi": "Lâu rồi không gặp! Dạo này bạn thế nào?",
+      "level": "A2_1",
+      "note": "Thân mật."
+    }
+  ]
+}

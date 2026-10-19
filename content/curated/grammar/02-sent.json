@@ -1,0 +1,580 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "gramsent",
+    "title": "Cấu trúc câu",
+    "summary": "Câu điều kiện, mệnh đề quan hệ, tường thuật, câu hỏi đuôi.",
+    "icon": "🧩",
+    "order": 2
+  },
+  "lessons": [
+    {
+      "id": "gramsent.conditionals",
+      "title": "Câu điều kiện loại 0 và 1",
+      "summary": "If + hiện tại, ... will + V.",
+      "level": "A2_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Loại 0**: sự thật hiển nhiên — If + hiện tại đơn, hiện tại đơn.\n`If you heat ice, it melts.`\n\n**Loại 1**: điều có thể xảy ra ở tương lai — If + hiện tại đơn, will + V.\n`If it rains, we will stay at home.`\n\nChú ý: mệnh đề **if** dùng hiện tại đơn, **không dùng will**."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Loại",
+            "Mệnh đề if",
+            "Mệnh đề chính",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "0",
+              "hiện tại đơn",
+              "hiện tại đơn",
+              "If you mix red and blue, you get purple."
+            ],
+            [
+              "1",
+              "hiện tại đơn",
+              "will + V",
+              "If I study, I will pass."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "If it rains, we will stay at home.",
+              "vi": "Nếu trời mưa, chúng ta sẽ ở nhà."
+            },
+            {
+              "en": "If you don't hurry, you will miss the bus.",
+              "vi": "Nếu bạn không nhanh lên, bạn sẽ lỡ xe buýt."
+            },
+            {
+              "en": "If you heat water to 100 degrees, it boils.",
+              "vi": "Nếu đun nước đến 100 độ, nó sôi."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Sai thường gặp: *If it will rain, ...* — đúng là **If it rains**, ..."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "If it ___ tomorrow, we will stay at home.",
+          "answers": [
+            "rains"
+          ],
+          "choices": [
+            "rains",
+            "will rain",
+            "rained"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "If you study hard, you ___ the test.",
+          "answers": [
+            "will pass"
+          ],
+          "choices": [
+            "will pass",
+            "pass",
+            "passed"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "If I will see him, I will tell him.",
+            "If I see him, I will tell him.",
+            "If I saw him, I tell him."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Nếu bạn nhanh lên, bạn sẽ kịp xe buýt.",
+          "answer": "If you hurry you will catch the bus"
+        },
+        {
+          "type": "gap",
+          "prompt": "If you heat ice, it ___.",
+          "answers": [
+            "melts"
+          ],
+          "choices": [
+            "melts",
+            "will melt",
+            "melted"
+          ],
+          "explain": "Sự thật hiển nhiên → hiện tại đơn."
+        },
+        {
+          "type": "tf",
+          "statement": "In a first conditional sentence, we use will in the if-clause.",
+          "answer": "false"
+        }
+      ]
+    },
+    {
+      "id": "gramsent.second-conditional",
+      "title": "Câu điều kiện loại 2",
+      "summary": "If + quá khứ, would + V: giả định không có thật.",
+      "level": "B1_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Loại 2** nói về tình huống **không có thật hoặc khó xảy ra ở hiện tại**.\n\nCấu trúc: **If + quá khứ đơn, would + V**\n\n- `If I had a million dollars, I would travel the world.` (nhưng thực tế mình không có)\n- `If I were you, I would take the job.` (lời khuyên)\n\nVới **be**, thường dùng **were** cho mọi chủ ngữ: *If I were..., If he were...*"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "If I had more time, I would learn the piano.",
+              "vi": "Nếu có nhiều thời gian hơn, tôi sẽ học đàn piano."
+            },
+            {
+              "en": "If I were you, I would apologise.",
+              "vi": "Nếu tôi là bạn, tôi sẽ xin lỗi."
+            },
+            {
+              "en": "What would you do if you won the lottery?",
+              "vi": "Bạn sẽ làm gì nếu trúng xổ số?"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Câu điều kiện loại 2 dùng thì **quá khứ** nhưng nghĩa là **hiện tại**: *If I had a car* = nếu bây giờ tôi có xe (mà thực tế không có)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "If I ___ rich, I would buy a big house.",
+          "answers": [
+            "were",
+            "was"
+          ],
+          "choices": [
+            "were",
+            "am",
+            "will be"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "If she had more time, she ___ a book.",
+          "answers": [
+            "would write"
+          ],
+          "choices": [
+            "would write",
+            "will write",
+            "writes"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is about an unreal situation?",
+          "choices": [
+            "If I have time, I will call you.",
+            "If I had time, I would call you.",
+            "If I had time yesterday, I called you."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Nếu tôi là bạn, tôi sẽ nhận công việc đó.",
+          "answer": "If I were you I would take the job"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What would you do if you ___ a million dollars?",
+          "choices": [
+            "have",
+            "had",
+            "will have"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "“If I were you” is used to give advice.",
+          "answer": "true"
+        }
+      ]
+    },
+    {
+      "id": "gramsent.relative-clauses",
+      "title": "Mệnh đề quan hệ: who, which, that",
+      "summary": "Nối thêm thông tin cho danh từ.",
+      "level": "B1_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Mệnh đề quan hệ** bổ nghĩa cho danh từ đứng trước.\n\n- **who**: cho người — `The man who lives next door is a doctor.`\n- **which**: cho vật — `The book which I bought is interesting.`\n- **that**: cho cả người và vật — `The film that we watched was funny.`\n- **where**: cho nơi chốn — `This is the town where I was born.`\n- **whose**: chỉ sở hữu — `The girl whose bag is red is my sister.`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Từ",
+            "Dùng cho",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "who",
+              "người",
+              "the teacher who helped me"
+            ],
+            [
+              "which",
+              "vật",
+              "the phone which is on the table"
+            ],
+            [
+              "that",
+              "người / vật",
+              "the film that we saw"
+            ],
+            [
+              "where",
+              "nơi chốn",
+              "the cafe where we met"
+            ],
+            [
+              "whose",
+              "sở hữu",
+              "a friend whose dad is a pilot"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "The woman who called you is my aunt.",
+              "vi": "Người phụ nữ gọi cho bạn là dì của tôi."
+            },
+            {
+              "en": "I like the shirt which you are wearing.",
+              "vi": "Tôi thích chiếc áo bạn đang mặc."
+            },
+            {
+              "en": "This is the school where I studied.",
+              "vi": "Đây là ngôi trường nơi tôi từng học."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Không nhắc lại đại từ: *The man who he lives...* là sai. Đúng: *The man who lives...*"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "The girl ___ lives next door is a nurse.",
+          "answers": [
+            "who",
+            "that"
+          ],
+          "choices": [
+            "who",
+            "which",
+            "where"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The book ___ I borrowed is very good.",
+          "answers": [
+            "which",
+            "that"
+          ],
+          "choices": [
+            "which",
+            "who",
+            "whose"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "This is the park ___ we play football.",
+          "answers": [
+            "where"
+          ],
+          "choices": [
+            "where",
+            "who",
+            "which"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "The man who he called is my uncle.",
+            "The man who called me is my uncle.",
+            "The man which called me is my uncle."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "I know a boy ___ father is a pilot.",
+          "answers": [
+            "whose"
+          ],
+          "choices": [
+            "whose",
+            "who",
+            "which"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Đây là cuốn sách tôi đã nói với bạn.",
+          "answer": "This is the book that I told you about"
+        }
+      ]
+    },
+    {
+      "id": "gramsent.reported-speech",
+      "title": "Câu tường thuật",
+      "summary": "Kể lại lời người khác: lùi thì và đổi đại từ.",
+      "level": "B1_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Câu tường thuật** kể lại lời nói của người khác. Thường **lùi một thì** và đổi đại từ, trạng từ chỉ thời gian.\n\n- Hiện tại đơn → quá khứ đơn: `\"I am tired.\" → She said she was tired.`\n- Hiện tại tiếp diễn → quá khứ tiếp diễn\n- Quá khứ đơn → quá khứ hoàn thành\n- will → would, can → could\n\nCâu hỏi Yes/No dùng **if / whether**: `He asked if I was ready.`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Lời nói trực tiếp",
+            "Tường thuật"
+          ],
+          "rows": [
+            [
+              "\"I like it.\"",
+              "She said (that) she liked it."
+            ],
+            [
+              "\"I am working.\"",
+              "He said he was working."
+            ],
+            [
+              "\"I will call you.\"",
+              "She said she would call me."
+            ],
+            [
+              "\"Do you speak English?\"",
+              "He asked if I spoke English."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "He said he was very tired.",
+              "vi": "Anh ấy nói anh ấy rất mệt."
+            },
+            {
+              "en": "She told me she would call me later.",
+              "vi": "Cô ấy bảo cô ấy sẽ gọi cho tôi sau."
+            },
+            {
+              "en": "They asked if we wanted some coffee.",
+              "vi": "Họ hỏi chúng tôi có muốn cà phê không."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Với **said** không cần tân ngữ (*She said she was...*); với **told** phải có tân ngữ (*She told me she was...*)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "“I am hungry,” he said. → He said he ___ hungry.",
+          "answers": [
+            "was"
+          ],
+          "choices": [
+            "was",
+            "is",
+            "were"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "“I will help you,” she said. → She said she ___ help me.",
+          "answers": [
+            "would"
+          ],
+          "choices": [
+            "would",
+            "will",
+            "can"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "She told she was tired.",
+            "She told me she was tired.",
+            "She said me she was tired."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "“Do you like pizza?” he asked. → He asked me ___ I liked pizza.",
+          "answers": [
+            "if",
+            "whether"
+          ],
+          "choices": [
+            "if",
+            "that",
+            "what"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "“We can swim,” they said. → They said they ___ swim.",
+          "answers": [
+            "could"
+          ],
+          "choices": [
+            "could",
+            "can",
+            "will"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Cô ấy nói rằng cô ấy đang bận.",
+          "answer": "She said that she was busy"
+        }
+      ]
+    },
+    {
+      "id": "gramsent.question-tags",
+      "title": "Câu hỏi đuôi",
+      "summary": "Isn't it? Don't you? — xác nhận điều mình nghĩ.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Câu hỏi đuôi** là câu hỏi ngắn thêm vào cuối câu để xác nhận hoặc tìm sự đồng ý.\n\nQuy tắc: **câu khẳng định → đuôi phủ định**, **câu phủ định → đuôi khẳng định**. Đuôi dùng trợ động từ của câu chính + đại từ.\n\n- `You are a student, aren't you?`\n- `She doesn't like coffee, does she?`\n- `They can swim, can't they?`\n- `It is cold today, isn't it?`\n\nVới I am → **aren't I?**; với Let's → **shall we?**"
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "It's a nice day, isn't it?",
+              "vi": "Hôm nay đẹp trời nhỉ?"
+            },
+            {
+              "en": "You didn't see him, did you?",
+              "vi": "Bạn không thấy anh ấy, phải không?"
+            },
+            {
+              "en": "Let's go, shall we?",
+              "vi": "Đi thôi nhé?"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Giọng **đi xuống** ở câu hỏi đuôi nghĩa là bạn chắc chắn và chỉ muốn đồng ý; giọng **đi lên** nghĩa là bạn thật sự hỏi."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "You are tired, ___ you?",
+          "answers": [
+            "aren't"
+          ],
+          "choices": [
+            "aren't",
+            "don't",
+            "isn't"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She doesn't like tea, ___ she?",
+          "answers": [
+            "does"
+          ],
+          "choices": [
+            "does",
+            "doesn't",
+            "is"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "They can swim, ___ they?",
+          "answers": [
+            "can't"
+          ],
+          "choices": [
+            "can't",
+            "don't",
+            "aren't"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Choose the correct tag: “It's cold today, ___?”",
+          "choices": [
+            "isn't it",
+            "doesn't it",
+            "is it"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "gap",
+          "prompt": "I am late, ___ I?",
+          "answers": [
+            "aren't"
+          ],
+          "choices": [
+            "aren't",
+            "amn't",
+            "don't"
+          ],
+          "explain": "Ngoại lệ: I am → aren't I?"
+        },
+        {
+          "type": "order",
+          "hint": "Hôm nay đẹp trời nhỉ?",
+          "answer": "It is a nice day isn't it"
+        }
+      ]
+    }
+  ]
+}

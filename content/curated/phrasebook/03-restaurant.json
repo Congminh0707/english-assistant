@@ -1,0 +1,59 @@
+{
+  "license": "proprietary-own",
+  "category": {
+    "id": "restaurant",
+    "title": "Nhà hàng & quán cà phê",
+    "icon": "🍜",
+    "order": 3
+  },
+  "phrases": [
+    {
+      "en": "A table for two, please.",
+      "vi": "Cho tôi một bàn hai người.",
+      "level": "A1_1"
+    },
+    {
+      "en": "Can I see the menu, please?",
+      "vi": "Cho tôi xem thực đơn được không?",
+      "level": "A1_2"
+    },
+    {
+      "en": "I'd like the chicken soup, please.",
+      "vi": "Tôi muốn món súp gà.",
+      "level": "A1_2",
+      "note": "“I'd like” lịch sự hơn “I want”."
+    },
+    {
+      "en": "Could we have some water, please?",
+      "vi": "Cho chúng tôi xin ít nước được không?",
+      "level": "A1_2"
+    },
+    {
+      "en": "What do you recommend?",
+      "vi": "Bạn gợi ý món gì?",
+      "level": "A2_1"
+    },
+    {
+      "en": "I'm allergic to peanuts.",
+      "vi": "Tôi bị dị ứng đậu phộng.",
+      "level": "A2_1",
+      "note": "Quan trọng khi gọi món."
+    },
+    {
+      "en": "Could I have the bill, please?",
+      "vi": "Cho tôi xin hóa đơn được không?",
+      "level": "A1_2",
+      "note": "Anh Mỹ: check. Anh Anh: bill."
+    },
+    {
+      "en": "Keep the change.",
+      "vi": "Không cần thối lại.",
+      "level": "A2_1"
+    },
+    {
+      "en": "The food was delicious!",
+      "vi": "Đồ ăn rất ngon!",
+      "level": "A1_2"
+    }
+  ]
+}

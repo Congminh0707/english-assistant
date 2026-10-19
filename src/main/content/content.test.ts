@@ -800,4 +800,29 @@ describe('StatsService', () => {
     expect(s.days.filter((d) => d.reviews > 0)).toHaveLength(4)
     expect(s.week.reviews + s.week.prevReviews).toBe(4)
   })
+
+  it('từ hay quên nhất xếp theo số lần quên; thành tựu mở khoá theo số liệu', () => {
+    expect(c.stats.stats().hardest).toEqual([])
+    for (const w of ['go', 'apple']) c.vocab.save({ contentId: `word:en:${w}`, text: w })
+    const [go, apple] = c.study.words().map((w) => w.cardId)
+    // Ôn tới trạng thái Review rồi quên: 'go' hai lần, 'apple' một lần
+    for (const [card, lapses] of [
+      [go, 2],
+      [apple, 1]
+    ] as const) {
+      for (let i = 0; i < lapses; i++) {
+        c.srs.review(card, 4, { source: 'study' })
+        clock.advance(40 * DAY)
+        c.srs.review(card, 4, { source: 'study' })
+        clock.advance(40 * DAY)
+        c.srs.review(card, 1, { source: 'study' })
+        clock.advance(DAY)
+      }
+    }
+    const s = c.stats.stats()
+    expect(s.hardest.map((w) => w.text)).toEqual(['go', 'apple'])
+    expect(s.hardest[0].lapses).toBeGreaterThan(s.hardest[1].lapses)
+    expect(s.achievements.find((a) => a.id === 'reviews100')).toMatchObject({ unlocked: false })
+    expect(s.achievements.find((a) => a.id === 'words10')).toMatchObject({ current: 2 })
+  })
 })

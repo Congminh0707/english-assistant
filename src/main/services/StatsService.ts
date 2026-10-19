@@ -1,8 +1,10 @@
+import { evaluateAchievements, MIN_REVIEWS_FOR_RETENTION } from '@shared/achievements'
 import { dayRange, longestStreak } from '@shared/stats'
 import type { Stats, StatsDay } from '@shared/schemas/stats'
 import type { Clock } from '../core/Clock'
 import { localDayKey, localOffsetSeconds } from '../core/localDay'
 import type { DictionaryService } from '../content/DictionaryService'
+import type { LessonRepository } from '../db/repositories/LessonRepository'
 import type { VocabRepository } from '../db/repositories/VocabRepository'
 import type { XpRepository } from '../db/repositories/XpRepository'
 import type { ProfileService } from './ProfileService'
@@ -10,6 +12,8 @@ import { computeStreak } from './StudyService'
 
 /** Số ngày trong lịch hoạt động: 16 tuần */
 export const STATS_DAYS = 112
+/** Số từ hay quên hiển thị */
+const HARDEST_LIMIT = 8
 const DAY_MS = 86_400_000
 const STATE_NAMES = ['new', 'learning', 'review', 'relearning'] as const
 
@@ -21,6 +25,7 @@ export class StatsService {
   constructor(
     private readonly deps: {
       vocab: VocabRepository
+      lessonRepo: LessonRepository
       xpRepo: XpRepository
       dictionary: DictionaryService
       profiles: ProfileService
@@ -29,7 +34,8 @@ export class StatsService {
   ) {}
 
   stats(): Stats {
-    const { vocab, xpRepo, dictionary, profiles, clock } = this.deps
+    const deps = this.deps
+    const { vocab, xpRepo, dictionary, profiles, clock } = deps
     const profileId = profiles.activeId()
     const now = clock.now()
     const tz = localOffsetSeconds(now)
@@ -67,6 +73,11 @@ export class StatsService {
 
     const sum = (list: StatsDay[], key: 'reviews' | 'xp' | 'saved'): number =>
       list.reduce((n, d) => n + d[key], 0)
+    const lessonRows = deps.lessonRepo.list(profileId)
+    const lessonsCompleted = lessonRows.filter((l) => l.completedAt !== null).length
+    const perfectLessons = lessonRows.filter((l) => l.best >= 100).length
+    const xpTotal = xpRepo.totals(profileId).xp
+    const streakBest = longestStreak(allReviewDays)
     const thisWeek = days.slice(-7)
     const prevWeek = days.slice(-14, -7)
 
@@ -75,15 +86,31 @@ export class StatsService {
       totals: {
         reviews: reviewTotals.total,
         savedWords: savedIds.length,
-        xp: xpRepo.totals(profileId).xp,
+        xp: xpTotal,
         practiceSessions: xpRepo.countByReason(profileId, 'exercise.session'),
         activeDays: allReviewDays.length,
         retention: reviewTotals.total ? reviewTotals.remembered / reviewTotals.total : null,
         streak: computeStreak(allReviewDays, today),
-        longestStreak: longestStreak(allReviewDays)
+        longestStreak: streakBest,
+        lessonsCompleted
       },
       cardStates: states,
       levels,
+      hardest: vocab.hardestWords(profileId, HARDEST_LIMIT),
+      achievements: evaluateAchievements({
+        longestStreak: streakBest,
+        reviews: reviewTotals.total,
+        savedWords: savedIds.length,
+        practiceSessions: xpRepo.countByReason(profileId, 'exercise.session'),
+        lessonsCompleted,
+        perfectLessons,
+        activeDays: allReviewDays.length,
+        xp: xpTotal,
+        retentionPercent:
+          reviewTotals.total >= MIN_REVIEWS_FOR_RETENTION
+            ? Math.floor((reviewTotals.remembered / reviewTotals.total) * 100)
+            : 0
+      }),
       week: {
         reviews: sum(thisWeek, 'reviews'),
         prevReviews: sum(prevWeek, 'reviews'),

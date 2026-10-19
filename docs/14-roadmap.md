@@ -101,9 +101,9 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 - [ ] Phrasebook
 - [ ] Track trẻ em: phonics, chữ cái, picture book, chế độ phụ huynh (PIN, giới hạn thời gian)
 - [x] Cửa hàng: mua đồ ăn + phụ kiện (nơ, kính, khăn, mũ chóp Lv5, vương miện Lv10) bằng xu, đeo/tháo, mascot vẽ lớp phụ kiện (`ShopService`, `acc-*.png` sinh từ `make-placeholder.mjs`) — chưa thử tay
-- [ ] Checkpoint lên cấp, thành tựu, tiến hoá thú cưng
+- [ ] Checkpoint lên cấp, tiến hoá thú cưng — **đã xong phần thành tựu**: 32 huy hiệu pixel art 32×32 (vẽ bằng hình cơ bản + tự đổ bóng) ở 9 nhóm (chuỗi ngày, ôn tập, từ vựng, luyện tập, bài học, điểm tuyệt đối, chuyên cần, XP, trí nhớ) với 4 hạng đồng/bạc/vàng/kim cương, tính thuần từ số liệu thống kê (`src/shared/achievements.ts`, `badgeArt.ts`, `PixelBadge.vue`, không bảng riêng), hiện trong trang Thống kê; chưa có thông báo mascot khi mở khoá — chưa thử tay
 - [x] Thống kê cơ bản: trang "Thống kê" (`StatsService`) — streak hiện tại/dài nhất, lịch hoạt động 16 tuần, lượt ôn 14 ngày, tỉ lệ nhớ, so tuần này với tuần trước, thẻ theo trạng thái FSRS, từ trong sổ theo level; tính từ `srs_reviews` + sổ XP, không có bảng riêng — chưa thử tay
-- [ ] Thống kê nâng cao: độ chính xác theo dạng bài/kỹ năng, từ hay quên nhất, thời gian học
+- [ ] Thống kê nâng cao: độ chính xác theo dạng bài/kỹ năng, thời gian học — **đã xong**: từ hay quên nhất (top 8 theo số lần quên, `VocabRepository.hardestWords`) — chưa thử tay
 - [ ] Nội dung: 50 bài đọc + 30 bài nghe A1–B1, 40 điểm ngữ pháp, 2 course A1–A2
 - [ ] Auto-update
 

@@ -24,7 +24,8 @@ export const StatsSchema = z.object({
     /** Tỉ lệ lần ôn nhớ được (chấm Khó/Được/Dễ), 0–1; null nếu chưa ôn lần nào */
     retention: z.number().nullable(),
     streak: z.number().int(),
-    longestStreak: z.number().int()
+    longestStreak: z.number().int(),
+    lessonsCompleted: z.number().int()
   }),
   /** Số thẻ theo trạng thái FSRS */
   cardStates: z.object({
@@ -35,6 +36,27 @@ export const StatsSchema = z.object({
   }),
   /** Số từ trong sổ theo level (chỉ các level có từ) */
   levels: z.array(z.object({ level: z.string(), count: z.number().int() })),
+  /** Từ hay quên nhất (nhiều lần quên nhất trước) */
+  hardest: z.array(
+    z.object({
+      contentId: z.string(),
+      text: z.string(),
+      lapses: z.number().int(),
+      reps: z.number().int()
+    })
+  ),
+  /** Thành tựu: tiến độ và trạng thái mở khoá */
+  achievements: z.array(
+    z.object({
+      id: z.string(),
+      group: z.string(),
+      glyph: z.string(),
+      tier: z.enum(['bronze', 'silver', 'gold', 'diamond']),
+      current: z.number().int(),
+      target: z.number().int(),
+      unlocked: z.boolean()
+    })
+  ),
   /** 7 ngày gần nhất so với 7 ngày trước đó */
   week: z.object({
     reviews: z.number().int(),

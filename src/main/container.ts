@@ -171,6 +171,7 @@ export function createContainer(
 
   const stats = new StatsService({
     vocab: repos.vocab,
+    lessonRepo: repos.lessons,
     xpRepo: repos.xp,
     dictionary,
     profiles,

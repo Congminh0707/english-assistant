@@ -2,8 +2,10 @@
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Stats, StatsDay } from '@shared/schemas/stats'
+import { ACHIEVEMENT_GROUPS } from '@shared/achievements'
 import { activityLevel, activityScore, weekdayIndex } from '@shared/stats'
 import { invoke } from '@renderer/shared/ipc'
+import PixelBadge from '@renderer/shared/components/PixelBadge.vue'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 
 // Thống kê: streak, lịch hoạt động 16 tuần, 14 ngày gần nhất, thẻ theo trạng thái, từ theo level.
@@ -55,6 +57,17 @@ const stateBars = computed(() => {
 })
 const maxLevelCount = computed(() =>
   Math.max(1, ...(stats.value?.levels ?? []).map((l) => l.count))
+)
+
+const achievementGroups = computed(() => {
+  const list = stats.value?.achievements ?? []
+  return ACHIEVEMENT_GROUPS.map((group) => ({
+    group,
+    items: list.filter((a) => a.group === group)
+  })).filter((g) => g.items.length)
+})
+const unlockedCount = computed(
+  () => stats.value?.achievements.filter((a) => a.unlocked).length ?? 0
 )
 
 const WEEKDAYS = [0, 1, 2, 3, 4, 5, 6]
@@ -188,6 +201,48 @@ onMounted(load)
           </div>
         </PxPanel>
       </div>
+
+      <PxPanel class="block">
+        <h2>{{ t('study.stats.achievements') }}</h2>
+        <p class="muted small">
+          {{
+            t('study.stats.achProgress', { done: unlockedCount, total: stats.achievements.length })
+          }}
+        </p>
+        <section v-for="g in achievementGroups" :key="g.group" class="ach-group">
+          <h3>{{ t(`study.stats.achGroup.${g.group}`) }}</h3>
+          <div class="ach-grid">
+            <div
+              v-for="a in g.items"
+              :key="a.id"
+              class="ach"
+              :class="{ locked: !a.unlocked }"
+              :title="t(`study.stats.achDesc.${a.group}`, { n: a.target })"
+            >
+              <PixelBadge :glyph="a.glyph" :tier="a.tier" :locked="!a.unlocked" />
+              <strong>{{ a.unlocked ? t(`study.stats.ach.${a.id}`) : '???' }}</strong>
+              <span class="ach-desc muted small">{{
+                t(`study.stats.achDesc.${a.group}`, { n: a.target })
+              }}</span>
+              <progress v-if="!a.unlocked" class="ach-bar" :value="a.current" :max="a.target" />
+              <span class="muted small">{{ a.current }}/{{ a.target }}</span>
+            </div>
+          </div>
+        </section>
+      </PxPanel>
+
+      <PxPanel class="block">
+        <h2>{{ t('study.stats.hardest') }}</h2>
+        <p v-if="!stats.hardest.length" class="muted">{{ t('study.stats.noHardest') }}</p>
+        <ol v-else class="hardest">
+          <li v-for="w in stats.hardest" :key="w.contentId">
+            <strong>{{ w.text }}</strong>
+            <span class="muted small">{{
+              t('study.stats.lapses', { n: w.lapses, reps: w.reps })
+            }}</span>
+          </li>
+        </ol>
+      </PxPanel>
     </template>
   </section>
 </template>
@@ -323,6 +378,51 @@ h2 {
 .bar-day {
   font-size: 10px;
   color: var(--c-ink-soft);
+}
+.ach-group + .ach-group {
+  margin-top: 10px;
+}
+.ach-group h3 {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--c-ink-soft);
+}
+.ach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+}
+.ach {
+  display: grid;
+  gap: 3px;
+  justify-items: center;
+  padding: 8px 6px;
+  text-align: center;
+  font-size: 13px;
+  background: var(--c-surface);
+  border: var(--px) solid var(--c-border);
+}
+.ach.locked strong {
+  color: var(--c-ink-soft);
+}
+.ach-desc {
+  min-height: 2.6em;
+}
+.ach-bar {
+  width: 80%;
+  height: 6px;
+}
+.hardest {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-left: 22px;
+}
+.hardest li {
+  display: list-item;
+}
+.hardest .small {
+  margin-left: 8px;
 }
 .two {
   display: grid;

@@ -290,6 +290,35 @@ export class VocabRepository {
     return { total: Number(row?.total ?? 0), remembered: Number(row?.remembered ?? 0) }
   }
 
+  /** Từ hay quên nhất: tổng số lần quên (lapses) của các thẻ cùng một từ, từ nhiều đến ít */
+  hardestWords(
+    profileId: string,
+    limit: number
+  ): Array<{ contentId: string; text: string; lapses: number; reps: number }> {
+    return this.db
+      .select({
+        contentId: srsCards.contentId,
+        text: sql<string>`min(${savedWords.text})`,
+        lapses: sql<number>`sum(${srsCards.lapses})`,
+        reps: sql<number>`sum(${srsCards.reps})`
+      })
+      .from(srsCards)
+      .innerJoin(
+        savedWords,
+        and(
+          eq(savedWords.profileId, srsCards.profileId),
+          eq(savedWords.contentId, srsCards.contentId)
+        )
+      )
+      .where(and(eq(srsCards.profileId, profileId), isNull(srsCards.deletedAt)))
+      .groupBy(srsCards.contentId)
+      .having(sql`sum(${srsCards.lapses}) > 0`)
+      .orderBy(desc(sql`sum(${srsCards.lapses})`), asc(srsCards.contentId))
+      .limit(limit)
+      .all()
+      .map((r) => ({ ...r, lapses: Number(r.lapses), reps: Number(r.reps) }))
+  }
+
   /** Số thẻ đang học theo trạng thái FSRS (0 mới, 1 đang học, 2 ôn, 3 học lại) */
   cardStateCounts(profileId: string): Array<{ state: number; n: number }> {
     return this.db

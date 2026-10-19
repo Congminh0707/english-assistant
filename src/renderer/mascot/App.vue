@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { MascotReaction } from '@shared/schemas/pet'
+import type { MascotReaction, MascotSleep } from '@shared/schemas/pet'
 import { invoke } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
@@ -121,6 +121,10 @@ function onContextMenu(e: MouseEvent): void {
 /** Click vào nhân vật = vuốt ve */
 async function onPat(): Promise<void> {
   try {
+    if (brain?.sleeping) {
+      bubble.say(line('sleepyPat'))
+      return
+    }
     const { before, after } = await petStore.pat()
     const gained = !before || after.mood > before.mood || after.mood >= 100
     bubble.say(line(gained ? 'pat' : 'patTired'))
@@ -135,9 +139,22 @@ function onReaction({ kind }: MascotReaction): void {
     bubble.say(line('fed'))
   } else if (kind === 'hungry') {
     bubble.say(line('hungry'), BubblePriority.ambient)
+  } else if (kind === 'mission') {
+    brain?.react('happy')
+    bubble.say(line('missionDone'), BubblePriority.important)
   } else if (kind === 'level-up') {
     brain?.react('happy')
     bubble.say(line('levelUp'), BubblePriority.important)
+  }
+}
+
+function onSleep({ sleeping }: MascotSleep): void {
+  const wasSleeping = brain?.sleeping ?? false
+  brain?.setSleeping(sleeping)
+  if (sleeping) bubble.clear()
+  else if (wasSleeping) {
+    brain?.react('happy')
+    bubble.say(line('wake'), BubblePriority.ambient)
   }
 }
 
@@ -226,6 +243,7 @@ onMounted(async () => {
   cleanups.push(
     window.api.on('mascot:landed', () => brain?.landed()),
     window.api.on('mascot:react', onReaction),
+    window.api.on('mascot:sleep', onSleep),
     window.api.on('mascot:quiz', (quiz) => {
       window.clearTimeout(hoverTimer)
       bubble.showQuiz(quiz)

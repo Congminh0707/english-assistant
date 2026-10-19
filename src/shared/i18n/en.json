@@ -1,8 +1,8 @@
 {
   "tray": {
     "tooltip": "English Assistant",
-    "tooltipQuiet": "English Assistant — hidden for now (a fullscreen app is open)",
-    "quietNote": "Hidden because a fullscreen app is open",
+    "tooltipQuiet": "English Assistant — hidden for now (quiet mode)",
+    "quietNote": "Hidden for now (fullscreen app, meeting or do-not-disturb hours)",
     "snoozedNote": "Hidden until {time}",
     "showNow": "Show now",
     "show": "Show mascot",
@@ -30,7 +30,11 @@
     "quizInterval": "Review reminders",
     "everyMinutes": "Every {minutes} minutes",
     "off": "Off",
-    "level": "My level"
+    "level": "My level",
+    "quiet": "Quiet mode",
+    "quietMeetings": "Hide during meetings (Zoom, Teams, Meet…)",
+    "quietDnd": "Do not disturb ({from}–{to})",
+    "quietDndPick": "Choose hours"
   },
   "items": {
     "onigiri": "Rice ball",
@@ -78,7 +82,10 @@
       "fed": ["Yummy! Thank you 😋", "Delicious!", "So full now~"],
       "full": ["Bi is too full to eat more!"],
       "hungry": ["Bi is hungry... 🍙", "Feed me, please~", "My tummy is rumbling..."],
-      "levelUp": ["Level up! 🎉", "Bi got stronger!"]
+      "levelUp": ["Level up! 🎉", "Bi got stronger!"],
+      "wake": ["Bi is awake! ☀️", "Yaaawn... you are back!", "Good morning (again)!"],
+      "sleepyPat": ["Zzz... let Bi sleep a bit more~", "Zzz... five more minutes..."],
+      "missionDone": ["Mission complete! 🎯", "Well done, here is your reward! ⭐"]
     }
   },
   "errors": {
@@ -113,7 +120,9 @@
     "nav": {
       "home": "Home",
       "review": "Review",
-      "words": "Word list"
+      "words": "Word list",
+      "placement": "Level test",
+      "settings": "Settings"
     },
     "home": {
       "welcome": "Hi, what shall we learn today?",
@@ -156,6 +165,81 @@
       "dueNow": "Due",
       "dueIn": "Review in {time}",
       "lapses": "Forgotten {n} times"
+    },
+    "missions": {
+      "title": "Today's missions",
+      "goal": "Daily review goal",
+      "goalCards": "{n} cards",
+      "review": "Review {n} cards",
+      "learn": "Save {n} new words",
+      "clear": "Clear all due cards",
+      "reward": "+{xp} XP · +{coins} coins",
+      "done": "Claimed",
+      "bonus": "All three done: bonus reward"
+    },
+    "tracks": {
+      "preschool": "Preschool (3–6 years)",
+      "primary": "Primary school (7–11 years)",
+      "teen": "Student (12–17 years)",
+      "general": "Adult, everyday communication",
+      "toeic": "TOEIC preparation",
+      "ielts": "IELTS preparation"
+    },
+    "onboarding": {
+      "title": "Welcome to English Assistant! 🎉",
+      "step1": "What is your name and why are you learning English?",
+      "name": "Your name",
+      "namePlaceholder": "For example: Lan",
+      "goal": "Goal / age",
+      "childNote": "Child profile: sensitive words are hidden and your pet gets hungry more slowly.",
+      "step2": "Give your little companion a name",
+      "petName": "Pet name",
+      "step3": "What is your current level?",
+      "takeTest": "Take the placement test (about 3 minutes)",
+      "takeTestHint": "Most accurate — Bi will pick words that fit your level.",
+      "pickLevel": "Or choose yourself:",
+      "next": "Continue",
+      "back": "Back",
+      "finish": "Start learning"
+    },
+    "placement": {
+      "title": "Vocabulary level test",
+      "intro": "20 multiple-choice questions that get harder as you answer correctly. If you do not know, choose “I don’t know” — no wild guesses!",
+      "start": "Start",
+      "noPack": "The dictionary pack is not installed yet, so the test is unavailable.",
+      "question": "Question {index}/{total}: what does this word mean?",
+      "dontKnow": "I don’t know",
+      "correct": "Correct! ✓",
+      "wrong": "Not quite — answer: {answer}",
+      "resultTitle": "Your level: {cefr}",
+      "resultBody": "You answered {correct}/{total} correctly. Bi will pick words that suit you.",
+      "retry": "Take it again",
+      "done": "Start learning"
+    },
+    "settings": {
+      "title": "Settings",
+      "profiles": "Learner profiles",
+      "active": "in use",
+      "switch": "Use this profile",
+      "child": "child",
+      "addProfile": "Add a profile",
+      "create": "Create profile",
+      "learning": "Learning",
+      "level": "Level",
+      "retest": "Retake the test",
+      "dailyGoal": "Daily review goal",
+      "quizInterval": "Mascot review reminders",
+      "quizOff": "Off",
+      "quizEvery": "Every {n} minutes",
+      "quiet": "Quiet mode",
+      "meetings": "Hide the mascot during meetings (Zoom, Teams, Meet…)",
+      "dnd": "Do not disturb hours",
+      "dndFrom": "from",
+      "dndTo": "to",
+      "appearance": "Appearance",
+      "language": "Language",
+      "size": "Mascot size",
+      "launchAtLogin": "Launch at Windows startup"
     }
   }
 }

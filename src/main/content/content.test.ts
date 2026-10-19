@@ -7,6 +7,7 @@ import { strToU8, unzipSync, zipSync } from 'fflate'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { CONTENT_DB_SCHEMA } from '../../../scripts/content/build/schema'
 import { normalizeQuery } from '@shared/schemas/dictionary'
+import type { PlacementResult } from '@shared/schemas/placement'
 import { FakeClock } from '../core/Clock'
 import { openUserDb, type UserDbConnection } from '../db/client'
 import { createContainer, type Container } from '../container'
@@ -99,6 +100,16 @@ function buildFixturePack(dir: string, version = '1.0.0'): string {
   writeFileSync(packPath, zip)
   return packPath
 }
+
+/** Tổng XP đã ghi sổ cho một lý do (không lẫn thưởng nhiệm vụ) */
+const xpByReason = (reason: string): number =>
+  Number(
+    (
+      conn.sqlite
+        .prepare('SELECT coalesce(sum(amount), 0) AS n FROM xp_events WHERE reason = ?')
+        .get(reason) as { n: number }
+    ).n
+  )
 
 let tmp: string
 let conn: UserDbConnection
@@ -244,11 +255,11 @@ describe('SrsService + MicroLearningService', () => {
     expect(quiz.choices).toContain('đi')
     expect(new Set(quiz.choices).size).toBe(quiz.choices.length)
 
-    const xpBefore = c.pet.get().totalXp
+    const xpBefore = xpByReason('card.reviewed')
     const res = c.micro.answer(quiz.id, quiz.choices.indexOf('đi'), 2000)
     expect(res).toMatchObject({ correct: true, correctText: 'đi' })
     expect(res.intervalDays).toBeGreaterThan(0)
-    expect(c.pet.get().totalXp).toBe(xpBefore + 2)
+    expect(xpByReason('card.reviewed')).toBe(xpBefore + 2)
     expect(c.srs.dueCount()).toBe(0)
     expect(conn.sqlite.prepare('SELECT rating, source FROM srs_reviews').all()).toEqual([
       { rating: 3, source: 'mascot' }
@@ -306,11 +317,11 @@ describe('StudyService', () => {
     expect(again).toBeLessThan(good)
     expect(good).toBeLessThanOrEqual(easy)
 
-    const xpBefore = c.pet.get().totalXp
+    const xpBefore = xpByReason('card.reviewed')
     const res = c.study.rate(first.card!.cardId, 4, 900)
     expect(res.dueCount).toBe(0)
     expect(res.intervalDays).toBeGreaterThan(0)
-    expect(c.pet.get().totalXp).toBe(xpBefore + 2)
+    expect(xpByReason('card.reviewed')).toBe(xpBefore + 2)
     expect(conn.sqlite.prepare('SELECT rating, source FROM srs_reviews').all()).toEqual([
       { rating: 4, source: 'study' }
     ])
@@ -374,5 +385,132 @@ describe('Lọc từ nhạy cảm cho profile trẻ em', () => {
     const kid = c.profiles.create({ name: 'Bé', track: 'primary', isChild: true })
     c.profiles.switchTo(kid.id)
     expect(c.profiles.active().isChild).toBe(true)
+  })
+})
+
+describe('MissionService', () => {
+  let clock: FakeClock
+
+  beforeEach(async () => {
+    conn.close()
+    conn = openUserDb(':memory:', MIGRATIONS)
+    clock = new FakeClock()
+    c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    await c.packs.install(buildFixturePack(tmp))
+    c.settings.set('learning.dailyGoal', 5)
+  })
+
+  it('tiến độ bắt đầu từ 0, chưa có nhiệm vụ nào xong', () => {
+    const state = c.missions.state()
+    expect(state.goal).toBe(5)
+    expect(state.missions.map((m) => [m.id, m.progress, m.target, m.done])).toEqual([
+      ['review', 0, 5, false],
+      ['learn', 0, 3, false],
+      ['clear', 0, 1, false]
+    ])
+    expect(state.allDone).toBe(false)
+  })
+
+  it('lưu 3 từ mới → xong nhiệm vụ "học", thưởng đúng một lần', () => {
+    const events: string[] = []
+    c.bus.on('mission.completed', (e) => events.push(e.id))
+    const xp0 = c.pet.get().totalXp
+    for (const [id, text] of [
+      ['word:en:go', 'go'],
+      ['word:en:apple', 'apple'],
+      ['word:en:ponder', 'ponder']
+    ]) {
+      c.vocab.save({ contentId: id, text })
+    }
+    expect(events).toEqual(['learn'])
+    // 3 từ × 1 XP + thưởng nhiệm vụ 10 XP
+    expect(c.pet.get().totalXp).toBe(xp0 + 3 + 10)
+    expect(c.pet.get().coins).toBeGreaterThanOrEqual(5)
+
+    c.missions.evaluate() // gọi lại không thưởng thêm
+    expect(c.pet.get().totalXp).toBe(xp0 + 13)
+  })
+
+  it('làm đủ ba nhiệm vụ → thưởng thêm, tính từng ngày', () => {
+    const events: string[] = []
+    c.bus.on('mission.completed', (e) => events.push(e.id))
+    const ids = ['go', 'apple', 'ponder', 'left', 'leave']
+    for (const w of ids) c.vocab.save({ contentId: `word:en:${w}`, text: w })
+    for (let i = 0; i < 5; i++) {
+      const { card } = c.study.next()
+      c.study.rate(card!.cardId, 3, 1000)
+    }
+    expect(events).toEqual(['learn', 'review', 'clear', 'all'])
+    const state = c.missions.state()
+    expect(state.allDone).toBe(true)
+    expect(state.bonus.done).toBe(true)
+    expect(state.missions.every((m) => m.done)).toBe(true)
+
+    // Sang ngày hôm sau: nhiệm vụ làm mới
+    clock.advance(24 * 3_600_000)
+    const next = c.missions.state()
+    expect(next.allDone).toBe(false)
+    expect(next.missions.every((m) => m.progress === 0 || m.id === 'clear')).toBe(true)
+  })
+})
+
+describe('Hồ sơ & bài kiểm tra đầu vào', () => {
+  beforeEach(async () => {
+    await c.packs.install(buildFixturePack(tmp))
+  })
+
+  it('onboarding: đổi tên, mục tiêu học (trẻ em) và tên thú cưng của hồ sơ đầu tiên', () => {
+    expect(c.settings.get('app.onboarded')).toBe(false)
+    const info = c.profiles.setup({ name: 'Lan', track: 'primary', petName: 'Mimi' })
+    expect(info).toMatchObject({ name: 'Lan', track: 'primary', isChild: true, petName: 'Mimi' })
+    expect(c.settings.get('app.onboarded')).toBe(true)
+    expect(c.pet.get().name).toBe('Mimi')
+    expect(c.profiles.active().isChild).toBe(true)
+    expect(c.profiles.list()).toHaveLength(1)
+  })
+
+  it('tạo thêm hồ sơ và chuyển qua lại, mỗi hồ sơ có thú cưng riêng', () => {
+    const first = c.profiles.active()
+    const second = c.profiles.createFromInput({ name: 'Bố', track: 'toeic', petName: 'Kuro' })
+    expect(second).toMatchObject({ isChild: false, active: false, petName: 'Kuro' })
+    expect(c.profiles.listInfo().map((p) => [p.name, p.active])).toEqual([
+      ['Bạn', true],
+      ['Bố', false]
+    ])
+    c.profiles.switchTo(second.id)
+    expect(c.pet.get().name).toBe('Kuro')
+    c.profiles.switchTo(first.id)
+    expect(c.pet.get().name).toBe('Bi')
+  })
+
+  it('kiểm tra đầu vào: hỏi từng câu, chấm ở main, kết thúc thì lưu trình độ', () => {
+    const meaning: Record<string, string> = { go: 'đi', left: 'trái', leave: 'rời đi' }
+    let question = c.placement.start()
+    expect(question).not.toBeNull()
+    expect(question?.total).toBe(20)
+
+    const seen: string[] = []
+    let result = null as PlacementResult | null
+    let guard = 0
+    while (question && guard++ < 30) {
+      seen.push(question.lemma)
+      const pick = question.choices.indexOf(meaning[question.lemma])
+      expect(pick).toBeGreaterThanOrEqual(0)
+      const res = c.placement.answer(question.sessionId, question.id, pick)
+      expect(res.correct).toBe(true)
+      question = res.next
+      result = res.result
+    }
+    // Gói mẫu chỉ có 3 từ thuộc danh sách chuẩn → bài kết thúc sớm, không lặp từ
+    expect(new Set(seen).size).toBe(seen.length)
+    expect(result).toMatchObject({ correct: seen.length, total: seen.length })
+    expect(c.settings.get('learning.level')).toBe(result!.level)
+  })
+
+  it('kiểm tra đầu vào: trả lời "không biết" tính là sai; không trả lời lại câu cũ', () => {
+    const q = c.placement.start()!
+    const res = c.placement.answer(q.sessionId, q.id, null)
+    expect(res.correct).toBe(false)
+    expect(() => c.placement.answer(q.sessionId, q.id, 0)).toThrow(/NOT_FOUND/)
   })
 })

@@ -1,7 +1,7 @@
 import type { WalkResult } from '@shared/ipc-contract'
 import type { SpriteAnimator } from './SpriteAnimator'
 
-export type MascotState = 'idle' | 'walk' | 'drag' | 'fall' | 'land' | 'happy' | 'eat'
+export type MascotState = 'idle' | 'walk' | 'drag' | 'fall' | 'land' | 'happy' | 'eat' | 'sleep'
 
 /** Phản ứng một lần (animation không lặp rồi quay về nghỉ) */
 export type MascotReactionAnim = 'happy' | 'eat'
@@ -20,6 +20,8 @@ const randomBetween = (min: number, max: number): number => min + Math.random() 
 export class MascotBrain {
   state: MascotState = 'idle'
   facing: 1 | -1 = 1
+  /** Main báo mascot đang ngủ (người dùng vắng mặt / hết năng lượng) */
+  sleeping = false
 
   private stateTimeLeft = randomBetween(2, 5)
   private pendingDx = 0
@@ -40,6 +42,8 @@ export class MascotBrain {
   }
 
   tick(dt: number): void {
+    // Đang ngủ: nằm yên (chỉ bị kéo/rơi mới tỉnh tạm, xong lại ngủ tiếp)
+    if (this.sleeping && (this.state === 'idle' || this.state === 'walk')) this.enter('sleep')
     if (this.state === 'idle' || this.state === 'walk') {
       this.stateTimeLeft -= dt
       if (this.stateTimeLeft <= 0) this.chooseNext()
@@ -52,7 +56,7 @@ export class MascotBrain {
   }
 
   pointerUp(isClick: boolean, falling: boolean): void {
-    if (isClick) this.enter('happy')
+    if (isClick) this.enter(this.sleeping ? 'sleep' : 'happy')
     else this.enter(falling ? 'fall' : 'land')
   }
 
@@ -64,6 +68,12 @@ export class MascotBrain {
   react(anim: MascotReactionAnim): void {
     if (this.state === 'drag' || this.state === 'fall') return
     this.enter(anim)
+  }
+
+  /** Đi ngủ / thức dậy. Đang kéo/rơi/hạ cánh thì chờ xong mới đổi (tick tự chuyển). */
+  setSleeping(sleeping: boolean): void {
+    this.sleeping = sleeping
+    if (!sleeping && this.state === 'sleep') this.enter('idle')
   }
 
   setStepPx(stepPx: number): void {

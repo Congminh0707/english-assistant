@@ -24,6 +24,13 @@ export type InventoryItem = z.infer<typeof InventoryItemSchema>
 
 /** Phản ứng một lần của mascot do main yêu cầu (renderer chọn animation + câu thoại) */
 export const MascotReactionSchema = z.object({
-  kind: z.enum(['eat', 'hungry', 'level-up'])
+  kind: z.enum(['eat', 'hungry', 'level-up', 'mission'])
 })
 export type MascotReaction = z.infer<typeof MascotReactionSchema>
+
+/** Mascot đi ngủ / thức dậy (main quyết định) */
+export const MascotSleepSchema = z.object({
+  sleeping: z.boolean(),
+  reason: z.enum(['afk', 'tired']).nullable()
+})
+export type MascotSleep = z.infer<typeof MascotSleepSchema>

@@ -2,7 +2,12 @@
 // Main validate input bằng các schema này; renderer/preload chỉ dùng kiểu (import type).
 import { z } from 'zod'
 import type { EventName, InvokeChannel, SendChannel } from './ipc-channels'
-import { InventoryItemSchema, MascotReactionSchema, PetStateSchema } from './schemas/pet'
+import {
+  InventoryItemSchema,
+  MascotReactionSchema,
+  MascotSleepSchema,
+  PetStateSchema
+} from './schemas/pet'
 import { SettingsSchema, SettingUpdateSchema } from './schemas/settings'
 import {
   LookupResultSchema,
@@ -12,6 +17,13 @@ import {
 } from './schemas/dictionary'
 import { QuizAnswerInputSchema, QuizAnswerResultSchema, QuizSchema } from './schemas/quiz'
 import {
+  PlacementAnswerInputSchema,
+  PlacementAnswerResultSchema,
+  PlacementStartSchema
+} from './schemas/placement'
+import { ProfileInfoSchema, ProfileSetupInputSchema } from './schemas/profile'
+import {
+  MissionsStateSchema,
   StudyNextSchema,
   StudyOverviewSchema,
   StudyRateInputSchema,
@@ -42,8 +54,15 @@ export const invokeContract = {
   'study:overview': { input: z.void(), output: StudyOverviewSchema },
   'study:next': { input: z.void(), output: StudyNextSchema },
   'study:rate': { input: StudyRateInputSchema, output: StudyRateResultSchema },
+  'study:missions': { input: z.void(), output: MissionsStateSchema },
   'vocab:list': { input: z.void(), output: z.array(WordListItemSchema) },
-  'vocab:remove': { input: z.object({ contentId: z.string().min(1) }), output: z.boolean() }
+  'vocab:remove': { input: z.object({ contentId: z.string().min(1) }), output: z.boolean() },
+  'profile:list': { input: z.void(), output: z.array(ProfileInfoSchema) },
+  'profile:setup': { input: ProfileSetupInputSchema, output: ProfileInfoSchema },
+  'profile:create': { input: ProfileSetupInputSchema, output: ProfileInfoSchema },
+  'profile:switch': { input: z.object({ id: z.string().min(1) }), output: ProfileInfoSchema },
+  'placement:start': { input: z.void(), output: PlacementStartSchema },
+  'placement:answer': { input: PlacementAnswerInputSchema, output: PlacementAnswerResultSchema }
 } satisfies Record<InvokeChannel, { input: z.ZodType; output: z.ZodType }>
 
 export const sendContract = {
@@ -59,7 +78,8 @@ export const eventContract = {
   'pet:updated': PetStateSchema,
   'settings:changed': SettingsSchema,
   'popup:query': PopupQuerySchema,
-  'mascot:quiz': QuizSchema
+  'mascot:quiz': QuizSchema,
+  'mascot:sleep': MascotSleepSchema
 } satisfies Record<EventName, z.ZodType>
 
 // --- Kiểu suy ra từ hợp đồng ---

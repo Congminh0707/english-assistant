@@ -1,5 +1,6 @@
 import { BrowserWindow } from 'electron'
 import { join } from 'path'
+import icon from '../../../resources/icon.png?asset'
 import { loadPage } from './loadPage'
 import { forwardConsoleInDev } from './devConsole'
 
@@ -25,6 +26,7 @@ export class StudyWindow {
       minHeight: 520,
       show: false,
       title: 'English Assistant',
+      icon,
       autoHideMenuBar: true,
       backgroundColor: '#fdf6e3',
       webPreferences: {

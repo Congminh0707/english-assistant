@@ -215,11 +215,18 @@ Do `QuietModeService` trong main quyết định, mascot chỉ làm theo:
 > - Ẩn ngay, nhưng chỉ hiện lại sau 2 lần kiểm tra liên tiếp (~4 giây) để không nhấp nháy khi Alt+Tab.
 > - "Người dùng tự ẩn" (tray) và "tạm ẩn vì yên lặng" là hai cờ riêng; tray hiển thị dòng "Đang tạm ẩn vì có app toàn màn hình".
 > - Khi bị ẩn, renderer dừng hẳn vòng lặp animation (0% CPU).
+>
+> ✅ **Đã làm (Phase 1)**: app họp nhận theo tên file `.exe` (Zoom, Teams, Webex, Skype...) hoặc tiêu đề tab trình duyệt (Meet, Teams, Webex...) — quy tắc thuần ở `src/shared/quiet.ts`; khung giờ không làm phiền theo đồng hồ (vắt qua nửa đêm được). Cả hai chỉnh trong menu chuột phải → "Chế độ yên lặng" hoặc trang Cài đặt. `QuietModeService` nhận `QuietEnv` (đọc Win32) qua tham số nên test được không cần Windows.
+
+### Trạng thái ngủ (sleep)
+
+✅ `SleepService` (main) quyết định, mascot chỉ làm theo qua sự kiện `mascot:sleep`: ngủ khi người dùng không đụng máy ≥ 10 phút (`powerMonitor.getSystemIdleTime`) hoặc năng lượng ≤ 20 (ngủ tới khi hồi ≥ 45 — có độ trễ để không chập chờn). Lúc ngủ năng lượng hồi 12/giờ, mascot nằm yên với "Zzz", không hỏi ôn, không nhắc đói; click vào chỉ nhận câu "để Bi ngủ thêm" (không tính vuốt ve). Quy tắc thuần ở `src/shared/sleep.ts`.
 
 | Điều kiện | Hành vi |
 |---|---|
 | Cửa sổ active đang fullscreen (game, video, PowerPoint trình chiếu) | Ẩn mascot hoàn toàn |
-| Cửa sổ active là app họp (Zoom, Teams, Webex, tab Meet) | Ẩn, không nhắc |
+| Cửa sổ active là app họp (Zoom, Teams, Webex, tab Meet) | Ẩn, không nhắc (✅ đã làm, bật/tắt: `quiet.meetings`) |
+| Trong khung giờ không làm phiền (`quiet.dnd.*`, vd 22:00–07:00) | Ẩn, không nhắc (✅ đã làm) |
 | Người dùng đang gõ phím liên tục (tuỳ chọn) | Không hiện bong bóng chủ động, mascot vẫn đứng |
 | Người dùng bấm "Ẩn 30 phút / 1 giờ / đến mai" | Ẩn theo thời gian |
 | Giờ "Không làm phiền" trong cài đặt (vd 22:00–7:00) | Mascot ngủ, không nhắc |

@@ -18,7 +18,8 @@ const C = {
   blush: [255, 140, 150, 255],
   eye: [43, 43, 58, 255],
   white: [255, 255, 255, 255],
-  foot: [214, 150, 110, 255]
+  foot: [214, 150, 110, 255],
+  zzz: [91, 141, 239, 255]
 }
 
 // Mỗi frame: tham số tư thế của nhân vật
@@ -42,6 +43,13 @@ const animations = {
     { bob: 1, mouth: 'chew' },
     { eyes: 'happy', mouth: 'open' },
     { bob: 1, eyes: 'happy', mouth: 'chew' }
+  ],
+  // Ngủ: nằm bẹp, mắt nhắm, chữ "z" bay lên (thở chậm: thân phồng/xẹp luân phiên)
+  sleep: [
+    { squash: 3, eyes: 'closed', zzz: 1 },
+    { squash: 4, eyes: 'closed', zzz: 2 },
+    { squash: 3, eyes: 'closed', zzz: 3 },
+    { squash: 2, eyes: 'closed', zzz: 0 }
   ]
 }
 const timing = {
@@ -51,7 +59,8 @@ const timing = {
   fall: { fps: 1, loop: true },
   land: { fps: 12, loop: false, next: 'idle' },
   happy: { fps: 10, loop: false, next: 'idle' },
-  eat: { fps: 5, loop: false, next: 'idle' }
+  eat: { fps: 5, loop: false, next: 'idle' },
+  sleep: { fps: 2, loop: true }
 }
 
 const frames = Object.values(animations).flat()
@@ -119,6 +128,21 @@ function drawEyes(cx, cy, kind) {
   }
 }
 
+// Chữ "z" pixel 3×3 / 4×4 bay lên phía trên đầu (nhân vật đang ngủ)
+function drawZ(x, y, size) {
+  const color = C.zzz
+  for (let i = 0; i < size; i++) {
+    set(x + i, y, color)
+    set(x + i, y + size - 1, color)
+    set(x + size - 1 - i, y + i, color)
+  }
+}
+function drawZzz(level, cx, topY) {
+  if (level >= 1) drawZ(cx + 11, topY + 2, 3)
+  if (level >= 2) drawZ(cx + 15, topY - 3, 4)
+  if (level >= 3) drawZ(cx + 18, topY - 9, 3)
+}
+
 // Hệ số co các tham số tư thế (thiết kế gốc cho khung 64px)
 const K = FRAME / 64
 
@@ -152,6 +176,7 @@ function drawFrame(p) {
   // Mặt
   const eyeY = Math.round(cy - 1)
   drawEyes(cx, eyeY, p.eyes ?? 'open')
+  if (p.zzz) drawZzz(p.zzz, cx, Math.round(cy - ry))
   for (const x of [cx - 10, cx - 9, cx + 8, cx + 9]) set(x, eyeY + 3, C.blush)
   if (p.mouth === 'open') {
     // Miệng há to khi ăn

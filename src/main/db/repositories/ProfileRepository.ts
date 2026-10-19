@@ -26,6 +26,18 @@ export class ProfileRepository {
       .get()
   }
 
+  update(
+    id: string,
+    data: Partial<{ name: string; track: Track; isChild: boolean }>,
+    now: number
+  ): void {
+    this.db
+      .update(profiles)
+      .set({ ...data, updatedAt: now })
+      .where(eq(profiles.id, id))
+      .run()
+  }
+
   create(data: { name: string; track: Track; isChild: boolean }, now: number): ProfileRow {
     const row: ProfileRow = {
       id: uuidv7(now),

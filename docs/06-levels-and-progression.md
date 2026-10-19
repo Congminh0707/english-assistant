@@ -85,6 +85,8 @@ item.difficulty -= K_ITEM * (score - expected)
 4. Speaking/Writing: tuỳ chọn (cần mic/AI). Nếu bỏ qua → lấy rating tổng làm khởi điểm, đánh dấu "chưa xác thực".
 5. Kết quả: "Bạn đang ở khoảng **A2 – Cáo nhỏ** (≈ TOEIC 300–400)". Có nút "Làm lại sau 2 tuần".
 
+> ✅ **Đã làm (Phase 1)** — bản rút gọn chỉ từ vựng: `PlacementService`, 20 câu chọn nghĩa, độ khó thích nghi kiểu "staircase" (bắt đầu A2.1; đúng → khó hơn một bậc, sai hoặc "Tôi không biết" → dễ hơn một bậc; trình độ = trung bình bậc các câu sau 5 câu khởi động, `src/shared/placement.ts`). Kết quả lưu vào `learning.level` (quyết định từ của khoảnh khắc). Hồ sơ trẻ em không gặp từ nhạy cảm. Chưa có ngữ pháp/đọc/nghe, chưa dùng Elo theo kỹ năng.
+
 ## 4. Lên cấp trình độ (checkpoint)
 
 - Khi rating một kỹ năng vượt ngưỡng bậc tiếp theo → mở khoá **"Thử thách lên cấp"** cho kỹ năng đó (10–15 câu ở bậc mới).
@@ -159,6 +161,7 @@ Phụ kiện (mũ, kính, áo...) mua bằng xu, một số chỉ mở khoá qua
 
 - **Streak**: ngày có ≥ 1 hoạt động học "thật" (≥ 5 thẻ SRS hoặc 1 bài học). Mỗi 7 ngày streak tặng 1 **vé giữ streak** (tối đa giữ 2 vé); bỏ lỡ 1 ngày tự dùng vé.
 - **Nhiệm vụ ngày**: 3 nhiệm vụ chọn ngẫu nhiên từ pool, ưu tiên kỹ năng yếu nhất. Ví dụ: "Ôn 20 thẻ", "Nghe 1 bài", "Lưu 3 từ mới từ việc dịch", "Nói 5 câu shadowing".
+  > ✅ **Đã làm (Phase 1)** — `MissionService`: 3 nhiệm vụ cố định mỗi ngày (theo ngày cục bộ): *Ôn N thẻ* (N = `learning.dailyGoal`: 5/10/20/30, +20 XP +10 xu), *Lưu 3 từ mới* (+10 XP +5 xu), *Ôn hết thẻ đến hạn* (+15 XP +10 xu); làm cả ba thưởng thêm +25 XP +20 xu. Tiến độ tính trực tiếp từ nhật ký ôn và sổ XP; thưởng ghi vào `xp_events` (`reason = mission.completed`, `refId = <ngày>:<nhiệm vụ>`) nên mỗi nhiệm vụ chỉ thưởng một lần/ngày. Mascot ăn mừng khi xong. Chưa có pool ngẫu nhiên theo kỹ năng.
 - **Thành tựu** (ví dụ): Từ đầu tiên · 100 từ thuộc · 1000 từ thuộc · 7/30/100 ngày liên tục · Đọc 10 truyện · Nghe 1 giờ · Qua checkpoint B1 · Chủ nuôi tận tâm (cho ăn 30 ngày) · Cú đêm (học sau 22h — chỉ người lớn) · Dịch 500 lần.
 
 Danh sách đầy đủ định nghĩa trong `src/shared/constants/achievements.ts` (id, tên vi/en, điều kiện, icon, phần thưởng).

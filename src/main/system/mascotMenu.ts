@@ -7,6 +7,14 @@ import type { MascotWindow } from '../windows/MascotWindow'
 
 const MINUTE_MS = 60_000
 
+/** Khung giờ không làm phiền chọn nhanh */
+const DND_PRESETS: Array<{ from: string; to: string }> = [
+  { from: '22:00', to: '07:00' },
+  { from: '23:00', to: '06:00' },
+  { from: '21:00', to: '07:00' },
+  { from: '12:00', to: '13:30' }
+]
+
 /** Các mốc trình độ cho người dùng tự chọn (tạm thời, trước khi có bài kiểm tra đầu vào) */
 const LEVEL_CHOICES: Array<{ level: LevelCode; label: string }> = [
   { level: 'PA1_2', label: 'Pre-A1' },
@@ -51,6 +59,39 @@ export function showMascotMenu(
     click: () => c.settings.set('mascot.quizMinutes', value)
   })
 
+  const dndFrom = c.settings.get('quiet.dnd.from')
+  const dndTo = c.settings.get('quiet.dnd.to')
+  const quietMenu: MenuItemConstructorOptions = {
+    label: t(lang, 'menu.quiet'),
+    submenu: [
+      {
+        label: t(lang, 'menu.quietMeetings'),
+        type: 'checkbox',
+        checked: c.settings.get('quiet.meetings'),
+        click: (item) => c.settings.set('quiet.meetings', item.checked)
+      },
+      {
+        label: t(lang, 'menu.quietDnd', { from: dndFrom, to: dndTo }),
+        type: 'checkbox',
+        checked: c.settings.get('quiet.dnd.enabled'),
+        click: (item) => c.settings.set('quiet.dnd.enabled', item.checked)
+      },
+      {
+        label: t(lang, 'menu.quietDndPick'),
+        submenu: DND_PRESETS.map((preset) => ({
+          label: `${preset.from} – ${preset.to}`,
+          type: 'radio' as const,
+          checked: preset.from === dndFrom && preset.to === dndTo,
+          click: () => {
+            c.settings.set('quiet.dnd.from', preset.from)
+            c.settings.set('quiet.dnd.to', preset.to)
+            c.settings.set('quiet.dnd.enabled', true)
+          }
+        }))
+      }
+    ]
+  }
+
   const menu = Menu.buildFromTemplate([
     {
       label: dueCount
@@ -75,6 +116,7 @@ export function showMascotMenu(
       }))
     },
     { type: 'separator' },
+    quietMenu,
     { label: t(lang, 'menu.hideFor30'), click: () => mascot.snooze(30 * MINUTE_MS) },
     { label: t(lang, 'menu.hideFor60'), click: () => mascot.snooze(60 * MINUTE_MS) },
     { type: 'separator' },

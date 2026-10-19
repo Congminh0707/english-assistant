@@ -98,6 +98,18 @@ export class PetService {
     return state
   }
 
+  /** Hồi năng lượng khi đang ngủ (chạy sau tick để không bị trừ ngược) */
+  rest(energyGain: number): PetState {
+    this.tick()
+    const row = this.row()
+    const energy = clampStat(row.energy + energyGain)
+    if (energy === row.energy) return this.toState(row)
+    this.deps.pets.update(row.id, { energy }, this.deps.clock.now())
+    const state = this.toState({ ...row, energy })
+    if (round1(energy) !== round1(row.energy)) this.deps.bus.emit('pet.updated', state)
+    return state
+  }
+
   /** Bản ghi thô (dùng nội bộ, vd XpService) */
   row(): PetRow {
     const row = this.deps.pets.findByProfile(this.deps.profiles.activeId())

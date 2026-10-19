@@ -19,6 +19,7 @@ interface Rect {
 
 const user32 = koffi.load('user32.dll')
 const shell32 = koffi.load('shell32.dll')
+const kernel32 = koffi.load('kernel32.dll')
 
 const GetForegroundWindow = user32.func('void* __stdcall GetForegroundWindow()')
 const GetWindowRect = user32.func('bool __stdcall GetWindowRect(void* hWnd, _Out_ RECT* lpRect)')
@@ -28,6 +29,16 @@ const GetClassNameW = user32.func(
 const GetWindowThreadProcessId = user32.func(
   'uint32 __stdcall GetWindowThreadProcessId(void* hWnd, _Out_ uint32* lpdwProcessId)'
 )
+const GetWindowTextW = user32.func(
+  'int __stdcall GetWindowTextW(void* hWnd, void* lpString, int nMaxCount)'
+)
+const OpenProcess = kernel32.func(
+  'void* __stdcall OpenProcess(uint32 dwDesiredAccess, bool bInheritHandle, uint32 dwProcessId)'
+)
+const QueryFullProcessImageNameW = kernel32.func(
+  'bool __stdcall QueryFullProcessImageNameW(void* hProcess, uint32 dwFlags, void* lpExeName, _Inout_ uint32* lpdwSize)'
+)
+const CloseHandle = kernel32.func('bool __stdcall CloseHandle(void* hObject)')
 const MonitorFromWindow = user32.func(
   'void* __stdcall MonitorFromWindow(void* hWnd, uint32 dwFlags)'
 )
@@ -42,6 +53,7 @@ const SHQueryUserNotificationState = shell32.func(
 )
 
 const MONITOR_DEFAULTTONEAREST = 2
+const PROCESS_QUERY_LIMITED_INFORMATION = 0x1000
 
 /** Giá trị trả về của SHQueryUserNotificationState */
 export const UserNotificationState = {
@@ -76,6 +88,9 @@ export interface ForegroundInfo {
   pid: number
   className: string
   isShell: boolean
+  /** Tên file chương trình của cửa sổ (chữ thường, vd 'zoom.exe'); rỗng nếu không đọc được */
+  exe: string
+  title: string
 }
 
 export function getForegroundInfo(): ForegroundInfo | null {
@@ -106,7 +121,30 @@ export function getForegroundInfo(): ForegroundInfo | null {
     monitor: koffi.address(hMonitor),
     pid: pid[0],
     className,
-    isShell: SHELL_CLASSES.has(className)
+    isShell: SHELL_CLASSES.has(className),
+    exe: exeNameOf(pid[0]),
+    title: windowTitle(hwnd)
+  }
+}
+
+function windowTitle(hwnd: unknown): string {
+  const buf = Buffer.alloc(1024)
+  const len = GetWindowTextW(hwnd, buf, 512)
+  return len > 0 ? buf.toString('utf16le', 0, len * 2) : ''
+}
+
+/** Tên file .exe của tiến trình (chữ thường). Không đọc được (quyền) → '' */
+function exeNameOf(pid: number): string {
+  const handle = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, false, pid)
+  if (!handle) return ''
+  try {
+    const buf = Buffer.alloc(1040)
+    const size = [520]
+    if (!QueryFullProcessImageNameW(handle, 0, buf, size)) return ''
+    const path = buf.toString('utf16le', 0, size[0] * 2)
+    return path.slice(path.lastIndexOf('\\') + 1).toLowerCase()
+  } finally {
+    CloseHandle(handle)
   }
 }
 

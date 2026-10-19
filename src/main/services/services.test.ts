@@ -4,6 +4,7 @@ import { FakeClock } from '../core/Clock'
 import { AppError } from '../core/AppError'
 import { openUserDb, type UserDbConnection } from '../db/client'
 import { createContainer, type Container } from '../container'
+import { SleepService } from './SleepService'
 
 const MIGRATIONS = resolve('src/main/db/migrations')
 const OPTIONS = { packsDir: resolve('content/.build/test-packs-unused') }
@@ -114,5 +115,36 @@ describe('SettingsService', () => {
     c.bus.on('settings.changed', ({ key }) => changed.push(key))
     c.settings.set('app.launchAtLogin', true)
     expect(changed).toEqual(['app.launchAtLogin'])
+  })
+})
+
+describe('SleepService', () => {
+  it('ngủ khi người dùng vắng mặt, hồi năng lượng lúc ngủ, dậy khi quay lại', () => {
+    const changes: boolean[] = []
+    let idle = 0
+    const sleep = new SleepService({
+      pet: c.pet,
+      getIdleSeconds: () => idle,
+      onChange: (state) => changes.push(state.sleeping)
+    })
+    sleep.check()
+    expect(sleep.sleeping).toBe(false)
+
+    idle = 11 * 60
+    sleep.check()
+    expect(sleep.sleeping).toBe(true)
+
+    const before = c.pet.get().energy
+    sleep.rest(60 * 60_000) // 1 giờ ngủ: +12
+    expect(c.pet.get().energy).toBeGreaterThan(before + 10)
+
+    idle = 3
+    sleep.check()
+    expect(sleep.sleeping).toBe(false)
+    expect(changes).toEqual([true, false])
+    // Thức thì không hồi năng lượng
+    const awake = c.pet.get().energy
+    sleep.rest(60 * 60_000)
+    expect(c.pet.get().energy).toBe(awake)
   })
 })

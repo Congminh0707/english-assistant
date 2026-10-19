@@ -12,6 +12,7 @@ export interface AppEvents {
   'settings.changed': { key: SettingKey; settings: Settings }
   'word.saved': { text: string; contentId: string | null }
   'card.reviewed': { cardId: string; rating: number }
+  'mission.completed': { id: string; xp: number; coins: number; all: boolean }
 }
 
 type Listener<K extends keyof AppEvents> = (payload: AppEvents[K]) => void

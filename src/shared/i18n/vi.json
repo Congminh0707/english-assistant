@@ -1,8 +1,8 @@
 {
   "tray": {
     "tooltip": "English Assistant",
-    "tooltipQuiet": "English Assistant — đang tạm ẩn (có app toàn màn hình)",
-    "quietNote": "Đang tạm ẩn vì có app toàn màn hình",
+    "tooltipQuiet": "English Assistant — đang tạm ẩn (yên lặng)",
+    "quietNote": "Đang tạm ẩn (app toàn màn hình, họp hoặc giờ không làm phiền)",
     "snoozedNote": "Đang ẩn đến {time}",
     "showNow": "Hiện lại ngay",
     "show": "Hiện mascot",
@@ -30,7 +30,11 @@
     "quizInterval": "Nhắc ôn từ",
     "everyMinutes": "Mỗi {minutes} phút",
     "off": "Tắt",
-    "level": "Trình độ của tôi"
+    "level": "Trình độ của tôi",
+    "quiet": "Chế độ yên lặng",
+    "quietMeetings": "Ẩn khi đang họp (Zoom, Teams, Meet…)",
+    "quietDnd": "Giờ không làm phiền ({from}–{to})",
+    "quietDndPick": "Chọn khung giờ"
   },
   "items": {
     "onigiri": "Cơm nắm",
@@ -78,7 +82,10 @@
       "fed": ["Ngon quá! Cảm ơn nha 😋", "Yummy! Thank you!", "No căng bụng rồi~"],
       "full": ["Bi no lắm rồi, không ăn nổi nữa!"],
       "hungry": ["Bi đói rồi... 🍙", "I'm hungry! Cho Bi ăn với~", "Bụng Bi kêu ọt ọt..."],
-      "levelUp": ["Lên cấp rồi! 🎉", "Level up! Bi mạnh hơn rồi!"]
+      "levelUp": ["Lên cấp rồi! 🎉", "Level up! Bi mạnh hơn rồi!"],
+      "wake": ["Bi dậy rồi! ☀️", "Hoaaam... bạn quay lại rồi!", "Good morning (lần hai)!"],
+      "sleepyPat": ["Zzz... để Bi ngủ thêm chút~", "Zzz... 5 phút nữa thôi..."],
+      "missionDone": ["Xong nhiệm vụ rồi! 🎯", "Giỏi quá, nhận thưởng nè! ⭐"]
     }
   },
   "errors": {
@@ -113,7 +120,9 @@
     "nav": {
       "home": "Trang chủ",
       "review": "Ôn từ",
-      "words": "Sổ từ"
+      "words": "Sổ từ",
+      "placement": "Kiểm tra trình độ",
+      "settings": "Cài đặt"
     },
     "home": {
       "welcome": "Chào bạn, hôm nay học gì nào?",
@@ -156,6 +165,81 @@
       "dueNow": "Đến hạn",
       "dueIn": "Ôn lại sau {time}",
       "lapses": "Quên {n} lần"
+    },
+    "missions": {
+      "title": "Nhiệm vụ hôm nay",
+      "goal": "Mục tiêu ôn mỗi ngày",
+      "goalCards": "{n} thẻ",
+      "review": "Ôn {n} thẻ",
+      "learn": "Lưu {n} từ mới",
+      "clear": "Ôn hết thẻ đến hạn",
+      "reward": "+{xp} XP · +{coins} xu",
+      "done": "Đã nhận",
+      "bonus": "Xong cả ba: thưởng thêm"
+    },
+    "tracks": {
+      "preschool": "Mầm non (3–6 tuổi)",
+      "primary": "Tiểu học (7–11 tuổi)",
+      "teen": "Học sinh (12–17 tuổi)",
+      "general": "Người đi làm, giao tiếp hằng ngày",
+      "toeic": "Luyện thi TOEIC",
+      "ielts": "Luyện thi IELTS"
+    },
+    "onboarding": {
+      "title": "Chào mừng bạn đến với English Assistant! 🎉",
+      "step1": "Bạn tên là gì và học tiếng Anh để làm gì?",
+      "name": "Tên của bạn",
+      "namePlaceholder": "Ví dụ: Lan",
+      "goal": "Mục tiêu / độ tuổi",
+      "childNote": "Hồ sơ trẻ em: ẩn từ nhạy cảm, thú cưng đói chậm hơn.",
+      "step2": "Đặt tên cho bạn đồng hành nhỏ của bạn",
+      "petName": "Tên thú cưng",
+      "step3": "Trình độ hiện tại của bạn?",
+      "takeTest": "Làm bài kiểm tra (khoảng 3 phút)",
+      "takeTestHint": "Chính xác nhất — Bi sẽ chọn từ vừa sức với bạn.",
+      "pickLevel": "Hoặc tự chọn:",
+      "next": "Tiếp tục",
+      "back": "Quay lại",
+      "finish": "Bắt đầu học"
+    },
+    "placement": {
+      "title": "Kiểm tra trình độ từ vựng",
+      "intro": "20 câu trắc nghiệm, khó dần nếu bạn trả lời đúng. Không biết thì chọn “Tôi không biết” — đừng đoán bừa nhé!",
+      "start": "Bắt đầu",
+      "noPack": "Chưa cài gói từ điển nên chưa làm bài kiểm tra được.",
+      "question": "Câu {index}/{total}: nghĩa của từ này là gì?",
+      "dontKnow": "Tôi không biết",
+      "correct": "Đúng rồi! ✓",
+      "wrong": "Chưa đúng — đáp án: {answer}",
+      "resultTitle": "Trình độ của bạn: {cefr}",
+      "resultBody": "Bạn trả lời đúng {correct}/{total} câu. Bi đã chọn từ vừa sức với bạn.",
+      "retry": "Làm lại",
+      "done": "Bắt đầu học"
+    },
+    "settings": {
+      "title": "Cài đặt",
+      "profiles": "Hồ sơ người học",
+      "active": "đang dùng",
+      "switch": "Dùng hồ sơ này",
+      "child": "trẻ em",
+      "addProfile": "Thêm hồ sơ",
+      "create": "Tạo hồ sơ",
+      "learning": "Học tập",
+      "level": "Trình độ",
+      "retest": "Kiểm tra lại",
+      "dailyGoal": "Mục tiêu ôn mỗi ngày",
+      "quizInterval": "Mascot nhắc ôn từ",
+      "quizOff": "Tắt",
+      "quizEvery": "Mỗi {n} phút",
+      "quiet": "Chế độ yên lặng",
+      "meetings": "Ẩn mascot khi đang họp (Zoom, Teams, Meet…)",
+      "dnd": "Giờ không làm phiền",
+      "dndFrom": "từ",
+      "dndTo": "đến",
+      "appearance": "Giao diện",
+      "language": "Ngôn ngữ",
+      "size": "Kích thước mascot",
+      "launchAtLogin": "Khởi động cùng Windows"
     }
   }
 }

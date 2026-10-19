@@ -61,6 +61,27 @@ export const StudyRateResultSchema = z.object({
 })
 export type StudyRateResult = z.infer<typeof StudyRateResultSchema>
 
+/** Nhiệm vụ ngày */
+export const MissionSchema = z.object({
+  id: z.enum(['review', 'learn', 'clear']),
+  progress: z.number().int(),
+  target: z.number().int(),
+  /** Đã nhận thưởng hôm nay */
+  done: z.boolean(),
+  xp: z.number().int(),
+  coins: z.number().int()
+})
+export const MissionsStateSchema = z.object({
+  /** Ngày cục bộ YYYY-MM-DD */
+  day: z.string(),
+  goal: z.number().int(),
+  missions: z.array(MissionSchema),
+  /** Thưởng thêm khi xong cả ba */
+  bonus: z.object({ xp: z.number().int(), coins: z.number().int(), done: z.boolean() }),
+  allDone: z.boolean()
+})
+export type MissionsState = z.infer<typeof MissionsStateSchema>
+
 /** Một từ trong sổ từ */
 export const WordListItemSchema = z.object({
   cardId: z.string(),

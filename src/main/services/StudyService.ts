@@ -7,6 +7,7 @@ import type {
   WordListItem
 } from '@shared/schemas/study'
 import type { Clock } from '../core/Clock'
+import { localDayKey, localOffsetSeconds, startOfLocalDay } from '../core/localDay'
 import type { DictionaryService } from '../content/DictionaryService'
 import type { SrsCardRow, VocabRepository } from '../db/repositories/VocabRepository'
 import type { ProfileService } from './ProfileService'
@@ -49,7 +50,7 @@ export class StudyService {
       reviewedToday: vocab.countReviewsSince(profileId, todayStart),
       streakDays: computeStreak(
         vocab.reviewDays(profileId, now - STREAK_WINDOW_DAYS * DAY_MS, offsetSeconds),
-        dayKey(now, offsetSeconds)
+        localDayKey(now)
       ),
       packMissing: !dictionary.available()
     }
@@ -113,21 +114,6 @@ function toWordItem(row: SrsCardRow, dictionary: DictionaryService): WordListIte
     lapses: row.lapses,
     savedAt: row.createdAt
   }
-}
-
-/** Chênh lệch múi giờ cục bộ so với UTC, tính bằng giây (cộng vào epoch để ra "giờ treo tường") */
-function localOffsetSeconds(now: number): number {
-  return -new Date(now).getTimezoneOffset() * 60
-}
-
-function startOfLocalDay(now: number): number {
-  const d = new Date(now)
-  d.setHours(0, 0, 0, 0)
-  return d.getTime()
-}
-
-function dayKey(ms: number, offsetSeconds: number): string {
-  return new Date(ms + offsetSeconds * 1000).toISOString().slice(0, 10)
 }
 
 /**

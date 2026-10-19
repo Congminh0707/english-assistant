@@ -22,6 +22,8 @@ import { DictionaryService } from './content/DictionaryService'
 import { SrsService } from './services/SrsService'
 import { MicroLearningService } from './services/MicroLearningService'
 import { StudyService } from './services/StudyService'
+import { MissionService } from './services/MissionService'
+import { PlacementService } from './services/PlacementService'
 
 export interface Container {
   clock: Clock
@@ -37,6 +39,8 @@ export interface Container {
   srs: SrsService
   micro: MicroLearningService
   study: StudyService
+  missions: MissionService
+  placement: PlacementService
 }
 
 export interface ContainerOptions {
@@ -120,6 +124,19 @@ export function createContainer(
     clock
   })
 
+  const missions = new MissionService({
+    vocab: repos.vocab,
+    xpRepo: repos.xp,
+    xp,
+    srs,
+    profiles,
+    settings,
+    clock,
+    bus
+  })
+
+  const placement = new PlacementService({ dictionary, profiles, settings, clock })
+
   return {
     clock,
     bus,
@@ -133,6 +150,8 @@ export function createContainer(
     vocab,
     srs,
     micro,
-    study
+    study,
+    missions,
+    placement
   }
 }

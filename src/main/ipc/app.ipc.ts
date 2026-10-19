@@ -21,6 +21,19 @@ export function registerAppIpc(c: Container): void {
   handle('study:overview', () => c.study.overview())
   handle('study:next', () => c.study.next())
   handle('study:rate', ({ cardId, rating, elapsedMs }) => c.study.rate(cardId, rating, elapsedMs))
+  handle('study:missions', () => c.missions.state())
+  handle('profile:list', () => c.profiles.listInfo())
+  handle('profile:setup', (input) => c.profiles.setup(input))
+  handle('profile:create', (input) => c.profiles.createFromInput(input))
+  handle('profile:switch', ({ id }) => {
+    const info = c.profiles.info(c.profiles.switchTo(id))
+    c.bus.emit('pet.updated', c.pet.get()) // mascot & cửa sổ Học tập nạp lại thú cưng của hồ sơ mới
+    return info
+  })
+  handle('placement:start', () => ({ question: c.placement.start() }))
+  handle('placement:answer', ({ sessionId, questionId, choiceIndex }) =>
+    c.placement.answer(sessionId, questionId, choiceIndex)
+  )
   handle('vocab:list', () => c.study.words())
   handle('vocab:remove', ({ contentId }) => c.study.removeWord(contentId))
 }

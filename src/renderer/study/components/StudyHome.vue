@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import type { StudyOverview } from '@shared/schemas/study'
+import type { MissionsState, StudyOverview } from '@shared/schemas/study'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import MissionList from './MissionList.vue'
 
-defineProps<{ overview: StudyOverview | null }>()
-defineEmits<{ start: [] }>()
+defineProps<{ overview: StudyOverview | null; missions: MissionsState | null }>()
+defineEmits<{ start: []; goal: [value: number] }>()
 
 const { t } = useI18n()
 const SHORTCUT = 'Ctrl + Alt + T'
@@ -48,6 +49,8 @@ const SHORTCUT = 'Ctrl + Alt + T'
           <div class="label">{{ t('study.home.learned') }}</div>
         </PxPanel>
       </div>
+
+      <MissionList v-if="missions" :state="missions" @goal="$emit('goal', $event)" />
     </template>
   </section>
 </template>

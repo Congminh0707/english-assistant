@@ -1,4 +1,4 @@
-import { app, screen } from 'electron'
+import { app, powerMonitor, screen } from 'electron'
 import { join } from 'path'
 import { electronApp } from '@electron-toolkit/utils'
 import { systemClock } from './core/Clock'
@@ -18,8 +18,9 @@ import { DEFAULT_SHORTCUTS, registerShortcuts, shortcutLabel } from './system/sh
 import { applySecurityDefaults } from './system/security'
 import { applyLaunchAtLogin } from './system/autostart'
 import { readClipboardForLookup } from './system/clipboard'
-import { monitorOfNativeHandle } from './system/win32'
+import { getForegroundInfo, getUserNotificationState, monitorOfNativeHandle } from './system/win32'
 import { QuietModeService } from './services/QuietModeService'
+import { SleepService } from './services/SleepService'
 import { Scheduler } from './jobs/Scheduler'
 import { schedulePetJobs } from './jobs/petJobs'
 import { scheduleQuizJob } from './jobs/quizJobs'
@@ -73,9 +74,20 @@ if (!app.requestSingleInstanceLock()) {
     const s = new StudyWindow()
     study = s
     registerAppIpc(c)
+    // Ngủ: người dùng vắng mặt lâu hoặc thú cưng hết năng lượng
+    const sleepService = new SleepService({
+      pet: c.pet,
+      getIdleSeconds: () => powerMonitor.getSystemIdleTime(),
+      onChange: ({ sleeping, reason }) => {
+        console.info(`[sleep] ${sleeping ? `mascot đi ngủ (${reason})` : 'mascot thức dậy'}`)
+        sendTo(m.win, 'mascot:sleep', { sleeping, reason })
+      }
+    })
+    scheduler.every('sleep-check', 15_000, () => sleepService.check(), true)
+    scheduler.every('sleep-rest', 60_000, () => sleepService.rest(60_000))
     // Micro-learning: mascot hỏi ôn thẻ đến hạn / giới thiệu từ mới định kỳ
     const quizJob = scheduleQuizJob(scheduler, c, {
-      canShow: () => m.win.isVisible() && !p.win.isVisible(),
+      canShow: () => m.win.isVisible() && !p.win.isVisible() && !sleepService.sleeping,
       show: (quiz) => sendTo(m.win, 'mascot:quiz', quiz)
     })
     registerMascotIpc(m, () =>
@@ -99,11 +111,15 @@ if (!app.requestSingleInstanceLock()) {
     )
     m.onVisibilityChanged = () => tray?.refresh()
 
+    // Lần đầu chạy: mở cửa sổ Học tập để chào hỏi (tên, mục tiêu, trình độ)
+    if (!c.settings.get('app.onboarded')) setTimeout(() => s.open(), 800)
+
     // Sự kiện nội bộ → đẩy xuống các cửa sổ
     c.bus.on('pet.updated', (state) => broadcast('pet:updated', state))
     c.bus.on('pet.fed', () => sendTo(m.win, 'mascot:react', { kind: 'eat' }))
     c.bus.on('pet.hungry', () => sendTo(m.win, 'mascot:react', { kind: 'hungry' }))
     c.bus.on('level.up', () => sendTo(m.win, 'mascot:react', { kind: 'level-up' }))
+    c.bus.on('mission.completed', () => sendTo(m.win, 'mascot:react', { kind: 'mission' }))
     c.bus.on('settings.changed', ({ key, settings }) => {
       broadcast('settings:changed', settings)
       if (key === 'mascot.scale') {
@@ -120,12 +136,25 @@ if (!app.requestSingleInstanceLock()) {
       ({ quiet, reason }) => {
         console.info(`[quiet-mode] ${quiet ? `tạm ẩn mascot (${reason})` : 'hiện lại mascot'}`)
         m.setQuiet(quiet)
+      },
+      () => ({
+        meetings: c.settings.get('quiet.meetings'),
+        dnd: {
+          enabled: c.settings.get('quiet.dnd.enabled'),
+          from: c.settings.get('quiet.dnd.from'),
+          to: c.settings.get('quiet.dnd.to')
+        }
+      }),
+      {
+        userNotificationState: getUserNotificationState,
+        foreground: getForegroundInfo,
+        now: () => new Date()
       }
     )
     quietMode.start()
 
     // Tác vụ định kỳ
-    schedulePetJobs(scheduler, c, () => !m.win.isVisible())
+    schedulePetJobs(scheduler, c, () => !m.win.isVisible() || sleepService.sleeping)
 
     const keepOnScreen = (): void => m.ensureOnScreen()
     screen.on('display-metrics-changed', keepOnScreen)

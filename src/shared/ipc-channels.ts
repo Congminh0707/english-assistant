@@ -17,8 +17,15 @@ export const INVOKE_CHANNELS = [
   'study:overview',
   'study:next',
   'study:rate',
+  'study:missions',
   'vocab:list',
-  'vocab:remove'
+  'vocab:remove',
+  'profile:list',
+  'profile:setup',
+  'profile:create',
+  'profile:switch',
+  'placement:start',
+  'placement:answer'
 ] as const
 
 /** renderer → main, không chờ kết quả (ipcRenderer.send) */
@@ -36,7 +43,8 @@ export const EVENT_NAMES = [
   'pet:updated',
   'settings:changed',
   'popup:query',
-  'mascot:quiz'
+  'mascot:quiz',
+  'mascot:sleep'
 ] as const
 
 export type InvokeChannel = (typeof INVOKE_CHANNELS)[number]

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { StudyOverview } from '@shared/schemas/study'
+import type { MissionsState, StudyOverview } from '@shared/schemas/study'
 import { invoke } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
@@ -9,9 +9,12 @@ import PxBar from '@renderer/shared/components/PxBar.vue'
 import StudyHome from './components/StudyHome.vue'
 import ReviewSession from './components/ReviewSession.vue'
 import WordList from './components/WordList.vue'
+import PlacementTest from './components/PlacementTest.vue'
+import SettingsPage from './components/SettingsPage.vue'
+import Onboarding from './components/Onboarding.vue'
 
 // Cửa sổ Học tập (docs/12-ui-ux-guidelines.md#cửa-sổ-học-tập-study): thanh bên + trang nội dung.
-type Page = 'home' | 'review' | 'words'
+type Page = 'home' | 'review' | 'words' | 'placement' | 'settings'
 
 const { t, locale } = useI18n()
 const settingsStore = useSettingsStore()
@@ -19,26 +22,57 @@ const petStore = usePetStore()
 
 const page = ref<Page>('home')
 const overview = ref<StudyOverview | null>(null)
+const missions = ref<MissionsState | null>(null)
+/** Bài kiểm tra mở từ màn hình chào thì tự bắt đầu ngay */
+const autostartTest = ref(false)
+const loaded = ref(false)
 const cleanups: Array<() => void> = []
 
 const pages = computed<Array<{ id: Page; icon: string; label: string }>>(() => [
   { id: 'home', icon: '🏠', label: t('study.nav.home') },
   { id: 'review', icon: '🧠', label: t('study.nav.review') },
-  { id: 'words', icon: '🗂', label: t('study.nav.words') }
+  { id: 'words', icon: '🗂', label: t('study.nav.words') },
+  { id: 'placement', icon: '🧪', label: t('study.nav.placement') },
+  { id: 'settings', icon: '⚙', label: t('study.nav.settings') }
 ])
 
 async function refresh(): Promise<void> {
   try {
-    overview.value = await invoke('study:overview')
+    ;[overview.value, missions.value] = await Promise.all([
+      invoke('study:overview'),
+      invoke('study:missions')
+    ])
   } catch (err) {
     console.warn('[study] overview failed', err)
   }
 }
 
 function go(next: Page): void {
+  autostartTest.value = false
   page.value = next
   void refresh()
 }
+
+/** Xong màn hình chào: vào bài kiểm tra (tự bắt đầu) hoặc trang chủ */
+async function onboarded(startTest: boolean): Promise<void> {
+  await Promise.all([settingsStore.load(), petStore.load()])
+  if (startTest) {
+    autostartTest.value = true
+    page.value = 'placement'
+  }
+  void refresh()
+}
+
+async function setGoal(value: number): Promise<void> {
+  await settingsStore.set('learning.dailyGoal', value as 5 | 10 | 20 | 30)
+  await refresh()
+}
+
+// XP đổi (ôn thẻ ở mascot, nhận thưởng nhiệm vụ...) → làm mới số liệu
+watch(
+  () => petStore.pet?.totalXp,
+  () => void refresh()
+)
 
 watch(
   () => settingsStore.settings['ui.language'],
@@ -54,6 +88,7 @@ onMounted(async () => {
   window.addEventListener('focus', onFocus)
   cleanups.push(settingsStore.listen(), petStore.listen())
   await Promise.all([settingsStore.load(), petStore.load(), refresh()])
+  loaded.value = true
 })
 onUnmounted(() => {
   window.removeEventListener('focus', onFocus)
@@ -97,10 +132,24 @@ onUnmounted(() => {
     </aside>
 
     <main class="content">
-      <StudyHome v-if="page === 'home'" :overview="overview" @start="go('review')" />
+      <StudyHome
+        v-if="page === 'home'"
+        :overview="overview"
+        :missions="missions"
+        @start="go('review')"
+        @goal="setGoal"
+      />
       <ReviewSession v-else-if="page === 'review'" @exit="go('home')" @changed="refresh" />
-      <WordList v-else @changed="refresh" />
+      <WordList v-else-if="page === 'words'" @changed="refresh" />
+      <PlacementTest
+        v-else-if="page === 'placement'"
+        :autostart="autostartTest"
+        @done="go('home')"
+      />
+      <SettingsPage v-else @retest="go('placement')" @changed="refresh" />
     </main>
+
+    <Onboarding v-if="loaded && !settingsStore.settings['app.onboarded']" @done="onboarded" />
   </div>
 </template>
 

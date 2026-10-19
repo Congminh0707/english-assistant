@@ -1,20 +1,46 @@
-import { getForegroundInfo, getUserNotificationState, UserNotificationState } from '../system/win32'
+import { isInQuietHours, isMeetingWindow, minutesOfDay } from '@shared/quiet'
 
-export type QuietReason = 'fullscreen' | 'd3d-fullscreen' | 'presentation'
+export type QuietReason = 'fullscreen' | 'd3d-fullscreen' | 'presentation' | 'meeting' | 'dnd'
 
 export interface QuietState {
   quiet: boolean
   reason: QuietReason | null
 }
 
+/** Cấu hình người dùng (đọc từ settings mỗi lần kiểm tra nên đổi là có hiệu lực ngay) */
+export interface QuietConfig {
+  /** Tạm ẩn khi đang ở cửa sổ họp trực tuyến (Zoom, Teams, Meet...) */
+  meetings: boolean
+  /** Khung giờ không làm phiền */
+  dnd: { enabled: boolean; from: string; to: string }
+}
+
+/** Phần "nhìn ra hệ điều hành" — tách riêng để test không cần Win32 */
+export interface QuietEnv {
+  /** SHQueryUserNotificationState */
+  userNotificationState(): number
+  foreground(): {
+    pid: number
+    fullscreen: boolean
+    monitor: bigint
+    isShell: boolean
+    exe: string
+    title: string
+  } | null
+  now(): Date
+}
+
+/** Giá trị của SHQueryUserNotificationState */
+const NOTIFY_D3D_FULLSCREEN = 3
+const NOTIFY_PRESENTATION = 4
+
 const CHECK_INTERVAL_MS = 2000
-/** Số lần kiểm tra liên tiếp "hết fullscreen" mới hiện lại — tránh nhấp nháy khi Alt+Tab */
+/** Số lần kiểm tra liên tiếp "hết yên lặng" mới hiện lại — tránh nhấp nháy khi Alt+Tab */
 const CHECKS_BEFORE_SHOW = 2
 
 /**
- * Chế độ yên lặng: tự ẩn mascot khi có app toàn màn hình trên cùng màn hình với mascot
- * (game, video, trình chiếu). docs/05-mascot-system.md#8-chế-độ-yên-lặng-quiet-mode
- * Phase 0 chỉ xử lý fullscreen; app họp, giờ không làm phiền, hẹn giờ ẩn làm ở Phase 1.
+ * Chế độ yên lặng: tự ẩn mascot khi có app toàn màn hình (game, video, trình chiếu), khi đang họp trực tuyến
+ * hoặc trong khung giờ không làm phiền. docs/05-mascot-system.md#8-chế-độ-yên-lặng-quiet-mode
  */
 export class QuietModeService {
   private state: QuietState = { quiet: false, reason: null }
@@ -24,7 +50,9 @@ export class QuietModeService {
   constructor(
     /** Màn hình đang chứa mascot (để không ẩn khi app fullscreen ở màn hình khác) */
     private readonly getMascotMonitor: () => bigint | null,
-    private readonly onChange: (state: QuietState) => void
+    private readonly onChange: (state: QuietState) => void,
+    private readonly getConfig: () => QuietConfig,
+    private readonly env: QuietEnv
   ) {}
 
   start(): void {
@@ -42,7 +70,8 @@ export class QuietModeService {
     return this.state
   }
 
-  private check(): void {
+  /** Kiểm tra một lần (start() gọi định kỳ; test gọi trực tiếp) */
+  check(): void {
     let next: QuietState | 'unchanged'
     try {
       next = this.detect()
@@ -65,16 +94,27 @@ export class QuietModeService {
   }
 
   private detect(): QuietState | 'unchanged' {
-    // Game DirectX độc quyền & chế độ trình chiếu: Windows tự báo, áp dụng cho mọi màn hình
-    const notification = getUserNotificationState()
-    if (notification === UserNotificationState.d3dFullscreen)
-      return { quiet: true, reason: 'd3d-fullscreen' }
-    if (notification === UserNotificationState.presentationMode)
-      return { quiet: true, reason: 'presentation' }
+    const config = this.getConfig()
 
-    const fg = getForegroundInfo()
+    // Khung giờ không làm phiền: theo đồng hồ, không phụ thuộc cửa sổ nào đang mở
+    if (config.dnd.enabled) {
+      const minutes = minutesOfDay(this.env.now())
+      if (isInQuietHours(minutes, config.dnd.from, config.dnd.to))
+        return { quiet: true, reason: 'dnd' }
+    }
+
+    // Game DirectX độc quyền & chế độ trình chiếu: Windows tự báo, áp dụng cho mọi màn hình
+    const notification = this.env.userNotificationState()
+    if (notification === NOTIFY_D3D_FULLSCREEN) return { quiet: true, reason: 'd3d-fullscreen' }
+    if (notification === NOTIFY_PRESENTATION) return { quiet: true, reason: 'presentation' }
+
+    const fg = this.env.foreground()
     // Đang thao tác trên chính cửa sổ của app (mascot, popup): giữ nguyên trạng thái
     if (!fg || fg.pid === process.pid) return 'unchanged'
+
+    if (config.meetings && isMeetingWindow(fg.exe, fg.title))
+      return { quiet: true, reason: 'meeting' }
+
     if (fg.isShell || !fg.fullscreen) return { quiet: false, reason: null }
 
     const mascotMonitor = this.getMascotMonitor()

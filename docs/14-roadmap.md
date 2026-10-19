@@ -48,18 +48,19 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 - [x] Cấu trúc thư mục theo [03](03-architecture.md), `ipc-contract` (zod), container, event bus, Clock, AppError
 - [x] SQLite `user.db` + Drizzle + migration tự chạy (cả bản đóng gói)
 - [x] Vitest: 19 test cho logic thú cưng/XP, i18n, services (SQLite in-memory + FakeClock)
-- [ ] Profile: ✅ tự tạo profile mặc định + thú cưng + túi đồ khởi đầu — **còn** màn hình tạo/chọn profile, onboarding (cần cửa sổ Học tập)
-- [ ] Cài đặt: ✅ ngôn ngữ, kích thước mascot, khởi động cùng Windows (chỉ bản cài) qua menu chuột phải — **còn** đổi phím tắt, tần suất nhắc (cần cửa sổ Học tập)
+- [x] Profile: tự tạo profile mặc định + thú cưng + túi đồ khởi đầu; màn hình chào lần đầu (tên, mục tiêu/độ tuổi, tên thú cưng, trình độ); tạo/chuyển hồ sơ trong Cài đặt; hồ sơ trẻ em (track mầm non/tiểu học) bật `isChild` — chưa thử tay
+- [x] Cài đặt (trang trong cửa sổ Học tập + menu chuột phải): ngôn ngữ, kích thước mascot, khởi động cùng Windows, trình độ, mục tiêu ôn/ngày, tần suất nhắc, chế độ yên lặng — **còn** đổi phím tắt
 - [x] i18n vi/en dùng chung main + renderer, design tokens, `PxPanel`, `PxBar`
 - [x] Cài content pack (`core-dictionary`) — `ContentPackService`: tự cài gói đi kèm lúc khởi động (giải nén theo luồng, kiểm tra sha256, nâng cấp khi có bản mới)
 
 **Mascot**
-- [ ] State machine: ✅ idle, walk, drag, fall, land, happy, eat — **còn** sleep (năng lượng thấp / người dùng vắng mặt)
+- [x] State machine: idle, walk, drag, fall, land, happy, eat, **sleep** (người dùng vắng ≥ 10 phút hoặc năng lượng ≤ 20 → ngủ, hồi 12 năng lượng/giờ; thức dậy khi quay lại) — chưa thử tay
 - [x] Bong bóng thoại + hàng đợi ưu tiên, lời chào theo giờ, thẻ chỉ số khi rê chuột, vuốt ve (click)
 - [x] Menu chuột phải (Cho ăn, Ẩn 30 phút/1 giờ, Kích thước, Ngôn ngữ, Khởi động cùng Windows, Thoát)
 - [x] Chỉ số nuôi + `PetDecayJob` + nhắc đói + cho ăn + túi đồ
-- [ ] XP, xu, level thú cưng: ✅ sổ cái `xp_events` + `XpService` + test — **chưa có nguồn XP** cho tới khi có bài học/SRS
-- [ ] Chế độ yên lặng: ✅ fullscreen, hẹn giờ ẩn — **còn** app họp, giờ không làm phiền
+- [x] XP, xu, level thú cưng: sổ cái `xp_events` + `XpService`; nguồn XP: lưu từ (+1), ôn thẻ (+2), nhiệm vụ ngày
+- [x] Chế độ yên lặng: fullscreen, hẹn giờ ẩn, **app họp** (Zoom/Teams/Webex/Skype, tab Meet/Teams trên trình duyệt), **giờ không làm phiền** (khung giờ tuỳ chọn, vắt qua nửa đêm được)
+- [x] Icon app dạng pixel: đầu mèo "AI" (`pnpm sprites:icon` → `build/icon.ico|png`, `resources/icon.png`)
 
 **Dịch & từ điển**
 - [x] Popup dịch: copy + `Ctrl+Alt+T` → tra từ điển offline (từ gốc, dạng đã chia, tra ngược tiếng Việt), ô tìm kiếm, ví dụ, nhãn level, nhãn "AI" cho nghĩa chưa duyệt — đã thử tay OK
@@ -70,9 +71,9 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 **Học**
 - [x] SRS với ts-fsrs: `SrsService` (lịch FSRS, nhật ký `srs_reviews`, +2 XP/lần ôn) + phiên ôn đầy đủ trong cửa sổ Học tập (lật thẻ → chấm Quên/Khó/Được/Dễ, phím Space/1–4, hiện khoảng ôn lại dự kiến) — chưa thử tay
 - [x] Micro-learning: quiz thẻ đến hạn (4 đáp án, chấm ở main: đúng nhanh → Được, đúng chậm → Khó, sai → Quên) + "Từ của khoảnh khắc" đúng trình độ khi không có thẻ đến hạn; tự nhắc mỗi 15/25/45 phút hoặc tắt, "🧠 Ôn từ ngay" trong menu chuột phải — đã thử tay OK (2026-10-19)
-- [ ] Trình độ: ✅ chọn tay trong menu chuột phải (`learning.level`) — **còn** bài kiểm tra đầu vào
-- [ ] Cửa sổ Học tập: ✅ thanh bên (thú cưng, level, XP), trang chủ (thẻ đến hạn, streak, ôn hôm nay, tổng thẻ), phiên ôn, sổ từ (tìm, nghe, xoá), mở từ menu mascot/tray — **còn** nhiệm vụ ngày, lộ trình theo bài, chọn/tạo profile, onboarding, cài đặt
-- [ ] Placement rút gọn (từ vựng + ngữ pháp) & rating theo kỹ năng
+- [x] Trình độ: bài kiểm tra đầu vào từ vựng thích nghi (20 câu, `PlacementService`) + chọn tay (menu chuột phải, Cài đặt, màn hình chào) → `learning.level`
+- [x] Cửa sổ Học tập: thanh bên (thú cưng, level, XP), trang chủ (thẻ đến hạn, streak, ôn hôm nay, tổng thẻ, **nhiệm vụ ngày**), phiên ôn, sổ từ, kiểm tra trình độ, cài đặt, màn hình chào; mở từ menu mascot/tray — **còn** lộ trình theo bài
+- [ ] Placement đầy đủ (ngữ pháp, đọc, nghe) & rating theo kỹ năng — hiện chỉ từ vựng
 
 **Nội dung (song song)**
 - [x] Pipeline: fetch + normalize Tatoeba, NGSL, CEFR-J, kaikki (Wiktionary), CMUdict

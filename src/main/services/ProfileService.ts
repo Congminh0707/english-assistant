@@ -1,4 +1,5 @@
 import { STARTER_INVENTORY } from '@shared/pet'
+import { isChildTrack, type ProfileInfo, type ProfileSetupInput } from '@shared/schemas/profile'
 import { AppError } from '../core/AppError'
 import type { Clock } from '../core/Clock'
 import type { InventoryRepository } from '../db/repositories/InventoryRepository'
@@ -73,6 +74,52 @@ export class ProfileService {
       }
       return profile
     })
+  }
+
+  /** Thông tin hiển thị của một hồ sơ (kèm tên thú cưng) */
+  info(row: ProfileRow): ProfileInfo {
+    return {
+      id: row.id,
+      name: row.name,
+      track: row.track,
+      isChild: row.isChild,
+      petName: this.deps.pets.findByProfile(row.id)?.name ?? '',
+      active: row.id === this.activeId()
+    }
+  }
+
+  listInfo(): ProfileInfo[] {
+    return this.list().map((row) => this.info(row))
+  }
+
+  /** Thiết lập hồ sơ đang dùng lần đầu (onboarding): tên, mục tiêu học, tên thú cưng */
+  setup(input: ProfileSetupInput): ProfileInfo {
+    const { profiles, pets, settings, clock, transaction } = this.deps
+    const active = this.active()
+    transaction(() => {
+      const now = clock.now()
+      profiles.update(
+        active.id,
+        { name: input.name, track: input.track, isChild: isChildTrack(input.track) },
+        now
+      )
+      const pet = pets.findByProfile(active.id)
+      if (pet && input.petName) pets.update(pet.id, { name: input.petName }, now)
+    })
+    settings.set('app.onboarded', true)
+    this.activeCache = profiles.find(active.id) ?? null
+    return this.info(this.active())
+  }
+
+  /** Tạo hồ sơ mới (không chuyển sang ngay) */
+  createFromInput(input: ProfileSetupInput): ProfileInfo {
+    const row = this.create({
+      name: input.name,
+      track: input.track,
+      isChild: isChildTrack(input.track),
+      petName: input.petName
+    })
+    return this.info(row)
   }
 
   switchTo(id: string): ProfileRow {

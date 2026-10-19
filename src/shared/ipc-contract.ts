@@ -16,6 +16,7 @@ import {
   SaveWordResultSchema
 } from './schemas/dictionary'
 import { QuizAnswerInputSchema, QuizAnswerResultSchema, QuizSchema } from './schemas/quiz'
+import { ShopBuyInputSchema, ShopEquipInputSchema, ShopStateSchema } from './schemas/shop'
 import {
   PracticeAnswerInputSchema,
   PracticeAnswerResultSchema,
@@ -79,7 +80,10 @@ export const invokeContract = {
   'translate:cancel': { input: z.void(), output: z.void() },
   'translate:text': { input: TranslateInputSchema, output: TranslateResultSchema },
   'practice:start': { input: PracticeStartInputSchema, output: PracticeStartResultSchema },
-  'practice:answer': { input: PracticeAnswerInputSchema, output: PracticeAnswerResultSchema }
+  'practice:answer': { input: PracticeAnswerInputSchema, output: PracticeAnswerResultSchema },
+  'shop:state': { input: z.void(), output: ShopStateSchema },
+  'shop:buy': { input: ShopBuyInputSchema, output: ShopStateSchema },
+  'shop:equip': { input: ShopEquipInputSchema, output: ShopStateSchema }
 } satisfies Record<InvokeChannel, { input: z.ZodType; output: z.ZodType }>
 
 export const sendContract = {

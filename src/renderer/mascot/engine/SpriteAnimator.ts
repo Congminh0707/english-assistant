@@ -24,6 +24,8 @@ export class SpriteAnimator {
   private drawnFrame = -1
   private drawnFlip = false
   private readonly columns: number
+  /** Các lớp phụ kiện (cùng bố cục frame với sheet chính), vẽ chồng theo thứ tự */
+  private overlays: HTMLImageElement[] = []
 
   constructor(
     private readonly image: HTMLImageElement,
@@ -33,6 +35,12 @@ export class SpriteAnimator {
   ) {
     this.columns = Math.floor(image.width / meta.frameSize.w)
     this.resizeCanvas()
+  }
+
+  /** Đặt các lớp phụ kiện đang đeo (vẽ lại ngay) */
+  setOverlays(images: HTMLImageElement[]): void {
+    this.overlays = images
+    this.drawnFrame = -1
   }
 
   /** Đổi hệ số phóng to (cài đặt kích thước mascot) */
@@ -95,6 +103,9 @@ export class SpriteAnimator {
       ctx.scale(-1, 1)
     }
     ctx.drawImage(this.image, sx, sy, w, h, 0, 0, w * scale, h * scale)
+    for (const overlay of this.overlays) {
+      ctx.drawImage(overlay, sx, sy, w, h, 0, 0, w * scale, h * scale)
+    }
     ctx.restore()
     this.drawnFrame = frame
     this.drawnFlip = flip

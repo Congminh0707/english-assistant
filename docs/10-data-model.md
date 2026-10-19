@@ -73,6 +73,7 @@ erDiagram
 | coins | INTEGER | |
 | hunger, mood, energy | REAL | 0–100 |
 | affection | INTEGER | |
+| equipped | TEXT | Mảng JSON phụ kiện đang đeo (`["acc:bow"]`), mặc định `[]` — migration 0003 |
 | stage | TEXT | `egg`/`baby`/`teen`/`adult`/`legend` |
 | equipped | TEXT JSON | `{ "hat": "item:hat:straw", "glasses": null }` |
 | last_tick_at | INTEGER | Để tính giảm chỉ số khi app tắt |

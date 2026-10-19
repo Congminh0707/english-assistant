@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { TRACKS, type LevelCode, type Track } from '@shared/schemas/content/level'
 import { cefrLabel } from '@shared/placement'
 import { isChildTrack } from '@shared/schemas/profile'
 import { invoke } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
+import { petName as sharedPetName } from '@renderer/shared/i18n'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 
 // Màn hình chào lần đầu: tên + mục tiêu → tên thú cưng → trình độ (làm kiểm tra hoặc tự chọn).
@@ -18,6 +19,8 @@ const step = ref(1)
 const name = ref('')
 const track = ref<Track>('general')
 const petName = ref('Bi')
+// Văn bản các bước sau nhắc tên thú cưng ngay khi người dùng gõ
+watch(petName, (name) => (sharedPetName.value = name.trim() || 'Bi'), { immediate: true })
 const busy = ref(false)
 
 const MANUAL_LEVELS: Array<{ level: LevelCode }> = [

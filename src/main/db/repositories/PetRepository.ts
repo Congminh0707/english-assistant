@@ -16,6 +16,7 @@ export type PetUpdate = Partial<
     | 'affection'
     | 'lastTickAt'
     | 'name'
+    | 'equipped'
   >
 >
 
@@ -39,6 +40,7 @@ export class PetRepository {
       mood: 80,
       energy: 80,
       affection: 0,
+      equipped: '[]',
       lastTickAt: now,
       createdAt: now,
       updatedAt: now,

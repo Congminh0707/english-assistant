@@ -12,6 +12,15 @@ import { useLines } from './composables/useLines'
 import SpeechBubble from './components/SpeechBubble.vue'
 import sheetUrl from './assets/characters/placeholder/baby/sheet.png'
 import sheetMeta from './assets/characters/placeholder/baby/sheet.json'
+import { ACCESSORY_DRAW_ORDER } from '@shared/shop'
+
+/** Sheet phụ kiện (acc-bow.png...) do scripts/sprites/make-placeholder.mjs sinh ra, cùng bố cục với sheet chính */
+const accessoryUrls = import.meta.glob('./assets/characters/placeholder/baby/acc-*.png', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+}) as Record<string, string>
+const accessoryImages = new Map<string, HTMLImageElement>()
 
 /** Di chuột dưới ngưỡng này (px) giữa lúc nhấn và thả thì tính là click, không phải kéo */
 const CLICK_THRESHOLD = 4
@@ -206,6 +215,26 @@ function onVisibilityChange(): void {
   }
 }
 
+/** Nạp (một lần) và áp dụng các phụ kiện đang đeo */
+async function applyAccessories(equipped: string[]): Promise<void> {
+  const wanted = ACCESSORY_DRAW_ORDER.filter((id) => equipped.includes(id))
+  for (const id of wanted) {
+    if (accessoryImages.has(id)) continue
+    const url = accessoryUrls[`./assets/characters/placeholder/baby/acc-${id.split(':')[1]}.png`]
+    if (!url) continue
+    const image = new Image()
+    image.src = url
+    await image.decode()
+    accessoryImages.set(id, image)
+  }
+  animator?.setOverlays(wanted.flatMap((id) => accessoryImages.get(id) ?? []))
+}
+
+watch(
+  () => petStore.pet?.equipped.join(','),
+  () => void applyAccessories(petStore.pet?.equipped ?? [])
+)
+
 // Đổi kích thước mascot từ menu chuột phải
 watch(
   () => settingsStore.settings['mascot.scale'],
@@ -235,6 +264,7 @@ onMounted(async () => {
   ctx = canvas.value!.getContext('2d', { willReadFrequently: true })!
   animator = new SpriteAnimator(image, meta, ctx, scale)
   brain = new MascotBrain(animator, (dx) => invoke('mascot:walk', dx), onWindowMoved, scale)
+  await applyAccessories(petStore.pet?.equipped ?? [])
 
   window.addEventListener('mousemove', onMouseMove)
   window.addEventListener('mouseup', onMouseUp)

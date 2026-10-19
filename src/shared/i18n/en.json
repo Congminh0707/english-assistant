@@ -41,7 +41,12 @@
     "cake": "Cake",
     "watermelon": "Watermelon",
     "milk-tea": "Milk tea",
-    "birthday-cake": "Birthday cake"
+    "birthday-cake": "Birthday cake",
+    "bow": "Pink bow",
+    "glasses": "Round glasses",
+    "scarf": "Wool scarf",
+    "hat": "Top hat",
+    "crown": "Crown"
   },
   "stats": {
     "hunger": "Full",
@@ -74,17 +79,17 @@
   "mascot": {
     "lines": {
       "greetingMorning": ["Good morning! ☀️", "Morning! Fancy a 5-minute lesson?"],
-      "greetingAfternoon": ["Good afternoon!", "Hi there, Bi is here."],
+      "greetingAfternoon": ["Good afternoon!", "Hi there, %PET% is here."],
       "greetingEvening": ["Good evening! 🌙", "How was your day?"],
       "greetingNight": ["It's getting late... 😴", "Don't stay up too late!"],
-      "pat": ["Hehe, that tickles!", "Bi loves this ♥", "Yay!", "Thank you! ♥"],
-      "patTired": ["Bi needs a little break~"],
+      "pat": ["Hehe, that tickles!", "%PET% loves this ♥", "Yay!", "Thank you! ♥"],
+      "patTired": ["%PET% needs a little break~"],
       "fed": ["Yummy! Thank you 😋", "Delicious!", "So full now~"],
-      "full": ["Bi is too full to eat more!"],
-      "hungry": ["Bi is hungry... 🍙", "Feed me, please~", "My tummy is rumbling..."],
-      "levelUp": ["Level up! 🎉", "Bi got stronger!"],
-      "wake": ["Bi is awake! ☀️", "Yaaawn... you are back!", "Good morning (again)!"],
-      "sleepyPat": ["Zzz... let Bi sleep a bit more~", "Zzz... five more minutes..."],
+      "full": ["%PET% is too full to eat more!"],
+      "hungry": ["%PET% is hungry... 🍙", "Feed me, please~", "My tummy is rumbling..."],
+      "levelUp": ["Level up! 🎉", "%PET% got stronger!"],
+      "wake": ["%PET% is awake! ☀️", "Yaaawn... you are back!", "Good morning (again)!"],
+      "sleepyPat": ["Zzz... let %PET% sleep a bit more~", "Zzz... five more minutes..."],
       "missionDone": ["Mission complete! 🎯", "Well done, here is your reward! ⭐"]
     }
   },
@@ -101,7 +106,11 @@
     "translateUnsupported": "Only English to Vietnamese translation is supported for now.",
     "translateFailed": "Translation failed, please try again.",
     "modelDownload": "Could not download the model (check your connection and try again).",
-    "modelCorrupt": "The downloaded model file is corrupt, please download it again."
+    "modelCorrupt": "The downloaded model file is corrupt, please download it again.",
+    "notEnoughCoins": "Not enough coins to buy this.",
+    "alreadyOwned": "You already own this.",
+    "bagFull": "Your bag is full of this item.",
+    "levelTooLow": "Your pet is not high enough level for this."
   },
   "quiz": {
     "reviewTitle": "Review",
@@ -113,7 +122,7 @@
     "nextReview": "Next review in {time}",
     "later": "Later",
     "save": "💾 Save",
-    "saved": "Saved! Bi will quiz you later ✨",
+    "saved": "Saved! %PET% will quiz you later ✨",
     "listen": "Listen",
     "minutes": "{n} min",
     "hours": "{n} h",
@@ -128,7 +137,8 @@
       "words": "Word list",
       "placement": "Level test",
       "settings": "Settings",
-      "practice": "Practice"
+      "practice": "Practice",
+      "shop": "Shop"
     },
     "home": {
       "welcome": "Hi, what shall we learn today?",
@@ -202,7 +212,7 @@
       "petName": "Pet name",
       "step3": "What is your current level?",
       "takeTest": "Take the placement test (about 3 minutes)",
-      "takeTestHint": "Most accurate — Bi will pick words that fit your level.",
+      "takeTestHint": "Most accurate — %PET% will pick words that fit your level.",
       "pickLevel": "Or choose yourself:",
       "next": "Continue",
       "back": "Back",
@@ -218,7 +228,7 @@
       "correct": "Correct! ✓",
       "wrong": "Not quite — answer: {answer}",
       "resultTitle": "Your level: {cefr}",
-      "resultBody": "You answered {correct}/{total} correctly. Bi will pick words that suit you.",
+      "resultBody": "You answered {correct}/{total} correctly. %PET% will pick words that suit you.",
       "retry": "Take it again",
       "done": "Start learning"
     },
@@ -291,5 +301,21 @@
     "cancel": "Cancel",
     "retry": "Try again",
     "translateBtn": "Translate sentence"
+  },
+  "shop": {
+    "title": "Shop",
+    "coins": "{coins} coins",
+    "foodTitle": "Food",
+    "accessoryTitle": "Accessories for {pet}",
+    "buy": "Buy",
+    "owned": "Owned ×{n}",
+    "ownedOne": "Owned",
+    "wear": "Wear",
+    "unwear": "Take off",
+    "wearing": "Wearing",
+    "needLevel": "Needs Lv {level}",
+    "tooExpensive": "{n} coins short",
+    "earnHint": "Earn coins from daily missions and practice!",
+    "bought": "Bought {item}!"
   }
 }

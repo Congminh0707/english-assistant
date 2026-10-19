@@ -37,6 +37,8 @@ export const petStates = sqliteTable(
     mood: real('mood').notNull(),
     energy: real('energy').notNull(),
     affection: integer('affection').notNull().default(0),
+    /** Phụ kiện đang đeo: mảng JSON id ('acc:bow'...) */
+    equipped: text('equipped').notNull().default('[]'),
     lastTickAt: integer('last_tick_at').notNull(),
     ...timestamps
   },

@@ -41,7 +41,12 @@
     "cake": "Bánh ngọt",
     "watermelon": "Dưa hấu",
     "milk-tea": "Trà sữa",
-    "birthday-cake": "Bánh kem"
+    "birthday-cake": "Bánh kem",
+    "bow": "Nơ hồng",
+    "glasses": "Kính tròn",
+    "scarf": "Khăn len",
+    "hat": "Mũ chóp",
+    "crown": "Vương miện"
   },
   "stats": {
     "hunger": "No",
@@ -74,17 +79,17 @@
   "mascot": {
     "lines": {
       "greetingMorning": ["Chào buổi sáng! ☀️", "Good morning! Học 5 phút nhé?"],
-      "greetingAfternoon": ["Chào buổi chiều!", "Good afternoon! Bi ở đây nè."],
+      "greetingAfternoon": ["Chào buổi chiều!", "Good afternoon! %PET% ở đây nè."],
       "greetingEvening": ["Chào buổi tối! 🌙", "Good evening! Hôm nay thế nào?"],
       "greetingNight": ["Khuya rồi đó... 😴", "Nhớ ngủ sớm nha!"],
-      "pat": ["Hihi, nhột quá!", "Bi thích được vuốt ve ♥", "Yay!", "Thank you! ♥"],
-      "patTired": ["Bi hơi mỏi rồi, để lát nhé~"],
+      "pat": ["Hihi, nhột quá!", "%PET% thích được vuốt ve ♥", "Yay!", "Thank you! ♥"],
+      "patTired": ["%PET% hơi mỏi rồi, để lát nhé~"],
       "fed": ["Ngon quá! Cảm ơn nha 😋", "Yummy! Thank you!", "No căng bụng rồi~"],
-      "full": ["Bi no lắm rồi, không ăn nổi nữa!"],
-      "hungry": ["Bi đói rồi... 🍙", "I'm hungry! Cho Bi ăn với~", "Bụng Bi kêu ọt ọt..."],
-      "levelUp": ["Lên cấp rồi! 🎉", "Level up! Bi mạnh hơn rồi!"],
-      "wake": ["Bi dậy rồi! ☀️", "Hoaaam... bạn quay lại rồi!", "Good morning (lần hai)!"],
-      "sleepyPat": ["Zzz... để Bi ngủ thêm chút~", "Zzz... 5 phút nữa thôi..."],
+      "full": ["%PET% no lắm rồi, không ăn nổi nữa!"],
+      "hungry": ["%PET% đói rồi... 🍙", "I'm hungry! Cho %PET% ăn với~", "Bụng %PET% kêu ọt ọt..."],
+      "levelUp": ["Lên cấp rồi! 🎉", "Level up! %PET% mạnh hơn rồi!"],
+      "wake": ["%PET% dậy rồi! ☀️", "Hoaaam... bạn quay lại rồi!", "Good morning (lần hai)!"],
+      "sleepyPat": ["Zzz... để %PET% ngủ thêm chút~", "Zzz... 5 phút nữa thôi..."],
       "missionDone": ["Xong nhiệm vụ rồi! 🎯", "Giỏi quá, nhận thưởng nè! ⭐"]
     }
   },
@@ -101,7 +106,11 @@
     "translateUnsupported": "Hiện chỉ dịch được từ tiếng Anh sang tiếng Việt.",
     "translateFailed": "Dịch không thành công, thử lại nhé.",
     "modelDownload": "Không tải được model (kiểm tra kết nối mạng rồi thử lại).",
-    "modelCorrupt": "File model tải về bị hỏng, hãy thử tải lại."
+    "modelCorrupt": "File model tải về bị hỏng, hãy thử tải lại.",
+    "notEnoughCoins": "Chưa đủ xu để mua món này.",
+    "alreadyOwned": "Bạn đã có món này rồi.",
+    "bagFull": "Túi đồ đã đầy món này.",
+    "levelTooLow": "Chưa đủ level để mua món này."
   },
   "quiz": {
     "reviewTitle": "Ôn từ",
@@ -113,7 +122,7 @@
     "nextReview": "Ôn lại sau {time}",
     "later": "Để sau",
     "save": "💾 Lưu",
-    "saved": "Đã lưu! Bi sẽ hỏi lại bạn sau ✨",
+    "saved": "Đã lưu! %PET% sẽ hỏi lại bạn sau ✨",
     "listen": "Nghe",
     "minutes": "{n} phút",
     "hours": "{n} giờ",
@@ -128,7 +137,8 @@
       "words": "Sổ từ",
       "placement": "Kiểm tra trình độ",
       "settings": "Cài đặt",
-      "practice": "Luyện tập"
+      "practice": "Luyện tập",
+      "shop": "Cửa hàng"
     },
     "home": {
       "welcome": "Chào bạn, hôm nay học gì nào?",
@@ -202,7 +212,7 @@
       "petName": "Tên thú cưng",
       "step3": "Trình độ hiện tại của bạn?",
       "takeTest": "Làm bài kiểm tra (khoảng 3 phút)",
-      "takeTestHint": "Chính xác nhất — Bi sẽ chọn từ vừa sức với bạn.",
+      "takeTestHint": "Chính xác nhất — %PET% sẽ chọn từ vừa sức với bạn.",
       "pickLevel": "Hoặc tự chọn:",
       "next": "Tiếp tục",
       "back": "Quay lại",
@@ -218,7 +228,7 @@
       "correct": "Đúng rồi! ✓",
       "wrong": "Chưa đúng — đáp án: {answer}",
       "resultTitle": "Trình độ của bạn: {cefr}",
-      "resultBody": "Bạn trả lời đúng {correct}/{total} câu. Bi đã chọn từ vừa sức với bạn.",
+      "resultBody": "Bạn trả lời đúng {correct}/{total} câu. %PET% đã chọn từ vừa sức với bạn.",
       "retry": "Làm lại",
       "done": "Bắt đầu học"
     },
@@ -291,5 +301,21 @@
     "cancel": "Huỷ",
     "retry": "Thử lại",
     "translateBtn": "Dịch cả câu"
+  },
+  "shop": {
+    "title": "Cửa hàng",
+    "coins": "{coins} xu",
+    "foodTitle": "Đồ ăn",
+    "accessoryTitle": "Phụ kiện cho {pet}",
+    "buy": "Mua",
+    "owned": "Đã có ×{n}",
+    "ownedOne": "Đã có",
+    "wear": "Đeo",
+    "unwear": "Tháo",
+    "wearing": "Đang đeo",
+    "needLevel": "Cần Lv {level}",
+    "tooExpensive": "Thiếu {n} xu",
+    "earnHint": "Kiếm xu bằng nhiệm vụ ngày và luyện tập nhé!",
+    "bought": "Đã mua {item}!"
   }
 }

@@ -11,6 +11,7 @@ import {
   type PetStats
 } from '@shared/pet'
 import type { PetState } from '@shared/schemas/pet'
+import { parseEquipped } from '@shared/shop'
 import { AppError } from '../core/AppError'
 import type { Clock } from '../core/Clock'
 import type { EventBus } from '../core/EventBus'
@@ -131,7 +132,8 @@ export class PetService {
       hunger: round1(row.hunger),
       mood: round1(row.mood),
       energy: round1(row.energy),
-      affection: row.affection
+      affection: row.affection,
+      equipped: parseEquipped(row.equipped)
     }
   }
 }

@@ -1,0 +1,1 @@
+ALTER TABLE `pet_states` ADD `equipped` text DEFAULT '[]' NOT NULL;

@@ -148,3 +148,73 @@ describe('SleepService', () => {
     expect(c.pet.get().energy).toBe(awake)
   })
 })
+
+describe('ShopService', () => {
+  it('mua đồ ăn: trừ xu, ghi sổ cái (coins âm), cộng vào túi', () => {
+    c.profiles.active()
+    c.xp.grant({ amount: 0, coins: 50, reason: 'test' })
+    const bag = (): number =>
+      c.inventory.list().find((i) => i.itemId === 'food:cake')?.quantity ?? 0
+    expect(bag()).toBe(0)
+
+    const state = c.shop.buy('food:cake') // 25 xu
+    expect(state.coins).toBe(25)
+    expect(bag()).toBe(1)
+    expect(c.pet.get().coins).toBe(25)
+    const spent = conn.sqlite
+      .prepare(
+        "SELECT coins, reason, ref_id AS refId FROM xp_events WHERE reason = 'shop.purchase'"
+      )
+      .all()
+    expect(spent).toEqual([{ coins: -25, reason: 'shop.purchase', refId: 'food:cake' }])
+    // Tổng sổ cái khớp với số xu của thú cưng
+    expect(c.pet.get().coins).toBe(
+      (conn.sqlite.prepare('SELECT sum(coins) AS n FROM xp_events').get() as { n: number }).n
+    )
+  })
+
+  it('không đủ xu / chưa đủ level / đã có phụ kiện → lỗi, không trừ xu', () => {
+    c.profiles.active()
+    expect(() => c.shop.buy('acc:bow')).toThrow(/NOT_ENOUGH_COINS/)
+    c.xp.grant({ amount: 0, coins: 500, reason: 'test' })
+    expect(() => c.shop.buy('acc:crown')).toThrow(/LEVEL_TOO_LOW/) // cần Lv 10
+    expect(() => c.shop.buy('khong-co')).toThrow(/ITEM_UNKNOWN/)
+    expect(c.pet.get().coins).toBe(500)
+    c.shop.buy('acc:bow')
+    expect(() => c.shop.buy('acc:bow')).toThrow(/ALREADY_OWNED/)
+    expect(c.pet.get().coins).toBe(470)
+  })
+
+  it('đeo/tháo phụ kiện đã mua; chưa mua thì không đeo được; cùng vị trí thì thay', () => {
+    c.profiles.active()
+    c.xp.grant({ amount: 0, coins: 500, reason: 'test' })
+    expect(() => c.shop.equip('acc:bow', true)).toThrow(/ITEM_NOT_OWNED/)
+    c.shop.buy('acc:bow')
+    c.shop.buy('acc:glasses')
+    const events: string[][] = []
+    c.bus.on('pet.updated', (s) => events.push(s.equipped))
+
+    c.shop.equip('acc:bow', true)
+    c.shop.equip('acc:glasses', true)
+    expect(c.pet.get().equipped).toEqual(['acc:bow', 'acc:glasses'])
+    expect(events.at(-1)).toEqual(['acc:bow', 'acc:glasses'])
+    const item = c.shop.state().items.find((i) => i.id === 'acc:bow')
+    expect(item).toMatchObject({ owned: 1, equipped: true, locked: false })
+
+    c.shop.equip('acc:bow', false)
+    expect(c.pet.get().equipped).toEqual(['acc:glasses'])
+  })
+
+  it('hồ sơ khác có túi đồ và phụ kiện riêng', () => {
+    const first = c.profiles.active()
+    c.xp.grant({ amount: 0, coins: 100, reason: 'test' })
+    c.shop.buy('acc:bow')
+    c.shop.equip('acc:bow', true)
+    const other = c.profiles.create({ name: 'B', track: 'general' })
+    c.profiles.switchTo(other.id)
+    expect(c.pet.get().equipped).toEqual([])
+    expect(c.shop.state().items.find((i) => i.id === 'acc:bow')?.owned).toBe(0)
+    c.profiles.switchTo(first.id)
+    expect(c.pet.get().equipped).toEqual(['acc:bow'])
+  })
+})

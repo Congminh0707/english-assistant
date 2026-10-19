@@ -31,7 +31,10 @@ export const INVOKE_CHANNELS = [
   'translate:cancel',
   'translate:text',
   'practice:start',
-  'practice:answer'
+  'practice:answer',
+  'shop:state',
+  'shop:buy',
+  'shop:equip'
 ] as const
 
 /** renderer → main, không chờ kết quả (ipcRenderer.send) */

@@ -43,6 +43,9 @@ export function registerAppIpc(c: Container, translation: TranslationService): v
   handle('practice:answer', ({ sessionId, exerciseId, answer }) =>
     c.practice.answer(sessionId, exerciseId, answer)
   )
+  handle('shop:state', () => c.shop.state())
+  handle('shop:buy', ({ itemId }) => c.shop.buy(itemId))
+  handle('shop:equip', ({ itemId, equipped }) => c.shop.equip(itemId, equipped))
   handle('vocab:list', () => c.study.words())
   handle('vocab:remove', ({ contentId }) => c.study.removeWord(contentId))
 }

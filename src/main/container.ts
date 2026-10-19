@@ -25,6 +25,7 @@ import { StudyService } from './services/StudyService'
 import { MissionService } from './services/MissionService'
 import { PlacementService } from './services/PlacementService'
 import { PracticeService } from './services/PracticeService'
+import { ShopService } from './services/ShopService'
 
 export interface Container {
   clock: Clock
@@ -43,6 +44,7 @@ export interface Container {
   missions: MissionService
   placement: PlacementService
   practice: PracticeService
+  shop: ShopService
 }
 
 export interface ContainerOptions {
@@ -148,6 +150,17 @@ export function createContainer(
     clock
   })
 
+  const shop = new ShopService({
+    inventory: repos.inventory,
+    pets: repos.pets,
+    petService: pet,
+    xp,
+    profiles,
+    clock,
+    bus,
+    transaction
+  })
+
   return {
     clock,
     bus,
@@ -164,6 +177,7 @@ export function createContainer(
     study,
     missions,
     placement,
-    practice
+    practice,
+    shop
   }
 }

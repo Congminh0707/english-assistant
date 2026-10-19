@@ -11,11 +11,12 @@ import ReviewSession from './components/ReviewSession.vue'
 import WordList from './components/WordList.vue'
 import PlacementTest from './components/PlacementTest.vue'
 import PracticeSession from './components/PracticeSession.vue'
+import ShopPage from './components/ShopPage.vue'
 import SettingsPage from './components/SettingsPage.vue'
 import Onboarding from './components/Onboarding.vue'
 
 // Cửa sổ Học tập (docs/12-ui-ux-guidelines.md#cửa-sổ-học-tập-study): thanh bên + trang nội dung.
-type Page = 'home' | 'review' | 'practice' | 'words' | 'placement' | 'settings'
+type Page = 'home' | 'review' | 'practice' | 'words' | 'shop' | 'placement' | 'settings'
 
 const { t, locale } = useI18n()
 const settingsStore = useSettingsStore()
@@ -34,6 +35,7 @@ const pages = computed<Array<{ id: Page; icon: string; label: string }>>(() => [
   { id: 'review', icon: '🧠', label: t('study.nav.review') },
   { id: 'practice', icon: '🎯', label: t('study.nav.practice') },
   { id: 'words', icon: '🗂', label: t('study.nav.words') },
+  { id: 'shop', icon: '🛍', label: t('study.nav.shop') },
   { id: 'placement', icon: '🧪', label: t('study.nav.placement') },
   { id: 'settings', icon: '⚙', label: t('study.nav.settings') }
 ])
@@ -112,6 +114,7 @@ onUnmounted(() => {
             label="XP"
           />
           <div class="muted xp">{{ petStore.pet.xpInLevel }} / {{ petStore.pet.xpForNext }} XP</div>
+          <div class="coins">🪙 {{ t('shop.coins', { coins: petStore.pet.coins }) }}</div>
         </template>
       </div>
 
@@ -144,6 +147,7 @@ onUnmounted(() => {
       <ReviewSession v-else-if="page === 'review'" @exit="go('home')" @changed="refresh" />
       <PracticeSession v-else-if="page === 'practice'" @changed="refresh" />
       <WordList v-else-if="page === 'words'" @changed="refresh" />
+      <ShopPage v-else-if="page === 'shop'" @changed="refresh" />
       <PlacementTest
         v-else-if="page === 'placement'"
         :autostart="autostartTest"
@@ -188,6 +192,10 @@ onUnmounted(() => {
 }
 .xp {
   font-size: 11px;
+}
+.coins {
+  font-size: 13px;
+  font-weight: 600;
 }
 .muted {
   color: var(--c-ink-soft);

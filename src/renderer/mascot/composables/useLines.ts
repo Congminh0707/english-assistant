@@ -1,4 +1,5 @@
 import { useI18n } from 'vue-i18n'
+import { withPetName } from '@renderer/shared/i18n'
 
 /** Chọn ngẫu nhiên một câu thoại theo chủ đề (mascot.lines.<topic> trong i18n), tránh lặp lại câu vừa nói */
 export function useLines(): {
@@ -14,7 +15,7 @@ export function useLines(): {
     let index = Math.floor(Math.random() * list.length)
     if (list.length > 1 && index === last.get(topic)) index = (index + 1) % list.length
     last.set(topic, index)
-    return rt(list[index])
+    return withPetName(rt(list[index]))
   }
 
   function greetingTopic(date = new Date()): string {

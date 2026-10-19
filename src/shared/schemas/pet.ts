@@ -12,7 +12,9 @@ export const PetStateSchema = z.object({
   hunger: z.number(),
   mood: z.number(),
   energy: z.number(),
-  affection: z.number().int()
+  affection: z.number().int(),
+  /** Phụ kiện đang đeo ('acc:bow'...) */
+  equipped: z.array(z.string())
 })
 export type PetState = z.infer<typeof PetStateSchema>
 

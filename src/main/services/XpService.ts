@@ -1,5 +1,6 @@
 import { levelFromTotalXp } from '@shared/pet'
 import type { PetState } from '@shared/schemas/pet'
+import { AppError } from '../core/AppError'
 import type { Clock } from '../core/Clock'
 import type { EventBus } from '../core/EventBus'
 import type { PetRepository } from '../db/repositories/PetRepository'
@@ -33,6 +34,32 @@ export class XpService {
       transaction: Transaction
     }
   ) {}
+
+  /** Chi xu (mua đồ): ghi sổ cái với coins âm, trừ xu của thú cưng; không đủ xu thì lỗi */
+  spend(input: { coins: number; reason: string; refId?: string | null }): PetState {
+    const { xp, pets, petService, profiles, clock, bus, transaction } = this.deps
+    const coins = Math.max(0, Math.round(input.coins))
+    const state = transaction(() => {
+      const now = clock.now()
+      const row = petService.row()
+      if (row.coins < coins) throw new AppError('NOT_ENOUGH_COINS', 'errors.notEnoughCoins')
+      xp.insert(
+        {
+          profileId: profiles.activeId(),
+          amount: 0,
+          coins: -coins,
+          reason: input.reason,
+          refId: input.refId ?? null,
+          multiplier: 1
+        },
+        now
+      )
+      pets.update(row.id, { coins: row.coins - coins }, now)
+      return petService.toState({ ...row, coins: row.coins - coins })
+    })
+    bus.emit('pet.updated', state)
+    return state
+  }
 
   grant(input: XpGrant): { state: PetState; levelUp: boolean } {
     const { xp, pets, petService, profiles, clock, bus, transaction } = this.deps

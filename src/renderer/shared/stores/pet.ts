@@ -1,11 +1,19 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import type { PetState } from '@shared/schemas/pet'
 import { invoke } from '../ipc'
+import { petName } from '../i18n'
 
 /** Bản sao trạng thái thú cưng để hiển thị — main là nguồn sự thật (docs/03-architecture.md#5) */
 export const usePetStore = defineStore('pet', () => {
   const pet = ref<PetState | null>(null)
+  // Câu thoại/giao diện nhắc tên thú cưng theo tên người dùng đặt
+  watch(
+    () => pet.value?.name,
+    (name) => {
+      if (name) petName.value = name
+    }
+  )
 
   async function load(): Promise<PetState> {
     pet.value = await invoke('pet:get')

@@ -388,6 +388,7 @@ pnpm content:lookup went táo "ngan hang"
 | Từ trong top 10k **chưa có nghĩa Việt** | **2.762** → danh sách ở `normalized/missing-vi.json` (đầu vào cho bước sinh nghĩa bằng LLM, §10.5) |
 | **Cập nhật 1.1.0 (2026-10-19)** | 2.693/2.762 từ có nghĩa AI sinh (`draft`): nhập 2.162 mục độ tin cậy cao + 481 trung bình; **69 mục thấp giữ lại** chờ duyệt (phần lớn là dạng biến tố mang nghĩa hiếm như `came` = “thanh chì ghép kính”). Pack 21,6 MB |
 | **Cập nhật 1.2.0 (2026-10-19)** | Dọn từ điển: bỏ 1.885 mục riêng của dạng biến tố, loại 68 mục vô ích (69 mục thấp đã xử lý hết), gắn cờ 104 từ nhạy cảm. **24.616 từ** (9.064 danh sách + 15.552 theo tần suất), 51.115 dạng từ, 70.480 câu, 2.139 từ dùng nghĩa AI sinh (`draft`). Pack 20,5 MB |
+| **Bổ sung nghĩa (2026-10-19)** | Sau khi dọn, 304 từ mới lọt vào top 10k chưa có nghĩa → sinh bổ sung 303 từ (`claude-opus-5-5`, `draft`; `fu` loại thủ công). Top 10k đủ nghĩa: 2.442 từ dùng nghĩa AI sinh, tất cả `approved` (303 từ cuối duyệt qua `curated/vocab/vocab-303-review.csv`: 239 giữ nguyên, 63 sửa nghĩa) → `content:validate --release` đạt. **24.615 từ**, 9.714 từ ngoài top 10k chưa có nghĩa Việt. Pack 20,6 MB |
 
 ### 10.4 Hạn chế đã biết / việc tiếp theo
 - Nghĩa Việt từ Wiktionary không đều và đôi khi gán sai nghĩa (wiktextract đoán, vd `appointment` → “kèo”). Từ không có nghĩa Wiktionary được bù bằng nghĩa LLM sinh (§10.5) — đã sinh 2.693 từ (`draft`), cần duyệt trước khi phát hành.

@@ -13,4 +13,7 @@ export function registerAppIpc(c: Container): void {
     c.dictionary.lookup(text, (ids) => c.vocab.savedContentIds(ids))
   )
   handle('vocab:save', (input) => c.vocab.save(input))
+  handle('quiz:answer', ({ quizId, choiceIndex, elapsedMs }) =>
+    c.micro.answer(quizId, choiceIndex, elapsedMs)
+  )
 }

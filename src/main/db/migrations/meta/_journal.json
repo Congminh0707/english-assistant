@@ -15,6 +15,13 @@
       "when": 1792318190225,
       "tag": "0001_marvelous_kitty_pryde",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1792377595348,
+      "tag": "0002_bored_vulture",
+      "breakpoints": true
     }
   ]
 }

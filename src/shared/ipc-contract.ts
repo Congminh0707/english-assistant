@@ -10,6 +10,7 @@ import {
   SaveWordInputSchema,
   SaveWordResultSchema
 } from './schemas/dictionary'
+import { QuizAnswerInputSchema, QuizAnswerResultSchema, QuizSchema } from './schemas/quiz'
 
 export const WalkResultSchema = z.object({ blocked: z.enum(['left', 'right']).nullable() })
 export const DragEndResultSchema = z.object({ falling: z.boolean() })
@@ -29,7 +30,8 @@ export const invokeContract = {
     input: z.object({ text: z.string().max(2000) }),
     output: LookupResultSchema
   },
-  'vocab:save': { input: SaveWordInputSchema, output: SaveWordResultSchema }
+  'vocab:save': { input: SaveWordInputSchema, output: SaveWordResultSchema },
+  'quiz:answer': { input: QuizAnswerInputSchema, output: QuizAnswerResultSchema }
 } satisfies Record<InvokeChannel, { input: z.ZodType; output: z.ZodType }>
 
 export const sendContract = {
@@ -44,7 +46,8 @@ export const eventContract = {
   'mascot:react': MascotReactionSchema,
   'pet:updated': PetStateSchema,
   'settings:changed': SettingsSchema,
-  'popup:query': PopupQuerySchema
+  'popup:query': PopupQuerySchema,
+  'mascot:quiz': QuizSchema
 } satisfies Record<EventName, z.ZodType>
 
 // --- Kiểu suy ra từ hợp đồng ---

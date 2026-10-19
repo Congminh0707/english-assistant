@@ -141,6 +141,10 @@ function onReaction({ kind }: MascotReaction): void {
   }
 }
 
+function onQuizResult(correct: boolean): void {
+  if (correct) brain?.react('happy')
+}
+
 /** Cửa sổ vừa đi ngang dx → con trỏ (đứng yên trên màn hình) lệch -dx so với cửa sổ */
 function onWindowMoved(dx: number): void {
   if (!lastPointer) return
@@ -222,6 +226,10 @@ onMounted(async () => {
   cleanups.push(
     window.api.on('mascot:landed', () => brain?.landed()),
     window.api.on('mascot:react', onReaction),
+    window.api.on('mascot:quiz', (quiz) => {
+      window.clearTimeout(hoverTimer)
+      bubble.showQuiz(quiz)
+    }),
     petStore.listen(),
     settingsStore.listen()
   )
@@ -255,6 +263,7 @@ onUnmounted(() => {
       :bubble="bubble.current.value"
       :pet="petStore.pet"
       @dismiss="bubble.dismiss()"
+      @quiz-result="onQuizResult"
     />
     <canvas
       ref="canvas"

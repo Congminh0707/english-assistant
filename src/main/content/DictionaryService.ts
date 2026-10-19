@@ -75,6 +75,67 @@ export class DictionaryService {
     return { query, kind, entries, packMissing: false }
   }
 
+  /** Một mục từ theo id (dùng cho thẻ ôn tập / từ của khoảnh khắc) */
+  entryById(id: string): DictEntry | null {
+    const stmts = this.prepare()
+    if (!stmts) return null
+    const row = stmts.db.prepare(`SELECT ${COLS} FROM words w WHERE w.id = ?`).get(id) as
+      WordRow | undefined
+    return row ? this.toEntry(stmts, { row, via: 'lemma', formTags: [] }, new Set()) : null
+  }
+
+  /**
+   * Dữ liệu câu hỏi trắc nghiệm cho một từ: nghĩa đúng + tối đa 3 nghĩa nhiễu của từ khác cùng level
+   * (khác nghĩa đúng, không trùng nhau). null nếu từ không có nghĩa tiếng Việt.
+   */
+  quizData(id: string): { entry: DictEntry; correct: string; distractors: string[] } | null {
+    const entry = this.entryById(id)
+    const correct = entry?.vi[0]
+    if (!entry || !correct) return null
+    const stmts = this.prepare()!
+    const pick = (sql: string, ...params: unknown[]): string[] =>
+      (stmts.db.prepare(sql).all(...params) as { vi_short: string }[]).map(
+        (r) => r.vi_short.split(/\s*;\s*/)[0]
+      )
+    const pool = [
+      ...pick(
+        `SELECT vi_short FROM words WHERE level = ? AND vi_short IS NOT NULL AND id != ?
+         ORDER BY random() LIMIT 30`,
+        entry.level,
+        id
+      ),
+      ...pick(
+        `SELECT vi_short FROM words WHERE vi_short IS NOT NULL AND id != ? AND freq_rank <= 5000
+         ORDER BY random() LIMIT 30`,
+        id
+      )
+    ]
+    const taken = new Set([correct.toLowerCase(), ...entry.vi.map((v) => v.toLowerCase())])
+    const distractors: string[] = []
+    for (const text of pool) {
+      const key = text.toLowerCase()
+      if (!text || taken.has(key)) continue
+      taken.add(key)
+      distractors.push(text)
+      if (distractors.length === 3) break
+    }
+    return { entry, correct, distractors }
+  }
+
+  /** Chọn ngẫu nhiên một từ có nghĩa tiếng Việt, thuộc danh sách từ chuẩn, ở các level cho trước */
+  randomWord(levels: string[], exclude: Set<string>): DictEntry | null {
+    const stmts = this.prepare()
+    if (!stmts || !levels.length) return null
+    const rows = stmts.db
+      .prepare(
+        `SELECT id FROM words WHERE level IN (${levels.map(() => '?').join(',')})
+         AND vi_short IS NOT NULL AND lists != '[]' ORDER BY random() LIMIT 40`
+      )
+      .all(...levels) as { id: string }[]
+    const id = rows.find((r) => !exclude.has(r.id))?.id
+    return id ? this.entryById(id) : null
+  }
+
   private prepare(): NonNullable<DictionaryService['statements']> | null {
     const db = this.packs.db(DICTIONARY_PACK)
     if (!db) return null

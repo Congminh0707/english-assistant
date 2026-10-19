@@ -152,3 +152,24 @@ export const srsCards = sqliteTable(
     uniqueIndex('srs_cards_profile_content_direction').on(t.profileId, t.contentId, t.direction)
   ]
 )
+
+/** Nhật ký mỗi lần ôn thẻ — để thống kê và sau này tối ưu tham số FSRS theo người dùng */
+export const srsReviews = sqliteTable(
+  'srs_reviews',
+  {
+    id: text('id').primaryKey(),
+    profileId: text('profile_id')
+      .notNull()
+      .references(() => profiles.id),
+    cardId: text('card_id')
+      .notNull()
+      .references(() => srsCards.id),
+    rating: integer('rating').notNull(), // 1 Quên, 2 Khó, 3 Được, 4 Dễ
+    stateBefore: integer('state_before').notNull(),
+    dueBefore: integer('due_before').notNull(),
+    elapsedMs: integer('elapsed_ms'),
+    source: text('source', { enum: ['study', 'mascot'] }).notNull(),
+    reviewedAt: integer('reviewed_at').notNull()
+  },
+  (t) => [index('srs_reviews_profile_time').on(t.profileId, t.reviewedAt)]
+)

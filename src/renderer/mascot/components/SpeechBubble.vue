@@ -5,9 +5,15 @@ import type { PetState } from '@shared/schemas/pet'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import PxBar from '@renderer/shared/components/PxBar.vue'
 import type { Bubble } from '../composables/useBubble'
+import QuizCard from './QuizCard.vue'
 
 const props = defineProps<{ bubble: Bubble; pet: PetState | null }>()
-defineEmits<{ dismiss: [] }>()
+const emit = defineEmits<{ dismiss: []; quizResult: [correct: boolean] }>()
+
+/** Bấm vào bong bóng thoại/chỉ số để đóng; thẻ hỏi ôn có nút riêng */
+function onClick(): void {
+  if (props.bubble.kind !== 'quiz') emit('dismiss')
+}
 const { t } = useI18n()
 
 const root = ref<HTMLElement>()
@@ -38,10 +44,18 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
     ref="root"
     class="bubble"
     :style="{ transform: `translateX(${shift}px)` }"
-    @click="$emit('dismiss')"
+    :class="{ interactive: bubble.kind === 'quiz' }"
+    @click="onClick"
   >
     <PxPanel>
       <p v-if="bubble.kind === 'say'" class="text">{{ bubble.text }}</p>
+      <QuizCard
+        v-else-if="bubble.kind === 'quiz' && bubble.quiz"
+        :key="bubble.id"
+        :quiz="bubble.quiz"
+        @done="emit('dismiss')"
+        @result="(ok: boolean) => emit('quizResult', ok)"
+      />
       <div v-else-if="pet" class="stats">
         <div class="head">
           <strong>{{ pet.name }}</strong>
@@ -69,6 +83,9 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
   max-width: 240px;
   margin-bottom: 10px;
   cursor: pointer;
+}
+.bubble.interactive {
+  cursor: default;
 }
 .text {
   margin: 0;

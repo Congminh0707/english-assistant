@@ -206,3 +206,61 @@ describe('DictionaryService + VocabService', () => {
     expect(res.entries[0].saved).toBe(true)
   })
 })
+
+describe('SrsService + MicroLearningService', () => {
+  let clock: FakeClock
+
+  beforeEach(async () => {
+    conn.close()
+    conn = openUserDb(':memory:', MIGRATIONS)
+    clock = new FakeClock()
+    c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    await c.packs.install(buildFixturePack(tmp))
+    c.settings.set('learning.level', 'A1_1')
+  })
+
+  it('không có thẻ đến hạn → giới thiệu từ mới đúng trình độ, chưa lưu', () => {
+    c.vocab.save({ contentId: 'word:en:left', text: 'left' })
+    c.vocab.save({ contentId: 'word:en:leave', text: 'leave' })
+    clock.advance(-60_000) // thẻ vừa tạo chưa đến hạn
+    const quiz = c.micro.next()
+    expect(quiz?.kind).toBe('new')
+    if (quiz?.kind === 'new') {
+      expect(quiz.lemma).toBe('go') // từ duy nhất cùng level, thuộc danh sách chuẩn, chưa lưu
+      expect(quiz.vi[0]).toBe('đi')
+    }
+  })
+
+  it('hỏi ôn thẻ đến hạn: trả lời đúng nhanh → lịch ôn lùi về sau, +2 XP, ghi nhật ký', () => {
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    const quiz = c.micro.next()
+    expect(quiz?.kind).toBe('review')
+    if (quiz?.kind !== 'review') return
+    expect(quiz.lemma).toBe('go')
+    expect(quiz.choices).toContain('đi')
+    expect(new Set(quiz.choices).size).toBe(quiz.choices.length)
+
+    const xpBefore = c.pet.get().totalXp
+    const res = c.micro.answer(quiz.id, quiz.choices.indexOf('đi'), 2000)
+    expect(res).toMatchObject({ correct: true, correctText: 'đi' })
+    expect(res.intervalDays).toBeGreaterThan(0)
+    expect(c.pet.get().totalXp).toBe(xpBefore + 2)
+    expect(c.srs.dueCount()).toBe(0)
+    expect(conn.sqlite.prepare('SELECT rating, source FROM srs_reviews').all()).toEqual([
+      { rating: 3, source: 'mascot' }
+    ])
+    // Không trả lời được 2 lần cùng một câu hỏi
+    expect(() => c.micro.answer(quiz.id, 0, 1000)).toThrow(/NOT_FOUND/)
+  })
+
+  it('trả lời sai → "Quên" (rating 1), thẻ quay lại sớm', () => {
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    const quiz = c.micro.next()
+    if (quiz?.kind !== 'review') throw new Error('expected review quiz')
+    const wrong = quiz.choices.findIndex((ch) => ch !== 'đi')
+    const res = c.micro.answer(quiz.id, wrong, 1500)
+    expect(res.correct).toBe(false)
+    expect(res.intervalDays).toBeLessThan(1)
+    expect(conn.sqlite.prepare('SELECT rating FROM srs_reviews').get()).toEqual({ rating: 1 })
+  })
+})

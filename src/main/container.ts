@@ -19,6 +19,8 @@ import { VocabRepository } from './db/repositories/VocabRepository'
 import { InstalledPackRepository } from './db/repositories/InstalledPackRepository'
 import { ContentPackService } from './content/ContentPackService'
 import { DictionaryService } from './content/DictionaryService'
+import { SrsService } from './services/SrsService'
+import { MicroLearningService } from './services/MicroLearningService'
 
 export interface Container {
   clock: Clock
@@ -31,6 +33,8 @@ export interface Container {
   packs: ContentPackService
   dictionary: DictionaryService
   vocab: VocabService
+  srs: SrsService
+  micro: MicroLearningService
 }
 
 export interface ContainerOptions {
@@ -96,5 +100,28 @@ export function createContainer(
     transaction
   })
 
-  return { clock, bus, settings, profiles, inventory, pet, xp, packs, dictionary, vocab }
+  const srs = new SrsService({ vocab: repos.vocab, profiles, xp, clock, bus, transaction })
+  const micro = new MicroLearningService({
+    srs,
+    dictionary,
+    vocab: repos.vocab,
+    profiles,
+    settings,
+    clock
+  })
+
+  return {
+    clock,
+    bus,
+    settings,
+    profiles,
+    inventory,
+    pet,
+    xp,
+    packs,
+    dictionary,
+    vocab,
+    srs,
+    micro
+  }
 }

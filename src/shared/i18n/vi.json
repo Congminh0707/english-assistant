@@ -23,7 +23,13 @@
     "sizeLarge": "Lớn",
     "language": "Ngôn ngữ / Language",
     "launchAtLogin": "Khởi động cùng Windows",
-    "quit": "Thoát"
+    "quit": "Thoát",
+    "reviewNow": "🧠 Ôn từ ngay",
+    "reviewNowDue": "🧠 Ôn từ ngay ({count} thẻ đến hạn)",
+    "quizInterval": "Nhắc ôn từ",
+    "everyMinutes": "Mỗi {minutes} phút",
+    "off": "Tắt",
+    "level": "Trình độ của tôi"
   },
   "items": {
     "onigiri": "Cơm nắm",
@@ -83,5 +89,22 @@
     "packInvalid": "Gói nội dung không hợp lệ.",
     "packUnsupported": "Gói nội dung cần phiên bản app mới hơn.",
     "packCorrupt": "Gói nội dung bị hỏng."
+  },
+  "quiz": {
+    "reviewTitle": "Ôn từ",
+    "reviewQuestion": "nghĩa là gì?",
+    "dueLeft": "còn {count} thẻ",
+    "newTitle": "Từ của khoảnh khắc",
+    "correct": "Đúng rồi! 🎉",
+    "wrong": "Chưa đúng — đáp án: {answer}",
+    "nextReview": "Ôn lại sau {time}",
+    "later": "Để sau",
+    "save": "💾 Lưu",
+    "saved": "Đã lưu! Bi sẽ hỏi lại bạn sau ✨",
+    "listen": "Nghe",
+    "minutes": "{n} phút",
+    "hours": "{n} giờ",
+    "days": "{n} ngày",
+    "noContent": "Chưa có gói từ điển để ôn."
   }
 }

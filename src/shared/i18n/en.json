@@ -23,7 +23,13 @@
     "sizeLarge": "Large",
     "language": "Ngôn ngữ / Language",
     "launchAtLogin": "Start with Windows",
-    "quit": "Quit"
+    "quit": "Quit",
+    "reviewNow": "🧠 Review now",
+    "reviewNowDue": "🧠 Review now ({count} due)",
+    "quizInterval": "Review reminders",
+    "everyMinutes": "Every {minutes} minutes",
+    "off": "Off",
+    "level": "My level"
   },
   "items": {
     "onigiri": "Rice ball",
@@ -83,5 +89,22 @@
     "packInvalid": "Invalid content pack.",
     "packUnsupported": "This content pack needs a newer app version.",
     "packCorrupt": "The content pack is corrupted."
+  },
+  "quiz": {
+    "reviewTitle": "Review",
+    "reviewQuestion": "means…?",
+    "dueLeft": "{count} left",
+    "newTitle": "Word of the moment",
+    "correct": "Correct! 🎉",
+    "wrong": "Not quite — answer: {answer}",
+    "nextReview": "Next review in {time}",
+    "later": "Later",
+    "save": "💾 Save",
+    "saved": "Saved! Bi will quiz you later ✨",
+    "listen": "Listen",
+    "minutes": "{n} min",
+    "hours": "{n} h",
+    "days": "{n} days",
+    "noContent": "No dictionary pack to review yet."
   }
 }

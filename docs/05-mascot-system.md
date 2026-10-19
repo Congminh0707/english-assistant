@@ -146,6 +146,8 @@ Hiện thực: một class `MascotBrain` với `state`, `enter(state)`, `exit(st
 
 ## 5. Bong bóng thoại & thẻ tương tác
 
+> ✅ **Đã làm**: `say`, thẻ chỉ số (`stats`, khi rê chuột), `quiz` (hỏi ôn / từ của khoảnh khắc — `QuizCard.vue`, không tự đóng, có nút "Để sau"). Hàng đợi ưu tiên: stats 0 < ambient 1 < reaction 2 < quiz 2.5 < important 3. Job `micro-quiz` (`src/main/jobs/quizJobs.ts`) chỉ hỏi khi mascot đang hiện và popup không mở.
+
 Nằm trong cùng cửa sổ mascot, phía trên đầu nhân vật. Các loại:
 
 | Loại | Nội dung | Thời gian tự đóng |

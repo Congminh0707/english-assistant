@@ -1,11 +1,25 @@
-import { and, eq, inArray, sql } from 'drizzle-orm'
+import { and, asc, eq, inArray, lte, sql } from 'drizzle-orm'
 import { uuidv7 } from '@shared/ids'
 import type { UserDb } from '../client'
-import { savedWords, srsCards } from '../schema'
+import { savedWords, srsCards, srsReviews } from '../schema'
 
 export type SavedWordRow = typeof savedWords.$inferSelect
 export type SrsCardRow = typeof srsCards.$inferSelect
 export type NewSrsCard = Omit<SrsCardRow, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'>
+export type SrsReviewRow = typeof srsReviews.$inferSelect
+export type CardSchedule = Pick<
+  SrsCardRow,
+  | 'due'
+  | 'stability'
+  | 'difficulty'
+  | 'elapsedDays'
+  | 'scheduledDays'
+  | 'learningSteps'
+  | 'reps'
+  | 'lapses'
+  | 'state'
+  | 'lastReview'
+>
 
 /** Sổ từ (saved_words) và thẻ ôn tập (srs_cards) của người dùng */
 export class VocabRepository {
@@ -86,6 +100,71 @@ export class VocabRepository {
     }
     this.db.insert(srsCards).values(row).run()
     return row
+  }
+
+  /** Thẻ đến hạn ôn (due ≤ now), sớm nhất trước */
+  dueCards(profileId: string, now: number, limit: number): SrsCardRow[] {
+    return this.db
+      .select()
+      .from(srsCards)
+      .where(
+        and(
+          eq(srsCards.profileId, profileId),
+          eq(srsCards.suspended, false),
+          lte(srsCards.due, now)
+        )
+      )
+      .orderBy(asc(srsCards.due))
+      .limit(limit)
+      .all()
+  }
+
+  countDue(profileId: string, now: number): number {
+    const row = this.db
+      .select({ n: sql<number>`count(*)` })
+      .from(srsCards)
+      .where(
+        and(
+          eq(srsCards.profileId, profileId),
+          eq(srsCards.suspended, false),
+          lte(srsCards.due, now)
+        )
+      )
+      .get()
+    return Number(row?.n ?? 0)
+  }
+
+  findCard(profileId: string, id: string): SrsCardRow | undefined {
+    return this.db
+      .select()
+      .from(srsCards)
+      .where(and(eq(srsCards.profileId, profileId), eq(srsCards.id, id)))
+      .get()
+  }
+
+  updateSchedule(id: string, schedule: CardSchedule, now: number): void {
+    this.db
+      .update(srsCards)
+      .set({ ...schedule, updatedAt: now })
+      .where(eq(srsCards.id, id))
+      .run()
+  }
+
+  insertReview(row: Omit<SrsReviewRow, 'id'>): void {
+    this.db
+      .insert(srsReviews)
+      .values({ ...row, id: uuidv7(row.reviewedAt) })
+      .run()
+  }
+
+  savedContentIdList(profileId: string): string[] {
+    return this.db
+      .select({ contentId: savedWords.contentId })
+      .from(savedWords)
+      .where(eq(savedWords.profileId, profileId))
+      .all()
+      .map((r) => r.contentId)
+      .filter((id): id is string => !!id)
   }
 
   countCards(profileId: string): number {

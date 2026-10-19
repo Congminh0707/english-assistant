@@ -62,14 +62,15 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 - [ ] Chế độ yên lặng: ✅ fullscreen, hẹn giờ ẩn — **còn** app họp, giờ không làm phiền
 
 **Dịch & từ điển**
-- [x] Popup dịch: copy + `Ctrl+Alt+T` → tra từ điển offline (từ gốc, dạng đã chia, tra ngược tiếng Việt), ô tìm kiếm, ví dụ, nhãn level, nhãn "AI" cho nghĩa chưa duyệt — *cần thử tay*
+- [x] Popup dịch: copy + `Ctrl+Alt+T` → tra từ điển offline (từ gốc, dạng đã chia, tra ngược tiếng Việt), ô tìm kiếm, ví dụ, nhãn level, nhãn "AI" cho nghĩa chưa duyệt — đã thử tay OK
 - [x] TTS hệ thống (US/UK) qua `speechSynthesis`
 - [ ] Dịch câu: opus-mt local (tải model khi cần) — hoặc tạm thời LLM BYOK nếu opus-mt chưa xong
 - [x] Lưu từ → sổ từ (`saved_words`) + tạo thẻ SRS FSRS (`srs_cards`) kèm câu ngữ cảnh, +1 XP cho từ mới
 
 **Học**
-- [ ] SRS với ts-fsrs: phiên ôn trong cửa sổ Study
-- [ ] Micro-learning: "Từ của khoảnh khắc" + quiz thẻ đến hạn qua mascot
+- [ ] SRS với ts-fsrs: ✅ `SrsService` (lịch FSRS, nhật ký `srs_reviews`, +2 XP/lần ôn) — **còn** phiên ôn đầy đủ trong cửa sổ Study
+- [x] Micro-learning: quiz thẻ đến hạn (4 đáp án, chấm ở main: đúng nhanh → Được, đúng chậm → Khó, sai → Quên) + "Từ của khoảnh khắc" đúng trình độ khi không có thẻ đến hạn; tự nhắc mỗi 15/25/45 phút hoặc tắt, "🧠 Ôn từ ngay" trong menu chuột phải — đã thử tay OK (2026-10-19)
+- [ ] Trình độ: ✅ chọn tay trong menu chuột phải (`learning.level`) — **còn** bài kiểm tra đầu vào
 - [ ] Trang chủ Study: lộ trình hôm nay, streak, nhiệm vụ ngày
 - [ ] Placement rút gọn (từ vựng + ngữ pháp) & rating theo kỹ năng
 

@@ -21,6 +21,7 @@ import { monitorOfNativeHandle } from './system/win32'
 import { QuietModeService } from './services/QuietModeService'
 import { Scheduler } from './jobs/Scheduler'
 import { schedulePetJobs } from './jobs/petJobs'
+import { scheduleQuizJob } from './jobs/quizJobs'
 
 const APP_ID = 'net.gonbi.englishassistant'
 
@@ -68,7 +69,12 @@ if (!app.requestSingleInstanceLock()) {
     mascot = m
     popup = p
     registerAppIpc(c)
-    registerMascotIpc(m, () => showMascotMenu(c, m))
+    // Micro-learning: mascot hỏi ôn thẻ đến hạn / giới thiệu từ mới định kỳ
+    const quizJob = scheduleQuizJob(scheduler, c, {
+      canShow: () => m.win.isVisible() && !p.win.isVisible(),
+      show: (quiz) => sendTo(m.win, 'mascot:quiz', quiz)
+    })
+    registerMascotIpc(m, () => showMascotMenu(c, m, { quizNow: () => quizJob.trigger() }))
     registerPopupIpc(p)
     registerShortcuts({
       // Copy chữ rồi bấm phím tắt → popup tra từ cạnh con trỏ

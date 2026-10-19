@@ -1,11 +1,13 @@
 import { ref, type Ref } from 'vue'
+import type { Quiz } from '@shared/schemas/quiz'
 
-export type BubbleKind = 'say' | 'stats'
+export type BubbleKind = 'say' | 'stats' | 'quiz'
 
 export interface Bubble {
   id: number
   kind: BubbleKind
   text?: string
+  quiz?: Quiz
   /** Độ ưu tiên: bong bóng mới chỉ thay được bong bóng đang hiện nếu ưu tiên ≥ */
   priority: number
 }
@@ -14,6 +16,7 @@ export const BubblePriority = {
   stats: 0,
   ambient: 1, // câu chào, nhắc đói
   reaction: 2, // phản hồi trực tiếp khi người dùng tương tác
+  quiz: 2.5, // câu hỏi ôn: không bị câu thoại thường đè lên, không tự đóng
   important: 3 // lên cấp...
 } as const
 
@@ -29,6 +32,7 @@ export function useBubble(): {
   current: Ref<Bubble | null>
   say: (text: string, priority?: number) => void
   showStats: () => void
+  showQuiz: (quiz: Quiz) => void
   hideStats: () => void
   dismiss: () => void
   clear: () => void
@@ -63,6 +67,13 @@ export function useBubble(): {
     }
   }
 
+  function showQuiz(quiz: Quiz): void {
+    const bubble: Bubble = { id: nextId++, kind: 'quiz', quiz, priority: BubblePriority.quiz }
+    const now = current.value
+    if (!now || now.kind === 'stats' || bubble.priority >= now.priority) show(bubble)
+    else if (queue.length < MAX_QUEUE) queue.push(bubble)
+  }
+
   function showStats(): void {
     if (!current.value) show({ id: nextId++, kind: 'stats', priority: BubblePriority.stats })
   }
@@ -77,5 +88,5 @@ export function useBubble(): {
     current.value = null
   }
 
-  return { current, say, showStats, hideStats, dismiss, clear }
+  return { current, say, showStats, showQuiz, hideStats, dismiss, clear }
 }

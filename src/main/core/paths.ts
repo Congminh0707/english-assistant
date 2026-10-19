@@ -4,6 +4,8 @@ import { join } from 'path'
 /** Đường dẫn dùng trong app — luôn lấy qua đây, không viết cứng (docs/15-packaging-and-release.md#2) */
 export const paths = {
   userDb: (): string => join(app.getPath('userData'), 'user.db'),
+  /** Model AI tải về (dịch offline...): userData/models */
+  models: (): string => join(app.getPath('userData'), 'models'),
   /** Content pack đã giải nén */
   packs: (): string => join(app.getPath('userData'), 'packs'),
   /** Pack đi kèm app: dev lấy content/packs (bản build của pipeline), bản cài lấy resources/packs */

@@ -1,8 +1,9 @@
 import type { Container } from '../container'
+import type { TranslationService } from '../services/TranslationService'
 import { handle } from './handle'
 
 /** Các kênh nghiệp vụ: thú cưng, túi đồ, cài đặt (~ Controllers) */
-export function registerAppIpc(c: Container): void {
+export function registerAppIpc(c: Container, translation: TranslationService): void {
   handle('pet:get', () => c.pet.get())
   handle('pet:pat', () => c.pet.pat())
   handle('pet:feed', ({ itemId }) => c.pet.feed(itemId))
@@ -33,6 +34,14 @@ export function registerAppIpc(c: Container): void {
   handle('placement:start', () => ({ question: c.placement.start() }))
   handle('placement:answer', ({ sessionId, questionId, choiceIndex }) =>
     c.placement.answer(sessionId, questionId, choiceIndex)
+  )
+  handle('translate:status', () => translation.status())
+  handle('translate:install', () => translation.install())
+  handle('translate:cancel', () => translation.cancelInstall())
+  handle('translate:text', ({ text }) => translation.translate(text))
+  handle('practice:start', ({ mode }) => ({ exercise: c.practice.start(mode) }))
+  handle('practice:answer', ({ sessionId, exerciseId, answer }) =>
+    c.practice.answer(sessionId, exerciseId, answer)
   )
   handle('vocab:list', () => c.study.words())
   handle('vocab:remove', ({ contentId }) => c.study.removeWord(contentId))

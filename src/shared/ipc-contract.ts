@@ -17,11 +17,22 @@ import {
 } from './schemas/dictionary'
 import { QuizAnswerInputSchema, QuizAnswerResultSchema, QuizSchema } from './schemas/quiz'
 import {
+  PracticeAnswerInputSchema,
+  PracticeAnswerResultSchema,
+  PracticeStartInputSchema,
+  PracticeStartResultSchema
+} from './schemas/practice'
+import {
   PlacementAnswerInputSchema,
   PlacementAnswerResultSchema,
   PlacementStartSchema
 } from './schemas/placement'
 import { ProfileInfoSchema, ProfileSetupInputSchema } from './schemas/profile'
+import {
+  TranslateInputSchema,
+  TranslateResultSchema,
+  TranslateStatusSchema
+} from './schemas/translate'
 import {
   MissionsStateSchema,
   StudyNextSchema,
@@ -62,7 +73,13 @@ export const invokeContract = {
   'profile:create': { input: ProfileSetupInputSchema, output: ProfileInfoSchema },
   'profile:switch': { input: z.object({ id: z.string().min(1) }), output: ProfileInfoSchema },
   'placement:start': { input: z.void(), output: PlacementStartSchema },
-  'placement:answer': { input: PlacementAnswerInputSchema, output: PlacementAnswerResultSchema }
+  'placement:answer': { input: PlacementAnswerInputSchema, output: PlacementAnswerResultSchema },
+  'translate:status': { input: z.void(), output: TranslateStatusSchema },
+  'translate:install': { input: z.void(), output: TranslateStatusSchema },
+  'translate:cancel': { input: z.void(), output: z.void() },
+  'translate:text': { input: TranslateInputSchema, output: TranslateResultSchema },
+  'practice:start': { input: PracticeStartInputSchema, output: PracticeStartResultSchema },
+  'practice:answer': { input: PracticeAnswerInputSchema, output: PracticeAnswerResultSchema }
 } satisfies Record<InvokeChannel, { input: z.ZodType; output: z.ZodType }>
 
 export const sendContract = {
@@ -79,7 +96,8 @@ export const eventContract = {
   'settings:changed': SettingsSchema,
   'popup:query': PopupQuerySchema,
   'mascot:quiz': QuizSchema,
-  'mascot:sleep': MascotSleepSchema
+  'mascot:sleep': MascotSleepSchema,
+  'translate:status-changed': TranslateStatusSchema
 } satisfies Record<EventName, z.ZodType>
 
 // --- Kiểu suy ra từ hợp đồng ---

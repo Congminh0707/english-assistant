@@ -3,3 +3,6 @@ allowBuilds:
   electron-winstaller: false
   esbuild: true
   koffi: true
+  # onnxruntime-node: binary đã có sẵn trong gói npm (script chỉ tải thêm bản GPU cho Linux); protobufjs: chỉ kiểm tra phiên bản
+  onnxruntime-node: false
+  protobufjs: false

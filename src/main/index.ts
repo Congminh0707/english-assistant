@@ -21,6 +21,9 @@ import { readClipboardForLookup } from './system/clipboard'
 import { getForegroundInfo, getUserNotificationState, monitorOfNativeHandle } from './system/win32'
 import { QuietModeService } from './services/QuietModeService'
 import { SleepService } from './services/SleepService'
+import { TranslationService } from './services/TranslationService'
+import { ModelManager } from './translate/ModelManager'
+import { OpusMtEngine } from './translate/OpusMtEngine'
 import { Scheduler } from './jobs/Scheduler'
 import { schedulePetJobs } from './jobs/petJobs'
 import { scheduleQuizJob } from './jobs/quizJobs'
@@ -43,6 +46,7 @@ let popup: PopupWindow | null = null
 let study: StudyWindow | null = null
 let tray: AppTray | null = null
 let quietMode: QuietModeService | null = null
+let translation: TranslationService | null = null
 const scheduler = new Scheduler()
 
 // Chỉ cho chạy 1 instance: mở lần 2 thì hiện lại mascot đang có
@@ -73,7 +77,14 @@ if (!app.requestSingleInstanceLock()) {
     popup = p
     const s = new StudyWindow()
     study = s
-    registerAppIpc(c)
+    // Dịch câu offline: model tải về userData/models khi người dùng đồng ý, chạy trong utilityProcess
+    const translationService = new TranslationService({
+      models: new ModelManager({ modelsDir: paths.models() }),
+      engine: new OpusMtEngine(paths.models()),
+      onStatus: (status) => broadcast('translate:status-changed', status)
+    })
+    translation = translationService
+    registerAppIpc(c, translationService)
     // Ngủ: người dùng vắng mặt lâu hoặc thú cưng hết năng lượng
     const sleepService = new SleepService({
       pet: c.pet,
@@ -170,6 +181,7 @@ if (!app.requestSingleInstanceLock()) {
     quietMode?.stop()
     popup?.win.destroy()
     study?.destroy()
+    translation?.dispose()
     tray?.tray.destroy()
     tray = null
     container?.packs.closeAll()

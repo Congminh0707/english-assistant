@@ -1,4 +1,4 @@
-import { LEVEL_CODES, type LevelCode } from '@shared/schemas/content'
+import { levelAndNext } from '@shared/learning'
 import type { NewWordQuiz, Quiz, QuizAnswerResult, ReviewQuiz } from '@shared/schemas/quiz'
 import { AppError } from '../core/AppError'
 import type { Clock } from '../core/Clock'
@@ -97,7 +97,7 @@ export class MicroLearningService {
     const level = this.deps.settings.get('learning.level')
     const saved = new Set(this.deps.vocab.savedContentIdList(this.deps.profiles.activeId()))
     const entry = this.deps.dictionary.randomWord(
-      nearbyLevels(level),
+      levelAndNext(level),
       saved,
       this.dictionaryOptions()
     )
@@ -138,10 +138,4 @@ export class MicroLearningService {
     const now = this.deps.clock.now()
     for (const [id, q] of this.pending) if (now - q.createdAt > QUIZ_TTL_MS) this.pending.delete(id)
   }
-}
-
-/** Level hiện tại + level kế tiếp (từ mới hơi khó hơn một chút) */
-function nearbyLevels(level: LevelCode): LevelCode[] {
-  const i = LEVEL_CODES.indexOf(level)
-  return LEVEL_CODES.slice(Math.max(0, i), i + 2)
 }

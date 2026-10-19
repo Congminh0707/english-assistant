@@ -60,6 +60,8 @@ Thêm dạng bài mới = thêm đủ 3 thứ này + đăng ký vào `exerciseRe
 
 ---
 
+> ✅ **Đã làm (Phase 1/2)** — `PracticeService` + `src/shared/practice.ts` + trang "Luyện tập" trong cửa sổ Học tập (xem [decisions #13](decisions.md)): 5 dạng bài sinh từ câu Tatoeba có bản dịch Việt và từ vựng đúng trình độ — `cloze` (điền từ), `word_order` (sắp xếp câu), `listen_choice` (nghe chọn nghĩa), `dictation` (nghe chép, đạt khi đúng ≥ 90% số từ), `match_pairs` (ghép từ–nghĩa). Khác với thiết kế registry ở trên: chưa tách component dùng chung (`PracticeSession.vue` chứa cả 5 dạng) và chưa có `exerciseRegistry`; sẽ tách khi thêm dạng bài thứ 6+. Chưa có: `picture_choice`, `tap_pairs` hình, `true_false_ng`, `speak_repeat`..., bài đọc, ngữ pháp có giải thích, rating theo kỹ năng.
+
 ## 3. Module Từ vựng + SRS (P0)
 
 > ✅ **Đã làm (Phase 1)**: lưu từ từ popup → thẻ `en_vi`; `SrsService` (ts-fsrs, có fuzz) tính lịch, ghi `srs_reviews`; mascot hỏi ôn thẻ đến hạn bằng trắc nghiệm 4 đáp án (`MicroLearningService`, đáp án nhiễu là nghĩa của từ cùng level), quy đổi: đúng ≤ 6 giây → *Được*, đúng chậm hơn → *Khó*, sai → *Quên*. Cửa sổ Học tập (`StudyService`) có phiên ôn đầy đủ: lật thẻ → người dùng tự chấm *Quên/Khó/Được/Dễ* (phím `Space`/`1–4`, nút hiện khoảng ôn lại dự kiến), nguồn ghi `srs_reviews.source = 'study'`; sổ từ cho phép xoá từ (xoá mềm thẻ `deleted_at` + `suspended`, giữ nhật ký ôn; lưu lại từ sẽ dùng lại thẻ cũ). Streak tính theo ngày cục bộ có ít nhất một lần ôn. Chưa làm: các hướng thẻ khác (`vi_en`, `audio_en`, `cloze`), giới hạn từ mới/ngày.

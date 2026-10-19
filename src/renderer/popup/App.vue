@@ -2,7 +2,8 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { DictEntry, LookupResult } from '@shared/schemas/dictionary'
-import { invoke } from '@renderer/shared/ipc'
+import type { TranslateStatus } from '@shared/schemas/translate'
+import { invoke, IpcError } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useTts } from '@renderer/shared/composables/useTts'
 
@@ -22,6 +23,16 @@ const loading = ref(false)
 const toast = ref('')
 /** Câu gốc khi người dùng copy cả câu rồi bấm vào một từ — lưu làm ngữ cảnh cho thẻ SRS */
 const contextSentence = ref<string | null>(null)
+/** Bản dịch cả câu (opus-mt offline) cho câu/cụm không có trong từ điển */
+const translation = ref<{
+  phase: 'idle' | 'loading' | 'done' | 'error'
+  text: string
+  errorKey: string
+}>({ phase: 'idle', text: '', errorKey: '' })
+const modelStatus = ref<TranslateStatus | null>(null)
+/** Văn bản đang chờ dịch (đợi người dùng tải model) */
+let pendingText: string | null = null
+let translateSeq = 0
 const cleanups: Array<() => void> = []
 let toastTimer = 0
 let lookupSeq = 0
@@ -36,6 +47,48 @@ const sentenceTokens = computed(() =>
     : []
 )
 
+const MB = 1024 * 1024
+const sizeMb = computed(() => Math.round((modelStatus.value?.sizeBytes ?? 0) / MB))
+const doneMb = computed(() => Math.round((modelStatus.value?.receivedBytes ?? 0) / MB))
+const showTranslation = computed(() => {
+  const r = result.value
+  if (!r || r.packMissing) return false
+  return r.kind === 'sentence' || (r.kind === 'phrase' && r.entries.length === 0)
+})
+
+async function translate(text: string): Promise<void> {
+  const seq = ++translateSeq
+  pendingText = text
+  if (modelStatus.value?.state !== 'ready') {
+    translation.value = { phase: 'idle', text: '', errorKey: '' }
+    return
+  }
+  translation.value = { phase: 'loading', text: '', errorKey: '' }
+  try {
+    const res = await invoke('translate:text', { text })
+    if (seq !== translateSeq) return
+    pendingText = null
+    translation.value = { phase: 'done', text: res.text, errorKey: '' }
+  } catch (err) {
+    if (seq !== translateSeq) return
+    const key = err instanceof IpcError ? err.info.messageKey : 'errors.translateFailed'
+    translation.value = { phase: 'error', text: '', errorKey: key }
+  }
+}
+
+async function installModel(): Promise<void> {
+  try {
+    modelStatus.value = await invoke('translate:install')
+    if (modelStatus.value.state === 'ready' && pendingText) void translate(pendingText)
+  } catch (err) {
+    console.warn('[popup] install model failed', err)
+  }
+}
+
+function cancelInstall(): void {
+  void invoke('translate:cancel')
+}
+
 async function lookup(text: string): Promise<void> {
   const seq = ++lookupSeq
   input.value = text
@@ -46,6 +99,15 @@ async function lookup(text: string): Promise<void> {
     if (seq !== lookupSeq) return // đã có lần tra mới hơn
     result.value = res
     if (res.kind === 'sentence') contextSentence.value = res.query
+    translateSeq++
+    translation.value = { phase: 'idle', text: '', errorKey: '' }
+    pendingText = null
+    if (
+      !res.packMissing &&
+      (res.kind === 'sentence' || (res.kind === 'phrase' && res.entries.length === 0))
+    ) {
+      void translate(res.query)
+    }
   } catch (err) {
     console.warn('[popup] lookup failed', err)
   } finally {
@@ -113,8 +175,17 @@ watch(
 
 onMounted(async () => {
   window.addEventListener('keydown', onKeyDown)
-  cleanups.push(settingsStore.listen(), window.api.on('popup:query', onQuery))
+  cleanups.push(
+    settingsStore.listen(),
+    window.api.on('popup:query', onQuery),
+    window.api.on('translate:status-changed', (status) => {
+      const wasReady = modelStatus.value?.state === 'ready'
+      modelStatus.value = status
+      if (status.state === 'ready' && !wasReady && pendingText) void translate(pendingText)
+    })
+  )
   await settingsStore.load()
+  modelStatus.value = await invoke('translate:status')
 })
 onUnmounted(() => {
   window.removeEventListener('keydown', onKeyDown)
@@ -150,6 +221,37 @@ onUnmounted(() => {
 
       <div v-else-if="result.kind === 'sentence'">
         <p class="muted">{{ t('popup.sentence') }}</p>
+        <div v-if="showTranslation" class="translation">
+          <div class="tr-head">
+            <strong>{{ t('translate.title') }}</strong>
+            <span class="ai" :title="t('translate.machineHint')">{{
+              t('translate.machineBadge')
+            }}</span>
+          </div>
+          <p v-if="translation.phase === 'loading'" class="muted">
+            {{ t('translate.translating') }}
+          </p>
+          <p v-else-if="translation.phase === 'done'" class="tr-text">{{ translation.text }}</p>
+          <p v-else-if="translation.phase === 'error'" class="tr-error">
+            {{ t(translation.errorKey) }}
+          </p>
+          <div v-else-if="modelStatus?.state === 'downloading'" class="tr-download">
+            <span class="muted">{{
+              t('translate.downloading', { done: doneMb, total: sizeMb })
+            }}</span>
+            <progress :value="modelStatus.receivedBytes" :max="modelStatus.sizeBytes" />
+            <button type="button" class="token" @click="cancelInstall">
+              {{ t('translate.cancel') }}
+            </button>
+          </div>
+          <div v-else-if="modelStatus" class="tr-download">
+            <span class="muted">{{ t('translate.needModel', { size: sizeMb }) }}</span>
+            <span v-if="modelStatus.errorKey" class="tr-error">{{ t(modelStatus.errorKey) }}</span>
+            <button type="button" class="save" @click="installModel">
+              {{ modelStatus.errorKey ? t('translate.retry') : t('translate.download') }}
+            </button>
+          </div>
+        </div>
         <div class="tokens">
           <button
             v-for="w in sentenceTokens"
@@ -163,7 +265,39 @@ onUnmounted(() => {
         </div>
       </div>
 
-      <p v-else-if="!entry" class="muted">{{ t('popup.notFound', { query: result.query }) }}</p>
+      <div v-else-if="!entry">
+        <p class="muted">{{ t('popup.notFound', { query: result.query }) }}</p>
+        <div v-if="showTranslation" class="translation">
+          <div class="tr-head">
+            <strong>{{ t('translate.title') }}</strong>
+            <span class="ai" :title="t('translate.machineHint')">{{
+              t('translate.machineBadge')
+            }}</span>
+          </div>
+          <p v-if="translation.phase === 'loading'" class="muted">
+            {{ t('translate.translating') }}
+          </p>
+          <p v-else-if="translation.phase === 'done'" class="tr-text">{{ translation.text }}</p>
+          <p v-else-if="translation.phase === 'error'" class="tr-error">
+            {{ t(translation.errorKey) }}
+          </p>
+          <div v-else-if="modelStatus?.state === 'downloading'" class="tr-download">
+            <span class="muted">{{
+              t('translate.downloading', { done: doneMb, total: sizeMb })
+            }}</span>
+            <progress :value="modelStatus.receivedBytes" :max="modelStatus.sizeBytes" />
+            <button type="button" class="token" @click="cancelInstall">
+              {{ t('translate.cancel') }}
+            </button>
+          </div>
+          <div v-else-if="modelStatus" class="tr-download">
+            <span class="muted">{{ t('translate.needModel', { size: sizeMb }) }}</span>
+            <button type="button" class="save" @click="installModel">
+              {{ t('translate.download') }}
+            </button>
+          </div>
+        </div>
+      </div>
 
       <article v-else class="entry">
         <div class="headline">
@@ -383,6 +517,38 @@ onUnmounted(() => {
 .example {
   display: flex;
   gap: 6px;
+}
+.translation {
+  display: grid;
+  gap: 4px;
+  margin: 6px 0;
+  padding: 6px 8px;
+  background: #fff8dc;
+  border-left: 3px solid var(--c-primary);
+}
+.tr-head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.tr-text {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+}
+.tr-error {
+  margin: 0;
+  font-size: 12px;
+  color: var(--c-danger);
+}
+.tr-download {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+  font-size: 12px;
+}
+.tr-download progress {
+  width: 100%;
 }
 .tokens,
 .others {

@@ -8,6 +8,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { CONTENT_DB_SCHEMA } from '../../../scripts/content/build/schema'
 import { normalizeQuery } from '@shared/schemas/dictionary'
 import type { PlacementResult } from '@shared/schemas/placement'
+import type { Exercise, PracticeAnswer, PracticeSummary } from '@shared/schemas/practice'
 import { FakeClock } from '../core/Clock'
 import { openUserDb, type UserDbConnection } from '../db/client'
 import { createContainer, type Container } from '../container'
@@ -15,6 +16,79 @@ import { compareVersions } from './ContentPackService'
 import { computeStreak } from '../services/StudyService'
 
 const MIGRATIONS = resolve('src/main/db/migrations')
+
+const PRACTICE_WORDS: Array<[string, string, string]> = [
+  ['school', 'trường học', 'noun'],
+  ['dog', 'con chó', 'noun'],
+  ['book', 'cuốn sách', 'noun'],
+  ['house', 'ngôi nhà', 'noun'],
+  ['water', 'nước', 'noun'],
+  ['friend', 'người bạn', 'noun'],
+  ['garden', 'khu vườn', 'noun'],
+  ['eat', 'ăn', 'verb'],
+  ['run', 'chạy', 'verb'],
+  ['read', 'đọc', 'verb'],
+  ['big', 'to lớn', 'adjective'],
+  ['happy', 'hạnh phúc', 'adjective']
+]
+/** [câu tiếng Anh, bản dịch, các từ trong câu] — câu cuối chứa từ nhạy cảm (crap) */
+const PRACTICE_SENTENCES: Array<[string, string, string[]]> = [
+  [
+    'My friend has a big dog at home.',
+    'Bạn tôi có một con chó lớn ở nhà.',
+    ['friend', 'big', 'dog']
+  ],
+  [
+    'We read a good book every night.',
+    'Chúng tôi đọc một cuốn sách hay mỗi tối.',
+    ['read', 'book']
+  ],
+  ['The children run to the school together.', 'Bọn trẻ cùng chạy đến trường.', ['run', 'school']],
+  ['Please give me some water to drink.', 'Làm ơn cho tôi ít nước để uống.', ['water']],
+  ['They are happy in their small house.', 'Họ hạnh phúc trong ngôi nhà nhỏ.', ['happy', 'house']],
+  ['I eat breakfast with my family daily.', 'Tôi ăn sáng cùng gia đình mỗi ngày.', ['eat']],
+  [
+    'He wants to read the book again today.',
+    'Anh ấy muốn đọc lại cuốn sách hôm nay.',
+    ['read', 'book']
+  ],
+  [
+    'The old house has a very big garden.',
+    'Ngôi nhà cũ có một khu vườn rất lớn.',
+    ['house', 'big', 'garden']
+  ],
+  ['Tom goes to school with his friend.', 'Tom đi học cùng bạn.', ['school', 'friend']],
+  [
+    'My dog likes to run in the garden.',
+    'Con chó của tôi thích chạy trong vườn.',
+    ['dog', 'run', 'garden']
+  ],
+  [
+    'Every morning she reads a book about animals.',
+    'Mỗi sáng cô ấy đọc một cuốn sách về động vật.',
+    ['book']
+  ],
+  [
+    'The big school is near my house.',
+    'Ngôi trường lớn ở gần nhà tôi.',
+    ['big', 'school', 'house']
+  ],
+  [
+    'We drink water and eat fruit daily.',
+    'Chúng tôi uống nước và ăn trái cây mỗi ngày.',
+    ['water', 'eat']
+  ],
+  [
+    'A happy friend is a good friend.',
+    'Một người bạn vui vẻ là người bạn tốt.',
+    ['happy', 'friend']
+  ],
+  [
+    'This crap is not good for the garden.',
+    'Thứ bẩn này không tốt cho khu vườn.',
+    ['crap', 'garden']
+  ]
+]
 
 /** Tạo gói core-dictionary mẫu (vài từ) đúng định dạng .eapack của pipeline */
 function buildFixturePack(dir: string, version = '1.0.0'): string {
@@ -27,23 +101,25 @@ function buildFixturePack(dir: string, version = '1.0.0'): string {
     rank: number,
     vi: string[],
     origin = 'wiktionary',
-    lists: string[] = []
+    lists: string[] = [],
+    pos = 'verb'
   ): void => {
     const data = {
       id,
       lemma,
-      pos: ['verb'],
+      pos: [pos],
       ipa: { us: `/${lemma}/` },
-      senses: [{ id: 's1', pos: 'verb', en: `to ${lemma}`, vi: [], tags: [], examples: [] }],
+      senses: [{ id: 's1', pos, en: `to ${lemma}`, vi: [], tags: [], examples: [] }],
       vi: vi.map((text) => ({ text, origin })),
       examples: [{ en: `I ${lemma} every day.`, vi: 'Ví dụ.', sourceId: 'tatoeba:1' }]
     }
     db.prepare(
       `INSERT INTO words (id, lemma, pos, ipa_us, ipa_uk, level, freq_rank, lists, vi_short, data)
-       VALUES (?, ?, '["verb"]', ?, NULL, 'A1_1', ?, ?, ?, ?)`
+       VALUES (?, ?, ?, ?, NULL, 'A1_1', ?, ?, ?, ?)`
     ).run(
       id,
       lemma,
+      JSON.stringify([pos]),
       `/${lemma}/`,
       rank,
       JSON.stringify(lists),
@@ -63,6 +139,19 @@ function buildFixturePack(dir: string, version = '1.0.0'): string {
   word('word:en:went', 'went', 3000, ['(nghĩa hiếm)'])
   word('word:en:left', 'left', 150, ['trái', 'bên trái'], 'wiktionary', ['ngsl'])
   word('word:en:leave', 'leave', 120, ['rời đi'], 'wiktionary', ['ngsl'])
+  // Từ và câu cho bài luyện tập (không thuộc danh sách chuẩn nên không ảnh hưởng "từ của khoảnh khắc")
+  for (const [lemma, vi, pos] of PRACTICE_WORDS) {
+    word(`word:en:${lemma}`, lemma, 300 + lemma.length, [vi], 'wiktionary', [], pos)
+  }
+  const insSentence = db.prepare(
+    `INSERT INTO sentences (id, en, vi, level, audio, source, data) VALUES (?, ?, ?, 'A1_1', NULL, '{}', '{}')`
+  )
+  const insLink = db.prepare('INSERT INTO sentence_words (word_id, sentence_id) VALUES (?, ?)')
+  PRACTICE_SENTENCES.forEach(([en, vi, words], i) => {
+    const id = `sentence:tatoeba:${9000 + i}`
+    insSentence.run(id, en, vi)
+    for (const w of words) insLink.run(`word:en:${w}`, id)
+  })
   // Từ nhạy cảm: ẩn ở profile trẻ em
   word('word:en:crap', 'crap', 4000, ['đồ tồi'])
   db.prepare("UPDATE words SET sensitive = 1 WHERE id = 'word:en:crap'").run()
@@ -512,5 +601,135 @@ describe('Hồ sơ & bài kiểm tra đầu vào', () => {
     const res = c.placement.answer(q.sessionId, q.id, null)
     expect(res.correct).toBe(false)
     expect(() => c.placement.answer(q.sessionId, q.id, 0)).toThrow(/NOT_FOUND/)
+  })
+})
+
+describe('PracticeService', () => {
+  let clock: FakeClock
+  const SENTENCES = new Map(PRACTICE_SENTENCES.map(([en, vi]) => [vi, en]))
+  const WORD_VI = new Map(PRACTICE_WORDS.map(([lemma, vi]) => [lemma, vi]))
+  WORD_VI.set('go', 'đi')
+  WORD_VI.set('left', 'trái')
+  WORD_VI.set('leave', 'rời đi')
+
+  beforeEach(async () => {
+    conn.close()
+    conn = openUserDb(':memory:', MIGRATIONS)
+    clock = new FakeClock()
+    c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    await c.packs.install(buildFixturePack(tmp))
+    c.settings.set('learning.level', 'A1_1')
+  })
+
+  /** Trả lời đúng một bài (tra đáp án từ dữ liệu mẫu) */
+  function solve(ex: Exercise): PracticeAnswer {
+    switch (ex.kind) {
+      case 'cloze': {
+        const sentence = [...SENTENCES.values()].find((en) => {
+          const rest = ex.prompt.split('____')
+          return en.startsWith(rest[0]) && en.endsWith(rest[1] ?? '')
+        })!
+        const choice = ex.choices.findIndex((w) => ex.prompt.replace('____', w) === sentence)
+        return { kind: 'cloze', choice }
+      }
+      case 'word_order': {
+        const target = SENTENCES.get(ex.hintVi)!.split(' ')
+        const used = new Set<number>()
+        const order = target.map((tok) => {
+          const i = ex.tokens.findIndex((t, k) => t === tok && !used.has(k))
+          used.add(i)
+          return i
+        })
+        return { kind: 'word_order', order }
+      }
+      case 'listen_choice': {
+        const vi = [...SENTENCES.entries()].find(([, en]) => en === ex.audioText)![0]
+        return { kind: 'listen_choice', choice: ex.choices.indexOf(vi) }
+      }
+      case 'dictation':
+        return { kind: 'dictation', text: ex.audioText.toLowerCase() }
+      case 'match_pairs':
+        return {
+          kind: 'match_pairs',
+          mapping: ex.left.map((lemma) => ex.right.indexOf(WORD_VI.get(lemma)!))
+        }
+    }
+  }
+
+  it.each(['cloze', 'word_order', 'listen_choice', 'dictation', 'match_pairs'] as const)(
+    'dạng %s: sinh được bài đúng dạng, trả lời đúng thì được chấm đúng',
+    (kind) => {
+      const ex = c.practice.start(kind)
+      expect(ex?.kind).toBe(kind)
+      expect(ex).toMatchObject({ index: 1, total: 10 })
+      const res = c.practice.answer(ex!.sessionId, ex!.id, solve(ex!))
+      expect(res.correct).toBe(true)
+      expect(res.solution.length).toBeGreaterThan(0)
+      expect(res.next?.index).toBe(2)
+    }
+  )
+
+  it('trả lời sai bị chấm sai; không trả lời lại bài cũ hay sai dạng', () => {
+    const ex = c.practice.start('cloze')!
+    if (ex.kind !== 'cloze') throw new Error('expected cloze')
+    const right = solve(ex)
+    if (right.kind !== 'cloze') throw new Error('expected cloze answer')
+    const wrong = (right.choice + 1) % ex.choices.length
+    expect(() => c.practice.answer(ex.sessionId, ex.id, { kind: 'dictation', text: 'x' })).toThrow(
+      /NOT_FOUND/
+    )
+    const res = c.practice.answer(ex.sessionId, ex.id, { kind: 'cloze', choice: wrong })
+    expect(res.correct).toBe(false)
+    expect(() => c.practice.answer(ex.sessionId, ex.id, { kind: 'cloze', choice: 0 })).toThrow(
+      /NOT_FOUND/
+    )
+  })
+
+  it('chép chính tả: sai một từ trong câu dài vẫn có tỉ lệ, dưới 90% là sai', () => {
+    const ex = c.practice.start('dictation')!
+    if (ex.kind !== 'dictation') throw new Error('expected dictation')
+    const half = ex.audioText.split(' ').slice(0, 2).join(' ')
+    const res = c.practice.answer(ex.sessionId, ex.id, { kind: 'dictation', text: half })
+    expect(res.correct).toBe(false)
+    expect(res.accuracy).toBeGreaterThan(0)
+    expect(res.accuracy).toBeLessThan(0.9)
+  })
+
+  it('phiên trộn: làm đúng hết → tổng kết + thưởng XP/xu; quá 5 phiên/ngày không thưởng thêm', () => {
+    function runSession(): { correct: number; total: number; xp: number; coins: number } {
+      let ex: Exercise | null = c.practice.start('mixed')
+      let summary = null as PracticeSummary | null
+      let guard = 0
+      while (ex && guard++ < 15) {
+        const res = c.practice.answer(ex.sessionId, ex.id, solve(ex))
+        expect(res.correct).toBe(true)
+        ex = res.next
+        summary = res.summary
+      }
+      return summary!
+    }
+    const xpBefore = c.pet.get().totalXp
+    const first = runSession()
+    expect(first.correct).toBe(first.total)
+    expect(first.total).toBeGreaterThanOrEqual(8)
+    expect(first.xp).toBe(5 + first.correct)
+    expect(first.coins).toBe(5)
+    expect(c.pet.get().totalXp).toBe(xpBefore + first.xp)
+
+    for (let i = 0; i < 4; i++) expect(runSession().xp).toBeGreaterThan(0)
+    expect(runSession().xp).toBe(0) // phiên thứ 6 trong ngày
+    clock.advance(24 * 3_600_000)
+    expect(runSession().xp).toBeGreaterThan(0)
+  })
+
+  it('profile trẻ em không gặp câu chứa từ nhạy cảm', () => {
+    const kid = c.profiles.create({ name: 'Bé', track: 'primary', isChild: true })
+    c.profiles.switchTo(kid.id)
+    for (let i = 0; i < 40; i++) {
+      const ex = c.practice.start('dictation')!
+      if (ex.kind === 'dictation') expect(ex.audioText).not.toMatch(/crap/i)
+    }
+    const lookup = c.dictionary.lookup('garden', undefined, { childSafe: true })
+    expect(lookup.entries[0].examples.every((e) => !/crap/i.test(e.en))).toBe(true)
   })
 })

@@ -56,7 +56,7 @@
     "searchPlaceholder": "Type an English or Vietnamese word…",
     "empty": "Copy an English word and press {shortcut}, or type above.",
     "notFound": "“{query}” is not in the dictionary.",
-    "sentence": "Full sentence translation is coming later. Click a word to look it up:",
+    "sentence": "This is a sentence — tap a word to look it up:",
     "packMissing": "The dictionary pack isn't installed yet. Installing in the background — try again shortly.",
     "loading": "Looking up…",
     "noVi": "(no Vietnamese meaning yet)",
@@ -96,7 +96,12 @@
     "unknown": "Something went wrong, please try again.",
     "packInvalid": "Invalid content pack.",
     "packUnsupported": "This content pack needs a newer app version.",
-    "packCorrupt": "The content pack is corrupted."
+    "packCorrupt": "The content pack is corrupted.",
+    "translateNotReady": "The offline translation model is not downloaded yet.",
+    "translateUnsupported": "Only English to Vietnamese translation is supported for now.",
+    "translateFailed": "Translation failed, please try again.",
+    "modelDownload": "Could not download the model (check your connection and try again).",
+    "modelCorrupt": "The downloaded model file is corrupt, please download it again."
   },
   "quiz": {
     "reviewTitle": "Review",
@@ -122,7 +127,8 @@
       "review": "Review",
       "words": "Word list",
       "placement": "Level test",
-      "settings": "Settings"
+      "settings": "Settings",
+      "practice": "Practice"
     },
     "home": {
       "welcome": "Hi, what shall we learn today?",
@@ -240,6 +246,50 @@
       "language": "Language",
       "size": "Mascot size",
       "launchAtLogin": "Launch at Windows startup"
+    },
+    "practice": {
+      "title": "Practice",
+      "intro": "Each session has 10 exercises built from real sentences (Tatoeba) and vocabulary at your level. Finish a session to earn XP.",
+      "empty": "Not enough data to build exercises (the dictionary pack is needed).",
+      "mixed": "Mixed",
+      "kind": {
+        "cloze": "Fill in the blank",
+        "word_order": "Put the sentence in order",
+        "listen_choice": "Listen and choose the meaning",
+        "dictation": "Dictation",
+        "match_pairs": "Match words with meanings"
+      },
+      "counter": "Exercise {index}/{total}",
+      "clozeHelp": "Choose the word that fills the blank:",
+      "orderHelp": "Tap the words in the right order to build the English sentence:",
+      "listenHelp": "Listen to the English sentence and choose the correct Vietnamese meaning:",
+      "dictationHelp": "Listen and type the sentence ({n} words):",
+      "pairsHelp": "Tap a word on the left, then its meaning on the right:",
+      "play": "Play",
+      "slow": "Slow",
+      "typeHere": "Type what you hear…",
+      "check": "Check",
+      "next": "Next",
+      "finish": "See results",
+      "correct": "Correct! ✓",
+      "wrong": "Not quite — answer:",
+      "accuracy": "{n}% of the words right",
+      "summaryTitle": "Practice session complete! 🎉",
+      "summaryBody": "You got {correct}/{total} right.",
+      "noReward": "You have already earned all of today’s practice rewards (5 sessions) — keep practising anyway!",
+      "again": "Practise more"
     }
+  },
+  "translate": {
+    "title": "Translation",
+    "machineBadge": "Machine",
+    "machineHint": "Offline machine translation (opus-mt): good enough to get the idea, sometimes inaccurate.",
+    "translating": "Translating…",
+    "needModel": "Translating whole sentences needs a one-time download of the offline translation model ({size} MB, free, runs entirely on your computer).",
+    "download": "Download model",
+    "downloading": "Downloading… {done}/{total} MB",
+    "cancel": "Cancel",
+    "retry": "Try again",
+    "translateBtn": "Translate sentence"
   }
 }

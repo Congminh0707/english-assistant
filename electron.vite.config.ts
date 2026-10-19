@@ -6,7 +6,16 @@ const sharedAlias = { '@shared': resolve('src/shared') }
 
 export default defineConfig({
   main: {
-    resolve: { alias: sharedAlias }
+    resolve: { alias: sharedAlias },
+    build: {
+      rollupOptions: {
+        // translateWorker: tiến trình nền (utilityProcess) chạy model dịch offline
+        input: {
+          index: resolve('src/main/index.ts'),
+          translateWorker: resolve('src/main/translate/worker.ts')
+        }
+      }
+    }
   },
   preload: {
     resolve: { alias: sharedAlias }

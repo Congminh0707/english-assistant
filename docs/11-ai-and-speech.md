@@ -39,7 +39,9 @@ export interface GrammarChecker {
 
 ## 2. Dịch & tra từ
 
-> ✅ **Đã làm (Phase 1)**: tra từ điển offline trong popup — `src/main/content/DictionaryService.ts` (cùng thuật toán với `pnpm content:lookup`), chuẩn hoá chuỗi copy ở `normalizeQuery` (`src/shared/schemas/dictionary.ts`), đọc clipboard **chỉ khi bấm phím tắt** và bỏ qua chuỗi giống mật khẩu/OTP (`src/main/system/clipboard.ts`), phát âm bằng `useTts`. **Chưa làm**: dịch câu (opus-mt/LLM) — popup hiện các từ trong câu để bấm tra từng từ; lọc từ nhạy cảm cho profile trẻ em.
+> ✅ **Đã làm (Phase 1)**: tra từ điển offline trong popup — `src/main/content/DictionaryService.ts` (cùng thuật toán với `pnpm content:lookup`), chuẩn hoá chuỗi copy ở `normalizeQuery` (`src/shared/schemas/dictionary.ts`), đọc clipboard **chỉ khi bấm phím tắt** và bỏ qua chuỗi giống mật khẩu/OTP (`src/main/system/clipboard.ts`), phát âm bằng `useTts`. 
+>
+> ✅ **Dịch câu offline (Phase 1)** — xem [decisions #12](decisions.md): copy một câu/cụm không có trong từ điển → popup dịch bằng opus-mt en→vi (`TranslationService` + `ModelManager` + `OpusMtEngine`/`worker.ts` trong utilityProcess). Model ~107 MB **không nằm trong bộ cài**: popup hỏi và tải khi người dùng bấm "Tải model" (có tiến trình, huỷ được, xác minh sha256). Đã kiểm tra thực tế trong Electron (cả layout đã đóng gói): ~0,15 giây/câu sau khi nạp model (~1,3 giây lần đầu). Cache LRU 200 câu trong bộ nhớ. **Chưa làm**: dịch Việt→Anh (model thứ hai), LLM qua API (phương án mở rộng), cache lưu đĩa, màn hình quản lý/xoá model trong Cài đặt. Lọc từ nhạy cảm cho profile trẻ em đã làm (từ, câu ví dụ, câu hỏi, bài tập).
 
 ```mermaid
 flowchart TD

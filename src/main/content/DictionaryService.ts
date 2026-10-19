@@ -29,6 +29,14 @@ export interface DictionaryOptions {
   childSafe?: boolean
 }
 
+/** Câu Tatoeba dùng cho bài tập */
+export interface PracticeSentence {
+  id: string
+  en: string
+  vi: string | null
+  level: string
+}
+
 interface Hit {
   row: WordRow
   via: DictEntry['via']
@@ -62,6 +70,8 @@ export class DictionaryService {
     forms: Database.Statement
     fts: Database.Statement
     sentences: Database.Statement
+    /** Như `sentences` nhưng bỏ câu chứa từ nhạy cảm (profile trẻ em) */
+    safeSentences: Database.Statement
     hasSensitive: boolean
     /** Danh sách cột SELECT: thêm w.sensitive nếu gói có cột này */
     cols: string
@@ -83,8 +93,91 @@ export class DictionaryService {
 
     const hits = this.find(stmts, query).filter((h) => !isHidden(h.row, options))
     const saved = isSaved(hits.map((h) => h.row.id))
-    const entries = hits.slice(0, MAX_ENTRIES).map((hit) => this.toEntry(stmts, hit, saved))
+    const entries = hits
+      .slice(0, MAX_ENTRIES)
+      .map((hit) => this.toEntry(stmts, hit, saved, options))
     return { query, kind, entries, packMissing: false }
+  }
+
+  /**
+   * Chọn ngẫu nhiên câu Tatoeba cho bài tập: đúng level, có bản dịch tiếng Việt (nếu cần), độ dài vừa phải.
+   * Profile trẻ em: bỏ câu chứa từ nhạy cảm.
+   */
+  randomSentences(
+    levels: string[],
+    count: number,
+    filter: { needVi?: boolean; minWords: number; maxWords: number },
+    options: DictionaryOptions = {}
+  ): PracticeSentence[] {
+    const stmts = this.prepare()
+    if (!stmts || !levels.length) return []
+    const safe =
+      options.childSafe && stmts.hasSensitive
+        ? ` AND NOT EXISTS (SELECT 1 FROM sentence_words sw JOIN words w ON w.id = sw.word_id
+              WHERE sw.sentence_id = s.id AND w.sensitive = 1)`
+        : ''
+    const rows = stmts.db
+      .prepare(
+        `SELECT s.id, s.en, s.vi, s.level FROM sentences s
+         WHERE s.level IN (${levels.map(() => '?').join(',')})
+         ${filter.needVi ? 'AND s.vi IS NOT NULL' : ''}
+         AND length(s.en) BETWEEN 12 AND 90${safe}
+         ORDER BY random() LIMIT ?`
+      )
+      .all(...levels, count * 6) as PracticeSentence[]
+    const words = (text: string): number => text.split(' ').filter(Boolean).length
+    return rows
+      .filter((r) => {
+        const n = words(r.en)
+        return n >= filter.minWords && n <= filter.maxWords
+      })
+      .slice(0, count)
+  }
+
+  /** Mục từ khớp chính xác một lemma (chữ thường) — để biết loại từ của từ trong câu */
+  wordByLemma(
+    lemma: string
+  ): { id: string; pos: string[]; level: string; freqRank: number | null } | null {
+    const stmts = this.prepare()
+    if (!stmts) return null
+    const row = stmts.exact.get(lemma) as WordRow | undefined
+    if (!row) return null
+    return {
+      id: row.id,
+      pos: parseJson<{ pos?: string[] }>(row.data, {}).pos ?? [],
+      level: row.level,
+      freqRank: row.freq_rank
+    }
+  }
+
+  /** Từ cùng loại từ, gần level, để làm đáp án nhiễu cho bài điền từ */
+  distractorLemmas(
+    pos: string,
+    levels: string[],
+    exclude: Set<string>,
+    count: number,
+    options: DictionaryOptions = {}
+  ): string[] {
+    const stmts = this.prepare()
+    if (!stmts || !levels.length) return []
+    const safe = options.childSafe && stmts.hasSensitive ? ' AND sensitive = 0' : ''
+    const rows = stmts.db
+      .prepare(
+        `SELECT lemma FROM words
+         WHERE pos LIKE ? AND level IN (${levels.map(() => '?').join(',')})
+         AND (lists != '[]' OR freq_rank <= 6000)
+         AND lemma GLOB '[a-z]*' AND lemma NOT GLOB '*[^a-z]*' AND length(lemma) >= 3${safe}
+         ORDER BY random() LIMIT ?`
+      )
+      .all(`%"${pos}"%`, ...levels, count * 4 + 8) as { lemma: string }[]
+    const out: string[] = []
+    for (const { lemma } of rows) {
+      if (exclude.has(lemma.toLowerCase())) continue
+      exclude.add(lemma.toLowerCase())
+      out.push(lemma)
+      if (out.length === count) break
+    }
+    return out
   }
 
   /** Đã cài gói từ điển chưa */
@@ -189,6 +282,15 @@ export class DictionaryService {
       sentences: db.prepare(
         `SELECT s.en, s.vi FROM sentence_words sw JOIN sentences s ON s.id = sw.sentence_id
          WHERE sw.word_id = ? ORDER BY s.vi IS NULL, length(s.en) LIMIT 3`
+      ),
+      safeSentences: db.prepare(
+        hasSensitive
+          ? `SELECT s.en, s.vi FROM sentence_words sw JOIN sentences s ON s.id = sw.sentence_id
+             WHERE sw.word_id = ? AND NOT EXISTS (
+               SELECT 1 FROM sentence_words x JOIN words w ON w.id = x.word_id
+               WHERE x.sentence_id = s.id AND w.sensitive = 1)
+             ORDER BY s.vi IS NULL, length(s.en) LIMIT 3`
+          : 'SELECT 1 WHERE 0'
       )
     }
     return this.statements
@@ -241,7 +343,8 @@ export class DictionaryService {
   private toEntry(
     stmts: NonNullable<DictionaryService['statements']>,
     { row, via, formTags }: Hit,
-    saved: Set<string>
+    saved: Set<string>,
+    options: DictionaryOptions = {}
   ): DictEntry {
     const word = parseJson<Partial<Word>>(row.data, {})
     const viMeanings = word.vi ?? []
@@ -267,7 +370,7 @@ export class DictionaryService {
       vi,
       viGenerated: viMeanings.length > 0 && viMeanings.every((m) => m.origin === 'generated'),
       senses,
-      examples: this.examples(stmts, row.id, word),
+      examples: this.examples(stmts, row.id, word, options),
       via,
       formTags,
       saved: saved.has(row.id)
@@ -277,11 +380,15 @@ export class DictionaryService {
   private examples(
     stmts: NonNullable<DictionaryService['statements']>,
     id: string,
-    word: Partial<Word>
+    word: Partial<Word>,
+    options: DictionaryOptions = {}
   ): DictEntry['examples'] {
     const out = (word.examples ?? []).map((e) => ({ en: e.en, vi: e.vi ?? null }))
     if (out.length < MAX_EXAMPLES) {
-      for (const s of stmts.sentences.all(id) as { en: string; vi: string | null }[]) {
+      const rows = (
+        options.childSafe && stmts.hasSensitive ? stmts.safeSentences : stmts.sentences
+      ).all(id) as { en: string; vi: string | null }[]
+      for (const s of rows) {
         if (!out.some((o) => o.en === s.en)) out.push({ en: s.en, vi: s.vi })
       }
     }

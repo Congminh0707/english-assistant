@@ -7,8 +7,18 @@ directories:
 files:
   - out/**/*
   - '!**/*.map'
+  # onnxruntime-node có binary cho mọi nền tảng (~280 MB): chỉ giữ Windows x64
+  - '!**/onnxruntime-node/bin/napi-v6/darwin/**'
+  - '!**/onnxruntime-node/bin/napi-v6/linux/**'
+  - '!**/onnxruntime-node/bin/napi-v6/win32/arm64/**'
+  # onnxruntime-web (~120 MB, bản chạy trong trình duyệt) không dùng khi chạy bằng onnxruntime-node
+  - '!**/onnxruntime-web/**'
 asarUnpack:
   - resources/**
+  # Thư viện native phải nằm ngoài asar để nạp được
+  - '**/onnxruntime-node/**'
+  - '**/@img/**'
+  - '**/sharp/**'
 extraResources:
   # File SQL migration của user.db, đọc lúc khởi động (src/main/core/paths.ts)
   - from: src/main/db/migrations

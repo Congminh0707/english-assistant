@@ -56,7 +56,7 @@
     "searchPlaceholder": "Gõ từ tiếng Anh hoặc tiếng Việt…",
     "empty": "Copy một từ tiếng Anh rồi bấm {shortcut}, hoặc gõ vào ô trên.",
     "notFound": "Không tìm thấy “{query}” trong từ điển.",
-    "sentence": "Dịch cả câu sẽ có ở bước sau. Bấm vào một từ để tra:",
+    "sentence": "Câu có nhiều từ — bấm vào một từ để tra riêng:",
     "packMissing": "Chưa cài gói từ điển. Đang cài ở nền — thử lại sau ít giây.",
     "loading": "Đang tra…",
     "noVi": "(chưa có nghĩa tiếng Việt)",
@@ -96,7 +96,12 @@
     "unknown": "Có lỗi xảy ra, thử lại nhé.",
     "packInvalid": "Gói nội dung không hợp lệ.",
     "packUnsupported": "Gói nội dung cần phiên bản app mới hơn.",
-    "packCorrupt": "Gói nội dung bị hỏng."
+    "packCorrupt": "Gói nội dung bị hỏng.",
+    "translateNotReady": "Chưa tải model dịch offline.",
+    "translateUnsupported": "Hiện chỉ dịch được từ tiếng Anh sang tiếng Việt.",
+    "translateFailed": "Dịch không thành công, thử lại nhé.",
+    "modelDownload": "Không tải được model (kiểm tra kết nối mạng rồi thử lại).",
+    "modelCorrupt": "File model tải về bị hỏng, hãy thử tải lại."
   },
   "quiz": {
     "reviewTitle": "Ôn từ",
@@ -122,7 +127,8 @@
       "review": "Ôn từ",
       "words": "Sổ từ",
       "placement": "Kiểm tra trình độ",
-      "settings": "Cài đặt"
+      "settings": "Cài đặt",
+      "practice": "Luyện tập"
     },
     "home": {
       "welcome": "Chào bạn, hôm nay học gì nào?",
@@ -240,6 +246,50 @@
       "language": "Ngôn ngữ",
       "size": "Kích thước mascot",
       "launchAtLogin": "Khởi động cùng Windows"
+    },
+    "practice": {
+      "title": "Luyện tập",
+      "intro": "Mỗi phiên 10 bài, lấy từ câu thật (Tatoeba) và từ vựng đúng trình độ của bạn. Xong phiên được thưởng XP.",
+      "empty": "Chưa đủ dữ liệu để tạo bài (cần gói từ điển).",
+      "mixed": "Trộn các dạng",
+      "kind": {
+        "cloze": "Điền từ vào chỗ trống",
+        "word_order": "Sắp xếp câu",
+        "listen_choice": "Nghe, chọn nghĩa",
+        "dictation": "Nghe chép",
+        "match_pairs": "Ghép từ với nghĩa"
+      },
+      "counter": "Bài {index}/{total}",
+      "clozeHelp": "Chọn từ điền vào chỗ trống:",
+      "orderHelp": "Bấm các từ theo đúng thứ tự để ghép thành câu tiếng Anh:",
+      "listenHelp": "Nghe câu tiếng Anh rồi chọn nghĩa tiếng Việt đúng:",
+      "dictationHelp": "Nghe và gõ lại câu ({n} từ):",
+      "pairsHelp": "Bấm một từ bên trái, rồi bấm nghĩa tương ứng bên phải:",
+      "play": "Nghe",
+      "slow": "Chậm",
+      "typeHere": "Gõ câu bạn nghe được…",
+      "check": "Kiểm tra",
+      "next": "Bài tiếp",
+      "finish": "Xem kết quả",
+      "correct": "Chính xác! ✓",
+      "wrong": "Chưa đúng — đáp án:",
+      "accuracy": "đúng {n}% số từ",
+      "summaryTitle": "Hoàn thành phiên luyện tập! 🎉",
+      "summaryBody": "Bạn làm đúng {correct}/{total} bài.",
+      "noReward": "Hôm nay bạn đã nhận đủ thưởng luyện tập (5 phiên) — vẫn luyện thoải mái nhé!",
+      "again": "Luyện tiếp"
     }
+  },
+  "translate": {
+    "title": "Bản dịch",
+    "machineBadge": "Máy dịch",
+    "machineHint": "Dịch máy offline (opus-mt): đủ hiểu ý, đôi khi chưa chính xác.",
+    "translating": "Đang dịch…",
+    "needModel": "Dịch cả câu cần tải model dịch offline một lần ({size} MB, miễn phí, chạy hoàn toàn trên máy bạn).",
+    "download": "Tải model",
+    "downloading": "Đang tải… {done}/{total} MB",
+    "cancel": "Huỷ",
+    "retry": "Thử lại",
+    "translateBtn": "Dịch cả câu"
   }
 }

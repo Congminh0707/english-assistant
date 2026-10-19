@@ -65,7 +65,7 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 **Dịch & từ điển**
 - [x] Popup dịch: copy + `Ctrl+Alt+T` → tra từ điển offline (từ gốc, dạng đã chia, tra ngược tiếng Việt), ô tìm kiếm, ví dụ, nhãn level, nhãn "AI" cho nghĩa chưa duyệt — đã thử tay OK
 - [x] TTS hệ thống (US/UK) qua `speechSynthesis`
-- [ ] Dịch câu: opus-mt local (tải model khi cần) — hoặc tạm thời LLM BYOK nếu opus-mt chưa xong
+- [x] Dịch câu: opus-mt en→vi chạy offline trong utilityProcess; popup hỏi rồi tải model (~107 MB, xác minh sha256) khi copy câu — đã kiểm tra worker trong Electron (dev + layout đóng gói), chưa thử tay giao diện popup. **Còn**: Việt→Anh, quản lý model trong Cài đặt, LLM API như phương án mở rộng
 - [x] Lưu từ → sổ từ (`saved_words`) + tạo thẻ SRS FSRS (`srs_cards`) kèm câu ngữ cảnh, +1 XP cho từ mới
 
 **Học**
@@ -73,6 +73,7 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 - [x] Micro-learning: quiz thẻ đến hạn (4 đáp án, chấm ở main: đúng nhanh → Được, đúng chậm → Khó, sai → Quên) + "Từ của khoảnh khắc" đúng trình độ khi không có thẻ đến hạn; tự nhắc mỗi 15/25/45 phút hoặc tắt, "🧠 Ôn từ ngay" trong menu chuột phải — đã thử tay OK (2026-10-19)
 - [x] Trình độ: bài kiểm tra đầu vào từ vựng thích nghi (20 câu, `PlacementService`) + chọn tay (menu chuột phải, Cài đặt, màn hình chào) → `learning.level`
 - [x] Cửa sổ Học tập: thanh bên (thú cưng, level, XP), trang chủ (thẻ đến hạn, streak, ôn hôm nay, tổng thẻ, **nhiệm vụ ngày**), phiên ôn, sổ từ, kiểm tra trình độ, cài đặt, màn hình chào; mở từ menu mascot/tray — **còn** lộ trình theo bài
+- [x] Luyện tập: 5 dạng bài (điền từ, sắp xếp câu, nghe chọn nghĩa, nghe chép, ghép cặp) sinh từ câu Tatoeba + từ vựng đúng trình độ, phiên 10 bài, thưởng XP (tối đa 5 phiên/ngày) — chưa thử tay
 - [ ] Placement đầy đủ (ngữ pháp, đọc, nghe) & rating theo kỹ năng — hiện chỉ từ vựng
 
 **Nội dung (song song)**

@@ -2,10 +2,12 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { DictEntry, LookupResult } from '@shared/schemas/dictionary'
-import type { TranslateStatus } from '@shared/schemas/translate'
+import type { TranslateDirection } from '@shared/schemas/translate'
+import { looksVietnamese } from '@shared/sentences'
 import { invoke, IpcError } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useTts } from '@renderer/shared/composables/useTts'
+import { useTranslateModels } from '@renderer/shared/composables/useTranslateModels'
 
 // Popup tra từ offline (docs/12-ui-ux-guidelines.md#popup-dịch-nhanh).
 // Mở bằng phím tắt: main đọc clipboard rồi gửi 'popup:query'; người dùng cũng có thể gõ để tra.
@@ -29,7 +31,12 @@ const translation = ref<{
   text: string
   errorKey: string
 }>({ phase: 'idle', text: '', errorKey: '' })
-const modelStatus = ref<TranslateStatus | null>(null)
+const models = useTranslateModels()
+/** Chiều dịch của văn bản đang tra (tự nhận: có dấu tiếng Việt → Việt→Anh) */
+const direction = computed<TranslateDirection>(() =>
+  looksVietnamese(result.value?.query ?? '') ? 'vi-en' : 'en-vi'
+)
+const modelStatus = computed(() => models.statuses[direction.value].value)
 /** Văn bản đang chờ dịch (đợi người dùng tải model) */
 let pendingText: string | null = null
 let translateSeq = 0
@@ -43,7 +50,9 @@ const others = computed(() =>
 )
 const sentenceTokens = computed(() =>
   result.value?.kind === 'sentence'
-    ? [...new Set(result.value.query.split(/[^A-Za-z'-]+/).filter((w) => w.length > 1))]
+    ? looksVietnamese(result.value.query)
+      ? []
+      : [...new Set(result.value.query.split(/[^A-Za-z'-]+/).filter((w) => w.length > 1))]
     : []
 )
 
@@ -78,15 +87,15 @@ async function translate(text: string): Promise<void> {
 
 async function installModel(): Promise<void> {
   try {
-    modelStatus.value = await invoke('translate:install')
-    if (modelStatus.value.state === 'ready' && pendingText) void translate(pendingText)
+    // Khi tải xong, sự kiện 'translate:status-changed' sẽ kích hoạt dịch câu đang chờ
+    await models.install(direction.value)
   } catch (err) {
     console.warn('[popup] install model failed', err)
   }
 }
 
 function cancelInstall(): void {
-  void invoke('translate:cancel')
+  models.cancel(direction.value)
 }
 
 async function lookup(text: string): Promise<void> {
@@ -178,14 +187,14 @@ onMounted(async () => {
   cleanups.push(
     settingsStore.listen(),
     window.api.on('popup:query', onQuery),
-    window.api.on('translate:status-changed', (status) => {
-      const wasReady = modelStatus.value?.state === 'ready'
-      modelStatus.value = status
-      if (status.state === 'ready' && !wasReady && pendingText) void translate(pendingText)
+    // Tải xong từ nơi khác (Cài đặt) trong lúc popup đang chờ → dịch luôn
+    window.api.on('translate:status-changed', ({ direction: dir, status }) => {
+      if (dir === direction.value && status.state === 'ready' && pendingText) {
+        void translate(pendingText)
+      }
     })
   )
   await settingsStore.load()
-  modelStatus.value = await invoke('translate:status')
 })
 onUnmounted(() => {
   window.removeEventListener('keydown', onKeyDown)

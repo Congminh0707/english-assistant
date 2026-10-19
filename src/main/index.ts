@@ -23,6 +23,7 @@ import { QuietModeService } from './services/QuietModeService'
 import { SleepService } from './services/SleepService'
 import { TranslationService } from './services/TranslationService'
 import { ModelManager } from './translate/ModelManager'
+import { OPUS_MT_EN_VI, OPUS_MT_VI_EN } from './translate/modelFiles'
 import { OpusMtEngine } from './translate/OpusMtEngine'
 import { TtsService } from './services/TtsService'
 import { KokoroEngine } from './tts/KokoroEngine'
@@ -84,9 +85,12 @@ if (!app.requestSingleInstanceLock()) {
     study = s
     // Dịch câu offline: model tải về userData/models khi người dùng đồng ý, chạy trong utilityProcess
     const translationService = new TranslationService({
-      models: new ModelManager({ modelsDir: paths.models() }),
+      models: {
+        'en-vi': new ModelManager({ modelsDir: paths.models(), spec: OPUS_MT_EN_VI }),
+        'vi-en': new ModelManager({ modelsDir: paths.models(), spec: OPUS_MT_VI_EN })
+      },
       engine: new OpusMtEngine(paths.models()),
-      onStatus: (status) => broadcast('translate:status-changed', status)
+      onStatus: (direction, status) => broadcast('translate:status-changed', { direction, status })
     })
     translation = translationService
     // Giọng đọc tự nhiên offline (Kokoro): model tải khi người dùng đồng ý, chạy trong utilityProcess riêng

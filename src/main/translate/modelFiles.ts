@@ -52,6 +52,44 @@ export const OPUS_MT_EN_VI: ModelSpec = {
   ]
 }
 
+/** Chiều ngược lại: Helsinki-NLP/opus-mt-vi-en (Apache-2.0), cùng bộ file và cách đóng gói. */
+export const OPUS_MT_VI_EN: ModelSpec = {
+  id: 'Xenova/opus-mt-vi-en',
+  revision: '541dfd72ec07e8f1563795e0224408ad8d729e80',
+  files: [
+    {
+      path: 'config.json',
+      size: 1389,
+      sha256: 'c62a203a0183755af37b96a33cc125e7f74f97c1e90aaae1d1f404fd8a42eea8'
+    },
+    {
+      path: 'generation_config.json',
+      size: 293,
+      sha256: '44f2c9011a9087c5ec93a1671066a4a59a7a8c00c03e84a6ecac0d840926566b'
+    },
+    {
+      path: 'tokenizer_config.json',
+      size: 282,
+      sha256: '0221122d916f6f230d6b1967644457745aa01514e054897f62b8c6b419460ceb'
+    },
+    {
+      path: 'tokenizer.json',
+      size: 5169708,
+      sha256: 'c41cc5afd26c053770b60e1031577bb7a8e2f3c2eeacde2a34f5c15abfd4eafd'
+    },
+    {
+      path: 'onnx/encoder_model_quantized.onnx',
+      size: 47133597,
+      sha256: 'fa7bd78e8bed6bdc03728f62f1592c4bb52d9e12795496604c1e990e102abdb2'
+    },
+    {
+      path: 'onnx/decoder_model_merged_quantized.onnx',
+      size: 54401611,
+      sha256: '540edbcc08bab0b42c03576a759fd9b4d5fc99996ac3178630733916dc2325cb'
+    }
+  ]
+}
+
 export const modelBaseUrl = (spec: ModelSpec): string =>
   `https://huggingface.co/${spec.id}/resolve/${spec.revision}/`
 

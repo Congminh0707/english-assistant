@@ -29,6 +29,7 @@ export const INVOKE_CHANNELS = [
   'translate:status',
   'translate:install',
   'translate:cancel',
+  'translate:remove',
   'translate:text',
   'practice:start',
   'practice:answer',

@@ -8,6 +8,7 @@ import type { Settings } from '@shared/schemas/settings'
 import { UK_VOICES, US_VOICES } from '@shared/tts'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts, useTtsModel } from '@renderer/shared/composables/useTts'
+import { useTranslateModels } from '@renderer/shared/composables/useTranslateModels'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 
@@ -19,7 +20,10 @@ const settingsStore = useSettingsStore()
 
 const { speak, naturalVoice } = useTts()
 const ttsModel = useTtsModel()
+const trModels = useTranslateModels()
+const TR_DIRECTIONS = ['en-vi', 'vi-en'] as const
 const MB = 1024 * 1024
+const toMb = (bytes: number | undefined): number => Math.round((bytes ?? 0) / MB)
 const ttsSizeMb = computed(() => Math.round((ttsModel.status.value?.sizeBytes ?? 0) / MB))
 const ttsDoneMb = computed(() => Math.round((ttsModel.status.value?.receivedBytes ?? 0) / MB))
 const wantsNatural = computed(() => settingsStore.settings['tts.engine'] === 'kokoro')
@@ -145,6 +149,61 @@ onMounted(loadProfiles)
           </option>
         </select>
       </label>
+    </PxPanel>
+
+    <PxPanel class="block">
+      <h2>{{ t('translate.modelsTitle') }}</h2>
+      <p class="muted">{{ t('translate.modelsHint') }}</p>
+      <div v-for="dir in TR_DIRECTIONS" :key="dir" class="model">
+        <strong>{{ t(`translate.dir.${dir}`) }}</strong>
+        <template v-if="trModels.statuses[dir].value">
+          <span v-if="trModels.statuses[dir].value?.state === 'ready'" class="muted"
+            >✓ {{ t('tts.ready') }} ({{ toMb(trModels.statuses[dir].value?.sizeBytes) }} MB)</span
+          >
+          <span v-else-if="trModels.statuses[dir].value?.state === 'downloading'" class="muted">{{
+            t('translate.downloading', {
+              done: toMb(trModels.statuses[dir].value?.receivedBytes),
+              total: toMb(trModels.statuses[dir].value?.sizeBytes)
+            })
+          }}</span>
+          <span v-else class="muted">{{
+            t('translate.notInstalled', { size: toMb(trModels.statuses[dir].value?.sizeBytes) })
+          }}</span>
+          <span v-if="trModels.statuses[dir].value?.errorKey" class="error">{{
+            t(trModels.statuses[dir].value?.errorKey as string)
+          }}</span>
+          <progress
+            v-if="trModels.statuses[dir].value?.state === 'downloading'"
+            :value="trModels.statuses[dir].value?.receivedBytes"
+            :max="trModels.statuses[dir].value?.sizeBytes"
+          />
+          <span class="controls">
+            <button
+              v-if="trModels.statuses[dir].value?.state === 'downloading'"
+              type="button"
+              class="small"
+              @click="trModels.cancel(dir)"
+            >
+              {{ t('translate.cancel') }}
+            </button>
+            <button
+              v-else-if="trModels.statuses[dir].value?.state === 'ready'"
+              type="button"
+              class="small"
+              @click="trModels.remove(dir)"
+            >
+              {{ t('translate.remove') }}
+            </button>
+            <button v-else type="button" class="small" @click="trModels.install(dir)">
+              {{
+                trModels.statuses[dir].value?.errorKey
+                  ? t('translate.retry')
+                  : t('translate.download')
+              }}
+            </button>
+          </span>
+        </template>
+      </div>
     </PxPanel>
 
     <PxPanel class="block">
@@ -396,6 +455,16 @@ input[type='time'] {
   color: #fff;
   background: var(--c-xp);
   border: 1px solid var(--c-border);
+}
+.model {
+  display: grid;
+  gap: 4px;
+  justify-items: start;
+  padding: 6px 0;
+  font-size: 13px;
+}
+.model progress {
+  width: 100%;
 }
 .credits {
   margin: 0;

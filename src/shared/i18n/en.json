@@ -103,7 +103,6 @@
     "packUnsupported": "This content pack needs a newer app version.",
     "packCorrupt": "The content pack is corrupted.",
     "translateNotReady": "The offline translation model is not downloaded yet.",
-    "translateUnsupported": "Only English to Vietnamese translation is supported for now.",
     "translateFailed": "Translation failed, please try again.",
     "modelDownload": "Could not download the model (check your connection and try again).",
     "modelCorrupt": "The downloaded model file is corrupt, please download it again.",
@@ -376,7 +375,15 @@
     "downloading": "Downloading… {done}/{total} MB",
     "cancel": "Cancel",
     "retry": "Try again",
-    "translateBtn": "Translate sentence"
+    "translateBtn": "Translate sentence",
+    "modelsTitle": "Offline sentence translation",
+    "modelsHint": "Each direction needs a one-time model download that runs entirely on your device. You can delete it to free disk space.",
+    "dir": {
+      "en-vi": "English → Vietnamese",
+      "vi-en": "Vietnamese → English"
+    },
+    "notInstalled": "Not downloaded ({size} MB)",
+    "remove": "Delete model"
   },
   "shop": {
     "title": "Shop",

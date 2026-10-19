@@ -40,9 +40,10 @@ export function registerAppIpc(
   handle('placement:answer', ({ sessionId, questionId, choiceIndex }) =>
     c.placement.answer(sessionId, questionId, choiceIndex)
   )
-  handle('translate:status', () => translation.status())
-  handle('translate:install', () => translation.install())
-  handle('translate:cancel', () => translation.cancelInstall())
+  handle('translate:status', ({ direction }) => translation.status(direction))
+  handle('translate:install', ({ direction }) => translation.install(direction))
+  handle('translate:cancel', ({ direction }) => translation.cancelInstall(direction))
+  handle('translate:remove', ({ direction }) => translation.remove(direction))
   handle('translate:text', ({ text }) => translation.translate(text))
   handle('practice:start', ({ mode }) => ({ exercise: c.practice.start(mode) }))
   handle('practice:answer', ({ sessionId, exerciseId, answer }) =>

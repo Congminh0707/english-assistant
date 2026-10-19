@@ -1,44 +1,49 @@
 // Tiến trình nền (Electron utilityProcess) chạy model dịch opus-mt bằng transformers.js + onnxruntime-node.
 // Tách riêng khỏi main để suy luận (~0,3–0,5 giây/câu, ~400 MB RAM) không làm đơ mascot.
-// Giao thức (src/main/system/WorkerProcess.ts): main → worker {id, type:'init', payload:{modelsDir}} | {id, type:'translate', text};
+// Giao thức (src/main/system/WorkerProcess.ts): main → worker {id, type:'init', payload:{modelsDir}} | {id, type:'translate', text, direction};
 // worker → main {id, ok, result | error}.
 import { ensureTerminalPunctuation, splitSentences } from '@shared/sentences'
 
 type Request =
   | { id: number; type: 'init'; payload: { modelsDir: string } }
-  | { id: number; type: 'translate'; text: string }
+  | { id: number; type: 'translate'; text: string; direction: Direction }
+
+type Direction = 'en-vi' | 'vi-en'
 
 type Translator = (
   text: string,
   options: Record<string, unknown>
 ) => Promise<Array<{ translation_text: string }>>
 
-const MODEL_ID = 'Xenova/opus-mt-en-vi'
+const MODEL_IDS: Record<Direction, string> = {
+  'en-vi': 'Xenova/opus-mt-en-vi',
+  'vi-en': 'Xenova/opus-mt-vi-en'
+}
 let modelsDir = ''
-let translatorPromise: Promise<Translator> | null = null
+const translators: Partial<Record<Direction, Promise<Translator>>> = {}
 
-function loadTranslator(): Promise<Translator> {
-  translatorPromise ??= (async (): Promise<Translator> => {
+function loadTranslator(direction: Direction): Promise<Translator> {
+  const loading = (translators[direction] ??= (async (): Promise<Translator> => {
     const { pipeline, env } = await import('@huggingface/transformers')
     // Chỉ dùng model đã tải sẵn và đã xác minh — không bao giờ tự tải từ mạng trong tiến trình này
     env.allowRemoteModels = false
     env.allowLocalModels = true
     env.localModelPath =
       modelsDir.endsWith('/') || modelsDir.endsWith('\\') ? modelsDir : `${modelsDir}/`
-    const translator = await pipeline('translation', MODEL_ID, {
+    const translator = await pipeline('translation', MODEL_IDS[direction], {
       dtype: 'q8',
       session_options: { intraOpNumThreads: 2 }
     })
     return translator as unknown as Translator
-  })()
-  translatorPromise.catch(() => {
-    translatorPromise = null // cho phép thử nạp lại lần sau
+  })())
+  loading.catch(() => {
+    delete translators[direction] // cho phép thử nạp lại lần sau
   })
-  return translatorPromise
+  return loading
 }
 
-async function translate(text: string): Promise<string> {
-  const translator = await loadTranslator()
+async function translate(text: string, direction: Direction): Promise<string> {
+  const translator = await loadTranslator(direction)
   const out: string[] = []
   // Dịch từng câu: đưa cả đoạn vào thì model thường chỉ dịch câu đầu
   for (const sentence of splitSentences(text)) {
@@ -61,7 +66,7 @@ process.parentPort.on('message', async (event) => {
       modelsDir = msg.payload.modelsDir
       process.parentPort.postMessage({ id: msg.id, ok: true, result: '' })
     } else {
-      const result = await translate(msg.text)
+      const result = await translate(msg.text, msg.direction)
       process.parentPort.postMessage({ id: msg.id, ok: true, result })
     }
   } catch (err) {

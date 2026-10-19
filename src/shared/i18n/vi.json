@@ -103,7 +103,6 @@
     "packUnsupported": "Gói nội dung cần phiên bản app mới hơn.",
     "packCorrupt": "Gói nội dung bị hỏng.",
     "translateNotReady": "Chưa tải model dịch offline.",
-    "translateUnsupported": "Hiện chỉ dịch được từ tiếng Anh sang tiếng Việt.",
     "translateFailed": "Dịch không thành công, thử lại nhé.",
     "modelDownload": "Không tải được model (kiểm tra kết nối mạng rồi thử lại).",
     "modelCorrupt": "File model tải về bị hỏng, hãy thử tải lại.",
@@ -376,7 +375,15 @@
     "downloading": "Đang tải… {done}/{total} MB",
     "cancel": "Huỷ",
     "retry": "Thử lại",
-    "translateBtn": "Dịch cả câu"
+    "translateBtn": "Dịch cả câu",
+    "modelsTitle": "Dịch câu offline",
+    "modelsHint": "Mỗi chiều dịch cần một model tải một lần, chạy hoàn toàn trên máy bạn. Có thể xoá để lấy lại dung lượng.",
+    "dir": {
+      "en-vi": "Anh → Việt",
+      "vi-en": "Việt → Anh"
+    },
+    "notInstalled": "Chưa tải ({size} MB)",
+    "remove": "Xoá model"
   },
   "shop": {
     "title": "Cửa hàng",

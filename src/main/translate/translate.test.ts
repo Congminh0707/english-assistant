@@ -3,7 +3,7 @@ import { existsSync, mkdtempSync, readdirSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import type { TranslateStatus } from '@shared/schemas/translate'
+import type { TranslateDirection, TranslateStatus } from '@shared/schemas/translate'
 import { TranslationService } from '../services/TranslationService'
 import type { TranslationEngine } from './engine'
 import type { ModelSpec } from './modelFiles'
@@ -110,27 +110,35 @@ describe('ModelManager', () => {
 })
 
 describe('TranslationService', () => {
+  const SPEC_VI: ModelSpec = { ...SPEC, id: 'Test/model-vi-en' }
+
   function setup(): {
     service: TranslationService
-    engine: TranslationEngine & { calls: string[] }
-    statuses: TranslateStatus[]
-    models: ModelManager
+    engine: TranslationEngine & { calls: string[]; disposed: number }
+    statuses: Array<[TranslateDirection, TranslateStatus]>
+    models: Record<TranslateDirection, ModelManager>
   } {
     const calls: string[] = []
     const engine = {
       calls,
-      translate: async (text: string): Promise<string> => {
-        calls.push(text)
-        return `VI(${text})`
+      disposed: 0,
+      translate: async (text: string, direction: TranslateDirection): Promise<string> => {
+        calls.push(`${direction}:${text}`)
+        return direction === 'en-vi' ? `VI(${text})` : `EN(${text})`
       },
-      dispose: (): void => {}
+      dispose(): void {
+        engine.disposed++
+      }
     }
-    const models = new ModelManager({ modelsDir: dir, spec: SPEC, fetch: fakeFetch() })
-    const statuses: TranslateStatus[] = []
+    const models = {
+      'en-vi': new ModelManager({ modelsDir: dir, spec: SPEC, fetch: fakeFetch() }),
+      'vi-en': new ModelManager({ modelsDir: dir, spec: SPEC_VI, fetch: fakeFetch() })
+    }
+    const statuses: Array<[TranslateDirection, TranslateStatus]> = []
     const service = new TranslationService({
       models,
       engine,
-      onStatus: (s) => statuses.push(s),
+      onStatus: (d, s) => statuses.push([d, s]),
       now: () => 0
     })
     return { service, engine, statuses, models }
@@ -138,47 +146,76 @@ describe('TranslationService', () => {
 
   it('chưa tải model → báo chưa sẵn sàng; tải xong thì dịch được', async () => {
     const { service, models, statuses } = setup()
-    expect(service.status()).toMatchObject({ state: 'not-installed', sizeBytes: TOTAL })
+    expect(service.status('en-vi')).toMatchObject({ state: 'not-installed', sizeBytes: TOTAL })
     await expect(service.translate('Hello')).rejects.toThrow(/TRANSLATE_NOT_READY/)
 
-    const status = await service.install()
+    const status = await service.install('en-vi')
     expect(status.state).toBe('ready')
-    expect(models.isInstalled()).toBe(true)
-    expect(statuses.map((s) => s.state)).toEqual(expect.arrayContaining(['downloading', 'ready']))
+    expect(models['en-vi'].isInstalled()).toBe(true)
+    expect(models['vi-en'].isInstalled()).toBe(false)
+    expect(statuses.map(([d]) => d)).toEqual(expect.arrayContaining(['en-vi']))
+    expect(statuses.map(([, s]) => s.state)).toEqual(
+      expect.arrayContaining(['downloading', 'ready'])
+    )
     const res = await service.translate('  Hello   world ')
-    expect(res).toEqual({ text: 'VI(Hello world)', engine: 'opus-mt', cached: false })
+    expect(res).toEqual({
+      text: 'VI(Hello world)',
+      engine: 'opus-mt',
+      cached: false,
+      direction: 'en-vi'
+    })
   })
 
-  it('nhớ kết quả gần đây, không gọi lại engine', async () => {
+  it('tự nhận chiều Việt → Anh, mỗi chiều cần model riêng', async () => {
     const { service, engine } = setup()
-    await service.install()
+    await service.install('en-vi')
+    await expect(service.translate('Tôi đang học tiếng Anh')).rejects.toThrow(/TRANSLATE_NOT_READY/)
+    await service.install('vi-en')
+    const res = await service.translate('Tôi đang học tiếng Anh')
+    expect(res).toMatchObject({ text: 'EN(Tôi đang học tiếng Anh)', direction: 'vi-en' })
+    expect(engine.calls).toEqual(['vi-en:Tôi đang học tiếng Anh'])
+  })
+
+  it('nhớ kết quả gần đây theo từng chiều, không gọi lại engine', async () => {
+    const { service, engine } = setup()
+    await service.install('en-vi')
     await service.translate('Good morning.')
     const again = await service.translate('Good morning.')
     expect(again.cached).toBe(true)
-    expect(engine.calls).toEqual(['Good morning.'])
+    expect(engine.calls).toEqual(['en-vi:Good morning.'])
   })
 
-  it('không dịch văn bản tiếng Việt / rỗng', async () => {
+  it('văn bản rỗng bị từ chối', async () => {
     const { service } = setup()
-    await service.install()
-    await expect(service.translate('Tôi đang học tiếng Anh')).rejects.toThrow(
-      /TRANSLATE_UNSUPPORTED/
-    )
+    await service.install('en-vi')
     await expect(service.translate('   ')).rejects.toThrow(/VALIDATION/)
   })
 
+  it('xoá model: tắt engine, xoá file, bỏ cache, báo trạng thái', async () => {
+    const { service, engine, models, statuses } = setup()
+    await service.install('en-vi')
+    await service.translate('Hello')
+    statuses.length = 0
+    const status = service.remove('en-vi')
+    expect(status.state).toBe('not-installed')
+    expect(models['en-vi'].isInstalled()).toBe(false)
+    expect(engine.disposed).toBe(1)
+    expect(statuses).toEqual([['en-vi', status]])
+    await expect(service.translate('Hello')).rejects.toThrow(/TRANSLATE_NOT_READY/)
+  })
+
   it('tải lỗi → trạng thái error có khoá i18n, cho phép thử lại', async () => {
-    const models = new ModelManager({
+    const failing = new ModelManager({
       modelsDir: dir,
       spec: SPEC,
       fetch: fakeFetch({ fail: true })
     })
     const service = new TranslationService({
-      models,
+      models: { 'en-vi': failing, 'vi-en': failing },
       engine: { translate: async () => '', dispose: () => {} },
       now: () => 0
     })
-    const status = await service.install()
+    const status = await service.install('en-vi')
     expect(status).toMatchObject({ state: 'error', errorKey: 'errors.modelDownload' })
   })
 })

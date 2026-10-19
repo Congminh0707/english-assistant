@@ -38,8 +38,10 @@ import {
 } from './schemas/placement'
 import { ProfileInfoSchema, ProfileSetupInputSchema } from './schemas/profile'
 import {
+  TranslateDirectionInputSchema,
   TranslateInputSchema,
   TranslateResultSchema,
+  TranslateStatusEventSchema,
   TranslateStatusSchema
 } from './schemas/translate'
 import {
@@ -83,9 +85,10 @@ export const invokeContract = {
   'profile:switch': { input: z.object({ id: z.string().min(1) }), output: ProfileInfoSchema },
   'placement:start': { input: z.void(), output: PlacementStartSchema },
   'placement:answer': { input: PlacementAnswerInputSchema, output: PlacementAnswerResultSchema },
-  'translate:status': { input: z.void(), output: TranslateStatusSchema },
-  'translate:install': { input: z.void(), output: TranslateStatusSchema },
-  'translate:cancel': { input: z.void(), output: z.void() },
+  'translate:status': { input: TranslateDirectionInputSchema, output: TranslateStatusSchema },
+  'translate:install': { input: TranslateDirectionInputSchema, output: TranslateStatusSchema },
+  'translate:cancel': { input: TranslateDirectionInputSchema, output: z.void() },
+  'translate:remove': { input: TranslateDirectionInputSchema, output: TranslateStatusSchema },
   'translate:text': { input: TranslateInputSchema, output: TranslateResultSchema },
   'practice:start': { input: PracticeStartInputSchema, output: PracticeStartResultSchema },
   'practice:answer': { input: PracticeAnswerInputSchema, output: PracticeAnswerResultSchema },
@@ -118,7 +121,7 @@ export const eventContract = {
   'popup:query': PopupQuerySchema,
   'mascot:quiz': QuizSchema,
   'mascot:sleep': MascotSleepSchema,
-  'translate:status-changed': TranslateStatusSchema,
+  'translate:status-changed': TranslateStatusEventSchema,
   'tts:status-changed': TranslateStatusSchema
 } satisfies Record<EventName, z.ZodType>
 

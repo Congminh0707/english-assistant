@@ -7,22 +7,16 @@ import {
 import { AppError } from '../core/AppError'
 import type { TranslationEngine } from '../translate/engine'
 import type { ModelManager } from '../translate/ModelManager'
+import { ModelInstaller } from './ModelInstaller'
 
 const CACHE_SIZE = 200
-/** Báo tiến trình tải tối đa mỗi ngần này ms để không dồn sự kiện */
-const PROGRESS_THROTTLE_MS = 250
 
 /**
- * Dịch câu offline (opus-mt en→vi): quản lý trạng thái model (chưa tải / đang tải / sẵn sàng), tải model khi người
- * dùng đồng ý, dịch qua engine, nhớ kết quả gần đây. Không bao giờ ghi nội dung dịch ra log.
- * docs/11-ai-and-speech.md#2-dịch--tra-từ
+ * Dịch câu offline (opus-mt en→vi): trạng thái/tải model (qua ModelInstaller), dịch qua engine, nhớ kết quả gần đây.
+ * Không bao giờ ghi nội dung dịch ra log. docs/11-ai-and-speech.md#2-dịch--tra-từ
  */
 export class TranslationService {
-  private downloading: { received: number } | null = null
-  private installPromise: Promise<void> | null = null
-  private abort: AbortController | null = null
-  private errorKey: string | null = null
-  private lastProgressAt = 0
+  private readonly installer: ModelInstaller
   private readonly cache = new Map<string, string>()
 
   constructor(
@@ -33,36 +27,25 @@ export class TranslationService {
       onStatus?: (status: TranslateStatus) => void
       now?: () => number
     }
-  ) {}
+  ) {
+    this.installer = new ModelInstaller({
+      models: deps.models,
+      onStatus: deps.onStatus,
+      now: deps.now
+    })
+  }
 
   status(): TranslateStatus {
-    const { models } = this.deps
-    const state = this.downloading
-      ? 'downloading'
-      : models.isInstalled()
-        ? 'ready'
-        : this.errorKey
-          ? 'error'
-          : 'not-installed'
-    return {
-      state,
-      sizeBytes: models.sizeBytes,
-      receivedBytes: this.downloading?.received ?? 0,
-      errorKey: state === 'error' ? this.errorKey : null
-    }
+    return this.installer.status()
   }
 
   /** Tải model (người dùng đã đồng ý). Gọi lại khi đang tải thì dùng chung lần tải đó. */
   install(): Promise<TranslateStatus> {
-    if (this.deps.models.isInstalled()) return Promise.resolve(this.status())
-    this.installPromise ??= this.runInstall().finally(() => {
-      this.installPromise = null
-    })
-    return this.installPromise.then(() => this.status())
+    return this.installer.install()
   }
 
   cancelInstall(): void {
-    this.abort?.abort()
+    this.installer.cancel()
   }
 
   async translate(text: string): Promise<TranslateResult> {
@@ -92,36 +75,5 @@ export class TranslationService {
   dispose(): void {
     this.cancelInstall()
     this.deps.engine.dispose()
-  }
-
-  private async runInstall(): Promise<void> {
-    const { models, onStatus } = this.deps
-    this.errorKey = null
-    this.abort = new AbortController()
-    this.downloading = { received: 0 }
-    onStatus?.(this.status())
-    try {
-      await models.install((received) => {
-        if (!this.downloading) return
-        this.downloading.received = received
-        const now = (this.deps.now ?? Date.now)()
-        if (now - this.lastProgressAt >= PROGRESS_THROTTLE_MS || received >= models.sizeBytes) {
-          this.lastProgressAt = now
-          onStatus?.(this.status())
-        }
-      }, this.abort.signal)
-    } catch (err) {
-      const aborted = this.abort.signal.aborted
-      this.errorKey = aborted
-        ? null
-        : err instanceof AppError
-          ? err.messageKey
-          : 'errors.modelDownload'
-      if (!aborted) console.warn('[translate] tải model thất bại:', (err as Error).message)
-    } finally {
-      this.downloading = null
-      this.abort = null
-      onStatus?.(this.status())
-    }
   }
 }

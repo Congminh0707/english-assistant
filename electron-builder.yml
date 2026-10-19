@@ -13,12 +13,17 @@ files:
   - '!**/onnxruntime-node/bin/napi-v6/win32/arm64/**'
   # onnxruntime-web (~120 MB, bản chạy trong trình duyệt) không dùng khi chạy bằng onnxruntime-node
   - '!**/onnxruntime-web/**'
+  # kokoro-js kèm giọng nhiều ngôn ngữ (~28 MB): chỉ giữ giọng tiếng Anh (af_, am_, bf_, bm_)
+  - '!**/kokoro-js/voices/[!ab]*.bin'
 asarUnpack:
   - resources/**
   # Thư viện native phải nằm ngoài asar để nạp được
   - '**/onnxruntime-node/**'
   - '**/@img/**'
   - '**/sharp/**'
+  # Giọng đọc đọc file giọng/WASM từ đĩa
+  - '**/kokoro-js/**'
+  - '**/phonemizer/**'
 extraResources:
   # File SQL migration của user.db, đọc lúc khởi động (src/main/core/paths.ts)
   - from: src/main/db/migrations

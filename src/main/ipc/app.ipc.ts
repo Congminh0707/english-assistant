@@ -1,9 +1,14 @@
 import type { Container } from '../container'
 import type { TranslationService } from '../services/TranslationService'
+import type { TtsService } from '../services/TtsService'
 import { handle } from './handle'
 
 /** Các kênh nghiệp vụ: thú cưng, túi đồ, cài đặt (~ Controllers) */
-export function registerAppIpc(c: Container, translation: TranslationService): void {
+export function registerAppIpc(
+  c: Container,
+  translation: TranslationService,
+  tts: TtsService
+): void {
   handle('pet:get', () => c.pet.get())
   handle('pet:pat', () => c.pet.pat())
   handle('pet:feed', ({ itemId }) => c.pet.feed(itemId))
@@ -52,6 +57,11 @@ export function registerAppIpc(c: Container, translation: TranslationService): v
   handle('lesson:complete', ({ lessonId, correct, total }) =>
     c.lessons.complete(lessonId, correct, total)
   )
+  handle('tts:status', () => tts.status())
+  handle('tts:install', () => tts.install())
+  handle('tts:cancel', () => tts.cancelInstall())
+  handle('tts:speak', (input) => tts.speak(input))
+  handle('tts:prefetch', ({ texts, accent, speed }) => tts.prefetch(texts, accent, speed))
   handle('vocab:list', () => c.study.words())
   handle('vocab:remove', ({ contentId }) => c.study.removeWord(contentId))
 }

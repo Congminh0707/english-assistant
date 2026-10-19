@@ -144,6 +144,9 @@ Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được n
 | **Piper TTS** | Repo cũ `rhasspy/piper` MIT (đã lưu trữ 10/2025); repo mới `OHF-Voice/piper1-gpl` **GPL-3.0** | ⚠️ | Không liên kết code GPL vào app; nếu dùng, chạy như **công cụ build** để sinh audio sẵn |
 | Giọng Piper `lessac` (và `amy` — tinh chỉnh từ lessac) | Dữ liệu Blizzard 2013: **chỉ nghiên cứu**, cấm thương mại | ❌ | Không dùng cho sản phẩm |
 | Giọng Piper `ryan` | CC BY-NC-SA 4.0 | ❌ | Phi thương mại |
+| **Kokoro-82M** (hexgrad) + bản ONNX `onnx-community/Kokoro-82M-v1.0-ONNX` | Trọng số **Apache-2.0** (đã kiểm tra model card 2026-10-19); dữ liệu huấn luyện "permissive/non-copyrighted" gồm giọng tổng hợp từ TTS đóng và âm thanh CC BY (Koniwa CC BY 3.0, SIWIS CC BY 4.0) | ✅ ⚠️ | Đang dùng cho giọng đọc tự nhiên (tải khi người dùng bật, không đóng trong bộ cài). Ghi công CC BY đã có trong Cài đặt → "Giấy phép & ghi công". Xem [decisions #14](decisions.md) |
+| `kokoro-js` (npm) | Apache-2.0 | ✅ | Thư viện nạp model + file giọng `voices/*.bin` (đóng trong bộ cài, chỉ giữ giọng tiếng Anh) |
+| `phonemizer` (npm) → **eSpeak-NG WASM** | Gói npm khai Apache-2.0 nhưng **bên trong là eSpeak-NG (GPL-3.0)** | ⚠️ | Rủi ro copyleft khi thương mại hoá: tải riêng khi bật giọng tự nhiên, hoặc thay bộ phiên âm — xem decisions #14 |
 | Giọng Piper khác | Theo dataset từng giọng | ❓ | Đọc model card từng giọng; chỉ chọn giọng có license cho phép thương mại |
 | **LanguageTool** server | LGPL 2.1+ | ✅ | Chạy như server riêng (không nhúng code) |
 | LanguageTool **public API** | Miễn phí có giới hạn: 20 request/phút/IP, 75 KB/phút/IP, 20 KB/request | ⚠️ | Phải có **link hiển thị tới languagetool.org** và thông báo cho người dùng văn bản được gửi đi đâu. Giới hạn có thể thay đổi. |

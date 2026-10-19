@@ -38,7 +38,12 @@ export const INVOKE_CHANNELS = [
   'study:stats',
   'lesson:catalog',
   'lesson:get',
-  'lesson:complete'
+  'lesson:complete',
+  'tts:status',
+  'tts:install',
+  'tts:cancel',
+  'tts:speak',
+  'tts:prefetch'
 ] as const
 
 /** renderer → main, không chờ kết quả (ipcRenderer.send) */
@@ -58,7 +63,8 @@ export const EVENT_NAMES = [
   'popup:query',
   'mascot:quiz',
   'mascot:sleep',
-  'translate:status-changed'
+  'translate:status-changed',
+  'tts:status-changed'
 ] as const
 
 export type InvokeChannel = (typeof INVOKE_CHANNELS)[number]

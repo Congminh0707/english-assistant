@@ -1,10 +1,12 @@
 // Tiến trình nền (Electron utilityProcess) chạy model dịch opus-mt bằng transformers.js + onnxruntime-node.
 // Tách riêng khỏi main để suy luận (~0,3–0,5 giây/câu, ~400 MB RAM) không làm đơ mascot.
-// Giao thức: main → worker {id, type:'init', modelsDir} | {id, type:'translate', text}; worker → main {id, ok, text|error}.
+// Giao thức (src/main/system/WorkerProcess.ts): main → worker {id, type:'init', payload:{modelsDir}} | {id, type:'translate', text};
+// worker → main {id, ok, result | error}.
 import { ensureTerminalPunctuation, splitSentences } from '@shared/sentences'
 
 type Request =
-  { id: number; type: 'init'; modelsDir: string } | { id: number; type: 'translate'; text: string }
+  | { id: number; type: 'init'; payload: { modelsDir: string } }
+  | { id: number; type: 'translate'; text: string }
 
 type Translator = (
   text: string,
@@ -56,11 +58,11 @@ process.parentPort.on('message', async (event) => {
   const msg = event.data as Request
   try {
     if (msg.type === 'init') {
-      modelsDir = msg.modelsDir
-      process.parentPort.postMessage({ id: msg.id, ok: true, text: '' })
+      modelsDir = msg.payload.modelsDir
+      process.parentPort.postMessage({ id: msg.id, ok: true, result: '' })
     } else {
-      const text = await translate(msg.text)
-      process.parentPort.postMessage({ id: msg.id, ok: true, text })
+      const result = await translate(msg.text)
+      process.parentPort.postMessage({ id: msg.id, ok: true, result })
     }
   } catch (err) {
     process.parentPort.postMessage({

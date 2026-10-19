@@ -6,3 +6,6 @@ allowBuilds:
   # onnxruntime-node: binary đã có sẵn trong gói npm (script chỉ tải thêm bản GPU cho Linux); protobufjs: chỉ kiểm tra phiên bản
   onnxruntime-node: false
   protobufjs: false
+# kokoro-js ghim transformers 3.x; ép dùng chung bản 4.3.1 với dịch câu để không nhân đôi onnxruntime (~60 MB)
+overrides:
+  'kokoro-js>@huggingface/transformers': 4.3.1

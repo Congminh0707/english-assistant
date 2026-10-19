@@ -13,7 +13,7 @@ const props = defineProps<{ lesson: Lesson }>()
 const emit = defineEmits<{ finish: [correct: number, total: number]; back: [] }>()
 
 const { t } = useI18n()
-const { speak } = useTts()
+const { speak, prefetch } = useTts()
 
 const idx = ref(0)
 const checked = ref(false)
@@ -186,6 +186,14 @@ function onKeyDown(event: KeyboardEvent): void {
 
 onMounted(() => {
   window.addEventListener('keydown', onKeyDown)
+  // Giọng tự nhiên: tạo trước âm thanh các câu nghe và lời giải của bài tập
+  prefetch(
+    props.lesson.exercises.flatMap((e) =>
+      e.type === 'listen' ? [e.say] : e.type === 'order' ? [e.answer] : []
+    ),
+    'us',
+    0.9
+  )
   enter()
 })
 onUnmounted(() => window.removeEventListener('keydown', onKeyDown))

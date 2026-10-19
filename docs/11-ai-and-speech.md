@@ -77,6 +77,8 @@ flowchart TD
 | **Provider TTS** (OpenAI/Google/Azure...) | Rất tốt | Không | BYOK, cache file audio. |
 | **Audio có sẵn trong pack** | Tốt nhất | Có | Luôn ưu tiên nếu nội dung có audio. |
 
+> ✅ **Đã làm (Phase 1/2)** — **giọng tự nhiên Kokoro-82M** offline (xem [decisions #14](decisions.md)): `TtsService` + `KokoroEngine` (utilityProcess riêng) + `TtsCache` (đĩa) + `ModelInstaller`; Cài đặt → Giọng đọc: chọn "Giọng Windows" (mặc định) hoặc "Giọng tự nhiên", tải model ~92 MB (xác minh sha256), chọn giọng Mỹ/Anh (8 giọng), nghe thử. Mọi nút nghe (popup, bài học, ôn từ, luyện tập) dùng `useTts().speak` nên tự đổi giọng; lỗi/chưa tải → giọng Windows. Bộ nhớ đệm + `prefetch` cho bài học. Đo: ~0,9 s/từ, ~2 s/câu ngắn. ⚠️ Rủi ro giấy phép eSpeak-NG (GPL-3.0) trong `phonemizer` — xem decisions #14 trước khi thương mại hoá.
+
 Tuỳ chọn người dùng: giọng US/UK, tốc độ 0.5x–1.5x.
 
 ## 4. Nhận dạng giọng nói (STT) & chấm phát âm

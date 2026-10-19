@@ -110,7 +110,9 @@
     "notEnoughCoins": "Chưa đủ xu để mua món này.",
     "alreadyOwned": "Bạn đã có món này rồi.",
     "bagFull": "Túi đồ đã đầy món này.",
-    "levelTooLow": "Chưa đủ level để mua món này."
+    "levelTooLow": "Chưa đủ level để mua món này.",
+    "ttsNotReady": "Chưa tải giọng đọc tự nhiên.",
+    "ttsFailed": "Không tạo được giọng đọc, thử lại nhé."
   },
   "quiz": {
     "reviewTitle": "Ôn từ",
@@ -391,5 +393,30 @@
     "tooExpensive": "Thiếu {n} xu",
     "earnHint": "Kiếm xu bằng nhiệm vụ ngày và luyện tập nhé!",
     "bought": "Đã mua {item}!"
+  },
+  "credits": {
+    "title": "Giấy phép & ghi công",
+    "kokoro": "Giọng tự nhiên: Kokoro-82M (hexgrad) — Apache-2.0.",
+    "kokoroData": "Kokoro được huấn luyện một phần trên dữ liệu CC BY: Koniwa (CC BY 3.0), SIWIS (CC BY 4.0).",
+    "espeak": "Phiên âm: eSpeak-NG qua phonemizer — GPL-3.0.",
+    "opusmt": "Dịch câu: opus-mt en→vi (Helsinki-NLP) — Apache-2.0.",
+    "tatoeba": "Câu ví dụ: Tatoeba — CC BY 2.0 FR."
+  },
+  "tts": {
+    "title": "Giọng đọc",
+    "system": "Giọng Windows (có sẵn)",
+    "kokoro": "Giọng tự nhiên (Kokoro, offline)",
+    "needModel": "Giọng tự nhiên cần tải model một lần ({size} MB, miễn phí, chạy hoàn toàn trên máy bạn).",
+    "download": "Tải model",
+    "downloading": "Đang tải… {done}/{total} MB",
+    "cancel": "Huỷ",
+    "retry": "Thử lại",
+    "ready": "Đã sẵn sàng",
+    "voiceUs": "Giọng Mỹ",
+    "voiceUk": "Giọng Anh",
+    "test": "Nghe thử",
+    "testText": "Hello! This is how I sound.",
+    "cacheHint": "Âm thanh đã tạo được lưu lại để nghe lại tức thì. Lần đầu nghe một câu mới mất khoảng 1–3 giây.",
+    "fallbackHint": "Chưa tải model nên đang dùng giọng Windows."
   }
 }

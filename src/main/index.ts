@@ -24,6 +24,10 @@ import { SleepService } from './services/SleepService'
 import { TranslationService } from './services/TranslationService'
 import { ModelManager } from './translate/ModelManager'
 import { OpusMtEngine } from './translate/OpusMtEngine'
+import { TtsService } from './services/TtsService'
+import { KokoroEngine } from './tts/KokoroEngine'
+import { KOKORO } from './tts/modelFiles'
+import { TtsCache } from './tts/TtsCache'
 import { Scheduler } from './jobs/Scheduler'
 import { schedulePetJobs } from './jobs/petJobs'
 import { scheduleQuizJob } from './jobs/quizJobs'
@@ -47,6 +51,7 @@ let study: StudyWindow | null = null
 let tray: AppTray | null = null
 let quietMode: QuietModeService | null = null
 let translation: TranslationService | null = null
+let speech: TtsService | null = null
 const scheduler = new Scheduler()
 
 // Chỉ cho chạy 1 instance: mở lần 2 thì hiện lại mascot đang có
@@ -84,7 +89,16 @@ if (!app.requestSingleInstanceLock()) {
       onStatus: (status) => broadcast('translate:status-changed', status)
     })
     translation = translationService
-    registerAppIpc(c, translationService)
+    // Giọng đọc tự nhiên offline (Kokoro): model tải khi người dùng đồng ý, chạy trong utilityProcess riêng
+    const ttsService = new TtsService({
+      models: new ModelManager({ modelsDir: paths.models(), spec: KOKORO }),
+      engine: new KokoroEngine(paths.models()),
+      cache: new TtsCache(paths.ttsCache()),
+      voices: () => ({ us: c.settings.get('tts.voiceUs'), uk: c.settings.get('tts.voiceUk') }),
+      onStatus: (status) => broadcast('tts:status-changed', status)
+    })
+    speech = ttsService
+    registerAppIpc(c, translationService, ttsService)
     // Ngủ: người dùng vắng mặt lâu hoặc thú cưng hết năng lượng
     const sleepService = new SleepService({
       pet: c.pet,
@@ -182,6 +196,7 @@ if (!app.requestSingleInstanceLock()) {
     popup?.win.destroy()
     study?.destroy()
     translation?.dispose()
+    speech?.dispose()
     tray?.tray.destroy()
     tray = null
     container?.packs.closeAll()

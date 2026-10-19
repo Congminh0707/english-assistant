@@ -1,11 +1,13 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { LEVEL_CODES, TRACKS, type Track } from '@shared/schemas/content/level'
 import { cefrLabel } from '@shared/placement'
 import type { ProfileInfo } from '@shared/schemas/profile'
 import type { Settings } from '@shared/schemas/settings'
+import { UK_VOICES, US_VOICES } from '@shared/tts'
 import { invoke } from '@renderer/shared/ipc'
+import { useTts, useTtsModel } from '@renderer/shared/composables/useTts'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 
@@ -14,6 +16,15 @@ const emit = defineEmits<{ retest: []; changed: [] }>()
 
 const { t } = useI18n()
 const settingsStore = useSettingsStore()
+
+const { speak, naturalVoice } = useTts()
+const ttsModel = useTtsModel()
+const MB = 1024 * 1024
+const ttsSizeMb = computed(() => Math.round((ttsModel.status.value?.sizeBytes ?? 0) / MB))
+const ttsDoneMb = computed(() => Math.round((ttsModel.status.value?.receivedBytes ?? 0) / MB))
+const wantsNatural = computed(() => settingsStore.settings['tts.engine'] === 'kokoro')
+
+const CREDIT_KEYS = ['kokoro', 'kokoroData', 'espeak', 'opusmt', 'tatoeba'] as const
 
 const profiles = ref<ProfileInfo[]>([])
 const newName = ref('')
@@ -137,6 +148,100 @@ onMounted(loadProfiles)
     </PxPanel>
 
     <PxPanel class="block">
+      <h2>{{ t('tts.title') }}</h2>
+      <label class="row">
+        <span class="inline">
+          <input
+            type="radio"
+            name="tts-engine"
+            value="system"
+            :checked="!wantsNatural"
+            @change="setSetting('tts.engine', 'system')"
+          />
+          {{ t('tts.system') }}
+        </span>
+      </label>
+      <label class="row">
+        <span class="inline">
+          <input
+            type="radio"
+            name="tts-engine"
+            value="kokoro"
+            :checked="wantsNatural"
+            @change="setSetting('tts.engine', 'kokoro')"
+          />
+          {{ t('tts.kokoro') }}
+        </span>
+        <span v-if="ttsModel.status.value?.state === 'ready'" class="muted"
+          >✓ {{ t('tts.ready') }}</span
+        >
+      </label>
+
+      <template v-if="wantsNatural">
+        <div v-if="ttsModel.status.value?.state === 'downloading'" class="download">
+          <span class="muted">{{
+            t('tts.downloading', { done: ttsDoneMb, total: ttsSizeMb })
+          }}</span>
+          <progress
+            :value="ttsModel.status.value.receivedBytes"
+            :max="ttsModel.status.value.sizeBytes"
+          />
+          <button type="button" class="small" @click="ttsModel.cancel()">
+            {{ t('tts.cancel') }}
+          </button>
+        </div>
+        <div
+          v-else-if="ttsModel.status.value && ttsModel.status.value.state !== 'ready'"
+          class="download"
+        >
+          <span class="muted">{{ t('tts.needModel', { size: ttsSizeMb }) }}</span>
+          <span v-if="ttsModel.status.value.errorKey" class="error">{{
+            t(ttsModel.status.value.errorKey)
+          }}</span>
+          <button type="button" class="small" @click="ttsModel.install()">
+            {{ ttsModel.status.value.errorKey ? t('tts.retry') : t('tts.download') }}
+          </button>
+          <span class="muted">{{ t('tts.fallbackHint') }}</span>
+        </div>
+        <template v-else>
+          <label class="row">
+            {{ t('tts.voiceUs') }}
+            <span class="controls">
+              <select
+                :value="settingsStore.settings['tts.voiceUs']"
+                @change="
+                  setSetting('tts.voiceUs', ($event.target as HTMLSelectElement).value as never)
+                "
+              >
+                <option v-for="v in US_VOICES" :key="v.id" :value="v.id">{{ v.label }}</option>
+              </select>
+              <button type="button" class="small" @click="speak(t('tts.testText'), 'us')">
+                🔊 {{ t('tts.test') }}
+              </button>
+            </span>
+          </label>
+          <label class="row">
+            {{ t('tts.voiceUk') }}
+            <span class="controls">
+              <select
+                :value="settingsStore.settings['tts.voiceUk']"
+                @change="
+                  setSetting('tts.voiceUk', ($event.target as HTMLSelectElement).value as never)
+                "
+              >
+                <option v-for="v in UK_VOICES" :key="v.id" :value="v.id">{{ v.label }}</option>
+              </select>
+              <button type="button" class="small" @click="speak(t('tts.testText'), 'uk')">
+                🔊 {{ t('tts.test') }}
+              </button>
+            </span>
+          </label>
+          <p v-if="naturalVoice" class="muted">{{ t('tts.cacheHint') }}</p>
+        </template>
+      </template>
+    </PxPanel>
+
+    <PxPanel class="block">
       <h2>{{ t('study.settings.quiet') }}</h2>
       <label class="row">
         {{ t('study.settings.meetings') }}
@@ -205,6 +310,13 @@ onMounted(loadProfiles)
           @change="setSetting('app.launchAtLogin', ($event.target as HTMLInputElement).checked)"
         />
       </label>
+    </PxPanel>
+
+    <PxPanel class="block">
+      <h2>{{ t('credits.title') }}</h2>
+      <ul class="credits">
+        <li v-for="k in CREDIT_KEYS" :key="k">{{ t(`credits.${k}`) }}</li>
+      </ul>
     </PxPanel>
   </section>
 </template>
@@ -284,6 +396,25 @@ input[type='time'] {
   color: #fff;
   background: var(--c-xp);
   border: 1px solid var(--c-border);
+}
+.credits {
+  margin: 0;
+  padding-left: 18px;
+  display: grid;
+  gap: 4px;
+  font-size: 13px;
+}
+.download {
+  display: grid;
+  gap: 6px;
+  justify-items: start;
+  font-size: 13px;
+}
+.download progress {
+  width: 100%;
+}
+.error {
+  color: var(--c-danger);
 }
 .add {
   display: flex;

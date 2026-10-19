@@ -24,6 +24,7 @@ import {
   LessonSchema
 } from './schemas/lesson'
 import { StatsSchema } from './schemas/stats'
+import { TtsPrefetchInputSchema, TtsSpeakInputSchema, TtsSpeakResultSchema } from './schemas/tts'
 import {
   PracticeAnswerInputSchema,
   PracticeAnswerResultSchema,
@@ -94,7 +95,12 @@ export const invokeContract = {
   'study:stats': { input: z.void(), output: StatsSchema },
   'lesson:catalog': { input: z.void(), output: LessonCatalogSchema },
   'lesson:get': { input: z.object({ id: z.string().min(1) }), output: LessonSchema },
-  'lesson:complete': { input: LessonCompleteInputSchema, output: LessonCompleteResultSchema }
+  'lesson:complete': { input: LessonCompleteInputSchema, output: LessonCompleteResultSchema },
+  'tts:status': { input: z.void(), output: TranslateStatusSchema },
+  'tts:install': { input: z.void(), output: TranslateStatusSchema },
+  'tts:cancel': { input: z.void(), output: z.void() },
+  'tts:speak': { input: TtsSpeakInputSchema, output: TtsSpeakResultSchema },
+  'tts:prefetch': { input: TtsPrefetchInputSchema, output: z.void() }
 } satisfies Record<InvokeChannel, { input: z.ZodType; output: z.ZodType }>
 
 export const sendContract = {
@@ -112,7 +118,8 @@ export const eventContract = {
   'popup:query': PopupQuerySchema,
   'mascot:quiz': QuizSchema,
   'mascot:sleep': MascotSleepSchema,
-  'translate:status-changed': TranslateStatusSchema
+  'translate:status-changed': TranslateStatusSchema,
+  'tts:status-changed': TranslateStatusSchema
 } satisfies Record<EventName, z.ZodType>
 
 // --- Kiểu suy ra từ hợp đồng ---

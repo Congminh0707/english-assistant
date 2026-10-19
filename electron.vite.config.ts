@@ -12,7 +12,8 @@ export default defineConfig({
         // translateWorker: tiến trình nền (utilityProcess) chạy model dịch offline
         input: {
           index: resolve('src/main/index.ts'),
-          translateWorker: resolve('src/main/translate/worker.ts')
+          translateWorker: resolve('src/main/translate/worker.ts'),
+          ttsWorker: resolve('src/main/tts/worker.ts')
         }
       }
     }

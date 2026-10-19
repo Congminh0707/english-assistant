@@ -4,6 +4,8 @@ import { join } from 'path'
 /** Đường dẫn dùng trong app — luôn lấy qua đây, không viết cứng (docs/15-packaging-and-release.md#2) */
 export const paths = {
   userDb: (): string => join(app.getPath('userData'), 'user.db'),
+  /** Bộ nhớ đệm âm thanh giọng đọc đã tạo: userData/tts-cache */
+  ttsCache: (): string => join(app.getPath('userData'), 'tts-cache'),
   /** Model AI tải về (dịch offline...): userData/models */
   models: (): string => join(app.getPath('userData'), 'models'),
   /** Content pack đã giải nén */

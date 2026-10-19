@@ -38,8 +38,9 @@ App chạy thường trực trên máy, có thể đọc clipboard, nghe micro, 
 | `nodeIntegration` | `false` | Renderer không có quyền Node |
 | `sandbox` | `true` | Giới hạn renderer |
 | `webSecurity` | `true` (không bao giờ tắt) | |
+| Tải model giọng đọc tự nhiên | Chỉ khi người dùng bật "Giọng tự nhiên" và bấm "Tải model": app tải ~92 MB từ `huggingface.co` (revision ghim, sha256 từng file). Văn bản được đọc **không rời máy**; âm thanh đã tạo lưu ở `userData/tts-cache` (có thể xoá). | Không tự kết nối mạng; file lạ/hỏng bị loại |
 | Tải model dịch offline | Lần đầu dùng dịch câu, **chỉ khi người dùng bấm "Tải model"**, app tải ~107 MB từ `huggingface.co` (revision ghim sẵn, kiểm tra sha256 từng file); không gửi dữ liệu người dùng đi. Sau đó dịch hoàn toàn trên máy. | Không tự kết nối mạng; file lạ/hỏng bị loại |
-| Content-Security-Policy | Mỗi cửa sổ có CSP riêng; chỉ `self` + domain cần thiết (YouTube cho Study) | Chặn script lạ |
+| Content-Security-Policy | Mỗi cửa sổ có CSP riêng; chỉ `self` + domain cần thiết (YouTube cho Study; `media-src blob:` ở Study/Popup để phát audio giọng tự nhiên) | Chặn script lạ |
 | `setWindowOpenHandler` | Từ chối mở cửa sổ mới; link ngoài mở bằng `shell.openExternal` sau khi kiểm tra `https:` + danh sách cho phép | |
 | `will-navigate` | Chặn điều hướng ra ngoài app | |
 | `setPermissionRequestHandler` | Chỉ cho `media` (micro) với cửa sổ Study; từ chối mọi quyền khác | |

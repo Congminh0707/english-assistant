@@ -110,7 +110,9 @@
     "notEnoughCoins": "Not enough coins to buy this.",
     "alreadyOwned": "You already own this.",
     "bagFull": "Your bag is full of this item.",
-    "levelTooLow": "Your pet is not high enough level for this."
+    "levelTooLow": "Your pet is not high enough level for this.",
+    "ttsNotReady": "The natural voice is not downloaded yet.",
+    "ttsFailed": "Could not generate the voice, please try again."
   },
   "quiz": {
     "reviewTitle": "Review",
@@ -391,5 +393,30 @@
     "tooExpensive": "{n} coins short",
     "earnHint": "Earn coins from daily missions and practice!",
     "bought": "Bought {item}!"
+  },
+  "credits": {
+    "title": "Licenses & credits",
+    "kokoro": "Natural voice: Kokoro-82M (hexgrad) — Apache-2.0.",
+    "kokoroData": "Kokoro was partly trained on CC BY data: Koniwa (CC BY 3.0), SIWIS (CC BY 4.0).",
+    "espeak": "Phonemizer: eSpeak-NG via phonemizer — GPL-3.0.",
+    "opusmt": "Sentence translation: opus-mt en→vi (Helsinki-NLP) — Apache-2.0.",
+    "tatoeba": "Example sentences: Tatoeba — CC BY 2.0 FR."
+  },
+  "tts": {
+    "title": "Voice",
+    "system": "Windows voice (built in)",
+    "kokoro": "Natural voice (Kokoro, offline)",
+    "needModel": "The natural voice needs a one-time model download ({size} MB, free, runs entirely on your computer).",
+    "download": "Download model",
+    "downloading": "Downloading… {done}/{total} MB",
+    "cancel": "Cancel",
+    "retry": "Try again",
+    "ready": "Ready",
+    "voiceUs": "American voice",
+    "voiceUk": "British voice",
+    "test": "Listen",
+    "testText": "Hello! This is how I sound.",
+    "cacheHint": "Generated audio is saved so replays are instant. A new sentence takes about 1–3 seconds the first time.",
+    "fallbackHint": "The model is not downloaded, so the Windows voice is used."
   }
 }

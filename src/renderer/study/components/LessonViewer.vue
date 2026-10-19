@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Lesson } from '@shared/schemas/lesson'
 import { useTts } from '@renderer/shared/composables/useTts'
@@ -6,11 +7,21 @@ import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import MdText from './MdText.vue'
 
 // Đọc một bài: giải thích, bảng, ví dụ có nút nghe, lưới âm bấm nghe, mẹo.
-defineProps<{ lesson: Lesson }>()
+const props = defineProps<{ lesson: Lesson }>()
 defineEmits<{ start: []; back: [] }>()
 
 const { t } = useI18n()
-const { speak } = useTts()
+const { speak, prefetch } = useTts()
+
+// Giọng tự nhiên: tạo trước âm thanh của ví dụ và lưới âm ở nền để bấm nghe là có ngay
+onMounted(() => {
+  const texts: string[] = []
+  for (const block of props.lesson.blocks) {
+    if (block.type === 'examples') texts.push(...block.items.map((i) => i.en))
+    if (block.type === 'sounds') texts.push(...block.items.map((i) => i.say ?? i.text))
+  }
+  prefetch(texts.slice(0, 40), 'us', 0.9)
+})
 </script>
 
 <template>

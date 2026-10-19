@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  kokoro-js>@huggingface/transformers: 4.3.1
+
 importers:
 
   .:
@@ -32,6 +35,9 @@ importers:
       koffi:
         specifier: ^3.3.3
         version: 3.3.3
+      kokoro-js:
+        specifier: 1.2.1
+        version: 1.2.1(@types/node@24.19.2)
       pinia:
         specifier: ^4.1.0
         version: 4.1.0(@vue/devtools-api@8.2.1)(typescript@5.9.3)(vue@3.5.44(typescript@5.9.3))
@@ -2401,6 +2407,9 @@ packages:
   koffi@3.3.3:
     resolution: {integrity: sha512-XWNI4eyxJJzR2MakPZzR3QeZ06JOklLbxglin0dHhx/qIQCby8lqHs9Acq4Q7CpCKnOrBSj+6b9J5y69wfr2ZA==}
 
+  kokoro-js@1.2.1:
+    resolution: {integrity: sha512-oq0HZJWis3t8lERkMJh84WLU86dpYD0EuBPtqYnLlQzyFP1OkyBRDcweAqCfhNOpltyN9j/azp1H6uuC47gShw==}
+
   lazy-val@1.0.5:
     resolution: {integrity: sha512-0/BnGCCfyUMkBpeDgWihanIAF9JmZhHBgUhEqzvf+adhNGLoP6TaiI5oF8oyb3I45P+PcnrqihSf01M0l0G5+Q==}
 
@@ -2692,6 +2701,9 @@ packages:
 
   perfect-debounce@2.1.0:
     resolution: {integrity: sha512-LjgdTytVFXeUgtHZr9WYViYSM/g8MkcTPYDlPa3cDqMirHjKiSZPYd6DoL7pK8AJQr+uWkQvCjHNdiMqsrJs+g==}
+
+  phonemizer@1.2.1:
+    resolution: {integrity: sha512-v0KJ4mi2T4Q7eJQ0W15Xd4G9k4kICSXE8bpDeJ8jisL4RyJhNWsweKTOi88QXFc4r4LZlz5jVL5lCHhkpdT71A==}
 
   picocolors@1.1.1:
     resolution: {integrity: sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==}
@@ -5406,6 +5418,13 @@ snapshots:
       '@koromix/koffi-win32-ia32': 3.3.3
       '@koromix/koffi-win32-x64': 3.3.3
 
+  kokoro-js@1.2.1(@types/node@24.19.2):
+    dependencies:
+      '@huggingface/transformers': 4.3.1(@types/node@24.19.2)
+      phonemizer: 1.2.1
+    transitivePeerDependencies:
+      - '@types/node'
+
   lazy-val@1.0.5: {}
 
   levn@0.4.1:
@@ -5647,6 +5666,8 @@ snapshots:
   pe-library@0.4.1: {}
 
   perfect-debounce@2.1.0: {}
+
+  phonemizer@1.2.1: {}
 
   picocolors@1.1.1: {}
 

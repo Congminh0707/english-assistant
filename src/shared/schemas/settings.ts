@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { LevelCode } from './content/level'
+import { UK_VOICE_IDS, US_VOICE_IDS } from '../tts'
 
 /** Giờ trong ngày dạng 'HH:MM' */
 const ClockTime = z.string().regex(/^([01]?\d|2[0-3]):[0-5]\d$/)
@@ -23,6 +24,10 @@ export const settingDefinitions = {
   'mascot.quizMinutes': z
     .union([z.literal(0), z.literal(15), z.literal(25), z.literal(45)])
     .default(25),
+  /** Giọng đọc: 'system' = giọng Windows có sẵn; 'kokoro' = giọng tự nhiên offline (cần tải model) */
+  'tts.engine': z.enum(['system', 'kokoro']).default('system'),
+  'tts.voiceUs': z.enum(US_VOICE_IDS).default('af_heart'),
+  'tts.voiceUk': z.enum(UK_VOICE_IDS).default('bf_emma'),
   /** Chế độ yên lặng: tạm ẩn mascot khi đang họp trực tuyến (Zoom, Teams, Meet...) */
   'quiet.meetings': z.boolean().default(true),
   /** Chế độ yên lặng: khung giờ không làm phiền (có thể vắt qua nửa đêm) */

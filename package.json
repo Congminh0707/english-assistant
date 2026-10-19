@@ -43,6 +43,7 @@
     "electron-updater": "^6.8.9",
     "fflate": "^0.8.3",
     "koffi": "^3.3.3",
+    "kokoro-js": "1.2.1",
     "pinia": "^4.1.0",
     "ts-fsrs": "^5.4.2",
     "vue-i18n": "^11.4.14",

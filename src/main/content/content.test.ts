@@ -24,7 +24,8 @@ function buildFixturePack(dir: string, version = '1.0.0'): string {
     lemma: string,
     rank: number,
     vi: string[],
-    origin = 'wiktionary'
+    origin = 'wiktionary',
+    lists: string[] = []
   ): void => {
     const data = {
       id,
@@ -37,20 +38,32 @@ function buildFixturePack(dir: string, version = '1.0.0'): string {
     }
     db.prepare(
       `INSERT INTO words (id, lemma, pos, ipa_us, ipa_uk, level, freq_rank, lists, vi_short, data)
-       VALUES (?, ?, '["verb"]', ?, NULL, 'A1_1', ?, '[]', ?, ?)`
-    ).run(id, lemma, `/${lemma}/`, rank, vi.join('; ') || null, JSON.stringify(data))
+       VALUES (?, ?, '["verb"]', ?, NULL, 'A1_1', ?, ?, ?, ?)`
+    ).run(
+      id,
+      lemma,
+      `/${lemma}/`,
+      rank,
+      JSON.stringify(lists),
+      vi.join('; ') || null,
+      JSON.stringify(data)
+    )
     db.prepare('INSERT INTO words_fts (word_id, lemma, vi_meanings) VALUES (?, ?, ?)').run(
       id,
       lemma,
       vi.join(' ; ')
     )
   }
-  word('word:en:go', 'go', 20, ['đi', 'ra đi'])
+  word('word:en:go', 'go', 20, ['đi', 'ra đi'], 'wiktionary', ['ngsl'])
   word('word:en:apple', 'apple', 900, ['quả táo', 'táo'])
   word('word:en:ponder', 'ponder', 5000, ['suy ngẫm'], 'generated')
-  db.prepare(
-    `INSERT INTO word_forms (form, word_id, tags) VALUES ('went', 'word:en:go', '["past"]')`
-  ).run()
+  // Mục riêng hiếm của một dạng biến tố (giống 'came' trong dữ liệu thật) + mục riêng thuộc danh sách chuẩn
+  word('word:en:went', 'went', 3000, ['(nghĩa hiếm)'])
+  word('word:en:left', 'left', 150, ['trái', 'bên trái'], 'wiktionary', ['ngsl'])
+  word('word:en:leave', 'leave', 120, ['rời đi'], 'wiktionary', ['ngsl'])
+  const form = db.prepare('INSERT INTO word_forms (form, word_id, tags) VALUES (?, ?, ?)')
+  form.run('went', 'word:en:go', '["past"]')
+  form.run('left', 'word:en:leave', '["past"]')
   db.close()
 
   const bytes = readFileSync(dbPath)
@@ -158,8 +171,13 @@ describe('DictionaryService + VocabService', () => {
     expect(exact.entries[0]).toMatchObject({ lemma: 'go', via: 'lemma', vi: ['đi', 'ra đi'] })
     expect(exact.entries[0].examples[0]).toEqual({ en: 'I go every day.', vi: 'Ví dụ.' })
 
+    // 'went' có mục riêng hiếm (không thuộc danh sách chuẩn) → từ gốc 'go' lên trước
     const form = c.dictionary.lookup('went.')
     expect(form.entries[0]).toMatchObject({ lemma: 'go', via: 'form', formTags: ['past'] })
+    expect(form.entries[1]).toMatchObject({ lemma: 'went', via: 'lemma' })
+
+    // 'left' có mục riêng thuộc NGSL → giữ đầu, 'leave' theo sau
+    expect(c.dictionary.lookup('left').entries.map((e) => e.lemma)).toEqual(['left', 'leave'])
 
     const reverse = c.dictionary.lookup('táo')
     expect(reverse.entries[0]).toMatchObject({ lemma: 'apple', via: 'search' })

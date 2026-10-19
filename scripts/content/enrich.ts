@@ -1,6 +1,7 @@
 // pnpm content:enrich <kind> [options]
 //   vi — sinh nghĩa tiếng Việt ngắn bằng LLM cho từ thiếu nghĩa (xem scripts/content/enrich/vi.ts)
-//        [--dry-run] [--limit N] [--batch N] [--concurrency N] [--model id] [--effort level] [--import file]
+//        [--provider api|claude-cli] [--claude-bin path] [--dry-run] [--limit N] [--batch N]
+//        [--concurrency N] [--model id] [--effort level] [--import file]
 import { enrichVi } from './enrich/vi'
 
 const KINDS: Record<string, (args: string[]) => Promise<void>> = {

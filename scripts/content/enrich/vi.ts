@@ -2,7 +2,9 @@
 // (top 10k chưa có nghĩa Việt từ Wiktionary), ghi vào content/curated/vocab/vi-generated.json.
 //
 // Chế độ:
-//   (mặc định)        gọi Claude API — key CHỈ lấy từ biến môi trường ANTHROPIC_API_KEY, không bao giờ log
+//   --provider api        gọi Claude API — key CHỈ lấy từ biến môi trường ANTHROPIC_API_KEY, không bao giờ log
+//   --provider claude-cli gọi qua Claude Code CLI (`claude -p`), dùng phiên đăng nhập Claude — không cần API key
+//                         (mặc định: api nếu có ANTHROPIC_API_KEY, ngược lại claude-cli)
 //   --dry-run         không gọi API, không cần key: in thống kê + ghi request vào content/.build/enrich-vi/
 //   --import <file>   nhập kết quả đã sinh ở nơi khác (Batch API, console…) theo đúng schema đầu ra
 //
@@ -13,6 +15,7 @@ import { fileURLToPath } from 'node:url'
 import Anthropic from '@anthropic-ai/sdk'
 import { betaZodOutputFormat } from '@anthropic-ai/sdk/helpers/beta/zod'
 import { z } from 'zod'
+import { runClaudeCli } from './claude-cli'
 import { Pos, type Word } from '../../../src/shared/schemas/content'
 import { ensureDir, log, readJson, readJsonl, requireFile, writeJson } from '../lib/io'
 import { BUILD_DIR, normalizedPath } from '../lib/paths'
@@ -30,6 +33,9 @@ const DEFAULT_MODEL = 'claude-opus-5-5'
 const DEFAULT_EFFORT = 'medium'
 const DEFAULT_BATCH = 40
 const DEFAULT_CONCURRENCY = 3
+/** Claude CLI dùng giới hạn của gói đăng nhập → chạy ít luồng hơn */
+const DEFAULT_CLI_CONCURRENCY = 2
+const CLI_TIMEOUT_MS = 10 * 60_000
 const MAX_SENSES_IN_PROMPT = 5
 const MAX_GLOSS_CHARS = 140
 const PROMPT_PATH = join(fileURLToPath(new URL('.', import.meta.url)), '../prompts/vi-meanings.md')
@@ -79,11 +85,15 @@ interface PromptWord {
   example?: string
 }
 
+type Provider = 'api' | 'claude-cli'
+
 interface Options {
+  provider: Provider
+  claudeBin: string
   dryRun: boolean
   limit?: number
   batch: number
-  concurrency: number
+  concurrency?: number
   model: string
   effort: 'low' | 'medium' | 'high' | 'xhigh' | 'max'
   importFile?: string
@@ -91,9 +101,10 @@ interface Options {
 
 function parseArgs(args: string[]): Options {
   const opts: Options = {
+    provider: process.env.ANTHROPIC_API_KEY ? 'api' : 'claude-cli',
+    claudeBin: 'claude',
     dryRun: false,
     batch: DEFAULT_BATCH,
-    concurrency: DEFAULT_CONCURRENCY,
     model: DEFAULT_MODEL,
     effort: DEFAULT_EFFORT
   }
@@ -111,9 +122,14 @@ function parseArgs(args: string[]): Options {
     else if (a === '--model') opts.model = args[++i] ?? ''
     else if (a === '--effort') opts.effort = args[++i] as Options['effort']
     else if (a === '--import') opts.importFile = args[++i]
+    else if (a === '--provider') opts.provider = args[++i] as Provider
+    else if (a === '--claude-bin') opts.claudeBin = args[++i] ?? ''
     else throw new Error(`Unknown option "${a}"`)
   }
   if (!/^[\w.-]+$/.test(opts.model)) throw new Error('--model needs a model id')
+  if (!['api', 'claude-cli'].includes(opts.provider))
+    throw new Error('--provider must be api | claude-cli')
+  if (!opts.claudeBin) throw new Error('--claude-bin needs a path')
   if (!['low', 'medium', 'high', 'xhigh', 'max'].includes(opts.effort))
     throw new Error('--effort must be low | medium | high | xhigh | max')
   return opts
@@ -293,8 +309,15 @@ export async function enrichVi(args: string[]): Promise<void> {
     )
     log(`enrich vi (dry run): first request:\n${requests[0].user.slice(0, 1200)}`)
     log(
-      'enrich vi (dry run): no API call made. Run without --dry-run (needs ANTHROPIC_API_KEY), or import results with --import <file>'
+      'enrich vi (dry run): no API call made. Run without --dry-run (--provider api needs ANTHROPIC_API_KEY, --provider claude-cli needs `claude` logged in), or import results with --import <file>'
     )
+    return
+  }
+
+  if (opts.provider === 'claude-cli') {
+    await runWithClaudeCli(opts, system, batches, words, curated, todo.length)
+    log(`enrich vi: ${fmtCoverage(coverage(missing, curated))}`)
+    log('enrich vi: next → pnpm content:normalize merge level && pnpm content:validate')
     return
   }
 
@@ -364,11 +387,12 @@ export async function enrichVi(args: string[]): Promise<void> {
     }
   }
 
+  const concurrency = opts.concurrency ?? DEFAULT_CONCURRENCY
   log(
-    `enrich vi: ${todo.length} words in ${batches.length} batches → ${opts.model} (effort ${opts.effort}, concurrency ${opts.concurrency})`
+    `enrich vi: ${todo.length} words in ${batches.length} batches → ${opts.model} (effort ${opts.effort}, concurrency ${concurrency})`
   )
   await Promise.all(
-    Array.from({ length: Math.min(opts.concurrency, batches.length) }, async () => {
+    Array.from({ length: Math.min(concurrency, batches.length) }, async () => {
       while (!abort && next < batches.length) {
         const n = next++
         await runBatch(batches[n], n)
@@ -379,4 +403,73 @@ export async function enrichVi(args: string[]): Promise<void> {
   log(`enrich vi: +${added} entries, ${failed} words not done → ${VI_GENERATED_PATH}`)
   log(`enrich vi: ${fmtCoverage(coverage(missing, curated))}`)
   log('enrich vi: next → pnpm content:normalize merge level && pnpm content:validate')
+}
+
+/** Chạy các lô qua Claude Code CLI (phiên đăng nhập Claude, không cần API key) */
+async function runWithClaudeCli(
+  opts: Options,
+  system: string,
+  batches: PromptWord[][],
+  words: Map<string, PromptWord>,
+  curated: ViGeneratedFile,
+  total: number
+): Promise<void> {
+  const schema = z.toJSONSchema(LlmViBatch)
+  const concurrency = opts.concurrency ?? DEFAULT_CLI_CONCURRENCY
+  const date = today()
+  let added = 0
+  let failed = 0
+  let next = 0
+  let abort: Error | undefined
+  let saving = Promise.resolve()
+
+  log(
+    `enrich vi: ${total} words in ${batches.length} batches → Claude CLI (${opts.model}, effort ${opts.effort}, concurrency ${concurrency})`
+  )
+  const runBatch = async (batch: PromptWord[], n: number): Promise<void> => {
+    const tag = `batch ${n + 1}/${batches.length}`
+    const res = await runClaudeCli(
+      { bin: opts.claudeBin, model: opts.model, effort: opts.effort, timeoutMs: CLI_TIMEOUT_MS },
+      system,
+      schema,
+      userMessage(batch)
+    )
+    if (!res.ok) {
+      if (res.fatal) abort = new Error(res.message)
+      else {
+        failed += batch.length
+        log(`  ✗ ${tag}: ${res.message} — words stay in the todo list`)
+      }
+      return
+    }
+    const parsed = LlmViBatch.safeParse(res.output)
+    if (!parsed.success) {
+      failed += batch.length
+      log(`  ✗ ${tag}: output does not match the schema — words stay in the todo list`)
+      return
+    }
+    const expected = new Set(batch.map((w) => w.id))
+    const r = applyItems(parsed.data.items, words, curated, `${res.model}@${date}`, expected)
+    const missed = batch.filter((w) => !curated.entries[w.id]).length
+    added += r.added
+    failed += missed
+    for (const x of r.rejected) log(`  ✗ ${x}`)
+    // Ghi sau mỗi lô (tuần tự) → dừng giữa chừng không mất kết quả
+    saving = saving.then(() => saveViGenerated(curated))
+    await saving
+    log(
+      `  ✔ ${tag}: +${r.added}${missed ? `, ${missed} missing` : ''} (${res.model}, in ${res.inputTokens} / out ${res.outputTokens} tokens)`
+    )
+  }
+
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, batches.length) }, async () => {
+      while (!abort && next < batches.length) {
+        const n = next++
+        await runBatch(batches[n], n)
+      }
+    })
+  )
+  if (abort) throw abort
+  log(`enrich vi: +${added} entries, ${failed} words not done → ${VI_GENERATED_PATH}`)
 }

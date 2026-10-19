@@ -382,9 +382,11 @@ pnpm content:lookup went táo "ngan hang"
 | `sentence_words` | 364.769 |
 | Decks | 12 (10 theo level A1_1…C2, NGSL, TOEIC/TSL) |
 | Từ trong top 10k **chưa có nghĩa Việt** | **2.762** → danh sách ở `normalized/missing-vi.json` (đầu vào cho bước sinh nghĩa bằng LLM, §10.5) |
+| **Cập nhật 1.1.0 (2026-10-19)** | 2.693/2.762 từ có nghĩa AI sinh (`draft`): nhập 2.162 mục độ tin cậy cao + 481 trung bình; **69 mục thấp giữ lại** chờ duyệt (phần lớn là dạng biến tố mang nghĩa hiếm như `came` = “thanh chì ghép kính”). Pack 21,6 MB |
 
 ### 10.4 Hạn chế đã biết / việc tiếp theo
-- Nghĩa Việt từ Wiktionary không đều và đôi khi gán sai nghĩa (wiktextract đoán). Từ không có nghĩa Wiktionary được bù bằng nghĩa LLM sinh (§10.5) — mới có mẫu 50 từ, còn ~2.700 từ cần sinh + duyệt trước khi phát hành.
+- Nghĩa Việt từ Wiktionary không đều và đôi khi gán sai nghĩa (wiktextract đoán, vd `appointment` → “kèo”). Từ không có nghĩa Wiktionary được bù bằng nghĩa LLM sinh (§10.5) — đã sinh 2.693 từ (`draft`), cần duyệt trước khi phát hành.
+- **Dạng biến tố có mục riêng**: Wiktionary có mục riêng cho nhiều dạng chia (`came`, `ran`, `apples`, `peed`…) chỉ mang nghĩa hiếm/lóng; `merge` đang chọn chúng như từ độc lập theo tần suất Tatoeba. App (`DictionaryService`) và `content:lookup` tạm xếp từ gốc lên trước khi mục riêng không thuộc danh sách chuẩn nào. Nên sửa tận gốc ở `merge`.
 - Level câu chỉ dựa trên độ phủ từ vựng (chưa có độ dễ đọc và ngữ pháp như §4).
 - Chưa có cụm động từ/thành ngữ ngoài các cụm có sẵn trong CEFR-J.
 - Từ điển có cả từ tục/nhạy cảm (như mọi từ điển) — track trẻ em phải lọc trước khi hiển thị.
@@ -396,14 +398,24 @@ Bù nghĩa Việt cho các từ trong top 10k **không có nghĩa Việt nào t�
 
 ```bash
 pnpm content:enrich vi --dry-run --limit 50   # không cần key: in thống kê, ghi request vào content/.build/enrich-vi/requests.json
-ANTHROPIC_API_KEY=... pnpm content:enrich vi  # sinh cho mọi từ còn thiếu (--limit N, --batch 40, --concurrency 3, --model, --effort)
-pnpm content:enrich vi --import results.json  # nhập kết quả sinh ở nơi khác (Batch API, console…) — cùng schema đầu ra
+pnpm content:enrich vi --provider claude-cli  # dùng Claude Code CLI + phiên đăng nhập Claude (gói Pro/Max) — KHÔNG cần API key
+ANTHROPIC_API_KEY=... pnpm content:enrich vi  # dùng Claude API (--limit N, --batch 40, --concurrency 3, --model, --effort)
+pnpm content:enrich vi --import results.json  # nhập kết quả sinh ở nơi khác (Batch API, console, chat…) — cùng schema đầu ra
 pnpm content:normalize merge level && pnpm content:validate
 ```
 
+**Các cách sinh nghĩa — chọn một:**
+
+| Cách | Cần gì | Ghi chú |
+|---|---|---|
+| `--provider claude-cli` (mặc định khi không có `ANTHROPIC_API_KEY`) | Đã cài Claude Code CLI và **đăng nhập**: chạy `claude` trong terminal rồi gõ `/login` | Mỗi lô là một lần `claude -p` không tương tác, không công cụ, không lưu phiên, chạy trong thư mục tạm (không nạp CLAUDE.md của dự án), JSON theo schema (`--json-schema`). Bỏ `ANTHROPIC_API_KEY` khỏi môi trường của CLI để tính vào gói đăng nhập thay vì phí API. Mặc định 2 luồng (giới hạn của gói); `--claude-bin <đường dẫn>` nếu `claude` không có trong PATH. Code: [`enrich/claude-cli.ts`](../scripts/content/enrich/claude-cli.ts). |
+| `--provider api` (mặc định khi có `ANTHROPIC_API_KEY`) | API key trong biến môi trường | Structured outputs, server-side fallback, prompt caching (chi tiết bên dưới). |
+| **Trong phiên Claude (Claude desktop / Claude Code)** — cách đã dùng cho bản 2026-10-19 | Không cần key hay CLI | `--dry-run` xuất toàn bộ lô → chia thành vài phần (`content/.build/enrich-vi/parts/`) → nhiều agent Claude trong phiên sinh song song, mỗi agent ghi file kết quả đúng định dạng `--import` (`content/.build/enrich-vi/results/part-XX.rN.json`) và tự kiểm tra id/độ dài/pos → nhập lần lượt bằng `--import` (một tiến trình, không ghi đè nhau) → `content:normalize merge level` → `content:build`. `generatedBy` ghi model đã sinh. |
+| `--dry-run` → tự sinh ở nơi khác → `--import` | Không cần gì | `requests.json` có sẵn system prompt, JSON schema và từng lô — dán vào Claude/Cursor chat hoặc Batch API, gom kết quả thành `{ "model": "...", "items": [...] }` rồi `--import`. Cursor hiện không có CLI để gọi tự động nên dùng theo cách này. |
+
 - **Đầu vào cho model**: lô ~40 từ, mỗi từ có `lemma`, `pos`, `level`, tối đa 5 định nghĩa tiếng Anh (cắt 140 ký tự) và 1 câu ví dụ — chỉ để phân biệt nghĩa; prompt yêu cầu dịch **từ**, không dịch câu định nghĩa.
 - **Gọi API**: Claude (`@anthropic-ai/sdk`), mặc định `claude-opus-5-5`, effort `medium`, structured outputs (`betaZodOutputFormat`) → kết quả được zod validate rồi chuẩn hoá thêm (tách "a; b", bỏ trùng, bỏ nghĩa lặp lại chính từ tiếng Anh, tối đa 4 nghĩa × 60 ký tự, `pos` phải thuộc `pos` của từ). Bật server-side fallback (`fallbacks: "default"`): nếu model từ chối vì chính sách, server chạy lại trên model dự phòng và `generatedBy` ghi **model thực sự trả lời**. Lô bị từ chối / hết `max_tokens` / lỗi API thì bỏ qua — các từ đó vẫn nằm trong danh sách chờ.
-- **Key**: chỉ lấy từ biến môi trường `ANTHROPIC_API_KEY` (không đọc profile/token khác), không bao giờ in ra log; lỗi xác thực dừng toàn bộ. `--dry-run` và `--import` không cần key.
+- **Key**: (provider `api`) chỉ lấy từ biến môi trường `ANTHROPIC_API_KEY` (không đọc profile/token khác), không bao giờ in ra log; lỗi xác thực dừng toàn bộ. Provider `claude-cli` không dùng key — CLI chưa đăng nhập/hết phiên thì dừng với hướng dẫn `/login`. `--dry-run` và `--import` không cần key.
 - **Idempotent**: từ đã có mục trong file curated (mọi trạng thái, kể cả `rejected`) không bao giờ bị gửi lại; muốn sinh lại một từ → xoá mục của nó. File được ghi sau mỗi lô (dừng giữa chừng không mất kết quả).
 - **File curated** `content/curated/vocab/vi-generated.json` (commit, mỗi từ một dòng để diff dễ đọc):
 

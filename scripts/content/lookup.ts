@@ -67,7 +67,32 @@ function lookup(db: DatabaseSync, input: string): Hit[] {
         via: `form of ${row.lemma} (${(JSON.parse(row.tags) as string[]).join(', ') || 'family'})`
       }))
   ]
-  if (hits.length) return hits
+  if (hits.length) {
+    // Cùng quy tắc với DictionaryService: từ tra là dạng biến tố của từ gốc khác và mục riêng của nó
+    // không thuộc danh sách chuẩn nào (came, apples) → hiện từ gốc trước
+    const INFLECTION = [
+      'past',
+      'participle',
+      'present',
+      'plural',
+      'third-person',
+      'gerund',
+      'comparative',
+      'superlative'
+    ]
+    const inflected = hits.filter(
+      (h) => h.via.startsWith('form of') && INFLECTION.some((t) => h.via.includes(t))
+    )
+    if (!inflected.length) return hits
+    const isStrong = (h: Hit): boolean =>
+      h.via === 'lemma' && (JSON.parse(h.row.data) as Word).lists.length > 0
+    const strong = hits.filter(isStrong)
+    const weak = hits.filter((h) => h.via === 'lemma' && !isStrong(h))
+    const rest = hits.filter(
+      (h) => !strong.includes(h) && !weak.includes(h) && !inflected.includes(h)
+    )
+    return [...strong, ...inflected, ...weak, ...rest]
+  }
   // Không khớp tiếng Anh → tìm nghĩa tiếng Việt (FTS bỏ dấu: 'tao' khớp 'táo', 'tạo', 'tảo')
   // hoặc tiền tố tiếng Anh. Xếp hạng: nghĩa trùng khớp nguyên văn > chứa đúng dấu > còn lại; rồi theo tần suất.
   const phrase = `"${q.replace(/"/g, '')}"`

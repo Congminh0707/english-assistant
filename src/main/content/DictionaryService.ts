@@ -13,6 +13,7 @@ const MAX_EXAMPLES = 2
 interface WordRow {
   id: string
   lemma: string
+  lists: string
   level: string
   ipa_us: string | null
   ipa_uk: string | null
@@ -27,7 +28,19 @@ interface Hit {
   formTags: string[]
 }
 
-const COLS = 'w.id, w.lemma, w.level, w.ipa_us, w.ipa_uk, w.vi_short, w.freq_rank, w.data'
+const COLS = 'w.id, w.lemma, w.lists, w.level, w.ipa_us, w.ipa_uk, w.vi_short, w.freq_rank, w.data'
+
+/** Nhãn biến tố thật (went → go, apples → apple), khác với cách viết khác (colour → color) */
+const INFLECTION_TAGS = new Set([
+  'past',
+  'participle',
+  'present',
+  'plural',
+  'third-person',
+  'gerund',
+  'comparative',
+  'superlative'
+])
 
 /**
  * Tra từ điển offline trên pack core-dictionary (docs/11-ai-and-speech.md#2-dịch--tra-từ).
@@ -89,15 +102,26 @@ export class DictionaryService {
   }
 
   private find(stmts: NonNullable<DictionaryService['statements']>, query: string): Hit[] {
-    const exact = stmts.exact.all(query) as WordRow[]
-    const forms = stmts.forms.all(query.toLowerCase()) as (WordRow & { tags: string })[]
-    const hits: Hit[] = [
-      ...exact.map((row) => ({ row, via: 'lemma' as const, formTags: [] })),
-      ...forms
-        .filter((f) => !exact.some((e) => e.id === f.id))
-        .map((row) => ({ row, via: 'form' as const, formTags: parseJson<string[]>(row.tags, []) }))
-    ]
-    if (hits.length) return hits
+    const exact = (stmts.exact.all(query) as WordRow[]).map((row) => ({
+      row,
+      via: 'lemma' as const,
+      formTags: [] as string[]
+    }))
+    const forms = (stmts.forms.all(query.toLowerCase()) as (WordRow & { tags: string })[])
+      .filter((f) => !exact.some((e) => e.row.id === f.id))
+      .map((row) => ({ row, via: 'form' as const, formTags: parseJson<string[]>(row.tags, []) }))
+    if (exact.length || forms.length) {
+      // Từ tra vừa có mục riêng vừa là dạng biến tố của từ gốc khác (came → come, apples → apple):
+      // mục riêng không thuộc danh sách từ chuẩn nào thường chỉ mang nghĩa hiếm (came = thanh chì ghép kính)
+      // → hiện từ gốc trước. Mục riêng có trong NGSL/CEFR-J... (left, used) vẫn đứng đầu.
+      const inflected = forms.filter((h) => h.formTags.some((t) => INFLECTION_TAGS.has(t)))
+      const otherForms = forms.filter((h) => !inflected.includes(h))
+      const strong = exact.filter((h) => parseJson<string[]>(h.row.lists, []).length > 0)
+      const weak = exact.filter((h) => !strong.includes(h))
+      return inflected.length
+        ? [...strong, ...inflected, ...weak, ...otherForms]
+        : [...exact, ...forms]
+    }
 
     // Không khớp tiếng Anh → tìm theo nghĩa tiếng Việt (bỏ dấu được: 'tao' khớp 'táo')
     // hoặc tiền tố tiếng Anh. Xếp hạng: nghĩa trùng nguyên văn > chứa đúng cụm > còn lại; rồi theo tần suất.

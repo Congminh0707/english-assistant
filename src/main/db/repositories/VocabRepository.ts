@@ -261,6 +261,46 @@ export class VocabRepository {
     return rows.map((r) => r.day)
   }
 
+  /** Số lần ôn mỗi ngày cục bộ kể từ một thời điểm */
+  reviewCountsByDay(
+    profileId: string,
+    sinceMs: number,
+    tzOffsetSeconds: number
+  ): Array<{ day: string; n: number }> {
+    const day = sql<string>`strftime('%Y-%m-%d', ${srsReviews.reviewedAt} / 1000 + ${tzOffsetSeconds}, 'unixepoch')`
+    return this.db
+      .select({ day, n: sql<number>`count(*)` })
+      .from(srsReviews)
+      .where(and(eq(srsReviews.profileId, profileId), sql`${srsReviews.reviewedAt} >= ${sinceMs}`))
+      .groupBy(day)
+      .all()
+      .map((r) => ({ day: r.day, n: Number(r.n) }))
+  }
+
+  /** Tổng số lần ôn và số lần nhớ được (chấm Khó/Được/Dễ, rating ≥ 2) */
+  reviewTotals(profileId: string): { total: number; remembered: number } {
+    const row = this.db
+      .select({
+        total: sql<number>`count(*)`,
+        remembered: sql<number>`coalesce(sum(case when ${srsReviews.rating} >= 2 then 1 else 0 end), 0)`
+      })
+      .from(srsReviews)
+      .where(eq(srsReviews.profileId, profileId))
+      .get()
+    return { total: Number(row?.total ?? 0), remembered: Number(row?.remembered ?? 0) }
+  }
+
+  /** Số thẻ đang học theo trạng thái FSRS (0 mới, 1 đang học, 2 ôn, 3 học lại) */
+  cardStateCounts(profileId: string): Array<{ state: number; n: number }> {
+    return this.db
+      .select({ state: srsCards.state, n: sql<number>`count(*)` })
+      .from(srsCards)
+      .where(and(eq(srsCards.profileId, profileId), isNull(srsCards.deletedAt)))
+      .groupBy(srsCards.state)
+      .all()
+      .map((r) => ({ state: r.state, n: Number(r.n) }))
+  }
+
   countReviewsSince(profileId: string, sinceMs: number): number {
     const row = this.db
       .select({ n: sql<number>`count(*)` })

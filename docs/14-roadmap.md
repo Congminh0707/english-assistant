@@ -100,7 +100,8 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 - [ ] Track trẻ em: phonics, chữ cái, picture book, chế độ phụ huynh (PIN, giới hạn thời gian)
 - [x] Cửa hàng: mua đồ ăn + phụ kiện (nơ, kính, khăn, mũ chóp Lv5, vương miện Lv10) bằng xu, đeo/tháo, mascot vẽ lớp phụ kiện (`ShopService`, `acc-*.png` sinh từ `make-placeholder.mjs`) — chưa thử tay
 - [ ] Checkpoint lên cấp, thành tựu, tiến hoá thú cưng
-- [ ] Thống kê cơ bản
+- [x] Thống kê cơ bản: trang "Thống kê" (`StatsService`) — streak hiện tại/dài nhất, lịch hoạt động 16 tuần, lượt ôn 14 ngày, tỉ lệ nhớ, so tuần này với tuần trước, thẻ theo trạng thái FSRS, từ trong sổ theo level; tính từ `srs_reviews` + sổ XP, không có bảng riêng — chưa thử tay
+- [ ] Thống kê nâng cao: độ chính xác theo dạng bài/kỹ năng, từ hay quên nhất, thời gian học
 - [ ] Nội dung: 50 bài đọc + 30 bài nghe A1–B1, 40 điểm ngữ pháp, 2 course A1–A2
 - [ ] Auto-update
 

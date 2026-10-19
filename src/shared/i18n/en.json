@@ -138,7 +138,8 @@
       "placement": "Level test",
       "settings": "Settings",
       "practice": "Practice",
-      "shop": "Shop"
+      "shop": "Shop",
+      "stats": "Statistics"
     },
     "home": {
       "welcome": "Hi, what shall we learn today?",
@@ -288,6 +289,43 @@
       "summaryBody": "You got {correct}/{total} right.",
       "noReward": "You have already earned all of today’s practice rewards (5 sessions) — keep practising anyway!",
       "again": "Practise more"
+    },
+    "stats": {
+      "title": "Statistics",
+      "streak": "Review streak",
+      "longest": "Longest streak",
+      "reviews": "Reviews",
+      "retention": "Retention",
+      "savedWords": "Words saved",
+      "activeDays": "Days studied",
+      "practice": "Practice sessions",
+      "week": "This week",
+      "reviewsUnit": "reviews",
+      "savedUnit": "new words",
+      "vsLastWeek": "Arrows compare with the previous 7 days.",
+      "calendar": "Activity calendar (16 weeks)",
+      "less": "Less",
+      "more": "More",
+      "cellTitle": "{day}: {reviews} reviews, {saved} new words, {practice} practice sessions",
+      "last14": "Reviews in the last 14 days",
+      "cardStates": "Cards by state",
+      "state": {
+        "new": "New",
+        "learning": "Learning",
+        "review": "Long-term",
+        "relearning": "Relearning"
+      },
+      "levels": "Saved words by level",
+      "noWords": "No words saved yet.",
+      "weekday": {
+        "0": "Mon",
+        "1": "Tue",
+        "2": "Wed",
+        "3": "Thu",
+        "4": "Fri",
+        "5": "Sat",
+        "6": "Sun"
+      }
     }
   },
   "translate": {

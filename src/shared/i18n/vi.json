@@ -138,7 +138,8 @@
       "placement": "Kiểm tra trình độ",
       "settings": "Cài đặt",
       "practice": "Luyện tập",
-      "shop": "Cửa hàng"
+      "shop": "Cửa hàng",
+      "stats": "Thống kê"
     },
     "home": {
       "welcome": "Chào bạn, hôm nay học gì nào?",
@@ -288,6 +289,43 @@
       "summaryBody": "Bạn làm đúng {correct}/{total} bài.",
       "noReward": "Hôm nay bạn đã nhận đủ thưởng luyện tập (5 phiên) — vẫn luyện thoải mái nhé!",
       "again": "Luyện tiếp"
+    },
+    "stats": {
+      "title": "Thống kê",
+      "streak": "Chuỗi ngày ôn",
+      "longest": "Chuỗi dài nhất",
+      "reviews": "Lượt ôn",
+      "retention": "Tỉ lệ nhớ",
+      "savedWords": "Từ trong sổ",
+      "activeDays": "Ngày đã học",
+      "practice": "Phiên luyện tập",
+      "week": "Tuần này",
+      "reviewsUnit": "lượt ôn",
+      "savedUnit": "từ mới",
+      "vsLastWeek": "Mũi tên so với 7 ngày trước đó.",
+      "calendar": "Lịch hoạt động (16 tuần)",
+      "less": "Ít",
+      "more": "Nhiều",
+      "cellTitle": "{day}: {reviews} lượt ôn, {saved} từ mới, {practice} phiên luyện tập",
+      "last14": "Lượt ôn 14 ngày gần nhất",
+      "cardStates": "Thẻ theo trạng thái",
+      "state": {
+        "new": "Mới",
+        "learning": "Đang học",
+        "review": "Ôn dài hạn",
+        "relearning": "Học lại"
+      },
+      "levels": "Từ trong sổ theo level",
+      "noWords": "Chưa có từ nào trong sổ.",
+      "weekday": {
+        "0": "T2",
+        "1": "T3",
+        "2": "T4",
+        "3": "T5",
+        "4": "T6",
+        "5": "T7",
+        "6": "CN"
+      }
     }
   },
   "translate": {

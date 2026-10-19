@@ -48,6 +48,42 @@ export class XpRepository {
     return Number(row?.n ?? 0)
   }
 
+  /** XP, số từ mới lưu và số phiên luyện tập mỗi ngày cục bộ kể từ một thời điểm */
+  dailyActivity(
+    profileId: string,
+    sinceMs: number,
+    tzOffsetSeconds: number
+  ): Array<{ day: string; xp: number; saved: number; practice: number }> {
+    const day = sql<string>`strftime('%Y-%m-%d', ${xpEvents.createdAt} / 1000 + ${tzOffsetSeconds}, 'unixepoch')`
+    return this.db
+      .select({
+        day,
+        xp: sql<number>`coalesce(sum(${xpEvents.amount}), 0)`,
+        saved: sql<number>`coalesce(sum(case when ${xpEvents.reason} = 'word.saved' then 1 else 0 end), 0)`,
+        practice: sql<number>`coalesce(sum(case when ${xpEvents.reason} = 'exercise.session' then 1 else 0 end), 0)`
+      })
+      .from(xpEvents)
+      .where(and(eq(xpEvents.profileId, profileId), gte(xpEvents.createdAt, sinceMs)))
+      .groupBy(day)
+      .all()
+      .map((r) => ({
+        day: r.day,
+        xp: Number(r.xp),
+        saved: Number(r.saved),
+        practice: Number(r.practice)
+      }))
+  }
+
+  /** Số sự kiện cùng lý do từ đầu đến giờ */
+  countByReason(profileId: string, reason: string): number {
+    const row = this.db
+      .select({ n: sql<number>`count(*)` })
+      .from(xpEvents)
+      .where(and(eq(xpEvents.profileId, profileId), eq(xpEvents.reason, reason)))
+      .get()
+    return Number(row?.n ?? 0)
+  }
+
   /** Tổng tính lại từ sổ cái — dùng để đối chiếu/khôi phục bản tổng hợp trong pet_states */
   totals(profileId: string): { xp: number; coins: number } {
     const row = this.db

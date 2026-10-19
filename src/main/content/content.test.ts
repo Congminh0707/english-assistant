@@ -733,3 +733,71 @@ describe('PracticeService', () => {
     expect(lookup.entries[0].examples.every((e) => !/crap/i.test(e.en))).toBe(true)
   })
 })
+
+describe('StatsService', () => {
+  let clock: FakeClock
+
+  beforeEach(async () => {
+    conn.close()
+    conn = openUserDb(':memory:', MIGRATIONS)
+    clock = new FakeClock()
+    c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    await c.packs.install(buildFixturePack(tmp))
+  })
+
+  const DAY = 24 * 3_600_000
+
+  it('người mới: toàn số 0, đủ 112 ngày, chưa có tỉ lệ nhớ', () => {
+    const s = c.stats.stats()
+    expect(s.days).toHaveLength(112)
+    expect(s.days.at(-1)).toMatchObject({ reviews: 0, saved: 0, practice: 0 })
+    expect(s.totals).toMatchObject({
+      reviews: 0,
+      savedWords: 0,
+      retention: null,
+      streak: 0,
+      longestStreak: 0
+    })
+    expect(s.levels).toEqual([])
+  })
+
+  it('đếm lượt ôn, từ mới, tỉ lệ nhớ, thẻ theo trạng thái và từ theo level', () => {
+    for (const w of ['go', 'apple', 'leave']) c.vocab.save({ contentId: `word:en:${w}`, text: w })
+    expect(c.stats.stats().cardStates).toEqual({ new: 3, learning: 0, review: 0, relearning: 0 })
+
+    const [a, b, d] = c.study.words().map((w) => w.cardId)
+    c.srs.review(a, 3, { source: 'study' })
+    c.srs.review(b, 1, { source: 'study' })
+    c.srs.review(d, 4, { source: 'study' })
+
+    const s = c.stats.stats()
+    expect(s.days.at(-1)).toMatchObject({ reviews: 3, saved: 3 })
+    expect(s.days.at(-1)!.xp).toBeGreaterThan(0)
+    expect(s.totals).toMatchObject({ reviews: 3, savedWords: 3, activeDays: 1, streak: 1 })
+    expect(s.totals.retention).toBeCloseTo(2 / 3)
+    expect(s.cardStates.new).toBe(0)
+    expect(s.cardStates.learning + s.cardStates.review + s.cardStates.relearning).toBe(3)
+    expect(s.levels).toEqual([{ level: 'A1_1', count: 3 }])
+    expect(s.week.reviews).toBe(3)
+    expect(s.week.prevReviews).toBe(0)
+  })
+
+  it('streak hiện tại và dài nhất qua nhiều ngày, so sánh tuần này với tuần trước', () => {
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    const [card] = c.study.words().map((w) => w.cardId)
+    // 3 ngày liên tiếp, nghỉ 2 ngày, rồi 1 ngày (hôm nay)
+    for (let i = 0; i < 3; i++) {
+      c.srs.review(card, 3, { source: 'study' })
+      clock.advance(DAY)
+    }
+    clock.advance(2 * DAY)
+    c.srs.review(card, 3, { source: 'study' })
+
+    const s = c.stats.stats()
+    expect(s.totals.longestStreak).toBe(3)
+    expect(s.totals.streak).toBe(1)
+    expect(s.totals.activeDays).toBe(4)
+    expect(s.days.filter((d) => d.reviews > 0)).toHaveLength(4)
+    expect(s.week.reviews + s.week.prevReviews).toBe(4)
+  })
+})

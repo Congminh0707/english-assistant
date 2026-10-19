@@ -180,6 +180,21 @@ export class DictionaryService {
     return out
   }
 
+  /** Level của các mục từ (id → level); id không có trong gói bị bỏ qua */
+  levelsOf(ids: string[]): Map<string, string> {
+    const stmts = this.prepare()
+    const out = new Map<string, string>()
+    if (!stmts) return out
+    for (let i = 0; i < ids.length; i += 400) {
+      const chunk = ids.slice(i, i + 400)
+      const rows = stmts.db
+        .prepare(`SELECT id, level FROM words WHERE id IN (${chunk.map(() => '?').join(',')})`)
+        .all(...chunk) as { id: string; level: string }[]
+      for (const r of rows) out.set(r.id, r.level)
+    }
+    return out
+  }
+
   /** Đã cài gói từ điển chưa */
   available(): boolean {
     return this.prepare() !== null

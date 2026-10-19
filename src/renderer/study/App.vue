@@ -12,11 +12,12 @@ import WordList from './components/WordList.vue'
 import PlacementTest from './components/PlacementTest.vue'
 import PracticeSession from './components/PracticeSession.vue'
 import ShopPage from './components/ShopPage.vue'
+import StatsPage from './components/StatsPage.vue'
 import SettingsPage from './components/SettingsPage.vue'
 import Onboarding from './components/Onboarding.vue'
 
 // Cửa sổ Học tập (docs/12-ui-ux-guidelines.md#cửa-sổ-học-tập-study): thanh bên + trang nội dung.
-type Page = 'home' | 'review' | 'practice' | 'words' | 'shop' | 'placement' | 'settings'
+type Page = 'home' | 'review' | 'practice' | 'words' | 'shop' | 'stats' | 'placement' | 'settings'
 
 const { t, locale } = useI18n()
 const settingsStore = useSettingsStore()
@@ -36,6 +37,7 @@ const pages = computed<Array<{ id: Page; icon: string; label: string }>>(() => [
   { id: 'practice', icon: '🎯', label: t('study.nav.practice') },
   { id: 'words', icon: '🗂', label: t('study.nav.words') },
   { id: 'shop', icon: '🛍', label: t('study.nav.shop') },
+  { id: 'stats', icon: '📊', label: t('study.nav.stats') },
   { id: 'placement', icon: '🧪', label: t('study.nav.placement') },
   { id: 'settings', icon: '⚙', label: t('study.nav.settings') }
 ])
@@ -148,6 +150,7 @@ onUnmounted(() => {
       <PracticeSession v-else-if="page === 'practice'" @changed="refresh" />
       <WordList v-else-if="page === 'words'" @changed="refresh" />
       <ShopPage v-else-if="page === 'shop'" @changed="refresh" />
+      <StatsPage v-else-if="page === 'stats'" />
       <PlacementTest
         v-else-if="page === 'placement'"
         :autostart="autostartTest"

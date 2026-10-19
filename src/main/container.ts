@@ -26,6 +26,7 @@ import { MissionService } from './services/MissionService'
 import { PlacementService } from './services/PlacementService'
 import { PracticeService } from './services/PracticeService'
 import { ShopService } from './services/ShopService'
+import { StatsService } from './services/StatsService'
 
 export interface Container {
   clock: Clock
@@ -45,6 +46,7 @@ export interface Container {
   placement: PlacementService
   practice: PracticeService
   shop: ShopService
+  stats: StatsService
 }
 
 export interface ContainerOptions {
@@ -161,6 +163,14 @@ export function createContainer(
     transaction
   })
 
+  const stats = new StatsService({
+    vocab: repos.vocab,
+    xpRepo: repos.xp,
+    dictionary,
+    profiles,
+    clock
+  })
+
   return {
     clock,
     bus,
@@ -178,6 +188,7 @@ export function createContainer(
     missions,
     placement,
     practice,
-    shop
+    shop,
+    stats
   }
 }

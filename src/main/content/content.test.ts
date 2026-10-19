@@ -799,7 +799,8 @@ describe('StatsService', () => {
     expect(s.days.at(-1)!.xp).toBeGreaterThan(0)
     expect(s.totals).toMatchObject({ reviews: 3, savedWords: 3, activeDays: 1, streak: 1 })
     expect(s.totals.retention).toBeCloseTo(2 / 3)
-    expect(s.cardStates.new).toBe(0)
+    // Từ chấm "Dễ" vào ôn dài hạn ngay nên sinh thêm thẻ phụ (đang ở trạng thái mới)
+    expect(s.cardStates.new).toBe(c.study.words().reduce((n, w) => n + w.siblings, 0))
     expect(s.cardStates.learning + s.cardStates.review + s.cardStates.relearning).toBe(3)
     expect(s.levels).toEqual([{ level: 'A1_1', count: 3 }])
     expect(s.week.reviews).toBe(3)
@@ -888,5 +889,177 @@ describe('StatsService', () => {
     const book = c.phrasebook.list()
     expect(book.categories.length).toBeGreaterThanOrEqual(10)
     expect(book.categories.every((cat) => cat.phrases.length >= 5)).toBe(true)
+  })
+})
+
+describe('thẻ ôn tập nhiều hướng', () => {
+  let clock: FakeClock
+  const DAY = 24 * 3_600_000
+
+  beforeEach(async () => {
+    conn.close()
+    conn = openUserDb(':memory:', MIGRATIONS)
+    clock = new FakeClock()
+    c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    await c.packs.install(buildFixturePack(tmp))
+  })
+
+  const saveAndGraduate = (word: string, context: string | null = null): void => {
+    c.vocab.save({ contentId: `word:en:${word}`, text: word, context })
+    const card = c.study.next().card!
+    c.study.rate(card.cardId, 4, 1000) // "Dễ" → vào ôn dài hạn ngay
+  }
+
+  it('từ vào ôn dài hạn thì sinh thẻ Việt→Anh, nghe-gõ, điền từ (đến hạn từ ngày mai)', () => {
+    saveAndGraduate('go', 'I go to school.')
+    const word = c.study.words()[0]
+    expect(word.siblings).toBe(3)
+    expect(c.study.next().card).toBeNull() // thẻ phụ chưa đến hạn
+
+    clock.advance(DAY + 1000)
+    const directions = new Set<string>()
+    for (let i = 0; i < 3; i++) {
+      const card = c.study.next().card!
+      directions.add(card.direction)
+      c.study.rate(card.cardId, 3, 1000)
+    }
+    expect(directions).toEqual(new Set(['vi_en', 'audio_en', 'cloze']))
+  })
+
+  it('thẻ điền từ dùng câu ngữ cảnh của người dùng; vi_en/audio_en chấp nhận đúng từ gốc', () => {
+    saveAndGraduate('go', 'I go to school.')
+    clock.advance(DAY + 1000)
+    const cards = [1, 2, 3].map(() => {
+      const card = c.study.next().card!
+      c.study.rate(card.cardId, 3, 1000)
+      return card
+    })
+    const cloze = cards.find((x) => x.direction === 'cloze')!
+    expect(cloze.cloze).toEqual({ before: 'I ', after: ' to school.', answer: 'go' })
+    expect(cloze.answers).toContain('go')
+    expect(cards.find((x) => x.direction === 'vi_en')!.answers).toEqual(['go'])
+  })
+
+  it('tắt hướng thẻ trong cài đặt thì không tạo; backfill tạo bù cho từ đã thuộc', () => {
+    c.settings.set('review.dirViEn', false)
+    c.settings.set('review.dirCloze', false)
+    saveAndGraduate('go')
+    expect(c.study.words()[0].siblings).toBe(1) // chỉ còn nghe-gõ
+    c.settings.set('review.dirViEn', true)
+    expect(c.study.backfill()).toBe(1)
+    expect(c.study.words()[0].siblings).toBe(2)
+    expect(c.study.backfill()).toBe(0) // không tạo trùng
+  })
+
+  it('hạn mức từ mới mỗi ngày: đủ hạn mức thì thẻ mới chờ sang ngày sau', () => {
+    const words = ['go', 'apple', 'left', 'leave', 'ponder', 'went']
+    for (const w of words) c.vocab.save({ contentId: `word:en:${w}`, text: w })
+    expect(c.study.overview().dueCount).toBe(6) // 0 = không giới hạn
+
+    c.settings.set('review.newPerDay', 5)
+    expect(c.study.overview().dueCount).toBe(5)
+    for (let i = 0; i < 5; i++) c.study.rate(c.study.next().card!.cardId, 3, 1000)
+    expect(c.study.overview().dueCount).toBe(0) // đủ 5 từ mới; thẻ vừa ôn chưa đến hạn lại
+
+    clock.advance(DAY)
+    expect(c.study.overview().dueCount).toBe(6) // 5 thẻ học dở + 1 từ mới của ngày mới
+  })
+
+  it('hạn mức từ mới 5/ngày không chặn khi chưa đủ; hết hạn mức thì chặn đến sáng hôm sau', () => {
+    const words = ['go', 'apple', 'left', 'leave', 'ponder', 'went']
+    for (const w of words) c.vocab.save({ contentId: `word:en:${w}`, text: w })
+    c.settings.set('review.newPerDay', 5)
+    for (let i = 0; i < 5; i++) {
+      const card = c.study.next().card!
+      expect(card.isNew).toBe(true)
+      c.study.rate(card.cardId, 1, 1000) // "Quên" → thẻ ở lại giai đoạn học
+    }
+    // Từ mới thứ 6 bị chặn; chỉ còn thẻ đã học dở khi đến hạn
+    clock.advance(30 * 60_000)
+    const due = c.study.next().card
+    expect(due === null || due.isNew === false).toBe(true)
+    clock.advance(DAY)
+    expect(c.study.next().card).not.toBeNull()
+  })
+
+  it('thứ tự ôn: thẻ mới trước / thẻ cũ trước', () => {
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    const old = c.study.next().card!
+    c.study.rate(old.cardId, 1, 1000)
+    clock.advance(10 * 60_000)
+    c.vocab.save({ contentId: 'word:en:apple', text: 'apple' })
+    c.settings.set('review.order', 'new-first')
+    expect(c.study.next().card?.isNew).toBe(true)
+    c.settings.set('review.order', 'review-first')
+    expect(c.study.next().card?.isNew).toBe(false)
+  })
+
+  it('hoàn tác lần chấm gần nhất: trả lại lịch cũ, xoá lượt ôn, hiện lại thẻ', () => {
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    const card = c.study.next().card!
+    const before = c.study.overview()
+    c.study.rate(card.cardId, 4, 1000)
+    expect(c.study.overview().reviewedToday).toBe(1)
+    const undone = c.study.undo()
+    expect(undone.card?.cardId).toBe(card.cardId)
+    expect(undone.card?.isNew).toBe(true)
+    expect(c.study.overview().reviewedToday).toBe(before.reviewedToday)
+    expect(c.study.undo().card).toBeNull() // chỉ hoàn tác được một lần
+  })
+
+  it('tạm dừng, đặt lại và xoá từ trong sổ', () => {
+    saveAndGraduate('go', 'I go to school.')
+    const word = c.study.words()[0]
+    expect(c.study.setSuspended(word.contentId, true)).toBe(true)
+    clock.advance(DAY * 3)
+    expect(c.study.overview().dueCount).toBe(0) // tạm dừng cả thẻ phụ
+    expect(c.study.words()[0].suspended).toBe(true)
+    c.study.setSuspended(word.contentId, false)
+    expect(c.study.overview().dueCount).toBeGreaterThan(0)
+
+    expect(c.study.resetWord(word.contentId)).toBe(true)
+    const reset = c.study.words()[0]
+    expect(reset).toMatchObject({ state: 0, reps: 0, siblings: 0 })
+    // Ôn tới ôn dài hạn lần nữa → thẻ phụ được khôi phục
+    const card = c.study.next().card!
+    c.study.rate(card.cardId, 4, 1000)
+    expect(c.study.words()[0].siblings).toBe(3)
+  })
+
+  it('lưu mẫu câu vào sổ thẻ: ôn như thẻ thường, thẻ phụ không có điền từ', () => {
+    const phrase = c.phrasebook.list().categories[0].phrases[0]
+    expect(c.study.savePhrase(phrase.id)).toMatchObject({ isNew: true, cardCreated: true })
+    expect(c.study.savePhrase(phrase.id).isNew).toBe(false)
+    const word = c.study.words()[0]
+    expect(word).toMatchObject({ isPhrase: true, lemma: phrase.en, vi: phrase.vi })
+    const card = c.study.next().card!
+    expect(card).toMatchObject({ isPhrase: true, direction: 'en_vi', lemma: phrase.en })
+    c.study.rate(card.cardId, 4, 1000)
+    expect(c.study.words()[0].siblings).toBe(2) // vi_en + audio_en
+    expect(() => c.study.savePhrase('phrase:nope:00000000')).toThrow(/NOT_FOUND/)
+  })
+
+  it('lưu nhiều từ một lúc: đếm từ mới, đã có, không tìm thấy', () => {
+    c.vocab.save({ contentId: 'word:en:apple', text: 'apple' })
+    const res = c.study.saveMany([
+      { text: 'apple', context: 'An apple a day.' },
+      { text: 'go', context: 'Let us go.' },
+      { text: 'zzzzqx' }
+    ])
+    expect(res).toEqual({ saved: 1, already: 1, missing: 1 })
+    expect(
+      c.study
+        .words()
+        .map((w) => w.lemma)
+        .sort()
+    ).toEqual(['apple', 'go'])
+  })
+
+  it('mascot chỉ hỏi thẻ nhận diện (en_vi), không hỏi thẻ phụ', () => {
+    saveAndGraduate('go', 'I go to school.')
+    clock.advance(DAY + 1000)
+    const quiz = c.micro.next()
+    // Thẻ en_vi của "go" chưa đến hạn lại ngay; câu hỏi (nếu có) không phải ôn thẻ phụ
+    expect(quiz === null || quiz.kind === 'new').toBe(true)
   })
 })

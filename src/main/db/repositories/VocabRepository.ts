@@ -1,4 +1,5 @@
-import { and, asc, desc, eq, inArray, isNull, lte, sql } from 'drizzle-orm'
+import { and, asc, desc, eq, inArray, isNull, lte, ne, sql, type SQL } from 'drizzle-orm'
+import type { CardDirection } from '@shared/cards'
 import { uuidv7 } from '@shared/ids'
 import type { UserDb } from '../client'
 import { savedWords, srsCards, srsReviews } from '../schema'
@@ -20,6 +21,12 @@ export type CardSchedule = Pick<
   | 'state'
   | 'lastReview'
 >
+
+/** Lọc thẻ đến hạn: theo hướng thẻ và theo "thẻ mới" (en_vi chưa học) */
+export interface DueOptions {
+  directions?: CardDirection[]
+  fresh?: 'only' | 'exclude'
+}
 
 /** Sổ từ (saved_words) và thẻ ôn tập (srs_cards) của người dùng */
 export class VocabRepository {
@@ -102,34 +109,56 @@ export class VocabRepository {
     return row
   }
 
+  private dueWhere(profileId: string, now: number, opts: DueOptions): SQL {
+    const conditions = [
+      eq(srsCards.profileId, profileId),
+      eq(srsCards.suspended, false),
+      isNull(srsCards.deletedAt),
+      lte(srsCards.due, now)
+    ]
+    if (opts.directions?.length) conditions.push(inArray(srsCards.direction, opts.directions))
+    // "Thẻ mới" = thẻ nhận diện (en_vi) chưa học lần nào; thẻ phụ (Việt→Anh...) không tính vào hạn mức từ mới
+    if (opts.fresh === 'only') {
+      conditions.push(sql`${srsCards.direction} = 'en_vi' AND ${srsCards.state} = 0`)
+    }
+    if (opts.fresh === 'exclude') {
+      conditions.push(sql`NOT (${srsCards.direction} = 'en_vi' AND ${srsCards.state} = 0)`)
+    }
+    return and(...conditions) as SQL
+  }
+
   /** Thẻ đến hạn ôn (due ≤ now), sớm nhất trước */
-  dueCards(profileId: string, now: number, limit: number): SrsCardRow[] {
+  dueCards(profileId: string, now: number, limit: number, opts: DueOptions = {}): SrsCardRow[] {
     return this.db
       .select()
       .from(srsCards)
-      .where(
-        and(
-          eq(srsCards.profileId, profileId),
-          eq(srsCards.suspended, false),
-          isNull(srsCards.deletedAt),
-          lte(srsCards.due, now)
-        )
-      )
+      .where(this.dueWhere(profileId, now, opts))
       .orderBy(asc(srsCards.due))
       .limit(limit)
       .all()
   }
 
-  countDue(profileId: string, now: number): number {
+  countDue(profileId: string, now: number, opts: DueOptions = {}): number {
     const row = this.db
       .select({ n: sql<number>`count(*)` })
       .from(srsCards)
+      .where(this.dueWhere(profileId, now, opts))
+      .get()
+    return Number(row?.n ?? 0)
+  }
+
+  /** Số từ mới (thẻ en_vi) đã được ôn lần đầu từ một thời điểm — để tính hạn mức từ mới mỗi ngày */
+  countNewIntroducedSince(profileId: string, sinceMs: number): number {
+    const row = this.db
+      .select({ n: sql<number>`count(distinct ${srsReviews.cardId})` })
+      .from(srsReviews)
+      .innerJoin(srsCards, eq(srsCards.id, srsReviews.cardId))
       .where(
         and(
-          eq(srsCards.profileId, profileId),
-          eq(srsCards.suspended, false),
-          isNull(srsCards.deletedAt),
-          lte(srsCards.due, now)
+          eq(srsReviews.profileId, profileId),
+          eq(srsReviews.stateBefore, 0),
+          eq(srsCards.direction, 'en_vi'),
+          sql`${srsReviews.reviewedAt} >= ${sinceMs}`
         )
       )
       .get()
@@ -152,11 +181,18 @@ export class VocabRepository {
       .run()
   }
 
-  insertReview(row: Omit<SrsReviewRow, 'id'>): void {
+  insertReview(row: Omit<SrsReviewRow, 'id'>): string {
+    const id = uuidv7(row.reviewedAt)
     this.db
       .insert(srsReviews)
-      .values({ ...row, id: uuidv7(row.reviewedAt) })
+      .values({ ...row, id })
       .run()
+    return id
+  }
+
+  /** Xoá một lượt ôn (hoàn tác lần chấm vừa rồi) */
+  deleteReview(id: string): void {
+    this.db.delete(srsReviews).where(eq(srsReviews.id, id)).run()
   }
 
   savedContentIdList(profileId: string): string[] {
@@ -196,15 +232,86 @@ export class VocabRepository {
       .run()
   }
 
-  /** Thẻ đang học, mới lưu trước */
+  /** Thẻ gốc (en_vi) của mỗi từ trong sổ — kể cả đang tạm dừng — mới lưu trước */
   listCards(profileId: string, limit: number): SrsCardRow[] {
     return this.db
       .select()
       .from(srsCards)
-      .where(and(eq(srsCards.profileId, profileId), isNull(srsCards.deletedAt)))
+      .where(
+        and(
+          eq(srsCards.profileId, profileId),
+          eq(srsCards.direction, 'en_vi'),
+          isNull(srsCards.deletedAt)
+        )
+      )
       .orderBy(desc(srsCards.createdAt))
       .limit(limit)
       .all()
+  }
+
+  /** Số thẻ phụ (khác en_vi, chưa xoá) của mỗi từ */
+  siblingCounts(profileId: string): Map<string, number> {
+    const rows = this.db
+      .select({ contentId: srsCards.contentId, n: sql<number>`count(*)` })
+      .from(srsCards)
+      .where(
+        and(
+          eq(srsCards.profileId, profileId),
+          ne(srsCards.direction, 'en_vi'),
+          isNull(srsCards.deletedAt)
+        )
+      )
+      .groupBy(srsCards.contentId)
+      .all()
+    return new Map(rows.map((r) => [r.contentId, Number(r.n)]))
+  }
+
+  /** Tạm dừng / tiếp tục ôn mọi thẻ của một từ */
+  setSuspended(profileId: string, contentId: string, suspended: boolean, now: number): boolean {
+    const res = this.db
+      .update(srsCards)
+      .set({ suspended, updatedAt: now })
+      .where(
+        and(
+          eq(srsCards.profileId, profileId),
+          eq(srsCards.contentId, contentId),
+          isNull(srsCards.deletedAt)
+        )
+      )
+      .run()
+    return res.changes > 0
+  }
+
+  /** Các thẻ gốc đã vào ôn dài hạn (state = 2) — để tạo thẻ phụ bù cho từ đã thuộc */
+  learnedBaseCards(profileId: string): SrsCardRow[] {
+    return this.db
+      .select()
+      .from(srsCards)
+      .where(
+        and(
+          eq(srsCards.profileId, profileId),
+          eq(srsCards.direction, 'en_vi'),
+          eq(srsCards.state, 2),
+          isNull(srsCards.deletedAt)
+        )
+      )
+      .all()
+  }
+
+  /** Xoá mềm các thẻ phụ của một từ (đặt lại tiến độ của từ) */
+  softDeleteSiblings(profileId: string, contentId: string, now: number): void {
+    this.db
+      .update(srsCards)
+      .set({ deletedAt: now, suspended: true, updatedAt: now })
+      .where(
+        and(
+          eq(srsCards.profileId, profileId),
+          eq(srsCards.contentId, contentId),
+          ne(srsCards.direction, 'en_vi'),
+          isNull(srsCards.deletedAt)
+        )
+      )
+      .run()
   }
 
   /** Xoá từ khỏi sổ: bỏ saved_words, xoá mềm thẻ (giữ nhật ký ôn để thống kê) */

@@ -43,6 +43,30 @@ async function setSetting<K extends keyof Settings>(key: K, value: Settings[K]):
   emit('changed')
 }
 
+/** Các tuỳ chọn bật/tắt của phần ôn thẻ */
+const REVIEW_TOGGLES = [
+  { key: 'review.dirViEn', label: 'dirViEn' },
+  { key: 'review.dirAudio', label: 'dirAudio' },
+  { key: 'review.dirCloze', label: 'dirCloze' },
+  { key: 'review.typing', label: 'typing' },
+  { key: 'review.autoPlay', label: 'autoPlay' }
+] as const
+
+const backfilling = ref(false)
+const backfillMessage = ref('')
+
+/** Tạo thẻ phụ cho các từ đã thuộc từ trước (sau khi bật thêm hướng thẻ) */
+async function backfill(): Promise<void> {
+  backfilling.value = true
+  try {
+    const { created } = await invoke('study:backfill')
+    backfillMessage.value = t('study.settings.backfillDone', { n: created })
+    emit('changed')
+  } finally {
+    backfilling.value = false
+  }
+}
+
 async function switchTo(id: string): Promise<void> {
   await invoke('profile:switch', { id })
   await Promise.all([settingsStore.load(), loadProfiles()])
@@ -203,6 +227,53 @@ onMounted(loadProfiles)
             </button>
           </span>
         </template>
+      </div>
+    </PxPanel>
+
+    <PxPanel class="block">
+      <h2>{{ t('study.settings.review') }}</h2>
+      <label class="row">
+        {{ t('study.settings.newPerDay') }}
+        <select
+          :value="settingsStore.settings['review.newPerDay']"
+          @change="
+            setSetting(
+              'review.newPerDay',
+              Number(($event.target as HTMLSelectElement).value) as never
+            )
+          "
+        >
+          <option :value="0">{{ t('study.settings.unlimited') }}</option>
+          <option v-for="n in [5, 10, 20, 50]" :key="n" :value="n">
+            {{ t('study.settings.newWords', { n }) }}
+          </option>
+        </select>
+      </label>
+      <label class="row">
+        {{ t('study.settings.reviewOrder') }}
+        <select
+          :value="settingsStore.settings['review.order']"
+          @change="setSetting('review.order', ($event.target as HTMLSelectElement).value as never)"
+        >
+          <option v-for="o in ['mixed', 'new-first', 'review-first']" :key="o" :value="o">
+            {{ t(`study.settings.order.${o}`) }}
+          </option>
+        </select>
+      </label>
+      <p class="muted">{{ t('study.settings.directionsHint') }}</p>
+      <label v-for="d in REVIEW_TOGGLES" :key="d.key" class="row">
+        {{ t(`study.settings.${d.label}`) }}
+        <input
+          type="checkbox"
+          :checked="settingsStore.settings[d.key]"
+          @change="setSetting(d.key, ($event.target as HTMLInputElement).checked as never)"
+        />
+      </label>
+      <div class="row">
+        <span class="muted">{{ backfillMessage || t('study.settings.backfillHint') }}</span>
+        <button type="button" class="small" :disabled="backfilling" @click="backfill">
+          {{ t('study.settings.backfill') }}
+        </button>
       </div>
     </PxPanel>
 

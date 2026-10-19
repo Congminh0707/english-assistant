@@ -108,3 +108,9 @@ Mẫu:
 
 ## #16 — Thưởng khi mở khoá thành tựu (2026-10-19) — Chấp nhận
 **Quyết định:** `AchievementService` tính thành tựu từ thống kê (không bảng riêng) và ghi sổ XP `reason = achievement.unlocked`, `refId = <id thành tựu>` để mỗi hồ sơ chỉ nhận một lần; thưởng theo hạng (đồng 20 XP/5 xu … kim cương 300/60). Lần đầu sau khi cập nhật sẽ thưởng bù các thành tựu đã đạt và báo gộp một thông báo ở mascot.
+
+## #17 — Thẻ phụ tự tạo khi từ đã thuộc (2026-10-19) — Chấp nhận
+**Bối cảnh:** Thẻ chỉ có một dạng (thấy từ → nhớ nghĩa) — nhận diện dễ hơn nhớ lại chủ động; schema `srs_cards.direction` đã có sẵn nhiều hướng.
+**Quyết định:** Chỉ thẻ gốc `en_vi` được tạo khi lưu từ. Khi thẻ gốc vào ôn dài hạn, `SrsService.ensureSiblings` tạo `vi_en`, `audio_en`, `cloze` (đến hạn từ ngày mai), mỗi loại bật/tắt trong cài đặt; có "tạo thẻ bù" cho từ đã thuộc. Hạn mức từ mới/ngày chỉ tính thẻ gốc chưa học để thẻ phụ không bị kẹt. Mascot chỉ hỏi thẻ `en_vi`. Thẻ không dựng được nội dung (câu điền từ không còn chứa từ) tự rơi về dạng `en_vi`.
+**Lý do:** Cách của Anki ("sibling mở khoá sau khi học") — không nhân đôi khối lượng ngay từ đầu, từ nào thuộc rồi mới được kiểm tra sâu hơn.
+**Hệ quả:** "Tổng số thẻ" và số thẻ theo trạng thái tính cả thẻ phụ (Sổ từ vẫn hiện một dòng mỗi từ); từ hay quên cộng dồn số lần quên của mọi hướng; hoàn tác không thu hồi XP (sổ XP chỉ ghi thêm).

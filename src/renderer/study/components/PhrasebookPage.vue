@@ -15,6 +15,8 @@ const book = ref<Phrasebook | null>(null)
 const category = ref<string>('all')
 const query = ref('')
 const toast = ref('')
+/** Id các mẫu câu đã có trong sổ thẻ */
+const savedIds = ref<Set<string>>(new Set())
 let toastTimer = 0
 
 const norm = (s: string): string => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
@@ -30,19 +32,39 @@ const visible = computed(() => {
     .filter((c) => c.phrases.length)
 })
 
+function flash(message: string): void {
+  toast.value = message
+  window.clearTimeout(toastTimer)
+  toastTimer = window.setTimeout(() => (toast.value = ''), 1500)
+}
+
 async function copy(text: string): Promise<void> {
   try {
     await navigator.clipboard.writeText(text)
-    toast.value = t('study.phrasebook.copied')
-    window.clearTimeout(toastTimer)
-    toastTimer = window.setTimeout(() => (toast.value = ''), 1500)
+    flash(t('study.phrasebook.copied'))
   } catch {
     // Không có quyền clipboard: bỏ qua, người dùng vẫn nghe và đọc được
   }
 }
 
+async function savePhrase(id: string): Promise<void> {
+  try {
+    await invoke('vocab:save-phrase', { contentId: id })
+    savedIds.value = new Set([...savedIds.value, id])
+    flash(t('study.phrasebook.savedToast'))
+  } catch (err) {
+    console.warn('[phrasebook] save failed', err)
+  }
+}
+
 onMounted(async () => {
   book.value = await invoke('phrasebook:list')
+  try {
+    const words = await invoke('vocab:list')
+    savedIds.value = new Set(words.filter((w) => w.isPhrase).map((w) => w.contentId))
+  } catch (err) {
+    console.warn('[phrasebook] vocab:list failed', err)
+  }
 })
 </script>
 
@@ -100,6 +122,15 @@ onMounted(async () => {
             <span v-if="p.note" class="note">{{ p.note }}</span>
           </button>
           <span v-if="p.level" class="tag">{{ cefrLabel(p.level) }}</span>
+          <button
+            type="button"
+            class="save"
+            :disabled="savedIds.has(p.id)"
+            :title="t('study.phrasebook.saveHint')"
+            @click="savePhrase(p.id)"
+          >
+            {{ savedIds.has(p.id) ? '✓' : '💾' }}
+          </button>
         </li>
       </ul>
     </PxPanel>
@@ -204,6 +235,17 @@ input[type='search'] {
   font-size: 12px;
   color: var(--c-ink-soft);
   font-style: italic;
+}
+.save {
+  padding: 2px 6px;
+  border: 1px solid var(--c-border);
+  background: var(--c-surface);
+  font: inherit;
+  cursor: pointer;
+}
+.save:disabled {
+  color: var(--c-success);
+  cursor: default;
 }
 .tag {
   padding: 0 4px;

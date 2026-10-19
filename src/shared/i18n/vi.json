@@ -24,6 +24,25 @@
     "sizeLarge": "Lớn",
     "language": "Ngôn ngữ / Language",
     "launchAtLogin": "Khởi động cùng Windows",
+    "review": "Ôn thẻ",
+    "newPerDay": "Từ mới mỗi ngày",
+    "unlimited": "Không giới hạn",
+    "newWords": "{n} từ mới",
+    "reviewOrder": "Thứ tự thẻ",
+    "order": {
+      "mixed": "Xen kẽ theo hạn",
+      "new-first": "Thẻ mới trước",
+      "review-first": "Thẻ cũ trước"
+    },
+    "directionsHint": "Khi bạn thuộc một từ, app tự tạo thêm các thẻ phụ để nhớ sâu hơn (đến hạn từ ngày hôm sau):",
+    "dirViEn": "Thẻ Việt → Anh (gõ từ)",
+    "dirAudio": "Thẻ nghe – gõ",
+    "dirCloze": "Thẻ điền từ vào câu",
+    "typing": "Gõ đáp án (tắt = chỉ lật thẻ rồi tự chấm)",
+    "autoPlay": "Tự đọc từ khi hiện thẻ",
+    "backfill": "Tạo thẻ cho từ đã thuộc",
+    "backfillHint": "Bật thêm loại thẻ? Tạo bù thẻ phụ cho các từ bạn đã thuộc.",
+    "backfillDone": "Đã tạo {n} thẻ mới.",
     "quit": "Thoát",
     "reviewNow": "🧠 Ôn từ ngay",
     "reviewNowDue": "🧠 Ôn từ ngay ({count} thẻ đến hạn)",
@@ -169,12 +188,29 @@
       "easy": "Dễ",
       "new": "Mới",
       "context": "Câu bạn đã lưu",
-      "hint": "Space: lật thẻ · 1–4: chấm điểm",
+      "hint": "Space/Enter: lật hoặc chấm · 1–4: chấm điểm · U: hoàn tác",
       "remaining": "Còn {count} thẻ",
       "doneTitle": "Xong rồi! 🎉",
       "doneBody": "Bạn đã ôn hết thẻ đến hạn. Phiên này: {n} thẻ.",
       "backHome": "Về trang chủ",
-      "noAnswer": "(chưa có nghĩa tiếng Việt)"
+      "noAnswer": "(chưa có nghĩa tiếng Việt)",
+      "undo": "Hoàn tác",
+      "giveUp": "Không nhớ — xem đáp án",
+      "typeHere": "Gõ đáp án…",
+      "typeEnglish": "Gõ từ tiếng Anh có nghĩa này:",
+      "typeWhatYouHear": "Nghe và gõ lại từ bạn nghe được:",
+      "fillBlank": "Điền từ còn thiếu vào chỗ trống:",
+      "kind": {
+        "en_vi": "Nhận diện",
+        "vi_en": "Việt → Anh",
+        "audio_en": "Nghe – gõ",
+        "cloze": "Điền từ"
+      },
+      "result": {
+        "correct": "Chính xác! ✓",
+        "close": "Gần đúng — chú ý chính tả:",
+        "wrong": "Chưa đúng — đáp án:"
+      }
     },
     "words": {
       "count": "Sổ từ ({count})",
@@ -188,7 +224,26 @@
       "state3": "Học lại",
       "dueNow": "Đến hạn",
       "dueIn": "Ôn lại sau {time}",
-      "lapses": "Quên {n} lần"
+      "lapses": "Quên {n} lần",
+      "suspended": "Đang tạm dừng",
+      "pause": "Tạm dừng ôn từ này",
+      "resume": "Tiếp tục ôn",
+      "reset": "Đặt lại tiến độ",
+      "confirmReset": "Đặt lại tiến độ của “{word}”? Từ sẽ ôn lại từ đầu, các thẻ phụ sẽ được tạo lại khi bạn thuộc từ.",
+      "noMatch": "Không có từ nào khớp bộ lọc.",
+      "phrase": "Mẫu câu",
+      "siblingsHint": "{n} thẻ phụ (Việt→Anh, nghe-gõ, điền từ)",
+      "sortBy": "Sắp xếp",
+      "filter": {
+        "all": "Tất cả",
+        "new": "Mới",
+        "learning": "Đang học",
+        "review": "Ôn dài hạn",
+        "relearning": "Học lại",
+        "suspended": "Tạm dừng",
+        "forgetful": "Hay quên"
+      },
+      "sort": { "saved": "Mới lưu", "due": "Sắp đến hạn", "forgetful": "Hay quên", "alpha": "A–Z" }
     },
     "missions": {
       "title": "Nhiệm vụ hôm nay",
@@ -416,7 +471,10 @@
       "savedShort": "Đã lưu",
       "save": "Lưu từ",
       "noMeaning": "(chưa có nghĩa tiếng Việt)",
-      "notFound": "Không tìm thấy “{word}” trong từ điển."
+      "notFound": "Không tìm thấy “{word}” trong từ điển.",
+      "saveHard": "Lưu {n} từ khó",
+      "saveHardHint": "Lưu các từ khó hơn trình độ của bạn vào sổ từ để ôn",
+      "savedMany": "Đã lưu {saved} từ mới ({already} từ đã có, {missing} từ không có trong từ điển)"
     },
     "grammar": {
       "title": "Ngữ pháp",
@@ -429,7 +487,9 @@
       "empty": "Không có mẫu câu phù hợp.",
       "all": "Tất cả",
       "copied": "Đã sao chép",
-      "copy": "Sao chép"
+      "copy": "Sao chép",
+      "savedToast": "Đã lưu vào sổ thẻ",
+      "saveHint": "Lưu mẫu câu này vào sổ thẻ để ôn"
     },
     "lessons": {
       "title": "Bài học nền tảng",

@@ -67,7 +67,8 @@ export class MicroLearningService {
   }
 
   private nextReview(): ReviewQuiz | null {
-    const due = this.deps.srs.dueCards(10)
+    // Mascot chỉ hỏi dạng nhận diện (trắc nghiệm nghĩa) nên chỉ lấy thẻ en_vi
+    const due = this.deps.srs.dueCards(10, ['en_vi'])
     for (const card of due) {
       const data = this.deps.dictionary.quizData(card.contentId, this.dictionaryOptions())
       if (!data || data.distractors.length < 1) continue
@@ -87,7 +88,7 @@ export class MicroLearningService {
         ipa: data.entry.ipaUs ?? data.entry.ipaUk,
         pos: data.entry.pos,
         choices,
-        dueCount: this.deps.srs.dueCount()
+        dueCount: this.deps.srs.dueCount(['en_vi'])
       }
     }
     return null

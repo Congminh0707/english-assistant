@@ -38,6 +38,8 @@ export function registerAppIpc(
   handle('study:overview', () => c.study.overview())
   handle('study:next', () => c.study.next())
   handle('study:rate', ({ cardId, rating, elapsedMs }) => c.study.rate(cardId, rating, elapsedMs))
+  handle('study:undo', () => c.study.undo())
+  handle('study:backfill', () => ({ created: c.study.backfill() }))
   handle('study:missions', () => c.missions.state())
   handle('profile:list', () => c.profiles.listInfo())
   handle('profile:setup', (input) => c.profiles.setup(input))
@@ -80,4 +82,8 @@ export function registerAppIpc(
   handle('tts:prefetch', ({ texts, accent, speed }) => tts.prefetch(texts, accent, speed))
   handle('vocab:list', () => c.study.words())
   handle('vocab:remove', ({ contentId }) => c.study.removeWord(contentId))
+  handle('vocab:suspend', ({ contentId, suspended }) => c.study.setSuspended(contentId, suspended))
+  handle('vocab:reset', ({ contentId }) => c.study.resetWord(contentId))
+  handle('vocab:save-many', ({ items }) => c.study.saveMany(items))
+  handle('vocab:save-phrase', ({ contentId }) => c.study.savePhrase(contentId))
 }

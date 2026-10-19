@@ -93,7 +93,7 @@ erDiagram
 | Cột | Ghi chú |
 |---|---|
 | id, profile_id | |
-| content_id | `word:en:apple` hoặc `phrase:...` hoặc `custom:<uuid>` |
+| content_id | `word:en:apple` hoặc `phrase:<nhóm>:<băm câu>` (mẫu câu Phrasebook, đã dùng) hoặc `custom:<uuid>` |
 | direction | `en_vi`/`vi_en`/`audio_en`/`cloze`/`audio_picture` |
 | custom_front, custom_back | TEXT NULL — thẻ người dùng tự tạo |
 | context_sentence | TEXT NULL — câu gốc khi lưu từ lúc dịch |

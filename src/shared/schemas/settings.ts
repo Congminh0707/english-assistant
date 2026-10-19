@@ -28,6 +28,20 @@ export const settingDefinitions = {
   'mascot.quizMinutes': z
     .union([z.literal(0), z.literal(15), z.literal(25), z.literal(45)])
     .default(25),
+  /** Ôn thẻ: số từ mới đưa vào ôn mỗi ngày (0 = không giới hạn) */
+  'review.newPerDay': z
+    .union([z.literal(0), z.literal(5), z.literal(10), z.literal(20), z.literal(50)])
+    .default(0),
+  /** Thứ tự thẻ trong phiên ôn: xen kẽ theo hạn / thẻ mới trước / thẻ cũ trước */
+  'review.order': z.enum(['mixed', 'new-first', 'review-first']).default('mixed'),
+  /** Tự tạo thẻ Việt→Anh / nghe-gõ / điền từ khi một từ đã thuộc (vào ôn dài hạn) */
+  'review.dirViEn': z.boolean().default(true),
+  'review.dirAudio': z.boolean().default(true),
+  'review.dirCloze': z.boolean().default(true),
+  /** Gõ đáp án ở các thẻ Việt→Anh, nghe-gõ, điền từ (tắt = chỉ lật thẻ rồi tự chấm) */
+  'review.typing': z.boolean().default(true),
+  /** Tự đọc từ khi hiện thẻ (thẻ nghe-gõ luôn tự đọc) */
+  'review.autoPlay': z.boolean().default(true),
   /** Giọng đọc: 'system' = giọng Windows có sẵn; 'kokoro' = giọng tự nhiên offline (cần tải model) */
   'tts.engine': z.enum(['system', 'kokoro']).default('system'),
   /** Giọng mặc định khi đọc bài học, bài tập, câu hỏi (nút có ghi rõ Mỹ/Anh vẫn đọc đúng giọng đó) */

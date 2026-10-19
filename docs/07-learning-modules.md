@@ -75,6 +75,8 @@ Thêm dạng bài mới = thêm đủ 3 thứ này + đăng ký vào `exerciseRe
 - **Ôn qua mascot**: thẻ đến hạn được mascot hỏi dạng trắc nghiệm nhanh trong bong bóng (D2). Kết quả trắc nghiệm quy đổi: đúng nhanh → *Được*, đúng chậm → *Khó*, sai → *Quên*.
 - **Trang từ**: nghĩa, IPA US/UK, loại từ, level, ví dụ (từ Tatoeba), collocation, word family, ảnh (nếu có), câu ngữ cảnh người dùng đã gặp.
 
+> ✅ **Thẻ nhiều dạng (Phase 2)** — `SrsService`/`StudyService`: thẻ gốc `en_vi` do lưu từ tạo ra; khi thẻ gốc vào ôn dài hạn (FSRS state = Review) tự tạo thẻ phụ `vi_en`, `audio_en`, `cloze` (chỉ khi có câu chứa từ — `src/shared/cards.ts#makeCloze`) với `due` = ngày hôm sau, theo cài đặt `review.dir*`. Chấm đáp án gõ bằng `checkTyped` (đúng / gần đúng — sai 1 ký tự với từ ≥ 5 chữ / sai) → gợi ý Được/Khó/Quên; người dùng vẫn tự chọn mức chấm. Hạn mức từ mới (`review.newPerDay`) chỉ tính thẻ gốc chưa học; thẻ phụ không bị giới hạn. Mascot chỉ hỏi thẻ `en_vi`. Hoàn tác lần chấm gần nhất trong phiên (khôi phục lịch cũ + xoá lượt ôn; XP đã cộng không thu hồi). Mẫu câu Phrasebook lưu thành thẻ với `content_id = phrase:<nhóm>:<băm FNV-1a của câu>` (không có thẻ điền từ). `audio_picture` để dành cho track trẻ em.
+
 ## 3b. Bài học nền tảng (Foundation) — ✅ đã làm
 
 Lộ trình học từ đầu cho người Việt, **tự soạn** (`proprietary-own`, [08](08-content-sources.md)), nằm ở `content/curated/lessons/*.json` — hướng dẫn soạn: [`AUTHORING.md`](../content/curated/lessons/AUTHORING.md), schema: `src/shared/schemas/lesson.ts`. File JSON được đóng gói thẳng vào app (`bundledLessons.ts`), kiểm tra bằng `src/main/content/lessons.test.ts` (schema + đáp án hợp lệ + id không trùng).

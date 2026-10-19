@@ -99,6 +99,34 @@ async function save(): Promise<void> {
   }
 }
 
+/** Các từ khó hơn level hiện tại (không trùng), kèm câu đầu tiên chứa từ đó làm ngữ cảnh */
+const hardWords = computed(() => {
+  const seen = new Map<string, string>()
+  for (const p of parsed.value) {
+    for (const s of p.sentences) {
+      for (const piece of s.pieces) {
+        if (piece.word && isHard(piece.text) && !seen.has(key(piece.text))) {
+          seen.set(key(piece.text), s.text)
+        }
+      }
+    }
+  }
+  return [...seen.entries()].map(([text, context]) => ({ text, context }))
+})
+
+/** Lưu các từ khó của bài vào sổ từ (tạo thẻ ôn) */
+async function saveHard(): Promise<void> {
+  if (!hardWords.value.length) return
+  try {
+    const res = await invoke('vocab:save-many', { items: hardWords.value.slice(0, 60) })
+    toast.value = t('study.reading.savedMany', res)
+    window.clearTimeout(toastTimer)
+    toastTimer = window.setTimeout(() => (toast.value = ''), 3500)
+  } catch (err) {
+    console.warn('[reader] save many failed', err)
+  }
+}
+
 function toggleVi(i: number): void {
   showVi.value[i] = !showVi.value[i]
 }
@@ -137,6 +165,15 @@ onMounted(async () => {
           @click="speak(paragraphs.map((p) => p.en).join(' '), undefined, 0.85)"
         >
           🔊 {{ t('study.reading.listenAll') }}
+        </button>
+        <button
+          v-if="hardWords.length"
+          type="button"
+          class="tool"
+          :title="t('study.reading.saveHardHint')"
+          @click="saveHard"
+        >
+          💾 {{ t('study.reading.saveHard', { n: hardWords.length }) }}
         </button>
         <button v-if="anyVi" type="button" class="tool" @click="toggleAllVi">
           🇻🇳 {{ t('study.reading.toggleVi') }}
@@ -179,6 +216,7 @@ onMounted(async () => {
     </div>
 
     <p class="legend"><span class="word hard">abc</span> {{ t('study.reading.hardLegend') }}</p>
+    <p v-if="toast && !entry && !notFound" class="toast">{{ toast }}</p>
 
     <div v-if="entry || notFound" class="lookup">
       <template v-if="entry">

@@ -124,6 +124,7 @@ export function createContainer(
 
   const packs = new ContentPackService({ repo: repos.packs, packsDir: options.packsDir, clock })
   const dictionary = new DictionaryService(packs)
+  const phrasebook = new PhrasebookLibrary(bundledPhrasebookFiles)
   const vocab = new VocabService({
     vocab: repos.vocab,
     profiles,
@@ -133,7 +134,16 @@ export function createContainer(
     transaction
   })
 
-  const srs = new SrsService({ vocab: repos.vocab, profiles, xp, clock, bus, transaction })
+  const srs = new SrsService({
+    vocab: repos.vocab,
+    profiles,
+    settings,
+    dictionary,
+    xp,
+    clock,
+    bus,
+    transaction
+  })
   const micro = new MicroLearningService({
     srs,
     dictionary,
@@ -147,8 +157,11 @@ export function createContainer(
     vocabService: vocab,
     srs,
     dictionary,
+    phrasebook,
     profiles,
-    clock
+    settings,
+    clock,
+    transaction
   })
 
   const missions = new MissionService({
@@ -238,6 +251,6 @@ export function createContainer(
     lessons,
     grammar,
     readings,
-    phrasebook: new PhrasebookLibrary(bundledPhrasebookFiles)
+    phrasebook
   }
 }

@@ -26,13 +26,17 @@ export const PhrasebookFileSchema = z.object({
 })
 export type PhrasebookFile = z.infer<typeof PhrasebookFileSchema>
 
+/** Mẫu câu gửi cho giao diện: kèm id nội dung (dùng để lưu vào sổ thẻ) */
+export const PhrasebookPhraseSchema = PhraseSchema.extend({ id: z.string() })
+export type PhrasebookPhrase = z.infer<typeof PhrasebookPhraseSchema>
+
 export const PhrasebookSchema = z.object({
   categories: z.array(
     z.object({
       id: z.string(),
       title: z.string(),
       icon: z.string(),
-      phrases: z.array(PhraseSchema)
+      phrases: z.array(PhrasebookPhraseSchema)
     })
   )
 })

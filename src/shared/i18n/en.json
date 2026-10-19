@@ -24,6 +24,25 @@
     "sizeLarge": "Large",
     "language": "Ngôn ngữ / Language",
     "launchAtLogin": "Start with Windows",
+    "review": "Card review",
+    "newPerDay": "New words per day",
+    "unlimited": "Unlimited",
+    "newWords": "{n} new words",
+    "reviewOrder": "Card order",
+    "order": {
+      "mixed": "Mixed by due time",
+      "new-first": "New cards first",
+      "review-first": "Old cards first"
+    },
+    "directionsHint": "Once you know a word, extra cards are created for deeper recall (due from the next day):",
+    "dirViEn": "Vietnamese → English cards (type the word)",
+    "dirAudio": "Listen & type cards",
+    "dirCloze": "Fill-the-blank cards",
+    "typing": "Type answers (off = just flip and self-rate)",
+    "autoPlay": "Say the word when a card appears",
+    "backfill": "Create cards for known words",
+    "backfillHint": "Turned on another card type? Create the extra cards for words you already know.",
+    "backfillDone": "Created {n} new cards.",
     "quit": "Quit",
     "reviewNow": "🧠 Review now",
     "reviewNowDue": "🧠 Review now ({count} due)",
@@ -169,12 +188,29 @@
       "easy": "Easy",
       "new": "New",
       "context": "Your saved sentence",
-      "hint": "Space: flip · 1–4: rate",
+      "hint": "Space/Enter: flip or rate · 1–4: rate · U: undo",
       "remaining": "{count} cards left",
       "doneTitle": "All done! 🎉",
       "doneBody": "You reviewed every due card. This session: {n} cards.",
       "backHome": "Back to home",
-      "noAnswer": "(no Vietnamese meaning yet)"
+      "noAnswer": "(no Vietnamese meaning yet)",
+      "undo": "Undo",
+      "giveUp": "I don't remember — show answer",
+      "typeHere": "Type your answer…",
+      "typeEnglish": "Type the English word for this meaning:",
+      "typeWhatYouHear": "Listen and type the word you hear:",
+      "fillBlank": "Fill in the missing word:",
+      "kind": {
+        "en_vi": "Recognition",
+        "vi_en": "Vietnamese → English",
+        "audio_en": "Listen & type",
+        "cloze": "Fill the blank"
+      },
+      "result": {
+        "correct": "Correct! ✓",
+        "close": "Almost — check the spelling:",
+        "wrong": "Not quite — answer:"
+      }
     },
     "words": {
       "count": "Word list ({count})",
@@ -188,7 +224,31 @@
       "state3": "Relearning",
       "dueNow": "Due",
       "dueIn": "Review in {time}",
-      "lapses": "Forgotten {n} times"
+      "lapses": "Forgotten {n} times",
+      "suspended": "Paused",
+      "pause": "Pause reviews for this word",
+      "resume": "Resume reviews",
+      "reset": "Reset progress",
+      "confirmReset": "Reset progress for “{word}”? It will start over, and extra cards will be recreated once you know the word.",
+      "noMatch": "No words match the filter.",
+      "phrase": "Phrase",
+      "siblingsHint": "{n} extra cards (Vietnamese→English, listen & type, fill the blank)",
+      "sortBy": "Sort by",
+      "filter": {
+        "all": "All",
+        "new": "New",
+        "learning": "Learning",
+        "review": "Long-term",
+        "relearning": "Relearning",
+        "suspended": "Paused",
+        "forgetful": "Forgetful"
+      },
+      "sort": {
+        "saved": "Recently saved",
+        "due": "Due soon",
+        "forgetful": "Most forgotten",
+        "alpha": "A–Z"
+      }
     },
     "missions": {
       "title": "Today's missions",
@@ -416,7 +476,10 @@
       "savedShort": "Saved",
       "save": "Save word",
       "noMeaning": "(no Vietnamese meaning yet)",
-      "notFound": "“{word}” not found in the dictionary."
+      "notFound": "“{word}” not found in the dictionary.",
+      "saveHard": "Save {n} hard words",
+      "saveHardHint": "Save words above your level to your word list for review",
+      "savedMany": "Saved {saved} new words ({already} already saved, {missing} not in the dictionary)"
     },
     "grammar": {
       "title": "Grammar",
@@ -429,7 +492,9 @@
       "empty": "No matching phrases.",
       "all": "All",
       "copied": "Copied",
-      "copy": "Copy"
+      "copy": "Copy",
+      "savedToast": "Saved to your cards",
+      "saveHint": "Save this phrase to your cards for review"
     },
     "lessons": {
       "title": "Foundation lessons",

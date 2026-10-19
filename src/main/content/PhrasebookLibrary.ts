@@ -1,7 +1,9 @@
+import { phraseContentId } from '@shared/cards'
 import {
   PhrasebookFileSchema,
   type Phrasebook,
-  type PhrasebookFile
+  type PhrasebookFile,
+  type PhrasebookPhrase
 } from '@shared/schemas/phrasebook'
 
 /**
@@ -10,6 +12,7 @@ import {
  */
 export class PhrasebookLibrary {
   private readonly data: Phrasebook
+  private readonly byId = new Map<string, PhrasebookPhrase>()
 
   constructor(files: unknown[], warn: (message: string) => void = console.warn) {
     const parsed: PhrasebookFile[] = []
@@ -25,12 +28,20 @@ export class PhrasebookLibrary {
           id: f.category.id,
           title: f.category.title,
           icon: f.category.icon,
-          phrases: f.phrases
+          phrases: f.phrases.map((p) => ({ ...p, id: phraseContentId(f.category.id, p.en) }))
         }))
+    }
+    for (const category of this.data.categories) {
+      for (const phrase of category.phrases) this.byId.set(phrase.id, phrase)
     }
   }
 
   list(): Phrasebook {
     return this.data
+  }
+
+  /** Mẫu câu theo id nội dung ('phrase:<nhóm>:<mã băm>'); undefined nếu không còn trong thư viện */
+  find(contentId: string): PhrasebookPhrase | undefined {
+    return this.byId.get(contentId)
   }
 }

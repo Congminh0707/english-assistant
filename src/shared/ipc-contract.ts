@@ -48,6 +48,9 @@ import {
 } from './schemas/translate'
 import {
   MissionsStateSchema,
+  SaveManyInputSchema,
+  SaveManyResultSchema,
+  StudyBackfillResultSchema,
   StudyNextSchema,
   StudyOverviewSchema,
   StudyRateInputSchema,
@@ -83,9 +86,21 @@ export const invokeContract = {
   'study:overview': { input: z.void(), output: StudyOverviewSchema },
   'study:next': { input: z.void(), output: StudyNextSchema },
   'study:rate': { input: StudyRateInputSchema, output: StudyRateResultSchema },
+  'study:undo': { input: z.void(), output: StudyNextSchema },
+  'study:backfill': { input: z.void(), output: StudyBackfillResultSchema },
   'study:missions': { input: z.void(), output: MissionsStateSchema },
   'vocab:list': { input: z.void(), output: z.array(WordListItemSchema) },
   'vocab:remove': { input: z.object({ contentId: z.string().min(1) }), output: z.boolean() },
+  'vocab:suspend': {
+    input: z.object({ contentId: z.string().min(1), suspended: z.boolean() }),
+    output: z.boolean()
+  },
+  'vocab:reset': { input: z.object({ contentId: z.string().min(1) }), output: z.boolean() },
+  'vocab:save-many': { input: SaveManyInputSchema, output: SaveManyResultSchema },
+  'vocab:save-phrase': {
+    input: z.object({ contentId: z.string().min(1) }),
+    output: SaveWordResultSchema
+  },
   'profile:list': { input: z.void(), output: z.array(ProfileInfoSchema) },
   'profile:setup': { input: ProfileSetupInputSchema, output: ProfileInfoSchema },
   'profile:create': { input: ProfileSetupInputSchema, output: ProfileInfoSchema },

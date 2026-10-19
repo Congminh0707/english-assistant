@@ -20,9 +20,15 @@ export type StudyOverview = z.infer<typeof StudyOverviewSchema>
 export const StudyRatingSchema = z.union([z.literal(1), z.literal(2), z.literal(3), z.literal(4)])
 export type StudyRating = z.infer<typeof StudyRatingSchema>
 
-/** Một thẻ trong phiên ôn: hiện mặt trước (từ), lật ra mặt sau (nghĩa), rồi chấm 1–4 */
+/** Dạng hiển thị của thẻ trong phiên ôn */
+export const StudyCardDirectionSchema = z.enum(['en_vi', 'vi_en', 'audio_en', 'cloze'])
+export type StudyCardDirection = z.infer<typeof StudyCardDirectionSchema>
+
+/** Một thẻ trong phiên ôn: hiện mặt trước, lật ra (hoặc gõ đáp án) rồi chấm 1–4 */
 export const StudyCardSchema = z.object({
   cardId: z.string(),
+  /** en_vi: thấy từ → nhớ nghĩa · vi_en: thấy nghĩa → gõ từ · audio_en: nghe → gõ từ · cloze: điền chỗ trống */
+  direction: StudyCardDirectionSchema,
   lemma: z.string(),
   ipaUs: z.string().nullable(),
   ipaUk: z.string().nullable(),
@@ -34,6 +40,14 @@ export const StudyCardSchema = z.object({
   examples: z.array(DictExampleSchema),
   /** Câu ngữ cảnh lúc người dùng lưu từ */
   context: z.string().nullable(),
+  /** Câu điền chỗ trống (direction = cloze) */
+  cloze: z.object({ before: z.string(), after: z.string(), answer: z.string() }).nullable(),
+  /** Các đáp án gõ được chấp nhận (vi_en, audio_en, cloze) */
+  answers: z.array(z.string()),
+  /** Gợi ý tiếng Việt cho thẻ điền chỗ trống */
+  hint: z.string().nullable(),
+  /** Thẻ của một mẫu câu (không phải từ trong từ điển) */
+  isPhrase: z.boolean(),
   /** Thẻ mới học lần đầu (state = New) */
   isNew: z.boolean(),
   /** Bao lâu nữa sẽ ôn lại nếu chấm 1/2/3/4 (ngày; < 1 là thẻ đang học) */
@@ -94,6 +108,35 @@ export const WordListItemSchema = z.object({
   due: z.number(),
   reps: z.number().int(),
   lapses: z.number().int(),
-  savedAt: z.number()
+  savedAt: z.number(),
+  /** Đang tạm dừng ôn (mọi thẻ của từ) */
+  suspended: z.boolean(),
+  /** Số thẻ phụ đang có (Việt→Anh, nghe-gõ, điền từ) */
+  siblings: z.number().int(),
+  /** Mẫu câu thay vì từ đơn */
+  isPhrase: z.boolean()
 })
 export type WordListItem = z.infer<typeof WordListItemSchema>
+
+export const StudyBackfillResultSchema = z.object({ created: z.number().int() })
+
+export const SaveManyInputSchema = z.object({
+  items: z
+    .array(
+      z.object({
+        text: z.string().trim().min(1).max(60),
+        context: z.string().max(500).nullable().optional()
+      })
+    )
+    .min(1)
+    .max(60)
+})
+export const SaveManyResultSchema = z.object({
+  /** Từ mới được lưu */
+  saved: z.number().int(),
+  /** Từ đã có trong sổ */
+  already: z.number().int(),
+  /** Không tìm thấy trong từ điển */
+  missing: z.number().int()
+})
+export type SaveManyResult = z.infer<typeof SaveManyResultSchema>

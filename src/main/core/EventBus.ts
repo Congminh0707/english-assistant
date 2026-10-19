@@ -10,6 +10,7 @@ export interface AppEvents {
   'xp.granted': { amount: number; coins: number; reason: string }
   'level.up': { level: number }
   'settings.changed': { key: SettingKey; settings: Settings }
+  'word.saved': { text: string; contentId: string | null }
 }
 
 type Listener<K extends keyof AppEvents> = (payload: AppEvents[K]) => void

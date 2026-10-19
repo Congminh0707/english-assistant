@@ -12,14 +12,17 @@ productName: English Assistant
 directories:
   buildResources: resources
   output: dist
-files:
-  - out/**/*                             # code đã build bởi electron-vite
-  - '!**/*.map'
+files:                                   # danh sách CHO PHÉP — đừng đổi sang kiểu loại trừ:
+  - out/**/*                             # code đã build bởi electron-vite (node_modules production tự thêm)
+  - '!**/*.map'                          # kiểu loại trừ từng cuốn cả .claude/worktrees vào app → installer ~1 GB
 asarUnpack:
   - '**/node_modules/better-sqlite3/**'  # native module phải nằm ngoài asar
 extraResources:
-  - from: content/packs/bundled          # các content pack kèm theo installer
+  - from: src/main/db/migrations         # migration của user.db
+    to: migrations
+  - from: content/packs                  # .eapack do pipeline build (pnpm content:build) — phải có trước khi build installer
     to: packs
+    filter: ['*.eapack']
 win:
   target:
     - target: nsis

@@ -14,6 +14,11 @@ import { ProfileService } from './services/ProfileService'
 import { SettingsService } from './services/SettingsService'
 import type { Transaction } from './services/types'
 import { XpService } from './services/XpService'
+import { VocabService } from './services/VocabService'
+import { VocabRepository } from './db/repositories/VocabRepository'
+import { InstalledPackRepository } from './db/repositories/InstalledPackRepository'
+import { ContentPackService } from './content/ContentPackService'
+import { DictionaryService } from './content/DictionaryService'
 
 export interface Container {
   clock: Clock
@@ -23,9 +28,21 @@ export interface Container {
   inventory: InventoryService
   pet: PetService
   xp: XpService
+  packs: ContentPackService
+  dictionary: DictionaryService
+  vocab: VocabService
 }
 
-export function createContainer(conn: UserDbConnection, clock: Clock): Container {
+export interface ContainerOptions {
+  /** Thư mục giải nén content pack (userData/packs) */
+  packsDir: string
+}
+
+export function createContainer(
+  conn: UserDbConnection,
+  clock: Clock,
+  options: ContainerOptions
+): Container {
   const { db, sqlite } = conn
   const bus = new EventBus()
   const transaction: Transaction = (fn) => sqlite.transaction(fn)()
@@ -35,7 +52,9 @@ export function createContainer(conn: UserDbConnection, clock: Clock): Container
     pets: new PetRepository(db),
     inventory: new InventoryRepository(db),
     xp: new XpRepository(db),
-    settings: new SettingsRepository(db)
+    settings: new SettingsRepository(db),
+    vocab: new VocabRepository(db),
+    packs: new InstalledPackRepository(db)
   }
 
   const settings = new SettingsService(repos.settings, clock, bus)
@@ -66,5 +85,16 @@ export function createContainer(conn: UserDbConnection, clock: Clock): Container
     transaction
   })
 
-  return { clock, bus, settings, profiles, inventory, pet, xp }
+  const packs = new ContentPackService({ repo: repos.packs, packsDir: options.packsDir, clock })
+  const dictionary = new DictionaryService(packs)
+  const vocab = new VocabService({
+    vocab: repos.vocab,
+    profiles,
+    xp,
+    clock,
+    bus,
+    transaction
+  })
+
+  return { clock, bus, settings, profiles, inventory, pet, xp, packs, dictionary, vocab }
 }

@@ -3,7 +3,7 @@ import { join } from 'path'
 import { loadPage } from './loadPage'
 import { forwardConsoleInDev } from './devConsole'
 
-const SIZE = { width: 380, height: 260 }
+const SIZE = { width: 400, height: 360 }
 /** Khoảng cách từ con trỏ chuột tới góc popup */
 const CURSOR_GAP = 12
 

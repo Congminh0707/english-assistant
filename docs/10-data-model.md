@@ -22,7 +22,7 @@ Liên kết giữa hai bên bằng **id chuỗi ổn định** (`content_id = 'w
 
 ## 3. Schema `user.db`
 
-> ✅ **Đã có (Phase 1, migration `0000`)**: `profiles`, `pet_states`, `xp_events`, `inventory_items`, `settings` — code ở `src/main/db/schema/index.ts`. Các bảng còn lại thêm dần theo module. Cột `profiles` hiện tối giản (`name`, `track`, `is_child`); các cột khác (mục tiêu, streak, PIN phụ huynh...) thêm khi làm tính năng tương ứng.
+> ✅ **Đã có (Phase 1)** — migration `0000`: `profiles`, `pet_states`, `xp_events`, `inventory_items`, `settings`; migration `0001`: `installed_packs` (thêm cột `sha256`), `saved_words` (unique theo `profile_id + text`), `srs_cards` (thêm cột `learning_steps` theo ts-fsrs v5, unique theo `profile_id + content_id + direction`) — code ở `src/main/db/schema/index.ts`. Các bảng còn lại thêm dần theo module. Cột `profiles` hiện tối giản (`name`, `track`, `is_child`); các cột khác (mục tiêu, streak, PIN phụ huynh...) thêm khi làm tính năng tương ứng.
 
 ```mermaid
 erDiagram

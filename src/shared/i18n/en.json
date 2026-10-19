@@ -42,9 +42,23 @@
   "popup": {
     "title": "Quick translate",
     "close": "Close",
-    "empty": "Nothing here yet.",
-    "hint": "Coming soon: copy English text and press {shortcut} to look it up right here.",
-    "footer": "Press Esc or click outside to close"
+    "searchPlaceholder": "Type an English or Vietnamese word…",
+    "empty": "Copy an English word and press {shortcut}, or type above.",
+    "notFound": "“{query}” is not in the dictionary.",
+    "sentence": "Full sentence translation is coming later. Click a word to look it up:",
+    "packMissing": "The dictionary pack isn't installed yet. Installing in the background — try again shortly.",
+    "loading": "Looking up…",
+    "noVi": "(no Vietnamese meaning yet)",
+    "aiBadge": "AI",
+    "aiHint": "AI-suggested meaning, not reviewed yet",
+    "formOf": "{tags} form of",
+    "save": "Save",
+    "saved": "Saved",
+    "savedToast": "Saved to your word list",
+    "listen": "Listen",
+    "examples": "Examples",
+    "otherResults": "Other results",
+    "footer": "Esc close · Enter search · Ctrl+S save"
   },
   "mascot": {
     "lines": {
@@ -65,6 +79,9 @@
     "itemUnknown": "This item doesn't exist.",
     "itemNotOwned": "You don't have this item anymore.",
     "notFound": "Data not found.",
-    "unknown": "Something went wrong, please try again."
+    "unknown": "Something went wrong, please try again.",
+    "packInvalid": "Invalid content pack.",
+    "packUnsupported": "This content pack needs a newer app version.",
+    "packCorrupt": "The content pack is corrupted."
   }
 }

@@ -42,9 +42,23 @@
   "popup": {
     "title": "Dịch nhanh",
     "close": "Đóng",
-    "empty": "Chưa có nội dung.",
-    "hint": "Sắp có: copy chữ tiếng Anh rồi bấm {shortcut} để tra nghĩa ngay tại đây.",
-    "footer": "Esc hoặc click ra ngoài để đóng"
+    "searchPlaceholder": "Gõ từ tiếng Anh hoặc tiếng Việt…",
+    "empty": "Copy một từ tiếng Anh rồi bấm {shortcut}, hoặc gõ vào ô trên.",
+    "notFound": "Không tìm thấy “{query}” trong từ điển.",
+    "sentence": "Dịch cả câu sẽ có ở bước sau. Bấm vào một từ để tra:",
+    "packMissing": "Chưa cài gói từ điển. Đang cài ở nền — thử lại sau ít giây.",
+    "loading": "Đang tra…",
+    "noVi": "(chưa có nghĩa tiếng Việt)",
+    "aiBadge": "AI",
+    "aiHint": "Nghĩa do AI gợi ý, chưa được duyệt",
+    "formOf": "dạng {tags} của",
+    "save": "Lưu",
+    "saved": "Đã lưu",
+    "savedToast": "Đã lưu vào sổ từ",
+    "listen": "Nghe",
+    "examples": "Ví dụ",
+    "otherResults": "Kết quả khác",
+    "footer": "Esc đóng · Enter tra · Ctrl+S lưu"
   },
   "mascot": {
     "lines": {
@@ -65,6 +79,9 @@
     "itemUnknown": "Không có món này.",
     "itemNotOwned": "Túi đồ không còn món này.",
     "notFound": "Không tìm thấy dữ liệu.",
-    "unknown": "Có lỗi xảy ra, thử lại nhé."
+    "unknown": "Có lỗi xảy ra, thử lại nhé.",
+    "packInvalid": "Gói nội dung không hợp lệ.",
+    "packUnsupported": "Gói nội dung cần phiên bản app mới hơn.",
+    "packCorrupt": "Gói nội dung bị hỏng."
   }
 }

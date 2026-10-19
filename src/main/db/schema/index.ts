@@ -89,3 +89,66 @@ export const settings = sqliteTable(
   },
   (t) => [primaryKey({ columns: [t.scope, t.key] })]
 )
+
+/** Content pack đã cài (docs/09-content-pipeline.md#8). Nội dung nằm ở content.db riêng, chỉ đọc. */
+export const installedPacks = sqliteTable('installed_packs', {
+  id: text('id').primaryKey(), // 'core-dictionary'
+  version: text('version').notNull(),
+  path: text('path').notNull(), // đường dẫn content.db đã giải nén
+  schemaVersion: integer('schema_version').notNull(),
+  sha256: text('sha256').notNull(),
+  installedAt: integer('installed_at').notNull(),
+  enabled: integer('enabled', { mode: 'boolean' }).notNull().default(true)
+})
+
+/** Từ người dùng đã tra/lưu (kể cả chưa thành thẻ SRS) */
+export const savedWords = sqliteTable(
+  'saved_words',
+  {
+    id: text('id').primaryKey(),
+    profileId: text('profile_id')
+      .notNull()
+      .references(() => profiles.id),
+    /** 'word:en:go' — null nếu từ không có trong từ điển */
+    contentId: text('content_id'),
+    text: text('text').notNull(),
+    /** Câu ngữ cảnh lúc copy (nếu có) */
+    context: text('context'),
+    lookupCount: integer('lookup_count').notNull().default(1),
+    lastLookupAt: integer('last_lookup_at').notNull(),
+    ...timestamps
+  },
+  (t) => [uniqueIndex('saved_words_profile_text_unique').on(t.profileId, t.text)]
+)
+
+/** Thẻ ôn tập — các cột theo thuật toán FSRS (ts-fsrs), docs/10-data-model.md */
+export const srsCards = sqliteTable(
+  'srs_cards',
+  {
+    id: text('id').primaryKey(),
+    profileId: text('profile_id')
+      .notNull()
+      .references(() => profiles.id),
+    contentId: text('content_id').notNull(),
+    direction: text('direction', {
+      enum: ['en_vi', 'vi_en', 'audio_en', 'cloze', 'audio_picture']
+    }).notNull(),
+    contextSentence: text('context_sentence'),
+    due: integer('due').notNull(),
+    stability: real('stability').notNull().default(0),
+    difficulty: real('difficulty').notNull().default(0),
+    elapsedDays: integer('elapsed_days').notNull().default(0),
+    scheduledDays: integer('scheduled_days').notNull().default(0),
+    learningSteps: integer('learning_steps').notNull().default(0),
+    reps: integer('reps').notNull().default(0),
+    lapses: integer('lapses').notNull().default(0),
+    state: integer('state').notNull().default(0), // 0 New, 1 Learning, 2 Review, 3 Relearning
+    lastReview: integer('last_review'),
+    suspended: integer('suspended', { mode: 'boolean' }).notNull().default(false),
+    ...timestamps
+  },
+  (t) => [
+    index('srs_cards_profile_due').on(t.profileId, t.due),
+    uniqueIndex('srs_cards_profile_content_direction').on(t.profileId, t.contentId, t.direction)
+  ]
+)

@@ -4,6 +4,12 @@ import { z } from 'zod'
 import type { EventName, InvokeChannel, SendChannel } from './ipc-channels'
 import { InventoryItemSchema, MascotReactionSchema, PetStateSchema } from './schemas/pet'
 import { SettingsSchema, SettingUpdateSchema } from './schemas/settings'
+import {
+  LookupResultSchema,
+  PopupQuerySchema,
+  SaveWordInputSchema,
+  SaveWordResultSchema
+} from './schemas/dictionary'
 
 export const WalkResultSchema = z.object({ blocked: z.enum(['left', 'right']).nullable() })
 export const DragEndResultSchema = z.object({ falling: z.boolean() })
@@ -18,7 +24,12 @@ export const invokeContract = {
   'pet:feed': { input: z.object({ itemId: z.string().min(1) }), output: PetStateSchema },
   'inventory:list': { input: z.void(), output: z.array(InventoryItemSchema) },
   'settings:get-all': { input: z.void(), output: SettingsSchema },
-  'settings:set': { input: SettingUpdateSchema, output: SettingsSchema }
+  'settings:set': { input: SettingUpdateSchema, output: SettingsSchema },
+  'dictionary:lookup': {
+    input: z.object({ text: z.string().max(2000) }),
+    output: LookupResultSchema
+  },
+  'vocab:save': { input: SaveWordInputSchema, output: SaveWordResultSchema }
 } satisfies Record<InvokeChannel, { input: z.ZodType; output: z.ZodType }>
 
 export const sendContract = {
@@ -32,7 +43,8 @@ export const eventContract = {
   'mascot:landed': z.void(),
   'mascot:react': MascotReactionSchema,
   'pet:updated': PetStateSchema,
-  'settings:changed': SettingsSchema
+  'settings:changed': SettingsSchema,
+  'popup:query': PopupQuerySchema
 } satisfies Record<EventName, z.ZodType>
 
 // --- Kiểu suy ra từ hợp đồng ---

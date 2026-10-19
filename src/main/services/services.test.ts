@@ -6,6 +6,7 @@ import { openUserDb, type UserDbConnection } from '../db/client'
 import { createContainer, type Container } from '../container'
 
 const MIGRATIONS = resolve('src/main/db/migrations')
+const OPTIONS = { packsDir: resolve('content/.build/test-packs-unused') }
 const HOUR = 3_600_000
 
 let conn: UserDbConnection
@@ -15,7 +16,7 @@ let c: Container
 beforeEach(() => {
   conn = openUserDb(':memory:', MIGRATIONS)
   clock = new FakeClock()
-  c = createContainer(conn, clock)
+  c = createContainer(conn, clock, OPTIONS)
 })
 
 afterEach(() => conn.close())
@@ -38,7 +39,7 @@ describe('ProfileService', () => {
 
   it('giữ nguyên profile đang dùng giữa các lần khởi động', () => {
     const first = c.profiles.active()
-    const again = createContainer(conn, clock)
+    const again = createContainer(conn, clock, OPTIONS)
     expect(again.profiles.active().id).toBe(first.id)
     expect(again.profiles.list()).toHaveLength(1)
   })
@@ -105,7 +106,7 @@ describe('SettingsService', () => {
     expect(c.settings.get('mascot.scale')).toBe(2)
     expect(() => c.settings.set('mascot.scale', 5)).toThrowError(AppError)
     c.settings.set('ui.language', 'en')
-    expect(createContainer(conn, clock).settings.get('ui.language')).toBe('en')
+    expect(createContainer(conn, clock, OPTIONS).settings.get('ui.language')).toBe('en')
   })
 
   it('phát sự kiện settings.changed', () => {

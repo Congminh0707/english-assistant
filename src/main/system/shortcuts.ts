@@ -1,5 +1,4 @@
 import { app, globalShortcut } from 'electron'
-import type { PopupWindow } from '../windows/PopupWindow'
 
 /** Phím tắt mặc định. Phase 1 cho đổi trong Cài đặt (settings: hotkeys.translate). */
 export const DEFAULT_SHORTCUTS = {
@@ -12,8 +11,8 @@ export function shortcutLabel(accelerator: string): string {
 }
 
 /** Đăng ký phím tắt toàn cục (hoạt động cả khi app không được focus). Trả về false nếu app khác đã chiếm. */
-export function registerShortcuts(popup: PopupWindow): boolean {
-  const ok = globalShortcut.register(DEFAULT_SHORTCUTS.quickTranslate, () => popup.toggleAtCursor())
+export function registerShortcuts(actions: { quickTranslate: () => void }): boolean {
+  const ok = globalShortcut.register(DEFAULT_SHORTCUTS.quickTranslate, actions.quickTranslate)
   if (!ok) {
     console.warn(
       `[shortcuts] Không đăng ký được ${DEFAULT_SHORTCUTS.quickTranslate} — có thể app khác đang dùng phím này`

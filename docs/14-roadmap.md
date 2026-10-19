@@ -51,7 +51,7 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 - [ ] Profile: ✅ tự tạo profile mặc định + thú cưng + túi đồ khởi đầu — **còn** màn hình tạo/chọn profile, onboarding (cần cửa sổ Học tập)
 - [ ] Cài đặt: ✅ ngôn ngữ, kích thước mascot, khởi động cùng Windows (chỉ bản cài) qua menu chuột phải — **còn** đổi phím tắt, tần suất nhắc (cần cửa sổ Học tập)
 - [x] i18n vi/en dùng chung main + renderer, design tokens, `PxPanel`, `PxBar`
-- [ ] Cài content pack (`core-dictionary`, bộ từ NGSL/CEFR-J) — `ContentPackService`
+- [x] Cài content pack (`core-dictionary`) — `ContentPackService`: tự cài gói đi kèm lúc khởi động (giải nén theo luồng, kiểm tra sha256, nâng cấp khi có bản mới)
 
 **Mascot**
 - [ ] State machine: ✅ idle, walk, drag, fall, land, happy, eat — **còn** sleep (năng lượng thấp / người dùng vắng mặt)
@@ -62,10 +62,10 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 - [ ] Chế độ yên lặng: ✅ fullscreen, hẹn giờ ẩn — **còn** app họp, giờ không làm phiền
 
 **Dịch & từ điển**
-- [ ] Popup dịch: copy + phím tắt → tra từ điển offline
-- [ ] TTS hệ thống (US/UK)
+- [x] Popup dịch: copy + `Ctrl+Alt+T` → tra từ điển offline (từ gốc, dạng đã chia, tra ngược tiếng Việt), ô tìm kiếm, ví dụ, nhãn level, nhãn "AI" cho nghĩa chưa duyệt — *cần thử tay*
+- [x] TTS hệ thống (US/UK) qua `speechSynthesis`
 - [ ] Dịch câu: opus-mt local (tải model khi cần) — hoặc tạm thời LLM BYOK nếu opus-mt chưa xong
-- [ ] Lưu từ → sổ từ + tạo thẻ SRS kèm câu ngữ cảnh
+- [x] Lưu từ → sổ từ (`saved_words`) + tạo thẻ SRS FSRS (`srs_cards`) kèm câu ngữ cảnh, +1 XP cho từ mới
 
 **Học**
 - [ ] SRS với ts-fsrs: phiên ôn trong cửa sổ Study

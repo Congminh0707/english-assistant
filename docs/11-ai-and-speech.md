@@ -39,6 +39,8 @@ export interface GrammarChecker {
 
 ## 2. Dịch & tra từ
 
+> ✅ **Đã làm (Phase 1)**: tra từ điển offline trong popup — `src/main/content/DictionaryService.ts` (cùng thuật toán với `pnpm content:lookup`), chuẩn hoá chuỗi copy ở `normalizeQuery` (`src/shared/schemas/dictionary.ts`), đọc clipboard **chỉ khi bấm phím tắt** và bỏ qua chuỗi giống mật khẩu/OTP (`src/main/system/clipboard.ts`), phát âm bằng `useTts`. **Chưa làm**: dịch câu (opus-mt/LLM) — popup hiện các từ trong câu để bấm tra từng từ; lọc từ nhạy cảm cho profile trẻ em.
+
 ```mermaid
 flowchart TD
   IN["Văn bản người dùng copy / OCR"] --> DET{"Ngôn ngữ?<br/>Độ dài?"}

@@ -16,6 +16,7 @@ import { showMascotMenu } from './system/mascotMenu'
 import { DEFAULT_SHORTCUTS, registerShortcuts, shortcutLabel } from './system/shortcuts'
 import { applySecurityDefaults } from './system/security'
 import { applyLaunchAtLogin } from './system/autostart'
+import { readClipboardForLookup } from './system/clipboard'
 import { monitorOfNativeHandle } from './system/win32'
 import { QuietModeService } from './services/QuietModeService'
 import { Scheduler } from './jobs/Scheduler'
@@ -33,6 +34,7 @@ app.setPath('userData', join(app.getPath('appData'), 'english-assistant'))
 
 // Giữ tham chiếu ở cấp module để không bị garbage collect
 let conn: UserDbConnection | null = null
+let container: ReturnType<typeof createContainer> | null = null
 let mascot: MascotWindow | null = null
 let popup: PopupWindow | null = null
 let tray: AppTray | null = null
@@ -52,8 +54,13 @@ if (!app.requestSingleInstanceLock()) {
 
     // Dữ liệu: mở user.db (tự migrate) và dựng các service
     conn = openUserDb(paths.userDb(), paths.migrations())
-    const c = createContainer(conn, systemClock)
+    const c = createContainer(conn, systemClock, { packsDir: paths.packs() })
     c.profiles.active() // lần đầu chạy: tạo profile + thú cưng + túi đồ khởi đầu
+    container = c
+    // Cài gói nội dung đi kèm (từ điển...) ở nền — lần đầu mất vài giây để giải nén
+    void c.packs
+      .ensureBundled(paths.bundledPacks())
+      .then((ids) => ids.length && console.info(`[content-pack] Đã cài: ${ids.join(', ')}`))
 
     // Cửa sổ & IPC
     const m = new MascotWindow(c.settings.get('mascot.scale'))
@@ -63,7 +70,15 @@ if (!app.requestSingleInstanceLock()) {
     registerAppIpc(c)
     registerMascotIpc(m, () => showMascotMenu(c, m))
     registerPopupIpc(p)
-    registerShortcuts(p)
+    registerShortcuts({
+      // Copy chữ rồi bấm phím tắt → popup tra từ cạnh con trỏ
+      quickTranslate: async () => {
+        if (p.win.isVisible()) return p.hide()
+        const text = await readClipboardForLookup()
+        p.showAtCursor()
+        sendTo(p.win, 'popup:query', { text })
+      }
+    })
     tray = createTray(m, shortcutLabel(DEFAULT_SHORTCUTS.quickTranslate), () =>
       c.settings.get('ui.language')
     )
@@ -112,6 +127,7 @@ if (!app.requestSingleInstanceLock()) {
     popup?.win.destroy()
     tray?.tray.destroy()
     tray = null
+    container?.packs.closeAll()
     conn?.close()
     conn = null
   })

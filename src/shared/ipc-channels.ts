@@ -10,7 +10,9 @@ export const INVOKE_CHANNELS = [
   'pet:feed',
   'inventory:list',
   'settings:get-all',
-  'settings:set'
+  'settings:set',
+  'dictionary:lookup',
+  'vocab:save'
 ] as const
 
 /** renderer → main, không chờ kết quả (ipcRenderer.send) */
@@ -26,7 +28,8 @@ export const EVENT_NAMES = [
   'mascot:landed',
   'mascot:react',
   'pet:updated',
-  'settings:changed'
+  'settings:changed',
+  'popup:query'
 ] as const
 
 export type InvokeChannel = (typeof INVOKE_CHANNELS)[number]

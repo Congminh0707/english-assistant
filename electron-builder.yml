@@ -2,19 +2,21 @@ appId: net.gonbi.englishassistant
 productName: English Assistant
 directories:
   buildResources: build
+# Chỉ đóng gói code đã build (out/) — node_modules production + package.json được electron-builder tự thêm.
+# Dùng danh sách CHO PHÉP thay vì loại trừ để không vô tình cuốn theo content/, docs/, .claude/worktrees...
 files:
-  - '!**/.vscode/*'
-  - '!src/*'
-  - '!electron.vite.config.{js,ts,mjs,cjs}'
-  - '!{.eslintcache,eslint.config.mjs,.prettierignore,.prettierrc.yaml,dev-app-update.yml,CHANGELOG.md,README.md}'
-  - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
-  - '!{tsconfig.json,tsconfig.node.json,tsconfig.web.json}'
+  - out/**/*
+  - '!**/*.map'
 asarUnpack:
   - resources/**
 extraResources:
   # File SQL migration của user.db, đọc lúc khởi động (src/main/core/paths.ts)
   - from: src/main/db/migrations
     to: migrations
+  # Gói nội dung đi kèm (từ điển...). Phải build trước bằng pipeline: pnpm content:fetch/normalize/build
+  - from: content/packs
+    to: packs
+    filter: ['*.eapack']
 win:
   executableName: english-assistant
 nsis:

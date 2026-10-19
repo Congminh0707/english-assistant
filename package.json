@@ -38,8 +38,10 @@
     "better-sqlite3": "^13.0.3",
     "drizzle-orm": "^0.45.4",
     "electron-updater": "^6.8.9",
+    "fflate": "^0.8.3",
     "koffi": "^3.3.3",
     "pinia": "^4.1.0",
+    "ts-fsrs": "^5.4.2",
     "vue-i18n": "^11.4.14",
     "zod": "^4.6.7"
   },
@@ -58,7 +60,6 @@
     "electron-vite": "^6.0.0",
     "eslint": "^10.12.0",
     "eslint-plugin-vue": "^10.11.1",
-    "fflate": "^0.8.3",
     "prettier": "^3.9.10",
     "seek-bzip": "^2.0.0",
     "tsx": "^4.23.15",

@@ -12,6 +12,27 @@ import { extractEntries, readSmallEntry } from './zip'
 
 const CONTENT_DB = 'content.db'
 
+const sleepSync = (ms: number): void => {
+  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)
+}
+
+/**
+ * Đổi tên thư mục, thử lại vài lần nếu Windows báo EPERM/EBUSY/EACCES: phần mềm diệt virus hoặc trình
+ * lập chỉ mục thường giữ tạm file vừa giải nén vài trăm ms (lỗi thật gặp trên máy chạy CI).
+ */
+function renameWithRetry(from: string, to: string, attempts = 8): void {
+  for (let i = 1; ; i++) {
+    try {
+      renameSync(from, to)
+      return
+    } catch (err) {
+      const code = (err as NodeJS.ErrnoException).code
+      if (i >= attempts || !['EPERM', 'EBUSY', 'EACCES'].includes(code ?? '')) throw err
+      sleepSync(100 * i)
+    }
+  }
+}
+
 /** So sánh semver 'a.b.c' — trả về >0 nếu a mới hơn b */
 export function compareVersions(a: string, b: string): number {
   const pa = a.split('.').map(Number)
@@ -68,8 +89,8 @@ export class ContentPackService {
       writeFileSync(join(tmpDir, 'manifest.json'), JSON.stringify(manifest, null, 2))
 
       this.close(manifest.id)
-      rmSync(targetDir, { recursive: true, force: true })
-      renameSync(tmpDir, targetDir)
+      rmSync(targetDir, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 })
+      renameWithRetry(tmpDir, targetDir)
     } catch (err) {
       rmSync(tmpDir, { recursive: true, force: true })
       throw err

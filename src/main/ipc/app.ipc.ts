@@ -69,6 +69,7 @@ export function registerAppIpc(
   handle('shop:state', () => c.shop.state())
   handle('shop:buy', ({ itemId }) => c.shop.buy(itemId))
   handle('shop:equip', ({ itemId, equipped }) => c.shop.equip(itemId, equipped))
+  handle('shop:select-character', ({ characterId }) => c.shop.selectCharacter(characterId))
   handle('study:stats', () => c.stats.stats())
   handle('phrasebook:list', () => c.phrasebook.list())
   handle('update:status', () => updates.current)

@@ -21,6 +21,10 @@ import SettingsPage from './components/SettingsPage.vue'
 import Onboarding from './components/Onboarding.vue'
 import ParentReport from './components/ParentReport.vue'
 import KidsApp from './kids/KidsApp.vue'
+import PetPage from './components/PetPage.vue'
+import TtsIndicator from '@renderer/shared/components/TtsIndicator.vue'
+import EvolutionOverlay from './components/EvolutionOverlay.vue'
+import { useEvolution } from './useEvolution'
 
 // Cửa sổ Học tập (docs/12-ui-ux-guidelines.md#cửa-sổ-học-tập-study): thanh bên + trang nội dung.
 type Page =
@@ -35,6 +39,7 @@ type Page =
   | 'review'
   | 'practice'
   | 'words'
+  | 'pet'
   | 'shop'
   | 'stats'
   | 'placement'
@@ -43,6 +48,7 @@ type Page =
 const { t, locale } = useI18n()
 const settingsStore = useSettingsStore()
 const petStore = usePetStore()
+const { evolution, dismiss: dismissEvolution } = useEvolution(computed(() => petStore.pet))
 
 const page = ref<Page>('home')
 const overview = ref<StudyOverview | null>(null)
@@ -73,6 +79,7 @@ const pages = computed<Array<{ id: Page; icon: string; label: string }>>(() => [
   { id: 'review', icon: '🧠', label: t('study.nav.review') },
   { id: 'practice', icon: '🎯', label: t('study.nav.practice') },
   { id: 'words', icon: '🗂', label: t('study.nav.words') },
+  { id: 'pet', icon: '🐾', label: t('study.nav.pet') },
   { id: 'shop', icon: '🛍', label: t('study.nav.shop') },
   { id: 'stats', icon: '📊', label: t('study.nav.stats') },
   { id: 'placement', icon: '🧪', label: t('study.nav.placement') },
@@ -219,6 +226,7 @@ onUnmounted(() => {
       <ReviewSession v-else-if="page === 'review'" @exit="go('home')" @changed="refresh" />
       <PracticeSession v-else-if="page === 'practice'" @changed="refresh" />
       <WordList v-else-if="page === 'words'" @changed="refresh" />
+      <PetPage v-else-if="page === 'pet'" @changed="refresh" />
       <ShopPage v-else-if="page === 'shop'" @changed="refresh" />
       <StatsPage v-else-if="page === 'stats'" @checkpoint="startCheckpoint" />
       <PlacementTest
@@ -229,6 +237,18 @@ onUnmounted(() => {
       />
       <SettingsPage v-else @retest="go('placement')" @changed="refresh" />
     </main>
+
+    <TtsIndicator />
+
+    <EvolutionOverlay
+      v-if="loaded && evolution"
+      :character="evolution.character"
+      :name="evolution.name"
+      :from="evolution.from"
+      :to="evolution.to"
+      :accessories="evolution.accessories"
+      @close="dismissEvolution"
+    />
 
     <Onboarding v-if="loaded && !settingsStore.settings['app.onboarded']" @done="onboarded" />
   </div>
@@ -268,13 +288,19 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  flex: none;
   width: 200px;
+  min-height: 0;
+  /* Màn hình thấp: cuộn thanh bên thay vì bị cắt mất mục */
+  overflow-y: auto;
+  overscroll-behavior: contain;
   padding: 14px 12px;
   background: var(--c-surface);
   border-right: var(--px) solid var(--c-border);
 }
 .pet {
   display: grid;
+  flex: none;
   gap: 4px;
 }
 .pet-name {
@@ -297,6 +323,7 @@ onUnmounted(() => {
 }
 .nav {
   display: grid;
+  flex: none;
   gap: 4px;
 }
 .nav-item {

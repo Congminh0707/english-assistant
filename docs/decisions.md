@@ -143,3 +143,13 @@ Mẫu:
 **Bối cảnh:** Trình nghe cần phát từng câu, chỉnh tốc độ, lặp A–B; sinh sẵn audio lúc build (WAV 24 kHz) làm bộ cài phình (~50 KB/giây, 30 bài ≈ vài chục MB) và cần bộ nén (Opus) chưa có trong chuỗi công cụ.
 **Quyết định:** Phát bằng TTS ngay trong app (giọng Windows hoặc Kokoro, có bộ nhớ đệm trên đĩa và tạo trước ở nền); người nói A/B dùng hai giọng Mỹ/Anh. Việc sinh sẵn audio lúc build để sau, gắn với chuyện chốt dung lượng và bộ mã hoá.
 **Hệ quả:** Lần đầu nghe một câu bằng Kokoro có độ trễ 1–3 giây (rồi được nhớ); âm đơn lẻ cho phonics ("buh", "kuh") vẫn thô vì model không huấn luyện cho âm đơn.
+
+## #23 — Nhiều nhân vật thú cưng, đều là thiết kế gốc (2026-10-20) — Chấp nhận
+**Bối cảnh:** Người dùng muốn thêm 3–4 thú cưng (có nhắc Spider-Man) kèm tiến hoá và vật phẩm cửa hàng.
+**Quyết định:** 4 nhân vật mới tự thiết kế (Webby nhện hero, Draco rồng, Robo, Kitsu cáo), mỗi con 5 giai đoạn. **Không dùng nhân vật/biểu tượng có bản quyền** (quy tắc AGENTS.md về nội dung): Webby chỉ gợi ý tưởng "anh hùng mặt nạ nhện" với màu, hoạ tiết và tên riêng. Nhân vật mua bằng xu như vật phẩm (`char:<id>` trong `inventory`) nên không cần migration; level/XP thuộc về hồ sơ, đổi nhân vật không mất tiến độ.
+**Hệ quả:** Sprite vẫn là placeholder sinh bằng code (~1.5 MB cho 5 nhân vật × 5 giai đoạn × 12 sheet); thay bằng art thật chỉ cần giữ tên file/khung. Chưa có câu thoại riêng từng nhân vật.
+
+## #24 — Sprite 96×96 vẽ bằng SDF + đổ bóng, thay khung 48 (2026-10-20) — Chấp nhận
+**Bối cảnh:** Sprite 48×48 (hình elip phẳng, mặt vài pixel) bị đánh giá chưa đẹp; cần chi tiết gấp 3–4 lần và nhiều hoạt ảnh hơn.
+**Quyết định:** Khung 96×96 (gấp 4 số pixel), vẽ bằng code: hình khối SDF + đổ bóng 5 tông (sáng ấm → tối lạnh) + dither Bayer + viền theo màu từng bộ phận; mặt có mắt kèm ánh sáng, má hồng, mũi/miệng theo cảm xúc; tay/chân/đuôi/cánh có hoạt ảnh; 20 hoạt ảnh/186 frame. Kích thước hiển thị vẫn tính theo khung 48 (`mascot.scale` × 48 px) nên `SpriteAnimator` thu 96→48/96/144 (làm mịn khi tỉ lệ lẻ). Phụ kiện có lớp sau lưng (`accb-*`) để áo choàng/cánh nằm sau thân.
+**Hệ quả:** Bộ sheet ~16 MB trong repo/bộ cài (25 bộ × 12 phụ kiện); sinh lại mất ~80 giây. Vẫn là art sinh bằng code — họa sĩ thật thay được bằng cách giữ tên file/hoạt ảnh/khung.

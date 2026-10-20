@@ -41,3 +41,21 @@ export function kokoroSpeed(rate: number): number {
   const speed = Math.min(1.3, Math.max(0.5, rate / 0.9))
   return Math.round(speed * 100) / 100
 }
+
+/**
+ * Chuẩn hoá một đoạn văn trước khi gửi cho giọng tự nhiên: gom khoảng trắng và cắt tại cuối câu (hoặc dấu
+ * cách) cho vừa `TTS_MAX_CHARS`. Trả về chuỗi rỗng nếu không có gì để đọc.
+ */
+export function clipForTts(text: string): string {
+  const clean = text.replace(/\s+/g, ' ').trim()
+  if (clean.length <= TTS_MAX_CHARS) return clean
+  const head = clean.slice(0, TTS_MAX_CHARS)
+  const sentenceEnd = Math.max(
+    head.lastIndexOf('. '),
+    head.lastIndexOf('? '),
+    head.lastIndexOf('! ')
+  )
+  if (sentenceEnd > TTS_MAX_CHARS * 0.4) return head.slice(0, sentenceEnd + 1)
+  const space = head.lastIndexOf(' ')
+  return (space > TTS_MAX_CHARS * 0.4 ? head.slice(0, space) : head).trim()
+}

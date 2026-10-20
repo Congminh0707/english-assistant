@@ -46,7 +46,18 @@
     "glasses": "Round glasses",
     "scarf": "Wool scarf",
     "hat": "Top hat",
-    "crown": "Crown"
+    "crown": "Crown",
+    "apple": "Apple",
+    "ice-cream": "Ice cream",
+    "pizza": "Pizza",
+    "ramen": "Ramen",
+    "energy-drink": "Energy drink",
+    "flower": "Hair flower",
+    "party-hat": "Party hat",
+    "headphones": "Headphones",
+    "sunglasses": "Sunglasses",
+    "cape": "Cape",
+    "wings": "Wings"
   },
   "stats": {
     "hunger": "Full",
@@ -152,7 +163,8 @@
       "grammar": "Grammar",
       "phrasebook": "Phrasebook",
       "listening": "Listening",
-      "courses": "Courses"
+      "courses": "Courses",
+      "pet": "Pets"
     },
     "home": {
       "welcome": "Hi, what shall we learn today?",
@@ -622,6 +634,20 @@
         "reading": "Reading",
         "listening": "Listening"
       }
+    },
+    "pet": {
+      "title": "Pets",
+      "nextEvolution": "{n} more levels to evolve into {stage}",
+      "maxStage": "Fully evolved!",
+      "chooseTitle": "Choose a pet",
+      "selected": "Selected",
+      "select": "Select",
+      "evolutionTitle": "{name}’s evolution",
+      "fromLevel": "From Lv {level}",
+      "keepHint": "Level and XP belong to your profile — switching pets keeps your progress.",
+      "evolving": "{name} is evolving…",
+      "evolved": "{name} evolved into {stage}!",
+      "great": "Awesome!"
     }
   },
   "translate": {
@@ -658,7 +684,8 @@
     "needLevel": "Needs Lv {level}",
     "tooExpensive": "{n} coins short",
     "earnHint": "Earn coins from daily missions and practice!",
-    "bought": "Bought {item}!"
+    "bought": "Bought {item}!",
+    "characterTitle": "New pets"
   },
   "credits": {
     "title": "Licenses & credits",
@@ -782,7 +809,8 @@
     "test": "Listen",
     "testText": "Hello! This is how I sound.",
     "cacheHint": "Generated audio is saved so replays are instant. A new sentence takes about 1–3 seconds the first time.",
-    "fallbackHint": "The model is not downloaded, so the Windows voice is used."
+    "fallbackHint": "The model is not downloaded, so the Windows voice is used.",
+    "loading": "Preparing voice…"
   },
   "pet": {
     "stage": {
@@ -811,5 +839,27 @@
       "error": "Could not check or download the update."
     },
     "privacy": "Checking only asks GitHub Releases whether a newer version exists (none of your learning data is sent). The app never downloads or installs anything without your approval."
+  },
+  "characters": {
+    "bi": {
+      "name": "Bi",
+      "desc": "Your first companion"
+    },
+    "webster": {
+      "name": "Webby",
+      "desc": "A nimble spider hero"
+    },
+    "draco": {
+      "name": "Draco",
+      "desc": "A little dragon with wings and fire"
+    },
+    "robo": {
+      "name": "Robo",
+      "desc": "A clever robot"
+    },
+    "kitsu": {
+      "name": "Kitsu",
+      "desc": "A many-tailed fox"
+    }
   }
 }

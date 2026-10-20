@@ -205,6 +205,34 @@ describe('ShopService', () => {
     expect(c.pet.get().equipped).toEqual(['acc:glasses'])
   })
 
+  it('mua và chọn nhân vật: cần level + xu, giữ nguyên level/XP, đổi tên mặc định theo nhân vật', () => {
+    c.profiles.active()
+    c.xp.grant({ amount: 0, coins: 1000, reason: 'test' })
+    expect(() => c.shop.buy('char:kitsu')).toThrow(/LEVEL_TOO_LOW/) // cần Lv 5
+    expect(() => c.shop.selectCharacter('kitsu')).toThrow(/ITEM_NOT_OWNED/)
+    expect(() => c.shop.selectCharacter('khong-co')).toThrow(/ITEM_UNKNOWN/)
+
+    c.xp.grant({ amount: 900, reason: 'test' }) // đủ lên Lv 5
+    const before = c.pet.get()
+    expect(before.level).toBeGreaterThanOrEqual(5)
+    expect(before.characterId).toBe('bi')
+    c.shop.buy('char:kitsu')
+    expect(() => c.shop.buy('char:kitsu')).toThrow(/ALREADY_OWNED/)
+
+    const state = c.shop.selectCharacter('kitsu')
+    expect(state.character).toBe('kitsu')
+    const after = c.pet.get()
+    expect(after).toMatchObject({ characterId: 'kitsu', name: 'Kitsu', level: before.level })
+    expect(after.totalXp).toBe(before.totalXp)
+    expect(state.items.find((i) => i.id === 'char:kitsu')).toMatchObject({
+      owned: 1,
+      equipped: true
+    })
+
+    expect(c.shop.selectCharacter('bi').character).toBe('bi') // Bi luôn có sẵn
+    expect(c.pet.get().name).toBe('Bi')
+  })
+
   it('hồ sơ khác có túi đồ và phụ kiện riêng', () => {
     const first = c.profiles.active()
     c.xp.grant({ amount: 0, coins: 100, reason: 'test' })

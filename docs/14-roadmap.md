@@ -25,7 +25,9 @@ gantt
 
 > Quy tắc: ghi `🚧 Đang làm` trước khi bắt đầu việc dài, xoá/đổi thành `[x]` ngay khi xong. Xem AGENTS.md.
 
-- Hiện tại: không có việc dở. Commit gần nhất `f33ec59`. Việc kế tiếp đề xuất: thử tay các màn mới → phát hành bản đầu (`pnpm release:win`).
+- ✅ Xong (2026-10-20): **Làm lại sprite chi tiết gấp 4** (khung 96×96, 20 hoạt ảnh, phụ kiện lớp sau lưng, MascotBrain tự chơi) — lint/typecheck/310 test/build qua; **chưa thử tay trong app** (xem mascot mới đi/nhảy/ngủ, đổi kích thước 1/2/3, đeo cánh/áo choàng, trang Thú cưng). Sheet ~16 MB cho cả bộ: cân nhắc nén/lược bớt khi đóng gói.
+- ✅ Xong (2026-10-20): **Nhiều thú cưng (5 nhân vật) + trang Thú cưng/cây tiến hoá + màn hình tiến hoá + vật phẩm cửa hàng mới** — lint/typecheck/310 test/build qua; chưa thử tay trong app (cần: mua & chọn nhân vật, xem mascot đổi hình, đeo cánh/áo choàng, màn tiến hoá khi lên level 2/10/25/50).
+- Trước đó: không có việc dở. Commit gần nhất `f33ec59`. Việc kế tiếp đề xuất: thử tay các màn mới → phát hành bản đầu (`pnpm release:win`).
 
 ## Phase 0 — Spike: cửa sổ mascot (≈ 2 tuần)
 
@@ -35,7 +37,7 @@ Mục tiêu: chứng minh các kỹ thuật khó nhất chạy được trên Wi
 - [x] Cửa sổ trong suốt, không khung, luôn trên cùng, không hiện taskbar, không cướp focus
 - [x] Click xuyên qua vùng trong suốt, bắt được click trên nhân vật — đã thử tay OK (2026-10-18)
 - [x] Kéo thả nhân vật; thả ra rơi xuống mép taskbar (có trọng lực); click → nhảy vui — đã thử tay OK (2026-10-18)
-- [x] Animation sprite sheet (idle + walk + drag/fall/land/happy) bằng canvas, nhân vật tự đi qua lại — sprite tạm (`pnpm sprites:placeholder`)
+- [x] Animation sprite sheet (idle + walk + drag/fall/land/happy) bằng canvas, nhân vật tự đi qua lại — sprite tạm (`pnpm sprites:characters`)
 - [x] Tray icon: Hiện/Ẩn, Đưa về góc, Thoát
 - [x] Phím tắt toàn cục `Ctrl+Alt+T` bật/tắt popup trống cạnh con trỏ (Esc / click ra ngoài để đóng) — *đã code, cần thử tay*
 - [x] Phát hiện app fullscreen → ẩn mascot (cùng màn hình với mascot; game DirectX độc quyền & chế độ trình chiếu ẩn ở mọi màn hình) — đã xác nhận thực tế với một game toàn màn hình

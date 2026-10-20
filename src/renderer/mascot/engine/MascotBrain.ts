@@ -1,15 +1,56 @@
 import type { WalkResult } from '@shared/ipc-contract'
 import type { SpriteAnimator } from './SpriteAnimator'
 
-export type MascotState = 'idle' | 'walk' | 'drag' | 'fall' | 'land' | 'happy' | 'eat' | 'sleep'
+/** Hoạt ảnh "tự chơi" khi rảnh: nhìn quanh, vẫy đuôi, ngáp, vươn vai, vẫy tay, nhảy múa, xoay, suy nghĩ */
+const FIDGETS = ['look', 'wag', 'yawn', 'stretch', 'wave', 'dance', 'spin', 'think'] as const
+type Fidget = (typeof FIDGETS)[number]
+
+export type MascotState =
+  | 'idle'
+  | 'walk'
+  | 'drag'
+  | 'fall'
+  | 'land'
+  | 'happy'
+  | 'eat'
+  | 'sleep'
+  | 'sad'
+  | 'surprised'
+  | 'angry'
+  | 'love'
+  | Fidget
 
 /** Phản ứng một lần (animation không lặp rồi quay về nghỉ) */
-export type MascotReactionAnim = 'happy' | 'eat'
+export type MascotReactionAnim =
+  'happy' | 'eat' | 'sad' | 'love' | 'surprised' | 'angry' | 'wave' | 'dance' | 'stretch' | 'yawn'
 
-const ONE_SHOT_STATES: MascotState[] = ['land', 'happy', 'eat']
+const ONE_SHOT_STATES: MascotState[] = [
+  'land',
+  'happy',
+  'eat',
+  'sad',
+  'surprised',
+  'angry',
+  'love',
+  ...FIDGETS
+]
+
+/** Trọng số chọn hoạt ảnh tự chơi (nhẹ nhàng hơn là nhảy múa/xoay) */
+const FIDGET_WEIGHTS: Record<Fidget, number> = {
+  look: 4,
+  wag: 3,
+  yawn: 2,
+  stretch: 2,
+  wave: 2,
+  think: 2,
+  dance: 1,
+  spin: 1
+}
 
 const WALK_SPEED = 30 // px/s
-const WALK_CHANCE = 0.6
+const WALK_CHANCE = 0.55
+/** Xác suất làm một hoạt ảnh tự chơi thay vì đi/đứng yên khi hết thời gian nghỉ */
+const FIDGET_CHANCE = 0.35
 
 const randomBetween = (min: number, max: number): number => min + Math.random() * (max - min)
 
@@ -56,7 +97,7 @@ export class MascotBrain {
   }
 
   pointerUp(isClick: boolean, falling: boolean): void {
-    if (isClick) this.enter(this.sleeping ? 'sleep' : 'happy')
+    if (isClick) this.enter(this.sleeping ? 'sleep' : Math.random() < 0.5 ? 'love' : 'happy')
     else this.enter(falling ? 'fall' : 'land')
   }
 
@@ -97,8 +138,25 @@ export class MascotBrain {
   }
 
   private chooseNext(): void {
-    if (this.state === 'walk') this.enter('idle')
-    else this.enter(Math.random() < WALK_CHANCE ? 'walk' : 'idle')
+    if (this.state === 'walk') {
+      this.enter('idle')
+      return
+    }
+    if (Math.random() < FIDGET_CHANCE) {
+      this.enter(this.pickFidget())
+      return
+    }
+    this.enter(Math.random() < WALK_CHANCE ? 'walk' : 'idle')
+  }
+
+  private pickFidget(): Fidget {
+    const total = FIDGETS.reduce((sum, f) => sum + FIDGET_WEIGHTS[f], 0)
+    let roll = Math.random() * total
+    for (const f of FIDGETS) {
+      roll -= FIDGET_WEIGHTS[f]
+      if (roll < 0) return f
+    }
+    return 'look'
   }
 
   private walkStep(dt: number): void {

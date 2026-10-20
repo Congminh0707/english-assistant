@@ -1,10 +1,11 @@
 // Cửa hàng: đồ ăn (đã có trong pet.ts) và phụ kiện cho mascot — định nghĩa thuần, dùng ở main, renderer và test.
 // docs/06-levels-and-progression.md (cửa hàng), docs/05-mascot-system.md (phụ kiện)
 
+import { CHARACTERS, characterItemId, CHARACTER_IDS, isCharacterItem } from './characters'
 import { FOODS, isFoodId } from './pet'
 
 /** Vị trí đeo: mỗi vị trí chỉ đeo được một món */
-export type AccessorySlot = 'head' | 'face' | 'neck'
+export type AccessorySlot = 'head' | 'face' | 'neck' | 'back'
 
 export interface AccessoryDef {
   price: number
@@ -19,7 +20,13 @@ export const ACCESSORIES = {
   'acc:glasses': { price: 60, emoji: '👓', slot: 'face', minLevel: 0 },
   'acc:scarf': { price: 80, emoji: '🧣', slot: 'neck', minLevel: 0 },
   'acc:hat': { price: 120, emoji: '🎩', slot: 'head', minLevel: 5 },
-  'acc:crown': { price: 300, emoji: '👑', slot: 'head', minLevel: 10 }
+  'acc:crown': { price: 300, emoji: '👑', slot: 'head', minLevel: 10 },
+  'acc:flower': { price: 40, emoji: '🌸', slot: 'head', minLevel: 0 },
+  'acc:party-hat': { price: 70, emoji: '🥳', slot: 'head', minLevel: 0 },
+  'acc:headphones': { price: 150, emoji: '🎧', slot: 'head', minLevel: 5 },
+  'acc:sunglasses': { price: 90, emoji: '🕶️', slot: 'face', minLevel: 3 },
+  'acc:cape': { price: 200, emoji: '🦸', slot: 'back', minLevel: 8 },
+  'acc:wings': { price: 450, emoji: '🪽', slot: 'back', minLevel: 15 }
 } as const satisfies Record<string, AccessoryDef>
 
 export type AccessoryId = keyof typeof ACCESSORIES
@@ -28,10 +35,16 @@ export const isAccessoryId = (id: string): id is AccessoryId => id in ACCESSORIE
 
 /** Thứ tự vẽ các lớp phụ kiện (lớp sau đè lên lớp trước) */
 export const ACCESSORY_DRAW_ORDER: AccessoryId[] = [
+  'acc:wings',
+  'acc:cape',
   'acc:scarf',
   'acc:glasses',
+  'acc:sunglasses',
   'acc:bow',
+  'acc:flower',
+  'acc:party-hat',
   'acc:hat',
+  'acc:headphones',
   'acc:crown'
 ]
 
@@ -40,7 +53,7 @@ export const MAX_FOOD_STACK = 99
 
 export interface ShopEntry {
   id: string
-  kind: 'food' | 'accessory'
+  kind: 'food' | 'accessory' | 'character'
   price: number
   emoji: string
   minLevel: number
@@ -67,7 +80,15 @@ export function shopCatalog(): ShopEntry[] {
     minLevel: def.minLevel,
     slot: def.slot
   }))
-  return [...foods, ...accessories]
+  const characters = CHARACTER_IDS.filter((id) => CHARACTERS[id].price > 0).map((id) => ({
+    id: characterItemId(id),
+    kind: 'character' as const,
+    price: CHARACTERS[id].price,
+    emoji: CHARACTERS[id].emoji,
+    minLevel: CHARACTERS[id].minLevel,
+    slot: null
+  }))
+  return [...foods, ...accessories, ...characters]
 }
 
 /** Danh sách phụ kiện đang đeo sau khi bật/tắt một món (một vị trí một món) */
@@ -78,7 +99,8 @@ export function toggleEquipped(equipped: string[], id: AccessoryId, wear: boolea
   return wear ? [...without, id] : current.filter((x) => x !== id)
 }
 
-export const isShopItem = (id: string): boolean => isFoodId(id) || isAccessoryId(id)
+export const isShopItem = (id: string): boolean =>
+  isFoodId(id) || isAccessoryId(id) || isCharacterItem(id)
 
 /** Đọc cột `equipped` (JSON) an toàn: sai định dạng/id lạ → bỏ */
 export function parseEquipped(json: string): string[] {

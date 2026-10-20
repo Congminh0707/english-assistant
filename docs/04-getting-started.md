@@ -79,7 +79,7 @@ Template sinh ra cấu trúc `src/main`, `src/preload`, `src/renderer`. Ta sẽ 
 
 > ✅ **Bước 3–7 đã được hiện thực trong repo (Phase 0).** Code mẫu bên dưới là bản giản lược để hiểu ý tưởng; code thật (đầy đủ hơn: rơi có trọng lực, kiểm tra người gửi IPC, tray, nhiều màn hình) nằm ở:
 > `electron.vite.config.ts` · `src/main/index.ts` · `src/main/windows/MascotWindow.ts` · `src/main/ipc/mascot.ipc.ts` · `src/main/system/tray.ts` · `src/preload/index.ts` · `src/shared/ipc.ts` · `src/renderer/mascot/App.vue` · `src/renderer/mascot/engine/{SpriteAnimator,MascotBrain}.ts`.
-> Sprite tạm sinh bằng `pnpm sprites:placeholder`. Mở DevTools cho cửa sổ mascot khi dev: đặt biến môi trường `MASCOT_DEVTOOLS=1` trước `pnpm dev`.
+> Sprite tạm sinh bằng `pnpm sprites:characters`. Mở DevTools cho cửa sổ mascot khi dev: đặt biến môi trường `MASCOT_DEVTOOLS=1` trước `pnpm dev`.
 
 ## Bước 3 — Cấu hình nhiều cửa sổ (multi-page)
 

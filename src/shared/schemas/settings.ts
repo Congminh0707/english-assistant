@@ -11,7 +11,7 @@ const ClockTime = z.string().regex(/^([01]?\d|2[0-3]):[0-5]\d$/)
  */
 export const settingDefinitions = {
   'ui.language': z.enum(['vi', 'en']).default('vi'),
-  /** Hệ số phóng to sprite (khung 48px): 1 = 48px, 2 = 96px, 3 = 144px */
+  /** Kích thước mascot theo khung gốc 48px: 1 = 48px, 2 = 96px, 3 = 144px (sheet 96×96 được thu lại tương ứng) */
   'mascot.scale': z.union([z.literal(1), z.literal(2), z.literal(3)]).default(2),
   'app.launchAtLogin': z.boolean().default(false),
   /** Tự kiểm tra bản mới khi mở app và mỗi vài giờ (chỉ kiểm tra, không tự tải/cài) */

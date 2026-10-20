@@ -2,11 +2,21 @@ import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
+  characterFromItem,
+  CHARACTER_IDS,
+  CHARACTERS,
+  characterItemId,
+  isCharacterItem,
+  normalizeCharacterId
+} from './characters'
+import { ACCESSORIES } from './shop'
+import {
   applyFood,
   decayStats,
   FOODS,
   levelFromTotalXp,
   MAX_OFFLINE_DECAY_HOURS,
+  nextStage,
   PET_STAT_MAX,
   PET_STAT_MIN,
   stageForLevel,
@@ -79,17 +89,53 @@ describe('level', () => {
 })
 
 describe('tiến hoá', () => {
-  const DIR = resolve('src/renderer/mascot/assets/characters/placeholder')
+  const BASE = resolve('src/renderer/mascot/assets/characters')
   const STAGES = ['egg', 'baby', 'teen', 'adult', 'legend'] as const
 
-  it('mọi giai đoạn đều có sheet, metadata cùng bố cục và đủ phụ kiện', () => {
-    const baby = JSON.parse(readFileSync(resolve(DIR, 'baby/sheet.json'), 'utf8')) as unknown
-    for (const stage of STAGES) {
-      expect(existsSync(resolve(DIR, stage, 'sheet.png')), stage).toBe(true)
-      const meta = JSON.parse(readFileSync(resolve(DIR, stage, 'sheet.json'), 'utf8')) as unknown
-      expect(meta, stage).toEqual(baby)
-      for (const acc of ['bow', 'glasses', 'scarf', 'hat', 'crown']) {
-        expect(existsSync(resolve(DIR, stage, `acc-${acc}.png`)), `${stage}/${acc}`).toBe(true)
+  it('mọi nhân vật × giai đoạn có sheet, metadata cùng bố cục và đủ phụ kiện', () => {
+    const baby = JSON.parse(readFileSync(resolve(BASE, 'bi/baby/sheet.json'), 'utf8')) as {
+      frameSize: { w: number; h: number }
+      animations: Record<string, { frames: number[] }>
+    }
+    // Hoạt ảnh mà MascotBrain gọi phải có trong sheet
+    for (const name of [
+      'idle',
+      'walk',
+      'drag',
+      'fall',
+      'land',
+      'happy',
+      'eat',
+      'sleep',
+      'sad',
+      'surprised',
+      'angry',
+      'love',
+      'look',
+      'wag',
+      'yawn',
+      'stretch',
+      'wave',
+      'dance',
+      'spin',
+      'think'
+    ]) {
+      expect(baby.animations[name], name).toBeDefined()
+    }
+    expect(baby.frameSize).toEqual({ w: 96, h: 96 })
+    const accessories = Object.keys(ACCESSORIES).map((id) => id.split(':')[1])
+    for (const char of CHARACTER_IDS) {
+      for (const stage of STAGES) {
+        const dir = resolve(BASE, char, stage)
+        expect(existsSync(resolve(dir, 'sheet.png')), `${char}/${stage}`).toBe(true)
+        const meta = JSON.parse(readFileSync(resolve(dir, 'sheet.json'), 'utf8')) as unknown
+        expect(meta, `${char}/${stage}`).toEqual(baby)
+        for (const acc of accessories) {
+          const has =
+            existsSync(resolve(dir, `acc-${acc}.png`)) ||
+            existsSync(resolve(dir, `accb-${acc}.png`))
+          expect(has, `${char}/${stage}/${acc}`).toBe(true)
+        }
       }
     }
   })
@@ -97,5 +143,25 @@ describe('tiến hoá', () => {
   it('mốc level đổi giai đoạn theo thứ tự egg → baby → teen → adult → legend', () => {
     const seen = [1, 2, 10, 25, 50].map(stageForLevel)
     expect(seen).toEqual([...STAGES])
+  })
+
+  it('nextStage trả giai đoạn kế tiếp, null ở cuối', () => {
+    expect(nextStage(1)).toEqual({ stage: 'baby', minLevel: 2 })
+    expect(nextStage(10)).toEqual({ stage: 'adult', minLevel: 25 })
+    expect(nextStage(50)).toBeNull()
+  })
+})
+
+describe('nhân vật', () => {
+  it('Bi có sẵn, các nhân vật khác có giá; id cũ placeholder và id lạ về Bi', () => {
+    expect(CHARACTERS.bi.price).toBe(0)
+    for (const id of CHARACTER_IDS.filter((c) => c !== 'bi'))
+      expect(CHARACTERS[id].price).toBeGreaterThan(0)
+    expect(normalizeCharacterId('placeholder')).toBe('bi')
+    expect(normalizeCharacterId('draco')).toBe('draco')
+    expect(normalizeCharacterId('???')).toBe('bi')
+    expect(characterFromItem(characterItemId('kitsu'))).toBe('kitsu')
+    expect(isCharacterItem('char:robo')).toBe(true)
+    expect(isCharacterItem('char:nope')).toBe(false)
   })
 })

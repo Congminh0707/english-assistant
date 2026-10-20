@@ -7,6 +7,7 @@ import { looksVietnamese } from '@shared/sentences'
 import { invoke, IpcError } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useTts } from '@renderer/shared/composables/useTts'
+import TtsIndicator from '@renderer/shared/components/TtsIndicator.vue'
 import { useTranslateModels } from '@renderer/shared/composables/useTranslateModels'
 
 // Popup tra từ offline (docs/12-ui-ux-guidelines.md#popup-dịch-nhanh).
@@ -389,6 +390,7 @@ onUnmounted(() => {
         {{ entry.saved ? `✓ ${t('popup.saved')}` : `💾 ${t('popup.save')}` }}
       </button>
     </footer>
+    <TtsIndicator />
   </div>
 </template>
 

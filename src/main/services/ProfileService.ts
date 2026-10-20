@@ -1,3 +1,4 @@
+import { DEFAULT_CHARACTER_ID } from '@shared/characters'
 import { STARTER_INVENTORY } from '@shared/pet'
 import { isChildTrack, type ProfileInfo, type ProfileSetupInput } from '@shared/schemas/profile'
 import { AppError } from '../core/AppError'
@@ -8,7 +9,7 @@ import type { ProfileRepository, ProfileRow, Track } from '../db/repositories/Pr
 import type { SettingsService } from './SettingsService'
 import type { Transaction } from './types'
 
-export const DEFAULT_CHARACTER = 'placeholder'
+export const DEFAULT_CHARACTER = DEFAULT_CHARACTER_ID
 
 export interface NewProfile {
   name: string

@@ -63,6 +63,11 @@ export const FOODS = {
   'food:cake': { hunger: 15, mood: 10, energy: 0, price: 25, emoji: '🍰' },
   'food:watermelon': { hunger: 25, mood: 8, energy: 0, price: 30, emoji: '🍉' },
   'food:milk-tea': { hunger: 5, mood: 5, energy: 20, price: 20, emoji: '🥤' },
+  'food:apple': { hunger: 12, mood: 2, energy: 3, price: 8, emoji: '🍎' },
+  'food:ice-cream': { hunger: 8, mood: 20, energy: 0, price: 22, emoji: '🍦' },
+  'food:pizza': { hunger: 30, mood: 12, energy: 0, price: 35, emoji: '🍕' },
+  'food:ramen': { hunger: 40, mood: 6, energy: 5, price: 45, emoji: '🍜' },
+  'food:energy-drink': { hunger: 0, mood: 0, energy: 40, price: 35, emoji: '⚡' },
   'food:birthday-cake': { hunger: 50, mood: 30, energy: 0, price: null, emoji: '🎂' }
 } as const satisfies Record<string, FoodDef>
 
@@ -116,10 +121,22 @@ export function levelFromTotalXp(totalXp: number): LevelInfo {
 
 export type PetStage = 'egg' | 'baby' | 'teen' | 'adult' | 'legend'
 
+/** Các giai đoạn theo thứ tự tiến hoá, kèm level thú cưng tối thiểu của từng giai đoạn */
+export const PET_STAGES: ReadonlyArray<{ stage: PetStage; minLevel: number }> = [
+  { stage: 'egg', minLevel: 1 },
+  { stage: 'baby', minLevel: 2 },
+  { stage: 'teen', minLevel: 10 },
+  { stage: 'adult', minLevel: 25 },
+  { stage: 'legend', minLevel: 50 }
+]
+
 export function stageForLevel(level: number): PetStage {
-  if (level >= 50) return 'legend'
-  if (level >= 25) return 'adult'
-  if (level >= 10) return 'teen'
-  if (level >= 2) return 'baby'
-  return 'egg'
+  let current: PetStage = 'egg'
+  for (const s of PET_STAGES) if (level >= s.minLevel) current = s.stage
+  return current
+}
+
+/** Giai đoạn kế tiếp và level cần đạt; null nếu đã ở giai đoạn cuối */
+export function nextStage(level: number): { stage: PetStage; minLevel: number } | null {
+  return PET_STAGES.find((s) => s.minLevel > level) ?? null
 }

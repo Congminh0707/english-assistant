@@ -21,7 +21,7 @@ Lộ trình chi tiết: [14-roadmap.md](14-roadmap.md).
 | A10 | Cửa hàng trang phục/phụ kiện | P1 | Mua bằng xu trong game (không có tiền thật). |
 | A11 | Phản ứng theo ngữ cảnh | P1 | Buổi tối ngáp, sáng chào, người dùng làm việc lâu → nhắc nghỉ mắt, CPU cao → "nóng quá". |
 | A12 | Chế độ yên lặng thông minh | P0 | Tự ẩn/im khi có app fullscreen (game, xem phim, thuyết trình), khi đang họp (Zoom/Teams/Meet). |
-| A13 | Nhiều nhân vật | P2 | Chọn mascot khác (mèo, cáo, robot...), mỗi con có tính cách câu thoại riêng. |
+| A13 | Nhiều nhân vật | P2 | ✅ Đã làm (2026-10-20): 5 nhân vật gốc — Bi, Webby (nhện hero), Draco (rồng), Robo (robot), Kitsu (cáo), mỗi con 5 giai đoạn tiến hoá; mua bằng xu, chọn ở trang Thú cưng. Chưa có câu thoại riêng từng nhân vật. |
 | A14 | Mini-game | P2 | Game nhỏ dùng từ vựng: bắt chữ rơi, nối từ, đoán hình. Chơi xong nhận đồ ăn. |
 | A15 | Tương tác vật lý vui | 💡 | Ném mascot, mascot bám mép cửa sổ đang mở, trèo lên cửa sổ (kiểu Shimeji). |
 

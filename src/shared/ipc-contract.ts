@@ -16,7 +16,12 @@ import {
   SaveWordResultSchema
 } from './schemas/dictionary'
 import { QuizAnswerInputSchema, QuizAnswerResultSchema, QuizSchema } from './schemas/quiz'
-import { ShopBuyInputSchema, ShopEquipInputSchema, ShopStateSchema } from './schemas/shop'
+import {
+  ShopBuyInputSchema,
+  ShopEquipInputSchema,
+  ShopSelectCharacterInputSchema,
+  ShopStateSchema
+} from './schemas/shop'
 import {
   LessonCatalogSchema,
   LessonCompleteInputSchema,
@@ -142,6 +147,7 @@ export const invokeContract = {
   'shop:state': { input: z.void(), output: ShopStateSchema },
   'shop:buy': { input: ShopBuyInputSchema, output: ShopStateSchema },
   'shop:equip': { input: ShopEquipInputSchema, output: ShopStateSchema },
+  'shop:select-character': { input: ShopSelectCharacterInputSchema, output: ShopStateSchema },
   'study:stats': { input: z.void(), output: StatsSchema },
   'phrasebook:list': { input: z.void(), output: PhrasebookSchema },
   'update:status': { input: z.void(), output: UpdateStatusSchema },

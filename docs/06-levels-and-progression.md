@@ -158,6 +158,8 @@ Mở khoá theo level: lv 2 (nở trứng), 5 (biểu cảm mới), 10 (tiến h
 
 > ✅ **Đã làm (Phase 1/2)** — trang "Cửa hàng" trong cửa sổ Học tập (`ShopService`, `src/shared/shop.ts`): mua đồ ăn (túi tối đa 99/loại) và **phụ kiện** cho mascot — 🎀 nơ 30 xu, 👓 kính 60, 🧣 khăn 80, 🎩 mũ chóp 120 (Lv 5), 👑 vương miện 300 (Lv 10). Mỗi vị trí (đầu/mặt/cổ) đeo một món, đeo món mới thay món cũ. Chi xu ghi vào sổ XP với `coins` âm (`reason = shop.purchase`) nên tổng xu luôn tính lại được. Xu kiếm từ nhiệm vụ ngày và luyện tập.
 
+> ✅ **Cập nhật (2026-10-20)** — thêm đồ ăn 🍎 táo 8 xu, 🍦 kem 22, 🍕 pizza 35, 🍜 ramen 45, ⚡ nước tăng lực 35 (energy +40); phụ kiện 🌸 hoa 40, 🥳 nón tiệc 70, 🕶️ kính râm 90 (Lv 3), 🎧 tai nghe 150 (Lv 5), 🦸 áo choàng 200 (Lv 8), 🪽 cánh 450 (Lv 15) — thêm vị trí `back` (áo choàng/cánh). **Nhân vật thú cưng** cũng bán trong cửa hàng (`char:<id>`): Webby 500 xu (Lv 5), Kitsu 600 (Lv 5), Draco 700 (Lv 8), Robo 700 (Lv 8); Bi có sẵn. Level/XP thuộc về hồ sơ nên đổi nhân vật vẫn giữ tiến độ và giai đoạn tiến hoá. Nguồn sự thật: `src/shared/shop.ts`, `src/shared/pet.ts`, `src/shared/characters.ts`.
+
 Phụ kiện (mũ, kính, áo...) mua bằng xu, một số chỉ mở khoá qua thành tựu. **Không có tiền thật** trong app.
 
 ## 7. Streak, nhiệm vụ ngày, thành tựu

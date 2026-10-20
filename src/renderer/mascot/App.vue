@@ -11,30 +11,36 @@ import { BubblePriority, useBubble } from './composables/useBubble'
 import { useLines } from './composables/useLines'
 import SpeechBubble from './components/SpeechBubble.vue'
 import { ACCESSORY_DRAW_ORDER } from '@shared/shop'
+import { normalizeCharacterId } from '@shared/characters'
 
 /**
- * Sheet từng giai đoạn tiến hoá (egg, baby, teen, adult, legend) và sheet phụ kiện (acc-bow.png...) do
- * scripts/sprites/make-placeholder.mjs sinh ra; phụ kiện cùng bố cục frame với sheet chính của giai đoạn đó.
+ * Sheet theo nhân vật và giai đoạn tiến hoá (characters/<nhân vật>/<egg|baby|teen|adult|legend>/) và sheet phụ kiện (acc-bow.png...) do
+ * scripts/sprites/make-characters.mjs sinh ra; phụ kiện cùng bố cục frame với sheet chính của giai đoạn đó.
  */
-const sheetUrls = import.meta.glob('./assets/characters/placeholder/*/sheet.png', {
+const sheetUrls = import.meta.glob('./assets/characters/*/*/sheet.png', {
   eager: true,
   query: '?url',
   import: 'default'
 }) as Record<string, string>
-const sheetMetas = import.meta.glob('./assets/characters/placeholder/*/sheet.json', {
+const sheetMetas = import.meta.glob('./assets/characters/*/*/sheet.json', {
   eager: true,
   import: 'default'
 }) as Record<string, SpriteSheetMeta>
-const accessoryUrls = import.meta.glob('./assets/characters/placeholder/*/acc-*.png', {
+const accessoryUrls = import.meta.glob('./assets/characters/*/*/acc-*.png', {
   eager: true,
   query: '?url',
   import: 'default'
 }) as Record<string, string>
-/** Phụ kiện đã nạp, khoá `<giai đoạn>:<id>` */
+const accessoryBackUrls = import.meta.glob('./assets/characters/*/*/accb-*.png', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+}) as Record<string, string>
+/** Phụ kiện đã nạp, khoá `<nhân vật>/<giai đoạn>:<id>` */
 const accessoryImages = new Map<string, HTMLImageElement>()
-const stageKey = (stage: string, file: string): string =>
-  `./assets/characters/placeholder/${stage}/${file}`
-const FALLBACK_STAGE = 'baby'
+/** `look` = '<nhân vật>/<giai đoạn>', vd 'draco/teen' */
+const stageKey = (look: string, file: string): string => `./assets/characters/${look}/${file}`
+const FALLBACK_LOOK = 'bi/baby'
 
 /** Di chuột dưới ngưỡng này (px) giữa lúc nhấn và thả thì tính là click, không phải kéo */
 const CLICK_THRESHOLD = 4
@@ -161,6 +167,7 @@ function onReaction({ kind, achievementId, count }: MascotReaction): void {
     brain?.react('eat')
     bubble.say(line('fed'))
   } else if (kind === 'hungry') {
+    brain?.react('sad')
     bubble.say(line('hungry'), BubblePriority.ambient)
   } else if (kind === 'mission') {
     brain?.react('happy')
@@ -175,7 +182,7 @@ function onReaction({ kind, achievementId, count }: MascotReaction): void {
       BubblePriority.important
     )
   } else if (kind === 'level-up') {
-    brain?.react('happy')
+    brain?.react('dance')
     bubble.say(line('levelUp'), BubblePriority.important)
   }
 }
@@ -185,7 +192,7 @@ function onSleep({ sleeping }: MascotSleep): void {
   brain?.setSleeping(sleeping)
   if (sleeping) bubble.clear()
   else if (wasSleeping) {
-    brain?.react('happy')
+    brain?.react('stretch')
     bubble.say(line('wake'), BubblePriority.ambient)
   }
 }
@@ -238,28 +245,48 @@ function onVisibilityChange(): void {
   }
 }
 
-/** Giai đoạn tiến hoá hiện tại (không có sheet thì rơi về baby) */
+/** Ngoại hình hiện tại: nhân vật + giai đoạn tiến hoá (không có sheet thì rơi về baby của nhân vật, rồi Bi) */
 const stage = computed(() => {
-  const wanted = petStore.pet?.stage ?? FALLBACK_STAGE
-  return stageKey(wanted, 'sheet.png') in sheetUrls ? wanted : FALLBACK_STAGE
+  const char = normalizeCharacterId(petStore.pet?.characterId ?? '')
+  const wanted = `${char}/${petStore.pet?.stage ?? 'baby'}`
+  if (stageKey(wanted, 'sheet.png') in sheetUrls) return wanted
+  const baby = `${char}/baby`
+  return stageKey(baby, 'sheet.png') in sheetUrls ? baby : FALLBACK_LOOK
 })
 let shownStage = ''
 
-/** Nạp (một lần) và áp dụng các phụ kiện đang đeo, theo giai đoạn hiện tại */
+/** Nạp (một lần) ảnh một lớp phụ kiện; undefined nếu nhân vật/giai đoạn này không có lớp đó */
+async function accessoryImage(
+  urls: Record<string, string>,
+  look: string,
+  file: string
+): Promise<HTMLImageElement | undefined> {
+  const key = `${look}:${file}`
+  const cached = accessoryImages.get(key)
+  if (cached) return cached
+  const url = urls[stageKey(look, file)]
+  if (!url) return undefined
+  const image = new Image()
+  image.src = url
+  await image.decode()
+  accessoryImages.set(key, image)
+  return image
+}
+
+/** Áp dụng các phụ kiện đang đeo: lớp trước đè lên thân, lớp sau (áo choàng, cánh) nằm sau lưng */
 async function applyAccessories(equipped: string[]): Promise<void> {
   const wanted = ACCESSORY_DRAW_ORDER.filter((id) => equipped.includes(id))
   const current = stage.value
+  const front: HTMLImageElement[] = []
+  const back: HTMLImageElement[] = []
   for (const id of wanted) {
-    const key = `${current}:${id}`
-    if (accessoryImages.has(key)) continue
-    const url = accessoryUrls[stageKey(current, `acc-${id.split(':')[1]}.png`)]
-    if (!url) continue
-    const image = new Image()
-    image.src = url
-    await image.decode()
-    accessoryImages.set(key, image)
+    const name = id.split(':')[1]
+    const f = await accessoryImage(accessoryUrls, current, `acc-${name}.png`)
+    const b = await accessoryImage(accessoryBackUrls, current, `accb-${name}.png`)
+    if (f) front.push(f)
+    if (b) back.push(b)
   }
-  animator?.setOverlays(wanted.flatMap((id) => accessoryImages.get(`${current}:${id}`) ?? []))
+  animator?.setOverlays(front, back)
 }
 
 async function loadSheet(name: string): Promise<HTMLImageElement> {
@@ -278,7 +305,10 @@ async function evolveTo(next: string): Promise<void> {
   await applyAccessories(petStore.pet?.equipped ?? [])
   if (previous) {
     brain?.react('happy')
-    bubble.say(line('evolved'), BubblePriority.important)
+    // Chỉ chúc mừng tiến hoá khi cùng nhân vật lên giai đoạn mới (đổi nhân vật thì không)
+    if (previous.split('/')[0] === next.split('/')[0]) {
+      bubble.say(line('evolved'), BubblePriority.important)
+    }
   }
 }
 
@@ -341,7 +371,10 @@ onMounted(async () => {
   window.setTimeout(() => {
     bubble.say(line(greetingTopic()), BubblePriority.ambient)
     if ((petStore.pet?.hunger ?? 100) < HUNGRY_THRESHOLD) {
+      brain?.react('sad')
       bubble.say(line('hungry'), BubblePriority.ambient)
+    } else {
+      brain?.react('wave')
     }
   }, 1200)
 })

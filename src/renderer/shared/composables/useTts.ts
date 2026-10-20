@@ -1,6 +1,6 @@
 import { computed, onUnmounted, ref, type ComputedRef, type Ref } from 'vue'
 import type { TranslateStatus } from '@shared/schemas/translate'
-import { kokoroSpeed } from '@shared/tts'
+import { clipForTts, kokoroSpeed } from '@shared/tts'
 import { invoke } from '../ipc'
 import { useSettingsStore } from '../stores/settings'
 
@@ -9,6 +9,13 @@ export type Accent = 'us' | 'uk'
 // Trạng thái model giọng tự nhiên: dùng chung trong cả cửa sổ (tải một lần, nghe sự kiện từ main)
 const ttsStatus = ref<TranslateStatus | null>(null)
 let statusStarted = false
+/** Đang chờ main tạo âm thanh (giọng tự nhiên, lần đầu có thể mất vài giây): hiện vòng xoay cho người dùng biết */
+const ttsLoading = ref(false)
+
+/** Dùng cho chỉ báo "đang tạo giọng đọc" (xem TtsIndicator) */
+export function useTtsLoading(): Ref<boolean> {
+  return ttsLoading
+}
 
 function startStatus(): void {
   if (statusStarted) return
@@ -115,13 +122,17 @@ export function useTts(): {
 
   async function speakNatural(text: string, accent: Accent, rate: number): Promise<void> {
     const seq = ++requestSeq
+    ttsLoading.value = true
     try {
+      const clipped = clipForTts(text)
+      if (!clipped) throw new Error('empty text')
       const { audio: bytes } = await invoke('tts:speak', {
-        text,
+        text: clipped,
         accent,
         speed: kokoroSpeed(rate)
       })
       if (seq !== requestSeq) return // đã có yêu cầu nghe mới hơn
+      ttsLoading.value = false
       releaseAudio()
       audioUrl = URL.createObjectURL(new Blob([new Uint8Array(bytes)], { type: 'audio/wav' }))
       audio = new Audio(audioUrl)
@@ -138,7 +149,10 @@ export function useTts(): {
       await audio.play()
     } catch (err) {
       console.warn('[tts] giọng tự nhiên lỗi, dùng giọng Windows', err)
-      if (seq === requestSeq) speakSystem(text, accent, rate)
+      if (seq === requestSeq) {
+        ttsLoading.value = false
+        speakSystem(text, accent, rate)
+      }
     }
   }
 
@@ -171,12 +185,18 @@ export function useTts(): {
   }
 
   function prefetch(texts: string[], accent: Accent = defaultAccent(), rate = 0.9): void {
-    if (!naturalVoice.value || !texts.length) return
-    void invoke('tts:prefetch', { texts, accent, speed: kokoroSpeed(rate) }).catch(() => undefined)
+    if (!naturalVoice.value) return
+    // Cắt cho vừa giới hạn, bỏ câu rỗng/trùng, tối đa 40 câu mỗi lần
+    const list = [...new Set(texts.map(clipForTts).filter(Boolean))].slice(0, 40)
+    if (!list.length) return
+    void invoke('tts:prefetch', { texts: list, accent, speed: kokoroSpeed(rate) }).catch(
+      () => undefined
+    )
   }
 
   function stop(): void {
     requestSeq++
+    ttsLoading.value = false
     const pending = settle
     settle = null
     window.speechSynthesis?.cancel()

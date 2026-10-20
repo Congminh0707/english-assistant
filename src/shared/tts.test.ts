@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { ALL_VOICES, isKnownVoice, kokoroSpeed, UK_VOICES, US_VOICES } from './tts'
+import {
+  clipForTts,
+  ALL_VOICES,
+  isKnownVoice,
+  kokoroSpeed,
+  TTS_MAX_CHARS,
+  UK_VOICES,
+  US_VOICES
+} from './tts'
 
 describe('tts helpers', () => {
   it('đổi tốc độ speechSynthesis sang speed của Kokoro, làm tròn và giới hạn', () => {
@@ -16,5 +24,25 @@ describe('tts helpers', () => {
     expect(new Set(ALL_VOICES.map((v) => v.id)).size).toBe(ALL_VOICES.length)
     expect(isKnownVoice('af_heart')).toBe(true)
     expect(isKnownVoice('xx_nobody')).toBe(false)
+  })
+})
+
+describe('clipForTts', () => {
+  it('giữ nguyên câu ngắn, gom khoảng trắng', () => {
+    expect(clipForTts('  Hello   world \n')).toBe('Hello world')
+    expect(clipForTts('   ')).toBe('')
+  })
+
+  it('cắt đoạn dài tại cuối câu và không vượt giới hạn', () => {
+    const long = 'This is a sentence. '.repeat(40)
+    const out = clipForTts(long)
+    expect(out.length).toBeLessThanOrEqual(TTS_MAX_CHARS)
+    expect(out.endsWith('.')).toBe(true)
+  })
+
+  it('không có dấu câu thì cắt tại dấu cách', () => {
+    const out = clipForTts('word '.repeat(200))
+    expect(out.length).toBeLessThanOrEqual(TTS_MAX_CHARS)
+    expect(out.endsWith('word')).toBe(true)
   })
 })

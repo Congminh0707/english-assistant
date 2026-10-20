@@ -66,7 +66,7 @@ erDiagram
 | Cột | Kiểu | Ghi chú |
 |---|---|---|
 | id, profile_id | TEXT | |
-| character_id | TEXT | `bi` |
+| character_id | TEXT | `bi`/`webster`/`draco`/`robo`/`kitsu` (bản cũ lưu `placeholder` = `bi`; code dùng `normalizeCharacterId`). Nhân vật đã mua nằm ở `inventory` dạng `char:<id>` — không cần migration |
 | name | TEXT | Người dùng đặt tên |
 | level, xp | INTEGER | XP trong level hiện tại |
 | total_xp | INTEGER | |

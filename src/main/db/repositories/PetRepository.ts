@@ -8,6 +8,7 @@ export type PetUpdate = Partial<
   Pick<
     PetRow,
     | 'level'
+    | 'characterId'
     | 'totalXp'
     | 'coins'
     | 'hunger'

@@ -1,3 +1,6 @@
+/** Khung sprite gốc dùng để tính kích thước hiển thị (docs/05-mascot-system.md) */
+const BASE_FRAME = 48
+
 export interface AnimationDef {
   frames: number[]
   fps: number
@@ -26,6 +29,8 @@ export class SpriteAnimator {
   private columns: number
   /** Các lớp phụ kiện (cùng bố cục frame với sheet chính), vẽ chồng theo thứ tự */
   private overlays: HTMLImageElement[] = []
+  /** Phụ kiện nằm sau lưng nhân vật (áo choàng, cánh), vẽ trước thân */
+  private backOverlays: HTMLImageElement[] = []
 
   constructor(
     private image: HTMLImageElement,
@@ -44,9 +49,10 @@ export class SpriteAnimator {
     this.drawnFrame = -1
   }
 
-  /** Đặt các lớp phụ kiện đang đeo (vẽ lại ngay) */
-  setOverlays(images: HTMLImageElement[]): void {
-    this.overlays = images
+  /** Đặt các lớp phụ kiện đang đeo: `front` vẽ đè lên thân, `back` vẽ phía sau (vẽ lại ngay) */
+  setOverlays(front: HTMLImageElement[], back: HTMLImageElement[] = []): void {
+    this.overlays = front
+    this.backOverlays = back
     this.drawnFrame = -1
   }
 
@@ -56,9 +62,17 @@ export class SpriteAnimator {
     this.resizeCanvas()
   }
 
+  /**
+   * Hệ số phóng thực tế. `scale` tính theo khung gốc 48px (kích thước hiển thị = 48 × scale) nên sheet
+   * chi tiết hơn (khung 96px) được thu lại tương ứng: scale 2 → vừa khít 1:1.
+   */
+  private get displayScale(): number {
+    return (this.scale * BASE_FRAME) / this.meta.frameSize.w
+  }
+
   private resizeCanvas(): void {
-    this.ctx.canvas.width = this.meta.frameSize.w * this.scale
-    this.ctx.canvas.height = this.meta.frameSize.h * this.scale
+    this.ctx.canvas.width = Math.round(this.meta.frameSize.w * this.displayScale)
+    this.ctx.canvas.height = Math.round(this.meta.frameSize.h * this.displayScale)
     this.drawnFrame = -1 // canvas bị xoá khi đổi kích thước → buộc vẽ lại
   }
 
@@ -98,16 +112,23 @@ export class SpriteAnimator {
 
   private draw(frame: number, flip: boolean): void {
     const { w, h } = this.meta.frameSize
-    const { ctx, scale } = this
+    const { ctx } = this
+    const scale = this.displayScale
     const sx = (frame % this.columns) * w
     const sy = Math.floor(frame / this.columns) * h
     ctx.save()
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height)
-    ctx.imageSmoothingEnabled = false
+    // Tỉ lệ nguyên thì giữ pixel sắc nét; lẻ (vd 96px → 72px) thì làm mịn để không bị răng cưa
+    const integer = Number.isInteger(scale)
+    ctx.imageSmoothingEnabled = !integer
+    ctx.imageSmoothingQuality = 'high'
     if (flip) {
       // Nhân vật luôn vẽ quay phải; đi sang trái thì lật ngang
       ctx.translate(ctx.canvas.width, 0)
       ctx.scale(-1, 1)
+    }
+    for (const overlay of this.backOverlays) {
+      ctx.drawImage(overlay, sx, sy, w, h, 0, 0, w * scale, h * scale)
     }
     ctx.drawImage(this.image, sx, sy, w, h, 0, 0, w * scale, h * scale)
     for (const overlay of this.overlays) {

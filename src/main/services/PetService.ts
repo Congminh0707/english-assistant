@@ -11,6 +11,7 @@ import {
   type PetStats
 } from '@shared/pet'
 import type { PetState } from '@shared/schemas/pet'
+import { normalizeCharacterId } from '@shared/characters'
 import { parseEquipped } from '@shared/shop'
 import { AppError } from '../core/AppError'
 import type { Clock } from '../core/Clock'
@@ -122,7 +123,7 @@ export class PetService {
     const { level, xpInLevel, xpForNext } = levelFromTotalXp(row.totalXp)
     return {
       name: row.name,
-      characterId: row.characterId,
+      characterId: normalizeCharacterId(row.characterId),
       stage: stageForLevel(level),
       level,
       xpInLevel,

@@ -19,8 +19,12 @@ let messageTimer = 0
 
 const foods = computed(() => state.value?.items.filter((i) => i.kind === 'food') ?? [])
 const accessories = computed(() => state.value?.items.filter((i) => i.kind === 'accessory') ?? [])
+const characters = computed(() => state.value?.items.filter((i) => i.kind === 'character') ?? [])
 
-const nameOf = (item: ShopItem): string => t(`items.${item.id.split(':')[1]}`)
+const nameOf = (item: ShopItem): string =>
+  item.kind === 'character'
+    ? t(`characters.${item.id.split(':')[1]}.name`)
+    : t(`items.${item.id.split(':')[1]}`)
 
 function say(text: string): void {
   message.value = text
@@ -55,7 +59,7 @@ const wear = (item: ShopItem): Promise<void> =>
 function canBuy(item: ShopItem): boolean {
   if (!state.value) return false
   if (item.locked) return false
-  if (item.kind === 'accessory' && item.owned > 0) return false
+  if (item.kind !== 'food' && item.owned > 0) return false
   return state.value.coins >= item.price
 }
 
@@ -97,6 +101,32 @@ onMounted(load)
               {{ item.equipped ? t('shop.unwear') : t('shop.wear') }}
             </button>
           </template>
+          <template v-else>
+            <span v-if="missing(item)" class="muted small">{{ missing(item) }}</span>
+            <button
+              type="button"
+              class="btn buy"
+              :disabled="busy || !canBuy(item)"
+              @click="buy(item)"
+            >
+              {{ t('shop.buy') }}
+            </button>
+          </template>
+        </PxPanel>
+      </div>
+
+      <h2>{{ t('shop.characterTitle') }}</h2>
+      <div class="grid">
+        <PxPanel
+          v-for="item in characters"
+          :key="item.id"
+          class="item"
+          :class="{ locked: item.locked }"
+        >
+          <div class="emoji">{{ item.emoji }}</div>
+          <div class="name">{{ nameOf(item) }}</div>
+          <div class="price">🪙 {{ item.price }}</div>
+          <span v-if="item.owned > 0" class="tag">{{ t('shop.ownedOne') }}</span>
           <template v-else>
             <span v-if="missing(item)" class="muted small">{{ missing(item) }}</span>
             <button

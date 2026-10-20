@@ -25,6 +25,20 @@ function allowed(sender: WebContents, opts?: HandlerOptions): boolean {
 }
 
 /**
+ * Ghi log khi dữ liệu renderer gửi lên sai hợp đồng — chỉ ghi tên trường, mã lỗi và độ dài chuỗi,
+ * KHÔNG ghi nội dung (có thể là clipboard, văn bản người dùng...: AGENTS.md cấm log).
+ */
+function logValidation(channel: string, raw: unknown, error: z.ZodError): void {
+  const issues = error.issues.map((i) => {
+    let value: unknown = raw
+    for (const key of i.path) value = (value as Record<PropertyKey, unknown> | undefined)?.[key]
+    const shape = typeof value === 'string' ? `string(${value.length})` : typeof value
+    return `${i.path.join('.') || '(root)'}: ${i.code} [${shape}]`
+  })
+  console.warn(`[ipc] ${channel} dữ liệu không hợp lệ: ${issues.join('; ')}`)
+}
+
+/**
  * Đăng ký kênh invoke có validate input bằng zod (~ Route + FormRequest trong Laravel).
  * Lỗi được chuyển thành { ok: false, error } để renderer hiển thị qua i18n.
  */
@@ -40,6 +54,7 @@ export function handle<K extends InvokeChannel>(
     }
     const parsed = def.input.safeParse(raw)
     if (!parsed.success) {
+      logValidation(channel, raw, parsed.error)
       return { ok: false, error: { code: 'VALIDATION', messageKey: 'errors.validation' } }
     }
     try {
@@ -65,7 +80,10 @@ export function onSend<K extends SendChannel>(
   ipcMain.on(channel, (e, raw) => {
     if (!allowed(e.sender, opts)) return
     const parsed = def.input.safeParse(raw)
-    if (!parsed.success) return
+    if (!parsed.success) {
+      logValidation(channel, raw, parsed.error)
+      return
+    }
     try {
       fn(parsed.data as ParsedSendInput<K>)
     } catch (err) {

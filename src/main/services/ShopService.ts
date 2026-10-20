@@ -1,4 +1,12 @@
 import {
+  characterFromItem,
+  CHARACTERS,
+  characterItemId,
+  DEFAULT_CHARACTER_ID,
+  isCharacterId,
+  isCharacterItem
+} from '@shared/characters'
+import {
   isAccessoryId,
   MAX_FOOD_STACK,
   parseEquipped,
@@ -44,7 +52,7 @@ export class ShopService {
     const items = shopCatalog().map((entry) =>
       this.toItem(entry, inventory.quantity(profileId, entry.id), pet)
     )
-    return { coins: pet.coins, level: pet.level, items }
+    return { coins: pet.coins, level: pet.level, character: pet.characterId, items }
   }
 
   buy(itemId: string): ShopState {
@@ -55,7 +63,7 @@ export class ShopService {
       const profileId = profiles.activeId()
       const pet = petService.get()
       const owned = inventory.quantity(profileId, entry.id)
-      if (entry.kind === 'accessory' && owned > 0) {
+      if (entry.kind !== 'food' && owned > 0) {
         throw new AppError('ALREADY_OWNED', 'errors.alreadyOwned')
       }
       if (entry.kind === 'food' && owned >= MAX_FOOD_STACK) {
@@ -83,15 +91,38 @@ export class ShopService {
     return this.state()
   }
 
+  /** Chọn nhân vật thú cưng (phải đã mua; Bi luôn có). Level/XP thuộc hồ sơ nên không đổi. */
+  selectCharacter(characterId: string): ShopState {
+    if (!isCharacterId(characterId)) throw new AppError('ITEM_UNKNOWN', 'errors.itemUnknown')
+    const { inventory, profiles, pets, petService, clock, bus } = this.deps
+    if (
+      characterId !== DEFAULT_CHARACTER_ID &&
+      inventory.quantity(profiles.activeId(), characterItemId(characterId)) < 1
+    ) {
+      throw new AppError('ITEM_NOT_OWNED', 'errors.itemNotOwned')
+    }
+    const row = petService.row()
+    const name = CHARACTERS[characterId].name
+    // Đổi tên theo nhân vật nếu người dùng chưa đặt tên riêng (đang là tên mặc định của nhân vật cũ)
+    const defaultNames = Object.values(CHARACTERS).map((c) => c.name as string)
+    const rename = defaultNames.includes(row.name) ? { name } : {}
+    pets.update(row.id, { characterId, ...rename }, clock.now())
+    bus.emit('pet.updated', petService.get())
+    return this.state()
+  }
+
   private toItem(
     entry: ShopEntry,
     owned: number,
-    pet: { level: number; equipped: string[] }
+    pet: { level: number; equipped: string[]; characterId: string }
   ): ShopState['items'][number] {
+    const isChar = isCharacterItem(entry.id)
     return {
       ...entry,
       owned,
-      equipped: isAccessoryId(entry.id) && pet.equipped.includes(entry.id),
+      equipped: isChar
+        ? characterFromItem(entry.id) === pet.characterId
+        : isAccessoryId(entry.id) && pet.equipped.includes(entry.id),
       locked: pet.level < entry.minLevel
     }
   }

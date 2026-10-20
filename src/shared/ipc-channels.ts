@@ -45,6 +45,7 @@ export const INVOKE_CHANNELS = [
   'shop:state',
   'shop:buy',
   'shop:equip',
+  'shop:select-character',
   'study:stats',
   'lesson:catalog',
   'phrasebook:list',

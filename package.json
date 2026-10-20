@@ -21,7 +21,7 @@
     "release:win": "npm run build && electron-builder --win --publish always",
     "build:mac": "npm run build && electron-builder --mac",
     "build:linux": "npm run build && electron-builder --linux",
-    "sprites:placeholder": "node scripts/sprites/make-placeholder.mjs",
+    "sprites:characters": "node scripts/sprites/make-characters.mjs",
     "sprites:icon": "node scripts/sprites/make-icon.mjs",
     "db:generate": "drizzle-kit generate",
     "test": "vitest run",

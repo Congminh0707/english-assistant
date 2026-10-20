@@ -46,7 +46,18 @@
     "glasses": "Kính tròn",
     "scarf": "Khăn len",
     "hat": "Mũ chóp",
-    "crown": "Vương miện"
+    "crown": "Vương miện",
+    "apple": "Táo",
+    "ice-cream": "Kem",
+    "pizza": "Pizza",
+    "ramen": "Mì ramen",
+    "energy-drink": "Nước tăng lực",
+    "flower": "Hoa cài đầu",
+    "party-hat": "Nón tiệc",
+    "headphones": "Tai nghe",
+    "sunglasses": "Kính râm",
+    "cape": "Áo choàng",
+    "wings": "Đôi cánh"
   },
   "stats": {
     "hunger": "No",
@@ -152,7 +163,8 @@
       "grammar": "Ngữ pháp",
       "phrasebook": "Mẫu câu",
       "listening": "Nghe",
-      "courses": "Lộ trình"
+      "courses": "Lộ trình",
+      "pet": "Thú cưng"
     },
     "home": {
       "welcome": "Chào bạn, hôm nay học gì nào?",
@@ -622,6 +634,20 @@
         "reading": "Bài đọc",
         "listening": "Bài nghe"
       }
+    },
+    "pet": {
+      "title": "Thú cưng",
+      "nextEvolution": "Còn {n} cấp nữa để tiến hoá thành {stage}",
+      "maxStage": "Đã tiến hoá tối đa!",
+      "chooseTitle": "Chọn thú cưng",
+      "selected": "Đang chọn",
+      "select": "Chọn",
+      "evolutionTitle": "Cây tiến hoá của {name}",
+      "fromLevel": "Từ Lv {level}",
+      "keepHint": "Cấp độ và XP thuộc về hồ sơ của bạn — đổi thú cưng không mất tiến độ.",
+      "evolving": "{name} đang tiến hoá…",
+      "evolved": "{name} đã tiến hoá thành {stage}!",
+      "great": "Tuyệt vời!"
     }
   },
   "translate": {
@@ -658,7 +684,8 @@
     "needLevel": "Cần Lv {level}",
     "tooExpensive": "Thiếu {n} xu",
     "earnHint": "Kiếm xu bằng nhiệm vụ ngày và luyện tập nhé!",
-    "bought": "Đã mua {item}!"
+    "bought": "Đã mua {item}!",
+    "characterTitle": "Thú cưng mới"
   },
   "credits": {
     "title": "Giấy phép & ghi công",
@@ -782,7 +809,8 @@
     "test": "Nghe thử",
     "testText": "Hello! This is how I sound.",
     "cacheHint": "Âm thanh đã tạo được lưu lại để nghe lại tức thì. Lần đầu nghe một câu mới mất khoảng 1–3 giây.",
-    "fallbackHint": "Chưa tải model nên đang dùng giọng Windows."
+    "fallbackHint": "Chưa tải model nên đang dùng giọng Windows.",
+    "loading": "Đang tạo giọng đọc…"
   },
   "pet": {
     "stage": {
@@ -811,5 +839,27 @@
       "error": "Không kiểm tra/tải được bản mới."
     },
     "privacy": "Việc kiểm tra chỉ hỏi GitHub Releases xem có bản mới không (không gửi dữ liệu học của bạn). App không tự tải hay tự cài khi bạn chưa đồng ý."
+  },
+  "characters": {
+    "bi": {
+      "name": "Bi",
+      "desc": "Bạn đồng hành đầu tiên"
+    },
+    "webster": {
+      "name": "Webby",
+      "desc": "Nhện hero nhanh nhẹn"
+    },
+    "draco": {
+      "name": "Draco",
+      "desc": "Rồng nhỏ có cánh và lửa"
+    },
+    "robo": {
+      "name": "Robo",
+      "desc": "Robot thông minh"
+    },
+    "kitsu": {
+      "name": "Kitsu",
+      "desc": "Cáo nhiều đuôi"
+    }
   }
 }

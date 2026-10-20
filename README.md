@@ -13,7 +13,7 @@ pnpm install
 pnpm dev                  # chạy app (hot reload)
 pnpm lint
 pnpm typecheck
-pnpm sprites:placeholder  # sinh lại sprite tạm cho mascot
+pnpm sprites:characters  # sinh lại sprite cho mọi thú cưng (≈ 80 giây; thêm tên nhân vật/giai đoạn để chạy riêng)
 pnpm build:win            # build installer NSIS vào dist/
 ```
 

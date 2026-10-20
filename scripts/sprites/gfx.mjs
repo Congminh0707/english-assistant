@@ -358,6 +358,43 @@ function chunk(type, data) {
   return Buffer.concat([len, body, crc])
 }
 export function encodePng(w, h, px) {
+  // Ảnh pixel-art ít màu: ghi dạng bảng màu (indexed, tối đa 256 màu + trong suốt) nhỏ hơn ~4 lần RGBA
+  const colors = new Map()
+  const palette = []
+  const indices = new Uint8Array(w * h)
+  let indexed = true
+  for (let i = 0; i < w * h; i++) {
+    const a = px[i * 4 + 3]
+    const key = a === 0 ? 0 : (px[i * 4] << 24) | (px[i * 4 + 1] << 16) | (px[i * 4 + 2] << 8) | a
+    let idx = colors.get(key)
+    if (idx === undefined) {
+      if (palette.length >= 256) {
+        indexed = false
+        break
+      }
+      idx = palette.length
+      colors.set(key, idx)
+      palette.push(a === 0 ? [0, 0, 0, 0] : [px[i * 4], px[i * 4 + 1], px[i * 4 + 2], a])
+    }
+    indices[i] = idx
+  }
+  if (indexed) {
+    const head = Buffer.alloc(13)
+    head.writeUInt32BE(w, 0)
+    head.writeUInt32BE(h, 4)
+    head[8] = 8
+    head[9] = 3 // indexed
+    const rows = Buffer.alloc((w + 1) * h)
+    for (let y = 0; y < h; y++) Buffer.from(indices.buffer, y * w, w).copy(rows, y * (w + 1) + 1)
+    return Buffer.concat([
+      Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+      chunk('IHDR', head),
+      chunk('PLTE', Buffer.from(palette.flatMap((c) => [c[0], c[1], c[2]]))),
+      chunk('tRNS', Buffer.from(palette.map((c) => c[3]))),
+      chunk('IDAT', deflateSync(rows, { level: 9 })),
+      chunk('IEND', Buffer.alloc(0))
+    ])
+  }
   const ihdr = Buffer.alloc(13)
   ihdr.writeUInt32BE(w, 0)
   ihdr.writeUInt32BE(h, 4)

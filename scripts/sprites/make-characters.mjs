@@ -2,7 +2,7 @@
 // Chạy: pnpm sprites:characters [nhân vật] [giai đoạn]   — vd `pnpm sprites:characters draco teen`
 // Xem thử: PREVIEW=1 → content/.build/characters-preview.png (mọi nhân vật × giai đoạn) và
 //          PREVIEW=anim → content/.build/anim-<nhân vật>-<giai đoạn>.png (mọi frame, để duyệt hoạt ảnh)
-import { mkdirSync, writeFileSync } from 'node:fs'
+import { mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { createCanvas, encodePng, W } from './gfx.mjs'
 import { CHARACTERS, drawCreature, STAGES } from './creature.mjs'
@@ -45,6 +45,8 @@ for (const charId of Object.keys(CHARACTERS)) {
     if (onlyStage && onlyStage !== stage) continue
     const dir = resolve(OUT_BASE, charId, stage)
     mkdirSync(dir, { recursive: true })
+    // Xoá phụ kiện sinh ở lần chạy trước (tránh file thừa khi đổi danh sách phụ kiện)
+    for (const f of readdirSync(dir)) if (/^accb?-.*\.png$/.test(f)) rmSync(resolve(dir, f))
     const main = createCanvas(sheetW, sheetH)
     const acc = {}
     for (const [id, def] of Object.entries(ACCESSORY_DRAW)) {

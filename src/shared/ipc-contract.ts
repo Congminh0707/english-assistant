@@ -24,6 +24,25 @@ import {
   LessonKindInputSchema,
   LessonSchema
 } from './schemas/lesson'
+import {
+  KidsCompleteInputSchema,
+  KidsCompleteResultSchema,
+  KidsHomeSchema,
+  KidsNextSchema,
+  KidsRateInputSchema,
+  KidsRateResultSchema,
+  KidsRewardResultSchema,
+  KidsStickersSchema,
+  KidsTickInputSchema,
+  KidsUnitsSchema,
+  ParentExtendInputSchema,
+  ParentReportSchema,
+  ParentSetPinInputSchema,
+  ParentStatusSchema,
+  ParentVerifyInputSchema,
+  ParentVerifyResultSchema,
+  UsageStatusSchema
+} from './schemas/kids'
 import { PhrasebookSchema } from './schemas/phrasebook'
 import { StatsSchema } from './schemas/stats'
 import { TtsPrefetchInputSchema, TtsSpeakInputSchema, TtsSpeakResultSchema } from './schemas/tts'
@@ -119,6 +138,20 @@ export const invokeContract = {
   'shop:equip': { input: ShopEquipInputSchema, output: ShopStateSchema },
   'study:stats': { input: z.void(), output: StatsSchema },
   'phrasebook:list': { input: z.void(), output: PhrasebookSchema },
+  // Chế độ trẻ em và khu vực phụ huynh
+  'kids:home': { input: z.void(), output: KidsHomeSchema },
+  'kids:units': { input: z.void(), output: KidsUnitsSchema },
+  'kids:next': { input: z.void(), output: KidsNextSchema },
+  'kids:rate': { input: KidsRateInputSchema, output: KidsRateResultSchema },
+  'kids:complete': { input: KidsCompleteInputSchema, output: KidsCompleteResultSchema },
+  'kids:stickers': { input: z.void(), output: KidsStickersSchema },
+  'kids:reward': { input: z.void(), output: KidsRewardResultSchema },
+  'kids:tick': { input: KidsTickInputSchema, output: UsageStatusSchema },
+  'parent:status': { input: z.void(), output: ParentStatusSchema },
+  'parent:set-pin': { input: ParentSetPinInputSchema, output: ParentStatusSchema },
+  'parent:verify': { input: ParentVerifyInputSchema, output: ParentVerifyResultSchema },
+  'parent:extend': { input: ParentExtendInputSchema, output: UsageStatusSchema },
+  'parent:report': { input: z.void(), output: ParentReportSchema },
   'lesson:catalog': { input: LessonKindInputSchema, output: LessonCatalogSchema },
   'lesson:get': {
     input: LessonKindInputSchema.extend({ id: z.string().min(1) }),

@@ -1063,3 +1063,150 @@ describe('thẻ ôn tập nhiều hướng', () => {
     expect(quiz === null || quiz.kind === 'new').toBe(true)
   })
 })
+
+describe('chế độ trẻ em', () => {
+  let clock: FakeClock
+  const DAY = 24 * 3_600_000
+
+  beforeEach(async () => {
+    conn.close()
+    conn = openUserDb(':memory:', MIGRATIONS)
+    clock = new FakeClock()
+    c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    await c.packs.install(buildFixturePack(tmp))
+  })
+
+  it('thẻ nghe → chạm hình: giới thiệu hình mới dần, ghi sticker khi trả lời đúng', () => {
+    const first = c.kids.nextCard().card!
+    expect(first).toMatchObject({ pictureId: 'dog', isNew: true })
+    expect(first.choices).toHaveLength(3)
+    expect(first.choices).toContain('dog')
+    expect(c.kids.stickers().earned).toBe(0)
+
+    expect(c.kids.rateCard(first.cardId, 1, 1000)).toEqual({ stickerNew: true })
+    expect(c.kids.stickers()).toMatchObject({ earned: 1 })
+    expect(c.kids.stickers().stickers.find((s) => s.pictureId === 'dog')?.earned).toBe(true)
+
+    // Hết thẻ đến hạn → hình mới kế tiếp (đến hạn mức mỗi ngày)
+    const second = c.kids.nextCard().card!
+    expect(second.pictureId).toBe('cat')
+    c.kids.rateCard(second.cardId, 0, 1000) // không ra → không có sticker
+    expect(c.kids.stickers().earned).toBe(1)
+  })
+
+  it('mỗi ngày chỉ giới thiệu tối đa 6 hình mới; sang ngày mới được thêm', () => {
+    const ids: string[] = []
+    for (let i = 0; i < 10; i++) {
+      const next = c.kids.nextCard().card
+      if (!next) break
+      ids.push(next.pictureId)
+      c.kids.rateCard(next.cardId, 1, 1000)
+    }
+    expect(new Set(ids).size).toBe(6)
+    expect(c.kids.nextCard().card?.isNew).not.toBe(true) // chỉ còn thẻ ôn nếu đến hạn
+    clock.advance(DAY)
+    expect(c.kids.nextCard().card).not.toBeNull()
+  })
+
+  it('thẻ hình không lẫn vào phiên ôn của người lớn và ngược lại', () => {
+    const kid = c.kids.nextCard().card!
+    expect(c.study.next().card).toBeNull() // người lớn không thấy thẻ hình
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    const adult = c.study.next().card!
+    expect(adult.direction).toBe('en_vi')
+    expect(c.kids.nextCard().card?.cardId).toBe(kid.cardId) // thẻ trẻ vẫn là thẻ hình
+  })
+
+  it('hoạt động: tính sao, lưu tiến độ, thưởng một lần đầu', () => {
+    const activity = c.kids.units().units[0].activities[0]
+    expect(activity.stars).toBe(0)
+    const before = c.inventory.list().reduce((n, i) => n + i.quantity, 0)
+    const first = c.kids.completeActivity(activity.id, 6, 6)
+    expect(first).toMatchObject({ stars: 3, firstTime: true })
+    expect(first.foodId).toMatch(/^food:/)
+    expect(c.inventory.list().reduce((n, i) => n + i.quantity, 0)).toBe(before + 1)
+    const again = c.kids.completeActivity(activity.id, 3, 6)
+    expect(again).toMatchObject({ firstTime: false, foodId: null })
+    expect(c.kids.units().units[0].activities[0].stars).toBe(3) // làm lại điểm thấp hơn vẫn giữ điểm cao nhất
+    expect(() => c.kids.completeActivity('khong-co', 1, 1)).toThrow(/VALIDATION/)
+  })
+
+  it('quà đồ ăn có hạn mức mỗi ngày', () => {
+    let given = 0
+    for (let i = 0; i < 20; i++) if (c.kids.reward()) given++
+    expect(given).toBe(8)
+    clock.advance(DAY)
+    expect(c.kids.reward()).not.toBeNull()
+  })
+
+  it('giới hạn thời gian: đếm giây, khoá khi hết giờ, phụ huynh nhập PIN để gia hạn', () => {
+    c.settings.set('kids.dailyMinutes', 10)
+    expect(c.kids.usageStatus()).toEqual({ usedSeconds: 0, limitSeconds: 600, locked: false })
+    for (let i = 0; i < 9; i++) c.kids.tick(60)
+    expect(c.kids.usageStatus().locked).toBe(false)
+    expect(c.kids.tick(60)).toMatchObject({ usedSeconds: 600, locked: true })
+    // gửi số giây phóng đại bị chặn
+    expect(c.kids.tick(100_000).usedSeconds).toBe(660)
+
+    c.parent.setPin('1234')
+    expect(() => c.parent.extend('0000', 10)).toThrow(/FORBIDDEN/)
+    c.parent.extend('1234', 10)
+    expect(c.kids.usageStatus()).toMatchObject({ limitSeconds: 1200, locked: false })
+
+    clock.advance(DAY)
+    expect(c.kids.usageStatus()).toMatchObject({ usedSeconds: 0, locked: false })
+    c.settings.set('kids.dailyMinutes', 0)
+    for (let i = 0; i < 30; i++) c.kids.tick(60)
+    expect(c.kids.usageStatus().locked).toBe(false) // 0 = không giới hạn
+  })
+
+  it('PIN phụ huynh: đặt, đổi cần PIN cũ, khoá tạm khi nhập sai nhiều lần', () => {
+    expect(c.parent.pinSet()).toBe(false)
+    expect(c.parent.verify('1234').ok).toBe(false) // chưa đặt PIN → không vào được
+    c.parent.setPin('1234')
+    expect(c.parent.pinSet()).toBe(true)
+    expect(c.parent.verify('1234')).toEqual({ ok: true, retryAfterSeconds: 0 })
+    expect(() => c.parent.setPin('5678')).toThrow(/FORBIDDEN/)
+    expect(() => c.parent.setPin('5678', '9999')).toThrow(/FORBIDDEN/)
+    c.parent.setPin('5678', '1234')
+    expect(c.parent.verify('1234').ok).toBe(false)
+    expect(c.parent.verify('5678').ok).toBe(true)
+
+    for (let i = 0; i < 4; i++)
+      expect(c.parent.verify('0000')).toEqual({ ok: false, retryAfterSeconds: 0 })
+    const locked = c.parent.verify('0000')
+    expect(locked.ok).toBe(false)
+    expect(locked.retryAfterSeconds).toBeGreaterThan(0)
+    expect(c.parent.verify('5678').ok).toBe(false) // đang khoá, kể cả PIN đúng
+    clock.advance(61_000)
+    expect(c.parent.verify('5678').ok).toBe(true)
+  })
+
+  it('PIN không nằm trong cài đặt gửi xuống giao diện', () => {
+    c.parent.setPin('1234')
+    expect(JSON.stringify(c.settings.all())).not.toMatch(/salt|hash|parent\.pin/)
+  })
+
+  it('báo cáo cho phụ huynh: 7 ngày, thời gian dùng, thẻ đã ôn, sticker, từ hay quên', () => {
+    const card = c.kids.nextCard().card!
+    c.kids.rateCard(card.cardId, 1, 1000)
+    const second = c.kids.nextCard().card!
+    c.kids.rateCard(second.cardId, 0, 1000) // quên 1 lần
+    c.kids.tick(60)
+    c.kids.tick(30)
+    const report = c.parent.report()
+    expect(report.days).toHaveLength(7)
+    expect(report.days.at(-1)).toMatchObject({ seconds: 90, reviews: 2 })
+    expect(report.stickersEarned).toBe(1)
+    expect(report.activitiesTotal).toBeGreaterThanOrEqual(10)
+    expect(report.hardest).toEqual([{ word: 'cat', vi: 'con mèo', lapses: 1 }])
+    expect(report.dailyLimitMinutes).toBe(15)
+  })
+
+  it('trang chủ của bé tổng hợp số liệu', () => {
+    const home = c.kids.home()
+    expect(home).toMatchObject({ petName: 'Bi', stickersEarned: 0, pinSet: false })
+    expect(home.stickersTotal).toBeGreaterThanOrEqual(60)
+    expect(home.usage.locked).toBe(false)
+  })
+})

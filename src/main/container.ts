@@ -23,7 +23,9 @@ import { SrsService } from './services/SrsService'
 import { MicroLearningService } from './services/MicroLearningService'
 import { StudyService } from './services/StudyService'
 import { AchievementService } from './services/AchievementService'
+import { KidsService } from './services/KidsService'
 import { MissionService } from './services/MissionService'
+import { ParentService } from './services/ParentService'
 import { PlacementService } from './services/PlacementService'
 import { PracticeService } from './services/PracticeService'
 import { ShopService } from './services/ShopService'
@@ -34,12 +36,15 @@ import {
   bundledGrammarFiles,
   bundledLessonFiles,
   bundledPhrasebookFiles,
+  bundledKidsFiles,
   bundledPlacementFiles,
   bundledReadingFiles
 } from './content/bundledLessons'
 import { PhrasebookLibrary } from './content/PhrasebookLibrary'
+import { KidsLibrary } from './content/KidsLibrary'
 import { PlacementBank } from './content/PlacementBank'
 import { GrammarUnitFileSchema, ReadingUnitFileSchema } from '@shared/schemas/lesson'
+import { UsageRepository } from './db/repositories/UsageRepository'
 import { LessonRepository } from './db/repositories/LessonRepository'
 
 export interface Container {
@@ -67,6 +72,8 @@ export interface Container {
   grammar: LessonService
   readings: LessonService
   phrasebook: PhrasebookLibrary
+  kids: KidsService
+  parent: ParentService
 }
 
 export interface ContainerOptions {
@@ -91,6 +98,7 @@ export function createContainer(
     settings: new SettingsRepository(db),
     vocab: new VocabRepository(db),
     lessons: new LessonRepository(db),
+    usage: new UsageRepository(db),
     packs: new InstalledPackRepository(db)
   }
 
@@ -228,6 +236,35 @@ export function createContainer(
     ...lessonDeps
   })
 
+  // Chế độ trẻ em + khu vực phụ huynh (parent cần kids để báo cáo, kids cần parent để biết đã có PIN → nối qua hàm)
+  let parentService: ParentService | null = null
+  const kids = new KidsService({
+    library: new KidsLibrary(bundledKidsFiles),
+    vocab: repos.vocab,
+    lessonRepo: repos.lessons,
+    xpRepo: repos.xp,
+    usage: repos.usage,
+    srs,
+    xp,
+    inventory,
+    pet,
+    profiles,
+    settings,
+    clock,
+    transaction,
+    pinSet: () => parentService?.pinSet() ?? false
+  })
+  const parent = new ParentService({
+    settingsRepo: repos.settings,
+    settings,
+    usage: repos.usage,
+    vocab: repos.vocab,
+    kids,
+    profiles,
+    clock
+  })
+  parentService = parent
+
   return {
     clock,
     bus,
@@ -251,6 +288,8 @@ export function createContainer(
     lessons,
     grammar,
     readings,
-    phrasebook
+    phrasebook,
+    kids,
+    parent
   }
 }

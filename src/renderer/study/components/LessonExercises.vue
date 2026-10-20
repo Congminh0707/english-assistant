@@ -5,6 +5,7 @@ import type { Lesson, LessonExercise } from '@shared/schemas/lesson'
 import { sameSentence } from '@shared/practice'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PxBar from '@renderer/shared/components/PxBar.vue'
+import PicText from '@renderer/shared/components/PicText.vue'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import { isGapCorrect } from '../lessonText'
 
@@ -348,7 +349,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
               :disabled="checked"
               @click="selectLeft(i)"
             >
-              {{ p.left }}
+              <PicText :text="p.left" :size="40" />
               <span v-if="pairMap[i] !== null" class="badge">{{ (pairMap[i] ?? 0) + 1 }}</span>
             </button>
           </div>
@@ -362,7 +363,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
               :disabled="checked"
               @click="selectRight(pos)"
             >
-              <span class="num">{{ pos + 1 }}</span> {{ ex.pairs[pairIdx].right }}
+              <span class="num">{{ pos + 1 }}</span>
+              <PicText :text="ex.pairs[pairIdx].right" :size="40" />
             </button>
           </div>
         </div>
@@ -378,7 +380,9 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           :disabled="checked"
           @click="pick(i)"
         >
-          <span class="num">{{ i + 1 }}</span> {{ c }}
+          <span class="num">{{ i + 1 }}</span>
+          <PicText v-if="ex.type === 'picture'" :text="c" :size="72" />
+          <template v-else>{{ c }}</template>
         </button>
       </div>
 
@@ -601,8 +605,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   cursor: default;
 }
 .choice.pic {
-  min-width: 72px;
-  font-size: 34px;
-  line-height: 1.2;
+  min-width: 112px;
+  padding: 10px;
 }
 </style>

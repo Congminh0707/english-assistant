@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import type { ProfileInfo } from '@shared/schemas/profile'
 import type { MissionsState, StudyOverview } from '@shared/schemas/study'
 import { invoke } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
@@ -17,10 +18,13 @@ import LessonsPage from './components/LessonsPage.vue'
 import PhrasebookPage from './components/PhrasebookPage.vue'
 import SettingsPage from './components/SettingsPage.vue'
 import Onboarding from './components/Onboarding.vue'
+import ParentReport from './components/ParentReport.vue'
+import KidsApp from './kids/KidsApp.vue'
 
 // Cửa sổ Học tập (docs/12-ui-ux-guidelines.md#cửa-sổ-học-tập-study): thanh bên + trang nội dung.
 type Page =
   | 'home'
+  | 'parent'
   | 'lessons'
   | 'reading'
   | 'grammar'
@@ -39,6 +43,10 @@ const petStore = usePetStore()
 
 const page = ref<Page>('home')
 const overview = ref<StudyOverview | null>(null)
+/** Hồ sơ đang dùng; hồ sơ trẻ em thấy giao diện của bé, phụ huynh vào bằng PIN (parentMode) */
+const activeProfile = ref<ProfileInfo | null>(null)
+const parentMode = ref(false)
+const kidsMode = computed(() => !!activeProfile.value?.isChild && !parentMode.value)
 const missions = ref<MissionsState | null>(null)
 /** Bài kiểm tra mở từ màn hình chào thì tự bắt đầu ngay */
 const autostartTest = ref(false)
@@ -47,6 +55,9 @@ const cleanups: Array<() => void> = []
 
 const pages = computed<Array<{ id: Page; icon: string; label: string }>>(() => [
   { id: 'home', icon: '🏠', label: t('study.nav.home') },
+  ...(activeProfile.value?.isChild
+    ? [{ id: 'parent' as Page, icon: '👨‍👩‍👧', label: t('study.nav.parent') }]
+    : []),
   { id: 'lessons', icon: '📚', label: t('study.nav.lessons') },
   { id: 'reading', icon: '📖', label: t('study.nav.reading') },
   { id: 'grammar', icon: '✍️', label: t('study.nav.grammar') },
@@ -62,6 +73,8 @@ const pages = computed<Array<{ id: Page; icon: string; label: string }>>(() => [
 
 async function refresh(): Promise<void> {
   try {
+    const profiles = await invoke('profile:list')
+    activeProfile.value = profiles.find((p) => p.active) ?? null
     ;[overview.value, missions.value] = await Promise.all([
       invoke('study:overview'),
       invoke('study:missions')
@@ -122,7 +135,9 @@ onUnmounted(() => {
 
 <template>
   <div class="study">
-    <aside class="side">
+    <KidsApp v-if="kidsMode" class="kids-fill" @parent="parentMode = true" @changed="refresh" />
+
+    <aside v-if="loaded && !kidsMode" class="side">
       <div class="pet">
         <div class="pet-name">{{ petStore.pet?.name ?? '…' }}</div>
         <template v-if="petStore.pet">
@@ -156,9 +171,14 @@ onUnmounted(() => {
       </nav>
     </aside>
 
-    <main class="content">
+    <main v-if="loaded && !kidsMode" class="content">
+      <p v-if="parentMode" class="parent-banner">
+        {{ t('study.parent.banner') }}
+        <button type="button" @click="parentMode = false">{{ t('study.parent.backToKid') }}</button>
+      </p>
+      <ParentReport v-if="page === 'parent'" />
       <StudyHome
-        v-if="page === 'home'"
+        v-else-if="page === 'home'"
         :overview="overview"
         :missions="missions"
         @start="go('review')"
@@ -186,6 +206,27 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+.kids-fill {
+  flex: 1;
+  min-width: 0;
+}
+.parent-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 12px;
+  padding: 6px 12px;
+  background: #fff3a0;
+  border: var(--px) solid var(--c-border);
+}
+.parent-banner button {
+  padding: 3px 10px;
+  border: var(--px) solid var(--c-border);
+  background: var(--c-surface);
+  font: inherit;
+  cursor: pointer;
+}
 .study {
   display: flex;
   height: 100vh;

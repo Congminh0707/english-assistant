@@ -114,3 +114,13 @@ Mẫu:
 **Quyết định:** Chỉ thẻ gốc `en_vi` được tạo khi lưu từ. Khi thẻ gốc vào ôn dài hạn, `SrsService.ensureSiblings` tạo `vi_en`, `audio_en`, `cloze` (đến hạn từ ngày mai), mỗi loại bật/tắt trong cài đặt; có "tạo thẻ bù" cho từ đã thuộc. Hạn mức từ mới/ngày chỉ tính thẻ gốc chưa học để thẻ phụ không bị kẹt. Mascot chỉ hỏi thẻ `en_vi`. Thẻ không dựng được nội dung (câu điền từ không còn chứa từ) tự rơi về dạng `en_vi`.
 **Lý do:** Cách của Anki ("sibling mở khoá sau khi học") — không nhân đôi khối lượng ngay từ đầu, từ nào thuộc rồi mới được kiểm tra sâu hơn.
 **Hệ quả:** "Tổng số thẻ" và số thẻ theo trạng thái tính cả thẻ phụ (Sổ từ vẫn hiện một dòng mỗi từ); từ hay quên cộng dồn số lần quên của mọi hướng; hoàn tác không thu hồi XP (sổ XP chỉ ghi thêm).
+
+## #18 — Chế độ trẻ em: giao diện riêng, thẻ nghe–chạm hình, hình pixel tự vẽ, PIN phụ huynh (2026-10-19) — Chấp nhận
+**Bối cảnh:** Trẻ chưa biết đọc không dùng được giao diện chữ (thanh bên, thẻ lật tự chấm 4 mức, đoạn giải thích tiếng Việt); emoji hệ thống khác nhau giữa các máy và khó nhận ra khi nhỏ.
+**Quyết định:**
+- Hồ sơ `isChild` hiển thị `KidsApp` thay cho giao diện người lớn; mọi tương tác là chạm vào hình lớn, có đọc to bằng TTS. Phụ huynh vào khu vực người lớn qua ổ khoá + PIN 4 số (khoá chặn bấm nhầm, không phải bảo mật cao).
+- Thẻ của trẻ là hướng `audio_picture` (đã dành sẵn trong schema), `content_id = 'pic:<hình>'` để không phụ thuộc gói từ điển; vẫn dùng FSRS: số lần thử (1/2/0) quy ra Được-Dễ / Khó / Quên, bé chỉ thấy cười hoặc thử lại. Thẻ trẻ và thẻ người lớn tách theo hướng (`REVIEW_DIRECTIONS` cho người lớn).
+- **Hình pixel tự vẽ bằng code** (`src/shared/pictures.ts`, 60 hình): vẽ theo toạ độ 32×32 nhưng dựng trên lưới 64×64 ô (`Grid` có `scale`) rồi tự đổ sáng/tối và viền, vẽ SVG không làm mờ; nội dung cũ dùng emoji tự đổi sang hình pixel qua `PicText`. Không cần ghi công và không vướng bản quyền (các bộ Twemoji/OpenMoji/Fluent… đã cân nhắc, không chọn).
+- Giới hạn thời gian là **theo ngày** (`kids.dailyMinutes`, mặc định 15 phút; 0 = tắt), đếm ở main từ báo cáo định kỳ của giao diện; hết giờ hiện màn hình nghỉ ngơi, phụ huynh nhập PIN để gia hạn 10 phút. Thêm bảng `usage_days` (migration `0005`).
+- Phần thưởng cho bé là sticker (album) và đồ ăn cho thú cưng (tối đa 8 quà/ngày), không hiện số XP.
+**Hệ quả:** Quên PIN chưa có cách đặt lại trong app. Âm đọc đơn lẻ của TTS (ví dụ "buh", "kuh") còn thô vì model giọng đọc không được huấn luyện cho âm đơn — cần audio thật sau này. Chưa có picture book, tập viết, nói lặp lại.

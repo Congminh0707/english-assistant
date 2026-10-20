@@ -195,3 +195,22 @@ export const lessonProgress = sqliteTable(
   },
   (t) => [uniqueIndex('lesson_progress_profile_lesson').on(t.profileId, t.lessonId)]
 )
+
+/** Thời gian dùng app mỗi ngày của từng hồ sơ (giới hạn thời gian cho trẻ em, báo cáo cho phụ huynh) */
+export const usageDays = sqliteTable(
+  'usage_days',
+  {
+    id: text('id').primaryKey(), // UUID v7
+    profileId: text('profile_id')
+      .notNull()
+      .references(() => profiles.id),
+    /** Ngày cục bộ YYYY-MM-DD */
+    day: text('day').notNull(),
+    /** Số giây đã dùng trong ngày */
+    seconds: integer('seconds').notNull().default(0),
+    /** Số giây phụ huynh cho thêm trong ngày (nhập PIN để gia hạn) */
+    bonusSeconds: integer('bonus_seconds').notNull().default(0),
+    ...timestamps
+  },
+  (t) => [uniqueIndex('usage_days_profile_day').on(t.profileId, t.day)]
+)

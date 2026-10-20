@@ -64,3 +64,9 @@ App chạy thường trực trên máy, có thể đọc clipboard, nghe micro, 
 
 - Installer hỏi khi gỡ: "Xoá luôn dữ liệu học tập?" (mặc định: giữ lại).
 - Trong app: Cài đặt → Quyền riêng tư → "Xoá lịch sử dịch", "Xoá bản ghi âm", "Xoá toàn bộ dữ liệu profile".
+
+## Chế độ trẻ em và PIN phụ huynh
+
+- PIN 4 số lưu dạng băm SHA-256 có muối ngẫu nhiên (`settings`, khoá `parent.pin`), không ghi log, không gửi xuống giao diện; so sánh bằng `timingSafeEqual`, sai 5 lần thì khoá 60 giây. **PIN là khoá chặn trẻ bấm nhầm, không phải ranh giới bảo mật** (người có quyền trên máy vẫn đọc được dữ liệu local).
+- Dữ liệu thời gian dùng và báo cáo chỉ nằm trên máy (`usage_days`), không gửi đi đâu; không thu thập gì từ trẻ ngoài tiến độ học.
+- Quên PIN: chưa có cách đặt lại trong app (cần xoá khoá `parent.pin` trong cơ sở dữ liệu người dùng).

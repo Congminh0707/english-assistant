@@ -8,6 +8,8 @@ import {
   type LessonExercise
 } from '@shared/schemas/lesson'
 import { PhrasebookFileSchema } from '@shared/schemas/phrasebook'
+import { KidsFileSchema } from '@shared/schemas/kids'
+import { PICTURE_IDS } from '@shared/pictures'
 import { PlacementBankFileSchema } from '@shared/schemas/placement'
 import type { z } from 'zod'
 
@@ -275,4 +277,54 @@ describe('nội dung kiểm tra đầu vào', () => {
       expect(levels.size, skill).toBeGreaterThanOrEqual(8)
     }
   })
+})
+
+describe('nội dung cho trẻ em', () => {
+  const entries = loadDir('kids')
+  it('có file nội dung', () => expect(entries.length).toBeGreaterThan(0))
+  const activityIds = new Set<string>()
+  const unitIds = new Set<string>()
+  const orders = new Set<number>()
+  for (const { file, raw } of entries) {
+    it(`${file}: đúng schema, hình tồn tại, quy tắc theo loại hoạt động`, () => {
+      const data = KidsFileSchema.parse(raw)
+      expect(unitIds.has(data.unit.id)).toBe(false)
+      unitIds.add(data.unit.id)
+      expect(orders.has(data.unit.order)).toBe(false)
+      orders.add(data.unit.order)
+      expect(PICTURE_IDS).toContain(data.unit.picture)
+      const errors: string[] = []
+      for (const a of data.activities) {
+        if (activityIds.has(a.id)) errors.push(`${a.id}: id trùng`)
+        activityIds.add(a.id)
+        if (a.picture && !PICTURE_IDS.includes(a.picture))
+          errors.push(`${a.id}: hình ${a.picture} không tồn tại`)
+        const texts = a.items.map((i) => i.text.toLowerCase())
+        if (new Set(texts).size !== texts.length) errors.push(`${a.id}: mục trùng nhau`)
+        for (const item of a.items) {
+          if (item.picture && !PICTURE_IDS.includes(item.picture)) {
+            errors.push(`${a.id}/${item.text}: hình ${item.picture} không tồn tại`)
+          }
+          if (a.kind === 'blend') {
+            if (!item.letters || !item.sounds)
+              errors.push(`${a.id}/${item.text}: thiếu letters/sounds`)
+            else {
+              if (item.letters.join('') !== item.text)
+                errors.push(`${a.id}/${item.text}: letters không ghép thành từ`)
+              if (item.letters.length !== item.sounds.length)
+                errors.push(`${a.id}/${item.text}: số âm khác số chữ`)
+            }
+          }
+          if ((a.kind === 'sounds' || a.kind === 'blend') && !item.picture) {
+            errors.push(`${a.id}/${item.text}: cần có hình để chơi nghe → chọn hình`)
+          }
+        }
+        // Chơi chọn hình cần ít nhất 3 hình khác nhau để có lựa chọn
+        const pics = new Set(a.items.map((i) => i.picture).filter(Boolean))
+        if (a.kind !== 'sight' && a.kind !== 'letters' && pics.size < 3)
+          errors.push(`${a.id}: cần ≥ 3 hình khác nhau`)
+      }
+      expect(errors).toEqual([])
+    })
+  }
 })

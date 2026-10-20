@@ -1,0 +1,153 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "sounds",
+    "title": "Sounds",
+    "vi": "Âm của chữ",
+    "picture": "sun",
+    "order": 2
+  },
+  "activities": [
+    {
+      "id": "sounds-satpin",
+      "title": "S A T P I N",
+      "vi": "Âm của chữ cái: nghe rồi chọn hình",
+      "picture": "sun",
+      "kind": "sounds",
+      "items": [
+        {
+          "text": "s",
+          "say": "sss. sun",
+          "word": "sun",
+          "picture": "sun"
+        },
+        {
+          "text": "a",
+          "say": "ah. apple",
+          "word": "apple",
+          "picture": "apple"
+        },
+        {
+          "text": "t",
+          "say": "tuh. tree",
+          "word": "tree",
+          "picture": "tree"
+        },
+        {
+          "text": "p",
+          "say": "puh. pig",
+          "word": "pig",
+          "picture": "pig"
+        },
+        {
+          "text": "i",
+          "say": "ih. ice cream",
+          "word": "ice cream",
+          "picture": "icecream"
+        },
+        {
+          "text": "n",
+          "say": "nnn. noodles",
+          "word": "noodles",
+          "picture": "noodles"
+        }
+      ]
+    },
+    {
+      "id": "sounds-mdgock",
+      "title": "M D G O C K",
+      "vi": "Âm của chữ cái: nghe rồi chọn hình",
+      "picture": "dog",
+      "kind": "sounds",
+      "items": [
+        {
+          "text": "m",
+          "say": "mmm. monkey",
+          "word": "monkey",
+          "picture": "monkey"
+        },
+        {
+          "text": "d",
+          "say": "duh. dog",
+          "word": "dog",
+          "picture": "dog"
+        },
+        {
+          "text": "g",
+          "say": "guh. grapes",
+          "word": "grapes",
+          "picture": "grapes"
+        },
+        {
+          "text": "o",
+          "say": "aw. orange",
+          "word": "orange",
+          "picture": "orange"
+        },
+        {
+          "text": "c",
+          "say": "kuh. cat",
+          "word": "cat",
+          "picture": "cat"
+        },
+        {
+          "text": "k",
+          "say": "kuh. key",
+          "word": "key",
+          "picture": "key"
+        }
+      ]
+    },
+    {
+      "id": "sounds-eurhbfl",
+      "title": "E U R H B F L",
+      "vi": "Âm của chữ cái: nghe rồi chọn hình",
+      "picture": "egg",
+      "kind": "sounds",
+      "items": [
+        {
+          "text": "e",
+          "say": "eh. egg",
+          "word": "egg",
+          "picture": "egg"
+        },
+        {
+          "text": "u",
+          "say": "uh. umbrella",
+          "word": "umbrella",
+          "picture": "umbrella"
+        },
+        {
+          "text": "r",
+          "say": "rrr. rabbit",
+          "word": "rabbit",
+          "picture": "rabbit"
+        },
+        {
+          "text": "h",
+          "say": "huh. house",
+          "word": "house",
+          "picture": "house"
+        },
+        {
+          "text": "b",
+          "say": "buh. ball",
+          "word": "ball",
+          "picture": "ball"
+        },
+        {
+          "text": "f",
+          "say": "fff. fish",
+          "word": "fish",
+          "picture": "fish"
+        },
+        {
+          "text": "l",
+          "say": "lll. lemon",
+          "word": "lemon",
+          "picture": "lemon"
+        }
+      ]
+    }
+  ]
+}

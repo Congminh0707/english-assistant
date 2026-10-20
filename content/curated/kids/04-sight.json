@@ -1,0 +1,111 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "sight",
+    "title": "Sight words",
+    "vi": "Từ nhìn là nhớ",
+    "picture": "books",
+    "order": 4
+  },
+  "activities": [
+    {
+      "id": "sight-1",
+      "title": "I a the and is it",
+      "vi": "Từ nhìn là nhớ: nhóm 1",
+      "picture": "books",
+      "kind": "sight",
+      "items": [
+        {
+          "text": "I",
+          "say": "I"
+        },
+        {
+          "text": "a",
+          "say": "a"
+        },
+        {
+          "text": "the",
+          "say": "the"
+        },
+        {
+          "text": "and",
+          "say": "and"
+        },
+        {
+          "text": "is",
+          "say": "is"
+        },
+        {
+          "text": "it",
+          "say": "it"
+        }
+      ]
+    },
+    {
+      "id": "sight-2",
+      "title": "my you we he she me",
+      "vi": "Từ nhìn là nhớ: nhóm 2",
+      "picture": "books",
+      "kind": "sight",
+      "items": [
+        {
+          "text": "my",
+          "say": "my"
+        },
+        {
+          "text": "you",
+          "say": "you"
+        },
+        {
+          "text": "we",
+          "say": "we"
+        },
+        {
+          "text": "he",
+          "say": "he"
+        },
+        {
+          "text": "she",
+          "say": "she"
+        },
+        {
+          "text": "me",
+          "say": "me"
+        }
+      ]
+    },
+    {
+      "id": "sight-3",
+      "title": "to in on up go no",
+      "vi": "Từ nhìn là nhớ: nhóm 3",
+      "picture": "books",
+      "kind": "sight",
+      "items": [
+        {
+          "text": "to",
+          "say": "to"
+        },
+        {
+          "text": "in",
+          "say": "in"
+        },
+        {
+          "text": "on",
+          "say": "on"
+        },
+        {
+          "text": "up",
+          "say": "up"
+        },
+        {
+          "text": "go",
+          "say": "go"
+        },
+        {
+          "text": "no",
+          "say": "no"
+        }
+      ]
+    }
+  ]
+}

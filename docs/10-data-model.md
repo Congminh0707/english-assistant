@@ -89,6 +89,16 @@ erDiagram
 | attempts_count | INTEGER — để giảm hệ số K dần |
 | UNIQUE(profile_id, skill) | |
 
+### usage_days (thời gian dùng app mỗi ngày — chế độ trẻ em)
+
+| Cột | Ghi chú |
+|---|---|
+| profile_id, day | ngày cục bộ `YYYY-MM-DD`; unique theo cặp này |
+| seconds | số giây đã dùng (giao diện báo mỗi 15 giây khi cửa sổ đang hiện; main chặn ≤ 60 giây/lần) |
+| bonus_seconds | số giây phụ huynh cho thêm trong ngày (nhập PIN) |
+
+Mã PIN phụ huynh không nằm ở bảng riêng: lưu dạng `{salt, hash}` ở bảng `settings` với khoá `parent.pin`, ngoài danh sách cài đặt có kiểu nên không bao giờ gửi xuống giao diện. Thẻ hình của trẻ dùng `srs_cards.direction = 'audio_picture'`, `content_id = 'pic:<id hình>'`.
+
 ### srs_cards (thẻ ghi nhớ — trường theo FSRS)
 | Cột | Ghi chú |
 |---|---|

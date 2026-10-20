@@ -1,5 +1,5 @@
 import { createEmptyCard, fsrs, Rating, type Card, type Grade } from 'ts-fsrs'
-import { isPhraseId, makeCloze, type CardDirection } from '@shared/cards'
+import { isPhraseId, makeCloze, REVIEW_DIRECTIONS, type CardDirection } from '@shared/cards'
 import { AppError } from '../core/AppError'
 import type { Clock } from '../core/Clock'
 import type { EventBus } from '../core/EventBus'
@@ -62,7 +62,7 @@ export class SrsService {
     return Math.max(0, quota - introduced)
   }
 
-  dueCount(directions?: CardDirection[]): number {
+  dueCount(directions: CardDirection[] = [...REVIEW_DIRECTIONS]): number {
     const { vocab, profiles, clock } = this.deps
     const profileId = profiles.activeId()
     const now = clock.now()
@@ -75,7 +75,7 @@ export class SrsService {
    * Các thẻ đến hạn theo thứ tự trong cài đặt: xen kẽ theo hạn (mặc định), thẻ mới trước hoặc thẻ cũ trước.
    * Thẻ mới bị giới hạn bởi hạn mức mỗi ngày.
    */
-  dueCards(limit = 20, directions?: CardDirection[]): SrsCardRow[] {
+  dueCards(limit = 20, directions: CardDirection[] = [...REVIEW_DIRECTIONS]): SrsCardRow[] {
     const { vocab, profiles, clock, settings } = this.deps
     const profileId = profiles.activeId()
     const now = clock.now()

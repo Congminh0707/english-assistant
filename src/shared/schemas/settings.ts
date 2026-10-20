@@ -42,6 +42,18 @@ export const settingDefinitions = {
   'review.typing': z.boolean().default(true),
   /** Tự đọc từ khi hiện thẻ (thẻ nghe-gõ luôn tự đọc) */
   'review.autoPlay': z.boolean().default(true),
+  /** Chế độ trẻ em: giới hạn phút dùng app mỗi ngày (0 = không giới hạn) */
+  'kids.dailyMinutes': z
+    .union([
+      z.literal(0),
+      z.literal(10),
+      z.literal(15),
+      z.literal(20),
+      z.literal(30),
+      z.literal(45),
+      z.literal(60)
+    ])
+    .default(15),
   /** Giọng đọc: 'system' = giọng Windows có sẵn; 'kokoro' = giọng tự nhiên offline (cần tải model) */
   'tts.engine': z.enum(['system', 'kokoro']).default('system'),
   /** Giọng mặc định khi đọc bài học, bài tập, câu hỏi (nút có ghi rõ Mỹ/Anh vẫn đọc đúng giọng đó) */

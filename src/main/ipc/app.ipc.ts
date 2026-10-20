@@ -67,6 +67,27 @@ export function registerAppIpc(
   handle('shop:equip', ({ itemId, equipped }) => c.shop.equip(itemId, equipped))
   handle('study:stats', () => c.stats.stats())
   handle('phrasebook:list', () => c.phrasebook.list())
+  handle('kids:home', () => c.kids.home())
+  handle('kids:units', () => c.kids.units())
+  handle('kids:next', () => c.kids.nextCard())
+  handle('kids:rate', ({ cardId, tries, elapsedMs }) => c.kids.rateCard(cardId, tries, elapsedMs))
+  handle('kids:complete', ({ activityId, correct, total }) =>
+    c.kids.completeActivity(activityId, correct, total)
+  )
+  handle('kids:stickers', () => c.kids.stickers())
+  handle('kids:reward', () => ({ foodId: c.kids.reward() }))
+  handle('kids:tick', ({ seconds }) => c.kids.tick(seconds))
+  handle('parent:status', () => ({ pinSet: c.parent.pinSet() }))
+  handle('parent:set-pin', ({ pin, currentPin }) => {
+    c.parent.setPin(pin, currentPin)
+    return { pinSet: true }
+  })
+  handle('parent:verify', ({ pin }) => c.parent.verify(pin))
+  handle('parent:extend', ({ pin, minutes }) => {
+    c.parent.extend(pin, minutes)
+    return c.kids.usageStatus()
+  })
+  handle('parent:report', () => c.parent.report())
   // Bài học nền tảng, điểm ngữ pháp và bài đọc dùng chung kênh, phân biệt bằng `kind`
   const lessonService = (kind: LessonKind): LessonService =>
     kind === 'grammar' ? c.grammar : kind === 'reading' ? c.readings : c.lessons

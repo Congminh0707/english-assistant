@@ -125,6 +125,7 @@
     "packCorrupt": "Gói nội dung bị hỏng.",
     "translateNotReady": "Chưa tải model dịch offline.",
     "translateFailed": "Dịch không thành công, thử lại nhé.",
+    "pinWrong": "PIN chưa đúng.",
     "modelDownload": "Không tải được model (kiểm tra kết nối mạng rồi thử lại).",
     "modelCorrupt": "File model tải về bị hỏng, hãy thử tải lại.",
     "notEnoughCoins": "Chưa đủ xu để mua món này.",
@@ -163,6 +164,7 @@
       "shop": "Cửa hàng",
       "stats": "Thống kê",
       "lessons": "Bài học",
+      "parent": "Phụ huynh",
       "reading": "Bài đọc",
       "grammar": "Ngữ pháp",
       "phrasebook": "Mẫu câu"
@@ -491,6 +493,10 @@
       "savedToast": "Đã lưu vào sổ thẻ",
       "saveHint": "Lưu mẫu câu này vào sổ thẻ để ôn"
     },
+    "parent": {
+      "banner": "Chế độ phụ huynh",
+      "backToKid": "Quay lại màn hình của bé"
+    },
     "lessons": {
       "title": "Bài học nền tảng",
       "intro": "Học từ đầu: chữ cái và phát âm, mẫu câu cơ bản, các thì, giao tiếp hằng ngày. Mỗi bài có phần giải thích, ví dụ nghe được và bài tập.",
@@ -575,6 +581,72 @@
     "espeak": "Phiên âm: eSpeak-NG qua phonemizer — GPL-3.0.",
     "opusmt": "Dịch câu: opus-mt en→vi (Helsinki-NLP) — Apache-2.0.",
     "tatoeba": "Câu ví dụ: Tatoeba — CC BY 2.0 FR."
+  },
+  "kids": {
+    "home": "Màn hình chính",
+    "parentArea": "Khu vực phụ huynh",
+    "tile": {
+      "play": "Chơi thẻ nghe – chạm hình",
+      "abc": "Học chữ cái, âm, từ",
+      "stickers": "Album sticker",
+      "pet": "Cho thú cưng ăn"
+    },
+    "review": {
+      "hint": "Nghe từ rồi chạm vào hình đúng",
+      "newSticker": "Sticker mới!",
+      "present": "Quà cho thú cưng!",
+      "allDone": "Bé đã học xong lượt này. Hẹn gặp lại!",
+      "nothingNow": "Chưa có thẻ nào đến hạn. Quay lại sau nhé!"
+    },
+    "units": {
+      "stars": "{n} sao"
+    },
+    "activity": {
+      "again": "Chơi lại"
+    },
+    "album": {
+      "hint": "Chạm vào sticker để nghe. Trả lời đúng để dán thêm!"
+    },
+    "pet": {
+      "feedHint": "Chạm vào món ăn để cho ăn",
+      "noFood": "Chơi và học để nhận đồ ăn nhé!"
+    },
+    "rest": {
+      "text": "Hôm nay bé đã học đủ rồi. Nghỉ ngơi nhé! Phụ huynh có thể cho bé dùng thêm giờ.",
+      "extend": "Cho dùng thêm 10 phút (cần PIN)"
+    },
+    "gate": {
+      "enterPin": "Nhập PIN phụ huynh",
+      "newPin": "Đặt PIN phụ huynh (4 số)",
+      "confirmPin": "Nhập lại PIN để xác nhận",
+      "currentPin": "Nhập PIN hiện tại",
+      "extendTitle": "Nhập PIN để cho bé dùng thêm 10 phút",
+      "wrong": "PIN chưa đúng.",
+      "mismatch": "Hai lần nhập chưa giống nhau, thử lại nhé.",
+      "locked": "Nhập sai nhiều lần. Thử lại sau {n} giây.",
+      "setHint": "PIN giúp bé không vào nhầm khu vực của phụ huynh.",
+      "cancel": "Đóng"
+    },
+    "report": {
+      "title": "Báo cáo cho phụ huynh",
+      "usage": "Thời gian bé dùng app (phút/ngày)",
+      "today": "Hôm nay: {n} phút",
+      "limit": "giới hạn {n} phút",
+      "usageHint": "Số trên cột là phút dùng app mỗi ngày trong 7 ngày gần nhất.",
+      "stickers": "Sticker đã dán",
+      "activities": "Hoạt động đã chơi",
+      "hardest": "Từ bé hay chưa nhớ",
+      "noHardest": "Chưa có từ nào bé hay quên.",
+      "forgot": "quên {n} lần",
+      "controls": "Cài đặt cho bé",
+      "dailyLimit": "Giới hạn mỗi ngày",
+      "limitMinutes": "{n} phút",
+      "limitOff": "Không giới hạn",
+      "extend": "Cho dùng thêm 10 phút",
+      "changePin": "Đặt / đổi PIN",
+      "extended": "Đã cho bé dùng thêm 10 phút hôm nay.",
+      "pinSaved": "Đã lưu PIN."
+    }
   },
   "tts": {
     "title": "Giọng đọc",

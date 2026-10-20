@@ -249,6 +249,73 @@ export class VocabRepository {
       .all()
   }
 
+  /** Mọi content id đã có thẻ ở một hướng (kể cả thẻ đã xoá mềm) */
+  contentIdsByDirection(profileId: string, direction: CardDirection): string[] {
+    return this.db
+      .select({ contentId: srsCards.contentId })
+      .from(srsCards)
+      .where(and(eq(srsCards.profileId, profileId), eq(srsCards.direction, direction)))
+      .all()
+      .map((r) => r.contentId)
+  }
+
+  /** Số thẻ ở một hướng được tạo từ một thời điểm (vd số hình mới đưa vào học hôm nay) */
+  countCardsCreatedSince(profileId: string, direction: CardDirection, sinceMs: number): number {
+    const row = this.db
+      .select({ n: sql<number>`count(*)` })
+      .from(srsCards)
+      .where(
+        and(
+          eq(srsCards.profileId, profileId),
+          eq(srsCards.direction, direction),
+          sql`${srsCards.createdAt} >= ${sinceMs}`
+        )
+      )
+      .get()
+    return Number(row?.n ?? 0)
+  }
+
+  /** Các thẻ hình (audio_picture) đã từng được trả lời tốt (Được/Dễ) — mỗi cái là một sticker trong album */
+  earnedPictureContentIds(profileId: string): string[] {
+    return this.db
+      .selectDistinct({ contentId: srsCards.contentId })
+      .from(srsReviews)
+      .innerJoin(srsCards, eq(srsCards.id, srsReviews.cardId))
+      .where(
+        and(
+          eq(srsReviews.profileId, profileId),
+          eq(srsCards.direction, 'audio_picture'),
+          sql`${srsReviews.rating} >= 3`
+        )
+      )
+      .all()
+      .map((r) => r.contentId)
+  }
+
+  /** Các thẻ ở một hướng bị chấm "Quên" nhiều nhất (số lượt ôn có rating = 1) */
+  hardestByDirection(
+    profileId: string,
+    direction: CardDirection,
+    limit: number
+  ): Array<{ contentId: string; lapses: number }> {
+    return this.db
+      .select({ contentId: srsCards.contentId, lapses: sql<number>`count(*)` })
+      .from(srsReviews)
+      .innerJoin(srsCards, eq(srsCards.id, srsReviews.cardId))
+      .where(
+        and(
+          eq(srsReviews.profileId, profileId),
+          eq(srsCards.direction, direction),
+          eq(srsReviews.rating, 1)
+        )
+      )
+      .groupBy(srsCards.contentId)
+      .orderBy(desc(sql`count(*)`))
+      .limit(limit)
+      .all()
+      .map((r) => ({ contentId: r.contentId, lapses: Number(r.lapses) }))
+  }
+
   /** Số thẻ phụ (khác en_vi, chưa xoá) của mỗi từ */
   siblingCounts(profileId: string): Map<string, number> {
     const rows = this.db

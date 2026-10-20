@@ -1,0 +1,150 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "blend",
+    "title": "Blend",
+    "vi": "Ghép âm",
+    "picture": "cat",
+    "order": 3
+  },
+  "activities": [
+    {
+      "id": "blend-cvc-1",
+      "title": "c-a-t cat",
+      "vi": "Ghép âm: cat, dog, pig, sun",
+      "picture": "cat",
+      "kind": "blend",
+      "items": [
+        {
+          "text": "cat",
+          "say": "cat",
+          "picture": "cat",
+          "letters": [
+            "c",
+            "a",
+            "t"
+          ],
+          "sounds": [
+            "kuh",
+            "ah",
+            "tuh"
+          ]
+        },
+        {
+          "text": "dog",
+          "say": "dog",
+          "picture": "dog",
+          "letters": [
+            "d",
+            "o",
+            "g"
+          ],
+          "sounds": [
+            "duh",
+            "aw",
+            "guh"
+          ]
+        },
+        {
+          "text": "pig",
+          "say": "pig",
+          "picture": "pig",
+          "letters": [
+            "p",
+            "i",
+            "g"
+          ],
+          "sounds": [
+            "puh",
+            "ih",
+            "guh"
+          ]
+        },
+        {
+          "text": "sun",
+          "say": "sun",
+          "picture": "sun",
+          "letters": [
+            "s",
+            "u",
+            "n"
+          ],
+          "sounds": [
+            "sss",
+            "uh",
+            "nnn"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "blend-cvc-2",
+      "title": "b-e-d bed",
+      "vi": "Ghép âm: bed, van, fox, jam",
+      "picture": "bed",
+      "kind": "blend",
+      "items": [
+        {
+          "text": "bed",
+          "say": "bed",
+          "picture": "bed",
+          "letters": [
+            "b",
+            "e",
+            "d"
+          ],
+          "sounds": [
+            "buh",
+            "eh",
+            "duh"
+          ]
+        },
+        {
+          "text": "van",
+          "say": "van",
+          "picture": "van",
+          "letters": [
+            "v",
+            "a",
+            "n"
+          ],
+          "sounds": [
+            "vvv",
+            "ah",
+            "nnn"
+          ]
+        },
+        {
+          "text": "fox",
+          "say": "fox",
+          "picture": "fox",
+          "letters": [
+            "f",
+            "o",
+            "x"
+          ],
+          "sounds": [
+            "fff",
+            "aw",
+            "ks"
+          ]
+        },
+        {
+          "text": "jam",
+          "say": "jam",
+          "picture": "jam",
+          "letters": [
+            "j",
+            "a",
+            "m"
+          ],
+          "sounds": [
+            "juh",
+            "ah",
+            "mmm"
+          ]
+        }
+      ]
+    }
+  ]
+}

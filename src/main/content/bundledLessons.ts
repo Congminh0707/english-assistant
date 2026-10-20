@@ -26,3 +26,6 @@ export const bundledPhrasebookFiles: unknown[] = load(
 export const bundledPlacementFiles: unknown[] = load(
   import.meta.glob('../../../content/curated/placement/*.json', { eager: true, import: 'default' })
 )
+export const bundledKidsFiles: unknown[] = load(
+  import.meta.glob('../../../content/curated/kids/*.json', { eager: true, import: 'default' })
+)

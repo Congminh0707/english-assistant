@@ -125,6 +125,7 @@
     "packCorrupt": "The content pack is corrupted.",
     "translateNotReady": "The offline translation model is not downloaded yet.",
     "translateFailed": "Translation failed, please try again.",
+    "pinWrong": "Wrong PIN.",
     "modelDownload": "Could not download the model (check your connection and try again).",
     "modelCorrupt": "The downloaded model file is corrupt, please download it again.",
     "notEnoughCoins": "Not enough coins to buy this.",
@@ -163,6 +164,7 @@
       "shop": "Shop",
       "stats": "Statistics",
       "lessons": "Lessons",
+      "parent": "Parent",
       "reading": "Reading",
       "grammar": "Grammar",
       "phrasebook": "Phrasebook"
@@ -496,6 +498,10 @@
       "savedToast": "Saved to your cards",
       "saveHint": "Save this phrase to your cards for review"
     },
+    "parent": {
+      "banner": "Parent mode",
+      "backToKid": "Back to the child's screen"
+    },
     "lessons": {
       "title": "Foundation lessons",
       "intro": "Start from scratch: alphabet and pronunciation, basic sentence patterns, tenses, everyday communication. Each lesson has an explanation, examples you can listen to, and exercises. (Lesson text is in Vietnamese.)",
@@ -580,6 +586,72 @@
     "espeak": "Phonemizer: eSpeak-NG via phonemizer — GPL-3.0.",
     "opusmt": "Sentence translation: opus-mt en→vi (Helsinki-NLP) — Apache-2.0.",
     "tatoeba": "Example sentences: Tatoeba — CC BY 2.0 FR."
+  },
+  "kids": {
+    "home": "Home",
+    "parentArea": "Parent area",
+    "tile": {
+      "play": "Listen-and-tap card game",
+      "abc": "Learn letters, sounds, words",
+      "stickers": "Sticker album",
+      "pet": "Feed the pet"
+    },
+    "review": {
+      "hint": "Listen to the word, then tap the right picture",
+      "newSticker": "New sticker!",
+      "present": "A present for the pet!",
+      "allDone": "All done for now. See you later!",
+      "nothingNow": "No cards are due yet. Come back later!"
+    },
+    "units": {
+      "stars": "{n} stars"
+    },
+    "activity": {
+      "again": "Play again"
+    },
+    "album": {
+      "hint": "Tap a sticker to hear it. Answer correctly to collect more!"
+    },
+    "pet": {
+      "feedHint": "Tap a food to feed your pet",
+      "noFood": "Play and learn to earn food!"
+    },
+    "rest": {
+      "text": "That's enough learning for today. Time to rest! A grown-up can give extra time.",
+      "extend": "Give 10 more minutes (PIN required)"
+    },
+    "gate": {
+      "enterPin": "Enter parent PIN",
+      "newPin": "Set a parent PIN (4 digits)",
+      "confirmPin": "Enter the PIN again to confirm",
+      "currentPin": "Enter the current PIN",
+      "extendTitle": "Enter the PIN to give 10 more minutes",
+      "wrong": "Wrong PIN.",
+      "mismatch": "The two entries don't match, try again.",
+      "locked": "Too many wrong tries. Try again in {n} s.",
+      "setHint": "The PIN keeps your child out of the parent area.",
+      "cancel": "Close"
+    },
+    "report": {
+      "title": "Parent report",
+      "usage": "Time on the app (minutes per day)",
+      "today": "Today: {n} min",
+      "limit": "limit {n} min",
+      "usageHint": "Bars show minutes of app use per day for the last 7 days.",
+      "stickers": "Stickers collected",
+      "activities": "Activities played",
+      "hardest": "Words your child forgets",
+      "noHardest": "No forgotten words yet.",
+      "forgot": "forgot {n}×",
+      "controls": "Child settings",
+      "dailyLimit": "Daily limit",
+      "limitMinutes": "{n} min",
+      "limitOff": "No limit",
+      "extend": "Give 10 more minutes",
+      "changePin": "Set / change PIN",
+      "extended": "Gave 10 more minutes today.",
+      "pinSaved": "PIN saved."
+    }
   },
   "tts": {
     "title": "Voice",

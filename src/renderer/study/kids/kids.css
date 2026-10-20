@@ -1,0 +1,143 @@
+/* Kiểu dùng chung cho giao diện trẻ em: nút to, màu tươi, ít chữ. Tiền tố k- để không đụng giao diện người lớn. */
+.k-screen {
+  display: grid;
+  gap: 18px;
+  justify-items: center;
+  align-content: start;
+  width: 100%;
+  max-width: 880px;
+  margin: 0 auto;
+}
+.k-title {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--c-ink);
+}
+.k-sub {
+  margin: 0;
+  font-size: 14px;
+  color: var(--c-ink-soft);
+  text-align: center;
+}
+.k-big {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  padding: 16px 18px;
+  min-width: 150px;
+  border: 4px solid var(--c-border);
+  border-radius: 14px;
+  background: var(--c-surface);
+  font: inherit;
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--c-ink);
+  cursor: pointer;
+  box-shadow: 0 6px 0 0 var(--c-border);
+  transition: transform 80ms ease;
+}
+.k-big:hover:not(:disabled) {
+  background: #fff8dc;
+}
+.k-big:active:not(:disabled) {
+  transform: translateY(5px);
+  box-shadow: 0 1px 0 0 var(--c-border);
+}
+.k-big:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+.k-big.right {
+  background: #c8f2cd;
+  border-color: var(--c-success);
+}
+.k-big.wrong {
+  background: #ffd9d4;
+  border-color: var(--c-danger);
+  animation: k-shake 360ms ease;
+}
+.k-primary {
+  padding: 14px 34px;
+  border: 4px solid var(--c-border);
+  border-radius: 14px;
+  background: var(--c-primary);
+  color: #fff;
+  font: inherit;
+  font-size: 24px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 6px 0 0 var(--c-border);
+}
+.k-primary:active {
+  transform: translateY(5px);
+  box-shadow: 0 1px 0 0 var(--c-border);
+}
+.k-round {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border: 4px solid var(--c-border);
+  border-radius: 50%;
+  background: var(--c-surface);
+  font: inherit;
+  font-size: 30px;
+  cursor: pointer;
+  box-shadow: 0 5px 0 0 var(--c-border);
+}
+.k-round:active {
+  transform: translateY(4px);
+  box-shadow: 0 1px 0 0 var(--c-border);
+}
+.k-round:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.k-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+}
+.k-stars {
+  letter-spacing: 2px;
+  font-size: 22px;
+}
+@keyframes k-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-9px);
+  }
+  75% {
+    transform: translateX(9px);
+  }
+}
+@keyframes k-pop {
+  0% {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes k-bounce {
+  50% {
+    transform: translateY(-14px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .k-big.wrong {
+    animation: none;
+  }
+}

@@ -1,0 +1,213 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "letters",
+    "title": "ABC",
+    "vi": "Chữ cái",
+    "picture": "apple",
+    "order": 1
+  },
+  "activities": [
+    {
+      "id": "letters-a-f",
+      "title": "Letters A to F",
+      "vi": "Chữ cái A đến F",
+      "picture": "apple",
+      "kind": "letters",
+      "items": [
+        {
+          "text": "A",
+          "say": "ay",
+          "word": "apple",
+          "picture": "apple"
+        },
+        {
+          "text": "B",
+          "say": "bee",
+          "word": "ball",
+          "picture": "ball"
+        },
+        {
+          "text": "C",
+          "say": "see",
+          "word": "cat",
+          "picture": "cat"
+        },
+        {
+          "text": "D",
+          "say": "dee",
+          "word": "dog",
+          "picture": "dog"
+        },
+        {
+          "text": "E",
+          "say": "ee",
+          "word": "egg",
+          "picture": "egg"
+        },
+        {
+          "text": "F",
+          "say": "eff",
+          "word": "fish",
+          "picture": "fish"
+        }
+      ]
+    },
+    {
+      "id": "letters-g-l",
+      "title": "Letters G to L",
+      "vi": "Chữ cái G đến L",
+      "picture": "house",
+      "kind": "letters",
+      "items": [
+        {
+          "text": "G",
+          "say": "gee",
+          "word": "grapes",
+          "picture": "grapes"
+        },
+        {
+          "text": "H",
+          "say": "aitch",
+          "word": "house",
+          "picture": "house"
+        },
+        {
+          "text": "I",
+          "say": "eye",
+          "word": "ice cream",
+          "picture": "icecream"
+        },
+        {
+          "text": "J",
+          "say": "jay",
+          "word": "jam",
+          "picture": "jam"
+        },
+        {
+          "text": "K",
+          "say": "kay",
+          "word": "key",
+          "picture": "key"
+        },
+        {
+          "text": "L",
+          "say": "el",
+          "word": "lemon",
+          "picture": "lemon"
+        }
+      ]
+    },
+    {
+      "id": "letters-m-r",
+      "title": "Letters M to R",
+      "vi": "Chữ cái M đến R",
+      "picture": "monkey",
+      "kind": "letters",
+      "items": [
+        {
+          "text": "M",
+          "say": "em",
+          "word": "monkey",
+          "picture": "monkey"
+        },
+        {
+          "text": "N",
+          "say": "en",
+          "word": "noodles",
+          "picture": "noodles"
+        },
+        {
+          "text": "O",
+          "say": "oh",
+          "word": "orange",
+          "picture": "orange"
+        },
+        {
+          "text": "P",
+          "say": "pee",
+          "word": "pig",
+          "picture": "pig"
+        },
+        {
+          "text": "Q",
+          "say": "cue",
+          "word": "queen",
+          "picture": "crown"
+        },
+        {
+          "text": "R",
+          "say": "ar",
+          "word": "rabbit",
+          "picture": "rabbit"
+        }
+      ]
+    },
+    {
+      "id": "letters-s-w",
+      "title": "Letters S to W",
+      "vi": "Chữ cái S đến W",
+      "picture": "sun",
+      "kind": "letters",
+      "items": [
+        {
+          "text": "S",
+          "say": "ess",
+          "word": "sun",
+          "picture": "sun"
+        },
+        {
+          "text": "T",
+          "say": "tee",
+          "word": "tree",
+          "picture": "tree"
+        },
+        {
+          "text": "U",
+          "say": "you",
+          "word": "umbrella",
+          "picture": "umbrella"
+        },
+        {
+          "text": "V",
+          "say": "vee",
+          "word": "van",
+          "picture": "van"
+        },
+        {
+          "text": "W",
+          "say": "double you",
+          "word": "watermelon",
+          "picture": "watermelon"
+        }
+      ]
+    },
+    {
+      "id": "letters-x-z",
+      "title": "Letters X to Z",
+      "vi": "Chữ cái X đến Z",
+      "picture": "zebra",
+      "kind": "letters",
+      "items": [
+        {
+          "text": "X",
+          "say": "ex",
+          "word": "fox",
+          "picture": "fox"
+        },
+        {
+          "text": "Y",
+          "say": "why",
+          "word": "yellow lemon",
+          "picture": "lemon"
+        },
+        {
+          "text": "Z",
+          "say": "zee",
+          "word": "zebra",
+          "picture": "zebra"
+        }
+      ]
+    }
+  ]
+}

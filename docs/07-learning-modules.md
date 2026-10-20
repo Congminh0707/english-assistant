@@ -155,6 +155,8 @@ Chi tiết kỹ thuật: [11-ai-and-speech.md](11-ai-and-speech.md#4-nhận-dạ
 
 ## 9. Phonics & Mầm non (P1)
 
+> ✅ **Đã làm (Phase 2)** — xem [decisions #18](decisions.md). Hồ sơ trẻ em (`isChild`) vào thẳng `KidsApp` (không thanh bên chữ): màn hình chính 4 ô lớn (Chơi / ABC / Sticker / Thú cưng), mọi nút có hình pixel và được đọc to. **Thẻ** `audio_picture`: nghe từ → chạm 1 trong 3 hình (`KidsService.nextCard`, mỗi ngày giới thiệu ≤ 6 hình mới, chấm theo số lần thử: đúng ngay → Được/Dễ, lần hai → Khó, hai lần sai → Quên; bé không thấy mức chấm). **Hoạt động** (`content/curated/kids/*.json`, `KidsLibrary`): `letters` (A–Z kèm hình ví dụ), `sounds` (âm đầu → chọn hình), `blend` (bấm từng chữ nghe âm rồi ghép: c-a-t), `sight` (từ nhìn là nhớ); mỗi hoạt động học rồi chơi, tối đa 3 sao, lần đầu hoàn thành được đồ ăn thưởng. **Album sticker**: mỗi hình trả lời đúng một lần được dán. **Phụ huynh**: ổ khoá nhỏ → PIN 4 số (băm có muối, `ParentService`), giới hạn phút mỗi ngày (`kids.dailyMinutes`, đồng hồ đếm ở main theo báo cáo định kỳ của giao diện, hết giờ bé thấy màn hình nghỉ ngơi), gia hạn 10 phút bằng PIN, báo cáo 7 ngày (thời gian dùng, số thẻ ôn, sticker, hoạt động, từ hay quên). Phần thưởng đồ ăn/sticker thay cho số XP trong giao diện của bé. Chưa có: picture book, tập viết chữ, nói lặp lại.
+
 - Bảng chữ cái: âm + tên chữ + từ ví dụ + hình + bài hát.
 - Phonics theo thứ tự phổ biến (s, a, t, p, i, n → ...), ghép âm CVC (*c-a-t*), sight words (danh sách tự soạn, đối chiếu Dolch — xem [08](08-content-sources.md#2-từ-vựng-và-danh-sách-từ-theo-level)).
 - Dạng bài: `picture_choice`, `tap_pairs`, `trace_letter`, `speak_repeat` (không chấm khắt khe).

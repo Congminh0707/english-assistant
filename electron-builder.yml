@@ -59,6 +59,9 @@ linux:
 appImage:
   artifactName: ${name}-${version}.${ext}
 npmRebuild: false
+# Cập nhật tự động qua GitHub Releases (electron-updater đọc latest.yml + .blockmap). Phát hành: GH_TOKEN=... pnpm release:win
 publish:
-  provider: generic
-  url: https://example.com/auto-updates
+  provider: github
+  owner: Congminh0707
+  repo: english-assistant
+  releaseType: release

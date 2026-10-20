@@ -6,6 +6,7 @@ import {
   sameSentence
 } from '@shared/practice'
 import { practiceLevels } from '@shared/learning'
+import { practiceKindSkill } from '@shared/progress'
 import type { LevelCode } from '@shared/schemas/content/level'
 import {
   EXERCISE_KINDS,
@@ -21,6 +22,7 @@ import { startOfLocalDay } from '../core/localDay'
 import type { DictionaryService } from '../content/DictionaryService'
 import type { XpRepository } from '../db/repositories/XpRepository'
 import type { ProfileService } from './ProfileService'
+import type { ProgressService } from './ProgressService'
 import type { SettingsService } from './SettingsService'
 import type { XpService } from './XpService'
 
@@ -78,6 +80,7 @@ export class PracticeService {
       settings: SettingsService
       xp: XpService
       xpRepo: XpRepository
+      progress?: ProgressService
       clock: Clock
       random?: () => number
     }
@@ -122,6 +125,14 @@ export class PracticeService {
 
     const { correct, accuracy } = this.check(pending.data, answer)
     if (correct) session.correct++
+    this.deps.progress?.record({
+      source: 'practice',
+      kind: pending.data.kind,
+      skill: practiceKindSkill(pending.data.kind),
+      level: this.deps.settings.get('learning.level'),
+      correct: correct ? 1 : 0,
+      total: 1
+    })
 
     const next = session.asked < session.plan.length ? this.nextExercise(sessionId, session) : null
     const summary = next ? null : this.finish(sessionId, session)

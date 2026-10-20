@@ -1,0 +1,192 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "books",
+    "title": "Story time",
+    "vi": "Sách tranh",
+    "picture": "books",
+    "order": 5
+  },
+  "activities": [
+    {
+      "id": "book-fruit-day",
+      "title": "Fruit day",
+      "vi": "Ngày ăn trái cây",
+      "picture": "apple",
+      "kind": "book",
+      "items": [
+        {
+          "text": "I like apples.",
+          "say": "I like apples.",
+          "picture": "apple",
+          "word": "apple"
+        },
+        {
+          "text": "I like bananas.",
+          "say": "I like bananas.",
+          "picture": "banana",
+          "word": "banana"
+        },
+        {
+          "text": "I like oranges.",
+          "say": "I like oranges.",
+          "picture": "orange",
+          "word": "orange"
+        },
+        {
+          "text": "I like grapes.",
+          "say": "I like grapes.",
+          "picture": "grapes",
+          "word": "grapes"
+        },
+        {
+          "text": "I like milk.",
+          "say": "I like milk.",
+          "picture": "milk",
+          "word": "milk"
+        },
+        {
+          "text": "I like cake.",
+          "say": "I like cake.",
+          "picture": "cake",
+          "word": "cake"
+        }
+      ]
+    },
+    {
+      "id": "book-farm",
+      "title": "At the farm",
+      "vi": "Ở nông trại",
+      "picture": "cow",
+      "kind": "book",
+      "items": [
+        {
+          "text": "A cow says moo.",
+          "say": "A cow says moo.",
+          "picture": "cow",
+          "word": "cow"
+        },
+        {
+          "text": "A pig says oink.",
+          "say": "A pig says oink.",
+          "picture": "pig",
+          "word": "pig"
+        },
+        {
+          "text": "A duck says quack.",
+          "say": "A duck says quack.",
+          "picture": "duck",
+          "word": "duck"
+        },
+        {
+          "text": "A horse says neigh.",
+          "say": "A horse says neigh.",
+          "picture": "horse",
+          "word": "horse"
+        },
+        {
+          "text": "A bird says tweet.",
+          "say": "A bird says tweet.",
+          "picture": "bird",
+          "word": "bird"
+        },
+        {
+          "text": "A frog says ribbit.",
+          "say": "A frog says ribbit.",
+          "picture": "frog",
+          "word": "frog"
+        }
+      ]
+    },
+    {
+      "id": "book-my-day",
+      "title": "My day",
+      "vi": "Một ngày của bé",
+      "picture": "sun",
+      "kind": "book",
+      "items": [
+        {
+          "text": "I see the sun.",
+          "say": "I see the sun.",
+          "picture": "sun",
+          "word": "sun"
+        },
+        {
+          "text": "I see a tree.",
+          "say": "I see a tree.",
+          "picture": "tree",
+          "word": "tree"
+        },
+        {
+          "text": "I see a flower.",
+          "say": "I see a flower.",
+          "picture": "flower",
+          "word": "flower"
+        },
+        {
+          "text": "I see a house.",
+          "say": "I see a house.",
+          "picture": "house",
+          "word": "house"
+        },
+        {
+          "text": "I see a car.",
+          "say": "I see a car.",
+          "picture": "car",
+          "word": "car"
+        },
+        {
+          "text": "I see the moon.",
+          "say": "I see the moon.",
+          "picture": "moon",
+          "word": "moon"
+        }
+      ]
+    },
+    {
+      "id": "book-friends",
+      "title": "My friends",
+      "vi": "Những người bạn",
+      "picture": "cat",
+      "kind": "book",
+      "items": [
+        {
+          "text": "Look at the cat.",
+          "say": "Look at the cat.",
+          "picture": "cat",
+          "word": "cat"
+        },
+        {
+          "text": "Look at the dog.",
+          "say": "Look at the dog.",
+          "picture": "dog",
+          "word": "dog"
+        },
+        {
+          "text": "Look at the rabbit.",
+          "say": "Look at the rabbit.",
+          "picture": "rabbit",
+          "word": "rabbit"
+        },
+        {
+          "text": "Look at the bear.",
+          "say": "Look at the bear.",
+          "picture": "bear",
+          "word": "bear"
+        },
+        {
+          "text": "Look at the fish.",
+          "say": "Look at the fish.",
+          "picture": "fish",
+          "word": "fish"
+        },
+        {
+          "text": "Look at the star.",
+          "say": "Look at the star.",
+          "picture": "star",
+          "word": "star"
+        }
+      ]
+    }
+  ]
+}

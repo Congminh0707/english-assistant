@@ -1,0 +1,440 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "listentravel",
+    "title": "Địa điểm & du lịch",
+    "summary": "Hỏi đường, vé xe, khách sạn, sân bay, chợ.",
+    "icon": "🗺️",
+    "order": 3
+  },
+  "lessons": [
+    {
+      "id": "listentravel.directions",
+      "title": "Hỏi đường",
+      "summary": "Chỉ đường đến bưu điện.",
+      "level": "A2_1",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Asking for directions",
+          "lines": [
+            {
+              "en": "Excuse me, where is the post office?",
+              "vi": "Xin lỗi, bưu điện ở đâu vậy?",
+              "speaker": "A"
+            },
+            {
+              "en": "Go straight and turn left at the traffic lights.",
+              "vi": "Đi thẳng rồi rẽ trái ở chỗ đèn giao thông.",
+              "speaker": "B"
+            },
+            {
+              "en": "Is it far from here?",
+              "vi": "Chỗ đó có xa không?",
+              "speaker": "A"
+            },
+            {
+              "en": "No, it is about five minutes on foot. It is next to the bank.",
+              "vi": "Không, đi bộ khoảng năm phút. Nó nằm cạnh ngân hàng.",
+              "speaker": "B"
+            },
+            {
+              "en": "Thank you very much.",
+              "vi": "Cảm ơn bạn rất nhiều.",
+              "speaker": "A"
+            },
+            {
+              "en": "You are welcome.",
+              "vi": "Không có gì.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Where should the woman turn left?",
+          "choices": [
+            "At the bank",
+            "At the traffic lights",
+            "At the school"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "How far is the post office?",
+          "choices": [
+            "About five minutes on foot",
+            "Twenty minutes by bus",
+            "Ten kilometres"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The post office is next to the bank.",
+          "answer": "true"
+        },
+        {
+          "type": "listen",
+          "say": "Go straight and turn left.",
+          "choices": [
+            "Go straight and turn left.",
+            "Go back and turn right.",
+            "Stop and wait here."
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "listentravel.bus-ticket",
+      "title": "Mua vé xe buýt",
+      "summary": "Mua vé đi Đà Nẵng.",
+      "level": "A2_1",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Buying a bus ticket",
+          "lines": [
+            {
+              "en": "Hello. I would like a ticket to Da Nang, please.",
+              "vi": "Xin chào. Tôi muốn mua một vé đi Đà Nẵng.",
+              "speaker": "A"
+            },
+            {
+              "en": "One way or return?",
+              "vi": "Một chiều hay khứ hồi?",
+              "speaker": "B"
+            },
+            {
+              "en": "Return, please. I come back on Sunday.",
+              "vi": "Khứ hồi. Tôi về vào Chủ nhật.",
+              "speaker": "A"
+            },
+            {
+              "en": "That is two hundred and fifty thousand dong. The bus leaves at eight forty.",
+              "vi": "Hai trăm năm mươi nghìn đồng. Xe chạy lúc tám giờ bốn mươi.",
+              "speaker": "B"
+            },
+            {
+              "en": "Which platform, please?",
+              "vi": "Cho hỏi sân ga số mấy?",
+              "speaker": "A"
+            },
+            {
+              "en": "Platform three. Please be there ten minutes early.",
+              "vi": "Sân số ba. Hãy có mặt sớm mười phút.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What kind of ticket does the woman buy?",
+          "choices": [
+            "One way",
+            "Return",
+            "Monthly"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "When does the bus leave?",
+          "choices": [
+            "At eight forty",
+            "At nine",
+            "At ten"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The bus leaves from platform two.",
+          "answer": "false",
+          "explain": "Sân số ba (platform three)."
+        },
+        {
+          "type": "gap",
+          "prompt": "The woman comes back on ___.",
+          "answers": [
+            "Sunday"
+          ],
+          "choices": [
+            "Sunday",
+            "Monday",
+            "Friday"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listentravel.hotel-checkin",
+      "title": "Nhận phòng khách sạn",
+      "summary": "Làm thủ tục nhận phòng.",
+      "level": "A2_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Hotel check-in",
+          "lines": [
+            {
+              "en": "Good evening. I have a reservation under the name Tran.",
+              "vi": "Chào buổi tối. Tôi đã đặt phòng dưới tên Trần.",
+              "speaker": "A"
+            },
+            {
+              "en": "Welcome, Mr. Tran. A double room for three nights, is that right?",
+              "vi": "Chào mừng ông Trần. Phòng đôi ba đêm, đúng không ạ?",
+              "speaker": "B"
+            },
+            {
+              "en": "Yes. Is breakfast included?",
+              "vi": "Vâng. Có bao gồm bữa sáng không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Yes, breakfast is from six thirty to ten in the restaurant on the first floor.",
+              "vi": "Có, bữa sáng từ sáu giờ ba mươi đến mười giờ ở nhà hàng tầng một.",
+              "speaker": "B"
+            },
+            {
+              "en": "Great. What is the Wi-Fi password?",
+              "vi": "Tuyệt. Mật khẩu Wi-Fi là gì?",
+              "speaker": "A"
+            },
+            {
+              "en": "It is on the card with your room key. Your room is 405, on the fourth floor.",
+              "vi": "Nó ở trên thẻ cùng chìa khoá phòng. Phòng của ông là 405, tầng bốn.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How long will Mr. Tran stay?",
+          "choices": [
+            "One night",
+            "Three nights",
+            "A week"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Where is breakfast?",
+          "choices": [
+            "In the room",
+            "In the restaurant on the first floor",
+            "On the roof"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which room does he get?",
+          "choices": [
+            "Room 304",
+            "Room 405",
+            "Room 505"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The Wi-Fi password is on the key card.",
+          "answer": "true"
+        }
+      ]
+    },
+    {
+      "id": "listentravel.airport-announcement",
+      "title": "Thông báo ở sân bay",
+      "summary": "Nghe thông báo chuyến bay.",
+      "level": "A2_2",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "An airport announcement",
+          "lines": [
+            {
+              "en": "Attention, please. Flight VN two one two to Hanoi is now boarding at gate twelve.",
+              "vi": "Xin chú ý. Chuyến bay VN 212 đi Hà Nội đang lên máy bay tại cổng số mười hai."
+            },
+            {
+              "en": "Passengers should have their boarding passes and passports ready.",
+              "vi": "Hành khách hãy chuẩn bị sẵn thẻ lên máy bay và hộ chiếu."
+            },
+            {
+              "en": "Flight VN three zero five to Da Nang is delayed by forty minutes.",
+              "vi": "Chuyến bay VN 305 đi Đà Nẵng bị hoãn bốn mươi phút."
+            },
+            {
+              "en": "We are sorry for the delay. Please check the screens for updates.",
+              "vi": "Chúng tôi xin lỗi vì sự chậm trễ. Hãy theo dõi màn hình để cập nhật."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Which gate is flight VN 212?",
+          "choices": [
+            "Gate ten",
+            "Gate twelve",
+            "Gate fifteen"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "How long is the delay to Da Nang?",
+          "choices": [
+            "Twenty minutes",
+            "Forty minutes",
+            "One hour"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "Flight VN 212 goes to Da Nang.",
+          "answer": "false",
+          "explain": "VN 212 đi Hà Nội; VN 305 đi Đà Nẵng."
+        },
+        {
+          "type": "gap",
+          "prompt": "Passengers should check the ___ for updates.",
+          "answers": [
+            "screens"
+          ],
+          "choices": [
+            "screens",
+            "shops",
+            "seats"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listentravel.price-question",
+      "title": "Hỏi giá và mặc cả",
+      "summary": "Mặc cả ở chợ.",
+      "level": "A2_1",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "At the market",
+          "lines": [
+            {
+              "en": "How much is this bag?",
+              "vi": "Cái túi này bao nhiêu?",
+              "speaker": "A"
+            },
+            {
+              "en": "Four hundred thousand dong.",
+              "vi": "Bốn trăm nghìn đồng.",
+              "speaker": "B"
+            },
+            {
+              "en": "That is too expensive. Can you give me a discount?",
+              "vi": "Đắt quá. Bạn giảm giá cho tôi được không?",
+              "speaker": "A"
+            },
+            {
+              "en": "OK, three hundred and fifty thousand.",
+              "vi": "Được, ba trăm năm mươi nghìn.",
+              "speaker": "B"
+            },
+            {
+              "en": "How about three hundred?",
+              "vi": "Ba trăm thì sao?",
+              "speaker": "A"
+            },
+            {
+              "en": "All right, three hundred. It is a good price for you.",
+              "vi": "Được, ba trăm. Giá tốt cho bạn rồi.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is the first price?",
+          "choices": [
+            "300,000 dong",
+            "350,000 dong",
+            "400,000 dong"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "mcq",
+          "prompt": "What price do they agree on?",
+          "choices": [
+            "300,000 dong",
+            "350,000 dong",
+            "400,000 dong"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The woman thinks the bag is cheap.",
+          "answer": "false",
+          "explain": "Cô ấy nói \"too expensive\" (đắt quá)."
+        },
+        {
+          "type": "listen",
+          "say": "Can you give me a discount?",
+          "choices": [
+            "Can you give me a discount?",
+            "Can you give me a ticket?",
+            "Can you open the door?"
+          ],
+          "answer": 0
+        }
+      ]
+    }
+  ]
+}

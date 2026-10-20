@@ -1,0 +1,398 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readb2",
+    "title": "Đọc B2",
+    "summary": "Giấc mơ, kinh tế gig, thành phố hay nông thôn, AI ở nơi làm việc, lối sống tối giản.",
+    "icon": "📕",
+    "order": 11
+  },
+  "lessons": [
+    {
+      "id": "readb2.why-we-dream",
+      "title": "Vì sao ta mơ",
+      "summary": "Các giả thuyết khoa học về giấc mơ.",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Why We Dream",
+          "paragraphs": [
+            {
+              "en": "Everybody dreams, although many people forget their dreams within minutes of waking up. Scientists have been studying dreams for over a century, yet they still disagree about why we dream at all.",
+              "vi": "Ai cũng mơ, dù nhiều người quên giấc mơ chỉ vài phút sau khi thức. Các nhà khoa học nghiên cứu giấc mơ hơn một thế kỷ nhưng vẫn bất đồng về việc vì sao ta mơ."
+            },
+            {
+              "en": "One theory suggests that dreaming helps the brain process emotions and organise memories. Another argues that dreams are simply a by-product of random brain activity, which the mind then tries to turn into a story.",
+              "vi": "Một giả thuyết cho rằng giấc mơ giúp não xử lý cảm xúc và sắp xếp ký ức. Giả thuyết khác lập luận giấc mơ chỉ là sản phẩm phụ của hoạt động ngẫu nhiên của não, rồi tâm trí cố biến nó thành câu chuyện."
+            },
+            {
+              "en": "Whatever the explanation, research shows that people who are deprived of dream-rich sleep tend to have more difficulty concentrating and controlling their mood. In other words, even if dreams have no meaning, the sleep that produces them is essential.",
+              "vi": "Dù lý giải thế nào, nghiên cứu cho thấy người bị thiếu giấc ngủ nhiều mộng thường khó tập trung và kiểm soát tâm trạng hơn. Nói cách khác, dù giấc mơ không có ý nghĩa, giấc ngủ tạo ra chúng là thiết yếu."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What does one theory say about dreams?",
+          "choices": [
+            "They help process emotions and memories.",
+            "They predict the future.",
+            "They are always meaningful."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What happens to people deprived of dream-rich sleep?",
+          "choices": [
+            "They struggle to concentrate.",
+            "They sleep less.",
+            "They dream more."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Scientists agree on why we dream.",
+          "answer": "false",
+          "explain": "Họ vẫn bất đồng."
+        },
+        {
+          "type": "tf",
+          "statement": "Many people forget their dreams quickly.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Children dream more than adults.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "Even if dreams have no meaning, the sleep is ___.",
+          "answers": [
+            "essential"
+          ],
+          "choices": [
+            "essential",
+            "optional",
+            "short"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readb2.the-gig-economy",
+      "title": "Kinh tế làm thuê tự do",
+      "summary": "Làm việc theo từng đơn thay vì công việc cố định.",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "The Gig Economy",
+          "paragraphs": [
+            {
+              "en": "In recent years, more people have started working \"gigs\": short-term jobs such as driving for a ride-hailing app, delivering food or doing freelance design. The internet has made it easy to find customers without an employer.",
+              "vi": "Những năm gần đây, nhiều người bắt đầu làm \"gig\": công việc ngắn hạn như lái xe công nghệ, giao đồ ăn hay thiết kế tự do. Internet khiến việc tìm khách hàng không cần chủ thuê trở nên dễ dàng."
+            },
+            {
+              "en": "Supporters point out that gig work offers freedom: workers choose when and where to work, and they can earn extra money besides their main job. For students and parents with young children, this flexibility can be very valuable.",
+              "vi": "Người ủng hộ chỉ ra rằng làm gig mang lại tự do: người làm chọn thời gian, địa điểm và kiếm thêm ngoài công việc chính. Với sinh viên và cha mẹ có con nhỏ, sự linh hoạt này rất quý."
+            },
+            {
+              "en": "Critics, however, warn that gig workers often lack benefits such as paid holidays, sick pay and pensions, and their income can change dramatically from month to month. They argue that regulation is necessary to protect workers without destroying the flexibility.",
+              "vi": "Tuy nhiên những người phê phán cảnh báo người làm gig thường thiếu phúc lợi như nghỉ phép có lương, trợ cấp ốm đau, lương hưu và thu nhập có thể biến động mạnh theo tháng. Họ cho rằng cần quy định để bảo vệ người lao động mà không phá vỡ sự linh hoạt."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What do supporters say gig work offers?",
+          "choices": [
+            "Freedom to choose when and where to work",
+            "Guaranteed income",
+            "Paid holidays"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What do critics warn about?",
+          "choices": [
+            "Lack of benefits and unstable income",
+            "Too many holidays",
+            "Too much regulation"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Gig work always includes sick pay.",
+          "answer": "false",
+          "explain": "Người làm gig thường thiếu phúc lợi như trợ cấp ốm đau."
+        },
+        {
+          "type": "tf",
+          "statement": "The internet has made it easier to find customers.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Most gig workers are under twenty.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readb2.city-or-countryside",
+      "title": "Thành phố hay nông thôn",
+      "summary": "So sánh hai lối sống.",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "City or Countryside?",
+          "paragraphs": [
+            {
+              "en": "The debate between city and countryside living is as old as cities themselves. City dwellers enjoy a wide choice of jobs, restaurants and entertainment, while people in the countryside value space, clean air and a stronger sense of community.",
+              "vi": "Cuộc tranh luận giữa sống ở thành phố và nông thôn cũng cũ như chính các thành phố. Dân thành thị hưởng nhiều lựa chọn về việc làm, nhà hàng, giải trí, còn người nông thôn coi trọng không gian, không khí sạch và tinh thần cộng đồng bền chặt hơn."
+            },
+            {
+              "en": "On the other hand, cities are often noisy, crowded and expensive, and many residents spend hours commuting. In rural areas, public services such as hospitals, schools and transport may be far away, and young people sometimes find fewer opportunities.",
+              "vi": "Mặt khác, thành phố thường ồn ào, đông đúc, đắt đỏ và nhiều cư dân mất hàng giờ đi lại. Ở nông thôn, các dịch vụ công như bệnh viện, trường học, giao thông có thể ở xa và giới trẻ đôi khi thấy ít cơ hội hơn."
+            },
+            {
+              "en": "Thanks to remote work and better internet, a growing number of people are moving out of big cities without giving up their careers. Perhaps the best choice depends less on location and more on what each person values most.",
+              "vi": "Nhờ làm việc từ xa và Internet tốt hơn, ngày càng nhiều người rời thành phố lớn mà không bỏ sự nghiệp. Có lẽ lựa chọn tốt nhất ít phụ thuộc vào nơi ở mà phụ thuộc vào điều mỗi người coi trọng nhất."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What do people in the countryside value?",
+          "choices": [
+            "Space and clean air",
+            "Nightlife",
+            "Public transport"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why are more people leaving big cities?",
+          "choices": [
+            "Remote work and better internet",
+            "Cheaper flights",
+            "New universities"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Cities are always cheaper than the countryside.",
+          "answer": "false",
+          "explain": "Bài viết nói thành phố thường đắt đỏ."
+        },
+        {
+          "type": "tf",
+          "statement": "Rural areas may have public services far away.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The writer lives in the countryside.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "The best choice depends on what each person ___ most.",
+          "answers": [
+            "values"
+          ],
+          "choices": [
+            "values",
+            "buys",
+            "hears"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readb2.ai-at-work",
+      "title": "Trí tuệ nhân tạo ở nơi làm việc",
+      "summary": "AI thay đổi công việc thế nào.",
+      "level": "B2_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Artificial Intelligence at Work",
+          "paragraphs": [
+            {
+              "en": "Artificial intelligence is no longer a technology of the future; it already helps doctors read scans, banks detect fraud and teachers prepare materials. Many routine tasks that once took hours can now be completed in minutes.",
+              "vi": "Trí tuệ nhân tạo không còn là công nghệ của tương lai; nó đã giúp bác sĩ đọc phim chụp, ngân hàng phát hiện gian lận và giáo viên soạn tài liệu. Nhiều việc thường nhật từng mất hàng giờ nay hoàn thành trong vài phút."
+            },
+            {
+              "en": "This progress raises an important question: will machines replace human workers? Most economists believe that some jobs will disappear, but new ones will emerge, as happened with earlier technologies. What matters is whether workers have the chance to learn new skills.",
+              "vi": "Tiến bộ này đặt ra câu hỏi quan trọng: máy móc có thay thế người lao động không? Hầu hết nhà kinh tế tin một số việc sẽ biến mất nhưng việc mới sẽ xuất hiện như đã xảy ra với các công nghệ trước. Điều quan trọng là người lao động có cơ hội học kỹ năng mới hay không."
+            },
+            {
+              "en": "In practice, the most effective approach seems to be collaboration: AI handles repetitive work and large amounts of data, while people contribute judgement, creativity and empathy. Employees who learn to use these tools wisely are likely to become more valuable, not less.",
+              "vi": "Trên thực tế, cách hiệu quả nhất có vẻ là hợp tác: AI xử lý việc lặp lại và lượng dữ liệu lớn, còn con người đóng góp sự phán đoán, sáng tạo và đồng cảm. Nhân viên biết dùng các công cụ này khôn ngoan nhiều khả năng sẽ có giá trị hơn chứ không kém đi."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What do most economists believe?",
+          "choices": [
+            "Some jobs will disappear but new ones will emerge.",
+            "No jobs will change.",
+            "All jobs will disappear."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What do people contribute in collaboration with AI?",
+          "choices": [
+            "Judgement, creativity and empathy",
+            "Speed only",
+            "Data storage"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "AI already helps doctors read scans.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The writer thinks workers should avoid AI tools.",
+          "answer": "false",
+          "explain": "Tác giả cho rằng người biết dùng công cụ sẽ có giá trị hơn."
+        },
+        {
+          "type": "tf",
+          "statement": "AI will be cheaper than teachers within five years.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "AI handles repetitive work and large amounts of ___.",
+          "answers": [
+            "data"
+          ],
+          "choices": [
+            "data",
+            "coffee",
+            "music"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readb2.minimalism",
+      "title": "Lối sống tối giản",
+      "summary": "Sống với ít đồ hơn để có nhiều thời gian hơn.",
+      "level": "B2_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Minimalism",
+          "paragraphs": [
+            {
+              "en": "Minimalism is the idea that owning fewer things can lead to a happier and less stressful life. Rather than buying more, followers of this lifestyle ask themselves whether each item really adds value to their lives.",
+              "vi": "Chủ nghĩa tối giản là ý tưởng rằng sở hữu ít đồ hơn có thể dẫn đến cuộc sống hạnh phúc, ít căng thẳng hơn. Thay vì mua thêm, người theo lối sống này tự hỏi từng món đồ có thật sự thêm giá trị cho cuộc sống hay không."
+            },
+            {
+              "en": "The benefits can be considerable. People who simplify their homes often report saving money, spending less time cleaning and feeling more in control. They also tend to have more time for relationships and experiences instead of possessions.",
+              "vi": "Lợi ích có thể đáng kể. Người đơn giản hoá nhà cửa thường kể rằng họ tiết kiệm tiền, mất ít thời gian dọn dẹp hơn và thấy chủ động hơn. Họ cũng thường có nhiều thời gian hơn cho các mối quan hệ và trải nghiệm thay vì đồ đạc."
+            },
+            {
+              "en": "Critics argue that extreme minimalism can be a privilege, since not everyone can afford to throw things away and replace them later. A more realistic approach is simply to buy thoughtfully, repair what you can, and keep only what you use or love.",
+              "vi": "Người phê phán cho rằng tối giản cực đoan có thể là đặc quyền vì không phải ai cũng đủ khả năng vứt đồ rồi mua lại sau. Cách thực tế hơn là chỉ mua có suy nghĩ, sửa những gì có thể và giữ lại những gì bạn dùng hoặc yêu thích."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What do followers ask about each item?",
+          "choices": [
+            "Whether it adds value to their lives",
+            "How much it costs",
+            "Who made it"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is a more realistic approach according to the text?",
+          "choices": [
+            "Buy thoughtfully and keep what you use or love",
+            "Throw away everything",
+            "Never buy anything"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Minimalists often spend less time cleaning.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Everyone can easily afford extreme minimalism.",
+          "answer": "false",
+          "explain": "Bài nêu tối giản cực đoan có thể là đặc quyền."
+        },
+        {
+          "type": "tf",
+          "statement": "Minimalism started in Japan.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    }
+  ]
+}

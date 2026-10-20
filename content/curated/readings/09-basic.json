@@ -1,0 +1,572 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readbasic",
+    "title": "Đời sống cơ bản",
+    "summary": "Bạn thân, ngôi nhà, ngày mưa, công viên, món ăn, đi khám, sinh nhật, mua giày.",
+    "icon": "🏡",
+    "order": 9
+  },
+  "lessons": [
+    {
+      "id": "readbasic.my-best-friend",
+      "title": "Bạn thân của tôi",
+      "summary": "Giới thiệu một người bạn thân.",
+      "level": "A1_2",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "My Best Friend",
+          "paragraphs": [
+            {
+              "en": "My best friend is Nam. He is twelve years old and he lives next to my house. We go to the same school and we sit together in class.",
+              "vi": "Bạn thân của mình là Nam. Bạn ấy mười hai tuổi và sống cạnh nhà mình. Chúng mình học cùng trường và ngồi cùng bàn."
+            },
+            {
+              "en": "Nam is kind and funny. He likes football and he plays every afternoon. I like drawing, but sometimes I watch him play.",
+              "vi": "Nam tốt bụng và hài hước. Bạn ấy thích bóng đá và chơi mỗi buổi chiều. Mình thích vẽ nhưng đôi khi mình xem bạn ấy chơi."
+            },
+            {
+              "en": "At weekends, we ride our bikes to the park. We talk, we laugh and we eat ice cream. I am happy to have a friend like him.",
+              "vi": "Cuối tuần, chúng mình đạp xe đến công viên. Chúng mình trò chuyện, cười đùa và ăn kem. Mình vui vì có một người bạn như bạn ấy."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How old is Nam?",
+          "choices": [
+            "Ten",
+            "Twelve",
+            "Fourteen"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does Nam like?",
+          "choices": [
+            "Football",
+            "Drawing",
+            "Cooking"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Nam lives far from the writer.",
+          "answer": "false",
+          "explain": "Nam sống cạnh nhà tác giả."
+        },
+        {
+          "type": "tf",
+          "statement": "They ride bikes to the park at weekends.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Nam has a brother.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readbasic.my-house",
+      "title": "Ngôi nhà của tôi",
+      "summary": "Tả các phòng trong nhà.",
+      "level": "A1_2",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "My House",
+          "paragraphs": [
+            {
+              "en": "I live in a small house with my parents and my sister. There are two floors. Downstairs there is a living room and a kitchen. Upstairs there are three bedrooms.",
+              "vi": "Mình sống trong một ngôi nhà nhỏ với bố mẹ và em gái. Nhà có hai tầng. Tầng dưới có phòng khách và bếp. Tầng trên có ba phòng ngủ."
+            },
+            {
+              "en": "My favourite room is my bedroom. It has a bed, a desk and a big window. On the desk there is my computer and some books.",
+              "vi": "Phòng mình thích nhất là phòng ngủ. Phòng có một cái giường, một cái bàn và một cửa sổ lớn. Trên bàn có máy tính và vài quyển sách."
+            },
+            {
+              "en": "Behind the house there is a small garden. My mother grows flowers and my father grows vegetables. In the evening, we sometimes have dinner outside.",
+              "vi": "Phía sau nhà có một khu vườn nhỏ. Mẹ trồng hoa còn bố trồng rau. Buổi tối, đôi khi cả nhà ăn cơm ngoài vườn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How many floors does the house have?",
+          "choices": [
+            "One",
+            "Two",
+            "Three"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Where is the kitchen?",
+          "choices": [
+            "Downstairs",
+            "Upstairs",
+            "In the garden"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "There are three bedrooms.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The writer's mother grows vegetables.",
+          "answer": "false",
+          "explain": "Mẹ trồng hoa, bố trồng rau."
+        },
+        {
+          "type": "tf",
+          "statement": "The house has a swimming pool.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readbasic.a-rainy-day",
+      "title": "Một ngày mưa",
+      "summary": "Làm gì khi trời mưa.",
+      "level": "A1_2",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "A Rainy Day",
+          "paragraphs": [
+            {
+              "en": "It is raining today, so we cannot play outside. My little brother is sad, but I have an idea. We make a tent with blankets in the living room.",
+              "vi": "Hôm nay trời mưa nên chúng mình không chơi ngoài trời được. Em trai mình buồn, nhưng mình có một ý hay. Chúng mình dựng lều bằng chăn trong phòng khách."
+            },
+            {
+              "en": "Inside the tent, we read books and play cards. Mum brings us hot chocolate and some biscuits. The tent is warm and cosy.",
+              "vi": "Trong lều, chúng mình đọc sách và chơi bài. Mẹ mang cho chúng mình sô-cô-la nóng và ít bánh quy. Cái lều ấm áp và dễ chịu."
+            },
+            {
+              "en": "In the afternoon, the rain stops and a rainbow appears. My brother is very happy. He wants to run outside, but I tell him to wear his boots.",
+              "vi": "Buổi chiều, mưa tạnh và cầu vồng xuất hiện. Em trai rất vui. Em muốn chạy ra ngoài nhưng mình bảo em đi ủng."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why can they not play outside?",
+          "choices": [
+            "It is raining.",
+            "It is night.",
+            "They are ill."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What do they make in the living room?",
+          "choices": [
+            "A tent",
+            "A cake",
+            "A boat"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Mum brings them hot chocolate.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The rain does not stop all day.",
+          "answer": "false",
+          "explain": "Buổi chiều mưa tạnh."
+        },
+        {
+          "type": "tf",
+          "statement": "They watch TV in the tent.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readbasic.at-the-park",
+      "title": "Ở công viên",
+      "summary": "Cuối tuần ở công viên thành phố.",
+      "level": "A2_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "At the Park",
+          "paragraphs": [
+            {
+              "en": "On Sunday mornings, the city park is full of people. Some people run along the paths, others do tai chi under the trees, and children play on the swings.",
+              "vi": "Sáng Chủ nhật, công viên thành phố đầy người. Có người chạy dọc lối đi, người khác tập thái cực quyền dưới tán cây, còn trẻ em chơi xích đu."
+            },
+            {
+              "en": "Near the lake, there is a small café where you can buy tea, coffee and snacks. Many older people sit there to read the newspaper and talk with friends.",
+              "vi": "Gần hồ có một quán cà phê nhỏ bán trà, cà phê và đồ ăn nhẹ. Nhiều người lớn tuổi ngồi đó đọc báo và trò chuyện với bạn bè."
+            },
+            {
+              "en": "I like to bring a book and sit on a bench by the water. It is a quiet place, even though it is in the middle of a busy city.",
+              "vi": "Mình thích mang theo một quyển sách và ngồi trên ghế đá bên hồ. Đó là nơi yên tĩnh dù nằm giữa một thành phố đông đúc."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What do some people do under the trees?",
+          "choices": [
+            "Tai chi",
+            "Football",
+            "Swimming"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Where is the café?",
+          "choices": [
+            "Near the lake",
+            "Next to the swings",
+            "At the entrance"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Older people read newspapers at the café.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The park is far from the city centre.",
+          "answer": "false",
+          "explain": "Công viên nằm giữa thành phố."
+        },
+        {
+          "type": "tf",
+          "statement": "Entry to the park costs money.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readbasic.my-favourite-food",
+      "title": "Món ăn yêu thích",
+      "summary": "Món phở và cách nấu.",
+      "level": "A2_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "My Favourite Food",
+          "paragraphs": [
+            {
+              "en": "My favourite food is pho. It is a noodle soup from Vietnam, and many people eat it for breakfast. My grandmother makes the best pho in our family.",
+              "vi": "Món ăn yêu thích của mình là phở. Đó là món mì nước của Việt Nam và nhiều người ăn vào bữa sáng. Bà mình nấu phở ngon nhất nhà."
+            },
+            {
+              "en": "First, she cooks bones in water for many hours to make a tasty soup. Then she adds spices such as ginger, onion and star anise. The smell fills the whole house.",
+              "vi": "Đầu tiên bà ninh xương trong nước nhiều tiếng để nước dùng thơm ngon. Sau đó bà thêm gia vị như gừng, hành và hoa hồi. Mùi thơm lan khắp nhà."
+            },
+            {
+              "en": "When the soup is ready, she puts rice noodles and thin slices of beef in a bowl and pours the hot soup on top. We add herbs, lime and a little chilli. It is delicious!",
+              "vi": "Khi nước dùng xong, bà cho bánh phở và những lát bò mỏng vào tô rồi chan nước nóng lên. Chúng mình thêm rau thơm, chanh và chút ớt. Ngon tuyệt!"
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Who makes the best pho in the family?",
+          "choices": [
+            "The grandmother",
+            "The mother",
+            "The father"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "How long does she cook the bones?",
+          "choices": [
+            "A few minutes",
+            "Many hours",
+            "One day"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "Pho is a noodle soup.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "She uses chicken in the pho.",
+          "answer": "false",
+          "explain": "Bà dùng thịt bò."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer cooks pho every day.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readbasic.going-to-the-doctor",
+      "title": "Đi khám bác sĩ",
+      "summary": "Một lần đi khám vì cảm cúm.",
+      "level": "A2_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Going to the Doctor",
+          "paragraphs": [
+            {
+              "en": "Last Monday, I woke up with a sore throat and a high temperature. I felt very tired, so my mother called the doctor and made an appointment for the afternoon.",
+              "vi": "Thứ Hai tuần trước, mình thức dậy với cổ họng đau và sốt cao. Mình thấy rất mệt nên mẹ gọi bác sĩ và hẹn lịch buổi chiều."
+            },
+            {
+              "en": "The doctor looked at my throat and took my temperature. She said I had the flu and told me to stay in bed, drink a lot of water and take some medicine three times a day.",
+              "vi": "Bác sĩ khám cổ họng và đo nhiệt độ cho mình. Bác sĩ nói mình bị cúm và dặn nằm nghỉ, uống nhiều nước và uống thuốc ba lần một ngày."
+            },
+            {
+              "en": "I stayed at home for four days. On Friday, I felt much better, and I went back to school. Now I always wash my hands more often.",
+              "vi": "Mình ở nhà bốn ngày. Thứ Sáu mình thấy khoẻ hơn nhiều và đi học lại. Giờ mình luôn rửa tay thường xuyên hơn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What was wrong with the writer?",
+          "choices": [
+            "The flu",
+            "A broken arm",
+            "A toothache"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "How often should the writer take the medicine?",
+          "choices": [
+            "Once a day",
+            "Three times a day",
+            "Every hour"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The writer stayed at home for four days.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The doctor said to go to school the next day.",
+          "answer": "false",
+          "explain": "Bác sĩ dặn nằm nghỉ."
+        },
+        {
+          "type": "tf",
+          "statement": "The doctor gave an injection.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readbasic.a-birthday-party",
+      "title": "Tiệc sinh nhật",
+      "summary": "Chuẩn bị tiệc cho em gái.",
+      "level": "A2_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "A Birthday Party",
+          "paragraphs": [
+            {
+              "en": "Next Saturday is my sister's tenth birthday, and we are going to organise a party for her at home. She does not know about it, so it will be a surprise.",
+              "vi": "Thứ Bảy tuần sau là sinh nhật lần thứ mười của em gái mình và chúng mình sẽ tổ chức tiệc cho em ở nhà. Em chưa biết nên đó sẽ là một bất ngờ."
+            },
+            {
+              "en": "My father will bake a chocolate cake, and my mother will make sandwiches and fruit salad. I am going to decorate the living room with balloons and colourful paper.",
+              "vi": "Bố sẽ nướng bánh sô-cô-la, mẹ sẽ làm bánh mì kẹp và salad trái cây. Mình sẽ trang trí phòng khách bằng bóng bay và giấy màu."
+            },
+            {
+              "en": "We have invited eight of her friends. They will arrive at four o'clock and hide in the kitchen. When she comes home from her piano lesson, everyone will shout \"Surprise!\"",
+              "vi": "Chúng mình mời tám bạn của em. Các bạn sẽ đến lúc bốn giờ và trốn trong bếp. Khi em đi học piano về, mọi người sẽ hét lên \"Bất ngờ!\""
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How old will the sister be?",
+          "choices": [
+            "Eight",
+            "Ten",
+            "Twelve"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Who will bake the cake?",
+          "choices": [
+            "The father",
+            "The mother",
+            "The writer"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The sister knows about the party.",
+          "answer": "false",
+          "explain": "Đó là một bất ngờ."
+        },
+        {
+          "type": "tf",
+          "statement": "Eight friends are invited.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The party will be in a restaurant.",
+          "answer": "false",
+          "explain": "Tiệc tổ chức ở nhà."
+        }
+      ]
+    },
+    {
+      "id": "readbasic.shopping-for-shoes",
+      "title": "Mua giày",
+      "summary": "Chọn giày ở cửa hàng.",
+      "level": "A2_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Shopping for Shoes",
+          "paragraphs": [
+            {
+              "en": "Yesterday, I went to a shoe shop because my old trainers were too small. There were hundreds of pairs, and I could not decide, so I asked the shop assistant for help.",
+              "vi": "Hôm qua mình đến cửa hàng giày vì đôi giày thể thao cũ đã chật. Có hàng trăm đôi và mình không biết chọn đôi nào nên nhờ nhân viên giúp."
+            },
+            {
+              "en": "She measured my feet and brought three different pairs. The first pair was too tight, the second was too expensive, but the third was comfortable and cost only forty dollars.",
+              "vi": "Chị ấy đo chân mình và mang ra ba đôi khác nhau. Đôi đầu quá chật, đôi thứ hai quá đắt, còn đôi thứ ba thoải mái và chỉ có bốn mươi đô."
+            },
+            {
+              "en": "I walked around the shop to test them, and they felt great. I paid at the counter, and the assistant put my old shoes in the new box. I am going to wear the new ones to school tomorrow.",
+              "vi": "Mình đi vòng quanh cửa hàng để thử và thấy rất êm. Mình trả tiền ở quầy và chị nhân viên cho giày cũ vào hộp mới. Ngày mai mình sẽ mang đôi mới đến trường."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why did the writer need new shoes?",
+          "choices": [
+            "The old ones were too small.",
+            "The old ones were dirty.",
+            "It was a gift."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "How much were the shoes?",
+          "choices": [
+            "$20",
+            "$40",
+            "$60"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The second pair was too expensive.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The first pair was comfortable.",
+          "answer": "false",
+          "explain": "Đôi đầu quá chật."
+        },
+        {
+          "type": "tf",
+          "statement": "The shoe shop was closing down.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    }
+  ]
+}

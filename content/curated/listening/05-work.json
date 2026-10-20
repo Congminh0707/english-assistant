@@ -1,0 +1,445 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "listenwork",
+    "title": "Học tập & công việc",
+    "summary": "Phỏng vấn, họp, nhóm học, thư viện, sở thích.",
+    "icon": "🎓",
+    "order": 5
+  },
+  "lessons": [
+    {
+      "id": "listenwork.job-interview",
+      "title": "Phỏng vấn xin việc",
+      "summary": "Một đoạn phỏng vấn ngắn.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "A job interview",
+          "lines": [
+            {
+              "en": "Thank you for coming. Could you tell me about yourself?",
+              "vi": "Cảm ơn bạn đã đến. Bạn có thể giới thiệu về bản thân không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Of course. I graduated from university last year, and I have worked as an assistant for six months.",
+              "vi": "Vâng. Tôi tốt nghiệp đại học năm ngoái và đã làm trợ lý được sáu tháng.",
+              "speaker": "B"
+            },
+            {
+              "en": "What are your main strengths?",
+              "vi": "Điểm mạnh chính của bạn là gì?",
+              "speaker": "A"
+            },
+            {
+              "en": "I am organised and I work well in a team. I also learn new things quickly.",
+              "vi": "Tôi làm việc có tổ chức và làm việc nhóm tốt. Tôi cũng học điều mới rất nhanh.",
+              "speaker": "B"
+            },
+            {
+              "en": "Why do you want to work for our company?",
+              "vi": "Vì sao bạn muốn làm việc cho công ty chúng tôi?",
+              "speaker": "A"
+            },
+            {
+              "en": "Because your projects are interesting, and I would like to develop my skills here.",
+              "vi": "Vì các dự án của công ty rất thú vị, và tôi muốn phát triển kỹ năng ở đây.",
+              "speaker": "B"
+            },
+            {
+              "en": "Thank you. We will contact you by the end of the week.",
+              "vi": "Cảm ơn bạn. Chúng tôi sẽ liên hệ trước cuối tuần.",
+              "speaker": "A"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "When did the candidate graduate?",
+          "choices": [
+            "Last year",
+            "Five years ago",
+            "This month"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which strength does the candidate mention?",
+          "choices": [
+            "Working well in a team",
+            "Speaking three languages",
+            "Driving"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The candidate has worked for ten years.",
+          "answer": "false",
+          "explain": "Ứng viên mới làm trợ lý sáu tháng."
+        },
+        {
+          "type": "mcq",
+          "prompt": "When will the company contact the candidate?",
+          "choices": [
+            "Tomorrow",
+            "By the end of the week",
+            "Next month"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "listenwork.meeting-schedule",
+      "title": "Sắp lịch họp",
+      "summary": "Hai đồng nghiệp tìm giờ họp.",
+      "level": "B1_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Scheduling a meeting",
+          "lines": [
+            {
+              "en": "We need to schedule a meeting about the new project. Are you free on Tuesday?",
+              "vi": "Chúng ta cần sắp lịch họp về dự án mới. Thứ Ba bạn rảnh không?",
+              "speaker": "A"
+            },
+            {
+              "en": "I have a training session in the morning, but I am free after lunch.",
+              "vi": "Sáng tôi có buổi tập huấn nhưng chiều thì rảnh.",
+              "speaker": "B"
+            },
+            {
+              "en": "What about two o'clock? It should take about an hour.",
+              "vi": "Hai giờ chiều thì sao? Khoảng một tiếng.",
+              "speaker": "A"
+            },
+            {
+              "en": "Two is fine, but I will need to leave by three fifteen for another appointment.",
+              "vi": "Hai giờ được, nhưng tôi phải đi lúc ba giờ mười lăm vì có cuộc hẹn khác.",
+              "speaker": "B"
+            },
+            {
+              "en": "No problem. I will send the invitation and the agenda today.",
+              "vi": "Không sao. Hôm nay tôi sẽ gửi giấy mời và chương trình họp.",
+              "speaker": "A"
+            },
+            {
+              "en": "Great. Please book the small meeting room.",
+              "vi": "Tuyệt. Nhớ đặt phòng họp nhỏ nhé.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What time is the meeting?",
+          "choices": [
+            "Ten o'clock",
+            "Two o'clock",
+            "Four o'clock"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why must the man leave early?",
+          "choices": [
+            "He has another appointment.",
+            "He is ill.",
+            "He has a train."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The man has a training session on Tuesday afternoon.",
+          "answer": "false",
+          "explain": "Buổi tập huấn vào buổi sáng."
+        },
+        {
+          "type": "gap",
+          "prompt": "The woman will send the ___ today.",
+          "answers": [
+            "invitation",
+            "agenda"
+          ],
+          "choices": [
+            "invitation",
+            "bill",
+            "ticket"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listenwork.study-group",
+      "title": "Nhóm học tập",
+      "summary": "Phân công làm bài thuyết trình.",
+      "level": "B1_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "A study group",
+          "lines": [
+            {
+              "en": "We have two weeks to finish the presentation. How should we divide the work?",
+              "vi": "Chúng ta có hai tuần để làm xong bài thuyết trình. Chia việc thế nào đây?",
+              "speaker": "A"
+            },
+            {
+              "en": "I can research the topic and write the first part.",
+              "vi": "Mình có thể tìm hiểu chủ đề và viết phần đầu.",
+              "speaker": "B"
+            },
+            {
+              "en": "Good. I will prepare the slides, and Nam can practise the speech with us.",
+              "vi": "Tốt. Mình sẽ làm slide, còn Nam có thể luyện bài nói cùng chúng ta.",
+              "speaker": "A"
+            },
+            {
+              "en": "Shall we meet again next Monday to check our progress?",
+              "vi": "Thứ Hai tuần sau mình họp lại để kiểm tra tiến độ nhé?",
+              "speaker": "B"
+            },
+            {
+              "en": "Yes, in the library at four. Please send me your part before then.",
+              "vi": "Được, ở thư viện lúc bốn giờ. Nhớ gửi phần của bạn cho mình trước đó.",
+              "speaker": "A"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How long do they have to finish?",
+          "choices": [
+            "One week",
+            "Two weeks",
+            "A month"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Who will prepare the slides?",
+          "choices": [
+            "The woman",
+            "The man",
+            "Nam"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "They will meet in the library next Monday.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Nam will write the first part.",
+          "answer": "false",
+          "explain": "Người đàn ông (B) viết phần đầu; Nam sẽ luyện bài nói."
+        }
+      ]
+    },
+    {
+      "id": "listenwork.library",
+      "title": "Ở thư viện",
+      "summary": "Mượn sách và gia hạn.",
+      "level": "B1_1",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "At the library",
+          "lines": [
+            {
+              "en": "Hello. I would like to borrow these three books.",
+              "vi": "Xin chào. Tôi muốn mượn ba quyển sách này.",
+              "speaker": "A"
+            },
+            {
+              "en": "Do you have a library card?",
+              "vi": "Bạn có thẻ thư viện chưa?",
+              "speaker": "B"
+            },
+            {
+              "en": "Yes, here it is.",
+              "vi": "Có, đây ạ.",
+              "speaker": "A"
+            },
+            {
+              "en": "You can keep the books for three weeks. If you need more time, you can renew them online.",
+              "vi": "Bạn được giữ sách ba tuần. Nếu cần thêm thời gian, bạn có thể gia hạn trực tuyến.",
+              "speaker": "B"
+            },
+            {
+              "en": "What happens if I return them late?",
+              "vi": "Nếu trả muộn thì sao?",
+              "speaker": "A"
+            },
+            {
+              "en": "There is a small fine of two thousand dong per day for each book.",
+              "vi": "Sẽ bị phạt nhẹ hai nghìn đồng mỗi ngày cho mỗi quyển.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How long can she keep the books?",
+          "choices": [
+            "Three days",
+            "Three weeks",
+            "Three months"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "How can she get more time?",
+          "choices": [
+            "Renew them online",
+            "Ask a friend",
+            "Buy the books"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "There is no fine for late books.",
+          "answer": "false",
+          "explain": "Có phạt hai nghìn đồng mỗi ngày mỗi quyển."
+        },
+        {
+          "type": "listen",
+          "say": "You can renew the books online.",
+          "choices": [
+            "You can renew the books online.",
+            "You can read the books outside.",
+            "You can sell the books today."
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "listenwork.hobbies",
+      "title": "Sở thích",
+      "summary": "Hai người bạn nói về sở thích.",
+      "level": "B1_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Talking about hobbies",
+          "lines": [
+            {
+              "en": "What do you like doing in your free time?",
+              "vi": "Bạn thích làm gì khi rảnh?",
+              "speaker": "A"
+            },
+            {
+              "en": "I enjoy playing the guitar. I started two years ago, and I practise every evening.",
+              "vi": "Mình thích chơi guitar. Mình bắt đầu từ hai năm trước và luyện mỗi tối.",
+              "speaker": "B"
+            },
+            {
+              "en": "That is impressive. I prefer outdoor activities, like hiking and photography.",
+              "vi": "Ấn tượng quá. Mình thì thích hoạt động ngoài trời như đi bộ đường dài và chụp ảnh.",
+              "speaker": "A"
+            },
+            {
+              "en": "Do you go hiking often?",
+              "vi": "Bạn có hay đi bộ đường dài không?",
+              "speaker": "B"
+            },
+            {
+              "en": "About once a month. Last time we climbed a mountain near Da Lat.",
+              "vi": "Khoảng mỗi tháng một lần. Lần trước tụi mình leo một ngọn núi gần Đà Lạt.",
+              "speaker": "A"
+            },
+            {
+              "en": "Next time, please take me with you!",
+              "vi": "Lần sau cho mình đi cùng nhé!",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What does the man enjoy?",
+          "choices": [
+            "Playing the guitar",
+            "Hiking",
+            "Cooking"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "How often does the woman go hiking?",
+          "choices": [
+            "Every week",
+            "About once a month",
+            "Never"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The man started playing the guitar five years ago.",
+          "answer": "false",
+          "explain": "Anh ấy bắt đầu từ hai năm trước."
+        },
+        {
+          "type": "tf",
+          "statement": "The woman likes photography.",
+          "answer": "true"
+        }
+      ]
+    }
+  ]
+}

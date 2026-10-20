@@ -48,6 +48,16 @@ export class UsageRepository {
       .run()
   }
 
+  /** Tổng số giây đã dùng từ trước đến nay */
+  totalSeconds(profileId: string): number {
+    const row = this.db
+      .select({ n: sql<number>`coalesce(sum(${usageDays.seconds}), 0)` })
+      .from(usageDays)
+      .where(eq(usageDays.profileId, profileId))
+      .get()
+    return Number(row?.n ?? 0)
+  }
+
   /** Các ngày từ `fromDay` (YYYY-MM-DD) trở đi */
   since(profileId: string, fromDay: string): UsageDayRow[] {
     return this.db

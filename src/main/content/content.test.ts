@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import Database from 'better-sqlite3'
@@ -594,6 +594,7 @@ describe('Hồ sơ & bài kiểm tra đầu vào', () => {
         expect(question.prompt).toBeTruthy()
         expect(question.choices.length).toBeGreaterThanOrEqual(2)
         if (question.kind === 'reading') expect(question.passage).toBeTruthy()
+        if (question.kind === 'listening') expect(question.say).toBeTruthy()
       }
       const res = c.placement.answer(question.sessionId, question.id, pick)
       if (question.kind === 'vocab') expect(res.correct).toBe(true)
@@ -602,17 +603,27 @@ describe('Hồ sơ & bài kiểm tra đầu vào', () => {
     }
     // Gói mẫu chỉ có 3 từ vựng → không lặp từ; ngân hàng ngữ pháp/đọc hiểu bù cho các câu còn lại
     expect(new Set(lemmas).size).toBe(lemmas.length)
-    expect(kinds).toEqual(new Set(['vocab', 'grammar', 'reading']))
+    expect(kinds).toEqual(new Set(['vocab', 'grammar', 'reading', 'listening']))
     expect(result).not.toBeNull()
-    expect(result!.skills.map((s) => s.skill).sort()).toEqual(['grammar', 'reading', 'vocab'])
+    expect(result!.skills.map((s) => s.skill).sort()).toEqual([
+      'grammar',
+      'listening',
+      'reading',
+      'vocab'
+    ])
     expect(result!.total).toBe(result!.skills.reduce((n, s) => n + s.total, 0))
     expect(c.settings.get('learning.level')).toBe(result!.level)
     for (const s of result!.skills) {
       const key = {
         vocab: 'learning.levelVocab',
         grammar: 'learning.levelGrammar',
-        reading: 'learning.levelReading'
-      }[s.skill] as 'learning.levelVocab' | 'learning.levelGrammar' | 'learning.levelReading'
+        reading: 'learning.levelReading',
+        listening: 'learning.levelListening'
+      }[s.skill] as
+        | 'learning.levelVocab'
+        | 'learning.levelGrammar'
+        | 'learning.levelReading'
+        | 'learning.levelListening'
       expect(c.settings.get(key)).toBe(s.level)
     }
   })
@@ -1182,6 +1193,54 @@ describe('chế độ trẻ em', () => {
     expect(c.parent.verify('5678').ok).toBe(true)
   })
 
+  it('quên PIN: giải phép nhân để xoá PIN cũ rồi đặt PIN mới; sai thì không xoá và mỗi câu chỉ trả lời một lần', () => {
+    c.parent.setPin('1234')
+    const first = c.parent.forgotChallenge()
+    expect(first.a).toBeGreaterThanOrEqual(13)
+    expect(c.parent.resetPin(first.id, first.a * first.b + 1)).toEqual({
+      ok: false,
+      retryAfterSeconds: 0
+    })
+    expect(c.parent.pinSet()).toBe(true)
+    // Câu cũ đã hết hiệu lực dù trả lời đúng
+    expect(c.parent.resetPin(first.id, first.a * first.b).ok).toBe(false)
+
+    const second = c.parent.forgotChallenge()
+    expect(c.parent.resetPin(second.id, second.a * second.b).ok).toBe(true)
+    expect(c.parent.pinSet()).toBe(false)
+    c.parent.setPin('5678') // chưa có PIN → đặt không cần PIN cũ
+    expect(c.parent.verify('5678').ok).toBe(true)
+  })
+
+  it('quên PIN: trả lời sai nhiều lần thì khoá tạm', () => {
+    c.parent.setPin('1234')
+    let last = { ok: true, retryAfterSeconds: 0 }
+    for (let i = 0; i < 5; i++) {
+      const q = c.parent.forgotChallenge()
+      last = c.parent.resetPin(q.id, 0)
+    }
+    expect(last.ok).toBe(false)
+    expect(last.retryAfterSeconds).toBeGreaterThan(0)
+    const q = c.parent.forgotChallenge()
+    expect(c.parent.resetPin(q.id, q.a * q.b).ok).toBe(false) // đang khoá
+  })
+
+  it('có đủ các loại hoạt động: chữ cái, âm, ghép âm, từ nhìn là nhớ, sách tranh, tập viết, nói theo', () => {
+    const kinds = new Set(c.kids.units().units.flatMap((u) => u.activities.map((x) => x.kind)))
+    expect(kinds).toEqual(
+      new Set(['letters', 'sounds', 'blend', 'sight', 'book', 'trace', 'speak'])
+    )
+    expect(c.kids.activityProgress().total).toBeGreaterThanOrEqual(25)
+    const book = c.kids
+      .units()
+      .units.flatMap((u) => u.activities)
+      .find((x) => x.kind === 'book')!
+    expect(c.kids.completeActivity(book.id, book.items.length, book.items.length)).toMatchObject({
+      stars: 3,
+      firstTime: true
+    })
+  })
+
   it('PIN không nằm trong cài đặt gửi xuống giao diện', () => {
     c.parent.setPin('1234')
     expect(JSON.stringify(c.settings.all())).not.toMatch(/salt|hash|parent\.pin/)
@@ -1208,5 +1267,202 @@ describe('chế độ trẻ em', () => {
     expect(home).toMatchObject({ petName: 'Bi', stickersEarned: 0, pinSet: false })
     expect(home.stickersTotal).toBeGreaterThanOrEqual(60)
     expect(home.usage.locked).toBe(false)
+  })
+})
+
+describe('tiến bộ theo kỹ năng', () => {
+  let clock: FakeClock
+  const DAY = 24 * 3_600_000
+
+  beforeEach(async () => {
+    conn.close()
+    conn = openUserDb(':memory:', MIGRATIONS)
+    clock = new FakeClock()
+    c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    await c.packs.install(buildFixturePack(tmp))
+  })
+
+  it('bài học ghi kết quả theo dạng bài và kỹ năng, cập nhật Elo', () => {
+    const lesson = c.readings.catalog().units[0].lessons[0]
+    const full = c.readings.get(lesson.id)
+    const n = full.exercises.length
+    const before = c.progress.ratings().find((r) => r.skill === 'reading')!
+    c.readings.complete(lesson.id, n, n, [
+      { type: 'tf', correct: 3, total: 3 },
+      { type: 'mcq', correct: n - 3, total: n - 3 }
+    ])
+    const stats = c.stats.stats()
+    const tf = stats.accuracy.find((a) => a.kind === 'tf')!
+    expect(tf).toMatchObject({ group: 'exercise', skill: 'reading', correct: 3, total: 3 })
+    const after = stats.skills.find((s) => s.skill === 'reading')!
+    expect(after.games).toBe(n)
+    expect(after.rating).toBeGreaterThan(before.rating)
+  })
+
+  it('byType không hợp lệ bị bỏ qua, không làm hỏng việc chấm bài', () => {
+    const lesson = c.lessons.catalog().units[0].lessons[0]
+    const res = c.lessons.complete(lesson.id, 6, 8, [{ type: 'mcq', correct: 9, total: 3 }])
+    expect(res.score).toBe(75)
+    expect(c.stats.stats().accuracy.filter((a) => a.group === 'exercise')).toEqual([])
+  })
+
+  it('luyện tập ghi từng câu; thẻ ôn có độ chính xác theo hướng thẻ', () => {
+    c.settings.set('learning.level', 'A1_1')
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    c.study.rate(c.study.next().card!.cardId, 4, 1000)
+    const review = c.stats.stats().accuracy.find((a) => a.group === 'review')!
+    expect(review).toMatchObject({ kind: 'en_vi', skill: 'vocab', correct: 1, total: 1 })
+  })
+
+  it('thời gian dùng app: cộng dồn theo ngày, chặn số giây phóng đại', () => {
+    c.progress.tickTime(60)
+    c.progress.tickTime(30)
+    c.progress.tickTime(100_000) // bị chặn ở 60 giây
+    const t = c.stats.stats().time
+    expect(t.todayMinutes).toBe(3) // 60 + 30 + 60 (bị chặn) = 150 giây ≈ 3 phút
+    expect(t.totalMinutes).toBeGreaterThanOrEqual(2)
+    clock.advance(DAY)
+    expect(c.stats.stats().time.todayMinutes).toBe(0)
+    expect(c.stats.stats().time.weekMinutes).toBe(3)
+  })
+
+  it('bài kiểm tra đầu vào đặt rating khởi đầu của từng kỹ năng', () => {
+    c.settings.set('learning.levelGrammar', 'B1_1')
+    expect(c.progress.ratings().find((r) => r.skill === 'grammar')!.level).toBe('B1_1')
+    c.progress.setLevel('grammar', 'A2_1')
+    expect(c.progress.ratings().find((r) => r.skill === 'grammar')!.level).toBe('A2_1')
+  })
+})
+
+describe('kiểm tra lên cấp', () => {
+  let clock: FakeClock
+
+  beforeEach(async () => {
+    conn.close()
+    conn = openUserDb(':memory:', MIGRATIONS)
+    clock = new FakeClock()
+    c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    await c.packs.install(buildFixturePack(tmp))
+    c.settings.set('learning.level', 'A2_1')
+  })
+
+  /** Làm hết bài, trả lời đúng/sai theo `right`; trả về kết quả cuối */
+  function run(right: boolean): PlacementResult {
+    const meaning: Record<string, string> = { go: 'đi', left: 'trái', leave: 'rời đi' }
+    let q = c.placement.startCheckpoint()
+    expect(q).not.toBeNull()
+    expect(q!.total).toBe(10)
+    let result = null as PlacementResult | null
+    let guard = 0
+    while (q && guard++ < 20) {
+      // Chỉ biết đáp án từ vựng của gói mẫu; ngân hàng ngữ pháp/đọc/nghe thì chọn theo ý (đúng = chọn đáp án đầu → không chắc đúng)
+      let pick = 0
+      if (q.kind === 'vocab') pick = right ? q.choices.indexOf(meaning[q.lemma]) : -1
+      const res = c.placement.answer(q.sessionId, q.id, pick < 0 ? null : pick)
+      q = res.next
+      result = res.result
+    }
+    return result!
+  }
+
+  it('trượt thì giữ nguyên level, không thưởng', () => {
+    const result = run(false)
+    expect(result.checkpoint).toMatchObject({ passed: false, to: null, xp: 0 })
+    expect(c.settings.get('learning.level')).toBe('A2_1')
+  })
+
+  /** Đáp án đúng của ngân hàng ngữ pháp/đọc/nghe, tra theo câu hỏi (để test chủ động trả lời đúng) */
+  function bankAnswers(): Map<string, string> {
+    const map = new Map<string, string>()
+    const dir = resolve('content/curated/placement')
+    for (const file of readdirSync(dir)) {
+      const data = JSON.parse(readFileSync(join(dir, file), 'utf8')) as {
+        items: Array<{ prompt: string; choices: string[]; answer: number }>
+      }
+      for (const item of data.items) map.set(item.prompt, item.choices[item.answer])
+    }
+    return map
+  }
+
+  it('đạt ≥ 80% thì lên một bậc, cập nhật kỹ năng, thưởng một lần cho mỗi bậc', () => {
+    const meaning: Record<string, string> = { go: 'đi', left: 'trái', leave: 'rời đi' }
+    const answers = bankAnswers()
+    const play = (): PlacementResult => {
+      let q = c.placement.startCheckpoint()!
+      let result = null as PlacementResult | null
+      for (let guard = 0; q && guard < 20; guard++) {
+        const text = q.kind === 'vocab' ? meaning[q.lemma] : answers.get(q.prompt ?? '')
+        const res = c.placement.answer(q.sessionId, q.id, q.choices.indexOf(text!))
+        expect(res.correct).toBe(true)
+        result = res.result
+        q = res.next!
+      }
+      return result!
+    }
+    const xp0 = c.pet.get().totalXp
+    const first = play()
+    expect(first.checkpoint).toMatchObject({
+      passed: true,
+      from: 'A2_1',
+      to: 'A2_2',
+      xp: 60,
+      coins: 30
+    })
+    expect(c.settings.get('learning.level')).toBe('A2_2')
+    expect(c.pet.get().totalXp).toBeGreaterThanOrEqual(xp0 + 60)
+    expect(c.progress.ratings().every((r) => r.rating >= 0)).toBe(true)
+
+    // Quay lại bậc cũ rồi thi lại: vẫn lên được nhưng không thưởng lần nữa
+    c.settings.set('learning.level', 'A2_1')
+    const again = play()
+    expect(again.checkpoint).toMatchObject({ passed: true, xp: 0, coins: 0 })
+  })
+
+  it('bậc cao nhất thì không có bài kiểm tra lên cấp', () => {
+    c.settings.set('learning.level', 'C2')
+    expect(c.placement.startCheckpoint()).toBeNull()
+  })
+
+  it('câu hỏi cùng bậc kế tiếp, không thích nghi: người học giữ nguyên bậc đang thi', () => {
+    const first = c.placement.startCheckpoint()!
+    expect(first.id).toContain('checkpoint')
+    // Trả lời sai/đúng không đổi bậc → câu sau vẫn là câu hỏi hợp lệ
+    const res = c.placement.answer(first.sessionId, first.id, null)
+    expect(res.next === null || res.next.total === 10).toBe(true)
+  })
+})
+
+describe('lộ trình học', () => {
+  beforeEach(async () => {
+    conn.close()
+    conn = openUserDb(':memory:', MIGRATIONS)
+    c = createContainer(conn, new FakeClock(), { packsDir: join(tmp, 'packs') })
+    await c.packs.install(buildFixturePack(tmp))
+  })
+
+  it('liệt kê khoá, bước kế tiếp là bài đầu tiên chưa làm', () => {
+    const list = c.courses.list()
+    expect(list.length).toBeGreaterThanOrEqual(2)
+    const course = list[0]
+    expect(course).toMatchObject({ stepsDone: 0 })
+    expect(course.stepsTotal).toBeGreaterThan(10)
+    const detail = c.courses.get(course.id)
+    expect(detail.units.length).toBeGreaterThanOrEqual(3)
+    expect(detail.next?.id).toBe(detail.units[0].steps[0].id)
+  })
+
+  it('làm bài ở bất kỳ nơi nào đều được tính vào khoá; xong thì bước kế tiếp chuyển sang bài sau', () => {
+    const detail = c.courses.get(c.courses.list()[0].id)
+    const first = detail.units[0].steps[0]
+    const lesson = c.lessons.get(first.id)
+    c.lessons.complete(first.id, lesson.exercises.length, lesson.exercises.length)
+    const after = c.courses.get(detail.id)
+    expect(after.stepsDone).toBe(1)
+    expect(after.units[0].steps[0]).toMatchObject({ done: true, best: 100 })
+    expect(after.next?.id).toBe(detail.units[0].steps[1].id)
+  })
+
+  it('khoá không tồn tại → NOT_FOUND', () => {
+    expect(() => c.courses.get('khong-co')).toThrow(/NOT_FOUND/)
   })
 })

@@ -1,0 +1,389 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "grammodal",
+    "title": "Động từ khuyết thiếu mở rộng",
+    "summary": "Can/could/may, would, suy đoán must/can’t.",
+    "icon": "🧠",
+    "order": 5
+  },
+  "lessons": [
+    {
+      "id": "grammodal.can-could-may",
+      "title": "Can, could, may: xin phép và khả năng",
+      "summary": "Hỏi xin phép, đề nghị và nói khả năng.",
+      "level": "A2_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "- **can**: khả năng hiện tại, xin phép thân mật — `I can swim.` / `Can I sit here?`\n- **could**: khả năng trong quá khứ, xin phép lịch sự — `I could run fast as a child.` / `Could you help me?`\n- **may**: xin phép trang trọng, điều có thể xảy ra — `May I come in?` / `It may rain.`\n\nMức lịch sự: **can** < **could** < **may**."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Ý nghĩa",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Khả năng",
+              "She can speak three languages."
+            ],
+            [
+              "Xin phép (thân mật)",
+              "Can I use your pen?"
+            ],
+            [
+              "Xin phép (lịch sự)",
+              "Could I open the window?"
+            ],
+            [
+              "Xin phép (trang trọng)",
+              "May I ask a question?"
+            ],
+            [
+              "Có thể xảy ra",
+              "It may snow tonight."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "Could you tell me the time, please?",
+              "vi": "Bạn cho tôi biết mấy giờ được không?"
+            },
+            {
+              "en": "May I borrow your dictionary?",
+              "vi": "Tôi mượn từ điển của bạn được không?"
+            },
+            {
+              "en": "He can’t come today. He is ill.",
+              "vi": "Hôm nay anh ấy không đến được. Anh ấy ốm."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Sau modal luôn dùng **động từ nguyên mẫu không “to”**: *can swim*, không nói *can to swim* hay *can swims*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "___ you help me carry this bag, please?",
+          "answers": [
+            "Could",
+            "Can"
+          ],
+          "choices": [
+            "Could",
+            "Do",
+            "Are"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She ___ speak three languages.",
+          "answers": [
+            "can"
+          ],
+          "choices": [
+            "can",
+            "cans",
+            "can to"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is the most formal request?",
+          "choices": [
+            "Can I go?",
+            "Could I go?",
+            "May I go?"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "It ___ rain this afternoon, so take an umbrella.",
+          "answers": [
+            "may",
+            "might",
+            "could"
+          ],
+          "choices": [
+            "may",
+            "is",
+            "does"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Tôi mượn bút của bạn được không?",
+          "answer": "May I borrow your pen"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Choose the correct sentence.",
+          "choices": [
+            "He can swims well.",
+            "He can swim well.",
+            "He can to swim well."
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "grammodal.would-requests",
+      "title": "Would: lời mời, đề nghị, thói quen cũ",
+      "summary": "Would you like, would rather, would = từng.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**would** có nhiều công dụng:\n\n- Lời mời/đề nghị lịch sự: `Would you like some tea?` / `I would like a coffee.`\n- Sở thích: `I would rather stay at home.` (tôi thà ở nhà)\n- Thói quen trong quá khứ (giống used to): `When I was a child, I would visit my grandmother every summer.`\n- Điều kiện loại 2: `I would help you if I could.`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Cấu trúc",
+            "Nghĩa",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Would you like ...?",
+              "mời",
+              "Would you like some water?"
+            ],
+            [
+              "I'd like ...",
+              "muốn (lịch sự)",
+              "I'd like a table for two."
+            ],
+            [
+              "I'd rather + V",
+              "thà ... hơn",
+              "I'd rather walk."
+            ],
+            [
+              "would + V (quá khứ)",
+              "từng",
+              "We would play outside every day."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "Would you like to join us for dinner?",
+              "vi": "Bạn có muốn ăn tối cùng chúng tôi không?"
+            },
+            {
+              "en": "I'd rather not go out tonight.",
+              "vi": "Tối nay tôi không muốn đi chơi."
+            },
+            {
+              "en": "Every Sunday, my father would cook breakfast.",
+              "vi": "Chủ nhật nào bố tôi cũng nấu bữa sáng."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Would like** lịch sự hơn **want**: *I’d like the menu, please* nghe nhẹ nhàng hơn *I want the menu*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "___ you like some coffee?",
+          "answers": [
+            "Would"
+          ],
+          "choices": [
+            "Would",
+            "Do",
+            "Are"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I'd ___ stay at home tonight.",
+          "answers": [
+            "rather"
+          ],
+          "choices": [
+            "rather",
+            "better",
+            "more"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence talks about a past habit?",
+          "choices": [
+            "I would visit my grandma every summer.",
+            "I would like a coffee.",
+            "I would help you if I could."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "gap",
+          "prompt": "I ___ like a table for two, please.",
+          "answers": [
+            "would",
+            "'d"
+          ],
+          "choices": [
+            "would",
+            "will",
+            "am"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Bạn có muốn đi cùng chúng tôi không?",
+          "answer": "Would you like to come with us"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Choose the most polite request.",
+          "choices": [
+            "I want a glass of water.",
+            "I'd like a glass of water, please.",
+            "Give me water."
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "grammodal.must-cant-deduction",
+      "title": "Must / can’t: suy đoán chắc chắn",
+      "summary": "Đoán từ bằng chứng: must be, can’t be, might be.",
+      "level": "B1_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Dùng modal để **suy đoán** về hiện tại dựa trên bằng chứng:\n\n- **must be** (chắc là): `He is wearing a uniform. He must be a police officer.`\n- **can’t be** (chắc chắn không): `She just ate lunch. She can’t be hungry.`\n- **might/may/could be** (có thể): `It might be a good idea.`\n\nMức chắc chắn: **must** (~95%) > **should** > **might/may/could** (~50%) > **can’t** (~5%)."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Mức chắc chắn",
+            "Modal",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Rất chắc là có",
+              "must be",
+              "She must be tired."
+            ],
+            [
+              "Có thể",
+              "might / may / could be",
+              "He might be at home."
+            ],
+            [
+              "Rất chắc là không",
+              "can't be",
+              "That can't be true!"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "The lights are on. They must be at home.",
+              "vi": "Đèn đang sáng. Chắc là họ ở nhà."
+            },
+            {
+              "en": "He's only ten. He can't be a doctor!",
+              "vi": "Cậu bé chỉ mười tuổi. Không thể là bác sĩ được!"
+            },
+            {
+              "en": "She might be late because of the traffic.",
+              "vi": "Cô ấy có thể đến muộn vì kẹt xe."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Phủ định của suy đoán **must** là **can’t**, không phải *mustn’t* (*mustn’t* là “cấm”)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "He's wearing a white coat. He ___ be a doctor.",
+          "answers": [
+            "must"
+          ],
+          "choices": [
+            "must",
+            "can't",
+            "should"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She just ate a big lunch. She ___ be hungry.",
+          "answers": [
+            "can't"
+          ],
+          "choices": [
+            "can't",
+            "must",
+            "does"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I am not sure. It ___ be a good idea.",
+          "answers": [
+            "might",
+            "may",
+            "could"
+          ],
+          "choices": [
+            "might",
+            "must",
+            "can't"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which means “almost certainly not”?",
+          "choices": [
+            "It can't be true.",
+            "It might be true.",
+            "It must be true."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "order",
+          "hint": "Chắc là họ đang ở nhà.",
+          "answer": "They must be at home"
+        },
+        {
+          "type": "tf",
+          "statement": "“Mustn’t” is the opposite of “must” in deductions.",
+          "answer": "false",
+          "explain": "Với suy đoán, phủ định của must là can't."
+        }
+      ]
+    }
+  ]
+}

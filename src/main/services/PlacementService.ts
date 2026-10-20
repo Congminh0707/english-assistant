@@ -1,10 +1,12 @@
 import {
   cefrLabel,
+  CHECKPOINT_PASS_RATIO,
+  CHECKPOINT_PLAN,
+  CHECKPOINT_REWARD,
   combineLevels,
   estimateLevel,
   nextLevelIndex,
   PLACEMENT_PLAN,
-  PLACEMENT_QUESTIONS,
   PLACEMENT_START_INDEX
 } from '@shared/placement'
 import { LEVEL_CODES, type LevelCode } from '@shared/schemas/content/level'
@@ -18,17 +20,26 @@ import { AppError } from '../core/AppError'
 import type { Clock } from '../core/Clock'
 import type { DictionaryService } from '../content/DictionaryService'
 import type { PlacementBank } from '../content/PlacementBank'
+import type { XpRepository } from '../db/repositories/XpRepository'
 import type { ProfileService } from './ProfileService'
+import type { ProgressService } from './ProgressService'
 import type { SettingsService } from './SettingsService'
+import type { XpService } from './XpService'
 
 /** Bài kiểm tra bị bỏ nếu không có hoạt động sau thời gian này */
 const SESSION_TTL_MS = 60 * 60_000
+export const CHECKPOINT_REASON = 'level.checkpoint'
+
+const SKILLS: readonly PlacementSkill[] = ['vocab', 'grammar', 'reading', 'listening']
 
 const SKILL_SETTING = {
   vocab: 'learning.levelVocab',
   grammar: 'learning.levelGrammar',
-  reading: 'learning.levelReading'
+  reading: 'learning.levelReading',
+  listening: 'learning.levelListening'
 } as const
+
+type Mode = 'placement' | 'checkpoint'
 
 interface Pending {
   questionId: string
@@ -46,7 +57,13 @@ interface SkillState {
 }
 
 interface Session {
+  mode: Mode
   createdAt: number
+  /** Kế hoạch kỹ năng từng câu */
+  plan: readonly PlacementSkill[]
+  /** Kiểm tra lên cấp: bậc đang thi và bậc hiện tại của người học */
+  target: number
+  from: LevelCode
   skills: Record<PlacementSkill, SkillState>
   askedWords: Set<string>
   askedItems: Set<string>
@@ -54,12 +71,14 @@ interface Session {
   pending: Pending | null
 }
 
-const newSkill = (): SkillState => ({ index: PLACEMENT_START_INDEX, askedLevels: [], correct: 0 })
+const newSkill = (index: number): SkillState => ({ index, askedLevels: [], correct: 0 })
 
 /**
- * Bài kiểm tra đầu vào: 20 câu trắc nghiệm xen kẽ từ vựng (12), ngữ pháp (5), đọc hiểu (3); mỗi kỹ năng có
- * độ khó thích nghi riêng (đúng → khó hơn, sai → dễ hơn). Đáp án đúng chỉ nằm ở main.
- * Kết thúc thì lưu trình độ theo kỹ năng và trình độ chung vào cài đặt.
+ * Kiểm tra trình độ, hai chế độ:
+ * - Đầu vào (placement): 20 câu xen kẽ từ vựng/ngữ pháp/đọc/nghe, mỗi kỹ năng một "bậc thang" thích nghi
+ *   (đúng → khó hơn, sai → dễ hơn); xong lưu trình độ từng kỹ năng và trình độ chung.
+ * - Lên cấp (checkpoint): 10 câu không thích nghi ở bậc kế tiếp; đạt ≥ 80% thì lên một bậc (lần đầu qua bậc có thưởng).
+ * Đáp án đúng chỉ nằm ở main.
  */
 export class PlacementService {
   private readonly sessions = new Map<string, Session>()
@@ -71,17 +90,43 @@ export class PlacementService {
       bank: PlacementBank
       profiles: ProfileService
       settings: SettingsService
+      progress?: ProgressService
+      xp?: XpService
+      xpRepo?: XpRepository
       clock: Clock
       random?: () => number
     }
   ) {}
 
   start(): PlacementQuestion | null {
+    return this.open('placement')
+  }
+
+  /** Bắt đầu bài kiểm tra lên cấp; null nếu đã ở bậc cao nhất hoặc chưa đủ dữ liệu */
+  startCheckpoint(): PlacementQuestion | null {
+    return this.open('checkpoint')
+  }
+
+  private open(mode: Mode): PlacementQuestion | null {
     this.cleanup()
-    const sessionId = `placement:${this.deps.clock.now()}:${++this.seq}`
+    const { settings, clock } = this.deps
+    const from = settings.get('learning.level')
+    const target = LEVEL_CODES.indexOf(from) + 1
+    if (mode === 'checkpoint' && target >= LEVEL_CODES.length) return null
+    const sessionId = `${mode}:${clock.now()}:${++this.seq}`
+    const start = mode === 'checkpoint' ? target : PLACEMENT_START_INDEX
     const session: Session = {
-      createdAt: this.deps.clock.now(),
-      skills: { vocab: newSkill(), grammar: newSkill(), reading: newSkill() },
+      mode,
+      createdAt: clock.now(),
+      plan: mode === 'checkpoint' ? CHECKPOINT_PLAN : PLACEMENT_PLAN,
+      target,
+      from,
+      skills: {
+        vocab: newSkill(start),
+        grammar: newSkill(start),
+        reading: newSkill(start),
+        listening: newSkill(start)
+      },
       askedWords: new Set(),
       askedItems: new Set(),
       asked: 0,
@@ -104,9 +149,10 @@ export class PlacementService {
     const correct = choiceIndex === pending.correctIndex
     const state = session.skills[pending.skill]
     if (correct) state.correct++
-    state.index = nextLevelIndex(state.index, correct)
+    // Kiểm tra lên cấp giữ nguyên bậc đang thi; đầu vào thì lên/xuống theo câu trả lời
+    if (session.mode === 'placement') state.index = nextLevelIndex(state.index, correct)
 
-    const next = session.asked < PLACEMENT_QUESTIONS ? this.ask(sessionId, session) : null
+    const next = session.asked < session.plan.length ? this.ask(sessionId, session) : null
     const result = next ? null : this.finish(sessionId, session)
     return {
       correct,
@@ -118,12 +164,9 @@ export class PlacementService {
   }
 
   private ask(sessionId: string, session: Session): PlacementQuestion | null {
-    const planned = PLACEMENT_PLAN[session.asked] ?? 'vocab'
+    const planned = session.plan[session.asked] ?? 'vocab'
     // Kỹ năng theo kế hoạch trước; hết câu thì thử các kỹ năng khác để bài không kết thúc sớm
-    const order: PlacementSkill[] = [
-      planned,
-      ...(['vocab', 'grammar', 'reading'] as const).filter((s) => s !== planned)
-    ]
+    const order: PlacementSkill[] = [planned, ...SKILLS.filter((s) => s !== planned)]
     for (const skill of order) {
       const question =
         skill === 'vocab'
@@ -158,7 +201,7 @@ export class PlacementService {
       const questionId = this.questionId(sessionId, session)
       session.askedWords.add(entry.id)
       state.askedLevels.push(index)
-      state.index = index
+      if (session.mode === 'placement') state.index = index
       session.asked++
       session.pending = {
         questionId,
@@ -171,11 +214,12 @@ export class PlacementService {
         sessionId,
         id: questionId,
         index: session.asked,
-        total: PLACEMENT_QUESTIONS,
+        total: session.plan.length,
         lemma: entry.lemma,
         ipa: entry.ipaUs ?? entry.ipaUk,
         prompt: null,
         passage: null,
+        say: null,
         choices
       }
     }
@@ -185,7 +229,7 @@ export class PlacementService {
   private askItem(
     sessionId: string,
     session: Session,
-    skill: 'grammar' | 'reading'
+    skill: 'grammar' | 'reading' | 'listening'
   ): PlacementQuestion | null {
     const state = session.skills[skill]
     const picked = this.deps.bank.pick(skill, state.index, session.askedItems, this.deps.random)
@@ -198,7 +242,7 @@ export class PlacementService {
     const questionId = this.questionId(sessionId, session)
     session.askedItems.add(item.id)
     state.askedLevels.push(index)
-    state.index = index
+    if (session.mode === 'placement') state.index = index
     session.asked++
     const correctIndex = choices.findIndex((c) => c.right)
     session.pending = {
@@ -212,26 +256,34 @@ export class PlacementService {
       sessionId,
       id: questionId,
       index: session.asked,
-      total: PLACEMENT_QUESTIONS,
+      total: session.plan.length,
       lemma: '',
       ipa: null,
       prompt: item.prompt,
       passage: item.passage ?? null,
+      say: item.say ?? null,
       choices: choices.map((c) => c.text)
     }
   }
 
   private finish(sessionId: string, session: Session): PlacementResult {
     this.sessions.delete(sessionId)
-    const { settings } = this.deps
+    return session.mode === 'checkpoint'
+      ? this.finishCheckpoint(session)
+      : this.finishPlacement(session)
+  }
+
+  private skillResults(session: Session): {
+    skills: PlacementResult['skills']
+    levels: Partial<Record<PlacementSkill, LevelCode>>
+  } {
     const skills: PlacementResult['skills'] = []
     const levels: Partial<Record<PlacementSkill, LevelCode>> = {}
-    for (const skill of ['vocab', 'grammar', 'reading'] as const) {
+    for (const skill of SKILLS) {
       const state = session.skills[skill]
       if (!state.askedLevels.length) continue
       const level = estimateLevel(state.askedLevels, state.index)
       levels[skill] = level
-      settings.set(SKILL_SETTING[skill], level)
       skills.push({
         skill,
         level,
@@ -240,6 +292,16 @@ export class PlacementService {
         total: state.askedLevels.length
       })
     }
+    return { skills, levels }
+  }
+
+  private finishPlacement(session: Session): PlacementResult {
+    const { settings } = this.deps
+    const { skills, levels } = this.skillResults(session)
+    for (const s of skills) {
+      settings.set(SKILL_SETTING[s.skill], s.level)
+      this.deps.progress?.setLevel(s.skill, s.level)
+    }
     const level = combineLevels(levels)
     settings.set('learning.level', level)
     return {
@@ -247,7 +309,52 @@ export class PlacementService {
       cefr: cefrLabel(level),
       correct: skills.reduce((n, s) => n + s.correct, 0),
       total: skills.reduce((n, s) => n + s.total, 0),
-      skills
+      skills,
+      checkpoint: null
+    }
+  }
+
+  private finishCheckpoint(session: Session): PlacementResult {
+    const { settings, progress, xp, xpRepo, profiles } = this.deps
+    const { skills } = this.skillResults(session)
+    const correct = skills.reduce((n, s) => n + s.correct, 0)
+    const total = skills.reduce((n, s) => n + s.total, 0)
+    const passed = total > 0 && correct / total >= CHECKPOINT_PASS_RATIO
+    const toLevel = LEVEL_CODES[session.target]
+    let reward = { xp: 0, coins: 0 }
+    if (passed) {
+      settings.set('learning.level', toLevel)
+      for (const s of skills) {
+        // Kỹ năng đã được kiểm tra và đạt thì nâng lên bậc mới (không hạ kỹ năng đang cao hơn)
+        const current = settings.get(SKILL_SETTING[s.skill])
+        if (LEVEL_CODES.indexOf(current) < session.target) {
+          settings.set(SKILL_SETTING[s.skill], toLevel)
+          progress?.setLevel(s.skill, toLevel)
+        }
+      }
+      const refId = `to:${toLevel}`
+      if (xp && xpRepo && !xpRepo.hasEvent(profiles.activeId(), CHECKPOINT_REASON, refId)) {
+        xp.grant({
+          amount: CHECKPOINT_REWARD.xp,
+          coins: CHECKPOINT_REWARD.coins,
+          reason: CHECKPOINT_REASON,
+          refId
+        })
+        reward = CHECKPOINT_REWARD
+      }
+    }
+    return {
+      level: passed ? toLevel : session.from,
+      cefr: cefrLabel(passed ? toLevel : session.from),
+      correct,
+      total,
+      skills,
+      checkpoint: {
+        passed,
+        from: session.from,
+        to: passed ? toLevel : null,
+        ...reward
+      }
     }
   }
 

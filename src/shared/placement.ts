@@ -8,35 +8,61 @@ export const PLACEMENT_QUESTIONS = 20
 /** Bắt đầu ở A2.1 (giữa thang), rồi lên/xuống từng bậc theo câu trả lời */
 export const PLACEMENT_START_INDEX = 4
 
+export type PlacementPlanSkill = 'vocab' | 'grammar' | 'reading' | 'listening'
+
 /**
- * Kế hoạch 20 câu xen kẽ kỹ năng: 12 từ vựng, 5 ngữ pháp, 3 đọc hiểu.
+ * Kế hoạch 20 câu xen kẽ kỹ năng: 10 từ vựng, 4 ngữ pháp, 3 đọc hiểu, 3 nghe.
  * Mỗi kỹ năng có "bậc thang" riêng (đúng → khó hơn, sai → dễ hơn).
  */
-export const PLACEMENT_PLAN: readonly ('vocab' | 'grammar' | 'reading')[] = [
+export const PLACEMENT_PLAN: readonly PlacementPlanSkill[] = [
   'vocab',
   'vocab',
   'grammar',
-  'vocab',
-  'vocab',
-  'grammar',
-  'reading',
-  'vocab',
-  'grammar',
-  'vocab',
-  'grammar',
-  'vocab',
-  'reading',
-  'vocab',
-  'grammar',
+  'listening',
   'vocab',
   'vocab',
   'reading',
+  'grammar',
   'vocab',
+  'listening',
+  'vocab',
+  'grammar',
+  'vocab',
+  'reading',
+  'listening',
+  'vocab',
+  'grammar',
+  'vocab',
+  'reading',
   'vocab'
 ]
 
+/** Kế hoạch bài kiểm tra lên cấp: 10 câu ở bậc kế tiếp (không thích nghi) */
+export const CHECKPOINT_PLAN: readonly PlacementPlanSkill[] = [
+  'vocab',
+  'grammar',
+  'vocab',
+  'listening',
+  'vocab',
+  'reading',
+  'vocab',
+  'grammar',
+  'listening',
+  'vocab'
+]
+
+/** Đạt từ tỉ lệ này thì lên cấp */
+export const CHECKPOINT_PASS_RATIO = 0.8
+/** Thưởng khi lên cấp lần đầu qua một bậc */
+export const CHECKPOINT_REWARD = { xp: 60, coins: 30 }
+
 /** Trọng số mỗi kỹ năng khi tính trình độ chung */
-export const PLACEMENT_WEIGHTS = { vocab: 0.5, grammar: 0.3, reading: 0.2 } as const
+export const PLACEMENT_WEIGHTS = {
+  vocab: 0.4,
+  grammar: 0.25,
+  reading: 0.2,
+  listening: 0.15
+} as const
 /** Bỏ qua bấy nhiêu câu đầu khi ước lượng (thời gian "khởi động" tới đúng bậc) */
 export const PLACEMENT_WARMUP = 5
 

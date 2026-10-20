@@ -1,3 +1,5 @@
+import { existsSync, readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
   applyFood,
@@ -73,5 +75,27 @@ describe('level', () => {
     expect(stageForLevel(10)).toBe('teen')
     expect(stageForLevel(25)).toBe('adult')
     expect(stageForLevel(50)).toBe('legend')
+  })
+})
+
+describe('tiến hoá', () => {
+  const DIR = resolve('src/renderer/mascot/assets/characters/placeholder')
+  const STAGES = ['egg', 'baby', 'teen', 'adult', 'legend'] as const
+
+  it('mọi giai đoạn đều có sheet, metadata cùng bố cục và đủ phụ kiện', () => {
+    const baby = JSON.parse(readFileSync(resolve(DIR, 'baby/sheet.json'), 'utf8')) as unknown
+    for (const stage of STAGES) {
+      expect(existsSync(resolve(DIR, stage, 'sheet.png')), stage).toBe(true)
+      const meta = JSON.parse(readFileSync(resolve(DIR, stage, 'sheet.json'), 'utf8')) as unknown
+      expect(meta, stage).toEqual(baby)
+      for (const acc of ['bow', 'glasses', 'scarf', 'hat', 'crown']) {
+        expect(existsSync(resolve(DIR, stage, `acc-${acc}.png`)), `${stage}/${acc}`).toBe(true)
+      }
+    }
+  })
+
+  it('mốc level đổi giai đoạn theo thứ tự egg → baby → teen → adult → legend', () => {
+    const seen = [1, 2, 10, 25, 50].map(stageForLevel)
+    expect(seen).toEqual([...STAGES])
   })
 })

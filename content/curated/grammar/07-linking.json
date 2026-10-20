@@ -1,0 +1,409 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "gramlink",
+    "title": "Giới từ & từ nối",
+    "summary": "In/on/at, từ nối, giới từ chuyển động và vị trí.",
+    "icon": "🔗",
+    "order": 7
+  },
+  "lessons": [
+    {
+      "id": "gramlink.prepositions-time-place",
+      "title": "Giới từ chỉ thời gian và nơi chốn",
+      "summary": "In, on, at.",
+      "level": "A1_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Thời gian**\n- **at**: giờ, thời điểm cụ thể — `at 7 o'clock, at night, at the weekend`\n- **on**: thứ, ngày — `on Monday, on 5 May, on my birthday`\n- **in**: tháng, năm, mùa, buổi — `in June, in 2024, in summer, in the morning`\n\n**Nơi chốn**\n- **at**: điểm — `at the bus stop, at school, at home`\n- **on**: bề mặt — `on the table, on the wall, on the second floor`\n- **in**: bên trong — `in the room, in Hanoi, in a car`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Giới từ",
+            "Thời gian",
+            "Nơi chốn"
+          ],
+          "rows": [
+            [
+              "at",
+              "at 8:30, at night",
+              "at the door, at work"
+            ],
+            [
+              "on",
+              "on Friday, on 1 May",
+              "on the desk, on the bus"
+            ],
+            [
+              "in",
+              "in July, in 2025",
+              "in the box, in Vietnam"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "The meeting is at 3 p.m. on Tuesday.",
+              "vi": "Cuộc họp lúc 3 giờ chiều thứ Ba."
+            },
+            {
+              "en": "I was born in May, in Da Nang.",
+              "vi": "Tôi sinh vào tháng Năm, ở Đà Nẵng."
+            },
+            {
+              "en": "The keys are on the table in the kitchen.",
+              "vi": "Chìa khoá ở trên bàn trong bếp."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Nói **in the morning/afternoon/evening** nhưng **at night**. Và **on Monday morning** (có thứ thì dùng on)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I get up ___ six o'clock.",
+          "answers": [
+            "at"
+          ],
+          "choices": [
+            "at",
+            "on",
+            "in"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "My birthday is ___ March.",
+          "answers": [
+            "in"
+          ],
+          "choices": [
+            "in",
+            "on",
+            "at"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "We have a test ___ Friday.",
+          "answers": [
+            "on"
+          ],
+          "choices": [
+            "on",
+            "in",
+            "at"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The book is ___ the table.",
+          "answers": [
+            "on"
+          ],
+          "choices": [
+            "on",
+            "in",
+            "at"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She lives ___ Hue.",
+          "answers": [
+            "in"
+          ],
+          "choices": [
+            "in",
+            "on",
+            "at"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "in Monday morning",
+            "on Monday morning",
+            "at Monday morning"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "gramlink.conjunctions",
+      "title": "Từ nối: and, but, so, because, although",
+      "summary": "Nối ý trong câu và giữa các câu.",
+      "level": "A2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "- **and**: thêm ý — `I like tea and coffee.`\n- **but**: đối lập — `I like tea but I don't like coffee.`\n- **or**: lựa chọn — `Tea or coffee?`\n- **so**: kết quả — `It was raining, so we stayed home.`\n- **because**: lý do — `We stayed home because it was raining.`\n- **although / though**: mặc dù — `Although it was cold, we went out.`\n- **however**: tuy nhiên (đầu câu, có dấu phẩy) — `It was cold. However, we went out.`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Từ nối",
+            "Chức năng",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "but",
+              "đối lập",
+              "He is young but wise."
+            ],
+            [
+              "so",
+              "kết quả",
+              "I was tired, so I slept."
+            ],
+            [
+              "because",
+              "lý do",
+              "I slept because I was tired."
+            ],
+            [
+              "although",
+              "nhượng bộ",
+              "Although he was tired, he worked."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "I was hungry, so I made a sandwich.",
+              "vi": "Tôi đói nên làm một chiếc bánh mì."
+            },
+            {
+              "en": "She stayed at home because she was ill.",
+              "vi": "Cô ấy ở nhà vì ốm."
+            },
+            {
+              "en": "Although it was expensive, I bought it.",
+              "vi": "Dù đắt, tôi vẫn mua."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Không dùng **although** cùng **but** trong một câu: *Although it rained, we went out* (đúng) / *Although it rained, but we went out* (sai)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "It was raining, ___ we took an umbrella.",
+          "answers": [
+            "so"
+          ],
+          "choices": [
+            "so",
+            "because",
+            "but"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I stayed home ___ I was ill.",
+          "answers": [
+            "because"
+          ],
+          "choices": [
+            "because",
+            "so",
+            "although"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "___ it was cold, we went swimming.",
+          "answers": [
+            "Although",
+            "Though"
+          ],
+          "choices": [
+            "Although",
+            "Because",
+            "So"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "Although he is tired, but he works.",
+            "Although he is tired, he works.",
+            "Although he is tired but he works."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Tôi mệt nên tôi đi ngủ sớm.",
+          "answer": "I was tired so I went to bed early"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which word shows a result?",
+          "choices": [
+            "because",
+            "so",
+            "although"
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "gramlink.prepositions-movement",
+      "title": "Giới từ chỉ chuyển động và vị trí",
+      "summary": "To, from, into, across, between, next to.",
+      "level": "A2_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Chuyển động**: **to** (đến), **from** (từ), **into** (vào trong), **out of** (ra khỏi), **across** (băng qua), **through** (xuyên qua), **along** (dọc theo), **up/down** (lên/xuống).\n**Vị trí**: **next to / beside** (cạnh), **between** (giữa hai), **behind** (sau), **in front of** (trước), **opposite** (đối diện), **above/below** (trên/dưới), **near** (gần)."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Giới từ",
+            "Nghĩa",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "across",
+              "băng qua",
+              "Walk across the bridge."
+            ],
+            [
+              "along",
+              "dọc theo",
+              "Walk along the river."
+            ],
+            [
+              "between",
+              "giữa (hai)",
+              "The bank is between the cafe and the shop."
+            ],
+            [
+              "opposite",
+              "đối diện",
+              "The park is opposite the school."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "She walked into the room and sat down.",
+              "vi": "Cô ấy bước vào phòng và ngồi xuống."
+            },
+            {
+              "en": "The cat jumped out of the box.",
+              "vi": "Con mèo nhảy ra khỏi hộp."
+            },
+            {
+              "en": "The hotel is next to the station.",
+              "vi": "Khách sạn cạnh nhà ga."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Next to** dùng cho vật liền kề; **near** chỉ cần gần (không nhất thiết sát cạnh)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "The post office is ___ the bank and the school.",
+          "answers": [
+            "between"
+          ],
+          "choices": [
+            "between",
+            "across",
+            "along"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "We walked ___ the bridge to the other side.",
+          "answers": [
+            "across"
+          ],
+          "choices": [
+            "across",
+            "between",
+            "into"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The park is ___ the school. (đối diện)",
+          "answers": [
+            "opposite"
+          ],
+          "choices": [
+            "opposite",
+            "under",
+            "through"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which describes leaving the box?",
+          "choices": [
+            "into the box",
+            "out of the box",
+            "under the box"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Khách sạn nằm cạnh nhà ga.",
+          "answer": "The hotel is next to the station"
+        },
+        {
+          "type": "match",
+          "pairs": [
+            {
+              "left": "across",
+              "right": "băng qua"
+            },
+            {
+              "left": "along",
+              "right": "dọc theo"
+            },
+            {
+              "left": "opposite",
+              "right": "đối diện"
+            },
+            {
+              "left": "between",
+              "right": "giữa"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

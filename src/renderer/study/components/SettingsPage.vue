@@ -10,6 +10,7 @@ import { invoke } from '@renderer/shared/ipc'
 import { useTts, useTtsModel } from '@renderer/shared/composables/useTts'
 import { useTranslateModels } from '@renderer/shared/composables/useTranslateModels'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
+import { useUpdateStatus } from '@renderer/shared/composables/useUpdateStatus'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 
 // Cài đặt: hồ sơ, học tập, chế độ yên lặng, giao diện. Đổi là lưu ngay (main đẩy lại cho mọi cửa sổ).
@@ -51,6 +52,9 @@ const REVIEW_TOGGLES = [
   { key: 'review.typing', label: 'typing' },
   { key: 'review.autoPlay', label: 'autoPlay' }
 ] as const
+
+const update = useUpdateStatus()
+const updateMb = computed(() => Math.round((update.status.value?.sizeBytes ?? 0) / MB))
 
 const backfilling = ref(false)
 const backfillMessage = ref('')
@@ -450,6 +454,66 @@ onMounted(loadProfiles)
           @change="setSetting('app.launchAtLogin', ($event.target as HTMLInputElement).checked)"
         />
       </label>
+    </PxPanel>
+
+    <PxPanel class="block">
+      <h2>{{ t('update.title') }}</h2>
+      <p class="muted">
+        {{ t('update.current', { version: update.status.value?.currentVersion ?? '…' }) }}
+      </p>
+      <label class="row">
+        {{ t('update.auto') }}
+        <input
+          type="checkbox"
+          :checked="settingsStore.settings['app.autoUpdate']"
+          @change="setSetting('app.autoUpdate', ($event.target as HTMLInputElement).checked)"
+        />
+      </label>
+      <div v-if="update.status.value" class="download">
+        <span class="muted">{{
+          t(`update.state.${update.status.value.state}`, {
+            version: update.status.value.version ?? '',
+            percent: update.status.value.percent,
+            size: updateMb
+          })
+        }}</span>
+        <progress
+          v-if="update.status.value.state === 'downloading'"
+          :value="update.status.value.percent"
+          max="100"
+        />
+        <span v-if="update.status.value.errorKey" class="error">{{
+          t(update.status.value.errorKey)
+        }}</span>
+        <span class="controls">
+          <button
+            v-if="update.status.value.state === 'available'"
+            type="button"
+            class="small"
+            @click="update.download()"
+          >
+            {{ t('update.download') }}
+          </button>
+          <button
+            v-else-if="update.status.value.state === 'ready'"
+            type="button"
+            class="small"
+            @click="update.install()"
+          >
+            {{ t('update.install') }}
+          </button>
+          <button
+            v-else
+            type="button"
+            class="small"
+            :disabled="['disabled', 'checking', 'downloading'].includes(update.status.value.state)"
+            @click="update.check()"
+          >
+            {{ t('update.check') }}
+          </button>
+        </span>
+      </div>
+      <p class="muted small">{{ t('update.privacy') }}</p>
     </PxPanel>
 
     <PxPanel class="block">

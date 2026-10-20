@@ -1,0 +1,304 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readhealth",
+    "title": "Sức khoẻ",
+    "summary": "Ăn sáng, giấc ngủ, vận động, uống nước.",
+    "icon": "💚",
+    "order": 5
+  },
+  "lessons": [
+    {
+      "id": "readhealth.a-healthy-breakfast",
+      "title": "Bữa sáng lành mạnh",
+      "summary": "Vì sao nên ăn sáng và ăn gì.",
+      "level": "A2_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Chú ý các từ chỉ đồ ăn và lý do: **because**, **so**, **helps**."
+        },
+        {
+          "type": "passage",
+          "title": "A Healthy Breakfast",
+          "paragraphs": [
+            {
+              "en": "Many people skip breakfast because they are in a hurry. However, breakfast gives your body energy after a long night without food.",
+              "vi": "Nhiều người bỏ bữa sáng vì vội. Tuy nhiên, bữa sáng cho cơ thể năng lượng sau một đêm dài không ăn."
+            },
+            {
+              "en": "A good breakfast has three parts: something with carbohydrates, such as bread or rice, some protein, such as eggs or milk, and fruit. This mix keeps you full until lunch.",
+              "vi": "Một bữa sáng tốt gồm ba phần: tinh bột như bánh mì hoặc cơm, chất đạm như trứng hoặc sữa và trái cây. Sự kết hợp này giúp no đến bữa trưa."
+            },
+            {
+              "en": "If you have no time in the morning, you can prepare food the night before. For example, put some fruit in a box or boil two eggs. Small habits like this help you stay healthy.",
+              "vi": "Nếu sáng không có thời gian, bạn có thể chuẩn bị đồ từ tối hôm trước, ví dụ cho trái cây vào hộp hoặc luộc hai quả trứng. Thói quen nhỏ như vậy giúp bạn khoẻ mạnh."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why do many people skip breakfast?",
+          "choices": [
+            "They are in a hurry.",
+            "They are not hungry.",
+            "They dislike eggs."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which food gives protein?",
+          "choices": [
+            "Eggs",
+            "Bread",
+            "Rice"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "A good breakfast keeps you full until lunch.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The writer says you must cook breakfast every morning.",
+          "answer": "false",
+          "explain": "Tác giả gợi ý chuẩn bị từ tối hôm trước."
+        },
+        {
+          "type": "tf",
+          "statement": "Breakfast is the cheapest meal of the day.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readhealth.sleep-matters",
+      "title": "Giấc ngủ quan trọng thế nào",
+      "summary": "Ngủ đủ giúp học và nhớ tốt hơn.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Bài có nhiều **động từ + danh từ** hay: *get enough sleep, stay awake, improve memory*."
+        },
+        {
+          "type": "passage",
+          "title": "Why Sleep Matters",
+          "paragraphs": [
+            {
+              "en": "Most teenagers need about nine hours of sleep every night, but many get much less. Staying up late to study or use a phone is common, yet it can cause problems.",
+              "vi": "Hầu hết thanh thiếu niên cần khoảng chín tiếng ngủ mỗi đêm, nhưng nhiều bạn ngủ ít hơn nhiều. Thức khuya để học hoặc dùng điện thoại là chuyện thường, nhưng nó có thể gây vấn đề."
+            },
+            {
+              "en": "During sleep, the brain organises what you learned during the day. That is why students who sleep well usually remember more and make fewer mistakes in exams.",
+              "vi": "Khi ngủ, não sắp xếp lại những gì bạn học trong ngày. Vì vậy học sinh ngủ tốt thường nhớ nhiều hơn và ít mắc lỗi hơn khi thi."
+            },
+            {
+              "en": "To sleep better, go to bed at the same time every night, keep your room dark and quiet, and put your phone away at least thirty minutes before bed.",
+              "vi": "Để ngủ ngon hơn, hãy đi ngủ cùng một giờ mỗi tối, giữ phòng tối và yên tĩnh, và cất điện thoại ít nhất ba mươi phút trước khi ngủ."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How much sleep do most teenagers need?",
+          "choices": [
+            "About six hours",
+            "About nine hours",
+            "About twelve hours"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the brain do during sleep?",
+          "choices": [
+            "It stops working.",
+            "It organises what you learned.",
+            "It forgets everything."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "Students who sleep well often make fewer mistakes.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The writer advises using your phone in bed.",
+          "answer": "false",
+          "explain": "Nên cất điện thoại trước khi ngủ ít nhất 30 phút."
+        },
+        {
+          "type": "tf",
+          "statement": "Adults need more sleep than teenagers.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "Keep your room dark and ___.",
+          "answers": [
+            "quiet"
+          ],
+          "choices": [
+            "quiet",
+            "warm",
+            "bright"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readhealth.staying-active",
+      "title": "Giữ cơ thể năng động",
+      "summary": "Vận động mỗi ngày không cần phòng tập.",
+      "level": "A2_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Chú ý các hoạt động: **take the stairs**, **walk to school**, **stretch**."
+        },
+        {
+          "type": "passage",
+          "title": "Staying Active",
+          "paragraphs": [
+            {
+              "en": "You do not need a gym to stay active. Simple choices during the day can help your body a lot. For example, you can take the stairs instead of the lift or walk to school instead of taking a bus.",
+              "vi": "Bạn không cần phòng tập để vận động. Những lựa chọn đơn giản trong ngày giúp cơ thể rất nhiều, ví dụ đi cầu thang bộ thay vì thang máy hoặc đi bộ đến trường thay vì đi xe buýt."
+            },
+            {
+              "en": "Doctors say that adults should move for at least thirty minutes a day. You can divide this time into three short walks of ten minutes. It counts just as much.",
+              "vi": "Bác sĩ nói người lớn nên vận động ít nhất ba mươi phút mỗi ngày. Bạn có thể chia thành ba lần đi bộ ngắn mười phút, vẫn có giá trị như nhau."
+            },
+            {
+              "en": "If you work at a desk, stand up every hour, stretch your arms and neck, and look away from the screen. Your back and eyes will thank you.",
+              "vi": "Nếu bạn làm việc ở bàn, hãy đứng dậy mỗi giờ, duỗi tay và cổ, và nhìn ra xa màn hình. Lưng và mắt bạn sẽ biết ơn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What can you do instead of taking the lift?",
+          "choices": [
+            "Take the stairs",
+            "Sit down",
+            "Wait"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "How much should adults move each day?",
+          "choices": [
+            "At least ten minutes",
+            "At least thirty minutes",
+            "At least three hours"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "Three ten-minute walks count as much as one long walk.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "You need a gym to stay active.",
+          "answer": "false",
+          "explain": "Bài viết nói không cần phòng tập."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer recommends swimming.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readhealth.drinking-water",
+      "title": "Uống đủ nước",
+      "summary": "Vì sao cơ thể cần nước và uống bao nhiêu.",
+      "level": "A2_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Từ khoá: **dehydrated** (mất nước), **headache** (đau đầu), **glasses of water**."
+        },
+        {
+          "type": "passage",
+          "title": "Drink Enough Water",
+          "paragraphs": [
+            {
+              "en": "About sixty percent of the human body is water. We lose water when we breathe, sweat and go to the toilet, so we need to drink regularly.",
+              "vi": "Khoảng sáu mươi phần trăm cơ thể người là nước. Chúng ta mất nước khi thở, ra mồ hôi và đi vệ sinh nên cần uống nước đều đặn."
+            },
+            {
+              "en": "When you do not drink enough, you may feel tired, get a headache or find it hard to concentrate. Doctors call this being dehydrated.",
+              "vi": "Khi uống không đủ nước, bạn có thể thấy mệt, đau đầu hoặc khó tập trung. Bác sĩ gọi đó là mất nước."
+            },
+            {
+              "en": "Most people should drink six to eight glasses of water a day. Drink more in hot weather or after sport. Tea and fruit also count, but sugary drinks are not a good choice.",
+              "vi": "Hầu hết mọi người nên uống sáu đến tám ly nước mỗi ngày. Uống nhiều hơn khi trời nóng hoặc sau khi chơi thể thao. Trà và trái cây cũng tính, nhưng đồ uống nhiều đường thì không nên."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How much of the body is water?",
+          "choices": [
+            "About 10%",
+            "About 30%",
+            "About 60%"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is one sign of not drinking enough?",
+          "choices": [
+            "A headache",
+            "Fast running",
+            "Better memory"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Sugary drinks are a good way to get water.",
+          "answer": "false",
+          "explain": "Bài viết nói đồ uống nhiều đường không phải lựa chọn tốt."
+        },
+        {
+          "type": "tf",
+          "statement": "You should drink more in hot weather.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Coffee is better than water.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    }
+  ]
+}

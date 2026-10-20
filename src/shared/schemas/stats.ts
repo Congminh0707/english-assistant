@@ -8,7 +8,9 @@ export const StatsDaySchema = z.object({
   saved: z.number().int(),
   /** Phiên luyện tập đã hoàn thành */
   practice: z.number().int(),
-  xp: z.number().int()
+  xp: z.number().int(),
+  /** Số phút dùng app trong ngày */
+  minutes: z.number().int()
 })
 export type StatsDay = z.infer<typeof StatsDaySchema>
 
@@ -36,6 +38,36 @@ export const StatsSchema = z.object({
   }),
   /** Số từ trong sổ theo level (chỉ các level có từ) */
   levels: z.array(z.object({ level: z.string(), count: z.number().int() })),
+  /** Độ chính xác 30 ngày gần nhất theo dạng bài (kể cả thẻ ôn theo hướng thẻ) */
+  accuracy: z.array(
+    z.object({
+      /** exercise: bài tập; review: thẻ ôn */
+      group: z.enum(['exercise', 'review']),
+      kind: z.string(),
+      skill: z.string(),
+      correct: z.number().int(),
+      total: z.number().int()
+    })
+  ),
+  /** Rating Elo theo kỹ năng (đã đổi ra level) */
+  skills: z.array(
+    z.object({
+      skill: z.string(),
+      rating: z.number().int(),
+      level: z.string(),
+      games: z.number().int(),
+      /** Đủ dữ liệu để tin rating */
+      reliable: z.boolean(),
+      /** Rating vượt level hiện tại bấy nhiêu bậc (từ 1 trở lên → gợi ý làm bài kiểm tra lên cấp) */
+      ahead: z.number().int()
+    })
+  ),
+  /** Thời gian dùng app */
+  time: z.object({
+    todayMinutes: z.number().int(),
+    weekMinutes: z.number().int(),
+    totalMinutes: z.number().int()
+  }),
   /** Từ hay quên nhất (nhiều lần quên nhất trước) */
   hardest: z.array(
     z.object({

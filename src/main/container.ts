@@ -23,8 +23,10 @@ import { SrsService } from './services/SrsService'
 import { MicroLearningService } from './services/MicroLearningService'
 import { StudyService } from './services/StudyService'
 import { AchievementService } from './services/AchievementService'
+import { CourseService } from './services/CourseService'
 import { KidsService } from './services/KidsService'
 import { MissionService } from './services/MissionService'
+import { ProgressService } from './services/ProgressService'
 import { ParentService } from './services/ParentService'
 import { PlacementService } from './services/PlacementService'
 import { PracticeService } from './services/PracticeService'
@@ -33,18 +35,26 @@ import { StatsService } from './services/StatsService'
 import { LessonService } from './services/LessonService'
 import { LessonLibrary } from './content/LessonLibrary'
 import {
+  bundledCourseFiles,
   bundledGrammarFiles,
   bundledLessonFiles,
+  bundledListeningFiles,
   bundledPhrasebookFiles,
   bundledKidsFiles,
   bundledPlacementFiles,
   bundledReadingFiles
 } from './content/bundledLessons'
 import { PhrasebookLibrary } from './content/PhrasebookLibrary'
+import { CourseLibrary } from './content/CourseLibrary'
 import { KidsLibrary } from './content/KidsLibrary'
 import { PlacementBank } from './content/PlacementBank'
-import { GrammarUnitFileSchema, ReadingUnitFileSchema } from '@shared/schemas/lesson'
+import {
+  GrammarUnitFileSchema,
+  ListeningUnitFileSchema,
+  ReadingUnitFileSchema
+} from '@shared/schemas/lesson'
 import { UsageRepository } from './db/repositories/UsageRepository'
+import { ProgressRepository } from './db/repositories/ProgressRepository'
 import { LessonRepository } from './db/repositories/LessonRepository'
 
 export interface Container {
@@ -68,11 +78,14 @@ export interface Container {
   shop: ShopService
   stats: StatsService
   lessons: LessonService
+  progress: ProgressService
   /** Điểm ngữ pháp và bài đọc: cùng cơ chế với bài học nền tảng */
   grammar: LessonService
   readings: LessonService
+  listening: LessonService
   phrasebook: PhrasebookLibrary
   kids: KidsService
+  courses: CourseService
   parent: ParentService
 }
 
@@ -99,6 +112,7 @@ export function createContainer(
     vocab: new VocabRepository(db),
     lessons: new LessonRepository(db),
     usage: new UsageRepository(db),
+    progress: new ProgressRepository(db),
     packs: new InstalledPackRepository(db)
   }
 
@@ -183,11 +197,22 @@ export function createContainer(
     bus
   })
 
+  const progress = new ProgressService({
+    repo: repos.progress,
+    usage: repos.usage,
+    profiles,
+    settings,
+    clock
+  })
+
   const placement = new PlacementService({
     dictionary,
     bank: new PlacementBank(bundledPlacementFiles),
     profiles,
     settings,
+    progress,
+    xp,
+    xpRepo: repos.xp,
     clock
   })
 
@@ -197,6 +222,7 @@ export function createContainer(
     settings,
     xp,
     xpRepo: repos.xp,
+    progress,
     clock
   })
 
@@ -214,6 +240,9 @@ export function createContainer(
   const stats = new StatsService({
     vocab: repos.vocab,
     lessonRepo: repos.lessons,
+    usage: repos.usage,
+    progress,
+    settings,
     xpRepo: repos.xp,
     dictionary,
     profiles,
@@ -222,18 +251,41 @@ export function createContainer(
 
   const achievements = new AchievementService({ stats, xpRepo: repos.xp, xp, profiles, bus })
 
-  const lessonDeps = { repo: repos.lessons, xpRepo: repos.xp, xp, profiles, clock, transaction }
+  const lessonDeps = {
+    repo: repos.lessons,
+    xpRepo: repos.xp,
+    xp,
+    profiles,
+    clock,
+    transaction,
+    progress
+  }
   const lessons = new LessonService({
     library: new LessonLibrary(bundledLessonFiles),
-    ...lessonDeps
+    ...lessonDeps,
+    source: 'lesson'
   })
   const grammar = new LessonService({
     library: new LessonLibrary(bundledGrammarFiles, console.warn, GrammarUnitFileSchema),
-    ...lessonDeps
+    ...lessonDeps,
+    source: 'grammar'
   })
   const readings = new LessonService({
     library: new LessonLibrary(bundledReadingFiles, console.warn, ReadingUnitFileSchema),
-    ...lessonDeps
+    ...lessonDeps,
+    source: 'reading'
+  })
+  const listening = new LessonService({
+    library: new LessonLibrary(bundledListeningFiles, console.warn, ListeningUnitFileSchema),
+    ...lessonDeps,
+    source: 'listening'
+  })
+
+  const courses = new CourseService({
+    library: new CourseLibrary(bundledCourseFiles),
+    services: { lesson: lessons, grammar, reading: readings, listening },
+    repo: repos.lessons,
+    profiles
   })
 
   // Chế độ trẻ em + khu vực phụ huynh (parent cần kids để báo cáo, kids cần parent để biết đã có PIN → nối qua hàm)
@@ -286,10 +338,13 @@ export function createContainer(
     stats,
     achievements,
     lessons,
+    progress,
     grammar,
     readings,
+    listening,
     phrasebook,
     kids,
-    parent
+    parent,
+    courses
   }
 }

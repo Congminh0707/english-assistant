@@ -70,3 +70,9 @@ App chạy thường trực trên máy, có thể đọc clipboard, nghe micro, 
 - PIN 4 số lưu dạng băm SHA-256 có muối ngẫu nhiên (`settings`, khoá `parent.pin`), không ghi log, không gửi xuống giao diện; so sánh bằng `timingSafeEqual`, sai 5 lần thì khoá 60 giây. **PIN là khoá chặn trẻ bấm nhầm, không phải ranh giới bảo mật** (người có quyền trên máy vẫn đọc được dữ liệu local).
 - Dữ liệu thời gian dùng và báo cáo chỉ nằm trên máy (`usage_days`), không gửi đi đâu; không thu thập gì từ trẻ ngoài tiến độ học.
 - Quên PIN: chưa có cách đặt lại trong app (cần xoá khoá `parent.pin` trong cơ sở dữ liệu người dùng).
+
+## Cập nhật tự động
+
+- Việc kiểm tra cập nhật chỉ gửi yêu cầu tới GitHub Releases (địa chỉ IP và phiên bản app hiện tại là thứ GitHub nhìn thấy); **không gửi dữ liệu học, hồ sơ hay nội dung nào**.
+- Người dùng tắt được trong Cài đặt → Cập nhật (`app.autoUpdate`); app không bao giờ tải hay cài bản mới khi chưa được đồng ý.
+- Tính toàn vẹn: electron-updater so sha512 của file tải về với `latest.yml`. Bản chưa ký số (code signing) thì Windows SmartScreen vẫn cảnh báo ở lần cài đầu — xem [15](15-packaging-and-release.md#5-code-signing).

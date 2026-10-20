@@ -124,3 +124,22 @@ Mẫu:
 - Giới hạn thời gian là **theo ngày** (`kids.dailyMinutes`, mặc định 15 phút; 0 = tắt), đếm ở main từ báo cáo định kỳ của giao diện; hết giờ hiện màn hình nghỉ ngơi, phụ huynh nhập PIN để gia hạn 10 phút. Thêm bảng `usage_days` (migration `0005`).
 - Phần thưởng cho bé là sticker (album) và đồ ăn cho thú cưng (tối đa 8 quà/ngày), không hiện số XP.
 **Hệ quả:** Quên PIN chưa có cách đặt lại trong app. Âm đọc đơn lẻ của TTS (ví dụ "buh", "kuh") còn thô vì model giọng đọc không được huấn luyện cho âm đơn — cần audio thật sau này. Chưa có picture book, tập viết, nói lặp lại.
+
+## #19 — Rating Elo theo kỹ năng và bài kiểm tra lên cấp (2026-10-20) — Chấp nhận
+**Bối cảnh:** Level chung (A2.1...) không nói được người học yếu/mạnh ở đâu; placement chỉ chạy một lần.
+**Quyết định:** 4 kỹ năng (từ vựng, ngữ pháp, đọc, nghe). Mỗi dạng bài của bài học/luyện tập được gán một kỹ năng (`shared/progress.ts`), mỗi lần làm bài ghi vào `exercise_stats` (độ chính xác theo ngày/dạng bài/kỹ năng) và cập nhật Elo (`skill_ratings`, độ khó = level của bài, K = 24 rồi 12 sau 30 câu, chia căn bậc hai số câu của một loạt). Rating khởi đầu lấy từ trình độ theo kỹ năng của bài kiểm tra đầu vào. Khi rating vượt level hiện tại ≥ 1 bậc (đủ ≥ 20 câu) Thống kê gợi ý làm **bài kiểm tra lên cấp**: 10 câu không thích nghi ở bậc kế tiếp, đạt ≥ 80% thì lên một bậc (lần đầu qua mỗi bậc thưởng 60 XP + 30 xu).
+**Hệ quả:** Elo chỉ phản ánh bài tập có chấm (không tính thẻ SRS, vốn đo trí nhớ). Ngân hàng câu placement/checkpoint còn mỏng ở các bậc cao (cần soạn thêm).
+
+## #20 — Thú cưng tiến hoá bằng sheet sinh từ code (2026-10-20) — Chấp nhận
+**Quyết định:** `PetStage` (egg/baby/teen/adult/legend, theo level thú cưng) mỗi giai đoạn có sheet và phụ kiện riêng, cùng bố cục frame và `sheet.json`; `make-placeholder.mjs` sinh đủ cả 5 giai đoạn (kích thước thân, tai, bảng màu, nét trang trí). Mascot đổi sheet + phụ kiện khi đổi giai đoạn và nói một câu ăn mừng. Sheet baby giữ nguyên từng pixel so với bản cũ.
+**Hệ quả:** Vẫn là sprite tạm — khi có art thật chỉ cần thay thư mục từng giai đoạn.
+
+## #21 — Cập nhật tự động chỉ khi người dùng đồng ý, sao lưu DB trước khi migrate (2026-10-20) — Chấp nhận
+**Quyết định:** `UpdateManager` bao `electron-updater` với `autoDownload = false`, `autoInstallOnAppQuit = false`; kiểm tra nền (tắt được), tải khi bấm nút, cài khi khởi động lại. Nguồn: GitHub Releases (`Congminh0707/english-assistant`). `openUserDb` sao lưu `user.db` trước khi chạy migration mới (giữ 3 bản).
+**Lý do:** App chạy nền cạnh công việc của người dùng, không được tự đổi phiên bản sau lưng họ; cập nhật là lúc rủi ro nhất cho dữ liệu học nên cần bản sao lưu.
+**Hệ quả:** Chưa ký số nên SmartScreen cảnh báo; chưa thử cập nhật thật giữa hai bản phát hành.
+
+## #22 — Bài nghe dựa trên TTS, chưa sinh sẵn audio (2026-10-20) — Chấp nhận
+**Bối cảnh:** Trình nghe cần phát từng câu, chỉnh tốc độ, lặp A–B; sinh sẵn audio lúc build (WAV 24 kHz) làm bộ cài phình (~50 KB/giây, 30 bài ≈ vài chục MB) và cần bộ nén (Opus) chưa có trong chuỗi công cụ.
+**Quyết định:** Phát bằng TTS ngay trong app (giọng Windows hoặc Kokoro, có bộ nhớ đệm trên đĩa và tạo trước ở nền); người nói A/B dùng hai giọng Mỹ/Anh. Việc sinh sẵn audio lúc build để sau, gắn với chuyện chốt dung lượng và bộ mã hoá.
+**Hệ quả:** Lần đầu nghe một câu bằng Kokoro có độ trễ 1–3 giây (rồi được nhớ); âm đơn lẻ cho phonics ("buh", "kuh") vẫn thô vì model không huấn luyện cho âm đơn.

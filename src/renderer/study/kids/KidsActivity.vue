@@ -5,6 +5,7 @@ import type { KidsActivity, KidsCompleteResult, KidsItem } from '@shared/schemas
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import TraceCanvas from './TraceCanvas.vue'
 import { FOOD_NAME, FOOD_PICTURE, PRAISE, pick, TRY_AGAIN } from './kidsText'
 
 // Một hoạt động của bé: học (chạm để nghe từng chữ/âm/từ) rồi chơi (nghe → chạm đúng). Không cần biết đọc:
@@ -15,7 +16,7 @@ const emit = defineEmits<{ back: []; changed: [] }>()
 const { t } = useI18n()
 const { speak } = useTts()
 
-type Phase = 'teach' | 'quiz' | 'result'
+type Phase = 'teach' | 'quiz' | 'trace' | 'say' | 'result'
 const phase = ref<Phase>('teach')
 const index = ref(0)
 const items = computed(() => props.activity.items)
@@ -26,7 +27,7 @@ const sayItem = (i: KidsItem): void => speak(i.say ?? i.text, 'us', 0.8)
 
 function teachSpeak(): void {
   const i = item.value
-  if (props.activity.kind === 'letters')
+  if (props.activity.kind === 'letters' || props.activity.kind === 'trace')
     speak(`${i.say}. ${i.text.toLowerCase()}. ${i.word ?? ''}`, 'us', 0.8)
   else sayItem(i)
 }
@@ -66,7 +67,10 @@ const firstTry = ref(0)
 const result = ref<KidsCompleteResult | null>(null)
 
 const pictureQuiz = computed(
-  () => props.activity.kind === 'sounds' || props.activity.kind === 'blend'
+  () =>
+    props.activity.kind === 'sounds' ||
+    props.activity.kind === 'blend' ||
+    props.activity.kind === 'book'
 )
 
 function shuffle<T>(list: T[]): T[] {
@@ -99,11 +103,37 @@ function ask(): void {
 }
 
 function startQuiz(): void {
-  questions.value = buildQuestions()
   q.value = 0
   firstTry.value = 0
+  if (props.activity.kind === 'trace' || props.activity.kind === 'speak') {
+    // Tập viết / nói lặp lại: mỗi mục một lượt, không có câu hỏi chọn
+    questions.value = items.value.map((it) => ({ item: it, answer: it.text, choices: [] }))
+    phase.value = props.activity.kind === 'trace' ? 'trace' : 'say'
+    if (phase.value === 'say') sayPrompt()
+    return
+  }
+  questions.value = buildQuestions()
   phase.value = 'quiz'
   ask()
+}
+
+// --- Nói lặp lại: nghe rồi nói; bé tự bấm "đã nói" (chưa chấm giọng) ---
+function sayPrompt(): void {
+  const it = questions.value[q.value]?.item
+  if (it) speak(`Say: ${it.say ?? it.text}`, 'us', 0.8)
+}
+
+function advanceStep(passed: boolean): void {
+  if (passed) firstTry.value++
+  if (q.value + 1 < questions.value.length) {
+    q.value++
+    if (phase.value === 'say') sayPrompt()
+  } else void finish()
+}
+
+function saidIt(): void {
+  speak(`${pick(PRAISE)}`, 'us', 0.9)
+  window.setTimeout(() => advanceStep(true), 900)
 }
 
 async function choose(choice: string): Promise<void> {
@@ -164,7 +194,7 @@ onMounted(teachSpeak)
     <template v-if="phase === 'teach'">
       <p class="k-sub">{{ index + 1 }} / {{ items.length }}</p>
       <button type="button" class="k-big card" @click="teachSpeak">
-        <template v-if="activity.kind === 'letters'">
+        <template v-if="activity.kind === 'letters' || activity.kind === 'trace'">
           <span class="letter"
             >{{ item.text }}<small>{{ item.text.toLowerCase() }}</small></span
           >
@@ -178,6 +208,14 @@ onMounted(teachSpeak)
         </template>
         <template v-else-if="activity.kind === 'blend'">
           <PixelPicture v-if="item.picture" :id="item.picture" :size="150" />
+          <span class="word">{{ item.text }}</span>
+        </template>
+        <template v-else-if="activity.kind === 'book'">
+          <PixelPicture v-if="item.picture" :id="item.picture" :size="190" />
+          <span class="sentence">{{ item.text }}</span>
+        </template>
+        <template v-else-if="activity.kind === 'speak'">
+          <PixelPicture v-if="item.picture" :id="item.picture" :size="170" />
           <span class="word">{{ item.text }}</span>
         </template>
         <template v-else>
@@ -233,6 +271,33 @@ onMounted(teachSpeak)
       </div>
     </template>
 
+    <!-- TẬP VIẾT -->
+    <template v-else-if="phase === 'trace' && questions[q]">
+      <p class="k-sub">{{ q + 1 }} / {{ questions.length }}</p>
+      <TraceCanvas
+        :key="q"
+        :letter="questions[q].item.text"
+        :say="questions[q].item.say ?? questions[q].item.text"
+        @done="advanceStep"
+      />
+    </template>
+
+    <!-- NÓI LẶP LẠI -->
+    <template v-else-if="phase === 'say' && questions[q]">
+      <p class="k-sub">{{ q + 1 }} / {{ questions.length }}</p>
+      <PixelPicture
+        v-if="questions[q].item.picture"
+        :id="questions[q].item.picture ?? ''"
+        :size="170"
+      />
+      <span class="word">{{ questions[q].item.text }}</span>
+      <div class="k-row">
+        <button type="button" class="k-round big-speaker" @click="sayPrompt">🔊</button>
+        <button type="button" class="k-primary mic" @click="saidIt">🎤 ✓</button>
+      </div>
+      <p class="k-sub">{{ t('kids.activity.sayHint') }}</p>
+    </template>
+
     <!-- KẾT QUẢ -->
     <template v-else-if="phase === 'result' && result">
       <h1 class="k-title">
@@ -269,6 +334,16 @@ onMounted(teachSpeak)
 }
 .word {
   font-size: 34px;
+}
+.sentence {
+  max-width: 440px;
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1.3;
+  text-align: center;
+}
+.mic {
+  font-size: 28px;
 }
 .sight {
   font-size: 96px;

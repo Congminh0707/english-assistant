@@ -1,4 +1,5 @@
 import { app, powerMonitor, screen } from 'electron'
+import { autoUpdater } from 'electron-updater'
 import { join } from 'path'
 import { electronApp } from '@electron-toolkit/utils'
 import { systemClock } from './core/Clock'
@@ -16,6 +17,7 @@ import { createTray, type AppTray } from './system/tray'
 import { showMascotMenu } from './system/mascotMenu'
 import { DEFAULT_SHORTCUTS, registerShortcuts, shortcutLabel } from './system/shortcuts'
 import { applySecurityDefaults } from './system/security'
+import { UpdateManager } from './system/UpdateManager'
 import { applyLaunchAtLogin } from './system/autostart'
 import { readClipboardForLookup } from './system/clipboard'
 import { getForegroundInfo, getUserNotificationState, monitorOfNativeHandle } from './system/win32'
@@ -102,7 +104,21 @@ if (!app.requestSingleInstanceLock()) {
       onStatus: (status) => broadcast('tts:status-changed', status)
     })
     speech = ttsService
-    registerAppIpc(c, translationService, ttsService)
+    // Cập nhật tự động: chỉ bản đã đóng gói; kiểm tra nền (tắt được trong Cài đặt), tải/cài khi người dùng đồng ý
+    const updates = new UpdateManager({
+      updater: autoUpdater,
+      currentVersion: app.getVersion(),
+      enabled: app.isPackaged,
+      onStatus: (status) => broadcast('update:status-changed', status)
+    })
+    registerAppIpc(c, translationService, ttsService, updates)
+    if (app.isPackaged) {
+      const autoCheck = (): void => {
+        if (c.settings.get('app.autoUpdate')) void updates.check()
+      }
+      setTimeout(autoCheck, 45_000)
+      scheduler.every('update-check', 6 * 60 * 60_000, autoCheck)
+    }
     // Ngủ: người dùng vắng mặt lâu hoặc thú cưng hết năng lượng
     const sleepService = new SleepService({
       pet: c.pet,

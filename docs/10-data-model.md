@@ -79,15 +79,25 @@ erDiagram
 | last_tick_at | INTEGER | Để tính giảm chỉ số khi app tắt |
 | position | TEXT JSON | Vị trí màn hình lần cuối `{displayId, x, y}` |
 
-### skill_ratings
+### skill_ratings (migration 0006)
 | Cột | Ghi chú |
 |---|---|
-| id, profile_id | |
-| skill | `vocabulary`/`grammar`/`listening`/`reading`/`speaking`/`writing`/`phonics` |
-| rating | REAL 0–1200 |
-| confirmed_level | TEXT — level đã qua checkpoint |
-| attempts_count | INTEGER — để giảm hệ số K dần |
+| id, profile_id, created_at, updated_at, deleted_at | |
+| skill | `vocab`/`grammar`/`reading`/`listening` (xem `shared/progress.ts`) |
+| rating | REAL 0–1199, Elo theo kỹ năng |
+| games | INTEGER — số câu đã làm, để giảm hệ số K (24 → 12 sau 30 câu) |
 | UNIQUE(profile_id, skill) | |
+
+### exercise_stats (migration 0006)
+| Cột | Ghi chú |
+|---|---|
+| id, profile_id, created_at, updated_at, deleted_at | |
+| day | ngày cục bộ `YYYY-MM-DD` |
+| source | nguồn: `lesson`/`grammar`/`reading`/`listening`/`practice`/`checkpoint` |
+| kind | dạng bài (mcq, gap, order, ...) hoặc hướng thẻ |
+| skill | kỹ năng được gán cho dạng bài |
+| correct, total | số câu đúng / tổng, cộng dồn |
+| UNIQUE(profile_id, day, source, kind, skill) | |
 
 ### usage_days (thời gian dùng app mỗi ngày — chế độ trẻ em)
 

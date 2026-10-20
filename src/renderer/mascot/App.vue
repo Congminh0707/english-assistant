@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { MascotReaction, MascotSleep } from '@shared/schemas/pet'
 import { invoke } from '@renderer/shared/ipc'
@@ -10,17 +10,31 @@ import { MascotBrain } from './engine/MascotBrain'
 import { BubblePriority, useBubble } from './composables/useBubble'
 import { useLines } from './composables/useLines'
 import SpeechBubble from './components/SpeechBubble.vue'
-import sheetUrl from './assets/characters/placeholder/baby/sheet.png'
-import sheetMeta from './assets/characters/placeholder/baby/sheet.json'
 import { ACCESSORY_DRAW_ORDER } from '@shared/shop'
 
-/** Sheet phụ kiện (acc-bow.png...) do scripts/sprites/make-placeholder.mjs sinh ra, cùng bố cục với sheet chính */
-const accessoryUrls = import.meta.glob('./assets/characters/placeholder/baby/acc-*.png', {
+/**
+ * Sheet từng giai đoạn tiến hoá (egg, baby, teen, adult, legend) và sheet phụ kiện (acc-bow.png...) do
+ * scripts/sprites/make-placeholder.mjs sinh ra; phụ kiện cùng bố cục frame với sheet chính của giai đoạn đó.
+ */
+const sheetUrls = import.meta.glob('./assets/characters/placeholder/*/sheet.png', {
   eager: true,
   query: '?url',
   import: 'default'
 }) as Record<string, string>
+const sheetMetas = import.meta.glob('./assets/characters/placeholder/*/sheet.json', {
+  eager: true,
+  import: 'default'
+}) as Record<string, SpriteSheetMeta>
+const accessoryUrls = import.meta.glob('./assets/characters/placeholder/*/acc-*.png', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+}) as Record<string, string>
+/** Phụ kiện đã nạp, khoá `<giai đoạn>:<id>` */
 const accessoryImages = new Map<string, HTMLImageElement>()
+const stageKey = (stage: string, file: string): string =>
+  `./assets/characters/placeholder/${stage}/${file}`
+const FALLBACK_STAGE = 'baby'
 
 /** Di chuột dưới ngưỡng này (px) giữa lúc nhấn và thả thì tính là click, không phải kéo */
 const CLICK_THRESHOLD = 4
@@ -224,20 +238,51 @@ function onVisibilityChange(): void {
   }
 }
 
-/** Nạp (một lần) và áp dụng các phụ kiện đang đeo */
+/** Giai đoạn tiến hoá hiện tại (không có sheet thì rơi về baby) */
+const stage = computed(() => {
+  const wanted = petStore.pet?.stage ?? FALLBACK_STAGE
+  return stageKey(wanted, 'sheet.png') in sheetUrls ? wanted : FALLBACK_STAGE
+})
+let shownStage = ''
+
+/** Nạp (một lần) và áp dụng các phụ kiện đang đeo, theo giai đoạn hiện tại */
 async function applyAccessories(equipped: string[]): Promise<void> {
   const wanted = ACCESSORY_DRAW_ORDER.filter((id) => equipped.includes(id))
+  const current = stage.value
   for (const id of wanted) {
-    if (accessoryImages.has(id)) continue
-    const url = accessoryUrls[`./assets/characters/placeholder/baby/acc-${id.split(':')[1]}.png`]
+    const key = `${current}:${id}`
+    if (accessoryImages.has(key)) continue
+    const url = accessoryUrls[stageKey(current, `acc-${id.split(':')[1]}.png`)]
     if (!url) continue
     const image = new Image()
     image.src = url
     await image.decode()
-    accessoryImages.set(id, image)
+    accessoryImages.set(key, image)
   }
-  animator?.setOverlays(wanted.flatMap((id) => accessoryImages.get(id) ?? []))
+  animator?.setOverlays(wanted.flatMap((id) => accessoryImages.get(`${current}:${id}`) ?? []))
 }
+
+async function loadSheet(name: string): Promise<HTMLImageElement> {
+  const image = new Image()
+  image.src = sheetUrls[stageKey(name, 'sheet.png')]
+  await image.decode()
+  return image
+}
+
+/** Lên giai đoạn mới (lên cấp qua mốc): đổi sheet và phụ kiện, ăn mừng */
+async function evolveTo(next: string): Promise<void> {
+  if (!animator || next === shownStage) return
+  const previous = shownStage
+  shownStage = next
+  animator.setSheet(await loadSheet(next))
+  await applyAccessories(petStore.pet?.equipped ?? [])
+  if (previous) {
+    brain?.react('happy')
+    bubble.say(line('evolved'), BubblePriority.important)
+  }
+}
+
+watch(stage, (next) => void evolveTo(next))
 
 watch(
   () => petStore.pet?.equipped.join(','),
@@ -264,11 +309,10 @@ onMounted(async () => {
   const [settings] = await Promise.all([settingsStore.load(), petStore.load()])
   locale.value = settings['ui.language']
 
-  const image = new Image()
-  image.src = sheetUrl
-  await image.decode()
+  const image = await loadSheet(stage.value)
+  shownStage = stage.value
 
-  const meta = sheetMeta as SpriteSheetMeta
+  const meta = sheetMetas[stageKey(stage.value, 'sheet.json')]
   const scale = settings['mascot.scale']
   ctx = canvas.value!.getContext('2d', { willReadFrequently: true })!
   animator = new SpriteAnimator(image, meta, ctx, scale)

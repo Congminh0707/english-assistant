@@ -1,0 +1,390 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "listentalk",
+    "title": "Bài nói ngắn",
+    "summary": "Sức khoẻ, hướng dẫn viên, chuyến đi, công nghệ, môi trường.",
+    "icon": "🎤",
+    "order": 6
+  },
+  "lessons": [
+    {
+      "id": "listentalk.healthy-habits",
+      "title": "Thói quen lành mạnh",
+      "summary": "Bài nói ngắn về sức khoẻ.",
+      "level": "B1_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Healthy habits",
+          "lines": [
+            {
+              "en": "Today I would like to talk about three simple habits that keep us healthy.",
+              "vi": "Hôm nay tôi muốn nói về ba thói quen đơn giản giúp chúng ta khoẻ mạnh."
+            },
+            {
+              "en": "First, sleep. Most adults need seven to eight hours every night.",
+              "vi": "Thứ nhất là ngủ. Hầu hết người lớn cần bảy đến tám tiếng mỗi đêm."
+            },
+            {
+              "en": "Second, exercise. Even a thirty-minute walk each day can improve your mood and your heart.",
+              "vi": "Thứ hai là tập thể dục. Chỉ cần đi bộ ba mươi phút mỗi ngày cũng cải thiện tâm trạng và tim mạch."
+            },
+            {
+              "en": "Third, food. Try to eat more vegetables and fruit, and drink enough water.",
+              "vi": "Thứ ba là ăn uống. Hãy ăn nhiều rau và trái cây hơn, và uống đủ nước."
+            },
+            {
+              "en": "Small changes, repeated every day, make a big difference.",
+              "vi": "Những thay đổi nhỏ lặp lại mỗi ngày tạo nên khác biệt lớn."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How many habits does the speaker talk about?",
+          "choices": [
+            "Two",
+            "Three",
+            "Five"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "How much sleep do most adults need?",
+          "choices": [
+            "Five to six hours",
+            "Seven to eight hours",
+            "Ten hours"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "A thirty-minute walk can improve your mood.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The speaker says we should avoid fruit.",
+          "answer": "false",
+          "explain": "Người nói khuyên ăn nhiều rau và trái cây."
+        }
+      ]
+    },
+    {
+      "id": "listentalk.city-guide",
+      "title": "Hướng dẫn viên thành phố",
+      "summary": "Giới thiệu các điểm tham quan.",
+      "level": "B1_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "A city guide",
+          "lines": [
+            {
+              "en": "Welcome to Hoi An, one of the most beautiful old towns in Vietnam.",
+              "vi": "Chào mừng đến Hội An, một trong những phố cổ đẹp nhất Việt Nam."
+            },
+            {
+              "en": "We will start with the Japanese Covered Bridge, which is more than four hundred years old.",
+              "vi": "Chúng ta sẽ bắt đầu với Chùa Cầu, đã hơn bốn trăm năm tuổi."
+            },
+            {
+              "en": "After that, we will walk through the old streets, where you can see yellow houses and colourful lanterns.",
+              "vi": "Sau đó, chúng ta đi bộ qua những con phố cổ, nơi bạn sẽ thấy những ngôi nhà vàng và đèn lồng nhiều màu."
+            },
+            {
+              "en": "At twelve, we will stop for lunch. I recommend trying the local noodle dish, cao lau.",
+              "vi": "Lúc mười hai giờ, chúng ta dừng ăn trưa. Tôi gợi ý thử món mì địa phương, cao lầu."
+            },
+            {
+              "en": "Please stay with the group, and do not forget your hats and water.",
+              "vi": "Xin hãy đi cùng nhóm, và đừng quên mũ và nước uống."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What will the group see first?",
+          "choices": [
+            "The Japanese Covered Bridge",
+            "A market",
+            "A museum"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the guide recommend for lunch?",
+          "choices": [
+            "Pizza",
+            "Cao lau",
+            "Fried rice"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The bridge is less than a hundred years old.",
+          "answer": "false",
+          "explain": "Cầu đã hơn bốn trăm năm tuổi."
+        },
+        {
+          "type": "gap",
+          "prompt": "Visitors should bring a ___ and water.",
+          "answers": [
+            "hat"
+          ],
+          "choices": [
+            "hat",
+            "coat",
+            "map"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listentalk.travel-story",
+      "title": "Chuyến đi đáng nhớ",
+      "summary": "Kể lại một chuyến du lịch.",
+      "level": "B1_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "A memorable trip",
+          "lines": [
+            {
+              "en": "Last summer, my friends and I travelled to Phu Quoc island for a week.",
+              "vi": "Mùa hè năm ngoái, mình và các bạn đi đảo Phú Quốc một tuần."
+            },
+            {
+              "en": "We rented motorbikes and explored the island, visiting beaches and a pepper farm.",
+              "vi": "Tụi mình thuê xe máy và khám phá đảo, ghé các bãi biển và một trang trại tiêu."
+            },
+            {
+              "en": "One afternoon, it started to rain heavily, so we took shelter in a small café.",
+              "vi": "Một buổi chiều, trời bắt đầu mưa to nên tụi mình trú trong một quán cà phê nhỏ."
+            },
+            {
+              "en": "The owner was so friendly that she taught us how to make coconut coffee.",
+              "vi": "Bà chủ quán thân thiện đến mức dạy tụi mình cách pha cà phê cốt dừa."
+            },
+            {
+              "en": "It was unexpected, but it became my favourite memory of the whole trip.",
+              "vi": "Điều đó bất ngờ nhưng trở thành kỷ niệm mình thích nhất cả chuyến đi."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How long was the trip?",
+          "choices": [
+            "A weekend",
+            "A week",
+            "A month"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why did they go to a café?",
+          "choices": [
+            "To escape the rain",
+            "To meet a friend",
+            "To use the Internet"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The owner taught them to make coconut coffee.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "They travelled to the island by plane in winter.",
+          "answer": "false",
+          "explain": "Họ đi vào mùa hè; bài không nhắc phương tiện đến đảo."
+        }
+      ]
+    },
+    {
+      "id": "listentalk.technology",
+      "title": "Công nghệ trong đời sống",
+      "summary": "Bài nói về điện thoại thông minh.",
+      "level": "B1_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Technology in our lives",
+          "lines": [
+            {
+              "en": "Smartphones have changed the way we live. We use them to work, to study, and to stay in touch.",
+              "vi": "Điện thoại thông minh đã thay đổi cách chúng ta sống. Ta dùng chúng để làm việc, học tập và giữ liên lạc."
+            },
+            {
+              "en": "However, many people check their phones more than a hundred times a day.",
+              "vi": "Tuy nhiên, nhiều người kiểm tra điện thoại hơn một trăm lần mỗi ngày."
+            },
+            {
+              "en": "This can make it difficult to concentrate and can affect our sleep.",
+              "vi": "Điều này có thể khiến khó tập trung và ảnh hưởng đến giấc ngủ."
+            },
+            {
+              "en": "A simple solution is to turn off notifications during study time and to keep the phone away from the bed.",
+              "vi": "Một giải pháp đơn giản là tắt thông báo khi học và để điện thoại xa giường ngủ."
+            },
+            {
+              "en": "Technology is useful, but we should control it, not let it control us.",
+              "vi": "Công nghệ hữu ích, nhưng ta nên kiểm soát nó, đừng để nó kiểm soát ta."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How often do many people check their phones?",
+          "choices": [
+            "A few times a day",
+            "More than a hundred times a day",
+            "Once a day"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is one suggested solution?",
+          "choices": [
+            "Turn off notifications during study time",
+            "Buy a new phone",
+            "Stop using phones completely"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The speaker says phones can affect sleep.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The speaker thinks technology is useless.",
+          "answer": "false",
+          "explain": "Người nói cho rằng công nghệ hữu ích nhưng cần kiểm soát."
+        }
+      ]
+    },
+    {
+      "id": "listentalk.environment",
+      "title": "Bảo vệ môi trường",
+      "summary": "Bài nói về giảm rác thải nhựa.",
+      "level": "B1_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Protecting the environment",
+          "lines": [
+            {
+              "en": "Plastic waste is one of the biggest problems for our oceans.",
+              "vi": "Rác thải nhựa là một trong những vấn đề lớn nhất của đại dương."
+            },
+            {
+              "en": "Every year, millions of tonnes of plastic end up in the sea and harm sea animals.",
+              "vi": "Mỗi năm, hàng triệu tấn nhựa rơi xuống biển và gây hại cho động vật biển."
+            },
+            {
+              "en": "The good news is that each of us can help.",
+              "vi": "Tin tốt là mỗi người đều có thể góp sức."
+            },
+            {
+              "en": "We can bring our own shopping bags, use a reusable bottle, and say no to plastic straws.",
+              "vi": "Ta có thể mang túi mua sắm riêng, dùng chai nước tái sử dụng và nói không với ống hút nhựa."
+            },
+            {
+              "en": "If everyone makes these small choices, we can protect the ocean for the next generation.",
+              "vi": "Nếu ai cũng đưa ra những lựa chọn nhỏ này, ta có thể bảo vệ đại dương cho thế hệ sau."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is the main topic?",
+          "choices": [
+            "Plastic waste",
+            "Fishing",
+            "Weather"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What can people use instead of plastic bottles?",
+          "choices": [
+            "A reusable bottle",
+            "A paper cup",
+            "A glass window"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Plastic harms sea animals.",
+          "answer": "true"
+        },
+        {
+          "type": "gap",
+          "prompt": "We can say no to plastic ___.",
+          "answers": [
+            "straws"
+          ],
+          "choices": [
+            "straws",
+            "shoes",
+            "books"
+          ]
+        }
+      ]
+    }
+  ]
+}

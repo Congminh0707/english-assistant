@@ -16,13 +16,14 @@ import LessonExercises from './LessonExercises.vue'
 import LessonViewer from './LessonViewer.vue'
 
 // Bài học nền tảng: danh sách theo chương → đọc bài → làm bài tập → kết quả (thưởng lần đầu đạt).
-const props = withDefaults(defineProps<{ kind?: LessonKind }>(), { kind: 'lesson' })
-const emit = defineEmits<{ changed: [] }>()
+const props = withDefaults(
+  defineProps<{ kind?: LessonKind; startId?: string; courseMode?: boolean }>(),
+  { kind: 'lesson', startId: undefined, courseMode: false }
+)
+const emit = defineEmits<{ changed: []; exit: [] }>()
 
 /** Khoá i18n theo loại nội dung: study.lessons / study.grammar / study.reading */
-const kindKey = computed(() =>
-  props.kind === 'grammar' ? 'grammar' : props.kind === 'reading' ? 'reading' : 'lessons'
-)
+const kindKey = computed(() => (props.kind === 'lesson' ? 'lessons' : props.kind))
 
 const { t } = useI18n()
 
@@ -62,7 +63,11 @@ async function open(id: string): Promise<void> {
   }
 }
 
-async function finish(correct: number, total: number): Promise<void> {
+async function finish(
+  correct: number,
+  total: number,
+  byType: Array<{ type: string; correct: number; total: number }>
+): Promise<void> {
   if (!lesson.value) return
   busy.value = true
   try {
@@ -70,7 +75,8 @@ async function finish(correct: number, total: number): Promise<void> {
       kind: props.kind,
       lessonId: lesson.value.id,
       correct,
-      total
+      total,
+      byType
     })
     mode.value = 'result'
     await loadCatalog()
@@ -81,11 +87,16 @@ async function finish(correct: number, total: number): Promise<void> {
 }
 
 async function backToList(): Promise<void> {
+  // Mở từ lộ trình: quay về lộ trình thay vì danh sách bài
+  if (props.courseMode) return emit('exit')
   mode.value = 'list'
   await loadCatalog()
 }
 
-onMounted(loadCatalog)
+onMounted(async () => {
+  if (props.startId) await open(props.startId)
+  else await loadCatalog()
+})
 </script>
 
 <template>
@@ -123,7 +134,7 @@ onMounted(loadCatalog)
       </p>
       <div class="row">
         <button
-          v-if="result.nextLessonId && result.score >= LESSON_PASS_PERCENT"
+          v-if="!courseMode && result.nextLessonId && result.score >= LESSON_PASS_PERCENT"
           type="button"
           class="primary"
           @click="open(result.nextLessonId)"
@@ -137,7 +148,7 @@ onMounted(loadCatalog)
           {{ t('study.lessons.retry') }}
         </button>
         <button type="button" class="secondary" @click="backToList">
-          {{ t('study.lessons.toList') }}
+          {{ courseMode ? t('study.courses.backToCourse') : t('study.lessons.toList') }}
         </button>
       </div>
     </PxPanel>

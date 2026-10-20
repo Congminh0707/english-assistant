@@ -1,16 +1,17 @@
 // Sinh sprite sheet tạm cho mascot (chưa có art chính thức).
 // Đầu ra đúng định dạng docs/05-mascot-system.md#2 để sau này thay bằng sheet vẽ trong LibreSprite.
-// Chạy: pnpm sprites:placeholder
+// Chạy: pnpm sprites:placeholder   (sinh đủ các giai đoạn tiến hoá: egg, baby, teen, adult, legend)
 import { writeFileSync, mkdirSync } from 'node:fs'
 import { deflateSync, crc32 } from 'node:zlib'
 import { dirname, resolve } from 'node:path'
 
-const OUT_DIR = resolve('src/renderer/mascot/assets/characters/placeholder/baby')
+const OUT_BASE = resolve('src/renderer/mascot/assets/characters/placeholder')
+let OUT_DIR = OUT_BASE
 // Khung 48×48, hiển thị ×2 = 96px (docs/05-mascot-system.md#1-nhân-vật)
 const FRAME = 48
 const COLUMNS = 8
 
-const C = {
+const BASE_C = {
   outline: [43, 43, 58, 255],
   body: [255, 214, 165, 255],
   shade: [240, 180, 130, 255],
@@ -21,6 +22,49 @@ const C = {
   foot: [214, 150, 110, 255],
   zzz: [91, 141, 239, 255]
 }
+let C = BASE_C
+
+// --- Giai đoạn tiến hoá (theo level thú cưng, xem shared/pet.ts#stageForLevel) ---
+// rx/ry: nửa trục thân; ears: [rộng, cao] hoặc null; palette: màu ghi đè; deco: nét trang trí riêng của giai đoạn
+const STAGES = {
+  egg: {
+    rx: 11.5,
+    ry: 14,
+    ears: null,
+    palette: {
+      body: [250, 244, 226, 255],
+      shade: [226, 214, 184, 255],
+      foot: [226, 214, 184, 255],
+      blush: [255, 170, 160, 255]
+    }
+  },
+  baby: { rx: 15, ry: 12.5, ears: [8, 7], palette: {} },
+  teen: {
+    rx: 16,
+    ry: 13.5,
+    ears: [9, 8],
+    palette: { body: [255, 200, 140, 255], shade: [236, 160, 102, 255], ear: [255, 150, 130, 255] }
+  },
+  adult: {
+    rx: 17,
+    ry: 14,
+    ears: [10, 8],
+    palette: { body: [255, 188, 118, 255], shade: [232, 148, 84, 255], ear: [255, 140, 120, 255] }
+  },
+  legend: {
+    rx: 17.5,
+    ry: 14.5,
+    ears: [10, 8],
+    palette: {
+      body: [255, 226, 120, 255],
+      shade: [236, 188, 70, 255],
+      ear: [255, 190, 110, 255],
+      foot: [226, 170, 60, 255]
+    }
+  }
+}
+let S = STAGES.baby
+let STAGE = 'baby'
 
 // Mỗi frame: tham số tư thế của nhân vật
 const animations = {
@@ -220,6 +264,99 @@ function drawAccessory(kind, g) {
   }
 }
 
+/** Nét trang trí riêng từng giai đoạn: vết nứt vỏ trứng, ngọc trán, vằn má, ngôi sao, lấp lánh */
+function drawDeco(cx, cy, rx, ry) {
+  const top = Math.round(cy - ry)
+  const x = Math.round(cx)
+  const brow = Math.round(cy - ry * 0.55)
+  const dark = [200, 130, 80, 255]
+  const cyan = [93, 230, 255, 255]
+  const star = [255, 255, 255, 255]
+  switch (STAGE) {
+    case 'egg': {
+      // Đốm vỏ + vết nứt zích-zắc trên đỉnh
+      for (const [dx, dy] of [
+        [-6, 3],
+        [5, 6],
+        [-3, 11],
+        [7, -1],
+        [-8, 9]
+      ]) {
+        set(x + dx, brow + dy, [186, 214, 255, 255])
+        set(x + dx + 1, brow + dy, [186, 214, 255, 255])
+      }
+      const crack = [
+        [0, 0],
+        [1, 1],
+        [0, 2],
+        [1, 3],
+        [2, 4]
+      ]
+      for (const [dx, dy] of crack) set(x + dx - 1, top + 2 + dy, C.outline)
+      break
+    }
+    case 'teen': {
+      rectPx(x - 1, brow, 2, 3, cyan)
+      for (const side of [-1, 1])
+        for (let i = 0; i < 3; i++)
+          set(x + side * (rx - 3) - (side > 0 ? 1 : 0), Math.round(cy) + i * 2, dark)
+      break
+    }
+    case 'adult': {
+      rectPx(x - 1, brow - 1, 3, 3, cyan)
+      set(x - 1, brow - 1, star)
+      for (const side of [-1, 1]) {
+        // Chòm lông má
+        const bx = x + side * (rx - 1)
+        for (let i = 0; i < 4; i++) set(bx + side * (i % 2), Math.round(cy) + 3 + i, C.shade)
+      }
+      break
+    }
+    case 'legend': {
+      // Ngôi sao trán + lấp lánh quanh thân
+      for (const [dx, dy] of [
+        [0, -2],
+        [-1, -1],
+        [0, -1],
+        [1, -1],
+        [-2, 0],
+        [-1, 0],
+        [0, 0],
+        [1, 0],
+        [2, 0],
+        [-1, 1],
+        [0, 1],
+        [1, 1],
+        [-1, 2],
+        [1, 2]
+      ])
+        set(x + dx, brow + dy, dy < 0 || dy === 0 ? [255, 120, 150, 255] : [255, 120, 150, 255])
+      set(x, brow - 1, star)
+      for (const [dx, dy] of [
+        [-rx - 3, -ry],
+        [rx + 3, -ry + 4],
+        [-rx - 1, ry - 4],
+        [rx + 2, ry - 9]
+      ]) {
+        const sx = x + Math.round(dx)
+        const sy = Math.round(cy + dy)
+        for (const [a, b] of [
+          [0, 0],
+          [1, 0],
+          [-1, 0],
+          [0, 1],
+          [0, -1]
+        ])
+          set(sx + a, sy + b, star)
+      }
+      break
+    }
+  }
+}
+function rectPx(x0, y0, w, h, color) {
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) set(x0 + x, y0 + y, color)
+}
+
 // Hệ số co các tham số tư thế (thiết kế gốc cho khung 64px)
 const K = FRAME / 64
 
@@ -229,8 +366,8 @@ function drawFrame(p, only = null) {
   const stretch = Math.round((p.stretch ?? 0) * K)
   const jump = Math.round((p.jump ?? 0) * K)
   const dx = p.dx ?? 0
-  const rx = 15 + squash - stretch * 0.5
-  const ry = 12.5 - squash + stretch
+  const rx = S.rx + squash - stretch * 0.5
+  const ry = S.ry - squash + stretch
   const groundY = FRAME - 2
   const footY = groundY - 2 - jump
   const cx = FRAME / 2 + dx
@@ -246,16 +383,27 @@ function drawFrame(p, only = null) {
     ellipse(cx - 6 + step * 1.5, footY - (step > 0 ? 1 : 0), 3.5, 2.2, C.foot)
     ellipse(cx + 6 - step * 1.5, footY - (step < 0 ? 1 : 0), 3.5, 2.2, C.foot)
   }
+  // Đuôi (người lớn, huyền thoại): vẽ sau chân, trước thân
+  if (STAGE === 'adult' || STAGE === 'legend') {
+    ellipse(cx + rx - 1, cy + 3, 4, 7, C.body, C.shade)
+    if (STAGE === 'legend') ellipse(cx + rx + 1, cy - 3, 2.2, 2.2, C.white)
+  }
   // Tai
-  triangle(cx - 8, cy - ry - 2, 8, 7, C.ear)
-  triangle(cx + 7, cy - ry - 2, 8, 7, C.ear)
+  if (S.ears) {
+    const [ew, eh] = S.ears
+    triangle(cx - Math.round(S.rx * 0.53), cy - ry - 2, ew, eh, C.ear)
+    triangle(cx + Math.round(S.rx * 0.47), cy - ry - 2, ew, eh, C.ear)
+  }
   // Thân
   ellipse(cx, cy, rx, ry, C.body, C.shade)
+  drawDeco(cx, cy, rx, ry)
   // Mặt
   const eyeY = Math.round(cy - 1)
   drawEyes(cx, eyeY, p.eyes ?? 'open')
   if (p.zzz) drawZzz(p.zzz, cx, Math.round(cy - ry))
-  for (const x of [cx - 10, cx - 9, cx + 8, cx + 9]) set(x, eyeY + 3, C.blush)
+  const cheek = Math.round(Math.min(S.rx, 15) - 5)
+  for (const x of [cx - cheek, cx - cheek + 1, cx + cheek - 2, cx + cheek - 1])
+    set(x, eyeY + 3, C.blush)
   if (p.mouth === 'open') {
     // Miệng há to khi ăn
     for (let y = 4; y <= 6; y++) for (let x = -2; x <= 1; x++) set(cx + x, eyeY + y, C.eye)
@@ -274,12 +422,6 @@ function drawFrame(p, only = null) {
     set(cx, eyeY + 5, C.eye)
   }
 }
-
-frames.forEach((p, i) => {
-  ox = (i % COLUMNS) * FRAME
-  oy = Math.floor(i / COLUMNS) * FRAME
-  drawFrame(p)
-})
 
 // --- Mã hoá PNG tối giản (RGBA 8-bit) ---
 function chunk(type, data) {
@@ -308,88 +450,102 @@ function encodePng() {
     chunk('IEND', Buffer.alloc(0))
   ])
 }
-const png = encodePng()
 
-// --- Metadata ---
-let index = 0
-const meta = {
-  frameSize: { w: FRAME, h: FRAME },
-  anchor: { x: FRAME / 2, y: FRAME - 1 },
-  animations: Object.fromEntries(
-    Object.entries(animations).map(([name, list]) => {
-      const frameIdx = list.map(() => index++)
-      return [name, { frames: frameIdx, ...timing[name] }]
-    })
-  )
-}
-
-mkdirSync(dirname(resolve(OUT_DIR, 'x')), { recursive: true })
-writeFileSync(resolve(OUT_DIR, 'sheet.png'), png)
-writeFileSync(resolve(OUT_DIR, 'sheet.json'), JSON.stringify(meta, null, 2) + '\n')
-const basePixels = pixels
-const previewFrames = [0, 4, 14, 22] // idle, walk, happy, sleep
-const PREVIEW_SCALE = 6
-const previewW = ACCESSORIES.length * FRAME * PREVIEW_SCALE
-const previewH = previewFrames.length * FRAME * PREVIEW_SCALE
-const preview = process.env.PREVIEW ? new Uint8Array(previewW * previewH * 4) : null
-function blit(src, frame, cell, row) {
-  const fx = (frame % COLUMNS) * FRAME
-  const fy = Math.floor(frame / COLUMNS) * FRAME
-  for (let y = 0; y < FRAME * PREVIEW_SCALE; y++)
-    for (let x = 0; x < FRAME * PREVIEW_SCALE; x++) {
-      const si =
-        ((fy + Math.floor(y / PREVIEW_SCALE)) * width + fx + Math.floor(x / PREVIEW_SCALE)) * 4
-      if (src[si + 3] === 0) continue
-      const di =
-        ((row * FRAME * PREVIEW_SCALE + y) * previewW + cell * FRAME * PREVIEW_SCALE + x) * 4
-      for (let k = 0; k < 4; k++) preview[di + k] = src[si + k]
-    }
-}
-for (const acc of ACCESSORIES) {
+function generate(stage) {
+  STAGE = stage
+  S = STAGES[stage]
+  C = { ...BASE_C, ...S.palette }
+  OUT_DIR = resolve(OUT_BASE, stage)
   pixels = new Uint8Array(width * height * 4)
   frames.forEach((p, i) => {
     ox = (i % COLUMNS) * FRAME
     oy = Math.floor(i / COLUMNS) * FRAME
-    drawFrame(p, acc)
+    drawFrame(p)
   })
-  writeFileSync(resolve(OUT_DIR, `acc-${acc}.png`), encodePng())
-  if (preview) {
-    const cell = ACCESSORIES.indexOf(acc)
-    previewFrames.forEach((f, row) => {
-      blit(basePixels, f, cell, row)
-      blit(pixels, f, cell, row)
-    })
-  }
-}
-if (preview) {
-  const saved = pixels
-  pixels = preview
-  const w0 = width
-  // encodePng dùng width/height của sheet → ghi preview bằng bộ mã hoá riêng
-  const ihdr2 = Buffer.alloc(13)
-  ihdr2.writeUInt32BE(previewW, 0)
-  ihdr2.writeUInt32BE(previewH, 4)
-  ihdr2[8] = 8
-  ihdr2[9] = 6
-  const raw2 = Buffer.alloc((previewW * 4 + 1) * previewH)
-  for (let y = 0; y < previewH; y++) {
-    raw2[y * (previewW * 4 + 1)] = 0
-    Buffer.from(preview.buffer, y * previewW * 4, previewW * 4).copy(
-      raw2,
-      y * (previewW * 4 + 1) + 1
+  const png = encodePng()
+  // --- Metadata ---
+  let index = 0
+  const meta = {
+    frameSize: { w: FRAME, h: FRAME },
+    anchor: { x: FRAME / 2, y: FRAME - 1 },
+    animations: Object.fromEntries(
+      Object.entries(animations).map(([name, list]) => {
+        const frameIdx = list.map(() => index++)
+        return [name, { frames: frameIdx, ...timing[name] }]
+      })
     )
   }
-  mkdirSync(resolve('content/.build'), { recursive: true })
-  writeFileSync(
-    resolve('content/.build/sprites-preview.png'),
-    Buffer.concat([
-      Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
-      chunk('IHDR', ihdr2),
-      chunk('IDAT', deflateSync(raw2)),
-      chunk('IEND', Buffer.alloc(0))
-    ])
-  )
-  pixels = saved
-  void w0
+
+  mkdirSync(dirname(resolve(OUT_DIR, 'x')), { recursive: true })
+  writeFileSync(resolve(OUT_DIR, 'sheet.png'), png)
+  writeFileSync(resolve(OUT_DIR, 'sheet.json'), JSON.stringify(meta, null, 2) + '\n')
+  const basePixels = pixels
+  const previewFrames = [0, 4, 14, 22] // idle, walk, happy, sleep
+  const PREVIEW_SCALE = 6
+  const previewW = ACCESSORIES.length * FRAME * PREVIEW_SCALE
+  const previewH = previewFrames.length * FRAME * PREVIEW_SCALE
+  const preview = process.env.PREVIEW ? new Uint8Array(previewW * previewH * 4) : null
+  function blit(src, frame, cell, row) {
+    const fx = (frame % COLUMNS) * FRAME
+    const fy = Math.floor(frame / COLUMNS) * FRAME
+    for (let y = 0; y < FRAME * PREVIEW_SCALE; y++)
+      for (let x = 0; x < FRAME * PREVIEW_SCALE; x++) {
+        const si =
+          ((fy + Math.floor(y / PREVIEW_SCALE)) * width + fx + Math.floor(x / PREVIEW_SCALE)) * 4
+        if (src[si + 3] === 0) continue
+        const di =
+          ((row * FRAME * PREVIEW_SCALE + y) * previewW + cell * FRAME * PREVIEW_SCALE + x) * 4
+        for (let k = 0; k < 4; k++) preview[di + k] = src[si + k]
+      }
+  }
+  for (const acc of ACCESSORIES) {
+    pixels = new Uint8Array(width * height * 4)
+    frames.forEach((p, i) => {
+      ox = (i % COLUMNS) * FRAME
+      oy = Math.floor(i / COLUMNS) * FRAME
+      drawFrame(p, acc)
+    })
+    writeFileSync(resolve(OUT_DIR, `acc-${acc}.png`), encodePng())
+    if (preview) {
+      const cell = ACCESSORIES.indexOf(acc)
+      previewFrames.forEach((f, row) => {
+        blit(basePixels, f, cell, row)
+        blit(pixels, f, cell, row)
+      })
+    }
+  }
+  if (preview) {
+    const saved = pixels
+    pixels = preview
+    const w0 = width
+    // encodePng dùng width/height của sheet → ghi preview bằng bộ mã hoá riêng
+    const ihdr2 = Buffer.alloc(13)
+    ihdr2.writeUInt32BE(previewW, 0)
+    ihdr2.writeUInt32BE(previewH, 4)
+    ihdr2[8] = 8
+    ihdr2[9] = 6
+    const raw2 = Buffer.alloc((previewW * 4 + 1) * previewH)
+    for (let y = 0; y < previewH; y++) {
+      raw2[y * (previewW * 4 + 1)] = 0
+      Buffer.from(preview.buffer, y * previewW * 4, previewW * 4).copy(
+        raw2,
+        y * (previewW * 4 + 1) + 1
+      )
+    }
+    mkdirSync(resolve('content/.build'), { recursive: true })
+    writeFileSync(
+      resolve('content/.build/sprites-preview.png'),
+      Buffer.concat([
+        Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]),
+        chunk('IHDR', ihdr2),
+        chunk('IDAT', deflateSync(raw2)),
+        chunk('IEND', Buffer.alloc(0))
+      ])
+    )
+    pixels = saved
+    void w0
+  }
+  console.log(`Đã tạo ${frames.length} frame (${width}x${height}) tại ${OUT_DIR}`)
 }
-console.log(`Đã tạo ${frames.length} frame (${width}x${height}) tại ${OUT_DIR}`)
+
+for (const stage of Object.keys(STAGES)) generate(stage)

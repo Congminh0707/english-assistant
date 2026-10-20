@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { LevelCode } from './content/level'
 
 /** Kỹ năng được kiểm tra: từ vựng, ngữ pháp, đọc hiểu */
-export const PlacementSkillSchema = z.enum(['vocab', 'grammar', 'reading'])
+export const PlacementSkillSchema = z.enum(['vocab', 'grammar', 'reading', 'listening'])
 export type PlacementSkill = z.infer<typeof PlacementSkillSchema>
 
 /** Một câu của bài kiểm tra: chọn nghĩa đúng của từ / điền chỗ trống / trả lời câu hỏi đọc hiểu (hoặc "không biết") */
@@ -21,6 +21,8 @@ export const PlacementQuestionSchema = z.object({
   prompt: z.string().nullable(),
   /** Đoạn văn ngắn (reading) */
   passage: z.string().nullable(),
+  /** Câu đọc bằng TTS (listening) */
+  say: z.string().nullable(),
   choices: z.array(z.string()).min(2).max(4)
 })
 export type PlacementQuestion = z.infer<typeof PlacementQuestionSchema>
@@ -42,7 +44,19 @@ export const PlacementResultSchema = z.object({
   cefr: z.string(),
   correct: z.number().int(),
   total: z.number().int(),
-  skills: z.array(PlacementSkillResultSchema)
+  skills: z.array(PlacementSkillResultSchema),
+  /** Chỉ có khi là bài kiểm tra lên cấp */
+  checkpoint: z
+    .object({
+      passed: z.boolean(),
+      from: LevelCode,
+      /** Level mới nếu đạt, ngược lại null */
+      to: LevelCode.nullable(),
+      /** Lần đầu qua bậc này nên có thưởng */
+      xp: z.number().int(),
+      coins: z.number().int()
+    })
+    .nullable()
 })
 export type PlacementResult = z.infer<typeof PlacementResultSchema>
 
@@ -78,6 +92,8 @@ export const PlacementItemSchema = z.object({
   prompt: Text,
   /** Chỉ dùng cho đọc hiểu */
   passage: Text.optional(),
+  /** Chỉ dùng cho nghe: câu đọc bằng TTS (không hiển thị) */
+  say: Text.optional(),
   choices: z.array(Text).min(2).max(4),
   answer: z.number().int().min(0).max(3)
 })
@@ -85,7 +101,7 @@ export type PlacementItem = z.infer<typeof PlacementItemSchema>
 
 export const PlacementBankFileSchema = z.object({
   license: z.literal('proprietary-own'),
-  skill: z.enum(['grammar', 'reading']),
+  skill: z.enum(['grammar', 'reading', 'listening']),
   items: z.array(PlacementItemSchema).min(1)
 })
 export type PlacementBankFile = z.infer<typeof PlacementBankFileSchema>

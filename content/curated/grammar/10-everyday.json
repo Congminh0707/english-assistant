@@ -1,0 +1,440 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "gramday",
+    "title": "Ngữ pháp đời thường",
+    "summary": "Từ chỉ số lượng, so sánh nhất, câu hỏi tường thuật, so/such.",
+    "icon": "🗣️",
+    "order": 10
+  },
+  "lessons": [
+    {
+      "id": "gramday.quantifiers",
+      "title": "Từ chỉ số lượng",
+      "summary": "some, any, much, many, a lot of, a few, a little.",
+      "level": "A2_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Từ chỉ số lượng:**\n- Đếm được: *many, a few, few*\n- Không đếm được: *much, a little, little*\n- Cả hai: *a lot of, some, any, plenty of*\n*Some* dùng trong câu khẳng định; *any* trong câu phủ định và nghi vấn. *A few/a little* = có một ít (tích cực); *few/little* = hầu như không có (tiêu cực)."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Đếm được",
+            "Không đếm được"
+          ],
+          "rows": [
+            [
+              "many books",
+              "much water"
+            ],
+            [
+              "a few friends",
+              "a little time"
+            ],
+            [
+              "few people",
+              "little money"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "There are a few apples left.",
+              "vi": "Còn lại vài quả táo."
+            },
+            {
+              "en": "I don’t have much time.",
+              "vi": "Tôi không có nhiều thời gian."
+            },
+            {
+              "en": "Do you have any questions?",
+              "vi": "Bạn có câu hỏi nào không?"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "*Much* thường dùng trong câu phủ định/nghi vấn; câu khẳng định hay dùng *a lot of*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "How ___ sugar do you want?",
+          "answers": [
+            "much"
+          ],
+          "choices": [
+            "much",
+            "many",
+            "few"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "There aren’t ___ chairs in the room.",
+          "answers": [
+            "many",
+            "any"
+          ],
+          "choices": [
+            "many",
+            "much",
+            "a little"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I have ___ friends here, so I feel lonely.",
+          "answers": [
+            "few"
+          ],
+          "choices": [
+            "few",
+            "a few",
+            "a little"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "A few water",
+            "A little water",
+            "A little books"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Bạn có nhiều tiền không?",
+          "answer": "Do you have much money"
+        }
+      ]
+    },
+    {
+      "id": "gramday.superlatives",
+      "title": "So sánh nhất",
+      "summary": "the -est, the most ... và các dạng bất quy tắc.",
+      "level": "A2_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**So sánh nhất** dùng khi so một vật/người với cả nhóm.\n- Tính từ ngắn: `the + adj-est` (*the tallest*)\n- Tính từ dài: `the most + adj` (*the most beautiful*)\n- Bất quy tắc: *good → the best, bad → the worst, far → the farthest/furthest*\nThường theo sau là *in/of*: *the tallest in the class*, *the best of all*."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Tính từ",
+            "So sánh nhất"
+          ],
+          "rows": [
+            [
+              "big",
+              "the biggest"
+            ],
+            [
+              "expensive",
+              "the most expensive"
+            ],
+            [
+              "good",
+              "the best"
+            ],
+            [
+              "bad",
+              "the worst"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "This is the most interesting book I have read.",
+              "vi": "Đây là quyển sách thú vị nhất tôi từng đọc."
+            },
+            {
+              "en": "She is the youngest in her family.",
+              "vi": "Cô ấy là người trẻ nhất trong nhà."
+            },
+            {
+              "en": "It was the worst day of my life.",
+              "vi": "Đó là ngày tệ nhất đời tôi."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Dùng *in* với nơi chốn/nhóm (*in the world*), *of* với danh sách (*of all*)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "Mount Everest is the ___ mountain in the world. (high)",
+          "answers": [
+            "highest"
+          ],
+          "choices": [
+            "highest",
+            "most high",
+            "higher"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She is the ___ student in the class. (intelligent)",
+          "answers": [
+            "most intelligent"
+          ],
+          "choices": [
+            "most intelligent",
+            "intelligentest",
+            "more intelligent"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "This is the ___ film I have ever seen. (bad)",
+          "answers": [
+            "worst"
+          ],
+          "choices": [
+            "worst",
+            "baddest",
+            "most bad"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Correct?",
+          "choices": [
+            "the most tallest",
+            "the tallest",
+            "the more tall"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Đó là bữa ăn ngon nhất của tôi.",
+          "answer": "It was the best meal I have had"
+        }
+      ]
+    },
+    {
+      "id": "gramday.reported-questions",
+      "title": "Câu hỏi tường thuật",
+      "summary": "asked if/whether, asked where ... — lùi thì, không đảo ngữ.",
+      "level": "B1_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Câu hỏi tường thuật:**\n- Lùi thì như câu tường thuật thường.\n- Trật tự như câu khẳng định, **không** dùng do/does/did.\n- Câu Yes/No dùng **if/whether**; câu Wh- giữ từ để hỏi.\n- Không dùng dấu hỏi."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Trực tiếp",
+            "Tường thuật"
+          ],
+          "rows": [
+            [
+              "\"Where do you live?\"",
+              "He asked me where I lived."
+            ],
+            [
+              "\"Are you tired?\"",
+              "She asked if I was tired."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "He asked what time the train left.",
+              "vi": "Anh ấy hỏi mấy giờ tàu chạy."
+            },
+            {
+              "en": "I asked her whether she had finished.",
+              "vi": "Tôi hỏi cô ấy đã xong chưa."
+            },
+            {
+              "en": "They asked me how I knew.",
+              "vi": "Họ hỏi tôi biết bằng cách nào."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Đại từ và từ chỉ thời gian cũng đổi: *today → that day*, *tomorrow → the next day*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "She asked me where I ___.",
+          "answers": [
+            "lived"
+          ],
+          "choices": [
+            "lived",
+            "did live",
+            "live"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "He asked ___ I liked coffee.",
+          "answers": [
+            "if",
+            "whether"
+          ],
+          "choices": [
+            "if",
+            "that",
+            "what"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Correct?",
+          "choices": [
+            "He asked where was I.",
+            "He asked where I was.",
+            "He asked where did I be."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Cô ấy hỏi tôi đang làm gì.",
+          "answer": "She asked me what I was doing"
+        },
+        {
+          "type": "mcq",
+          "prompt": "\"Do you speak French?\" →",
+          "choices": [
+            "She asked if I spoke French.",
+            "She asked do I speak French.",
+            "She asked that I spoke French."
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "gramday.so-such",
+      "title": "So và Such",
+      "summary": "so + tính từ, such + (a) + danh từ, so ... that.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**So** đi với tính từ/trạng từ; **such** đi với cụm danh từ.\n- `so + adj/adv`: *so tired*\n- `such + (a/an) + (adj) + noun`: *such a long day*\n- Chỉ kết quả: `so/such ... that ...`: *It was so cold that we stayed in.*"
+        },
+        {
+          "type": "table",
+          "head": [
+            "So",
+            "Such"
+          ],
+          "rows": [
+            [
+              "so happy",
+              "such a happy day"
+            ],
+            [
+              "so quickly",
+              "such good news"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "She is so kind.",
+              "vi": "Cô ấy thật tốt bụng."
+            },
+            {
+              "en": "It was such a nice party!",
+              "vi": "Thật là một bữa tiệc tuyệt!"
+            },
+            {
+              "en": "The test was so hard that nobody finished.",
+              "vi": "Bài kiểm tra khó đến mức không ai làm xong."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Với danh từ không đếm được hoặc số nhiều, bỏ *a/an*: *such good weather, such nice people*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "It was ___ a long journey.",
+          "answers": [
+            "such"
+          ],
+          "choices": [
+            "such",
+            "so",
+            "very"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "He ran ___ fast that I couldn’t catch him.",
+          "answers": [
+            "so"
+          ],
+          "choices": [
+            "so",
+            "such",
+            "too"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "They are ___ friendly people.",
+          "answers": [
+            "such"
+          ],
+          "choices": [
+            "such",
+            "so",
+            "a"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "It was so a good film.",
+            "It was such a good film.",
+            "It was such good a film."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Trời lạnh đến nỗi chúng tôi ở nhà.",
+          "answer": "It was so cold that we stayed at home"
+        }
+      ]
+    }
+  ]
+}

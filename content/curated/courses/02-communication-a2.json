@@ -1,0 +1,181 @@
+{
+  "license": "proprietary-own",
+  "course": {
+    "id": "communication-a2",
+    "title": "Giao tiếp tự tin (A2)",
+    "summary": "Thì quá khứ, tương lai, so sánh; ngữ pháp thiết yếu; đọc và nghe về đời sống, du lịch, giao tiếp xã hội.",
+    "icon": "💬",
+    "levelFrom": "A1_2",
+    "levelTo": "A2_2",
+    "order": 2
+  },
+  "units": [
+    {
+      "id": "tenses",
+      "title": "Các thì quan trọng",
+      "summary": "Quá khứ, tương lai, hiện tại hoàn thành.",
+      "steps": [
+        {
+          "kind": "lesson",
+          "id": "tenses.simple-vs-continuous"
+        },
+        {
+          "kind": "lesson",
+          "id": "tenses.past-simple"
+        },
+        {
+          "kind": "lesson",
+          "id": "tenses.past-continuous"
+        },
+        {
+          "kind": "lesson",
+          "id": "tenses.future"
+        },
+        {
+          "kind": "lesson",
+          "id": "tenses.present-perfect"
+        },
+        {
+          "kind": "lesson",
+          "id": "tenses.review"
+        },
+        {
+          "kind": "lesson",
+          "id": "structures.comparison"
+        }
+      ]
+    },
+    {
+      "id": "grammar-essentials",
+      "title": "Ngữ pháp thiết yếu",
+      "summary": "Khuyết thiếu, V-ing/to V, điều kiện, too/enough, cụm động từ.",
+      "steps": [
+        {
+          "kind": "grammar",
+          "id": "gramverbs.modals-obligation"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramwords.too-enough"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramverbs.phrasal-verbs"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramsent.conditionals"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramverbs.gerund-infinitive"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramverbs.used-to"
+        }
+      ]
+    },
+    {
+      "id": "life-reading",
+      "title": "Đọc về đời sống",
+      "summary": "Kế hoạch cuối tuần, thành phố, chuyến đi, truyện ngắn.",
+      "steps": [
+        {
+          "kind": "reading",
+          "id": "readlife.weekend-plans"
+        },
+        {
+          "kind": "reading",
+          "id": "readplaces.my-city"
+        },
+        {
+          "kind": "reading",
+          "id": "readplaces.a-trip-to-da-lat"
+        },
+        {
+          "kind": "reading",
+          "id": "readstories.the-lost-key"
+        },
+        {
+          "kind": "reading",
+          "id": "readstories.the-clever-crow"
+        }
+      ]
+    },
+    {
+      "id": "listening-daily",
+      "title": "Nghe: đời sống & du lịch",
+      "summary": "Mua sắm, thời tiết, gia đình, hỏi đường, vé xe, khách sạn.",
+      "steps": [
+        {
+          "kind": "listening",
+          "id": "listendaily.at-the-shop"
+        },
+        {
+          "kind": "listening",
+          "id": "listendaily.at-the-cafe"
+        },
+        {
+          "kind": "listening",
+          "id": "listendaily.daily-routine"
+        },
+        {
+          "kind": "listening",
+          "id": "listendaily.weather-talk"
+        },
+        {
+          "kind": "listening",
+          "id": "listendaily.family-photo"
+        },
+        {
+          "kind": "listening",
+          "id": "listentravel.directions"
+        },
+        {
+          "kind": "listening",
+          "id": "listentravel.bus-ticket"
+        },
+        {
+          "kind": "listening",
+          "id": "listentravel.hotel-checkin"
+        },
+        {
+          "kind": "listening",
+          "id": "listentravel.airport-announcement"
+        },
+        {
+          "kind": "listening",
+          "id": "listentravel.price-question"
+        }
+      ]
+    },
+    {
+      "id": "social",
+      "title": "Giao tiếp xã hội",
+      "summary": "Lời mời, kế hoạch, mua quần áo, đi khám, lời nhắn.",
+      "steps": [
+        {
+          "kind": "listening",
+          "id": "listensocial.invitation"
+        },
+        {
+          "kind": "listening",
+          "id": "listensocial.weekend-plans"
+        },
+        {
+          "kind": "listening",
+          "id": "listensocial.buying-clothes"
+        },
+        {
+          "kind": "listening",
+          "id": "listensocial.doctor-visit"
+        },
+        {
+          "kind": "listening",
+          "id": "listensocial.phone-message"
+        }
+      ]
+    }
+  ]
+}

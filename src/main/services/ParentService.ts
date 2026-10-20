@@ -34,6 +34,8 @@ const hashPin = (salt: string, pin: string): string =>
 export class ParentService {
   private failures = 0
   private lockedUntil = 0
+  private challenge: { id: string; answer: number } | null = null
+  private challengeSeq = 0
 
   constructor(
     private readonly deps: {
@@ -44,6 +46,7 @@ export class ParentService {
       kids: KidsService
       profiles: ProfileService
       clock: Clock
+      random?: () => number
     }
   ) {}
 
@@ -90,6 +93,42 @@ export class ParentService {
       { salt, hash: hashPin(salt, pin) } satisfies StoredPin,
       this.deps.clock.now()
     )
+  }
+
+  /**
+   * Quên PIN: ra một phép nhân hai chữ số nhân một chữ số mà người lớn tính được trong vài giây, bé nhỏ thì chưa.
+   * Không phải bảo mật cao (cùng lý do với PIN) — chỉ chặn bé tự đặt lại PIN.
+   */
+  forgotChallenge(): { id: string; a: number; b: number } {
+    const rnd = this.deps.random ?? Math.random
+    const a = 13 + Math.floor(rnd() * 37) // 13–49
+    const b = 3 + Math.floor(rnd() * 7) // 3–9
+    const id = `forgot:${this.deps.clock.now()}:${++this.challengeSeq}`
+    this.challenge = { id, answer: a * b }
+    return { id, a, b }
+  }
+
+  /** Trả lời đúng thì xoá PIN (đặt lại từ đầu); sai nhiều lần thì khoá tạm như khi nhập PIN sai */
+  resetPin(id: string, answer: number): { ok: boolean; retryAfterSeconds: number } {
+    const now = this.deps.clock.now()
+    if (now < this.lockedUntil) {
+      return { ok: false, retryAfterSeconds: Math.ceil((this.lockedUntil - now) / 1000) }
+    }
+    const pending = this.challenge
+    if (pending && pending.id === id && pending.answer === answer) {
+      this.challenge = null
+      this.failures = 0
+      this.deps.settingsRepo.remove(PIN_KEY)
+      return { ok: true, retryAfterSeconds: 0 }
+    }
+    this.challenge = null // mỗi câu hỏi chỉ được trả lời một lần
+    this.failures++
+    if (this.failures >= MAX_FAILURES) {
+      this.failures = 0
+      this.lockedUntil = now + LOCK_MS
+      return { ok: false, retryAfterSeconds: Math.ceil(LOCK_MS / 1000) }
+    }
+    return { ok: false, retryAfterSeconds: 0 }
   }
 
   /** Cho trẻ dùng thêm thời gian hôm nay (cần PIN) */

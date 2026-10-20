@@ -24,25 +24,6 @@
     "sizeLarge": "Large",
     "language": "Ngôn ngữ / Language",
     "launchAtLogin": "Start with Windows",
-    "review": "Card review",
-    "newPerDay": "New words per day",
-    "unlimited": "Unlimited",
-    "newWords": "{n} new words",
-    "reviewOrder": "Card order",
-    "order": {
-      "mixed": "Mixed by due time",
-      "new-first": "New cards first",
-      "review-first": "Old cards first"
-    },
-    "directionsHint": "Once you know a word, extra cards are created for deeper recall (due from the next day):",
-    "dirViEn": "Vietnamese → English cards (type the word)",
-    "dirAudio": "Listen & type cards",
-    "dirCloze": "Fill-the-blank cards",
-    "typing": "Type answers (off = just flip and self-rate)",
-    "autoPlay": "Say the word when a card appears",
-    "backfill": "Create cards for known words",
-    "backfillHint": "Turned on another card type? Create the extra cards for words you already know.",
-    "backfillDone": "Created {n} new cards.",
     "quit": "Quit",
     "reviewNow": "🧠 Review now",
     "reviewNowDue": "🧠 Review now ({count} due)",
@@ -111,7 +92,8 @@
       "levelUp": ["Level up! 🎉", "%PET% got stronger!"],
       "wake": ["%PET% is awake! ☀️", "Yaaawn... you are back!", "Good morning (again)!"],
       "sleepyPat": ["Zzz... let %PET% sleep a bit more~", "Zzz... five more minutes..."],
-      "missionDone": ["Mission complete! 🎯", "Well done, here is your reward! ⭐"]
+      "missionDone": ["Mission complete! 🎯", "Well done, here is your reward! ⭐"],
+      "evolved": ["%PET% evolved! ✨", "Wow, %PET% grew up! 🎉", "Look at the new %PET%! ⭐"]
     }
   },
   "errors": {
@@ -133,7 +115,8 @@
     "bagFull": "Your bag is full of this item.",
     "levelTooLow": "Your pet is not high enough level for this.",
     "ttsNotReady": "The natural voice is not downloaded yet.",
-    "ttsFailed": "Could not generate the voice, please try again."
+    "ttsFailed": "Could not generate the voice, please try again.",
+    "updateFailed": "The update did not work, please try again later."
   },
   "quiz": {
     "reviewTitle": "Review",
@@ -167,7 +150,9 @@
       "parent": "Parent",
       "reading": "Reading",
       "grammar": "Grammar",
-      "phrasebook": "Phrasebook"
+      "phrasebook": "Phrasebook",
+      "listening": "Listening",
+      "courses": "Courses"
     },
     "home": {
       "welcome": "Hi, what shall we learn today?",
@@ -296,16 +281,26 @@
       "question": {
         "vocab": "Question {index}/{total}: what does this word mean?",
         "grammar": "Question {index}/{total}: choose the correct answer for the blank.",
-        "reading": "Question {index}/{total}: read the passage and answer."
+        "reading": "Question {index}/{total}: read the passage and answer.",
+        "listening": "Question {index}/{total}: listen and choose the right answer."
       },
-      "skill": { "vocab": "Vocabulary", "grammar": "Grammar", "reading": "Reading" },
+      "skill": {
+        "vocab": "Vocabulary",
+        "grammar": "Grammar",
+        "reading": "Reading",
+        "listening": "Listening"
+      },
       "dontKnow": "I don’t know",
       "correct": "Correct! ✓",
       "wrong": "Not quite — answer: {answer}",
       "resultTitle": "Your level: {cefr}",
       "resultBody": "You answered {correct}/{total} correctly. %PET% will pick words that suit you.",
       "retry": "Take it again",
-      "done": "Start learning"
+      "done": "Start learning",
+      "checkpointTitle": "Level-up check",
+      "checkpointIntro": "10 questions at the next level (vocabulary, grammar, reading, listening). 80% or more moves you up a level — the first pass of each level earns a reward. If you miss it, you can try again later.",
+      "checkpointPassed": "Congratulations! You reached level {level} 🎉",
+      "checkpointFailed": "Not yet ({n}% needed). Review a bit and try again!"
     },
     "settings": {
       "title": "Settings",
@@ -330,7 +325,26 @@
       "appearance": "Appearance",
       "language": "Language",
       "size": "Mascot size",
-      "launchAtLogin": "Launch at Windows startup"
+      "launchAtLogin": "Launch at Windows startup",
+      "review": "Card review",
+      "newPerDay": "New words per day",
+      "unlimited": "Unlimited",
+      "newWords": "{n} new words",
+      "reviewOrder": "Card order",
+      "order": {
+        "mixed": "Mixed by due time",
+        "new-first": "New cards first",
+        "review-first": "Old cards first"
+      },
+      "directionsHint": "Once you know a word, extra cards are created for deeper recall (due from the next day):",
+      "dirViEn": "Vietnamese → English cards (type the word)",
+      "dirAudio": "Listen & type cards",
+      "dirCloze": "Fill-the-blank cards",
+      "typing": "Type answers (off = just flip and self-rate)",
+      "autoPlay": "Say the word when a card appears",
+      "backfill": "Create cards for known words",
+      "backfillHint": "Turned on another card type? Create the extra cards for words you already know.",
+      "backfillDone": "Created {n} new cards."
     },
     "practice": {
       "title": "Practice",
@@ -392,6 +406,46 @@
       "levels": "Saved words by level",
       "skills": "Level by skill",
       "skillsHint": "Updated each time you take the level test.",
+      "skill": {
+        "vocab": "Vocabulary",
+        "grammar": "Grammar",
+        "reading": "Reading",
+        "listening": "Listening"
+      },
+      "games": "{n} questions",
+      "ready": "Ready to level up",
+      "readyHint": "Rating is above your current level — take the level-up check to move on.",
+      "accuracy": "Accuracy by exercise type (30 days)",
+      "noAccuracy": "No data yet — do a few exercises or review some cards.",
+      "accuracyHint": "Exercises: share answered correctly. Cards: share remembered (rated Hard/Good/Easy).",
+      "time": "Study time",
+      "minToday": "min today",
+      "minWeek": "min this week",
+      "hoursTotal": "hours in total",
+      "min": "min",
+      "timeHint": "Counted only while the Study window is visible and focused. Bars show minutes per day (last 14 days).",
+      "kind": {
+        "mcq": "Multiple choice",
+        "gap": "Fill the blank",
+        "order": "Word order",
+        "match": "Matching",
+        "listen": "Listen & choose",
+        "tf": "True/False",
+        "picture": "Pick the picture",
+        "cloze": "Cloze",
+        "word_order": "Word order",
+        "listen_choice": "Listen & pick meaning",
+        "dictation": "Dictation",
+        "match_pairs": "Match word–meaning",
+        "checkpoint": "Level-up check"
+      },
+      "reviewKind": {
+        "en_vi": "Cards: recognition",
+        "vi_en": "Cards: Vietnamese → English",
+        "audio_en": "Cards: listen & type",
+        "cloze": "Cards: fill the blank",
+        "audio_picture": "Cards: listen & tap"
+      },
       "achievements": "Achievements",
       "achProgress": "{done}/{total} unlocked",
       "hardest": "Most forgotten words",
@@ -464,6 +518,10 @@
         "6": "Sun"
       }
     },
+    "listening": {
+      "title": "Listening",
+      "intro": "Listen to short dialogues and talks at your level: change the speed, loop a section (A–B), type what you hear and compare. Comprehension questions follow."
+    },
     "reading": {
       "title": "Reading",
       "intro": "Read short passages at your level. Tap a word to look it up and save it, tap 🔊 to hear a sentence. Comprehension questions follow.",
@@ -516,7 +574,11 @@
       "tapToHear": "Tap a tile to hear the pronunciation.",
       "startExercises": "Start exercises ({n} questions)",
       "counter": "Question {index}/{total}",
-      "tf": { "true": "True", "false": "False", "ng": "Not given" },
+      "tf": {
+        "true": "True",
+        "false": "False",
+        "ng": "Not given"
+      },
       "tfHelp": "Is the statement true or false?",
       "tfHelpNg": "Is the statement true, false, or not given?",
       "pictureHelp": "Pick the picture that matches the word:",
@@ -541,6 +603,25 @@
       "reread": "Reread the lesson",
       "retry": "Try again",
       "toList": "Lesson list"
+    },
+    "courses": {
+      "title": "Courses",
+      "intro": "Each course is an ordered path of lessons: foundations, grammar, reading, listening. Follow the order and your progress is saved automatically.",
+      "progress": "{done}/{total} lessons",
+      "continue": "Continue",
+      "start": "Start",
+      "done": "Course complete 🎉",
+      "back": "All courses",
+      "backToCourse": "Back to course",
+      "levels": "From {from} to {to}",
+      "minutes": "{n} min",
+      "next": "Up next",
+      "kind": {
+        "lesson": "Lesson",
+        "grammar": "Grammar",
+        "reading": "Reading",
+        "listening": "Listening"
+      }
     }
   },
   "translate": {
@@ -607,7 +688,8 @@
       "stars": "{n} stars"
     },
     "activity": {
-      "again": "Play again"
+      "again": "Play again",
+      "sayHint": "Listen, say it out loud, then tap 🎤 ✓ (speech is not graded yet)"
     },
     "album": {
       "hint": "Tap a sticker to hear it. Answer correctly to collect more!"
@@ -630,7 +712,11 @@
       "mismatch": "The two entries don't match, try again.",
       "locked": "Too many wrong tries. Try again in {n} s.",
       "setHint": "The PIN keeps your child out of the parent area.",
-      "cancel": "Close"
+      "cancel": "Close",
+      "forgot": "Forgot PIN?",
+      "forgotTitle": "Solve the sum to reset the PIN",
+      "forgotWrong": "Not right, try a new one.",
+      "resetOk": "The old PIN was cleared. Set a new one."
     },
     "report": {
       "title": "Parent report",
@@ -653,6 +739,31 @@
       "pinSaved": "PIN saved."
     }
   },
+  "player": {
+    "play": "Play",
+    "pause": "Pause",
+    "prev": "Previous line",
+    "next": "Next line",
+    "again": "Hear this line again",
+    "speed": "Speed",
+    "loopA": "Set A",
+    "loopB": "Set B",
+    "loopClear": "Clear loop",
+    "loopOn": "Looping line {a} to line {b}",
+    "loopPick": "Tap “Set A” then “Set B” to loop a section",
+    "showText": "Show transcript",
+    "hideText": "Hide transcript",
+    "showVi": "Show translation",
+    "hideVi": "Hide translation",
+    "line": "Line {n}/{total}",
+    "hidden": "The transcript is hidden — listen first, then tap “Show transcript” to check.",
+    "dictation": "Type the line you are hearing",
+    "dictationHint": "Type what you hear, then tap Check",
+    "check": "Check",
+    "correct": "Correct!",
+    "close": "Almost:",
+    "wrong": "Answer:"
+  },
   "tts": {
     "title": "Voice",
     "accent": "Default accent",
@@ -672,5 +783,33 @@
     "testText": "Hello! This is how I sound.",
     "cacheHint": "Generated audio is saved so replays are instant. A new sentence takes about 1–3 seconds the first time.",
     "fallbackHint": "The model is not downloaded, so the Windows voice is used."
+  },
+  "pet": {
+    "stage": {
+      "egg": "Egg",
+      "baby": "Baby",
+      "teen": "Teen",
+      "adult": "Adult",
+      "legend": "Legend"
+    }
+  },
+  "update": {
+    "title": "Updates",
+    "current": "Current version: {version}",
+    "auto": "Check for updates automatically",
+    "check": "Check for updates",
+    "download": "Download update",
+    "install": "Restart to install",
+    "state": {
+      "disabled": "This is a development build, so updates are unavailable.",
+      "idle": "Not checked yet.",
+      "checking": "Checking…",
+      "none": "You are on the latest version.",
+      "available": "Version {version} is available (~{size} MB).",
+      "downloading": "Downloading {version}… {percent}%",
+      "ready": "{version} is downloaded. Restart to install.",
+      "error": "Could not check or download the update."
+    },
+    "privacy": "Checking only asks GitHub Releases whether a newer version exists (none of your learning data is sent). The app never downloads or installs anything without your approval."
   }
 }

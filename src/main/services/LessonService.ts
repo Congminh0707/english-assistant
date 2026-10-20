@@ -9,7 +9,9 @@ import type { Clock } from '../core/Clock'
 import type { LessonLibrary } from '../content/LessonLibrary'
 import type { LessonRepository } from '../db/repositories/LessonRepository'
 import type { XpRepository } from '../db/repositories/XpRepository'
+import { lessonExerciseSkill, type ProgressSource } from '@shared/progress'
 import type { ProfileService } from './ProfileService'
+import type { ProgressService } from './ProgressService'
 import type { Transaction } from './types'
 import type { XpService } from './XpService'
 
@@ -32,6 +34,10 @@ export class LessonService {
       profiles: ProfileService
       clock: Clock
       transaction: Transaction
+      /** Ghi kết quả theo dạng bài/kỹ năng và cập nhật Elo (bỏ qua nếu không truyền) */
+      progress?: ProgressService
+      /** Loại nội dung của dịch vụ này (quyết định kỹ năng của từng dạng bài) */
+      source?: ProgressSource
     }
   ) {}
 
@@ -68,7 +74,12 @@ export class LessonService {
     return lesson
   }
 
-  complete(lessonId: string, correct: number, total: number): LessonCompleteResult {
+  complete(
+    lessonId: string,
+    correct: number,
+    total: number,
+    byType?: Array<{ type: string; correct: number; total: number }>
+  ): LessonCompleteResult {
     const { library, repo, xpRepo, xp, profiles, clock, transaction } = this.deps
     const lesson = this.get(lessonId)
     if (correct > total || total > lesson.exercises.length) {
@@ -76,6 +87,7 @@ export class LessonService {
     }
     const score = Math.round((correct / total) * 100)
     const passed = score >= LESSON_PASS_PERCENT
+    this.logProgress(lesson.level, byType)
 
     return transaction(() => {
       const profileId = profiles.activeId()
@@ -100,5 +112,27 @@ export class LessonService {
         nextLessonId: library.nextLessonId(lessonId)
       }
     })
+  }
+
+  /** Ghi kết quả theo dạng bài; dữ liệu không hợp lệ (tổng vượt số bài tập, đúng > tổng) bị bỏ qua */
+  private logProgress(
+    level: Lesson['level'],
+    byType: Array<{ type: string; correct: number; total: number }> | undefined
+  ): void {
+    const { progress, source = 'lesson', library } = this.deps
+    if (!progress || !byType?.length) return
+    const sum = byType.reduce((n, b) => n + b.total, 0)
+    if (sum > 12 || byType.some((b) => b.correct > b.total)) return
+    void library
+    for (const b of byType) {
+      progress.record({
+        source,
+        kind: b.type,
+        skill: lessonExerciseSkill(source, b.type),
+        level,
+        correct: b.correct,
+        total: b.total
+      })
+    }
   }
 }

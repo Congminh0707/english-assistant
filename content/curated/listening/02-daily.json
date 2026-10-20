@@ -1,0 +1,431 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "listendaily",
+    "title": "Đời sống hằng ngày",
+    "summary": "Mua sắm, quán cà phê, lịch sinh hoạt, thời tiết, gia đình.",
+    "icon": "🏠",
+    "order": 2
+  },
+  "lessons": [
+    {
+      "id": "listendaily.at-the-shop",
+      "title": "Ở cửa hàng",
+      "summary": "Hỏi giá và mua đồ.",
+      "level": "A1_2",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "At the shop",
+          "lines": [
+            {
+              "en": "Good morning. Can I help you?",
+              "vi": "Chào buổi sáng. Tôi giúp gì được cho bạn?",
+              "speaker": "A"
+            },
+            {
+              "en": "Yes, please. How much is this T-shirt?",
+              "vi": "Vâng. Cái áo thun này giá bao nhiêu?",
+              "speaker": "B"
+            },
+            {
+              "en": "It is twelve dollars.",
+              "vi": "Nó giá mười hai đô.",
+              "speaker": "A"
+            },
+            {
+              "en": "Do you have it in blue?",
+              "vi": "Bạn có màu xanh dương không?",
+              "speaker": "B"
+            },
+            {
+              "en": "Yes, we do. Here you are.",
+              "vi": "Có chứ. Đây ạ.",
+              "speaker": "A"
+            },
+            {
+              "en": "Great. I will take it.",
+              "vi": "Tuyệt. Tôi lấy cái này.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How much is the T-shirt?",
+          "choices": [
+            "Ten dollars",
+            "Twelve dollars",
+            "Twenty dollars"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What colour does the customer want?",
+          "choices": [
+            "Red",
+            "Blue",
+            "Green"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The shop does not have the blue T-shirt.",
+          "answer": "false",
+          "explain": "Người bán nói có (Yes, we do)."
+        },
+        {
+          "type": "listen",
+          "say": "How much is this T-shirt?",
+          "choices": [
+            "How much is this T-shirt?",
+            "What time is it now?",
+            "Where is the shop?"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "listendaily.at-the-cafe",
+      "title": "Gọi đồ ở quán cà phê",
+      "summary": "Gọi đồ uống và thanh toán.",
+      "level": "A1_2",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Ordering at a café",
+          "lines": [
+            {
+              "en": "Hi. What would you like to drink?",
+              "vi": "Chào bạn. Bạn muốn uống gì?",
+              "speaker": "A"
+            },
+            {
+              "en": "A cup of coffee with milk, please.",
+              "vi": "Cho tôi một ly cà phê sữa.",
+              "speaker": "B"
+            },
+            {
+              "en": "Hot or iced?",
+              "vi": "Nóng hay đá?",
+              "speaker": "A"
+            },
+            {
+              "en": "Iced, please. And one chocolate cake.",
+              "vi": "Đá nhé. Và một cái bánh sô-cô-la.",
+              "speaker": "B"
+            },
+            {
+              "en": "That is six dollars fifty.",
+              "vi": "Tất cả là sáu đô năm mươi.",
+              "speaker": "A"
+            },
+            {
+              "en": "Here is ten dollars. Keep the change.",
+              "vi": "Đây là mười đô. Không cần thối lại.",
+              "speaker": "B"
+            },
+            {
+              "en": "Thank you! Enjoy your coffee.",
+              "vi": "Cảm ơn bạn! Chúc bạn uống ngon miệng.",
+              "speaker": "A"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How does the customer want the coffee?",
+          "choices": [
+            "Hot",
+            "Iced",
+            "Without milk"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What else does the customer order?",
+          "choices": [
+            "A sandwich",
+            "A chocolate cake",
+            "A glass of juice"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The total is ten dollars.",
+          "answer": "false",
+          "explain": "Tổng là sáu đô năm mươi; mười đô là tiền khách đưa."
+        },
+        {
+          "type": "gap",
+          "prompt": "The customer says: \"Keep the ___.\"",
+          "answers": [
+            "change"
+          ],
+          "choices": [
+            "change",
+            "cake",
+            "menu"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listendaily.daily-routine",
+      "title": "Một ngày của tôi",
+      "summary": "Kể về lịch sinh hoạt hằng ngày.",
+      "level": "A1_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "My daily routine",
+          "lines": [
+            {
+              "en": "I get up at six thirty every morning.",
+              "vi": "Sáng nào tôi cũng dậy lúc sáu giờ ba mươi."
+            },
+            {
+              "en": "I have breakfast at seven and go to work by bus.",
+              "vi": "Tôi ăn sáng lúc bảy giờ và đi làm bằng xe buýt."
+            },
+            {
+              "en": "I start work at eight o'clock and finish at five.",
+              "vi": "Tôi bắt đầu làm việc lúc tám giờ và xong lúc năm giờ."
+            },
+            {
+              "en": "In the evening, I cook dinner and watch TV.",
+              "vi": "Buổi tối tôi nấu cơm và xem ti vi."
+            },
+            {
+              "en": "I go to bed at ten thirty.",
+              "vi": "Tôi đi ngủ lúc mười giờ ba mươi."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How does the speaker go to work?",
+          "choices": [
+            "By bus",
+            "By bike",
+            "On foot"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "When does the speaker finish work?",
+          "choices": [
+            "At four",
+            "At five",
+            "At six"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The speaker watches TV in the evening.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The speaker goes to bed at midnight.",
+          "answer": "false",
+          "explain": "Đi ngủ lúc mười giờ ba mươi."
+        }
+      ]
+    },
+    {
+      "id": "listendaily.weather-talk",
+      "title": "Nói về thời tiết",
+      "summary": "Bản tin thời tiết ngắn.",
+      "level": "A2_1",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "The weather report",
+          "lines": [
+            {
+              "en": "Good morning. Here is the weather for today.",
+              "vi": "Chào buổi sáng. Đây là dự báo thời tiết hôm nay."
+            },
+            {
+              "en": "In the north, it will be cold and cloudy, with a high of fifteen degrees.",
+              "vi": "Ở miền Bắc, trời lạnh và nhiều mây, nhiệt độ cao nhất mười lăm độ."
+            },
+            {
+              "en": "In the centre, expect rain in the afternoon. Take an umbrella.",
+              "vi": "Ở miền Trung, chiều có mưa. Hãy mang theo ô."
+            },
+            {
+              "en": "In the south, it will be hot and sunny, around thirty-three degrees.",
+              "vi": "Ở miền Nam, trời nóng và nắng, khoảng ba mươi ba độ."
+            },
+            {
+              "en": "Tomorrow will be similar. Have a nice day!",
+              "vi": "Ngày mai tương tự. Chúc một ngày tốt lành!"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is the weather in the south?",
+          "choices": [
+            "Cold and cloudy",
+            "Rainy",
+            "Hot and sunny"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "mcq",
+          "prompt": "When will it rain in the centre?",
+          "choices": [
+            "In the morning",
+            "In the afternoon",
+            "At night"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "It will be warm in the north.",
+          "answer": "false",
+          "explain": "Miền Bắc lạnh, nhiều mây."
+        },
+        {
+          "type": "gap",
+          "prompt": "People in the centre should take an ___.",
+          "answers": [
+            "umbrella"
+          ],
+          "choices": [
+            "umbrella",
+            "apple",
+            "ticket"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listendaily.family-photo",
+      "title": "Ảnh gia đình",
+      "summary": "Giới thiệu các thành viên trong ảnh.",
+      "level": "A2_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "A family photo",
+          "lines": [
+            {
+              "en": "Who is this in the photo?",
+              "vi": "Đây là ai trong ảnh vậy?",
+              "speaker": "A"
+            },
+            {
+              "en": "That is my grandmother. She is seventy-two years old.",
+              "vi": "Đó là bà của tôi. Bà bảy mươi hai tuổi.",
+              "speaker": "B"
+            },
+            {
+              "en": "And who is the tall man next to her?",
+              "vi": "Còn người đàn ông cao bên cạnh bà là ai?",
+              "speaker": "A"
+            },
+            {
+              "en": "He is my uncle, Tuan. He is a doctor in Hue.",
+              "vi": "Đó là chú Tuấn của tôi. Chú là bác sĩ ở Huế.",
+              "speaker": "B"
+            },
+            {
+              "en": "Is that your sister with the red hat?",
+              "vi": "Có phải em gái bạn đội mũ đỏ không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Yes, her name is Mai. She is ten and she loves drawing.",
+              "vi": "Đúng, em tên Mai. Em mười tuổi và rất thích vẽ.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How old is the grandmother?",
+          "choices": [
+            "Sixty-two",
+            "Seventy-two",
+            "Eighty-two"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the uncle's job?",
+          "choices": [
+            "Teacher",
+            "Driver",
+            "Doctor"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "tf",
+          "statement": "Mai is wearing a red hat.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Mai is twelve years old.",
+          "answer": "false",
+          "explain": "Mai mười tuổi."
+        }
+      ]
+    }
+  ]
+}

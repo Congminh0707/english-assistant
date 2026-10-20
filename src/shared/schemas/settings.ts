@@ -14,12 +14,15 @@ export const settingDefinitions = {
   /** Hệ số phóng to sprite (khung 48px): 1 = 48px, 2 = 96px, 3 = 144px */
   'mascot.scale': z.union([z.literal(1), z.literal(2), z.literal(3)]).default(2),
   'app.launchAtLogin': z.boolean().default(false),
+  /** Tự kiểm tra bản mới khi mở app và mỗi vài giờ (chỉ kiểm tra, không tự tải/cài) */
+  'app.autoUpdate': z.boolean().default(true),
   /** Trình độ hiện tại (tạm chọn tay; sau này do bài kiểm tra đầu vào quyết định) — chọn "Từ của khoảnh khắc" */
   'learning.level': LevelCode.default('A2_1'),
   /** Trình độ theo kỹ năng (do bài kiểm tra đầu vào cập nhật): từ vựng, ngữ pháp, đọc hiểu */
   'learning.levelVocab': LevelCode.default('A2_1'),
   'learning.levelGrammar': LevelCode.default('A2_1'),
   'learning.levelReading': LevelCode.default('A2_1'),
+  'learning.levelListening': LevelCode.default('A2_1'),
   /** Mục tiêu ôn mỗi ngày (số thẻ) — nhiệm vụ ngày "Ôn N thẻ" */
   'learning.dailyGoal': z
     .union([z.literal(5), z.literal(10), z.literal(20), z.literal(30)])

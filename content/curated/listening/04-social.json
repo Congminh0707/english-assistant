@@ -1,0 +1,453 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "listensocial",
+    "title": "Giao tiếp & kế hoạch",
+    "summary": "Lời mời, kế hoạch, mua sắm, đi khám, lời nhắn.",
+    "icon": "💬",
+    "order": 4
+  },
+  "lessons": [
+    {
+      "id": "listensocial.invitation",
+      "title": "Lời mời đi chơi",
+      "summary": "Rủ nhau đi xem phim.",
+      "level": "A2_2",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "An invitation",
+          "lines": [
+            {
+              "en": "Hi, Lan. Are you free on Saturday evening?",
+              "vi": "Chào Lan. Tối thứ Bảy bạn có rảnh không?",
+              "speaker": "A"
+            },
+            {
+              "en": "I think so. Why?",
+              "vi": "Mình nghĩ là có. Sao vậy?",
+              "speaker": "B"
+            },
+            {
+              "en": "There is a new comedy at the cinema. Would you like to come with me?",
+              "vi": "Có phim hài mới ở rạp. Bạn đi với mình không?",
+              "speaker": "A"
+            },
+            {
+              "en": "That sounds great! What time does it start?",
+              "vi": "Nghe hay đấy! Mấy giờ bắt đầu?",
+              "speaker": "B"
+            },
+            {
+              "en": "At seven thirty. Let us meet at seven in front of the cinema.",
+              "vi": "Bảy giờ rưỡi. Mình gặp nhau lúc bảy giờ trước rạp nhé.",
+              "speaker": "A"
+            },
+            {
+              "en": "Perfect. See you there!",
+              "vi": "Tuyệt. Hẹn gặp bạn ở đó!",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What kind of film is it?",
+          "choices": [
+            "A comedy",
+            "A horror film",
+            "A cartoon"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "When do they meet?",
+          "choices": [
+            "At seven thirty",
+            "At seven",
+            "At eight"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The film starts at seven.",
+          "answer": "false",
+          "explain": "Phim bắt đầu lúc bảy giờ rưỡi; họ gặp nhau lúc bảy giờ."
+        },
+        {
+          "type": "gap",
+          "prompt": "They meet in front of the ___.",
+          "answers": [
+            "cinema"
+          ],
+          "choices": [
+            "cinema",
+            "school",
+            "bank"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listensocial.weekend-plans",
+      "title": "Kế hoạch cuối tuần",
+      "summary": "Hai người bạn kể kế hoạch cuối tuần.",
+      "level": "A2_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Weekend plans",
+          "lines": [
+            {
+              "en": "What are you doing this weekend?",
+              "vi": "Cuối tuần này bạn làm gì?",
+              "speaker": "A"
+            },
+            {
+              "en": "I am going to visit my grandparents in the countryside. And you?",
+              "vi": "Mình sẽ về quê thăm ông bà. Còn bạn?",
+              "speaker": "B"
+            },
+            {
+              "en": "I am going to clean my flat on Saturday morning.",
+              "vi": "Mình sẽ dọn nhà sáng thứ Bảy.",
+              "speaker": "A"
+            },
+            {
+              "en": "On Sunday, if the weather is nice, I will go cycling by the river.",
+              "vi": "Chủ nhật, nếu trời đẹp, mình sẽ đi xe đạp ven sông.",
+              "speaker": "A"
+            },
+            {
+              "en": "That sounds fun. I hope it does not rain.",
+              "vi": "Nghe vui đấy. Mình mong trời không mưa.",
+              "speaker": "B"
+            },
+            {
+              "en": "Me too. Have a nice weekend!",
+              "vi": "Mình cũng vậy. Cuối tuần vui vẻ nhé!",
+              "speaker": "A"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Where is the man going this weekend?",
+          "choices": [
+            "To the countryside",
+            "To the cinema",
+            "To the beach"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What will the woman do on Saturday morning?",
+          "choices": [
+            "Go cycling",
+            "Clean her flat",
+            "Visit friends"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The woman will go cycling if the weather is nice.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The woman is going to visit her grandparents.",
+          "answer": "false",
+          "explain": "Người đàn ông (B) về thăm ông bà."
+        }
+      ]
+    },
+    {
+      "id": "listensocial.buying-clothes",
+      "title": "Mua quần áo",
+      "summary": "Thử đồ và chọn cỡ.",
+      "level": "A2_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Buying clothes",
+          "lines": [
+            {
+              "en": "Hello. I am looking for a jacket.",
+              "vi": "Xin chào. Tôi đang tìm một chiếc áo khoác.",
+              "speaker": "A"
+            },
+            {
+              "en": "What size are you?",
+              "vi": "Bạn mặc cỡ nào?",
+              "speaker": "B"
+            },
+            {
+              "en": "Medium, I think. Can I try this black one on?",
+              "vi": "Chắc là cỡ vừa. Tôi mặc thử cái màu đen này được không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Of course. The fitting rooms are over there.",
+              "vi": "Tất nhiên. Phòng thử đồ ở đằng kia.",
+              "speaker": "B"
+            },
+            {
+              "en": "It is a bit small. Do you have a large?",
+              "vi": "Hơi chật. Bạn có cỡ lớn không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Yes, here you are. It is on sale today, twenty percent off.",
+              "vi": "Có, đây ạ. Hôm nay đang giảm giá hai mươi phần trăm.",
+              "speaker": "B"
+            },
+            {
+              "en": "Great, I will take the large one.",
+              "vi": "Tuyệt, tôi lấy cỡ lớn.",
+              "speaker": "A"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is the customer looking for?",
+          "choices": [
+            "A jacket",
+            "Shoes",
+            "A hat"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does she want a large?",
+          "choices": [
+            "The medium is too small.",
+            "She likes big clothes.",
+            "The large is cheaper."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The jacket is on sale.",
+          "answer": "true"
+        },
+        {
+          "type": "gap",
+          "prompt": "The sale is ___ percent off.",
+          "answers": [
+            "twenty",
+            "20"
+          ],
+          "choices": [
+            "twenty",
+            "ten",
+            "fifty"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listensocial.doctor-visit",
+      "title": "Đi khám bệnh",
+      "summary": "Mô tả triệu chứng với bác sĩ.",
+      "level": "A2_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "At the doctor",
+          "lines": [
+            {
+              "en": "Good morning. What seems to be the problem?",
+              "vi": "Chào buổi sáng. Bạn thấy không khoẻ chỗ nào?",
+              "speaker": "A"
+            },
+            {
+              "en": "I have a sore throat and a cough. I also feel tired.",
+              "vi": "Tôi bị đau họng và ho. Tôi cũng thấy mệt.",
+              "speaker": "B"
+            },
+            {
+              "en": "How long have you felt like this?",
+              "vi": "Bạn bị như vậy bao lâu rồi?",
+              "speaker": "A"
+            },
+            {
+              "en": "For three days.",
+              "vi": "Ba ngày rồi.",
+              "speaker": "B"
+            },
+            {
+              "en": "Do you have a fever?",
+              "vi": "Bạn có sốt không?",
+              "speaker": "A"
+            },
+            {
+              "en": "No, I do not think so.",
+              "vi": "Không, tôi nghĩ là không.",
+              "speaker": "B"
+            },
+            {
+              "en": "You have a cold. Drink a lot of water, rest, and take this medicine twice a day.",
+              "vi": "Bạn bị cảm. Hãy uống nhiều nước, nghỉ ngơi và uống thuốc này hai lần một ngày.",
+              "speaker": "A"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How long has the patient felt ill?",
+          "choices": [
+            "One day",
+            "Three days",
+            "A week"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the doctor say it is?",
+          "choices": [
+            "A cold",
+            "A broken leg",
+            "Food poisoning"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The patient has a fever.",
+          "answer": "false",
+          "explain": "Bệnh nhân nói không bị sốt."
+        },
+        {
+          "type": "gap",
+          "prompt": "The patient should take the medicine ___ a day.",
+          "answers": [
+            "twice"
+          ],
+          "choices": [
+            "twice",
+            "once",
+            "five times"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listensocial.phone-message",
+      "title": "Để lại lời nhắn",
+      "summary": "Gọi điện và nhờ nhắn lại.",
+      "level": "A2_2",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Leaving a message",
+          "lines": [
+            {
+              "en": "Hello, could I speak to Mr. Brown, please?",
+              "vi": "Xin chào, tôi có thể nói chuyện với ông Brown không?",
+              "speaker": "A"
+            },
+            {
+              "en": "I am sorry, he is in a meeting. Can I take a message?",
+              "vi": "Xin lỗi, ông ấy đang họp. Tôi ghi lời nhắn được không?",
+              "speaker": "B"
+            },
+            {
+              "en": "Yes. Please tell him that Sara called. The meeting tomorrow is at ten, not nine.",
+              "vi": "Vâng. Nhờ nói với ông ấy là Sara gọi. Cuộc họp ngày mai lúc mười giờ, không phải chín giờ.",
+              "speaker": "A"
+            },
+            {
+              "en": "The meeting is at ten, not nine. Got it. Does he have your number?",
+              "vi": "Cuộc họp lúc mười giờ, không phải chín giờ. Tôi nhớ rồi. Ông ấy có số của chị chưa?",
+              "speaker": "B"
+            },
+            {
+              "en": "Yes, he does. Thank you for your help.",
+              "vi": "Có rồi. Cảm ơn bạn đã giúp.",
+              "speaker": "A"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why can Mr. Brown not talk?",
+          "choices": [
+            "He is in a meeting.",
+            "He is at lunch.",
+            "He is on holiday."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What time is the meeting tomorrow?",
+          "choices": [
+            "At nine",
+            "At ten",
+            "At eleven"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "Sara wants to leave a message.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Mr. Brown does not have her number.",
+          "answer": "false",
+          "explain": "Sara nói ông ấy đã có số."
+        }
+      ]
+    }
+  ]
+}

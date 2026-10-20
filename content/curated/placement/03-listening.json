@@ -1,0 +1,186 @@
+{
+  "license": "proprietary-own",
+  "skill": "listening",
+  "items": [
+    {
+      "id": "l-pa11-name",
+      "level": "PA1_1",
+      "say": "My name is Anna.",
+      "prompt": "What is her name?",
+      "choices": [
+        "Anna",
+        "Emma",
+        "Hannah"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "l-pa12-number",
+      "level": "PA1_2",
+      "say": "I have three brothers.",
+      "prompt": "How many brothers does he have?",
+      "choices": [
+        "Two",
+        "Three",
+        "Five"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l-a11-time",
+      "level": "A1_1",
+      "say": "I get up at seven o'clock every day.",
+      "prompt": "What time does the speaker get up?",
+      "choices": [
+        "At six",
+        "At seven",
+        "At eight"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l-a12-shop",
+      "level": "A1_2",
+      "say": "The shop opens at nine and closes at six.",
+      "prompt": "When does the shop close?",
+      "choices": [
+        "At nine",
+        "At six",
+        "At noon"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l-a12-food",
+      "level": "A1_2",
+      "say": "I do not like fish, but I love chicken and rice.",
+      "prompt": "What does the speaker love?",
+      "choices": [
+        "Fish",
+        "Chicken and rice",
+        "Bread"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l-a21-plan",
+      "level": "A2_1",
+      "say": "We are going to visit my aunt on Saturday, and then we will have lunch together.",
+      "prompt": "When will they visit the aunt?",
+      "choices": [
+        "On Friday",
+        "On Saturday",
+        "On Sunday"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l-a21-direction",
+      "level": "A2_1",
+      "say": "Turn left at the bank, and the post office is next to the park.",
+      "prompt": "Where is the post office?",
+      "choices": [
+        "Next to the park",
+        "Next to the school",
+        "Behind the bank"
+      ],
+      "answer": 0
+    },
+    {
+      "id": "l-a22-weather",
+      "level": "A2_2",
+      "say": "It was raining heavily this morning, so I took the bus instead of riding my bike.",
+      "prompt": "How did the speaker travel?",
+      "choices": [
+        "By bike",
+        "By bus",
+        "On foot"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l-a22-delay",
+      "level": "A2_2",
+      "say": "The train to Hue has been delayed by twenty minutes because of a technical problem.",
+      "prompt": "Why is the train late?",
+      "choices": [
+        "Bad weather",
+        "A technical problem",
+        "A strike"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l-b11-opinion",
+      "level": "B1_1",
+      "say": "Although the film was quite long, I thought it was worth watching because the story was so moving.",
+      "prompt": "What does the speaker think of the film?",
+      "choices": [
+        "It was boring.",
+        "It was worth watching.",
+        "It was too short."
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l-b11-advice",
+      "level": "B1_1",
+      "say": "If I were you, I would book the tickets now, because they sell out quickly at this time of year.",
+      "prompt": "What is the speaker's advice?",
+      "choices": [
+        "Wait for a discount",
+        "Book the tickets now",
+        "Go somewhere else"
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l-b12-contrast",
+      "level": "B1_2",
+      "say": "Not only did the company improve its sales, but it also reduced its costs significantly.",
+      "prompt": "What happened to the company?",
+      "choices": [
+        "Sales fell.",
+        "Sales rose and costs fell.",
+        "Costs rose."
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l-b21-inference",
+      "level": "B2_1",
+      "say": "I had expected the lecture to be dull, yet the speaker's examples made even the complicated theory easy to follow.",
+      "prompt": "What does the speaker mean?",
+      "choices": [
+        "The lecture was surprisingly clear.",
+        "The lecture was cancelled.",
+        "The theory was too hard."
+      ],
+      "answer": 0
+    },
+    {
+      "id": "l-b22-argument",
+      "level": "B2_2",
+      "say": "Critics argue that the new policy will benefit only a small minority, whereas supporters claim it will create jobs for everyone.",
+      "prompt": "What do supporters claim?",
+      "choices": [
+        "It helps a minority.",
+        "It will create jobs for everyone.",
+        "It will raise prices."
+      ],
+      "answer": 1
+    },
+    {
+      "id": "l-c1-nuance",
+      "level": "C1",
+      "say": "Far from being a failure, the experiment, however inconclusive, laid the groundwork for the discoveries that followed.",
+      "prompt": "How does the speaker see the experiment?",
+      "choices": [
+        "As a complete failure",
+        "As an important starting point",
+        "As unimportant"
+      ],
+      "answer": 1
+    }
+  ]
+}

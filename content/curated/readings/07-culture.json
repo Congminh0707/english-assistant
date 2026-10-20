@@ -1,0 +1,316 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readculture",
+    "title": "Văn hoá & xã hội",
+    "summary": "Tết, trường học ở Nhật, làm tình nguyện, ẩm thực đường phố.",
+    "icon": "🎎",
+    "order": 7
+  },
+  "lessons": [
+    {
+      "id": "readculture.tet-holiday",
+      "title": "Tết cổ truyền",
+      "summary": "Giới thiệu Tết Nguyên đán cho bạn bè quốc tế.",
+      "level": "A2_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Bài giới thiệu văn hoá: chú ý **traditionally**, **symbolise**, **families gather**."
+        },
+        {
+          "type": "passage",
+          "title": "Tet, the Vietnamese New Year",
+          "paragraphs": [
+            {
+              "en": "Tet is the most important holiday in Vietnam. It usually falls in late January or February, and many people travel home to be with their families.",
+              "vi": "Tết là ngày lễ quan trọng nhất ở Việt Nam. Tết thường rơi vào cuối tháng Một hoặc tháng Hai và nhiều người về quê để quây quần bên gia đình."
+            },
+            {
+              "en": "Before Tet, families clean their houses, buy flowers and cook special food such as banh chung, a square sticky rice cake. Peach blossoms in the north and apricot blossoms in the south symbolise luck and new life.",
+              "vi": "Trước Tết, các gia đình dọn nhà, mua hoa và nấu món đặc biệt như bánh chưng, loại bánh nếp hình vuông. Hoa đào ở miền Bắc và hoa mai ở miền Nam tượng trưng cho may mắn và sức sống mới."
+            },
+            {
+              "en": "On the first days of the year, children wish their grandparents a happy new year and receive lucky money in red envelopes. People also visit friends and avoid arguments, because they believe the first days set the tone for the whole year.",
+              "vi": "Những ngày đầu năm, trẻ em chúc Tết ông bà và nhận lì xì trong bao đỏ. Mọi người cũng thăm bạn bè và tránh cãi vã vì tin rằng những ngày đầu quyết định cả năm."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is banh chung?",
+          "choices": [
+            "A square sticky rice cake",
+            "A kind of soup",
+            "A flower"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What do children receive from adults?",
+          "choices": [
+            "Lucky money in red envelopes",
+            "New shoes",
+            "Books"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Families clean their houses before Tet.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Apricot blossoms are popular in the north.",
+          "answer": "false",
+          "explain": "Hoa mai ở miền Nam, hoa đào ở miền Bắc."
+        },
+        {
+          "type": "tf",
+          "statement": "Tet lasts for one month.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readculture.a-school-day-in-japan",
+      "title": "Một ngày ở trường Nhật",
+      "summary": "Học sinh Nhật tự dọn dẹp lớp học.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Bài so sánh văn hoá: chú ý **instead of**, **in turns**, **responsibility**."
+        },
+        {
+          "type": "passage",
+          "title": "A School Day in Japan",
+          "paragraphs": [
+            {
+              "en": "In many Japanese schools, students do not only study. After lunch, they clean their classrooms, corridors and even the toilets together. There are no cleaners for these jobs.",
+              "vi": "Ở nhiều trường Nhật, học sinh không chỉ học. Sau bữa trưa, các em cùng dọn lớp, hành lang và thậm chí cả nhà vệ sinh. Không có nhân viên dọn vệ sinh cho những việc này."
+            },
+            {
+              "en": "School lunch is also special. Students serve food to each other in turns, wearing white aprons and hats. Everyone eats the same meal, and nobody leaves until the food is finished.",
+              "vi": "Bữa trưa ở trường cũng đặc biệt. Học sinh lần lượt phục vụ bạn bè, mặc tạp dề và đội mũ trắng. Mọi người ăn cùng một bữa và không ai rời đi cho đến khi ăn xong."
+            },
+            {
+              "en": "Teachers say these habits teach responsibility and respect. Students learn that a clean, comfortable place is the result of everyone's effort, not just of the work of a few people.",
+              "vi": "Giáo viên nói những thói quen này dạy tính trách nhiệm và sự tôn trọng. Học sinh hiểu rằng một nơi sạch sẽ, dễ chịu là kết quả nỗ lực của mọi người chứ không chỉ của vài người."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Who cleans the classrooms?",
+          "choices": [
+            "The students",
+            "Cleaners",
+            "Parents"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What do students wear when they serve lunch?",
+          "choices": [
+            "White aprons and hats",
+            "School uniforms only",
+            "Sports clothes"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Every student eats the same school lunch.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Students go home before the food is finished.",
+          "answer": "false",
+          "explain": "Không ai rời đi cho đến khi ăn xong."
+        },
+        {
+          "type": "tf",
+          "statement": "Japanese students have no homework.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "The habits teach responsibility and ___.",
+          "answers": [
+            "respect"
+          ],
+          "choices": [
+            "respect",
+            "speed",
+            "fear"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readculture.volunteering",
+      "title": "Làm tình nguyện",
+      "summary": "Một ngày làm tình nguyện dọn bãi biển.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Bài kể trải nghiệm: chú ý thì quá khứ và các từ cảm xúc: **proud**, **tired but happy**."
+        },
+        {
+          "type": "passage",
+          "title": "A Day of Volunteering",
+          "paragraphs": [
+            {
+              "en": "Last month, I joined a group of volunteers to clean a beach near my city. We met at seven in the morning, and each person received gloves and a large bag.",
+              "vi": "Tháng trước, tôi tham gia một nhóm tình nguyện dọn một bãi biển gần thành phố. Chúng tôi gặp nhau lúc bảy giờ sáng, mỗi người được phát găng tay và một túi lớn."
+            },
+            {
+              "en": "In three hours, we collected more than two hundred kilograms of rubbish, mostly plastic bottles and bags. Some of it had been in the sand for years. It was hard work, and the sun was hot, but everybody was cheerful.",
+              "vi": "Trong ba tiếng, chúng tôi nhặt hơn hai trăm ki-lô-gam rác, chủ yếu là chai và túi nhựa. Có thứ đã nằm trong cát nhiều năm. Công việc nặng nhọc và trời nắng, nhưng ai cũng vui vẻ."
+            },
+            {
+              "en": "At the end of the day, I was tired but proud. The beach looked completely different. Volunteering taught me that small actions, when many people do them together, can really change a place.",
+              "vi": "Cuối ngày, tôi mệt nhưng tự hào. Bãi biển trông hoàn toàn khác. Làm tình nguyện dạy tôi rằng những việc nhỏ, khi nhiều người cùng làm, thật sự có thể thay đổi một nơi."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What did volunteers receive?",
+          "choices": [
+            "Gloves and a large bag",
+            "Food and water",
+            "T-shirts"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What was most of the rubbish?",
+          "choices": [
+            "Plastic",
+            "Paper",
+            "Metal"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The volunteers collected over 200 kilograms of rubbish.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The writer felt sad at the end of the day.",
+          "answer": "false",
+          "explain": "Tác giả cảm thấy mệt nhưng tự hào."
+        },
+        {
+          "type": "tf",
+          "statement": "The beach is in another country.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readculture.street-food",
+      "title": "Ẩm thực đường phố",
+      "summary": "Vì sao đồ ăn đường phố được yêu thích.",
+      "level": "B1_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Bài miêu tả: chú ý các tính từ về vị (**crispy**, **spicy**, **fresh**) và cụm **a wide variety of**."
+        },
+        {
+          "type": "passage",
+          "title": "Street Food",
+          "paragraphs": [
+            {
+              "en": "Street food is a big part of life in many Asian cities. From early morning until late at night, small stalls sell a wide variety of dishes, and the prices are usually low.",
+              "vi": "Đồ ăn đường phố là một phần lớn của cuộc sống ở nhiều thành phố châu Á. Từ sáng sớm đến khuya, những quầy nhỏ bán rất nhiều món và giá thường rẻ."
+            },
+            {
+              "en": "Many stalls sell only one or two dishes, so the cooks have years of practice. Their food is often fresh because customers eat it as soon as it is cooked, and you can watch everything being prepared in front of you.",
+              "vi": "Nhiều quầy chỉ bán một hai món nên người nấu có nhiều năm kinh nghiệm. Đồ ăn thường tươi vì khách ăn ngay khi vừa nấu xong và bạn có thể xem toàn bộ quá trình chế biến ngay trước mắt."
+            },
+            {
+              "en": "If you are new to street food, choose a busy stall, because a lot of customers usually means the food is good and safe. Start with mild dishes and add chilli slowly, since some sauces are much spicier than they look.",
+              "vi": "Nếu mới thử đồ ăn đường phố, hãy chọn quầy đông khách vì nhiều khách thường nghĩa là đồ ăn ngon và an toàn. Hãy bắt đầu với món nhẹ và thêm ớt từ từ vì có loại nước chấm cay hơn vẻ ngoài."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why is street food usually fresh?",
+          "choices": [
+            "It is eaten as soon as it is cooked.",
+            "It comes from a factory.",
+            "It is cooked a day earlier."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does a busy stall usually mean?",
+          "choices": [
+            "The food is good and safe.",
+            "The food is expensive.",
+            "The cook is new."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Prices at street stalls are usually low.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The writer says you should add a lot of chilli at first.",
+          "answer": "false",
+          "explain": "Nên thêm ớt từ từ."
+        },
+        {
+          "type": "tf",
+          "statement": "Street food is only sold at night.",
+          "answer": "false",
+          "explain": "Bán từ sáng sớm đến khuya."
+        },
+        {
+          "type": "gap",
+          "prompt": "Many stalls sell only one or two ___.",
+          "answers": [
+            "dishes"
+          ],
+          "choices": [
+            "dishes",
+            "drinks",
+            "tickets"
+          ]
+        }
+      ]
+    }
+  ]
+}

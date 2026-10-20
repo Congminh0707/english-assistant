@@ -1,0 +1,690 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readb1",
+    "title": "Đọc B1",
+    "summary": "Biển, kết bạn, giao thông, nấu ăn, đại học, truyện ngắn, khí hậu, mạng xã hội, cà phê.",
+    "icon": "📘",
+    "order": 10
+  },
+  "lessons": [
+    {
+      "id": "readb1.a-day-at-the-beach",
+      "title": "Một ngày ở biển",
+      "summary": "Chuyến đi biển cuối tuần.",
+      "level": "A2_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "A Day at the Beach",
+          "paragraphs": [
+            {
+              "en": "Last Saturday, our class went to the beach by coach. The journey took two hours, and we sang songs all the way, so nobody felt bored.",
+              "vi": "Thứ Bảy tuần trước, lớp mình đi biển bằng xe khách. Chuyến đi mất hai tiếng và chúng mình hát suốt đường nên không ai thấy chán."
+            },
+            {
+              "en": "When we arrived, the weather was perfect. Some students swam in the sea, others played volleyball on the sand, and I built a huge sandcastle with my friends.",
+              "vi": "Khi đến nơi, thời tiết thật tuyệt. Vài bạn bơi ở biển, bạn khác chơi bóng chuyền trên cát, còn mình xây một lâu đài cát khổng lồ cùng các bạn."
+            },
+            {
+              "en": "In the afternoon, the teacher gave us a lunch of rice, grilled fish and fruit. On the way home, many of us fell asleep because we were tired but happy.",
+              "vi": "Buổi chiều, thầy phát cho chúng mình bữa trưa gồm cơm, cá nướng và trái cây. Trên đường về, nhiều bạn ngủ thiếp đi vì mệt nhưng vui."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How long was the journey?",
+          "choices": [
+            "One hour",
+            "Two hours",
+            "Four hours"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What did the writer build?",
+          "choices": [
+            "A sandcastle",
+            "A boat",
+            "A tent"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The class travelled by coach.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "It rained all day at the beach.",
+          "answer": "false",
+          "explain": "Thời tiết rất đẹp."
+        },
+        {
+          "type": "tf",
+          "statement": "The teacher took many photos.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readb1.making-new-friends",
+      "title": "Kết bạn mới",
+      "summary": "Vài cách làm quen khi chuyển trường.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Making New Friends",
+          "paragraphs": [
+            {
+              "en": "Moving to a new school can be frightening. You do not know anyone, you cannot find your classroom, and everybody else seems to have friends already. However, many students have felt exactly the same way.",
+              "vi": "Chuyển sang trường mới có thể đáng sợ. Bạn không quen ai, không tìm được lớp và dường như ai cũng đã có bạn. Tuy nhiên, nhiều học sinh cũng từng cảm thấy y như vậy."
+            },
+            {
+              "en": "The best advice is to start with something small. Smile, say hello and ask a simple question, such as \"Where did you get that bag?\" People usually like to talk about themselves, and a short conversation can be the beginning of a friendship.",
+              "vi": "Lời khuyên tốt nhất là bắt đầu bằng điều nhỏ. Hãy mỉm cười, chào và hỏi một câu đơn giản như \"Bạn mua cái cặp đó ở đâu?\" Mọi người thường thích nói về mình và một cuộc trò chuyện ngắn có thể là khởi đầu của tình bạn."
+            },
+            {
+              "en": "Joining a club is another good idea, because you will meet people with the same interests. It may feel uncomfortable at first, but after a few weeks you will probably be surprised by how many friends you have made.",
+              "vi": "Tham gia câu lạc bộ cũng là ý hay vì bạn sẽ gặp những người cùng sở thích. Lúc đầu có thể thấy không thoải mái, nhưng sau vài tuần bạn có thể ngạc nhiên vì mình đã có nhiều bạn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is the writer's main advice?",
+          "choices": [
+            "Start with something small, like saying hello.",
+            "Wait for others to talk first.",
+            "Change schools again."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why is joining a club a good idea?",
+          "choices": [
+            "You meet people with the same interests.",
+            "It is free.",
+            "It is easy."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The writer says many students feel the same way.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The writer thinks conversations are a waste of time.",
+          "answer": "false",
+          "explain": "Cuộc trò chuyện ngắn có thể là khởi đầu tình bạn."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer joined a chess club.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "A short conversation can be the beginning of a ___.",
+          "answers": [
+            "friendship"
+          ],
+          "choices": [
+            "friendship",
+            "quarrel",
+            "lesson"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readb1.public-transport",
+      "title": "Giao thông công cộng",
+      "summary": "Ưu điểm của xe buýt và tàu điện.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Public Transport in My City",
+          "paragraphs": [
+            {
+              "en": "In my city, millions of people use public transport every day. There are buses, a metro line and even a few boats on the river, and a single ticket can be used on all of them.",
+              "vi": "Ở thành phố mình, hàng triệu người dùng giao thông công cộng mỗi ngày. Có xe buýt, một tuyến tàu điện và cả vài chuyến thuyền trên sông, và một vé duy nhất đi được tất cả."
+            },
+            {
+              "en": "The main advantage is that it is cheaper than owning a car, and it also reduces traffic jams and pollution. During rush hour, the metro is often faster than any other way to travel, because it does not stop at traffic lights.",
+              "vi": "Ưu điểm chính là rẻ hơn sở hữu ô tô, đồng thời giảm kẹt xe và ô nhiễm. Vào giờ cao điểm, tàu điện thường nhanh hơn mọi cách khác vì không dừng đèn giao thông."
+            },
+            {
+              "en": "Of course, there are problems too. Buses can be crowded and late, and some areas have only a few routes. Nevertheless, the city is building new lines, and more people are choosing to leave their cars at home.",
+              "vi": "Dĩ nhiên cũng có vấn đề. Xe buýt có thể đông và trễ, và một số khu vực chỉ có ít tuyến. Tuy nhiên thành phố đang xây thêm tuyến mới và ngày càng nhiều người để xe ở nhà."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is one advantage of public transport?",
+          "choices": [
+            "It is cheaper than owning a car.",
+            "It is always empty.",
+            "It never stops."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why is the metro often faster?",
+          "choices": [
+            "It does not stop at traffic lights.",
+            "It has no passengers.",
+            "It is a train."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "One ticket can be used on buses, metro and boats.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Buses are never late.",
+          "answer": "false",
+          "explain": "Bài viết nói xe buýt có thể đông và trễ."
+        },
+        {
+          "type": "tf",
+          "statement": "The metro was built last year.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readb1.learning-to-cook",
+      "title": "Học nấu ăn",
+      "summary": "Từ cháy bếp đến nấu được bữa tối.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Learning to Cook",
+          "paragraphs": [
+            {
+              "en": "When I moved out of my parents' house, I could hardly cook anything. My first dinner was burnt rice and an egg, and the whole kitchen smelled terrible.",
+              "vi": "Khi dọn ra ở riêng, mình hầu như không nấu được món nào. Bữa tối đầu tiên của mình là cơm cháy và một quả trứng, cả bếp bốc mùi khủng khiếp."
+            },
+            {
+              "en": "I decided to improve, so I started watching cooking videos and learning one new dish every week. I wrote down the recipes in a notebook and noted what I would change next time, for example less salt or more garlic.",
+              "vi": "Mình quyết định tiến bộ nên bắt đầu xem video nấu ăn và học một món mới mỗi tuần. Mình ghi công thức vào sổ và ghi điều sẽ thay đổi lần sau, ví dụ ít muối hơn hay nhiều tỏi hơn."
+            },
+            {
+              "en": "After six months, I could cook ten different meals, and last week I invited my friends for dinner. They said the soup was delicious. Cooking has become my favourite way to relax after work.",
+              "vi": "Sau sáu tháng, mình nấu được mười món khác nhau và tuần trước mình mời bạn bè ăn tối. Họ khen món súp rất ngon. Nấu ăn đã trở thành cách thư giãn yêu thích của mình sau giờ làm."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What was the first dinner?",
+          "choices": [
+            "Burnt rice and an egg",
+            "Soup",
+            "Pasta"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "How did the writer improve?",
+          "choices": [
+            "By learning one new dish every week",
+            "By eating out",
+            "By buying a cookbook only"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The writer invited friends for dinner.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The friends did not like the soup.",
+          "answer": "false",
+          "explain": "Họ khen món súp rất ngon."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer wants to become a professional chef.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "Cooking has become the writer's favourite way to ___.",
+          "answers": [
+            "relax"
+          ],
+          "choices": [
+            "relax",
+            "work",
+            "travel"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readb1.first-day-university",
+      "title": "Ngày đầu đại học",
+      "summary": "Cảm xúc và bài học ngày đầu tiên.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "My First Day at University",
+          "paragraphs": [
+            {
+              "en": "I was extremely nervous on my first day at university. The campus was huge, and I got lost twice before I found the right building. When I finally arrived, the lecture had already started.",
+              "vi": "Mình cực kỳ hồi hộp trong ngày đầu đại học. Khuôn viên rất rộng và mình bị lạc hai lần mới tìm được đúng toà nhà. Khi đến nơi, buổi giảng đã bắt đầu."
+            },
+            {
+              "en": "Fortunately, the lecturer was friendly. She smiled and pointed to an empty seat next to a girl called Lan. During the break, Lan showed me the cafeteria and gave me a map of the campus.",
+              "vi": "May mắn là giảng viên thân thiện. Cô mỉm cười và chỉ cho mình một chỗ trống cạnh một bạn nữ tên Lan. Trong giờ nghỉ, Lan chỉ cho mình nhà ăn và đưa mình bản đồ khuôn viên."
+            },
+            {
+              "en": "By the end of the day, I was tired but relieved. I realised that most students had been just as worried as I was. Next time, I will check the timetable the night before and leave home earlier.",
+              "vi": "Cuối ngày, mình mệt nhưng nhẹ nhõm. Mình nhận ra phần lớn sinh viên cũng lo lắng như mình. Lần sau, mình sẽ xem thời khoá biểu từ tối hôm trước và ra khỏi nhà sớm hơn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why was the writer late?",
+          "choices": [
+            "He got lost on campus.",
+            "The bus was late.",
+            "He overslept."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Who helped the writer?",
+          "choices": [
+            "Lan",
+            "The lecturer only",
+            "Nobody"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The lecture had already started when he arrived.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The writer was the only nervous student.",
+          "answer": "false",
+          "explain": "Phần lớn sinh viên cũng lo lắng."
+        },
+        {
+          "type": "tf",
+          "statement": "The university is in Hanoi.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readb1.a-lost-wallet",
+      "title": "Chiếc ví bị mất",
+      "summary": "Truyện về sự trung thực.",
+      "level": "B1_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "A Lost Wallet",
+          "paragraphs": [
+            {
+              "en": "One rainy evening, Mai was waiting for the bus when she noticed a brown wallet on the pavement. Nobody was nearby, so she picked it up and looked inside. There was a lot of money and an identity card.",
+              "vi": "Một chiều mưa, Mai đang chờ xe buýt thì thấy một chiếc ví nâu trên vỉa hè. Quanh đó không có ai nên cô nhặt lên xem. Bên trong có nhiều tiền và một thẻ căn cước."
+            },
+            {
+              "en": "Mai knew that the owner would be very worried, so she did not hesitate. Instead of going home, she walked to the nearest police station and handed in the wallet, together with her phone number.",
+              "vi": "Mai biết chủ nhân sẽ rất lo lắng nên cô không do dự. Thay vì về nhà, cô đi bộ đến đồn công an gần nhất và nộp chiếc ví cùng số điện thoại của mình."
+            },
+            {
+              "en": "Two days later, an old man called her to say thank you. He explained that the money was for his grandson's school fees. He offered her a reward, but Mai refused. \"Knowing that I helped you is enough,\" she said.",
+              "vi": "Hai ngày sau, một cụ ông gọi điện cảm ơn cô. Cụ giải thích số tiền là học phí của cháu nội. Cụ muốn tặng cô một phần thưởng nhưng Mai từ chối. \"Biết rằng cháu đã giúp được bác là đủ rồi,\" cô nói."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What did Mai do with the wallet?",
+          "choices": [
+            "She took it to the police station.",
+            "She kept it.",
+            "She threw it away."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What was the money for?",
+          "choices": [
+            "School fees",
+            "A holiday",
+            "A new car"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Mai refused the reward.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The owner was a young woman.",
+          "answer": "false",
+          "explain": "Chủ ví là một cụ ông."
+        },
+        {
+          "type": "tf",
+          "statement": "The wallet contained a credit card.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "Mai did not ___ before taking it to the police.",
+          "answers": [
+            "hesitate"
+          ],
+          "choices": [
+            "hesitate",
+            "laugh",
+            "sleep"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readb1.climate-change-at-home",
+      "title": "Biến đổi khí hậu và gia đình",
+      "summary": "Những việc nhỏ ở nhà giúp giảm khí thải.",
+      "level": "B1_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Climate Change at Home",
+          "paragraphs": [
+            {
+              "en": "Climate change can seem like a problem for governments and big companies, but our daily habits at home also matter. Electricity, heating and transport are three areas where families can make a difference.",
+              "vi": "Biến đổi khí hậu có vẻ là vấn đề của chính phủ và các công ty lớn nhưng thói quen hằng ngày ở nhà cũng quan trọng. Điện, sưởi và đi lại là ba lĩnh vực mà các gia đình có thể tạo khác biệt."
+            },
+            {
+              "en": "To save electricity, turn off lights and unplug chargers when you do not use them, and choose appliances with a high energy rating. In hot weather, set the air conditioner a little warmer; even one degree helps.",
+              "vi": "Để tiết kiệm điện, hãy tắt đèn và rút sạc khi không dùng, và chọn thiết bị có xếp hạng năng lượng cao. Khi trời nóng, đặt máy lạnh ấm hơn một chút; chỉ một độ cũng có ích."
+            },
+            {
+              "en": "Eating less meat, walking short distances and throwing away less food can also reduce your carbon footprint. None of these changes is difficult, but together, millions of households can have a real effect.",
+              "vi": "Ăn ít thịt hơn, đi bộ quãng ngắn và bỏ ít thức ăn hơn cũng giảm lượng khí thải của bạn. Không thay đổi nào khó nhưng cộng lại, hàng triệu hộ gia đình có thể tạo hiệu quả thực sự."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Which is one way to save electricity?",
+          "choices": [
+            "Unplug chargers when not in use",
+            "Leave lights on",
+            "Buy more appliances"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the writer say about the air conditioner?",
+          "choices": [
+            "Set it a little warmer",
+            "Never use it",
+            "Turn it to the coldest"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Eating less meat can reduce your carbon footprint.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The writer thinks only governments can help.",
+          "answer": "false",
+          "explain": "Tác giả nói thói quen ở nhà cũng quan trọng."
+        },
+        {
+          "type": "tf",
+          "statement": "Solar panels are cheap now.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "Millions of households together can have a real ___.",
+          "answers": [
+            "effect"
+          ],
+          "choices": [
+            "effect",
+            "party",
+            "cost"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readb1.social-media-teens",
+      "title": "Mạng xã hội và thanh thiếu niên",
+      "summary": "Lợi và hại của mạng xã hội.",
+      "level": "B1_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Social Media and Teenagers",
+          "paragraphs": [
+            {
+              "en": "Most teenagers use social media every day. It helps them stay in touch with friends, share photos and find information about the things they enjoy. For shy people, it can even make it easier to start conversations.",
+              "vi": "Hầu hết thanh thiếu niên dùng mạng xã hội mỗi ngày. Nó giúp họ giữ liên lạc với bạn bè, chia sẻ ảnh và tìm thông tin về điều mình thích. Với người nhút nhát, nó thậm chí làm việc bắt chuyện dễ hơn."
+            },
+            {
+              "en": "However, there are risks. Spending too much time online can affect sleep and schoolwork, and comparing yourself with perfect-looking photos may lower your self-confidence. Some young people also face unkind comments from strangers.",
+              "vi": "Tuy nhiên có rủi ro. Dành quá nhiều thời gian trực tuyến có thể ảnh hưởng giấc ngủ và việc học, và so sánh mình với những bức ảnh hoàn hảo có thể làm giảm sự tự tin. Một số bạn trẻ còn gặp bình luận ác ý từ người lạ."
+            },
+            {
+              "en": "Experts recommend setting time limits, following people who make you feel good, and talking to an adult if something upsets you. Used wisely, social media can be a useful tool rather than a problem.",
+              "vi": "Các chuyên gia khuyên đặt giới hạn thời gian, theo dõi những người khiến bạn thấy tích cực và nói với người lớn nếu có điều gì làm bạn buồn. Dùng khôn ngoan, mạng xã hội có thể là công cụ hữu ích thay vì là vấn đề."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is one benefit mentioned?",
+          "choices": [
+            "Staying in touch with friends",
+            "Better grades",
+            "More free time"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What can comparing yourself with perfect photos do?",
+          "choices": [
+            "Lower self-confidence",
+            "Improve sleep",
+            "Save time"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Experts recommend setting time limits.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The writer says social media has no benefits.",
+          "answer": "false",
+          "explain": "Bài nêu nhiều lợi ích."
+        },
+        {
+          "type": "tf",
+          "statement": "Teenagers spend six hours a day online.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readb1.history-of-coffee",
+      "title": "Lịch sử cà phê",
+      "summary": "Từ dê Ethiopia đến ly cà phê hôm nay.",
+      "level": "B1_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "The History of Coffee",
+          "paragraphs": [
+            {
+              "en": "According to a popular legend, coffee was discovered in Ethiopia more than a thousand years ago. A goat herder noticed that his goats became very lively after eating the red berries of a certain plant.",
+              "vi": "Theo một truyền thuyết nổi tiếng, cà phê được phát hiện ở Ethiopia hơn một nghìn năm trước. Một người chăn dê nhận thấy đàn dê trở nên rất hăng hái sau khi ăn quả mọng đỏ của một loại cây."
+            },
+            {
+              "en": "From Africa, coffee spread to the Arab world, where people began roasting the beans and making a drink. Coffee houses became popular meeting places, and by the seventeenth century the drink had reached Europe.",
+              "vi": "Từ châu Phi, cà phê lan sang thế giới Ả Rập, nơi người ta bắt đầu rang hạt và pha thành thức uống. Quán cà phê trở thành nơi gặp gỡ phổ biến và đến thế kỷ mười bảy thức uống này đã tới châu Âu."
+            },
+            {
+              "en": "Today, coffee is one of the most traded products in the world. Vietnam is the second largest producer, and many people have their own way to enjoy it, from strong black coffee to sweet coffee with condensed milk.",
+              "vi": "Ngày nay cà phê là một trong những mặt hàng được buôn bán nhiều nhất thế giới. Việt Nam là nước sản xuất lớn thứ hai và nhiều người có cách thưởng thức riêng, từ cà phê đen đậm đến cà phê sữa đặc ngọt."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Where does the legend say coffee was discovered?",
+          "choices": [
+            "Ethiopia",
+            "Brazil",
+            "Vietnam"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Who noticed the effect of the berries?",
+          "choices": [
+            "A goat herder",
+            "A king",
+            "A doctor"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Coffee reached Europe by the seventeenth century.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Vietnam is the largest coffee producer in the world.",
+          "answer": "false",
+          "explain": "Việt Nam là nước sản xuất lớn thứ hai."
+        },
+        {
+          "type": "tf",
+          "statement": "The first coffee house opened in Paris.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    }
+  ]
+}

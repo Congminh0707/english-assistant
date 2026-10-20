@@ -3,13 +3,15 @@ import type { Container } from '../container'
 import type { LessonService } from '../services/LessonService'
 import type { TranslationService } from '../services/TranslationService'
 import type { TtsService } from '../services/TtsService'
+import type { UpdateManager } from '../system/UpdateManager'
 import { handle } from './handle'
 
 /** Các kênh nghiệp vụ: thú cưng, túi đồ, cài đặt (~ Controllers) */
 export function registerAppIpc(
   c: Container,
   translation: TranslationService,
-  tts: TtsService
+  tts: TtsService,
+  updates: UpdateManager
 ): void {
   handle('pet:get', () => c.pet.get())
   handle('pet:pat', () => c.pet.pat())
@@ -38,6 +40,7 @@ export function registerAppIpc(
   handle('study:overview', () => c.study.overview())
   handle('study:next', () => c.study.next())
   handle('study:rate', ({ cardId, rating, elapsedMs }) => c.study.rate(cardId, rating, elapsedMs))
+  handle('study:tick', ({ seconds }) => c.progress.tickTime(seconds))
   handle('study:undo', () => c.study.undo())
   handle('study:backfill', () => ({ created: c.study.backfill() }))
   handle('study:missions', () => c.missions.state())
@@ -50,6 +53,7 @@ export function registerAppIpc(
     return info
   })
   handle('placement:start', () => ({ question: c.placement.start() }))
+  handle('placement:checkpoint-start', () => ({ question: c.placement.startCheckpoint() }))
   handle('placement:answer', ({ sessionId, questionId, choiceIndex }) =>
     c.placement.answer(sessionId, questionId, choiceIndex)
   )
@@ -67,6 +71,12 @@ export function registerAppIpc(
   handle('shop:equip', ({ itemId, equipped }) => c.shop.equip(itemId, equipped))
   handle('study:stats', () => c.stats.stats())
   handle('phrasebook:list', () => c.phrasebook.list())
+  handle('update:status', () => updates.current)
+  handle('update:check', () => updates.check())
+  handle('update:download', () => updates.download())
+  handle('update:install', () => updates.install())
+  handle('course:list', () => ({ courses: c.courses.list() }))
+  handle('course:get', ({ id }) => c.courses.get(id))
   handle('kids:home', () => c.kids.home())
   handle('kids:units', () => c.kids.units())
   handle('kids:next', () => c.kids.nextCard())
@@ -87,14 +97,22 @@ export function registerAppIpc(
     c.parent.extend(pin, minutes)
     return c.kids.usageStatus()
   })
+  handle('parent:forgot', () => c.parent.forgotChallenge())
+  handle('parent:reset', ({ id, answer }) => c.parent.resetPin(id, answer))
   handle('parent:report', () => c.parent.report())
   // Bài học nền tảng, điểm ngữ pháp và bài đọc dùng chung kênh, phân biệt bằng `kind`
   const lessonService = (kind: LessonKind): LessonService =>
-    kind === 'grammar' ? c.grammar : kind === 'reading' ? c.readings : c.lessons
+    kind === 'grammar'
+      ? c.grammar
+      : kind === 'reading'
+        ? c.readings
+        : kind === 'listening'
+          ? c.listening
+          : c.lessons
   handle('lesson:catalog', ({ kind }) => lessonService(kind).catalog())
   handle('lesson:get', ({ kind, id }) => lessonService(kind).get(id))
-  handle('lesson:complete', ({ kind, lessonId, correct, total }) =>
-    lessonService(kind).complete(lessonId, correct, total)
+  handle('lesson:complete', ({ kind, lessonId, correct, total, byType }) =>
+    lessonService(kind).complete(lessonId, correct, total, byType)
   )
   handle('tts:status', () => tts.status())
   handle('tts:install', () => tts.install())

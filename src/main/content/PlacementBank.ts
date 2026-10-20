@@ -10,9 +10,10 @@ import { LEVEL_CODES } from '@shared/schemas/content/level'
  * File sai schema bị bỏ qua kèm cảnh báo; test nội dung sẽ bắt lỗi từ trước.
  */
 export class PlacementBank {
-  private readonly bySkill: Record<'grammar' | 'reading', PlacementItem[]> = {
+  private readonly bySkill: Record<'grammar' | 'reading' | 'listening', PlacementItem[]> = {
     grammar: [],
-    reading: []
+    reading: [],
+    listening: []
   }
 
   constructor(files: unknown[], warn: (message: string) => void = console.warn) {
@@ -27,7 +28,7 @@ export class PlacementBank {
     }
   }
 
-  count(skill: 'grammar' | 'reading'): number {
+  count(skill: 'grammar' | 'reading' | 'listening'): number {
     return this.bySkill[skill].length
   }
 
@@ -36,7 +37,7 @@ export class PlacementBank {
    * Trả null nếu ngân hàng đã hết câu.
    */
   pick(
-    skill: 'grammar' | 'reading',
+    skill: 'grammar' | 'reading' | 'listening',
     index: number,
     asked: ReadonlySet<string>,
     random: () => number = Math.random

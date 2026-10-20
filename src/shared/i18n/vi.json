@@ -24,25 +24,6 @@
     "sizeLarge": "Lớn",
     "language": "Ngôn ngữ / Language",
     "launchAtLogin": "Khởi động cùng Windows",
-    "review": "Ôn thẻ",
-    "newPerDay": "Từ mới mỗi ngày",
-    "unlimited": "Không giới hạn",
-    "newWords": "{n} từ mới",
-    "reviewOrder": "Thứ tự thẻ",
-    "order": {
-      "mixed": "Xen kẽ theo hạn",
-      "new-first": "Thẻ mới trước",
-      "review-first": "Thẻ cũ trước"
-    },
-    "directionsHint": "Khi bạn thuộc một từ, app tự tạo thêm các thẻ phụ để nhớ sâu hơn (đến hạn từ ngày hôm sau):",
-    "dirViEn": "Thẻ Việt → Anh (gõ từ)",
-    "dirAudio": "Thẻ nghe – gõ",
-    "dirCloze": "Thẻ điền từ vào câu",
-    "typing": "Gõ đáp án (tắt = chỉ lật thẻ rồi tự chấm)",
-    "autoPlay": "Tự đọc từ khi hiện thẻ",
-    "backfill": "Tạo thẻ cho từ đã thuộc",
-    "backfillHint": "Bật thêm loại thẻ? Tạo bù thẻ phụ cho các từ bạn đã thuộc.",
-    "backfillDone": "Đã tạo {n} thẻ mới.",
     "quit": "Thoát",
     "reviewNow": "🧠 Ôn từ ngay",
     "reviewNowDue": "🧠 Ôn từ ngay ({count} thẻ đến hạn)",
@@ -111,7 +92,8 @@
       "levelUp": ["Lên cấp rồi! 🎉", "Level up! %PET% mạnh hơn rồi!"],
       "wake": ["%PET% dậy rồi! ☀️", "Hoaaam... bạn quay lại rồi!", "Good morning (lần hai)!"],
       "sleepyPat": ["Zzz... để %PET% ngủ thêm chút~", "Zzz... 5 phút nữa thôi..."],
-      "missionDone": ["Xong nhiệm vụ rồi! 🎯", "Giỏi quá, nhận thưởng nè! ⭐"]
+      "missionDone": ["Xong nhiệm vụ rồi! 🎯", "Giỏi quá, nhận thưởng nè! ⭐"],
+      "evolved": ["%PET% tiến hoá rồi! ✨", "Wow, %PET% lớn lên rồi! 🎉", "Nhìn %PET% mới này! ⭐"]
     }
   },
   "errors": {
@@ -133,7 +115,8 @@
     "bagFull": "Túi đồ đã đầy món này.",
     "levelTooLow": "Chưa đủ level để mua món này.",
     "ttsNotReady": "Chưa tải giọng đọc tự nhiên.",
-    "ttsFailed": "Không tạo được giọng đọc, thử lại nhé."
+    "ttsFailed": "Không tạo được giọng đọc, thử lại nhé.",
+    "updateFailed": "Cập nhật không thành công, thử lại sau nhé."
   },
   "quiz": {
     "reviewTitle": "Ôn từ",
@@ -167,7 +150,9 @@
       "parent": "Phụ huynh",
       "reading": "Bài đọc",
       "grammar": "Ngữ pháp",
-      "phrasebook": "Mẫu câu"
+      "phrasebook": "Mẫu câu",
+      "listening": "Nghe",
+      "courses": "Lộ trình"
     },
     "home": {
       "welcome": "Chào bạn, hôm nay học gì nào?",
@@ -245,7 +230,12 @@
         "suspended": "Tạm dừng",
         "forgetful": "Hay quên"
       },
-      "sort": { "saved": "Mới lưu", "due": "Sắp đến hạn", "forgetful": "Hay quên", "alpha": "A–Z" }
+      "sort": {
+        "saved": "Mới lưu",
+        "due": "Sắp đến hạn",
+        "forgetful": "Hay quên",
+        "alpha": "A–Z"
+      }
     },
     "missions": {
       "title": "Nhiệm vụ hôm nay",
@@ -291,16 +281,26 @@
       "question": {
         "vocab": "Câu {index}/{total}: nghĩa của từ này là gì?",
         "grammar": "Câu {index}/{total}: chọn đáp án đúng để điền vào chỗ trống.",
-        "reading": "Câu {index}/{total}: đọc đoạn văn rồi trả lời."
+        "reading": "Câu {index}/{total}: đọc đoạn văn rồi trả lời.",
+        "listening": "Câu {index}/{total}: nghe rồi chọn đáp án đúng."
       },
-      "skill": { "vocab": "Từ vựng", "grammar": "Ngữ pháp", "reading": "Đọc hiểu" },
+      "skill": {
+        "vocab": "Từ vựng",
+        "grammar": "Ngữ pháp",
+        "reading": "Đọc hiểu",
+        "listening": "Nghe"
+      },
       "dontKnow": "Tôi không biết",
       "correct": "Đúng rồi! ✓",
       "wrong": "Chưa đúng — đáp án: {answer}",
       "resultTitle": "Trình độ của bạn: {cefr}",
       "resultBody": "Bạn trả lời đúng {correct}/{total} câu. %PET% đã chọn từ vừa sức với bạn.",
       "retry": "Làm lại",
-      "done": "Bắt đầu học"
+      "done": "Bắt đầu học",
+      "checkpointTitle": "Kiểm tra lên cấp",
+      "checkpointIntro": "10 câu ở bậc kế tiếp (từ vựng, ngữ pháp, đọc, nghe). Đúng từ 80% là lên một bậc — lần đầu qua mỗi bậc có thưởng. Không đạt cũng không sao, bạn có thể thử lại sau.",
+      "checkpointPassed": "Chúc mừng! Bạn đã lên level {level} 🎉",
+      "checkpointFailed": "Chưa đạt ({n}% mới qua). Ôn thêm rồi thử lại nhé!"
     },
     "settings": {
       "title": "Cài đặt",
@@ -325,7 +325,26 @@
       "appearance": "Giao diện",
       "language": "Ngôn ngữ",
       "size": "Kích thước mascot",
-      "launchAtLogin": "Khởi động cùng Windows"
+      "launchAtLogin": "Khởi động cùng Windows",
+      "review": "Ôn thẻ",
+      "newPerDay": "Từ mới mỗi ngày",
+      "unlimited": "Không giới hạn",
+      "newWords": "{n} từ mới",
+      "reviewOrder": "Thứ tự thẻ",
+      "order": {
+        "mixed": "Xen kẽ theo hạn",
+        "new-first": "Thẻ mới trước",
+        "review-first": "Thẻ cũ trước"
+      },
+      "directionsHint": "Khi bạn thuộc một từ, app tự tạo thêm các thẻ phụ để nhớ sâu hơn (đến hạn từ ngày hôm sau):",
+      "dirViEn": "Thẻ Việt → Anh (gõ từ)",
+      "dirAudio": "Thẻ nghe – gõ",
+      "dirCloze": "Thẻ điền từ vào câu",
+      "typing": "Gõ đáp án (tắt = chỉ lật thẻ rồi tự chấm)",
+      "autoPlay": "Tự đọc từ khi hiện thẻ",
+      "backfill": "Tạo thẻ cho từ đã thuộc",
+      "backfillHint": "Bật thêm loại thẻ? Tạo bù thẻ phụ cho các từ bạn đã thuộc.",
+      "backfillDone": "Đã tạo {n} thẻ mới."
     },
     "practice": {
       "title": "Luyện tập",
@@ -387,6 +406,46 @@
       "levels": "Từ trong sổ theo level",
       "skills": "Trình độ theo kỹ năng",
       "skillsHint": "Cập nhật sau mỗi lần làm bài kiểm tra trình độ.",
+      "skill": {
+        "vocab": "Từ vựng",
+        "grammar": "Ngữ pháp",
+        "reading": "Đọc hiểu",
+        "listening": "Nghe"
+      },
+      "games": "{n} câu",
+      "ready": "Sẵn sàng lên cấp",
+      "readyHint": "Rating cao hơn level hiện tại — làm bài kiểm tra lên cấp để chuyển level.",
+      "accuracy": "Độ chính xác theo dạng bài (30 ngày)",
+      "noAccuracy": "Chưa có dữ liệu — làm vài bài tập hoặc ôn thẻ nhé.",
+      "accuracyHint": "Bài tập: tỉ lệ làm đúng. Thẻ ôn: tỉ lệ nhớ (chấm Khó/Được/Dễ).",
+      "time": "Thời gian học",
+      "minToday": "phút hôm nay",
+      "minWeek": "phút tuần này",
+      "hoursTotal": "giờ tổng cộng",
+      "min": "phút",
+      "timeHint": "Chỉ tính lúc cửa sổ Học tập đang hiện và được chọn. Cột là số phút mỗi ngày (14 ngày gần nhất).",
+      "kind": {
+        "mcq": "Trắc nghiệm",
+        "gap": "Điền chỗ trống",
+        "order": "Sắp xếp câu",
+        "match": "Ghép cặp",
+        "listen": "Nghe chọn",
+        "tf": "Đúng/Sai",
+        "picture": "Chọn hình",
+        "cloze": "Điền từ",
+        "word_order": "Sắp xếp câu",
+        "listen_choice": "Nghe chọn nghĩa",
+        "dictation": "Nghe chép",
+        "match_pairs": "Ghép từ–nghĩa",
+        "checkpoint": "Kiểm tra lên cấp"
+      },
+      "reviewKind": {
+        "en_vi": "Thẻ: nhận diện",
+        "vi_en": "Thẻ: Việt → Anh",
+        "audio_en": "Thẻ: nghe–gõ",
+        "cloze": "Thẻ: điền từ",
+        "audio_picture": "Thẻ: nghe–chạm hình"
+      },
       "achievements": "Thành tựu",
       "achProgress": "Đã mở khoá {done}/{total}",
       "hardest": "Từ hay quên nhất",
@@ -459,6 +518,10 @@
         "6": "CN"
       }
     },
+    "listening": {
+      "title": "Bài nghe",
+      "intro": "Nghe các đoạn hội thoại và bài nói ngắn theo trình độ: chỉnh tốc độ, lặp lại một đoạn (A–B), tự chép lời rồi đối chiếu. Cuối bài có câu hỏi nghe hiểu."
+    },
     "reading": {
       "title": "Bài đọc",
       "intro": "Đọc các bài ngắn theo trình độ. Bấm vào từ để tra nghĩa và lưu vào sổ từ, bấm 🔊 để nghe từng câu. Cuối bài có câu hỏi đọc hiểu.",
@@ -511,7 +574,11 @@
       "tapToHear": "Bấm vào ô để nghe phát âm.",
       "startExercises": "Làm bài tập ({n} câu)",
       "counter": "Câu {index}/{total}",
-      "tf": { "true": "Đúng", "false": "Sai", "ng": "Không có thông tin" },
+      "tf": {
+        "true": "Đúng",
+        "false": "Sai",
+        "ng": "Không có thông tin"
+      },
       "tfHelp": "Câu sau đúng hay sai?",
       "tfHelpNg": "Câu sau đúng, sai hay bài đọc không nói đến?",
       "pictureHelp": "Chọn hình đúng với từ:",
@@ -536,6 +603,25 @@
       "reread": "Đọc lại bài",
       "retry": "Làm lại",
       "toList": "Danh sách bài"
+    },
+    "courses": {
+      "title": "Lộ trình học",
+      "intro": "Mỗi khoá là một chuỗi bài có thứ tự: học nền tảng, ngữ pháp, đọc, nghe. Cứ làm theo thứ tự, app tự ghi tiến độ.",
+      "progress": "{done}/{total} bài",
+      "continue": "Học tiếp",
+      "start": "Bắt đầu",
+      "done": "Hoàn thành khoá 🎉",
+      "back": "Tất cả khoá học",
+      "backToCourse": "Về lộ trình",
+      "levels": "Từ {from} đến {to}",
+      "minutes": "{n} phút",
+      "next": "Tiếp theo",
+      "kind": {
+        "lesson": "Bài học",
+        "grammar": "Ngữ pháp",
+        "reading": "Bài đọc",
+        "listening": "Bài nghe"
+      }
     }
   },
   "translate": {
@@ -602,7 +688,8 @@
       "stars": "{n} sao"
     },
     "activity": {
-      "again": "Chơi lại"
+      "again": "Chơi lại",
+      "sayHint": "Nghe rồi nói theo, xong bấm 🎤 ✓ (chưa chấm giọng nói)"
     },
     "album": {
       "hint": "Chạm vào sticker để nghe. Trả lời đúng để dán thêm!"
@@ -625,7 +712,11 @@
       "mismatch": "Hai lần nhập chưa giống nhau, thử lại nhé.",
       "locked": "Nhập sai nhiều lần. Thử lại sau {n} giây.",
       "setHint": "PIN giúp bé không vào nhầm khu vực của phụ huynh.",
-      "cancel": "Đóng"
+      "cancel": "Đóng",
+      "forgot": "Quên PIN?",
+      "forgotTitle": "Giải phép tính để đặt lại PIN",
+      "forgotWrong": "Chưa đúng, thử câu mới nhé.",
+      "resetOk": "Đã xoá PIN cũ. Hãy đặt PIN mới."
     },
     "report": {
       "title": "Báo cáo cho phụ huynh",
@@ -648,6 +739,31 @@
       "pinSaved": "Đã lưu PIN."
     }
   },
+  "player": {
+    "play": "Nghe",
+    "pause": "Dừng",
+    "prev": "Câu trước",
+    "next": "Câu sau",
+    "again": "Nghe lại câu này",
+    "speed": "Tốc độ",
+    "loopA": "Đặt A",
+    "loopB": "Đặt B",
+    "loopClear": "Bỏ lặp",
+    "loopOn": "Đang lặp từ câu {a} đến câu {b}",
+    "loopPick": "Bấm “Đặt A” rồi “Đặt B” để lặp một đoạn",
+    "showText": "Hiện lời thoại",
+    "hideText": "Ẩn lời thoại",
+    "showVi": "Hiện bản dịch",
+    "hideVi": "Ẩn bản dịch",
+    "line": "Câu {n}/{total}",
+    "hidden": "Lời thoại đang ẩn — nghe trước, rồi bấm “Hiện lời thoại” để đối chiếu.",
+    "dictation": "Tự chép lại câu đang nghe",
+    "dictationHint": "Gõ câu bạn nghe được rồi bấm Kiểm tra",
+    "check": "Kiểm tra",
+    "correct": "Chính xác!",
+    "close": "Gần đúng:",
+    "wrong": "Đáp án:"
+  },
   "tts": {
     "title": "Giọng đọc",
     "accent": "Giọng mặc định",
@@ -667,5 +783,33 @@
     "testText": "Hello! This is how I sound.",
     "cacheHint": "Âm thanh đã tạo được lưu lại để nghe lại tức thì. Lần đầu nghe một câu mới mất khoảng 1–3 giây.",
     "fallbackHint": "Chưa tải model nên đang dùng giọng Windows."
+  },
+  "pet": {
+    "stage": {
+      "egg": "Trứng",
+      "baby": "Bé con",
+      "teen": "Thiếu niên",
+      "adult": "Trưởng thành",
+      "legend": "Huyền thoại"
+    }
+  },
+  "update": {
+    "title": "Cập nhật",
+    "current": "Phiên bản hiện tại: {version}",
+    "auto": "Tự kiểm tra bản mới",
+    "check": "Kiểm tra cập nhật",
+    "download": "Tải bản mới",
+    "install": "Khởi động lại để cài",
+    "state": {
+      "disabled": "Bản chạy thử (chưa đóng gói) nên không có cập nhật.",
+      "idle": "Chưa kiểm tra.",
+      "checking": "Đang kiểm tra…",
+      "none": "Bạn đang dùng bản mới nhất.",
+      "available": "Có bản mới {version} (~{size} MB).",
+      "downloading": "Đang tải {version}… {percent}%",
+      "ready": "Đã tải xong {version}. Khởi động lại để cài.",
+      "error": "Không kiểm tra/tải được bản mới."
+    },
+    "privacy": "Việc kiểm tra chỉ hỏi GitHub Releases xem có bản mới không (không gửi dữ liệu học của bạn). App không tự tải hay tự cài khi bạn chưa đồng ý."
   }
 }

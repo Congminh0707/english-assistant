@@ -5,26 +5,13 @@ import type { Stats, StatsDay } from '@shared/schemas/stats'
 import { ACHIEVEMENT_GROUPS } from '@shared/achievements'
 import { activityLevel, activityScore, weekdayIndex } from '@shared/stats'
 import { invoke } from '@renderer/shared/ipc'
-import { cefrLabel } from '@shared/placement'
-import { useSettingsStore } from '@renderer/shared/stores/settings'
 import PixelBadge from '@renderer/shared/components/PixelBadge.vue'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 
 // Thống kê: streak, lịch hoạt động 16 tuần, 14 ngày gần nhất, thẻ theo trạng thái, từ theo level.
+const emit = defineEmits<{ checkpoint: [] }>()
 const { t } = useI18n()
 const stats = ref<Stats | null>(null)
-const settingsStore = useSettingsStore()
-/** Trình độ theo kỹ năng (cập nhật sau mỗi lần làm bài kiểm tra đầu vào) */
-const skillLevels = computed(() =>
-  (
-    [
-      ['vocab', settingsStore.settings['learning.levelVocab']],
-      ['grammar', settingsStore.settings['learning.levelGrammar']],
-      ['reading', settingsStore.settings['learning.levelReading']]
-    ] as const
-  ).map(([skill, level]) => ({ skill, cefr: cefrLabel(level), level: level.replace('_', '.') }))
-)
-
 async function load(): Promise<void> {
   stats.value = await invoke('study:stats')
 }
@@ -40,6 +27,7 @@ const cells = computed(() => {
 })
 
 const last14 = computed(() => (stats.value?.days ?? []).slice(-14))
+const maxMinutes = computed(() => Math.max(10, ...last14.value.map((d) => d.minutes)))
 const maxReviews = computed(() => Math.max(1, ...last14.value.map((d) => d.reviews)))
 
 const cellTitle = (d: StatsDay): string =>
@@ -49,6 +37,12 @@ const cellTitle = (d: StatsDay): string =>
     saved: d.saved,
     practice: d.practice
   })
+
+const pct = (a: { correct: number; total: number }): number =>
+  a.total ? Math.round((a.correct / a.total) * 100) : 0
+const hours = (minutes: number): string => (minutes / 60).toFixed(1)
+const kindLabel = (group: string, kind: string): string =>
+  t(group === 'review' ? `study.stats.reviewKind.${kind}` : `study.stats.kind.${kind}`)
 
 const percent = (value: number | null): string =>
   value === null ? '—' : `${Math.round(value * 100)}%`
@@ -218,12 +212,68 @@ onMounted(load)
       <PxPanel class="block">
         <h2>{{ t('study.stats.skills') }}</h2>
         <ul class="skill-levels">
-          <li v-for="s in skillLevels" :key="s.skill">
-            <strong>{{ t(`study.placement.skill.${s.skill}`) }}</strong>
-            <span class="skill-tag">{{ s.level }}</span>
+          <li v-for="s in stats.skills" :key="s.skill" class="skill">
+            <strong>{{ t(`study.stats.skill.${s.skill}`) }}</strong>
+            <span class="skill-tag">{{ s.level.replace('_', '.') }}</span>
+            <span class="muted small"
+              >{{ s.rating }} · {{ t('study.stats.games', { n: s.games }) }}</span
+            >
+            <button
+              v-if="s.reliable && s.ahead >= 1"
+              type="button"
+              class="up"
+              :title="t('study.stats.readyHint')"
+              @click="emit('checkpoint')"
+            >
+              ▲ {{ t('study.stats.ready') }}
+            </button>
           </li>
         </ul>
         <p class="muted small">{{ t('study.stats.skillsHint') }}</p>
+      </PxPanel>
+
+      <PxPanel class="block">
+        <h2>{{ t('study.stats.accuracy') }}</h2>
+        <p v-if="!stats.accuracy.length" class="muted">{{ t('study.stats.noAccuracy') }}</p>
+        <div v-for="a in stats.accuracy" :key="`${a.group}-${a.kind}-${a.skill}`" class="acc-row">
+          <span class="acc-name">{{ kindLabel(a.group, a.kind) }}</span>
+          <span class="acc-bar"><span :style="{ width: `${pct(a)}%` }" /></span>
+          <span class="acc-num"
+            >{{ pct(a) }}% <small class="muted">({{ a.correct }}/{{ a.total }})</small></span
+          >
+        </div>
+        <p class="muted small">{{ t('study.stats.accuracyHint') }}</p>
+      </PxPanel>
+
+      <PxPanel class="block">
+        <h2>{{ t('study.stats.time') }}</h2>
+        <div class="week">
+          <div>
+            <strong>{{ stats.time.todayMinutes }}</strong> {{ t('study.stats.minToday') }}
+          </div>
+          <div>
+            <strong>{{ stats.time.weekMinutes }}</strong> {{ t('study.stats.minWeek') }}
+          </div>
+          <div>
+            <strong>{{ hours(stats.time.totalMinutes) }}</strong> {{ t('study.stats.hoursTotal') }}
+          </div>
+        </div>
+        <div class="bars">
+          <div
+            v-for="d in last14"
+            :key="d.day"
+            class="bar-col"
+            :title="`${d.day}: ${d.minutes} ${t('study.stats.min')}`"
+          >
+            <div class="bar-value">{{ d.minutes || '' }}</div>
+            <div
+              class="bar time"
+              :style="{ height: `${Math.max(2, (d.minutes / maxMinutes) * 90)}px` }"
+            />
+            <div class="bar-day">{{ d.day.slice(8) }}</div>
+          </div>
+        </div>
+        <p class="muted small">{{ t('study.stats.timeHint') }}</p>
       </PxPanel>
 
       <PxPanel class="block">
@@ -410,6 +460,44 @@ h2 {
   margin: 0 0 6px;
   padding: 0;
   list-style: none;
+}
+.skill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.up {
+  padding: 0 6px;
+  border: 1px solid var(--c-success);
+  background: transparent;
+  cursor: pointer;
+  color: var(--c-success);
+  font-size: 12px;
+  font-weight: 700;
+}
+.acc-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 110px;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+  font-size: 13px;
+}
+.acc-bar {
+  height: 10px;
+  background: #e8e2d0;
+  border: 1px solid var(--c-border);
+}
+.acc-bar span {
+  display: block;
+  height: 100%;
+  background: var(--c-success);
+}
+.acc-num {
+  text-align: right;
+}
+.bar.time {
+  background: var(--c-warning);
 }
 .skill-tag {
   margin-left: 8px;

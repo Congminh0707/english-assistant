@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { CHECKPOINT_PASS_RATIO } from '@shared/placement'
 import type { PlacementQuestion, PlacementResult } from '@shared/schemas/placement'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
@@ -8,11 +9,12 @@ import PxBar from '@renderer/shared/components/PxBar.vue'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 
 // Bài kiểm tra đầu vào: 20 câu xen kẽ từ vựng / ngữ pháp / đọc hiểu, độ khó thích nghi; chấm ở main.
-const props = defineProps<{ autostart?: boolean }>()
+const props = defineProps<{ autostart?: boolean; mode?: 'placement' | 'checkpoint' }>()
 const emit = defineEmits<{ done: [] }>()
 
 const { t } = useI18n()
 const { speak } = useTts()
+const checkpoint = computed(() => props.mode === 'checkpoint')
 
 type Phase = 'intro' | 'question' | 'feedback' | 'result' | 'nopack'
 const phase = ref<Phase>('intro')
@@ -25,12 +27,17 @@ let nextQuestion: PlacementQuestion | null = null
 let nextResult: PlacementResult | null = null
 let timer = 0
 
+const PASS_PERCENT = CHECKPOINT_PASS_RATIO * 100
+const levelName = (level: string | null): string => (level ? level.replace('_', '.') : '')
+
 const progress = computed(() => (question.value ? question.value.index - 1 : 0))
 
 async function start(): Promise<void> {
   busy.value = true
   try {
-    const { question: first } = await invoke('placement:start')
+    const { question: first } = await invoke(
+      checkpoint.value ? 'placement:checkpoint-start' : 'placement:start'
+    )
     if (!first) {
       phase.value = 'nopack'
       return
@@ -84,6 +91,15 @@ function advance(): void {
   }
 }
 
+/** Nghe: tự đọc câu khi hiện câu hỏi */
+watch(
+  () => (phase.value === 'question' ? question.value?.id : null),
+  () => {
+    const q = question.value
+    if (q?.kind === 'listening' && q.say && phase.value === 'question') speak(q.say, 'us', 0.9)
+  }
+)
+
 function choiceClass(i: number): Record<string, boolean> {
   if (!feedback.value) return {}
   return {
@@ -112,10 +128,10 @@ onUnmounted(() => {
 
 <template>
   <section class="placement">
-    <h1>{{ t('study.placement.title') }}</h1>
+    <h1>{{ checkpoint ? t('study.placement.checkpointTitle') : t('study.placement.title') }}</h1>
 
     <PxPanel v-if="phase === 'intro'" class="box">
-      <p>{{ t('study.placement.intro') }}</p>
+      <p>{{ checkpoint ? t('study.placement.checkpointIntro') : t('study.placement.intro') }}</p>
       <button type="button" class="primary" :disabled="busy" @click="start">
         {{ t('study.placement.start') }}
       </button>
@@ -136,7 +152,16 @@ onUnmounted(() => {
         }}
       </p>
       <PxPanel class="box">
-        <div v-if="question.kind === 'vocab'" class="word">
+        <div v-if="question.kind === 'listening'" class="listen">
+          <button type="button" class="say big" @click="speak(question.say ?? '', 'us', 0.9)">
+            🔊 {{ t('study.lessons.play') }}
+          </button>
+          <button type="button" class="say big" @click="speak(question.say ?? '', 'us', 0.6)">
+            🐢 {{ t('study.lessons.slow') }}
+          </button>
+          <p class="prompt">{{ question.prompt }}</p>
+        </div>
+        <div v-else-if="question.kind === 'vocab'" class="word">
           <strong>{{ question.lemma }}</strong>
           <button type="button" class="say" @click="speak(question.lemma)">🔊</button>
           <span v-if="question.ipa" class="muted">{{ question.ipa }}</span>
@@ -180,6 +205,18 @@ onUnmounted(() => {
       <h2>{{ t('study.placement.resultTitle', { cefr: result.cefr }) }}</h2>
       <p>
         {{ t('study.placement.resultBody', { correct: result.correct, total: result.total }) }}
+      </p>
+      <p v-if="result.checkpoint" class="checkpoint" :class="{ ok: result.checkpoint.passed }">
+        {{
+          result.checkpoint.passed
+            ? t('study.placement.checkpointPassed', { level: levelName(result.checkpoint.to) })
+            : t('study.placement.checkpointFailed', { n: Math.round(PASS_PERCENT) })
+        }}
+        <span v-if="result.checkpoint.xp" class="reward">
+          {{
+            t('study.missions.reward', { xp: result.checkpoint.xp, coins: result.checkpoint.coins })
+          }}
+        </span>
       </p>
       <ul class="skills">
         <li v-for="s in result.skills" :key="s.skill">
@@ -339,5 +376,33 @@ h1 {
   color: #fff;
   background: var(--c-xp);
   border: 1px solid var(--c-border);
+}
+.listen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.say.big {
+  padding: 8px 14px;
+  font-size: 14px;
+}
+.listen .prompt {
+  flex-basis: 100%;
+}
+.checkpoint {
+  margin: 8px 0;
+  padding: 8px 12px;
+  font-weight: 700;
+  background: #fde3e3;
+  border-left: 4px solid var(--c-danger);
+}
+.checkpoint.ok {
+  background: #e3f6e6;
+  border-left-color: var(--c-success);
+}
+.reward {
+  margin-left: 8px;
+  color: var(--c-ink-soft);
 }
 </style>

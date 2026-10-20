@@ -23,18 +23,25 @@ export class SpriteAnimator {
   private acc = 0
   private drawnFrame = -1
   private drawnFlip = false
-  private readonly columns: number
+  private columns: number
   /** Các lớp phụ kiện (cùng bố cục frame với sheet chính), vẽ chồng theo thứ tự */
   private overlays: HTMLImageElement[] = []
 
   constructor(
-    private readonly image: HTMLImageElement,
+    private image: HTMLImageElement,
     private readonly meta: SpriteSheetMeta,
     private readonly ctx: CanvasRenderingContext2D,
     private scale: number
   ) {
     this.columns = Math.floor(image.width / meta.frameSize.w)
     this.resizeCanvas()
+  }
+
+  /** Đổi sang sheet khác cùng bố cục frame (tiến hoá sang giai đoạn mới); vẽ lại ngay */
+  setSheet(image: HTMLImageElement): void {
+    this.image = image
+    this.columns = Math.floor(image.width / this.meta.frameSize.w)
+    this.drawnFrame = -1
   }
 
   /** Đặt các lớp phụ kiện đang đeo (vẽ lại ngay) */

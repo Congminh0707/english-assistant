@@ -115,6 +115,8 @@ Lộ trình học từ đầu cho người Việt, **tự soạn** (`proprietary
 
 ## 6. Module Nghe — Listening (P1)
 
+> ✅ **Đã làm (Phase 2)** — bài nghe là bài học kiểu `listening` (cùng cơ chế với bài đọc, xem [decisions #15](decisions.md)): block `audio` gồm các câu thoại (có bản dịch Việt, người nói A/B hoặc độc thoại), phát bằng TTS từng câu. `ListeningPlayer.vue`: phát liên tục (`useTts().speakAsync` đợi đọc xong từng câu), người nói A giọng Mỹ và B giọng Anh, tốc độ 0.6×/0.8×/1×, nghe lại câu, lặp đoạn A–B, ẩn/hiện lời thoại (mặc định ẩn để luyện nghe) và bản dịch, tự chép câu đang nghe (chấm bằng `dictationAccuracy`, đạt ≥ 90%). 30 bài A1–B1 trong 6 chương (chào hỏi, đời sống, du lịch, giao tiếp xã hội, học tập & công việc, bài nói ngắn). Bài nghe cũng có trong bài kiểm tra đầu vào/lên cấp (`kind = listening`, câu hỏi kèm `say`). Chưa dùng audio thu sẵn (VOA/LibriVox/Whisper căn chỉnh) — TTS đủ cho nội dung tự soạn; sinh sẵn audio lúc build để sau, khi chốt dung lượng bộ cài.
+
 - **Nguồn audio**: VOA Learning English (public domain), Tatoeba audio, LibriVox, audio TTS do app sinh cho bài tự soạn.
 - **Trình phát**: tốc độ 0.5x–1.5x, lặp lại câu (A–B loop), tua theo câu, ẩn/hiện transcript.
 - **Dạng bài**: `dictation` (từng câu), `gap_fill` trên transcript, `listen_choice`, `true_false_ng`, TOEIC Part 1–4.

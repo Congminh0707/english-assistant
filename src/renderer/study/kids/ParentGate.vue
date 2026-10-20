@@ -14,19 +14,22 @@ const emit = defineEmits<{ ok: []; close: [] }>()
 
 const { t } = useI18n()
 
-type Step = 'current' | 'new' | 'confirm' | 'verify'
+type Step = 'current' | 'new' | 'confirm' | 'verify' | 'forgot'
 const step = ref<Step>(props.mode === 'set' ? (props.changing ? 'current' : 'new') : 'verify')
 const digits = ref('')
 const firstPin = ref('')
 const currentPin = ref('')
 const message = ref('')
 const retryAfter = ref(0)
+/** Quên PIN: phép nhân phải giải để đặt lại */
+const forgot = ref<{ id: string; a: number; b: number } | null>(null)
 const busy = ref(false)
 let lockTimer = 0
 
 const KEYS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'del', '0', 'ok']
 
 const title = computed(() => {
+  if (step.value === 'forgot') return t('kids.gate.forgotTitle')
   if (step.value === 'new') return t('kids.gate.newPin')
   if (step.value === 'confirm') return t('kids.gate.confirmPin')
   if (step.value === 'current') return t('kids.gate.currentPin')
@@ -38,7 +41,9 @@ function press(key: string): void {
   message.value = ''
   if (key === 'del') digits.value = digits.value.slice(0, -1)
   else if (key === 'ok') void submit()
-  else if (digits.value.length < 4) {
+  else if (step.value === 'forgot') {
+    if (digits.value.length < 4) digits.value += key // đáp án có thể 2–3 chữ số: bấm ✓ để gửi
+  } else if (digits.value.length < 4) {
     digits.value += key
     if (digits.value.length === 4) void submit()
   }
@@ -49,7 +54,37 @@ function fail(text: string): void {
   digits.value = ''
 }
 
+async function startForgot(): Promise<void> {
+  forgot.value = await invoke('parent:forgot')
+  digits.value = ''
+  message.value = ''
+  step.value = 'forgot'
+}
+
+async function submitForgot(): Promise<void> {
+  if (!forgot.value || !digits.value) return
+  busy.value = true
+  try {
+    const res = await invoke('parent:reset', { id: forgot.value.id, answer: Number(digits.value) })
+    if (res.ok) {
+      // PIN cũ đã bị xoá → đặt PIN mới (không cần PIN hiện tại)
+      forgot.value = null
+      digits.value = ''
+      step.value = 'new'
+      message.value = t('kids.gate.resetOk')
+    } else if (res.retryAfterSeconds > 0) {
+      startLock(res.retryAfterSeconds)
+    } else {
+      fail(t('kids.gate.forgotWrong'))
+      forgot.value = await invoke('parent:forgot') // mỗi câu hỏi chỉ trả lời một lần
+    }
+  } finally {
+    busy.value = false
+  }
+}
+
 async function submit(): Promise<void> {
+  if (step.value === 'forgot') return submitForgot()
   const pin = digits.value
   if (pin.length !== 4) return
   busy.value = true
@@ -129,9 +164,11 @@ onUnmounted(() => {
       <p v-if="mode === 'set' && step === 'new' && !changing" class="muted">
         {{ t('kids.gate.setHint') }}
       </p>
-      <div class="dots" aria-hidden="true">
+      <p v-if="step === 'forgot' && forgot" class="question">{{ forgot.a }} × {{ forgot.b }} = ?</p>
+      <div v-if="step !== 'forgot'" class="dots" aria-hidden="true">
         <span v-for="i in 4" :key="i" class="dot" :class="{ on: digits.length >= i }" />
       </div>
+      <p v-else class="answer">{{ digits || '…' }}</p>
       <p class="msg" :class="{ show: message }">{{ message }}</p>
       <div class="pad">
         <button
@@ -146,6 +183,14 @@ onUnmounted(() => {
           {{ k === 'del' ? '⌫' : k === 'ok' ? '✓' : k }}
         </button>
       </div>
+      <button
+        v-if="step === 'verify' && mode !== 'extend'"
+        type="button"
+        class="cancel"
+        @click="startForgot"
+      >
+        {{ t('kids.gate.forgot') }}
+      </button>
       <button type="button" class="cancel" @click="emit('close')">
         {{ t('kids.gate.cancel') }}
       </button>
@@ -197,6 +242,20 @@ h2 {
 }
 .dot.on {
   background: var(--c-primary);
+}
+.question {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+}
+.answer {
+  min-width: 90px;
+  margin: 0;
+  padding: 4px 14px;
+  font-size: 28px;
+  font-weight: 800;
+  text-align: center;
+  border-bottom: 3px solid var(--c-border);
 }
 .msg {
   min-height: 1.4em;

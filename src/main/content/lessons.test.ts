@@ -3,11 +3,14 @@ import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
   GrammarUnitFileSchema,
+  LessonSchema,
   LessonUnitFileSchema,
+  ListeningUnitFileSchema,
   ReadingUnitFileSchema,
   type LessonExercise
 } from '@shared/schemas/lesson'
 import { PhrasebookFileSchema } from '@shared/schemas/phrasebook'
+import { CourseFileSchema } from '@shared/schemas/course'
 import { KidsFileSchema } from '@shared/schemas/kids'
 import { PICTURE_IDS } from '@shared/pictures'
 import { PlacementBankFileSchema } from '@shared/schemas/placement'
@@ -199,6 +202,33 @@ lessonKindSuite('readings', ReadingUnitFileSchema, (lesson) => {
   return out
 })
 lessonKindSuite('grammar', GrammarUnitFileSchema, () => [])
+lessonKindSuite('listening', ListeningUnitFileSchema, (lesson) => {
+  const out: string[] = []
+  const audio = lesson.blocks.filter((b) => b.type === 'audio')
+  if (audio.length !== 1) out.push(`${lesson.id}: bài nghe cần đúng một block audio`)
+  for (const b of audio) {
+    if (b.type !== 'audio') continue
+    if (b.lines.some((l) => !l.vi)) out.push(`${lesson.id}: mỗi câu cần có bản dịch tiếng Việt`)
+    const speakers = new Set(b.lines.map((l) => l.speaker ?? '-'))
+    if (speakers.size > 1 && speakers.has('-'))
+      out.push(`${lesson.id}: không trộn câu có và không có người nói`)
+    const words = b.lines
+      .map((l) => l.en)
+      .join(' ')
+      .split(/\s+/).length
+    if (words < 30) out.push(`${lesson.id}: bài nghe quá ngắn (${words} từ)`)
+  }
+  if (lesson.exercises.some((e) => e.type === 'order'))
+    out.push(`${lesson.id}: bài nghe không dùng sắp xếp câu`)
+  return out
+})
+it('có đủ 30 bài nghe trải từ Pre-A1 đến B1', () => {
+  const lessons = loadDir('listening').flatMap(
+    ({ raw }) => ListeningUnitFileSchema.parse(raw).lessons
+  )
+  expect(lessons.length).toBeGreaterThanOrEqual(30)
+  expect(new Set(lessons.map((l) => l.level)).size).toBeGreaterThanOrEqual(4)
+})
 
 describe('nội dung mẫu câu', () => {
   const entries = loadDir('phrasebook')
@@ -223,7 +253,8 @@ describe('id nội dung dùng chung bảng tiến độ', () => {
     for (const [name, schema] of [
       ['lessons', LessonUnitFileSchema],
       ['readings', ReadingUnitFileSchema],
-      ['grammar', GrammarUnitFileSchema]
+      ['grammar', GrammarUnitFileSchema],
+      ['listening', ListeningUnitFileSchema]
     ] as const) {
       for (const { raw } of loadDir(name)) {
         const parsed = schema.parse(raw)
@@ -305,6 +336,12 @@ describe('nội dung cho trẻ em', () => {
           if (item.picture && !PICTURE_IDS.includes(item.picture)) {
             errors.push(`${a.id}/${item.text}: hình ${item.picture} không tồn tại`)
           }
+          if (a.kind === 'trace' && !/^[A-Z]$/.test(item.text)) {
+            errors.push(`${a.id}/${item.text}: tập viết chỉ nhận một chữ in hoa A–Z`)
+          }
+          if (a.kind === 'book' && !/[.!?]$/.test(item.text)) {
+            errors.push(`${a.id}/${item.text}: câu trong sách tranh cần có dấu kết câu`)
+          }
           if (a.kind === 'blend') {
             if (!item.letters || !item.sounds)
               errors.push(`${a.id}/${item.text}: thiếu letters/sounds`)
@@ -315,16 +352,73 @@ describe('nội dung cho trẻ em', () => {
                 errors.push(`${a.id}/${item.text}: số âm khác số chữ`)
             }
           }
-          if ((a.kind === 'sounds' || a.kind === 'blend') && !item.picture) {
+          if (['sounds', 'blend', 'book', 'speak'].includes(a.kind) && !item.picture) {
             errors.push(`${a.id}/${item.text}: cần có hình để chơi nghe → chọn hình`)
           }
         }
         // Chơi chọn hình cần ít nhất 3 hình khác nhau để có lựa chọn
         const pics = new Set(a.items.map((i) => i.picture).filter(Boolean))
-        if (a.kind !== 'sight' && a.kind !== 'letters' && pics.size < 3)
+        if (['sounds', 'blend', 'book'].includes(a.kind) && pics.size < 3)
           errors.push(`${a.id}: cần ≥ 3 hình khác nhau`)
       }
       expect(errors).toEqual([])
     })
   }
+})
+
+describe('nội dung lộ trình', () => {
+  const entries = loadDir('courses')
+  const idsByKind: Record<string, Set<string>> = {}
+  for (const [kind, dir, schema] of [
+    ['lesson', 'lessons', LessonUnitFileSchema],
+    ['grammar', 'grammar', GrammarUnitFileSchema],
+    ['reading', 'readings', ReadingUnitFileSchema],
+    ['listening', 'listening', ListeningUnitFileSchema]
+  ] as const) {
+    idsByKind[kind] = new Set(
+      loadDir(dir).flatMap(({ raw }) => schema.parse(raw).lessons.map((l) => l.id))
+    )
+  }
+
+  it('có ít nhất hai khoá', () => expect(entries.length).toBeGreaterThanOrEqual(2))
+
+  const courseIds = new Set<string>()
+  for (const { file, raw } of entries) {
+    it(`${file}: đúng schema, mọi bước trỏ tới bài có thật, không lặp bài`, () => {
+      const data = CourseFileSchema.parse(raw)
+      expect(courseIds.has(data.course.id)).toBe(false)
+      courseIds.add(data.course.id)
+      const errors: string[] = []
+      const seen = new Set<string>()
+      for (const unit of data.units) {
+        for (const step of unit.steps) {
+          if (!idsByKind[step.kind].has(step.id))
+            errors.push(`${step.kind}:${step.id} không tồn tại`)
+          if (seen.has(step.id)) errors.push(`${step.id} lặp trong khoá`)
+          seen.add(step.id)
+        }
+      }
+      expect(errors).toEqual([])
+    })
+  }
+})
+
+describe('mọi bài (học/ngữ pháp/đọc/nghe) qua được schema trả về của IPC', () => {
+  it('LessonSchema chấp nhận từng bài', () => {
+    const dirs = ['lessons', 'grammar', 'readings', 'listening']
+    const bad: string[] = []
+    for (const dir of dirs) {
+      const base = resolve('content/curated', dir)
+      for (const f of readdirSync(base).filter((n) => n.endsWith('.json'))) {
+        const data = JSON.parse(readFileSync(resolve(base, f), 'utf8').replace(/^\p{Cf}/u, '')) as {
+          lessons: unknown[]
+        }
+        for (const l of data.lessons) {
+          const r = LessonSchema.safeParse(l)
+          if (!r.success) bad.push(`${dir}/${f}: ${(l as { id: string }).id}`)
+        }
+      }
+    }
+    expect(bad).toEqual([])
+  })
 })

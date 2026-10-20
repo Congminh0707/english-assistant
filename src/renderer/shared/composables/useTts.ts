@@ -42,6 +42,8 @@ export function useTtsModel(): {
  */
 export function useTts(): {
   speak: (text: string, accent?: Accent, rate?: number) => void
+  /** Đọc và đợi đọc xong: true = đọc hết, false = bị ngắt (đọc câu khác / stop) — dùng cho trình nghe phát liên tục */
+  speakAsync: (text: string, accent?: Accent, rate?: number) => Promise<boolean>
   /** Tạo trước âm thanh ở nền cho nội dung sắp nghe (chỉ có tác dụng với giọng tự nhiên) */
   prefetch: (texts: string[], accent?: Accent, rate?: number) => void
   stop: () => void
@@ -60,6 +62,8 @@ export function useTts(): {
   let audio: HTMLAudioElement | null = null
   let audioUrl: string | null = null
   let requestSeq = 0
+  /** Kết thúc lần đọc đang chờ (speakAsync): gọi khi đọc xong hoặc bị ngắt */
+  let settle: ((finished: boolean) => void) | null = null
 
   const loadVoices = (): void => {
     voices =
@@ -82,13 +86,19 @@ export function useTts(): {
 
   function speakSystem(text: string, accent: Accent, rate: number): void {
     const synth = window.speechSynthesis
-    if (!synth || !text.trim()) return
+    if (!synth || !text.trim()) {
+      settle?.(false)
+      return
+    }
     synth.cancel()
     const utterance = new SpeechSynthesisUtterance(text)
     const voice = pickVoice(accent)
     if (voice) utterance.voice = voice
     utterance.lang = voice?.lang ?? (accent === 'uk' ? 'en-GB' : 'en-US')
     utterance.rate = rate
+    const done = settle
+    utterance.addEventListener('end', () => done?.(true))
+    utterance.addEventListener('error', () => done?.(false))
     synth.speak(utterance)
   }
 
@@ -115,7 +125,16 @@ export function useTts(): {
       releaseAudio()
       audioUrl = URL.createObjectURL(new Blob([new Uint8Array(bytes)], { type: 'audio/wav' }))
       audio = new Audio(audioUrl)
-      audio.addEventListener('ended', releaseAudio, { once: true })
+      const done = settle
+      audio.addEventListener(
+        'ended',
+        () => {
+          releaseAudio()
+          done?.(true)
+        },
+        { once: true }
+      )
+      audio.addEventListener('error', () => done?.(false), { once: true })
       await audio.play()
     } catch (err) {
       console.warn('[tts] giọng tự nhiên lỗi, dùng giọng Windows', err)
@@ -130,6 +149,27 @@ export function useTts(): {
     else speakSystem(text, accent, rate)
   }
 
+  function speakAsync(
+    text: string,
+    accent: Accent = defaultAccent(),
+    rate = 0.9
+  ): Promise<boolean> {
+    if (!text.trim()) return Promise.resolve(false)
+    stop()
+    return new Promise<boolean>((resolve) => {
+      let called = false
+      settle = (finished) => {
+        if (called) return
+        called = true
+        if (settle === own) settle = null
+        resolve(finished)
+      }
+      const own = settle
+      if (naturalVoice.value) void speakNatural(text, accent, rate)
+      else speakSystem(text, accent, rate)
+    })
+  }
+
   function prefetch(texts: string[], accent: Accent = defaultAccent(), rate = 0.9): void {
     if (!naturalVoice.value || !texts.length) return
     void invoke('tts:prefetch', { texts, accent, speed: kokoroSpeed(rate) }).catch(() => undefined)
@@ -137,9 +177,12 @@ export function useTts(): {
 
   function stop(): void {
     requestSeq++
+    const pending = settle
+    settle = null
     window.speechSynthesis?.cancel()
     releaseAudio()
+    pending?.(false)
   }
 
-  return { speak, prefetch, stop, available, naturalVoice }
+  return { speak, speakAsync, prefetch, stop, available, naturalVoice }
 }

@@ -3,8 +3,19 @@ import { z } from 'zod'
 
 const Text = z.string().trim().min(1)
 
-/** Loại hoạt động: chữ cái, âm (phonics), ghép âm CVC, từ nhìn là nhớ */
-export const KidsKindSchema = z.enum(['letters', 'sounds', 'blend', 'sight'])
+/**
+ * Loại hoạt động: chữ cái, âm (phonics), ghép âm CVC, từ nhìn là nhớ, sách tranh (mỗi trang một hình + câu ngắn),
+ * tập viết chữ (tô theo chữ mẫu), nói lặp lại (nghe rồi nói; chưa chấm giọng — chờ nhận dạng giọng nói ở Phase 3)
+ */
+export const KidsKindSchema = z.enum([
+  'letters',
+  'sounds',
+  'blend',
+  'sight',
+  'book',
+  'trace',
+  'speak'
+])
 export type KidsKind = z.infer<typeof KidsKindSchema>
 
 export const KidsItemSchema = z.object({
@@ -171,6 +182,17 @@ export const ParentVerifyResultSchema = z.object({
 export const ParentExtendInputSchema = z.object({
   pin: z.string().max(8),
   minutes: z.number().int().min(5).max(60)
+})
+
+/** Câu hỏi nhân khi quên PIN: a × b */
+export const ParentForgotSchema = z.object({
+  id: z.string(),
+  a: z.number().int(),
+  b: z.number().int()
+})
+export const ParentResetInputSchema = z.object({
+  id: z.string().min(1),
+  answer: z.number().int().min(0).max(9999)
 })
 
 export const ParentReportSchema = z.object({

@@ -68,10 +68,12 @@ Luôn dùng helper `paths.ts` thay vì viết cứng đường dẫn.
 
 ## 4. Auto-update
 
+> ✅ **Đã làm** (`src/main/system/UpdateManager.ts`): kiểm tra GitHub Releases sau 45 giây khi mở app và mỗi 6 giờ (cài đặt `app.autoUpdate`, mặc định bật; chỉ bản đã đóng gói). Không tự tải hay tự cài: Cài đặt → Cập nhật hiện "có bản mới (~x MB)" → người dùng bấm tải → "Khởi động lại để cài". Phát hành: `GH_TOKEN=<token> pnpm release:win` (electron-builder đẩy installer + `latest.yml` + `.blockmap` lên GitHub Release của tag trùng version trong `package.json`). Kênh `beta` và thông báo qua mascot để sau.
+
 - `electron-updater` kiểm tra GitHub Releases khi khởi động + mỗi 6 giờ.
 - Tải nền, hỏi người dùng "Cập nhật khi thoát app?" — mascot báo bằng bong bóng thay vì dialog hệ thống.
 - Kênh: `latest` (ổn định) và `beta` (tuỳ chọn trong Cài đặt).
-- Migration DB chạy tự động sau cập nhật; **backup `user.db` trước khi migrate**.
+- Migration DB chạy tự động sau cập nhật; **`user.db` được sao lưu trước khi migrate** (✅ `backupBeforeMigrate` trong `src/main/db/client.ts`: chỉ khi còn migration chưa áp dụng, lưu `user.db.bak-<yyyymmddhhmmss>` cạnh file gốc, giữ 3 bản gần nhất).
 
 ## 5. Code signing
 

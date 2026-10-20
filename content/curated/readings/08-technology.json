@@ -1,0 +1,328 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readtech",
+    "title": "Công nghệ & thế giới",
+    "summary": "An toàn mạng, xe điện, làm việc từ xa, học bằng ứng dụng.",
+    "icon": "💻",
+    "order": 8
+  },
+  "lessons": [
+    {
+      "id": "readtech.online-safety",
+      "title": "An toàn trên mạng",
+      "summary": "Những quy tắc đơn giản để dùng Internet an toàn.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Từ khoá: **password**, **personal information**, **strangers**, **suspicious**."
+        },
+        {
+          "type": "passage",
+          "title": "Staying Safe Online",
+          "paragraphs": [
+            {
+              "en": "The Internet is useful, but it also has risks. Some people try to steal passwords or money, and others pretend to be someone they are not.",
+              "vi": "Internet hữu ích nhưng cũng có rủi ro. Một số người cố đánh cắp mật khẩu hoặc tiền, số khác giả làm người họ không phải."
+            },
+            {
+              "en": "To protect yourself, use a different password for each account, and make it long, with letters, numbers and symbols. Never share your password, even with a friend, and do not give personal information such as your address to strangers.",
+              "vi": "Để tự bảo vệ, hãy dùng mật khẩu khác nhau cho mỗi tài khoản, dài và gồm chữ, số, ký hiệu. Đừng chia sẻ mật khẩu, kể cả với bạn bè, và đừng đưa thông tin cá nhân như địa chỉ cho người lạ."
+            },
+            {
+              "en": "Be careful with emails or messages that ask you to click a link quickly. If something looks suspicious, do not click. Instead, go to the official website yourself or ask an adult you trust.",
+              "vi": "Hãy cẩn thận với email hoặc tin nhắn bảo bạn bấm vào liên kết thật nhanh. Nếu có gì đáng ngờ, đừng bấm. Thay vào đó, tự vào trang web chính thức hoặc hỏi một người lớn bạn tin tưởng."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What should a good password be like?",
+          "choices": [
+            "Long, with letters, numbers and symbols",
+            "Short and easy",
+            "The same everywhere"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What should you do with a suspicious link?",
+          "choices": [
+            "Not click it",
+            "Click it quickly",
+            "Send it to friends"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "You should use a different password for each account.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "It is fine to share your password with a close friend.",
+          "answer": "false",
+          "explain": "Bài viết nói không chia sẻ mật khẩu, kể cả với bạn bè."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer recommends one specific antivirus program.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readtech.electric-cars",
+      "title": "Xe điện",
+      "summary": "Ưu và nhược điểm của ô tô điện.",
+      "level": "B1_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Bài có cấu trúc **advantage – disadvantage**; chú ý từ nối **however, on the other hand**."
+        },
+        {
+          "type": "passage",
+          "title": "Electric Cars",
+          "paragraphs": [
+            {
+              "en": "Electric cars are becoming more popular every year. They do not burn petrol, so they produce no smoke from the exhaust, and the air in cities can become cleaner.",
+              "vi": "Xe điện ngày càng phổ biến. Chúng không đốt xăng nên không thải khói, và không khí thành phố có thể sạch hơn."
+            },
+            {
+              "en": "Another advantage is the cost of using them. Electricity is usually cheaper than petrol, and electric engines need less repair. They are also very quiet, which reduces noise in busy streets.",
+              "vi": "Một ưu điểm khác là chi phí sử dụng. Điện thường rẻ hơn xăng và động cơ điện ít phải sửa. Chúng cũng rất êm, giúp giảm tiếng ồn ở phố đông."
+            },
+            {
+              "en": "However, there are disadvantages. Electric cars are still expensive to buy, and charging takes longer than filling a petrol tank. In some places, there are not enough charging stations. On the other hand, prices are falling, and new stations open every month.",
+              "vi": "Tuy nhiên cũng có nhược điểm. Xe điện vẫn đắt khi mua, và sạc lâu hơn đổ xăng. Ở một số nơi không đủ trạm sạc. Mặt khác, giá đang giảm và mỗi tháng lại có trạm mới mở."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why can electric cars make the air cleaner?",
+          "choices": [
+            "They produce no smoke from the exhaust.",
+            "They are small.",
+            "They are slow."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is a disadvantage mentioned?",
+          "choices": [
+            "They are still expensive to buy.",
+            "They are very loud.",
+            "They need more repair."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Electricity is usually cheaper than petrol.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Charging is faster than filling a petrol tank.",
+          "answer": "false",
+          "explain": "Sạc lâu hơn đổ xăng."
+        },
+        {
+          "type": "tf",
+          "statement": "All countries have enough charging stations.",
+          "answer": "false",
+          "explain": "Bài viết nói ở một số nơi không đủ trạm sạc."
+        },
+        {
+          "type": "gap",
+          "prompt": "Electric engines need less ___.",
+          "answers": [
+            "repair"
+          ],
+          "choices": [
+            "repair",
+            "noise",
+            "smoke"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readtech.remote-work",
+      "title": "Làm việc từ xa",
+      "summary": "Lợi ích và thách thức khi làm việc tại nhà.",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Chú ý cụm học thuật: **flexibility**, **isolated**, **boundaries**, **productivity**."
+        },
+        {
+          "type": "passage",
+          "title": "Working from Home",
+          "paragraphs": [
+            {
+              "en": "Since the pandemic, millions of employees have started working from home at least part of the week. Many say the biggest benefit is flexibility: they save hours of travelling, and they can organise their day around their own energy and family needs.",
+              "vi": "Kể từ đại dịch, hàng triệu nhân viên bắt đầu làm việc tại nhà ít nhất một phần tuần. Nhiều người nói lợi ích lớn nhất là sự linh hoạt: tiết kiệm hàng giờ đi lại và tự sắp xếp ngày làm việc theo năng lượng và nhu cầu gia đình."
+            },
+            {
+              "en": "However, remote work is not perfect. Some people feel isolated because they miss casual conversations with colleagues, and it can be hard to separate work from private life when the office is also the living room.",
+              "vi": "Tuy nhiên làm việc từ xa không hoàn hảo. Một số người thấy cô lập vì thiếu những cuộc trò chuyện bình thường với đồng nghiệp, và khó tách công việc khỏi đời sống riêng khi văn phòng cũng là phòng khách."
+            },
+            {
+              "en": "Experts suggest setting clear boundaries: a fixed working space, regular hours and short breaks. Many companies now prefer a hybrid model, where employees come to the office two or three days a week, hoping to keep both productivity and team spirit.",
+              "vi": "Các chuyên gia khuyên đặt ranh giới rõ ràng: góc làm việc cố định, giờ giấc đều đặn và nghỉ giải lao ngắn. Nhiều công ty giờ ưu tiên mô hình kết hợp, nhân viên đến văn phòng hai ba ngày mỗi tuần để giữ cả năng suất lẫn tinh thần đồng đội."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What do many employees say is the biggest benefit?",
+          "choices": [
+            "Flexibility",
+            "Higher pay",
+            "More meetings"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why do some people feel isolated?",
+          "choices": [
+            "They miss casual talks with colleagues.",
+            "They work too fast.",
+            "They have no computer."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "A hybrid model combines home and office work.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Experts say you should work without any fixed hours.",
+          "answer": "false",
+          "explain": "Chuyên gia khuyên giờ giấc đều đặn."
+        },
+        {
+          "type": "tf",
+          "statement": "Most companies have stopped using offices completely.",
+          "answer": "false",
+          "explain": "Nhiều công ty ưu tiên mô hình kết hợp, không bỏ văn phòng."
+        },
+        {
+          "type": "gap",
+          "prompt": "Experts suggest setting clear ___.",
+          "answers": [
+            "boundaries"
+          ],
+          "choices": [
+            "boundaries",
+            "prices",
+            "rules of football"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readtech.learning-with-apps",
+      "title": "Học ngôn ngữ bằng ứng dụng",
+      "summary": "Ứng dụng học tập giúp được gì và chưa giúp được gì.",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Bài lập luận cân bằng: tìm câu chủ đề và các cụm **while**, **although**, **on its own**."
+        },
+        {
+          "type": "passage",
+          "title": "Learning with Apps",
+          "paragraphs": [
+            {
+              "en": "Language-learning apps have made studying easier than ever. Lessons fit into a few minutes on the bus, and short games, reminders and points keep many users motivated for months.",
+              "vi": "Ứng dụng học ngôn ngữ làm việc học dễ hơn bao giờ hết. Bài học vừa vài phút trên xe buýt, còn các trò chơi ngắn, nhắc nhở và điểm số giúp nhiều người giữ động lực hàng tháng."
+            },
+            {
+              "en": "Nevertheless, an app on its own is rarely enough. While it can teach vocabulary and basic sentences effectively, it cannot fully replace conversation with real people, who react in unexpected ways and use language naturally.",
+              "vi": "Tuy vậy, một ứng dụng riêng lẻ hiếm khi đủ. Dù có thể dạy từ vựng và câu cơ bản hiệu quả, nó không thể thay thế hoàn toàn việc trò chuyện với người thật, những người phản ứng bất ngờ và dùng ngôn ngữ tự nhiên."
+            },
+            {
+              "en": "The most successful learners combine several methods: an app for daily practice, books or videos for deeper understanding, and regular speaking with a teacher or a language partner. Although it takes more effort, this balanced approach usually brings faster progress.",
+              "vi": "Người học thành công nhất kết hợp nhiều phương pháp: ứng dụng để luyện hằng ngày, sách hoặc video để hiểu sâu hơn và thường xuyên nói chuyện với giáo viên hoặc bạn học. Dù tốn nhiều công sức hơn, cách cân bằng này thường giúp tiến bộ nhanh hơn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What helps users stay motivated?",
+          "choices": [
+            "Games, reminders and points",
+            "Long lectures",
+            "Exams"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What cannot an app fully replace?",
+          "choices": [
+            "Conversation with real people",
+            "Learning vocabulary",
+            "Daily practice"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The writer thinks an app alone is usually enough.",
+          "answer": "false",
+          "explain": "Tác giả viết ứng dụng riêng lẻ hiếm khi đủ."
+        },
+        {
+          "type": "tf",
+          "statement": "Successful learners often combine several methods.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The most popular app is free.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "A balanced approach usually brings ___ progress.",
+          "answers": [
+            "faster"
+          ],
+          "choices": [
+            "faster",
+            "slower",
+            "no"
+          ]
+        }
+      ]
+    }
+  ]
+}

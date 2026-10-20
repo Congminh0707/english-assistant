@@ -1,0 +1,376 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "gramtense",
+    "title": "Thì nâng cao",
+    "summary": "Hiện tại hoàn thành tiếp diễn, quá khứ hoàn thành, các cách nói tương lai.",
+    "icon": "⏳",
+    "order": 4
+  },
+  "lessons": [
+    {
+      "id": "gramtense.present-perfect-cont",
+      "title": "Hiện tại hoàn thành tiếp diễn",
+      "summary": "Have been + V-ing: việc kéo dài đến bây giờ.",
+      "level": "B1_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Dùng **have/has been + V-ing** để nhấn mạnh **thời gian kéo dài** của một hành động bắt đầu trong quá khứ và còn liên quan đến hiện tại.\n\n- `I have been studying English for two years.`\n- `She has been waiting since nine o'clock.`\n- Dấu hiệu: **for** (trong bao lâu), **since** (từ khi), **all day**, **lately**, **recently**.\n\nSo với hiện tại hoàn thành: *have studied* nhấn **kết quả**, *have been studying* nhấn **quá trình**."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Câu",
+            "Nhấn mạnh"
+          ],
+          "rows": [
+            [
+              "I have read this book.",
+              "đã đọc xong (kết quả)"
+            ],
+            [
+              "I have been reading this book.",
+              "đang đọc, chưa chắc xong (quá trình)"
+            ],
+            [
+              "She has painted the room.",
+              "phòng đã sơn xong"
+            ],
+            [
+              "She has been painting all day.",
+              "cô ấy sơn cả ngày (mệt)"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "It has been raining all morning.",
+              "vi": "Trời mưa suốt cả buổi sáng."
+            },
+            {
+              "en": "How long have you been living here?",
+              "vi": "Bạn sống ở đây bao lâu rồi?"
+            },
+            {
+              "en": "We haven't been sleeping well lately.",
+              "vi": "Dạo này chúng tôi ngủ không ngon."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Động từ chỉ **trạng thái** (know, like, have, be) thường **không** dùng tiếp diễn: nói *I have known him for years*, không nói *have been knowing*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "She ___ waiting for an hour.",
+          "answers": [
+            "has been"
+          ],
+          "choices": [
+            "has been",
+            "have been",
+            "is"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I have been learning English ___ 2022.",
+          "answers": [
+            "since"
+          ],
+          "choices": [
+            "since",
+            "for",
+            "during"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "They have been working here ___ five years.",
+          "answers": [
+            "for"
+          ],
+          "choices": [
+            "for",
+            "since",
+            "from"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence emphasises the activity, not the result?",
+          "choices": [
+            "I have written the report.",
+            "I have been writing the report.",
+            "I wrote the report."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Bạn đã học tiếng Anh bao lâu rồi?",
+          "answer": "How long have you been learning English"
+        },
+        {
+          "type": "tf",
+          "statement": "“Have been knowing” is a natural form.",
+          "answer": "false",
+          "explain": "Động từ trạng thái như know không dùng tiếp diễn."
+        }
+      ]
+    },
+    {
+      "id": "gramtense.past-perfect",
+      "title": "Quá khứ hoàn thành",
+      "summary": "Had + V3: việc xảy ra trước một việc khác trong quá khứ.",
+      "level": "B1_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Quá khứ hoàn thành (had + V3)** nói về hành động xảy ra **trước** một mốc/hành động khác trong quá khứ.\n\n- `When I arrived, the film had already started.` (phim bắt đầu trước khi tôi đến)\n- `She said she had finished her homework.`\n\nThường đi với **already, just, before, by the time, after, when**."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Thứ tự xảy ra",
+            "Câu"
+          ],
+          "rows": [
+            [
+              "1 → 2",
+              "I had eaten before she came."
+            ],
+            [
+              "Phim chiếu → tôi đến",
+              "The film had started when I arrived."
+            ],
+            [
+              "Quên → tìm thấy",
+              "I had forgotten my key, so I knocked."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "By the time we got to the station, the train had left.",
+              "vi": "Lúc chúng tôi tới ga thì tàu đã chạy."
+            },
+            {
+              "en": "He had never seen snow before he moved to Canada.",
+              "vi": "Anh ấy chưa từng thấy tuyết trước khi chuyển đến Canada."
+            },
+            {
+              "en": "After she had cooked dinner, she called us.",
+              "vi": "Sau khi nấu xong bữa tối, cô ấy gọi chúng tôi."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Chỉ dùng quá khứ hoàn thành khi cần **làm rõ thứ tự**. Nếu thứ tự đã rõ (có *after/before*) người bản xứ vẫn hay dùng quá khứ đơn cho gọn."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "When I arrived, the film ___ already started.",
+          "answers": [
+            "had"
+          ],
+          "choices": [
+            "had",
+            "has",
+            "was"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She ___ never flown before that trip.",
+          "answers": [
+            "had"
+          ],
+          "choices": [
+            "had",
+            "has",
+            "did"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which happened first? “I had eaten before she called.”",
+          "choices": [
+            "I ate",
+            "She called",
+            "Both together"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "gap",
+          "prompt": "By the time he came, we ___ left.",
+          "answers": [
+            "had"
+          ],
+          "choices": [
+            "had",
+            "have",
+            "were"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Cô ấy nói rằng cô ấy đã làm xong bài tập.",
+          "answer": "She said she had finished her homework"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Choose the correct sentence.",
+          "choices": [
+            "After he had left, I went to bed.",
+            "After he has left, I went to bed.",
+            "After he leaved, I went to bed."
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "gramtense.future-forms",
+      "title": "Các cách nói về tương lai",
+      "summary": "Will, be going to, hiện tại tiếp diễn, hiện tại đơn.",
+      "level": "A2_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Tiếng Anh có nhiều cách nói tương lai:\n\n- **will + V**: quyết định ngay lúc nói, dự đoán, lời hứa — `I'll help you.`\n- **be going to + V**: kế hoạch đã có, dự đoán có bằng chứng — `I'm going to study abroad.` / `Look at the clouds! It's going to rain.`\n- **Hiện tại tiếp diễn**: lịch hẹn đã sắp xếp — `I'm meeting Tom at six.`\n- **Hiện tại đơn**: thời gian biểu cố định — `The train leaves at 8.`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Dạng",
+            "Dùng khi",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "will",
+              "quyết định tức thì, lời hứa",
+              "I'll open the window."
+            ],
+            [
+              "be going to",
+              "kế hoạch, có dấu hiệu",
+              "She's going to buy a car."
+            ],
+            [
+              "be + V-ing",
+              "hẹn đã sắp xếp",
+              "We're flying tomorrow."
+            ],
+            [
+              "hiện tại đơn",
+              "lịch cố định",
+              "The shop opens at nine."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "It's cold. I'll close the window.",
+              "vi": "Lạnh quá. Tôi sẽ đóng cửa sổ."
+            },
+            {
+              "en": "I'm going to start a new job next month.",
+              "vi": "Tháng sau tôi sẽ bắt đầu công việc mới."
+            },
+            {
+              "en": "The film starts at seven thirty.",
+              "vi": "Phim bắt đầu lúc bảy giờ rưỡi."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Mệnh đề thời gian/điều kiện (**when, if, as soon as, before**) dùng **hiện tại đơn**, không dùng will: *I will call you when I arrive.*"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "A: The phone is ringing. B: I ___ answer it.",
+          "answers": [
+            "'ll",
+            "will"
+          ],
+          "choices": [
+            "'ll",
+            "am going to",
+            "am answering"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Look at those clouds! It ___ rain.",
+          "answers": [
+            "is going to"
+          ],
+          "choices": [
+            "is going to",
+            "will",
+            "rains"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The train ___ at 9:15 tomorrow.",
+          "answers": [
+            "leaves"
+          ],
+          "choices": [
+            "leaves",
+            "will leave",
+            "is leaving"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "I will call you when I will arrive.",
+            "I will call you when I arrive.",
+            "I call you when I will arrive."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Tuần sau chúng tôi sẽ đi du lịch.",
+          "answer": "We are going to travel next week"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which expresses a decision made at the moment of speaking?",
+          "choices": [
+            "I'll have the soup, please.",
+            "I'm having soup tonight.",
+            "I have soup every day."
+          ],
+          "answer": 0
+        }
+      ]
+    }
+  ]
+}

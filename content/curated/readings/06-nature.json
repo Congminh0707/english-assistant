@@ -1,0 +1,316 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readnature",
+    "title": "Khoa học & thiên nhiên",
+    "summary": "Vòng tuần hoàn của nước, ong mật, Mặt Trăng, rừng nhiệt đới.",
+    "icon": "🌿",
+    "order": 6
+  },
+  "lessons": [
+    {
+      "id": "readnature.the-water-cycle",
+      "title": "Vòng tuần hoàn của nước",
+      "summary": "Nước bay hơi, tạo mây và rơi xuống thành mưa.",
+      "level": "A2_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Các động từ quá trình: **evaporate** (bay hơi), **condense** (ngưng tụ), **fall**."
+        },
+        {
+          "type": "passage",
+          "title": "The Water Cycle",
+          "paragraphs": [
+            {
+              "en": "Water on Earth is always moving. The sun heats the water in seas, rivers and lakes, and some of it turns into vapour and goes up into the air. This is called evaporation.",
+              "vi": "Nước trên Trái Đất luôn chuyển động. Mặt trời làm nóng nước ở biển, sông và hồ, một phần biến thành hơi và bay lên không trung. Quá trình này gọi là bay hơi."
+            },
+            {
+              "en": "High in the sky, the air is cold. The vapour cools down and becomes tiny drops of water, which form clouds. This is called condensation.",
+              "vi": "Trên cao, không khí lạnh. Hơi nước nguội đi thành những giọt nước nhỏ tạo nên mây. Quá trình này gọi là ngưng tụ."
+            },
+            {
+              "en": "When the drops in the clouds become heavy, they fall as rain or snow. The water flows back into rivers and seas, and the cycle starts again.",
+              "vi": "Khi các giọt nước trong mây nặng lên, chúng rơi xuống thành mưa hoặc tuyết. Nước chảy trở lại sông, biển và vòng tuần hoàn bắt đầu lại."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What heats the water in seas and rivers?",
+          "choices": [
+            "The sun",
+            "The wind",
+            "The moon"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is condensation?",
+          "choices": [
+            "Vapour turning into water drops",
+            "Water turning into ice",
+            "Rain flowing to the sea"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Clouds are made of tiny drops of water.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The cycle stops when it rains.",
+          "answer": "false",
+          "explain": "Nước chảy về sông biển và vòng tuần hoàn lặp lại."
+        },
+        {
+          "type": "tf",
+          "statement": "Evaporation happens only in summer.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readnature.honey-bees",
+      "title": "Loài ong mật",
+      "summary": "Ong làm mật và giúp cây ra quả.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Chú ý từ **pollinate** (thụ phấn) và cách giải thích nguyên nhân – kết quả."
+        },
+        {
+          "type": "passage",
+          "title": "Honey Bees",
+          "paragraphs": [
+            {
+              "en": "Honey bees live in groups called colonies, and one colony can have up to fifty thousand bees. Each bee has a job: the queen lays eggs, the workers collect food and the drones help the queen.",
+              "vi": "Ong mật sống thành đàn, một đàn có thể có tới năm mươi nghìn con. Mỗi con có một việc: ong chúa đẻ trứng, ong thợ đi lấy thức ăn và ong đực giúp ong chúa."
+            },
+            {
+              "en": "Workers visit flowers to collect nectar, which they turn into honey. While they move from flower to flower, they carry pollen with them, and this helps plants make seeds and fruit.",
+              "vi": "Ong thợ đến hoa lấy mật hoa rồi biến thành mật ong. Khi bay từ hoa này sang hoa khác, chúng mang phấn hoa theo, giúp cây tạo hạt và quả."
+            },
+            {
+              "en": "Scientists are worried because the number of bees is falling in many countries. Pesticides and the loss of wild flowers are two of the main reasons. Planting flowers in gardens is a simple way to help.",
+              "vi": "Các nhà khoa học lo lắng vì số lượng ong đang giảm ở nhiều nước. Thuốc trừ sâu và việc mất hoa dại là hai nguyên nhân chính. Trồng hoa trong vườn là cách đơn giản để giúp."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What does the queen bee do?",
+          "choices": [
+            "Lays eggs",
+            "Collects nectar",
+            "Makes honey"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "How do bees help plants make fruit?",
+          "choices": [
+            "By carrying pollen",
+            "By eating leaves",
+            "By digging soil"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "A colony can have up to fifty thousand bees.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The number of bees is increasing in many countries.",
+          "answer": "false",
+          "explain": "Số lượng ong đang giảm."
+        },
+        {
+          "type": "tf",
+          "statement": "Honey bees only live in Europe.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "Planting ___ in gardens can help bees.",
+          "answers": [
+            "flowers"
+          ],
+          "choices": [
+            "flowers",
+            "trees",
+            "grass"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "readnature.the-moon",
+      "title": "Mặt Trăng",
+      "summary": "Vài điều thú vị về Mặt Trăng.",
+      "level": "A2_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Chú ý số liệu và so sánh: **about**, **smaller than**, **takes ... to**."
+        },
+        {
+          "type": "passage",
+          "title": "The Moon",
+          "paragraphs": [
+            {
+              "en": "The Moon is Earth's only natural satellite. It is about four times smaller than the Earth, and it is about four hundred thousand kilometres away from us.",
+              "vi": "Mặt Trăng là vệ tinh tự nhiên duy nhất của Trái Đất. Nó nhỏ hơn Trái Đất khoảng bốn lần và cách chúng ta khoảng bốn trăm nghìn ki-lô-mét."
+            },
+            {
+              "en": "The Moon does not make its own light. We see it because it reflects the light of the sun. The shape we see changes during the month, from a thin line to a full circle and back again.",
+              "vi": "Mặt Trăng không tự phát sáng. Ta nhìn thấy nó vì nó phản chiếu ánh sáng mặt trời. Hình dạng ta thấy thay đổi trong tháng, từ một vệt mỏng thành vầng tròn đầy rồi quay lại."
+            },
+            {
+              "en": "In 1969, two astronauts walked on the Moon for the first time. Since then, scientists have sent many machines there to study its rocks and to look for water.",
+              "vi": "Năm 1969, hai phi hành gia lần đầu đi bộ trên Mặt Trăng. Từ đó, các nhà khoa học đã gửi nhiều máy móc lên đó để nghiên cứu đá và tìm nước."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why can we see the Moon?",
+          "choices": [
+            "It reflects sunlight.",
+            "It makes its own light.",
+            "It is very hot."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "When did astronauts first walk on the Moon?",
+          "choices": [
+            "In 1959",
+            "In 1969",
+            "In 1979"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The Moon is Earth's only natural satellite.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The Moon is bigger than the Earth.",
+          "answer": "false",
+          "explain": "Mặt Trăng nhỏ hơn Trái Đất khoảng bốn lần."
+        },
+        {
+          "type": "tf",
+          "statement": "There are cities on the Moon.",
+          "answer": "ng",
+          "ng": true
+        }
+      ]
+    },
+    {
+      "id": "readnature.rainforests",
+      "title": "Rừng nhiệt đới",
+      "summary": "Vì sao rừng nhiệt đới quan trọng.",
+      "level": "B1_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Bài có nhiều từ học thuật nhẹ: **habitat**, **species**, **climate**, **protect**."
+        },
+        {
+          "type": "passage",
+          "title": "Rainforests",
+          "paragraphs": [
+            {
+              "en": "Rainforests cover only about six percent of the Earth's surface, yet they are home to more than half of all plant and animal species. A single hectare can contain hundreds of different kinds of trees.",
+              "vi": "Rừng nhiệt đới chỉ phủ khoảng sáu phần trăm bề mặt Trái Đất nhưng là nhà của hơn một nửa số loài động thực vật. Chỉ một héc-ta có thể chứa hàng trăm loại cây khác nhau."
+            },
+            {
+              "en": "These forests also help to control the climate. Trees take in carbon dioxide from the air and release oxygen, and they store large amounts of water. For this reason, rainforests are sometimes called the lungs of the planet.",
+              "vi": "Những khu rừng này còn giúp điều hoà khí hậu. Cây hấp thụ khí CO2 từ không khí và thải ra oxy, đồng thời dự trữ nhiều nước. Vì thế rừng nhiệt đới đôi khi được gọi là lá phổi của hành tinh."
+            },
+            {
+              "en": "Unfortunately, large areas are cut down every year for farms, roads and wood. When the trees disappear, many animals lose their habitat. Protecting the remaining forests and supporting products that do not destroy them are important steps.",
+              "vi": "Đáng tiếc, mỗi năm nhiều diện tích rừng bị chặt để làm trang trại, đường sá và lấy gỗ. Khi cây biến mất, nhiều loài mất môi trường sống. Bảo vệ phần rừng còn lại và ủng hộ sản phẩm không phá rừng là những bước quan trọng."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How much of the Earth do rainforests cover?",
+          "choices": [
+            "About 6%",
+            "About 30%",
+            "About 60%"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why are rainforests called the lungs of the planet?",
+          "choices": [
+            "Trees take in carbon dioxide and release oxygen.",
+            "They are shaped like lungs.",
+            "They are very quiet."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "Rainforests contain more than half of all species.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Trees are cut down only for wood.",
+          "answer": "false",
+          "explain": "Còn để làm trang trại và đường sá."
+        },
+        {
+          "type": "tf",
+          "statement": "Most rainforests are in Africa.",
+          "answer": "ng",
+          "ng": true
+        },
+        {
+          "type": "gap",
+          "prompt": "When trees disappear, animals lose their ___.",
+          "answers": [
+            "habitat"
+          ],
+          "choices": [
+            "habitat",
+            "colour",
+            "name"
+          ]
+        }
+      ]
+    }
+  ]
+}

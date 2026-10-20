@@ -1,0 +1,170 @@
+{
+  "license": "proprietary-own",
+  "course": {
+    "id": "towards-b1",
+    "title": "Tiến tới B1",
+    "summary": "Ngữ pháp nâng cao, đọc về sức khoẻ, thiên nhiên, văn hoá, công nghệ và bài nghe về công việc, bài nói ngắn.",
+    "icon": "🚀",
+    "levelFrom": "A2_2",
+    "levelTo": "B1_2",
+    "order": 3
+  },
+  "units": [
+    {
+      "id": "advanced-grammar",
+      "title": "Ngữ pháp nâng cao",
+      "summary": "Thì nâng cao, modal suy đoán, điều kiện loại 2, bị động, tường thuật, mệnh đề quan hệ.",
+      "steps": [
+        {
+          "kind": "grammar",
+          "id": "gramtense.future-forms"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramtense.present-perfect-cont"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramtense.past-perfect"
+        },
+        {
+          "kind": "grammar",
+          "id": "grammodal.would-requests"
+        },
+        {
+          "kind": "grammar",
+          "id": "grammodal.must-cant-deduction"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramsent.second-conditional"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramsent.relative-clauses"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramverbs.passive-voice"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramsent.reported-speech"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramques.wh-and-indirect"
+        }
+      ]
+    },
+    {
+      "id": "reading-b1",
+      "title": "Đọc hiểu B1",
+      "summary": "Sức khoẻ, thiên nhiên, văn hoá, công nghệ.",
+      "steps": [
+        {
+          "kind": "reading",
+          "id": "readhealth.sleep-matters"
+        },
+        {
+          "kind": "reading",
+          "id": "readnature.honey-bees"
+        },
+        {
+          "kind": "reading",
+          "id": "readculture.a-school-day-in-japan"
+        },
+        {
+          "kind": "reading",
+          "id": "readculture.volunteering"
+        },
+        {
+          "kind": "reading",
+          "id": "readtech.online-safety"
+        },
+        {
+          "kind": "reading",
+          "id": "readstories.a-surprise-party"
+        },
+        {
+          "kind": "reading",
+          "id": "readwork.learning-english"
+        }
+      ]
+    },
+    {
+      "id": "listening-b1",
+      "title": "Nghe B1",
+      "summary": "Công việc, học tập và các bài nói ngắn.",
+      "steps": [
+        {
+          "kind": "listening",
+          "id": "listenwork.job-interview"
+        },
+        {
+          "kind": "listening",
+          "id": "listenwork.meeting-schedule"
+        },
+        {
+          "kind": "listening",
+          "id": "listenwork.study-group"
+        },
+        {
+          "kind": "listening",
+          "id": "listenwork.library"
+        },
+        {
+          "kind": "listening",
+          "id": "listenwork.hobbies"
+        },
+        {
+          "kind": "listening",
+          "id": "listentalk.healthy-habits"
+        },
+        {
+          "kind": "listening",
+          "id": "listentalk.city-guide"
+        },
+        {
+          "kind": "listening",
+          "id": "listentalk.travel-story"
+        },
+        {
+          "kind": "listening",
+          "id": "listentalk.technology"
+        },
+        {
+          "kind": "listening",
+          "id": "listentalk.environment"
+        }
+      ]
+    },
+    {
+      "id": "b1-review",
+      "title": "Củng cố & thử thách",
+      "summary": "Đọc sâu hơn, bàn luận và phỏng vấn.",
+      "steps": [
+        {
+          "kind": "reading",
+          "id": "readplaces.at-the-airport"
+        },
+        {
+          "kind": "reading",
+          "id": "readwork.a-job-interview"
+        },
+        {
+          "kind": "reading",
+          "id": "readtech.electric-cars"
+        },
+        {
+          "kind": "reading",
+          "id": "readnature.rainforests"
+        },
+        {
+          "kind": "reading",
+          "id": "readculture.street-food"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,258 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "gramques",
+    "title": "Câu hỏi & phủ định",
+    "summary": "Câu hỏi gián tiếp, câu phủ định và trả lời ngắn.",
+    "icon": "❓",
+    "order": 8
+  },
+  "lessons": [
+    {
+      "id": "gramques.wh-and-indirect",
+      "title": "Câu hỏi gián tiếp",
+      "summary": "Could you tell me where ...? — không đảo trợ động từ.",
+      "level": "B1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Câu hỏi gián tiếp** lịch sự hơn, dùng sau *Could you tell me ...*, *Do you know ...*, *I wonder ...*\nTrật tự **như câu khẳng định** (chủ ngữ trước động từ), không đảo trợ động từ và không dùng do/does/did:\n- Trực tiếp: `Where is the station?` → Gián tiếp: `Could you tell me where the station is?`\n- Trực tiếp: `What time does it start?` → Gián tiếp: `Do you know what time it starts?`\nCâu hỏi Yes/No dùng **if/whether**: `Do you know if he is here?`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Trực tiếp",
+            "Gián tiếp"
+          ],
+          "rows": [
+            [
+              "Where is the bank?",
+              "Could you tell me where the bank is?"
+            ],
+            [
+              "How much does it cost?",
+              "Do you know how much it costs?"
+            ],
+            [
+              "Is he at home?",
+              "I wonder if he is at home."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "Could you tell me how I can get to the airport?",
+              "vi": "Bạn chỉ giúp tôi đến sân bay bằng cách nào được không?"
+            },
+            {
+              "en": "I don’t know what she wants.",
+              "vi": "Tôi không biết cô ấy muốn gì."
+            },
+            {
+              "en": "Do you know whether the shop is open?",
+              "vi": "Bạn có biết cửa hàng có mở không?"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Câu hỏi gián tiếp không kết thúc bằng dấu hỏi nếu mở đầu là câu khẳng định (*I wonder where he is.*), nhưng có dấu hỏi nếu mở đầu là câu hỏi (*Do you know where he is?*)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "Could you tell me where the station ___?",
+          "answers": [
+            "is"
+          ],
+          "choices": [
+            "is",
+            "does",
+            "is it"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Do you know what time the film ___?",
+          "answers": [
+            "starts"
+          ],
+          "choices": [
+            "starts",
+            "does start",
+            "start"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I wonder ___ he is at home.",
+          "answers": [
+            "if",
+            "whether"
+          ],
+          "choices": [
+            "if",
+            "that",
+            "what"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "Do you know where is he?",
+            "Do you know where he is?",
+            "Do you know where does he is?"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Bạn có biết cái này giá bao nhiêu không?",
+          "answer": "Do you know how much this costs"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which word introduces an indirect yes/no question?",
+          "choices": [
+            "whether",
+            "because",
+            "although"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "gramques.negatives",
+      "title": "Câu phủ định và câu trả lời ngắn",
+      "summary": "Don't, doesn't, didn't, isn't + trả lời ngắn.",
+      "level": "A1_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "- **be**: thêm **not** — `He is not (isn't) here.`\n- **Động từ thường**: **don't / doesn't / didn't + V nguyên mẫu** — `She doesn't like fish.` / `I didn't see him.`\n- **Hiện tại hoàn thành**: **haven't / hasn't + V3**.\n- **Khuyết thiếu**: modal + not — `can't, won't, shouldn't`.\n\n**Trả lời ngắn**: `Do you like tea? — Yes, I do. / No, I don't.` / `Is she a nurse? — Yes, she is. / No, she isn't.`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Thì",
+            "Phủ định",
+            "Trả lời ngắn"
+          ],
+          "rows": [
+            [
+              "Hiện tại đơn",
+              "She doesn't work here.",
+              "No, she doesn't."
+            ],
+            [
+              "Quá khứ đơn",
+              "I didn't call him.",
+              "No, I didn't."
+            ],
+            [
+              "be",
+              "They aren't ready.",
+              "No, they aren't."
+            ],
+            [
+              "modal",
+              "He can't swim.",
+              "No, he can't."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "I don't speak French.",
+              "vi": "Tôi không nói tiếng Pháp."
+            },
+            {
+              "en": "She didn't go to school yesterday.",
+              "vi": "Hôm qua cô ấy không đi học."
+            },
+            {
+              "en": "Is it far? — No, it isn't.",
+              "vi": "Có xa không? — Không."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Sau **doesn't/didn't** động từ chính **không** chia: *She doesn't likes* (sai) / *She doesn't like* (đúng)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "She ___ like fish.",
+          "answers": [
+            "doesn't"
+          ],
+          "choices": [
+            "doesn't",
+            "don't",
+            "isn't"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I ___ see him yesterday.",
+          "answers": [
+            "didn't"
+          ],
+          "choices": [
+            "didn't",
+            "don't",
+            "wasn't"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "They ___ at home now.",
+          "answers": [
+            "aren't"
+          ],
+          "choices": [
+            "aren't",
+            "don't",
+            "doesn't"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "He doesn't plays tennis.",
+            "He doesn't play tennis.",
+            "He don't play tennis."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Hôm qua tôi không gọi cho anh ấy.",
+          "answer": "I didn't call him yesterday"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Do you like tea? (answer: no)",
+          "choices": [
+            "No, I don't.",
+            "No, I'm not.",
+            "No, I don't like."
+          ],
+          "answer": 0
+        }
+      ]
+    }
+  ]
+}

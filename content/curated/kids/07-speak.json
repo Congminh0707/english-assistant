@@ -1,0 +1,119 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "speak",
+    "title": "Say it",
+    "vi": "Nói theo",
+    "picture": "bird",
+    "order": 7
+  },
+  "activities": [
+    {
+      "id": "speak-animals",
+      "title": "Say animals",
+      "vi": "Nói tên con vật",
+      "picture": "dog",
+      "kind": "speak",
+      "items": [
+        {
+          "text": "dog",
+          "say": "dog",
+          "picture": "dog"
+        },
+        {
+          "text": "cat",
+          "say": "cat",
+          "picture": "cat"
+        },
+        {
+          "text": "fish",
+          "say": "fish",
+          "picture": "fish"
+        },
+        {
+          "text": "bird",
+          "say": "bird",
+          "picture": "bird"
+        },
+        {
+          "text": "cow",
+          "say": "cow",
+          "picture": "cow"
+        }
+      ]
+    },
+    {
+      "id": "speak-fruits",
+      "title": "Say fruits",
+      "vi": "Nói tên trái cây",
+      "picture": "apple",
+      "kind": "speak",
+      "items": [
+        {
+          "text": "apple",
+          "say": "apple",
+          "picture": "apple"
+        },
+        {
+          "text": "banana",
+          "say": "banana",
+          "picture": "banana"
+        },
+        {
+          "text": "orange",
+          "say": "orange",
+          "picture": "orange"
+        },
+        {
+          "text": "grapes",
+          "say": "grapes",
+          "picture": "grapes"
+        },
+        {
+          "text": "lemon",
+          "say": "lemon",
+          "picture": "lemon"
+        }
+      ]
+    },
+    {
+      "id": "speak-things",
+      "title": "Say things",
+      "vi": "Nói tên đồ vật",
+      "picture": "ball",
+      "kind": "speak",
+      "items": [
+        {
+          "text": "ball",
+          "say": "ball",
+          "picture": "ball"
+        },
+        {
+          "text": "car",
+          "say": "car",
+          "picture": "car"
+        },
+        {
+          "text": "house",
+          "say": "house",
+          "picture": "house"
+        },
+        {
+          "text": "sun",
+          "say": "sun",
+          "picture": "sun"
+        },
+        {
+          "text": "star",
+          "say": "star",
+          "picture": "star"
+        },
+        {
+          "text": "tree",
+          "say": "tree",
+          "picture": "tree"
+        }
+      ]
+    }
+  ]
+}

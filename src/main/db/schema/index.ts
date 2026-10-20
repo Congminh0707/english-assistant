@@ -214,3 +214,43 @@ export const usageDays = sqliteTable(
   },
   (t) => [uniqueIndex('usage_days_profile_day').on(t.profileId, t.day)]
 )
+
+/** Kết quả bài tập cộng dồn theo ngày, nguồn, dạng bài và kỹ năng — để thống kê độ chính xác */
+export const exerciseStats = sqliteTable(
+  'exercise_stats',
+  {
+    id: text('id').primaryKey(), // UUID v7
+    profileId: text('profile_id')
+      .notNull()
+      .references(() => profiles.id),
+    /** Ngày cục bộ YYYY-MM-DD */
+    day: text('day').notNull(),
+    /** lesson | grammar | reading | listening | practice | checkpoint */
+    source: text('source').notNull(),
+    /** Dạng bài: mcq, gap, order, match, listen, tf, picture, cloze, dictation... */
+    kind: text('kind').notNull(),
+    /** vocab | grammar | reading | listening */
+    skill: text('skill').notNull(),
+    correct: integer('correct').notNull().default(0),
+    total: integer('total').notNull().default(0),
+    ...timestamps
+  },
+  (t) => [uniqueIndex('exercise_stats_unique').on(t.profileId, t.day, t.source, t.kind, t.skill)]
+)
+
+/** Rating Elo theo kỹ năng của từng hồ sơ (thang 0–1200 như level) */
+export const skillRatings = sqliteTable(
+  'skill_ratings',
+  {
+    id: text('id').primaryKey(), // UUID v7
+    profileId: text('profile_id')
+      .notNull()
+      .references(() => profiles.id),
+    skill: text('skill').notNull(),
+    rating: real('rating').notNull(),
+    /** Số câu đã dùng để cập nhật rating (quyết định hệ số K) */
+    games: integer('games').notNull().default(0),
+    ...timestamps
+  },
+  (t) => [uniqueIndex('skill_ratings_profile_skill').on(t.profileId, t.skill)]
+)

@@ -46,6 +46,17 @@ export const LessonBlockSchema = z.discriminatedUnion('type', [
       )
       .min(1)
   }),
+  /** Bài nghe: các câu thoại đọc bằng TTS (người nói A/B dùng hai giọng khác nhau), có điều khiển tốc độ / lặp A–B / chép lời */
+  z.object({
+    type: z.literal('audio'),
+    title: Text.optional(),
+    lines: z
+      .array(z.object({ speaker: z.enum(['A', 'B']).optional(), en: Text, vi: Text.optional() }))
+      .min(2)
+      .max(24),
+    /** Ẩn lời thoại lúc đầu để luyện nghe (người học bấm để hiện) */
+    hideText: z.boolean().optional()
+  }),
   /** Bài đọc: đoạn văn có thể bấm từ để tra, nghe từng câu, bật/tắt bản dịch tiếng Việt từng đoạn */
   z.object({
     type: z.literal('passage'),
@@ -137,7 +148,7 @@ export const LessonSchema = z.object({
   /** Thời gian học dự kiến (phút) */
   minutes: z.number().int().min(1).max(30),
   blocks: z.array(LessonBlockSchema).min(2),
-  exercises: z.array(LessonExerciseSchema).min(6).max(12)
+  exercises: z.array(LessonExerciseSchema).min(3).max(12)
 })
 export type Lesson = z.infer<typeof LessonSchema>
 
@@ -161,14 +172,26 @@ export const GrammarPointSchema = LessonSchema.extend({
 })
 
 /** Một file nội dung = một chương */
+/** Bài học nền tảng: nhiều bài tập hơn các loại bài đọc/nghe/ngữ pháp */
+export const FoundationLessonSchema = LessonSchema.extend({
+  exercises: z.array(LessonExerciseSchema).min(6).max(12)
+})
+
 export const LessonUnitFileSchema = z.object({
   /** Nội dung tự soạn (docs/08-content-sources.md: proprietary-own) */
   license: z.literal('proprietary-own'),
   unit: LessonUnitSchema,
-  lessons: z.array(LessonSchema).min(1)
+  lessons: z.array(FoundationLessonSchema).min(1)
 })
 export type LessonUnitFile = z.infer<typeof LessonUnitFileSchema>
 
+/** Bài nghe: phải có block `audio`, ít bài tập hơn bài học nền tảng */
+export const ListeningSchema = LessonSchema.extend({
+  exercises: z.array(LessonExerciseSchema).min(3).max(8)
+})
+export const ListeningUnitFileSchema = LessonUnitFileSchema.extend({
+  lessons: z.array(ListeningSchema).min(1)
+})
 export const ReadingUnitFileSchema = LessonUnitFileSchema.extend({
   lessons: z.array(ReadingSchema).min(1)
 })
@@ -177,7 +200,7 @@ export const GrammarUnitFileSchema = LessonUnitFileSchema.extend({
 })
 
 /** Loại nội dung kiểu bài học: bài nền tảng, ngữ pháp, bài đọc (dùng chung giao diện và dịch vụ) */
-export const LessonKindSchema = z.enum(['lesson', 'grammar', 'reading'])
+export const LessonKindSchema = z.enum(['lesson', 'grammar', 'reading', 'listening'])
 export type LessonKind = z.infer<typeof LessonKindSchema>
 export const LessonKindInputSchema = z.object({ kind: LessonKindSchema })
 
@@ -218,7 +241,18 @@ export type LessonCatalog = z.infer<typeof LessonCatalogSchema>
 export const LessonCompleteInputSchema = z.object({
   lessonId: z.string().min(1),
   correct: z.number().int().min(0).max(12),
-  total: z.number().int().min(1).max(12)
+  total: z.number().int().min(1).max(12),
+  /** Kết quả theo dạng bài (để thống kê độ chính xác và Elo theo kỹ năng); tổng không vượt `total` */
+  byType: z
+    .array(
+      z.object({
+        type: z.string().min(1).max(20),
+        correct: z.number().int().min(0).max(12),
+        total: z.number().int().min(1).max(12)
+      })
+    )
+    .max(8)
+    .optional()
 })
 export const LessonCompleteResultSchema = z.object({
   /** Điểm lần này (0–100) */

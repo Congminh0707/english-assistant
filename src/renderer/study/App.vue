@@ -14,6 +14,7 @@ import PlacementTest from './components/PlacementTest.vue'
 import PracticeSession from './components/PracticeSession.vue'
 import ShopPage from './components/ShopPage.vue'
 import StatsPage from './components/StatsPage.vue'
+import CoursesPage from './components/CoursesPage.vue'
 import LessonsPage from './components/LessonsPage.vue'
 import PhrasebookPage from './components/PhrasebookPage.vue'
 import SettingsPage from './components/SettingsPage.vue'
@@ -25,8 +26,10 @@ import KidsApp from './kids/KidsApp.vue'
 type Page =
   | 'home'
   | 'parent'
+  | 'courses'
   | 'lessons'
   | 'reading'
+  | 'listening'
   | 'grammar'
   | 'phrasebook'
   | 'review'
@@ -46,10 +49,13 @@ const overview = ref<StudyOverview | null>(null)
 /** Hồ sơ đang dùng; hồ sơ trẻ em thấy giao diện của bé, phụ huynh vào bằng PIN (parentMode) */
 const activeProfile = ref<ProfileInfo | null>(null)
 const parentMode = ref(false)
+let timeTimer = 0
 const kidsMode = computed(() => !!activeProfile.value?.isChild && !parentMode.value)
 const missions = ref<MissionsState | null>(null)
 /** Bài kiểm tra mở từ màn hình chào thì tự bắt đầu ngay */
 const autostartTest = ref(false)
+/** Kiểm tra lên cấp thay vì kiểm tra đầu vào */
+const checkpointMode = ref(false)
 const loaded = ref(false)
 const cleanups: Array<() => void> = []
 
@@ -58,8 +64,10 @@ const pages = computed<Array<{ id: Page; icon: string; label: string }>>(() => [
   ...(activeProfile.value?.isChild
     ? [{ id: 'parent' as Page, icon: '👨‍👩‍👧', label: t('study.nav.parent') }]
     : []),
+  { id: 'courses', icon: '🧭', label: t('study.nav.courses') },
   { id: 'lessons', icon: '📚', label: t('study.nav.lessons') },
   { id: 'reading', icon: '📖', label: t('study.nav.reading') },
+  { id: 'listening', icon: '🎧', label: t('study.nav.listening') },
   { id: 'grammar', icon: '✍️', label: t('study.nav.grammar') },
   { id: 'phrasebook', icon: '💬', label: t('study.nav.phrasebook') },
   { id: 'review', icon: '🧠', label: t('study.nav.review') },
@@ -86,6 +94,7 @@ async function refresh(): Promise<void> {
 
 function go(next: Page): void {
   autostartTest.value = false
+  checkpointMode.value = false
   page.value = next
   void refresh()
 }
@@ -98,6 +107,13 @@ async function onboarded(startTest: boolean): Promise<void> {
     page.value = 'placement'
   }
   void refresh()
+}
+
+/** Từ trang Thống kê: vào bài kiểm tra lên cấp và bắt đầu ngay */
+function startCheckpoint(): void {
+  go('placement')
+  checkpointMode.value = true
+  autostartTest.value = true
 }
 
 async function setGoal(value: number): Promise<void> {
@@ -123,12 +139,19 @@ const onFocus = (): void => void refresh()
 
 onMounted(async () => {
   window.addEventListener('focus', onFocus)
+  // Thời gian học (người lớn): báo định kỳ khi cửa sổ đang hiện và được chọn; trẻ em đếm riêng ở KidsApp
+  timeTimer = window.setInterval(() => {
+    if (activeProfile.value?.isChild) return
+    if (document.visibilityState !== 'visible' || !document.hasFocus()) return
+    void invoke('study:tick', { seconds: 15 }).catch(() => undefined)
+  }, 15_000)
   cleanups.push(settingsStore.listen(), petStore.listen())
   await Promise.all([settingsStore.load(), petStore.load(), refresh()])
   loaded.value = true
 })
 onUnmounted(() => {
   window.removeEventListener('focus', onFocus)
+  window.clearInterval(timeTimer)
   cleanups.forEach((fn) => fn())
 })
 </script>
@@ -141,7 +164,10 @@ onUnmounted(() => {
       <div class="pet">
         <div class="pet-name">{{ petStore.pet?.name ?? '…' }}</div>
         <template v-if="petStore.pet">
-          <div class="pet-level">{{ t('stats.level', { level: petStore.pet.level }) }}</div>
+          <div class="pet-level">
+            {{ t('stats.level', { level: petStore.pet.level }) }} ·
+            {{ t(`pet.stage.${petStore.pet.stage}`) }}
+          </div>
           <PxBar
             :value="petStore.pet.xpInLevel"
             :max="petStore.pet.xpForNext"
@@ -184,18 +210,21 @@ onUnmounted(() => {
         @start="go('review')"
         @goal="setGoal"
       />
+      <CoursesPage v-else-if="page === 'courses'" @changed="refresh" />
       <LessonsPage v-else-if="page === 'lessons'" kind="lesson" @changed="refresh" />
       <LessonsPage v-else-if="page === 'reading'" kind="reading" @changed="refresh" />
+      <LessonsPage v-else-if="page === 'listening'" kind="listening" @changed="refresh" />
       <LessonsPage v-else-if="page === 'grammar'" kind="grammar" @changed="refresh" />
       <PhrasebookPage v-else-if="page === 'phrasebook'" />
       <ReviewSession v-else-if="page === 'review'" @exit="go('home')" @changed="refresh" />
       <PracticeSession v-else-if="page === 'practice'" @changed="refresh" />
       <WordList v-else-if="page === 'words'" @changed="refresh" />
       <ShopPage v-else-if="page === 'shop'" @changed="refresh" />
-      <StatsPage v-else-if="page === 'stats'" />
+      <StatsPage v-else-if="page === 'stats'" @checkpoint="startCheckpoint" />
       <PlacementTest
         v-else-if="page === 'placement'"
         :autostart="autostartTest"
+        :mode="checkpointMode ? 'checkpoint' : 'placement'"
         @done="go('home')"
       />
       <SettingsPage v-else @retest="go('placement')" @changed="refresh" />

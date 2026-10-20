@@ -1,0 +1,739 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "gramadv",
+    "title": "Ngữ pháp nâng cao",
+    "summary": "Điều kiện loại 3, wish, thể sai bảo, tương lai hoàn thành, mệnh đề phân từ, đảo ngữ, câu nhấn mạnh.",
+    "icon": "🎓",
+    "order": 9
+  },
+  "lessons": [
+    {
+      "id": "gramadv.third-conditional",
+      "title": "Câu điều kiện loại 3",
+      "summary": "If + had + V3, would have + V3 — điều không có thật ở quá khứ.",
+      "level": "B2_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Câu điều kiện loại 3** nói về điều **đã không xảy ra** trong quá khứ và kết quả tưởng tượng của nó.\nCấu trúc: `If + had + V3, would (could/might) have + V3`.\nÝ nghĩa thường là tiếc nuối hoặc trách móc."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Thực tế",
+            "Điều kiện loại 3"
+          ],
+          "rows": [
+            [
+              "I didn’t study, so I failed.",
+              "If I had studied, I wouldn’t have failed."
+            ],
+            [
+              "She missed the bus, so she was late.",
+              "If she hadn’t missed the bus, she wouldn’t have been late."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "If I had known, I would have helped you.",
+              "vi": "Nếu tôi biết thì tôi đã giúp bạn rồi."
+            },
+            {
+              "en": "We could have won if we had played better.",
+              "vi": "Lẽ ra chúng tôi thắng nếu chơi tốt hơn."
+            },
+            {
+              "en": "If it hadn’t rained, we would have gone out.",
+              "vi": "Nếu trời không mưa thì chúng tôi đã đi chơi."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Đừng dùng *would* ở mệnh đề **If**: ✗ *If I would have known*; ✓ *If I had known*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "If I ___ the answer, I would have told you.",
+          "answers": [
+            "had known"
+          ],
+          "choices": [
+            "had known",
+            "knew",
+            "would know"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She would have passed if she ___ harder.",
+          "answers": [
+            "had worked"
+          ],
+          "choices": [
+            "had worked",
+            "worked",
+            "would work"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is about the past?",
+          "choices": [
+            "If I had money, I would buy it.",
+            "If I had had money, I would have bought it.",
+            "If I have money, I will buy it."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Correct form?",
+          "choices": [
+            "If he would have come, we would have met.",
+            "If he had come, we would have met.",
+            "If he came, we would have met."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Nếu tôi dậy sớm hơn thì tôi đã không trễ.",
+          "answer": "If I had got up earlier I would not have been late"
+        }
+      ]
+    },
+    {
+      "id": "gramadv.wish-if-only",
+      "title": "Wish và If only",
+      "summary": "Diễn đạt ước muốn ở hiện tại và quá khứ.",
+      "level": "B2_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Wish / If only** diễn tả điều ước trái với thực tế.\n- Hiện tại: `wish + quá khứ đơn` (*I wish I had a car.*)\n- Quá khứ: `wish + had + V3` (*I wish I had studied.*)\n- Phàn nàn/mong thay đổi: `wish + would + V` (*I wish he would stop.*)\nVới *be* ở điều ước hiện tại có thể dùng *were* cho mọi ngôi."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Tình huống",
+            "Cấu trúc"
+          ],
+          "rows": [
+            [
+              "Hiện tại",
+              "I wish I were taller."
+            ],
+            [
+              "Quá khứ",
+              "I wish I hadn’t said that."
+            ],
+            [
+              "Phàn nàn",
+              "I wish it would stop raining."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "If only I had more time.",
+              "vi": "Giá mà tôi có nhiều thời gian hơn."
+            },
+            {
+              "en": "I wish I had listened to you.",
+              "vi": "Ước gì tôi đã nghe lời bạn."
+            },
+            {
+              "en": "She wishes she lived near the sea.",
+              "vi": "Cô ấy ước mình sống gần biển."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "*I wish I would ...* thường sai khi nói về chính mình; dùng *wish + quá khứ đơn* cho mong muốn của bản thân."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I wish I ___ a bigger house.",
+          "answers": [
+            "had"
+          ],
+          "choices": [
+            "had",
+            "have",
+            "would have"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I wish I ___ so much yesterday. (eat)",
+          "answers": [
+            "had not eaten",
+            "hadn't eaten"
+          ],
+          "choices": [
+            "had not eaten",
+            "did not eat",
+            "would not eat"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I wish he ___ stop talking.",
+          "answers": [
+            "would"
+          ],
+          "choices": [
+            "would",
+            "will",
+            "did"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "I wish I am taller.",
+            "I wish I were taller.",
+            "I wish I will be taller."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Giá mà tôi biết câu trả lời.",
+          "answer": "If only I knew the answer"
+        }
+      ]
+    },
+    {
+      "id": "gramadv.causative",
+      "title": "Thể sai bảo (have/get something done)",
+      "summary": "Nhờ người khác làm việc gì cho mình.",
+      "level": "B2_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Thể sai bảo** dùng khi người khác làm việc cho ta (thường là dịch vụ).\n`have/get + tân ngữ + V3`.\n*Get* thân mật hơn *have*. Có thể dùng *have + người + V nguyên* (*I had him fix it*) nhưng ít gặp."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Tự làm",
+            "Nhờ người khác"
+          ],
+          "rows": [
+            [
+              "I cut my hair.",
+              "I had my hair cut."
+            ],
+            [
+              "He repaired the car.",
+              "He got the car repaired."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "We are having the kitchen painted.",
+              "vi": "Chúng tôi đang thuê người sơn lại bếp."
+            },
+            {
+              "en": "I need to get my phone fixed.",
+              "vi": "Tôi cần mang điện thoại đi sửa."
+            },
+            {
+              "en": "She had her photo taken.",
+              "vi": "Cô ấy được chụp ảnh."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Cùng cấu trúc còn dùng cho điều xui rủi: *He had his wallet stolen.*"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I had my car ___ yesterday.",
+          "answers": [
+            "repaired"
+          ],
+          "choices": [
+            "repaired",
+            "repair",
+            "repairing"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "We are going to ___ the house painted.",
+          "answers": [
+            "have",
+            "get"
+          ],
+          "choices": [
+            "have",
+            "make",
+            "do"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence means someone else cut her hair?",
+          "choices": [
+            "She cut her hair.",
+            "She had her hair cut.",
+            "She has cut hair."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Tôi vừa cắt tóc.",
+          "answer": "I have just had my hair cut"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Correct?",
+          "choices": [
+            "I got my teeth checking.",
+            "I got my teeth checked.",
+            "I got checked my teeth."
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "gramadv.future-perfect",
+      "title": "Tương lai hoàn thành",
+      "summary": "Will have + V3 — xong trước một mốc tương lai.",
+      "level": "B1_2",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Tương lai hoàn thành** nói điều sẽ **đã hoàn tất** trước một thời điểm trong tương lai.\n`will have + V3`, thường đi với *by + mốc thời gian*, *by the time*.\nThể phủ định: `will not have + V3`."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Mốc",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "by 2030",
+              "I will have finished my degree by 2030."
+            ],
+            [
+              "by the time + hiện tại đơn",
+              "By the time you arrive, we will have eaten."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "She will have left before you get there.",
+              "vi": "Cô ấy sẽ đi mất trước khi bạn đến."
+            },
+            {
+              "en": "Will you have finished by Friday?",
+              "vi": "Bạn sẽ xong trước thứ Sáu chứ?"
+            },
+            {
+              "en": "They won’t have arrived by noon.",
+              "vi": "Họ sẽ chưa đến vào buổi trưa."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Sau *by the time* dùng hiện tại đơn, không dùng *will*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "By next year, I ___ here for ten years.",
+          "answers": [
+            "will have lived"
+          ],
+          "choices": [
+            "will have lived",
+            "will live",
+            "have lived"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "By the time we arrive, the film ___ started.",
+          "answers": [
+            "will have"
+          ],
+          "choices": [
+            "will have",
+            "will",
+            "has"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "By tomorrow I will finish.",
+            "By tomorrow I will have finished.",
+            "By tomorrow I have finished."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Đến tối nay tôi sẽ làm xong bài tập.",
+          "answer": "By tonight I will have done my homework"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Choose the correct word: By the time he ___ , we will have gone.",
+          "choices": [
+            "comes",
+            "will come",
+            "would come"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "gramadv.participle-clauses",
+      "title": "Mệnh đề phân từ",
+      "summary": "Rút gọn câu bằng V-ing và V3.",
+      "level": "B2_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Mệnh đề phân từ** giúp viết gọn khi hai mệnh đề cùng chủ ngữ.\n- `V-ing` (chủ động): *Walking home, I met Tom.* (= While I was walking ...)\n- `V3` (bị động): *Written in 1990, the book is still popular.*\n- `Having + V3`: hành động xảy ra trước: *Having finished, she left.*\nChủ ngữ của mệnh đề chính phải là người/vật thực hiện hành động ở mệnh đề phân từ."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Đầy đủ",
+            "Rút gọn"
+          ],
+          "rows": [
+            [
+              "While he was waiting, he read a book.",
+              "Waiting, he read a book."
+            ],
+            [
+              "After she had eaten, she went out.",
+              "Having eaten, she went out."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "Feeling tired, I went to bed early.",
+              "vi": "Thấy mệt, tôi đi ngủ sớm."
+            },
+            {
+              "en": "The man standing there is my uncle.",
+              "vi": "Người đàn ông đứng đó là chú tôi."
+            },
+            {
+              "en": "Built in 1900, the bridge is now closed.",
+              "vi": "Được xây năm 1900, cây cầu giờ đã đóng cửa."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Tránh lỗi \"dangling\": ✗ *Walking home, the rain started.* (cơn mưa không đi bộ)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "___ the news, she cried. (hear)",
+          "answers": [
+            "Hearing"
+          ],
+          "choices": [
+            "Hearing",
+            "Heard",
+            "Hear"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The letter ___ yesterday has not arrived. (send)",
+          "answers": [
+            "sent"
+          ],
+          "choices": [
+            "sent",
+            "sending",
+            "send"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "___ finished his work, he went home.",
+          "answers": [
+            "Having"
+          ],
+          "choices": [
+            "Having",
+            "Had",
+            "Be"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "Opening the door, a cat ran out.",
+            "Opening the door, I saw a cat.",
+            "Opened the door, I saw a cat."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Thấy đói, anh ấy làm bánh sandwich.",
+          "answer": "Feeling hungry he made a sandwich"
+        }
+      ]
+    },
+    {
+      "id": "gramadv.inversion",
+      "title": "Đảo ngữ",
+      "summary": "Hardly, Never, Not only ... + đảo trợ động từ.",
+      "level": "B2_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Đảo ngữ** đưa trạng từ phủ định/hạn chế lên đầu câu để nhấn mạnh; trợ động từ đứng **trước** chủ ngữ.\nThường gặp: *Never, Rarely, Seldom, Hardly ... when, No sooner ... than, Not only ... but also, Only after/when*."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Thông thường",
+            "Đảo ngữ"
+          ],
+          "rows": [
+            [
+              "I have never seen such a view.",
+              "Never have I seen such a view."
+            ],
+            [
+              "She not only sings but also dances.",
+              "Not only does she sing, but she also dances."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "Hardly had we sat down when the phone rang.",
+              "vi": "Chúng tôi vừa ngồi xuống thì điện thoại reo."
+            },
+            {
+              "en": "No sooner had he left than it started to rain.",
+              "vi": "Anh ấy vừa đi thì trời mưa."
+            },
+            {
+              "en": "Rarely do they eat out.",
+              "vi": "Họ hiếm khi ăn ngoài."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "*Hardly/Scarcely* đi với **when**, còn *No sooner* đi với **than**."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "Never ___ I seen such a beautiful beach.",
+          "answers": [
+            "have"
+          ],
+          "choices": [
+            "have",
+            "did",
+            "am"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "No sooner had she arrived ___ it began to rain.",
+          "answers": [
+            "than"
+          ],
+          "choices": [
+            "than",
+            "when",
+            "then"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Hardly had he spoken ___ everyone laughed.",
+          "answers": [
+            "when"
+          ],
+          "choices": [
+            "when",
+            "than",
+            "that"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "Rarely we go out.",
+            "Rarely do we go out.",
+            "Rarely we do go out."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Không những cô ấy thông minh mà còn tốt bụng.",
+          "answer": "Not only is she clever but she is also kind"
+        }
+      ]
+    },
+    {
+      "id": "gramadv.cleft-sentences",
+      "title": "Câu nhấn mạnh (cleft)",
+      "summary": "It is ... that ... và What ... is ...",
+      "level": "B2_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Câu nhấn mạnh** làm nổi bật một thành phần.\n- `It is/was + thành phần + that/who ...`: *It was Tom who broke the window.*\n- `What + mệnh đề + is/was ...`: *What I need is a holiday.*\nGiúp người nghe tập trung vào thông tin quan trọng."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Câu thường",
+            "Câu nhấn mạnh"
+          ],
+          "rows": [
+            [
+              "Tom broke the window.",
+              "It was Tom who broke the window."
+            ],
+            [
+              "I need a holiday.",
+              "What I need is a holiday."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "It was in Paris that they met.",
+              "vi": "Chính ở Paris họ đã gặp nhau."
+            },
+            {
+              "en": "What annoys me is the noise.",
+              "vi": "Điều làm tôi khó chịu là tiếng ồn."
+            },
+            {
+              "en": "It is her smile that I remember.",
+              "vi": "Chính nụ cười của cô ấy là điều tôi nhớ."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Chỉ người dùng *who* hoặc *that*; chỉ vật hay nơi chốn dùng *that*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "It was my brother ___ called me.",
+          "answers": [
+            "who",
+            "that"
+          ],
+          "choices": [
+            "who",
+            "what",
+            "which"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "___ I want is some peace.",
+          "answers": [
+            "What"
+          ],
+          "choices": [
+            "What",
+            "That",
+            "Which"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence emphasises the place?",
+          "choices": [
+            "It was in London that I lived.",
+            "I lived in London.",
+            "London I lived."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "order",
+          "hint": "Điều tôi cần là ngủ.",
+          "answer": "What I need is sleep"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Complete: It is time ___ matters most.",
+          "choices": [
+            "that",
+            "what",
+            "who"
+          ],
+          "answer": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,217 @@
+{
+  "license": "proprietary-own",
+  "course": {
+    "id": "foundation-a1",
+    "title": "Tiếng Anh nền tảng (A1)",
+    "summary": "Từ con số 0: bảng chữ cái, mẫu câu cơ bản, từ vựng bằng hình, giao tiếp hằng ngày, nghe và đọc đơn giản.",
+    "icon": "🌱",
+    "levelFrom": "PA1_1",
+    "levelTo": "A1_2",
+    "order": 1
+  },
+  "units": [
+    {
+      "id": "abc",
+      "title": "Chữ cái & phát âm",
+      "summary": "Học chữ cái, nguyên âm, phụ âm và cách đọc.",
+      "steps": [
+        {
+          "kind": "lesson",
+          "id": "alphabet.letters"
+        },
+        {
+          "kind": "lesson",
+          "id": "alphabet.vowels-consonants"
+        },
+        {
+          "kind": "lesson",
+          "id": "alphabet.short-vowels"
+        },
+        {
+          "kind": "lesson",
+          "id": "alphabet.long-vowels"
+        },
+        {
+          "kind": "lesson",
+          "id": "alphabet.spelling"
+        },
+        {
+          "kind": "lesson",
+          "id": "alphabet.consonants"
+        },
+        {
+          "kind": "lesson",
+          "id": "alphabet.syllables"
+        },
+        {
+          "kind": "lesson",
+          "id": "alphabet.endings"
+        }
+      ]
+    },
+    {
+      "id": "first-words",
+      "title": "Từ đầu tiên",
+      "summary": "Nhìn hình học từ về con vật, trái cây, đồ ăn, đồ vật.",
+      "steps": [
+        {
+          "kind": "lesson",
+          "id": "pictures.animals"
+        },
+        {
+          "kind": "lesson",
+          "id": "pictures.fruits"
+        },
+        {
+          "kind": "lesson",
+          "id": "pictures.food"
+        },
+        {
+          "kind": "lesson",
+          "id": "pictures.things"
+        }
+      ]
+    },
+    {
+      "id": "first-sentences",
+      "title": "Những câu đầu tiên",
+      "summary": "To be, đại từ, mạo từ, số nhiều, chỉ định và there is.",
+      "steps": [
+        {
+          "kind": "lesson",
+          "id": "sentences.to-be"
+        },
+        {
+          "kind": "lesson",
+          "id": "sentences.pronouns"
+        },
+        {
+          "kind": "lesson",
+          "id": "sentences.articles"
+        },
+        {
+          "kind": "lesson",
+          "id": "sentences.plurals"
+        },
+        {
+          "kind": "lesson",
+          "id": "sentences.demonstratives"
+        },
+        {
+          "kind": "lesson",
+          "id": "sentences.there-is"
+        }
+      ]
+    },
+    {
+      "id": "daily-english",
+      "title": "Tiếng Anh hằng ngày",
+      "summary": "Chào hỏi, số, giờ giấc, lịch sự, hỏi đường, mua sắm — kèm bài nghe.",
+      "steps": [
+        {
+          "kind": "lesson",
+          "id": "daily.greetings"
+        },
+        {
+          "kind": "lesson",
+          "id": "daily.numbers"
+        },
+        {
+          "kind": "lesson",
+          "id": "daily.time-date"
+        },
+        {
+          "kind": "lesson",
+          "id": "daily.polite"
+        },
+        {
+          "kind": "listening",
+          "id": "listengreet.first-meeting"
+        },
+        {
+          "kind": "listening",
+          "id": "listengreet.in-class"
+        },
+        {
+          "kind": "listening",
+          "id": "listengreet.phone-number"
+        },
+        {
+          "kind": "listening",
+          "id": "listengreet.spelling-name"
+        },
+        {
+          "kind": "listening",
+          "id": "listengreet.say-again"
+        },
+        {
+          "kind": "lesson",
+          "id": "daily.directions"
+        },
+        {
+          "kind": "lesson",
+          "id": "daily.shopping"
+        }
+      ]
+    },
+    {
+      "id": "basic-structures",
+      "title": "Cấu trúc cơ bản",
+      "summary": "Have got, can, câu hỏi Wh-, giới từ, từ nối và thì hiện tại.",
+      "steps": [
+        {
+          "kind": "lesson",
+          "id": "structures.have-got"
+        },
+        {
+          "kind": "lesson",
+          "id": "structures.can"
+        },
+        {
+          "kind": "lesson",
+          "id": "structures.wh-questions"
+        },
+        {
+          "kind": "lesson",
+          "id": "structures.prepositions"
+        },
+        {
+          "kind": "lesson",
+          "id": "structures.connectors"
+        },
+        {
+          "kind": "lesson",
+          "id": "tenses.present-simple"
+        },
+        {
+          "kind": "lesson",
+          "id": "tenses.present-continuous"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramwords.possessives"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramwords.frequency"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramwords.countable"
+        },
+        {
+          "kind": "reading",
+          "id": "readlife.my-morning"
+        },
+        {
+          "kind": "reading",
+          "id": "readlife.my-family"
+        },
+        {
+          "kind": "reading",
+          "id": "readlife.at-the-market"
+        }
+      ]
+    }
+  ]
+}

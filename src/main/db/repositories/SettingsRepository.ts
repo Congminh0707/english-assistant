@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import type { UserDb } from '../client'
 import { settings } from '../schema'
 
@@ -13,6 +13,14 @@ export class SettingsRepository {
       .from(settings)
       .where(eq(settings.scope, scope))
       .all()
+  }
+
+  /** Xoá một khoá cài đặt (về mặc định) */
+  remove(key: string, scope = GLOBAL_SCOPE): void {
+    this.db
+      .delete(settings)
+      .where(and(eq(settings.scope, scope), eq(settings.key, key)))
+      .run()
   }
 
   set(key: string, value: unknown, now: number, scope = GLOBAL_SCOPE): void {

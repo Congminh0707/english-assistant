@@ -1,0 +1,569 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "gramnoun",
+    "title": "Danh từ, mạo từ, tính từ & trạng từ",
+    "summary": "Mạo từ, số nhiều, so sánh, trạng từ cách thức.",
+    "icon": "📦",
+    "order": 6
+  },
+  "lessons": [
+    {
+      "id": "gramnoun.articles",
+      "title": "Mạo từ a, an, the",
+      "summary": "Khi nào dùng a/an, the hay không dùng gì.",
+      "level": "A1_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "- **a/an**: một (lần đầu nhắc, chưa xác định). **an** trước âm nguyên âm: *an apple, an hour*.\n- **the**: đã xác định (cả người nói và người nghe đều biết), duy nhất (*the sun*), so sánh nhất (*the best*).\n- **không dùng mạo từ**: danh từ số nhiều/không đếm được nói chung (*I like music*), tên người, bữa ăn, ngôn ngữ."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Trường hợp",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Nhắc lần đầu",
+              "I saw a dog."
+            ],
+            [
+              "Nhắc lại",
+              "The dog was big."
+            ],
+            [
+              "Duy nhất",
+              "The sun is hot."
+            ],
+            [
+              "Nói chung",
+              "Dogs are friendly."
+            ],
+            [
+              "Bữa ăn / môn học",
+              "We have lunch at noon."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "She is an engineer and he is a teacher.",
+              "vi": "Cô ấy là kỹ sư còn anh ấy là giáo viên."
+            },
+            {
+              "en": "Close the door, please.",
+              "vi": "Làm ơn đóng cửa lại."
+            },
+            {
+              "en": "I love music, but I don’t play the piano.",
+              "vi": "Tôi yêu âm nhạc nhưng không chơi piano."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Chơi nhạc cụ dùng **the** (*play the guitar*), chơi thể thao thì không (*play football*)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I have ___ orange in my bag.",
+          "answers": [
+            "an"
+          ],
+          "choices": [
+            "an",
+            "a",
+            "the"
+          ],
+          "explain": "Orange bắt đầu bằng nguyên âm → an."
+        },
+        {
+          "type": "gap",
+          "prompt": "___ sun rises in the east.",
+          "answers": [
+            "The"
+          ],
+          "choices": [
+            "The",
+            "A",
+            "An"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She plays ___ guitar very well.",
+          "answers": [
+            "the"
+          ],
+          "choices": [
+            "the",
+            "a",
+            "an"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "We usually have ___ breakfast at seven.",
+          "answers": [
+            "-",
+            "no article",
+            "x"
+          ],
+          "choices": [
+            "the",
+            "a",
+            "-"
+          ],
+          "explain": "Bữa ăn không dùng mạo từ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "He is a honest man.",
+            "He is an honest man.",
+            "He is the honest man always."
+          ],
+          "answer": 1,
+          "explain": "Honest đọc /ˈɒnɪst/, âm h câm → an."
+        },
+        {
+          "type": "order",
+          "hint": "Tôi nhìn thấy một con chó. Con chó rất to.",
+          "answer": "I saw a dog The dog was big"
+        }
+      ]
+    },
+    {
+      "id": "gramnoun.plurals",
+      "title": "Danh từ số nhiều",
+      "summary": "Quy tắc -s, -es, -ies và các dạng bất quy tắc.",
+      "level": "A1_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "- Thông thường thêm **-s**: *book → books*.\n- Tận cùng **s, x, z, ch, sh** thêm **-es**: *box → boxes*, *watch → watches*.\n- Tận cùng **phụ âm + y** đổi **y → ies**: *baby → babies*.\n- Tận cùng **-f/-fe** thường đổi thành **-ves**: *leaf → leaves*, *knife → knives*.\n- **Bất quy tắc**: man → men, woman → women, child → children, foot → feet, tooth → teeth, person → people, mouse → mice."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Số ít",
+            "Số nhiều"
+          ],
+          "rows": [
+            [
+              "book",
+              "books"
+            ],
+            [
+              "box",
+              "boxes"
+            ],
+            [
+              "baby",
+              "babies"
+            ],
+            [
+              "leaf",
+              "leaves"
+            ],
+            [
+              "child",
+              "children"
+            ],
+            [
+              "foot",
+              "feet"
+            ],
+            [
+              "person",
+              "people"
+            ],
+            [
+              "sheep",
+              "sheep"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "There are three children in the garden.",
+              "vi": "Có ba đứa trẻ trong vườn."
+            },
+            {
+              "en": "These boxes are heavy.",
+              "vi": "Những cái hộp này nặng."
+            },
+            {
+              "en": "Many people like pizza.",
+              "vi": "Nhiều người thích pizza."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**People** đã là số nhiều (*people are*), không thêm -s. **Sheep, fish** giữ nguyên ở số nhiều."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "match",
+          "pairs": [
+            {
+              "left": "baby",
+              "right": "babies"
+            },
+            {
+              "left": "box",
+              "right": "boxes"
+            },
+            {
+              "left": "child",
+              "right": "children"
+            },
+            {
+              "left": "leaf",
+              "right": "leaves"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "There are two ___ in the room. (woman)",
+          "answers": [
+            "women"
+          ],
+          "choices": [
+            "women",
+            "womans",
+            "womens"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I have two ___ in my bag. (watch)",
+          "answers": [
+            "watches"
+          ],
+          "choices": [
+            "watches",
+            "watchs",
+            "watchies"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "Many peoples came.",
+            "Many people came.",
+            "Many persons came."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "The ___ are sleeping. (sheep)",
+          "answers": [
+            "sheep"
+          ],
+          "choices": [
+            "sheep",
+            "sheeps",
+            "sheepes"
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "The plural of “foot” is “foots”.",
+          "answer": "false",
+          "explain": "Số nhiều của foot là feet."
+        }
+      ]
+    },
+    {
+      "id": "gramnoun.comparatives",
+      "title": "So sánh hơn và so sánh nhất",
+      "summary": "Taller, more beautiful, the best.",
+      "level": "A2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Tính từ ngắn (1 âm tiết)**: so sánh hơn **+ -er**, nhất **the + -est**: *tall → taller → the tallest*.\n**Tính từ dài (từ 2 âm tiết trở lên)**: **more + adj**, **the most + adj**: *beautiful → more beautiful → the most beautiful*.\n**Bất quy tắc**: good → better → the best; bad → worse → the worst; far → farther → the farthest.\nSo sánh bằng: **as + adj + as**; dùng **than** sau so sánh hơn."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Gốc",
+            "Hơn",
+            "Nhất"
+          ],
+          "rows": [
+            [
+              "tall",
+              "taller",
+              "the tallest"
+            ],
+            [
+              "big",
+              "bigger",
+              "the biggest"
+            ],
+            [
+              "easy",
+              "easier",
+              "the easiest"
+            ],
+            [
+              "expensive",
+              "more expensive",
+              "the most expensive"
+            ],
+            [
+              "good",
+              "better",
+              "the best"
+            ],
+            [
+              "bad",
+              "worse",
+              "the worst"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "My brother is taller than me.",
+              "vi": "Anh trai tôi cao hơn tôi."
+            },
+            {
+              "en": "This is the most interesting book I have read.",
+              "vi": "Đây là cuốn sách thú vị nhất tôi từng đọc."
+            },
+            {
+              "en": "She is as tall as her mother.",
+              "vi": "Cô ấy cao bằng mẹ."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Đừng nói *more taller* hay *the most best* — chỉ dùng **một** cách so sánh."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "My bag is ___ than yours. (heavy)",
+          "answers": [
+            "heavier"
+          ],
+          "choices": [
+            "heavier",
+            "more heavy",
+            "heavyer"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "This is the ___ film I have ever seen. (good)",
+          "answers": [
+            "best"
+          ],
+          "choices": [
+            "best",
+            "goodest",
+            "most good"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She is ___ beautiful than her sister.",
+          "answers": [
+            "more"
+          ],
+          "choices": [
+            "more",
+            "most",
+            "much"
+          ]
+        },
+        {
+          "type": "match",
+          "pairs": [
+            {
+              "left": "good",
+              "right": "better"
+            },
+            {
+              "left": "bad",
+              "right": "worse"
+            },
+            {
+              "left": "big",
+              "right": "bigger"
+            },
+            {
+              "left": "far",
+              "right": "farther"
+            }
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Anh ấy cao hơn tôi.",
+          "answer": "He is taller than me"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "It is more cheaper.",
+            "It is cheaper.",
+            "It is the cheaper."
+          ],
+          "answer": 1
+        }
+      ]
+    },
+    {
+      "id": "gramnoun.adverbs-manner",
+      "title": "Trạng từ chỉ cách thức",
+      "summary": "Adj + -ly: quickly, well, hard.",
+      "level": "A2_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Trạng từ chỉ cách thức bổ nghĩa cho động từ, trả lời **How?**. Thường tạo bằng **tính từ + -ly**: *quick → quickly*, *careful → carefully*.\nĐổi **y → ily**: *happy → happily*.\n**Bất quy tắc**: good → **well**; **fast, hard, late, early** giữ nguyên dạng với tính từ.\nVị trí: sau động từ hoặc sau tân ngữ: `She sings beautifully.` / `He speaks English well.`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Tính từ",
+            "Trạng từ"
+          ],
+          "rows": [
+            [
+              "quick",
+              "quickly"
+            ],
+            [
+              "careful",
+              "carefully"
+            ],
+            [
+              "happy",
+              "happily"
+            ],
+            [
+              "good",
+              "well"
+            ],
+            [
+              "fast",
+              "fast"
+            ],
+            [
+              "hard",
+              "hard"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "Please drive carefully.",
+              "vi": "Làm ơn lái xe cẩn thận."
+            },
+            {
+              "en": "He plays the piano really well.",
+              "vi": "Anh ấy chơi piano rất giỏi."
+            },
+            {
+              "en": "She works hard every day.",
+              "vi": "Cô ấy làm việc chăm chỉ mỗi ngày."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "**Hardly** nghĩa là “hầu như không”, không phải “chăm chỉ”: *She hardly works* (cô ấy hầu như không làm việc)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "He speaks English very ___. (good)",
+          "answers": [
+            "well"
+          ],
+          "choices": [
+            "well",
+            "good",
+            "goodly"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She walked ___ across the room. (slow)",
+          "answers": [
+            "slowly"
+          ],
+          "choices": [
+            "slowly",
+            "slow",
+            "slowy"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The train arrived ___. (late)",
+          "answers": [
+            "late"
+          ],
+          "choices": [
+            "late",
+            "lately",
+            "latly"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "He drives careful.",
+            "He drives carefully.",
+            "He drives carefuly."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Làm ơn nói chậm.",
+          "answer": "Please speak slowly"
+        },
+        {
+          "type": "tf",
+          "statement": "“Hardly” means “in a hard way”.",
+          "answer": "false",
+          "explain": "Hardly = hầu như không."
+        }
+      ]
+    }
+  ]
+}

@@ -493,6 +493,25 @@ export class VocabRepository {
       .map((r) => ({ ...r, lapses: Number(r.lapses), reps: Number(r.reps) }))
   }
 
+  /** Số lượt ôn và số lần nhớ được (rating ≥ 2) theo hướng thẻ, từ một thời điểm */
+  reviewsByDirection(
+    profileId: string,
+    sinceMs: number
+  ): Array<{ direction: string; total: number; remembered: number }> {
+    return this.db
+      .select({
+        direction: srsCards.direction,
+        total: sql<number>`count(*)`,
+        remembered: sql<number>`coalesce(sum(case when ${srsReviews.rating} >= 2 then 1 else 0 end), 0)`
+      })
+      .from(srsReviews)
+      .innerJoin(srsCards, eq(srsCards.id, srsReviews.cardId))
+      .where(and(eq(srsReviews.profileId, profileId), sql`${srsReviews.reviewedAt} >= ${sinceMs}`))
+      .groupBy(srsCards.direction)
+      .all()
+      .map((r) => ({ ...r, total: Number(r.total), remembered: Number(r.remembered) }))
+  }
+
   /** Số thẻ đang học theo trạng thái FSRS (0 mới, 1 đang học, 2 ôn, 3 học lại) */
   cardStateCounts(profileId: string): Array<{ state: number; n: number }> {
     return this.db

@@ -1,0 +1,456 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "listengreet",
+    "title": "Chào hỏi",
+    "summary": "Gặp gỡ, lớp học, số điện thoại, đánh vần tên.",
+    "icon": "👋",
+    "order": 1
+  },
+  "lessons": [
+    {
+      "id": "listengreet.first-meeting",
+      "title": "Lần đầu gặp nhau",
+      "summary": "Chào hỏi và giới thiệu tên, quê quán.",
+      "level": "PA1_2",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Meeting for the first time",
+          "lines": [
+            {
+              "en": "Hello! My name is Anna. What is your name?",
+              "vi": "Xin chào! Tên tôi là Anna. Bạn tên gì?",
+              "speaker": "A"
+            },
+            {
+              "en": "Hi, Anna. I am Minh. Nice to meet you.",
+              "vi": "Chào Anna. Tôi là Minh. Rất vui được gặp bạn.",
+              "speaker": "B"
+            },
+            {
+              "en": "Nice to meet you too. Where are you from?",
+              "vi": "Tôi cũng rất vui. Bạn đến từ đâu?",
+              "speaker": "A"
+            },
+            {
+              "en": "I am from Vietnam. And you?",
+              "vi": "Tôi đến từ Việt Nam. Còn bạn?",
+              "speaker": "B"
+            },
+            {
+              "en": "I am from England. I live in London.",
+              "vi": "Tôi đến từ nước Anh. Tôi sống ở Luân Đôn.",
+              "speaker": "A"
+            },
+            {
+              "en": "London is a big city. I like it.",
+              "vi": "Luân Đôn là một thành phố lớn. Tôi thích nó.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is the man's name?",
+          "choices": [
+            "Anna",
+            "Minh",
+            "Tom"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Where is Anna from?",
+          "choices": [
+            "Vietnam",
+            "England",
+            "America"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "Minh lives in London.",
+          "answer": "false",
+          "explain": "Anna sống ở Luân Đôn; Minh đến từ Việt Nam."
+        },
+        {
+          "type": "tf",
+          "statement": "Minh likes London.",
+          "answer": "true"
+        },
+        {
+          "type": "listen",
+          "say": "Where are you from?",
+          "choices": [
+            "Where are you from?",
+            "What is your name?",
+            "How are you?"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "listengreet.in-class",
+      "title": "Trong lớp học",
+      "summary": "Giáo viên và học sinh nói chuyện đầu giờ.",
+      "level": "A1_1",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "In the classroom",
+          "lines": [
+            {
+              "en": "Good morning, class. Please sit down.",
+              "vi": "Chào buổi sáng cả lớp. Mời các em ngồi xuống.",
+              "speaker": "A"
+            },
+            {
+              "en": "Good morning, teacher. Sorry, I am late.",
+              "vi": "Chào cô. Em xin lỗi, em đến muộn.",
+              "speaker": "B"
+            },
+            {
+              "en": "That is OK. Please open your book to page ten.",
+              "vi": "Không sao. Hãy mở sách trang mười.",
+              "speaker": "A"
+            },
+            {
+              "en": "Excuse me, I do not have my book.",
+              "vi": "Xin lỗi cô, em không có sách.",
+              "speaker": "B"
+            },
+            {
+              "en": "You can share with Lan. Lan, please show your book.",
+              "vi": "Em có thể xem chung với Lan. Lan, cho bạn xem sách nhé.",
+              "speaker": "A"
+            },
+            {
+              "en": "Thank you, teacher.",
+              "vi": "Em cảm ơn cô.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why does the student say sorry?",
+          "choices": [
+            "He is late.",
+            "He is rude.",
+            "He is sick."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which page do they open?",
+          "choices": [
+            "Page ten",
+            "Page two",
+            "Page twenty"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The student has his book.",
+          "answer": "false",
+          "explain": "Em học sinh nói không có sách."
+        },
+        {
+          "type": "gap",
+          "prompt": "The student will ___ the book with Lan.",
+          "answers": [
+            "share"
+          ],
+          "choices": [
+            "share",
+            "buy",
+            "lose"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listengreet.phone-number",
+      "title": "Số điện thoại",
+      "summary": "Hỏi và nghe số điện thoại.",
+      "level": "A1_1",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "A phone number",
+          "lines": [
+            {
+              "en": "Excuse me, what is your phone number?",
+              "vi": "Xin lỗi, số điện thoại của bạn là gì?",
+              "speaker": "A"
+            },
+            {
+              "en": "It is zero nine one, two three four, five six seven eight.",
+              "vi": "Là không chín một, hai ba bốn, năm sáu bảy tám.",
+              "speaker": "B"
+            },
+            {
+              "en": "Sorry, could you say that again, please?",
+              "vi": "Xin lỗi, bạn nhắc lại được không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Of course. Zero nine one, two three four, five six seven eight.",
+              "vi": "Tất nhiên. Không chín một, hai ba bốn, năm sáu bảy tám.",
+              "speaker": "B"
+            },
+            {
+              "en": "Thank you. I will call you tomorrow.",
+              "vi": "Cảm ơn bạn. Ngày mai tôi sẽ gọi cho bạn.",
+              "speaker": "A"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What does the woman ask for?",
+          "choices": [
+            "An address",
+            "A phone number",
+            "A name"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does she ask again?",
+          "choices": [
+            "She did not hear it well.",
+            "She forgot her phone.",
+            "She is angry."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "She will call tomorrow.",
+          "answer": "true"
+        },
+        {
+          "type": "listen",
+          "say": "Could you say that again, please?",
+          "choices": [
+            "Could you say that again, please?",
+            "What is your name, please?",
+            "Where is the phone?"
+          ],
+          "answer": 0
+        }
+      ]
+    },
+    {
+      "id": "listengreet.spelling-name",
+      "title": "Đánh vần tên",
+      "summary": "Đánh vần tên và họ qua điện thoại.",
+      "level": "A1_2",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Spelling a name",
+          "lines": [
+            {
+              "en": "Good afternoon. How can I help you?",
+              "vi": "Chào buổi chiều. Tôi giúp gì được cho bạn?",
+              "speaker": "A"
+            },
+            {
+              "en": "I would like to book a table for dinner.",
+              "vi": "Tôi muốn đặt một bàn cho bữa tối.",
+              "speaker": "B"
+            },
+            {
+              "en": "Of course. What is your name, please?",
+              "vi": "Tất nhiên. Cho tôi xin tên của bạn?",
+              "speaker": "A"
+            },
+            {
+              "en": "My name is Hoa Nguyen.",
+              "vi": "Tên tôi là Hoa Nguyễn.",
+              "speaker": "B"
+            },
+            {
+              "en": "Could you spell your last name?",
+              "vi": "Bạn đánh vần họ của bạn được không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Yes. N, G, U, Y, E, N.",
+              "vi": "Vâng. N, G, U, Y, E, N.",
+              "speaker": "B"
+            },
+            {
+              "en": "Thank you, Ms. Nguyen. A table for two at seven?",
+              "vi": "Cảm ơn chị Nguyễn. Một bàn hai người lúc bảy giờ nhé?",
+              "speaker": "A"
+            },
+            {
+              "en": "Yes, please.",
+              "vi": "Vâng, xin cảm ơn.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What does Hoa want to do?",
+          "choices": [
+            "Book a table",
+            "Order a taxi",
+            "Buy a ticket"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the waiter ask her to spell?",
+          "choices": [
+            "Her first name",
+            "Her last name",
+            "Her address"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "The table is for four people.",
+          "answer": "false",
+          "explain": "Bàn hai người (a table for two)."
+        },
+        {
+          "type": "gap",
+          "prompt": "The table is at ___ o'clock.",
+          "answers": [
+            "seven",
+            "7"
+          ],
+          "choices": [
+            "seven",
+            "six",
+            "eight"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "listengreet.say-again",
+      "title": "Nói chậm lại một chút",
+      "summary": "Xin nhắc lại và nói chậm hơn.",
+      "level": "A1_2",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Please slow down",
+          "lines": [
+            {
+              "en": "Excuse me, is this the bus to the city centre?",
+              "vi": "Xin lỗi, đây có phải xe buýt vào trung tâm không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Yes, it is. It leaves in five minutes.",
+              "vi": "Đúng vậy. Năm phút nữa xe chạy.",
+              "speaker": "B"
+            },
+            {
+              "en": "Sorry, I am learning English. Could you speak more slowly?",
+              "vi": "Xin lỗi, tôi đang học tiếng Anh. Bạn nói chậm hơn được không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Of course. Yes. This bus. Goes to the centre. In five minutes.",
+              "vi": "Tất nhiên. Vâng. Xe này. Đi vào trung tâm. Trong năm phút.",
+              "speaker": "B"
+            },
+            {
+              "en": "Thank you very much. Your English is very clear.",
+              "vi": "Cảm ơn bạn nhiều. Tiếng Anh của bạn rất rõ ràng.",
+              "speaker": "A"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Where does the bus go?",
+          "choices": [
+            "To the airport",
+            "To the city centre",
+            "To the beach"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the woman ask the man to do?",
+          "choices": [
+            "Speak more slowly",
+            "Speak louder",
+            "Write it down"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "The woman is learning English.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "The bus leaves in ten minutes.",
+          "answer": "false",
+          "explain": "Xe chạy sau năm phút."
+        }
+      ]
+    }
+  ]
+}

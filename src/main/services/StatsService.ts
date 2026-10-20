@@ -1,17 +1,23 @@
 import { evaluateAchievements, MIN_REVIEWS_FOR_RETENTION } from '@shared/achievements'
+import { levelsAhead } from '@shared/progress'
 import { dayRange, longestStreak } from '@shared/stats'
 import type { Stats, StatsDay } from '@shared/schemas/stats'
 import type { Clock } from '../core/Clock'
 import { localDayKey, localOffsetSeconds } from '../core/localDay'
 import type { DictionaryService } from '../content/DictionaryService'
 import type { LessonRepository } from '../db/repositories/LessonRepository'
+import type { UsageRepository } from '../db/repositories/UsageRepository'
 import type { VocabRepository } from '../db/repositories/VocabRepository'
 import type { XpRepository } from '../db/repositories/XpRepository'
 import type { ProfileService } from './ProfileService'
+import type { ProgressService } from './ProgressService'
+import type { SettingsService } from './SettingsService'
 import { computeStreak } from './StudyService'
 
 /** Số ngày trong lịch hoạt động: 16 tuần */
 export const STATS_DAYS = 112
+/** Độ chính xác tính trong ngần này ngày gần nhất */
+const ACCURACY_DAYS = 30
 /** Số từ hay quên hiển thị */
 const HARDEST_LIMIT = 8
 const DAY_MS = 86_400_000
@@ -26,6 +32,9 @@ export class StatsService {
     private readonly deps: {
       vocab: VocabRepository
       lessonRepo: LessonRepository
+      usage: UsageRepository
+      progress: ProgressService
+      settings: SettingsService
       xpRepo: XpRepository
       dictionary: DictionaryService
       profiles: ProfileService
@@ -45,8 +54,12 @@ export class StatsService {
 
     const reviews = new Map(vocab.reviewCountsByDay(profileId, since, tz).map((r) => [r.day, r.n]))
     const activity = new Map(xpRepo.dailyActivity(profileId, since, tz).map((r) => [r.day, r]))
+    const usageByDay = new Map(
+      deps.usage.since(profileId, dayRange(today, STATS_DAYS)[0]).map((r) => [r.day, r.seconds])
+    )
     const days: StatsDay[] = dayRange(today, STATS_DAYS).map((day) => ({
       day,
+      minutes: Math.round((usageByDay.get(day) ?? 0) / 60),
       reviews: reviews.get(day) ?? 0,
       saved: activity.get(day)?.saved ?? 0,
       practice: activity.get(day)?.practice ?? 0,
@@ -97,6 +110,16 @@ export class StatsService {
       cardStates: states,
       levels,
       hardest: vocab.hardestWords(profileId, HARDEST_LIMIT),
+      accuracy: this.accuracy(profileId, now, today),
+      skills: deps.progress.ratings().map((r) => ({
+        ...r,
+        ahead: levelsAhead(r.rating, deps.settings.get('learning.level'))
+      })),
+      time: {
+        todayMinutes: days.at(-1)?.minutes ?? 0,
+        weekMinutes: days.slice(-7).reduce((n, d) => n + d.minutes, 0),
+        totalMinutes: Math.round(deps.usage.totalSeconds(profileId) / 60)
+      },
       achievements: evaluateAchievements({
         longestStreak: streakBest,
         reviews: reviewTotals.total,
@@ -120,5 +143,32 @@ export class StatsService {
         prevSaved: sum(prevWeek, 'saved')
       }
     }
+  }
+
+  /** Độ chính xác 30 ngày gần nhất: bài tập (theo dạng bài) và thẻ ôn (theo hướng thẻ) */
+  private accuracy(profileId: string, now: number, today: string): Stats['accuracy'] {
+    const { vocab, progress } = this.deps
+    const merged = new Map<string, Stats['accuracy'][number]>()
+    for (const r of progress.accuracySince(dayRange(today, ACCURACY_DAYS)[0])) {
+      const key = `${r.kind}|${r.skill}`
+      const row = merged.get(key) ?? {
+        group: 'exercise',
+        kind: r.kind,
+        skill: r.skill,
+        correct: 0,
+        total: 0
+      }
+      row.correct += r.correct
+      row.total += r.total
+      merged.set(key, row)
+    }
+    const reviews = vocab.reviewsByDirection(profileId, now - ACCURACY_DAYS * DAY_MS).map((r) => ({
+      group: 'review' as const,
+      kind: r.direction,
+      skill: r.direction === 'audio_en' || r.direction === 'audio_picture' ? 'listening' : 'vocab',
+      correct: r.remembered,
+      total: r.total
+    }))
+    return [...merged.values(), ...reviews].sort((a, b) => b.total - a.total)
   }
 }

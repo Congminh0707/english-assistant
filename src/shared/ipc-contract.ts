@@ -36,6 +36,8 @@ import {
   KidsTickInputSchema,
   KidsUnitsSchema,
   ParentExtendInputSchema,
+  ParentForgotSchema,
+  ParentResetInputSchema,
   ParentReportSchema,
   ParentSetPinInputSchema,
   ParentStatusSchema,
@@ -43,8 +45,10 @@ import {
   ParentVerifyResultSchema,
   UsageStatusSchema
 } from './schemas/kids'
+import { CourseDetailSchema, CourseListSchema } from './schemas/course'
 import { PhrasebookSchema } from './schemas/phrasebook'
 import { StatsSchema } from './schemas/stats'
+import { UpdateStatusSchema } from './schemas/update'
 import { TtsPrefetchInputSchema, TtsSpeakInputSchema, TtsSpeakResultSchema } from './schemas/tts'
 import {
   PracticeAnswerInputSchema,
@@ -105,6 +109,7 @@ export const invokeContract = {
   'study:overview': { input: z.void(), output: StudyOverviewSchema },
   'study:next': { input: z.void(), output: StudyNextSchema },
   'study:rate': { input: StudyRateInputSchema, output: StudyRateResultSchema },
+  'study:tick': { input: KidsTickInputSchema, output: z.void() },
   'study:undo': { input: z.void(), output: StudyNextSchema },
   'study:backfill': { input: z.void(), output: StudyBackfillResultSchema },
   'study:missions': { input: z.void(), output: MissionsStateSchema },
@@ -125,6 +130,7 @@ export const invokeContract = {
   'profile:create': { input: ProfileSetupInputSchema, output: ProfileInfoSchema },
   'profile:switch': { input: z.object({ id: z.string().min(1) }), output: ProfileInfoSchema },
   'placement:start': { input: z.void(), output: PlacementStartSchema },
+  'placement:checkpoint-start': { input: z.void(), output: PlacementStartSchema },
   'placement:answer': { input: PlacementAnswerInputSchema, output: PlacementAnswerResultSchema },
   'translate:status': { input: TranslateDirectionInputSchema, output: TranslateStatusSchema },
   'translate:install': { input: TranslateDirectionInputSchema, output: TranslateStatusSchema },
@@ -138,6 +144,12 @@ export const invokeContract = {
   'shop:equip': { input: ShopEquipInputSchema, output: ShopStateSchema },
   'study:stats': { input: z.void(), output: StatsSchema },
   'phrasebook:list': { input: z.void(), output: PhrasebookSchema },
+  'update:status': { input: z.void(), output: UpdateStatusSchema },
+  'update:check': { input: z.void(), output: UpdateStatusSchema },
+  'update:download': { input: z.void(), output: UpdateStatusSchema },
+  'update:install': { input: z.void(), output: z.void() },
+  'course:list': { input: z.void(), output: CourseListSchema },
+  'course:get': { input: z.object({ id: z.string().min(1) }), output: CourseDetailSchema },
   // Chế độ trẻ em và khu vực phụ huynh
   'kids:home': { input: z.void(), output: KidsHomeSchema },
   'kids:units': { input: z.void(), output: KidsUnitsSchema },
@@ -151,6 +163,8 @@ export const invokeContract = {
   'parent:set-pin': { input: ParentSetPinInputSchema, output: ParentStatusSchema },
   'parent:verify': { input: ParentVerifyInputSchema, output: ParentVerifyResultSchema },
   'parent:extend': { input: ParentExtendInputSchema, output: UsageStatusSchema },
+  'parent:forgot': { input: z.void(), output: ParentForgotSchema },
+  'parent:reset': { input: ParentResetInputSchema, output: ParentVerifyResultSchema },
   'parent:report': { input: z.void(), output: ParentReportSchema },
   'lesson:catalog': { input: LessonKindInputSchema, output: LessonCatalogSchema },
   'lesson:get': {
@@ -184,6 +198,7 @@ export const eventContract = {
   'mascot:quiz': QuizSchema,
   'mascot:sleep': MascotSleepSchema,
   'translate:status-changed': TranslateStatusEventSchema,
+  'update:status-changed': UpdateStatusSchema,
   'tts:status-changed': TranslateStatusSchema
 } satisfies Record<EventName, z.ZodType>
 

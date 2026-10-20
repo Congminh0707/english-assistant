@@ -6,6 +6,8 @@ directories:
 # Dùng danh sách CHO PHÉP thay vì loại trừ để không vô tình cuốn theo content/, docs/, .claude/worktrees...
 files:
   - out/**/*
+  # Icon tray/cửa sổ: main nạp qua `?asset` → <asar>/resources/icon.png (thiếu file này thì icon khay hệ thống bị trống)
+  - resources/icon.png
   - '!**/*.map'
   # onnxruntime-node có binary cho mọi nền tảng (~280 MB): chỉ giữ Windows x64
   - '!**/onnxruntime-node/bin/napi-v6/darwin/**'

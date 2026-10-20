@@ -48,6 +48,8 @@ Kết quả trong `dist/`: `English Assistant Setup x.y.z.exe`, `latest.yml` (ch
 
 > Content pack lớn (TOEIC, IELTS, B2+) **không** đưa vào installer — tải trong app để installer gọn (< 150 MB).
 
+> ⚠️ **Icon khay hệ thống:** main nạp `resources/icon.png` qua `?asset` (đường dẫn `<asar>/resources/icon.png` khi đã đóng gói). File này phải nằm trong `files` của `electron-builder.yml` — từng thiếu nên icon khay bị trống ở bản cài (2026-10-20, đã sửa). Sau mỗi lần đổi cấu hình `files`, kiểm tra: `pnpm exec electron-builder --win --dir` rồi xem `dist/win-unpacked/resources/app.asar.unpacked/resources/icon.png`.
+
 ## 2. Đường dẫn khi chạy
 
 | Thứ | Dev | Production |

@@ -38,3 +38,9 @@ pnpm build:win      # build installer
 - `pnpm lint && pnpm test` pass.
 - Cập nhật tài liệu liên quan (tài liệu là nguồn sự thật).
 - Đánh dấu checklist trong [docs/14-roadmap.md](docs/14-roadmap.md) nếu hoàn thành một hạng mục.
+
+## Cập nhật tài liệu theo thời gian thực (bắt buộc)
+- Cập nhật docs **ngay sau mỗi bước nhỏ hoàn thành** (một tính năng, một migration, một kênh IPC, một nhóm nội dung) — **không dồn đến cuối task**, để nếu phiên làm việc bị ngắt thì người/AI tiếp theo biết chính xác đã làm tới đâu.
+- Trước khi bắt đầu một việc dài: ghi dòng `🚧 Đang làm: <việc> — bước tiếp theo: <...>` vào mục **Nhật ký tiến độ** của [docs/14-roadmap.md](docs/14-roadmap.md). Xong thì đổi thành `[x]` và xoá dòng đang làm.
+- Mỗi bước ghi rõ: đã xong gì, còn dở gì, file nào đang sửa dở, lệnh để kiểm tra (`pnpm lint && pnpm test`).
+- Đổi schema → `docs/10-data-model.md`; đổi kênh IPC/service/thư mục → `docs/03-architecture.md`; nội dung mới → `docs/08` và `docs/07`; quyết định kỹ thuật → `docs/decisions.md`.

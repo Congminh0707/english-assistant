@@ -21,6 +21,12 @@ gantt
 
 ---
 
+## Nhật ký tiến độ (cập nhật liên tục)
+
+> Quy tắc: ghi `🚧 Đang làm` trước khi bắt đầu việc dài, xoá/đổi thành `[x]` ngay khi xong. Xem AGENTS.md.
+
+- Hiện tại: không có việc dở. Commit gần nhất `f33ec59`. Việc kế tiếp đề xuất: thử tay các màn mới → phát hành bản đầu (`pnpm release:win`).
+
 ## Phase 0 — Spike: cửa sổ mascot (≈ 2 tuần)
 
 Mục tiêu: chứng minh các kỹ thuật khó nhất chạy được trên Windows.

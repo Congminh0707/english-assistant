@@ -6,6 +6,7 @@
 - **Phong cách**: pixel art, khung gốc **48×48 px**, mặc định hiển thị **×2 = 96px** trên màn hình (Phase 1 cho chỉnh ×1/×2/×3 trong cài đặt — luôn số nguyên để pixel sắc nét). Kích thước trước đây (64px ×3 = 192px) bị đánh giá là quá to.
 - **Tính cách**: tò mò, hay khen, hơi lười buổi trưa, thích ăn. Câu thoại ngắn, có cả tiếng Anh và tiếng Việt tuỳ level người dùng.
 - **Tiến hoá** (theo level thú cưng): Trứng (lv 1) → Bé (lv 2–9) → Thiếu niên (lv 10–24) → Trưởng thành (lv 25–49) → Huyền thoại (lv 50+). Mỗi giai đoạn là một bộ sprite mới.
+  - **Đã làm (placeholder):** 5 bộ sheet sinh bằng `scripts/sprites/make-placeholder.mjs` (`STAGES`, `generate(stage)`) vào `src/renderer/mascot/assets/characters/placeholder/<egg|baby|teen|adult|legend>/`; bản `baby` giữ nguyên pixel như trước. Cửa sổ mascot chọn sheet theo giai đoạn (`SpriteAnimator.setSheet`) và đổi ngay khi lên level (`evolveTo`). Thay bằng art thật sau: giữ nguyên tên file/khung hình.
 
 ## 2. Sprite sheet — định dạng chuẩn
 

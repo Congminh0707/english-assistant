@@ -158,6 +158,8 @@ Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được n
 
 > ✅ **Đã có**: 34 bài học nền tảng (chữ cái, phát âm, mẫu câu, các thì, giao tiếp) trong `content/curated/lessons/` — tự soạn, `license: proprietary-own`, ví dụ và bài tập tự nghĩ ra (không chép sách giáo khoa). Soạn bằng AI rồi rà soát chuyên môn độc lập hai lượt; **chưa có giáo viên người thật duyệt** — nên nhờ giáo viên tiếng Anh rà trước khi phát hành rộng. Xem [07 §3b](07-learning-modules.md).
 
+> ✅ **Cập nhật 2026-10-20 — toàn bộ nội dung sau đây tự soạn, `license: proprietary-own`, nằm trong `content/curated/`:** 40 điểm ngữ pháp (`grammar/`), 50 bài đọc (`readings/`), 30 bài nghe (`listening/`, đọc bằng TTS nên chưa có file audio), sổ mẫu câu (`phrasebook/`), ngân hàng câu hỏi placement (`placement/`), 3 khoá học (`courses/`), nội dung chế độ trẻ em (`kids/`). Hình minh hoạ & huy hiệu là pixel art **vẽ bằng code** (`src/shared/pictures.ts`, `badgeArt.ts`) — không dùng tài nguyên ngoài. Chưa có người thật duyệt chuyên môn. Chưa dùng nguồn bên ngoài nào ở mục 5/6 (VOA, LibriVox...).
+
 Phần lớn bài học có cấu trúc (lesson, bài tập ngữ pháp, hội thoại, đề TOEIC/IELTS mô phỏng, nghĩa tiếng Việt ngắn gọn) sẽ là **nội dung tự soạn**, với AI hỗ trợ:
 
 - `source.id = "original"` (người soạn) hoặc `"generated"` (AI sinh, ghi model + ngày) → license `proprietary-own`. Nguồn `generated` đã khai báo trong `scripts/content/sources.ts` (ghi công tự động trong `LICENSES.md` khi pack có nội dung AI sinh).

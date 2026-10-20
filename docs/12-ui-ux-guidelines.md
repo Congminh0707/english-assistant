@@ -99,6 +99,8 @@ Phím: `Esc` đóng, `S` lưu, `Space` phát âm. Tự đóng khi click ra ngoà
 | Giới hạn thời gian | Hết giờ → mascot đi ngủ, cửa sổ học đóng nhẹ nhàng |
 | Không AI tự do | Xem [11](11-ai-and-speech.md#kiểm-soát-chi-phí--an-toàn) |
 
+**Đã triển khai** (hồ sơ `isChild`): giao diện riêng `renderer/study/kids/` (KidsApp, KidsHome, KidsReview, KidsUnits, KidsActivity, KidsAlbum, KidsPet, ParentGate), thẻ nghe–chạm–chọn hình, hoạt động chữ cái/âm/ghép vần/từ thường gặp/sách tranh/tô chữ/nói theo, sticker, khu phụ huynh (PIN băm muối, khoá tạm khi sai nhiều lần, quên PIN → thử thách, giới hạn thời gian/ngày, báo cáo 7 ngày). Chi tiết ở [07](07-learning-modules.md).
+
 ## 6. Âm thanh
 
 - Hiệu ứng ngắn kiểu 8-bit: đúng, sai, lên level, nhận xu, mascot ăn. Âm lượng riêng cho hiệu ứng / giọng đọc / mascot.

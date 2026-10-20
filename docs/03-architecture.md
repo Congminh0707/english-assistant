@@ -115,9 +115,14 @@ english-assistant/
 │  │  │  ├─ SrsService.ts
 │  │  │  ├─ DictionaryService.ts
 │  │  │  ├─ TranslateService.ts
-│  │  │  ├─ LessonService.ts
-│  │  │  ├─ ContentPackService.ts
+│  │  │  ├─ LessonService.ts       # bài học/ngữ pháp/đọc/nghe dùng chung (theo `kind`)
+│  │  │  ├─ CourseService.ts       # khoá học Course → Unit → Lesson
+│  │  │  ├─ ProgressService.ts     # Elo theo kỹ năng, độ chính xác, thời gian học
+│  │  │  ├─ PlacementService.ts    # kiểm tra đầu vào + bài kiểm tra lên cấp (checkpoint)
+│  │  │  ├─ PracticeService.ts, StatsService.ts, KidsService.ts, ParentService.ts
 │  │  │  └─ ...
+│  │  ├─ content/               # thư viện nội dung đóng gói sẵn: LessonLibrary, CourseLibrary, KidsLibrary,
+│  │  │                         #   PhrasebookLibrary, PlacementBank, bundledLessons (glob content/curated/**)
 │  │  ├─ db/
 │  │  │  ├─ schema/             # Drizzle schema (~ Models + migrations định nghĩa)
 │  │  │  ├─ migrations/         # file SQL sinh bởi drizzle-kit
@@ -125,7 +130,7 @@ english-assistant/
 │  │  │  └─ client.ts           # mở kết nối user.db & content packs
 │  │  ├─ events/                # event bus có kiểu (~ app/Events + Listeners)
 │  │  ├─ jobs/                  # tác vụ định kỳ (~ app/Console/Kernel schedule)
-│  │  ├─ system/                # tray, globalShortcut, clipboard, activeWindow, autostart
+│  │  ├─ system/                # tray, globalShortcut, clipboard, activeWindow, autostart, UpdateManager (cập nhật app)
 │  │  ├─ ai/                    # provider LLM, TTS, STT, dịch (interface + implementations)
 │  │  └─ utility/               # code chạy trong utilityProcess (AI local nặng)
 │  ├─ preload/
@@ -139,13 +144,17 @@ english-assistant/
 │  │     ├─ components/         # PixelButton, PixelPanel, AudioPlayer, ...
 │  │     ├─ composables/        # useTts, useRecorder, useHotkeys...
 │  │     ├─ stores/             # Pinia stores (đồng bộ với main qua sự kiện)
-│  │     ├─ exercises/          # component cho từng dạng bài tập (xem 07)
+│  │     ├─ exercises/          # (thực tế nằm ở renderer/study/exercises/: registry lessonExercises.ts + ChoiceList, WordOrderBoard, MatchBoard, AudioPrompt)
 │  │     ├─ i18n/               # vi.json, en.json
 │  │     └─ styles/
 │  └─ shared/                   # ===== DÙNG CHUNG main + renderer =====
 │     ├─ ipc-contract.ts        # định nghĩa kiểu của mọi kênh IPC
 │     ├─ schemas/               # zod schema: content, exercise, settings
 │     ├─ constants.ts           # level, XP table, ...
+│     ├─ progress.ts            # kỹ năng, ánh xạ dạng bài → kỹ năng, công thức Elo
+│     ├─ placement.ts, kids.ts, trace.ts   # kế hoạch kiểm tra, quy tắc chế độ trẻ em, chấm nét tô chữ
+│     ├─ pixelGrid.ts, badgeArt.ts, pictures.ts   # pixel art vẽ bằng code (huy hiệu, 60 hình minh hoạ)
+│     ├─ i18n/                  # vi.json, en.json (+ usedKeys.test.ts kiểm tra khoá thiếu)
 │     └─ types.ts
 └─ tests/
    ├─ unit/

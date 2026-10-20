@@ -93,8 +93,8 @@ Luôn dùng helper `paths.ts` thay vì viết cứng đường dẫn.
 - Đã có tag đó → workflow dừng ngay, thành công, không build/không đăng gì (push `release` mà không đổi version thì vô hại).
 - Version thấp hơn tag cao nhất → lỗi (nhắc tăng version). Version không đúng semver → lỗi. Nếu có `CHANGELOG.md` thì phải có mục cho version mới.
 
-**Các bước khi có version mới** (windows-latest, dừng ở bước lỗi đầu tiên, không đăng gì): `pnpm install --frozen-lockfile` → `pnpm lint` → `pnpm typecheck` → `pnpm test` → tải content pack → `pnpm build:win` → `gh release create v<version>` kèm `*-setup.exe`, `*.blockmap`, `latest.yml` (electron-updater đọc `latest.yml`), đánh dấu "latest", release **công khai ngay**.
-Phát hành lại cùng version (do lỗi): xoá release và tag trên GitHub (`gh release delete v1.0.1 --cleanup-tag`), rồi push lại `release`.
+**Các job** (tách riêng để lỗi ở đâu chạy lại đúng chỗ đó): `version` → song song `lint` / `typecheck` / `test` / `content-pack` (tải + kiểm tra sha256) → `build` (windows, `pnpm build:win`, cần cả 4 job trên xanh) → `publish` (`gh release create v<version>` kèm `*-setup.exe`, `*.blockmap`, `latest.yml`; electron-updater đọc `latest.yml`; đánh dấu "latest", **công khai ngay**).
+Job lỗi: vào lần chạy trên tab Actions → **Re-run failed jobs** (chỉ chạy lại job lỗi và các job phụ thuộc; job đã xanh giữ nguyên; artifact `content-pack`/`installer` giữ 7 ngày). Nếu `publish` đã tạo release rồi mà muốn làm lại cùng version: xoá release + tag (`gh release delete v1.0.1 --cleanup-tag`) rồi push lại `release`.
 
 **Content pack (làm một lần):** file `content/packs/core-dictionary-*.eapack` (~21 MB) bị `.gitignore` nên CI không có sẵn; workflow tải nó từ một release phụ có tag `content-pack-1.2.0` (biến `CONTENT_PACK_TAG` trong workflow) và kiểm tra sha256. Tải lên một lần từ máy có pack:
 

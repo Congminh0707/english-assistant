@@ -1,15 +1,22 @@
 name: Release
 
 # Chỉ chạy khi push lên nhánh `release`. Phát hành bản mới CHỈ khi version trong package.json chưa có tag `v<version>`;
-# nếu version không đổi thì workflow dừng ngay (không build, không đăng gì).
+# nếu version không đổi thì chỉ job `version` chạy rồi dừng (không build, không đăng gì).
 # Workflow tự tạo release + tag `v<version>` (trỏ đúng commit vừa push) — không cần push tag thủ công.
 # Cách phát hành: tăng version trong package.json trên master, rồi `git push origin master:release`.
+# Job nào lỗi thì bấm "Re-run failed jobs" trên GitHub: chỉ chạy lại job đó (kết quả các job trước giữ nguyên;
+# artifact content-pack/installer giữ 7 ngày để job sau dùng lại).
+#
+#   version ──┬─ lint ──────┐
+#             ├─ typecheck ─┤
+#             ├─ test ──────┼─► build ─► publish
+#             └─ content-pack ┘
 on:
   push:
     branches: [release]
 
 permissions:
-  contents: write # tạo release/tag và tải file lên
+  contents: read
 
 concurrency:
   group: release
@@ -20,52 +27,62 @@ env:
   CONTENT_PACK_TAG: content-pack-1.2.0
 
 jobs:
-  release:
-    runs-on: windows-latest
-    timeout-minutes: 60
+  version:
+    name: Kiểm tra version
+    runs-on: ubuntu-latest
+    outputs:
+      release: ${{ steps.ver.outputs.release }}
+      version: ${{ steps.ver.outputs.version }}
+      tag: ${{ steps.ver.outputs.tag }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           fetch-tags: true
-
-      - name: Kiểm tra version (so với tag hiện có)
+      - name: So version với tag hiện có
         id: ver
-        shell: bash
         run: node scripts/release/check-version.mjs
 
-      - uses: pnpm/action-setup@v4
-        if: steps.ver.outputs.release == 'true'
-        with:
-          version: 12.14.0
+  lint:
+    name: Lint
+    needs: version
+    if: needs.version.outputs.release == 'true'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm lint
 
-      - uses: actions/setup-node@v4
-        if: steps.ver.outputs.release == 'true'
-        with:
-          node-version: 22
-          cache: pnpm
+  typecheck:
+    name: Typecheck
+    needs: version
+    if: needs.version.outputs.release == 'true'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm typecheck
 
-      - name: Cài thư viện
-        if: steps.ver.outputs.release == 'true'
-        run: pnpm install --frozen-lockfile
+  test:
+    name: Test
+    needs: version
+    if: needs.version.outputs.release == 'true'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - run: pnpm test
 
-      - name: Lint
-        if: steps.ver.outputs.release == 'true'
-        run: pnpm lint
-
-      - name: Typecheck
-        if: steps.ver.outputs.release == 'true'
-        run: pnpm typecheck
-
-      - name: Test
-        if: steps.ver.outputs.release == 'true'
-        run: pnpm test
-
-      - name: Tải content pack
-        if: steps.ver.outputs.release == 'true'
-        shell: bash
+  content-pack:
+    name: Content pack
+    needs: version
+    if: needs.version.outputs.release == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Tải và kiểm tra sha256
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
           mkdir -p content/packs
           gh release download "$CONTENT_PACK_TAG" --pattern 'core-dictionary-*' --dir content/packs --clobber || {
@@ -74,18 +91,51 @@ jobs:
           }
           cd content/packs
           for f in *.eapack.sha256; do sha256sum -c "$f"; done
+      - uses: actions/upload-artifact@v4
+        with:
+          name: content-pack
+          path: content/packs/
+          retention-days: 7
 
-      - name: Build installer
-        if: steps.ver.outputs.release == 'true'
-        run: pnpm build:win
+  build:
+    name: Build installer
+    needs: [version, lint, typecheck, test, content-pack]
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+      - uses: actions/download-artifact@v4
+        with:
+          name: content-pack
+          path: content/packs
+      - run: pnpm build:win
+      - uses: actions/upload-artifact@v4
+        with:
+          name: installer
+          # latest.yml + .blockmap là thứ electron-updater đọc để cập nhật tự động
+          path: |
+            dist/*-setup.exe
+            dist/*-setup.exe.blockmap
+            dist/latest.yml
+          if-no-files-found: error
+          retention-days: 7
 
-      - name: Tạo release + tag và tải file lên
-        if: steps.ver.outputs.release == 'true'
-        shell: bash
+  publish:
+    name: Tạo release + tag
+    needs: [version, build]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # tạo release/tag và tải file lên
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: installer
+          path: dist
+      - name: Tạo release và tải file lên
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ steps.ver.outputs.tag }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ needs.version.outputs.tag }}
         run: |
-          # latest.yml + .blockmap là thứ electron-updater đọc để cập nhật tự động
-          gh release create "$TAG" dist/*-setup.exe dist/*-setup.exe.blockmap dist/latest.yml \
-            --target "$GITHUB_SHA" --title "$TAG" --generate-notes --latest
+          ls -la dist
+          gh release create "$TAG" dist/* --target "$GITHUB_SHA" --title "$TAG" --generate-notes --latest

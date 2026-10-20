@@ -1,0 +1,15 @@
+name: Setup
+description: pnpm + Node 22 + cài thư viện (dùng chung cho các job của workflow Release)
+runs:
+  using: composite
+  steps:
+    - uses: pnpm/action-setup@v4
+      with:
+        version: 12.14.0
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 22
+        cache: pnpm
+    - name: Cài thư viện
+      shell: bash
+      run: pnpm install --frozen-lockfile

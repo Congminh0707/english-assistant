@@ -80,14 +80,28 @@ Luôn dùng helper `paths.ts` thay vì viết cứng đường dẫn.
 - Chưa ký số → Windows SmartScreen hiện cảnh báo "Windows protected your PC". Chấp nhận được khi thử nghiệm nội bộ.
 - Phát hành rộng: mua chứng chỉ code signing (OV/EV) hoặc dùng dịch vụ ký trên cloud (ví dụ Azure Trusted Signing) và cấu hình trong electron-builder. Ghi quyết định vào [decisions.md](decisions.md).
 
-## 6. CI (GitHub Actions — khi có repo)
+## 6. CI phát hành (GitHub Actions)
 
-Workflow `release.yml` chạy trên `windows-latest` khi push tag `v*`:
-1. Checkout, setup Node + pnpm, `pnpm install` (cache).
-2. `pnpm lint && pnpm test`.
-3. `pnpm content:validate` (nếu pack thay đổi).
-4. `pnpm build:win` với `GH_TOKEN` → tự đăng bản nháp lên GitHub Releases.
-5. Kiểm tra thủ công bản nháp rồi Publish.
+> ✅ **Đã làm (2026-10-20):** `.github/workflows/release.yml` (chưa chạy thử trên GitHub). Không ký số (quyết định của chủ dự án — bàn lại khi cần).
+
+**Chỉ chạy khi push lên nhánh `release`.** Cách phát hành một phiên bản:
+1. Trên `master`: tăng `version` trong `package.json` (semver `x.y.z`), commit.
+2. Đẩy sang nhánh phát hành: `git push origin master:release`. **Không push tag** — workflow tự tạo release và tag `v<version>` (trỏ đúng commit vừa push).
+
+**Chỉ phát hành khi có version mới** (`scripts/release/check-version.mjs`, chạy thử trên máy: `node scripts/release/check-version.mjs`): so `version` trong package.json với các tag `v*` hiện có.
+- Chưa có tag `v<version>` → phát hành.
+- Đã có tag đó → workflow dừng ngay, thành công, không build/không đăng gì (push `release` mà không đổi version thì vô hại).
+- Version thấp hơn tag cao nhất → lỗi (nhắc tăng version). Version không đúng semver → lỗi. Nếu có `CHANGELOG.md` thì phải có mục cho version mới.
+
+**Các bước khi có version mới** (windows-latest, dừng ở bước lỗi đầu tiên, không đăng gì): `pnpm install --frozen-lockfile` → `pnpm lint` → `pnpm typecheck` → `pnpm test` → tải content pack → `pnpm build:win` → `gh release create v<version>` kèm `*-setup.exe`, `*.blockmap`, `latest.yml` (electron-updater đọc `latest.yml`), đánh dấu "latest", release **công khai ngay**.
+Phát hành lại cùng version (do lỗi): xoá release và tag trên GitHub (`gh release delete v1.0.1 --cleanup-tag`), rồi push lại `release`.
+
+**Content pack (làm một lần):** file `content/packs/core-dictionary-*.eapack` (~21 MB) bị `.gitignore` nên CI không có sẵn; workflow tải nó từ một release phụ có tag `content-pack-1.2.0` (biến `CONTENT_PACK_TAG` trong workflow) và kiểm tra sha256. Tải lên một lần từ máy có pack:
+
+```powershell
+gh release create content-pack-1.2.0 (Get-ChildItem content/packs/core-dictionary-*.eapack*) --prerelease --title "Content pack 1.2.0" --notes "Gói từ điển đi kèm bản cài (không phải bản app)"
+```
+Release này là `--prerelease` và tag `content-pack-*` không bị `check-version` coi là version app (chỉ tag `v*`), nên không ảnh hưởng auto-update. Khi build lại pack với version mới: tải lên release mới và đổi `CONTENT_PACK_TAG`. Repo đang công khai: pack gồm dữ liệu CC BY-SA/Wiktionary nên cần giữ ghi công trong app (docs/08).
 
 ## 7. Checklist trước mỗi bản phát hành
 

@@ -1,0 +1,91 @@
+name: Release
+
+# Chỉ chạy khi push lên nhánh `release`. Phát hành bản mới CHỈ khi version trong package.json chưa có tag `v<version>`;
+# nếu version không đổi thì workflow dừng ngay (không build, không đăng gì).
+# Workflow tự tạo release + tag `v<version>` (trỏ đúng commit vừa push) — không cần push tag thủ công.
+# Cách phát hành: tăng version trong package.json trên master, rồi `git push origin master:release`.
+on:
+  push:
+    branches: [release]
+
+permissions:
+  contents: write # tạo release/tag và tải file lên
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+env:
+  # Content pack (từ điển ~21 MB) không nằm trong git: tải từ release có tag này (xem docs/15-packaging-and-release.md §6)
+  CONTENT_PACK_TAG: content-pack-1.2.0
+
+jobs:
+  release:
+    runs-on: windows-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Kiểm tra version (so với tag hiện có)
+        id: ver
+        shell: bash
+        run: node scripts/release/check-version.mjs
+
+      - uses: pnpm/action-setup@v4
+        if: steps.ver.outputs.release == 'true'
+        with:
+          version: 12.14.0
+
+      - uses: actions/setup-node@v4
+        if: steps.ver.outputs.release == 'true'
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Cài thư viện
+        if: steps.ver.outputs.release == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        if: steps.ver.outputs.release == 'true'
+        run: pnpm lint
+
+      - name: Typecheck
+        if: steps.ver.outputs.release == 'true'
+        run: pnpm typecheck
+
+      - name: Test
+        if: steps.ver.outputs.release == 'true'
+        run: pnpm test
+
+      - name: Tải content pack
+        if: steps.ver.outputs.release == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p content/packs
+          gh release download "$CONTENT_PACK_TAG" --pattern 'core-dictionary-*' --dir content/packs --clobber || {
+            echo "::error::Không tải được content pack từ release '$CONTENT_PACK_TAG'. Tải lên một lần (xem docs/15-packaging-and-release.md §6)."
+            exit 1
+          }
+          cd content/packs
+          for f in *.eapack.sha256; do sha256sum -c "$f"; done
+
+      - name: Build installer
+        if: steps.ver.outputs.release == 'true'
+        run: pnpm build:win
+
+      - name: Tạo release + tag và tải file lên
+        if: steps.ver.outputs.release == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.ver.outputs.tag }}
+        run: |
+          # latest.yml + .blockmap là thứ electron-updater đọc để cập nhật tự động
+          gh release create "$TAG" dist/*-setup.exe dist/*-setup.exe.blockmap dist/latest.yml \
+            --target "$GITHUB_SHA" --title "$TAG" --generate-notes --latest

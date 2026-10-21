@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Lesson } from '@shared/schemas/lesson'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
 import MdText from './MdText.vue'
 import PicText from '@renderer/shared/components/PicText.vue'
 import ListeningPlayer from './ListeningPlayer.vue'
@@ -15,6 +16,9 @@ defineEmits<{ start: []; back: [] }>()
 
 const { t } = useI18n()
 const { speak, prefetch } = useTts()
+
+/** Ô âm đang luyện phát âm (bấm 🎤): chữ hiển thị và chuỗi để chấm */
+const practicing = ref<{ block: number; label: string; text: string } | null>(null)
 
 // Giọng tự nhiên: tạo trước âm thanh của ví dụ và lưới âm ở nền để bấm nghe là có ngay
 onMounted(() => {
@@ -87,19 +91,45 @@ onMounted(() => {
       <PxPanel v-else-if="block.type === 'sounds'" class="block">
         <h2 v-if="block.title">{{ block.title }}</h2>
         <div class="sounds">
-          <button
-            v-for="(item, j) in block.items"
-            :key="j"
-            type="button"
-            class="sound"
-            @click="speak(item.say ?? item.text, undefined, 0.8)"
-          >
-            <PicText class="sound-text" :text="item.text" :size="64" :with-label="true" />
-            <span v-if="item.ipa" class="sound-ipa">{{ item.ipa }}</span>
-            <span v-if="item.note" class="sound-note">{{ item.note }}</span>
-          </button>
+          <div v-for="(item, j) in block.items" :key="j" class="sound-cell">
+            <button
+              type="button"
+              class="sound"
+              @click="speak(item.say ?? item.text, undefined, 0.8)"
+            >
+              <PicText class="sound-text" :text="item.text" :size="64" :with-label="true" />
+              <span v-if="item.ipa" class="sound-ipa">{{ item.ipa }}</span>
+              <span v-if="item.note" class="sound-note">{{ item.note }}</span>
+            </button>
+            <button
+              type="button"
+              class="sound-mic"
+              :title="t('speech.practiceSound')"
+              :aria-label="t('speech.practiceSound')"
+              @click="practicing = { block: i, label: item.text, text: item.say ?? item.text }"
+            >
+              🎤
+            </button>
+          </div>
         </div>
-        <p class="hint">🔊 {{ t('study.lessons.tapToHear') }}</p>
+        <p class="hint">
+          🔊 {{ t('study.lessons.tapToHear') }} · 🎤 {{ t('speech.practiceSound') }}
+        </p>
+        <div v-if="practicing && practicing.block === i" class="practice">
+          <div class="practice-head">
+            <strong>{{ practicing.label }}</strong>
+            <button type="button" class="link" @click="practicing = null">
+              {{ t('speech.closePractice') }}
+            </button>
+          </div>
+          <SpeakPractice
+            :key="practicing.text"
+            :expected="practicing.text"
+            can-listen
+            phonemes
+            phoneme-only
+          />
+        </div>
       </PxPanel>
 
       <ListeningPlayer
@@ -215,6 +245,38 @@ th {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
   gap: 8px;
+}
+.sound-cell {
+  position: relative;
+  display: grid;
+}
+.sound-mic {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  padding: 0 4px;
+  border: 2px solid var(--c-border);
+  background: var(--c-surface);
+  font-size: 13px;
+  line-height: 1.4;
+  cursor: pointer;
+}
+.sound-mic:hover {
+  background: #e3f4e8;
+}
+.practice {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px;
+  border: var(--px) solid var(--c-border);
+  background: var(--c-bg);
+}
+.practice-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 18px;
 }
 .sound {
   display: grid;

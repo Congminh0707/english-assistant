@@ -8,6 +8,7 @@ import type { Settings } from '@shared/schemas/settings'
 import { UK_VOICES, US_VOICES } from '@shared/tts'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts, useTtsModel } from '@renderer/shared/composables/useTts'
+import { useStt } from '@renderer/shared/composables/useStt'
 import { useTranslateModels } from '@renderer/shared/composables/useTranslateModels'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useUpdateStatus } from '@renderer/shared/composables/useUpdateStatus'
@@ -23,6 +24,7 @@ const settingsStore = useSettingsStore()
 const { speak, naturalVoice } = useTts()
 const ttsModel = useTtsModel()
 const trModels = useTranslateModels()
+const stt = useStt()
 const TR_DIRECTIONS = ['en-vi', 'vi-en'] as const
 const MB = 1024 * 1024
 const toMb = (bytes: number | undefined): number => Math.round((bytes ?? 0) / MB)
@@ -30,7 +32,19 @@ const ttsSizeMb = computed(() => Math.round((ttsModel.status.value?.sizeBytes ??
 const ttsDoneMb = computed(() => Math.round((ttsModel.status.value?.receivedBytes ?? 0) / MB))
 const wantsNatural = computed(() => settingsStore.settings['tts.engine'] === 'kokoro')
 
-const CREDIT_KEYS = ['kokoro', 'kokoroData', 'espeak', 'opusmt', 'tatoeba'] as const
+const sttSizeMb = computed(() => Math.round((stt.status.value?.sizeBytes ?? 0) / MB))
+const sttDoneMb = computed(() => Math.round((stt.status.value?.receivedBytes ?? 0) / MB))
+const pronSizeMb = computed(() => Math.round((stt.pronunciation.value?.sizeBytes ?? 0) / MB))
+
+const CREDIT_KEYS = [
+  'kokoro',
+  'kokoroData',
+  'espeak',
+  'opusmt',
+  'whisper',
+  'wav2vec2',
+  'tatoeba'
+] as const
 
 const profiles = ref<ProfileInfo[]>([])
 const newName = ref('')
@@ -388,6 +402,46 @@ onMounted(loadProfiles)
 
     <PxPanel class="block">
       <AudioPackPanel />
+    </PxPanel>
+
+    <PxPanel class="block">
+      <h2>{{ t('speech.settingsTitle') }}</h2>
+      <p class="muted">{{ t('speech.settingsHint') }}</p>
+      <div v-if="stt.status.value?.state === 'downloading'" class="download">
+        <span class="muted">{{ t('tts.downloading', { done: sttDoneMb, total: sttSizeMb }) }}</span>
+        <progress :value="stt.status.value.receivedBytes" :max="stt.status.value.sizeBytes" />
+        <button type="button" class="small" @click="stt.cancel()">{{ t('tts.cancel') }}</button>
+      </div>
+      <div v-else-if="stt.status.value?.state === 'ready'" class="download">
+        <span class="muted">✓ {{ t('speech.whisperReady', { size: sttSizeMb }) }}</span>
+      </div>
+      <div v-else-if="stt.status.value" class="download">
+        <span class="muted">{{ t('speech.whisperNeed', { size: sttSizeMb }) }}</span>
+        <span v-if="stt.status.value.errorKey" class="error">{{
+          t(stt.status.value.errorKey)
+        }}</span>
+        <button type="button" class="small" @click="stt.install()">
+          {{ stt.status.value.errorKey ? t('tts.retry') : t('tts.download') }}
+        </button>
+      </div>
+      <div class="download">
+        <strong>{{ t('speech.pronTitle') }}</strong>
+        <span class="muted">{{ t('speech.pronHint') }}</span>
+        <template v-if="stt.pronunciation.value?.available">
+          <progress
+            v-if="stt.pronunciation.value.state === 'downloading'"
+            :value="stt.pronunciation.value.receivedBytes"
+            :max="stt.pronunciation.value.sizeBytes"
+          />
+          <span v-else-if="stt.pronunciation.value.state === 'ready'" class="muted"
+            >✓ {{ t('speech.pronReady') }}</span
+          >
+          <button v-else type="button" class="small" @click="stt.installPronunciation()">
+            {{ t('speech.pronDownload', { size: pronSizeMb }) }}
+          </button>
+        </template>
+        <span v-else class="muted">{{ t('speech.pronSoon') }}</span>
+      </div>
     </PxPanel>
 
     <PxPanel class="block">

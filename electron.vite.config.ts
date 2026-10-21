@@ -13,7 +13,9 @@ export default defineConfig({
         input: {
           index: resolve('src/main/index.ts'),
           translateWorker: resolve('src/main/translate/worker.ts'),
-          ttsWorker: resolve('src/main/tts/worker.ts')
+          ttsWorker: resolve('src/main/tts/worker.ts'),
+          sttWorker: resolve('src/main/stt/worker.ts'),
+          phonemeWorker: resolve('src/main/stt/phonemeWorker.ts')
         }
       }
     }

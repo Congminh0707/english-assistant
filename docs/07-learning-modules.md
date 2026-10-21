@@ -216,3 +216,7 @@ Thuật toán gợi ý mỗi ngày (chạy trong `DailyPlanService`):
 5. Tổng thời gian theo mục tiêu người dùng đặt: 10 / 20 / 30 / 60 phút.
 
 Mascot nhắc lộ trình vào giờ người dùng chọn, và hiển thị tiến độ hôm nay khi hover.
+
+## Bài nói (`speak`) — 2026-10-21
+
+Dạng bài `speak` (`{ type: 'speak', say, prompt?, word?, explain? }`) hiển thị câu/từ mẫu, nút 🔊 nghe mẫu và 🎤 ghi âm; Whisper nhận dạng offline rồi chấm theo từng từ (xem docs/11 §4). Đạt khi độ chính xác ≥ 70 (`SPEAK_PASS`); nút "Bỏ qua câu này" cho máy không có micro (tính là chưa đạt). Tính vào kỹ năng từ vựng trong Elo (chưa có kỹ năng nói riêng). Nội dung: unit `speak` "Luyện nói" (`content/curated/lessons/07-speaking.json`, 5 bài: giới thiệu, câu hằng ngày, âm khó /θ ð ʃ r/, âm cuối, đọc theo câu dài/shadowing).

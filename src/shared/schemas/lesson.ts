@@ -125,6 +125,16 @@ export const LessonExerciseSchema = z.discriminatedUnion('type', [
     answer: z.number().int().min(0).max(3),
     explain: Text.optional()
   }),
+  /** Nói: đọc to câu/từ mẫu, chấm bằng nhận dạng giọng nói offline (Whisper) — xem shared/speech.ts */
+  z.object({
+    type: z.literal('speak'),
+    /** Câu hoặc từ cần nói (cũng là văn bản của nút "Nghe mẫu") */
+    say: Text,
+    prompt: Text.optional(),
+    /** Một từ đơn (pronounce_word) thay vì cả câu (speak_repeat) */
+    word: z.boolean().optional(),
+    explain: Text.optional()
+  }),
   /** Nghe rồi chọn */
   z.object({
     type: z.literal('listen'),

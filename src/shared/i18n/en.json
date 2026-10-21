@@ -455,7 +455,11 @@
     "levelTooLow": "Your pet is not high enough level for this.",
     "ttsNotReady": "The natural voice is not downloaded yet.",
     "ttsFailed": "Could not generate the voice, please try again.",
-    "updateFailed": "The update did not work, please try again later."
+    "updateFailed": "The update did not work, please try again later.",
+    "sttNotReady": "The speech recognition model is not installed yet.",
+    "sttFailed": "Could not recognise the speech. Please try again.",
+    "pronNotReady": "The pronunciation model is not installed yet.",
+    "pronFailed": "Could not score the pronunciation. Please try again."
   },
   "quiz": {
     "reviewTitle": "Review",
@@ -942,7 +946,10 @@
       "nextLesson": "Next lesson",
       "reread": "Reread the lesson",
       "retry": "Try again",
-      "toList": "Lesson list"
+      "toList": "Lesson list",
+      "speakHelp": "Tap the microphone and read this sentence aloud.",
+      "speakWordHelp": "Tap the microphone and say this word aloud.",
+      "skipSpeak": "Skip this one"
     },
     "courses": {
       "title": "Courses",
@@ -1021,7 +1028,9 @@
     "kokoroData": "Kokoro was partly trained on CC BY data: Koniwa (CC BY 3.0), SIWIS (CC BY 4.0).",
     "espeak": "Phonemizer: eSpeak-NG via phonemizer — GPL-3.0.",
     "opusmt": "Sentence translation: opus-mt en→vi (Helsinki-NLP) — Apache-2.0.",
-    "tatoeba": "Example sentences: Tatoeba — CC BY 2.0 FR."
+    "tatoeba": "Example sentences: Tatoeba — CC BY 2.0 FR.",
+    "whisper": "Whisper base.en (OpenAI, Apache-2.0; ONNX build by Xenova) — offline speech recognition for speaking practice",
+    "wav2vec2": "wav2vec2 phoneme (Meta/Facebook, Apache-2.0; int8 ONNX build by duyentq) — optional phoneme-level pronunciation scoring"
   },
   "kids": {
     "home": "Home",
@@ -1190,6 +1199,48 @@
       "desc": "A many-tailed fox"
     }
   },
+  "speech": {
+    "needModel": "Download the speech recognition model (~{mb} MB, runs offline on your computer) to score speaking practice.",
+    "download": "Download model ({mb} MB)",
+    "downloading": "Downloading… {pct}%",
+    "cancel": "Cancel",
+    "record": "Tap to speak",
+    "stop": "Stop",
+    "recording": "Listening… {s} s",
+    "processing": "Scoring…",
+    "listenSample": "Hear it",
+    "retry": "Try again",
+    "heard": "I heard:",
+    "nothing": "I could not hear anything. Speak louder and closer to the microphone.",
+    "accuracy": "{n}% accurate",
+    "pace": "Pace {wpm} words/min · {n} long pauses",
+    "disclaimer": "The score is only a guide (automatic recognition can be wrong).",
+    "verdict": {
+      "great": "Great!",
+      "good": "Pretty good!",
+      "retry": "Try again"
+    },
+    "error": {
+      "denied": "Microphone access is blocked. Allow it in Windows Settings → Privacy → Microphone.",
+      "no-mic": "No microphone found.",
+      "failed": "Could not record."
+    },
+    "settingsTitle": "Speech recognition (speaking practice)",
+    "settingsHint": "Used to score speaking practice. Runs entirely on your computer; audio is never saved or sent anywhere.",
+    "whisperReady": "Whisper base.en model is ready ({size} MB)",
+    "whisperNeed": "Download the Whisper base.en model (~{size} MB) to score speaking practice.",
+    "pronTitle": "Detailed pronunciation scoring (optional)",
+    "pronHint": "A phoneme recognition model (wav2vec2) can show which sounds are wrong. Optional extra download.",
+    "pronDownload": "Download model ({size} MB)",
+    "pronReady": "Downloaded",
+    "pronSoon": "Coming soon — no download released yet.",
+    "pronNeed": "Download the detailed pronunciation model (~{mb} MB, runs offline) to see which sounds are wrong.",
+    "pronBanner": "Want to know exactly which sound is wrong? Download the sound-scoring model ({mb} MB).",
+    "expectedIpa": "Target:",
+    "heardIpa": "You said:",
+    "practiceSound": "Practise pronunciation",
+    "closePractice": "Close"
+  },
   "audioPack": {
     "title": "Pre-recorded listening audio",
     "desc": "Optional download (~{mb} MB) so listening lessons play instantly in a natural voice, without installing the voice model.",
@@ -1199,5 +1250,35 @@
     "ready": "Installed",
     "remove": "Remove pack",
     "retry": "Retry download"
+  },
+  "phoneme": {
+    "tip": {
+      "theta": "Put the tip of your tongue lightly between your teeth and blow air, no voice. Do not say \"t\", \"s\" or \"f\".",
+      "eth": "Like /θ/ (tongue between the teeth) but with voice. Do not say \"d\" or \"z\".",
+      "sh": "Round your lips, pull the tongue back and blow a long \"sh\". Do not say \"s\".",
+      "zh": "Like /ʃ/ but voiced, a soft \"zh\" (vision).",
+      "ch": "A \"ch\" burst with rounder lips, ending in a \"sh\" breath (cheese).",
+      "jh": "Like /tʃ/ but voiced (judge).",
+      "r": "Curl the tongue tip up without touching the roof of the mouth, lips slightly round. Do not say \"l\" or \"z\".",
+      "l": "Tongue tip touches the ridge behind the upper teeth, air flows around the sides; even at the end of a word (ball).",
+      "ng": "The back of the tongue touches the soft palate and air goes through the nose; do not add a clear \"g\".",
+      "ih": "A short, relaxed vowel with the mouth slightly open; shorter than the \"ee\" in sheep.",
+      "ee": "A long vowel with flat lips; longer than /ɪ/ (sheep vs ship).",
+      "ae": "Open the mouth wide with the tongue low, between \"a\" and \"e\" (cat).",
+      "uh": "Medium-open mouth, very short, like an open \"uh\" (cup); not a long \"a\".",
+      "aw": "Rounded lips, long, like an open \"o\" (law).",
+      "oo": "Short with slightly rounded lips, unlike the long \"oo\" in food (book).",
+      "uu": "Tightly rounded lips and long (food).",
+      "er": "Tongue in the middle, lips not rounded, long (bird); do not add a hard \"r\".",
+      "schwa": "A very short, light \"uh\" with no stress (about).",
+      "end_s": "Final /s/: end with a clear \"s\" hiss, do not swallow it (cats, books).",
+      "end_z": "Final /z/: like \"s\" but voiced (dogs, beds); do not drop it.",
+      "end_t": "Final /t/: touch the ridge with the tongue and release lightly; do not swallow it (cat, walked).",
+      "end_d": "Final /d/: tongue touches the ridge, voiced; do not drop it (bed, played).",
+      "end_k": "Final /k/: back of the tongue touches the palate, then a light release; do not swallow it (book, week).",
+      "end_p": "Final /p/: close the lips then release a light puff; do not swallow it (stop, help).",
+      "v": "Top teeth touch the lower lip and the sound is voiced (very); not \"b\".",
+      "f": "Top teeth touch the lower lip and you blow air, no voice (fish)."
+    }
   }
 }

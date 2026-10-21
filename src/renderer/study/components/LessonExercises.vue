@@ -2,8 +2,10 @@
 import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Lesson } from '@shared/schemas/lesson'
+import type { SpeechScore } from '@shared/speech'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PicText from '@renderer/shared/components/PicText.vue'
+import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
 import PxBar from '@renderer/shared/components/PxBar.vue'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import AudioPrompt from '../exercises/AudioPrompt.vue'
@@ -101,6 +103,17 @@ const heading = computed(() => {
   }
 })
 
+/** Bài nói: ghi nhận độ chính xác lần nói gần nhất; bấm "Kiểm tra" để chốt */
+function onSpoken(score: SpeechScore): void {
+  state.spoken = score.accuracy
+}
+
+/** Không nói được (không có micro...): bỏ qua câu này, tính là chưa đạt */
+function skipSpeak(): void {
+  state.spoken = 0
+  check()
+}
+
 function check(): void {
   if (!canCheck.value) return
   const e = ex.value
@@ -157,9 +170,11 @@ onMounted(() => {
         ? [e.say]
         : e.type === 'order'
           ? [e.answer]
-          : e.type === 'picture' && e.listen
-            ? [e.word]
-            : []
+          : e.type === 'speak'
+            ? [e.say]
+            : e.type === 'picture' && e.listen
+              ? [e.word]
+              : []
     ),
     undefined,
     0.9
@@ -186,6 +201,9 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       <p v-else-if="ex.type === 'picture'" class="instruction">
         {{ ex.listen ? t('study.lessons.pictureListen') : t('study.lessons.pictureHelp') }}
       </p>
+      <p v-else-if="ex.type === 'speak'" class="instruction">
+        {{ ex.word ? t('study.lessons.speakWordHelp') : t('study.lessons.speakHelp') }}
+      </p>
       <p v-else-if="ex.type === 'gap'" class="instruction">{{ t('study.lessons.gapHelp') }}</p>
       <p v-else-if="ex.type === 'order'" class="instruction">{{ t('study.lessons.orderHelp') }}</p>
       <p v-else-if="ex.type === 'match'" class="instruction">
@@ -194,6 +212,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 
       <p v-if="heading" class="prompt">{{ heading }}</p>
       <p v-else-if="ex.type === 'picture' && !ex.listen" class="prompt">{{ ex.word }}</p>
+      <p v-else-if="ex.type === 'speak'" class="prompt">{{ ex.prompt ?? ex.say }}</p>
       <p v-else-if="ex.type === 'order'" class="prompt vi">{{ ex.hint }}</p>
       <p v-else-if="ex.type === 'gap'" class="prompt">
         {{ promptParts[0]
@@ -208,6 +227,15 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       </p>
 
       <AudioPrompt v-if="audioText" :text="audioText" />
+
+      <SpeakPractice
+        v-if="ex.type === 'speak' && !checked"
+        :key="idx"
+        :expected="ex.say"
+        can-listen
+        phonemes
+        @scored="onSpoken"
+      />
 
       <input
         v-if="ex.type === 'gap' && !ex.choices"
@@ -255,6 +283,9 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
     </PxPanel>
 
     <div class="actions">
+      <button v-if="ex.type === 'speak' && !checked" type="button" class="link" @click="skipSpeak">
+        {{ t('study.lessons.skipSpeak') }}
+      </button>
       <button v-if="!checked" type="button" class="primary" :disabled="!canCheck" @click="check">
         {{ t('study.lessons.check') }}
       </button>

@@ -57,6 +57,13 @@ import { UpdateStatusSchema } from './schemas/update'
 import { AudioClipInputSchema, AudioClipResultSchema } from './schemas/audio'
 import { TtsPrefetchInputSchema, TtsSpeakInputSchema, TtsSpeakResultSchema } from './schemas/tts'
 import {
+  PronEvaluateInputSchema,
+  PronunciationEvaluationSchema,
+  PronunciationStatusSchema,
+  SttTranscribeInputSchema,
+  SttTranscribeResultSchema
+} from './schemas/stt'
+import {
   PracticeAnswerInputSchema,
   PracticeAnswerResultSchema,
   PracticeStartInputSchema,
@@ -191,7 +198,15 @@ export const invokeContract = {
   'audio:install': { input: z.void(), output: TranslateStatusSchema },
   'audio:cancel': { input: z.void(), output: z.void() },
   'audio:remove': { input: z.void(), output: TranslateStatusSchema },
-  'audio:clip': { input: AudioClipInputSchema, output: AudioClipResultSchema }
+  'audio:clip': { input: AudioClipInputSchema, output: AudioClipResultSchema },
+  'stt:status': { input: z.void(), output: TranslateStatusSchema },
+  'stt:install': { input: z.void(), output: TranslateStatusSchema },
+  'stt:cancel': { input: z.void(), output: z.void() },
+  'stt:transcribe': { input: SttTranscribeInputSchema, output: SttTranscribeResultSchema },
+  'pron:status': { input: z.void(), output: PronunciationStatusSchema },
+  'pron:install': { input: z.void(), output: PronunciationStatusSchema },
+  'pron:cancel': { input: z.void(), output: z.void() },
+  'pron:evaluate': { input: PronEvaluateInputSchema, output: PronunciationEvaluationSchema }
 } satisfies Record<InvokeChannel, { input: z.ZodType; output: z.ZodType }>
 
 export const sendContract = {
@@ -212,7 +227,9 @@ export const eventContract = {
   'translate:status-changed': TranslateStatusEventSchema,
   'update:status-changed': UpdateStatusSchema,
   'tts:status-changed': TranslateStatusSchema,
-  'audio:status-changed': TranslateStatusSchema
+  'audio:status-changed': TranslateStatusSchema,
+  'stt:status-changed': TranslateStatusSchema,
+  'pron:status-changed': PronunciationStatusSchema
 } satisfies Record<EventName, z.ZodType>
 
 // --- Kiểu suy ra từ hợp đồng ---

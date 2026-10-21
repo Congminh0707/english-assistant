@@ -1,0 +1,490 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "speak",
+    "title": "Luyện nói",
+    "summary": "Đọc to và được chấm: chào hỏi, câu thường gặp, âm khó, âm cuối, đọc theo câu dài.",
+    "icon": "🎤",
+    "order": 7
+  },
+  "lessons": [
+    {
+      "id": "speak.introductions",
+      "title": "Nói: giới thiệu bản thân",
+      "summary": "Đọc to các câu chào hỏi và giới thiệu đầu tiên.",
+      "level": "A1_1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Bài này luyện **nói thành tiếng**. Bấm 🎤, đọc to câu hiện trên màn hình, app sẽ nghe và chấm từng từ (chạy offline trên máy bạn). Mẹo: nói chậm, rõ từng từ, đặt micro gần miệng."
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "Hello, my name is Lan.",
+              "vi": "Xin chào, tên tôi là Lan."
+            },
+            {
+              "en": "Nice to meet you.",
+              "vi": "Rất vui được gặp bạn."
+            },
+            {
+              "en": "I am from Vietnam.",
+              "vi": "Tôi đến từ Việt Nam."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Câu nào dùng để giới thiệu tên?",
+          "choices": [
+            "My name is Lan.",
+            "How old are you?",
+            "See you later."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "listen",
+          "say": "Nice to meet you.",
+          "prompt": "Bạn nghe được câu nào?",
+          "choices": [
+            "Nice to meet you.",
+            "Good night.",
+            "Thank you."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "Hello, my name is Lan.",
+          "prompt": "Giới thiệu tên của bạn"
+        },
+        {
+          "type": "speak",
+          "say": "Nice to meet you."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Khi ai đó nói \"Nice to meet you\", bạn đáp:",
+          "choices": [
+            "Nice to meet you, too.",
+            "Good morning.",
+            "I am hungry."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "I am from Vietnam.",
+          "prompt": "Nói bạn đến từ đâu"
+        },
+        {
+          "type": "speak",
+          "say": "How are you today?"
+        },
+        {
+          "type": "speak",
+          "say": "I am fine, thank you.",
+          "prompt": "Trả lời câu hỏi thăm"
+        }
+      ]
+    },
+    {
+      "id": "speak.everyday",
+      "title": "Nói: câu dùng hằng ngày",
+      "summary": "Luyện nói những câu hỏi và nhờ vả thường gặp.",
+      "level": "A1_2",
+      "minutes": 9,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Những câu này dùng rất nhiều khi đi mua sắm, ăn uống, hỏi đường. Hãy nghe mẫu bằng nút 🔊 trước, rồi tự nói. Chú ý **âm cuối** của từ (ví dụ *please*, *much*, *stop*)."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Tình huống",
+            "Câu nên nói"
+          ],
+          "rows": [
+            [
+              "Nhờ lấy nước",
+              "Can I have a glass of water, please?"
+            ],
+            [
+              "Hỏi giá",
+              "How much is this?"
+            ],
+            [
+              "Hỏi đường",
+              "Where is the bus stop?"
+            ]
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "listen",
+          "say": "How much is this?",
+          "prompt": "Bạn nghe được câu nào?",
+          "choices": [
+            "How much is this?",
+            "How old is this?",
+            "Who is this?"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "Can I have a glass of water, please?",
+          "prompt": "Nhờ ai đó lấy cho bạn một ly nước"
+        },
+        {
+          "type": "speak",
+          "say": "How much is this?",
+          "prompt": "Hỏi giá món đồ"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào dùng để hỏi đường?",
+          "choices": [
+            "Where is the bus stop?",
+            "What is your name?",
+            "I am fine."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "Where is the bus stop?",
+          "prompt": "Hỏi trạm xe buýt ở đâu"
+        },
+        {
+          "type": "speak",
+          "say": "I would like a cup of coffee.",
+          "prompt": "Gọi một ly cà phê"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ lịch sự đi cùng lời nhờ vả là:",
+          "choices": [
+            "please",
+            "maybe",
+            "later"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "Thank you very much.",
+          "prompt": "Cảm ơn"
+        }
+      ]
+    },
+    {
+      "id": "speak.hard-sounds",
+      "title": "Nói: âm khó cho người Việt",
+      "summary": "Luyện các từ có âm /θ/, /ð/, /ʃ/, /r/ mà người Việt hay nói sai.",
+      "level": "A2_1",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Một số âm tiếng Anh **không có** trong tiếng Việt nên rất dễ nói sai:\n\n- `/θ/` (*think*, *three*): đặt đầu lưỡi giữa hai hàm răng rồi thổi hơi, **không** nói thành \"t\" hay \"th\" kiểu Việt.\n- `/ð/` (*this*, *that*): như trên nhưng có rung dây thanh.\n- `/ʃ/` (*ship*, *she*): chu môi, hơi xì dài; khác *sheep* /iː/ dài hơn *ship* /ɪ/ ngắn.\n- `/r/` (*right*): cuộn lưỡi nhẹ, không chạm vòm; khác `/l/` (*light*)."
+        },
+        {
+          "type": "sounds",
+          "title": "Cặp dễ nhầm",
+          "items": [
+            {
+              "text": "think",
+              "ipa": "/θɪŋk/",
+              "note": "đầu lưỡi giữa hai hàm răng"
+            },
+            {
+              "text": "this",
+              "ipa": "/ðɪs/",
+              "note": "như think nhưng có rung"
+            },
+            {
+              "text": "ship",
+              "ipa": "/ʃɪp/",
+              "note": "ngắn"
+            },
+            {
+              "text": "sheep",
+              "ipa": "/ʃiːp/",
+              "note": "dài"
+            },
+            {
+              "text": "right",
+              "ipa": "/raɪt/",
+              "note": "cuộn lưỡi"
+            },
+            {
+              "text": "light",
+              "ipa": "/laɪt/",
+              "note": "đầu lưỡi chạm lợi trên"
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "listen",
+          "say": "think",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "think",
+            "sink",
+            "tink"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "think",
+          "prompt": "Đọc to từ này",
+          "word": true
+        },
+        {
+          "type": "speak",
+          "say": "three",
+          "prompt": "Đọc to từ này",
+          "word": true
+        },
+        {
+          "type": "speak",
+          "say": "this",
+          "prompt": "Đọc to từ này",
+          "word": true
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ nào chứa âm /θ/?",
+          "choices": [
+            "thank",
+            "sank",
+            "tank"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "ship",
+          "prompt": "Đọc to từ này (âm ngắn)",
+          "word": true
+        },
+        {
+          "type": "speak",
+          "say": "sheep",
+          "prompt": "Đọc to từ này (âm dài)",
+          "word": true
+        },
+        {
+          "type": "listen",
+          "say": "right",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "right",
+            "light",
+            "night"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "right",
+          "prompt": "Đọc to từ này",
+          "word": true
+        },
+        {
+          "type": "speak",
+          "say": "light",
+          "prompt": "Đọc to từ này",
+          "word": true
+        }
+      ]
+    },
+    {
+      "id": "speak.ending-sounds",
+      "title": "Nói: âm cuối từ",
+      "summary": "Luyện đọc rõ âm cuối /s/, /t/, /d/, /k/ — điểm yếu phổ biến.",
+      "level": "A2_2",
+      "minutes": 9,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Tiếng Việt ít khi kết thúc từ bằng phụ âm \"bật\" nên người Việt hay **nuốt âm cuối**. Hãy nói rõ:\n\n- Số nhiều: `dogs` /dɔːgz/, `cats` /kæts/.\n- Quá khứ có -ed: `walked` /wɔːkt/, `asked` /æskt/.\n- Từ kết thúc bằng cụm phụ âm: `next`, `months`.\n\nNói chậm hơn bình thường, **đóng âm cuối rõ ràng** — thà rõ còn hơn nhanh."
+        },
+        {
+          "type": "sounds",
+          "title": "Âm cuối cần đọc rõ",
+          "items": [
+            {
+              "text": "cats",
+              "ipa": "/kæts/"
+            },
+            {
+              "text": "dogs",
+              "ipa": "/dɔːgz/"
+            },
+            {
+              "text": "walked",
+              "ipa": "/wɔːkt/"
+            },
+            {
+              "text": "asked",
+              "ipa": "/æskt/"
+            },
+            {
+              "text": "next",
+              "ipa": "/nekst/"
+            },
+            {
+              "text": "months",
+              "ipa": "/mʌnθs/"
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "listen",
+          "say": "walked",
+          "prompt": "Bạn nghe được từ nào?",
+          "choices": [
+            "walked",
+            "walk",
+            "work"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "cats",
+          "prompt": "Đọc to từ này",
+          "word": true
+        },
+        {
+          "type": "speak",
+          "say": "dogs",
+          "prompt": "Đọc to từ này",
+          "word": true
+        },
+        {
+          "type": "speak",
+          "say": "walked",
+          "prompt": "Đọc to từ này",
+          "word": true
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ nào là quá khứ của \"ask\"?",
+          "choices": [
+            "asked",
+            "asks",
+            "asking"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "asked",
+          "prompt": "Đọc to từ này",
+          "word": true
+        },
+        {
+          "type": "speak",
+          "say": "next",
+          "prompt": "Đọc to từ này",
+          "word": true
+        },
+        {
+          "type": "speak",
+          "say": "She walked to school with two friends.",
+          "prompt": "Đọc cả câu, nhớ âm cuối"
+        }
+      ]
+    },
+    {
+      "id": "speak.shadowing",
+      "title": "Nói: đọc theo câu dài",
+      "summary": "Luyện đọc những câu dài hơn, nối tự nhiên.",
+      "level": "B1_1",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Shadowing** là nghe câu mẫu rồi nói ngay theo, bắt chước nhịp điệu và ngữ điệu. Cách làm trong app: bấm 🔊 nghe mẫu, rồi bấm 🎤 đọc theo. Đừng cố đọc nhanh; ưu tiên **đúng và liền mạch**. Điểm tính theo từng từ, lỗi hiện màu đỏ."
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "I usually wake up at seven and have breakfast with my family.",
+              "vi": "Tôi thường dậy lúc bảy giờ và ăn sáng cùng gia đình."
+            },
+            {
+              "en": "It was raining, so we decided to stay at home.",
+              "vi": "Trời mưa nên chúng tôi quyết định ở nhà."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "\"Shadowing\" nghĩa là:",
+          "choices": [
+            "Nghe rồi nói theo ngay",
+            "Viết lại câu",
+            "Dịch sang tiếng Việt"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "I usually wake up at seven and have breakfast with my family.",
+          "prompt": "Nghe mẫu rồi đọc theo"
+        },
+        {
+          "type": "speak",
+          "say": "It was raining, so we decided to stay at home.",
+          "prompt": "Nghe mẫu rồi đọc theo"
+        },
+        {
+          "type": "speak",
+          "say": "Could you tell me how to get to the station?",
+          "prompt": "Hỏi đường lịch sự"
+        },
+        {
+          "type": "listen",
+          "say": "I have been learning English for two years.",
+          "prompt": "Bạn nghe được câu nào?",
+          "choices": [
+            "I have been learning English for two years.",
+            "I have been learning English for two days.",
+            "I had been learning English for two years."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "I have been learning English for two years.",
+          "prompt": "Nghe mẫu rồi đọc theo"
+        },
+        {
+          "type": "speak",
+          "say": "If I had more time, I would travel around the world.",
+          "prompt": "Nghe mẫu rồi đọc theo"
+        }
+      ]
+    }
+  ]
+}

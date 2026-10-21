@@ -60,8 +60,10 @@ Nếu sau này dung lượng/RAM thành vấn đề lớn, phần giao diện Vu
 |---|---|
 | `koffi` | Gọi Win32 API trực tiếp (FFI, có binary dựng sẵn, không cần biên dịch): cửa sổ đang active, phát hiện fullscreen, `SHQueryUserNotificationState` → chế độ yên lặng. Xem [decisions.md](decisions.md) #8. |
 | `tesseract.js` | OCR vùng màn hình (chạy local, WASM) |
+| `onnxruntime-node` | Chạy trực tiếp model ONNX trong utilityProcess: wav2vec2 chấm phát âm theo âm vị (cùng bản 1.30.0 mà transformers.js đã kéo về, nay khai báo trực tiếp). Xem [decisions.md](decisions.md) #26. |
+| `phonemizer` | Chuyển văn bản sang âm vị IPA (espeak-ng WASM) để so với âm nghe được; cùng bản 1.2.1 mà `kokoro-js` dùng. ⚠️ eSpeak-NG GPL-3.0 (xem #14). |
 | `kokoro-js` | Giọng đọc tự nhiên offline (Kokoro-82M) trong utilityProcess; dùng chung `@huggingface/transformers` 4.3.1 (ép bằng `overrides`). Xem [decisions.md](decisions.md) #14. |
-| `@huggingface/transformers` (transformers.js) | Chạy model AI local trong JS: ✅ **dịch opus-mt en→vi và vi→en** (đang dùng, bản 4.3.1 + `onnxruntime-node`, trong utilityProcess — xem [decisions.md](decisions.md) #12); Whisper (nghe giọng nói) làm sau |
+| `@huggingface/transformers` (transformers.js) | Chạy model AI local trong JS: ✅ **dịch opus-mt en→vi và vi→en** (đang dùng, bản 4.3.1 + `onnxruntime-node`, trong utilityProcess — xem [decisions.md](decisions.md) #12); Whisper base.en (nhận dạng giọng nói, xem decisions #25) |
 | `howler` (tuỳ chọn) | Phát âm thanh, hiệu ứng |
 | `pino` / `electron-log` | Ghi log ra file |
 | `@mozilla/readability` + `jsdom` | Lấy nội dung sạch từ trang web (tính năng đọc web 💡) |

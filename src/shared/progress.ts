@@ -12,6 +12,8 @@ export type ProgressSource =
 /** Kỹ năng mà một dạng bài của bài học (lesson/grammar/reading/listening) rèn luyện */
 export function lessonExerciseSkill(source: ProgressSource, type: string): Skill {
   if (type === 'listen') return 'listening'
+  // Bài nói chưa có kỹ năng riêng trong Elo (4 kỹ năng hiện có): tính vào từ vựng/phát âm
+  if (type === 'speak') return 'vocab'
   if (source === 'listening') return 'listening'
   if (source === 'reading') return 'reading'
   if (source === 'grammar') return 'grammar'

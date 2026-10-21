@@ -468,7 +468,11 @@
     "levelTooLow": "Chưa đủ level để mua món này.",
     "ttsNotReady": "Chưa tải giọng đọc tự nhiên.",
     "ttsFailed": "Không tạo được giọng đọc, thử lại nhé.",
-    "updateFailed": "Cập nhật không thành công, thử lại sau nhé."
+    "updateFailed": "Cập nhật không thành công, thử lại sau nhé.",
+    "sttNotReady": "Chưa tải model nhận dạng giọng nói.",
+    "sttFailed": "Không nhận dạng được giọng nói. Hãy thử lại.",
+    "pronNotReady": "Chưa tải model chấm phát âm.",
+    "pronFailed": "Không chấm được phát âm. Hãy thử lại."
   },
   "quiz": {
     "reviewTitle": "Ôn từ",
@@ -955,7 +959,10 @@
       "nextLesson": "Bài tiếp theo",
       "reread": "Đọc lại bài",
       "retry": "Làm lại",
-      "toList": "Danh sách bài"
+      "toList": "Danh sách bài",
+      "speakHelp": "Bấm micro và đọc to câu này.",
+      "speakWordHelp": "Bấm micro và đọc to từ này.",
+      "skipSpeak": "Bỏ qua câu này"
     },
     "courses": {
       "title": "Lộ trình học",
@@ -1034,7 +1041,9 @@
     "kokoroData": "Kokoro được huấn luyện một phần trên dữ liệu CC BY: Koniwa (CC BY 3.0), SIWIS (CC BY 4.0).",
     "espeak": "Phiên âm: eSpeak-NG qua phonemizer — GPL-3.0.",
     "opusmt": "Dịch câu: opus-mt en→vi (Helsinki-NLP) — Apache-2.0.",
-    "tatoeba": "Câu ví dụ: Tatoeba — CC BY 2.0 FR."
+    "tatoeba": "Câu ví dụ: Tatoeba — CC BY 2.0 FR.",
+    "whisper": "Whisper base.en (OpenAI, Apache-2.0; bản ONNX của Xenova) — nhận dạng giọng nói offline cho bài nói",
+    "wav2vec2": "wav2vec2 phoneme (Meta/Facebook, Apache-2.0; bản ONNX int8 của duyentq) — chấm phát âm theo âm vị, tải tuỳ chọn"
   },
   "kids": {
     "home": "Màn hình chính",
@@ -1203,6 +1212,48 @@
       "desc": "Cáo nhiều đuôi"
     }
   },
+  "speech": {
+    "needModel": "Cần tải model nhận dạng giọng nói (~{mb} MB, chạy offline trên máy bạn) để chấm bài nói.",
+    "download": "Tải model ({mb} MB)",
+    "downloading": "Đang tải… {pct}%",
+    "cancel": "Huỷ",
+    "record": "Bấm để nói",
+    "stop": "Dừng",
+    "recording": "Đang nghe… {s} giây",
+    "processing": "Đang chấm…",
+    "listenSample": "Nghe mẫu",
+    "retry": "Nói lại",
+    "heard": "Mình nghe được:",
+    "nothing": "Không nghe thấy gì. Hãy nói to và gần micro hơn.",
+    "accuracy": "{n}% chính xác",
+    "pace": "Tốc độ {wpm} từ/phút · {n} lần ngập ngừng lâu",
+    "disclaimer": "Điểm chỉ mang tính tham khảo (nhận dạng tự động có thể sai).",
+    "verdict": {
+      "great": "Tuyệt vời!",
+      "good": "Khá tốt!",
+      "retry": "Thử lại nhé"
+    },
+    "error": {
+      "denied": "Chưa có quyền dùng micro. Bật micro cho ứng dụng ở Cài đặt Windows → Quyền riêng tư → Micro.",
+      "no-mic": "Không tìm thấy micro.",
+      "failed": "Không ghi âm được."
+    },
+    "settingsTitle": "Nhận dạng giọng nói (bài nói)",
+    "settingsHint": "Dùng để chấm bài luyện nói. Chạy hoàn toàn trên máy bạn; âm thanh không được lưu và không gửi đi đâu.",
+    "whisperReady": "Model Whisper base.en đã sẵn sàng ({size} MB)",
+    "whisperNeed": "Cần tải model Whisper base.en (~{size} MB) để chấm bài nói.",
+    "pronTitle": "Chấm phát âm chi tiết (tuỳ chọn)",
+    "pronHint": "Model nhận dạng từng âm (wav2vec2) giúp chỉ ra âm nào sai. Tải thêm, không bắt buộc.",
+    "pronDownload": "Tải model ({size} MB)",
+    "pronReady": "Đã tải",
+    "pronSoon": "Sắp có — chưa phát hành bản tải về.",
+    "pronNeed": "Cần tải model chấm phát âm chi tiết (~{mb} MB, chạy offline) để biết âm nào sai.",
+    "pronBanner": "Muốn biết chính xác âm nào sai? Tải model chấm âm ({mb} MB).",
+    "expectedIpa": "Âm chuẩn:",
+    "heardIpa": "Bạn nói:",
+    "practiceSound": "Luyện phát âm",
+    "closePractice": "Đóng"
+  },
   "audioPack": {
     "title": "Âm thanh bài nghe tạo sẵn",
     "desc": "Tải thêm (~{mb} MB) để bài nghe phát ngay bằng giọng tự nhiên, không cần tải model giọng đọc. Không bắt buộc.",
@@ -1212,5 +1263,35 @@
     "ready": "Đã cài",
     "remove": "Gỡ gói",
     "retry": "Thử tải lại"
+  },
+  "phoneme": {
+    "tip": {
+      "theta": "Đặt đầu lưỡi nhẹ giữa hai hàm răng rồi thổi hơi ra, không rung. Đừng đọc thành \"t\", \"s\" hay \"f\".",
+      "eth": "Như /θ/ (đầu lưỡi giữa hai hàm răng) nhưng có rung dây thanh. Đừng đọc thành \"d\" hay \"z\".",
+      "sh": "Chu môi, lưỡi lùi lại, thổi hơi dài \"sh\". Đừng đọc thành \"s\".",
+      "zh": "Như /ʃ/ nhưng có rung dây thanh, giống tiếng \"gi\" nhẹ (vision).",
+      "ch": "Bật hơi \"ch\" với môi chu hơn tiếng Việt, kết thúc bằng hơi \"sh\" (cheese).",
+      "jh": "Như /tʃ/ nhưng có rung (judge); không đọc thành \"gi\" của tiếng Việt.",
+      "r": "Cuộn nhẹ đầu lưỡi lên, không chạm vòm miệng, môi hơi tròn. Đừng đọc thành \"l\" hay \"z\".",
+      "l": "Đầu lưỡi chạm lợi trên, hơi thoát hai bên lưỡi; cuối từ (ball) lưỡi vẫn phải chạm.",
+      "ng": "Lưng lưỡi chạm vòm mềm, hơi thoát qua mũi; không thêm âm \"g\" rõ ở cuối.",
+      "ih": "Nguyên âm ngắn, lỏng, miệng hơi mở; ngắn hơn \"i\" của sheep.",
+      "ee": "Nguyên âm dài, môi bẹt, kéo dài hơn /ɪ/ (sheep khác ship).",
+      "ae": "Mở miệng rộng, lưỡi thấp, âm nằm giữa \"a\" và \"e\" (cat).",
+      "uh": "Miệng mở vừa, rất ngắn, giống \"ơ\" mở (cup); đừng đọc thành \"a\" dài.",
+      "aw": "Tròn môi, kéo dài, giống \"o\" mở (law).",
+      "oo": "Ngắn, môi hơi tròn, khác \"u\" dài của food (book).",
+      "uu": "Môi tròn chặt và kéo dài (food).",
+      "er": "Lưỡi ở giữa, môi không tròn, kéo dài (bird); đừng thêm \"r\" mạnh.",
+      "schwa": "Âm \"ơ\" rất ngắn và nhẹ, không nhấn (about).",
+      "end_s": "Âm cuối /s/: kết thúc bằng hơi \"s\" rõ, đừng nuốt âm cuối (cats, books).",
+      "end_z": "Âm cuối /z/: như \"s\" nhưng có rung (dogs, beds); đừng bỏ.",
+      "end_t": "Âm cuối /t/: đặt lưỡi lên lợi rồi bật nhẹ; đừng nuốt (cat, walked).",
+      "end_d": "Âm cuối /d/: lưỡi chạm lợi, có rung; đừng bỏ (bed, played).",
+      "end_k": "Âm cuối /k/: lưng lưỡi chạm vòm rồi bật nhẹ; đừng nuốt (book, week).",
+      "end_p": "Âm cuối /p/: khép môi rồi bật hơi nhẹ; đừng nuốt (stop, help).",
+      "v": "Răng trên chạm môi dưới và rung (very); đừng đọc thành \"b\" hay \"v\" kiểu Việt.",
+      "f": "Răng trên chạm môi dưới, thổi hơi, không rung (fish)."
+    }
   }
 }

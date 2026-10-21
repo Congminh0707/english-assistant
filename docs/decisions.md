@@ -158,3 +158,15 @@ Mẫu:
 **Bối cảnh:** Sprite 48×48 (hình elip phẳng, mặt vài pixel) bị đánh giá chưa đẹp; cần chi tiết gấp 3–4 lần và nhiều hoạt ảnh hơn.
 **Quyết định:** Khung 96×96 (gấp 4 số pixel), vẽ bằng code: hình khối SDF + đổ bóng 5 tông (sáng ấm → tối lạnh) + dither Bayer + viền theo màu từng bộ phận; mặt có mắt kèm ánh sáng, má hồng, mũi/miệng theo cảm xúc; tay/chân/đuôi/cánh có hoạt ảnh; 20 hoạt ảnh/186 frame. Kích thước hiển thị vẫn tính theo khung 48 (`mascot.scale` × 48 px) nên `SpriteAnimator` thu 96→48/96/144 (làm mịn khi tỉ lệ lẻ). Phụ kiện có lớp sau lưng (`accb-*`) để áo choàng/cánh nằm sau thân.
 **Hệ quả:** Bộ sheet ~16 MB trong repo/bộ cài (25 bộ × 12 phụ kiện); sinh lại mất ~80 giây. Vẫn là art sinh bằng code — họa sĩ thật thay được bằng cách giữ tên file/hoạt ảnh/khung.
+
+## #25 — Nói: Whisper base.en offline; wav2vec2 là tuỳ chọn tải thêm (2026-10-21) — Chấp nhận
+**Bối cảnh:** Phase 3 cần nhận dạng giọng nói để chấm bài nói; Web Speech API không chạy trong Electron.
+**Quyết định:** Dùng **Whisper base.en** (ONNX q8 của Xenova, ~80 MB) qua transformers.js trong utilityProcess riêng, theo đúng khuôn của giọng đọc/dịch (`ModelManager` + `ModelInstaller` + `WorkerProcess`); chấm cấp 1–2 bằng so khớp từ + mốc thời gian. Nhận dạng âm vị (wav2vec2, cấp 3) là **tuỳ chọn người dùng tự tải thêm** — hiện chỉ có khung vì chưa có ONNX đáng tin; ý định dài hạn có thể là gói trả phí nhưng **chưa khoá gì**.
+**Lý do:** Whisper tái dùng thư viện đã có (không thêm dependency), chạy đủ nhanh trên CPU (~1 s/câu); chấm âm vị cần model riêng nặng và cần chuyển đổi/host ONNX nên làm sau.
+**Hệ quả:** Whisper hay "tự sửa" câu nói sai nên điểm chỉ mang tính tham khảo (có ghi trên giao diện); chưa chỉ ra được *âm* nào sai.
+
+## #26 — Chấm phát âm theo âm vị bằng wav2vec2 ONNX int8, tải tuỳ chọn (2026-10-21) — Chấp nhận
+**Bối cảnh:** Người dùng muốn luyện phát âm theo từng âm cho bảng chữ cái/ngữ âm; Whisper chỉ cho biết từ đúng hay sai.
+**Quyết định:** Dùng model phoneme CTC `wav2vec2-lv-60-espeak-cv-ft` (Apache-2.0), bản ONNX int8 (355 MB) đã có người chuyển đổi và công bố quy trình + sha256 (`duyentq/sonari-wav2vec2-phoneme-int8`), ghim commit và băm file; tải khi người dùng chọn. Chạy bằng `onnxruntime-node` + phonemizer (espeak) trong utilityProcess riêng; so khớp âm vị ở `shared/phonemes.ts`. Thêm `onnxruntime-node`, `phonemizer` làm dependency trực tiếp (cùng phiên bản đã có sẵn gián tiếp).
+**Lý do:** Không cần tự chuyển đổi model (không có PyTorch trong môi trường); bảng âm của model chính là espeak IPA nên khớp trực tiếp với phonemizer; tốc độ ~100–150 ms.
+**Rủi ro/hệ quả:** Phụ thuộc repo HF bên thứ ba (nên cân nhắc mirror lên release của dự án nếu repo biến mất); kém ổn định với từ đơn rất ngắn; ngưỡng điểm chưa hiệu chỉnh với giọng người Việt; eSpeak-NG GPL-3.0 (như #14). Ý định dài hạn có thể là gói trả phí, hiện chưa khoá gì.

@@ -16,7 +16,7 @@ import { broadcast, sendTo } from './ipc/broadcast'
 import { createTray, type AppTray } from './system/tray'
 import { showMascotMenu } from './system/mascotMenu'
 import { DEFAULT_SHORTCUTS, registerShortcuts, shortcutLabel } from './system/shortcuts'
-import { applySecurityDefaults } from './system/security'
+import { applyPermissionPolicy, applySecurityDefaults } from './system/security'
 import { UpdateManager } from './system/UpdateManager'
 import { applyLaunchAtLogin } from './system/autostart'
 import { readClipboardForLookup } from './system/clipboard'
@@ -31,6 +31,11 @@ import { TtsService } from './services/TtsService'
 import { AudioPackService } from './services/AudioPackService'
 import { AudioPackManager } from './audio/AudioPackManager'
 import { LISTENING_AUDIO_PACK } from './audio/packSpec'
+import { SttService } from './services/SttService'
+import { PronunciationService } from './services/PronunciationService'
+import { WhisperEngine } from './stt/WhisperEngine'
+import { Wav2Vec2Engine } from './stt/Wav2Vec2Engine'
+import { PRONUNCIATION_MODEL, WHISPER_BASE_EN } from './stt/modelFiles'
 import { KokoroEngine } from './tts/KokoroEngine'
 import { KOKORO } from './tts/modelFiles'
 import { TtsCache } from './tts/TtsCache'
@@ -58,6 +63,8 @@ let tray: AppTray | null = null
 let quietMode: QuietModeService | null = null
 let translation: TranslationService | null = null
 let speech: TtsService | null = null
+let recognition: SttService | null = null
+let pronunciation: PronunciationService | null = null
 const scheduler = new Scheduler()
 
 // Chỉ cho chạy 1 instance: mở lần 2 thì hiện lại mascot đang có
@@ -70,6 +77,7 @@ if (!app.requestSingleInstanceLock()) {
 
   app.whenReady().then(() => {
     electronApp.setAppUserModelId(APP_ID)
+    applyPermissionPolicy()
 
     // Dữ liệu: mở user.db (tự migrate) và dựng các service
     conn = openUserDb(paths.userDb(), paths.migrations())
@@ -112,6 +120,21 @@ if (!app.requestSingleInstanceLock()) {
       pack: new AudioPackManager({ packsDir: paths.audioPacks(), spec: LISTENING_AUDIO_PACK }),
       onStatus: (status) => broadcast('audio:status-changed', status)
     })
+    // Nhận dạng giọng nói offline (Whisper base.en) + model phát âm âm vị tuỳ chọn (tải thêm/premium)
+    const sttService = new SttService({
+      models: new ModelManager({ modelsDir: paths.models(), spec: WHISPER_BASE_EN }),
+      engine: new WhisperEngine(paths.models()),
+      onStatus: (status) => broadcast('stt:status-changed', status)
+    })
+    recognition = sttService
+    const pronunciationService: PronunciationService = new PronunciationService({
+      models: PRONUNCIATION_MODEL
+        ? new ModelManager({ modelsDir: paths.models(), spec: PRONUNCIATION_MODEL })
+        : null,
+      engine: new Wav2Vec2Engine(paths.models()),
+      onStatus: (status) => broadcast('pron:status-changed', status)
+    })
+    pronunciation = pronunciationService
     // Cập nhật tự động: chỉ bản đã đóng gói; kiểm tra nền (tắt được trong Cài đặt), tải/cài khi người dùng đồng ý
     const updates = new UpdateManager({
       updater: autoUpdater,
@@ -119,7 +142,15 @@ if (!app.requestSingleInstanceLock()) {
       enabled: app.isPackaged,
       onStatus: (status) => broadcast('update:status-changed', status)
     })
-    registerAppIpc(c, translationService, ttsService, audioPackService, updates)
+    registerAppIpc(
+      c,
+      translationService,
+      ttsService,
+      audioPackService,
+      sttService,
+      pronunciationService,
+      updates
+    )
     if (app.isPackaged) {
       const autoCheck = (): void => {
         if (c.settings.get('app.autoUpdate')) void updates.check()
@@ -233,6 +264,8 @@ if (!app.requestSingleInstanceLock()) {
     study?.destroy()
     translation?.dispose()
     speech?.dispose()
+    recognition?.dispose()
+    pronunciation?.dispose()
     tray?.tray.destroy()
     tray = null
     container?.packs.closeAll()

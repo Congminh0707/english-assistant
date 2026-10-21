@@ -76,3 +76,9 @@ App chạy thường trực trên máy, có thể đọc clipboard, nghe micro, 
 - Việc kiểm tra cập nhật chỉ gửi yêu cầu tới GitHub Releases (địa chỉ IP và phiên bản app hiện tại là thứ GitHub nhìn thấy); **không gửi dữ liệu học, hồ sơ hay nội dung nào**.
 - Người dùng tắt được trong Cài đặt → Cập nhật (`app.autoUpdate`); app không bao giờ tải hay cài bản mới khi chưa được đồng ý.
 - Tính toàn vẹn: electron-updater so sha512 của file tải về với `latest.yml`. Bản chưa ký số (code signing) thì Windows SmartScreen vẫn cảnh báo ở lần cài đầu — xem [15](15-packaging-and-release.md#5-code-signing).
+
+## Micro & bài nói
+
+- Quyền micro chỉ được cấp cho trang của chính app và chỉ cho âm thanh (không camera/màn hình) — `applyPermissionPolicy` trong `src/main/system/security.ts`; mọi quyền thiết bị khác bị từ chối.
+- Âm thanh ghi chỉ nằm trong bộ nhớ trong lúc nhận dạng (PCM 16 kHz): **không lưu file, không gửi mạng, không log** (kể cả lời nhận dạng). Model Whisper chạy trên máy (utilityProcess, `allowRemoteModels = false`).
+- Model tải về từ Hugging Face khi người dùng đồng ý, ghim revision và kiểm tra sha256 từng file.

@@ -4,6 +4,8 @@ import type { LessonService } from '../services/LessonService'
 import type { TranslationService } from '../services/TranslationService'
 import type { TtsService } from '../services/TtsService'
 import type { AudioPackService } from '../services/AudioPackService'
+import type { SttService } from '../services/SttService'
+import type { PronunciationService } from '../services/PronunciationService'
 import type { UpdateManager } from '../system/UpdateManager'
 import { handle } from './handle'
 
@@ -13,6 +15,8 @@ export function registerAppIpc(
   translation: TranslationService,
   tts: TtsService,
   audioPack: AudioPackService,
+  stt: SttService,
+  pronunciation: PronunciationService,
   updates: UpdateManager
 ): void {
   handle('pet:get', () => c.pet.get())
@@ -127,6 +131,14 @@ export function registerAppIpc(
   handle('audio:cancel', () => audioPack.cancelInstall())
   handle('audio:remove', () => audioPack.remove())
   handle('audio:clip', (input) => audioPack.clip(input))
+  handle('stt:status', () => stt.status())
+  handle('stt:install', () => stt.install())
+  handle('stt:cancel', () => stt.cancelInstall())
+  handle('stt:transcribe', ({ audio }) => stt.transcribe(audio))
+  handle('pron:status', () => pronunciation.status())
+  handle('pron:install', () => pronunciation.install())
+  handle('pron:cancel', () => pronunciation.cancel())
+  handle('pron:evaluate', ({ audio, text }) => pronunciation.evaluate(audio, text))
   handle('vocab:list', () => c.study.words())
   handle('vocab:remove', ({ contentId }) => c.study.removeWord(contentId))
   handle('vocab:suspend', ({ contentId, suspended }) => c.study.setSuspended(contentId, suspended))

@@ -188,3 +188,5 @@ Phần lớn bài học có cấu trúc (lesson, bài tập ngữ pháp, hội t
 5. **VOA Learning English** → bài nghe + bài đọc A1–B2.
 6. **StoryWeaver** → truyện tranh trẻ em.
 7. **Kenney + Twemoji** → hình ảnh, âm thanh, icon.
+
+> **Model chấm phát âm (2026-10-21):** wav2vec2 phoneme — `facebook/wav2vec2-lv-60-espeak-cv-ft` (Apache-2.0, Xu/Baevski/Auli), dùng bản ONNX int8 của `duyentq/sonari-wav2vec2-phoneme-int8` (Apache-2.0, kèm ghi chú thay đổi). Tải khi người dùng đồng ý, hiển thị ghi công ở Cài đặt → Giấy phép.

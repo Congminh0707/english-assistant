@@ -79,3 +79,7 @@ pnpm exec vitest run src/main/content/lessons.test.ts
 
 Lệnh này kiểm tra schema và các quy tắc trên cho **mọi file** trong thư mục. Chỉ cần file của bạn không có lỗi
 (file do người khác đang soạn có thể lỗi tạm thời — bỏ qua).
+
+## Dạng bài `speak` (nói)
+
+`{ "type": "speak", "say": "Nice to meet you.", "prompt": "Giới thiệu…", "word": true }` — người học đọc to `say`, được chấm bằng nhận dạng giọng nói offline (đạt khi ≥ 70%). `word: true` cho một từ đơn (pronounce_word). Không cần `answer`; `explain` tuỳ chọn.

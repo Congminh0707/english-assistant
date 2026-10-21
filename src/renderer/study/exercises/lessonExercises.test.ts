@@ -8,6 +8,7 @@ import {
   initState,
   isCorrect,
   newState,
+  SPEAK_PASS,
   solutionOf,
   speaksSolution,
   TF_ORDER
@@ -47,8 +48,20 @@ const LISTEN: LessonExercise = { type: 'listen', say: 'hi', choices: ['x', 'y'],
 describe('registry dạng bài của bài học', () => {
   it('đăng ký đủ mọi dạng bài trong schema', () => {
     expect([...EXERCISE_TYPES].sort()).toEqual(
-      ['gap', 'listen', 'match', 'mcq', 'order', 'picture', 'tf'].sort()
+      ['gap', 'listen', 'match', 'mcq', 'order', 'picture', 'speak', 'tf'].sort()
     )
+  })
+
+  it('bài nói: chỉ chấm được sau khi đã nói, đạt khi độ chính xác ≥ 70', () => {
+    const ex: LessonExercise = { type: 'speak', say: 'Nice to meet you.' }
+    const st = newState()
+    expect(canCheck(ex, st)).toBe(false)
+    st.spoken = 65
+    expect(canCheck(ex, st)).toBe(true)
+    expect(isCorrect(ex, st)).toBe(false)
+    st.spoken = SPEAK_PASS
+    expect(isCorrect(ex, st)).toBe(true)
+    expect(solutionOf(ex, (k) => k)).toBe('Nice to meet you.')
   })
 
   it('trắc nghiệm / nghe / chọn hình: cần chọn mới chấm được, đúng khi trùng đáp án', () => {

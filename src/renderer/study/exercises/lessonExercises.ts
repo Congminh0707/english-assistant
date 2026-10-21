@@ -1,4 +1,4 @@
-// Registry các dạng bài tập của bài học (mcq, gap, order, match, listen, tf, picture): khởi tạo trạng thái nhập, kiểm tra
+// Registry các dạng bài tập của bài học (mcq, gap, order, match, listen, tf, picture, speak): khởi tạo trạng thái nhập, kiểm tra
 // đã đủ để chấm chưa, chấm đúng/sai, lời giải. Thuần dữ liệu (không Vue, không IPC) → test được ở Node và dùng chung cho
 // mọi trang bài tập. Thêm dạng bài mới = thêm một mục vào `HANDLERS` (+ schema trong shared/schemas/lesson.ts).
 import { sameSentence } from '@shared/practice'
@@ -7,6 +7,9 @@ import { isGapCorrect } from '../lessonText'
 
 /** Thứ tự lựa chọn của dạng đúng/sai: Đúng, Sai, (Không có thông tin) */
 export const TF_ORDER = ['true', 'false', 'ng'] as const
+
+/** Bài nói tính là đúng khi độ chính xác từ mức này trở lên */
+export const SPEAK_PASS = 70
 
 /** Trạng thái nhập liệu của câu hiện tại (mỗi dạng bài chỉ dùng một phần) */
 export interface ExerciseState {
@@ -20,6 +23,8 @@ export interface ExerciseState {
   /** Ghép cặp: mục trái i → vị trí đang hiển thị bên phải; thứ tự hiển thị bên phải (chỉ số cặp) */
   pairMap: Array<number | null>
   rightOrder: number[]
+  /** Bài nói: độ chính xác (0–100) của lần nói gần nhất; null nếu chưa nói */
+  spoken: number | null
 }
 
 type Shuffle = <T>(items: T[]) => T[]
@@ -90,6 +95,14 @@ const HANDLERS: { [T in LessonExercise['type']]: Handler<Of<T>> } = {
     isCorrect: (ex, st) => sameSentence(st.picked.map((i) => st.tokens[i]).join(' '), ex.answer),
     solution: (ex) => ex.answer
   },
+  speak: {
+    hasChoices: () => false,
+    choices: () => [],
+    init: () => undefined,
+    canCheck: (_ex, st) => st.spoken !== null,
+    isCorrect: (_ex, st) => st.spoken !== null && st.spoken >= SPEAK_PASS,
+    solution: (ex) => ex.say
+  },
   match: {
     hasChoices: () => false,
     choices: () => [],
@@ -108,7 +121,15 @@ const handlerOf = (ex: LessonExercise): Handler<LessonExercise> =>
   HANDLERS[ex.type] as unknown as Handler<LessonExercise>
 
 export function newState(): ExerciseState {
-  return { chosen: null, typed: '', tokens: [], picked: [], pairMap: [], rightOrder: [] }
+  return {
+    chosen: null,
+    typed: '',
+    tokens: [],
+    picked: [],
+    pairMap: [],
+    rightOrder: [],
+    spoken: null
+  }
 }
 
 /** Trạng thái nhập mới cho một câu */

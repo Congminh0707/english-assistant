@@ -29,8 +29,10 @@ gantt
 - ✅ Xong (2026-10-20): **Nhiều thú cưng (5 nhân vật) + trang Thú cưng/cây tiến hoá + màn hình tiến hoá + vật phẩm cửa hàng mới** — lint/typecheck/310 test/build qua; đã thử tay OK (2026-10-20) trong app (cần: mua & chọn nhân vật, xem mascot đổi hình, đeo cánh/áo choàng, màn tiến hoá khi lên level 2/10/25/50).
 - ✅ Xong (2026-10-20): workflow phát hành `.github/workflows/release.yml` — chỉ chạy khi push nhánh `release`, chỉ phát hành khi version trong package.json chưa có tag (`scripts/release/check-version.mjs`), tự tạo release + tag (không push tag); **chưa chạy thử trên GitHub**. Cần làm một lần: tải content pack lên release `content-pack-1.2.0` (docs/15 §6) và tạo nhánh `release`.
 - ✅ Xong (2026-10-21): phát hành `v1.0.0`, `v1.0.1` bằng workflow (release tự tạo tag); **đã thử cập nhật tự động v1.0.0 → v1.0.1 OK** và icon khay hệ thống đã hiện ở bản cài. Ký số: bỏ qua theo yêu cầu (bàn lại khi cần).
+- ✅ Xong code (2026-10-21, **chưa thử tay**): **Chấm phát âm theo âm vị (wav2vec2, tải tuỳ chọn 355 MB)** — `duyentq/sonari-wav2vec2-phoneme-int8` rev f0652c4 (sha256 cd51f953…), worker `phonemeWorker` (onnxruntime-node + phonemizer/espeak), `PronunciationService.evaluate` + kênh `pron:evaluate`, so khớp âm vị `shared/phonemes.ts` (+ mẹo sửa tiếng Việt cho 26 âm), `SpeakPractice` chế độ âm vị; bảng chữ cái/âm (khối `sounds`) có nút 🎤 luyện từng ô, bài nói `speak` ưu tiên chấm âm vị khi đã tải model. Đã thử worker đã build với giọng Kokoro: sheep/right đúng, think → θ bị nghe thành /f/. Chưa: hoạt động chữ cái/âm của bé (kids) chưa dùng; ngưỡng điểm chưa hiệu chỉnh với giọng người Việt thật.
+- ✅ Xong code (2026-10-21, **chưa thử tay**): **Phase 3 — bài nói**: ghi âm micro (`useRecorder`, quyền micro chỉ cho trang của app) → Whisper base.en offline (`SttService`/`WhisperEngine`, model ~80 MB tải khi đồng ý) → chấm theo từ + độ trôi chảy (`shared/speech.ts`) → dạng bài `speak` (speak_repeat/pronounce_word) + unit "Luyện nói" (5 bài); panel Cài đặt → Nhận dạng giọng nói. wav2vec2 chỉ là khung tải tuỳ chọn (`PronunciationService`, chưa có ONNX để tải, không có paywall). Cần thử tay: cấp quyền micro, tải model, nói thử, thấy điểm từng từ.
 - ✅ Xong (2026-10-21): **việc nhỏ treo** — chỉ báo "đang tạo giọng đọc" ở mascot; câu thoại riêng 5 nhân vật + câu chung + nói bâng quơ (`mascot.chars.*`); gói âm thanh bài nghe tạo sẵn tải thêm (MP3 14,3 MB, release `listening-audio-1.0.0`, tải trong Cài đặt/trang Nghe, đã thử tải thật từ GitHub). Chưa thử tay trong app (nghe bài nghe với gói, mascot nói câu riêng).
-- Hiện tại: không có việc dở. Việc kế tiếp đề xuất: Phase 3 — ghi âm + Whisper local + chấm phát âm.
+- Trước đó: workflow phát hành xong, v1.0.1 đã phát hành & thử auto-update OK.
 
 ## Phase 0 — Spike: cửa sổ mascot (≈ 2 tuần)
 
@@ -123,8 +125,8 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 
 ## Phase 3 — Nói, Viết, AI (≈ 8 tuần)
 
-- [ ] Ghi âm + Whisper local (utilityProcess) + `ModelManager`
-- [ ] `speak_repeat`, `pronounce_word` (chấm cấp 1–2), shadowing
+- [x] Ghi âm + Whisper local (utilityProcess) + `ModelManager` (Whisper base.en q8, chưa thử tay)
+- [x] `speak` (= speak_repeat/pronounce_word, chấm cấp 1–2: từ + độ trôi chảy) + 5 bài "Luyện nói" gồm shadowing (chưa thử tay). Còn: hoạt động nói theo của bé (kids) vẫn tự đánh giá; cấp 3 âm vị (wav2vec2) chờ có ONNX
 - [ ] Cấu hình AI (provider, key mã hoá, giới hạn chi phí)
 - [ ] LLM: giải thích ngữ pháp/câu, dịch nâng cao, `writing_feedback`, `speaking_feedback`, roleplay (người lớn)
 - [ ] LanguageTool cho Writing

@@ -78,7 +78,7 @@ export class KidsService {
     const { srs, vocab, profiles, clock } = this.deps
     const profileId = profiles.activeId()
     const now = clock.now()
-    let row: SrsCardRow | undefined = srs.dueCards(1, ['audio_picture'])[0]
+    let row: SrsCardRow | undefined = srs.dueCards(1, ['audio_picture'], false)[0]
     if (!row) {
       const introduced = vocab.countCardsCreatedSince(
         profileId,

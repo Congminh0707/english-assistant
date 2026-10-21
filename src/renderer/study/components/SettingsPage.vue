@@ -36,6 +36,12 @@ const sttSizeMb = computed(() => Math.round((stt.status.value?.sizeBytes ?? 0) /
 const sttDoneMb = computed(() => Math.round((stt.status.value?.receivedBytes ?? 0) / MB))
 const pronSizeMb = computed(() => Math.round((stt.pronunciation.value?.sizeBytes ?? 0) / MB))
 
+/** 10 → "10 phút", 60 → "1 giờ", 720 → "12 giờ" */
+const hideLabel = (minutes: number): string =>
+  minutes >= 60
+    ? t('study.settings.hours', { n: minutes / 60 })
+    : t('study.settings.minutes', { n: minutes })
+
 const CREDIT_KEYS = [
   'kokoro',
   'kokoroData',
@@ -64,6 +70,7 @@ const REVIEW_TOGGLES = [
   { key: 'review.dirViEn', label: 'dirViEn' },
   { key: 'review.dirAudio', label: 'dirAudio' },
   { key: 'review.dirCloze', label: 'dirCloze' },
+  { key: 'review.choices', label: 'choices' },
   { key: 'review.typing', label: 'typing' },
   { key: 'review.autoPlay', label: 'autoPlay' }
 ] as const
@@ -274,11 +281,29 @@ onMounted(loadProfiles)
           :value="settingsStore.settings['review.order']"
           @change="setSetting('review.order', ($event.target as HTMLSelectElement).value as never)"
         >
-          <option v-for="o in ['mixed', 'new-first', 'review-first']" :key="o" :value="o">
+          <option v-for="o in ['random', 'mixed', 'new-first', 'review-first']" :key="o" :value="o">
             {{ t(`study.settings.order.${o}`) }}
           </option>
         </select>
       </label>
+      <label class="row">
+        {{ t('study.settings.hideReviewed') }}
+        <select
+          :value="settingsStore.settings['review.hideMinutes']"
+          @change="
+            setSetting(
+              'review.hideMinutes',
+              Number(($event.target as HTMLSelectElement).value) as never
+            )
+          "
+        >
+          <option :value="0">{{ t('study.settings.hideNever') }}</option>
+          <option v-for="m in [10, 30, 60, 180, 720]" :key="m" :value="m">
+            {{ t('study.settings.hideFor', { text: hideLabel(m) }) }}
+          </option>
+        </select>
+      </label>
+      <p class="muted">{{ t('study.settings.hideHint') }}</p>
       <p class="muted">{{ t('study.settings.directionsHint') }}</p>
       <label v-for="d in REVIEW_TOGGLES" :key="d.key" class="row">
         {{ t(`study.settings.${d.label}`) }}

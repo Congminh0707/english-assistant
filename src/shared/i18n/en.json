@@ -541,7 +541,17 @@
         "correct": "Correct! ✓",
         "close": "Almost — check the spelling:",
         "wrong": "Not quite — answer:"
-      }
+      },
+      "meaning": "Meaning of the missing word",
+      "letters": "{n} letters",
+      "hearSentence": "Hear the sentence",
+      "moreHint": "Reveal one more letter",
+      "hintChoice": "Pick the right meaning (keys 1–4) · Space: show answer",
+      "hintType": "Type the answer, then Enter · Space/Enter after: next card",
+      "hintFlip": "Space: show answer",
+      "hintRate": "Rate how well you remembered: 1 Again · 2 Hard · 3 Good · 4 Easy — Enter: suggested · U: undo",
+      "sayIt": "Say this word aloud",
+      "closeSay": "Close speaking"
     },
     "words": {
       "count": "Word list ({count})",
@@ -678,7 +688,8 @@
       "order": {
         "mixed": "Mixed by due time",
         "new-first": "New cards first",
-        "review-first": "Old cards first"
+        "review-first": "Old cards first",
+        "random": "Random"
       },
       "directionsHint": "Once you know a word, extra cards are created for deeper recall (due from the next day):",
       "dirViEn": "Vietnamese → English cards (type the word)",
@@ -688,7 +699,14 @@
       "autoPlay": "Say the word when a card appears",
       "backfill": "Create cards for known words",
       "backfillHint": "Turned on another card type? Create the extra cards for words you already know.",
-      "backfillDone": "Created {n} new cards."
+      "backfillDone": "Created {n} new cards.",
+      "hideReviewed": "Hide reviewed words",
+      "hideNever": "Never hide",
+      "hideFor": "Hide for {text}",
+      "hideHint": "After you review a word (even if you press \"Again\"), its cards are hidden for a while so you do not see them again right away or after leaving and coming back.",
+      "minutes": "{n} min",
+      "hours": "{n} h",
+      "choices": "Multiple-choice meaning on recognition cards (off = just flip and self-rate)"
     },
     "practice": {
       "title": "Practice",

@@ -220,3 +220,17 @@ Mascot nhắc lộ trình vào giờ người dùng chọn, và hiển thị ti�
 ## Bài nói (`speak`) — 2026-10-21
 
 Dạng bài `speak` (`{ type: 'speak', say, prompt?, word?, explain? }`) hiển thị câu/từ mẫu, nút 🔊 nghe mẫu và 🎤 ghi âm; Whisper nhận dạng offline rồi chấm theo từng từ (xem docs/11 §4). Đạt khi độ chính xác ≥ 70 (`SPEAK_PASS`); nút "Bỏ qua câu này" cho máy không có micro (tính là chưa đạt). Tính vào kỹ năng từ vựng trong Elo (chưa có kỹ năng nói riêng). Nội dung: unit `speak` "Luyện nói" (`content/curated/lessons/07-speaking.json`, 5 bài: giới thiệu, câu hằng ngày, âm khó /θ ð ʃ r/, âm cuối, đọc theo câu dài/shadowing).
+
+## Phiên ôn từ: thứ tự & ẩn từ vừa ôn — 2026-10-21
+
+- **Thứ tự** (`review.order`): `random` (mặc định) xáo trộn các thẻ đến hạn; còn `mixed` (xen kẽ theo hạn), `new-first`, `review-first`. Trước đây luôn đi tuần tự theo hạn nên mỗi lần vào lại gặp lại đúng những thẻ đầu.
+- **Ẩn từ vừa ôn** (`review.hideMinutes`: 0/10/30/60/180/720, mặc định 30): sau khi ôn một thẻ, mọi thẻ của *từ* đó (Anh→Việt, Việt→Anh, nghe-gõ, điền từ) bị ẩn trong N phút, kể cả khi chấm "Quên" (FSRS vốn cho học lại sau ~1 phút). Áp dụng cả cho số thẻ còn lại và câu hỏi của mascot; chế độ trẻ em không ẩn (cần lặp lại ngay). Cài đặt → Ôn từ. `SrsService.dueCards(limit, directions, bury)` + `VocabRepository.dueWhere(buryAfter)`.
+- **Thẻ điền từ**: ô chữ mỗi chữ một ô (chữ đầu hiện sẵn), nghĩa của từ cần điền + số chữ cái, nút "Gợi ý thêm 1 chữ", nút "Nghe câu" (đọc cả câu — là gợi ý bằng tai nên có lộ đáp án), hình pixel của từ nếu có (`pictureForWord`).
+
+### Thẻ nhận diện tương tác — 2026-10-21
+
+- **Trắc nghiệm nghĩa** (`review.choices`, mặc định bật): thẻ `en_vi` hiện 4 lựa chọn nghĩa (1 đúng + 3 nhiễu cùng level, `DictionaryService.quizData`); chọn xong lộ đáp án và gợi ý mức chấm (đúng → Được, sai → Quên), vẫn bấm 1–4 để tự chấm lại. Không dựng đủ 3 nghĩa nhiễu (từ điển nhỏ) hoặc là mẫu câu → rơi về lật thẻ. `StudyCard.choices/choiceAnswer`.
+- **Nói to** (tuỳ chọn): nút "🎤 Nói to từ này" mở `SpeakPractice` (chấm âm vị nếu đã tải wav2vec2, nếu không thì Whisper); không ảnh hưởng mức chấm.
+- **Từ nhiều nghĩa**: thẻ nhận diện hiện câu ngữ cảnh người dùng đã lưu (từ được tô đậm) ngay ở mặt trước để biết đang hỏi nghĩa nào; thẻ điền từ chỉ hiện "nghĩa của từ cần điền" khi từ có đúng 1 nghĩa (nhiều nghĩa thì dựa vào câu dịch).
+- **Thống nhất nghĩa giữa mascot và màn ôn**: lựa chọn của mascot trước đây chỉ lấy nghĩa đầu (ngắn), trong khi màn ôn hiện đủ nghĩa; nay cả hai dùng `formatMeanings` (tối đa 2 nghĩa đầu, cách nhau `; `).
+- Dòng gợi ý phím tắt đổi theo trạng thái (chọn nghĩa / gõ / lật / chấm 1 Quên · 2 Khó · 3 Được · 4 Dễ).

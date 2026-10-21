@@ -200,6 +200,12 @@ const xpByReason = (reason: string): number =>
     ).n
   )
 
+/** Các test cũ giả định ôn theo hạn và không ẩn từ vừa ôn; ôn ngẫu nhiên/ẩn từ có test riêng */
+function legacyReview(container: Container): void {
+  container.settings.set('review.order', 'mixed')
+  container.settings.set('review.hideMinutes', 0)
+}
+
 let tmp: string
 let conn: UserDbConnection
 let c: Container
@@ -208,6 +214,7 @@ beforeEach(() => {
   tmp = mkdtempSync(join(tmpdir(), 'ea-test-'))
   conn = openUserDb(':memory:', MIGRATIONS)
   c = createContainer(conn, new FakeClock(), { packsDir: join(tmp, 'packs') })
+  legacyReview(c)
 })
 
 afterEach(() => {
@@ -319,6 +326,7 @@ describe('SrsService + MicroLearningService', () => {
     conn = openUserDb(':memory:', MIGRATIONS)
     clock = new FakeClock()
     c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    legacyReview(c)
     await c.packs.install(buildFixturePack(tmp))
     c.settings.set('learning.level', 'A1_1')
   })
@@ -341,12 +349,18 @@ describe('SrsService + MicroLearningService', () => {
     expect(quiz?.kind).toBe('review')
     if (quiz?.kind !== 'review') return
     expect(quiz.lemma).toBe('go')
-    expect(quiz.choices).toContain('đi')
+    // Lựa chọn dùng tối đa 2 nghĩa đầu (cùng định dạng với màn ôn): 'đi; ra đi'
+    expect(quiz.choices.some((x) => x.split('; ').includes('đi'))).toBe(true)
     expect(new Set(quiz.choices).size).toBe(quiz.choices.length)
 
     const xpBefore = xpByReason('card.reviewed')
-    const res = c.micro.answer(quiz.id, quiz.choices.indexOf('đi'), 2000)
-    expect(res).toMatchObject({ correct: true, correctText: 'đi' })
+    const res = c.micro.answer(
+      quiz.id,
+      quiz.choices.findIndex((x) => x.split('; ').includes('đi')),
+      2000
+    )
+    expect(res.correct).toBe(true)
+    expect(res.correctText.split('; ')).toContain('đi')
     expect(res.intervalDays).toBeGreaterThan(0)
     expect(xpByReason('card.reviewed')).toBe(xpBefore + 2)
     expect(c.srs.dueCount()).toBe(0)
@@ -361,7 +375,7 @@ describe('SrsService + MicroLearningService', () => {
     c.vocab.save({ contentId: 'word:en:go', text: 'go' })
     const quiz = c.micro.next()
     if (quiz?.kind !== 'review') throw new Error('expected review quiz')
-    const wrong = quiz.choices.findIndex((ch) => ch !== 'đi')
+    const wrong = quiz.choices.findIndex((ch) => !ch.split('; ').includes('đi'))
     const res = c.micro.answer(quiz.id, wrong, 1500)
     expect(res.correct).toBe(false)
     expect(res.intervalDays).toBeLessThan(1)
@@ -377,6 +391,7 @@ describe('StudyService', () => {
     conn = openUserDb(':memory:', MIGRATIONS)
     clock = new FakeClock()
     c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    legacyReview(c)
     await c.packs.install(buildFixturePack(tmp))
   })
 
@@ -485,6 +500,7 @@ describe('MissionService', () => {
     conn = openUserDb(':memory:', MIGRATIONS)
     clock = new FakeClock()
     c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    legacyReview(c)
     await c.packs.install(buildFixturePack(tmp))
     c.settings.set('learning.dailyGoal', 5)
   })
@@ -587,7 +603,8 @@ describe('Hồ sơ & bài kiểm tra đầu vào', () => {
       let pick = 0
       if (question.kind === 'vocab') {
         lemmas.push(question.lemma)
-        pick = question.choices.indexOf(meaning[question.lemma])
+        const target = meaning[question.lemma]
+        pick = question.choices.findIndex((x) => x.split('; ').includes(target))
         expect(pick).toBeGreaterThanOrEqual(0)
       } else {
         // Ngữ pháp / đọc hiểu: có câu hỏi, đủ lựa chọn; đáp án đúng chỉ ở main nên chọn tạm đáp án đầu
@@ -649,6 +666,7 @@ describe('PracticeService', () => {
     conn = openUserDb(':memory:', MIGRATIONS)
     clock = new FakeClock()
     c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    legacyReview(c)
     await c.packs.install(buildFixturePack(tmp))
     c.settings.set('learning.level', 'A1_1')
   })
@@ -777,6 +795,7 @@ describe('StatsService', () => {
     conn = openUserDb(':memory:', MIGRATIONS)
     clock = new FakeClock()
     c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    legacyReview(c)
     await c.packs.install(buildFixturePack(tmp))
   })
 
@@ -912,6 +931,7 @@ describe('thẻ ôn tập nhiều hướng', () => {
     conn = openUserDb(':memory:', MIGRATIONS)
     clock = new FakeClock()
     c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    legacyReview(c)
     await c.packs.install(buildFixturePack(tmp))
   })
 
@@ -1005,6 +1025,58 @@ describe('thẻ ôn tập nhiều hướng', () => {
     expect(c.study.next().card?.isNew).toBe(false)
   })
 
+  it('ôn ngẫu nhiên: xáo thứ tự thẻ đến hạn, không phụ thuộc hạn sớm nhất', () => {
+    for (const w of ['go', 'apple', 'book', 'tree', 'milk']) {
+      c.vocab.save({ contentId: `word:en:${w}`, text: w })
+    }
+    c.settings.set('review.order', 'mixed')
+    const sequential = c.srs.dueCards(5).map((r) => r.contentId)
+    c.settings.set('review.order', 'random')
+    const seen = new Set<string>()
+    for (let i = 0; i < 40; i++) seen.add(c.srs.dueCards(1)[0].contentId)
+    // 40 lần bốc ngẫu nhiên 1 thẻ trong 5 thẻ: gần như chắc chắn gặp ≥ 3 từ khác nhau
+    expect(seen.size).toBeGreaterThanOrEqual(3)
+    expect([...seen].every((id) => sequential.includes(id))).toBe(true)
+    expect(c.srs.dueCards(5)).toHaveLength(5)
+  })
+
+  it('ẩn từ vừa ôn N phút (kể cả chấm Quên); hết hạn ẩn thì hiện lại; 0 = tắt', () => {
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    c.vocab.save({ contentId: 'word:en:apple', text: 'apple' })
+    c.settings.set('review.hideMinutes', 30)
+    const first = c.study.next().card!
+    c.study.rate(first.cardId, 1, 1000) // Quên: bình thường quay lại sau ~1 phút
+    clock.advance(2 * 60_000)
+    expect(c.srs.dueCount()).toBe(1) // chỉ còn từ chưa ôn
+    for (let i = 0; i < 10; i++) expect(c.study.next().card?.cardId).not.toBe(first.cardId)
+
+    clock.advance(31 * 60_000) // hết thời gian ẩn
+    expect(c.srs.dueCount()).toBe(2)
+    c.settings.set('review.hideMinutes', 0)
+    c.study.rate(c.study.next().card!.cardId, 1, 1000)
+    clock.advance(2 * 60_000)
+    expect(c.srs.dueCount()).toBe(2) // tắt ẩn: thẻ vừa chấm Quên quay lại ngay
+  })
+
+  it('thẻ nhận diện có trắc nghiệm nghĩa (4 lựa chọn, đáp án trỏ đúng nghĩa); tắt trong cài đặt thì không', () => {
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    const card = c.study.next().card!
+    expect(card.direction).toBe('en_vi')
+    if (card.choices) {
+      expect(card.choices).toHaveLength(4)
+      expect(new Set(card.choices).size).toBe(4)
+      const right = card.choices[card.choiceAnswer!]
+      expect(right.split('; ')).toContain(card.vi[0])
+    } else {
+      // Gói thử nghiệm quá ít từ để dựng đủ 3 nghĩa nhiễu → không có trắc nghiệm (giao diện rơi về lật thẻ)
+      expect(card.choiceAnswer).toBeNull()
+    }
+    c.settings.set('review.choices', false)
+    const plain = c.study.next().card!
+    expect(plain.choices).toBeNull()
+    expect(plain.choiceAnswer).toBeNull()
+  })
+
   it('hoàn tác lần chấm gần nhất: trả lại lịch cũ, xoá lượt ôn, hiện lại thẻ', () => {
     c.vocab.save({ contentId: 'word:en:go', text: 'go' })
     const card = c.study.next().card!
@@ -1084,6 +1156,7 @@ describe('chế độ trẻ em', () => {
     conn = openUserDb(':memory:', MIGRATIONS)
     clock = new FakeClock()
     c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    legacyReview(c)
     await c.packs.install(buildFixturePack(tmp))
   })
 
@@ -1279,6 +1352,7 @@ describe('tiến bộ theo kỹ năng', () => {
     conn = openUserDb(':memory:', MIGRATIONS)
     clock = new FakeClock()
     c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    legacyReview(c)
     await c.packs.install(buildFixturePack(tmp))
   })
 
@@ -1342,6 +1416,7 @@ describe('kiểm tra lên cấp', () => {
     conn = openUserDb(':memory:', MIGRATIONS)
     clock = new FakeClock()
     c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    legacyReview(c)
     await c.packs.install(buildFixturePack(tmp))
     c.settings.set('learning.level', 'A2_1')
   })
@@ -1437,6 +1512,7 @@ describe('lộ trình học', () => {
     conn.close()
     conn = openUserDb(':memory:', MIGRATIONS)
     c = createContainer(conn, new FakeClock(), { packsDir: join(tmp, 'packs') })
+    legacyReview(c)
     await c.packs.install(buildFixturePack(tmp))
   })
 

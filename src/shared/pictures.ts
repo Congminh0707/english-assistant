@@ -1515,3 +1515,12 @@ export const PICTURE_WORDS: Record<string, { en: string; vi: string }> = {
   heart: { en: 'heart', vi: 'trái tim' },
   cloud: { en: 'cloud', vi: 'đám mây' }
 }
+
+const WORD_TO_PICTURE = new Map(
+  Object.entries(PICTURE_WORDS).map(([id, word]) => [word.en.toLowerCase(), id])
+)
+
+/** Id hình minh hoạ cho một từ tiếng Anh (vd 'dog' → 'dog'); undefined nếu chưa có hình */
+export function pictureForWord(word: string): string | undefined {
+  return WORD_TO_PICTURE.get(word.trim().toLowerCase())
+}

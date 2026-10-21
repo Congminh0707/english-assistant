@@ -26,6 +26,8 @@ export type CardSchedule = Pick<
 export interface DueOptions {
   directions?: CardDirection[]
   fresh?: 'only' | 'exclude'
+  /** Ẩn mọi thẻ của từ đã được ôn (ở bất kỳ dạng thẻ nào) sau mốc thời gian này (ms) */
+  buryAfter?: number
 }
 
 /** Sổ từ (saved_words) và thẻ ôn tập (srs_cards) của người dùng */
@@ -123,6 +125,16 @@ export class VocabRepository {
     }
     if (opts.fresh === 'exclude') {
       conditions.push(sql`NOT (${srsCards.direction} = 'en_vi' AND ${srsCards.state} = 0)`)
+    }
+    // Từ vừa ôn (kể cả thẻ phụ khác dạng) tạm ẩn: tránh gặp lại ngay sau khi chấm "Quên" hay khi vào lại phiên
+    if (opts.buryAfter !== undefined) {
+      conditions.push(sql`NOT EXISTS (
+        SELECT 1 FROM ${srsReviews} AS r2
+        INNER JOIN ${srsCards} AS c2 ON c2.id = r2.card_id
+        WHERE c2.profile_id = ${profileId}
+          AND c2.content_id = ${srsCards.contentId}
+          AND r2.reviewed_at > ${opts.buryAfter}
+      )`)
     }
     return and(...conditions) as SQL
   }

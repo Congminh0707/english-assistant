@@ -8,6 +8,9 @@ import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PxBar from '@renderer/shared/components/PxBar.vue'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
+import { pictureForWord } from '@shared/pictures'
 import { formatInterval } from '../format'
 
 // Phiên ôn thẻ SRS với 4 dạng thẻ: nhận diện (lật thẻ), Việt→Anh (gõ từ), nghe-gõ, điền từ.
@@ -28,10 +31,70 @@ const typed = ref('')
 const checked = ref<TypedResult | null>(null)
 const canUndo = ref(false)
 const answerInput = ref<HTMLInputElement>()
+/** Thẻ điền từ: số chữ cái đầu đã lộ làm gợi ý (bắt đầu 1, bấm "Gợi ý" để lộ thêm) */
+const shownLetters = ref(1)
+/** Thẻ nhận diện có trắc nghiệm: lựa chọn đã bấm; mở khung "nói to" (tuỳ chọn) */
+const picked = ref<number | null>(null)
+const speakOpen = ref(false)
 let shownAt = 0
 
 const total = computed(() => reviewed.value + dueCount.value)
 const finished = computed(() => !loading.value && !card.value)
+
+/** Thẻ nhận diện đang chờ chọn nghĩa (trắc nghiệm) */
+const choiceMode = computed(
+  () => !!card.value && card.value.direction === 'en_vi' && !!card.value.choices && !revealed.value
+)
+/** Có hành động trả lời (gõ hoặc chọn) trước khi lộ đáp án */
+const answerable = computed(() => typing.value || choiceMode.value)
+
+/** Câu ngữ cảnh người dùng đã lưu, tách quanh từ cần ôn để tô đậm (giúp phân biệt nghĩa của từ nhiều nghĩa) */
+const contextParts = computed(() => {
+  const c = card.value
+  if (!c?.context || c.direction !== 'en_vi' || c.isPhrase) return null
+  const at = c.context.toLowerCase().indexOf(c.lemma.toLowerCase())
+  if (at < 0) return { before: c.context, word: '', after: '' }
+  return {
+    before: c.context.slice(0, at),
+    word: c.context.slice(at, at + c.lemma.length),
+    after: c.context.slice(at + c.lemma.length)
+  }
+})
+
+const hintText = computed(() =>
+  revealed.value
+    ? t('study.review.hintRate')
+    : choiceMode.value
+      ? t('study.review.hintChoice')
+      : typing.value
+        ? t('study.review.hintType')
+        : t('study.review.hintFlip')
+)
+
+/** Hình minh hoạ pixel nếu từ của thẻ có hình (thẻ điền từ dùng hình của từ cần điền làm gợi ý) */
+const picture = computed(() => {
+  const c = card.value
+  if (!c || c.direction === 'audio_en') return undefined
+  return pictureForWord(c.direction === 'cloze' && c.cloze ? c.cloze.answer : c.lemma)
+})
+
+/** Ô chữ của thẻ điền từ: mỗi chữ cái một ô, chữ đầu (và các chữ đã xin gợi ý) hiện sẵn */
+const slots = computed(() => {
+  const answer = card.value?.cloze?.answer ?? ''
+  return Array.from(answer).map((ch, i) => ({
+    ch,
+    shown: revealed.value || i < shownLetters.value || !/[a-z]/i.test(ch)
+  }))
+})
+const canHintMore = computed(
+  () => !revealed.value && shownLetters.value < (card.value?.cloze?.answer.length ?? 0) - 1
+)
+
+/** Nghe cả câu (gợi ý bằng tai); câu có đáp án nên chỉ nên dùng khi cần */
+function speakSentence(): void {
+  const c = card.value?.cloze
+  if (c) speak(`${c.before}${c.answer}${c.after}`, undefined, 0.9)
+}
 
 /** Thẻ có ô gõ đáp án: dạng gõ/nghe/điền và người dùng không tắt gõ trong cài đặt */
 const typing = computed(
@@ -62,6 +125,9 @@ function show(next: { card: StudyCard | null; dueCount: number }): void {
   revealed.value = false
   typed.value = ''
   checked.value = null
+  shownLetters.value = 1
+  picked.value = null
+  speakOpen.value = false
   shownAt = performance.now()
   const c = next.card
   if (!c) return
@@ -80,6 +146,15 @@ async function loadNext(): Promise<void> {
   } finally {
     loading.value = false
   }
+}
+
+/** Chọn một nghĩa: lộ đáp án ngay, đúng → gợi ý "Được", sai → gợi ý "Quên" */
+function pickChoice(i: number): void {
+  const c = card.value
+  if (!c || !c.choices || revealed.value || busy.value) return
+  picked.value = i
+  checked.value = i === c.choiceAnswer ? 'correct' : 'wrong'
+  revealed.value = true
 }
 
 function reveal(): void {
@@ -145,14 +220,17 @@ function onKeyDown(e: KeyboardEvent): void {
     return
   }
   if (e.ctrlKey) return
+  // Đang dùng khung "nói to": phím Space/Enter/số thuộc về các nút trong khung đó
+  if ((e.target as HTMLElement | null)?.closest?.('.speak-panel')) return
   const inInput = (e.target as HTMLElement | null)?.tagName === 'INPUT'
   if (inInput && !revealed.value) return // đang gõ đáp án: Enter xử lý ở ô nhập
   if (e.key === ' ' || e.key === 'Enter') {
     e.preventDefault()
     if (revealed.value) void rate(suggested.value ?? 3)
-    else if (!typing.value) reveal()
+    else if (!answerable.value) reveal()
   } else if (['1', '2', '3', '4'].includes(e.key)) {
-    void rate(Number(e.key) as StudyRating)
+    if (choiceMode.value) pickChoice(Number(e.key) - 1)
+    else void rate(Number(e.key) as StudyRating)
   } else if (e.key.toLowerCase() === 'u') {
     void undo()
   }
@@ -201,6 +279,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           <span class="tag level">{{ card.level.replace('_', '.') }}</span>
           <span class="tag kind">{{ t(`study.review.kind.${card.direction}`) }}</span>
 
+          <PixelPicture v-if="picture" :id="picture" :size="96" class="pic" />
+
           <!-- Nhận diện: thấy từ → nhớ nghĩa -->
           <template v-if="card.direction === 'en_vi'">
             <div class="lemma" :class="{ long: card.isPhrase }">{{ card.lemma }}</div>
@@ -213,6 +293,26 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
               </button>
               <span class="muted pos">{{ card.pos.join(', ') }}</span>
             </div>
+            <p v-if="contextParts" class="ctx">
+              “{{ contextParts.before }}<mark v-if="contextParts.word">{{ contextParts.word }}</mark
+              >{{ contextParts.after }}”
+            </p>
+            <ul v-if="card.choices" class="choices">
+              <li v-for="(opt, i) in card.choices" :key="i">
+                <button
+                  type="button"
+                  class="choice"
+                  :class="{
+                    right: revealed && i === card.choiceAnswer,
+                    wrong: revealed && picked === i && i !== card.choiceAnswer
+                  }"
+                  :disabled="revealed"
+                  @click="pickChoice(i)"
+                >
+                  <kbd>{{ i + 1 }}</kbd> {{ opt }}
+                </button>
+              </li>
+            </ul>
           </template>
 
           <!-- Việt → Anh: thấy nghĩa → gõ từ -->
@@ -240,12 +340,25 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
             <p class="prompt">{{ t('study.review.fillBlank') }}</p>
             <p class="sentence">
               {{ card.cloze.before
-              }}<span class="blank" :class="checked">{{
-                revealed ? card.cloze.answer : '＿＿＿'
-              }}</span
+              }}<span class="slots" :class="checked"
+                ><span v-for="(s, i) in slots" :key="i" class="slot" :class="{ shown: s.shown }">{{
+                  s.shown ? s.ch : ''
+                }}</span></span
               >{{ card.cloze.after }}
             </p>
-            <p v-if="card.hint" class="muted">{{ card.hint }}</p>
+            <p v-if="card.hint" class="muted sentence-vi">{{ card.hint }}</p>
+            <p v-if="card.vi.length === 1" class="meaning">
+              {{ t('study.review.meaning') }}: <strong>{{ card.vi.join('; ') }}</strong> ·
+              {{ t('study.review.letters', { n: card.cloze.answer.length }) }}
+            </p>
+            <div v-if="!revealed" class="cloze-tools">
+              <button type="button" class="say big-say" @click="speakSentence">
+                🔊 {{ t('study.review.hearSentence') }}
+              </button>
+              <button v-if="canHintMore" type="button" class="say big-say" @click="shownLetters++">
+                💡 {{ t('study.review.moreHint') }}
+              </button>
+            </div>
           </template>
         </div>
 
@@ -298,10 +411,10 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       </PxPanel>
 
       <div class="actions">
-        <button v-if="!revealed && !typing" type="button" class="primary big" @click="reveal">
+        <button v-if="!revealed && !answerable" type="button" class="primary big" @click="reveal">
           {{ t('study.review.show') }}
         </button>
-        <button v-else-if="!revealed" type="button" class="link" @click="reveal">
+        <button v-else-if="!revealed" type="button" class="ghost" @click="reveal">
           {{ t('study.review.giveUp') }}
         </button>
         <div v-else class="rates">
@@ -322,7 +435,13 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           <button v-if="canUndo" type="button" class="link" :disabled="busy" @click="undo">
             ↶ {{ t('study.review.undo') }}
           </button>
-          <p class="muted hint">{{ t('study.review.hint') }}</p>
+          <p class="muted hint">{{ hintText }}</p>
+        </div>
+        <button type="button" class="ghost say-btn" @click="speakOpen = !speakOpen">
+          🎤 {{ speakOpen ? t('study.review.closeSay') : t('study.review.sayIt') }}
+        </button>
+        <div v-if="speakOpen" class="speak-panel">
+          <SpeakPractice :key="card.cardId" :expected="card.lemma" can-listen phonemes />
         </div>
       </div>
     </template>
@@ -331,9 +450,12 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 
 <style scoped>
 .review {
-  display: grid;
-  gap: 16px;
-  max-width: 640px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 18px;
+  max-width: 720px;
+  min-height: calc(100vh - 64px);
   margin: 0 auto;
 }
 .muted {
@@ -346,8 +468,12 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 }
 .card {
   display: grid;
-  gap: 14px;
-  padding: 22px 24px;
+  gap: 16px;
+  padding: 28px 32px;
+}
+.pic {
+  display: block;
+  margin: 10px auto 0;
 }
 .face {
   text-align: center;
@@ -372,7 +498,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 }
 .lemma {
   margin: 8px 0;
-  font-size: 40px;
+  font-size: 48px;
   font-weight: 700;
 }
 .lemma.long {
@@ -414,9 +540,135 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   color: var(--c-xp);
 }
 .sentence {
-  margin: 6px 0;
-  font-size: 22px;
-  line-height: 1.5;
+  margin: 10px 0 6px;
+  font-size: 30px;
+  line-height: 1.6;
+}
+.sentence-vi {
+  margin: 0 0 4px;
+  font-size: 15px;
+}
+.meaning {
+  margin: 4px 0;
+  padding: 4px 10px;
+  display: inline-block;
+  font-size: 14px;
+  background: #eef3ff;
+  border-left: 4px solid var(--c-primary);
+}
+.cloze-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 6px;
+}
+.slots {
+  display: inline-flex;
+  gap: 3px;
+  margin: 0 6px;
+  vertical-align: baseline;
+}
+.slot {
+  display: inline-block;
+  min-width: 0.8em;
+  height: 1.25em;
+  text-align: center;
+  color: var(--c-primary);
+  font-weight: 700;
+  border-bottom: 3px solid var(--c-primary);
+}
+.slot.shown {
+  min-width: 0.65em;
+}
+.slots.correct .slot {
+  color: var(--c-success);
+  border-color: var(--c-success);
+}
+.slots.close .slot,
+.slots.wrong .slot {
+  color: var(--c-danger);
+  border-color: var(--c-danger);
+}
+/* Trắc nghiệm nghĩa của thẻ nhận diện */
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.choice {
+  width: 100%;
+  padding: 12px 10px;
+  border: var(--px) solid var(--c-border);
+  background: var(--c-surface);
+  color: inherit;
+  font: inherit;
+  font-size: 16px;
+  text-align: left;
+  cursor: pointer;
+}
+.choice:hover:not(:disabled) {
+  background: #eef3ff;
+}
+.choice kbd {
+  display: inline-block;
+  min-width: 1.3em;
+  margin-right: 6px;
+  padding: 0 4px;
+  text-align: center;
+  font-size: 12px;
+  background: var(--c-bg);
+  border: 1px solid var(--c-border);
+}
+.choice.right {
+  background: #e3f4e8;
+  border-color: var(--c-success);
+}
+.choice.wrong {
+  background: #fdebec;
+  border-color: var(--c-danger);
+}
+.choice:disabled {
+  cursor: default;
+}
+.ctx {
+  margin: 8px auto 0;
+  max-width: 90%;
+  font-size: 15px;
+  font-style: italic;
+  color: var(--c-ink-soft);
+}
+.ctx mark {
+  padding: 0 2px;
+  font-style: normal;
+  font-weight: 700;
+  color: var(--c-ink);
+  background: #fff2a8;
+}
+.say-btn {
+  font-size: 13px;
+  padding: 4px 12px;
+}
+.speak-panel {
+  width: 100%;
+  padding: 12px;
+  border: var(--px) solid var(--c-border);
+  background: var(--c-surface);
+}
+.ghost {
+  padding: 8px 18px;
+  border: var(--px) solid var(--c-border);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.ghost:hover {
+  background: #eef3ff;
 }
 .blank {
   display: inline-block;
@@ -545,7 +797,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 .rate {
   display: grid;
   gap: 2px;
-  padding: 8px 4px;
+  padding: 12px 4px;
+  font-size: 15px;
   border: var(--px) solid var(--c-border);
   color: #fff;
   font: inherit;

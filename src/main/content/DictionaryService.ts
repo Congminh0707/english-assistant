@@ -218,13 +218,14 @@ export class DictionaryService {
     options: DictionaryOptions = {}
   ): { entry: DictEntry; correct: string; distractors: string[] } | null {
     const entry = this.entryById(id)
-    const correct = entry?.vi[0]
+    // Dùng tối đa 2 nghĩa đầu (giống màn ôn) — không cắt còn 1 nghĩa ngắn làm lệch với lúc ôn
+    const correct = entry ? formatMeanings(entry.vi) : ''
     if (!entry || !correct) return null
     const stmts = this.prepare()!
     const safe = options.childSafe && stmts.hasSensitive ? ' AND sensitive = 0' : ''
     const pick = (sql: string, ...params: unknown[]): string[] =>
-      (stmts.db.prepare(sql).all(...params) as { vi_short: string }[]).map(
-        (r) => r.vi_short.split(/\s*;\s*/)[0]
+      (stmts.db.prepare(sql).all(...params) as { vi_short: string }[]).map((r) =>
+        formatMeanings(r.vi_short.split(/\s*;\s*/))
       )
     const pool = [
       ...pick(
@@ -239,12 +240,13 @@ export class DictionaryService {
         id
       )
     ]
-    const taken = new Set([correct.toLowerCase(), ...entry.vi.map((v) => v.toLowerCase())])
+    // Loại lựa chọn trùng với bất kỳ nghĩa nào của từ đúng (so từng nghĩa trong chuỗi 'a; b')
+    const taken = new Set(entry.vi.map((v) => v.trim().toLowerCase()))
     const distractors: string[] = []
     for (const text of pool) {
-      const key = text.toLowerCase()
-      if (!text || taken.has(key)) continue
-      taken.add(key)
+      const parts = text.toLowerCase().split(/\s*;\s*/)
+      if (!text || parts.some((p) => taken.has(p))) continue
+      for (const p of parts) taken.add(p)
       distractors.push(text)
       if (distractors.length === 3) break
     }
@@ -427,3 +429,12 @@ function parseJson<T>(text: string, fallback: T): T {
 const unique = (items: string[]): string[] => [
   ...new Set(items.map((s) => s.trim()).filter(Boolean))
 ]
+
+/** Gộp tối đa 2 nghĩa đầu thành một chuỗi 'a; b' — dùng chung cho trắc nghiệm của mascot và màn ôn */
+export function formatMeanings(vi: string[], max = 2): string {
+  return vi
+    .map((v) => v.trim())
+    .filter(Boolean)
+    .slice(0, max)
+    .join('; ')
+}

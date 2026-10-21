@@ -48,6 +48,9 @@ export const StudyCardSchema = z.object({
   hint: z.string().nullable(),
   /** Thẻ của một mẫu câu (không phải từ trong từ điển) */
   isPhrase: z.boolean(),
+  /** Thẻ nhận diện (en_vi) có trắc nghiệm nghĩa: 4 lựa chọn (đã xáo) và chỉ số đáp án đúng; null nếu không có */
+  choices: z.array(z.string()).nullable(),
+  choiceAnswer: z.number().int().nullable(),
   /** Thẻ mới học lần đầu (state = New) */
   isNew: z.boolean(),
   /** Bao lâu nữa sẽ ôn lại nếu chấm 1/2/3/4 (ngày; < 1 là thẻ đang học) */

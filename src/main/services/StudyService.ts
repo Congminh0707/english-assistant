@@ -45,6 +45,8 @@ export class StudyService {
       settings: SettingsService
       clock: Clock
       transaction: Transaction
+      /** Nguồn ngẫu nhiên cho xáo lựa chọn (test truyền giá trị cố định) */
+      random?: () => number
     }
   ) {}
 
@@ -182,6 +184,8 @@ export class StudyService {
       cardId: row.id,
       context: row.contextSentence,
       isNew: row.state === 0,
+      choices: null as string[] | null,
+      choiceAnswer: null as number | null,
       intervals: srs.previewIntervals(row.id)
     }
 
@@ -205,7 +209,9 @@ export class StudyService {
         cloze: null,
         answers: [phrase.en],
         hint: null,
-        isPhrase: true
+        isPhrase: true,
+        choices: null,
+        choiceAnswer: null
       }
     }
 
@@ -232,8 +238,14 @@ export class StudyService {
       }
       if (!cloze) direction = 'en_vi' // không dựng được câu → ôn như thẻ thường
     }
+    // Thẻ nhận diện: thêm trắc nghiệm 4 nghĩa (cùng định dạng nghĩa với mascot) nếu bật trong cài đặt
+    const choices =
+      direction === 'en_vi' && this.deps.settings.get('review.choices')
+        ? this.buildChoices(row.contentId)
+        : null
     return {
       ...base,
+      ...(choices ?? {}),
       direction,
       lemma: entry.lemma,
       ipaUs: entry.ipaUs,
@@ -249,6 +261,19 @@ export class StudyService {
       hint,
       isPhrase: false
     }
+  }
+
+  /** 4 lựa chọn nghĩa (đã xáo) + chỉ số đáp án đúng; null nếu không dựng được (từ không có nghĩa / ít từ nhiễu) */
+  private buildChoices(contentId: string): { choices: string[]; choiceAnswer: number } | null {
+    const { dictionary, profiles } = this.deps
+    const data = dictionary.quizData(contentId, { childSafe: profiles.active().isChild })
+    if (!data || data.distractors.length < 3) return null
+    const options = [data.correct, ...data.distractors]
+    for (let i = options.length - 1; i > 0; i--) {
+      const j = Math.floor((this.deps.random ?? Math.random)() * (i + 1))
+      ;[options[i], options[j]] = [options[j], options[i]]
+    }
+    return { choices: options, choiceAnswer: options.indexOf(data.correct) }
   }
 
   private toWordItem(row: SrsCardRow, siblings: number): WordListItem {

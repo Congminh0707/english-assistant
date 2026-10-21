@@ -19,6 +19,18 @@ const XP_CARD_REVIEWED = 2
 const DAY_MS = 86_400_000
 /** FSRS state = Review: từ đã "thuộc" ở mức ôn dài hạn */
 const STATE_REVIEW = 2
+/** Số thẻ đến hạn lấy làm "bể" để xáo khi ôn ngẫu nhiên */
+const RANDOM_POOL = 150
+
+/** Xáo trộn Fisher–Yates (không đổi mảng gốc) */
+function shuffle<T>(items: T[], random: () => number): T[] {
+  const out = [...items]
+  for (let i = out.length - 1; i > 0; i--) {
+    const j = Math.floor(random() * (i + 1))
+    ;[out[i], out[j]] = [out[j], out[i]]
+  }
+  return out
+}
 
 interface LastReview {
   profileId: string
@@ -47,6 +59,8 @@ export class SrsService {
       clock: Clock
       bus: EventBus
       transaction: Transaction
+      /** Nguồn ngẫu nhiên (test truyền giá trị cố định); mặc định Math.random */
+      random?: () => number
     }
   ) {}
 
@@ -62,12 +76,19 @@ export class SrsService {
     return Math.max(0, quota - introduced)
   }
 
+  /** Mốc thời gian: từ ôn sau mốc này đang bị ẩn (undefined nếu tắt tính năng ẩn) */
+  private buryAfter(now: number): number | undefined {
+    const minutes = this.deps.settings.get('review.hideMinutes')
+    return minutes > 0 ? now - minutes * 60_000 : undefined
+  }
+
   dueCount(directions: CardDirection[] = [...REVIEW_DIRECTIONS]): number {
     const { vocab, profiles, clock } = this.deps
     const profileId = profiles.activeId()
     const now = clock.now()
-    const seen = vocab.countDue(profileId, now, { directions, fresh: 'exclude' })
-    const fresh = vocab.countDue(profileId, now, { directions, fresh: 'only' })
+    const buryAfter = this.buryAfter(now)
+    const seen = vocab.countDue(profileId, now, { directions, fresh: 'exclude', buryAfter })
+    const fresh = vocab.countDue(profileId, now, { directions, fresh: 'only', buryAfter })
     return seen + Math.min(fresh, this.newAllowance())
   }
 
@@ -75,17 +96,32 @@ export class SrsService {
    * Các thẻ đến hạn theo thứ tự trong cài đặt: xen kẽ theo hạn (mặc định), thẻ mới trước hoặc thẻ cũ trước.
    * Thẻ mới bị giới hạn bởi hạn mức mỗi ngày.
    */
-  dueCards(limit = 20, directions: CardDirection[] = [...REVIEW_DIRECTIONS]): SrsCardRow[] {
+  dueCards(
+    limit = 20,
+    directions: CardDirection[] = [...REVIEW_DIRECTIONS],
+    /** false = không ẩn từ vừa ôn (chế độ trẻ em cần lặp lại ngay) */
+    bury = true
+  ): SrsCardRow[] {
     const { vocab, profiles, clock, settings } = this.deps
     const profileId = profiles.activeId()
     const now = clock.now()
     const allowed = this.newAllowance()
-    const seen = vocab.dueCards(profileId, now, limit, { directions, fresh: 'exclude' })
+    const buryAfter = bury ? this.buryAfter(now) : undefined
+    const order = settings.get('review.order')
+    // Ngẫu nhiên: lấy một nhóm lớn hơn rồi xáo, để mỗi lần vào ôn gặp thẻ khác nhau
+    const pool = order === 'random' ? Math.max(limit, RANDOM_POOL) : limit
+    const seen = vocab.dueCards(profileId, now, pool, { directions, fresh: 'exclude', buryAfter })
     const fresh =
       allowed > 0
-        ? vocab.dueCards(profileId, now, Math.min(limit, allowed), { directions, fresh: 'only' })
+        ? vocab.dueCards(profileId, now, Math.min(pool, allowed), {
+            directions,
+            fresh: 'only',
+            buryAfter
+          })
         : []
-    switch (settings.get('review.order')) {
+    switch (order) {
+      case 'random':
+        return shuffle([...seen, ...fresh], this.deps.random ?? Math.random).slice(0, limit)
       case 'new-first':
         return [...fresh, ...seen].slice(0, limit)
       case 'review-first':

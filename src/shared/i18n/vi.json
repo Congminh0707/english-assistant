@@ -554,7 +554,17 @@
         "correct": "Chính xác! ✓",
         "close": "Gần đúng — chú ý chính tả:",
         "wrong": "Chưa đúng — đáp án:"
-      }
+      },
+      "meaning": "Nghĩa của từ cần điền",
+      "letters": "{n} chữ cái",
+      "hearSentence": "Nghe câu",
+      "moreHint": "Gợi ý thêm 1 chữ",
+      "hintChoice": "Chọn nghĩa đúng (phím 1–4) · Space: xem đáp án",
+      "hintType": "Gõ đáp án rồi Enter · Space/Enter sau đó: chuyển thẻ",
+      "hintFlip": "Space: xem đáp án",
+      "hintRate": "Tự chấm mức nhớ: 1 Quên · 2 Khó · 3 Được · 4 Dễ — Enter: chọn mức gợi ý · U: hoàn tác",
+      "sayIt": "Nói to từ này",
+      "closeSay": "Đóng phần nói"
     },
     "words": {
       "count": "Sổ từ ({count})",
@@ -691,7 +701,8 @@
       "order": {
         "mixed": "Xen kẽ theo hạn",
         "new-first": "Thẻ mới trước",
-        "review-first": "Thẻ cũ trước"
+        "review-first": "Thẻ cũ trước",
+        "random": "Ngẫu nhiên"
       },
       "directionsHint": "Khi bạn thuộc một từ, app tự tạo thêm các thẻ phụ để nhớ sâu hơn (đến hạn từ ngày hôm sau):",
       "dirViEn": "Thẻ Việt → Anh (gõ từ)",
@@ -701,7 +712,14 @@
       "autoPlay": "Tự đọc từ khi hiện thẻ",
       "backfill": "Tạo thẻ cho từ đã thuộc",
       "backfillHint": "Bật thêm loại thẻ? Tạo bù thẻ phụ cho các từ bạn đã thuộc.",
-      "backfillDone": "Đã tạo {n} thẻ mới."
+      "backfillDone": "Đã tạo {n} thẻ mới.",
+      "hideReviewed": "Ẩn từ vừa ôn",
+      "hideNever": "Không ẩn",
+      "hideFor": "Ẩn {text}",
+      "hideHint": "Sau khi ôn một từ (kể cả chấm \"Quên\"), các thẻ của từ đó tạm ẩn để không gặp lại ngay hay lặp lại khi bạn thoát ra vào lại.",
+      "minutes": "{n} phút",
+      "hours": "{n} giờ",
+      "choices": "Trắc nghiệm nghĩa ở thẻ nhận diện (tắt = chỉ lật thẻ rồi tự chấm)"
     },
     "practice": {
       "title": "Luyện tập",

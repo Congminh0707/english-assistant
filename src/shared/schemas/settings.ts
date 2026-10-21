@@ -35,12 +35,25 @@ export const settingDefinitions = {
   'review.newPerDay': z
     .union([z.literal(0), z.literal(5), z.literal(10), z.literal(20), z.literal(50)])
     .default(0),
-  /** Thứ tự thẻ trong phiên ôn: xen kẽ theo hạn / thẻ mới trước / thẻ cũ trước */
-  'review.order': z.enum(['mixed', 'new-first', 'review-first']).default('mixed'),
+  /** Thứ tự thẻ trong phiên ôn: ngẫu nhiên / xen kẽ theo hạn / thẻ mới trước / thẻ cũ trước */
+  'review.order': z.enum(['random', 'mixed', 'new-first', 'review-first']).default('random'),
+  /** Sau khi ôn một từ (bất kể chấm gì), ẩn mọi thẻ của từ đó trong N phút để khỏi lặp lại; 0 = không ẩn */
+  'review.hideMinutes': z
+    .union([
+      z.literal(0),
+      z.literal(10),
+      z.literal(30),
+      z.literal(60),
+      z.literal(180),
+      z.literal(720)
+    ])
+    .default(30),
   /** Tự tạo thẻ Việt→Anh / nghe-gõ / điền từ khi một từ đã thuộc (vào ôn dài hạn) */
   'review.dirViEn': z.boolean().default(true),
   'review.dirAudio': z.boolean().default(true),
   'review.dirCloze': z.boolean().default(true),
+  /** Thẻ nhận diện: hiện 4 lựa chọn nghĩa để chọn thay vì chỉ lật thẻ rồi tự chấm */
+  'review.choices': z.boolean().default(true),
   /** Gõ đáp án ở các thẻ Việt→Anh, nghe-gõ, điền từ (tắt = chỉ lật thẻ rồi tự chấm) */
   'review.typing': z.boolean().default(true),
   /** Tự đọc từ khi hiện thẻ (thẻ nghe-gõ luôn tự đọc) */

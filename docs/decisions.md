@@ -137,7 +137,7 @@ Mẫu:
 ## #21 — Cập nhật tự động chỉ khi người dùng đồng ý, sao lưu DB trước khi migrate (2026-10-20) — Chấp nhận
 **Quyết định:** `UpdateManager` bao `electron-updater` với `autoDownload = false`, `autoInstallOnAppQuit = false`; kiểm tra nền (tắt được), tải khi bấm nút, cài khi khởi động lại. Nguồn: GitHub Releases (`Congminh0707/english-assistant`). `openUserDb` sao lưu `user.db` trước khi chạy migration mới (giữ 3 bản).
 **Lý do:** App chạy nền cạnh công việc của người dùng, không được tự đổi phiên bản sau lưng họ; cập nhật là lúc rủi ro nhất cho dữ liệu học nên cần bản sao lưu.
-**Hệ quả:** Chưa ký số nên SmartScreen cảnh báo; chưa thử cập nhật thật giữa hai bản phát hành.
+**Hệ quả:** Chưa ký số nên SmartScreen cảnh báo; đã thử cập nhật thật v1.0.0 → v1.0.1 (OK, 2026-10-21).
 
 ## #22 — Bài nghe dựa trên TTS, chưa sinh sẵn audio (2026-10-20) — Chấp nhận
 **Bối cảnh:** Trình nghe cần phát từng câu, chỉnh tốc độ, lặp A–B; sinh sẵn audio lúc build (WAV 24 kHz) làm bộ cài phình (~50 KB/giây, 30 bài ≈ vài chục MB) và cần bộ nén (Opus) chưa có trong chuỗi công cụ.

@@ -1,6 +1,12 @@
 import type { TranslateStatus } from '@shared/schemas/translate'
 import { AppError } from '../core/AppError'
-import type { ModelManager } from '../translate/ModelManager'
+/** Thứ ModelInstaller cần từ một gói tải về: model AI (ModelManager) hoặc gói âm thanh (AudioPackManager) */
+export interface Installable {
+  readonly sizeBytes: number
+  isInstalled(): boolean
+  /** Tải về; `onProgress` nhận tổng số byte đã có */
+  install(onProgress: (receivedBytes: number) => void, signal?: AbortSignal): Promise<void>
+}
 
 /** Báo tiến trình tải tối đa mỗi ngần này ms để không dồn sự kiện */
 const PROGRESS_THROTTLE_MS = 250
@@ -18,7 +24,7 @@ export class ModelInstaller {
 
   constructor(
     private readonly deps: {
-      models: ModelManager
+      models: Installable
       /** Gọi mỗi khi trạng thái đổi (đẩy xuống renderer) */
       onStatus?: (status: TranslateStatus) => void
       now?: () => number

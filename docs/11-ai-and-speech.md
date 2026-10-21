@@ -81,6 +81,8 @@ flowchart TD
 
 Tuỳ chọn người dùng: giọng US/UK, tốc độ 0.5x–1.5x.
 
+> ✅ **Gói âm thanh bài nghe tạo sẵn (2026-10-21, [decisions #26](decisions.md))** — tải thêm (~10 MB, MP3) trong Cài đặt hoặc ở trang Nghe; có gói thì mọi câu trong bài nghe phát tức thì bằng giọng tự nhiên, không cần model Kokoro. Thứ tự phát: **gói tạo sẵn → giọng tự nhiên (Kokoro) → giọng Windows**. Khi chờ Kokoro tạo âm thanh, giao diện hiện vòng xoay "Đang tạo giọng đọc…" (cửa sổ Học tập, popup và cả mascot). Mã: `src/main/audio/`, `src/main/services/AudioPackService.ts`, `src/shared/audioPack.ts`, `useTts.ts` (`tryPack`).
+
 ## 4. Nhận dạng giọng nói (STT) & chấm phát âm
 
 > Lưu ý: **Web Speech API nhận dạng giọng nói (`SpeechRecognition`) KHÔNG hoạt động trong Electron** (nó phụ thuộc dịch vụ Google của Chrome). Phải tự chạy model.

@@ -105,6 +105,15 @@ gh release create content-pack-1.2.0 (Get-ChildItem content/packs/core-dictionar
 ```
 Release này là `--prerelease` và tag `content-pack-*` không bị `check-version` coi là version app (chỉ tag `v*`), nên không ảnh hưởng auto-update. Khi build lại pack với version mới: tải lên release mới và đổi `CONTENT_PACK_TAG`. Repo đang công khai: pack gồm dữ liệu CC BY-SA/Wiktionary nên cần giữ ghi công trong app (docs/08).
 
+## 6b. Gói âm thanh bài nghe (tải thêm)
+
+Không nằm trong bộ cài. Tạo và đăng khi nội dung bài nghe đổi (hoặc lần đầu):
+1. Bật "Giọng tự nhiên" trong app một lần để có model Kokoro trong `%APPDATA%/english-assistant/models`.
+2. `node scripts/audio/build-listening-audio.mjs 1.0.0` (~30 phút) → `content/.build/audio/listening-audio-1.0.0.zip` + `.sha256`.
+3. Đăng lên release phụ (pre-release, không ảnh hưởng auto-update): `gh release create listening-audio-1.0.0 content/.build/audio/listening-audio-1.0.0.zip content/.build/audio/listening-audio-1.0.0.zip.sha256 --prerelease --title "Listening audio 1.0.0"`.
+4. Điền `size` + `sha256` thật vào `src/main/audio/packSpec.ts` (bắt buộc: app từ chối gói sai kích thước/sha256), rồi phát hành app như bình thường.
+Đổi nội dung: build lại, tăng `VERSION` trong `packSpec.ts` và tag release mới.
+
 ## 7. Checklist trước mỗi bản phát hành
 
 - [ ] Cài mới trên Windows 10 và 11 sạch (máy ảo).

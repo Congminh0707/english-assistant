@@ -91,20 +91,361 @@
     "achievementOne": "Thành tựu mới: {name}! 🏅",
     "achievementMany": "Thành tựu mới: {name} và {n} huy hiệu nữa! 🏅",
     "lines": {
-      "greetingMorning": ["Chào buổi sáng! ☀️", "Good morning! Học 5 phút nhé?"],
-      "greetingAfternoon": ["Chào buổi chiều!", "Good afternoon! %PET% ở đây nè."],
-      "greetingEvening": ["Chào buổi tối! 🌙", "Good evening! Hôm nay thế nào?"],
+      "greetingMorning": [
+        "Chào buổi sáng! ☀️",
+        "Good morning! Học 5 phút nhé?",
+        "Dậy sớm là học giỏi đó! ✨"
+      ],
+      "greetingAfternoon": [
+        "Chào buổi chiều!",
+        "Good afternoon! %PET% ở đây nè.",
+        "Nghỉ một chút rồi học tiếp nhé?"
+      ],
+      "greetingEvening": [
+        "Chào buổi tối! 🌙",
+        "Good evening! Hôm nay thế nào?",
+        "Hôm nay bạn đã học được gì nào?"
+      ],
       "greetingNight": ["Khuya rồi đó... 😴", "Nhớ ngủ sớm nha!"],
-      "pat": ["Hihi, nhột quá!", "%PET% thích được vuốt ve ♥", "Yay!", "Thank you! ♥"],
+      "pat": [
+        "Hihi, nhột quá!",
+        "%PET% thích được vuốt ve ♥",
+        "Yay!",
+        "Thank you! ♥",
+        "Hihi, thích quá! ♥",
+        "Thêm chút nữa nha~"
+      ],
       "patTired": ["%PET% hơi mỏi rồi, để lát nhé~"],
-      "fed": ["Ngon quá! Cảm ơn nha 😋", "Yummy! Thank you!", "No căng bụng rồi~"],
+      "fed": [
+        "Ngon quá! Cảm ơn nha 😋",
+        "Yummy! Thank you!",
+        "No căng bụng rồi~",
+        "Ngon ơi là ngon! 🍙"
+      ],
       "full": ["%PET% no lắm rồi, không ăn nổi nữa!"],
-      "hungry": ["%PET% đói rồi... 🍙", "I'm hungry! Cho %PET% ăn với~", "Bụng %PET% kêu ọt ọt..."],
-      "levelUp": ["Lên cấp rồi! 🎉", "Level up! %PET% mạnh hơn rồi!"],
+      "hungry": [
+        "%PET% đói rồi... 🍙",
+        "I'm hungry! Cho %PET% ăn với~",
+        "Bụng %PET% kêu ọt ọt...",
+        "Cho %PET% ăn xíu được không nè? 🥺"
+      ],
+      "levelUp": ["Lên cấp rồi! 🎉", "Level up! %PET% mạnh hơn rồi!", "Nhờ bạn chăm học đó! 🌟"],
       "wake": ["%PET% dậy rồi! ☀️", "Hoaaam... bạn quay lại rồi!", "Good morning (lần hai)!"],
       "sleepyPat": ["Zzz... để %PET% ngủ thêm chút~", "Zzz... 5 phút nữa thôi..."],
-      "missionDone": ["Xong nhiệm vụ rồi! 🎯", "Giỏi quá, nhận thưởng nè! ⭐"],
-      "evolved": ["%PET% tiến hoá rồi! ✨", "Wow, %PET% lớn lên rồi! 🎉", "Nhìn %PET% mới này! ⭐"]
+      "missionDone": [
+        "Xong nhiệm vụ rồi! 🎯",
+        "Giỏi quá, nhận thưởng nè! ⭐",
+        "Bạn làm được rồi! 🎉"
+      ],
+      "evolved": ["%PET% tiến hoá rồi! ✨", "Wow, %PET% lớn lên rồi! 🎉", "Nhìn %PET% mới này! ⭐"],
+      "idle": [
+        "Bạn đang làm gì đó? %PET% ngó chút nha~",
+        "Học 5 phút thôi cũng được mà! ⏱️",
+        "Thử nhớ lại từ vừa học nhé 🧠",
+        "Ngồi thẳng lưng nào! 🪑"
+      ]
+    },
+    "chars": {
+      "bi": {
+        "greetingMorning": [
+          "Nyaa~ Chào buổi sáng! ☀️",
+          "Sáng rồi! %PET% ngáp một cái đã~",
+          "Good morning! Ăn sáng chưa nè?"
+        ],
+        "greetingAfternoon": [
+          "Chiều rồi, học một chút nha?",
+          "Good afternoon! %PET% nhớ bạn lắm~",
+          "Nyaa, chiều nay học gì đây?"
+        ],
+        "greetingEvening": [
+          "Tối rồi, ôn bài cùng %PET% nhé 🌙",
+          "Good evening! Hôm nay giỏi lắm~",
+          "Nyaa~ ngồi cạnh %PET% một chút nha."
+        ],
+        "greetingNight": [
+          "Khuya rồi... %PET% buồn ngủ quá 😴",
+          "Ngủ sớm đi nha, mai học tiếp~",
+          "Zzz... Good night nè!"
+        ],
+        "pat": [
+          "Nyaa~ nhột quá!",
+          "Gừ gừ gừ... thích ghê ♥",
+          "%PET% thích được xoa đầu lắm!",
+          "Thank you! ♥"
+        ],
+        "hungry": [
+          "Bụng %PET% réo ọt ọt... 🍙",
+          "Nyaa... đói quá, cho ăn với~",
+          "I'm hungry! Cơm nắm đâu rồi?"
+        ],
+        "fed": ["Ngon quá nyaa! 😋", "Yummy! Cảm ơn bạn!", "Nhồm nhoàm... ngon ghê~"],
+        "levelUp": [
+          "Nyaa! Lên cấp rồi! 🎉",
+          "Level up! %PET% mạnh hơn rồi!",
+          "Yay! %PET% giỏi chưa nè?"
+        ],
+        "wake": ["Hoaaam... %PET% dậy rồi~", "Bạn về rồi! Nyaa ☀️", "Good morning (lần hai)!"],
+        "missionDone": [
+          "Xong nhiệm vụ rồi nyaa! 🎯",
+          "Giỏi quá, nhận thưởng nào! ⭐",
+          "Làm tốt lắm nha!"
+        ],
+        "evolved": [
+          "%PET% tiến hoá rồi nyaa! ✨",
+          "Wow, %PET% lớn lên rồi! 🎉",
+          "Nhìn %PET% mới nè! ⭐"
+        ],
+        "idle": [
+          "Nyaa... bạn đang làm gì đó?",
+          "Học thêm một từ nhé? 📖",
+          "Uống nước chưa nè? 💧",
+          "%PET% ngồi đây với bạn~"
+        ]
+      },
+      "webster": {
+        "greetingMorning": [
+          "Nhện hero có mặt! Chào buổi sáng! 🕸️",
+          "Sáng rồi, giăng tơ học thôi!",
+          "Good morning, đồng đội!"
+        ],
+        "greetingAfternoon": [
+          "Chiều nay có nhiệm vụ: học 5 từ mới!",
+          "Good afternoon! %PET% đu tơ tới đây~",
+          "Tới giờ luyện tập siêu anh hùng!"
+        ],
+        "greetingEvening": [
+          "Tối rồi, tuần tra một vòng bài ôn nhé 🌙",
+          "Good evening, đồng đội!",
+          "Thành phố yên bình, ta ôn bài thôi."
+        ],
+        "greetingNight": [
+          "Siêu anh hùng cũng cần ngủ... 😴",
+          "Khuya rồi, nghỉ thôi nha!",
+          "Good night! Mai lại giăng tơ tiếp~"
+        ],
+        "pat": [
+          "Hihi, giác quan nhện nhột nhột!",
+          "Thank you, đồng đội ♥",
+          "%PET% thích được vuốt ve!",
+          "Tơ nhện của tớ rung lên rồi!"
+        ],
+        "hungry": [
+          "Siêu anh hùng cũng đói bụng... 🍙",
+          "Tớ cần năng lượng, cho ăn với~",
+          "I'm hungry! Tuần tra mệt quá."
+        ],
+        "fed": ["Nạp năng lượng xong! 💪", "Yummy! Sức mạnh tăng 100%!", "Cảm ơn nha, đồng đội!"],
+        "levelUp": [
+          "Lên cấp rồi! Sức mạnh nhện tăng! 🎉",
+          "Level up! Giăng tơ cao hơn nữa!",
+          "%PET% mạnh hơn rồi nè!"
+        ],
+        "wake": [
+          "%PET% đã trở lại! 🕸️",
+          "Hoaaam... có việc gì không đồng đội?",
+          "Giác quan nhện báo bạn về rồi!"
+        ],
+        "missionDone": [
+          "Nhiệm vụ hoàn thành! 🎯",
+          "Giỏi lắm, đồng đội! ⭐",
+          "Một chiến thắng nữa!"
+        ],
+        "evolved": [
+          "%PET% tiến hoá rồi! Bộ đồ mới ngầu chưa? ✨",
+          "Wow, sức mạnh mới! 🎉",
+          "Nhìn %PET% mới này! ⭐"
+        ],
+        "idle": [
+          "Giác quan nhện báo: đến giờ học rồi! 🕸️",
+          "Học thêm một từ nhé, đồng đội?",
+          "Đang giăng tơ chờ bạn đây~",
+          "Nhiệm vụ nhỏ: uống nước! 💧"
+        ]
+      },
+      "draco": {
+        "greetingMorning": [
+          "Khè! Chào buổi sáng, bạn nhỏ! 🔥",
+          "Sáng rồi! Lửa học tập bùng cháy!",
+          "Good morning! Rồng thức dậy rồi~"
+        ],
+        "greetingAfternoon": [
+          "Chiều rồi! Học tiếp cho rồng xem nào.",
+          "Good afternoon! %PET% bay tới đây!",
+          "Khè khè, chiều nay học gì nào?"
+        ],
+        "greetingEvening": [
+          "Tối rồi, rồng canh bài ôn cho bạn 🌙",
+          "Good evening! Hang rồng ấm lắm~",
+          "Khè~ ôn bài một chút rồi nghỉ nhé."
+        ],
+        "greetingNight": [
+          "Khuya rồi... rồng cuộn tròn ngủ đây 😴",
+          "Ngủ ngon nha, mai bay tiếp!",
+          "Good night! Khò khò..."
+        ],
+        "pat": [
+          "Khè! Nhột quá, đừng chọc vảy!",
+          "Thank you, bạn nhỏ ♥",
+          "%PET% thích được xoa đầu!",
+          "Rồng cũng biết làm nũng đó~"
+        ],
+        "hungry": [
+          "Bụng rồng sôi ùng ục... 🍙",
+          "Khè... đói quá, cho ăn với!",
+          "I'm hungry! Rồng cần thịt... à không, cơm nắm!"
+        ],
+        "fed": ["Ngon! Rồng no rồi, khè~ 😋", "Yummy! Cảm ơn bạn nhỏ!", "Nạp lửa xong rồi! 🔥"],
+        "levelUp": [
+          "Rồng mạnh hơn rồi! 🔥",
+          "Level up! Lửa cháy to hơn!",
+          "%PET% lớn thêm một chút nè!"
+        ],
+        "wake": [
+          "Khè... %PET% dậy rồi! ☀️",
+          "Bạn về rồi! Rồng mừng ghê~",
+          "Hoaaam... phun nhẹ cái ngáp lửa."
+        ],
+        "missionDone": [
+          "Nhiệm vụ xong! Rồng phun lửa mừng! 🎯",
+          "Giỏi quá, kho báu của bạn đây! ⭐",
+          "Khè khè, làm tốt lắm!"
+        ],
+        "evolved": [
+          "%PET% tiến hoá rồi! Cánh to hơn nè! ✨",
+          "Wow, rồng lớn rồi! 🎉",
+          "Nhìn %PET% mới này! 🔥"
+        ],
+        "idle": [
+          "Khè... bạn đang bận gì đó?",
+          "Học thêm một từ cho rồng xem nhé? 📖",
+          "Rồng canh kho từ vựng của bạn~",
+          "Uống nước đi, đừng để cháy họng! 💧"
+        ]
+      },
+      "robo": {
+        "greetingMorning": [
+          "Bíp bíp! Chào buổi sáng! Pin 100% 🔋",
+          "Khởi động xong. Sẵn sàng học!",
+          "Good morning! Hệ thống ổn định."
+        ],
+        "greetingAfternoon": [
+          "Bíp! Buổi chiều: đề xuất học 5 từ mới.",
+          "Good afternoon! %PET% đã tải xong bài học.",
+          "Đang quét... phát hiện bạn muốn học!"
+        ],
+        "greetingEvening": [
+          "Bíp bíp, chế độ buổi tối bật 🌙",
+          "Good evening! Ôn bài hiệu quả nhất lúc này.",
+          "Dữ liệu hôm nay: bạn làm tốt!"
+        ],
+        "greetingNight": [
+          "Cảnh báo: đã khuya. Đề xuất ngủ 😴",
+          "Chuyển chế độ tiết kiệm pin... Good night!",
+          "Zzz... đang sạc..."
+        ],
+        "pat": [
+          "Bíp! Cảm biến nhột quá!",
+          "Thank you! Mức vui +1 ♥",
+          "%PET% ghi nhận cái xoa đầu!",
+          "Xoa đầu: hợp lệ. Bíp bíp~"
+        ],
+        "hungry": [
+          "Cảnh báo: năng lượng thấp... 🍙",
+          "Bíp... cần nạp năng lượng!",
+          "I'm hungry! Pin còn 10%."
+        ],
+        "fed": [
+          "Đang nạp năng lượng... xong! 🔋",
+          "Yummy! Hiệu suất +20%.",
+          "Bíp bíp, cảm ơn bạn!"
+        ],
+        "levelUp": [
+          "Nâng cấp hoàn tất! 🎉",
+          "Level up! Cập nhật phiên bản mới!",
+          "%PET% mạnh hơn rồi nè, bíp!"
+        ],
+        "wake": [
+          "Khởi động lại... %PET% online! ☀️",
+          "Hệ thống thức dậy. Chào bạn!",
+          "Bíp! Phát hiện bạn quay lại."
+        ],
+        "missionDone": [
+          "Nhiệm vụ: hoàn thành 100%! 🎯",
+          "Đánh giá: xuất sắc! ⭐",
+          "Bíp bíp, tốt lắm!"
+        ],
+        "evolved": [
+          "Nâng cấp phần cứng xong! ✨",
+          "Wow, %PET% phiên bản mới! 🎉",
+          "Nhìn %PET% mới này! ⭐"
+        ],
+        "idle": [
+          "Bíp... đang chờ lệnh của bạn.",
+          "Đề xuất: học thêm một từ mới 📖",
+          "Nhắc nhở: uống nước đi! 💧",
+          "Tính toán... bạn nên nghỉ mắt 20 giây."
+        ]
+      },
+      "kitsu": {
+        "greetingMorning": [
+          "Hihi, chào buổi sáng! ☀️",
+          "Sáng rồi! Cáo nhỏ dậy sớm nè~",
+          "Good morning! Cáo đã học xong từ mới rồi đó."
+        ],
+        "greetingAfternoon": [
+          "Chiều rồi, rủ cáo học chút nhé?",
+          "Good afternoon! %PET% lém lỉnh tới đây~",
+          "Hihi, chiều nay có từ gì hay không?"
+        ],
+        "greetingEvening": [
+          "Tối rồi, cáo ôn bài với bạn nha 🌙",
+          "Good evening! Đuôi cáo ấm lắm~",
+          "Hihi, ngồi sát vào đây nè."
+        ],
+        "greetingNight": [
+          "Khuya rồi, cáo cuộn đuôi đi ngủ 😴",
+          "Ngủ ngon nha, mai học tiếp~",
+          "Good night! Mơ về thật nhiều từ mới nhé."
+        ],
+        "pat": [
+          "Hihi, nhột đuôi quá!",
+          "Thank you ♥ Cáo thích lắm!",
+          "%PET% vẫy đuôi tít luôn~",
+          "Xoa thêm chút nữa đi mà~"
+        ],
+        "hungry": [
+          "Bụng cáo kêu ọt ọt... 🍙",
+          "Hihi... cho cáo ăn với~",
+          "I'm hungry! Cáo thèm đồ ngọt!"
+        ],
+        "fed": [
+          "Ngon quá, cáo vẫy đuôi nè! 😋",
+          "Yummy! Cảm ơn bạn nhiều~",
+          "Hihi, no tròn bụng rồi!"
+        ],
+        "levelUp": [
+          "Cáo lên cấp rồi! 🎉",
+          "Level up! Thêm một cái đuôi... chưa đâu~",
+          "%PET% giỏi chưa nè?"
+        ],
+        "wake": ["Hoaaam... cáo dậy rồi~", "Bạn về rồi! Hihi ☀️", "Cáo ngủ gật xíu thôi mà!"],
+        "missionDone": [
+          "Xong nhiệm vụ rồi! Cáo nhanh chưa? 🎯",
+          "Giỏi quá, quà của bạn đây! ⭐",
+          "Hihi, làm tốt lắm!"
+        ],
+        "evolved": [
+          "%PET% tiến hoá rồi! Thêm đuôi nè! ✨",
+          "Wow, cáo lớn rồi! 🎉",
+          "Nhìn %PET% mới này! ⭐"
+        ],
+        "idle": [
+          "Hihi, bạn đang làm gì đó?",
+          "Học một từ mới với cáo nhé? 📖",
+          "Đuôi cáo đang chờ bạn nè~",
+          "Nhớ uống nước nha! 💧"
+        ]
+      }
     }
   },
   "errors": {
@@ -861,5 +1202,15 @@
       "name": "Kitsu",
       "desc": "Cáo nhiều đuôi"
     }
+  },
+  "audioPack": {
+    "title": "Âm thanh bài nghe tạo sẵn",
+    "desc": "Tải thêm (~{mb} MB) để bài nghe phát ngay bằng giọng tự nhiên, không cần tải model giọng đọc. Không bắt buộc.",
+    "download": "Tải về ({mb} MB)",
+    "downloading": "Đang tải… {pct}%",
+    "cancel": "Huỷ",
+    "ready": "Đã cài",
+    "remove": "Gỡ gói",
+    "retry": "Thử tải lại"
   }
 }

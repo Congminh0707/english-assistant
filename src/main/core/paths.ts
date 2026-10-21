@@ -8,6 +8,8 @@ export const paths = {
   ttsCache: (): string => join(app.getPath('userData'), 'tts-cache'),
   /** Model AI tải về (dịch offline...): userData/models */
   models: (): string => join(app.getPath('userData'), 'models'),
+  /** Gói âm thanh tạo sẵn đã tải (bài nghe): userData/audio-packs */
+  audioPacks: (): string => join(app.getPath('userData'), 'audio-packs'),
   /** Content pack đã giải nén */
   packs: (): string => join(app.getPath('userData'), 'packs'),
   /** Pack đi kèm app: dev lấy content/packs (bản build của pipeline), bản cài lấy resources/packs */

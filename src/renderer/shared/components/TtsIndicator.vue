@@ -3,14 +3,24 @@ import { useI18n } from 'vue-i18n'
 import { useTtsLoading } from '../composables/useTts'
 
 // Chỉ báo nhỏ góc dưới phải: hiện khi giọng tự nhiên đang được tạo (để biết app vẫn đang chạy, không bị đứng).
+// `compact`: bản nhỏ cho cửa sổ mascot (chỉ vòng xoay + 🔊, đặt phía trên nhân vật, không bắt chuột)
+defineProps<{ compact?: boolean }>()
 const loading = useTtsLoading()
 const { t } = useI18n()
 </script>
 
 <template>
-  <div v-if="loading" class="tts-indicator" role="status" aria-live="polite">
+  <div
+    v-if="loading"
+    class="tts-indicator"
+    :class="{ compact }"
+    role="status"
+    aria-live="polite"
+    :title="t('tts.loading')"
+  >
     <span class="spinner" aria-hidden="true" />
-    {{ t('tts.loading') }}
+    <template v-if="compact"><span aria-hidden="true">🔊</span></template>
+    <template v-else>{{ t('tts.loading') }}</template>
   </div>
 </template>
 
@@ -31,6 +41,16 @@ const { t } = useI18n()
   font-family: var(--font-ui);
   font-size: 13px;
   font-weight: 600;
+}
+.tts-indicator.compact {
+  top: 4px;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 3px 8px;
+  font-size: 12px;
+  pointer-events: none;
 }
 .spinner {
   width: 14px;

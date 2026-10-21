@@ -91,20 +91,348 @@
     "achievementOne": "New achievement: {name}! 🏅",
     "achievementMany": "New achievement: {name} and {n} more! 🏅",
     "lines": {
-      "greetingMorning": ["Good morning! ☀️", "Morning! Fancy a 5-minute lesson?"],
-      "greetingAfternoon": ["Good afternoon!", "Hi there, %PET% is here."],
-      "greetingEvening": ["Good evening! 🌙", "How was your day?"],
+      "greetingMorning": [
+        "Good morning! ☀️",
+        "Morning! Fancy a 5-minute lesson?",
+        "Early birds learn the most! ✨"
+      ],
+      "greetingAfternoon": [
+        "Good afternoon!",
+        "Hi there, %PET% is here.",
+        "Take a short break, then study again?"
+      ],
+      "greetingEvening": ["Good evening! 🌙", "How was your day?", "What did you learn today?"],
       "greetingNight": ["It's getting late... 😴", "Don't stay up too late!"],
-      "pat": ["Hehe, that tickles!", "%PET% loves this ♥", "Yay!", "Thank you! ♥"],
+      "pat": [
+        "Hehe, that tickles!",
+        "%PET% loves this ♥",
+        "Yay!",
+        "Thank you! ♥",
+        "Hehe, I like it! ♥",
+        "A little more~"
+      ],
       "patTired": ["%PET% needs a little break~"],
-      "fed": ["Yummy! Thank you 😋", "Delicious!", "So full now~"],
+      "fed": ["Yummy! Thank you 😋", "Delicious!", "So full now~", "So, so yummy! 🍙"],
       "full": ["%PET% is too full to eat more!"],
-      "hungry": ["%PET% is hungry... 🍙", "Feed me, please~", "My tummy is rumbling..."],
-      "levelUp": ["Level up! 🎉", "%PET% got stronger!"],
+      "hungry": [
+        "%PET% is hungry... 🍙",
+        "Feed me, please~",
+        "My tummy is rumbling...",
+        "Can %PET% have a snack? 🥺"
+      ],
+      "levelUp": ["Level up! 🎉", "%PET% got stronger!", "Thanks to your hard work! 🌟"],
       "wake": ["%PET% is awake! ☀️", "Yaaawn... you are back!", "Good morning (again)!"],
       "sleepyPat": ["Zzz... let %PET% sleep a bit more~", "Zzz... five more minutes..."],
-      "missionDone": ["Mission complete! 🎯", "Well done, here is your reward! ⭐"],
-      "evolved": ["%PET% evolved! ✨", "Wow, %PET% grew up! 🎉", "Look at the new %PET%! ⭐"]
+      "missionDone": [
+        "Mission complete! 🎯",
+        "Well done, here is your reward! ⭐",
+        "You did it! 🎉"
+      ],
+      "evolved": ["%PET% evolved! ✨", "Wow, %PET% grew up! 🎉", "Look at the new %PET%! ⭐"],
+      "idle": [
+        "What are you doing? %PET% is peeking~",
+        "Even 5 minutes is enough! ⏱️",
+        "Try to recall the word you just learned 🧠",
+        "Sit up straight! 🪑"
+      ]
+    },
+    "chars": {
+      "bi": {
+        "greetingMorning": [
+          "Nyaa~ Good morning! ☀️",
+          "It's morning! Let me yawn first~",
+          "Morning! Had breakfast yet?"
+        ],
+        "greetingAfternoon": [
+          "Good afternoon! Shall we study a bit?",
+          "%PET% missed you~",
+          "Nyaa, what shall we learn this afternoon?"
+        ],
+        "greetingEvening": [
+          "Good evening! Let's review together 🌙",
+          "You did great today~",
+          "Nyaa~ sit with %PET% for a while."
+        ],
+        "greetingNight": [
+          "It's late... %PET% is sleepy 😴",
+          "Go to bed early, we can study tomorrow~",
+          "Zzz... Good night!"
+        ],
+        "pat": [
+          "Nyaa~ that tickles!",
+          "Purr purr... I love it ♥",
+          "%PET% loves head pats!",
+          "Thank you! ♥"
+        ],
+        "hungry": [
+          "My tummy is rumbling... 🍙",
+          "Nyaa... so hungry, feed me~",
+          "I'm hungry! Where's my rice ball?"
+        ],
+        "fed": ["So yummy, nyaa! 😋", "Yummy! Thank you!", "Nom nom... delicious~"],
+        "levelUp": ["Nyaa! Level up! 🎉", "%PET% got stronger!", "Yay! Am I good or what?"],
+        "wake": ["Yaaawn... %PET% is up~", "You're back! Nyaa ☀️", "Good morning (round two)!"],
+        "missionDone": [
+          "Mission complete, nyaa! 🎯",
+          "Great job, take your reward! ⭐",
+          "Well done!"
+        ],
+        "evolved": [
+          "%PET% evolved, nyaa! ✨",
+          "Wow, %PET% grew up! 🎉",
+          "Look at the new %PET%! ⭐"
+        ],
+        "idle": [
+          "Nyaa... what are you up to?",
+          "Learn one more word? 📖",
+          "Did you drink some water? 💧",
+          "%PET% is sitting right here with you~"
+        ]
+      },
+      "webster": {
+        "greetingMorning": [
+          "Hero reporting for duty! Good morning! 🕸️",
+          "It's morning, let's spin some study webs!",
+          "Good morning, partner!"
+        ],
+        "greetingAfternoon": [
+          "Today's mission: learn 5 new words!",
+          "Good afternoon! %PET% swung right over~",
+          "It's hero training time!"
+        ],
+        "greetingEvening": [
+          "It's evening, let's patrol our reviews 🌙",
+          "Good evening, partner!",
+          "The city is quiet, perfect for reviewing."
+        ],
+        "greetingNight": [
+          "Even heroes need sleep... 😴",
+          "It's late, time to rest!",
+          "Good night! More webs tomorrow~"
+        ],
+        "pat": [
+          "Hehe, my spider-sense is tickling!",
+          "Thank you, partner ♥",
+          "%PET% loves pats!",
+          "My web is vibrating!"
+        ],
+        "hungry": [
+          "Even heroes get hungry... 🍙",
+          "I need energy, feed me~",
+          "I'm hungry! Patrolling is tiring."
+        ],
+        "fed": ["Energy recharged! 💪", "Yummy! Power at 100%!", "Thanks, partner!"],
+        "levelUp": [
+          "Level up! Spider power rising! 🎉",
+          "Higher webs ahead!",
+          "%PET% got stronger!"
+        ],
+        "wake": [
+          "%PET% is back in action! 🕸️",
+          "Yaaawn... any mission, partner?",
+          "My spider-sense says you are back!"
+        ],
+        "missionDone": ["Mission accomplished! 🎯", "Great work, partner! ⭐", "Another victory!"],
+        "evolved": [
+          "%PET% evolved! Like my new suit? ✨",
+          "Wow, new powers! 🎉",
+          "Look at the new %PET%! ⭐"
+        ],
+        "idle": [
+          "Spider-sense says: study time! 🕸️",
+          "One more word, partner?",
+          "Spinning a web while I wait~",
+          "Tiny mission: drink some water! 💧"
+        ]
+      },
+      "draco": {
+        "greetingMorning": [
+          "Rawr! Good morning, little one! 🔥",
+          "It's morning! Time to light the study fire!",
+          "Good morning! The dragon is awake~"
+        ],
+        "greetingAfternoon": [
+          "Afternoon! Show the dragon what you learned.",
+          "Good afternoon! %PET% flew over!",
+          "Rawr, what shall we learn this afternoon?"
+        ],
+        "greetingEvening": [
+          "Evening! I'll guard your reviews 🌙",
+          "Good evening! The den is warm~",
+          "Rawr~ a little review, then rest."
+        ],
+        "greetingNight": [
+          "Late... the dragon curls up to sleep 😴",
+          "Sleep well, we fly again tomorrow!",
+          "Good night! Zzz..."
+        ],
+        "pat": [
+          "Rawr! That tickles, mind the scales!",
+          "Thank you, little one ♥",
+          "%PET% loves head pats!",
+          "Dragons can be cuddly too~"
+        ],
+        "hungry": [
+          "My dragon tummy is rumbling... 🍙",
+          "Rawr... so hungry, feed me!",
+          "I'm hungry! Dragons need... rice balls!"
+        ],
+        "fed": [
+          "Delicious! The dragon is full 😋",
+          "Yummy! Thank you, little one!",
+          "Fire recharged! 🔥"
+        ],
+        "levelUp": [
+          "The dragon got stronger! 🔥",
+          "Level up! Bigger flames!",
+          "%PET% grew a little more!"
+        ],
+        "wake": [
+          "Rawr... %PET% is awake! ☀️",
+          "You're back! The dragon is glad~",
+          "Yaaawn... a tiny fiery yawn."
+        ],
+        "missionDone": [
+          "Mission done! Fire celebration! 🎯",
+          "Great job, here is your treasure! ⭐",
+          "Rawr, well done!"
+        ],
+        "evolved": [
+          "%PET% evolved! Bigger wings! ✨",
+          "Wow, the dragon grew! 🎉",
+          "Look at the new %PET%! 🔥"
+        ],
+        "idle": [
+          "Rawr... what are you busy with?",
+          "Learn one more word for the dragon? 📖",
+          "Guarding your word hoard~",
+          "Drink some water, don't dry your throat! 💧"
+        ]
+      },
+      "robo": {
+        "greetingMorning": [
+          "Beep boop! Good morning! Battery 100% 🔋",
+          "Boot complete. Ready to learn!",
+          "Good morning! All systems stable."
+        ],
+        "greetingAfternoon": [
+          "Beep! Afternoon suggestion: learn 5 new words.",
+          "Good afternoon! %PET% loaded your lessons.",
+          "Scanning... a learner detected!"
+        ],
+        "greetingEvening": [
+          "Beep beep, evening mode on 🌙",
+          "Good evening! Best time to review.",
+          "Today's data: you did great!"
+        ],
+        "greetingNight": [
+          "Warning: it is late. Suggest sleep 😴",
+          "Switching to power saving... Good night!",
+          "Zzz... charging..."
+        ],
+        "pat": [
+          "Beep! My sensor tickles!",
+          "Thank you! Happiness +1 ♥",
+          "%PET% logged that head pat!",
+          "Head pat: valid. Beep boop~"
+        ],
+        "hungry": [
+          "Warning: low energy... 🍙",
+          "Beep... need to recharge!",
+          "I'm hungry! Battery at 10%."
+        ],
+        "fed": ["Charging... done! 🔋", "Yummy! Performance +20%.", "Beep boop, thank you!"],
+        "levelUp": [
+          "Upgrade complete! 🎉",
+          "Level up! New version installed!",
+          "%PET% got stronger, beep!"
+        ],
+        "wake": [
+          "Rebooting... %PET% online! ☀️",
+          "System awake. Hello!",
+          "Beep! Your return was detected."
+        ],
+        "missionDone": [
+          "Mission: 100% complete! 🎯",
+          "Rating: excellent! ⭐",
+          "Beep beep, well done!"
+        ],
+        "evolved": [
+          "Hardware upgrade done! ✨",
+          "Wow, a new %PET% version! 🎉",
+          "Look at the new %PET%! ⭐"
+        ],
+        "idle": [
+          "Beep... awaiting your command.",
+          "Suggestion: learn one new word 📖",
+          "Reminder: drink some water! 💧",
+          "Calculating... you should rest your eyes for 20 seconds."
+        ]
+      },
+      "kitsu": {
+        "greetingMorning": [
+          "Hehe, good morning! ☀️",
+          "It's morning! The little fox woke up early~",
+          "Good morning! I already learned a new word."
+        ],
+        "greetingAfternoon": [
+          "Afternoon! Want to study with me?",
+          "Good afternoon! %PET% sneaked over~",
+          "Hehe, any fun words this afternoon?"
+        ],
+        "greetingEvening": [
+          "Evening! Let's review together 🌙",
+          "Good evening! My tail is warm~",
+          "Hehe, sit closer."
+        ],
+        "greetingNight": [
+          "Late! The fox curls up to sleep 😴",
+          "Sleep well, more study tomorrow~",
+          "Good night! Dream of lots of new words."
+        ],
+        "pat": [
+          "Hehe, my tail tickles!",
+          "Thank you ♥ I love it!",
+          "%PET% wags the tail like crazy~",
+          "A little more, please~"
+        ],
+        "hungry": [
+          "My fox tummy is rumbling... 🍙",
+          "Hehe... feed me~",
+          "I'm hungry! I crave something sweet!"
+        ],
+        "fed": [
+          "So yummy, my tail is wagging! 😋",
+          "Yummy! Thanks a lot~",
+          "Hehe, my belly is round!"
+        ],
+        "levelUp": [
+          "The fox leveled up! 🎉",
+          "Level up! Another tail... not yet~",
+          "Am I good or what?"
+        ],
+        "wake": [
+          "Yaaawn... the fox is up~",
+          "You're back! Hehe ☀️",
+          "I only dozed off for a moment!"
+        ],
+        "missionDone": [
+          "Mission done! Was I quick? 🎯",
+          "Great job, here is a gift! ⭐",
+          "Hehe, well done!"
+        ],
+        "evolved": [
+          "%PET% evolved! More tails! ✨",
+          "Wow, the fox grew up! 🎉",
+          "Look at the new %PET%! ⭐"
+        ],
+        "idle": [
+          "Hehe, what are you up to?",
+          "Learn a new word with me? 📖",
+          "My tail is waiting for you~",
+          "Remember to drink water! 💧"
+        ]
+      }
     }
   },
   "errors": {
@@ -861,5 +1189,15 @@
       "name": "Kitsu",
       "desc": "A many-tailed fox"
     }
+  },
+  "audioPack": {
+    "title": "Pre-recorded listening audio",
+    "desc": "Optional download (~{mb} MB) so listening lessons play instantly in a natural voice, without installing the voice model.",
+    "download": "Download ({mb} MB)",
+    "downloading": "Downloading… {pct}%",
+    "cancel": "Cancel",
+    "ready": "Installed",
+    "remove": "Remove pack",
+    "retry": "Retry download"
   }
 }

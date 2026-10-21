@@ -12,6 +12,7 @@ import { LESSON_PASS_PERCENT } from '@shared/schemas/lesson'
 import { invoke } from '@renderer/shared/ipc'
 import PxBar from '@renderer/shared/components/PxBar.vue'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import AudioPackPanel from '@renderer/shared/components/AudioPackPanel.vue'
 import LessonExercises from './LessonExercises.vue'
 import LessonViewer from './LessonViewer.vue'
 
@@ -156,6 +157,7 @@ onMounted(async () => {
     <template v-else-if="catalog">
       <h1>{{ t(`study.${kindKey}.title`) }}</h1>
       <p class="muted">{{ t(`study.${kindKey}.intro`) }}</p>
+      <AudioPackPanel v-if="kind === 'listening'" compact />
 
       <PxPanel class="progress">
         <div class="progress-text">

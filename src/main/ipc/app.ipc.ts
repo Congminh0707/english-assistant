@@ -3,6 +3,7 @@ import type { Container } from '../container'
 import type { LessonService } from '../services/LessonService'
 import type { TranslationService } from '../services/TranslationService'
 import type { TtsService } from '../services/TtsService'
+import type { AudioPackService } from '../services/AudioPackService'
 import type { UpdateManager } from '../system/UpdateManager'
 import { handle } from './handle'
 
@@ -11,6 +12,7 @@ export function registerAppIpc(
   c: Container,
   translation: TranslationService,
   tts: TtsService,
+  audioPack: AudioPackService,
   updates: UpdateManager
 ): void {
   handle('pet:get', () => c.pet.get())
@@ -120,6 +122,11 @@ export function registerAppIpc(
   handle('tts:cancel', () => tts.cancelInstall())
   handle('tts:speak', (input) => tts.speak(input))
   handle('tts:prefetch', ({ texts, accent, speed }) => tts.prefetch(texts, accent, speed))
+  handle('audio:status', () => audioPack.status())
+  handle('audio:install', () => audioPack.install())
+  handle('audio:cancel', () => audioPack.cancelInstall())
+  handle('audio:remove', () => audioPack.remove())
+  handle('audio:clip', (input) => audioPack.clip(input))
   handle('vocab:list', () => c.study.words())
   handle('vocab:remove', ({ contentId }) => c.study.removeWord(contentId))
   handle('vocab:suspend', ({ contentId, suspended }) => c.study.setSuspended(contentId, suspended))

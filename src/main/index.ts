@@ -28,6 +28,9 @@ import { ModelManager } from './translate/ModelManager'
 import { OPUS_MT_EN_VI, OPUS_MT_VI_EN } from './translate/modelFiles'
 import { OpusMtEngine } from './translate/OpusMtEngine'
 import { TtsService } from './services/TtsService'
+import { AudioPackService } from './services/AudioPackService'
+import { AudioPackManager } from './audio/AudioPackManager'
+import { LISTENING_AUDIO_PACK } from './audio/packSpec'
 import { KokoroEngine } from './tts/KokoroEngine'
 import { KOKORO } from './tts/modelFiles'
 import { TtsCache } from './tts/TtsCache'
@@ -104,6 +107,11 @@ if (!app.requestSingleInstanceLock()) {
       onStatus: (status) => broadcast('tts:status-changed', status)
     })
     speech = ttsService
+    // Gói âm thanh bài nghe tạo sẵn (MP3): người dùng tải thêm trong Cài đặt / trang Nghe
+    const audioPackService = new AudioPackService({
+      pack: new AudioPackManager({ packsDir: paths.audioPacks(), spec: LISTENING_AUDIO_PACK }),
+      onStatus: (status) => broadcast('audio:status-changed', status)
+    })
     // Cập nhật tự động: chỉ bản đã đóng gói; kiểm tra nền (tắt được trong Cài đặt), tải/cài khi người dùng đồng ý
     const updates = new UpdateManager({
       updater: autoUpdater,
@@ -111,7 +119,7 @@ if (!app.requestSingleInstanceLock()) {
       enabled: app.isPackaged,
       onStatus: (status) => broadcast('update:status-changed', status)
     })
-    registerAppIpc(c, translationService, ttsService, updates)
+    registerAppIpc(c, translationService, ttsService, audioPackService, updates)
     if (app.isPackaged) {
       const autoCheck = (): void => {
         if (c.settings.get('app.autoUpdate')) void updates.check()

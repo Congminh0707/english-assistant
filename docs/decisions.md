@@ -144,6 +144,11 @@ Mẫu:
 **Quyết định:** Phát bằng TTS ngay trong app (giọng Windows hoặc Kokoro, có bộ nhớ đệm trên đĩa và tạo trước ở nền); người nói A/B dùng hai giọng Mỹ/Anh. Việc sinh sẵn audio lúc build để sau, gắn với chuyện chốt dung lượng và bộ mã hoá.
 **Hệ quả:** Lần đầu nghe một câu bằng Kokoro có độ trễ 1–3 giây (rồi được nhớ); âm đơn lẻ cho phonics ("buh", "kuh") vẫn thô vì model không huấn luyện cho âm đơn.
 
+## #26 — Âm thanh bài nghe tạo sẵn là gói tải thêm (2026-10-21) — Chấp nhận
+**Bối cảnh:** Decision #22 hoãn việc tạo sẵn audio vì WAV làm bộ cài phình. Người dùng muốn có âm thanh tạo sẵn nhưng không nhét vào bộ cài.
+**Quyết định:** Tạo sẵn bằng Kokoro rồi nén **MP3 mono 40 kbps** (`scripts/audio/build-listening-audio.mjs`; ~650 đoạn = 173 câu × giọng Mỹ/Anh × 4 tốc độ, ~10 MB) và phát hành thành gói `.zip` trên GitHub Release (tag `listening-audio-<ver>`, pre-release). App **không** đóng gói gói này: người dùng tải trong Cài đặt hoặc từ thanh mời ở trang Nghe (`AudioPackManager` tải + kiểm tra sha256 + giải nén; `AudioPackService`; kênh `audio:*`). `useTts` thử clip có sẵn trước (khoá = giọng Mỹ/Anh + tốc độ + câu, `shared/audioPack.ts`), không có thì dùng giọng tự nhiên rồi giọng Windows. Giọng trong gói cố định (`af_heart`/`bf_emma` = mặc định cài đặt).
+**Hệ quả:** Có gói thì bài nghe phát tức thì bằng giọng tự nhiên mà không cần model giọng ~92 MB; câu không có trong gói (hoặc tốc độ khác) vẫn rơi về TTS. Bộ mã hoá MP3 `@breezystack/lamejs` (LGPL-3.0) chỉ là devDependency dùng lúc build, không vào app. Đổi nội dung bài nghe → build lại gói + tăng version trong `packSpec.ts`.
+
 ## #23 — Nhiều nhân vật thú cưng, đều là thiết kế gốc (2026-10-20) — Chấp nhận
 **Bối cảnh:** Người dùng muốn thêm 3–4 thú cưng (có nhắc Spider-Man) kèm tiến hoá và vật phẩm cửa hàng.
 **Quyết định:** 4 nhân vật mới tự thiết kế (Webby nhện hero, Draco rồng, Robo, Kitsu cáo), mỗi con 5 giai đoạn. **Không dùng nhân vật/biểu tượng có bản quyền** (quy tắc AGENTS.md về nội dung): Webby chỉ gợi ý tưởng "anh hùng mặt nạ nhện" với màu, hoạ tiết và tên riêng. Nhân vật mua bằng xu như vật phẩm (`char:<id>` trong `inventory`) nên không cần migration; level/XP thuộc về hồ sơ, đổi nhân vật không mất tiến độ.

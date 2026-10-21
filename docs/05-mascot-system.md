@@ -178,6 +178,10 @@ Câu thoại lưu ở `src/renderer/mascot/dialogue/<characterId>.json`, phân t
 }
 ```
 
+### Câu thoại theo nhân vật
+
+Câu thoại nằm trong i18n: `mascot.lines.<chủ đề>` (chung) và `mascot.chars.<nhân vật>.<chủ đề>` (riêng: Bi hay "nyaa", Webby nói kiểu siêu anh hùng, Draco "khè" + lửa, Robo "bíp bíp", Kitsu "hihi" lém lỉnh). `useLines` dùng câu riêng ~65% số lần (có thì mới dùng), còn lại câu chung; không lặp câu vừa nói. Chủ đề mới `idle`: thỉnh thoảng (4–9 phút một lần, khi mascot rảnh, đang hiện và không ngủ) mascot nói vài câu bâng quơ (nhắc học, uống nước, nghỉ mắt). Test `src/shared/i18n/mascotLines.test.ts` bắt buộc mỗi nhân vật có ≥ 3 câu cho mọi chủ đề ở cả vi/en. Thêm chủ đề → thêm vào danh sách trong test.
+
 ## 6. Chỉ số nuôi (pet stats)
 
 Lưu trong main (`pet_state` — xem [10](10-data-model.md)), main tính toán, renderer chỉ hiển thị.

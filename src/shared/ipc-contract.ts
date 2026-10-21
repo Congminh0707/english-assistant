@@ -54,6 +54,7 @@ import { CourseDetailSchema, CourseListSchema } from './schemas/course'
 import { PhrasebookSchema } from './schemas/phrasebook'
 import { StatsSchema } from './schemas/stats'
 import { UpdateStatusSchema } from './schemas/update'
+import { AudioClipInputSchema, AudioClipResultSchema } from './schemas/audio'
 import { TtsPrefetchInputSchema, TtsSpeakInputSchema, TtsSpeakResultSchema } from './schemas/tts'
 import {
   PracticeAnswerInputSchema,
@@ -185,7 +186,12 @@ export const invokeContract = {
   'tts:install': { input: z.void(), output: TranslateStatusSchema },
   'tts:cancel': { input: z.void(), output: z.void() },
   'tts:speak': { input: TtsSpeakInputSchema, output: TtsSpeakResultSchema },
-  'tts:prefetch': { input: TtsPrefetchInputSchema, output: z.void() }
+  'tts:prefetch': { input: TtsPrefetchInputSchema, output: z.void() },
+  'audio:status': { input: z.void(), output: TranslateStatusSchema },
+  'audio:install': { input: z.void(), output: TranslateStatusSchema },
+  'audio:cancel': { input: z.void(), output: z.void() },
+  'audio:remove': { input: z.void(), output: TranslateStatusSchema },
+  'audio:clip': { input: AudioClipInputSchema, output: AudioClipResultSchema }
 } satisfies Record<InvokeChannel, { input: z.ZodType; output: z.ZodType }>
 
 export const sendContract = {
@@ -205,7 +211,8 @@ export const eventContract = {
   'mascot:sleep': MascotSleepSchema,
   'translate:status-changed': TranslateStatusEventSchema,
   'update:status-changed': UpdateStatusSchema,
-  'tts:status-changed': TranslateStatusSchema
+  'tts:status-changed': TranslateStatusSchema,
+  'audio:status-changed': TranslateStatusSchema
 } satisfies Record<EventName, z.ZodType>
 
 // --- Kiểu suy ra từ hợp đồng ---

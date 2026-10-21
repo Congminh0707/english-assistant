@@ -10,6 +10,7 @@ import { MascotBrain } from './engine/MascotBrain'
 import { BubblePriority, useBubble } from './composables/useBubble'
 import { useLines } from './composables/useLines'
 import SpeechBubble from './components/SpeechBubble.vue'
+import TtsIndicator from '@renderer/shared/components/TtsIndicator.vue'
 import { ACCESSORY_DRAW_ORDER } from '@shared/shop'
 import { normalizeCharacterId } from '@shared/characters'
 
@@ -366,6 +367,7 @@ onMounted(async () => {
   )
 
   if (!document.hidden) startTicking()
+  scheduleIdleChat()
 
   // Lời chào khi khởi động, kèm nhắc đói nếu cần
   window.setTimeout(() => {
@@ -379,7 +381,24 @@ onMounted(async () => {
   }, 1200)
 })
 
+/** Thỉnh thoảng nói vài câu bâng quơ (nhắc học, nhắc uống nước...) khi mascot đang rảnh và hiện trên màn hình */
+const IDLE_CHAT_MIN_MS = 4 * 60_000
+const IDLE_CHAT_MAX_MS = 9 * 60_000
+let idleChatTimer = 0
+function scheduleIdleChat(): void {
+  idleChatTimer = window.setTimeout(
+    () => {
+      if (!document.hidden && !brain?.sleeping && !bubble.current.value && !dragging.value) {
+        bubble.say(line('idle'), BubblePriority.ambient)
+      }
+      scheduleIdleChat()
+    },
+    IDLE_CHAT_MIN_MS + Math.random() * (IDLE_CHAT_MAX_MS - IDLE_CHAT_MIN_MS)
+  )
+}
+
 onUnmounted(() => {
+  window.clearTimeout(idleChatTimer)
   stopTicking()
   window.clearTimeout(hoverTimer)
   window.removeEventListener('mousemove', onMouseMove)
@@ -399,6 +418,7 @@ onUnmounted(() => {
       @dismiss="bubble.dismiss()"
       @quiz-result="onQuizResult"
     />
+    <TtsIndicator compact />
     <canvas
       ref="canvas"
       class="sprite"

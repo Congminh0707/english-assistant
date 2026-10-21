@@ -80,6 +80,11 @@ Nếu sau này dung lượng/RAM thành vấn đề lớn, phần giao diện Vu
 | `playwright` (có hỗ trợ Electron) | E2E test | Laravel Dusk |
 | `eslint` + `prettier` | Lint/format | Pint / PHP-CS-Fixer |
 
+### Tạo gói âm thanh (`scripts/audio/`, chỉ chạy lúc build — không vào app)
+| Thư viện | Vai trò | Tương đương |
+|---|---|---|
+| `@breezystack/lamejs` (devDependency, LGPL-3.0) | Mã hoá MP3 cho gói âm thanh bài nghe ([decisions #26](decisions.md)); không đóng gói vào app nên không ràng buộc giấy phép của app | — |
+
 ### Pipeline nội dung (`scripts/content/`, chỉ chạy lúc build — không vào app)
 | Thư viện | Vai trò | Tương đương |
 |---|---|---|

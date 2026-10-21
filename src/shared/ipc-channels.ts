@@ -76,7 +76,12 @@ export const INVOKE_CHANNELS = [
   'tts:install',
   'tts:cancel',
   'tts:speak',
-  'tts:prefetch'
+  'tts:prefetch',
+  'audio:status',
+  'audio:install',
+  'audio:cancel',
+  'audio:remove',
+  'audio:clip'
 ] as const
 
 /** renderer → main, không chờ kết quả (ipcRenderer.send) */
@@ -98,7 +103,8 @@ export const EVENT_NAMES = [
   'mascot:sleep',
   'translate:status-changed',
   'update:status-changed',
-  'tts:status-changed'
+  'tts:status-changed',
+  'audio:status-changed'
 ] as const
 
 export type InvokeChannel = (typeof INVOKE_CHANNELS)[number]

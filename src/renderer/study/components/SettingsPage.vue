@@ -12,6 +12,7 @@ import { useTranslateModels } from '@renderer/shared/composables/useTranslateMod
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useUpdateStatus } from '@renderer/shared/composables/useUpdateStatus'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import AudioPackPanel from '@renderer/shared/components/AudioPackPanel.vue'
 
 // Cài đặt: hồ sơ, học tập, chế độ yên lặng, giao diện. Đổi là lưu ngay (main đẩy lại cho mọi cửa sổ).
 const emit = defineEmits<{ retest: []; changed: [] }>()
@@ -383,6 +384,10 @@ onMounted(loadProfiles)
           <p v-if="naturalVoice" class="muted">{{ t('tts.cacheHint') }}</p>
         </template>
       </template>
+    </PxPanel>
+
+    <PxPanel class="block">
+      <AudioPackPanel />
     </PxPanel>
 
     <PxPanel class="block">

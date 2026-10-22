@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { TRANSLATE_MAX_CHARS } from './translate'
 
 export const DictSenseSchema = z.object({
   pos: z.string(),
@@ -46,7 +47,9 @@ export const LookupResultSchema = z.object({
   /** Từ gần giống để gợi ý khi tra một từ không ra (gõ sai chính tả): "Có phải bạn muốn tìm…" */
   suggestions: z.array(z.string()),
   /** Chưa cài gói từ điển */
-  packMissing: z.boolean()
+  packMissing: z.boolean(),
+  /** Văn bản gốc dài hơn giới hạn nên đã bị cắt bớt (popup báo cho người dùng) */
+  truncated: z.boolean().optional()
 })
 export type LookupResult = z.infer<typeof LookupResultSchema>
 
@@ -68,19 +71,21 @@ export type SaveWordResult = z.infer<typeof SaveWordResultSchema>
 /** Văn bản main gửi cho popup khi mở bằng phím tắt (lấy từ clipboard) */
 export const PopupQuerySchema = z.object({ text: z.string() })
 
-const MAX_QUERY = 200
+/** Bằng giới hạn dịch (TRANSLATE_MAX_CHARS): quá dài thì cắt bớt và báo `truncated` */
+const MAX_QUERY = TRANSLATE_MAX_CHARS
 /** Ký tự bao quanh cần bỏ: dấu câu, ngoặc, nháy (giữ nháy đơn/gạch nối ở giữa từ: don't, well-known) */
 const EDGE_PUNCT = /^[\s"'“”‘’«»()[\]{}<>.,;:!?…\-–—*_#]+|[\s"'“”‘’«»()[\]{}<>.,;:!?…\-–—*_#]+$/g
 
 /** Chuẩn hoá chuỗi người dùng copy để tra từ điển */
-export function normalizeQuery(raw: string): { query: string; kind: QueryKind } {
-  const query = raw
-    .replace(/\s+/g, ' ')
-    .replace(EDGE_PUNCT, '')
-    .replace(/[’‘]/g, "'")
-    .slice(0, MAX_QUERY)
-    .trim()
-  if (!query) return { query: '', kind: 'empty' }
+export function normalizeQuery(raw: string): {
+  query: string
+  kind: QueryKind
+  truncated: boolean
+} {
+  const full = raw.replace(/\s+/g, ' ').replace(EDGE_PUNCT, '').replace(/[’‘]/g, "'")
+  const truncated = full.length > MAX_QUERY
+  const query = full.slice(0, MAX_QUERY).trim()
+  if (!query) return { query: '', kind: 'empty', truncated: false }
   const words = query.split(' ').length
-  return { query, kind: words === 1 ? 'word' : words <= 4 ? 'phrase' : 'sentence' }
+  return { query, kind: words === 1 ? 'word' : words <= 4 ? 'phrase' : 'sentence', truncated }
 }

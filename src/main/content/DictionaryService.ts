@@ -92,11 +92,11 @@ export class DictionaryService {
     isSaved: (contentIds: string[]) => Set<string> = () => new Set(),
     options: DictionaryOptions = {}
   ): LookupResult {
-    const { query, kind } = normalizeQuery(raw)
+    const { query, kind, truncated } = normalizeQuery(raw)
     const stmts = this.prepare()
-    if (!stmts) return { query, kind, entries: [], suggestions: [], packMissing: true }
+    if (!stmts) return { query, kind, entries: [], suggestions: [], packMissing: true, truncated }
     if (kind === 'empty' || kind === 'sentence') {
-      return { query, kind, entries: [], suggestions: [], packMissing: false }
+      return { query, kind, entries: [], suggestions: [], packMissing: false, truncated }
     }
 
     const hits = this.find(stmts, query).filter((h) => !isHidden(h.row, options))
@@ -109,7 +109,7 @@ export class DictionaryService {
       !entries.length && kind === 'word'
         ? suggestSpelling(query, this.spellingCandidates(stmts, options))
         : []
-    return { query, kind, entries, suggestions, packMissing: false }
+    return { query, kind, entries, suggestions, packMissing: false, truncated }
   }
 
   /** Từ gợi ý chính tả: lemma + dạng chia, tải một lần cho mỗi gói (bỏ từ nhạy cảm ở profile trẻ em) */

@@ -1,7 +1,8 @@
 // Luật thuần (không import electron) cho việc lấy chữ đang bôi đen — có test ở selectionRules.test.ts
 import { looksSensitive } from './sensitive'
 
-const MAX_LENGTH = 500
+/** Chỉ chặn văn bản khổng lồ; giới hạn dịch (TRANSLATE_MAX_CHARS) do normalizeQuery cắt và báo cho người dùng */
+const MAX_LENGTH = 20_000
 
 /**
  * Chương trình mà Ctrl+C KHÔNG phải "sao chép" (terminal: Ctrl+C = ngắt lệnh đang chạy) — tuyệt đối không gửi phím

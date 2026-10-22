@@ -11,6 +11,17 @@ const statuses: Record<TranslateModelKey, Ref<TranslateStatus | null>> = {
 const DIRECTIONS: TranslateModelKey[] = ['en-vi', 'vi-en', 'high']
 let started = false
 
+/** Đọc lại trạng thái mọi model từ main (tránh dùng trạng thái cũ khi cửa sổ đã mở từ lâu) */
+async function refresh(): Promise<void> {
+  await Promise.all(
+    DIRECTIONS.map((direction) =>
+      invoke('translate:status', { direction })
+        .then((s) => (statuses[direction].value = s))
+        .catch(() => undefined)
+    )
+  )
+}
+
 function start(): void {
   if (started) return
   started = true
@@ -27,6 +38,7 @@ function start(): void {
 /** Trạng thái các model dịch + hành động tải/huỷ/xoá (dùng trong popup và Cài đặt) */
 export function useTranslateModels(): {
   statuses: Record<TranslateModelKey, Ref<TranslateStatus | null>>
+  refresh: () => Promise<void>
   install: (direction: TranslateModelKey) => Promise<TranslateStatus>
   cancel: (direction: TranslateModelKey) => void
   remove: (direction: TranslateModelKey) => Promise<void>
@@ -34,6 +46,7 @@ export function useTranslateModels(): {
   start()
   return {
     statuses,
+    refresh,
     install: async (direction) => {
       const status = await invoke('translate:install', { direction })
       statuses[direction].value = status

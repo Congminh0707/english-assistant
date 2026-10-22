@@ -22,9 +22,10 @@ describe('canSimulateCopy: không gửi Ctrl+C vào terminal', () => {
 })
 
 describe('cleanSelection', () => {
-  it('cắt khoảng trắng, giới hạn 500 ký tự', () => {
+  it('cắt khoảng trắng, chặn văn bản khổng lồ (20k ký tự)', () => {
     expect(cleanSelection('  hello world \n')).toBe('hello world')
-    expect(cleanSelection('a '.repeat(400)).length).toBeLessThanOrEqual(500)
+    expect(cleanSelection('a '.repeat(400)).length).toBe(799)
+    expect(cleanSelection('a '.repeat(30_000)).length).toBeLessThanOrEqual(20_000)
     expect(cleanSelection('   ')).toBe('')
   })
 

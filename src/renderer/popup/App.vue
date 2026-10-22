@@ -2,7 +2,7 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { DictEntry, LookupResult } from '@shared/schemas/dictionary'
-import type { TranslateDirection } from '@shared/schemas/translate'
+import { TRANSLATE_MAX_CHARS, type TranslateDirection } from '@shared/schemas/translate'
 import { looksVietnamese } from '@shared/sentences'
 import { invoke, IpcError } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
@@ -27,6 +27,8 @@ const toast = ref('')
 /** Câu gốc khi người dùng copy cả câu rồi bấm vào một từ — lưu làm ngữ cảnh cho thẻ SRS */
 const contextSentence = ref<string | null>(null)
 /** Bản dịch cả câu (opus-mt offline) cho câu/cụm không có trong từ điển */
+/** Văn bản vượt giới hạn nên chỉ dịch phần đầu */
+const truncated = ref(false)
 const translation = ref<{
   phase: 'idle' | 'loading' | 'done' | 'error'
   text: string
@@ -78,7 +80,10 @@ const sentenceTokens = computed(() =>
   result.value?.kind === 'sentence'
     ? looksVietnamese(result.value.query)
       ? []
-      : [...new Set(result.value.query.split(/[^A-Za-z'-]+/).filter((w) => w.length > 1))]
+      : [...new Set(result.value.query.split(/[^A-Za-z'-]+/).filter((w) => w.length > 1))].slice(
+          0,
+          60
+        )
     : []
 )
 
@@ -93,6 +98,9 @@ const showTranslation = computed(() => {
 async function translate(text: string): Promise<void> {
   const seq = ++translateSeq
   pendingText = text
+  // Trạng thái model có thể đã cũ (tải ở cửa sổ khác, popup mở từ lâu): hỏi lại main trước khi quyết định
+  await models.refresh()
+  if (seq !== translateSeq) return
   if (!canTranslate.value) {
     translation.value = { phase: 'idle', text: '', errorKey: '', engine: null }
     return
@@ -141,6 +149,7 @@ async function lookup(text: string): Promise<void> {
     if (seq !== lookupSeq) return // đã có lần tra mới hơn
     result.value = res
     if (res.kind === 'sentence') contextSentence.value = res.query
+    truncated.value = res.truncated === true
     translateSeq++
     translation.value = { phase: 'idle', text: '', errorKey: '', engine: null }
     pendingText = null
@@ -215,6 +224,11 @@ watch(
   }
 )
 
+// Model vừa sẵn sàng (tải xong ở nơi khác, hoặc trạng thái được làm mới) mà còn câu đang chờ → dịch luôn
+watch(canTranslate, (ok) => {
+  if (ok && pendingText) void translate(pendingText)
+})
+
 onMounted(async () => {
   window.addEventListener('keydown', onKeyDown)
   cleanups.push(
@@ -274,12 +288,6 @@ onUnmounted(() => {
             {{ t('translate.translating') }}
           </p>
           <p v-else-if="translation.phase === 'done'" class="tr-text">{{ translation.text }}</p>
-          <p v-if="canUpgrade" class="tr-upgrade">
-            {{ t('translate.upgradeHint') }}
-            <button type="button" class="token" @click="installHigh">
-              {{ t('translate.downloadHigh', { size: highSizeMb }) }}
-            </button>
-          </p>
           <p v-else-if="translation.phase === 'error'" class="tr-error">
             {{ t(translation.errorKey) }}
           </p>
@@ -292,7 +300,7 @@ onUnmounted(() => {
               {{ t('translate.cancel') }}
             </button>
           </div>
-          <div v-else-if="modelStatus" class="tr-download">
+          <div v-else-if="modelStatus && !canTranslate" class="tr-download">
             <span class="muted">{{ t('translate.needModel', { size: sizeMb }) }}</span>
             <span v-if="modelStatus.errorKey" class="tr-error">{{ t(modelStatus.errorKey) }}</span>
             <button type="button" class="save" @click="installModel">
@@ -302,6 +310,15 @@ onUnmounted(() => {
               {{ t('translate.downloadHigh', { size: highSizeMb }) }}
             </button>
           </div>
+          <p v-if="truncated" class="tr-upgrade">
+            {{ t('translate.truncated', { max: TRANSLATE_MAX_CHARS }) }}
+          </p>
+          <p v-if="canUpgrade" class="tr-upgrade">
+            {{ t('translate.upgradeHint') }}
+            <button type="button" class="token" @click="installHigh">
+              {{ t('translate.downloadHigh', { size: highSizeMb }) }}
+            </button>
+          </p>
         </div>
         <div class="tokens">
           <button
@@ -341,12 +358,6 @@ onUnmounted(() => {
             {{ t('translate.translating') }}
           </p>
           <p v-else-if="translation.phase === 'done'" class="tr-text">{{ translation.text }}</p>
-          <p v-if="canUpgrade" class="tr-upgrade">
-            {{ t('translate.upgradeHint') }}
-            <button type="button" class="token" @click="installHigh">
-              {{ t('translate.downloadHigh', { size: highSizeMb }) }}
-            </button>
-          </p>
           <p v-else-if="translation.phase === 'error'" class="tr-error">
             {{ t(translation.errorKey) }}
           </p>
@@ -359,7 +370,7 @@ onUnmounted(() => {
               {{ t('translate.cancel') }}
             </button>
           </div>
-          <div v-else-if="modelStatus" class="tr-download">
+          <div v-else-if="modelStatus && !canTranslate" class="tr-download">
             <span class="muted">{{ t('translate.needModel', { size: sizeMb }) }}</span>
             <button type="button" class="save" @click="installModel">
               {{ t('translate.download') }}
@@ -368,6 +379,15 @@ onUnmounted(() => {
               {{ t('translate.downloadHigh', { size: highSizeMb }) }}
             </button>
           </div>
+          <p v-if="truncated" class="tr-upgrade">
+            {{ t('translate.truncated', { max: TRANSLATE_MAX_CHARS }) }}
+          </p>
+          <p v-if="canUpgrade" class="tr-upgrade">
+            {{ t('translate.upgradeHint') }}
+            <button type="button" class="token" @click="installHigh">
+              {{ t('translate.downloadHigh', { size: highSizeMb }) }}
+            </button>
+          </p>
         </div>
       </div>
 

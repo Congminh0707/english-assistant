@@ -61,7 +61,7 @@ Chi tiết từng module ở [07-learning-modules.md](07-learning-modules.md).
 | C13 | Lộ trình hằng ngày | P0 | Mỗi ngày gợi ý 10–20 phút: ôn SRS + 1 bài mới + 1 kỹ năng yếu nhất. |
 
 > **Trạng thái triển khai (cập nhật 2026-10-20):** đã làm C1 (placement 4 kỹ năng + checkpoint lên cấp), C2, C3 (40 điểm ngữ pháp),
-> C4 (50 bài đọc), C5 một phần (30 bài nghe dùng TTS, chưa có audio thu sẵn), C8 (phonics + chế độ trẻ em), C12 (sổ mẫu câu),
+> C4 (50 bài đọc), C5 (30 bài nghe: TTS + gói audio tạo sẵn tải thêm), C8 (phonics + chế độ trẻ em), C12 (sổ mẫu câu),
 > khoá học Course → Unit → Lesson, thống kê nâng cao (Elo theo kỹ năng, độ chính xác theo dạng bài, thời gian học).
 > Chưa làm: C6, C7, C9, C10, C11. Bảng theo dõi chi tiết ở [14-roadmap.md](14-roadmap.md).
 

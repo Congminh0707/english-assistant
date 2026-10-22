@@ -2,10 +2,14 @@
 //   vi — sinh nghĩa tiếng Việt ngắn bằng LLM cho từ thiếu nghĩa (xem scripts/content/enrich/vi.ts)
 //        [--provider api|claude-cli] [--claude-bin path] [--dry-run] [--limit N] [--batch N]
 //        [--concurrency N] [--model id] [--effort level] [--import file]
+//   vi-review — duyệt nghĩa `draft` bằng Claude CLI (model mạnh hơn kiểm/sửa/loại từng mục → approved|rejected)
+//        [--limit N] [--batch N] [--concurrency N] [--model id] [--effort level] [--claude-bin path]
 import { enrichVi } from './enrich/vi'
+import { reviewVi } from './enrich/review'
 
 const KINDS: Record<string, (args: string[]) => Promise<void>> = {
-  vi: enrichVi
+  vi: enrichVi,
+  'vi-review': reviewVi
 }
 
 async function main(): Promise<void> {

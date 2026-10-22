@@ -19,7 +19,8 @@ import { sourceRef } from '../sources'
 import { SENTENCE_COVERAGE, suggestWordLevel } from './thresholds'
 
 export const LEVEL_OVERRIDES_PATH = join(CURATED_DIR, 'vocab', 'level-overrides.json')
-const MISSING_VI_TOP = 10_000
+/** Từ có freqRank ≤ giá trị này mà thiếu nghĩa Việt thì vào missing-vi.json (từ 1.3.0: toàn bộ từ, xếp theo tần suất) */
+const MISSING_VI_TOP = Number.POSITIVE_INFINITY
 
 const LEVEL_NAMES: Record<LevelCode, { vi: string; en: string }> = {
   PA1_1: { vi: 'Hạt mầm', en: 'Seed' },
@@ -205,7 +206,7 @@ export async function applyLevels(): Promise<LevelReport> {
     }))
   const generatedCount = missingVi.filter((w) => w.generated).length
   await writeJson(normalizedPath('missing-vi.json'), {
-    $comment: `Words with freqRank <= ${MISSING_VI_TOP} that have no Vietnamese meaning from Wiktionary (generated = covered by content/curated/vocab/vi-generated.json)`,
+    $comment: `Words (sorted by freqRank) that have no Vietnamese meaning from Wiktionary (generated = covered by content/curated/vocab/vi-generated.json)`,
     count: missingVi.length,
     generated: generatedCount,
     remaining: missingVi.length - generatedCount,
@@ -214,7 +215,7 @@ export async function applyLevels(): Promise<LevelReport> {
 
   log(`level: words ${fmt(report.words)}`)
   log(
-    `level: ${missingVi.length} of the top ${MISSING_VI_TOP} words have no Wiktionary Vietnamese meaning; ${generatedCount} covered by generated meanings, ${missingVi.length - generatedCount} still without any → normalized/missing-vi.json`
+    `level: ${missingVi.length} words have no Wiktionary Vietnamese meaning; ${generatedCount} covered by generated meanings, ${missingVi.length - generatedCount} still without any → normalized/missing-vi.json`
   )
   log(`level: sentences ${fmt(report.sentences)}`)
   log(`level: ${report.overrides} overrides applied, ${report.decks} decks`)

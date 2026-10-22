@@ -1,6 +1,6 @@
 {
   "name": "english-assistant",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "An Electron application with Vue and TypeScript",
   "main": "./out/main/index.js",
   "author": "Minh Ngo",
@@ -33,7 +33,9 @@
     "content:build": "tsx scripts/content/build.ts",
     "content:lookup": "tsx scripts/content/lookup.ts",
     "content:typecheck": "tsc --noEmit -p scripts/content/tsconfig.json",
-    "content:enrich": "tsx scripts/content/enrich.ts"
+    "content:enrich": "tsx scripts/content/enrich.ts",
+    "content:stats": "tsx scripts/content/stats.ts",
+    "stats": "tsx scripts/stats.ts"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",

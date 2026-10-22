@@ -89,7 +89,7 @@ Lộ trình học từ đầu cho người Việt, **tự soạn** (`proprietary
 | 4. 🧱 Mẫu câu cơ bản (2) | have/has (got), can/can't & mệnh lệnh, câu hỏi Wh-, in/on/at, so sánh tính từ, từ nối |
 | 5. 💬 Giao tiếp hằng ngày | chào hỏi, số đếm, giờ/thứ/ngày, lịch sự, hỏi đường, mua sắm |
 
-34 bài, ~340 bài tập. Mỗi bài: giải thích tiếng Việt ngắn, bảng, ví dụ có nút nghe (TTS), mẹo lỗi người Việt hay mắc, lưới âm bấm nghe, 8–12 bài tập (trắc nghiệm, điền chỗ trống, sắp xếp câu, ghép cặp, nghe rồi chọn) chấm tại chỗ. Tiến độ lưu ở `lesson_progress` (điểm cao nhất, số lần làm); **lần đầu đạt ≥ 70% thưởng +15 XP, +5 xu** (+5 XP nếu 100%), mỗi bài thưởng một lần. Câu `say` của chữ cái viết thành tên chữ ("bee", "double-you") để giọng máy đọc đúng. Hạn chế: giọng TTS của Windows có thể là giọng Anh (vd "zed"); phần giải thích chỉ có tiếng Việt; chưa có bài đọc hiểu/viết; chưa có phiên bản cho trẻ em (phonics từng chữ có hình).
+43 bài / 7 chương, 423 bài tập (đo 2026-10-22, [17 §2](17-metrics.md)). Mỗi bài: giải thích tiếng Việt ngắn, bảng, ví dụ có nút nghe (TTS), mẹo lỗi người Việt hay mắc, lưới âm bấm nghe, 8–12 bài tập (trắc nghiệm, điền chỗ trống, sắp xếp câu, ghép cặp, nghe rồi chọn) chấm tại chỗ. Tiến độ lưu ở `lesson_progress` (điểm cao nhất, số lần làm); **lần đầu đạt ≥ 70% thưởng +15 XP, +5 xu** (+5 XP nếu 100%), mỗi bài thưởng một lần. Câu `say` của chữ cái viết thành tên chữ ("bee", "double-you") để giọng máy đọc đúng. Hạn chế: giọng TTS của Windows có thể là giọng Anh (vd "zed"); phần giải thích chỉ có tiếng Việt; chưa có bài đọc hiểu/viết; chưa có phiên bản cho trẻ em (phonics từng chữ có hình).
 
 ## 4. Module Ngữ pháp (P1)
 

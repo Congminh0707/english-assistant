@@ -173,6 +173,6 @@ Mẫu:
 
 ## #27 — Dịch: thêm mBART-50 làm model chất lượng cao tuỳ chọn (2026-10-22) — Chấp nhận
 **Bối cảnh:** Dịch bằng phím tắt (Ctrl+C / Ctrl+Alt+T) với opus-mt-en-vi chưa chuẩn: dịch sai từ nhiều nghĩa, nuốt từ, đoạn văn kém.
-**Quyết định:** Giữ opus-mt làm bản nhanh (nhỏ, ~0,4 s) và thêm **mBART-50 many-to-many** (MIT) làm bản chất lượng cao tuỳ chọn tải thêm (~875 MB, một model cho cả hai chiều), được ưu tiên khi đã tải. Dịch theo nhóm 2–3 câu.
+**Quyết định:** Giữ opus-mt làm bản nhanh (nhỏ, ~0,4 s) và thêm **mBART-50 many-to-many** (MIT) làm bản chất lượng cao tuỳ chọn tải thêm (~890 MB (848 MiB), một model cho cả hai chiều), được ưu tiên khi đã tải. Dịch theo nhóm 2–3 câu.
 **Đã cân nhắc và loại:** NLLB-200 600M (chất lượng tốt nhưng CC-BY-NC — vi phạm chính sách license), VinAI en2vi v2 (AGPL-3.0), MADLAD-400 3B (Apache nhưng ~3 GB, quá chậm cho popup), M2M100 418M (chất lượng không hơn rõ). LLM qua API (Claude) vẫn là hướng nâng cấp tiếp theo nếu cần chất lượng cao nhất.
 **Hệ quả:** Chậm hơn (2–5 s/câu) và nặng RAM hơn khi bật; vẫn sai ở thành ngữ/cụm động từ; thẻ model HF không ghi license (cần xác nhận trước khi thương mại hoá).

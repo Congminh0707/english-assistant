@@ -9,7 +9,7 @@ export type TranslateDirection = z.infer<typeof TranslateDirectionSchema>
 
 /**
  * Model dịch có thể tải: opus-mt từng chiều (nhanh, nhỏ) hoặc 'high' = mBART-50 một model cho cả hai chiều
- * (chậm hơn, ~875 MB, chuẩn hơn rõ rệt)
+ * (chậm hơn, ~890 MB (848 MiB), chuẩn hơn rõ rệt)
  */
 export const TranslateModelKeySchema = z.enum(['en-vi', 'vi-en', 'high'])
 export type TranslateModelKey = z.infer<typeof TranslateModelKeySchema>

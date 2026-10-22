@@ -1059,7 +1059,8 @@
     "remove": "Xoá model",
     "downloadHigh": "Tải bản chất lượng cao ({size} MB)",
     "upgradeHint": "Đây là bản dịch nhanh (chất lượng trung bình). Muốn dịch chuẩn hơn, tải bản chất lượng cao:",
-    "preferHigh": "Ưu tiên bản chất lượng cao khi đã tải (chậm hơn, chuẩn hơn)"
+    "preferHigh": "Ưu tiên bản chất lượng cao khi đã tải (chậm hơn, chuẩn hơn)",
+    "truncated": "Văn bản dài hơn {max} ký tự nên chỉ dịch phần đầu. Hãy chia nhỏ đoạn văn để dịch phần còn lại."
   },
   "shop": {
     "title": "Cửa hàng",

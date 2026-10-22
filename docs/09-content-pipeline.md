@@ -330,7 +330,7 @@ Nội dung giữa các pack tham chiếu bằng **id chuỗi** ổn định, kh�
 
 | Hạng mục | Số lượng | Nguồn |
 |---|---|---|
-| Từ điển | ~ 30.000 mục từ (ưu tiên 10.000 từ phổ biến có nghĩa tiếng Việt tốt) | Wiktionary (kaikki) + danh sách tần suất |
+| Từ điển | ~ 43,6k mục từ ở bản 1.3.0 ([17 §3](17-metrics.md)); ưu tiên 10.000 từ phổ biến có nghĩa tiếng Việt tốt | Wiktionary (kaikki) + danh sách tần suất |
 | Bộ từ có level | NGSL (~2.800), CEFR-J (~7.800), TSL (~1.200), bộ từ trẻ em tự soạn (~500) | Xem 08 |
 | Câu ví dụ song ngữ | 10.000+ cặp Anh–Việt (Tatoeba có ít câu tiếng Việt → bổ sung bằng dịch máy + duyệt) | Tatoeba + tự dịch |
 | Bài đọc A1–B1 | 50 | StoryWeaver + tự soạn |
@@ -364,7 +364,7 @@ pnpm content:lookup went táo "ngan hang"
 | `build` | `normalized/*.jsonl` | `packs/core-dictionary-<ver>.eapack` (+ `.sha256`), `packs/samples/*.sample.json` (commit) | Validate trước, lỗi → dừng. |
 
 ### 10.2 Quy tắc chính trong `merge`
-- **Chọn từ**: mọi từ trong NGSL/TSL/CEFR-J/Octanove có mục Wiktionary + từ ngoài danh sách theo tần suất Tatoeba (đã gộp dạng chia, ≥ 3 lần), tối đa 30.000 mục. 15 từ trong danh sách không có mục Wiktionary (vd `check-in counter`, `wornout`) bị bỏ qua và được in ra log.
+- **Chọn từ**: mọi từ trong NGSL/TSL/CEFR-J/Octanove có mục Wiktionary + từ ngoài danh sách theo tần suất Tatoeba (đã gộp dạng chia, ≥ 3 lần) và nằm trong bảng wordfreq (từ 1.3.0), tối đa 55.000 mục (`MAX_WORDS`; trước 1.3.0 là 30.000). 15 từ trong danh sách không có mục Wiktionary (vd `check-in counter`, `wornout`) bị bỏ qua và được in ra log.
 - **`freqRank`**: rank NGSL (1–2809) cho từ NGSL; còn lại xếp theo tần suất Tatoeba từ 2810 trở đi. "Top 10k" = `freqRank ≤ 10000`.
 - **Nghĩa**: bỏ nghĩa cổ/hiếm/phương ngữ khi còn nghĩa khác; tối đa 6 nghĩa/POS, 16 nghĩa/từ (nghĩa có bản dịch Việt luôn giữ). Mục chỉ là "American spelling of X" mượn nghĩa của X.
 - **Nghĩa tiếng Việt**: (1) bản dịch `vi` của Wiktionary — gán vào đúng nghĩa khi wiktextract chắc chắn (`_dis1` ≥ 40); (2) nếu không có, suy ngược từ mục tiếng Việt định nghĩa đúng bằng từ đó (`origin: "wiktionary-vi"`); (3) nếu vẫn không có, lấy nghĩa LLM sinh trong `curated/vocab/vi-generated.json` (`origin: "generated"`, giữ đúng thứ tự trong file, bỏ mục `rejected`) và thêm attribution `{ id: "generated", license: "proprietary-own", generatedBy }` (§10.5). Thứ tự: hay xuất hiện trong bản dịch Tatoeba của câu chứa từ → có trong tra ngược → thứ tự gốc. `viShort` = 3 nghĩa đầu.
@@ -376,7 +376,9 @@ pnpm content:lookup went táo "ngan hang"
 - **IPA**: Wiktionary (GA/US cho `us`, RP/UK cho `uk`); thiếu giọng Mỹ thì lấy CMUdict.
 - **Câu ví dụ**: ≤ 3 câu Tatoeba/từ, ưu tiên câu có bản dịch Việt, dài ~8 từ, không chứa từ khó hơn nhiều; mọi cặp EN–VI của Tatoeba đều được giữ. Câu gần trùng (khác hoa/thường, dấu câu) bị loại.
 
-### 10.3 Kết quả build 2026-10-18 (`core-dictionary` 1.0.0)
+### 10.3 Kết quả build (lịch sử theo từng bản)
+
+> **Số liệu hiện tại (1.3.0) ở [17-metrics.md §3](17-metrics.md)** — đo bằng `pnpm content:stats`. Bảng dưới là lịch sử các bản cũ (bản 1.0.0 đo 2026-10-18); số cũ không còn đúng cho bản hiện tại.
 
 | Hạng mục | Số lượng |
 |---|---|
@@ -389,17 +391,16 @@ pnpm content:lookup went táo "ngan hang"
 | Từ trong top 10k **chưa có nghĩa Việt** | **2.762** → danh sách ở `normalized/missing-vi.json` (đầu vào cho bước sinh nghĩa bằng LLM, §10.5) |
 | **Cập nhật 1.1.0 (2026-10-19)** | 2.693/2.762 từ có nghĩa AI sinh (`draft`): nhập 2.162 mục độ tin cậy cao + 481 trung bình; **69 mục thấp giữ lại** chờ duyệt (phần lớn là dạng biến tố mang nghĩa hiếm như `came` = “thanh chì ghép kính”). Pack 21,6 MB |
 | **Cập nhật 1.2.0 (2026-10-19)** | Dọn từ điển: bỏ 1.885 mục riêng của dạng biến tố, loại 68 mục vô ích (69 mục thấp đã xử lý hết), gắn cờ 104 từ nhạy cảm. **24.616 từ** (9.064 danh sách + 15.552 theo tần suất), 51.115 dạng từ, 70.480 câu, 2.139 từ dùng nghĩa AI sinh (`draft`). Pack 20,5 MB |
-| **Bổ sung nghĩa (2026-10-19)** | Sau khi dọn, 304 từ mới lọt vào top 10k chưa có nghĩa → sinh bổ sung 303 từ (`claude-opus-5-5`, `draft`; `fu` loại thủ công). Top 10k đủ nghĩa: 2.442 từ dùng nghĩa AI sinh, tất cả `approved` (303 từ cuối duyệt qua `curated/vocab/vocab-303-review.csv`: 239 giữ nguyên, 63 sửa nghĩa) → `content:validate --release` đạt. **24.615 từ**, 9.714 từ ngoài top 10k chưa có nghĩa Việt. Pack 20,6 MB |
-
-| **Cập nhật 1.3.0 (2026-10-22)** | Thêm nguồn **wordfreq** để mở rộng độ phủ. Từ ngoài danh sách phải nằm trong bảng wordfreq (loại tên riêng/lỗi gõ chỉ Tatoeba gặp; giữ dạng rút gọn don't/we'll/let's); từ chỉ có trong wordfreq xếp **sau** mọi từ cũ (rank > top 10k không đổi), `MAX_WORDS` 55.000. Nhận cả từ mà nghĩa duy nhất bị gắn nhầm nhãn `historical` (plaintiff). Dùng kaikki bản 2026-10-22. **43.628 từ** (24.615 → +19k), 78.590 dạng từ, 77.511 câu; 16.7k từ có nghĩa Việt; pack 26,3 MB. Phủ top 20k wordfreq: 16.362 → 17.3k (phần còn thiếu chủ yếu tên riêng/viết tắt: London, Mr, FBI). Nghĩa Việt của từ mới chủ yếu **chưa có** (hiện tiếng Anh) — bổ sung bằng `content:enrich vi` về sau. Tự gắn `sensitive` cho từ mới có nhãn vulgar/offensive/slur hoặc nghĩa đầu nói về tình dục (+~170 từ, hơi dư để an toàn cho trẻ). 34 từ bị đẩy vào top 10k do xếp lại thứ hạng được viết nghĩa mới (`draft`, **cần duyệt** trước `validate --release`). |
+| **Bổ sung nghĩa (2026-10-19)** | Sau khi dọn, 304 từ mới lọt vào top 10k chưa có nghĩa → sinh bổ sung 303 từ (`claude-opus-5-5`, `draft`; `fu` loại thủ công). Top 10k đủ nghĩa: 2.442 từ dùng nghĩa AI sinh, tất cả `approved` (303 từ cuối duyệt qua `curated/vocab/vocab-303-review.csv`: 239 giữ nguyên, 63 sửa nghĩa) → `content:validate --release` đạt. **24.615 từ**, 9.714 từ ngoài top 10k chưa có nghĩa Việt (số của bản này; bản 1.3.0 xem dưới). Pack 20,6 MB |
+| **Cập nhật 1.3.0 (2026-10-22)** | Thêm nguồn **wordfreq** để mở rộng độ phủ. Từ ngoài danh sách phải nằm trong bảng wordfreq (loại tên riêng/lỗi gõ chỉ Tatoeba gặp; giữ dạng rút gọn don't/we'll/let's); từ chỉ có trong wordfreq xếp **sau** mọi từ cũ (rank > top 10k không đổi), `MAX_WORDS` 55.000. Nhận cả từ mà nghĩa duy nhất bị gắn nhầm nhãn `historical` (plaintiff). Dùng kaikki bản 2026-10-22. **43.628 từ** (24.615 → +19k), 78.590 dạng từ, 77.511 câu; 16.7k từ có nghĩa Việt; pack 26,3 MB. Phủ top 20k wordfreq: 16.362 → 17,3k (phần còn thiếu chủ yếu tên riêng/viết tắt: London, Mr, FBI). Nghĩa Việt của từ mới chủ yếu **chưa có** (hiện tiếng Anh) — bổ sung bằng `content:enrich vi` về sau: **26.862 từ chưa có nghĩa Việt** (ngoài top 10k). Tự gắn `sensitive` cho từ mới có nhãn vulgar/offensive/slur hoặc nghĩa đầu nói về tình dục (tổng **569** từ nhạy cảm gồm 106 liệt kê tay; hơi dư để an toàn cho trẻ). 34 từ bị đẩy vào top 10k do xếp lại thứ hạng được viết nghĩa mới — **đã duyệt** (đo 2026-10-22: file curated 3.030 mục, 2.445 từ trong pack dùng nghĩa AI sinh, tất cả `approved`; `content:validate --release` đạt). Đã tải `core-dictionary-1.3.0.eapack` lên release `content-pack-1.3.0` và phát hành app v1.2.0. |
 
 ### 10.4 Hạn chế đã biết / việc tiếp theo
-- Nghĩa Việt từ Wiktionary không đều và đôi khi gán sai nghĩa (wiktextract đoán, vd `appointment` → “kèo”). Từ không có nghĩa Wiktionary được bù bằng nghĩa LLM sinh (§10.5) — đã sinh 2.693 từ (`draft`), cần duyệt trước khi phát hành.
+- Nghĩa Việt từ Wiktionary không đều và đôi khi gán sai nghĩa (wiktextract đoán, vd `appointment` → “kèo”). Từ không có nghĩa Wiktionary được bù bằng nghĩa LLM sinh (§10.5) — đã sinh và **duyệt hết** (`approved`; số liệu hiện tại ở [17 §3](17-metrics.md)).
 - ~~Dạng biến tố có mục riêng~~ — đã sửa ở `merge` (1.2.0, §10.2). `DictionaryService` vẫn giữ quy tắc xếp từ gốc lên trước cho các mục riêng còn lại (left, found…).
-- **Độ phủ từ**: chỉ ~24,6k lemma (danh sách NGSL/TSL/CEFR-J + từ có ≥ 3 lần trong Tatoeba — kho câu đơn giản nên thiếu từ chuyên ngành/hiếm như `plaintiff`, `felony`, `byproduct`, `mollusk`). Tra gõ sai chính tả (registation) nay có gợi ý "Có phải bạn muốn tìm…" (`content/spelling.ts`, khoảng cách Damerau–Levenshtein ≤ 1–2). Mở rộng độ phủ cần nguồn tần suất giấy phép rộng rãi + tải lại kaikki (xem roadmap).
+- **Độ phủ từ**: bản 1.3.0 có ~43,6k lemma (danh sách NGSL/TSL/CEFR-J + từ Tatoeba ≥ 3 lần + từ trong wordfreq) nhưng **26.862 từ (ngoài top 10k) chưa có nghĩa Việt** — popup chỉ hiện nghĩa tiếng Anh cho các từ này; việc tiếp theo là `content:enrich vi` theo từng đợt. Còn thiếu chủ yếu tên riêng/viết tắt. Tra gõ sai chính tả (registation) có gợi ý "Có phải bạn muốn tìm…" (`content/spelling.ts`, khoảng cách Damerau–Levenshtein ≤ 1–2).
 - Level câu chỉ dựa trên độ phủ từ vựng (chưa có độ dễ đọc và ngữ pháp như §4).
 - Chưa có cụm động từ/thành ngữ ngoài các cụm có sẵn trong CEFR-J.
-- Từ điển có cả từ tục/nhạy cảm (như mọi từ điển): 104 từ được gắn cờ `sensitive` và ẩn ở profile trẻ em; **câu ví dụ** Tatoeba chứa từ nhạy cảm chưa được lọc.
+- Từ điển có cả từ tục/nhạy cảm (như mọi từ điển): 569 từ được gắn cờ `sensitive` (bản 1.3.0, gồm 106 từ liệt kê tay) và ẩn ở profile trẻ em; **câu ví dụ** Tatoeba chứa từ nhạy cảm chưa được lọc.
 - `content.db` còn lưu `data` JSON đầy đủ (≈ 60 MB); có thể rút gọn nếu dung lượng cài đặt thành vấn đề.
 
 ### 10.5 Nghĩa tiếng Việt do LLM sinh (`content:enrich vi`)

@@ -28,6 +28,19 @@ interface CliResultJson {
 const AUTH_HINT =
   'Claude CLI chưa đăng nhập hoặc phiên đã hết hạn — mở terminal, chạy `claude` rồi gõ /login, sau đó chạy lại.'
 
+/** Lấy JSON từ văn bản model trả về: bỏ rào ```json và chữ thừa quanh object/array; không được thì undefined */
+export function parseJsonLoose(text: string): unknown {
+  const body = text.replace(/^\s*```(?:json)?\s*|\s*```\s*$/g, '').trim()
+  for (const candidate of [body, body.slice(body.indexOf('{'), body.lastIndexOf('}') + 1)]) {
+    try {
+      return JSON.parse(candidate)
+    } catch {
+      // thử cách tiếp theo
+    }
+  }
+  return undefined
+}
+
 /** Chạy một yêu cầu qua Claude CLI với structured output theo JSON Schema */
 export function runClaudeCli(
   opts: CliOptions,
@@ -35,14 +48,15 @@ export function runClaudeCli(
   schema: object,
   userMessage: string
 ): Promise<CliOutcome> {
+  // CLI mới kiểm tra schema và không nhận khoá `$schema` (draft 2020-12) → bỏ đi
+  const schemaJson: Record<string, unknown> = { ...schema }
+  delete schemaJson.$schema
   const args = [
     '-p',
     '--output-format',
     'json',
     '--json-schema',
-    JSON.stringify(schema),
-    '--system-prompt',
-    system,
+    JSON.stringify(schemaJson),
     '--tools',
     '', // không cho dùng công cụ: chỉ cần trả lời
     '--no-session-persistence',
@@ -101,13 +115,7 @@ export function runClaudeCli(
         return
       }
       let output = res.structured_output
-      if (output === undefined && res.result) {
-        try {
-          output = JSON.parse(res.result)
-        } catch {
-          // để undefined → bên gọi báo lỗi định dạng
-        }
-      }
+      if (output === undefined && res.result) output = parseJsonLoose(res.result)
       resolve({
         ok: true,
         output,
@@ -117,6 +125,15 @@ export function runClaudeCli(
       })
     })
 
-    child.stdin.end(userMessage, 'utf8')
+    // Bản CLI cũ xử lý --system-prompt sai (trả lời kiểu trợ lý, bỏ qua định dạng) và bỏ qua --json-schema
+    // → đưa toàn bộ hướng dẫn + định dạng vào chính tin nhắn gửi qua stdin
+    const prompt = `${system}
+
+OUTPUT FORMAT: reply with ONLY one JSON object (no code fences, no prose) that validates against this JSON Schema:
+${JSON.stringify(schemaJson)}
+
+=====
+${userMessage}`
+    child.stdin.end(prompt, 'utf8')
   })
 }

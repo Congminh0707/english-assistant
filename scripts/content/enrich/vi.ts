@@ -76,7 +76,7 @@ export interface MissingViFile {
 }
 
 /** Ngữ cảnh gửi cho model cho một từ */
-interface PromptWord {
+export interface PromptWord {
   id: string
   lemma: string
   pos: string[]
@@ -171,7 +171,7 @@ export function toEntry(
   }
 }
 
-async function loadPromptWords(ids: Set<string>): Promise<Map<string, PromptWord>> {
+export async function loadPromptWords(ids: Set<string>): Promise<Map<string, PromptWord>> {
   const out = new Map<string, PromptWord>()
   for await (const w of readJsonl<Word>(normalizedPath('words.jsonl'))) {
     if (!ids.has(w.id)) continue

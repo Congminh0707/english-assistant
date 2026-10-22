@@ -1046,7 +1046,8 @@
     "remove": "Delete model",
     "downloadHigh": "Download the high-quality model ({size} MB)",
     "upgradeHint": "This is the fast translation (average quality). For a more accurate result, download the high-quality model:",
-    "preferHigh": "Prefer the high-quality model when installed (slower, more accurate)"
+    "preferHigh": "Prefer the high-quality model when installed (slower, more accurate)",
+    "truncated": "The text is longer than {max} characters, so only the first part was translated. Split it up to translate the rest."
   },
   "shop": {
     "title": "Shop",

@@ -18,6 +18,8 @@ pnpm lint           # ESLint
 pnpm test           # Vitest (logic + services với SQLite in-memory)
 pnpm db:generate    # sinh migration từ Drizzle schema
 pnpm content:validate
+pnpm content:stats   # số liệu từ điển (pack) — cập nhật docs/17-metrics.md
+pnpm stats           # số liệu app/nội dung tự soạn — cập nhật docs/17-metrics.md
 pnpm build:win      # build installer
 ```
 
@@ -38,6 +40,7 @@ pnpm build:win      # build installer
 - `pnpm lint && pnpm test` pass.
 - Cập nhật tài liệu liên quan (tài liệu là nguồn sự thật).
 - Đánh dấu checklist trong [docs/14-roadmap.md](docs/14-roadmap.md) nếu hoàn thành một hạng mục.
+- **Cập nhật số liệu**: nếu việc vừa làm đổi con số nào (số từ/nghĩa Việt của từ điển, số bài học/đọc/nghe/ngữ pháp, số test, kênh IPC, migration, vật phẩm, dung lượng pack/model, phiên bản) → chạy `pnpm stats` / `pnpm content:stats` / `pnpm test`, sửa [docs/17-metrics.md](docs/17-metrics.md) và các chỗ khác trích số đó (không ước lượng bằng tay, ghi ngày đo). Trước mỗi lần phát hành cũng đo lại.
 
 ## Cập nhật tài liệu theo thời gian thực (bắt buộc)
 - Cập nhật docs **ngay sau mỗi bước nhỏ hoàn thành** (một tính năng, một migration, một kênh IPC, một nhóm nội dung) — **không dồn đến cuối task**, để nếu phiên làm việc bị ngắt thì người/AI tiếp theo biết chính xác đã làm tới đâu.

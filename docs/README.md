@@ -41,6 +41,7 @@ Người viết code chính có nền tảng **Laravel + Vue**, chưa có kinh n
 | 14 | [14-roadmap.md](14-roadmap.md) | Lộ trình theo phase, checklist, Definition of Done |
 | 15 | [15-packaging-and-release.md](15-packaging-and-release.md) | Build installer, auto-update, ký số, phát hành |
 | 16 | [16-privacy-and-security.md](16-privacy-and-security.md) | Quyền riêng tư (clipboard, mic, màn hình), bảo mật Electron |
+| 17 | [17-metrics.md](17-metrics.md) | **Bảng số liệu** (số từ, bài học, test, pack…) + lệnh đo lại |
 | — | [glossary.md](glossary.md) | Thuật ngữ desktop/Electron giải thích cho dev web |
 | — | [decisions.md](decisions.md) | Nhật ký quyết định kiến trúc (ADR rút gọn) |
 
@@ -50,4 +51,5 @@ Người viết code chính có nền tảng **Laravel + Vue**, chưa có kinh n
 2. Mọi quyết định công nghệ mới (thêm thư viện lớn, đổi kiến trúc) → thêm một mục vào [decisions.md](decisions.md).
 3. Thêm nguồn nội dung mới → bắt buộc ghi license vào [08-content-sources.md](08-content-sources.md) trước khi dùng.
 4. Viết tiếng Việt, giữ nguyên thuật ngữ kỹ thuật tiếng Anh (IPC, renderer, sprite...). Thuật ngữ lạ → thêm vào [glossary.md](glossary.md).
-5. Trạng thái của từng hạng mục được đánh dấu: ✅ đã làm · 🚧 đang làm · 📋 đã lên kế hoạch · 💡 ý tưởng.
+5. **Số liệu** (số từ, số bài, số test, dung lượng pack…) phải do **lệnh đo** (`pnpm stats`, `pnpm content:stats`, `pnpm test`) và ghi ở [17-metrics.md](17-metrics.md); tài liệu khác không tự ước lượng số — chỉ trích số lịch sử kèm ngày hoặc trỏ về trang 17. Mỗi lần build pack/đổi nội dung/phát hành → đo lại và cập nhật.
+6. Trạng thái của từng hạng mục được đánh dấu: ✅ đã làm · 🚧 đang làm · 📋 đã lên kế hoạch · 💡 ý tưởng.

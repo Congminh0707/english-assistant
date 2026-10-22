@@ -92,7 +92,7 @@ export const OPUS_MT_VI_EN: ModelSpec = {
 
 /**
  * Model dịch chất lượng cao: mBART-50 many-to-many (Meta/Facebook, fairseq MIT), bản ONNX lượng tử hoá 8-bit của Xenova.
- * MỘT model dịch cả Anh→Việt và Việt→Anh (mã ngôn ngữ en_XX / vi_VN), ~875 MB — tuỳ chọn tải thêm, chuẩn hơn rõ rệt
+ * MỘT model dịch cả Anh→Việt và Việt→Anh (mã ngôn ngữ en_XX / vi_VN), ~890 MB (848 MiB) — tuỳ chọn tải thêm, chuẩn hơn rõ rệt
  * so với opus-mt (đã thử: từ nhiều nghĩa, cụm danh từ, đoạn văn). ⚠️ Thẻ model trên Hugging Face không ghi license;
  * mã nguồn/trọng số fairseq là MIT — xem docs/08-content-sources.md.
  */

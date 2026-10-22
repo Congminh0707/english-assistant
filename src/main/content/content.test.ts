@@ -225,11 +225,21 @@ afterEach(() => {
 
 describe('normalizeQuery', () => {
   it('bỏ dấu câu bao quanh và phân loại độ dài', () => {
-    expect(normalizeQuery('  “Went,” ')).toEqual({ query: 'Went', kind: 'word' })
-    expect(normalizeQuery("don't")).toEqual({ query: "don't", kind: 'word' })
-    expect(normalizeQuery('look after')).toEqual({ query: 'look after', kind: 'phrase' })
+    expect(normalizeQuery('  “Went,” ')).toEqual({ query: 'Went', kind: 'word', truncated: false })
+    expect(normalizeQuery("don't")).toEqual({ query: "don't", kind: 'word', truncated: false })
+    expect(normalizeQuery('look after')).toEqual({
+      query: 'look after',
+      kind: 'phrase',
+      truncated: false
+    })
     expect(normalizeQuery('I went to the market yesterday.').kind).toBe('sentence')
     expect(normalizeQuery(' ... ').kind).toBe('empty')
+    // Văn bản dài: giữ tới 1200 ký tự (không cắt ở 200) và báo đã cắt
+    const long = normalizeQuery('word '.repeat(400))
+    expect(long.query.length).toBeLessThanOrEqual(1200)
+    expect(long.query.length).toBeGreaterThan(1000)
+    expect(long.truncated).toBe(true)
+    expect(normalizeQuery('word '.repeat(100)).truncated).toBe(false)
   })
 })
 

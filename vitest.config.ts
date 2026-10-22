@@ -12,8 +12,9 @@ export default defineConfig({
   test: {
     environment: 'node',
     // Máy CI (windows-latest) chậm hơn máy dev nhiều lần ở các test ghi file/giải nén gói nội dung
-    testTimeout: 30_000,
-    hookTimeout: 30_000,
+    // (bộ test 66 s ở máy dev có lần chạy 485 s trên CI, hook cài pack quá 30 s) → nới thêm khi chạy CI
+    testTimeout: process.env.CI ? 120_000 : 30_000,
+    hookTimeout: process.env.CI ? 120_000 : 30_000,
     include: ['src/**/*.test.ts'],
     exclude: ['**/node_modules/**', '.claude/**']
   }

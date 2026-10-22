@@ -11,9 +11,7 @@ import { flatten } from './anim.mjs'
 
 const OUT_BASE = resolve('src/renderer/mascot/assets/characters')
 const COLUMNS = 8
-const { frames, anims, rows } = flatten(COLUMNS)
 const sheetW = COLUMNS * W
-const sheetH = rows * W
 
 const onlyChar = process.argv[2]
 const onlyStage = process.argv[3]
@@ -30,17 +28,19 @@ function blit(sheet, cv, index) {
     }
 }
 
-const meta = {
-  frameSize: { w: W, h: W },
-  anchor: { x: W / 2, y: W - 5 },
-  animations: anims
-}
-
 const previewCells = []
 let sheetsWritten = 0
 
 for (const charId of Object.keys(CHARACTERS)) {
   if (onlyChar && onlyChar !== charId) continue
+  // Mỗi nhân vật có bộ hoạt ảnh riêng (chung + chỉnh + quirk_*) nên số frame/hàng khác nhau
+  const { frames, anims, rows } = flatten(charId, COLUMNS)
+  const sheetH = rows * W
+  const meta = {
+    frameSize: { w: W, h: W },
+    anchor: { x: W / 2, y: W - 5 },
+    animations: anims
+  }
   for (const stage of STAGES) {
     if (onlyStage && onlyStage !== stage) continue
     const dir = resolve(OUT_BASE, charId, stage)
@@ -137,4 +137,4 @@ if (process.env.PREVIEW === '1' && previewCells.length) {
   mkdirSync(resolve('content/.build'), { recursive: true })
   writeFileSync(resolve('content/.build/characters-preview.png'), encodePng(gw, gh, grid.px))
 }
-console.log(`Xong ${sheetsWritten} sheet (${sheetW}x${sheetH})`)
+console.log(`Xong ${sheetsWritten} sheet (rộng ${sheetW}px)`)

@@ -1,15 +1,10 @@
 // Danh sách hoạt ảnh: mỗi hoạt ảnh là mảng tư thế (pose) cho drawCreature + thông số phát.
 // Tên hoạt ảnh được MascotBrain (renderer/mascot/engine) gọi theo trạng thái/phản ứng.
-const TAU = Math.PI * 2
-const S = Math.sin
-const C = Math.cos
-const clamp = (v, a = 0, b = 1) => Math.min(b, Math.max(a, v))
-const ease = (t) => t * t * (3 - 2 * t)
-/** Đường cong 0→1→0 mượt theo t ∈ [0,1] */
-const hump = (t) => S(clamp(t) * Math.PI)
-const seq = (n, fn) => Array.from({ length: n }, (_, i) => ({ t: i / n, ...fn(i / n, i, n) }))
+import { C, ease, hump, S, seq, TAU, clamp, mergePose } from './animutil.mjs'
+import { QUIRKS, TWEAKS } from './anim-chars.mjs'
 
-export const ANIMATIONS = {
+/** Hoạt ảnh dùng chung cho mọi nhân vật (từng nhân vật chỉnh thêm qua TWEAKS và có thêm QUIRKS riêng) */
+export const BASE_ANIMATIONS = {
   // Nghỉ: thở, chớp mắt, đuôi đung đưa nhẹ
   idle: {
     fps: 6,
@@ -428,11 +423,26 @@ function rxHand() {
   return 20
 }
 
-/** Gộp thành danh sách frame phẳng + metadata (cột sắp theo hàng) */
-export function flatten(columns = 8) {
+/** Hoạt ảnh của một nhân vật: bản chung + chỉnh theo nhân vật (TWEAKS) + hoạt ảnh đặc trưng `quirk_*` (QUIRKS) */
+export function buildAnimations(charId) {
+  const out = {}
+  for (const [name, def] of Object.entries(BASE_ANIMATIONS)) {
+    const tweak = TWEAKS[charId]?.[name]
+    out[name] = tweak
+      ? {
+          ...def,
+          frames: def.frames.map((f, i) => mergePose(f, tweak(f, i, def.frames.length, f.t)))
+        }
+      : def
+  }
+  return { ...out, ...(QUIRKS[charId] ?? {}) }
+}
+
+/** Gộp thành danh sách frame phẳng + metadata (cột sắp theo hàng) cho một nhân vật */
+export function flatten(charId, columns = 8) {
   const frames = []
   const anims = {}
-  for (const [name, def] of Object.entries(ANIMATIONS)) {
+  for (const [name, def] of Object.entries(buildAnimations(charId))) {
     const start = frames.length
     for (const f of def.frames) frames.push(f)
     anims[name] = {

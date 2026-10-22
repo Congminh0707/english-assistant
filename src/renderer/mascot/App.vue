@@ -302,7 +302,7 @@ async function evolveTo(next: string): Promise<void> {
   if (!animator || next === shownStage) return
   const previous = shownStage
   shownStage = next
-  animator.setSheet(await loadSheet(next))
+  animator.setSheet(await loadSheet(next), sheetMetas[stageKey(next, 'sheet.json')])
   await applyAccessories(petStore.pet?.equipped ?? [])
   if (previous) {
     brain?.react('happy')

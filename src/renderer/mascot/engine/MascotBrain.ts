@@ -19,10 +19,21 @@ export type MascotState =
   | 'angry'
   | 'love'
   | Fidget
+  /** Hoạt ảnh đặc trưng của từng nhân vật (tên bắt đầu bằng `quirk_`, có trong sheet.json) */
+  | `quirk_${string}`
+  /** Phản ứng riêng của nhân vật khi bị bấm vào (tên bắt đầu `click_`, có trong sheet.json) */
+  | `click_${string}`
 
 /** Phản ứng một lần (animation không lặp rồi quay về nghỉ) */
 export type MascotReactionAnim =
   'happy' | 'eat' | 'sad' | 'love' | 'surprised' | 'angry' | 'wave' | 'dance' | 'stretch' | 'yawn'
+
+const QUIRK_PREFIX = 'quirk_'
+const CLICK_PREFIX = 'click_'
+/** Khi bấm vào: mỗi phản ứng riêng của nhân vật có trọng số này, happy/love chung có trọng số 2 */
+const CLICK_WEIGHT = 3
+/** Mỗi hoạt ảnh đặc trưng có trọng số này khi chọn động tác tự chơi (xấp xỉ 1/3 số lần tự chơi) */
+const QUIRK_WEIGHT = 3
 
 const ONE_SHOT_STATES: MascotState[] = [
   'land',
@@ -77,7 +88,11 @@ export class MascotBrain {
     private stepPx = 1
   ) {
     animator.onFinish = (name) => {
-      if (ONE_SHOT_STATES.includes(name as MascotState) && this.state === name) this.enter('idle')
+      const oneShot =
+        ONE_SHOT_STATES.includes(name as MascotState) ||
+        name.startsWith(QUIRK_PREFIX) ||
+        name.startsWith(CLICK_PREFIX)
+      if (oneShot && this.state === name) this.enter('idle')
     }
     animator.play('idle')
   }
@@ -97,7 +112,7 @@ export class MascotBrain {
   }
 
   pointerUp(isClick: boolean, falling: boolean): void {
-    if (isClick) this.enter(this.sleeping ? 'sleep' : Math.random() < 0.5 ? 'love' : 'happy')
+    if (isClick) this.enter(this.sleeping ? 'sleep' : this.pickClickReaction())
     else this.enter(falling ? 'fall' : 'land')
   }
 
@@ -149,12 +164,35 @@ export class MascotBrain {
     this.enter(Math.random() < WALK_CHANCE ? 'walk' : 'idle')
   }
 
-  private pickFidget(): Fidget {
-    const total = FIDGETS.reduce((sum, f) => sum + FIDGET_WEIGHTS[f], 0)
+  /** Chọn phản ứng khi bị bấm: phản ứng riêng của nhân vật (click_*) hoặc happy/love chung */
+  private pickClickReaction(): MascotState {
+    const own = this.animator.names().filter((n) => n.startsWith(CLICK_PREFIX))
+    const options: Array<[MascotState, number]> = [
+      ['happy', 2],
+      ['love', 2],
+      ...own.map((n): [MascotState, number] => [n as MascotState, CLICK_WEIGHT])
+    ]
+    let roll = Math.random() * options.reduce((sum, [, w]) => sum + w, 0)
+    for (const [name, weight] of options) {
+      roll -= weight
+      if (roll < 0) return name
+    }
+    return 'happy'
+  }
+
+  /** Chọn động tác tự chơi: hoạt ảnh chung (theo trọng số) hoặc hoạt ảnh đặc trưng của nhân vật hiện tại */
+  private pickFidget(): MascotState {
+    const quirks = this.animator.names().filter((n) => n.startsWith(QUIRK_PREFIX))
+    const total =
+      FIDGETS.reduce((sum, f) => sum + FIDGET_WEIGHTS[f], 0) + quirks.length * QUIRK_WEIGHT
     let roll = Math.random() * total
     for (const f of FIDGETS) {
       roll -= FIDGET_WEIGHTS[f]
       if (roll < 0) return f
+    }
+    for (const q of quirks) {
+      roll -= QUIRK_WEIGHT
+      if (roll < 0) return q as MascotState
     }
     return 'look'
   }

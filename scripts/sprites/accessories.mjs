@@ -223,6 +223,272 @@ export const ACCESSORY_DRAW = {
       paint(cv, [circle(A.bx, y + 2, 3.2)], { ramp: R('#ffcc3c') })
     }
   },
+  cap: {
+    front(cv, A) {
+      const r = R('#3a6ee8')
+      const x = A.bx
+      const y = A.top + 7
+      paint(cv, [ellipse(x, y, 19, 11.5)], { ramp: r })
+      paint(cv, [ellipse(x + 15, y + 5, 13, 3.6)], { ramp: R('#2c56c0') })
+      fill(cv, [rbox(x, y - 4, 17, 1.4, 0.6)], [255, 255, 255, 255])
+      paint(cv, [circle(x, y - 11, 2.6)], { ramp: R('#ffffff') })
+    }
+  },
+  'witch-hat': {
+    front(cv, A) {
+      const r = R('#5a3a8a')
+      const x = A.bx
+      const y = A.top + 4
+      paint(cv, [ellipse(x, y, 23, 5.4)], { ramp: r })
+      paint(
+        cv,
+        [
+          poly(
+            [
+              [x - 13, y],
+              [x + 13, y],
+              [x + 2, y - 33]
+            ],
+            8,
+            0.5
+          )
+        ],
+        { ramp: r }
+      )
+      paint(cv, [rbox(x, y - 4, 13.6, 3, 1)], { ramp: R('#ffcc3c'), outline: false })
+      fill(cv, [rbox(x, y - 4, 3, 3.4, 0.8)], [90, 60, 20, 255])
+    }
+  },
+  halo: {
+    front(cv, A) {
+      const y = A.top - 12
+      for (let k = 0; k < 8; k++)
+        fill(cv, [ellipse(A.bx, y, 22 - k * 0.2, 5.8 - k * 0.1)], [255, 240, 140, k < 3 ? 40 : 14])
+      arc(cv, A.bx, y, 17, 4.2, 0, Math.PI * 2, 4, [150, 110, 30, 255])
+      arc(cv, A.bx, y, 17, 4.2, 0, Math.PI * 2, 2.4, [255, 224, 90, 255])
+      arc(cv, A.bx, y, 17, 4.2, Math.PI * 1.1, Math.PI * 1.7, 1.2, [255, 250, 210, 255])
+    }
+  },
+  bowtie: {
+    front(cv, A) {
+      const r = R('#d83a6a')
+      const x = A.bx
+      const y = A.neckY + 2
+      paint(
+        cv,
+        [
+          poly(
+            [
+              [x - 2, y],
+              [x - 15, y - 8],
+              [x - 15, y + 8]
+            ],
+            5,
+            0.4
+          )
+        ],
+        { ramp: r }
+      )
+      paint(
+        cv,
+        [
+          poly(
+            [
+              [x + 2, y],
+              [x + 15, y - 8],
+              [x + 15, y + 8]
+            ],
+            5,
+            0.4
+          )
+        ],
+        { ramp: r }
+      )
+      paint(cv, [circle(x, y, 3.4)], { ramp: R('#a82050') })
+    }
+  },
+  medal: {
+    front(cv, A) {
+      const x = A.bx
+      const y = A.neckY + 4
+      const rib = R('#3a6ee8')
+      paint(
+        cv,
+        [
+          poly(
+            [
+              [x - 6, y - 14],
+              [x - 1, y - 14],
+              [x + 3, y + 1],
+              [x - 2, y + 1]
+            ],
+            3
+          )
+        ],
+        { ramp: rib }
+      )
+      paint(
+        cv,
+        [
+          poly(
+            [
+              [x + 6, y - 14],
+              [x + 1, y - 14],
+              [x - 3, y + 1],
+              [x + 2, y + 1]
+            ],
+            3
+          )
+        ],
+        { ramp: R('#d83a6a') }
+      )
+      const g = R('#ffcc3c')
+      paint(cv, [circle(x, y + 5, 6.6)], { ramp: g })
+      fill(
+        cv,
+        [
+          poly(
+            [
+              [x, y + 0.5],
+              [x + 1.6, y + 4],
+              [x + 5, y + 4.2],
+              [x + 2.4, y + 6.6],
+              [x + 3.4, y + 10],
+              [x, y + 8],
+              [x - 3.4, y + 10],
+              [x - 2.4, y + 6.6],
+              [x - 5, y + 4.2],
+              [x - 1.6, y + 4]
+            ],
+            1
+          )
+        ],
+        [200, 140, 30, 255]
+      )
+    }
+  },
+  eyepatch: {
+    front(cv, A) {
+      const x = A.bx + A.eyeDX
+      const y = A.eyeY
+      const c = [30, 28, 40, 255]
+      line(cv, x - 9, y - 6, A.bx - A.rx * 0.8, y - 14, 1.6, c)
+      line(cv, x + 9, y - 5, A.bx + A.rx * 0.92, y - 11, 1.6, c)
+      paint(cv, [ellipse(x, y, 9.4, 8.2)], { ramp: R('#2a2838'), dither: false })
+      fill(cv, [ellipse(x - 3, y - 3, 2.4, 1.2, -0.6)], [120, 120, 150, 255])
+    }
+  },
+  mask: {
+    front(cv, A) {
+      // Mặt nạ domino kiểu hoạt hình: dải màu quanh mắt, hai lỗ trắng có con ngươi
+      const r = R('#2a2a48')
+      const x = A.bx
+      const y = A.eyeY
+      const hw = A.eyeDX + 13
+      paint(
+        cv,
+        [
+          rbox(x, y, hw, 9.5, 6),
+          poly(
+            [
+              [x - 6, y + 4],
+              [x + 6, y + 4],
+              [x, y + 12]
+            ],
+            3
+          )
+        ],
+        { ramp: r, dither: false }
+      )
+      for (const side of [-1, 1]) {
+        const ex = x + side * A.eyeDX
+        fill(cv, [ellipse(ex, y, 7.2, 6.4, side * 0.25)], [250, 250, 255, 255])
+        fill(cv, [circle(ex - side * 0.5, y + 0.8, 3.1)], [34, 30, 52, 255])
+        fill(cv, [circle(ex - 1.4, y - 1, 1.1)], [255, 255, 255, 255])
+        fill(
+          cv,
+          [ellipse(x + side * (A.eyeDX + 8), y - 8, 3.4, 0.9, side * 0.4)],
+          [150, 150, 200, 255]
+        )
+      }
+    }
+  },
+  backpack: {
+    back(cv, A) {
+      const r = R('#3a9a5a')
+      for (const side of [-1, 1]) {
+        paint(cv, [ellipse(A.bx + side * (A.rx * 0.9), A.cy + A.ry * 0.3, 9, 14, side * 0.15)], {
+          ramp: r
+        })
+      }
+      paint(cv, [rbox(A.bx, A.cy + A.ry * 0.2, A.rx * 0.8, A.ry * 0.7, 8)], { ramp: R('#2e7e48') })
+    },
+    front(cv, A) {
+      const c = [90, 56, 30, 255]
+      for (const side of [-1, 1]) {
+        line(
+          cv,
+          A.bx + side * A.rx * 0.5,
+          A.cy - A.ry * 0.25,
+          A.bx + side * A.rx * 0.62,
+          A.cy + A.ry * 0.62,
+          3,
+          c
+        )
+        fill(
+          cv,
+          [rbox(A.bx + side * A.rx * 0.6, A.cy + A.ry * 0.3, 1.8, 2.4, 0.6)],
+          [230, 190, 90, 255]
+        )
+      }
+    }
+  },
+  'cat-ears': {
+    front(cv, A) {
+      const r = R('#2e2e44')
+      const inner = R('#ff8fba')
+      for (const side of [-1, 1]) {
+        const bx = A.bx + side * A.rx * 0.45
+        const by = A.top + 6
+        paint(
+          cv,
+          [
+            poly(
+              [
+                [bx - 9, by],
+                [bx + 9, by],
+                [bx + side * 5, by - 19]
+              ],
+              7,
+              0.5
+            )
+          ],
+          { ramp: r }
+        )
+        paint(
+          cv,
+          [
+            poly(
+              [
+                [bx - 5, by - 1],
+                [bx + 5, by - 1],
+                [bx + side * 3, by - 12]
+              ],
+              3
+            )
+          ],
+          { ramp: inner, outline: false }
+        )
+      }
+      const band = []
+      for (let i = 0; i <= 12; i++) {
+        const a = Math.PI + (Math.PI * i) / 12
+        band.push([A.bx + Math.cos(a) * (A.rx * 0.62), A.top + 12 + Math.sin(a) * 9])
+      }
+      for (let i = 0; i < band.length - 1; i++)
+        line(cv, band[i][0], band[i][1], band[i + 1][0], band[i + 1][1], 2.6, [60, 60, 90, 255])
+    }
+  },
   wings: {
     back(cv, A, P) {
       const r = R('#eaf4ff')

@@ -37,6 +37,11 @@ gantt
 - ✅ Xong code (2026-10-21, **chưa thử tay**): **Sửa màn Ôn từ** — thứ tự ngẫu nhiên (mặc định mới `review.order = random`, xáo trong bể 150 thẻ đến hạn) + **ẩn từ vừa ôn** `review.hideMinutes` (mặc định 30 phút; ẩn theo từ, gồm mọi dạng thẻ và cả thẻ chấm "Quên"; chế độ trẻ em không ẩn) để thoát ra vào lại không phải làm lại từ đầu; thẻ điền từ có ô chữ (chữ đầu + số chữ), nghĩa của từ, nút "Gợi ý thêm 1 chữ" và "Nghe câu"; hình pixel minh hoạ khi từ có hình; bố cục căn giữa, chữ lớn hơn, nút "Không nhớ" rõ ràng. Cài đặt → Ôn từ có "Ngẫu nhiên" và "Ẩn từ vừa ôn".
 - ✅ Xong code (2026-10-21, **chưa thử tay**): **Thẻ nhận diện tương tác** — trắc nghiệm nghĩa 4 lựa chọn (`review.choices`), nút 🎤 nói to, câu ngữ cảnh có từ tô đậm ở mặt trước (từ nhiều nghĩa), nghĩa mascot/màn ôn thống nhất (`formatMeanings`), dòng gợi ý phím tắt đổi theo trạng thái; thẻ điền từ chỉ hiện nghĩa khi từ có 1 nghĩa.
 
+- ✅ Xong code (2026-10-21, **chưa thử tay**): **Biểu cảm/hành động riêng từng nhân vật** — 17 hoạt ảnh `quirk_*` (Bi 3, Webby 3, Draco 3, Robo 4, Kitsu 4) + chỉnh hoạt ảnh chung theo nhân vật (TWEAKS) + 5 kiểu mắt & 6 hiệu ứng mới; `sheet.json` riêng từng nhân vật; `MascotBrain` tự chọn quirk. **Vật phẩm cửa hàng**: +8 đồ ăn, +9 phụ kiện (tổng 20; xem docs/06). Chi tiết docs/05 §10.
+- ✅ Xong code (2026-10-21, **chưa thử tay**): **Phản ứng tương tác riêng từng nhân vật** — 2 phản ứng bấm `click_*` mỗi nhân vật (10 hoạt ảnh) chọn ngẫu nhiên cùng happy/love; kéo/rơi/chạm đất/ăn chỉnh theo tính cách (`INTERACTION_TWEAKS`). Chi tiết docs/05 §10.
+
+- ✅ Phát hành `v1.1.0` (2026-10-22): bài nói (Whisper + wav2vec2 tuỳ chọn), màn Ôn từ mới, 5 thú cưng có hành động/phản ứng riêng, thêm vật phẩm cửa hàng. Đã chạy lint/typecheck/test/build local trước khi đẩy; workflow GitHub tạo release + tag.
+
 ## Phase 0 — Spike: cửa sổ mascot (≈ 2 tuần)
 
 Mục tiêu: chứng minh các kỹ thuật khó nhất chạy được trên Windows.

@@ -92,13 +92,12 @@ describe('tiến hoá', () => {
   const BASE = resolve('src/renderer/mascot/assets/characters')
   const STAGES = ['egg', 'baby', 'teen', 'adult', 'legend'] as const
 
-  it('mọi nhân vật × giai đoạn có sheet, metadata cùng bố cục và đủ phụ kiện', () => {
-    const baby = JSON.parse(readFileSync(resolve(BASE, 'bi/baby/sheet.json'), 'utf8')) as {
+  it('mọi nhân vật × giai đoạn có sheet, metadata, hoạt ảnh bắt buộc, quirk riêng và đủ phụ kiện', () => {
+    type Meta = {
       frameSize: { w: number; h: number }
       animations: Record<string, { frames: number[] }>
     }
-    // Hoạt ảnh mà MascotBrain gọi phải có trong sheet
-    for (const name of [
+    const required = [
       'idle',
       'walk',
       'drag',
@@ -119,17 +118,28 @@ describe('tiến hoá', () => {
       'dance',
       'spin',
       'think'
-    ]) {
-      expect(baby.animations[name], name).toBeDefined()
-    }
-    expect(baby.frameSize).toEqual({ w: 96, h: 96 })
+    ]
     const accessories = Object.keys(ACCESSORIES).map((id) => id.split(':')[1])
     for (const char of CHARACTER_IDS) {
+      const first = JSON.parse(
+        readFileSync(resolve(BASE, char, 'egg', 'sheet.json'), 'utf8')
+      ) as Meta
+      expect(first.frameSize).toEqual({ w: 96, h: 96 })
+      // Hoạt ảnh mà MascotBrain gọi phải có trong sheet; idle luôn là 8 frame đầu (PetSprite dựa vào đó)
+      for (const name of required) expect(first.animations[name], `${char}/${name}`).toBeDefined()
+      expect(first.animations.idle.frames).toEqual([0, 1, 2, 3, 4, 5, 6, 7])
+      // Mỗi nhân vật có ít nhất 2 phản ứng riêng khi bị bấm (click_*)
+      const clicks = Object.keys(first.animations).filter((n) => n.startsWith('click_'))
+      expect(clicks.length, `${char} clicks`).toBeGreaterThanOrEqual(2)
+      // Mỗi nhân vật có ít nhất 3 hoạt ảnh đặc trưng riêng (quirk_*)
+      const quirks = Object.keys(first.animations).filter((n) => n.startsWith('quirk_'))
+      expect(quirks.length, `${char} quirks`).toBeGreaterThanOrEqual(3)
       for (const stage of STAGES) {
         const dir = resolve(BASE, char, stage)
         expect(existsSync(resolve(dir, 'sheet.png')), `${char}/${stage}`).toBe(true)
+        // Mọi giai đoạn của cùng một nhân vật dùng chung bố cục hoạt ảnh
         const meta = JSON.parse(readFileSync(resolve(dir, 'sheet.json'), 'utf8')) as unknown
-        expect(meta, `${char}/${stage}`).toEqual(baby)
+        expect(meta, `${char}/${stage}`).toEqual(first)
         for (const acc of accessories) {
           const has =
             existsSync(resolve(dir, `acc-${acc}.png`)) ||
@@ -138,6 +148,17 @@ describe('tiến hoá', () => {
         }
       }
     }
+    // Các nhân vật có bộ quirk khác nhau (không dùng chung hành động)
+    const names = CHARACTER_IDS.map((char) =>
+      Object.keys(
+        (JSON.parse(readFileSync(resolve(BASE, char, 'egg', 'sheet.json'), 'utf8')) as Meta)
+          .animations
+      )
+        .filter((n) => n.startsWith('quirk_'))
+        .sort()
+        .join(',')
+    )
+    expect(new Set(names).size).toBe(CHARACTER_IDS.length)
   })
 
   it('mốc level đổi giai đoạn theo thứ tự egg → baby → teen → adult → legend', () => {

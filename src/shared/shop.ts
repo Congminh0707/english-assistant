@@ -26,7 +26,16 @@ export const ACCESSORIES = {
   'acc:headphones': { price: 150, emoji: '🎧', slot: 'head', minLevel: 5 },
   'acc:sunglasses': { price: 90, emoji: '🕶️', slot: 'face', minLevel: 3 },
   'acc:cape': { price: 200, emoji: '🦸', slot: 'back', minLevel: 8 },
-  'acc:wings': { price: 450, emoji: '🪽', slot: 'back', minLevel: 15 }
+  'acc:wings': { price: 450, emoji: '🪽', slot: 'back', minLevel: 15 },
+  'acc:bowtie': { price: 70, emoji: '🎀', slot: 'neck', minLevel: 0 },
+  'acc:cap': { price: 60, emoji: '🧢', slot: 'head', minLevel: 2 },
+  'acc:cat-ears': { price: 90, emoji: '🐱', slot: 'head', minLevel: 2 },
+  'acc:backpack': { price: 180, emoji: '🎒', slot: 'back', minLevel: 3 },
+  'acc:eyepatch': { price: 100, emoji: '🏴‍☠️', slot: 'face', minLevel: 4 },
+  'acc:mask': { price: 130, emoji: '🥷', slot: 'face', minLevel: 6 },
+  'acc:witch-hat': { price: 160, emoji: '🧙', slot: 'head', minLevel: 6 },
+  'acc:medal': { price: 220, emoji: '🏅', slot: 'neck', minLevel: 10 },
+  'acc:halo': { price: 350, emoji: '😇', slot: 'head', minLevel: 12 }
 } as const satisfies Record<string, AccessoryDef>
 
 export type AccessoryId = keyof typeof ACCESSORIES
@@ -37,14 +46,23 @@ export const isAccessoryId = (id: string): id is AccessoryId => id in ACCESSORIE
 export const ACCESSORY_DRAW_ORDER: AccessoryId[] = [
   'acc:wings',
   'acc:cape',
+  'acc:backpack',
   'acc:scarf',
+  'acc:bowtie',
+  'acc:medal',
   'acc:glasses',
   'acc:sunglasses',
+  'acc:eyepatch',
+  'acc:mask',
   'acc:bow',
   'acc:flower',
+  'acc:cat-ears',
   'acc:party-hat',
+  'acc:cap',
   'acc:hat',
+  'acc:witch-hat',
   'acc:headphones',
+  'acc:halo',
   'acc:crown'
 ]
 

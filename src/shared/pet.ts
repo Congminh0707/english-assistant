@@ -68,6 +68,14 @@ export const FOODS = {
   'food:pizza': { hunger: 30, mood: 12, energy: 0, price: 35, emoji: '🍕' },
   'food:ramen': { hunger: 40, mood: 6, energy: 5, price: 45, emoji: '🍜' },
   'food:energy-drink': { hunger: 0, mood: 0, energy: 40, price: 35, emoji: '⚡' },
+  'food:banana': { hunger: 14, mood: 3, energy: 6, price: 9, emoji: '🍌' },
+  'food:cookie': { hunger: 8, mood: 12, energy: 0, price: 15, emoji: '🍪' },
+  'food:donut': { hunger: 10, mood: 18, energy: 0, price: 20, emoji: '🍩' },
+  'food:bubble-tea': { hunger: 6, mood: 10, energy: 24, price: 26, emoji: '🧋' },
+  'food:soup': { hunger: 25, mood: 4, energy: 10, price: 28, emoji: '🍲' },
+  'food:sushi': { hunger: 28, mood: 10, energy: 0, price: 38, emoji: '🍣' },
+  'food:burger': { hunger: 35, mood: 8, energy: 0, price: 40, emoji: '🍔' },
+  'food:feast': { hunger: 60, mood: 35, energy: 15, price: 90, emoji: '🍱' },
   'food:birthday-cake': { hunger: 50, mood: 30, energy: 0, price: null, emoji: '🎂' }
 } as const satisfies Record<string, FoodDef>
 

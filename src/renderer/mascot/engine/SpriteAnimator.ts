@@ -34,7 +34,7 @@ export class SpriteAnimator {
 
   constructor(
     private image: HTMLImageElement,
-    private readonly meta: SpriteSheetMeta,
+    private meta: SpriteSheetMeta,
     private readonly ctx: CanvasRenderingContext2D,
     private scale: number
   ) {
@@ -43,8 +43,10 @@ export class SpriteAnimator {
   }
 
   /** Đổi sang sheet khác cùng bố cục frame (tiến hoá sang giai đoạn mới); vẽ lại ngay */
-  setSheet(image: HTMLImageElement): void {
+  setSheet(image: HTMLImageElement, meta?: SpriteSheetMeta): void {
     this.image = image
+    // Mỗi nhân vật có bộ hoạt ảnh riêng (quirk_*) nên khi đổi nhân vật phải đổi cả metadata
+    if (meta) this.meta = meta
     this.columns = Math.floor(image.width / this.meta.frameSize.w)
     this.drawnFrame = -1
   }
@@ -74,6 +76,11 @@ export class SpriteAnimator {
     this.ctx.canvas.width = Math.round(this.meta.frameSize.w * this.displayScale)
     this.ctx.canvas.height = Math.round(this.meta.frameSize.h * this.displayScale)
     this.drawnFrame = -1 // canvas bị xoá khi đổi kích thước → buộc vẽ lại
+  }
+
+  /** Tên mọi hoạt ảnh có trong sheet hiện tại */
+  names(): string[] {
+    return Object.keys(this.meta.animations)
   }
 
   get animation(): string {

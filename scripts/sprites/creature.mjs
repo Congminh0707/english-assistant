@@ -336,6 +336,54 @@ export const CHARACTERS = {
   }
 }
 
+/** Biểu tượng thay cho con ngươi: tim (yêu), X (lỗi/buồn), sao (choáng/ngạc nhiên) */
+function drawSymbol(cv, kind, x, y, r, color) {
+  if (kind === 'heart') {
+    fill(
+      cv,
+      [
+        circle(x - r * 0.5, y - r * 0.2, r * 0.58),
+        circle(x + r * 0.5, y - r * 0.2, r * 0.58),
+        poly(
+          [
+            [x - r * 1.05, y + r * 0.05],
+            [x + r * 1.05, y + r * 0.05],
+            [x, y + r * 1.15]
+          ],
+          1
+        )
+      ],
+      color
+    )
+  } else if (kind === 'x') {
+    line(cv, x - r * 0.8, y - r * 0.8, x + r * 0.8, y + r * 0.8, 1.8, color)
+    line(cv, x - r * 0.8, y + r * 0.8, x + r * 0.8, y - r * 0.8, 1.8, color)
+  } else if (kind === 'star') {
+    fill(
+      cv,
+      [
+        poly(
+          [
+            [x, y - r * 1.2],
+            [x + r * 0.35, y - r * 0.35],
+            [x + r * 1.2, y],
+            [x + r * 0.35, y + r * 0.35],
+            [x, y + r * 1.2],
+            [x - r * 0.35, y + r * 0.35],
+            [x - r * 1.2, y],
+            [x - r * 0.35, y - r * 0.35]
+          ],
+          1
+        )
+      ],
+      color
+    )
+  }
+}
+const SYMBOL_EYES = ['heart', 'x', 'star']
+const symbolColor = (kind, fallback) =>
+  kind === 'heart' ? [255, 79, 122, 255] : kind === 'star' ? [255, 226, 90, 255] : fallback
+
 // ------------------------------------------------------------------ hiệu ứng nhỏ
 function drawFx(cv, f, bx, top) {
   const x = bx + f.x
@@ -495,6 +543,106 @@ function drawFx(cv, f, bx, top) {
         { ramp: R(f.c ?? '#ff8a2a'), outline: false }
       )
       fill(cv, [ellipse(x, y + 1, 1.6 * s, 2.4 * s)], [255, 232, 130, 255])
+      break
+    }
+    case 'web': {
+      // Sợi tơ từ tay bắn thẳng lên mép khung (anchor) hoặc một đoạn ngắn
+      const sx = x
+      const sy = y
+      const topY = f.anchor ? 0 : sy - 14 * s
+      const dark = [58, 64, 92, 255]
+      const light = [240, 242, 250, 255]
+      const steps = Math.max(8, Math.round(sy - topY))
+      for (let k = 0; k <= steps; k++) {
+        const t = k / steps
+        const px = sx + Math.sin(t * 3) * 1.2
+        const py = sy + (topY - sy) * t
+        put(cv, px - 1, py, dark)
+        put(cv, px + 1, py, dark)
+        put(cv, px, py, light)
+      }
+      fill(cv, [circle(sx, sy, 2)], dark)
+      fill(cv, [circle(sx, sy, 1)], light)
+      break
+    }
+    case 'fire': {
+      // Luồng lửa phun chếch lên bên phải miệng: nhiều ngọn nhỏ dần tăng kích thước
+      const p = f.p ?? 0
+      const len = 18 + p * 18
+      const parts = 5
+      for (let k = parts - 1; k >= 0; k--) {
+        const t = k / (parts - 1)
+        drawFx(
+          cv,
+          {
+            k: 'flame',
+            x: f.x + t * len * 0.9,
+            y: f.y - t * len * 0.35,
+            s: (0.7 + t * 0.9) * (f.s ?? 1),
+            p: p + t,
+            c: t > 0.6 ? '#ff6a2a' : '#ffb02a'
+          },
+          bx,
+          top
+        )
+      }
+      break
+    }
+    case 'sound': {
+      const p = f.p ?? 0
+      for (let k = 0; k < 3; k++) {
+        const r = 5 + k * 5 + p * 5
+        arc(cv, x, y, r, r, rad(-50), rad(50), 1.6, [90, 96, 130, Math.round(230 - k * 60)])
+      }
+      break
+    }
+    case 'sense': {
+      // Vạch "giác quan nhện" toả ra trên đầu
+      const c = [230, 60, 70, 255]
+      for (const a of [-50, -25, 0, 25, 50]) {
+        const ang = rad(a - 90)
+        line(
+          cv,
+          x + Math.cos(ang) * 12,
+          y + Math.sin(ang) * 12,
+          x + Math.cos(ang) * 19,
+          y + Math.sin(ang) * 19,
+          1.6,
+          c
+        )
+      }
+      break
+    }
+    case 'beep': {
+      const p = f.p ?? 0
+      const c = [93, 230, 255, 255]
+      for (let k = 0; k < 2; k++) {
+        const r = 5 + p * 6 + k * 6
+        arc(cv, x, y, r, r, rad(200), rad(340), 1.6, [
+          c[0],
+          c[1],
+          c[2],
+          Math.round(240 - k * 90 - p * 80)
+        ])
+      }
+      break
+    }
+    case 'scan': {
+      const p = f.p ?? 0
+      fill(
+        cv,
+        [
+          poly(
+            [
+              [x, y],
+              [x - 12 - p * 4, y + 36],
+              [x + 12 + p * 4, y + 36]
+            ],
+            2
+          )
+        ],
+        [93, 230, 255, 120]
+      )
       break
     }
     case 'dust': {
@@ -1099,11 +1247,16 @@ function drawEye(cv, x, y, side, P, S, D, bodyR, scale = 1) {
   let ry = D.eye[1] * scale
   const lc = bodyR.line
   const iris = R(S.iris ?? '#7a5a4a')
+  if (SYMBOL_EYES.includes(kind)) {
+    drawSymbol(cv, kind, x, y, rx * 1.1, symbolColor(kind, lc))
+    return
+  }
   if (kind === 'happy') {
     arc(cv, x, y + 2, rx * 1.05, ry * 0.8, rad(200), rad(340), 2.6, lc)
     return
   }
-  const open = kind === 'closed' ? 0 : kind === 'sleepy' ? Math.min(P.open, 0.45) : P.open
+  const open =
+    kind === 'closed' || kind === 'off' ? 0 : kind === 'sleepy' ? Math.min(P.open, 0.45) : P.open
   if (open < 0.3) {
     arc(cv, x, y - 1, rx * 1.05, ry * 0.55, rad(25), rad(155), 2.4, lc)
     return
@@ -1151,13 +1304,20 @@ function drawFace(cv, kind, S, D, A, P, body, bodyR, isEgg) {
   if (kind === 'hero' && !isEgg) {
     // Kính trắng của mặt nạ
     const lens = R(S.lens)
-    const open = P.eyes === 'happy' || P.eyes === 'closed' ? 0.45 : P.eyes === 'wide' ? 1.2 : P.open
+    const open =
+      P.eyes === 'happy' || P.eyes === 'closed' || P.eyes === 'off'
+        ? 0.45
+        : P.eyes === 'wide'
+          ? 1.2
+          : P.open
     const slant = P.eyes === 'angry' ? 0.65 : P.eyes === 'sad' ? 0.15 : 0.42
     for (const side of [-1, 1]) {
       const ex = bx + side * eyeDX
       const shape = ellipse(ex, eyeY, 8.4 * (S.gold ? 1.05 : 1), 5.6 * open, side * slant, 5)
       paint(cv, [shape], { ramp: lens, line: S.gold ? hex(S.gold) : lc })
-      if (open > 0.6) {
+      if (SYMBOL_EYES.includes(P.eyes)) {
+        drawSymbol(cv, P.eyes, ex, eyeY, 3.4, symbolColor(P.eyes, lc))
+      } else if (open > 0.6) {
         fill(cv, [circle(ex + P.look[0] * 0.8 - side * 1, eyeY + 0.5, 2.2)], [40, 36, 56, 255])
         fill(cv, [circle(ex - 1.2, eyeY - 1.8, 1)], [255, 255, 255, 255])
       } else {
@@ -1172,7 +1332,14 @@ function drawFace(cv, kind, S, D, A, P, body, bodyR, isEgg) {
     for (const side of [-1, 1]) {
       const ex = bx + side * eyeDX * 1.1 + P.look[0] * 0.8
       const e = P.eyes
-      if (e === 'happy') {
+      if (SYMBOL_EYES.includes(e)) {
+        drawSymbol(cv, e, ex, eyeY, 4.4, symbolColor(e, glow))
+      } else if (e === 'off') {
+        fill(cv, [rbox(ex, eyeY, 4, 0.7, 0.3)], mix(glow, hex(S.visor), 0.8))
+      } else if (e === 'scan') {
+        fill(cv, [rbox(ex, eyeY, 6.6, 1.6, 0.8)], glow)
+        fill(cv, [rbox(ex - 2, eyeY, 1.6, 1.6, 0.4)], [255, 255, 255, 255])
+      } else if (e === 'happy') {
         arc(cv, ex, eyeY + 3, 5.4, 4.6, rad(200), rad(340), 2.8, glow)
       } else if (e === 'closed' || (e !== 'wide' && P.open < 0.3)) {
         fill(cv, [rbox(ex, eyeY, 5.4, 1.1, 0.5)], glowDim)

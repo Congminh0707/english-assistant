@@ -251,3 +251,39 @@ Danh sách app họp/game có thể chỉnh trong Cài đặt (lưu theo tên pr
 - [ ] Mở video fullscreen → mascot ẩn; thoát → hiện lại.
 - [ ] Đang gõ trong Word, mascot hiện bong bóng → không mất focus của Word.
 - [ ] CPU khi idle < 2% (Task Manager).
+
+## 10. Biểu cảm & hành động riêng từng nhân vật (2026-10-21)
+
+Trước đây cả 5 nhân vật dùng chung một bộ hoạt ảnh. Nay `scripts/sprites/anim.mjs` giữ bộ **chung** (20 hoạt ảnh) và `scripts/sprites/anim-chars.mjs` thêm:
+
+- **TWEAKS** — chỉnh hoạt ảnh chung theo nhân vật (đổi mắt, hiệu ứng, đuôi/cánh): vd Robo "love" mắt thành trái tim, "sad" mắt chữ X, "sleep" tắt đèn; Draco "idle" vỗ cánh nhẹ + khói mũi, "angry" có lửa; Kitsu "happy" nhảy zích-zắc kèm lửa ma xanh; Webby "happy" bắn tơ, "surprised" có vạch giác quan nhện.
+- **QUIRKS** — hoạt ảnh đặc trưng `quirk_*`, `MascotBrain` tự chọn ngẫu nhiên khi rảnh (mỗi quirk trọng số 3, xấp xỉ 1/3 số lần "tự chơi"); danh sách lấy từ `sheet.json` của nhân vật đang dùng nên đổi nhân vật là đổi bộ động tác:
+
+| Nhân vật | Hoạt ảnh đặc trưng |
+|---|---|
+| Bi (mèo con) | `quirk_groom` ngồi liếm chân rửa mặt · `quirk_pounce` rình rồi vồ · `quirk_loaf` nằm co thành ổ bánh mì, gừ gừ |
+| Webby (nhện hero) | `quirk_web` bắn tơ lên cao rồi đu · `quirk_hero` tạo dáng chống hông · `quirk_crawl` bò ngang kiểu nhện |
+| Draco (rồng) | `quirk_fire` hít vào rồi phun lửa · `quirk_roar` ngửa đầu gầm, xoè cánh · `quirk_tailswish` quật đuôi, ngoái nhìn |
+| Robo | `quirk_scan` quét bằng mắt + tia quét · `quirk_robodance` nhảy robot từng nhịp · `quirk_beep` bíp bíp, sóng âm từ ăng-ten · `quirk_reboot` tắt–chập chờn–bật lại |
+| Kitsu (cáo) | `quirk_pounce` nhảy cao chụp mồi · `quirk_tailfan` xoè đuôi như quạt · `quirk_sneeze` hắt hơi ra lửa ma · `quirk_sit` ngồi ngay ngắn vẫy đuôi |
+
+- Kiểu mắt mới (`creature.mjs`): `heart`, `x`, `off`, `scan`, `star` (vẽ riêng cho mắt thường, kính của Webby và visor của Robo). Hiệu ứng mới: `web`, `fire`, `sound`, `sense`, `beep`, `scan`.
+- `sheet.json` nay **riêng từng nhân vật** (số frame khác nhau; mọi giai đoạn của một nhân vật cùng bố cục). `idle` luôn là 8 frame đầu. `SpriteAnimator.setSheet(image, meta)` đổi cả metadata khi đổi nhân vật.
+- Xem nhanh bằng `node scripts/sprites/preview-quirks.mjs <nhân vật> [giai đoạn] [tên,...]` → `content/.build/quirks-*.png`.
+- Thêm động tác mới: thêm vào `QUIRKS[nhân vật]` (tên bắt đầu `quirk_`) rồi `pnpm sprites:characters <nhân vật>`; không cần sửa Brain.
+
+### Tương tác riêng từng nhân vật: bấm, kéo, thả, rơi, ăn
+
+- **Bấm vào** (`click_*`, `MascotBrain.pickClickReaction`): chọn ngẫu nhiên giữa `happy`/`love` chung (trọng số 2) và các phản ứng riêng của nhân vật (trọng số 3):
+
+| Nhân vật | Phản ứng khi bấm |
+|---|---|
+| Bi | `click_purr` gừ gừ nhắm mắt, tim nổi · `click_boop` bị chạm mũi giật mình rồi cười |
+| Webby | `click_spidey` giác quan nhện báo động rồi tạo dáng · `click_flip` lộn nhào kèm tơ |
+| Draco | `click_puff` phụt đốm lửa nhỏ · `click_flapjoy` vỗ cánh nhảy cẫng |
+| Robo | `click_beepboop` mắt trái tim, ăng-ten bíp · `click_glitch` chập mạch giật cục |
+| Kitsu | `click_foxfire` xoay vòng toả lửa ma · `click_tailwag` vẫy đuôi tít, tai dựng |
+
+- **Kéo / rơi / chạm đất / ăn** (`INTERACTION_TWEAKS` trong `anim-chars.mjs`, chỉnh `drag`, `fall`, `land`, `eat` theo tính cách): Bi bị xách gáy mềm oặt, rơi vẫn tiếp đất bằng bốn chân; Webby bị kéo lên thì **treo lủng lẳng trên một sợi tơ** như anh hùng nhện, bắn tơ bám trần khi rơi, tiếp đất tư thế anh hùng; Draco dang cánh khi rơi, tiếp đất rung bụi, ăn xong ợ khói; Robo bị kéo thì chập chờn tia lửa, rơi báo động, chạm đất khởi động lại; Kitsu xù đuôi cụp tai khi bị nhấc, tiếp đất nhẹ nhàng.
+- Thêm phản ứng bấm mới: thêm hoạt ảnh `click_*` vào `CLICKS[nhân vật]` rồi `pnpm sprites:characters <nhân vật>`; Brain tự nhận từ `sheet.json`.
+- Ghi chú: file `characters/**/sheet.json` do script sinh nên đã nằm trong `.prettierignore` — đừng chạy prettier lên chúng.

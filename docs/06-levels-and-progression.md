@@ -171,3 +171,5 @@ Phụ kiện (mũ, kính, áo...) mua bằng xu, một số chỉ mở khoá qua
 - **Thành tựu** (ví dụ): Từ đầu tiên · 100 từ thuộc · 1000 từ thuộc · 7/30/100 ngày liên tục · Đọc 10 truyện · Nghe 1 giờ · Qua checkpoint B1 · Chủ nuôi tận tâm (cho ăn 30 ngày) · Cú đêm (học sau 22h — chỉ người lớn) · Dịch 500 lần.
 
 Danh sách đầy đủ định nghĩa trong `src/shared/constants/achievements.ts` (id, tên vi/en, điều kiện, icon, phần thưởng).
+
+> ✅ **Vật phẩm cửa hàng mở rộng (2026-10-21)** — Đồ ăn thêm: 🍌 chuối 9 xu, 🍪 bánh quy 15, 🍩 donut 20, 🧋 trà sữa trân châu 26 (energy +24), 🍲 súp nóng 28, 🍣 sushi 38, 🍔 bánh mì kẹp 40, 🍱 bữa tiệc 90 (no +60, vui +35). Phụ kiện thêm (tổng 20): 🎀 nơ cổ 70, 🧢 mũ lưỡi trai 60 (Lv 2), 🐱 bờm tai mèo 90 (Lv 2), 🎒 ba lô 180 (Lv 3, có lớp sau lưng), 🏴‍☠️ bịt mắt 100 (Lv 4), 🥷 mặt nạ 130 (Lv 6), 🧙 mũ phù thuỷ 160 (Lv 6), 🏅 huy chương 220 (Lv 10), 😇 hào quang 350 (Lv 12). Nguồn sự thật: `src/shared/shop.ts`, `src/shared/pet.ts`; hình vẽ ở `scripts/sprites/accessories.mjs`.

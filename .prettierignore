@@ -5,3 +5,5 @@ LICENSE.md
 tsconfig.json
 tsconfig.*.json
 content/curated/vocab/vi-generated.json
+# File sinh tự động bởi scripts/sprites (đừng định dạng lại)
+src/renderer/mascot/assets/characters/

@@ -31,16 +31,41 @@ const translation = ref<{
   phase: 'idle' | 'loading' | 'done' | 'error'
   text: string
   errorKey: string
-}>({ phase: 'idle', text: '', errorKey: '' })
+  /** Engine đã dịch (để gợi ý nâng cấp khi dùng bản nhanh) */
+  engine: 'opus-mt' | 'mbart-50' | null
+}>({ phase: 'idle', text: '', errorKey: '', engine: null })
 const models = useTranslateModels()
 /** Chiều dịch của văn bản đang tra (tự nhận: có dấu tiếng Việt → Việt→Anh) */
 const direction = computed<TranslateDirection>(() =>
   looksVietnamese(result.value?.query ?? '') ? 'vi-en' : 'en-vi'
 )
-const modelStatus = computed(() => models.statuses[direction.value].value)
+/** Model chất lượng cao đã tải và đang được ưu tiên (cài đặt translate.highQuality) */
+const highReady = computed(
+  () =>
+    models.statuses.high.value?.state === 'ready' && settingsStore.settings['translate.highQuality']
+)
+/** Dịch được ngay: có model chất lượng cao, hoặc opus-mt của chiều này */
+const canTranslate = computed(
+  () => highReady.value || models.statuses[direction.value].value?.state === 'ready'
+)
+/** Model đang hiển thị trạng thái tải: bản chất lượng cao nếu đang tải, ngược lại opus-mt của chiều này */
+const downloadKey = computed<'high' | TranslateDirection>(() =>
+  models.statuses.high.value?.state === 'downloading' ? 'high' : direction.value
+)
+const modelStatus = computed(() => models.statuses[downloadKey.value].value)
+const highStatus = computed(() => models.statuses.high.value)
+const highSizeMb = computed(() => Math.round((highStatus.value?.sizeBytes ?? 0) / MB))
+/** Gợi ý nâng cấp: vừa dịch bằng bản nhanh và chưa có bản chất lượng cao */
+const canUpgrade = computed(
+  () =>
+    translation.value.phase === 'done' &&
+    translation.value.engine === 'opus-mt' &&
+    highStatus.value?.state === 'not-installed'
+)
 /** Văn bản đang chờ dịch (đợi người dùng tải model) */
 let pendingText: string | null = null
 let translateSeq = 0
+const MB = 1024 * 1024
 const cleanups: Array<() => void> = []
 let toastTimer = 0
 let lookupSeq = 0
@@ -57,7 +82,6 @@ const sentenceTokens = computed(() =>
     : []
 )
 
-const MB = 1024 * 1024
 const sizeMb = computed(() => Math.round((modelStatus.value?.sizeBytes ?? 0) / MB))
 const doneMb = computed(() => Math.round((modelStatus.value?.receivedBytes ?? 0) / MB))
 const showTranslation = computed(() => {
@@ -69,20 +93,20 @@ const showTranslation = computed(() => {
 async function translate(text: string): Promise<void> {
   const seq = ++translateSeq
   pendingText = text
-  if (modelStatus.value?.state !== 'ready') {
-    translation.value = { phase: 'idle', text: '', errorKey: '' }
+  if (!canTranslate.value) {
+    translation.value = { phase: 'idle', text: '', errorKey: '', engine: null }
     return
   }
-  translation.value = { phase: 'loading', text: '', errorKey: '' }
+  translation.value = { phase: 'loading', text: '', errorKey: '', engine: null }
   try {
     const res = await invoke('translate:text', { text })
     if (seq !== translateSeq) return
     pendingText = null
-    translation.value = { phase: 'done', text: res.text, errorKey: '' }
+    translation.value = { phase: 'done', text: res.text, errorKey: '', engine: res.engine }
   } catch (err) {
     if (seq !== translateSeq) return
     const key = err instanceof IpcError ? err.info.messageKey : 'errors.translateFailed'
-    translation.value = { phase: 'error', text: '', errorKey: key }
+    translation.value = { phase: 'error', text: '', errorKey: key, engine: null }
   }
 }
 
@@ -95,8 +119,16 @@ async function installModel(): Promise<void> {
   }
 }
 
+async function installHigh(): Promise<void> {
+  try {
+    await models.install('high')
+  } catch (err) {
+    console.warn('[popup] install high-quality model failed', err)
+  }
+}
+
 function cancelInstall(): void {
-  models.cancel(direction.value)
+  models.cancel(downloadKey.value)
 }
 
 async function lookup(text: string): Promise<void> {
@@ -110,7 +142,7 @@ async function lookup(text: string): Promise<void> {
     result.value = res
     if (res.kind === 'sentence') contextSentence.value = res.query
     translateSeq++
-    translation.value = { phase: 'idle', text: '', errorKey: '' }
+    translation.value = { phase: 'idle', text: '', errorKey: '', engine: null }
     pendingText = null
     if (
       !res.packMissing &&
@@ -190,7 +222,7 @@ onMounted(async () => {
     window.api.on('popup:query', onQuery),
     // Tải xong từ nơi khác (Cài đặt) trong lúc popup đang chờ → dịch luôn
     window.api.on('translate:status-changed', ({ direction: dir, status }) => {
-      if (dir === direction.value && status.state === 'ready' && pendingText) {
+      if ((dir === direction.value || dir === 'high') && status.state === 'ready' && pendingText) {
         void translate(pendingText)
       }
     })
@@ -242,6 +274,12 @@ onUnmounted(() => {
             {{ t('translate.translating') }}
           </p>
           <p v-else-if="translation.phase === 'done'" class="tr-text">{{ translation.text }}</p>
+          <p v-if="canUpgrade" class="tr-upgrade">
+            {{ t('translate.upgradeHint') }}
+            <button type="button" class="token" @click="installHigh">
+              {{ t('translate.downloadHigh', { size: highSizeMb }) }}
+            </button>
+          </p>
           <p v-else-if="translation.phase === 'error'" class="tr-error">
             {{ t(translation.errorKey) }}
           </p>
@@ -260,6 +298,9 @@ onUnmounted(() => {
             <button type="button" class="save" @click="installModel">
               {{ modelStatus.errorKey ? t('translate.retry') : t('translate.download') }}
             </button>
+            <button type="button" class="token" @click="installHigh">
+              {{ t('translate.downloadHigh', { size: highSizeMb }) }}
+            </button>
           </div>
         </div>
         <div class="tokens">
@@ -277,6 +318,18 @@ onUnmounted(() => {
 
       <div v-else-if="!entry">
         <p class="muted">{{ t('popup.notFound', { query: result.query }) }}</p>
+        <div v-if="result.suggestions.length" class="tokens">
+          <span class="muted">{{ t('popup.didYouMean') }}</span>
+          <button
+            v-for="w in result.suggestions"
+            :key="w"
+            type="button"
+            class="token"
+            @click="lookupToken(w)"
+          >
+            {{ w }}
+          </button>
+        </div>
         <div v-if="showTranslation" class="translation">
           <div class="tr-head">
             <strong>{{ t('translate.title') }}</strong>
@@ -288,6 +341,12 @@ onUnmounted(() => {
             {{ t('translate.translating') }}
           </p>
           <p v-else-if="translation.phase === 'done'" class="tr-text">{{ translation.text }}</p>
+          <p v-if="canUpgrade" class="tr-upgrade">
+            {{ t('translate.upgradeHint') }}
+            <button type="button" class="token" @click="installHigh">
+              {{ t('translate.downloadHigh', { size: highSizeMb }) }}
+            </button>
+          </p>
           <p v-else-if="translation.phase === 'error'" class="tr-error">
             {{ t(translation.errorKey) }}
           </p>
@@ -304,6 +363,9 @@ onUnmounted(() => {
             <span class="muted">{{ t('translate.needModel', { size: sizeMb }) }}</span>
             <button type="button" class="save" @click="installModel">
               {{ t('translate.download') }}
+            </button>
+            <button type="button" class="token" @click="installHigh">
+              {{ t('translate.downloadHigh', { size: highSizeMb }) }}
             </button>
           </div>
         </div>
@@ -541,6 +603,11 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   gap: 6px;
+}
+.tr-upgrade {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--c-ink-soft);
 }
 .tr-text {
   margin: 0;

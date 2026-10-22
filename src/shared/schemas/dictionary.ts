@@ -43,6 +43,8 @@ export const LookupResultSchema = z.object({
   query: z.string(),
   kind: QueryKindSchema,
   entries: z.array(DictEntrySchema),
+  /** Từ gần giống để gợi ý khi tra một từ không ra (gõ sai chính tả): "Có phải bạn muốn tìm…" */
+  suggestions: z.array(z.string()),
   /** Chưa cài gói từ điển */
   packMissing: z.boolean()
 })

@@ -89,6 +89,7 @@
     "searchPlaceholder": "Gõ từ tiếng Anh hoặc tiếng Việt…",
     "empty": "Copy một từ tiếng Anh rồi bấm {shortcut}, hoặc gõ vào ô trên.",
     "notFound": "Không tìm thấy “{query}” trong từ điển.",
+    "didYouMean": "Có phải bạn muốn tìm:",
     "sentence": "Câu có nhiều từ — bấm vào một từ để tra riêng:",
     "packMissing": "Chưa cài gói từ điển. Đang cài ở nền — thử lại sau ít giây.",
     "loading": "Đang tra…",
@@ -736,7 +737,10 @@
       "hideHint": "Sau khi ôn một từ (kể cả chấm \"Quên\"), các thẻ của từ đó tạm ẩn để không gặp lại ngay hay lặp lại khi bạn thoát ra vào lại.",
       "minutes": "{n} phút",
       "hours": "{n} giờ",
-      "choices": "Trắc nghiệm nghĩa ở thẻ nhận diện (tắt = chỉ lật thẻ rồi tự chấm)"
+      "choices": "Trắc nghiệm nghĩa ở thẻ nhận diện (tắt = chỉ lật thẻ rồi tự chấm)",
+      "quickTranslate": "Dịch nhanh (Ctrl+Alt+T)",
+      "autoCopy": "Tự lấy chữ đang bôi đen",
+      "autoCopyHint": "Bôi đen chữ rồi bấm Ctrl+Alt+T là dịch được, không cần Ctrl+C. App gửi Ctrl+C giả lập rồi trả clipboard về như cũ. Không áp dụng trong terminal (Ctrl+C ở đó là ngắt lệnh) — trong terminal hãy tự copy rồi bấm Ctrl+Alt+T."
     },
     "practice": {
       "title": "Luyện tập",
@@ -1048,10 +1052,14 @@
     "modelsHint": "Mỗi chiều dịch cần một model tải một lần, chạy hoàn toàn trên máy bạn. Có thể xoá để lấy lại dung lượng.",
     "dir": {
       "en-vi": "Anh → Việt",
-      "vi-en": "Việt → Anh"
+      "vi-en": "Việt → Anh",
+      "high": "Chất lượng cao (cả hai chiều Anh ↔ Việt)"
     },
     "notInstalled": "Chưa tải ({size} MB)",
-    "remove": "Xoá model"
+    "remove": "Xoá model",
+    "downloadHigh": "Tải bản chất lượng cao ({size} MB)",
+    "upgradeHint": "Đây là bản dịch nhanh (chất lượng trung bình). Muốn dịch chuẩn hơn, tải bản chất lượng cao:",
+    "preferHigh": "Ưu tiên bản chất lượng cao khi đã tải (chậm hơn, chuẩn hơn)"
   },
   "shop": {
     "title": "Cửa hàng",

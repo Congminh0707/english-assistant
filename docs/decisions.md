@@ -170,3 +170,9 @@ Mẫu:
 **Quyết định:** Dùng model phoneme CTC `wav2vec2-lv-60-espeak-cv-ft` (Apache-2.0), bản ONNX int8 (355 MB) đã có người chuyển đổi và công bố quy trình + sha256 (`duyentq/sonari-wav2vec2-phoneme-int8`), ghim commit và băm file; tải khi người dùng chọn. Chạy bằng `onnxruntime-node` + phonemizer (espeak) trong utilityProcess riêng; so khớp âm vị ở `shared/phonemes.ts`. Thêm `onnxruntime-node`, `phonemizer` làm dependency trực tiếp (cùng phiên bản đã có sẵn gián tiếp).
 **Lý do:** Không cần tự chuyển đổi model (không có PyTorch trong môi trường); bảng âm của model chính là espeak IPA nên khớp trực tiếp với phonemizer; tốc độ ~100–150 ms.
 **Rủi ro/hệ quả:** Phụ thuộc repo HF bên thứ ba (nên cân nhắc mirror lên release của dự án nếu repo biến mất); kém ổn định với từ đơn rất ngắn; ngưỡng điểm chưa hiệu chỉnh với giọng người Việt; eSpeak-NG GPL-3.0 (như #14). Ý định dài hạn có thể là gói trả phí, hiện chưa khoá gì.
+
+## #27 — Dịch: thêm mBART-50 làm model chất lượng cao tuỳ chọn (2026-10-22) — Chấp nhận
+**Bối cảnh:** Dịch bằng phím tắt (Ctrl+C / Ctrl+Alt+T) với opus-mt-en-vi chưa chuẩn: dịch sai từ nhiều nghĩa, nuốt từ, đoạn văn kém.
+**Quyết định:** Giữ opus-mt làm bản nhanh (nhỏ, ~0,4 s) và thêm **mBART-50 many-to-many** (MIT) làm bản chất lượng cao tuỳ chọn tải thêm (~875 MB, một model cho cả hai chiều), được ưu tiên khi đã tải. Dịch theo nhóm 2–3 câu.
+**Đã cân nhắc và loại:** NLLB-200 600M (chất lượng tốt nhưng CC-BY-NC — vi phạm chính sách license), VinAI en2vi v2 (AGPL-3.0), MADLAD-400 3B (Apache nhưng ~3 GB, quá chậm cho popup), M2M100 418M (chất lượng không hơn rõ). LLM qua API (Claude) vẫn là hướng nâng cấp tiếp theo nếu cần chất lượng cao nhất.
+**Hệ quả:** Chậm hơn (2–5 s/câu) và nặng RAM hơn khi bật; vẫn sai ở thành ngữ/cụm động từ; thẻ model HF không ghi license (cần xác nhận trước khi thương mại hoá).

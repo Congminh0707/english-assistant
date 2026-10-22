@@ -298,6 +298,9 @@ describe('DictionaryService + VocabService', () => {
   it('đánh dấu nghĩa do AI sinh, không tra cả câu', () => {
     expect(c.dictionary.lookup('ponder').entries[0].viGenerated).toBe(true)
     expect(c.dictionary.lookup('go').entries[0].viGenerated).toBe(false)
+    // Gõ sai chính tả → gợi ý từ gần giống; từ không giống gì thì không gợi ý
+    expect(c.dictionary.lookup('gardn').suggestions).toContain('garden')
+    expect(c.dictionary.lookup('qzxwv').suggestions).toEqual([])
     const sentence = c.dictionary.lookup('I went to the market yesterday')
     expect(sentence).toMatchObject({ kind: 'sentence', entries: [] })
   })

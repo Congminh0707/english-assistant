@@ -27,10 +27,14 @@ import {
 import type { CmudictFile } from './cmudict'
 import type { TatoebaCandidate, TatoebaFreqFile, TatoebaNamesFile } from './tatoeba'
 import type { ViReverseFile, WikiEntry, WikiSense } from './wiktionary'
+import type { WordfreqFile } from './wordfreq'
 import type { ListEntry, WordlistsFile } from './wordlists'
 
-/** Số mục từ tối đa (danh sách từ luôn được giữ, phần còn lại lấy theo tần suất Tatoeba) */
-const MAX_WORDS = 30_000
+/**
+ * Số mục từ tối đa (danh sách từ luôn được giữ; phần còn lại: từ Tatoeba ≥ MIN_FOLDED_COUNT lần trước, rồi từ phổ biến
+ * theo wordfreq mà Tatoeba ít gặp — plaintiff, felony...)
+ */
+const MAX_WORDS = 55_000
 /** Từ ngoài danh sách phải xuất hiện ít nhất bấy nhiêu lần (đã gộp dạng chia) trong Tatoeba */
 const MIN_FOLDED_COUNT = 3
 const MAX_SENSES_PER_POS = 6
@@ -115,6 +119,9 @@ const INFLECTION_TAGS = new Set([
 const isGoodSense = (s: WikiSense): boolean =>
   !s.formOf.length && !s.altOf.length && !s.tags.some((t) => BAD_SENSE_TAGS.has(t))
 const isLemmaSense = (s: WikiSense): boolean => !s.formOf.length && !s.altOf.length
+/** Như isGoodSense nhưng chấp nhận nhãn `historical` (wiktextract hay gắn nhầm cho nghĩa còn dùng: plaintiff) */
+const isSoftSense = (s: WikiSense): boolean =>
+  isLemmaSense(s) && !s.tags.some((t) => BAD_SENSE_TAGS.has(t) && t !== 'historical')
 
 function stripTags(tags: string[]): string[] {
   return tags.filter((t) => t !== 'form-of' && t !== 'alt-of')
@@ -170,6 +177,11 @@ export async function mergeWords(): Promise<void> {
   const lists = await readJson<WordlistsFile>(normalizedPath('wordlists.json'))
   const cmu = await readJson<CmudictFile>(normalizedPath('cmudict.json'))
   const freq = await readJson<TatoebaFreqFile>(normalizedPath('tatoeba-freq.json'))
+  // Bảng tần suất wordfreq (tuỳ chọn: không có file → chỉ dùng Tatoeba như trước)
+  const wf: WordfreqFile = existsSync(normalizedPath('wordfreq.json'))
+    ? await readJson<WordfreqFile>(normalizedPath('wordfreq.json'))
+    : {}
+  const hasWf = Object.keys(wf).length > 0
   const viReverse = await readJson<ViReverseFile>(normalizedPath('wiktionary-vi-reverse.json'))
   const names = new Set(await readJson<TatoebaNamesFile>(normalizedPath('tatoeba-names.json')))
   // Nghĩa Việt do LLM sinh (content:enrich vi) — tuỳ chọn, chỉ dùng khi từ không có nghĩa Wiktionary
@@ -215,7 +227,10 @@ export async function mergeWords(): Promise<void> {
   const listKeys = new Set(Object.keys(lists))
   const folded = new Map<string, number>()
   for (const [key, entries] of byKey) {
-    if (!entries.some((e) => e.senses.some(isGoodSense))) continue
+    // Từ phổ biến theo wordfreq mà nghĩa duy nhất bị gắn nhãn `historical` (plaintiff: "UK, historical") vẫn nhận;
+    // nghĩa cổ/hiếm thật (archaic, obsolete, dialectal...) thì không
+    const onlyTagged = key in wf && entries.some((e) => e.senses.some(isSoftSense))
+    if (!onlyTagged && !entries.some((e) => e.senses.some(isGoodSense))) continue
     if (!listKeys.has(key) && entries.every((e) => e.word !== e.word.toLowerCase())) continue
     folded.set(key, freq[key] ?? 0)
   }
@@ -248,18 +263,30 @@ export async function mergeWords(): Promise<void> {
     if (!lemmas || hasOwnMeaning(key)) return false
     for (const [lemma, tags] of lemmas) {
       if (lemma === key || !tags.some((t) => DROP_TAGS.has(t))) continue
-      if (listKeys.has(lemma) || (folded.get(lemma) ?? 0) >= MIN_FOLDED_COUNT) return true
+      if (listKeys.has(lemma) || (folded.get(lemma) ?? 0) >= MIN_FOLDED_COUNT || lemma in wf)
+        return true
     }
     return false
   }
   const extra = [...folded.entries()]
-    .filter(([k, n]) => !listKeys.has(k) && n >= MIN_FOLDED_COUNT)
+    // Có wordfreq thì phải nằm trong bảng đó (loại tên riêng/lỗi gõ chỉ Tatoeba gặp); không có wordfreq thì như cũ
+    .filter(
+      ([k, n]) =>
+        !listKeys.has(k) && (hasWf ? k in wf || isContraction(k, n) : n >= MIN_FOLDED_COUNT)
+    )
     .filter(([k]) => {
       if (!isWeakInflection(k)) return true
       droppedInflected.push(k)
       return false
     })
-    .sort((a, b) => b[1] - a[1] || (a[0] < b[0] ? -1 : 1))
+    // Tatoeba nhiều → ít; cùng số lần (nhất là các từ chỉ có trong wordfreq) → phổ biến hơn trước
+    .sort(
+      (a, b) =>
+        Math.min(b[1], MIN_FOLDED_COUNT) - Math.min(a[1], MIN_FOLDED_COUNT) ||
+        b[1] - a[1] ||
+        (wf[a[0]] ?? 1e9) - (wf[b[0]] ?? 1e9) ||
+        (a[0] < b[0] ? -1 : 1)
+    )
     .slice(0, Math.max(0, MAX_WORDS - listKeys.size))
     .map(([k]) => k)
   // Từ trong danh sách mà Wiktionary không có mục từ (check-in counter, wornout...) → chưa có nghĩa, bỏ qua
@@ -272,11 +299,18 @@ export async function mergeWords(): Promise<void> {
   )
 
   // freqRank: NGSL trước, phần còn lại theo tần suất Tatoeba (đã gộp dạng chia)
+  // Bậc: 0 = chính từ đó xuất hiện đủ nhiều trong Tatoeba, 1 = từ trong danh sách mà Tatoeba ít gặp, 2 = còn lại (chỉ có
+  // trong wordfreq, hoặc chỉ nhờ dạng khác của từ khác trỏ về) → xếp cuối để không chen vào top 10k
+  const tier = (k: string): number =>
+    (freq[k] ?? 0) >= MIN_FOLDED_COUNT ? 0 : listKeys.has(k) ? 1 : 2
   const rest = selected
     .filter((k) => lists[k]?.ngslRank === undefined)
     .sort(
       (a, b) =>
-        (folded.get(b) ?? freq[b] ?? 0) - (folded.get(a) ?? freq[a] ?? 0) || (a < b ? -1 : 1)
+        tier(a) - tier(b) ||
+        (folded.get(b) ?? freq[b] ?? 0) - (folded.get(a) ?? freq[a] ?? 0) ||
+        (wf[a] ?? 1e9) - (wf[b] ?? 1e9) ||
+        (a < b ? -1 : 1)
     )
   const freqRank = new Map<string, number>()
   for (const k of selected)
@@ -317,7 +351,10 @@ export async function mergeWords(): Promise<void> {
       generated: viGenerated[wordId(key)]
     })
     if (word.vi[0]?.origin === 'generated') generatedUsed++
-    if (sensitive.has(word.lemma.toLowerCase())) {
+    if (
+      sensitive.has(word.lemma.toLowerCase()) ||
+      (!listEntry && tier(key) === 2 && looksSensitive(entries))
+    ) {
       word.sensitive = true
       sensitiveCount++
     }
@@ -354,6 +391,36 @@ const EXCLUDED_PATH = join(CURATED_DIR, 'vocab', 'excluded-words.json')
 const SENSITIVE_PATH = join(CURATED_DIR, 'vocab', 'sensitive-words.json')
 
 /** Tập lemma (chữ thường) nhạy cảm; không có file → rỗng */
+const SENSITIVE_TAGS = new Set([
+  'vulgar',
+  'offensive',
+  'derogatory',
+  'slur',
+  'ethnic',
+  'pejorative'
+])
+const SENSITIVE_GLOSS =
+  /\b(sex|sexual|sexually|genital|genitals|penis|vagina|vulva|testicle|rape|raped|erotic|orgasm|masturbat\w*|porn\w*|prostitut\w*|intercourse|semen|fellatio|ejaculat\w*)\b/i
+
+/**
+ * Từ chỉ thêm theo wordfreq (Tatoeba ít gặp) mà nghĩa đầu bị Wiktionary gắn nhãn thô tục/xúc phạm hoặc nói về
+ * tình dục → ẩn ở profile trẻ em. Danh sách thủ công sensitive-words.json vẫn được ưu tiên bổ sung.
+ */
+function looksSensitive(entries: WikiEntry[]): boolean {
+  for (const e of entries) {
+    const first = e.senses.find(isGoodSense)
+    if (first && first.tags.some((t) => SENSITIVE_TAGS.has(t))) return true
+    if (first && SENSITIVE_GLOSS.test(first.gloss)) return true
+  }
+  return false
+}
+
+/** Dạng rút gọn (don't, we'll, let's...) không có trong wordfreq nhưng cần để tra từ trong câu */
+const CONTRACTION =
+  /^[a-z]+'(?:t|ll|re|ve|d|m)$|^(?:it|that|what|who|there|here|he|she|let|where|how)'s$/
+const isContraction = (k: string, n: number): boolean =>
+  n >= MIN_FOLDED_COUNT && CONTRACTION.test(k)
+
 async function loadSensitive(): Promise<Set<string>> {
   if (!existsSync(SENSITIVE_PATH)) return new Set()
   const file = await readJson<{ entries: Record<string, string> }>(SENSITIVE_PATH)

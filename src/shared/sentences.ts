@@ -72,3 +72,22 @@ export function ensureTerminalPunctuation(sentence: string): string {
 export function looksVietnamese(text: string): boolean {
   return /[ăâđêôơưĂÂĐÊÔƠƯàáảãạằắẳẵặầấẩẫậèéẻẽẹềếểễệìíỉĩịòóỏõọồốổỗộờớởỡợùúủũụừứửữựỳýỷỹỵ]/i.test(text)
 }
+
+/**
+ * Gom các câu liên tiếp thành nhóm ≤ `maxChars` ký tự (một câu dài hơn vẫn đứng riêng một nhóm). Model dịch chất lượng
+ * cao dịch cả nhóm 2–3 câu một lần nên đoạn văn mạch lạc hơn (đại từ, từ nhiều nghĩa theo ngữ cảnh) và ít lần gọi hơn.
+ */
+export function groupSentences(sentences: string[], maxChars: number): string[] {
+  const groups: string[] = []
+  let current = ''
+  for (const sentence of sentences) {
+    if (current && current.length + 1 + sentence.length > maxChars) {
+      groups.push(current)
+      current = sentence
+    } else {
+      current = current ? `${current} ${sentence}` : sentence
+    }
+  }
+  if (current) groups.push(current)
+  return groups
+}

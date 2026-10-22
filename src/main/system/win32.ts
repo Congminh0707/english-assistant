@@ -166,3 +166,63 @@ function getMonitorRect(hMonitor: unknown): Rect | null {
   const info = { cbSize: koffi.sizeof(MONITORINFO), rcMonitor: zero, rcWork: zero, dwFlags: 0 }
   return GetMonitorInfoW(hMonitor, info) ? info.rcMonitor : null
 }
+
+// --- Lấy chữ đang bôi đen: gửi Ctrl+C giả lập (chỉ khi người dùng bấm phím tắt dịch) ---
+// INPUT (x64) = 40 byte: type(4) + đệm(4) + KEYBDINPUT(24) + phần còn lại của union(8)
+const KEYINPUT = koffi.struct('KEYINPUT', {
+  type: 'uint32',
+  pad0: 'uint32',
+  wVk: 'uint16',
+  wScan: 'uint16',
+  dwFlags: 'uint32',
+  time: 'uint32',
+  pad1: 'uint32',
+  dwExtraInfo: 'uint64',
+  tail: 'uint64'
+})
+const SendInput = user32.func(
+  'uint32 __stdcall SendInput(uint32 cInputs, KEYINPUT* pInputs, int cbSize)'
+)
+const GetAsyncKeyState = user32.func('int16 __stdcall GetAsyncKeyState(int vKey)')
+const GetClipboardSequenceNumber = user32.func('uint32 __stdcall GetClipboardSequenceNumber()')
+
+const INPUT_KEYBOARD = 1
+const KEYEVENTF_KEYUP = 0x0002
+const VK = { shift: 0x10, control: 0x11, alt: 0x12, t: 0x54, c: 0x43, lwin: 0x5b, rwin: 0x5c }
+
+const keyEvent = (vk: number, up: boolean): Record<string, number> => ({
+  type: INPUT_KEYBOARD,
+  pad0: 0,
+  wVk: vk,
+  wScan: 0,
+  dwFlags: up ? KEYEVENTF_KEYUP : 0,
+  time: 0,
+  pad1: 0,
+  dwExtraInfo: 0,
+  tail: 0
+})
+
+const isDown = (vk: number): boolean => (GetAsyncKeyState(vk) & 0x8000) !== 0
+
+/** Số thứ tự thay đổi mỗi lần nội dung clipboard đổi — dùng để biết Ctrl+C đã có tác dụng chưa */
+export function clipboardSequenceNumber(): number {
+  return GetClipboardSequenceNumber()
+}
+
+/**
+ * Gửi Ctrl+C tới cửa sổ đang focus. Người dùng vừa bấm Ctrl+Alt+T nên các phím đó có thể còn giữ:
+ * nhả Alt/Shift/Win/T giả lập trước, rồi Ctrl↓ C↓ C↑ Ctrl↑ (Ctrl được nhả rồi bấm lại cho sạch trạng thái).
+ */
+export function sendCopyShortcut(): boolean {
+  const events: Array<Record<string, number>> = []
+  for (const vk of [VK.alt, VK.shift, VK.lwin, VK.rwin, VK.t, VK.control]) {
+    if (isDown(vk)) events.push(keyEvent(vk, true))
+  }
+  events.push(
+    keyEvent(VK.control, false),
+    keyEvent(VK.c, false),
+    keyEvent(VK.c, true),
+    keyEvent(VK.control, true)
+  )
+  return SendInput(events.length, events, koffi.sizeof(KEYINPUT)) === events.length
+}

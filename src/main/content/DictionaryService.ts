@@ -2,6 +2,7 @@ import type Database from 'better-sqlite3'
 import type { Word } from '@shared/schemas/content'
 import { normalizeQuery, type DictEntry, type LookupResult } from '@shared/schemas/dictionary'
 import type { ContentPackService } from './ContentPackService'
+import { suggestSpelling, type SpellingCandidate } from './spelling'
 
 export const DICTIONARY_PACK = 'core-dictionary'
 
@@ -77,6 +78,13 @@ export class DictionaryService {
     cols: string
   } | null = null
 
+  private spelling: {
+    db: Database.Database
+    all: SpellingCandidate[]
+    /** Bỏ từ nhạy cảm (profile trẻ em) */
+    safe: SpellingCandidate[]
+  } | null = null
+
   constructor(private readonly packs: ContentPackService) {}
 
   lookup(
@@ -86,9 +94,9 @@ export class DictionaryService {
   ): LookupResult {
     const { query, kind } = normalizeQuery(raw)
     const stmts = this.prepare()
-    if (!stmts) return { query, kind, entries: [], packMissing: true }
+    if (!stmts) return { query, kind, entries: [], suggestions: [], packMissing: true }
     if (kind === 'empty' || kind === 'sentence') {
-      return { query, kind, entries: [], packMissing: false }
+      return { query, kind, entries: [], suggestions: [], packMissing: false }
     }
 
     const hits = this.find(stmts, query).filter((h) => !isHidden(h.row, options))
@@ -96,7 +104,34 @@ export class DictionaryService {
     const entries = hits
       .slice(0, MAX_ENTRIES)
       .map((hit) => this.toEntry(stmts, hit, saved, options))
-    return { query, kind, entries, packMissing: false }
+    // Không ra gì → có thể gõ sai chính tả (registation → registration)
+    const suggestions =
+      !entries.length && kind === 'word'
+        ? suggestSpelling(query, this.spellingCandidates(stmts, options))
+        : []
+    return { query, kind, entries, suggestions, packMissing: false }
+  }
+
+  /** Từ gợi ý chính tả: lemma + dạng chia, tải một lần cho mỗi gói (bỏ từ nhạy cảm ở profile trẻ em) */
+  private spellingCandidates(
+    stmts: NonNullable<DictionaryService['statements']>,
+    options: DictionaryOptions
+  ): SpellingCandidate[] {
+    if (!this.spelling || this.spelling.db !== stmts.db) {
+      const sens = stmts.hasSensitive ? 'w.sensitive' : '0'
+      const rows = stmts.db
+        .prepare(
+          `SELECT w.lemma AS text, w.lemma, w.freq_rank AS rank, ${sens} AS sensitive FROM words w
+           WHERE w.lemma NOT GLOB '*[^A-Za-z''-]*'
+           UNION ALL
+           SELECT f.form, w.lemma, w.freq_rank, ${sens} FROM word_forms f JOIN words w ON w.id = f.word_id
+           WHERE f.form NOT GLOB '*[^A-Za-z''-]*'`
+        )
+        .all() as Array<SpellingCandidate & { sensitive: number }>
+      for (const r of rows) r.text = r.text.toLowerCase()
+      this.spelling = { db: stmts.db, all: rows, safe: rows.filter((r) => !r.sensitive) }
+    }
+    return options.childSafe ? this.spelling.safe : this.spelling.all
   }
 
   /**

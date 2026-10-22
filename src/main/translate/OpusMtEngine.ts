@@ -1,11 +1,12 @@
 import { join } from 'node:path'
 import { WorkerProcess } from '../system/WorkerProcess'
 import type { TranslateDirection } from '@shared/schemas/translate'
-import type { TranslationEngine } from './engine'
+import type { TranslateQuality, TranslationEngine } from './engine'
 
 /** Tắt tiến trình nền (giải phóng ~400 MB RAM) sau thời gian không dùng này */
 const IDLE_MS = 5 * 60_000
-const REQUEST_TIMEOUT_MS = 60_000
+/** Đoạn dài bằng model chất lượng cao có thể mất vài chục giây trên máy chậm */
+const REQUEST_TIMEOUT_MS = 150_000
 
 /**
  * Engine dịch thật: chạy `translateWorker.js` (src/main/translate/worker.ts) trong utilityProcess.
@@ -25,8 +26,12 @@ export class OpusMtEngine implements TranslationEngine {
     })
   }
 
-  translate(text: string, direction: TranslateDirection): Promise<string> {
-    return this.worker.call<string>({ type: 'translate', text, direction })
+  translate(
+    text: string,
+    direction: TranslateDirection,
+    quality: TranslateQuality
+  ): Promise<string> {
+    return this.worker.call<string>({ type: 'translate', text, direction, quality })
   }
 
   dispose(): void {

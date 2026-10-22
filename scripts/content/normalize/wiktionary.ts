@@ -6,6 +6,7 @@ import { log, JsonlWriter, readJson, readLines, requireFile, writeJson } from '.
 import { normalizedPath, rawPath } from '../lib/paths'
 import { cleanGloss, isPlainWord } from '../lib/text'
 import type { TatoebaFreqFile } from './tatoeba'
+import type { WordfreqFile } from './wordfreq'
 import type { WordlistsFile } from './wordlists'
 
 /** Token Tatoeba xuất hiện ít nhất bấy nhiêu lần mới được xét làm mục từ */
@@ -280,6 +281,9 @@ export async function normalizeWiktionary(): Promise<void> {
     }
   }
   for (const [tok, n] of Object.entries(freq)) if (n >= MIN_TATOEBA_COUNT) candidates.add(tok)
+  // Từ phổ biến ngoài Tatoeba (plaintiff, felony...) theo bảng tần suất wordfreq
+  for (const w of Object.keys(await readJson<WordfreqFile>(normalizedPath('wordfreq.json'))))
+    candidates.add(w)
   log(`wiktionary: ${candidates.size} candidate headwords`)
 
   const { kept, scanned } = await normalizeEnglish(candidates, listExact)

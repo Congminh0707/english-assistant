@@ -1,5 +1,5 @@
 // pnpm content:normalize [stage...]
-// Stage chạy theo thứ tự: wordlists → cmudict → tatoeba → wiktionary → merge → level.
+// Stage chạy theo thứ tự: wordlists → cmudict → tatoeba → wordfreq → wiktionary → merge → level.
 // Không truyền stage = chạy tất cả. Mỗi stage ghi đè output của nó (idempotent).
 import { applyLevels } from './level/apply'
 import { ensureDir, log } from './lib/io'
@@ -8,12 +8,14 @@ import { normalizeCmudict } from './normalize/cmudict'
 import { mergeWords } from './normalize/merge'
 import { normalizeTatoeba } from './normalize/tatoeba'
 import { normalizeWiktionary } from './normalize/wiktionary'
+import { normalizeWordfreq } from './normalize/wordfreq'
 import { normalizeWordlists } from './normalize/wordlists'
 
 const STAGES: Record<string, () => Promise<unknown>> = {
   wordlists: normalizeWordlists,
   cmudict: normalizeCmudict,
   tatoeba: normalizeTatoeba,
+  wordfreq: normalizeWordfreq,
   wiktionary: normalizeWiktionary,
   merge: mergeWords,
   level: applyLevels

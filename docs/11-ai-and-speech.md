@@ -43,6 +43,8 @@ export interface GrammarChecker {
 >
 > ✅ **Dịch câu offline (Phase 1)** — xem [decisions #12](decisions.md): copy một câu/cụm không có trong từ điển → popup dịch bằng opus-mt en→vi hoặc vi→en (tự nhận chiều) (`TranslationService` + `ModelManager` + `OpusMtEngine`/`worker.ts` trong utilityProcess). Model ~107 MB **không nằm trong bộ cài**: popup hỏi và tải khi người dùng bấm "Tải model" (có tiến trình, huỷ được, xác minh sha256). Đã kiểm tra thực tế trong Electron (cả layout đã đóng gói): ~0,15 giây/câu sau khi nạp model (~1,3 giây lần đầu). Cache LRU 200 câu trong bộ nhớ. **Chưa làm**: dịch Việt→Anh (model thứ hai), LLM qua API (phương án mở rộng), cache lưu đĩa, màn hình quản lý/xoá model trong Cài đặt. Lọc từ nhạy cảm cho profile trẻ em đã làm (từ, câu ví dụ, câu hỏi, bài tập).
 
+> ✅ **Nâng cấp dịch offline (2026-10-22)** — thêm model tuỳ chọn **chất lượng cao**: mBART-50 many-to-many (`Xenova/mbart-large-50-many-to-many-mmt`, rev `8818d85`, ONNX q8, ~875 MB, **một model dịch cả Anh↔Việt**, mã en_XX/vi_VN). Lý do: opus-mt-en-vi hay dịch sai/nuốt từ (đã đo trên 8 câu mẫu: "climate change" bị bỏ "climate", "marketing strategy" → "các mới marketing", "lay off…" vô nghĩa; mBART dịch đúng "present" = món quà, "climate change", "chiến lược tiếp thị mới", đoạn văn mạch lạc). Cách dùng: Cài đặt → Dịch offline (tải/xoá, công tắc "Ưu tiên bản chất lượng cao"), hoặc nút "Tải bản chất lượng cao" ngay trong popup khi chưa có model / sau khi dịch bằng bản nhanh. `TranslationService` ưu tiên engine `mbart-50` khi đã tải và bật `translate.highQuality`, không thì dùng opus-mt của chiều đó; cache tách theo engine. Worker dịch **nhóm 2–3 câu một lần (≤ 320 ký tự)** để giữ ngữ cảnh (`groupSentences`), giới hạn nâng 600 → 1200 ký tự. Đo (CPU 4 luồng, q8): nạp ~4 s, 2–5 s/câu, ~8 s cho đoạn 3 câu (opus-mt ~0,3–0,9 s/câu). Còn sai ở thành ngữ/cụm động từ ("lay off" → "lay ra") và đôi chỗ lệch ngữ cảnh Việt→Anh. ⚠️ License: thẻ model trên HF không ghi license, kho fairseq là MIT; **không dùng NLLB** (CC-BY-NC) và VinAI en2vi (AGPL-3.0) theo chính sách docs/08.
+
 ```mermaid
 flowchart TD
   IN["Văn bản người dùng copy / OCR"] --> DET{"Ngôn ngữ?<br/>Độ dài?"}
@@ -66,7 +68,7 @@ flowchart TD
 | Copy rồi bấm phím tắt | Người dùng Ctrl+C → `Ctrl+Alt+T` → main đọc `clipboard.readText()` | P0 (đơn giản, ổn định) |
 | Theo dõi clipboard | Poll clipboard mỗi 500 ms (opt-in), nếu là tiếng Anh → mascot hiện gợi ý | P1 |
 | OCR vùng màn hình | Phím tắt → overlay chọn vùng → `desktopCapturer` chụp → `tesseract.js` (eng) → dịch | P1 |
-| Giả lập Ctrl+C khi bôi đen | Cần thư viện native gửi phím — **không làm** ở giai đoạn đầu (dễ xung đột, bị antivirus nghi ngờ) | ✖ |
+| Bôi đen rồi bấm phím tắt (✅ đã làm 2026-10-22) | Khi bấm `Ctrl+Alt+T`, main gửi Ctrl+C giả lập (`SendInput` qua koffi, `system/selection.ts`), đợi `GetClipboardSequenceNumber` đổi, đọc chữ rồi **trả clipboard về như cũ** (sao lưu/khôi phục mọi định dạng). Không có gì được sao chép → dùng chữ đã Ctrl+C như trước. **Không gửi vào terminal** (cmd/PowerShell/Windows Terminal/PuTTY...: Ctrl+C ở đó là ngắt lệnh — danh sách ở `selectionRules.ts`). App chạy quyền admin sẽ chặn phím giả lập (UIPI) → tự rơi về clipboard. Tắt được: Cài đặt → Dịch nhanh → "Tự lấy chữ đang bôi đen" (`translate.autoCopy`). | P0 |
 
 ## 3. Đọc to (TTS)
 

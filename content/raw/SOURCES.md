@@ -67,8 +67,8 @@
 
 | File | URL | Ngày tải (UTC) | Kích thước | sha256 |
 |---|---|---|---|---|
-| `kaikki.org-dictionary-English.jsonl.gz` | https://kaikki.org/dictionary/English/kaikki.org-dictionary-English.jsonl.gz | 2026-10-18 07:33 | 523,331,798 B | `6d40e0067718aeb3321db30297761ca803838390627111a29a5426fee4557faf` |
-| `kaikki.org-dictionary-Vietnamese.jsonl` | https://kaikki.org/dictionary/Vietnamese/kaikki.org-dictionary-Vietnamese.jsonl | 2026-10-18 07:33 | 82,772,100 B | `ba64fae8301bf3f383a82bb178f2370309d31b3bcb3a92e9b0c9e04aeb6ecc16` |
+| `kaikki.org-dictionary-English.jsonl.gz` | https://kaikki.org/dictionary/English/kaikki.org-dictionary-English.jsonl.gz | 2026-10-22 03:44 | 523,331,798 B | `6d40e0067718aeb3321db30297761ca803838390627111a29a5426fee4557faf` |
+| `kaikki.org-dictionary-Vietnamese.jsonl` | https://kaikki.org/dictionary/Vietnamese/kaikki.org-dictionary-Vietnamese.jsonl | 2026-10-22 03:44 | 82,772,100 B | `ba64fae8301bf3f383a82bb178f2370309d31b3bcb3a92e9b0c9e04aeb6ecc16` |
 
 ## `english-assistant` — English Assistant content pipeline
 
@@ -77,6 +77,25 @@
 - Ghi công: Level tags and level decks compiled by the English Assistant project from CEFR-J, Octanove, NGSL and TSL (see their entries). As an adaptation of CC BY-SA material it is licensed under CC BY-SA 4.0.
 
 _Nguồn nội bộ — không có dữ liệu tải về._
+
+## `generated` — English Assistant — AI-generated Vietnamese meanings
+
+- Trang nguồn: https://github.com/Congminh0707/english-assistant
+- License: `proprietary-own`
+- Ghi công: Short Vietnamese meanings for words that have no Vietnamese translation in Wiktionary, generated at build time with an LLM (model and date in each record: generatedBy) and reviewed by the English Assistant project (content/curated/vocab/vi-generated.json).
+
+_Nguồn nội bộ — không có dữ liệu tải về._
+
+## `wordfreq` — wordfreq (large_en word frequencies)
+
+- Trang nguồn: https://github.com/rspeer/wordfreq
+- License: `CC-BY-SA-4.0` (https://creativecommons.org/licenses/by-sa/4.0/)
+- Ghi công: Robyn Speer, wordfreq (github.com/rspeer/wordfreq): English word frequency data (large_en), CC BY-SA 4.0. Aggregates Wikipedia, OpenSubtitles, SUBTLEX-US (Brysbaert et al.), Google Books Ngrams, Leeds Internet Corpus, news and web text. Used only to choose and rank which common words get a dictionary entry; no counts are redistributed.
+
+| File | URL | Ngày tải (UTC) | Kích thước | sha256 |
+|---|---|---|---|---|
+| `large_en.msgpack.gz` | https://raw.githubusercontent.com/rspeer/wordfreq/912caf64b657478d1dff1138efdc078947d54bb1/wordfreq/data/large_en.msgpack.gz | 2026-10-22 03:42 | 1,494,836 B | `dffae8066b78dce0a6667cf5f58e567054f902674667090a7ac8a8a44628b05c` |
+| `LICENSE.txt` | https://raw.githubusercontent.com/rspeer/wordfreq/912caf64b657478d1dff1138efdc078947d54bb1/LICENSE.txt | 2026-10-22 03:42 | 675 B | `8990c551671a51765c4dfe9428f3e1d58dc327f49aca346a32d28cc0fcc7aa88` |
 
 ## `tatoeba` — Tatoeba
 

@@ -20,12 +20,13 @@ import { applyPermissionPolicy, applySecurityDefaults } from './system/security'
 import { UpdateManager } from './system/UpdateManager'
 import { applyLaunchAtLogin } from './system/autostart'
 import { readClipboardForLookup } from './system/clipboard'
+import { readSelectionOrClipboard } from './system/selection'
 import { getForegroundInfo, getUserNotificationState, monitorOfNativeHandle } from './system/win32'
 import { QuietModeService } from './services/QuietModeService'
 import { SleepService } from './services/SleepService'
 import { TranslationService } from './services/TranslationService'
 import { ModelManager } from './translate/ModelManager'
-import { OPUS_MT_EN_VI, OPUS_MT_VI_EN } from './translate/modelFiles'
+import { MBART_50, OPUS_MT_EN_VI, OPUS_MT_VI_EN } from './translate/modelFiles'
 import { OpusMtEngine } from './translate/OpusMtEngine'
 import { TtsService } from './services/TtsService'
 import { AudioPackService } from './services/AudioPackService'
@@ -100,9 +101,11 @@ if (!app.requestSingleInstanceLock()) {
     const translationService = new TranslationService({
       models: {
         'en-vi': new ModelManager({ modelsDir: paths.models(), spec: OPUS_MT_EN_VI }),
-        'vi-en': new ModelManager({ modelsDir: paths.models(), spec: OPUS_MT_VI_EN })
+        'vi-en': new ModelManager({ modelsDir: paths.models(), spec: OPUS_MT_VI_EN }),
+        high: new ModelManager({ modelsDir: paths.models(), spec: MBART_50 })
       },
       engine: new OpusMtEngine(paths.models()),
+      preferHigh: () => c.settings.get('translate.highQuality'),
       onStatus: (direction, status) => broadcast('translate:status-changed', { direction, status })
     })
     translation = translationService
@@ -179,10 +182,13 @@ if (!app.requestSingleInstanceLock()) {
     )
     registerPopupIpc(p)
     registerShortcuts({
-      // Copy chữ rồi bấm phím tắt → popup tra từ cạnh con trỏ
+      // Bôi đen chữ (hoặc đã Ctrl+C) rồi bấm phím tắt → popup tra từ cạnh con trỏ
       quickTranslate: async () => {
         if (p.win.isVisible()) return p.hide()
-        const text = await readClipboardForLookup()
+        const text = await readSelectionOrClipboard(
+          readClipboardForLookup,
+          c.settings.get('translate.autoCopy')
+        )
         p.showAtCursor()
         sendTo(p.win, 'popup:query', { text })
       }

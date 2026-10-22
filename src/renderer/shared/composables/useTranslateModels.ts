@@ -1,13 +1,14 @@
 import { ref, type Ref } from 'vue'
-import type { TranslateDirection, TranslateStatus } from '@shared/schemas/translate'
+import type { TranslateModelKey, TranslateStatus } from '@shared/schemas/translate'
 import { invoke } from '../ipc'
 
-// Trạng thái model dịch của cả hai chiều: dùng chung trong cả cửa sổ (tải một lần, nghe sự kiện từ main)
-const statuses: Record<TranslateDirection, Ref<TranslateStatus | null>> = {
+// Trạng thái các model dịch (opus-mt từng chiều + 'high' = mBART-50 chất lượng cao): dùng chung trong cả cửa sổ
+const statuses: Record<TranslateModelKey, Ref<TranslateStatus | null>> = {
   'en-vi': ref(null),
-  'vi-en': ref(null)
+  'vi-en': ref(null),
+  high: ref(null)
 }
-const DIRECTIONS: TranslateDirection[] = ['en-vi', 'vi-en']
+const DIRECTIONS: TranslateModelKey[] = ['en-vi', 'vi-en', 'high']
 let started = false
 
 function start(): void {
@@ -25,10 +26,10 @@ function start(): void {
 
 /** Trạng thái các model dịch + hành động tải/huỷ/xoá (dùng trong popup và Cài đặt) */
 export function useTranslateModels(): {
-  statuses: Record<TranslateDirection, Ref<TranslateStatus | null>>
-  install: (direction: TranslateDirection) => Promise<TranslateStatus>
-  cancel: (direction: TranslateDirection) => void
-  remove: (direction: TranslateDirection) => Promise<void>
+  statuses: Record<TranslateModelKey, Ref<TranslateStatus | null>>
+  install: (direction: TranslateModelKey) => Promise<TranslateStatus>
+  cancel: (direction: TranslateModelKey) => void
+  remove: (direction: TranslateModelKey) => Promise<void>
 } {
   start()
   return {

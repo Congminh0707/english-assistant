@@ -82,3 +82,9 @@ App chạy thường trực trên máy, có thể đọc clipboard, nghe micro, 
 - Quyền micro chỉ được cấp cho trang của chính app và chỉ cho âm thanh (không camera/màn hình) — `applyPermissionPolicy` trong `src/main/system/security.ts`; mọi quyền thiết bị khác bị từ chối.
 - Âm thanh ghi chỉ nằm trong bộ nhớ trong lúc nhận dạng (PCM 16 kHz): **không lưu file, không gửi mạng, không log** (kể cả lời nhận dạng). Model Whisper chạy trên máy (utilityProcess, `allowRemoteModels = false`).
 - Model tải về từ Hugging Face khi người dùng đồng ý, ghim revision và kiểm tra sha256 từng file.
+
+## Lấy chữ đang bôi đen (Ctrl+Alt+T)
+
+- Chỉ chạy khi người dùng **chủ động bấm phím tắt**; không theo dõi clipboard hay phím nền.
+- Gửi Ctrl+C giả lập tới cửa sổ đang focus rồi **khôi phục clipboard** (mọi định dạng: chữ, HTML, ảnh); chữ lấy được vẫn qua bộ lọc nhạy cảm (`sensitive.ts`: OTP, số thẻ, chuỗi giống mật khẩu/khoá API bị bỏ) và giới hạn 500 ký tự; **không log** nội dung.
+- Không bao giờ gửi vào terminal (tránh ngắt lệnh đang chạy). Tắt được bằng `translate.autoCopy`.

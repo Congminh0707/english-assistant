@@ -16,6 +16,9 @@ export interface SourceDef extends SourceInfo {
 
 const NGSL_BASE = 'https://www.newgeneralservicelist.com/s/'
 const OLP_BASE = 'https://raw.githubusercontent.com/openlanguageprofiles/olp-en-cefrj/master/'
+// Ghim theo commit để tải lại luôn ra đúng file
+const WORDFREQ_BASE =
+  'https://raw.githubusercontent.com/rspeer/wordfreq/912caf64b657478d1dff1138efdc078947d54bb1/'
 const TATOEBA_BASE = 'https://downloads.tatoeba.org/exports/per_language/'
 
 export const SOURCES = {
@@ -135,6 +138,19 @@ export const SOURCES = {
     attribution:
       'Short Vietnamese meanings for words that have no Vietnamese translation in Wiktionary, generated at build time with an LLM (model and date in each record: generatedBy) and reviewed by the English Assistant project (content/curated/vocab/vi-generated.json).',
     files: []
+  },
+  wordfreq: {
+    id: 'wordfreq',
+    name: 'wordfreq (large_en word frequencies)',
+    url: 'https://github.com/rspeer/wordfreq',
+    license: 'CC-BY-SA-4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0/',
+    attribution:
+      'Robyn Speer, wordfreq (github.com/rspeer/wordfreq): English word frequency data (large_en), CC BY-SA 4.0. Aggregates Wikipedia, OpenSubtitles, SUBTLEX-US (Brysbaert et al.), Google Books Ngrams, Leeds Internet Corpus, news and web text. Used only to choose and rank which common words get a dictionary entry; no counts are redistributed.',
+    files: [
+      { url: `${WORDFREQ_BASE}wordfreq/data/large_en.msgpack.gz`, file: 'large_en.msgpack.gz' },
+      { url: `${WORDFREQ_BASE}LICENSE.txt`, file: 'LICENSE.txt' }
+    ]
   },
   tatoeba: {
     id: 'tatoeba',

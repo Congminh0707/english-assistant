@@ -42,6 +42,12 @@ gantt
 
 - ✅ Phát hành `v1.1.0` (2026-10-22): bài nói (Whisper + wav2vec2 tuỳ chọn), màn Ôn từ mới, 5 thú cưng có hành động/phản ứng riêng, thêm vật phẩm cửa hàng. Đã chạy lint/typecheck/test/build local trước khi đẩy; workflow GitHub tạo release + tag.
 
+- ✅ Pack 1.3.0 đã build local (2026-10-22): **mở rộng từ điển 24,6k → 43,6k từ** (nguồn wordfreq, docs/09 §10.3). **Còn dở:** (1) duyệt 34 nghĩa `draft` (`content/curated/vocab/vi-generated.json`, id trong `content/.build/enrich-vi/results/part-extra-1.3.0.json`) rồi `content:validate --release`; (2) tải `core-dictionary-1.3.0.eapack(.sha256)` lên release `content-pack-1.3.0` và đổi `CONTENT_PACK_TAG` trong `.github/workflows/release.yml`; (3) tăng version app rồi phát hành; (4) sinh nghĩa Việt cho ~26k từ mới (`content:enrich vi`).
+- ✅ Xong code (2026-10-22, **chưa thử tay trong app**): **Tra từ gõ sai chính tả** — gợi ý "Có phải bạn muốn tìm…" (registation → registration) trong popup. **Việc tiếp theo (chưa làm):** mở rộng độ phủ từ điển ngoài ~24,6k lemma (thêm từ phổ biến ngoài Tatoeba, cần nguồn tần suất giấy phép rộng + tải lại kaikki + content pack mới).
+- ✅ Xong code (2026-10-22, **chưa thử tay trong app**): **Dịch câu/đoạn chuẩn hơn (offline)** — model tuỳ chọn mBART-50 chất lượng cao (~875 MB, Anh↔Việt một model), ưu tiên khi đã tải; nút tải trong popup + Cài đặt; dịch nhóm 2–3 câu, giới hạn 1200 ký tự; test dịch vụ (chọn engine, cache theo engine). Đã chạy worker đã build với model thật OK (2–8 s). Chi tiết docs/11 §2, decisions #27.
+
+- ✅ Xong code (2026-10-22, **chưa thử tay**): **Bôi đen rồi Ctrl+Alt+T là dịch được** (không cần Ctrl+C): `system/selection.ts` gửi Ctrl+C giả lập, đọc chữ, khôi phục clipboard; bỏ qua terminal; có công tắc `translate.autoCopy`. Chi tiết docs/11 + docs/16.
+
 ## Phase 0 — Spike: cửa sổ mascot (≈ 2 tuần)
 
 Mục tiêu: chứng minh các kỹ thuật khó nhất chạy được trên Windows.

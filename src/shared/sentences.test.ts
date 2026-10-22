@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { ensureTerminalPunctuation, looksVietnamese, splitSentences } from './sentences'
+import {
+  ensureTerminalPunctuation,
+  groupSentences,
+  looksVietnamese,
+  splitSentences
+} from './sentences'
 
 describe('splitSentences', () => {
   it('tách theo dấu kết thúc câu', () => {
@@ -48,5 +53,21 @@ describe('ensureTerminalPunctuation', () => {
     expect(ensureTerminalPunctuation('Is it done?')).toBe('Is it done?')
     expect(ensureTerminalPunctuation('She said "go!"')).toBe('She said "go!"')
     expect(ensureTerminalPunctuation('Wait…')).toBe('Wait…')
+  })
+})
+
+describe('groupSentences', () => {
+  it('gom câu liên tiếp thành nhóm không vượt giới hạn; câu quá dài đứng riêng', () => {
+    const sentences = ['One two three.', 'Four five six.', 'Seven eight nine.', 'Ten.']
+    expect(groupSentences(sentences, 32)).toEqual([
+      'One two three. Four five six.',
+      'Seven eight nine. Ten.'
+    ])
+    expect(groupSentences(sentences, 1000)).toEqual([sentences.join(' ')])
+    expect(groupSentences(['A very long sentence indeed.', 'Short.'], 10)).toEqual([
+      'A very long sentence indeed.',
+      'Short.'
+    ])
+    expect(groupSentences([], 100)).toEqual([])
   })
 })

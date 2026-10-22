@@ -11,6 +11,8 @@ const ClockTime = z.string().regex(/^([01]?\d|2[0-3]):[0-5]\d$/)
  */
 export const settingDefinitions = {
   'ui.language': z.enum(['vi', 'en']).default('vi'),
+  /** Bấm phím tắt dịch thì tự lấy chữ đang bôi đen (gửi Ctrl+C giả lập, khôi phục clipboard); tắt = chỉ dùng chữ đã Ctrl+C */
+  'translate.autoCopy': z.boolean().default(true),
   /** Kích thước mascot theo khung gốc 48px: 1 = 48px, 2 = 96px, 3 = 144px (sheet 96×96 được thu lại tương ứng) */
   'mascot.scale': z.union([z.literal(1), z.literal(2), z.literal(3)]).default(2),
   'app.launchAtLogin': z.boolean().default(false),
@@ -31,6 +33,8 @@ export const settingDefinitions = {
   'mascot.quizMinutes': z
     .union([z.literal(0), z.literal(15), z.literal(25), z.literal(45)])
     .default(25),
+  /** Dịch câu/đoạn: ưu tiên model chất lượng cao (mBART-50) khi đã tải; tắt = luôn dùng bản nhanh opus-mt */
+  'translate.highQuality': z.boolean().default(true),
   /** Ôn thẻ: số từ mới đưa vào ôn mỗi ngày (0 = không giới hạn) */
   'review.newPerDay': z
     .union([z.literal(0), z.literal(5), z.literal(10), z.literal(20), z.literal(50)])

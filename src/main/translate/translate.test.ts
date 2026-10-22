@@ -3,7 +3,11 @@ import { existsSync, mkdtempSync, readdirSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import type { TranslateDirection, TranslateStatus } from '@shared/schemas/translate'
+import type {
+  TranslateDirection,
+  TranslateModelKey,
+  TranslateStatus
+} from '@shared/schemas/translate'
 import { TranslationService } from '../services/TranslationService'
 import type { TranslationEngine } from './engine'
 import type { ModelSpec } from './modelFiles'
@@ -111,20 +115,27 @@ describe('ModelManager', () => {
 
 describe('TranslationService', () => {
   const SPEC_VI: ModelSpec = { ...SPEC, id: 'Test/model-vi-en' }
+  const SPEC_HIGH: ModelSpec = { ...SPEC, id: 'Test/model-high' }
 
   function setup(): {
     service: TranslationService
     engine: TranslationEngine & { calls: string[]; disposed: number }
-    statuses: Array<[TranslateDirection, TranslateStatus]>
-    models: Record<TranslateDirection, ModelManager>
+    statuses: Array<[TranslateModelKey, TranslateStatus]>
+    models: Record<TranslateModelKey, ModelManager>
+    setPreferHigh: (value: boolean) => void
   } {
     const calls: string[] = []
     const engine = {
       calls,
       disposed: 0,
-      translate: async (text: string, direction: TranslateDirection): Promise<string> => {
-        calls.push(`${direction}:${text}`)
-        return direction === 'en-vi' ? `VI(${text})` : `EN(${text})`
+      translate: async (
+        text: string,
+        direction: TranslateDirection,
+        quality: 'fast' | 'high'
+      ): Promise<string> => {
+        calls.push(`${quality}:${direction}:${text}`)
+        const tag = quality === 'high' ? 'HQ' : ''
+        return direction === 'en-vi' ? `VI${tag}(${text})` : `EN${tag}(${text})`
       },
       dispose(): void {
         engine.disposed++
@@ -132,16 +143,19 @@ describe('TranslationService', () => {
     }
     const models = {
       'en-vi': new ModelManager({ modelsDir: dir, spec: SPEC, fetch: fakeFetch() }),
-      'vi-en': new ModelManager({ modelsDir: dir, spec: SPEC_VI, fetch: fakeFetch() })
+      'vi-en': new ModelManager({ modelsDir: dir, spec: SPEC_VI, fetch: fakeFetch() }),
+      high: new ModelManager({ modelsDir: dir, spec: SPEC_HIGH, fetch: fakeFetch() })
     }
-    const statuses: Array<[TranslateDirection, TranslateStatus]> = []
+    const statuses: Array<[TranslateModelKey, TranslateStatus]> = []
+    let preferHigh = true
     const service = new TranslationService({
       models,
       engine,
+      preferHigh: () => preferHigh,
       onStatus: (d, s) => statuses.push([d, s]),
       now: () => 0
     })
-    return { service, engine, statuses, models }
+    return { service, engine, statuses, models, setPreferHigh: (v) => (preferHigh = v) }
   }
 
   it('chưa tải model → báo chưa sẵn sàng; tải xong thì dịch được', async () => {
@@ -173,7 +187,7 @@ describe('TranslationService', () => {
     await service.install('vi-en')
     const res = await service.translate('Tôi đang học tiếng Anh')
     expect(res).toMatchObject({ text: 'EN(Tôi đang học tiếng Anh)', direction: 'vi-en' })
-    expect(engine.calls).toEqual(['vi-en:Tôi đang học tiếng Anh'])
+    expect(engine.calls).toEqual(['fast:vi-en:Tôi đang học tiếng Anh'])
   })
 
   it('nhớ kết quả gần đây theo từng chiều, không gọi lại engine', async () => {
@@ -182,7 +196,7 @@ describe('TranslationService', () => {
     await service.translate('Good morning.')
     const again = await service.translate('Good morning.')
     expect(again.cached).toBe(true)
-    expect(engine.calls).toEqual(['en-vi:Good morning.'])
+    expect(engine.calls).toEqual(['fast:en-vi:Good morning.'])
   })
 
   it('văn bản rỗng bị từ chối', async () => {
@@ -204,6 +218,39 @@ describe('TranslationService', () => {
     await expect(service.translate('Hello')).rejects.toThrow(/TRANSLATE_NOT_READY/)
   })
 
+  it('đã tải model chất lượng cao: dùng cho cả hai chiều, không cần opus-mt; tắt ưu tiên thì quay về opus-mt', async () => {
+    const { service, engine, setPreferHigh } = setup()
+    await expect(service.translate('Hello')).rejects.toThrow(/TRANSLATE_NOT_READY/)
+    await service.install('high')
+    const vi = await service.translate('She wants to buy a present for him.')
+    expect(vi).toMatchObject({ engine: 'mbart-50', direction: 'en-vi' })
+    expect(vi.text).toBe('VIHQ(She wants to buy a present for him.)')
+    const en = await service.translate('Tôi đang học tiếng Anh')
+    expect(en).toMatchObject({ engine: 'mbart-50', direction: 'vi-en' })
+    expect(engine.calls).toEqual([
+      'high:en-vi:She wants to buy a present for him.',
+      'high:vi-en:Tôi đang học tiếng Anh'
+    ])
+
+    // Tắt "ưu tiên chất lượng cao" mà chưa có opus-mt → báo chưa sẵn sàng; có rồi thì dùng bản nhanh
+    setPreferHigh(false)
+    await expect(service.translate('Hello world')).rejects.toThrow(/TRANSLATE_NOT_READY/)
+    await service.install('en-vi')
+    expect((await service.translate('Hello world')).engine).toBe('opus-mt')
+  })
+
+  it('cache tách theo engine; xoá model chất lượng cao chỉ bỏ cache của nó', async () => {
+    const { service, engine } = setup()
+    await service.install('en-vi')
+    await service.install('high')
+    await service.translate('Good morning.') // high
+    await service.translate('Good morning.') // cache của high
+    expect(engine.calls).toEqual(['high:en-vi:Good morning.'])
+    service.remove('high')
+    const res = await service.translate('Good morning.') // quay về opus-mt, chưa có trong cache
+    expect(res).toMatchObject({ engine: 'opus-mt', cached: false })
+  })
+
   it('tải lỗi → trạng thái error có khoá i18n, cho phép thử lại', async () => {
     const failing = new ModelManager({
       modelsDir: dir,
@@ -211,7 +258,7 @@ describe('TranslationService', () => {
       fetch: fakeFetch({ fail: true })
     })
     const service = new TranslationService({
-      models: { 'en-vi': failing, 'vi-en': failing },
+      models: { 'en-vi': failing, 'vi-en': failing, high: failing },
       engine: { translate: async () => '', dispose: () => {} },
       now: () => 0
     })

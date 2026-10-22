@@ -89,6 +89,7 @@
     "searchPlaceholder": "Type an English or Vietnamese word…",
     "empty": "Copy an English word and press {shortcut}, or type above.",
     "notFound": "“{query}” is not in the dictionary.",
+    "didYouMean": "Did you mean:",
     "sentence": "This is a sentence — tap a word to look it up:",
     "packMissing": "The dictionary pack isn't installed yet. Installing in the background — try again shortly.",
     "loading": "Looking up…",
@@ -723,7 +724,10 @@
       "hideHint": "After you review a word (even if you press \"Again\"), its cards are hidden for a while so you do not see them again right away or after leaving and coming back.",
       "minutes": "{n} min",
       "hours": "{n} h",
-      "choices": "Multiple-choice meaning on recognition cards (off = just flip and self-rate)"
+      "choices": "Multiple-choice meaning on recognition cards (off = just flip and self-rate)",
+      "quickTranslate": "Quick translate (Ctrl+Alt+T)",
+      "autoCopy": "Grab the selected text automatically",
+      "autoCopyHint": "Select text and press Ctrl+Alt+T — no Ctrl+C needed. The app sends a simulated Ctrl+C and then restores your clipboard. Not used in terminals (Ctrl+C there interrupts the running command) — copy yourself and press Ctrl+Alt+T."
     },
     "practice": {
       "title": "Practice",
@@ -1035,10 +1039,14 @@
     "modelsHint": "Each direction needs a one-time model download that runs entirely on your device. You can delete it to free disk space.",
     "dir": {
       "en-vi": "English → Vietnamese",
-      "vi-en": "Vietnamese → English"
+      "vi-en": "Vietnamese → English",
+      "high": "High quality (both English ↔ Vietnamese)"
     },
     "notInstalled": "Not downloaded ({size} MB)",
-    "remove": "Delete model"
+    "remove": "Delete model",
+    "downloadHigh": "Download the high-quality model ({size} MB)",
+    "upgradeHint": "This is the fast translation (average quality). For a more accurate result, download the high-quality model:",
+    "preferHigh": "Prefer the high-quality model when installed (slower, more accurate)"
   },
   "shop": {
     "title": "Shop",

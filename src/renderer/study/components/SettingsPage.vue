@@ -25,7 +25,7 @@ const { speak, naturalVoice } = useTts()
 const ttsModel = useTtsModel()
 const trModels = useTranslateModels()
 const stt = useStt()
-const TR_DIRECTIONS = ['en-vi', 'vi-en'] as const
+const TR_DIRECTIONS = ['high', 'en-vi', 'vi-en'] as const
 const MB = 1024 * 1024
 const toMb = (bytes: number | undefined): number => Math.round((bytes ?? 0) / MB)
 const ttsSizeMb = computed(() => Math.round((ttsModel.status.value?.sizeBytes ?? 0) / MB))
@@ -204,6 +204,14 @@ onMounted(loadProfiles)
     <PxPanel class="block">
       <h2>{{ t('translate.modelsTitle') }}</h2>
       <p class="muted">{{ t('translate.modelsHint') }}</p>
+      <label class="row">
+        {{ t('translate.preferHigh') }}
+        <input
+          type="checkbox"
+          :checked="settingsStore.settings['translate.highQuality']"
+          @change="setSetting('translate.highQuality', ($event.target as HTMLInputElement).checked)"
+        />
+      </label>
       <div v-for="dir in TR_DIRECTIONS" :key="dir" class="model">
         <strong>{{ t(`translate.dir.${dir}`) }}</strong>
         <template v-if="trModels.statuses[dir].value">
@@ -319,6 +327,19 @@ onMounted(loadProfiles)
           {{ t('study.settings.backfill') }}
         </button>
       </div>
+    </PxPanel>
+
+    <PxPanel class="block">
+      <h2>{{ t('study.settings.quickTranslate') }}</h2>
+      <label class="row">
+        {{ t('study.settings.autoCopy') }}
+        <input
+          type="checkbox"
+          :checked="settingsStore.settings['translate.autoCopy']"
+          @change="setSetting('translate.autoCopy', ($event.target as HTMLInputElement).checked)"
+        />
+      </label>
+      <p class="muted">{{ t('study.settings.autoCopyHint') }}</p>
     </PxPanel>
 
     <PxPanel class="block">

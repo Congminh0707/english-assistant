@@ -24,7 +24,7 @@ concurrency:
 
 env:
   # Content pack (từ điển ~21 MB) không nằm trong git: tải từ release có tag này (xem docs/15-packaging-and-release.md §6)
-  CONTENT_PACK_TAG: content-pack-1.3.0
+  CONTENT_PACK_TAG: content-pack-1.4.0
 
 jobs:
   version:

@@ -98,10 +98,10 @@ Luôn dùng helper `paths.ts` thay vì viết cứng đường dẫn.
 **Các job** (tách riêng để lỗi ở đâu chạy lại đúng chỗ đó): `version` → song song `lint` / `typecheck` / `test` / `content-pack` (tải + kiểm tra sha256) → `build` (windows, `pnpm build:win`, cần cả 4 job trên xanh) → `publish` (`gh release create v<version>` kèm `*-setup.exe`, `*.blockmap`, `latest.yml`; electron-updater đọc `latest.yml`; đánh dấu "latest", **công khai ngay**).
 Job lỗi: vào lần chạy trên tab Actions → **Re-run failed jobs** (chỉ chạy lại job lỗi và các job phụ thuộc; job đã xanh giữ nguyên; artifact `content-pack`/`installer` giữ 7 ngày). Nếu `publish` đã tạo release rồi mà muốn làm lại cùng version: xoá release + tag (`gh release delete v1.0.1 --cleanup-tag`) rồi push lại `release`.
 
-**Content pack (làm một lần):** file `content/packs/core-dictionary-*.eapack` (~26 MB) bị `.gitignore` nên CI không có sẵn; workflow tải nó từ một release phụ có tag `content-pack-1.3.0` (biến `CONTENT_PACK_TAG` trong workflow) và kiểm tra sha256. Tải lên một lần từ máy có pack:
+**Content pack (làm một lần):** file `content/packs/core-dictionary-*.eapack` (~26 MB) bị `.gitignore` nên CI không có sẵn; workflow tải nó từ một release phụ có tag `content-pack-1.4.0` (biến `CONTENT_PACK_TAG` trong workflow) và kiểm tra sha256. Tải lên một lần từ máy có pack:
 
 ```powershell
-gh release create content-pack-1.3.0 (Get-ChildItem content/packs/core-dictionary-*.eapack*) --prerelease --title "Content pack 1.3.0" --notes "Gói từ điển đi kèm bản cài (không phải bản app)"
+gh release create content-pack-1.4.0 (Get-ChildItem content/packs/core-dictionary-*.eapack*) --prerelease --title "Content pack 1.4.0" --notes "Gói từ điển đi kèm bản cài (không phải bản app)"
 ```
 Release này là `--prerelease` và tag `content-pack-*` không bị `check-version` coi là version app (chỉ tag `v*`), nên không ảnh hưởng auto-update. Khi build lại pack với version mới: tải lên release mới và đổi `CONTENT_PACK_TAG`. Repo đang công khai: pack gồm dữ liệu CC BY-SA/Wiktionary nên cần giữ ghi công trong app (docs/08).
 

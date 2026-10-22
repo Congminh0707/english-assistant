@@ -19,7 +19,7 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 
 | Hạng mục | Giá trị | Đo bằng | Đo ngày |
 |---|---|---|---|
-| Phiên bản app | 1.2.1 | `pnpm stats` | 2026-10-22 |
+| Phiên bản app | 1.2.2 | `pnpm stats` | 2026-10-22 |
 | Test (Vitest) | 358 test / 38 file | `pnpm test` | 2026-10-22 |
 | Kênh IPC | 87 invoke · 4 send · 13 event | `pnpm stats` | 2026-10-22 |
 | Migration DB (Drizzle) | 7 (`0000`–`0006`) | `pnpm stats` | 2026-10-22 |
@@ -42,17 +42,17 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 
 Tất cả do AI soạn, **chưa có giáo viên người thật duyệt** ([08](08-content-sources.md)).
 
-## 3. Từ điển (`core-dictionary` 1.3.0 — `pnpm content:stats`, đo 2026-10-22)
+## 3. Từ điển (`core-dictionary` 1.4.0 — `pnpm content:stats`, đo 2026-10-22)
 
 | Hạng mục | Số lượng |
 |---|---|
-| File `.eapack` / `content.db` giải nén | 26,3 MB / 140,3 MB |
+| File `.eapack` / `content.db` giải nén | 26,6 MB / 141,6 MB |
 | Mục từ (`words`) | **43.628** |
 | — trong top 10k (`freq_rank ≤ 10.000`) | 10.000, **đủ 10.000 có nghĩa Việt** |
-| — ngoài top 10k | 33.628: 6.766 có nghĩa Việt, **26.862 chưa có nghĩa Việt** |
-| Từ có nghĩa Việt (`vi_short`) | 16.766 (38 %) |
+| — ngoài top 10k | 33.628: 8.643 có nghĩa Việt, **24.985 chưa có nghĩa Việt** |
+| Từ có nghĩa Việt (`vi_short`) | 18.643 (43 %) |
 | Từ có IPA Mỹ | 37.068 |
-| Từ dùng nghĩa Việt **AI sinh** | 2.445 (2.419 trong top 10k); file curated có 3.030 mục, **tất cả `approved`** (`validate --release` đạt) |
+| Từ dùng nghĩa Việt **AI sinh** | 4.322 (2.419 trong top 10k), tất cả `approved` (`validate --release` đạt). File curated `vi-generated.json` có 22.263 mục: 4.907 `approved`, 17.233 `draft` (chưa duyệt, **không vào pack**), 123 `rejected`; chưa sinh 7.629 từ. 1.877 mục duyệt bằng AI (`claude-cli-review`), không phải người |
 | Từ gắn cờ nhạy cảm (`sensitive`) | 569 (106 liệt kê tay trong `sensitive-words.json` + tự gắn cho từ mới có nhãn tục/xúc phạm) |
 | Dạng từ (`word_forms`) | 78.590 |
 | Câu (`sentences`) / có bản dịch Việt | 77.511 / 19.594 |

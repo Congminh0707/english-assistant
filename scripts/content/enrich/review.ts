@@ -10,9 +10,10 @@ import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { z } from 'zod'
 import { runClaudeCli } from './claude-cli'
-import { loadPromptWords, type PromptWord } from './vi'
+import { loadPromptWords, type MissingViFile, type PromptWord } from './vi'
 import { Pos } from '../../../src/shared/schemas/content'
-import { log } from '../lib/io'
+import { log, readJson, requireFile } from '../lib/io'
+import { normalizedPath } from '../lib/paths'
 import {
   MAX_GENERATED_MEANINGS,
   MAX_MEANING_CHARS,
@@ -79,9 +80,19 @@ function parseArgs(args: string[]): Options {
 export async function reviewVi(args: string[]): Promise<void> {
   const opts = parseArgs(args)
   const curated = await loadViGenerated(opts.file)
+  // Duyệt theo tần suất: từ phổ biến (freqRank thấp) trước, để hạn mức có hạn dùng cho từ hay gặp nhất
+  requireFile(normalizedPath('missing-vi.json'), 'pnpm content:normalize (stage level)')
+  const rank = new Map<string, number>(
+    (await readJson<MissingViFile>(normalizedPath('missing-vi.json'))).words.map((w) => [
+      w.id,
+      w.freqRank ?? Number.POSITIVE_INFINITY
+    ])
+  )
+  const rankOf = (id: string): number => rank.get(id) ?? Number.POSITIVE_INFINITY
   const draftIds = Object.entries(curated.entries)
     .filter(([, e]) => e.review.status === 'draft')
     .map(([id]) => id)
+    .sort((a, b) => rankOf(a) - rankOf(b) || (a < b ? -1 : 1))
   const todoIds = opts.limit ? draftIds.slice(0, opts.limit) : draftIds
   log(`review vi: ${draftIds.length} draft entries, reviewing ${todoIds.length}`)
   if (!todoIds.length) return

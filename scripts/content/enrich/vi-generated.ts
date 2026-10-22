@@ -88,9 +88,9 @@ export async function saveViGenerated(
   )
 }
 
-/** Mục được đưa vào pack (mọi trạng thái trừ rejected; quy tắc "phải approved" kiểm ở validate --release) */
+/** Mục được đưa vào pack: chỉ nghĩa đã `approved` (draft/ai_checked chưa duyệt và rejected không bao giờ vào pack) */
 export function isUsable(entry: GeneratedViEntry): boolean {
-  return entry.review.status !== 'rejected'
+  return entry.review.status === 'approved'
 }
 
 export function toViMeanings(entry: GeneratedViEntry): ViMeaning[] {

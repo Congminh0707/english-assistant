@@ -154,11 +154,11 @@ onMounted(async () => {
 }
 h1 {
   margin: 0;
-  font-size: 22px;
+  font-size: var(--fs-2xl);
 }
 h2 {
   margin: 0 0 8px;
-  font-size: 16px;
+  font-size: var(--fs-lg);
   color: var(--c-xp);
 }
 .muted {

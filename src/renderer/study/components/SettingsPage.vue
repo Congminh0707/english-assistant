@@ -241,7 +241,7 @@ onMounted(loadProfiles)
         <select v-model="newTrack">
           <option v-for="tr in TRACKS" :key="tr" :value="tr">{{ t(`study.tracks.${tr}`) }}</option>
         </select>
-        <button type="submit" class="small" :disabled="!newName.trim()">
+        <button type="submit" class="btn btn--sm" :disabled="!newName.trim()">
           {{ t('study.settings.create') }}
         </button>
       </form>
@@ -268,7 +268,7 @@ onMounted(loadProfiles)
           >
             <option v-for="l in LEVEL_CODES" :key="l" :value="l">{{ levelLabel(l) }}</option>
           </select>
-          <button type="button" class="small" @click="emit('retest')">
+          <button type="button" class="btn btn--sm" @click="emit('retest')">
             {{ t('study.settings.retest') }}
           </button>
         </span>
@@ -349,7 +349,7 @@ onMounted(loadProfiles)
             <button
               v-if="trModels.statuses[dir].value?.state === 'downloading'"
               type="button"
-              class="small"
+              class="btn btn--sm"
               @click="trModels.cancel(dir)"
             >
               {{ t('translate.cancel') }}
@@ -357,12 +357,12 @@ onMounted(loadProfiles)
             <button
               v-else-if="trModels.statuses[dir].value?.state === 'ready'"
               type="button"
-              class="small"
+              class="btn btn--sm"
               @click="trModels.remove(dir)"
             >
               {{ t('translate.remove') }}
             </button>
-            <button v-else type="button" class="small" @click="trModels.install(dir)">
+            <button v-else type="button" class="btn btn--sm" @click="trModels.install(dir)">
               {{
                 trModels.statuses[dir].value?.errorKey
                   ? t('translate.retry')
@@ -433,7 +433,7 @@ onMounted(loadProfiles)
       </label>
       <div class="row">
         <span class="muted">{{ backfillMessage || t('study.settings.backfillHint') }}</span>
-        <button type="button" class="small" :disabled="backfilling" @click="backfill">
+        <button type="button" class="btn btn--sm" :disabled="backfilling" @click="backfill">
           {{ t('study.settings.backfill') }}
         </button>
       </div>
@@ -501,7 +501,7 @@ onMounted(loadProfiles)
             :value="ttsModel.status.value.receivedBytes"
             :max="ttsModel.status.value.sizeBytes"
           />
-          <button type="button" class="small" @click="ttsModel.cancel()">
+          <button type="button" class="btn btn--sm" @click="ttsModel.cancel()">
             {{ t('tts.cancel') }}
           </button>
         </div>
@@ -513,7 +513,7 @@ onMounted(loadProfiles)
           <span v-if="ttsModel.status.value.errorKey" class="error">{{
             t(ttsModel.status.value.errorKey)
           }}</span>
-          <button type="button" class="small" @click="ttsModel.install()">
+          <button type="button" class="btn btn--sm" @click="ttsModel.install()">
             {{ ttsModel.status.value.errorKey ? t('tts.retry') : t('tts.download') }}
           </button>
           <span class="muted">{{ t('tts.fallbackHint') }}</span>
@@ -530,7 +530,7 @@ onMounted(loadProfiles)
               >
                 <option v-for="v in US_VOICES" :key="v.id" :value="v.id">{{ v.label }}</option>
               </select>
-              <button type="button" class="small" @click="speak(t('tts.testText'), 'us')">
+              <button type="button" class="btn btn--sm" @click="speak(t('tts.testText'), 'us')">
                 <UiIcon name="volume" /> {{ t('tts.test') }}
               </button>
             </span>
@@ -546,7 +546,7 @@ onMounted(loadProfiles)
               >
                 <option v-for="v in UK_VOICES" :key="v.id" :value="v.id">{{ v.label }}</option>
               </select>
-              <button type="button" class="small" @click="speak(t('tts.testText'), 'uk')">
+              <button type="button" class="btn btn--sm" @click="speak(t('tts.testText'), 'uk')">
                 <UiIcon name="volume" /> {{ t('tts.test') }}
               </button>
             </span>
@@ -570,7 +570,9 @@ onMounted(loadProfiles)
       <div v-if="stt.status.value?.state === 'downloading'" class="download">
         <span class="muted">{{ t('tts.downloading', { done: sttDoneMb, total: sttSizeMb }) }}</span>
         <progress :value="stt.status.value.receivedBytes" :max="stt.status.value.sizeBytes" />
-        <button type="button" class="small" @click="stt.cancel()">{{ t('tts.cancel') }}</button>
+        <button type="button" class="btn btn--sm" @click="stt.cancel()">
+          {{ t('tts.cancel') }}
+        </button>
       </div>
       <div v-else-if="stt.status.value?.state === 'ready'" class="download">
         <span class="muted"
@@ -582,7 +584,7 @@ onMounted(loadProfiles)
         <span v-if="stt.status.value.errorKey" class="error">{{
           t(stt.status.value.errorKey)
         }}</span>
-        <button type="button" class="small" @click="stt.install()">
+        <button type="button" class="btn btn--sm" @click="stt.install()">
           {{ stt.status.value.errorKey ? t('tts.retry') : t('tts.download') }}
         </button>
       </div>
@@ -598,7 +600,7 @@ onMounted(loadProfiles)
           <span v-else-if="stt.pronunciation.value.state === 'ready'" class="muted"
             ><UiIcon name="check" /> {{ t('speech.pronReady') }}</span
           >
-          <button v-else type="button" class="small" @click="stt.installPronunciation()">
+          <button v-else type="button" class="btn btn--sm" @click="stt.installPronunciation()">
             {{ t('speech.pronDownload', { size: pronSizeMb }) }}
           </button>
         </template>
@@ -710,7 +712,7 @@ onMounted(loadProfiles)
           <button
             v-if="update.status.value.state === 'available'"
             type="button"
-            class="small"
+            class="btn btn--sm"
             @click="update.download()"
           >
             {{ t('update.download') }}
@@ -718,7 +720,7 @@ onMounted(loadProfiles)
           <button
             v-else-if="update.status.value.state === 'ready'"
             type="button"
-            class="small"
+            class="btn btn--sm"
             @click="update.install()"
           >
             {{ t('update.install') }}
@@ -726,7 +728,7 @@ onMounted(loadProfiles)
           <button
             v-else
             type="button"
-            class="small"
+            class="btn btn--sm"
             :disabled="['disabled', 'checking', 'downloading'].includes(update.status.value.state)"
             @click="update.check()"
           >
@@ -747,6 +749,9 @@ onMounted(loadProfiles)
 </template>
 
 <style scoped>
+.small {
+  font-size: var(--fs-xs);
+}
 .settings {
   display: grid;
   gap: 16px;
@@ -755,11 +760,11 @@ onMounted(loadProfiles)
 }
 h1 {
   margin: 0;
-  font-size: 22px;
+  font-size: var(--fs-2xl);
 }
 h2 {
   margin: 0 0 8px;
-  font-size: 15px;
+  font-size: var(--fs-lg);
 }
 .block {
   display: grid;
@@ -891,17 +896,5 @@ input[type='time'] {
 .add input {
   flex: 1;
   min-width: 120px;
-}
-.small {
-  padding: 4px 10px;
-  border: 1px solid var(--c-line);
-  background: var(--c-surface);
-  font: inherit;
-  cursor: pointer;
-  border-radius: var(--r-md);
-}
-.small:disabled {
-  opacity: 0.5;
-  cursor: default;
 }
 </style>

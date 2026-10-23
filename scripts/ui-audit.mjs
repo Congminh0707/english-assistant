@@ -26,6 +26,20 @@ const PIXEL_OK = new Set([
   'TtsIndicator.vue'
 ])
 const EMOJI = /[\u{1F300}-\u{1FAFF}☀-➿⭐✅❌⬆⬇▶⏱♻]️?/gu
+// Lớp nút kiểu cũ (đã thay bằng .btn); nút còn dùng các tên này mà không có .btn là sót
+const OLD_BUTTON = new Set([
+  'primary',
+  'secondary',
+  'link',
+  'save',
+  'say',
+  'small',
+  'tool',
+  'chip',
+  'act',
+  'ghost',
+  'play-btn'
+])
 // Không cần bo: thanh/ô lưới/lớp phủ/khung toàn trang
 const NO_RADIUS =
   /(bar|seg|dot|cell|fill|track|swatch|tick|thumb|progress|canvas|grid|layer|sprite|overlay|backdrop|^\.study$|^\.side$|^\.content$|^50%$|^code$|^th$|^td$|^mark$)/i
@@ -53,6 +67,27 @@ for (const f of SCAN.flatMap((d) => walk(join(ROOT, d)))) {
   const s0 = src.indexOf('<style')
   const tpl = t0 >= 0 ? src.slice(t0, s0 > 0 ? s0 : undefined) : ''
   const css = s0 >= 0 ? src.slice(s0) : ''
+
+  // Nút còn kiểu cũ (lớp primary/small/link… không kèm .btn) hoặc không có lớp nào (nút xám mặc định của trình duyệt)
+  if (!kids) {
+    for (let i = tpl.indexOf('<button'); i >= 0; i = tpl.indexOf('<button', i + 1)) {
+      let q = null
+      let e = i
+      for (; e < tpl.length; e++) {
+        const c = tpl[e]
+        if (q) {
+          if (c === q) q = null
+        } else if (c === '"' || c === "'") q = c
+        else if (c === '>') break
+      }
+      const tag = tpl.slice(i, e + 1)
+      const cls = (/(?<![:\w-])class="([^"]*)"/.exec(tag)?.[1] ?? '').split(/\s+/).filter(Boolean)
+      const line = tpl.slice(0, i).split('\n').length
+      if (!cls.length) err(f, `dòng ${line}: <button> không có lớp — dùng .btn`)
+      else if (!cls.includes('btn') && cls.some((c) => OLD_BUTTON.has(c)))
+        err(f, `dòng ${line}: nút còn lớp cũ (${cls.join(' ')}) — dùng .btn + biến thể`)
+    }
+  }
 
   const emoji = [...new Set([...tpl.matchAll(EMOJI)].map((m) => m[0]))]
   if (emoji.length) err(f, `emoji trong template (${emoji.join(' ')}) — dùng <UiIcon name="…" />`)

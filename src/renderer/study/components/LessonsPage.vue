@@ -140,7 +140,7 @@ onMounted(async () => {
         <button
           v-if="!courseMode && result.nextLessonId && result.score >= LESSON_PASS_PERCENT"
           type="button"
-          class="primary"
+          class="btn btn--primary"
           @click="open(result.nextLessonId)"
         >
           {{ t('study.lessons.nextLesson') }} →
@@ -223,11 +223,11 @@ onMounted(async () => {
 }
 h1 {
   margin: 0;
-  font-size: 22px;
+  font-size: var(--fs-2xl);
 }
 h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--fs-lg);
 }
 .muted {
   margin: 0;
@@ -333,7 +333,12 @@ h2 {
   text-align: center;
 }
 .stars {
-  font-size: 40px;
+  display: flex;
+  gap: 6px;
+  color: var(--c-coin);
+}
+.stars :deep(svg) {
+  fill: currentColor;
 }
 .row {
   display: flex;

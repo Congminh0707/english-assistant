@@ -96,7 +96,7 @@ onMounted(() => {
 }
 h2 {
   margin: 0;
-  font-size: 20px;
+  font-size: var(--fs-lg);
 }
 .stage {
   padding: 8px;

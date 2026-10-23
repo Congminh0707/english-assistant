@@ -120,10 +120,10 @@ onMounted(load)
           </select>
         </label>
         <div class="row">
-          <button type="button" class="small" @click="gate = 'extend'">
+          <button type="button" class="btn btn--sm" @click="gate = 'extend'">
             {{ t('kids.report.extend') }}
           </button>
-          <button type="button" class="small" @click="gate = 'set'">
+          <button type="button" class="btn btn--sm" @click="gate = 'set'">
             {{ t('kids.report.changePin') }}
           </button>
         </div>
@@ -150,11 +150,11 @@ onMounted(load)
 }
 h1 {
   margin: 0;
-  font-size: 22px;
+  font-size: var(--fs-2xl);
 }
 h2 {
   margin: 0 0 8px;
-  font-size: 16px;
+  font-size: var(--fs-lg);
   color: var(--c-xp);
 }
 .block {
@@ -205,14 +205,6 @@ h2 {
   padding: 4px 0;
 }
 select,
-.small {
-  padding: 4px 10px;
-  border: 1px solid var(--c-line);
-  background: var(--c-surface);
-  font: inherit;
-  cursor: pointer;
-  border-radius: var(--r-md);
-}
 .ok {
   margin: 4px 0 0;
   color: var(--c-success);

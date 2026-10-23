@@ -424,7 +424,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
         >
           {{ t('study.review.show') }}
         </button>
-        <button v-else-if="!revealed" type="button" class="ghost" @click="reveal">
+        <button v-else-if="!revealed" type="button" class="btn btn--ghost" @click="reveal">
           {{ t('study.review.giveUp') }}
         </button>
         <div v-else class="rates">
@@ -453,7 +453,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           </button>
           <p class="muted hint">{{ hintText }}</p>
         </div>
-        <button type="button" class="ghost say-btn" @click="speakOpen = !speakOpen">
+        <button type="button" class="btn btn--sm btn--ghost" @click="speakOpen = !speakOpen">
           <UiIcon name="mic" />
           {{ speakOpen ? t('study.review.closeSay') : t('study.review.sayIt') }}
         </button>
@@ -650,29 +650,12 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   color: var(--c-ink);
   background: #fff2a8;
 }
-.say-btn {
-  font-size: 13px;
-  padding: 4px 12px;
-}
 .speak-panel {
   width: 100%;
   padding: 12px;
   border: 1px solid var(--c-line);
   background: var(--c-surface);
   border-radius: var(--r-md);
-}
-.ghost {
-  padding: 8px 18px;
-  border: 1px solid var(--c-line);
-  background: var(--c-surface);
-  color: var(--c-ink);
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-  border-radius: var(--r-md);
-}
-.ghost:hover {
-  background: var(--c-primary-soft);
 }
 .blank {
   display: inline-block;

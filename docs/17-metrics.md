@@ -19,7 +19,7 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 
 | Hạng mục                                       | Giá trị                                                                                     | Đo bằng      | Đo ngày    |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
-| Phiên bản app                                  | 1.3.0                                                                                       | `pnpm stats` | 2026-10-22 |
+| Phiên bản app                                  | 1.3.1                                                                                       | `pnpm stats` | 2026-10-22 |
 | Test (Vitest)                                  | 370 test / 40 file                                                                          | `pnpm test`  | 2026-10-23 |
 | Kênh IPC                                       | 94 invoke · 4 send · 14 event                                                               | `pnpm stats` | 2026-10-22 |
 | Migration DB (Drizzle)                         | 7 (`0000`–`0006`)                                                                           | `pnpm stats` | 2026-10-22 |

@@ -275,7 +275,7 @@ onUnmounted(pause)
 }
 h2 {
   margin: 0;
-  font-size: 17px;
+  font-size: var(--fs-lg);
 }
 h3 {
   margin: 4px 0;

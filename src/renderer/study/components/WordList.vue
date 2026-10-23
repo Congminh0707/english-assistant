@@ -256,7 +256,7 @@ onMounted(load)
 }
 h1 {
   margin: 0;
-  font-size: 20px;
+  font-size: var(--fs-2xl);
 }
 input {
   box-sizing: border-box;

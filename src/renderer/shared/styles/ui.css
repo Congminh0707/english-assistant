@@ -190,3 +190,33 @@
 .modern .btn--ghost:hover:not(:disabled) {
   background: var(--c-surface-2);
 }
+
+/* ---- Tiêu đề, thanh tiến độ gốc, ô chọn: một kiểu cho mọi trang ---- */
+.modern h1 {
+  margin: 0 0 var(--sp-4);
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+  line-height: 1.25;
+}
+.modern progress {
+  height: 8px;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+  overflow: hidden;
+  appearance: none;
+  accent-color: var(--c-primary);
+}
+.modern progress::-webkit-progress-bar {
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+}
+.modern progress::-webkit-progress-value {
+  border-radius: var(--r-pill);
+  background: var(--c-primary);
+}
+.modern input[type='checkbox'],
+.modern input[type='radio'],
+.modern input[type='range'] {
+  accent-color: var(--c-primary);
+}

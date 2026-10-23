@@ -131,7 +131,7 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
       </template>
 
       <footer class="nav">
-        <button v-if="step > 1" type="button" class="link" @click="step--">
+        <button v-if="step > 1" type="button" class="btn btn--ghost btn--sm" @click="step--">
           {{ t('study.onboarding.back') }}
         </button>
         <span class="spacer" />
@@ -168,11 +168,11 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
 }
 h1 {
   margin: 0;
-  font-size: 20px;
+  font-size: var(--fs-2xl);
 }
 h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--fs-lg);
   color: var(--c-xp);
 }
 .field {
@@ -228,14 +228,5 @@ input:focus {
 }
 .spacer {
   flex: 1;
-}
-.link {
-  border: none;
-  background: transparent;
-  color: var(--c-ink-soft);
-  font: inherit;
-  text-decoration: underline;
-  cursor: pointer;
-  border-radius: var(--r-md);
 }
 </style>

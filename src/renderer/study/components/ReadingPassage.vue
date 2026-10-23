@@ -162,7 +162,7 @@ onMounted(async () => {
       <div class="tools">
         <button
           type="button"
-          class="tool"
+          class="btn btn--sm"
           @click="speak(paragraphs.map((p) => p.en).join(' '), undefined, 0.85)"
         >
           <UiIcon name="volume" /> {{ t('study.reading.listenAll') }}
@@ -170,13 +170,13 @@ onMounted(async () => {
         <button
           v-if="hardWords.length"
           type="button"
-          class="tool"
+          class="btn btn--sm"
           :title="t('study.reading.saveHardHint')"
           @click="saveHard"
         >
           <UiIcon name="save" /> {{ t('study.reading.saveHard', { n: hardWords.length }) }}
         </button>
-        <button v-if="anyVi" type="button" class="tool" @click="toggleAllVi">
+        <button v-if="anyVi" type="button" class="btn btn--sm" @click="toggleAllVi">
           🇻🇳 {{ t('study.reading.toggleVi') }}
         </button>
       </div>
@@ -269,7 +269,7 @@ onMounted(async () => {
 }
 h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: var(--fs-lg);
 }
 .tools {
   display: flex;

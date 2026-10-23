@@ -315,7 +315,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 }
 h1 {
   margin: 0;
-  font-size: 22px;
+  font-size: var(--fs-2xl);
 }
 .muted {
   margin: 0;

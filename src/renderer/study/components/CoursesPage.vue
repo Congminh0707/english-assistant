@@ -163,11 +163,11 @@ onMounted(loadList)
 }
 h1 {
   margin: 0;
-  font-size: 22px;
+  font-size: var(--fs-2xl);
 }
 h2 {
   margin: 0;
-  font-size: 17px;
+  font-size: var(--fs-lg);
 }
 .muted {
   margin: 2px 0;

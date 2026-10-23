@@ -151,6 +151,10 @@ export const invokeContract = {
   'profile:list': { input: z.void(), output: z.array(ProfileInfoSchema) },
   'profile:setup': { input: ProfileSetupInputSchema, output: ProfileInfoSchema },
   'profile:create': { input: ProfileSetupInputSchema, output: ProfileInfoSchema },
+  'dev:grant-coins': {
+    input: z.object({ coins: z.number().int().min(1).max(10_000_000) }),
+    output: PetStateSchema
+  },
   'profile:update': { input: ProfileUpdateInputSchema, output: ProfileInfoSchema },
   'profile:switch': { input: z.object({ id: z.string().min(1) }), output: ProfileInfoSchema },
   'placement:start': { input: z.void(), output: PlacementStartSchema },

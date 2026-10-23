@@ -161,7 +161,8 @@ if (!app.requestSingleInstanceLock()) {
       spritePackService,
       sttService,
       pronunciationService,
-      updates
+      updates,
+      !app.isPackaged
     )
     if (app.isPackaged) {
       const autoCheck = (): void => {

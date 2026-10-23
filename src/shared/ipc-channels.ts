@@ -32,6 +32,8 @@ export const INVOKE_CHANNELS = [
   'profile:setup',
   'profile:create',
   'profile:update',
+  /** Chỉ bản dev (app chưa đóng gói): cộng xu thử nghiệm — main không đăng ký handler khi đã đóng gói */
+  'dev:grant-coins',
   'profile:switch',
   'placement:start',
   'placement:checkpoint-start',

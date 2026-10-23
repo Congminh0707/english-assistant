@@ -735,7 +735,10 @@
       "editPet": "Pet name",
       "editTrack": "Learning goal",
       "childWarn": "Child profiles use the kids' interface; parents get back in with the PIN. Level and XP are kept.",
-      "edited": "Changes saved"
+      "edited": "Changes saved",
+      "devTitle": "Dev tools (dev builds only)",
+      "devGrantCoins": "Add 1,000,000 coins",
+      "devGranted": "Added 1,000,000 coins"
     },
     "practice": {
       "title": "Practice",

@@ -748,7 +748,10 @@
       "editPet": "Tên thú cưng",
       "editTrack": "Mục tiêu học",
       "childWarn": "Hồ sơ trẻ em dùng giao diện của bé; phụ huynh vào lại bằng mã PIN. Level và XP được giữ nguyên.",
-      "edited": "Đã lưu thay đổi"
+      "edited": "Đã lưu thay đổi",
+      "devTitle": "Công cụ dev (chỉ bản chạy dev)",
+      "devGrantCoins": "Cộng 1.000.000 xu",
+      "devGranted": "Đã cộng 1.000.000 xu"
     },
     "practice": {
       "title": "Luyện tập",

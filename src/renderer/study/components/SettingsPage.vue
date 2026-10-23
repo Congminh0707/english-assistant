@@ -99,6 +99,19 @@ async function saveEdit(p: ProfileInfo): Promise<void> {
   emit('changed')
 }
 
+/** Công cụ chỉ có khi chạy dev (không xuất hiện trong bản đóng gói) */
+const isDev = import.meta.env.DEV
+const devNote = ref('')
+async function devGrantCoins(): Promise<void> {
+  try {
+    await invoke('dev:grant-coins', { coins: 1_000_000 })
+    devNote.value = t('study.settings.devGranted')
+    emit('changed')
+  } catch (err) {
+    devNote.value = String(err)
+  }
+}
+
 async function setSetting<K extends keyof Settings>(key: K, value: Settings[K]): Promise<void> {
   await settingsStore.set(key, value)
   emit('changed')
@@ -232,6 +245,14 @@ onMounted(loadProfiles)
           {{ t('study.settings.create') }}
         </button>
       </form>
+    </PxPanel>
+
+    <PxPanel v-if="isDev" class="block">
+      <h2>{{ t('study.settings.devTitle') }}</h2>
+      <button type="button" class="btn btn--sm" @click="devGrantCoins">
+        {{ t('study.settings.devGrantCoins') }}
+      </button>
+      <p v-if="devNote" class="saved-note">{{ devNote }}</p>
     </PxPanel>
 
     <PxPanel class="block">

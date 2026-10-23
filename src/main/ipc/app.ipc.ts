@@ -19,7 +19,8 @@ export function registerAppIpc(
   spritePack: SpritePackService,
   stt: SttService,
   pronunciation: PronunciationService,
-  updates: UpdateManager
+  updates: UpdateManager,
+  devTools = false
 ): void {
   handle('pet:get', () => c.pet.get())
   handle('pet:pat', () => c.pet.pat())
@@ -55,6 +56,13 @@ export function registerAppIpc(
   handle('profile:list', () => c.profiles.listInfo())
   handle('profile:setup', (input) => c.profiles.setup(input))
   handle('profile:create', (input) => c.profiles.createFromInput(input))
+  // Chỉ khi chạy dev (index.ts truyền !app.isPackaged): bản phát hành không có handler này
+  if (devTools) {
+    handle(
+      'dev:grant-coins',
+      ({ coins }) => c.xp.grant({ amount: 0, coins, reason: 'dev.grant' }).state
+    )
+  }
   handle('profile:update', (input) => {
     const info = c.profiles.update(input)
     // Đổi tên/track của hồ sơ đang dùng → mascot & cửa sổ Học tập nạp lại tên thú cưng

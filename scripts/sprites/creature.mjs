@@ -17,8 +17,7 @@ import {
   put,
   ramp,
   rbox,
-  strokeShapes,
-  W
+  strokeShapes
 } from './gfx.mjs'
 
 export const GROUND = 91
@@ -1546,4 +1545,4 @@ function drawFront(cv, kind, S, A, P) {
 }
 
 // ------------------------------------------------------------------ tiện ích bên ngoài
-export const newFrame = () => createCanvas(W, W)
+export const newFrame = () => createCanvas()

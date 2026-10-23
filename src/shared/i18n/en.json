@@ -1324,5 +1324,15 @@
       "v": "Top teeth touch the lower lip and the sound is voiced (very); not \"b\".",
       "f": "Top teeth touch the lower lip and you blow air, no voice (fish)."
     }
+  },
+  "spritePack": {
+    "title": "Sharper pets (high resolution)",
+    "desc": "Download (~{mb} MB) to show pets and accessories at 288px, sharper than the 96px sprites bundled with the app. Optional.",
+    "download": "Download ({mb} MB)",
+    "downloading": "Downloading… {pct}%",
+    "cancel": "Cancel",
+    "ready": "Installed",
+    "remove": "Remove pack",
+    "retry": "Retry download"
   }
 }

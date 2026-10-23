@@ -31,6 +31,9 @@ import { OpusMtEngine } from './translate/OpusMtEngine'
 import { TtsService } from './services/TtsService'
 import { AudioPackService } from './services/AudioPackService'
 import { AudioPackManager } from './audio/AudioPackManager'
+import { SpritePackManager } from './sprites/SpritePackManager'
+import { HIRES_SPRITE_PACK } from './sprites/packSpec'
+import { SpritePackService } from './services/SpritePackService'
 import { LISTENING_AUDIO_PACK } from './audio/packSpec'
 import { SttService } from './services/SttService'
 import { PronunciationService } from './services/PronunciationService'
@@ -123,6 +126,11 @@ if (!app.requestSingleInstanceLock()) {
       pack: new AudioPackManager({ packsDir: paths.audioPacks(), spec: LISTENING_AUDIO_PACK }),
       onStatus: (status) => broadcast('audio:status-changed', status)
     })
+    // Gói sprite độ phân giải cao (288px): tải thêm trong Cài đặt, bộ cài chỉ có sprite 96px
+    const spritePackService = new SpritePackService({
+      pack: new SpritePackManager({ packsDir: paths.spritePacks(), spec: HIRES_SPRITE_PACK }),
+      onStatus: (status) => broadcast('sprites:status-changed', status)
+    })
     // Nhận dạng giọng nói offline (Whisper base.en) + model phát âm âm vị tuỳ chọn (tải thêm/premium)
     const sttService = new SttService({
       models: new ModelManager({ modelsDir: paths.models(), spec: WHISPER_BASE_EN }),
@@ -150,6 +158,7 @@ if (!app.requestSingleInstanceLock()) {
       translationService,
       ttsService,
       audioPackService,
+      spritePackService,
       sttService,
       pronunciationService,
       updates

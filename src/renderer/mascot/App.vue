@@ -13,6 +13,13 @@ import SpeechBubble from './components/SpeechBubble.vue'
 import TtsIndicator from '@renderer/shared/components/TtsIndicator.vue'
 import { ACCESSORY_DRAW_ORDER } from '@shared/shop'
 import { normalizeCharacterId } from '@shared/characters'
+import {
+  hiresAsset,
+  hiresMeta,
+  hiresReady,
+  hiresVersion,
+  startHires
+} from '@renderer/shared/pet/hires'
 
 /**
  * Sheet theo nhân vật và giai đoạn tiến hoá (characters/<nhân vật>/<egg|baby|teen|adult|legend>/) và sheet phụ kiện (acc-bow.png...) do
@@ -39,6 +46,8 @@ const accessoryBackUrls = import.meta.glob('./assets/characters/*/*/accb-*.png',
 }) as Record<string, string>
 /** Phụ kiện đã nạp, khoá `<nhân vật>/<giai đoạn>:<id>` */
 const accessoryImages = new Map<string, HTMLImageElement>()
+/** Các `look` đang dùng sheet 288px từ gói tải thêm (phụ kiện phải cùng độ phân giải với thân) */
+const hiresLooks = new Set<string>()
 /** `look` = '<nhân vật>/<giai đoạn>', vd 'draco/teen' */
 const stageKey = (look: string, file: string): string => `./assets/characters/${look}/${file}`
 const FALLBACK_LOOK = 'bi/baby'
@@ -262,10 +271,15 @@ async function accessoryImage(
   look: string,
   file: string
 ): Promise<HTMLImageElement | undefined> {
-  const key = `${look}:${file}`
+  const hi = hiresLooks.has(look)
+  const key = `${hi ? 'hi:' : ''}${look}:${file}`
   const cached = accessoryImages.get(key)
   if (cached) return cached
-  const url = urls[stageKey(look, file)]
+  const [char, stg] = look.split('/')
+  // Thân đã là sheet 288px thì chỉ dùng lớp phụ kiện 288px (không trộn hai độ phân giải)
+  const url = hi
+    ? await hiresAsset(char, stg, file.replace(/\.png$/, ''))
+    : urls[stageKey(look, file)]
   if (!url) return undefined
   const image = new Image()
   image.src = url
@@ -290,11 +304,24 @@ async function applyAccessories(equipped: string[]): Promise<void> {
   animator?.setOverlays(front, back)
 }
 
-async function loadSheet(name: string): Promise<HTMLImageElement> {
+/** Nạp sheet + metadata của một ngoại hình: ưu tiên gói 288px nếu đã tải, không thì sprite 96px của bộ cài */
+async function loadLook(look: string): Promise<{ image: HTMLImageElement; meta: SpriteSheetMeta }> {
+  hiresLooks.delete(look)
+  if (hiresReady.value) {
+    const [char, stg] = look.split('/')
+    const [url, meta] = await Promise.all([hiresAsset(char, stg, 'sheet'), hiresMeta(char, stg)])
+    if (url && meta) {
+      const image = new Image()
+      image.src = url
+      await image.decode()
+      hiresLooks.add(look)
+      return { image, meta: meta as SpriteSheetMeta }
+    }
+  }
   const image = new Image()
-  image.src = sheetUrls[stageKey(name, 'sheet.png')]
+  image.src = sheetUrls[stageKey(look, 'sheet.png')]
   await image.decode()
-  return image
+  return { image, meta: sheetMetas[stageKey(look, 'sheet.json')] }
 }
 
 /** Lên giai đoạn mới (lên cấp qua mốc): đổi sheet và phụ kiện, ăn mừng */
@@ -302,7 +329,8 @@ async function evolveTo(next: string): Promise<void> {
   if (!animator || next === shownStage) return
   const previous = shownStage
   shownStage = next
-  animator.setSheet(await loadSheet(next), sheetMetas[stageKey(next, 'sheet.json')])
+  const look = await loadLook(next)
+  animator.setSheet(look.image, look.meta)
   await applyAccessories(petStore.pet?.equipped ?? [])
   if (previous) {
     brain?.react('happy')
@@ -314,6 +342,11 @@ async function evolveTo(next: string): Promise<void> {
 }
 
 watch(stage, (next) => void evolveTo(next))
+// Gói sprite 288px vừa tải xong / bị gỡ: nạp lại ngoại hình hiện tại ở độ phân giải mới
+watch(hiresVersion, () => {
+  shownStage = ''
+  void evolveTo(stage.value)
+})
 
 watch(
   () => petStore.pet?.equipped.join(','),
@@ -340,10 +373,10 @@ onMounted(async () => {
   const [settings] = await Promise.all([settingsStore.load(), petStore.load()])
   locale.value = settings['ui.language']
 
-  const image = await loadSheet(stage.value)
+  startHires()
+  const { image, meta } = await loadLook(stage.value)
   shownStage = stage.value
 
-  const meta = sheetMetas[stageKey(stage.value, 'sheet.json')]
   const scale = settings['mascot.scale']
   ctx = canvas.value!.getContext('2d', { willReadFrequently: true })!
   animator = new SpriteAnimator(image, meta, ctx, scale)

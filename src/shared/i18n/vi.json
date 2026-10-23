@@ -1337,5 +1337,15 @@
       "v": "Răng trên chạm môi dưới và rung (very); đừng đọc thành \"b\" hay \"v\" kiểu Việt.",
       "f": "Răng trên chạm môi dưới, thổi hơi, không rung (fish)."
     }
+  },
+  "spritePack": {
+    "title": "Thú cưng nét hơn (độ phân giải cao)",
+    "desc": "Tải thêm (~{mb} MB) để thú cưng và phụ kiện hiện ở độ phân giải 288px, sắc nét hơn bản 96px trong bộ cài. Không bắt buộc.",
+    "download": "Tải về ({mb} MB)",
+    "downloading": "Đang tải… {pct}%",
+    "cancel": "Huỷ",
+    "ready": "Đã cài",
+    "remove": "Gỡ gói",
+    "retry": "Thử tải lại"
   }
 }

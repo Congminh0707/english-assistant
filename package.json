@@ -35,7 +35,8 @@
     "content:typecheck": "tsc --noEmit -p scripts/content/tsconfig.json",
     "content:enrich": "tsx scripts/content/enrich.ts",
     "content:stats": "tsx scripts/content/stats.ts",
-    "stats": "tsx scripts/stats.ts"
+    "stats": "tsx scripts/stats.ts",
+    "ui:audit": "node scripts/ui-audit.mjs"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
@@ -47,6 +48,7 @@
     "fflate": "^0.8.3",
     "koffi": "^3.3.3",
     "kokoro-js": "1.2.1",
+    "lucide-vue-next": "^1.0.0",
     "onnxruntime-node": "1.30.0",
     "phonemizer": "1.2.1",
     "pinia": "^4.1.0",

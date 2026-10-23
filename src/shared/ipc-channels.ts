@@ -82,6 +82,12 @@ export const INVOKE_CHANNELS = [
   'audio:cancel',
   'audio:remove',
   'audio:clip',
+  'sprites:status',
+  'sprites:install',
+  'sprites:cancel',
+  'sprites:remove',
+  'sprites:asset',
+  'sprites:meta',
   'stt:status',
   'stt:install',
   'stt:cancel',
@@ -113,6 +119,7 @@ export const EVENT_NAMES = [
   'update:status-changed',
   'tts:status-changed',
   'audio:status-changed',
+  'sprites:status-changed',
   'stt:status-changed',
   'pron:status-changed'
 ] as const

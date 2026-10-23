@@ -43,6 +43,7 @@ Nếu sau này dung lượng/RAM thành vấn đề lớn, phần giao diện Vu
 | `vue-router` | Điều hướng trong cửa sổ Học tập | vue-router / Inertia pages |
 | `vue-i18n` | Đa ngôn ngữ giao diện (vi/en) | `__()` / lang files |
 | `tailwindcss` | CSS tiện ích | Tailwind |
+| `lucide-vue-next` | Bộ icon SVG nét (ISC) cho giao diện cửa sổ Học tập (thay emoji) | Font Awesome / Heroicons |
 | `electron-builder` | Đóng gói installer `.exe` (NSIS) | (deploy script) |
 | `electron-updater` | Tự cập nhật | — |
 

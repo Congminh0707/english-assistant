@@ -55,6 +55,12 @@ import { PhrasebookSchema } from './schemas/phrasebook'
 import { StatsSchema } from './schemas/stats'
 import { UpdateStatusSchema } from './schemas/update'
 import { AudioClipInputSchema, AudioClipResultSchema } from './schemas/audio'
+import {
+  SpriteAssetInputSchema,
+  SpriteAssetResultSchema,
+  SpriteMetaInputSchema,
+  SpriteMetaSchema
+} from './schemas/sprites'
 import { TtsPrefetchInputSchema, TtsSpeakInputSchema, TtsSpeakResultSchema } from './schemas/tts'
 import {
   PronEvaluateInputSchema,
@@ -199,6 +205,12 @@ export const invokeContract = {
   'audio:cancel': { input: z.void(), output: z.void() },
   'audio:remove': { input: z.void(), output: TranslateStatusSchema },
   'audio:clip': { input: AudioClipInputSchema, output: AudioClipResultSchema },
+  'sprites:status': { input: z.void(), output: TranslateStatusSchema },
+  'sprites:install': { input: z.void(), output: TranslateStatusSchema },
+  'sprites:cancel': { input: z.void(), output: z.void() },
+  'sprites:remove': { input: z.void(), output: TranslateStatusSchema },
+  'sprites:asset': { input: SpriteAssetInputSchema, output: SpriteAssetResultSchema },
+  'sprites:meta': { input: SpriteMetaInputSchema, output: SpriteMetaSchema.nullable() },
   'stt:status': { input: z.void(), output: TranslateStatusSchema },
   'stt:install': { input: z.void(), output: TranslateStatusSchema },
   'stt:cancel': { input: z.void(), output: z.void() },
@@ -228,6 +240,7 @@ export const eventContract = {
   'update:status-changed': UpdateStatusSchema,
   'tts:status-changed': TranslateStatusSchema,
   'audio:status-changed': TranslateStatusSchema,
+  'sprites:status-changed': TranslateStatusSchema,
   'stt:status-changed': TranslateStatusSchema,
   'pron:status-changed': PronunciationStatusSchema
 } satisfies Record<EventName, z.ZodType>

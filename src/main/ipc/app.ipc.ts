@@ -7,6 +7,7 @@ import type { AudioPackService } from '../services/AudioPackService'
 import type { SttService } from '../services/SttService'
 import type { PronunciationService } from '../services/PronunciationService'
 import type { UpdateManager } from '../system/UpdateManager'
+import type { SpritePackService } from '../services/SpritePackService'
 import { handle } from './handle'
 
 /** Các kênh nghiệp vụ: thú cưng, túi đồ, cài đặt (~ Controllers) */
@@ -15,6 +16,7 @@ export function registerAppIpc(
   translation: TranslationService,
   tts: TtsService,
   audioPack: AudioPackService,
+  spritePack: SpritePackService,
   stt: SttService,
   pronunciation: PronunciationService,
   updates: UpdateManager
@@ -131,6 +133,12 @@ export function registerAppIpc(
   handle('audio:cancel', () => audioPack.cancelInstall())
   handle('audio:remove', () => audioPack.remove())
   handle('audio:clip', (input) => audioPack.clip(input))
+  handle('sprites:status', () => spritePack.status())
+  handle('sprites:install', () => spritePack.install())
+  handle('sprites:cancel', () => spritePack.cancelInstall())
+  handle('sprites:remove', () => spritePack.remove())
+  handle('sprites:asset', (input) => spritePack.asset(input))
+  handle('sprites:meta', (input) => spritePack.meta(input))
   handle('stt:status', () => stt.status())
   handle('stt:install', () => stt.install())
   handle('stt:cancel', () => stt.cancelInstall())

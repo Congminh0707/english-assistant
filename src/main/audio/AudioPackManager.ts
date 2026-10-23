@@ -1,4 +1,3 @@
-import { createHash } from 'node:crypto'
 import {
   existsSync,
   mkdirSync,
@@ -13,6 +12,7 @@ import { join } from 'node:path'
 import { unzipSync } from 'fflate'
 import { packClipKey, type PackAccent, type PackManifest } from '@shared/audioPack'
 import { AppError } from '../core/AppError'
+import { downloadVerified } from '../core/downloadVerified'
 import type { Installable } from '../services/ModelInstaller'
 
 export interface AudioPackSpec {
@@ -67,31 +67,7 @@ export class AudioPackManager implements Installable {
   async install(onProgress: (receivedBytes: number) => void, signal?: AbortSignal): Promise<void> {
     const { spec } = this.deps
     mkdirSync(this.dir, { recursive: true })
-    onProgress(0)
-    const response = await this.fetchFn(spec.url, { signal, redirect: 'follow' })
-    if (!response.ok || !response.body) throw new AppError('MODEL_DOWNLOAD', 'errors.modelDownload')
-
-    const hash = createHash('sha256')
-    const chunks: Buffer[] = []
-    let received = 0
-    const reader = response.body.getReader()
-    try {
-      for (;;) {
-        const { done, value } = await reader.read()
-        if (done) break
-        const buf = Buffer.from(value)
-        hash.update(buf)
-        chunks.push(buf)
-        received += buf.length
-        onProgress(Math.min(received, spec.size))
-      }
-    } finally {
-      reader.releaseLock()
-    }
-    if (received !== spec.size || hash.digest('hex') !== spec.sha256) {
-      throw new AppError('MODEL_CORRUPT', 'errors.modelCorrupt')
-    }
-    const zip = Buffer.concat(chunks)
+    const zip = await downloadVerified(spec, this.fetchFn, onProgress, signal)
     this.extract(zip)
     await writeFile(
       join(this.dir, MARKER),

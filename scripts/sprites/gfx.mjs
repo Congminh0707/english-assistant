@@ -3,6 +3,10 @@
 import { deflateSync, crc32 } from 'node:zlib'
 
 export const W = 96
+/** Hệ số độ phân giải: toạ độ vẽ luôn là toạ độ logic 96×96; canvas thật là W×SCALE (SPRITE_SCALE=2 → 192px, 4 → 384px) */
+export const SCALE = Math.max(1, Math.round(Number(process.env.SPRITE_SCALE ?? 1)))
+/** Cạnh khung thật (px) */
+export const PX = W * SCALE
 
 // ---------------------------------------------------------------- màu
 export const hex = (h) => {
@@ -74,10 +78,17 @@ export function ramp(base) {
 export const mix = (a, b, t) => [0, 1, 2, 3].map((i) => Math.round(a[i] + (b[i] - a[i]) * t))
 
 // ---------------------------------------------------------------- canvas
-export function createCanvas(w = W, h = W) {
+export function createCanvas(w = PX, h = PX) {
   return { w, h, px: new Uint8Array(w * h * 4) }
 }
+/** Chấm một điểm theo toạ độ logic (phóng thành khối SCALE×SCALE) */
 export function put(cv, x, y, c) {
+  const x0 = Math.round(x) * SCALE
+  const y0 = Math.round(y) * SCALE
+  for (let j = 0; j < SCALE; j++) for (let i = 0; i < SCALE; i++) putPx(cv, x0 + i, y0 + j, c)
+}
+/** Chấm một điểm theo toạ độ thật của canvas */
+export function putPx(cv, x, y, c) {
   x = Math.round(x)
   y = Math.round(y)
   if (x < 0 || y < 0 || x >= cv.w || y >= cv.h) return
@@ -219,6 +230,7 @@ const BAYER = [
   [3, 11, 1, 9],
   [15, 7, 13, 5]
 ].map((r) => r.map((v) => v / 16 - 0.5))
+const OUTLINE_K = Math.max(1, SCALE - (SCALE > 2 ? 1 : 0))
 const LIGHT = (() => {
   const l = [-0.5, -0.68, 0.55]
   const n = Math.hypot(...l)
@@ -233,11 +245,12 @@ function bboxOf(shapes, cv) {
     x1 = Math.max(x1, s.bbox[2])
     y1 = Math.max(y1, s.bbox[3])
   }
+  // bbox của hình là toạ độ logic → đổi sang toạ độ thật
   return [
-    Math.max(0, Math.floor(x0)),
-    Math.max(0, Math.floor(y0)),
-    Math.min(cv.w - 1, Math.ceil(x1)),
-    Math.min(cv.h - 1, Math.ceil(y1))
+    Math.max(0, Math.floor(x0 * SCALE)),
+    Math.max(0, Math.floor(y0 * SCALE)),
+    Math.min(cv.w - 1, Math.ceil(x1 * SCALE)),
+    Math.min(cv.h - 1, Math.ceil(y1 * SCALE))
   ]
 }
 
@@ -257,7 +270,7 @@ export function paint(cv, shapes, style) {
   for (let y = y0; y <= y1; y++)
     for (let x = x0; x <= x1; x++) {
       if (clip && !clip.at(x, y)) continue
-      if (D(x + 0.5, y + 0.5) <= 0) inside[(y - y0) * mw + (x - x0)] = 1
+      if (D((x + 0.5) / SCALE, (y + 0.5) / SCALE) <= 0) inside[(y - y0) * mw + (x - x0)] = 1
     }
   const isIn = (x, y) =>
     x >= x0 && y >= y0 && x <= x1 && y <= y1 && inside[(y - y0) * mw + (x - x0)] === 1
@@ -268,20 +281,22 @@ export function paint(cv, shapes, style) {
   for (let y = y0; y <= y1; y++)
     for (let x = x0; x <= x1; x++) {
       if (!isIn(x, y)) continue
-      const edge = !isIn(x - 1, y) || !isIn(x + 1, y) || !isIn(x, y - 1) || !isIn(x, y + 1)
+      // Viền dày ~1 pixel logic (= SCALE pixel thật)
+      const k = OUTLINE_K
+      const edge = !isIn(x - k, y) || !isIn(x + k, y) || !isIn(x, y - k) || !isIn(x, y + k)
       if (edge && outline) {
         // Viền phía trên/trái nhạt hơn một chút để khối có chiều sâu
-        const topLeft = !isIn(x, y - 1) || !isIn(x - 1, y)
-        put(cv, x, y, topLeft && style.softTop !== false && r ? mix(lineC, r.deep, 0.45) : lineC)
+        const topLeft = !isIn(x, y - k) || !isIn(x - k, y)
+        putPx(cv, x, y, topLeft && style.softTop !== false && r ? mix(lineC, r.deep, 0.45) : lineC)
         continue
       }
       if (style.flat) {
-        put(cv, x, y, style.flat)
+        putPx(cv, x, y, style.flat)
         continue
       }
       // Pháp tuyến: gradient của khoảng cách, nghiêng nhiều ở gần viền
-      const px = x + 0.5
-      const py = y + 0.5
+      const px = (x + 0.5) / SCALE
+      const py = (y + 0.5) / SCALE
       const d = D(px, py)
       let best = list[0]
       let bd = 1e9
@@ -304,7 +319,7 @@ export function paint(cv, shapes, style) {
       if (style.dither !== false) v += BAYER[y & 3][x & 3] * 0.14
       v += shift * 0.5
       const tone = v > 0.84 ? 0 : v > 0.52 ? 1 : v > 0.08 ? 2 : v > -0.32 ? 3 : 4
-      put(cv, x, y, r.tones[tone])
+      putPx(cv, x, y, r.tones[tone])
     }
   return { at: (x, y) => isIn(x, y), bbox: [x0, y0, x1, y1] }
 }
@@ -317,7 +332,7 @@ export function fill(cv, shapes, color, clip = null) {
   for (let y = y0; y <= y1; y++)
     for (let x = x0; x <= x1; x++) {
       if (clip && !clip.at(x, y)) continue
-      if (D(x + 0.5, y + 0.5) <= 0) put(cv, x, y, color)
+      if (D((x + 0.5) / SCALE, (y + 0.5) / SCALE) <= 0) putPx(cv, x, y, color)
     }
 }
 /** Tô mờ dần bằng dither (má hồng, ánh sáng): alpha 0..1 */
@@ -328,10 +343,10 @@ export function fillDither(cv, shapes, color, amount = 0.5, clip = null) {
   for (let y = y0; y <= y1; y++)
     for (let x = x0; x <= x1; x++) {
       if (clip && !clip.at(x, y)) continue
-      const d = D(x + 0.5, y + 0.5)
+      const d = D((x + 0.5) / SCALE, (y + 0.5) / SCALE)
       if (d > 0) continue
       const edgeFade = clamp(-d / 2.5)
-      if (BAYER[y & 3][x & 3] + 0.5 < amount * (0.4 + 0.6 * edgeFade)) put(cv, x, y, color)
+      if (BAYER[y & 3][x & 3] + 0.5 < amount * (0.4 + 0.6 * edgeFade)) putPx(cv, x, y, color)
     }
 }
 /** Đường cong dày: lấy mẫu dọc cung tròn và đóng dấu hình tròn */

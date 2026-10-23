@@ -287,3 +287,13 @@ Trước đây cả 5 nhân vật dùng chung một bộ hoạt ảnh. Nay `scri
 - **Kéo / rơi / chạm đất / ăn** (`INTERACTION_TWEAKS` trong `anim-chars.mjs`, chỉnh `drag`, `fall`, `land`, `eat` theo tính cách): Bi bị xách gáy mềm oặt, rơi vẫn tiếp đất bằng bốn chân; Webby bị kéo lên thì **treo lủng lẳng trên một sợi tơ** như anh hùng nhện, bắn tơ bám trần khi rơi, tiếp đất tư thế anh hùng; Draco dang cánh khi rơi, tiếp đất rung bụi, ăn xong ợ khói; Robo bị kéo thì chập chờn tia lửa, rơi báo động, chạm đất khởi động lại; Kitsu xù đuôi cụp tai khi bị nhấc, tiếp đất nhẹ nhàng.
 - Thêm phản ứng bấm mới: thêm hoạt ảnh `click_*` vào `CLICKS[nhân vật]` rồi `pnpm sprites:characters <nhân vật>`; Brain tự nhận từ `sheet.json`.
 - Ghi chú: file `characters/**/sheet.json` do script sinh nên đã nằm trong `.prettierignore` — đừng chạy prettier lên chúng.
+
+## 11. Sprite độ phân giải cao 288px (gói tải thêm, 2026-10-23)
+
+Bộ cài giữ sprite **96×96** (≈ 22 MB). Chủ dự án muốn nét hơn → có thêm **gói tải thêm 288px (3×)** cho cả 5 nhân vật × 5 giai đoạn + toàn bộ lớp phụ kiện, cài trong **Cài đặt → "Thú cưng nét hơn"** (như gói âm thanh bài nghe).
+
+- **Cách vẽ:** lõi `scripts/sprites/gfx.mjs` có hệ số `SPRITE_SCALE` (1 mặc định). Toạ độ vẽ trong `creature.mjs`/`accessories.mjs` vẫn là toạ độ logic 96×96; canvas thật là `96 × SCALE`, hình khối SDF lấy mẫu ở độ phân giải thật nên đường nét mịn hơn (bóng, dither, viền dày ≈ 1 pixel logic). Thiết kế nhân vật không đổi, chỉ nét hơn. `SPRITE_OUT=<thư mục>` ghi sang chỗ khác để không đè sprite 96px của bộ cài.
+- **Sinh:** `SPRITE_SCALE=3 SPRITE_OUT=content/.build/sprites-hires node scripts/sprites/make-characters.mjs` (~45 phút) → `node scripts/sprites/build-hires-pack.mjs [ver]` (cần Python + Pillow: PNG → WebP lossless) → `content/.build/pet-sprites-hires-<ver>.zip` + `.sha256`.
+- **Chạy trong app:** main (`SpritePackManager`/`SpritePackService`, kênh `sprites:*`) tải gói, kiểm kích thước + sha256, giải nén vào `userData/sprite-packs/`, chỉ nhận đường dẫn đúng mẫu `<nhân vật>/<giai đoạn>/(sheet|acc-*|accb-*).webp|sheet.json`. Ảnh trả cho renderer dạng data URL (CSP đã có `img-src data:`). Renderer: `shared/pet/hires.ts` theo dõi trạng thái; `PetSprite` (cửa sổ Học tập) và `mascot/App.vue` (cửa sổ mascot) dùng gói khi đã cài và rơi về sprite 96px khi chưa cài/thiếu lớp. `SpriteAnimator` vốn đã suy ra tỉ lệ từ `meta.frameSize` nên không đổi bố cục hoạt ảnh. Không trộn hai độ phân giải: thân 288px thì chỉ dùng phụ kiện 288px.
+- **Hiển thị:** mascot cỡ 1×–3× hiển thị 48–144px nên sprite 288px được thu nhỏ có làm mịn (không còn "pixel vuông"); trang Thú cưng/tiến hoá dùng `image-rendering: auto` khi có gói.
+- Dung lượng, số liệu: [17-metrics.md §4](17-metrics.md). Quyết định: [decisions #29](decisions.md).

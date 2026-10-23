@@ -114,6 +114,15 @@ Không nằm trong bộ cài. Tạo và đăng khi nội dung bài nghe đổi (
 4. Điền `size` + `sha256` thật vào `src/main/audio/packSpec.ts` (bắt buộc: app từ chối gói sai kích thước/sha256), rồi phát hành app như bình thường.
 Đổi nội dung: build lại, tăng `VERSION` trong `packSpec.ts` và tag release mới.
 
+## 6c. Gói sprite thú cưng 288px (tải thêm)
+
+Không nằm trong bộ cài (bộ cài chỉ có sprite 96px). Tạo và đăng khi nhân vật/phụ kiện đổi:
+1. `SPRITE_SCALE=3 SPRITE_OUT=content/.build/sprites-hires node scripts/sprites/make-characters.mjs` (~45 phút).
+2. `node scripts/sprites/build-hires-pack.mjs 1.0.0` → `content/.build/pet-sprites-hires-1.0.0.zip` + `.sha256` (in ra size + sha256).
+3. Đăng lên release phụ (pre-release, không ảnh hưởng auto-update): `gh release create pet-sprites-hires-1.0.0 content/.build/pet-sprites-hires-1.0.0.zip content/.build/pet-sprites-hires-1.0.0.zip.sha256 --prerelease --title "Pet sprites 288px 1.0.0" --notes "Gói sprite độ phân giải cao (tải thêm)"`.
+4. Điền `size` + `sha256` thật vào `src/main/sprites/packSpec.ts` (app từ chối gói sai kích thước/sha256), rồi phát hành app như bình thường.
+Đổi nội dung: build lại, tăng `VERSION` trong `packSpec.ts` và dùng tag release mới.
+
 ## 7. Checklist trước mỗi bản phát hành
 
 - [ ] Cài mới trên Windows 10 và 11 sạch (máy ảo).

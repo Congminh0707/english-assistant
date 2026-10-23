@@ -4,24 +4,25 @@
 //          PREVIEW=anim → content/.build/anim-<nhân vật>-<giai đoạn>.png (mọi frame, để duyệt hoạt ảnh)
 import { mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { createCanvas, encodePng, W } from './gfx.mjs'
+import { createCanvas, encodePng, PX, SCALE, W } from './gfx.mjs'
 import { CHARACTERS, drawCreature, STAGES } from './creature.mjs'
 import { ACCESSORY_DRAW } from './accessories.mjs'
 import { flatten } from './anim.mjs'
 
-const OUT_BASE = resolve('src/renderer/mascot/assets/characters')
+// SPRITE_SCALE=3 → khung 288px; SPRITE_OUT: ghi sang thư mục khác (để đo dung lượng / xem thử)
+const OUT_BASE = resolve(process.env.SPRITE_OUT ?? 'src/renderer/mascot/assets/characters')
 const COLUMNS = 8
-const sheetW = COLUMNS * W
+const sheetW = COLUMNS * PX
 
 const onlyChar = process.argv[2]
 const onlyStage = process.argv[3]
 
 function blit(sheet, cv, index) {
-  const ox = (index % COLUMNS) * W
-  const oy = Math.floor(index / COLUMNS) * W
-  for (let y = 0; y < W; y++)
-    for (let x = 0; x < W; x++) {
-      const si = (y * W + x) * 4
+  const ox = (index % COLUMNS) * PX
+  const oy = Math.floor(index / COLUMNS) * PX
+  for (let y = 0; y < PX; y++)
+    for (let x = 0; x < PX; x++) {
+      const si = (y * PX + x) * 4
       if (cv.px[si + 3] === 0) continue
       const di = ((oy + y) * sheetW + ox + x) * 4
       for (let k = 0; k < 4; k++) sheet.px[di + k] = cv.px[si + k]
@@ -35,10 +36,11 @@ for (const charId of Object.keys(CHARACTERS)) {
   if (onlyChar && onlyChar !== charId) continue
   // Mỗi nhân vật có bộ hoạt ảnh riêng (chung + chỉnh + quirk_*) nên số frame/hàng khác nhau
   const { frames, anims, rows } = flatten(charId, COLUMNS)
-  const sheetH = rows * W
+  const sheetH = rows * PX
   const meta = {
-    frameSize: { w: W, h: W },
-    anchor: { x: W / 2, y: W - 5 },
+    frameSize: { w: PX, h: PX },
+    anchor: { x: PX / 2, y: PX - 5 * SCALE },
+    scale: SCALE,
     animations: anims
   }
   for (const stage of STAGES) {

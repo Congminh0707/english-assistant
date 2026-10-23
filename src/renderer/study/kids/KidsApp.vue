@@ -15,6 +15,7 @@ import ParentGate from './ParentGate.vue'
 import type { KidsTile } from './kidsText'
 import { useKidsUsage } from './useKidsUsage'
 import './kids.css'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Giao diện cho hồ sơ trẻ em: không thanh bên chữ, vài ô lớn có hình và âm thanh; có đồng hồ giới hạn thời gian của phụ huynh
 // và một ổ khoá nhỏ để vào khu vực phụ huynh (PIN).
@@ -93,7 +94,7 @@ onMounted(loadHome)
         {{ home.stickersEarned }}
       </span>
       <button type="button" class="lock" :title="t('kids.parentArea')" @click="openGate('enter')">
-        🔒
+        <UiIcon name="lock" />
       </button>
     </header>
 
@@ -154,7 +155,7 @@ onMounted(loadHome)
   align-items: center;
   gap: 8px;
   padding: 4px 16px 4px 10px;
-  border: 3px solid var(--c-border);
+  border: 2px solid var(--c-line);
   border-radius: 30px;
   background: var(--c-surface);
   font-size: 24px;
@@ -163,7 +164,7 @@ onMounted(loadHome)
 .lock {
   width: 44px;
   height: 44px;
-  border: 2px solid var(--c-border);
+  border: 2px solid var(--c-line);
   border-radius: 10px;
   background: var(--c-surface);
   font-size: 18px;

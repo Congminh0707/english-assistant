@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import type { ShopItem, ShopState } from '@shared/schemas/shop'
 import { invoke, IpcError } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import { Coins } from 'lucide-vue-next'
 
 // Cửa hàng: mua đồ ăn và phụ kiện bằng xu, đeo/tháo phụ kiện cho mascot.
 const emit = defineEmits<{ changed: [] }>()
@@ -77,8 +77,11 @@ onMounted(load)
 <template>
   <section class="shop">
     <header class="head">
-      <h1>{{ t('shop.title') }}</h1>
-      <span v-if="state" class="coins">🪙 {{ t('shop.coins', { coins: state.coins }) }}</span>
+      <h1 class="page-title">{{ t('shop.title') }}</h1>
+      <span v-if="state" class="chip chip--warning wallet">
+        <Coins :size="15" :stroke-width="2.2" />
+        {{ t('shop.coins', { coins: state.coins }) }}
+      </span>
     </header>
     <p class="muted">{{ t('shop.earnHint') }}</p>
     <p v-if="message" class="message">{{ message }}</p>
@@ -86,80 +89,89 @@ onMounted(load)
     <template v-if="state">
       <h2>{{ t('shop.accessoryTitle', { pet: petStore.pet?.name ?? '' }) }}</h2>
       <div class="grid">
-        <PxPanel
+        <article
           v-for="item in accessories"
           :key="item.id"
-          class="item"
-          :class="{ locked: item.locked }"
+          class="card item"
+          :class="{ locked: item.locked && item.owned === 0 }"
         >
           <div class="emoji">{{ item.emoji }}</div>
           <div class="name">{{ nameOf(item) }}</div>
-          <div class="price">🪙 {{ item.price }}</div>
-          <template v-if="item.owned > 0">
-            <span v-if="item.equipped" class="tag">{{ t('shop.wearing') }}</span>
-            <button type="button" class="btn" :disabled="busy" @click="wear(item)">
-              {{ item.equipped ? t('shop.unwear') : t('shop.wear') }}
-            </button>
-          </template>
-          <template v-else>
-            <span v-if="missing(item)" class="muted small">{{ missing(item) }}</span>
-            <button
-              type="button"
-              class="btn buy"
-              :disabled="busy || !canBuy(item)"
-              @click="buy(item)"
-            >
-              {{ t('shop.buy') }}
-            </button>
-          </template>
-        </PxPanel>
-      </div>
-
-      <h2>{{ t('shop.characterTitle') }}</h2>
-      <div class="grid">
-        <PxPanel
-          v-for="item in characters"
-          :key="item.id"
-          class="item"
-          :class="{ locked: item.locked }"
-        >
-          <div class="emoji">{{ item.emoji }}</div>
-          <div class="name">{{ nameOf(item) }}</div>
-          <div class="price">🪙 {{ item.price }}</div>
-          <span v-if="item.owned > 0" class="tag">{{ t('shop.ownedOne') }}</span>
-          <template v-else>
-            <span v-if="missing(item)" class="muted small">{{ missing(item) }}</span>
-            <button
-              type="button"
-              class="btn buy"
-              :disabled="busy || !canBuy(item)"
-              @click="buy(item)"
-            >
-              {{ t('shop.buy') }}
-            </button>
-          </template>
-        </PxPanel>
-      </div>
-
-      <h2>{{ t('shop.foodTitle') }}</h2>
-      <div class="grid">
-        <PxPanel v-for="item in foods" :key="item.id" class="item">
-          <div class="emoji">{{ item.emoji }}</div>
-          <div class="name">{{ nameOf(item) }}</div>
-          <div class="price">🪙 {{ item.price }}</div>
-          <span v-if="item.owned > 0" class="muted small">{{
-            t('shop.owned', { n: item.owned })
-          }}</span>
-          <span v-else-if="missing(item)" class="muted small">{{ missing(item) }}</span>
+          <span class="chip price"><Coins :size="13" :stroke-width="2.4" />{{ item.price }}</span>
+          <div class="note">
+            <span v-if="item.owned > 0 && item.equipped" class="chip chip--success">
+              {{ t('shop.wearing') }}
+            </span>
+            <span v-else-if="item.owned === 0 && missing(item)">{{ missing(item) }}</span>
+          </div>
           <button
+            v-if="item.owned > 0"
             type="button"
-            class="btn buy"
+            class="btn btn--sm btn--block"
+            :disabled="busy"
+            @click="wear(item)"
+          >
+            {{ item.equipped ? t('shop.unwear') : t('shop.wear') }}
+          </button>
+          <button
+            v-else
+            type="button"
+            class="btn btn--sm btn--block btn--success"
             :disabled="busy || !canBuy(item)"
             @click="buy(item)"
           >
             {{ t('shop.buy') }}
           </button>
-        </PxPanel>
+        </article>
+      </div>
+
+      <h2>{{ t('shop.characterTitle') }}</h2>
+      <div class="grid">
+        <article
+          v-for="item in characters"
+          :key="item.id"
+          class="card item"
+          :class="{ locked: item.locked && item.owned === 0 }"
+        >
+          <div class="emoji">{{ item.emoji }}</div>
+          <div class="name">{{ nameOf(item) }}</div>
+          <span class="chip price"><Coins :size="13" :stroke-width="2.4" />{{ item.price }}</span>
+          <div class="note">
+            <span v-if="item.owned > 0" class="chip chip--success">{{ t('shop.ownedOne') }}</span>
+            <span v-else-if="missing(item)">{{ missing(item) }}</span>
+          </div>
+          <button
+            type="button"
+            class="btn btn--sm btn--block btn--success"
+            :disabled="busy || item.owned > 0 || !canBuy(item)"
+            @click="buy(item)"
+          >
+            {{ t('shop.buy') }}
+          </button>
+        </article>
+      </div>
+
+      <h2>{{ t('shop.foodTitle') }}</h2>
+      <div class="grid">
+        <article v-for="item in foods" :key="item.id" class="card item">
+          <div class="emoji">{{ item.emoji }}</div>
+          <div class="name">{{ nameOf(item) }}</div>
+          <span class="chip price"><Coins :size="13" :stroke-width="2.4" />{{ item.price }}</span>
+          <div class="note">
+            <span v-if="item.owned > 0" class="chip chip--primary">
+              {{ t('shop.owned', { n: item.owned }) }}
+            </span>
+            <span v-else-if="missing(item)">{{ missing(item) }}</span>
+          </div>
+          <button
+            type="button"
+            class="btn btn--sm btn--block btn--success"
+            :disabled="busy || !canBuy(item)"
+            @click="buy(item)"
+          >
+            {{ t('shop.buy') }}
+          </button>
+        </article>
       </div>
     </template>
   </section>
@@ -168,57 +180,60 @@ onMounted(load)
 <style scoped>
 .shop {
   display: grid;
-  gap: 8px;
-  max-width: 720px;
-  margin: 0 auto;
+  gap: var(--sp-2);
+  max-width: 820px;
 }
 .head {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-h1 {
+.head .page-title {
   margin: 0;
-  font-size: 22px;
 }
 h2 {
-  margin: 12px 0 0;
-  font-size: 16px;
+  margin: var(--sp-4) 0 0;
+  font-size: var(--fs-lg);
 }
-.coins {
-  padding: 4px 10px;
-  font-weight: 700;
-  background: var(--c-surface);
-  border: var(--px) solid var(--c-border);
+.wallet {
+  min-height: 30px;
+  padding: 0 var(--sp-3);
+  font-size: var(--fs-sm);
+}
+.wallet :deep(svg),
+.price :deep(svg) {
+  color: var(--c-coin);
 }
 .muted {
   margin: 0;
   color: var(--c-ink-soft);
-  font-size: 13px;
-}
-.small {
-  font-size: 12px;
+  font-size: var(--fs-sm);
 }
 .message {
   margin: 0;
-  padding: 6px 10px;
-  background: #e3f4e8;
-  border-left: 4px solid var(--c-success);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-success-soft);
+  color: #25693a;
+  font-weight: 600;
 }
+/* Mọi thẻ cùng chiều cao; hàng nút luôn nằm đáy → các nút thẳng hàng dù có/không có ghi chú */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 12px;
+  align-items: stretch;
+  gap: var(--sp-3);
 }
 .item {
-  display: grid;
-  gap: 4px;
-  justify-items: center;
-  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: var(--sp-4) var(--sp-3) var(--sp-3);
   text-align: center;
 }
 .item.locked {
-  opacity: 0.7;
+  opacity: 0.65;
 }
 .emoji {
   font-size: 40px;
@@ -228,32 +243,19 @@ h2 {
   font-weight: 700;
 }
 .price {
-  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Chừa chỗ cố định cho dòng ghi chú (tối đa 2 dòng) để hàng nút không lệch */
+  min-height: 34px;
   color: var(--c-ink-soft);
+  font-size: var(--fs-xs);
+  line-height: 1.3;
 }
-.tag {
-  padding: 0 6px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #fff;
-  background: var(--c-success);
-  border: 1px solid var(--c-border);
-}
-.btn {
-  min-width: 90px;
-  padding: 5px 12px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-}
-.btn.buy:not(:disabled) {
-  background: var(--c-success);
-  color: #fff;
-}
-.btn:disabled {
-  opacity: 0.5;
-  cursor: default;
+.item .btn {
+  margin-top: auto;
 }
 </style>

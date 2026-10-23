@@ -488,7 +488,7 @@
     "wrong": "Not quite — answer: {answer}",
     "nextReview": "Next review in {time}",
     "later": "Later",
-    "save": "💾 Save",
+    "save": "Save",
     "saved": "Saved! %PET% will quiz you later ✨",
     "listen": "Listen",
     "minutes": "{n} min",
@@ -727,7 +727,15 @@
       "choices": "Multiple-choice meaning on recognition cards (off = just flip and self-rate)",
       "quickTranslate": "Quick translate (Ctrl+Alt+T)",
       "autoCopy": "Grab the selected text automatically",
-      "autoCopyHint": "Select text and press Ctrl+Alt+T — no Ctrl+C needed. The app sends a simulated Ctrl+C and then restores your clipboard. Not used in terminals (Ctrl+C there interrupts the running command) — copy yourself and press Ctrl+Alt+T."
+      "autoCopyHint": "Select text and press Ctrl+Alt+T — no Ctrl+C needed. The app sends a simulated Ctrl+C and then restores your clipboard. Not used in terminals (Ctrl+C there interrupts the running command) — copy yourself and press Ctrl+Alt+T.",
+      "edit": "Edit",
+      "editSave": "Save",
+      "editCancel": "Cancel",
+      "editName": "Your name",
+      "editPet": "Pet name",
+      "editTrack": "Learning goal",
+      "childWarn": "Child profiles use the kids' interface; parents get back in with the PIN. Level and XP are kept.",
+      "edited": "Changes saved"
     },
     "practice": {
       "title": "Practice",
@@ -907,10 +915,10 @@
     },
     "reading": {
       "title": "Reading",
-      "intro": "Read short passages at your level. Tap a word to look it up and save it, tap 🔊 to hear a sentence. Comprehension questions follow.",
+      "intro": "Read short passages at your level. Tap a word to look it up and save it, tap the speaker button to hear a sentence. Comprehension questions follow.",
       "listenAll": "Listen to all",
       "toggleVi": "Translation",
-      "hint": "Tap a word to look it up · tap 🔊 next to a sentence to hear it.",
+      "hint": "Tap a word to look it up · tap the speaker next to a sentence to hear it.",
       "listenSentence": "Hear this sentence",
       "showVi": "Show translation",
       "hideVi": "Hide translation",
@@ -930,7 +938,7 @@
     },
     "phrasebook": {
       "title": "Phrasebook",
-      "intro": "Useful phrases by situation. Tap 🔊 to listen, tap a phrase to copy it.",
+      "intro": "Useful phrases by situation. Tap the speaker button to listen, tap a phrase to copy it.",
       "search": "Search phrases…",
       "empty": "No matching phrases.",
       "all": "All",
@@ -1021,7 +1029,9 @@
       "keepHint": "Level and XP belong to your profile — switching pets keeps your progress.",
       "evolving": "{name} is evolving…",
       "evolved": "{name} evolved into {stage}!",
-      "great": "Awesome!"
+      "great": "Awesome!",
+      "rename": "Rename",
+      "renamePlaceholder": "Pet name"
     }
   },
   "translate": {
@@ -1098,7 +1108,7 @@
     },
     "activity": {
       "again": "Play again",
-      "sayHint": "Listen, say it out loud, then tap 🎤 ✓ (speech is not graded yet)"
+      "sayHint": "Listen, say it out loud, then tap ✓ (speech is not graded yet)"
     },
     "album": {
       "hint": "Tap a sticker to hear it. Answer correctly to collect more!"

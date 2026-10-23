@@ -1,0 +1,192 @@
+/* Giao diện hiện đại của cửa sổ Học tập (docs/12 §2b). Gắn vào `.modern`; sprite giữ pixel art.
+   Lớp dùng chung: .btn (+ --primary --success --danger --ghost --sm --block), .card, .chip, .progress, .page-title. */
+.modern {
+  --c-bg: #f5f6fa;
+  --c-border: var(--c-line);
+  --px: 1px;
+  --panel-border: 1px solid var(--c-line);
+  --panel-radius: var(--r-lg);
+  --panel-shadow: var(--shadow-sm);
+  --bar-height: 8px;
+  --bar-radius: var(--r-pill);
+  --bar-track: var(--c-surface-2);
+  --bar-border: 0;
+  font-family: var(--font-ui);
+  font-size: var(--fs-md);
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+}
+.modern h1,
+.modern h2,
+.modern h3 {
+  color: var(--c-ink);
+  letter-spacing: -0.01em;
+}
+.modern .page-title {
+  margin: 0 0 var(--sp-4);
+  font-size: var(--fs-2xl);
+  font-weight: 700;
+}
+
+/* ---- Nút: một chiều cao, một bán kính ---- */
+.modern .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: var(--btn-h);
+  padding: 0 var(--sp-4);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font: inherit;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    transform 80ms ease,
+    box-shadow 120ms ease;
+}
+.modern .btn:hover:not(:disabled) {
+  background: var(--c-surface-2);
+}
+.modern .btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+.modern .btn:focus-visible,
+.modern .nav-item:focus-visible,
+.modern select:focus-visible,
+.modern input:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 2px;
+}
+.modern .btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+  box-shadow: none;
+}
+.modern .btn--primary {
+  border-color: transparent;
+  background: var(--c-primary);
+  color: #fff;
+}
+.modern .btn--primary:hover:not(:disabled) {
+  background: var(--c-primary-strong);
+}
+.modern .btn--success {
+  border-color: transparent;
+  background: var(--c-success);
+  color: #fff;
+}
+.modern .btn--success:hover:not(:disabled) {
+  background: #3d9b59;
+}
+.modern .btn--danger {
+  border-color: transparent;
+  background: var(--c-danger);
+  color: #fff;
+}
+.modern .btn--ghost {
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+}
+.modern .btn--sm {
+  min-height: var(--btn-h-sm);
+  padding: 0 var(--sp-3);
+  font-size: var(--fs-sm);
+  border-radius: var(--r-sm);
+}
+.modern .btn--block {
+  width: 100%;
+}
+
+/* ---- Thẻ, chip, thanh tiến độ ---- */
+.modern .card {
+  padding: var(--sp-4);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  box-shadow: var(--shadow-sm);
+}
+.modern .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 22px;
+  padding: 0 var(--sp-2);
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+  color: var(--c-ink-soft);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.modern .chip--success {
+  background: var(--c-success-soft);
+  color: #25693a;
+}
+.modern .chip--primary {
+  background: var(--c-primary-soft);
+  color: var(--c-primary-strong);
+}
+.modern .chip--warning {
+  background: var(--c-warning-soft);
+  color: #8a5a00;
+}
+.modern .chip--danger {
+  background: var(--c-danger-soft);
+  color: #a63030;
+}
+.modern select,
+.modern input[type='text'],
+.modern input[type='number'],
+.modern input[type='password'],
+.modern textarea {
+  min-height: var(--btn-h-sm);
+  padding: 0 var(--sp-2);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font: inherit;
+}
+.modern textarea {
+  padding: var(--sp-2);
+}
+
+/* ---- Biến thể nút: icon vuông, cỡ nhỏ/lớn, viên thuốc ---- */
+.modern .btn--icon {
+  width: var(--btn-h);
+  padding: 0;
+}
+.modern .btn--icon.btn--sm {
+  width: var(--btn-h-sm);
+}
+.modern .btn--xs {
+  min-height: 24px;
+  padding: 0 var(--sp-2);
+  border-radius: var(--r-sm);
+  font-size: var(--fs-xs);
+}
+.modern .btn--icon.btn--xs {
+  width: 24px;
+  padding: 0;
+}
+.modern .btn--lg {
+  min-height: 44px;
+  padding: 0 var(--sp-5);
+  font-size: var(--fs-lg);
+}
+.modern .btn--pill {
+  border-radius: var(--r-pill);
+}
+.modern .btn--ghost:hover:not(:disabled) {
+  background: var(--c-surface-2);
+}

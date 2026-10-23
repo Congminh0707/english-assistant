@@ -16,4 +16,33 @@
   --font-ui: 'Segoe UI', system-ui, sans-serif;
   /* Font pixel có dấu tiếng Việt (VT323) sẽ được đóng gói ở bước làm cửa sổ Học tập */
   --font-pixel: 'VT323', 'Consolas', monospace;
+
+  /* Thang thiết kế hiện đại (cửa sổ Học tập dùng; popup/mascot giữ kiểu pixel) — docs/12 §2b */
+  --c-line: #e3e6ee;
+  --c-surface-2: #f3f5fa;
+  --c-primary-strong: #3f74e6;
+  --c-primary-soft: #e8f0ff;
+  --c-success-soft: #e3f5e9;
+  --c-warning-soft: #fff4d6;
+  --c-danger-soft: #fde8e8;
+  --c-xp-soft: #f0e9ff;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+  --shadow-sm: 0 1px 2px rgb(23 28 45 / 6%), 0 1px 3px rgb(23 28 45 / 8%);
+  --shadow-md: 0 6px 18px rgb(23 28 45 / 10%);
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --fs-xs: 12px;
+  --fs-sm: 13px;
+  --fs-md: 14px;
+  --fs-lg: 16px;
+  --fs-xl: 20px;
+  --fs-2xl: 26px;
+  --btn-h: 36px;
+  --btn-h-sm: 30px;
 }

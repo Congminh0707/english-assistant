@@ -1,6 +1,11 @@
 import { DEFAULT_CHARACTER_ID } from '@shared/characters'
 import { STARTER_INVENTORY } from '@shared/pet'
-import { isChildTrack, type ProfileInfo, type ProfileSetupInput } from '@shared/schemas/profile'
+import {
+  isChildTrack,
+  type ProfileInfo,
+  type ProfileSetupInput,
+  type ProfileUpdateInput
+} from '@shared/schemas/profile'
 import { AppError } from '../core/AppError'
 import type { Clock } from '../core/Clock'
 import type { InventoryRepository } from '../db/repositories/InventoryRepository'
@@ -121,6 +126,34 @@ export class ProfileService {
       petName: input.petName
     })
     return this.info(row)
+  }
+
+  /**
+   * Sửa hồ sơ bất kỳ (không cần đang dùng): tên, mục tiêu học (đổi track → bật/tắt chế độ trẻ em) và tên thú cưng.
+   * Level/XP/túi đồ không đổi. Hồ sơ đang dùng thì làm mới bộ nhớ đệm.
+   */
+  update(input: ProfileUpdateInput): ProfileInfo {
+    const { profiles, pets, clock, transaction } = this.deps
+    const row = profiles.find(input.id)
+    if (!row) throw new AppError('NOT_FOUND', 'errors.notFound')
+    transaction(() => {
+      const now = clock.now()
+      const patch: Partial<{ name: string; track: Track; isChild: boolean }> = {}
+      if (input.name !== undefined) patch.name = input.name
+      if (input.track !== undefined) {
+        patch.track = input.track
+        patch.isChild = isChildTrack(input.track)
+      }
+      if (Object.keys(patch).length) profiles.update(row.id, patch, now)
+      if (input.petName !== undefined) {
+        const pet = pets.findByProfile(row.id)
+        if (pet) pets.update(pet.id, { name: input.petName }, now)
+      }
+    })
+    if (this.activeCache?.id === row.id) this.activeCache = profiles.find(row.id) ?? null
+    const updated = profiles.find(row.id)
+    if (!updated) throw new AppError('NOT_FOUND', 'errors.notFound')
+    return this.info(updated)
   }
 
   switchTo(id: string): ProfileRow {

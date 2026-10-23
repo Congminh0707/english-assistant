@@ -8,6 +8,7 @@ import { invoke } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Trình đọc tương tác (docs/07-learning-modules.md#5): bấm từ để tra, từ trên level được gạch chân,
 // nghe từng câu hoặc cả đoạn, bật/tắt bản dịch tiếng Việt từng đoạn, lưu từ kèm câu ngữ cảnh.
@@ -164,7 +165,7 @@ onMounted(async () => {
           class="tool"
           @click="speak(paragraphs.map((p) => p.en).join(' '), undefined, 0.85)"
         >
-          🔊 {{ t('study.reading.listenAll') }}
+          <UiIcon name="volume" /> {{ t('study.reading.listenAll') }}
         </button>
         <button
           v-if="hardWords.length"
@@ -173,7 +174,7 @@ onMounted(async () => {
           :title="t('study.reading.saveHardHint')"
           @click="saveHard"
         >
-          💾 {{ t('study.reading.saveHard', { n: hardWords.length }) }}
+          <UiIcon name="save" /> {{ t('study.reading.saveHard', { n: hardWords.length }) }}
         </button>
         <button v-if="anyVi" type="button" class="tool" @click="toggleAllVi">
           🇻🇳 {{ t('study.reading.toggleVi') }}
@@ -187,11 +188,11 @@ onMounted(async () => {
         <span v-for="(s, si) in p.sentences" :key="si" class="sentence">
           <button
             type="button"
-            class="say"
+            class="btn btn--sm btn--icon"
             :title="t('study.reading.listenSentence')"
             @click="speak(s.text, undefined, 0.85)"
           >
-            🔊
+            <UiIcon name="volume" />
           </button>
           <template v-for="(piece, pi) in s.pieces" :key="pi">
             <button
@@ -225,14 +226,26 @@ onMounted(async () => {
           <span class="level">{{ entry.level.replace('_', '.') }}</span>
           <span class="pos">{{ entry.pos.join(', ') }}</span>
           <span v-if="entry.ipaUs" class="ipa">{{ entry.ipaUs }}</span>
-          <button type="button" class="say" @click="speak(entry.lemma, undefined, 0.9)">🔊</button>
+          <button
+            type="button"
+            class="btn btn--sm btn--icon"
+            @click="speak(entry.lemma, undefined, 0.9)"
+          >
+            <UiIcon name="volume" />
+          </button>
         </div>
         <p class="meaning">
           {{ entry.vi.join('; ') || t('study.reading.noMeaning') }}
           <span v-if="entry.viGenerated" class="ai">AI</span>
         </p>
-        <button type="button" class="save" :disabled="entry.saved" @click="save">
-          {{ entry.saved ? `✓ ${t('study.reading.savedShort')}` : `💾 ${t('study.reading.save')}` }}
+        <button
+          type="button"
+          class="btn btn--primary btn--sm"
+          :disabled="entry.saved"
+          @click="save"
+        >
+          <UiIcon :name="entry.saved ? 'saved' : 'save'" />
+          {{ entry.saved ? t('study.reading.savedShort') : t('study.reading.save') }}
         </button>
       </template>
       <p v-else class="meaning">{{ t('study.reading.notFound', { word: looked }) }}</p>
@@ -265,11 +278,12 @@ h2 {
 .tool,
 .vi-toggle {
   padding: 3px 10px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   font-size: 12px;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 .hint,
 .legend {
@@ -289,18 +303,6 @@ h2 {
 .sentence {
   margin-right: 4px;
 }
-.say {
-  margin-right: 2px;
-  padding: 0 2px;
-  border: none;
-  background: transparent;
-  font-size: 11px;
-  opacity: 0.45;
-  cursor: pointer;
-}
-.say:hover {
-  opacity: 1;
-}
 .word {
   padding: 0;
   border: none;
@@ -309,15 +311,16 @@ h2 {
   color: inherit;
   font: inherit;
   cursor: pointer;
+  border-radius: var(--r-sm);
 }
 .word:hover {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .word.hard {
   border-bottom: 2px dotted var(--c-warning);
 }
 .word.active {
-  background: #fff3a0;
+  background: var(--c-warning-soft);
 }
 .vi-toggle {
   justify-self: start;
@@ -326,8 +329,9 @@ h2 {
   margin: 0;
   padding: 6px 10px;
   color: var(--c-ink-soft);
-  background: #fff8dc;
+  background: var(--c-warning-soft);
   border-left: 3px solid var(--c-primary);
+  border-radius: var(--r-sm);
 }
 .lookup {
   position: sticky;
@@ -336,8 +340,9 @@ h2 {
   gap: 4px;
   padding: 10px 12px;
   background: var(--c-surface);
-  border: var(--px) solid var(--c-border);
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
+  border: 1px solid var(--c-line);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--r-md);
 }
 .line {
   display: flex;
@@ -354,7 +359,8 @@ h2 {
   font-weight: 700;
   color: #fff;
   background: var(--c-xp);
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
 }
 .pos,
 .ipa {
@@ -371,22 +377,8 @@ h2 {
   padding: 0 4px;
   font-size: 10px;
   background: var(--c-warning);
-  border: 1px solid var(--c-border);
-}
-.save {
-  justify-self: start;
-  padding: 3px 10px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-success);
-  color: #fff;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-}
-.save:disabled {
-  background: var(--c-surface);
-  color: var(--c-ink-soft);
-  cursor: default;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
 }
 .toast {
   font-size: 12px;

@@ -9,6 +9,7 @@ import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useTts } from '@renderer/shared/composables/useTts'
 import TtsIndicator from '@renderer/shared/components/TtsIndicator.vue'
 import { useTranslateModels } from '@renderer/shared/composables/useTranslateModels'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Popup tra từ offline (docs/12-ui-ux-guidelines.md#popup-dịch-nhanh).
 // Mở bằng phím tắt: main đọc clipboard rồi gửi 'popup:query'; người dùng cũng có thể gõ để tra.
@@ -250,10 +251,17 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="popup">
+  <div class="popup modern">
     <header class="header">
       <span class="title">{{ t('popup.title') }}</span>
-      <button class="close" type="button" :aria-label="t('popup.close')" @click="hide">✕</button>
+      <button
+        class="btn btn--xs btn--icon btn--ghost close"
+        type="button"
+        :aria-label="t('popup.close')"
+        @click="hide"
+      >
+        <UiIcon name="close" :size="14" />
+      </button>
     </header>
 
     <form class="search" @submit.prevent="onSubmit">
@@ -280,7 +288,7 @@ onUnmounted(() => {
         <div v-if="showTranslation" class="translation">
           <div class="tr-head">
             <strong>{{ t('translate.title') }}</strong>
-            <span class="ai" :title="t('translate.machineHint')">{{
+            <span class="chip chip--warning ai" :title="t('translate.machineHint')">{{
               t('translate.machineBadge')
             }}</span>
           </div>
@@ -296,17 +304,17 @@ onUnmounted(() => {
               t('translate.downloading', { done: doneMb, total: sizeMb })
             }}</span>
             <progress :value="modelStatus.receivedBytes" :max="modelStatus.sizeBytes" />
-            <button type="button" class="token" @click="cancelInstall">
+            <button type="button" class="btn btn--xs btn--pill" @click="cancelInstall">
               {{ t('translate.cancel') }}
             </button>
           </div>
           <div v-else-if="modelStatus && !canTranslate" class="tr-download">
             <span class="muted">{{ t('translate.needModel', { size: sizeMb }) }}</span>
             <span v-if="modelStatus.errorKey" class="tr-error">{{ t(modelStatus.errorKey) }}</span>
-            <button type="button" class="save" @click="installModel">
+            <button type="button" class="btn btn--sm btn--success" @click="installModel">
               {{ modelStatus.errorKey ? t('translate.retry') : t('translate.download') }}
             </button>
-            <button type="button" class="token" @click="installHigh">
+            <button type="button" class="btn btn--xs btn--pill" @click="installHigh">
               {{ t('translate.downloadHigh', { size: highSizeMb }) }}
             </button>
           </div>
@@ -315,7 +323,7 @@ onUnmounted(() => {
           </p>
           <p v-if="canUpgrade" class="tr-upgrade">
             {{ t('translate.upgradeHint') }}
-            <button type="button" class="token" @click="installHigh">
+            <button type="button" class="btn btn--xs btn--pill" @click="installHigh">
               {{ t('translate.downloadHigh', { size: highSizeMb }) }}
             </button>
           </p>
@@ -325,7 +333,7 @@ onUnmounted(() => {
             v-for="w in sentenceTokens"
             :key="w"
             type="button"
-            class="token"
+            class="btn btn--xs btn--pill"
             @click="lookupToken(w)"
           >
             {{ w }}
@@ -341,7 +349,7 @@ onUnmounted(() => {
             v-for="w in result.suggestions"
             :key="w"
             type="button"
-            class="token"
+            class="btn btn--xs btn--pill"
             @click="lookupToken(w)"
           >
             {{ w }}
@@ -350,7 +358,7 @@ onUnmounted(() => {
         <div v-if="showTranslation" class="translation">
           <div class="tr-head">
             <strong>{{ t('translate.title') }}</strong>
-            <span class="ai" :title="t('translate.machineHint')">{{
+            <span class="chip chip--warning ai" :title="t('translate.machineHint')">{{
               t('translate.machineBadge')
             }}</span>
           </div>
@@ -366,16 +374,16 @@ onUnmounted(() => {
               t('translate.downloading', { done: doneMb, total: sizeMb })
             }}</span>
             <progress :value="modelStatus.receivedBytes" :max="modelStatus.sizeBytes" />
-            <button type="button" class="token" @click="cancelInstall">
+            <button type="button" class="btn btn--xs btn--pill" @click="cancelInstall">
               {{ t('translate.cancel') }}
             </button>
           </div>
           <div v-else-if="modelStatus && !canTranslate" class="tr-download">
             <span class="muted">{{ t('translate.needModel', { size: sizeMb }) }}</span>
-            <button type="button" class="save" @click="installModel">
+            <button type="button" class="btn btn--sm btn--success" @click="installModel">
               {{ t('translate.download') }}
             </button>
-            <button type="button" class="token" @click="installHigh">
+            <button type="button" class="btn btn--xs btn--pill" @click="installHigh">
               {{ t('translate.downloadHigh', { size: highSizeMb }) }}
             </button>
           </div>
@@ -384,7 +392,7 @@ onUnmounted(() => {
           </p>
           <p v-if="canUpgrade" class="tr-upgrade">
             {{ t('translate.upgradeHint') }}
-            <button type="button" class="token" @click="installHigh">
+            <button type="button" class="btn btn--xs btn--pill" @click="installHigh">
               {{ t('translate.downloadHigh', { size: highSizeMb }) }}
             </button>
           </p>
@@ -394,7 +402,9 @@ onUnmounted(() => {
       <article v-else class="entry">
         <div class="headline">
           <span class="lemma">{{ entry.lemma }}</span>
-          <span class="level" :title="entry.level">{{ entry.level.replace('_', '.') }}</span>
+          <span class="chip chip--primary" :title="entry.level">{{
+            entry.level.replace('_', '.')
+          }}</span>
           <span class="pos">{{ entry.pos.join(', ') }}</span>
         </div>
         <p v-if="entry.via === 'form'" class="form-of">
@@ -404,26 +414,26 @@ onUnmounted(() => {
         <div class="ipa">
           <button
             type="button"
-            class="say"
+            class="btn btn--xs"
             :title="t('popup.listen')"
             @click="speak(entry.lemma, 'us')"
           >
-            🔊 US <span v-if="entry.ipaUs">{{ entry.ipaUs }}</span>
+            <UiIcon name="volume" :size="14" /> US <span v-if="entry.ipaUs">{{ entry.ipaUs }}</span>
           </button>
           <button
             type="button"
-            class="say"
+            class="btn btn--xs"
             :title="t('popup.listen')"
             @click="speak(entry.lemma, 'uk')"
           >
-            🔊 UK <span v-if="entry.ipaUk">{{ entry.ipaUk }}</span>
+            <UiIcon name="volume" :size="14" /> UK <span v-if="entry.ipaUk">{{ entry.ipaUk }}</span>
           </button>
         </div>
 
         <p class="vi">
           <template v-if="entry.vi.length">{{ entry.vi.join('; ') }}</template>
           <span v-else class="muted">{{ t('popup.noVi') }}</span>
-          <span v-if="entry.viGenerated" class="ai" :title="t('popup.aiHint')">{{
+          <span v-if="entry.viGenerated" class="chip chip--warning ai" :title="t('popup.aiHint')">{{
             t('popup.aiBadge')
           }}</span>
         </p>
@@ -436,7 +446,15 @@ onUnmounted(() => {
 
         <div v-if="entry.examples.length" class="examples">
           <div v-for="(ex, i) in entry.examples" :key="i" class="example">
-            <button type="button" class="say mini" @click="speak(ex.en)">🔊</button>
+            <button
+              type="button"
+              class="btn btn--xs btn--icon"
+              :title="t('popup.listen')"
+              :aria-label="t('popup.listen')"
+              @click="speak(ex.en)"
+            >
+              <UiIcon name="volume" :size="14" />
+            </button>
             <div>
               <div>{{ ex.en }}</div>
               <div v-if="ex.vi" class="muted">{{ ex.vi }}</div>
@@ -450,7 +468,7 @@ onUnmounted(() => {
             v-for="{ e, i } in others"
             :key="e.id"
             type="button"
-            class="token"
+            class="btn btn--xs btn--pill"
             @click="selected = i"
           >
             {{ e.lemma }}
@@ -464,12 +482,13 @@ onUnmounted(() => {
       <button
         v-if="entry"
         type="button"
-        class="save"
-        :class="{ done: entry.saved }"
+        class="btn btn--sm"
+        :class="entry.saved ? '' : 'btn--success'"
         :disabled="entry.saved"
         @click="save"
       >
-        {{ entry.saved ? `✓ ${t('popup.saved')}` : `💾 ${t('popup.save')}` }}
+        <UiIcon :name="entry.saved ? 'saved' : 'save'" :size="14" />
+        {{ entry.saved ? t('popup.saved') : t('popup.save') }}
       </button>
     </footer>
     <TtsIndicator />
@@ -482,71 +501,66 @@ onUnmounted(() => {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--c-bg);
+  overflow: hidden;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
   color: var(--c-ink);
-  border: var(--px) solid var(--c-border);
-  font-family: var(--font-ui);
-  font-size: 14px;
+  font-size: var(--fs-md);
 }
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px 12px;
-  background: var(--c-primary);
+  padding: 6px var(--sp-3) 6px var(--sp-4);
+  background: linear-gradient(135deg, var(--c-primary) 0%, #7aa2ff 100%);
   color: #fff;
-  border-bottom: var(--px) solid var(--c-border);
+  /* nằm trong khung .popup đã bo góc + overflow: hidden */
+  border-radius: 0;
 }
 .title {
   font-weight: 700;
 }
 .close {
-  border: none;
-  background: transparent;
-  color: inherit;
-  font-size: 14px;
-  cursor: pointer;
+  color: #fff;
+}
+.close:hover:not(:disabled) {
+  background: rgb(255 255 255 / 20%) !important;
 }
 .search {
-  padding: 8px 12px 0;
+  padding: var(--sp-3) var(--sp-4) 0;
 }
 .search input {
   box-sizing: border-box;
   width: 100%;
-  padding: 6px 8px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  outline: none;
+  min-height: var(--btn-h);
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-surface-2);
+  border-color: transparent;
 }
 .search input:focus {
-  box-shadow: var(--px) var(--px) 0 0 var(--c-primary);
+  border-color: var(--c-primary);
+  background: var(--c-surface);
 }
 .body {
   flex: 1;
   overflow-y: auto;
-  padding: 8px 12px;
+  padding: var(--sp-3) var(--sp-4);
 }
 .muted {
   color: var(--c-ink-soft);
 }
 .headline {
   display: flex;
-  align-items: baseline;
-  gap: 8px;
+  align-items: center;
+  gap: var(--sp-2);
   flex-wrap: wrap;
 }
 .lemma {
-  font-size: 22px;
+  font-size: var(--fs-2xl);
   font-weight: 700;
-}
-.level {
-  padding: 0 4px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #fff;
-  background: var(--c-xp);
-  border: 1px solid var(--c-border);
+  letter-spacing: -0.01em;
 }
 .pos {
   color: var(--c-ink-soft);
@@ -554,48 +568,27 @@ onUnmounted(() => {
 }
 .form-of {
   margin: 2px 0;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: var(--c-ink-soft);
 }
 .ipa {
   display: flex;
-  gap: 6px;
-  margin: 4px 0 6px;
-}
-.say {
-  padding: 1px 6px;
-  border: 1px solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  font-size: 12px;
-  cursor: pointer;
-}
-.say:hover {
-  background: #eef3ff;
-}
-.say.mini {
-  padding: 0 4px;
-  align-self: flex-start;
+  gap: var(--sp-2);
+  margin: var(--sp-2) 0;
 }
 .vi {
-  margin: 4px 0;
-  font-size: 16px;
+  margin: var(--sp-2) 0;
+  font-size: var(--fs-lg);
   font-weight: 600;
 }
 .ai {
-  margin-left: 6px;
-  padding: 0 4px;
-  font-size: 10px;
-  color: var(--c-ink);
-  background: var(--c-warning);
-  border: 1px solid var(--c-border);
-  vertical-align: middle;
+  margin-left: var(--sp-2);
   cursor: help;
 }
 .senses {
-  margin: 4px 0;
+  margin: var(--sp-2) 0;
   padding-left: 18px;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: var(--c-ink-soft);
 }
 .senses em {
@@ -603,30 +596,33 @@ onUnmounted(() => {
 }
 .examples {
   display: grid;
-  gap: 4px;
-  margin-top: 6px;
-  font-size: 12px;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+  font-size: var(--fs-xs);
 }
 .example {
   display: flex;
-  gap: 6px;
+  gap: var(--sp-2);
+}
+.example .btn {
+  align-self: flex-start;
 }
 .translation {
   display: grid;
-  gap: 4px;
-  margin: 6px 0;
-  padding: 6px 8px;
-  background: #fff8dc;
-  border-left: 3px solid var(--c-primary);
+  gap: var(--sp-2);
+  margin: var(--sp-2) 0;
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-primary-soft);
 }
 .tr-head {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--sp-2);
 }
 .tr-upgrade {
-  margin: 6px 0 0;
-  font-size: 12px;
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-xs);
   color: var(--c-ink-soft);
 }
 .tr-text {
@@ -636,61 +632,39 @@ onUnmounted(() => {
 }
 .tr-error {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: var(--c-danger);
 }
 .tr-download {
   display: grid;
-  gap: 4px;
+  gap: var(--sp-2);
   justify-items: start;
-  font-size: 12px;
+  font-size: var(--fs-xs);
 }
 .tr-download progress {
   width: 100%;
+  height: 8px;
+  accent-color: var(--c-primary);
 }
 .tokens,
 .others {
   display: flex;
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 6px;
   align-items: center;
-  margin-top: 6px;
-  font-size: 12px;
-}
-.token {
-  padding: 1px 6px;
-  border: 1px solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  cursor: pointer;
-}
-.token:hover {
-  background: #eef3ff;
+  margin-top: var(--sp-2);
+  font-size: var(--fs-xs);
 }
 .footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  padding: 6px 12px;
-  font-size: 12px;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
+  border-top: 1px solid var(--c-line);
+  background: var(--c-surface-2);
+  font-size: var(--fs-xs);
   color: var(--c-ink-soft);
-  border-top: 1px dashed var(--c-ink-soft);
-}
-.save {
-  padding: 3px 10px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-success);
-  color: #fff;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
-}
-.save.done {
-  background: var(--c-surface);
-  color: var(--c-ink-soft);
-  box-shadow: none;
-  cursor: default;
+  border-radius: 0;
 }
 </style>

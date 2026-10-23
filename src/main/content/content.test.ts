@@ -549,6 +549,24 @@ describe('MissionService', () => {
     expect(c.pet.get().totalXp).toBe(xp0 + 13)
   })
 
+  it('nhiệm vụ đã xong thì thanh tiến độ không tụt lại khi có thẻ mới đến hạn', () => {
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    for (let i = 0; i < 5; i++) {
+      const { card } = c.study.next()
+      if (!card) break
+      c.study.rate(card.cardId, 3, 1000)
+    }
+    const clear = (): [number, number, boolean] => {
+      const m = c.missions.state().missions.find((x) => x.id === 'clear')!
+      return [m.progress, m.target, m.done]
+    }
+    expect(clear()).toEqual([1, 1, true])
+    // Lưu từ mới → có thẻ mới đến hạn (dueCount > 0) nhưng nhiệm vụ đã thưởng vẫn đầy thanh
+    c.vocab.save({ contentId: 'word:en:apple', text: 'apple' })
+    expect(c.srs.dueCount()).toBeGreaterThan(0)
+    expect(clear()).toEqual([1, 1, true])
+  })
+
   it('làm đủ ba nhiệm vụ → thưởng thêm, tính từng ngày', () => {
     const events: string[] = []
     c.bus.on('mission.completed', (e) => events.push(e.id))
@@ -599,6 +617,27 @@ describe('Hồ sơ & bài kiểm tra đầu vào', () => {
     expect(c.pet.get().name).toBe('Kuro')
     c.profiles.switchTo(first.id)
     expect(c.pet.get().name).toBe('Bi')
+  })
+
+  it('sửa hồ sơ: đổi tên, mục tiêu học (track → chế độ trẻ em) và tên thú cưng; chỉ trường được gửi mới đổi', () => {
+    const first = c.profiles.active()
+
+    const renamed = c.profiles.update({ id: first.id, name: 'Minh' })
+    expect(renamed).toMatchObject({ name: 'Minh', track: 'general', isChild: false, petName: 'Bi' })
+
+    const kid = c.profiles.update({ id: first.id, track: 'primary', petName: 'Mít Ướt' })
+    expect(kid).toMatchObject({ name: 'Minh', track: 'primary', isChild: true, petName: 'Mít Ướt' })
+    expect(c.profiles.active().isChild).toBe(true) // bộ nhớ đệm hồ sơ đang dùng được làm mới
+    expect(c.pet.get().name).toBe('Mít Ướt')
+
+    // Sửa hồ sơ KHÔNG đang dùng: không đụng hồ sơ đang dùng
+    const second = c.profiles.createFromInput({ name: 'Bố', track: 'toeic', petName: 'Kuro' })
+    const edited = c.profiles.update({ id: second.id, name: 'Ba', petName: 'Đen' })
+    expect(edited).toMatchObject({ name: 'Ba', petName: 'Đen', active: false })
+    expect(c.profiles.active().name).toBe('Minh')
+    expect(c.pet.get().name).toBe('Mít Ướt')
+
+    expect(() => c.profiles.update({ id: 'không-có', name: 'X' })).toThrow()
   })
 
   it('kiểm tra đầu vào: xen kẽ từ vựng/ngữ pháp/đọc hiểu, chấm ở main, lưu trình độ từng kỹ năng', () => {

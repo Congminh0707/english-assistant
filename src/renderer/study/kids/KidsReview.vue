@@ -7,6 +7,7 @@ import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
 import { FOOD_NAME, FOOD_PICTURE, PRAISE, pick, TRY_AGAIN } from './kidsText'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Chơi thẻ "nghe → chạm hình" (thẻ SRS hướng audio_picture): nghe từ, chạm vào hình đúng. Không có chữ để đọc, không gõ.
 // Đúng ngay → thẻ lên lịch xa; đúng lần hai → ngắn hơn; hai lần sai thì chỉ hình đúng rồi ôn lại sớm.
@@ -103,7 +104,7 @@ onMounted(load)
         :title="card.word"
         @click="speak(card.word, 'us', 0.8)"
       >
-        🔊
+        <UiIcon name="volume" />
       </button>
       <p class="k-sub">{{ t('kids.review.hint') }}</p>
       <div class="k-row choices">
@@ -138,7 +139,7 @@ onMounted(load)
       <PixelPicture :id="played ? 'star' : 'moon'" :size="170" />
       <h1 class="k-title">{{ played ? 'All done!' : 'See you later!' }}</h1>
       <p class="k-sub">{{ played ? t('kids.review.allDone') : t('kids.review.nothingNow') }}</p>
-      <button type="button" class="k-primary" @click="emit('done')">🏠</button>
+      <button type="button" class="k-primary" @click="emit('done')"><UiIcon name="home" /></button>
     </template>
   </section>
 </template>
@@ -171,10 +172,10 @@ onMounted(load)
   margin: 0 auto;
   width: fit-content;
   padding: 14px 28px;
-  border: 4px solid var(--c-border);
+  border: 2px solid var(--c-line);
   border-radius: 18px;
-  background: #fff8dc;
-  box-shadow: 0 8px 0 0 var(--c-border);
+  background: var(--c-warning-soft);
+  box-shadow: 0 8px 0 0 #d3d9e8;
   font-size: 24px;
   animation: k-pop 420ms ease;
 }

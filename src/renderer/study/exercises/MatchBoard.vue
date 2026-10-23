@@ -82,11 +82,12 @@ const owner = (pos: number): number | null => {
 .pair {
   position: relative;
   padding: 8px 10px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-bg);
   font: inherit;
   text-align: left;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 .pair.active {
   background: var(--c-warning);
@@ -109,5 +110,6 @@ const owner = (pos: number): number | null => {
   font-weight: 700;
   color: #fff;
   background: var(--c-xp);
+  border-radius: var(--r-pill);
 }
 </style>

@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import type { Quiz, QuizAnswerResult } from '@shared/schemas/quiz'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Thẻ hỏi ôn / từ của khoảnh khắc trong bong bóng mascot (docs/05-mascot-system.md#5).
 const props = defineProps<{ quiz: Quiz }>()
@@ -89,13 +90,21 @@ onUnmounted(() => window.clearTimeout(closeTimer))
       <span v-if="quiz.kind === 'review' && quiz.dueCount > 1" class="muted">
         {{ t('quiz.dueLeft', { count: quiz.dueCount }) }}
       </span>
-      <span v-else-if="quiz.kind === 'new'" class="level">{{ quiz.level.replace('_', '.') }}</span>
+      <span v-else-if="quiz.kind === 'new'" class="chip chip--primary">{{
+        quiz.level.replace('_', '.')
+      }}</span>
     </div>
 
     <div class="word">
       <strong>{{ quiz.lemma }}</strong>
-      <button type="button" class="say" :title="t('quiz.listen')" @click="speak(quiz.lemma)">
-        🔊
+      <button
+        type="button"
+        class="btn btn--xs btn--icon"
+        :title="t('quiz.listen')"
+        :aria-label="t('quiz.listen')"
+        @click="speak(quiz.lemma)"
+      >
+        <UiIcon name="volume" :size="14" />
       </button>
       <span v-if="quiz.ipa" class="muted ipa">{{ quiz.ipa }}</span>
     </div>
@@ -135,13 +144,16 @@ onUnmounted(() => window.clearTimeout(closeTimer))
       <button
         v-if="quiz.kind === 'new'"
         type="button"
-        class="primary"
+        class="btn btn--xs btn--success"
         :disabled="busy"
         @click="save"
       >
+        <UiIcon name="save" :size="14" />
         {{ t('quiz.save') }}
       </button>
-      <button type="button" class="link" @click="emit('done')">{{ t('quiz.later') }}</button>
+      <button type="button" class="btn btn--xs btn--ghost" @click="emit('done')">
+        {{ t('quiz.later') }}
+      </button>
     </div>
   </div>
 </template>
@@ -149,48 +161,34 @@ onUnmounted(() => window.clearTimeout(closeTimer))
 <style scoped>
 .quiz {
   display: grid;
-  gap: 4px;
-  width: 210px;
+  gap: 6px;
+  width: 216px;
 }
 .head {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  font-size: 11px;
+  align-items: center;
+  font-size: var(--fs-xs);
 }
 .title {
   font-weight: 700;
   color: var(--c-xp);
 }
-.level {
-  padding: 0 3px;
-  font-size: 10px;
-  color: #fff;
-  background: var(--c-xp);
-  border: 1px solid var(--c-border);
-}
 .muted {
   color: var(--c-ink-soft);
-  font-size: 11px;
+  font-size: var(--fs-xs);
 }
 .word {
   display: flex;
-  align-items: baseline;
-  gap: 4px;
+  align-items: center;
+  gap: 6px;
   flex-wrap: wrap;
 }
 .word strong {
-  font-size: 16px;
+  font-size: var(--fs-xl);
 }
 .ipa {
-  font-size: 11px;
-}
-.say {
-  padding: 0 3px;
-  border: 1px solid var(--c-border);
-  background: var(--c-surface);
-  font-size: 10px;
-  cursor: pointer;
+  font-size: var(--fs-xs);
 }
 .q {
   margin: 0;
@@ -198,33 +196,36 @@ onUnmounted(() => window.clearTimeout(closeTimer))
 .choices {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 3px;
+  gap: 6px;
 }
 .choice {
-  padding: 3px 4px;
-  border: 1px solid var(--c-border);
-  background: var(--c-bg);
+  padding: 6px 8px;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
+  background: var(--c-surface);
   font: inherit;
-  font-size: 11px;
-  line-height: 1.2;
+  font-size: var(--fs-xs);
+  line-height: 1.25;
   text-align: left;
   cursor: pointer;
   overflow-wrap: anywhere;
 }
 .choice:hover:not(:disabled) {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .choice.right {
+  border-color: transparent;
   background: var(--c-success);
   color: #fff;
 }
 .choice.wrong {
+  border-color: transparent;
   background: var(--c-danger);
   color: #fff;
 }
 .feedback {
   margin: 2px 0 0;
-  font-size: 12px;
+  font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--c-danger);
 }
@@ -237,31 +238,12 @@ onUnmounted(() => window.clearTimeout(closeTimer))
 }
 .example {
   margin: 0;
-  font-size: 11px;
+  font-size: var(--fs-xs);
 }
 .actions {
   display: flex;
   justify-content: flex-end;
   gap: 6px;
   margin-top: 2px;
-}
-.primary {
-  padding: 2px 8px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-success);
-  color: #fff;
-  font: inherit;
-  font-size: 11px;
-  font-weight: 700;
-  cursor: pointer;
-}
-.link {
-  border: none;
-  background: transparent;
-  color: var(--c-ink-soft);
-  font: inherit;
-  font-size: 11px;
-  text-decoration: underline;
-  cursor: pointer;
 }
 </style>

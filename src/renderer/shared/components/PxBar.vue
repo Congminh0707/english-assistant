@@ -14,12 +14,15 @@ const percent = computed(() => Math.max(0, Math.min(100, (props.value / (props.m
 
 <style scoped>
 .px-bar {
-  height: 8px;
-  background: #e8e2d0;
-  border: var(--px) solid var(--c-border);
+  height: var(--bar-height, 8px);
+  overflow: hidden;
+  background: var(--bar-track, #e8e2d0);
+  border: var(--bar-border, var(--px) solid var(--c-border));
+  border-radius: var(--bar-radius, 0);
 }
 .fill {
   height: 100%;
+  border-radius: var(--bar-radius, 0);
   transition: width 0.3s steps(6);
 }
 </style>

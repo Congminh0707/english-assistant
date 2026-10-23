@@ -7,6 +7,7 @@ import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PxBar from '@renderer/shared/components/PxBar.vue'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Bài kiểm tra đầu vào: 20 câu xen kẽ từ vựng / ngữ pháp / đọc hiểu, độ khó thích nghi; chấm ở main.
 const props = defineProps<{ autostart?: boolean; mode?: 'placement' | 'checkpoint' }>()
@@ -132,7 +133,7 @@ onUnmounted(() => {
 
     <PxPanel v-if="phase === 'intro'" class="box">
       <p>{{ checkpoint ? t('study.placement.checkpointIntro') : t('study.placement.intro') }}</p>
-      <button type="button" class="primary" :disabled="busy" @click="start">
+      <button type="button" class="btn btn--primary" :disabled="busy" @click="start">
         {{ t('study.placement.start') }}
       </button>
     </PxPanel>
@@ -153,17 +154,19 @@ onUnmounted(() => {
       </p>
       <PxPanel class="box">
         <div v-if="question.kind === 'listening'" class="listen">
-          <button type="button" class="say big" @click="speak(question.say ?? '', 'us', 0.9)">
-            🔊 {{ t('study.lessons.play') }}
+          <button type="button" class="btn btn--sm" @click="speak(question.say ?? '', 'us', 0.9)">
+            <UiIcon name="volume" /> {{ t('study.lessons.play') }}
           </button>
-          <button type="button" class="say big" @click="speak(question.say ?? '', 'us', 0.6)">
-            🐢 {{ t('study.lessons.slow') }}
+          <button type="button" class="btn btn--sm" @click="speak(question.say ?? '', 'us', 0.6)">
+            <UiIcon name="slow" /> {{ t('study.lessons.slow') }}
           </button>
           <p class="prompt">{{ question.prompt }}</p>
         </div>
         <div v-else-if="question.kind === 'vocab'" class="word">
           <strong>{{ question.lemma }}</strong>
-          <button type="button" class="say" @click="speak(question.lemma)">🔊</button>
+          <button type="button" class="btn btn--sm btn--icon" @click="speak(question.lemma)">
+            <UiIcon name="volume" />
+          </button>
           <span v-if="question.ipa" class="muted">{{ question.ipa }}</span>
         </div>
         <template v-else>
@@ -226,10 +229,12 @@ onUnmounted(() => {
         </li>
       </ul>
       <div class="row">
-        <button type="button" class="primary" @click="emit('done')">
+        <button type="button" class="btn btn--primary" @click="emit('done')">
           {{ t('study.placement.done') }}
         </button>
-        <button type="button" class="link" @click="start">{{ t('study.placement.retry') }}</button>
+        <button type="button" class="btn btn--ghost btn--sm" @click="start">
+          {{ t('study.placement.retry') }}
+        </button>
       </div>
     </PxPanel>
   </section>
@@ -266,13 +271,6 @@ h1 {
 .word strong {
   font-size: 34px;
 }
-.say {
-  padding: 2px 8px;
-  border: 1px solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  cursor: pointer;
-}
 .choices {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -280,14 +278,15 @@ h1 {
 }
 .choice {
   padding: 10px 12px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-bg);
   font: inherit;
   text-align: left;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 .choice:hover:not(:disabled) {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .choice.unknown {
   grid-column: 1 / -1;
@@ -315,16 +314,6 @@ h1 {
 .feedback.ok {
   color: var(--c-success);
 }
-.primary {
-  padding: 10px 20px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-primary);
-  color: #fff;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
-}
 .result {
   text-align: center;
 }
@@ -337,20 +326,13 @@ h1 {
   justify-content: center;
   gap: 16px;
 }
-.link {
-  border: none;
-  background: transparent;
-  color: var(--c-ink-soft);
-  font: inherit;
-  text-decoration: underline;
-  cursor: pointer;
-}
 .passage {
   margin: 0;
   padding: 8px 12px;
-  background: #fff8dc;
+  background: var(--c-warning-soft);
   border-left: 3px solid var(--c-primary);
   line-height: 1.6;
+  border-radius: var(--r-md);
 }
 .prompt {
   margin: 0;
@@ -375,17 +357,14 @@ h1 {
   font-weight: 700;
   color: #fff;
   background: var(--c-xp);
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
 }
 .listen {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
-}
-.say.big {
-  padding: 8px 14px;
-  font-size: 14px;
 }
 .listen .prompt {
   flex-basis: 100%;
@@ -396,6 +375,7 @@ h1 {
   font-weight: 700;
   background: #fde3e3;
   border-left: 4px solid var(--c-danger);
+  border-radius: var(--r-md);
 }
 .checkpoint.ok {
   background: #e3f6e6;

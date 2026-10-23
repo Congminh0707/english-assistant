@@ -501,7 +501,7 @@
     "wrong": "Chưa đúng — đáp án: {answer}",
     "nextReview": "Ôn lại sau {time}",
     "later": "Để sau",
-    "save": "💾 Lưu",
+    "save": "Lưu",
     "saved": "Đã lưu! %PET% sẽ hỏi lại bạn sau ✨",
     "listen": "Nghe",
     "minutes": "{n} phút",
@@ -740,7 +740,15 @@
       "choices": "Trắc nghiệm nghĩa ở thẻ nhận diện (tắt = chỉ lật thẻ rồi tự chấm)",
       "quickTranslate": "Dịch nhanh (Ctrl+Alt+T)",
       "autoCopy": "Tự lấy chữ đang bôi đen",
-      "autoCopyHint": "Bôi đen chữ rồi bấm Ctrl+Alt+T là dịch được, không cần Ctrl+C. App gửi Ctrl+C giả lập rồi trả clipboard về như cũ. Không áp dụng trong terminal (Ctrl+C ở đó là ngắt lệnh) — trong terminal hãy tự copy rồi bấm Ctrl+Alt+T."
+      "autoCopyHint": "Bôi đen chữ rồi bấm Ctrl+Alt+T là dịch được, không cần Ctrl+C. App gửi Ctrl+C giả lập rồi trả clipboard về như cũ. Không áp dụng trong terminal (Ctrl+C ở đó là ngắt lệnh) — trong terminal hãy tự copy rồi bấm Ctrl+Alt+T.",
+      "edit": "Sửa",
+      "editSave": "Lưu",
+      "editCancel": "Huỷ",
+      "editName": "Tên của bạn",
+      "editPet": "Tên thú cưng",
+      "editTrack": "Mục tiêu học",
+      "childWarn": "Hồ sơ trẻ em dùng giao diện của bé; phụ huynh vào lại bằng mã PIN. Level và XP được giữ nguyên.",
+      "edited": "Đã lưu thay đổi"
     },
     "practice": {
       "title": "Luyện tập",
@@ -920,10 +928,10 @@
     },
     "reading": {
       "title": "Bài đọc",
-      "intro": "Đọc các bài ngắn theo trình độ. Bấm vào từ để tra nghĩa và lưu vào sổ từ, bấm 🔊 để nghe từng câu. Cuối bài có câu hỏi đọc hiểu.",
+      "intro": "Đọc các bài ngắn theo trình độ. Bấm vào từ để tra nghĩa và lưu vào sổ từ, bấm nút loa để nghe từng câu. Cuối bài có câu hỏi đọc hiểu.",
       "listenAll": "Nghe cả bài",
       "toggleVi": "Bản dịch",
-      "hint": "Bấm vào một từ để tra · bấm 🔊 cạnh câu để nghe câu đó.",
+      "hint": "Bấm vào một từ để tra · bấm loa cạnh câu để nghe câu đó.",
       "listenSentence": "Nghe câu này",
       "showVi": "Xem bản dịch",
       "hideVi": "Ẩn bản dịch",
@@ -943,7 +951,7 @@
     },
     "phrasebook": {
       "title": "Mẫu câu giao tiếp",
-      "intro": "Các câu thường dùng theo tình huống. Bấm 🔊 để nghe, bấm vào câu để sao chép.",
+      "intro": "Các câu thường dùng theo tình huống. Bấm nút loa để nghe, bấm vào câu để sao chép.",
       "search": "Tìm mẫu câu…",
       "empty": "Không có mẫu câu phù hợp.",
       "all": "Tất cả",
@@ -1034,7 +1042,9 @@
       "keepHint": "Cấp độ và XP thuộc về hồ sơ của bạn — đổi thú cưng không mất tiến độ.",
       "evolving": "{name} đang tiến hoá…",
       "evolved": "{name} đã tiến hoá thành {stage}!",
-      "great": "Tuyệt vời!"
+      "great": "Tuyệt vời!",
+      "rename": "Đổi tên",
+      "renamePlaceholder": "Tên thú cưng"
     }
   },
   "translate": {
@@ -1111,7 +1121,7 @@
     },
     "activity": {
       "again": "Chơi lại",
-      "sayHint": "Nghe rồi nói theo, xong bấm 🎤 ✓ (chưa chấm giọng nói)"
+      "sayHint": "Nghe rồi nói theo, xong bấm nút ✓ (chưa chấm giọng nói)"
     },
     "album": {
       "hint": "Chạm vào sticker để nghe. Trả lời đúng để dán thêm!"

@@ -278,13 +278,13 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
         <button
           v-if="phase === 'question'"
           type="button"
-          class="primary"
+          class="btn btn--primary"
           :disabled="!canCheck || busy"
           @click="check"
         >
           {{ t('study.practice.check') }}
         </button>
-        <button v-else type="button" class="primary" @click="next">
+        <button v-else type="button" class="btn btn--primary" @click="next">
           {{ result?.next ? t('study.practice.next') : t('study.practice.finish') }}
         </button>
       </div>
@@ -299,7 +299,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
         {{ t('study.missions.reward', { xp: summary.xp, coins: summary.coins }) }}
       </p>
       <p v-else class="muted">{{ t('study.practice.noReward') }}</p>
-      <button type="button" class="primary" @click="phase = 'menu'">
+      <button type="button" class="btn btn--primary" @click="phase = 'menu'">
         {{ t('study.practice.again') }}
       </button>
     </PxPanel>
@@ -325,7 +325,8 @@ h1 {
 .warn {
   padding: 6px 8px;
   background: var(--c-warning);
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
 }
 .box {
   display: grid;
@@ -352,16 +353,17 @@ h1 {
 }
 .mode {
   padding: 12px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-bg);
   font: inherit;
   font-weight: 600;
   text-align: left;
   cursor: pointer;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--r-md);
 }
 .mode:hover:not(:disabled) {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .icon {
   display: inline-block;
@@ -371,24 +373,27 @@ h1 {
   box-sizing: border-box;
   width: 100%;
   padding: 10px 12px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   font-size: 16px;
   outline: none;
+  border-radius: var(--r-md);
 }
 .typed:focus {
-  box-shadow: var(--px) var(--px) 0 0 var(--c-primary);
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 3px var(--c-primary-soft);
 }
 .feedback {
   padding: 8px 10px;
   color: var(--c-danger);
   background: #fde8e8;
   border-left: 4px solid var(--c-danger);
+  border-radius: var(--r-md);
 }
 .feedback.ok {
   color: var(--c-success);
-  background: #e3f4e8;
+  background: var(--c-success-soft);
   border-left-color: var(--c-success);
 }
 .solution {
@@ -399,21 +404,6 @@ h1 {
 .actions {
   display: flex;
   justify-content: center;
-}
-.primary {
-  min-width: 180px;
-  padding: 10px 20px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-primary);
-  color: #fff;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
-}
-.primary:disabled {
-  opacity: 0.5;
-  cursor: default;
 }
 .result {
   text-align: center;

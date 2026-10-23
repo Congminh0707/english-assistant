@@ -5,6 +5,7 @@ import type { WordListItem } from '@shared/schemas/study'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import { formatInterval } from '../format'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Sổ từ đã lưu: lọc/sắp xếp theo trạng thái ôn, nghe phát âm, tạm dừng, đặt lại tiến độ, xoá.
 const emit = defineEmits<{ changed: [] }>()
@@ -171,8 +172,8 @@ onMounted(load)
           v-for="f in FILTERS"
           :key="f"
           type="button"
-          class="chip"
-          :class="{ on: filter === f }"
+          class="btn btn--sm btn--pill"
+          :class="{ 'btn--primary': filter === f }"
           @click="filter = f"
         >
           {{ t(`study.words.filter.${f}`) }} <span class="n">{{ counts[f] }}</span>
@@ -191,7 +192,9 @@ onMounted(load)
 
     <ul class="list">
       <li v-for="w in visible" :key="w.cardId" class="row" :class="{ paused: w.suspended }">
-        <button type="button" class="say" @click="speak(w.lemma)">🔊</button>
+        <button type="button" class="btn btn--sm btn--icon" @click="speak(w.lemma)">
+          <UiIcon name="volume" />
+        </button>
         <div class="main">
           <div class="line">
             <strong class="lemma">{{ w.lemma }}</strong>
@@ -215,22 +218,27 @@ onMounted(load)
         <div class="actions">
           <button
             type="button"
-            class="act"
+            class="btn btn--sm btn--icon btn--ghost"
             :title="w.suspended ? t('study.words.resume') : t('study.words.pause')"
             @click="toggleSuspend(w)"
           >
-            {{ w.suspended ? '▶' : '⏸' }}
-          </button>
-          <button type="button" class="act" :title="t('study.words.reset')" @click="reset(w)">
-            ↺
+            <UiIcon :name="w.suspended ? 'play' : 'pause'" />
           </button>
           <button
             type="button"
-            class="act remove"
+            class="btn btn--sm btn--ghost"
+            :title="t('study.words.reset')"
+            @click="reset(w)"
+          >
+            <UiIcon name="reset" />
+          </button>
+          <button
+            type="button"
+            class="btn btn--sm btn--icon btn--ghost"
             :title="t('study.words.remove')"
             @click="remove(w)"
           >
-            🗑
+            <UiIcon name="trash" />
           </button>
         </div>
       </li>
@@ -254,13 +262,15 @@ input {
   box-sizing: border-box;
   width: 240px;
   padding: 6px 8px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   outline: none;
+  border-radius: var(--r-md);
 }
 input:focus {
-  box-shadow: var(--px) var(--px) 0 0 var(--c-primary);
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 3px var(--c-primary-soft);
 }
 .tools {
   display: flex;
@@ -275,22 +285,6 @@ input:focus {
   flex-wrap: wrap;
   gap: 6px;
 }
-.chip {
-  padding: 2px 8px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  font-size: 12px;
-  cursor: pointer;
-}
-.chip.on {
-  background: var(--c-primary);
-  color: #fff;
-}
-.chip .n {
-  margin-left: 2px;
-  opacity: 0.7;
-}
 .sort {
   display: flex;
   align-items: center;
@@ -299,9 +293,10 @@ input:focus {
 }
 .sort select {
   padding: 2px 6px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
+  border-radius: var(--r-md);
 }
 .muted {
   color: var(--c-ink-soft);
@@ -319,7 +314,8 @@ input:focus {
   gap: 10px;
   padding: 8px 10px;
   background: var(--c-surface);
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
 }
 .row.paused {
   opacity: 0.6;
@@ -343,14 +339,16 @@ input:focus {
   font-weight: 700;
   color: #fff;
   background: var(--c-xp);
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
 }
 .badge {
   padding: 0 4px;
   font-size: 11px;
   color: var(--c-ink);
-  background: #e8e2d0;
-  border: 1px solid var(--c-border);
+  background: var(--c-surface-2);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
 }
 .vi {
   overflow: hidden;
@@ -368,10 +366,11 @@ input:focus {
 .state {
   padding: 0 6px;
   font-weight: 700;
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
 }
 .state.s0 {
-  background: #e8e2d0;
+  background: var(--c-surface-2);
 }
 .state.s1,
 .state.s3 {
@@ -384,20 +383,5 @@ input:focus {
 .actions {
   display: flex;
   gap: 4px;
-}
-.say,
-.act {
-  padding: 2px 6px;
-  border: 1px solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  cursor: pointer;
-}
-.say:hover,
-.act:hover {
-  background: #eef3ff;
-}
-.act.remove:hover {
-  background: #fde3e3;
 }
 </style>

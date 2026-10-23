@@ -8,6 +8,7 @@ import { invoke } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { petName as sharedPetName } from '@renderer/shared/i18n'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Màn hình chào lần đầu: tên + mục tiêu → tên thú cưng → trình độ (làm kiểm tra hoặc tự chọn).
 const emit = defineEmits<{ done: [startTest: boolean] }>()
@@ -103,8 +104,13 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
 
       <template v-else>
         <h2>{{ t('study.onboarding.step3') }}</h2>
-        <button type="button" class="primary big" :disabled="busy" @click="finish(true)">
-          🧪 {{ t('study.onboarding.takeTest') }}
+        <button
+          type="button"
+          class="btn btn--primary btn--lg"
+          :disabled="busy"
+          @click="finish(true)"
+        >
+          <UiIcon name="test" /> {{ t('study.onboarding.takeTest') }}
         </button>
         <p class="hint">{{ t('study.onboarding.takeTestHint') }}</p>
         <div class="field">
@@ -129,7 +135,13 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
           {{ t('study.onboarding.back') }}
         </button>
         <span class="spacer" />
-        <button v-if="step < 3" type="button" class="primary" :disabled="!canNext" @click="step++">
+        <button
+          v-if="step < 3"
+          type="button"
+          class="btn btn--primary"
+          :disabled="!canNext"
+          @click="step++"
+        >
           {{ t('study.onboarding.next') }}
         </button>
       </footer>
@@ -171,14 +183,16 @@ h2 {
 input {
   box-sizing: border-box;
   padding: 8px 10px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   font-weight: 400;
   outline: none;
+  border-radius: var(--r-md);
 }
 input:focus {
-  box-shadow: var(--px) var(--px) 0 0 var(--c-primary);
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 3px var(--c-primary-soft);
 }
 .tracks {
   display: flex;
@@ -187,14 +201,14 @@ input:focus {
 }
 .track {
   padding: 8px 12px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-bg);
   font: inherit;
   font-weight: 400;
   cursor: pointer;
 }
 .track:hover:not(:disabled) {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .track.active {
   background: var(--c-primary);
@@ -215,25 +229,6 @@ input:focus {
 .spacer {
   flex: 1;
 }
-.primary {
-  padding: 8px 18px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-primary);
-  color: #fff;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
-}
-.primary:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
-.primary.big {
-  padding: 12px 20px;
-  font-size: 15px;
-  background: var(--c-success);
-}
 .link {
   border: none;
   background: transparent;
@@ -241,5 +236,6 @@ input:focus {
   font: inherit;
   text-decoration: underline;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 </style>

@@ -6,7 +6,17 @@ import { ACHIEVEMENT_GROUPS } from '@shared/achievements'
 import { activityLevel, activityScore, weekdayIndex } from '@shared/stats'
 import { invoke } from '@renderer/shared/ipc'
 import PixelBadge from '@renderer/shared/components/PixelBadge.vue'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import PxBar from '@renderer/shared/components/PxBar.vue'
+import {
+  Award,
+  CalendarDays,
+  CircleCheck,
+  Flame,
+  Sprout,
+  Target,
+  Timer,
+  TrendingUp
+} from 'lucide-vue-next'
 
 // Thống kê: streak, lịch hoạt động 16 tuần, 14 ngày gần nhất, thẻ theo trạng thái, từ theo level.
 const emit = defineEmits<{ checkpoint: [] }>()
@@ -78,51 +88,77 @@ const unlockedCount = computed(
 )
 
 const WEEKDAYS = [0, 1, 2, 3, 4, 5, 6]
+/** Số cột (tuần) của lịch, để các ô trải đủ chiều ngang thay vì cuộn */
+const weekCount = computed(() => Math.max(1, Math.ceil(cells.value.length / 7)))
 
 onMounted(load)
 </script>
 
 <template>
   <section class="stats">
-    <h1>{{ t('study.stats.title') }}</h1>
+    <h1 class="page-title">{{ t('study.stats.title') }}</h1>
 
     <template v-if="stats">
       <div class="cards">
-        <PxPanel class="card">
-          <div class="num">🔥 {{ stats.totals.streak }}</div>
-          <div class="label">{{ t('study.stats.streak') }}</div>
-        </PxPanel>
-        <PxPanel class="card">
-          <div class="num">🏆 {{ stats.totals.longestStreak }}</div>
-          <div class="label">{{ t('study.stats.longest') }}</div>
-        </PxPanel>
-        <PxPanel class="card">
-          <div class="num">{{ stats.totals.reviews }}</div>
-          <div class="label">{{ t('study.stats.reviews') }}</div>
-        </PxPanel>
-        <PxPanel class="card">
-          <div class="num">{{ percent(stats.totals.retention) }}</div>
-          <div class="label">{{ t('study.stats.retention') }}</div>
-        </PxPanel>
-        <PxPanel class="card">
-          <div class="num">{{ stats.totals.savedWords }}</div>
-          <div class="label">{{ t('study.stats.savedWords') }}</div>
-        </PxPanel>
-        <PxPanel class="card">
-          <div class="num">{{ stats.totals.xp }}</div>
-          <div class="label">XP</div>
-        </PxPanel>
-        <PxPanel class="card">
-          <div class="num">{{ stats.totals.activeDays }}</div>
-          <div class="label">{{ t('study.stats.activeDays') }}</div>
-        </PxPanel>
-        <PxPanel class="card">
-          <div class="num">{{ stats.totals.practiceSessions }}</div>
-          <div class="label">{{ t('study.stats.practice') }}</div>
-        </PxPanel>
+        <div class="card kpi">
+          <span class="kpi-icon warm"><Flame :size="18" :stroke-width="2.2" /></span>
+          <div>
+            <div class="num">{{ stats.totals.streak }}</div>
+            <div class="label">{{ t('study.stats.streak') }}</div>
+          </div>
+        </div>
+        <div class="card kpi">
+          <span class="kpi-icon warm"><Award :size="18" :stroke-width="2.2" /></span>
+          <div>
+            <div class="num">{{ stats.totals.longestStreak }}</div>
+            <div class="label">{{ t('study.stats.longest') }}</div>
+          </div>
+        </div>
+        <div class="card kpi">
+          <span class="kpi-icon cool"><Target :size="18" :stroke-width="2.2" /></span>
+          <div>
+            <div class="num">{{ stats.totals.reviews }}</div>
+            <div class="label">{{ t('study.stats.reviews') }}</div>
+          </div>
+        </div>
+        <div class="card kpi">
+          <span class="kpi-icon ok"><CircleCheck :size="18" :stroke-width="2.2" /></span>
+          <div>
+            <div class="num">{{ percent(stats.totals.retention) }}</div>
+            <div class="label">{{ t('study.stats.retention') }}</div>
+          </div>
+        </div>
+        <div class="card kpi">
+          <span class="kpi-icon ok"><Sprout :size="18" :stroke-width="2.2" /></span>
+          <div>
+            <div class="num">{{ stats.totals.savedWords }}</div>
+            <div class="label">{{ t('study.stats.savedWords') }}</div>
+          </div>
+        </div>
+        <div class="card kpi">
+          <span class="kpi-icon violet"><TrendingUp :size="18" :stroke-width="2.2" /></span>
+          <div>
+            <div class="num">{{ stats.totals.xp }}</div>
+            <div class="label">XP</div>
+          </div>
+        </div>
+        <div class="card kpi">
+          <span class="kpi-icon cool"><CalendarDays :size="18" :stroke-width="2.2" /></span>
+          <div>
+            <div class="num">{{ stats.totals.activeDays }}</div>
+            <div class="label">{{ t('study.stats.activeDays') }}</div>
+          </div>
+        </div>
+        <div class="card kpi">
+          <span class="kpi-icon violet"><Timer :size="18" :stroke-width="2.2" /></span>
+          <div>
+            <div class="num">{{ stats.totals.practiceSessions }}</div>
+            <div class="label">{{ t('study.stats.practice') }}</div>
+          </div>
+        </div>
       </div>
 
-      <PxPanel class="block">
+      <section class="card block">
         <h2>{{ t('study.stats.week') }}</h2>
         <div class="week">
           <div>
@@ -139,9 +175,9 @@ onMounted(load)
           </div>
         </div>
         <p class="muted small">{{ t('study.stats.vsLastWeek') }}</p>
-      </PxPanel>
+      </section>
 
-      <PxPanel class="block">
+      <section class="card block">
         <h2>{{ t('study.stats.calendar') }}</h2>
         <div class="calendar">
           <div class="weekdays" aria-hidden="true">
@@ -149,7 +185,10 @@ onMounted(load)
               w % 2 === 0 ? t(`study.stats.weekday.${w}`) : ''
             }}</span>
           </div>
-          <div class="grid">
+          <div
+            class="grid"
+            :style="{ gridTemplateColumns: `repeat(${weekCount}, minmax(0, 1fr))` }"
+          >
             <template v-for="(cell, i) in cells" :key="i">
               <span v-if="cell === null" class="cell empty" />
               <span v-else class="cell" :class="`l${cell.level}`" :title="cellTitle(cell)" />
@@ -158,12 +197,12 @@ onMounted(load)
         </div>
         <div class="legend">
           {{ t('study.stats.less') }}
-          <span v-for="l in 5" :key="l" class="cell" :class="`l${l - 1}`" />
+          <span v-for="l in 5" :key="l" class="cell lg" :class="`l${l - 1}`" />
           {{ t('study.stats.more') }}
         </div>
-      </PxPanel>
+      </section>
 
-      <PxPanel class="block">
+      <section class="card block">
         <h2>{{ t('study.stats.last14') }}</h2>
         <div class="bars">
           <div v-for="d in last14" :key="d.day" class="bar-col" :title="cellTitle(d)">
@@ -175,10 +214,10 @@ onMounted(load)
             <div class="bar-day">{{ d.day.slice(8) }}</div>
           </div>
         </div>
-      </PxPanel>
+      </section>
 
       <div class="two">
-        <PxPanel class="block">
+        <section class="card block">
           <h2>{{ t('study.stats.cardStates') }}</h2>
           <div v-if="stateBars.some((s) => s.count)" class="stack">
             <span
@@ -196,9 +235,9 @@ onMounted(load)
               <strong>{{ s.count }}</strong>
             </li>
           </ul>
-        </PxPanel>
+        </section>
 
-        <PxPanel class="block">
+        <section class="card block">
           <h2>{{ t('study.stats.levels') }}</h2>
           <p v-if="!stats.levels.length" class="muted">{{ t('study.stats.noWords') }}</p>
           <div v-for="l in stats.levels" :key="l.level" class="level-row">
@@ -206,22 +245,22 @@ onMounted(load)
             <span class="level-bar" :style="{ width: `${(l.count / maxLevelCount) * 100}%` }" />
             <span class="level-count">{{ l.count }}</span>
           </div>
-        </PxPanel>
+        </section>
       </div>
 
-      <PxPanel class="block">
+      <section class="card block">
         <h2>{{ t('study.stats.skills') }}</h2>
         <ul class="skill-levels">
           <li v-for="s in stats.skills" :key="s.skill" class="skill">
             <strong>{{ t(`study.stats.skill.${s.skill}`) }}</strong>
-            <span class="skill-tag">{{ s.level.replace('_', '.') }}</span>
+            <span class="chip chip--primary">{{ s.level.replace('_', '.') }}</span>
             <span class="muted small"
               >{{ s.rating }} · {{ t('study.stats.games', { n: s.games }) }}</span
             >
             <button
               v-if="s.reliable && s.ahead >= 1"
               type="button"
-              class="up"
+              class="btn btn--sm up"
               :title="t('study.stats.readyHint')"
               @click="emit('checkpoint')"
             >
@@ -230,22 +269,26 @@ onMounted(load)
           </li>
         </ul>
         <p class="muted small">{{ t('study.stats.skillsHint') }}</p>
-      </PxPanel>
+      </section>
 
-      <PxPanel class="block">
+      <section class="card block">
         <h2>{{ t('study.stats.accuracy') }}</h2>
         <p v-if="!stats.accuracy.length" class="muted">{{ t('study.stats.noAccuracy') }}</p>
         <div v-for="a in stats.accuracy" :key="`${a.group}-${a.kind}-${a.skill}`" class="acc-row">
           <span class="acc-name">{{ kindLabel(a.group, a.kind) }}</span>
-          <span class="acc-bar"><span :style="{ width: `${pct(a)}%` }" /></span>
+          <span class="acc-bar"
+            ><span
+              :style="{ width: `${pct(a)}%` }"
+              :class="{ low: pct(a) < 60, mid: pct(a) >= 60 && pct(a) < 80 }"
+          /></span>
           <span class="acc-num"
             >{{ pct(a) }}% <small class="muted">({{ a.correct }}/{{ a.total }})</small></span
           >
         </div>
         <p class="muted small">{{ t('study.stats.accuracyHint') }}</p>
-      </PxPanel>
+      </section>
 
-      <PxPanel class="block">
+      <section class="card block">
         <h2>{{ t('study.stats.time') }}</h2>
         <div class="week">
           <div>
@@ -274,9 +317,9 @@ onMounted(load)
           </div>
         </div>
         <p class="muted small">{{ t('study.stats.timeHint') }}</p>
-      </PxPanel>
+      </section>
 
-      <PxPanel class="block">
+      <section class="card block">
         <h2>{{ t('study.stats.achievements') }}</h2>
         <p class="muted small">
           {{
@@ -298,14 +341,20 @@ onMounted(load)
               <span class="ach-desc muted small">{{
                 t(`study.stats.achDesc.${a.group}`, { n: a.target })
               }}</span>
-              <progress v-if="!a.unlocked" class="ach-bar" :value="a.current" :max="a.target" />
+              <PxBar
+                v-if="!a.unlocked"
+                class="ach-bar"
+                :value="a.current"
+                :max="a.target"
+                color="var(--c-primary)"
+              />
               <span class="muted small">{{ a.current }}/{{ a.target }}</span>
             </div>
           </div>
         </section>
-      </PxPanel>
+      </section>
 
-      <PxPanel class="block">
+      <section class="card block">
         <h2>{{ t('study.stats.hardest') }}</h2>
         <p v-if="!stats.hardest.length" class="muted">{{ t('study.stats.noHardest') }}</p>
         <ol v-else class="hardest">
@@ -316,7 +365,7 @@ onMounted(load)
             }}</span>
           </li>
         </ol>
-      </PxPanel>
+      </section>
     </template>
   </section>
 </template>
@@ -324,112 +373,167 @@ onMounted(load)
 <style scoped>
 .stats {
   display: grid;
-  gap: 14px;
-  max-width: 760px;
-  margin: 0 auto;
+  gap: var(--sp-3);
+  max-width: 880px;
 }
-h1 {
-  margin: 0;
-  font-size: 22px;
+.stats .page-title {
+  margin-bottom: var(--sp-1);
 }
 h2 {
-  margin: 0 0 8px;
-  font-size: 15px;
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-lg);
 }
 .muted {
   margin: 0;
   color: var(--c-ink-soft);
 }
 .small {
-  font-size: 12px;
-}
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 12px;
-}
-.card {
-  padding: 12px 8px;
-  text-align: center;
-}
-.num {
-  font-size: 22px;
-  font-weight: 700;
-}
-.label {
-  font-size: 12px;
-  color: var(--c-ink-soft);
+  font-size: var(--fs-xs);
 }
 .block {
-  padding: 14px 16px;
+  padding: var(--sp-4) var(--sp-5);
+}
+
+/* ---- KPI ---- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: var(--sp-3);
+}
+.kpi {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+}
+.kpi-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-md);
+}
+.kpi-icon.warm {
+  background: var(--c-warning-soft);
+  color: #e08a00;
+}
+.kpi-icon.ok {
+  background: var(--c-success-soft);
+  color: var(--c-success);
+}
+.kpi-icon.cool {
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.kpi-icon.violet {
+  background: var(--c-xp-soft);
+  color: var(--c-xp);
+}
+.num {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+.label {
+  font-size: var(--fs-xs);
+  color: var(--c-ink-soft);
 }
 .week {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 28px;
+  gap: var(--sp-2) 32px;
+  margin-bottom: var(--sp-2);
+}
+.week strong {
+  font-size: var(--fs-xl);
 }
 .delta {
   margin-left: 6px;
-  font-size: 12px;
+  padding: 1px 8px;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
   color: var(--c-ink-soft);
 }
+
+/* ---- Lịch hoạt động: ô vuông trải đủ chiều ngang, không thanh cuộn ---- */
 .calendar {
   display: flex;
-  gap: 6px;
+  gap: var(--sp-2);
 }
 .weekdays {
   display: grid;
-  grid-template-rows: repeat(7, 14px);
-  gap: 3px;
+  grid-template-rows: repeat(7, 1fr);
+  gap: 4px;
+  flex: none;
   font-size: 10px;
-  line-height: 14px;
   color: var(--c-ink-soft);
+}
+.weekdays span {
+  display: flex;
+  align-items: center;
 }
 .grid {
   display: grid;
-  grid-template-rows: repeat(7, 14px);
+  flex: 1;
+  grid-template-rows: repeat(7, auto);
   grid-auto-flow: column;
-  grid-auto-columns: 14px;
-  gap: 3px;
-  overflow-x: auto;
+  gap: 4px;
+  min-width: 0;
 }
 .cell {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  border: 1px solid rgba(43, 43, 58, 0.15);
-  background: #ebe6d3;
+  display: block;
+  aspect-ratio: 1;
+  min-width: 0;
+  border-radius: 4px;
+  background: var(--c-surface-2);
 }
 .cell.empty {
-  border-color: transparent;
   background: transparent;
 }
 .cell.l1 {
-  background: color-mix(in srgb, var(--c-success) 30%, #ebe6d3);
+  background: color-mix(in srgb, var(--c-success) 28%, var(--c-surface-2));
 }
 .cell.l2 {
-  background: color-mix(in srgb, var(--c-success) 55%, #ebe6d3);
+  background: color-mix(in srgb, var(--c-success) 52%, var(--c-surface-2));
 }
 .cell.l3 {
-  background: color-mix(in srgb, var(--c-success) 80%, #ebe6d3);
+  background: color-mix(in srgb, var(--c-success) 78%, var(--c-surface-2));
 }
 .cell.l4 {
   background: var(--c-success);
-  border-color: var(--c-border);
+}
+.cell:not(.empty):hover {
+  outline: 2px solid var(--c-ink);
+  outline-offset: 1px;
 }
 .legend {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 4px;
-  margin-top: 8px;
-  font-size: 11px;
+  margin-top: var(--sp-3);
+  font-size: var(--fs-xs);
   color: var(--c-ink-soft);
 }
+.cell.lg {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  aspect-ratio: auto;
+}
+
+/* ---- Cột ---- */
 .bars {
   display: flex;
   align-items: flex-end;
   gap: 6px;
-  height: 130px;
+  height: 150px;
+  padding-bottom: 1px;
+  border-bottom: 1px solid var(--c-line);
 }
 .bar-col {
   flex: 1;
@@ -440,133 +544,48 @@ h2 {
 }
 .bar {
   width: 100%;
-  max-width: 28px;
+  max-width: 30px;
+  border-radius: 6px 6px 0 0;
   background: var(--c-primary);
-  border: 1px solid var(--c-border);
+  transition: filter 120ms ease;
 }
-.bar-value {
-  font-size: 11px;
-  font-weight: 700;
-  min-height: 14px;
-}
-.bar-day {
-  font-size: 10px;
-  color: var(--c-ink-soft);
-}
-.skill-levels {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-  margin: 0 0 6px;
-  padding: 0;
-  list-style: none;
-}
-.skill {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.up {
-  padding: 0 6px;
-  border: 1px solid var(--c-success);
-  background: transparent;
-  cursor: pointer;
-  color: var(--c-success);
-  font-size: 12px;
-  font-weight: 700;
-}
-.acc-row {
-  display: grid;
-  grid-template-columns: 150px 1fr 110px;
-  align-items: center;
-  gap: 8px;
-  margin: 4px 0;
-  font-size: 13px;
-}
-.acc-bar {
-  height: 10px;
-  background: #e8e2d0;
-  border: 1px solid var(--c-border);
-}
-.acc-bar span {
-  display: block;
-  height: 100%;
-  background: var(--c-success);
-}
-.acc-num {
-  text-align: right;
+.bar-col:hover .bar {
+  filter: brightness(1.1);
 }
 .bar.time {
   background: var(--c-warning);
 }
-.skill-tag {
-  margin-left: 8px;
-  padding: 0 6px;
-  font-size: 12px;
+.bar-value {
+  min-height: 14px;
+  font-size: var(--fs-xs);
   font-weight: 700;
-  color: #fff;
-  background: var(--c-xp);
-  border: 1px solid var(--c-border);
+  font-variant-numeric: tabular-nums;
 }
-.ach-group + .ach-group {
-  margin-top: 10px;
-}
-.ach-group h3 {
-  margin: 0 0 6px;
-  font-size: 13px;
+.bar-day {
+  margin-top: 4px;
+  font-size: 10px;
   color: var(--c-ink-soft);
 }
-.ach-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 8px;
+.bars + .bars,
+.week + .bars {
+  margin-top: var(--sp-2);
 }
-.ach {
-  display: grid;
-  gap: 3px;
-  justify-items: center;
-  padding: 8px 6px;
-  text-align: center;
-  font-size: 13px;
-  background: var(--c-surface);
-  border: var(--px) solid var(--c-border);
-}
-.ach.locked strong {
-  color: var(--c-ink-soft);
-}
-.ach-desc {
-  min-height: 2.6em;
-}
-.ach-bar {
-  width: 80%;
-  height: 6px;
-}
-.hardest {
-  display: grid;
-  gap: 4px;
-  margin: 0;
-  padding-left: 22px;
-}
-.hardest li {
-  display: list-item;
-}
-.hardest .small {
-  margin-left: 8px;
-}
+/* ---- Hai cột ---- */
 .two {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: var(--sp-3);
 }
 .stack {
   display: flex;
-  height: 18px;
-  border: var(--px) solid var(--c-border);
+  height: 14px;
   overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
 }
 .seg.new,
 .dot.new {
-  background: #c9c2a8;
+  background: var(--c-surface-2);
 }
 .seg.learning,
 .dot.learning {
@@ -582,35 +601,135 @@ h2 {
 }
 .legend-list {
   display: grid;
-  gap: 4px;
-  margin: 10px 0 0;
+  gap: 6px;
+  margin: var(--sp-3) 0 0;
   padding: 0;
   list-style: none;
-  font-size: 13px;
+  font-size: var(--fs-sm);
 }
 .dot {
   display: inline-block;
   width: 10px;
   height: 10px;
-  border: 1px solid var(--c-border);
+  margin-right: 4px;
+  border-radius: 3px;
 }
 .level-row {
   display: grid;
-  grid-template-columns: 44px 1fr 30px;
+  grid-template-columns: 44px 1fr 34px;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 4px;
-  font-size: 12px;
+  gap: var(--sp-2);
+  margin-bottom: 6px;
+  font-size: var(--fs-xs);
 }
 .level-name {
   font-weight: 700;
 }
 .level-bar {
-  height: 12px;
+  height: 10px;
+  border-radius: var(--r-pill);
   background: var(--c-xp);
-  border: 1px solid var(--c-border);
 }
 .level-count {
   text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Kỹ năng, độ chính xác ---- */
+.skill-levels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-5);
+  margin: 0 0 var(--sp-2);
+  padding: 0;
+  list-style: none;
+}
+.skill {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.acc-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 112px;
+  align-items: center;
+  gap: var(--sp-3);
+  margin: 6px 0;
+  font-size: var(--fs-sm);
+}
+.acc-bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+}
+.acc-bar span {
+  display: block;
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: var(--c-success);
+}
+.acc-bar span.mid {
+  background: var(--c-warning);
+}
+.acc-bar span.low {
+  background: var(--c-danger);
+}
+.acc-num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Thành tựu ---- */
+.ach-group + .ach-group {
+  margin-top: var(--sp-4);
+}
+.ach-group h3 {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--c-ink-soft);
+}
+.ach-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--sp-2);
+}
+.ach {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--sp-3) var(--sp-2);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: var(--c-surface);
+  text-align: center;
+  font-size: var(--fs-sm);
+}
+.ach.locked {
+  background: var(--c-surface-2);
+}
+.ach.locked strong {
+  color: var(--c-ink-soft);
+}
+.ach-desc {
+  min-height: 2.6em;
+}
+.ach-bar {
+  width: 80%;
+}
+.hardest {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding-left: 22px;
+}
+.hardest .small {
+  margin-left: var(--sp-2);
+}
+@media (max-width: 760px) {
+  .two {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

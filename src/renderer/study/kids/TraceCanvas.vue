@@ -3,6 +3,7 @@ import { onMounted, ref } from 'vue'
 import { paintLine, TRACE_GRID, TRACE_MAX_TRIES, traceScore } from '@shared/trace'
 import { useTts } from '@renderer/shared/composables/useTts'
 import { PRAISE, pick, TRY_AGAIN } from './kidsText'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Tập viết chữ: chữ mẫu mờ, bé tô bằng chuột/ngón tay; bấm ✓ để chấm (độ phủ chữ mẫu và không tô lem), tối đa 2 lần thử.
 const props = defineProps<{ letter: string; say: string }>()
@@ -149,9 +150,11 @@ onMounted(() => {
     <div class="k-row">
       <button type="button" class="k-round" :disabled="finished" @click="reset">↺</button>
       <button type="button" class="k-round" :disabled="finished" @click="speak(say, 'us', 0.8)">
-        🔊
+        <UiIcon name="volume" />
       </button>
-      <button type="button" class="k-primary" :disabled="finished" @click="check">✓</button>
+      <button type="button" class="k-primary" :disabled="finished" @click="check">
+        <UiIcon name="check" />
+      </button>
     </div>
   </div>
 </template>
@@ -168,9 +171,9 @@ onMounted(() => {
   touch-action: none;
   cursor: crosshair;
   background: #fff;
-  border: 4px solid var(--c-border);
+  border: 2px solid var(--c-line);
   border-radius: 14px;
-  box-shadow: 0 6px 0 0 var(--c-border);
+  box-shadow: 0 6px 0 0 #d3d9e8;
 }
 .msg {
   min-height: 1.6em;

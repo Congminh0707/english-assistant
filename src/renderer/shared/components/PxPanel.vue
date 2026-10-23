@@ -15,8 +15,9 @@ defineProps<{ tone?: 'light' | 'primary' }>()
   padding: 8px 10px;
   background: var(--c-surface);
   color: var(--c-ink);
-  border: var(--px) solid var(--c-border);
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
+  border: var(--panel-border, var(--px) solid var(--c-border));
+  border-radius: var(--panel-radius, 0);
+  box-shadow: var(--panel-shadow, var(--px) var(--px) 0 0 var(--c-border));
   font-family: var(--font-ui);
   font-size: 13px;
   line-height: 1.4;

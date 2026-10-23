@@ -65,11 +65,12 @@ function unpick(pos: number): void {
 }
 .token {
   padding: 6px 12px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   font-size: 16px;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 .token.placed {
   background: var(--c-primary);

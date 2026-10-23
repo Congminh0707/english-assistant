@@ -20,6 +20,7 @@ pnpm db:generate    # sinh migration từ Drizzle schema
 pnpm content:validate
 pnpm content:stats   # số liệu từ điển (pack) — cập nhật docs/17-metrics.md
 pnpm stats           # số liệu app/nội dung tự soạn — cập nhật docs/17-metrics.md
+pnpm ui:audit        # kiểm tra giao diện theo docs/18-ui-rules.md (phải 0 lỗi)
 pnpm build:win      # build installer
 ```
 
@@ -33,6 +34,7 @@ pnpm build:win      # build installer
 - Thêm thư viện lớn → cập nhật [docs/02-tech-stack.md](docs/02-tech-stack.md) + [docs/decisions.md](docs/decisions.md).
 - **Nội dung**: không đưa nội dung có bản quyền vào repo. Mỗi bản ghi nội dung phải có `source.license`. Nguồn mới phải được ghi vào [docs/08-content-sources.md](docs/08-content-sources.md) trước.
 - Chuỗi giao diện qua i18n (`vi.json`/`en.json`), không viết cứng.
+- **Giao diện** (cửa sổ Học tập, component dùng chung) theo [docs/18-ui-rules.md](docs/18-ui-rules.md): dùng `.btn/.card/.chip` + `<UiIcon>` (không emoji làm icon), bo góc đúng bậc, màu/khoảng cách theo token; xong chạy `pnpm ui:audit` (0 lỗi).
 - Không log clipboard, API key, audio người dùng.
 - Mascot không được cướp focus và phải tôn trọng chế độ yên lặng.
 

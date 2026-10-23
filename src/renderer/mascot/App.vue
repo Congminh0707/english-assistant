@@ -343,7 +343,13 @@ async function evolveTo(next: string): Promise<void> {
 
 watch(stage, (next) => void evolveTo(next))
 // Gói sprite 288px vừa tải xong / bị gỡ: nạp lại ngoại hình hiện tại ở độ phân giải mới
+let hiresChangedEarly = false
 watch(hiresVersion, () => {
+  // Gói đổi trạng thái khi mascot chưa dựng xong (animator chưa có) → làm lại ngay sau khi dựng, tránh kẹt sprite 96px
+  if (!animator) {
+    hiresChangedEarly = true
+    return
+  }
   shownStage = ''
   void evolveTo(stage.value)
 })
@@ -373,7 +379,8 @@ onMounted(async () => {
   const [settings] = await Promise.all([settingsStore.load(), petStore.load()])
   locale.value = settings['ui.language']
 
-  startHires()
+  // Biết gói 288px có sẵn không TRƯỚC khi chọn sprite (trước đây nạp 96px rồi kẹt nếu trạng thái gói về muộn)
+  await startHires()
   const { image, meta } = await loadLook(stage.value)
   shownStage = stage.value
 
@@ -382,6 +389,10 @@ onMounted(async () => {
   animator = new SpriteAnimator(image, meta, ctx, scale)
   brain = new MascotBrain(animator, (dx) => invoke('mascot:walk', dx), onWindowMoved, scale)
   await applyAccessories(petStore.pet?.equipped ?? [])
+  if (hiresChangedEarly || (hiresReady.value && !hiresLooks.has(stage.value))) {
+    shownStage = ''
+    await evolveTo(stage.value)
+  }
 
   window.addEventListener('mousemove', onMouseMove)
   window.addEventListener('mouseup', onMouseUp)

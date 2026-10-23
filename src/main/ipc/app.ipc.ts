@@ -55,6 +55,12 @@ export function registerAppIpc(
   handle('profile:list', () => c.profiles.listInfo())
   handle('profile:setup', (input) => c.profiles.setup(input))
   handle('profile:create', (input) => c.profiles.createFromInput(input))
+  handle('profile:update', (input) => {
+    const info = c.profiles.update(input)
+    // Đổi tên/track của hồ sơ đang dùng → mascot & cửa sổ Học tập nạp lại tên thú cưng
+    if (info.active) c.bus.emit('pet.updated', c.pet.get())
+    return info
+  })
   handle('profile:switch', ({ id }) => {
     const info = c.profiles.info(c.profiles.switchTo(id))
     c.bus.emit('pet.updated', c.pet.get()) // mascot & cửa sổ Học tập nạp lại thú cưng của hồ sơ mới

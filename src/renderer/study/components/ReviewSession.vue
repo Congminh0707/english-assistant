@@ -12,6 +12,7 @@ import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
 import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
 import { pictureForWord } from '@shared/pictures'
 import { formatInterval } from '../format'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Phiên ôn thẻ SRS với 4 dạng thẻ: nhận diện (lật thẻ), Việt→Anh (gõ từ), nghe-gõ, điền từ.
 // Gõ đáp án thì gợi ý mức chấm (đúng → Được, gần đúng → Khó, sai → Quên); phím 1–4 chấm, U hoặc Ctrl+Z hoàn tác.
@@ -258,10 +259,10 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       <h2>{{ t('study.review.doneTitle') }}</h2>
       <p>{{ t('study.review.doneBody', { n: reviewed }) }}</p>
       <div class="row">
-        <button type="button" class="primary" @click="emit('exit')">
+        <button type="button" class="btn btn--primary" @click="emit('exit')">
           {{ t('study.review.backHome') }}
         </button>
-        <button v-if="canUndo" type="button" class="link" @click="undo">
+        <button v-if="canUndo" type="button" class="btn btn--ghost btn--sm" @click="undo">
           ↶ {{ t('study.review.undo') }}
         </button>
       </div>
@@ -285,11 +286,11 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           <template v-if="card.direction === 'en_vi'">
             <div class="lemma" :class="{ long: card.isPhrase }">{{ card.lemma }}</div>
             <div class="pron">
-              <button type="button" class="say" @click="speak(card.lemma, 'us')">
-                🔊 US <span v-if="card.ipaUs">{{ card.ipaUs }}</span>
+              <button type="button" class="btn btn--sm" @click="speak(card.lemma, 'us')">
+                <UiIcon name="volume" /> US <span v-if="card.ipaUs">{{ card.ipaUs }}</span>
               </button>
-              <button type="button" class="say" @click="speak(card.lemma, 'uk')">
-                🔊 UK <span v-if="card.ipaUk">{{ card.ipaUk }}</span>
+              <button type="button" class="btn btn--sm" @click="speak(card.lemma, 'uk')">
+                <UiIcon name="volume" /> UK <span v-if="card.ipaUk">{{ card.ipaUk }}</span>
               </button>
               <span class="muted pos">{{ card.pos.join(', ') }}</span>
             </div>
@@ -326,11 +327,11 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           <template v-else-if="card.direction === 'audio_en'">
             <p class="prompt">{{ t('study.review.typeWhatYouHear') }}</p>
             <div class="pron">
-              <button type="button" class="say big-say" @click="speak(card.lemma, undefined, 0.9)">
-                🔊 {{ t('study.lessons.play') }}
+              <button type="button" class="btn btn--sm" @click="speak(card.lemma, undefined, 0.9)">
+                <UiIcon name="volume" /> {{ t('study.lessons.play') }}
               </button>
-              <button type="button" class="say big-say" @click="speak(card.lemma, undefined, 0.6)">
-                🐢 {{ t('study.lessons.slow') }}
+              <button type="button" class="btn btn--sm" @click="speak(card.lemma, undefined, 0.6)">
+                <UiIcon name="slow" /> {{ t('study.lessons.slow') }}
               </button>
             </div>
           </template>
@@ -352,11 +353,11 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
               {{ t('study.review.letters', { n: card.cloze.answer.length }) }}
             </p>
             <div v-if="!revealed" class="cloze-tools">
-              <button type="button" class="say big-say" @click="speakSentence">
-                🔊 {{ t('study.review.hearSentence') }}
+              <button type="button" class="btn btn--sm" @click="speakSentence">
+                <UiIcon name="volume" /> {{ t('study.review.hearSentence') }}
               </button>
-              <button v-if="canHintMore" type="button" class="say big-say" @click="shownLetters++">
-                💡 {{ t('study.review.moreHint') }}
+              <button v-if="canHintMore" type="button" class="btn btn--sm" @click="shownLetters++">
+                <UiIcon name="hint" /> {{ t('study.review.moreHint') }}
               </button>
             </div>
           </template>
@@ -373,7 +374,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
             :disabled="revealed"
             :placeholder="t('study.review.typeHere')"
           />
-          <button v-if="!revealed" type="submit" class="primary" :disabled="!typed.trim()">
+          <button v-if="!revealed" type="submit" class="btn btn--primary" :disabled="!typed.trim()">
             {{ t('study.lessons.check') }}
           </button>
         </form>
@@ -385,7 +386,9 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
         <div v-if="revealed" class="back">
           <div v-if="card.direction !== 'en_vi'" class="answer-word">
             {{ card.lemma }}
-            <button type="button" class="say mini" @click="speak(card.lemma, 'us')">🔊</button>
+            <button type="button" class="btn btn--xs btn--icon" @click="speak(card.lemma, 'us')">
+              <UiIcon name="volume" />
+            </button>
             <span v-if="card.ipaUs" class="muted ipa">{{ card.ipaUs }}</span>
           </div>
           <p v-if="card.direction !== 'vi_en'" class="vi">
@@ -401,7 +404,9 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
             <span class="muted">{{ t('study.review.context') }}:</span> {{ card.context }}
           </div>
           <div v-for="(ex, i) in card.examples" :key="i" class="example">
-            <button type="button" class="say mini" @click="speak(ex.en)">🔊</button>
+            <button type="button" class="btn btn--xs btn--icon" @click="speak(ex.en)">
+              <UiIcon name="volume" />
+            </button>
             <div>
               <div>{{ ex.en }}</div>
               <div v-if="ex.vi" class="muted">{{ ex.vi }}</div>
@@ -411,7 +416,12 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       </PxPanel>
 
       <div class="actions">
-        <button v-if="!revealed && !answerable" type="button" class="primary big" @click="reveal">
+        <button
+          v-if="!revealed && !answerable"
+          type="button"
+          class="btn btn--primary btn--lg"
+          @click="reveal"
+        >
           {{ t('study.review.show') }}
         </button>
         <button v-else-if="!revealed" type="button" class="ghost" @click="reveal">
@@ -432,13 +442,20 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           </button>
         </div>
         <div class="row">
-          <button v-if="canUndo" type="button" class="link" :disabled="busy" @click="undo">
+          <button
+            v-if="canUndo"
+            type="button"
+            class="btn btn--ghost btn--sm"
+            :disabled="busy"
+            @click="undo"
+          >
             ↶ {{ t('study.review.undo') }}
           </button>
           <p class="muted hint">{{ hintText }}</p>
         </div>
         <button type="button" class="ghost say-btn" @click="speakOpen = !speakOpen">
-          🎤 {{ speakOpen ? t('study.review.closeSay') : t('study.review.sayIt') }}
+          <UiIcon name="mic" />
+          {{ speakOpen ? t('study.review.closeSay') : t('study.review.sayIt') }}
         </button>
         <div v-if="speakOpen" class="speak-panel">
           <SpeakPractice :key="card.cardId" :expected="card.lemma" can-listen phonemes />
@@ -485,7 +502,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   font-size: 11px;
   font-weight: 700;
   color: #fff;
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
 }
 .tag.new {
   background: var(--c-success);
@@ -515,25 +533,6 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 .pos {
   font-style: italic;
 }
-.say {
-  padding: 2px 8px;
-  border: 1px solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  font-size: 12px;
-  cursor: pointer;
-}
-.say:hover {
-  background: #eef3ff;
-}
-.say.mini {
-  padding: 0 4px;
-  align-self: flex-start;
-}
-.big-say {
-  padding: 8px 14px;
-  font-size: 14px;
-}
 .prompt {
   margin: 10px 0 4px;
   font-weight: 600;
@@ -553,8 +552,9 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   padding: 4px 10px;
   display: inline-block;
   font-size: 14px;
-  background: #eef3ff;
+  background: var(--c-primary-soft);
   border-left: 4px solid var(--c-primary);
+  border-radius: var(--r-sm);
 }
 .cloze-tools {
   display: flex;
@@ -602,16 +602,17 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 .choice {
   width: 100%;
   padding: 12px 10px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   color: inherit;
   font: inherit;
   font-size: 16px;
   text-align: left;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 .choice:hover:not(:disabled) {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .choice kbd {
   display: inline-block;
@@ -621,10 +622,11 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   text-align: center;
   font-size: 12px;
   background: var(--c-bg);
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-sm);
 }
 .choice.right {
-  background: #e3f4e8;
+  background: var(--c-success-soft);
   border-color: var(--c-success);
 }
 .choice.wrong {
@@ -655,20 +657,22 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 .speak-panel {
   width: 100%;
   padding: 12px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
+  border-radius: var(--r-md);
 }
 .ghost {
   padding: 8px 18px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   color: var(--c-ink);
   font: inherit;
   font-weight: 600;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 .ghost:hover {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .blank {
   display: inline-block;
@@ -696,14 +700,16 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   box-sizing: border-box;
   flex: 1;
   padding: 10px 12px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   font-size: 18px;
   outline: none;
+  border-radius: var(--r-md);
 }
 .type input:focus {
-  box-shadow: var(--px) var(--px) 0 0 var(--c-primary);
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 3px var(--c-primary-soft);
 }
 .result {
   margin: 0;
@@ -756,8 +762,9 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 .context {
   padding: 6px 8px;
   font-size: 13px;
-  background: #fff8dc;
+  background: var(--c-warning-soft);
   border-left: 3px solid var(--c-warning);
+  border-radius: var(--r-md);
 }
 .example {
   display: flex;
@@ -768,25 +775,6 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   display: grid;
   gap: 8px;
   justify-items: center;
-}
-.primary {
-  padding: 8px 18px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-primary);
-  color: #fff;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
-}
-.primary:disabled {
-  opacity: 0.6;
-  cursor: default;
-}
-.primary.big {
-  min-width: 220px;
-  padding: 12px 24px;
-  font-size: 16px;
 }
 .rates {
   display: grid;
@@ -799,11 +787,12 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   gap: 2px;
   padding: 12px 4px;
   font-size: 15px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   color: #fff;
   font: inherit;
   cursor: pointer;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--r-md);
 }
 .rate:disabled {
   opacity: 0.6;
@@ -842,14 +831,6 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   align-items: center;
   justify-content: center;
   gap: 12px;
-}
-.link {
-  border: none;
-  background: transparent;
-  color: var(--c-ink-soft);
-  font: inherit;
-  text-decoration: underline;
-  cursor: pointer;
 }
 .hint {
   margin: 0;

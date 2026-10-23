@@ -51,18 +51,19 @@ function pick(i: number): void {
 }
 .choice {
   padding: 10px 12px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-bg);
   font: inherit;
   text-align: left;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 .choice.picked {
   background: var(--c-primary);
   color: #fff;
 }
 .choice:hover:not(:disabled):not(.picked) {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .choice.pic {
   min-width: 112px;

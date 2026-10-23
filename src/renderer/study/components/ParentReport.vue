@@ -189,7 +189,7 @@ h2 {
 .bar {
   width: 70%;
   background: var(--c-primary);
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
 }
 .hard {
   display: grid;
@@ -207,10 +207,11 @@ h2 {
 select,
 .small {
   padding: 4px 10px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 .ok {
   margin: 4px 0 0;

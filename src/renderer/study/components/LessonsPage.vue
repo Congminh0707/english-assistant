@@ -15,6 +15,7 @@ import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import AudioPackPanel from '@renderer/shared/components/AudioPackPanel.vue'
 import LessonExercises from './LessonExercises.vue'
 import LessonViewer from './LessonViewer.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Bài học nền tảng: danh sách theo chương → đọc bài → làm bài tập → kết quả (thưởng lần đầu đạt).
 const props = withDefaults(
@@ -118,7 +119,9 @@ onMounted(async () => {
     />
 
     <PxPanel v-else-if="mode === 'result' && result && lesson" class="result">
-      <div class="stars" aria-hidden="true">{{ '⭐'.repeat(stars) }}</div>
+      <div class="stars" aria-hidden="true">
+        <UiIcon v-for="n in stars" :key="n" name="star" :size="28" />
+      </div>
       <h2>
         {{
           result.score >= LESSON_PASS_PERCENT
@@ -142,13 +145,13 @@ onMounted(async () => {
         >
           {{ t('study.lessons.nextLesson') }} →
         </button>
-        <button type="button" class="secondary" @click="mode = 'read'">
+        <button type="button" class="btn" @click="mode = 'read'">
           {{ t('study.lessons.reread') }}
         </button>
-        <button type="button" class="secondary" @click="mode = 'exercise'">
+        <button type="button" class="btn" @click="mode = 'exercise'">
           {{ t('study.lessons.retry') }}
         </button>
-        <button type="button" class="secondary" @click="backToList">
+        <button type="button" class="btn" @click="backToList">
           {{ courseMode ? t('study.courses.backToCourse') : t('study.lessons.toList') }}
         </button>
       </div>
@@ -164,10 +167,12 @@ onMounted(async () => {
           {{ t('study.lessons.progress', { done: catalog.doneCount, total: catalog.totalCount }) }}
         </div>
         <PxBar :value="catalog.doneCount" :max="Math.max(1, catalog.totalCount)" label="progress" />
-        <button v-if="nextUp" type="button" class="primary" @click="open(nextUp.id)">
-          ▶ {{ t('study.lessons.continue') }}: {{ nextUp.title }}
+        <button v-if="nextUp" type="button" class="btn btn--primary" @click="open(nextUp.id)">
+          <UiIcon name="play" /> {{ t('study.lessons.continue') }}: {{ nextUp.title }}
         </button>
-        <p v-else-if="catalog.totalCount" class="reward">🎉 {{ t('study.lessons.allDone') }}</p>
+        <p v-else-if="catalog.totalCount" class="reward">
+          <UiIcon name="party" /> {{ t('study.lessons.allDone') }}
+        </p>
       </PxPanel>
 
       <p v-if="!catalog.units.length" class="muted">{{ t('study.lessons.empty') }}</p>
@@ -191,7 +196,7 @@ onMounted(async () => {
               :class="{ done: l.progress.done }"
               @click="open(l.id)"
             >
-              <span class="state">{{ l.progress.done ? '✅' : '▫️' }}</span>
+              <span class="state"><UiIcon :name="l.progress.done ? 'done' : 'dot'" /></span>
               <span class="lesson-main">
                 <span class="lesson-title">{{ l.title }}</span>
                 <span class="lesson-summary">{{ l.summary }}</span>
@@ -237,24 +242,6 @@ h2 {
 .progress-text {
   font-weight: 700;
 }
-.primary {
-  justify-self: start;
-  padding: 10px 18px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-success);
-  color: #fff;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
-}
-.secondary {
-  padding: 8px 14px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  cursor: pointer;
-}
 .reward {
   margin: 0;
   font-weight: 700;
@@ -292,14 +279,15 @@ h2 {
   gap: 10px;
   width: 100%;
   padding: 8px 10px;
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-bg);
   font: inherit;
   text-align: left;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 .lesson:hover {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .lesson.done {
   background: #eef8f0;
@@ -330,7 +318,8 @@ h2 {
   font-weight: 700;
   color: #fff;
   background: var(--c-xp);
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
 }
 .best {
   font-weight: 700;

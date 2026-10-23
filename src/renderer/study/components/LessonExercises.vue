@@ -22,6 +22,7 @@ import {
   speaksSolution,
   TF_ORDER
 } from '../exercises/lessonExercises'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Bài tập của một bài học: chấm tại chỗ (đáp án là nội dung bài, không phải bí mật), xong gửi điểm lên main.
 // Logic từng dạng bài nằm ở exercises/lessonExercises.ts (registry), phần hiển thị dùng các thành phần chung ở exercises/.
@@ -186,7 +187,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 
 <template>
   <section class="exercises">
-    <button type="button" class="link" @click="$emit('back')">
+    <button type="button" class="btn btn--ghost btn--sm" @click="$emit('back')">
       ← {{ t('study.lessons.backToLesson') }}
     </button>
     <PxBar :value="idx" :max="total" label="progress" />
@@ -278,18 +279,31 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           <PicText v-if="ex.type === 'picture'" :text="ex.choices[ex.answer]" :size="48" />
           {{ solution }}
         </div>
-        <div v-if="'explain' in ex && ex.explain" class="explain">💡 {{ ex.explain }}</div>
+        <div v-if="'explain' in ex && ex.explain" class="explain">
+          <UiIcon name="hint" /> {{ ex.explain }}
+        </div>
       </div>
     </PxPanel>
 
     <div class="actions">
-      <button v-if="ex.type === 'speak' && !checked" type="button" class="link" @click="skipSpeak">
+      <button
+        v-if="ex.type === 'speak' && !checked"
+        type="button"
+        class="btn btn--ghost btn--sm"
+        @click="skipSpeak"
+      >
         {{ t('study.lessons.skipSpeak') }}
       </button>
-      <button v-if="!checked" type="button" class="primary" :disabled="!canCheck" @click="check">
+      <button
+        v-if="!checked"
+        type="button"
+        class="btn btn--primary"
+        :disabled="!canCheck"
+        @click="check"
+      >
         {{ t('study.lessons.check') }}
       </button>
-      <button v-else type="button" class="primary" @click="next">
+      <button v-else type="button" class="btn btn--primary" @click="next">
         {{ idx + 1 >= total ? t('study.lessons.finish') : t('study.lessons.next') }}
       </button>
     </div>
@@ -302,14 +316,6 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   gap: 12px;
   max-width: 680px;
   margin: 0 auto;
-}
-.link {
-  justify-self: start;
-  border: none;
-  background: transparent;
-  color: var(--c-ink-soft);
-  font: inherit;
-  cursor: pointer;
 }
 .muted {
   margin: 0;
@@ -347,24 +353,27 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   box-sizing: border-box;
   width: 100%;
   padding: 10px 12px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   font-size: 16px;
   outline: none;
+  border-radius: var(--r-md);
 }
 .typed:focus {
-  box-shadow: var(--px) var(--px) 0 0 var(--c-primary);
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 3px var(--c-primary-soft);
 }
 .feedback {
   padding: 8px 10px;
   color: var(--c-danger);
   background: #fde8e8;
   border-left: 4px solid var(--c-danger);
+  border-radius: var(--r-md);
 }
 .feedback.ok {
   color: var(--c-success);
-  background: #e3f4e8;
+  background: var(--c-success-soft);
   border-left-color: var(--c-success);
 }
 .solution {
@@ -384,20 +393,5 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 .actions {
   display: flex;
   justify-content: center;
-}
-.primary {
-  min-width: 180px;
-  padding: 10px 20px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-primary);
-  color: #fff;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
-}
-.primary:disabled {
-  opacity: 0.5;
-  cursor: default;
 }
 </style>

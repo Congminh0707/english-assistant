@@ -14,6 +14,7 @@ import { useRecorder } from '../composables/useRecorder'
 import { useStt } from '../composables/useStt'
 import { useTts } from '../composables/useTts'
 import PxBar from './PxBar.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Luyện nói: ghi âm → chấm. Hai chế độ:
 //  • "từ": Whisper nhận dạng offline → so với câu mẫu theo từng từ (mặc định);
@@ -200,7 +201,7 @@ function cancelInstall(): void {
           <button type="button" class="btn" @click="cancelInstall">{{ t('speech.cancel') }}</button>
         </template>
         <template v-else>
-          <button type="button" class="btn primary" @click="install">
+          <button type="button" class="btn btn--primary" @click="install">
             {{ t('speech.download', { mb: sizeMb }) }}
           </button>
           <span v-if="setupStatus?.state === 'error'" class="err">{{
@@ -219,7 +220,7 @@ function cancelInstall(): void {
           :disabled="recording || busy"
           @click="speak(expected, undefined, 0.9)"
         >
-          🔊 {{ t('speech.listenSample') }}
+          <UiIcon name="volume" /> {{ t('speech.listenSample') }}
         </button>
         <button
           type="button"
@@ -229,7 +230,7 @@ function cancelInstall(): void {
           :aria-pressed="recording"
           @click="toggle"
         >
-          <span class="mic-icon">{{ recording ? '⏹' : '🎤' }}</span>
+          <span class="mic-icon"><UiIcon :name="recording ? 'stop' : 'mic'" /></span>
           {{ busy ? t('speech.processing') : recording ? t('speech.stop') : t('speech.record') }}
         </button>
       </div>
@@ -287,7 +288,7 @@ function cancelInstall(): void {
 
       <p v-if="suggestPron && !downloading" class="suggest">
         {{ t('speech.pronBanner', { mb: pronSizeMb }) }}
-        <button type="button" class="btn small-btn" @click="stt.installPronunciation()">
+        <button type="button" class="btn btn--sm" @click="stt.installPronunciation()">
           {{ t('speech.download', { mb: pronSizeMb }) }}
         </button>
       </p>
@@ -324,25 +325,16 @@ function cancelInstall(): void {
   gap: 10px;
   justify-content: center;
 }
-.btn,
 .mic {
   padding: 8px 16px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid transparent;
+  border-radius: var(--r-md);
   background: var(--c-surface);
   color: inherit;
   font: inherit;
   font-weight: 600;
   cursor: pointer;
 }
-.btn.primary {
-  background: var(--c-primary);
-  color: #fff;
-}
-.small-btn {
-  padding: 3px 10px;
-  font-size: 12px;
-}
-.btn:disabled,
 .mic:disabled {
   opacity: 0.5;
   cursor: default;
@@ -356,6 +348,7 @@ function cancelInstall(): void {
   background: var(--c-success);
   color: #fff;
   font-size: 16px;
+  border-radius: var(--r-md);
 }
 .mic.on {
   background: #d8364e;
@@ -372,8 +365,8 @@ function cancelInstall(): void {
 .level {
   height: 10px;
   background: var(--c-success);
-  border: 2px solid var(--c-border);
   transition: width 0.06s linear;
+  border-radius: var(--r-pill);
 }
 .result {
   display: grid;
@@ -381,11 +374,12 @@ function cancelInstall(): void {
   justify-items: center;
   width: 100%;
   padding: 10px 12px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
+  border-radius: var(--r-md);
 }
 .result.great {
-  background: #e3f4e8;
+  background: var(--c-success-soft);
 }
 .result.good {
   background: #fff8e0;
@@ -436,6 +430,7 @@ function cancelInstall(): void {
   border-left: 4px solid var(--c-primary);
   display: grid;
   gap: 4px;
+  border-radius: var(--r-md);
 }
 .suggest {
   margin: 0;

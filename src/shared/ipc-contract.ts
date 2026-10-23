@@ -80,7 +80,11 @@ import {
   PlacementAnswerResultSchema,
   PlacementStartSchema
 } from './schemas/placement'
-import { ProfileInfoSchema, ProfileSetupInputSchema } from './schemas/profile'
+import {
+  ProfileInfoSchema,
+  ProfileSetupInputSchema,
+  ProfileUpdateInputSchema
+} from './schemas/profile'
 import {
   TranslateDirectionInputSchema,
   TranslateInputSchema,
@@ -147,6 +151,7 @@ export const invokeContract = {
   'profile:list': { input: z.void(), output: z.array(ProfileInfoSchema) },
   'profile:setup': { input: ProfileSetupInputSchema, output: ProfileInfoSchema },
   'profile:create': { input: ProfileSetupInputSchema, output: ProfileInfoSchema },
+  'profile:update': { input: ProfileUpdateInputSchema, output: ProfileInfoSchema },
   'profile:switch': { input: z.object({ id: z.string().min(1) }), output: ProfileInfoSchema },
   'placement:start': { input: z.void(), output: PlacementStartSchema },
   'placement:checkpoint-start': { input: z.void(), output: PlacementStartSchema },

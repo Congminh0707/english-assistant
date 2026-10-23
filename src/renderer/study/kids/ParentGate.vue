@@ -2,6 +2,7 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { invoke, IpcError } from '@renderer/shared/ipc'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Cổng phụ huynh: bàn phím số to nhập PIN 4 số. Ba chế độ: nhập PIN để vào khu vực phụ huynh (enter), đặt PIN lần đầu
 // hoặc đổi PIN (set), nhập PIN để cho bé dùng thêm giờ (extend). PIN chỉ là khoá chặn bé bấm nhầm, không phải bảo mật cao.
@@ -180,7 +181,9 @@ onUnmounted(() => {
           :disabled="busy || retryAfter > 0"
           @click="press(k)"
         >
-          {{ k === 'del' ? '⌫' : k === 'ok' ? '✓' : k }}
+          <UiIcon v-if="k === 'del'" name="backspace" :size="22" />
+          <UiIcon v-else-if="k === 'ok'" name="check" :size="22" />
+          <template v-else>{{ k }}</template>
         </button>
       </div>
       <button
@@ -215,8 +218,9 @@ onUnmounted(() => {
   padding: 22px 24px;
   color: var(--c-ink);
   background: var(--c-bg);
-  border: var(--px) solid var(--c-border);
-  box-shadow: 6px 6px 0 0 var(--c-border);
+  border: 1px solid var(--c-line);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--r-md);
 }
 h2 {
   margin: 0;
@@ -236,7 +240,7 @@ h2 {
 .dot {
   width: 18px;
   height: 18px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   border-radius: 50%;
   background: var(--c-surface);
 }
@@ -271,20 +275,21 @@ h2 {
 }
 .key {
   height: 60px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   font-size: 24px;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--r-md);
 }
 .key:active:not(:disabled) {
   transform: translate(2px, 2px);
   box-shadow: none;
 }
 .key.action {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .key:disabled {
   opacity: 0.5;

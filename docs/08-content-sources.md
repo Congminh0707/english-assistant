@@ -138,6 +138,8 @@ Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được n
 
 > **Twemoji đã dùng (2026-10-23):** 99 hình bổ sung cho bộ thẻ/sticker trẻ em (`src/shared/pictureExtras.ts`, SVG trong `src/renderer/shared/assets/pictures/twemoji/`, tải bằng `scripts/images/twemoji.mjs`) — CC-BY 4.0, ghi công trong Cài đặt → Giấy phép & ghi công (`credits.twemoji`). Chỉ chọn emoji có nghĩa đúng 1-1 với từ.
 
+> **Icon giao diện (2026-10-23):** `lucide-vue-next` (Lucide, license ISC — cho phép dùng/sao chép/phân phối kèm thông báo bản quyền, đi kèm trong gói npm). Hình minh hoạ vẫn là pixel art tự vẽ bằng code; quyết định (2026-10-23): **không dùng ảnh thật**, giữ hình pixel tự vẽ (đã thử Commons/Openverse CC0/CC BY rồi huỷ — xem decisions #30).
+
 ## 9. Model AI & thư viện có license cần chú ý
 
 | Thành phần                                                                | License                                                                                                                                                                                           | Trạng thái | Ghi chú                                                                                                                                                                                                                  |

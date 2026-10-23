@@ -3,6 +3,7 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useAudioPack } from '../composables/useTts'
 import PxBar from './PxBar.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Gói âm thanh bài nghe tạo sẵn (MP3, tải thêm): hiện trong Cài đặt và ở đầu trang Nghe. `compact` = dạng thanh mời tải.
 defineProps<{ compact?: boolean }>()
@@ -23,7 +24,7 @@ const percent = computed(() => {
   <!-- Dạng gọn: chỉ hiện khi chưa cài (mời tải) hoặc đang tải -->
   <div v-if="!compact || state !== 'ready'" class="audio-pack" :class="{ compact }">
     <div class="text">
-      <strong>🎧 {{ t('audioPack.title') }}</strong>
+      <strong><UiIcon name="headphones" /> {{ t('audioPack.title') }}</strong>
       <span class="muted">{{ t('audioPack.desc', { mb: sizeMb }) }}</span>
     </div>
     <div class="actions">
@@ -35,7 +36,7 @@ const percent = computed(() => {
         </button>
       </template>
       <template v-else-if="state === 'ready'">
-        <span class="ok">✓ {{ t('audioPack.ready') }}</span>
+        <span class="ok"><UiIcon name="check" /> {{ t('audioPack.ready') }}</span>
         <template v-if="pack.status.value?.updateAvailable">
           <span class="chip chip--primary">{{ t('audioPack.updateAvailable') }}</span>
           <button type="button" class="btn btn--primary btn--sm" @click="pack.install()">
@@ -50,7 +51,7 @@ const percent = computed(() => {
         </button>
       </template>
       <template v-else>
-        <button type="button" class="btn primary" @click="pack.install()">
+        <button type="button" class="btn btn--primary" @click="pack.install()">
           {{ state === 'error' ? t('audioPack.retry') : t('audioPack.download', { mb: sizeMb }) }}
         </button>
         <span v-if="state === 'error'" class="err">{{
@@ -67,12 +68,13 @@ const percent = computed(() => {
   gap: 8px;
   padding: 10px 12px;
   background: var(--c-surface);
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
 }
 .audio-pack.compact {
   grid-template-columns: 1fr auto;
   align-items: center;
-  background: #eef6ff;
+  background: var(--c-primary-soft);
 }
 .text {
   display: grid;
@@ -95,18 +97,5 @@ const percent = computed(() => {
 .err {
   color: #d8364e;
   font-size: 13px;
-}
-.btn {
-  padding: 5px 12px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-surface);
-  color: inherit;
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-}
-.btn.primary {
-  background: var(--c-primary);
-  color: #fff;
 }
 </style>

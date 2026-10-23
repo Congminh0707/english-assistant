@@ -9,6 +9,7 @@ import MdText from './MdText.vue'
 import PicText from '@renderer/shared/components/PicText.vue'
 import ListeningPlayer from './ListeningPlayer.vue'
 import ReadingPassage from './ReadingPassage.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Đọc một bài: giải thích, bảng, ví dụ có nút nghe, lưới âm bấm nghe, mẹo.
 const props = defineProps<{ lesson: Lesson }>()
@@ -33,7 +34,7 @@ onMounted(() => {
 
 <template>
   <section class="viewer">
-    <button type="button" class="link" @click="$emit('back')">
+    <button type="button" class="btn btn--ghost btn--sm" @click="$emit('back')">
       ← {{ t('study.lessons.back') }}
     </button>
     <h1>{{ lesson.title }}</h1>
@@ -45,7 +46,7 @@ onMounted(() => {
       </PxPanel>
 
       <div v-else-if="block.type === 'tip'" class="tip">
-        <span class="tip-icon">💡</span>
+        <span class="tip-icon"><UiIcon name="hint" /></span>
         <MdText :md="block.md" />
       </div>
 
@@ -55,11 +56,11 @@ onMounted(() => {
           <li v-for="(ex, j) in block.items" :key="j">
             <button
               type="button"
-              class="say"
+              class="btn btn--sm btn--icon"
               :title="t('study.lessons.listen')"
               @click="speak(ex.en, undefined, 0.9)"
             >
-              🔊
+              <UiIcon name="volume" />
             </button>
             <div>
               <div class="en">{{ ex.en }}</div>
@@ -103,22 +104,23 @@ onMounted(() => {
             </button>
             <button
               type="button"
-              class="sound-mic"
+              class="btn btn--xs btn--icon btn--ghost sound-mic"
               :title="t('speech.practiceSound')"
               :aria-label="t('speech.practiceSound')"
               @click="practicing = { block: i, label: item.text, text: item.say ?? item.text }"
             >
-              🎤
+              <UiIcon name="mic" />
             </button>
           </div>
         </div>
         <p class="hint">
-          🔊 {{ t('study.lessons.tapToHear') }} · 🎤 {{ t('speech.practiceSound') }}
+          <UiIcon name="volume" /> {{ t('study.lessons.tapToHear') }} · <UiIcon name="mic" />
+          {{ t('speech.practiceSound') }}
         </p>
         <div v-if="practicing && practicing.block === i" class="practice">
           <div class="practice-head">
             <strong>{{ practicing.label }}</strong>
-            <button type="button" class="link" @click="practicing = null">
+            <button type="button" class="btn btn--ghost btn--sm" @click="practicing = null">
               {{ t('speech.closePractice') }}
             </button>
           </div>
@@ -147,8 +149,9 @@ onMounted(() => {
     </template>
 
     <div class="actions">
-      <button type="button" class="primary" @click="$emit('start')">
-        ✏️ {{ t('study.lessons.startExercises', { n: lesson.exercises.length }) }}
+      <button type="button" class="btn btn--primary" @click="$emit('start')">
+        <UiIcon name="pencil" />
+        {{ t('study.lessons.startExercises', { n: lesson.exercises.length }) }}
       </button>
     </div>
   </section>
@@ -174,14 +177,6 @@ h2 {
   margin: 0;
   color: var(--c-ink-soft);
 }
-.link {
-  justify-self: start;
-  border: none;
-  background: transparent;
-  color: var(--c-ink-soft);
-  font: inherit;
-  cursor: pointer;
-}
 .block {
   padding: 14px 16px;
 }
@@ -189,8 +184,9 @@ h2 {
   display: flex;
   gap: 8px;
   padding: 10px 12px;
-  background: #fff8dc;
+  background: var(--c-warning-soft);
   border-left: 4px solid var(--c-warning);
+  border-radius: var(--r-md);
 }
 .examples {
   display: grid;
@@ -202,16 +198,6 @@ h2 {
 .examples li {
   display: flex;
   gap: 8px;
-}
-.say {
-  align-self: flex-start;
-  padding: 2px 8px;
-  border: 1px solid var(--c-border);
-  background: var(--c-surface);
-  cursor: pointer;
-}
-.say:hover {
-  background: #eef3ff;
 }
 .en {
   font-weight: 700;
@@ -226,51 +212,58 @@ h2 {
 }
 .table-wrap {
   overflow-x: auto;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-md);
 }
 table {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--fs-md);
 }
 th,
 td {
-  padding: 5px 8px;
+  padding: 8px 12px;
   text-align: left;
-  border: 1px solid #cfc8b0;
+  border-bottom: 1px solid var(--c-line);
+  border-right: 1px solid var(--c-line);
+}
+th:last-child,
+td:last-child {
+  border-right: 0;
+}
+tbody tr:last-child td {
+  border-bottom: 0;
 }
 th {
-  background: #f1ecd8;
+  background: var(--c-surface-2);
+  font-weight: 700;
 }
+/* Mọi ô cùng một hàng cao bằng nhau; nút micro nằm trong thẻ, góc trên bên phải */
 .sounds {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
-  gap: 8px;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  grid-auto-rows: 1fr;
+  gap: var(--sp-2);
 }
 .sound-cell {
   position: relative;
-  display: grid;
+  display: flex;
 }
 .sound-mic {
   position: absolute;
-  top: 2px;
-  right: 2px;
-  padding: 0 4px;
-  border: 2px solid var(--c-border);
-  background: var(--c-surface);
-  font-size: 13px;
-  line-height: 1.4;
-  cursor: pointer;
-}
-.sound-mic:hover {
-  background: #e3f4e8;
+  top: 6px;
+  right: 6px;
+  color: var(--c-ink-soft);
 }
 .practice {
   display: grid;
   gap: 8px;
   margin-top: 10px;
   padding: 10px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-bg);
+  border-radius: var(--r-md);
 }
 .practice-head {
   display: flex;
@@ -280,16 +273,19 @@ th {
 }
 .sound {
   display: grid;
+  flex: 1;
+  align-content: center;
   gap: 2px;
   justify-items: center;
-  padding: 8px 4px;
-  border: var(--px) solid var(--c-border);
+  padding: 14px 6px 10px;
+  border: 1px solid var(--c-line);
   background: var(--c-bg);
   font: inherit;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 .sound:hover {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .sound-text {
   font-size: 20px;
@@ -312,16 +308,5 @@ th {
   display: flex;
   justify-content: center;
   padding: 8px 0 16px;
-}
-.primary {
-  padding: 12px 24px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-success);
-  color: #fff;
-  font: inherit;
-  font-weight: 700;
-  font-size: 15px;
-  cursor: pointer;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
 }
 </style>

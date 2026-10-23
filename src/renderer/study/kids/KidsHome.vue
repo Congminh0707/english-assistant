@@ -66,7 +66,7 @@ function tap(tile: KidsTile): void {
   right: 12px;
   min-width: 34px;
   padding: 2px 8px;
-  border: 3px solid var(--c-border);
+  border: 2px solid var(--c-line);
   border-radius: 20px;
   background: var(--c-danger);
   color: #fff;

@@ -14,7 +14,7 @@ import type { ShopItem, ShopState } from '@shared/schemas/shop'
 import { invoke, IpcError } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import PxBar from '@renderer/shared/components/PxBar.vue'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import { Coins } from 'lucide-vue-next'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 
 // Trang Thú cưng: chọn/mua nhân vật và xem cây tiến hoá của từng nhân vật.
@@ -23,6 +23,25 @@ const { t } = useI18n()
 const petStore = usePetStore()
 
 const shop = ref<ShopState | null>(null)
+/** Đổi tên thú cưng ngay tại trang này */
+const renaming = ref(false)
+const nameDraft = ref('')
+async function startRename(): Promise<void> {
+  nameDraft.value = pet.value?.name ?? ''
+  renaming.value = true
+}
+async function saveRename(): Promise<void> {
+  const name = nameDraft.value.trim()
+  if (!name || name === pet.value?.name) {
+    renaming.value = false
+    return
+  }
+  const active = (await invoke('profile:list')).find((p) => p.active)
+  if (active) await invoke('profile:update', { id: active.id, petName: name })
+  await petStore.load()
+  renaming.value = false
+  emit('changed')
+}
 const viewing = ref<CharacterId>(DEFAULT_CHARACTER_ID)
 const message = ref('')
 const busy = ref(false)
@@ -85,10 +104,10 @@ onMounted(async () => {
 
 <template>
   <section v-if="pet" class="pet-page">
-    <h1>{{ t('study.pet.title') }}</h1>
+    <h1 class="page-title">{{ t('study.pet.title') }}</h1>
     <p v-if="message" class="message">{{ message }}</p>
 
-    <PxPanel class="hero">
+    <div class="card hero">
       <PetSprite
         :character="current"
         :stage="pet.stage"
@@ -97,12 +116,39 @@ onMounted(async () => {
         animate
       />
       <div class="hero-info">
-        <div class="name">{{ pet.name }}</div>
+        <form v-if="renaming" class="rename" @submit.prevent="saveRename">
+          <input
+            v-model="nameDraft"
+            type="text"
+            maxlength="20"
+            required
+            :placeholder="t('study.pet.renamePlaceholder')"
+            autofocus
+          />
+          <button type="submit" class="btn btn--sm btn--primary">
+            <UiIcon name="check" />
+          </button>
+          <button type="button" class="btn btn--sm btn--ghost" @click="renaming = false">
+            <UiIcon name="close" />
+          </button>
+        </form>
+        <div v-else class="name">
+          {{ pet.name }}
+          <button
+            type="button"
+            class="btn btn--xs btn--icon btn--ghost"
+            :title="t('study.pet.rename')"
+            :aria-label="t('study.pet.rename')"
+            @click="startRename"
+          >
+            <UiIcon name="pencil" :size="14" />
+          </button>
+        </div>
         <div class="muted">
           {{ t(`characters.${current}.name`) }} · {{ t('stats.level', { level: pet.level }) }} ·
           {{ t(`pet.stage.${pet.stage}`) }}
         </div>
-        <PxBar :value="pet.xpInLevel" :max="pet.xpForNext" />
+        <PxBar :value="pet.xpInLevel" :max="pet.xpForNext" color="var(--c-xp)" />
         <p v-if="upcoming" class="muted">
           {{
             t('study.pet.nextEvolution', {
@@ -113,61 +159,80 @@ onMounted(async () => {
         </p>
         <p v-else class="muted">{{ t('study.pet.maxStage') }}</p>
       </div>
-    </PxPanel>
+    </div>
 
     <h2>{{ t('study.pet.chooseTitle') }}</h2>
     <div class="chars">
-      <PxPanel
+      <article
         v-for="id in CHARACTER_IDS"
         :key="id"
-        class="char"
+        class="card char"
         :class="{ active: viewing === id, selected: current === id }"
       >
         <button type="button" class="view" @click="viewing = id">
-          <PetSprite :character="id" :stage="pet.stage" :size="144" :silhouette="!owned(id)" />
+          <span class="sprite"
+            ><PetSprite :character="id" :stage="pet.stage" :size="132" :silhouette="!owned(id)"
+          /></span>
           <span class="cname">{{ t(`characters.${id}.name`) }}</span>
-          <span class="muted small">{{ t(`characters.${id}.desc`) }}</span>
+          <span class="muted small desc">{{ t(`characters.${id}.desc`) }}</span>
         </button>
-        <span v-if="current === id" class="tag">{{ t('study.pet.selected') }}</span>
+        <div class="note">
+          <span v-if="current === id" class="chip chip--success">{{
+            t('study.pet.selected')
+          }}</span>
+          <template v-else-if="!owned(id)">
+            <span class="chip price"
+              ><Coins :size="13" :stroke-width="2.4" />{{ CHARACTERS[id].price }}</span
+            >
+            <span v-if="lockText(id)">{{ lockText(id) }}</span>
+          </template>
+        </div>
+        <button v-if="current === id" type="button" class="btn btn--sm btn--block" disabled>
+          {{ t('study.pet.selected') }}
+        </button>
         <button
           v-else-if="owned(id)"
           type="button"
-          class="btn"
+          class="btn btn--sm btn--block btn--primary"
           :disabled="busy"
           @click="select(id)"
         >
           {{ t('study.pet.select') }}
         </button>
-        <template v-else>
-          <span class="muted small">🪙 {{ CHARACTERS[id].price }}</span>
-          <span v-if="lockText(id)" class="muted small">{{ lockText(id) }}</span>
-          <button type="button" class="btn buy" :disabled="busy || !!lockText(id)" @click="buy(id)">
-            {{ t('shop.buy') }}
-          </button>
-        </template>
-      </PxPanel>
+        <button
+          v-else
+          type="button"
+          class="btn btn--sm btn--block btn--success"
+          :disabled="busy || !!lockText(id)"
+          @click="buy(id)"
+        >
+          {{ t('shop.buy') }}
+        </button>
+      </article>
     </div>
 
     <h2>{{ t('study.pet.evolutionTitle', { name: t(`characters.${viewing}.name`) }) }}</h2>
     <div class="stages">
-      <PxPanel
+      <article
         v-for="s in PET_STAGES"
         :key="s.stage"
-        class="stage"
+        class="card stage"
         :class="{ now: viewing === current && pet.stage === s.stage }"
       >
-        <PetSprite
-          :character="viewing"
-          :stage="s.stage"
-          :size="144"
-          :silhouette="pet.level < s.minLevel"
-          :animate="viewing === current && pet.stage === s.stage"
-        />
+        <span class="sprite">
+          <PetSprite
+            :character="viewing"
+            :stage="s.stage"
+            :size="132"
+            :silhouette="pet.level < s.minLevel"
+            :animate="viewing === current && pet.stage === s.stage"
+          />
+        </span>
         <div class="cname">
           {{ pet.level < s.minLevel ? '???' : t(`pet.stage.${s.stage}`) }}
         </div>
         <div class="muted small">{{ t('study.pet.fromLevel', { level: s.minLevel }) }}</div>
-      </PxPanel>
+      </article>
     </div>
     <p class="muted small">{{ t('study.pet.keepHint') }}</p>
   </section>
@@ -176,108 +241,132 @@ onMounted(async () => {
 <style scoped>
 .pet-page {
   display: grid;
-  gap: 8px;
-  max-width: 760px;
-  margin: 0 auto;
-}
-h1 {
-  margin: 0;
-  font-size: 22px;
+  gap: var(--sp-2);
+  max-width: 820px;
 }
 h2 {
-  margin: 12px 0 0;
-  font-size: 16px;
+  margin: var(--sp-4) 0 0;
+  font-size: var(--fs-lg);
 }
 .muted {
   margin: 0;
   color: var(--c-ink-soft);
-  font-size: 13px;
+  font-size: var(--fs-sm);
 }
 .small {
-  font-size: 12px;
+  font-size: var(--fs-xs);
 }
 .message {
   margin: 0;
-  padding: 6px 10px;
-  background: #e3f4e8;
-  border-left: 4px solid var(--c-success);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-success-soft);
+  color: #25693a;
+  font-weight: 600;
 }
 .hero {
   display: flex;
-  gap: 16px;
+  gap: var(--sp-5);
   align-items: center;
-  padding: 12px 16px;
+  padding: var(--sp-4) var(--sp-5);
 }
 .hero-info {
   flex: 1;
   display: grid;
-  gap: 4px;
+  gap: 6px;
 }
 .name {
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-xl);
   font-weight: 700;
 }
+.rename {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.rename input {
+  flex: 1;
+  min-width: 0;
+  font-size: var(--fs-lg);
+}
+/* Thẻ nhân vật/giai đoạn cùng chiều cao; nút và ghi chú nằm đáy nên luôn thẳng hàng */
 .chars,
 .stages {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  align-items: stretch;
+  gap: var(--sp-3);
 }
 .char,
 .stage {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 4px;
-  justify-items: center;
-  padding: 10px 6px;
+  padding: var(--sp-3);
   text-align: center;
 }
 .char.active {
-  outline: 3px solid var(--c-primary);
+  border-color: var(--c-primary);
+  box-shadow:
+    0 0 0 2px var(--c-primary-soft),
+    var(--shadow-sm);
 }
 .char.selected {
-  background: #fff8e0;
+  background: var(--c-warning-soft);
 }
 .stage.now {
-  background: #fff8e0;
-  outline: 3px solid var(--c-success);
+  border-color: var(--c-success);
+  background: var(--c-success-soft);
+}
+/* Khung sprite vuông cố định, không cắt đuôi/cánh của nhân vật */
+.sprite {
+  display: grid;
+  place-items: center;
+  width: 132px;
+  height: 132px;
+  overflow: visible;
 }
 .view {
-  display: grid;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
   gap: 2px;
-  justify-items: center;
+  width: 100%;
   padding: 0;
   border: 0;
   background: none;
   font: inherit;
   color: inherit;
   cursor: pointer;
+  border-radius: var(--r-md);
+}
+.desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 2.6em;
 }
 .cname {
   font-weight: 700;
 }
-.tag {
-  padding: 0 6px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #fff;
-  background: var(--c-success);
-  border: 1px solid var(--c-border);
+.note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-height: 40px;
+  color: var(--c-ink-soft);
+  font-size: var(--fs-xs);
+  line-height: 1.3;
 }
-.btn {
-  min-width: 80px;
-  padding: 4px 10px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  font-weight: 600;
-  cursor: pointer;
-}
-.btn.buy:not(:disabled) {
-  background: var(--c-success);
-  color: #fff;
-}
-.btn:disabled {
-  opacity: 0.5;
-  cursor: default;
+.price :deep(svg) {
+  color: var(--c-coin);
 }
 </style>

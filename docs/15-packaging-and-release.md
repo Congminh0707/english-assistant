@@ -7,20 +7,20 @@ Dùng **electron-builder** với target **NSIS** (installer `.exe` quen thuộc)
 `electron-builder.yml` (tối thiểu):
 
 ```yaml
-appId: net.gonbi.englishassistant      # đổi theo domain thật
+appId: net.gonbi.englishassistant # đổi theo domain thật
 productName: English Assistant
 directories:
   buildResources: resources
   output: dist
-files:                                   # danh sách CHO PHÉP — đừng đổi sang kiểu loại trừ:
-  - out/**/*                             # code đã build bởi electron-vite (node_modules production tự thêm)
-  - '!**/*.map'                          # kiểu loại trừ từng cuốn cả .claude/worktrees vào app → installer ~1 GB
+files: # danh sách CHO PHÉP — đừng đổi sang kiểu loại trừ:
+  - out/**/* # code đã build bởi electron-vite (node_modules production tự thêm)
+  - '!**/*.map' # kiểu loại trừ từng cuốn cả .claude/worktrees vào app → installer ~1 GB
 asarUnpack:
-  - '**/node_modules/better-sqlite3/**'  # native module phải nằm ngoài asar
+  - '**/node_modules/better-sqlite3/**' # native module phải nằm ngoài asar
 extraResources:
-  - from: src/main/db/migrations         # migration của user.db
+  - from: src/main/db/migrations # migration của user.db
     to: migrations
-  - from: content/packs                  # .eapack do pipeline build (pnpm content:build) — phải có trước khi build installer
+  - from: content/packs # .eapack do pipeline build (pnpm content:build) — phải có trước khi build installer
     to: packs
     filter: ['*.eapack']
 win:
@@ -30,20 +30,22 @@ win:
   icon: resources/icon.ico
 nsis:
   oneClick: false
-  perMachine: false                      # cài cho user hiện tại, không cần quyền admin
+  perMachine: false # cài cho user hiện tại, không cần quyền admin
   allowToChangeInstallationDirectory: true
   createDesktopShortcut: true
   shortcutName: English Assistant
 publish:
-  provider: github                       # dùng GitHub Releases cho auto-update
+  provider: github # dùng GitHub Releases cho auto-update
   owner: <github-user>
   repo: english-assistant
 ```
 
 Lệnh:
+
 ```powershell
 pnpm build:win
 ```
+
 Kết quả trong `dist/`: `English Assistant Setup x.y.z.exe`, `latest.yml` (cho auto-update), `.blockmap`.
 
 > Content pack lớn (TOEIC, IELTS, B2+) **không** đưa vào installer — tải trong app để installer gọn (< 150 MB).
@@ -52,13 +54,13 @@ Kết quả trong `dist/`: `English Assistant Setup x.y.z.exe`, `latest.yml` (ch
 
 ## 2. Đường dẫn khi chạy
 
-| Thứ | Dev | Production |
-|---|---|---|
-| Code | `src/` qua Vite | `resources/app.asar` |
-| Pack đi kèm | `content/packs/bundled` | `process.resourcesPath + '/packs'` → copy sang `userData/packs` lần đầu |
-| Dữ liệu người dùng | `app.getPath('userData')` | `%APPDATA%\english-assistant\` |
-| Model AI | `userData/models` | như dev |
-| Log | `userData/logs` | như dev |
+| Thứ                | Dev                       | Production                                                              |
+| ------------------ | ------------------------- | ----------------------------------------------------------------------- |
+| Code               | `src/` qua Vite           | `resources/app.asar`                                                    |
+| Pack đi kèm        | `content/packs/bundled`   | `process.resourcesPath + '/packs'` → copy sang `userData/packs` lần đầu |
+| Dữ liệu người dùng | `app.getPath('userData')` | `%APPDATA%\english-assistant\`                                          |
+| Model AI           | `userData/models`         | như dev                                                                 |
+| Log                | `userData/logs`           | như dev                                                                 |
 
 Luôn dùng helper `paths.ts` thay vì viết cứng đường dẫn.
 
@@ -87,10 +89,12 @@ Luôn dùng helper `paths.ts` thay vì viết cứng đường dẫn.
 > ✅ **Đã làm (2026-10-20):** `.github/workflows/release.yml` (chưa chạy thử trên GitHub). Không ký số (quyết định của chủ dự án — bàn lại khi cần).
 
 **Chỉ chạy khi push lên nhánh `release`.** Cách phát hành một phiên bản:
+
 1. Trên `master`: tăng `version` trong `package.json` (semver `x.y.z`), commit.
 2. Đẩy sang nhánh phát hành: `git push origin master:release`. **Không push tag** — workflow tự tạo release và tag `v<version>` (trỏ đúng commit vừa push).
 
 **Chỉ phát hành khi có version mới** (`scripts/release/check-version.mjs`, chạy thử trên máy: `node scripts/release/check-version.mjs`): so `version` trong package.json với các tag `v*` hiện có.
+
 - Chưa có tag `v<version>` → phát hành.
 - Đã có tag đó → workflow dừng ngay, thành công, không build/không đăng gì (push `release` mà không đổi version thì vô hại).
 - Version thấp hơn tag cao nhất → lỗi (nhắc tăng version). Version không đúng semver → lỗi. Nếu có `CHANGELOG.md` thì phải có mục cho version mới.
@@ -103,25 +107,28 @@ Job lỗi: vào lần chạy trên tab Actions → **Re-run failed jobs** (chỉ
 ```powershell
 gh release create content-pack-1.4.0 (Get-ChildItem content/packs/core-dictionary-*.eapack*) --prerelease --title "Content pack 1.4.0" --notes "Gói từ điển đi kèm bản cài (không phải bản app)"
 ```
+
 Release này là `--prerelease` và tag `content-pack-*` không bị `check-version` coi là version app (chỉ tag `v*`), nên không ảnh hưởng auto-update. Khi build lại pack với version mới: tải lên release mới và đổi `CONTENT_PACK_TAG`. Repo đang công khai: pack gồm dữ liệu CC BY-SA/Wiktionary nên cần giữ ghi công trong app (docs/08).
 
 ## 6b. Gói âm thanh bài nghe (tải thêm)
 
 Không nằm trong bộ cài. Tạo và đăng khi nội dung bài nghe đổi (hoặc lần đầu):
+
 1. Bật "Giọng tự nhiên" trong app một lần để có model Kokoro trong `%APPDATA%/english-assistant/models`.
 2. `node scripts/audio/build-listening-audio.mjs 1.0.0` (~30 phút) → `content/.build/audio/listening-audio-1.0.0.zip` + `.sha256`.
 3. Đăng lên release phụ (pre-release, không ảnh hưởng auto-update): `gh release create listening-audio-1.0.0 content/.build/audio/listening-audio-1.0.0.zip content/.build/audio/listening-audio-1.0.0.zip.sha256 --prerelease --title "Listening audio 1.0.0"`.
 4. Điền `size` + `sha256` thật vào `src/main/audio/packSpec.ts` (bắt buộc: app từ chối gói sai kích thước/sha256), rồi phát hành app như bình thường.
-Đổi nội dung: build lại, tăng `VERSION` trong `packSpec.ts` và tag release mới.
+   Đổi nội dung: build lại, tăng `VERSION` trong `packSpec.ts` và tag release mới.
 
 ## 6c. Gói sprite thú cưng 288px (tải thêm)
 
 Không nằm trong bộ cài (bộ cài chỉ có sprite 96px). Tạo và đăng khi nhân vật/phụ kiện đổi:
+
 1. `SPRITE_SCALE=3 SPRITE_OUT=content/.build/sprites-hires node scripts/sprites/make-characters.mjs` (~45 phút).
 2. `node scripts/sprites/build-hires-pack.mjs 1.0.0` → `content/.build/pet-sprites-hires-1.0.0.zip` + `.sha256` (in ra size + sha256).
 3. Đăng lên release phụ (pre-release, không ảnh hưởng auto-update): `gh release create pet-sprites-hires-1.0.0 content/.build/pet-sprites-hires-1.0.0.zip content/.build/pet-sprites-hires-1.0.0.zip.sha256 --prerelease --title "Pet sprites 288px 1.0.0" --notes "Gói sprite độ phân giải cao (tải thêm)"`.
 4. Điền `size` + `sha256` thật vào `src/main/sprites/packSpec.ts` (app từ chối gói sai kích thước/sha256), rồi phát hành app như bình thường.
-Đổi nội dung: build lại, tăng `VERSION` trong `packSpec.ts` và dùng tag release mới.
+   Đổi nội dung: build lại, tăng `VERSION` trong `packSpec.ts` và dùng tag release mới.
 
 ## 6d. Cập nhật content và gói tải thêm cho người đã cài
 

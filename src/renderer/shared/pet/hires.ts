@@ -12,17 +12,21 @@ export { HIRES_FRAME }
 export const hiresReady = ref(false)
 /** Trạng thái tải đầy đủ (cho panel trong Cài đặt) */
 const packStatus = ref<TranslateStatus | null>(null)
-let started = false
+let startPromise: Promise<void> | null = null
 /** Tăng mỗi khi gói đổi trạng thái → component phụ thuộc nạp lại */
 export const hiresVersion = ref(0)
 
 const assets = new Map<string, Promise<string | null>>()
+const bitmaps = new Map<string, Promise<ImageBitmap | null>>()
 const metas = new Map<string, Promise<SpriteMeta | null>>()
 
-/** Bắt đầu theo dõi trạng thái gói (gọi nhiều lần cũng chỉ chạy một lần mỗi cửa sổ) */
-export function startHires(): void {
-  if (started) return
-  started = true
+/**
+ * Bắt đầu theo dõi trạng thái gói (gọi nhiều lần cũng chỉ chạy một lần mỗi cửa sổ). Promise xong khi đã biết gói
+ * có sẵn hay không: nơi cần chọn độ phân giải NGAY (mascot lúc khởi động) phải `await` trước, nếu không sẽ nạp
+ * sprite 96px rồi kẹt ở chất lượng thấp.
+ */
+export function startHires(): Promise<void> {
+  if (startPromise) return startPromise
   /** Đang cập nhật gói đã cài: giữ nguyên bản cũ đang dùng, xong thì nạp lại ảnh mới */
   let updating = false
   const apply = (status: TranslateStatus): void => {
@@ -35,14 +39,16 @@ export function startHires(): void {
     if (ready === hiresReady.value && !updating) return
     updating = false
     assets.clear()
+    bitmaps.clear()
     metas.clear()
     hiresReady.value = ready
     hiresVersion.value++
   }
-  void invoke('sprites:status')
+  window.api.on('sprites:status-changed', apply)
+  startPromise = invoke('sprites:status')
     .then(apply)
     .catch(() => undefined)
-  window.api.on('sprites:status-changed', apply)
+  return startPromise
 }
 
 const stageOf = (stage: string): SpriteStage => stage as SpriteStage
@@ -53,7 +59,52 @@ export function hiresAsset(character: string, stage: string, name: string): Prom
   let p = assets.get(key)
   if (!p) {
     p = invoke('sprites:asset', { character, stage: stageOf(stage), name }).catch(() => null)
+    // Lỗi IPC thoáng qua không được nhớ mãi: thân (sheet) null thì lần sau thử lại thay vì kẹt ở sprite 96px
+    if (name === 'sheet') void p.then((v) => v ?? assets.delete(key))
     assets.set(key, p)
+  }
+  return p
+}
+
+/** Số khung idle (hàng đầu của sheet) — cùng bộ cài (sprites.ts IDLE_FRAMES) */
+const IDLE_FRAMES = 8
+/** Giải mã tuần tự: mỗi sheet 288px là 2304×8928 ≈ 82 MB khi giải mã, chạy song song sẽ ngốn bộ nhớ */
+let decodeQueue: Promise<unknown> = Promise.resolve()
+
+/**
+ * Chỉ HÀNG IDLE của một lớp ảnh (2304×288 ≈ 2,6 MB) dưới dạng ImageBitmap, giải mã một lần rồi nhớ lại.
+ * Trang Thú cưng hiện ~12 sprite: dùng nguyên sheet làm background-image thì mỗi sheet 82 MB × 12 ≈ 1 GB ảnh giải mã
+ * → giật nặng. Ở đây chỉ giữ phần cần vẽ (hoạt ảnh idle).
+ */
+export function hiresIdleBitmap(
+  character: string,
+  stage: string,
+  name: string
+): Promise<ImageBitmap | null> {
+  const key = `${character}/${stage}/${name}`
+  let p = bitmaps.get(key)
+  if (!p) {
+    const job = decodeQueue.then(async () => {
+      const url = await hiresAsset(character, stage, name)
+      if (!url) return null
+      // Data URL → Blob bằng atob (fetch(data:) bị CSP connect-src chặn); createImageBitmap giải mã ngoài luồng chính
+      const comma = url.indexOf(',')
+      const mime = url.slice(5, url.indexOf(';')) || 'image/webp'
+      const bin = atob(url.slice(comma + 1))
+      const bytes = new Uint8Array(bin.length)
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i)
+      return createImageBitmap(
+        new Blob([bytes], { type: mime }),
+        0,
+        0,
+        HIRES_FRAME * IDLE_FRAMES,
+        HIRES_FRAME
+      )
+    })
+    p = job.catch(() => null)
+    decodeQueue = p
+    if (name === 'sheet') void p.then((v) => v ?? bitmaps.delete(key))
+    bitmaps.set(key, p)
   }
   return p
 }

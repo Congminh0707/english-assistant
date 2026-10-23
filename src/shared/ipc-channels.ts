@@ -31,6 +31,7 @@ export const INVOKE_CHANNELS = [
   'profile:list',
   'profile:setup',
   'profile:create',
+  'profile:update',
   'profile:switch',
   'placement:start',
   'placement:checkpoint-start',

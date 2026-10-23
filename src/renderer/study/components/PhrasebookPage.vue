@@ -6,6 +6,7 @@ import type { Phrasebook } from '@shared/schemas/phrasebook'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Mẫu câu giao tiếp theo tình huống: tìm kiếm, nghe (TTS), bấm để sao chép.
 const { t } = useI18n()
@@ -83,8 +84,8 @@ onMounted(async () => {
       <div class="chips">
         <button
           type="button"
-          class="chip"
-          :class="{ on: category === 'all' }"
+          class="btn btn--sm btn--pill"
+          :class="{ 'btn--primary': category === 'all' }"
           @click="category = 'all'"
         >
           {{ t('study.phrasebook.all') }}
@@ -93,8 +94,8 @@ onMounted(async () => {
           v-for="c in book?.categories ?? []"
           :key="c.id"
           type="button"
-          class="chip"
-          :class="{ on: category === c.id }"
+          class="btn btn--sm btn--pill"
+          :class="{ 'btn--primary': category === c.id }"
           @click="category = c.id"
         >
           {{ c.icon }} {{ c.title }}
@@ -108,8 +109,13 @@ onMounted(async () => {
       <h2>{{ c.icon }} {{ c.title }}</h2>
       <ul class="phrases">
         <li v-for="(p, i) in c.phrases" :key="i">
-          <button type="button" class="say" :title="t('study.lessons.listen')" @click="speak(p.en)">
-            🔊
+          <button
+            type="button"
+            class="btn btn--sm btn--icon"
+            :title="t('study.lessons.listen')"
+            @click="speak(p.en)"
+          >
+            <UiIcon name="volume" />
           </button>
           <button
             type="button"
@@ -124,12 +130,12 @@ onMounted(async () => {
           <span v-if="p.level" class="tag">{{ cefrLabel(p.level) }}</span>
           <button
             type="button"
-            class="save"
+            class="btn btn--sm btn--icon"
             :disabled="savedIds.has(p.id)"
             :title="t('study.phrasebook.saveHint')"
             @click="savePhrase(p.id)"
           >
-            {{ savedIds.has(p.id) ? '✓' : '💾' }}
+            <UiIcon :name="savedIds.has(p.id) ? 'saved' : 'save'" />
           </button>
         </li>
       </ul>
@@ -167,27 +173,16 @@ input[type='search'] {
   box-sizing: border-box;
   width: 100%;
   padding: 8px 10px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   outline: none;
+  border-radius: var(--r-md);
 }
 .chips {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-}
-.chip {
-  padding: 3px 10px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  font-size: 13px;
-  cursor: pointer;
-}
-.chip.on {
-  background: var(--c-primary);
-  color: #fff;
 }
 .cat {
   padding: 14px 16px;
@@ -204,12 +199,6 @@ input[type='search'] {
   align-items: flex-start;
   gap: 8px;
 }
-.say {
-  padding: 2px 6px;
-  border: 1px solid var(--c-border);
-  background: var(--c-surface);
-  cursor: pointer;
-}
 .text {
   display: grid;
   flex: 1;
@@ -220,9 +209,10 @@ input[type='search'] {
   font: inherit;
   text-align: left;
   cursor: pointer;
+  border-radius: var(--r-sm);
 }
 .text:hover {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .en {
   font-weight: 700;
@@ -236,24 +226,14 @@ input[type='search'] {
   color: var(--c-ink-soft);
   font-style: italic;
 }
-.save {
-  padding: 2px 6px;
-  border: 1px solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  cursor: pointer;
-}
-.save:disabled {
-  color: var(--c-success);
-  cursor: default;
-}
 .tag {
   padding: 0 4px;
   font-size: 11px;
   font-weight: 700;
   color: #fff;
   background: var(--c-xp);
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
 }
 .toast {
   position: fixed;
@@ -263,5 +243,6 @@ input[type='search'] {
   background: var(--c-ink);
   color: #fff;
   font-size: 13px;
+  border-radius: var(--r-pill);
 }
 </style>

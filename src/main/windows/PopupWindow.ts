@@ -26,7 +26,8 @@ export class PopupWindow {
       fullscreenable: false,
       skipTaskbar: true,
       alwaysOnTop: true,
-      backgroundColor: '#fdf6e3',
+      transparent: true,
+      backgroundColor: '#00000000',
       webPreferences: {
         preload: join(__dirname, '../preload/index.js'),
         contextIsolation: true,

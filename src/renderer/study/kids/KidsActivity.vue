@@ -7,6 +7,7 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
 import TraceCanvas from './TraceCanvas.vue'
 import { FOOD_NAME, FOOD_PICTURE, PRAISE, pick, TRY_AGAIN } from './kidsText'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Một hoạt động của bé: học (chạm để nghe từng chữ/âm/từ) rồi chơi (nghe → chạm đúng). Không cần biết đọc:
 // chữ cái và từ chỉ cần nhận mặt, câu hỏi luôn được đọc to.
@@ -221,7 +222,7 @@ onMounted(teachSpeak)
         <template v-else>
           <span class="sight">{{ item.text }}</span>
         </template>
-        <span class="speaker">🔊</span>
+        <span class="speaker"><UiIcon name="volume" /></span>
       </button>
 
       <div v-if="activity.kind === 'blend' && item.letters" class="k-row">
@@ -234,13 +235,13 @@ onMounted(teachSpeak)
         >
           {{ l }}
         </button>
-        <button type="button" class="k-round" @click="sayItem(item)">▶</button>
+        <button type="button" class="k-round" @click="sayItem(item)"><UiIcon name="play" /></button>
       </div>
 
       <div class="k-row">
         <button type="button" class="k-round" :disabled="index === 0" @click="prevTeach">◀</button>
         <button type="button" class="k-primary" @click="nextTeach">
-          {{ index + 1 < items.length ? '▶' : '🎮' }}
+          <UiIcon :name="index + 1 < items.length ? 'play' : 'game'" :size="26" />
         </button>
       </div>
     </template>
@@ -253,7 +254,7 @@ onMounted(teachSpeak)
         class="k-round big-speaker"
         @click="speak(questions[q].item.say ?? questions[q].item.text, 'us', 0.8)"
       >
-        🔊
+        <UiIcon name="volume" />
       </button>
       <div class="k-row">
         <button
@@ -292,8 +293,12 @@ onMounted(teachSpeak)
       />
       <span class="word">{{ questions[q].item.text }}</span>
       <div class="k-row">
-        <button type="button" class="k-round big-speaker" @click="sayPrompt">🔊</button>
-        <button type="button" class="k-primary mic" @click="saidIt">🎤 ✓</button>
+        <button type="button" class="k-round big-speaker" @click="sayPrompt">
+          <UiIcon name="volume" />
+        </button>
+        <button type="button" class="k-primary mic" @click="saidIt">
+          <UiIcon name="mic" /> <UiIcon name="check" />
+        </button>
       </div>
       <p class="k-sub">{{ t('kids.activity.sayHint') }}</p>
     </template>
@@ -312,7 +317,9 @@ onMounted(teachSpeak)
         <button type="button" class="k-round" :title="t('kids.activity.again')" @click="again">
           ↻
         </button>
-        <button type="button" class="k-primary" @click="emit('back')">▶</button>
+        <button type="button" class="k-primary" @click="emit('back')">
+          <UiIcon name="play" />
+        </button>
       </div>
     </template>
   </section>
@@ -360,7 +367,7 @@ onMounted(teachSpeak)
   width: 96px;
   height: 96px;
   font-size: 46px;
-  background: #fff3a0;
+  background: var(--c-warning-soft);
 }
 .choice {
   padding: 16px 22px;

@@ -2,7 +2,7 @@
 
 ## 1. Nhân vật
 
-- **Tên tạm**: *Bi* (đổi được). Một sinh vật chibi tròn trịa, dễ thương với cả trẻ em và người lớn.
+- **Tên tạm**: _Bi_ (đổi được). Một sinh vật chibi tròn trịa, dễ thương với cả trẻ em và người lớn.
 - **Phong cách**: pixel art, khung sheet **96×96 px** (vẽ chi tiết: đổ bóng 5 tông, viền theo màu, mặt biểu cảm, tay/chân/đuôi), mặc định hiển thị **96px** (cài đặt kích thước 1/2/3 = 48/96/144px, tính theo khung gốc 48; sheet 96 được thu lại tương ứng) trên màn hình (Phase 1 cho chỉnh ×1/×2/×3 trong cài đặt — luôn số nguyên để pixel sắc nét). Kích thước trước đây (64px ×3 = 192px) bị đánh giá là quá to.
 - **Tính cách**: tò mò, hay khen, hơi lười buổi trưa, thích ăn. Câu thoại ngắn, có cả tiếng Anh và tiếng Việt tuỳ level người dùng.
 - **Tiến hoá** (theo level thú cưng): Trứng (lv 1) → Bé (lv 2–9) → Thiếu niên (lv 10–24) → Trưởng thành (lv 25–49) → Huyền thoại (lv 50+). Mỗi giai đoạn là một bộ sprite mới.
@@ -29,20 +29,20 @@ Quy ước `sheet.json` (chuẩn hoá từ Aseprite, script `scripts/sprites/nor
   "frameSize": { "w": 48, "h": 48 },
   "anchor": { "x": 24, "y": 47 },
   "animations": {
-    "idle":    { "frames": [0, 1, 2, 3],       "fps": 6,  "loop": true },
-    "walk":    { "frames": [4, 5, 6, 7, 8, 9], "fps": 10, "loop": true },
-    "sleep":   { "frames": [10, 11],           "fps": 2,  "loop": true },
-    "drag":    { "frames": [12, 13],           "fps": 8,  "loop": true },
-    "fall":    { "frames": [14],               "fps": 1,  "loop": true },
-    "land":    { "frames": [15, 16, 17],       "fps": 12, "loop": false, "next": "idle" },
-    "happy":   { "frames": [18, 19, 20, 21],   "fps": 10, "loop": false, "next": "idle" },
-    "sad":     { "frames": [22, 23],           "fps": 4,  "loop": false, "next": "idle" },
-    "eat":     { "frames": [24, 25, 26, 27],   "fps": 8,  "loop": false, "next": "happy" },
-    "talk":    { "frames": [28, 29],           "fps": 8,  "loop": true },
-    "think":   { "frames": [30, 31, 32],       "fps": 4,  "loop": true },
-    "yawn":    { "frames": [33, 34, 35, 36],   "fps": 6,  "loop": false, "next": "idle" },
-    "wave":    { "frames": [37, 38, 39, 40],   "fps": 8,  "loop": false, "next": "idle" },
-    "hold-sign": { "frames": [41, 42],         "fps": 3,  "loop": true }
+    "idle": { "frames": [0, 1, 2, 3], "fps": 6, "loop": true },
+    "walk": { "frames": [4, 5, 6, 7, 8, 9], "fps": 10, "loop": true },
+    "sleep": { "frames": [10, 11], "fps": 2, "loop": true },
+    "drag": { "frames": [12, 13], "fps": 8, "loop": true },
+    "fall": { "frames": [14], "fps": 1, "loop": true },
+    "land": { "frames": [15, 16, 17], "fps": 12, "loop": false, "next": "idle" },
+    "happy": { "frames": [18, 19, 20, 21], "fps": 10, "loop": false, "next": "idle" },
+    "sad": { "frames": [22, 23], "fps": 4, "loop": false, "next": "idle" },
+    "eat": { "frames": [24, 25, 26, 27], "fps": 8, "loop": false, "next": "happy" },
+    "talk": { "frames": [28, 29], "fps": 8, "loop": true },
+    "think": { "frames": [30, 31, 32], "fps": 4, "loop": true },
+    "yawn": { "frames": [33, 34, 35, 36], "fps": 6, "loop": false, "next": "idle" },
+    "wave": { "frames": [37, 38, 39, 40], "fps": 8, "loop": false, "next": "idle" },
+    "hold-sign": { "frames": [41, 42], "fps": 3, "loop": true }
   }
 }
 ```
@@ -52,9 +52,11 @@ Quy ước `sheet.json` (chuẩn hoá từ Aseprite, script `scripts/sprites/nor
 - Phụ kiện/trang phục là **layer riêng** cùng kích thước frame (`accessories/<itemId>.png` + json cùng frame index), vẽ chồng lên → không cần vẽ lại cả nhân vật.
 
 ### Danh sách animation tối thiểu cho MVP
+
 `idle`, `walk`, `sleep`, `drag`, `fall`, `land`, `happy`, `talk`, `eat`. Các animation còn lại thêm dần.
 
 ### Quy trình art
+
 1. Vẽ trong **LibreSprite** (công cụ chính của dự án), mỗi animation là một **Tag** (Frame → Tags).
 2. File → Export Sprite Sheet: layout lưới (By Rows), xuất PNG + JSON. Lưu file gốc `.ase`/`.aseprite` vào `assets-src/`.
 3. Chạy `pnpm sprites:build` → chuẩn hoá JSON, kiểm tra đủ animation bắt buộc.
@@ -71,7 +73,10 @@ export class SpriteAnimator {
   private frameIdx = 0
   private acc = 0
 
-  constructor(private sheet: SpriteSheet, private ctx: CanvasRenderingContext2D) {}
+  constructor(
+    private sheet: SpriteSheet,
+    private ctx: CanvasRenderingContext2D
+  ) {}
 
   play(name: string, restart = false) {
     if (name === this.current && !restart) return
@@ -90,13 +95,18 @@ export class SpriteAnimator {
       this.frameIdx++
       if (this.frameIdx >= anim.frames.length) {
         if (anim.loop) this.frameIdx = 0
-        else { this.play(anim.next ?? 'idle'); return }
+        else {
+          this.play(anim.next ?? 'idle')
+          return
+        }
       }
     }
     this.draw(anim.frames[this.frameIdx], flip)
   }
 
-  private draw(frame: number, flip: boolean) { /* drawImage cắt ô frame từ sheet, lật nếu flip */ }
+  private draw(frame: number, flip: boolean) {
+    /* drawImage cắt ô frame từ sheet, lật nếu flip */
+  }
 }
 ```
 
@@ -134,18 +144,18 @@ stateDiagram-v2
 
 Bảng trạng thái → animation & hành động:
 
-| Trạng thái | Animation | Hành động |
-|---|---|---|
-| Idle | `idle` (đôi khi `yawn`, `wave`) | Chờ, chọn hành động tiếp theo theo trọng số (mood cao → đi dạo nhiều hơn) |
-| Walking | `walk` | Gửi `mascot:move-by` mỗi tick, tốc độ ~ 40 px/s, đổi hướng ở mép |
-| Sleeping | `sleep` | Hiện "Zzz", hồi energy nhanh hơn |
-| Talking | `talk` | Hiện bong bóng thoại |
-| Quizzing | `hold-sign` / `think` | Hiện thẻ hỏi; bật focusable nếu cần gõ |
-| Celebrating | `happy` | Hiệu ứng ngôi sao, cộng điểm |
-| Eating | `eat` | Món ăn bay vào |
-| Dragged | `drag` | Main di chuyển cửa sổ theo chuột |
-| Falling/Landing | `fall` → `land` | Main di chuyển cửa sổ xuống mép dưới với gia tốc |
-| Hidden | — | Cửa sổ `hide()`, dừng render |
+| Trạng thái      | Animation                       | Hành động                                                                 |
+| --------------- | ------------------------------- | ------------------------------------------------------------------------- |
+| Idle            | `idle` (đôi khi `yawn`, `wave`) | Chờ, chọn hành động tiếp theo theo trọng số (mood cao → đi dạo nhiều hơn) |
+| Walking         | `walk`                          | Gửi `mascot:move-by` mỗi tick, tốc độ ~ 40 px/s, đổi hướng ở mép          |
+| Sleeping        | `sleep`                         | Hiện "Zzz", hồi energy nhanh hơn                                          |
+| Talking         | `talk`                          | Hiện bong bóng thoại                                                      |
+| Quizzing        | `hold-sign` / `think`           | Hiện thẻ hỏi; bật focusable nếu cần gõ                                    |
+| Celebrating     | `happy`                         | Hiệu ứng ngôi sao, cộng điểm                                              |
+| Eating          | `eat`                           | Món ăn bay vào                                                            |
+| Dragged         | `drag`                          | Main di chuyển cửa sổ theo chuột                                          |
+| Falling/Landing | `fall` → `land`                 | Main di chuyển cửa sổ xuống mép dưới với gia tốc                          |
+| Hidden          | —                               | Cửa sổ `hide()`, dừng render                                              |
 
 Hiện thực: một class `MascotBrain` với `state`, `enter(state)`, `exit(state)`, `tick(dt)`. Không cần thư viện; nếu muốn có thể dùng XState.
 
@@ -155,13 +165,13 @@ Hiện thực: một class `MascotBrain` với `state`, `enter(state)`, `exit(st
 
 Nằm trong cùng cửa sổ mascot, phía trên đầu nhân vật. Các loại:
 
-| Loại | Nội dung | Thời gian tự đóng |
-|---|---|---|
-| `say` | Một câu ngắn ("Chào buổi sáng! ☀️") | 4–6 giây |
-| `word-card` | Từ + IPA + nghĩa + nút 🔊 💾 ✖ | 15 giây hoặc khi hover thì giữ |
-| `quiz` | Câu hỏi 2–4 lựa chọn | Không tự đóng; có nút "Để sau" |
-| `translate-hint` | "Dịch đoạn vừa copy?" | 5 giây |
-| `reward` | "+20 XP, +1 🍙" | 3 giây |
+| Loại             | Nội dung                            | Thời gian tự đóng              |
+| ---------------- | ----------------------------------- | ------------------------------ |
+| `say`            | Một câu ngắn ("Chào buổi sáng! ☀️") | 4–6 giây                       |
+| `word-card`      | Từ + IPA + nghĩa + nút 🔊 💾 ✖      | 15 giây hoặc khi hover thì giữ |
+| `quiz`           | Câu hỏi 2–4 lựa chọn                | Không tự đóng; có nút "Để sau" |
+| `translate-hint` | "Dịch đoạn vừa copy?"               | 5 giây                         |
+| `reward`         | "+20 XP, +1 🍙"                     | 3 giây                         |
 
 Quy tắc: **tối đa 1 bong bóng** tại một thời điểm, có hàng đợi ưu tiên (`quiz` < `reward` < phản hồi trực tiếp của người dùng). Không hiện bong bóng chủ động khi ở chế độ yên lặng.
 
@@ -170,11 +180,14 @@ Câu thoại lưu ở `src/renderer/mascot/dialogue/<characterId>.json`, phân t
 ```json
 {
   "greeting.morning": {
-    "kids":  ["Good morning! ☀️ Chào buổi sáng!"],
+    "kids": ["Good morning! ☀️ Chào buổi sáng!"],
     "basic": ["Good morning! Ready to learn?", "Chào buổi sáng! Học 5 phút nhé?"],
     "advanced": ["Morning! Fancy a quick review before work?"]
   },
-  "hungry": { "kids": ["Bi đói rồi... 🍙"], "basic": ["I'm hungry! Học một bài lấy cơm cho mình nhé?"] }
+  "hungry": {
+    "kids": ["Bi đói rồi... 🍙"],
+    "basic": ["I'm hungry! Học một bài lấy cơm cho mình nhé?"]
+  }
 }
 ```
 
@@ -186,14 +199,15 @@ Câu thoại nằm trong i18n: `mascot.lines.<chủ đề>` (chung) và `mascot.
 
 Lưu trong main (`pet_state` — xem [10](10-data-model.md)), main tính toán, renderer chỉ hiển thị.
 
-| Chỉ số | Khoảng | Giảm theo thời gian | Tăng khi |
-|---|---|---|---|
-| `hunger` (no) | 0–100 | −4/giờ khi app mở, −1/giờ khi app tắt | Cho ăn (đồ ăn kiếm từ học) |
-| `mood` (vui) | 0–100 | −3/giờ | Chơi, được vuốt (click), học xong bài, trả lời đúng quiz |
-| `energy` (năng lượng) | 0–100 | −2/giờ khi thức | Ngủ (+10/giờ), đồ uống |
-| `affection` (thân thiết) | 0–∞ | Không giảm | Mỗi ngày có học, cho ăn, tương tác |
+| Chỉ số                   | Khoảng | Giảm theo thời gian                   | Tăng khi                                                 |
+| ------------------------ | ------ | ------------------------------------- | -------------------------------------------------------- |
+| `hunger` (no)            | 0–100  | −4/giờ khi app mở, −1/giờ khi app tắt | Cho ăn (đồ ăn kiếm từ học)                               |
+| `mood` (vui)             | 0–100  | −3/giờ                                | Chơi, được vuốt (click), học xong bài, trả lời đúng quiz |
+| `energy` (năng lượng)    | 0–100  | −2/giờ khi thức                       | Ngủ (+10/giờ), đồ uống                                   |
+| `affection` (thân thiết) | 0–∞    | Không giảm                            | Mỗi ngày có học, cho ăn, tương tác                       |
 
 **Quy tắc mềm (không phạt):**
+
 - Chỉ số có **sàn 10** — không bao giờ về 0, thú cưng không chết, không bỏ đi.
 - Khi app tắt lâu, tính giảm tối đa **24 giờ** (tắt 1 tuần quay lại vẫn chỉ "hơi đói").
 - Chỉ số thấp chỉ ảnh hưởng **biểu cảm & câu thoại** (buồn, đói), không khoá chức năng học.
@@ -203,21 +217,22 @@ Lưu trong main (`pet_state` — xem [10](10-data-model.md)), main tính toán, 
 
 ## 7. Tương tác của người dùng
 
-| Hành động | Phản ứng |
-|---|---|
-| Click 1 lần | `wave` + câu chào/câu đùa; mood +1 (tối đa 10 lần/giờ để tránh spam) |
-| Double-click | Mở cửa sổ Học tập |
-| Chuột phải | Menu ngữ cảnh (xem [01](01-features.md) A5) |
-| Kéo thả | `drag` → thả ra `fall` → `land` |
-| Vuốt (di chuột qua lại nhanh trên đầu) | `happy`, mood +2 |
-| Thả đồ ăn từ túi đồ lên nhân vật | `eat` |
-| Hover lâu | Hiện tooltip chỉ số nhỏ |
+| Hành động                              | Phản ứng                                                             |
+| -------------------------------------- | -------------------------------------------------------------------- |
+| Click 1 lần                            | `wave` + câu chào/câu đùa; mood +1 (tối đa 10 lần/giờ để tránh spam) |
+| Double-click                           | Mở cửa sổ Học tập                                                    |
+| Chuột phải                             | Menu ngữ cảnh (xem [01](01-features.md) A5)                          |
+| Kéo thả                                | `drag` → thả ra `fall` → `land`                                      |
+| Vuốt (di chuột qua lại nhanh trên đầu) | `happy`, mood +2                                                     |
+| Thả đồ ăn từ túi đồ lên nhân vật       | `eat`                                                                |
+| Hover lâu                              | Hiện tooltip chỉ số nhỏ                                              |
 
 ## 8. Chế độ yên lặng (Quiet mode)
 
 Do `QuietModeService` trong main quyết định, mascot chỉ làm theo:
 
 > ✅ **Đã làm (Phase 0)** — `src/main/services/QuietModeService.ts` + `src/main/system/win32.ts`:
+>
 > - Mỗi 2 giây đọc cửa sổ đang active qua Win32 (koffi). Cửa sổ **phủ kín cả màn hình** (kể cả vùng taskbar) và nằm **cùng màn hình với mascot** → ẩn. Cửa sổ maximize thường (còn thấy taskbar) không tính.
 > - `SHQueryUserNotificationState` báo game DirectX độc quyền hoặc chế độ trình chiếu → ẩn ở mọi màn hình.
 > - Bỏ qua cửa sổ shell (desktop, taskbar, Alt+Tab, Start) và cửa sổ của chính app.
@@ -231,14 +246,14 @@ Do `QuietModeService` trong main quyết định, mascot chỉ làm theo:
 
 ✅ `SleepService` (main) quyết định, mascot chỉ làm theo qua sự kiện `mascot:sleep`: ngủ khi người dùng không đụng máy ≥ 10 phút (`powerMonitor.getSystemIdleTime`) hoặc năng lượng ≤ 20 (ngủ tới khi hồi ≥ 45 — có độ trễ để không chập chờn). Lúc ngủ năng lượng hồi 12/giờ, mascot nằm yên với "Zzz", không hỏi ôn, không nhắc đói; click vào chỉ nhận câu "để Bi ngủ thêm" (không tính vuốt ve). Quy tắc thuần ở `src/shared/sleep.ts`.
 
-| Điều kiện | Hành vi |
-|---|---|
-| Cửa sổ active đang fullscreen (game, video, PowerPoint trình chiếu) | Ẩn mascot hoàn toàn |
-| Cửa sổ active là app họp (Zoom, Teams, Webex, tab Meet) | Ẩn, không nhắc (✅ đã làm, bật/tắt: `quiet.meetings`) |
-| Trong khung giờ không làm phiền (`quiet.dnd.*`, vd 22:00–07:00) | Ẩn, không nhắc (✅ đã làm) |
-| Người dùng đang gõ phím liên tục (tuỳ chọn) | Không hiện bong bóng chủ động, mascot vẫn đứng |
-| Người dùng bấm "Ẩn 30 phút / 1 giờ / đến mai" | Ẩn theo thời gian |
-| Giờ "Không làm phiền" trong cài đặt (vd 22:00–7:00) | Mascot ngủ, không nhắc |
+| Điều kiện                                                           | Hành vi                                               |
+| ------------------------------------------------------------------- | ----------------------------------------------------- |
+| Cửa sổ active đang fullscreen (game, video, PowerPoint trình chiếu) | Ẩn mascot hoàn toàn                                   |
+| Cửa sổ active là app họp (Zoom, Teams, Webex, tab Meet)             | Ẩn, không nhắc (✅ đã làm, bật/tắt: `quiet.meetings`) |
+| Trong khung giờ không làm phiền (`quiet.dnd.*`, vd 22:00–07:00)     | Ẩn, không nhắc (✅ đã làm)                            |
+| Người dùng đang gõ phím liên tục (tuỳ chọn)                         | Không hiện bong bóng chủ động, mascot vẫn đứng        |
+| Người dùng bấm "Ẩn 30 phút / 1 giờ / đến mai"                       | Ẩn theo thời gian                                     |
+| Giờ "Không làm phiền" trong cài đặt (vd 22:00–7:00)                 | Mascot ngủ, không nhắc                                |
 
 Danh sách app họp/game có thể chỉnh trong Cài đặt (lưu theo tên process: `Zoom.exe`, `Teams.exe`, `ms-teams.exe`...).
 
@@ -259,13 +274,13 @@ Trước đây cả 5 nhân vật dùng chung một bộ hoạt ảnh. Nay `scri
 - **TWEAKS** — chỉnh hoạt ảnh chung theo nhân vật (đổi mắt, hiệu ứng, đuôi/cánh): vd Robo "love" mắt thành trái tim, "sad" mắt chữ X, "sleep" tắt đèn; Draco "idle" vỗ cánh nhẹ + khói mũi, "angry" có lửa; Kitsu "happy" nhảy zích-zắc kèm lửa ma xanh; Webby "happy" bắn tơ, "surprised" có vạch giác quan nhện.
 - **QUIRKS** — hoạt ảnh đặc trưng `quirk_*`, `MascotBrain` tự chọn ngẫu nhiên khi rảnh (mỗi quirk trọng số 3, xấp xỉ 1/3 số lần "tự chơi"); danh sách lấy từ `sheet.json` của nhân vật đang dùng nên đổi nhân vật là đổi bộ động tác:
 
-| Nhân vật | Hoạt ảnh đặc trưng |
-|---|---|
-| Bi (mèo con) | `quirk_groom` ngồi liếm chân rửa mặt · `quirk_pounce` rình rồi vồ · `quirk_loaf` nằm co thành ổ bánh mì, gừ gừ |
-| Webby (nhện hero) | `quirk_web` bắn tơ lên cao rồi đu · `quirk_hero` tạo dáng chống hông · `quirk_crawl` bò ngang kiểu nhện |
-| Draco (rồng) | `quirk_fire` hít vào rồi phun lửa · `quirk_roar` ngửa đầu gầm, xoè cánh · `quirk_tailswish` quật đuôi, ngoái nhìn |
-| Robo | `quirk_scan` quét bằng mắt + tia quét · `quirk_robodance` nhảy robot từng nhịp · `quirk_beep` bíp bíp, sóng âm từ ăng-ten · `quirk_reboot` tắt–chập chờn–bật lại |
-| Kitsu (cáo) | `quirk_pounce` nhảy cao chụp mồi · `quirk_tailfan` xoè đuôi như quạt · `quirk_sneeze` hắt hơi ra lửa ma · `quirk_sit` ngồi ngay ngắn vẫy đuôi |
+| Nhân vật          | Hoạt ảnh đặc trưng                                                                                                                                               |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Bi (mèo con)      | `quirk_groom` ngồi liếm chân rửa mặt · `quirk_pounce` rình rồi vồ · `quirk_loaf` nằm co thành ổ bánh mì, gừ gừ                                                   |
+| Webby (nhện hero) | `quirk_web` bắn tơ lên cao rồi đu · `quirk_hero` tạo dáng chống hông · `quirk_crawl` bò ngang kiểu nhện                                                          |
+| Draco (rồng)      | `quirk_fire` hít vào rồi phun lửa · `quirk_roar` ngửa đầu gầm, xoè cánh · `quirk_tailswish` quật đuôi, ngoái nhìn                                                |
+| Robo              | `quirk_scan` quét bằng mắt + tia quét · `quirk_robodance` nhảy robot từng nhịp · `quirk_beep` bíp bíp, sóng âm từ ăng-ten · `quirk_reboot` tắt–chập chờn–bật lại |
+| Kitsu (cáo)       | `quirk_pounce` nhảy cao chụp mồi · `quirk_tailfan` xoè đuôi như quạt · `quirk_sneeze` hắt hơi ra lửa ma · `quirk_sit` ngồi ngay ngắn vẫy đuôi                    |
 
 - Kiểu mắt mới (`creature.mjs`): `heart`, `x`, `off`, `scan`, `star` (vẽ riêng cho mắt thường, kính của Webby và visor của Robo). Hiệu ứng mới: `web`, `fire`, `sound`, `sense`, `beep`, `scan`.
 - `sheet.json` nay **riêng từng nhân vật** (số frame khác nhau; mọi giai đoạn của một nhân vật cùng bố cục). `idle` luôn là 8 frame đầu. `SpriteAnimator.setSheet(image, meta)` đổi cả metadata khi đổi nhân vật.
@@ -276,13 +291,13 @@ Trước đây cả 5 nhân vật dùng chung một bộ hoạt ảnh. Nay `scri
 
 - **Bấm vào** (`click_*`, `MascotBrain.pickClickReaction`): chọn ngẫu nhiên giữa `happy`/`love` chung (trọng số 2) và các phản ứng riêng của nhân vật (trọng số 3):
 
-| Nhân vật | Phản ứng khi bấm |
-|---|---|
-| Bi | `click_purr` gừ gừ nhắm mắt, tim nổi · `click_boop` bị chạm mũi giật mình rồi cười |
-| Webby | `click_spidey` giác quan nhện báo động rồi tạo dáng · `click_flip` lộn nhào kèm tơ |
-| Draco | `click_puff` phụt đốm lửa nhỏ · `click_flapjoy` vỗ cánh nhảy cẫng |
-| Robo | `click_beepboop` mắt trái tim, ăng-ten bíp · `click_glitch` chập mạch giật cục |
-| Kitsu | `click_foxfire` xoay vòng toả lửa ma · `click_tailwag` vẫy đuôi tít, tai dựng |
+| Nhân vật | Phản ứng khi bấm                                                                   |
+| -------- | ---------------------------------------------------------------------------------- |
+| Bi       | `click_purr` gừ gừ nhắm mắt, tim nổi · `click_boop` bị chạm mũi giật mình rồi cười |
+| Webby    | `click_spidey` giác quan nhện báo động rồi tạo dáng · `click_flip` lộn nhào kèm tơ |
+| Draco    | `click_puff` phụt đốm lửa nhỏ · `click_flapjoy` vỗ cánh nhảy cẫng                  |
+| Robo     | `click_beepboop` mắt trái tim, ăng-ten bíp · `click_glitch` chập mạch giật cục     |
+| Kitsu    | `click_foxfire` xoay vòng toả lửa ma · `click_tailwag` vẫy đuôi tít, tai dựng      |
 
 - **Kéo / rơi / chạm đất / ăn** (`INTERACTION_TWEAKS` trong `anim-chars.mjs`, chỉnh `drag`, `fall`, `land`, `eat` theo tính cách): Bi bị xách gáy mềm oặt, rơi vẫn tiếp đất bằng bốn chân; Webby bị kéo lên thì **treo lủng lẳng trên một sợi tơ** như anh hùng nhện, bắn tơ bám trần khi rơi, tiếp đất tư thế anh hùng; Draco dang cánh khi rơi, tiếp đất rung bụi, ăn xong ợ khói; Robo bị kéo thì chập chờn tia lửa, rơi báo động, chạm đất khởi động lại; Kitsu xù đuôi cụp tai khi bị nhấc, tiếp đất nhẹ nhàng.
 - Thêm phản ứng bấm mới: thêm hoạt ảnh `click_*` vào `CLICKS[nhân vật]` rồi `pnpm sprites:characters <nhân vật>`; Brain tự nhận từ `sheet.json`.
@@ -297,3 +312,5 @@ Bộ cài giữ sprite **96×96** (≈ 22 MB). Chủ dự án muốn nét hơn �
 - **Chạy trong app:** main (`SpritePackManager`/`SpritePackService`, kênh `sprites:*`) tải gói, kiểm kích thước + sha256, giải nén vào `userData/sprite-packs/`, chỉ nhận đường dẫn đúng mẫu `<nhân vật>/<giai đoạn>/(sheet|acc-*|accb-*).webp|sheet.json`. Ảnh trả cho renderer dạng data URL (CSP đã có `img-src data:`). Renderer: `shared/pet/hires.ts` theo dõi trạng thái; `PetSprite` (cửa sổ Học tập) và `mascot/App.vue` (cửa sổ mascot) dùng gói khi đã cài và rơi về sprite 96px khi chưa cài/thiếu lớp. `SpriteAnimator` vốn đã suy ra tỉ lệ từ `meta.frameSize` nên không đổi bố cục hoạt ảnh. Không trộn hai độ phân giải: thân 288px thì chỉ dùng phụ kiện 288px.
 - **Hiển thị:** mascot cỡ 1×–3× hiển thị 48–144px nên sprite 288px được thu nhỏ có làm mịn (không còn "pixel vuông"); trang Thú cưng/tiến hoá dùng `image-rendering: auto` khi có gói.
 - Dung lượng, số liệu: [17-metrics.md §4](17-metrics.md). Quyết định: [decisions #29](decisions.md).
+
+> **Hiệu năng sprite 288px (2026-10-23):** mỗi sheet trong gói 288px là 2304×8928 px (≈ 82 MB khi giải mã) vì chứa mọi hoạt ảnh. `PetSprite` (cửa sổ Học tập) chỉ cần hoạt ảnh idle nên cắt **hàng đầu** thành `ImageBitmap` (`hiresIdleBitmap`) và vẽ bằng canvas; không dùng nguyên sheet làm `background-image` (12 sprite ≈ 1 GB gây giật). Cửa sổ mascot cần mọi hoạt ảnh nên vẫn nạp cả sheet.

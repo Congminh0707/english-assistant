@@ -64,7 +64,9 @@ export class MissionService {
       const done = xpRepo.hasEvent(profileId, MISSION_REASON, `${day}:${m.id}`)
       return {
         id: m.id,
-        progress: Math.min(progress[m.id], target),
+        // Đã thưởng thì giữ đủ thanh: tiến độ tính trực tiếp từ dữ liệu nên có thể tụt lại
+        // (vd lưu từ mới → thẻ mới đến hạn → "ôn hết thẻ đến hạn" về 0)
+        progress: done ? target : Math.min(progress[m.id], target),
         target,
         done,
         xp: m.xp,

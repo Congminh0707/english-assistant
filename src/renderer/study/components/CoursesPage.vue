@@ -7,6 +7,7 @@ import { invoke } from '@renderer/shared/ipc'
 import PxBar from '@renderer/shared/components/PxBar.vue'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import LessonsPage from './LessonsPage.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Lộ trình học (Course → Unit → Lesson): chọn khoá → xem các chương và bài theo thứ tự → làm bài; xong quay về lộ trình
 // với bài kế tiếp được đánh dấu.
@@ -62,7 +63,7 @@ onMounted(loadList)
     />
 
     <template v-else-if="detail">
-      <button type="button" class="link" @click="backToCourses">
+      <button type="button" class="btn btn--ghost btn--sm" @click="backToCourses">
         ← {{ t('study.courses.back') }}
       </button>
       <header class="head">
@@ -85,8 +86,13 @@ onMounted(loadList)
           {{ t('study.courses.progress', { done: detail.stepsDone, total: detail.stepsTotal }) }}
         </div>
         <PxBar :value="detail.stepsDone" :max="Math.max(1, detail.stepsTotal)" label="course" />
-        <button v-if="detail.next" type="button" class="primary" @click="start(detail.next)">
-          ▶ {{ t('study.courses.continue') }}: {{ detail.next.title }}
+        <button
+          v-if="detail.next"
+          type="button"
+          class="btn btn--primary"
+          @click="start(detail.next)"
+        >
+          <UiIcon name="play" /> {{ t('study.courses.continue') }}: {{ detail.next.title }}
         </button>
         <p v-else class="done">{{ t('study.courses.done') }}</p>
       </PxPanel>
@@ -102,7 +108,9 @@ onMounted(loadList)
               :class="{ done: s.done, next: s.id === nextId }"
               @click="start(s)"
             >
-              <span class="state">{{ s.done ? '✅' : s.id === nextId ? '▶️' : '▫️' }}</span>
+              <span class="state"
+                ><UiIcon :name="s.done ? 'done' : s.id === nextId ? 'play' : 'dot'"
+              /></span>
               <span class="kind" :title="t(`study.courses.kind.${s.kind}`)">{{
                 KIND_ICON[s.kind]
               }}</span>
@@ -137,7 +145,7 @@ onMounted(loadList)
             </p>
             <PxBar :value="c.stepsDone" :max="Math.max(1, c.stepsTotal)" label="course" />
           </div>
-          <button type="button" class="primary" @click="openCourse(c.id)">
+          <button type="button" class="btn btn--primary" @click="openCourse(c.id)">
             {{ c.stepsDone ? t('study.courses.continue') : t('study.courses.start') }}
           </button>
         </div>
@@ -168,14 +176,6 @@ h2 {
 .small {
   font-size: 12px;
 }
-.link {
-  justify-self: start;
-  border: none;
-  background: transparent;
-  color: var(--c-ink-soft);
-  font: inherit;
-  cursor: pointer;
-}
 .head,
 .row {
   display: flex;
@@ -198,16 +198,6 @@ h2 {
 .progress {
   display: grid;
   gap: 8px;
-}
-.primary {
-  padding: 8px 16px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-primary);
-  color: #fff;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
 }
 .done {
   margin: 0;
@@ -232,13 +222,14 @@ h2 {
   font: inherit;
   text-align: left;
   cursor: pointer;
+  border-radius: var(--r-sm);
 }
 .step:hover {
-  background: #eef3ff;
+  background: var(--c-primary-soft);
 }
 .step.next {
   border-color: var(--c-primary);
-  background: #fff3a0;
+  background: var(--c-warning-soft);
   font-weight: 700;
 }
 .step .title {

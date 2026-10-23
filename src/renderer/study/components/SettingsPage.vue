@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { LEVEL_CODES, TRACKS, type Track } from '@shared/schemas/content/level'
 import { cefrLabel } from '@shared/placement'
-import type { ProfileInfo } from '@shared/schemas/profile'
+import { isChildTrack, type ProfileInfo } from '@shared/schemas/profile'
 import type { Settings } from '@shared/schemas/settings'
 import { UK_VOICES, US_VOICES } from '@shared/tts'
 import { invoke } from '@renderer/shared/ipc'
@@ -15,6 +15,7 @@ import { useUpdateStatus } from '@renderer/shared/composables/useUpdateStatus'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import AudioPackPanel from '@renderer/shared/components/AudioPackPanel.vue'
 import SpritePackPanel from '@renderer/shared/components/SpritePackPanel.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Cài đặt: hồ sơ, học tập, chế độ yên lặng, giao diện. Đổi là lưu ngay (main đẩy lại cho mọi cửa sổ).
 const emit = defineEmits<{ retest: []; changed: [] }>()
@@ -60,6 +61,42 @@ const newTrack = ref<Track>('general')
 
 async function loadProfiles(): Promise<void> {
   profiles.value = await invoke('profile:list')
+}
+
+/** Hồ sơ đang sửa (null = không sửa) và bản nháp các trường */
+const editing = ref<string | null>(null)
+const draft = reactive<{ name: string; petName: string; track: Track }>({
+  name: '',
+  petName: '',
+  track: 'general'
+})
+const saveNote = ref('')
+
+function startEdit(p: ProfileInfo): void {
+  editing.value = p.id
+  draft.name = p.name
+  draft.petName = p.petName
+  draft.track = p.track
+  saveNote.value = ''
+}
+
+/** Đổi sang mục tiêu của trẻ em (hoặc ngược lại) → giao diện của hồ sơ đó đổi */
+const draftChildChange = (p: ProfileInfo): boolean => isChildTrack(draft.track) !== p.isChild
+
+async function saveEdit(p: ProfileInfo): Promise<void> {
+  const name = draft.name.trim()
+  const petName = draft.petName.trim()
+  if (!name || !petName) return
+  await invoke('profile:update', {
+    id: p.id,
+    name,
+    petName,
+    ...(draft.track !== p.track ? { track: draft.track } : {})
+  })
+  editing.value = null
+  saveNote.value = t('study.settings.edited')
+  await Promise.all([settingsStore.load(), loadProfiles()])
+  emit('changed')
 }
 
 async function setSetting<K extends keyof Settings>(key: K, value: Settings[K]): Promise<void> {
@@ -123,17 +160,64 @@ onMounted(loadProfiles)
       <h2>{{ t('study.settings.profiles') }}</h2>
       <ul class="profiles">
         <li v-for="p in profiles" :key="p.id" class="profile" :class="{ active: p.active }">
-          <div>
-            <strong>{{ p.name }}</strong>
-            <span class="muted"> · {{ t(`study.tracks.${p.track}`) }} · 🐾 {{ p.petName }}</span>
-            <span v-if="p.isChild" class="tag">{{ t('study.settings.child') }}</span>
-          </div>
-          <span v-if="p.active" class="muted">✓ {{ t('study.settings.active') }}</span>
-          <button v-else type="button" class="small" @click="switchTo(p.id)">
-            {{ t('study.settings.switch') }}
-          </button>
+          <form v-if="editing === p.id" class="edit" @submit.prevent="saveEdit(p)">
+            <label>
+              {{ t('study.settings.editName') }}
+              <input v-model="draft.name" type="text" maxlength="40" required />
+            </label>
+            <label>
+              {{ t('study.settings.editPet') }}
+              <input v-model="draft.petName" type="text" maxlength="20" required />
+            </label>
+            <label>
+              {{ t('study.settings.editTrack') }}
+              <select v-model="draft.track">
+                <option v-for="tr in TRACKS" :key="tr" :value="tr">
+                  {{ t(`study.tracks.${tr}`) }}
+                </option>
+              </select>
+            </label>
+            <p v-if="draftChildChange(p)" class="warn">{{ t('study.settings.childWarn') }}</p>
+            <div class="edit-actions">
+              <button
+                type="submit"
+                class="btn btn--sm btn--primary"
+                :disabled="!draft.name.trim() || !draft.petName.trim()"
+              >
+                {{ t('study.settings.editSave') }}
+              </button>
+              <button type="button" class="btn btn--sm btn--ghost" @click="editing = null">
+                {{ t('study.settings.editCancel') }}
+              </button>
+            </div>
+          </form>
+          <template v-else>
+            <div>
+              <strong>{{ p.name }}</strong>
+              <span class="muted">
+                · {{ t(`study.tracks.${p.track}`) }} · <UiIcon name="pet" /> {{ p.petName }}</span
+              >
+              <span v-if="p.isChild" class="tag">{{ t('study.settings.child') }}</span>
+            </div>
+            <span v-if="p.active" class="muted"
+              ><UiIcon name="check" /> {{ t('study.settings.active') }}</span
+            >
+            <button v-else type="button" class="btn btn--sm" @click="switchTo(p.id)">
+              {{ t('study.settings.switch') }}
+            </button>
+            <button
+              type="button"
+              class="btn btn--sm btn--icon btn--ghost"
+              :title="t('study.settings.edit')"
+              :aria-label="t('study.settings.edit')"
+              @click="startEdit(p)"
+            >
+              <UiIcon name="pencil" />
+            </button>
+          </template>
         </li>
       </ul>
+      <p v-if="saveNote" class="saved-note">{{ saveNote }}</p>
       <form class="add" @submit.prevent="createProfile">
         <input
           v-model="newName"
@@ -218,7 +302,10 @@ onMounted(loadProfiles)
         <strong>{{ t(`translate.dir.${dir}`) }}</strong>
         <template v-if="trModels.statuses[dir].value">
           <span v-if="trModels.statuses[dir].value?.state === 'ready'" class="muted"
-            >✓ {{ t('tts.ready') }} ({{ toMb(trModels.statuses[dir].value?.sizeBytes) }} MB)</span
+            ><UiIcon name="check" /> {{ t('tts.ready') }} ({{
+              toMb(trModels.statuses[dir].value?.sizeBytes)
+            }}
+            MB)</span
           >
           <span v-else-if="trModels.statuses[dir].value?.state === 'downloading'" class="muted">{{
             t('translate.downloading', {
@@ -380,7 +467,7 @@ onMounted(loadProfiles)
           {{ t('tts.kokoro') }}
         </span>
         <span v-if="ttsModel.status.value?.state === 'ready'" class="muted"
-          >✓ {{ t('tts.ready') }}</span
+          ><UiIcon name="check" /> {{ t('tts.ready') }}</span
         >
       </label>
 
@@ -423,7 +510,7 @@ onMounted(loadProfiles)
                 <option v-for="v in US_VOICES" :key="v.id" :value="v.id">{{ v.label }}</option>
               </select>
               <button type="button" class="small" @click="speak(t('tts.testText'), 'us')">
-                🔊 {{ t('tts.test') }}
+                <UiIcon name="volume" /> {{ t('tts.test') }}
               </button>
             </span>
           </label>
@@ -439,7 +526,7 @@ onMounted(loadProfiles)
                 <option v-for="v in UK_VOICES" :key="v.id" :value="v.id">{{ v.label }}</option>
               </select>
               <button type="button" class="small" @click="speak(t('tts.testText'), 'uk')">
-                🔊 {{ t('tts.test') }}
+                <UiIcon name="volume" /> {{ t('tts.test') }}
               </button>
             </span>
           </label>
@@ -465,7 +552,9 @@ onMounted(loadProfiles)
         <button type="button" class="small" @click="stt.cancel()">{{ t('tts.cancel') }}</button>
       </div>
       <div v-else-if="stt.status.value?.state === 'ready'" class="download">
-        <span class="muted">✓ {{ t('speech.whisperReady', { size: sttSizeMb }) }}</span>
+        <span class="muted"
+          ><UiIcon name="check" /> {{ t('speech.whisperReady', { size: sttSizeMb }) }}</span
+        >
       </div>
       <div v-else-if="stt.status.value" class="download">
         <span class="muted">{{ t('speech.whisperNeed', { size: sttSizeMb }) }}</span>
@@ -486,7 +575,7 @@ onMounted(loadProfiles)
             :max="stt.pronunciation.value.sizeBytes"
           />
           <span v-else-if="stt.pronunciation.value.state === 'ready'" class="muted"
-            >✓ {{ t('speech.pronReady') }}</span
+            ><UiIcon name="check" /> {{ t('speech.pronReady') }}</span
           >
           <button v-else type="button" class="small" @click="stt.installPronunciation()">
             {{ t('speech.pronDownload', { size: pronSizeMb }) }}
@@ -680,9 +769,10 @@ select,
 input[type='text'],
 input[type='time'] {
   padding: 4px 6px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
+  border-radius: var(--r-md);
 }
 .profiles {
   display: grid;
@@ -697,12 +787,42 @@ input[type='time'] {
   justify-content: space-between;
   gap: 8px;
   padding: 6px 8px;
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-bg);
+  border-radius: var(--r-md);
 }
 .profile.active {
   border-width: var(--px);
-  background: #eef3ff;
+  background: var(--c-primary-soft);
+}
+.edit {
+  display: grid;
+  flex: 1;
+  gap: var(--sp-2);
+}
+.edit label {
+  display: grid;
+  gap: 4px;
+  font-size: var(--fs-xs);
+  color: var(--c-ink-soft);
+}
+.edit .warn {
+  margin: 0;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-warning-soft);
+  color: #7a5200;
+  font-size: var(--fs-xs);
+}
+.edit-actions {
+  display: flex;
+  gap: var(--sp-2);
+}
+.saved-note {
+  margin: var(--sp-2) 0 0;
+  color: var(--c-success);
+  font-size: var(--fs-sm);
+  font-weight: 600;
 }
 .tag {
   margin-left: 6px;
@@ -710,7 +830,8 @@ input[type='time'] {
   font-size: 11px;
   color: #fff;
   background: var(--c-xp);
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
 }
 .model {
   display: grid;
@@ -752,10 +873,11 @@ input[type='time'] {
 }
 .small {
   padding: 4px 10px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 .small:disabled {
   opacity: 0.5;

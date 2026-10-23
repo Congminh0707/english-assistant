@@ -58,7 +58,13 @@ onMounted(() => {
           animate
         />
       </div>
-      <button v-if="phase === 2" type="button" class="btn" autofocus @click="emit('close')">
+      <button
+        v-if="phase === 2"
+        type="button"
+        class="btn btn--success btn--lg"
+        autofocus
+        @click="emit('close')"
+      >
         {{ t('study.pet.great') }}
       </button>
     </div>
@@ -81,8 +87,9 @@ onMounted(() => {
   padding: 28px 40px;
   text-align: center;
   background: var(--c-surface);
-  border: var(--px) solid var(--c-border);
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
+  border: 1px solid var(--c-line);
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--r-md);
 }
 .card.flash {
   animation: flash 0.35s steps(2) infinite;
@@ -93,16 +100,6 @@ h2 {
 }
 .stage {
   padding: 8px;
-}
-.btn {
-  min-width: 120px;
-  padding: 8px 18px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-success);
-  color: #fff;
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
 }
 @keyframes flash {
   50% {

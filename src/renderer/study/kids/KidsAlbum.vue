@@ -5,6 +5,7 @@ import type { KidsStickers } from '@shared/schemas/kids'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Album sticker: mỗi hình bé đã trả lời đúng trong thẻ "nghe → chạm hình" thì được dán (hình còn lại là bóng mờ).
 const { t } = useI18n()
@@ -21,7 +22,7 @@ onMounted(async () => {
 
 <template>
   <section class="k-screen">
-    <h1 class="k-title">⭐ {{ progress }}</h1>
+    <h1 class="k-title"><UiIcon name="star" /> {{ progress }}</h1>
     <p class="k-sub">{{ t('kids.album.hint') }}</p>
     <div class="grid">
       <button
@@ -61,10 +62,10 @@ onMounted(async () => {
   cursor: default;
 }
 .slot.earned {
-  border: 3px solid var(--c-border);
+  border: 2px solid var(--c-line);
   background: var(--c-surface);
   cursor: pointer;
-  box-shadow: 0 4px 0 0 var(--c-border);
+  box-shadow: 0 4px 0 0 #d3d9e8;
 }
 .pic {
   filter: brightness(0) opacity(0.18);

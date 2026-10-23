@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { DICTATION_PASS, dictationAccuracy } from '@shared/practice'
 import { useTts, type Accent } from '@renderer/shared/composables/useTts'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Trình nghe (docs/07-learning-modules.md#6): phát lần lượt từng câu bằng TTS (người nói A/B dùng hai giọng Mỹ/Anh khác
 // nhau), chỉnh tốc độ, nghe lại một câu, lặp đoạn A–B, ẩn/hiện lời thoại và bản dịch, tự chép lại câu đang nghe.
@@ -137,7 +138,7 @@ onUnmounted(pause)
 <template>
   <PxPanel class="player">
     <header class="head">
-      <h2 v-if="title">🎧 {{ title }}</h2>
+      <h2 v-if="title"><UiIcon name="headphones" /> {{ title }}</h2>
       <span class="muted">{{ t('player.line', { n: index + 1, total }) }}</span>
     </header>
 
@@ -151,19 +152,21 @@ onUnmounted(pause)
         :title="playing ? t('player.pause') : t('player.play')"
         @click="toggle"
       >
-        {{ playing ? '⏸' : '▶' }}
+        <UiIcon :name="playing ? 'pause' : 'play'" :size="20" />
       </button>
       <button type="button" class="ctl" :title="t('player.next')" @click="goto(index + 1, playing)">
         ⏭
       </button>
-      <button type="button" class="ctl" :title="t('player.again')" @click="again">🔁</button>
+      <button type="button" class="ctl" :title="t('player.again')" @click="again">
+        <UiIcon name="repeat" />
+      </button>
       <span class="speed" :aria-label="t('player.speed')">
         <button
           v-for="s in SPEEDS"
           :key="s"
           type="button"
-          class="chip"
-          :class="{ on: speed === s }"
+          class="btn btn--sm btn--pill"
+          :class="{ 'btn--primary': speed === s }"
           @click="setSpeed(s)"
         >
           {{ s }}×
@@ -172,14 +175,24 @@ onUnmounted(pause)
     </div>
 
     <div class="loop">
-      <button type="button" class="chip" :class="{ on: loopA === index }" @click="setLoopA">
+      <button
+        type="button"
+        class="btn btn--sm btn--pill"
+        :class="{ 'btn--primary': loopA === index }"
+        @click="setLoopA"
+      >
         {{ t('player.loopA') }}
       </button>
-      <button type="button" class="chip" :class="{ on: loopB === index }" @click="setLoopB">
+      <button
+        type="button"
+        class="btn btn--sm btn--pill"
+        :class="{ 'btn--primary': loopB === index }"
+        @click="setLoopB"
+      >
         {{ t('player.loopB') }}
       </button>
-      <button v-if="loopA !== null" type="button" class="chip" @click="clearLoop">
-        ✕ {{ t('player.loopClear') }}
+      <button v-if="loopA !== null" type="button" class="btn btn--sm btn--pill" @click="clearLoop">
+        <UiIcon name="close" /> {{ t('player.loopClear') }}
       </button>
       <span class="muted small">
         {{
@@ -191,10 +204,10 @@ onUnmounted(pause)
     </div>
 
     <div class="toggles">
-      <button type="button" class="chip" @click="showText = !showText">
+      <button type="button" class="btn btn--sm btn--pill" @click="showText = !showText">
         {{ showText ? t('player.hideText') : t('player.showText') }}
       </button>
-      <button v-if="hasVi" type="button" class="chip" @click="showVi = !showVi">
+      <button v-if="hasVi" type="button" class="btn btn--sm btn--pill" @click="showVi = !showVi">
         {{ showVi ? t('player.hideVi') : t('player.showVi') }}
       </button>
     </div>
@@ -226,7 +239,7 @@ onUnmounted(pause)
     </ol>
 
     <div class="dictation">
-      <h3>✍️ {{ t('player.dictation') }}</h3>
+      <h3><UiIcon name="write" /> {{ t('player.dictation') }}</h3>
       <form @submit.prevent="check">
         <input
           v-model="typed"
@@ -235,7 +248,7 @@ onUnmounted(pause)
           autocomplete="off"
           :placeholder="t('player.dictationHint')"
         />
-        <button type="submit" class="chip" :disabled="!typed.trim()">
+        <button type="submit" class="btn btn--sm btn--pill" :disabled="!typed.trim()">
           {{ t('player.check') }}
         </button>
       </form>
@@ -286,10 +299,11 @@ h3 {
 .ctl {
   width: 38px;
   height: 38px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font-size: 16px;
   cursor: pointer;
+  border-radius: var(--r-md);
 }
 .ctl.main {
   width: 54px;
@@ -303,28 +317,13 @@ h3 {
   gap: 4px;
   margin-left: auto;
 }
-.chip {
-  padding: 2px 10px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  font-size: 12px;
-  cursor: pointer;
-}
-.chip.on {
-  background: var(--c-primary);
-  color: #fff;
-}
-.chip:disabled {
-  opacity: 0.5;
-  cursor: default;
-}
 .hidden-note {
   margin: 0;
   padding: 6px 10px;
   font-size: 13px;
-  background: #fff8dc;
+  background: var(--c-warning-soft);
   border-left: 3px solid var(--c-warning);
+  border-radius: var(--r-md);
 }
 .lines {
   display: grid;
@@ -344,24 +343,26 @@ h3 {
   background: #eef6ff;
 }
 .line.current {
-  background: #fff3a0;
+  background: var(--c-warning-soft);
   border-left-color: var(--c-primary);
   font-weight: 600;
 }
 .num {
   min-width: 24px;
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   font-size: 11px;
   cursor: pointer;
+  border-radius: var(--r-pill);
 }
 .speaker {
   padding: 0 6px;
   font-size: 11px;
   font-weight: 700;
   color: #fff;
-  border: 1px solid var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
 }
 .speaker.A {
   background: var(--c-xp);
@@ -391,10 +392,11 @@ h3 {
   box-sizing: border-box;
   flex: 1;
   padding: 6px 10px;
-  border: var(--px) solid var(--c-border);
+  border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
   outline: none;
+  border-radius: var(--r-md);
 }
 .result {
   margin: 6px 0 0;

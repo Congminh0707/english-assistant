@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
+import { Circle, CircleCheck, Gift } from 'lucide-vue-next'
 import type { MissionsState } from '@shared/schemas/study'
 import PxBar from '@renderer/shared/components/PxBar.vue'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
 
 // Nhiệm vụ ngày: tiến độ + phần thưởng; chọn mục tiêu ôn mỗi ngày.
 defineProps<{ state: MissionsState }>()
@@ -13,7 +13,7 @@ const GOALS = [5, 10, 20, 30]
 </script>
 
 <template>
-  <PxPanel class="missions">
+  <section class="card missions">
     <header class="head">
       <h2>{{ t('study.missions.title') }}</h2>
       <label class="goal">
@@ -31,7 +31,8 @@ const GOALS = [5, 10, 20, 30]
 
     <ul class="list">
       <li v-for="m in state.missions" :key="m.id" class="row" :class="{ done: m.done }">
-        <span class="check" aria-hidden="true">{{ m.done ? '✅' : '⬜' }}</span>
+        <CircleCheck v-if="m.done" class="check ok" :size="22" :stroke-width="2.2" />
+        <Circle v-else class="check" :size="22" :stroke-width="2" />
         <div class="main">
           <div class="name">{{ t(`study.missions.${m.id}`, { n: m.target }) }}</div>
           <PxBar
@@ -43,7 +44,7 @@ const GOALS = [5, 10, 20, 30]
         </div>
         <div class="side">
           <span class="count">{{ m.progress }}/{{ m.target }}</span>
-          <span class="reward">
+          <span class="chip" :class="m.done ? 'chip--success' : 'chip--warning'">
             {{
               m.done
                 ? t('study.missions.done')
@@ -55,89 +56,100 @@ const GOALS = [5, 10, 20, 30]
     </ul>
 
     <footer class="bonus" :class="{ done: state.bonus.done }">
-      🎁 {{ t('study.missions.bonus') }}:
-      {{
-        state.bonus.done
-          ? t('study.missions.done')
-          : t('study.missions.reward', { xp: state.bonus.xp, coins: state.bonus.coins })
-      }}
+      <Gift :size="16" :stroke-width="2.2" />
+      <span>
+        {{ t('study.missions.bonus') }}:
+        {{
+          state.bonus.done
+            ? t('study.missions.done')
+            : t('study.missions.reward', { xp: state.bonus.xp, coins: state.bonus.coins })
+        }}
+      </span>
     </footer>
-  </PxPanel>
+  </section>
 </template>
 
 <style scoped>
 .missions {
-  margin-top: 20px;
-  padding: 14px 16px;
+  margin-top: var(--sp-4);
+  padding: var(--sp-4) var(--sp-5);
 }
 .head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 10px;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-3);
 }
 h2 {
   margin: 0;
-  font-size: 16px;
+  font-size: var(--fs-lg);
 }
 .goal {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: var(--c-ink-soft);
-}
-select {
-  padding: 2px 4px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
 }
 .list {
   display: grid;
-  gap: 10px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .row {
-  display: flex;
+  display: grid;
+  grid-template-columns: 22px 1fr 150px;
   align-items: center;
-  gap: 10px;
+  gap: var(--sp-3);
+  padding: var(--sp-3) 0;
+  border-top: 1px solid var(--c-line);
 }
-.row.done .name {
-  color: var(--c-ink-soft);
-  text-decoration: line-through;
+.row:first-child {
+  border-top: 0;
+}
+.check {
+  color: var(--c-line);
+}
+.check.ok {
+  color: var(--c-success);
 }
 .main {
-  flex: 1;
   display: grid;
-  gap: 4px;
+  gap: 6px;
+  min-width: 0;
 }
 .name {
   font-weight: 600;
 }
 .side {
   display: grid;
-  min-width: 96px;
   justify-items: end;
-  font-size: 12px;
+  gap: 4px;
 }
 .count {
+  font-size: var(--fs-sm);
   font-weight: 700;
+  font-variant-numeric: tabular-nums;
 }
-.reward {
+.row.done .name {
   color: var(--c-ink-soft);
 }
 .bonus {
-  margin-top: 12px;
-  padding-top: 8px;
-  font-size: 13px;
-  border-top: 1px dashed var(--c-ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-xp-soft);
+  color: #5b36b8;
+  font-size: var(--fs-sm);
+  font-weight: 600;
 }
 .bonus.done {
-  color: var(--c-success);
-  font-weight: 600;
+  background: var(--c-success-soft);
+  color: #25693a;
 }
 </style>

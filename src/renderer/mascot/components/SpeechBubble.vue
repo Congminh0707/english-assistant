@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n'
 import type { PetState } from '@shared/schemas/pet'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import PxBar from '@renderer/shared/components/PxBar.vue'
+import { Coins } from 'lucide-vue-next'
 import type { Bubble } from '../composables/useBubble'
 import QuizCard from './QuizCard.vue'
 
@@ -42,7 +43,7 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
 <template>
   <div
     ref="root"
-    class="bubble"
+    class="bubble modern"
     :style="{ transform: `translateX(${shift}px)` }"
     :class="{ interactive: bubble.kind === 'quiz' }"
     @click="onClick"
@@ -59,7 +60,7 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
       <div v-else-if="pet" class="stats">
         <div class="head">
           <strong>{{ pet.name }}</strong>
-          <span class="level">{{ t('stats.level', { level: pet.level }) }}</span>
+          <span class="chip chip--primary">{{ t('stats.level', { level: pet.level }) }}</span>
         </div>
         <PxBar :value="pet.xpInLevel" :max="pet.xpForNext" color="var(--c-xp)" label="XP" />
         <div v-for="stat in ['hunger', 'mood', 'energy'] as const" :key="stat" class="row">
@@ -70,7 +71,10 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
             :label="t(`stats.${stat}`)"
           />
         </div>
-        <div class="coins">🪙 {{ t('stats.coins', { coins: pet.coins }) }}</div>
+        <div class="coins">
+          <Coins :size="14" :stroke-width="2.2" />
+          {{ t('stats.coins', { coins: pet.coins }) }}
+        </div>
       </div>
     </PxPanel>
     <div class="tail" :style="{ transform: `translateX(${-shift}px)` }" />
@@ -81,29 +85,34 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
 .bubble {
   position: relative;
   max-width: 240px;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   cursor: pointer;
+  filter: drop-shadow(0 6px 12px rgb(0 0 0 / 28%));
 }
 .bubble.interactive {
   cursor: default;
 }
+/* Khung nổi bật trên mọi nền: bóng đổ do filter, bỏ bóng của PxPanel để khỏi bị cắt ở mép cửa sổ */
+.bubble :deep(.px-panel) {
+  padding: var(--sp-3) var(--sp-4);
+  box-shadow: none;
+}
 .text {
   margin: 0;
+  font-size: var(--fs-md);
+  line-height: 1.4;
   white-space: pre-line;
 }
 .stats {
   display: grid;
-  gap: 4px;
-  min-width: 170px;
+  gap: 6px;
+  min-width: 180px;
 }
 .head {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-}
-.level {
-  color: var(--c-xp);
-  font-weight: 700;
+  align-items: center;
+  gap: var(--sp-2);
 }
 .row {
   display: grid;
@@ -112,11 +121,19 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
   gap: 6px;
 }
 .label {
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: var(--c-ink-soft);
 }
 .coins {
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: #8a5a00;
+}
+.coins :deep(svg) {
+  color: var(--c-coin);
 }
 /* Đuôi bong bóng chỉ xuống nhân vật */
 .tail {
@@ -125,9 +142,9 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
   bottom: -8px;
   width: 0;
   height: 0;
-  margin-left: -6px;
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-  border-top: 8px solid var(--c-border);
+  margin-left: -7px;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 9px solid var(--c-surface);
 }
 </style>

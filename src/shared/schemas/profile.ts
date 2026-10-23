@@ -22,6 +22,19 @@ export const ProfileSetupInputSchema = z.object({
 })
 export type ProfileSetupInput = z.infer<typeof ProfileSetupInputSchema>
 
+/** Sửa thông tin một hồ sơ (tên, mục tiêu học/track, tên thú cưng) — chỉ gửi trường muốn đổi */
+export const ProfileUpdateInputSchema = z
+  .object({
+    id: z.string().min(1),
+    name: z.string().trim().min(1).max(40).optional(),
+    track: Track.optional(),
+    petName: z.string().trim().min(1).max(20).optional()
+  })
+  .refine((v) => v.name !== undefined || v.track !== undefined || v.petName !== undefined, {
+    message: 'nothing to update'
+  })
+export type ProfileUpdateInput = z.infer<typeof ProfileUpdateInputSchema>
+
 /** Track dành cho trẻ nhỏ → hồ sơ trẻ em */
 export const CHILD_TRACKS: readonly Track[] = ['preschool', 'primary']
 export const isChildTrack = (track: Track): boolean => CHILD_TRACKS.includes(track)

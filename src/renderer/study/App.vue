@@ -6,6 +6,26 @@ import type { MissionsState, StudyOverview } from '@shared/schemas/study'
 import { invoke } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
+import {
+  BarChart3,
+  BookMarked,
+  BookOpen,
+  Brain,
+  ClipboardCheck,
+  Coins,
+  Compass,
+  Headphones,
+  House,
+  Library,
+  MessageCircle,
+  PawPrint,
+  PenLine,
+  Settings,
+  ShoppingBag,
+  Target,
+  Users
+} from 'lucide-vue-next'
+import type { Component } from 'vue'
 import PxBar from '@renderer/shared/components/PxBar.vue'
 import StudyHome from './components/StudyHome.vue'
 import ReviewSession from './components/ReviewSession.vue'
@@ -65,26 +85,51 @@ const checkpointMode = ref(false)
 const loaded = ref(false)
 const cleanups: Array<() => void> = []
 
-const pages = computed<Array<{ id: Page; icon: string; label: string }>>(() => [
-  { id: 'home', icon: '🏠', label: t('study.nav.home') },
-  ...(activeProfile.value?.isChild
-    ? [{ id: 'parent' as Page, icon: '👨‍👩‍👧', label: t('study.nav.parent') }]
-    : []),
-  { id: 'courses', icon: '🧭', label: t('study.nav.courses') },
-  { id: 'lessons', icon: '📚', label: t('study.nav.lessons') },
-  { id: 'reading', icon: '📖', label: t('study.nav.reading') },
-  { id: 'listening', icon: '🎧', label: t('study.nav.listening') },
-  { id: 'grammar', icon: '✍️', label: t('study.nav.grammar') },
-  { id: 'phrasebook', icon: '💬', label: t('study.nav.phrasebook') },
-  { id: 'review', icon: '🧠', label: t('study.nav.review') },
-  { id: 'practice', icon: '🎯', label: t('study.nav.practice') },
-  { id: 'words', icon: '🗂', label: t('study.nav.words') },
-  { id: 'pet', icon: '🐾', label: t('study.nav.pet') },
-  { id: 'shop', icon: '🛍', label: t('study.nav.shop') },
-  { id: 'stats', icon: '📊', label: t('study.nav.stats') },
-  { id: 'placement', icon: '🧪', label: t('study.nav.placement') },
-  { id: 'settings', icon: '⚙', label: t('study.nav.settings') }
-])
+const ICONS: Record<Page, Component> = {
+  home: House,
+  parent: Users,
+  courses: Compass,
+  lessons: Library,
+  reading: BookOpen,
+  listening: Headphones,
+  grammar: PenLine,
+  phrasebook: MessageCircle,
+  review: Brain,
+  practice: Target,
+  words: BookMarked,
+  pet: PawPrint,
+  shop: ShoppingBag,
+  stats: BarChart3,
+  placement: ClipboardCheck,
+  settings: Settings
+}
+
+const PAGE_ORDER: Page[] = [
+  'home',
+  'parent',
+  'courses',
+  'lessons',
+  'reading',
+  'listening',
+  'grammar',
+  'phrasebook',
+  'review',
+  'practice',
+  'words',
+  'pet',
+  'shop',
+  'stats',
+  'placement',
+  'settings'
+]
+
+const pages = computed<Array<{ id: Page; icon: Component; label: string }>>(() =>
+  PAGE_ORDER.filter((id) => id !== 'parent' || activeProfile.value?.isChild).map((id) => ({
+    id,
+    icon: ICONS[id],
+    label: t(`study.nav.${id}`)
+  }))
+)
 
 async function refresh(): Promise<void> {
   try {
@@ -164,7 +209,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="study">
+  <div class="study modern">
     <KidsApp v-if="kidsMode" class="kids-fill" @parent="parentMode = true" @changed="refresh" />
 
     <aside v-if="loaded && !kidsMode" class="side">
@@ -182,7 +227,10 @@ onUnmounted(() => {
             label="XP"
           />
           <div class="muted xp">{{ petStore.pet.xpInLevel }} / {{ petStore.pet.xpForNext }} XP</div>
-          <div class="coins">🪙 {{ t('shop.coins', { coins: petStore.pet.coins }) }}</div>
+          <div class="coins">
+            <Coins :size="15" :stroke-width="2.2" />
+            {{ t('shop.coins', { coins: petStore.pet.coins }) }}
+          </div>
         </template>
       </div>
 
@@ -195,7 +243,7 @@ onUnmounted(() => {
           :class="{ active: page === p.id }"
           @click="go(p.id)"
         >
-          <span class="icon">{{ p.icon }}</span>
+          <component :is="p.icon" class="icon" :size="18" :stroke-width="2" />
           {{ p.label }}
           <span v-if="p.id === 'review' && overview?.dueCount" class="badge">
             {{ overview.dueCount }}
@@ -207,7 +255,9 @@ onUnmounted(() => {
     <main v-if="loaded && !kidsMode" class="content">
       <p v-if="parentMode" class="parent-banner">
         {{ t('study.parent.banner') }}
-        <button type="button" @click="parentMode = false">{{ t('study.parent.backToKid') }}</button>
+        <button type="button" class="btn btn--sm" @click="parentMode = false">
+          {{ t('study.parent.backToKid') }}
+        </button>
       </p>
       <ParentReport v-if="page === 'parent'" />
       <StudyHome
@@ -264,59 +314,63 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin: 0 0 12px;
-  padding: 6px 12px;
-  background: #fff3a0;
-  border: var(--px) solid var(--c-border);
-}
-.parent-banner button {
-  padding: 3px 10px;
-  border: var(--px) solid var(--c-border);
-  background: var(--c-surface);
-  font: inherit;
-  cursor: pointer;
+  margin: 0 0 var(--sp-4);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-warning-soft);
+  color: #7a5200;
+  font-weight: 600;
 }
 .study {
   display: flex;
   height: 100vh;
   background: var(--c-bg);
   color: var(--c-ink);
-  font-family: var(--font-ui);
-  font-size: 14px;
 }
 .side {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--sp-4);
   flex: none;
-  width: 200px;
+  width: 224px;
   min-height: 0;
   /* Màn hình thấp: cuộn thanh bên thay vì bị cắt mất mục */
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 14px 12px;
+  padding: var(--sp-4) var(--sp-3);
   background: var(--c-surface);
-  border-right: var(--px) solid var(--c-border);
+  border-right: 1px solid var(--c-line);
 }
 .pet {
   display: grid;
   flex: none;
-  gap: 4px;
+  gap: 6px;
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-surface-2);
 }
 .pet-name {
-  font-size: 18px;
+  font-size: var(--fs-lg);
   font-weight: 700;
 }
 .pet-level {
+  font-size: var(--fs-sm);
   font-weight: 600;
   color: var(--c-xp);
 }
 .xp {
-  font-size: 11px;
+  font-size: var(--fs-xs);
 }
 .coins {
-  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-sm);
   font-weight: 600;
+  color: #8a5a00;
+}
+.coins :deep(svg) {
+  color: var(--c-coin);
 }
 .muted {
   color: var(--c-ink-soft);
@@ -324,47 +378,53 @@ onUnmounted(() => {
 .nav {
   display: grid;
   flex: none;
-  gap: 4px;
+  gap: 2px;
 }
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 10px;
-  border: var(--px) solid transparent;
+  gap: 10px;
+  min-height: 38px;
+  padding: 0 var(--sp-3);
+  border: 0;
+  border-radius: var(--r-md);
   background: transparent;
-  color: inherit;
+  color: var(--c-ink-soft);
   font: inherit;
+  font-weight: 500;
   text-align: left;
   cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
 }
 .nav-item:hover {
-  background: #eef3ff;
+  background: var(--c-surface-2);
+  color: var(--c-ink);
 }
 .nav-item.active {
-  border-color: var(--c-border);
-  background: var(--c-primary);
-  color: #fff;
+  background: var(--c-primary-soft);
+  color: var(--c-primary-strong);
   font-weight: 700;
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
 }
 .icon {
-  width: 20px;
-  text-align: center;
+  flex: none;
 }
 .badge {
   margin-left: auto;
-  padding: 0 6px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #fff;
+  min-width: 22px;
+  padding: 1px 7px;
+  border-radius: var(--r-pill);
   background: var(--c-danger);
-  border: 1px solid var(--c-border);
+  color: #fff;
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  text-align: center;
 }
 .content {
   flex: 1;
   min-width: 0;
   overflow-y: auto;
-  padding: 20px 24px;
+  padding: var(--sp-5) 28px;
 }
 </style>

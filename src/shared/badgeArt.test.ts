@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { BADGE_SIZE, GLYPHS, TIERS, badgePixels, mergeRuns } from './badgeArt'
+import { BADGE_HIRES_SCALE, BADGE_SIZE, GLYPHS, TIERS, badgePixels, mergeRuns } from './badgeArt'
 
 describe('badgeArt', () => {
   it('mọi biểu tượng vẽ được, có nội dung và màu hợp lệ', () => {
@@ -41,4 +41,24 @@ describe('badgeArt', () => {
   it('biểu tượng không tồn tại → lỗi rõ ràng', () => {
     expect(() => badgePixels('nope', 'gold', false)).toThrow(/Unknown badge glyph/)
   })
+})
+
+describe('huy hiệu bản nét (scale 8)', () => {
+  it('mọi biểu tượng × hạng vẽ được ở 256×256 và nằm trong khung; khoá dùng ổ khoá', () => {
+    const dim = BADGE_SIZE * BADGE_HIRES_SCALE
+    for (const name of Object.keys(GLYPHS).filter((g) => g !== 'lock')) {
+      for (const tier of TIERS) {
+        const pixels = badgePixels(name, tier, false, BADGE_HIRES_SCALE)
+        expect(pixels.length).toBeGreaterThan(dim * dim * 0.5)
+        for (const p of pixels) {
+          expect(p.x).toBeGreaterThanOrEqual(0)
+          expect(p.x).toBeLessThan(dim)
+          expect(p.y).toBeLessThan(dim)
+        }
+      }
+    }
+    const lockedA = badgePixels('flame', 'gold', true, BADGE_HIRES_SCALE)
+    const lockedB = badgePixels('book', 'diamond', true, BADGE_HIRES_SCALE)
+    expect(lockedA).toEqual(lockedB)
+  }, 60_000)
 })

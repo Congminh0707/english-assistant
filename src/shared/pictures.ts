@@ -2,7 +2,8 @@
 // lớn, viền đậm, màu phẳng trên lưới 32×32, vẽ bằng hình cơ bản (xem pixelGrid.ts). Thay cho emoji hệ thống vốn khác
 // nhau giữa các máy và khó nhận ra khi nhỏ. Thuần dữ liệu → renderer vẽ các ô vuông bằng SVG, test được ở Node.
 import { mergeRuns, type BadgePixel, type BadgeRect } from './badgeArt'
-import { Grid } from './pixelGrid'
+import { PICTURE_EXTRAS, PICTURE_EXTRA_IDS } from './pictureExtras'
+import { darken, Grid, lighten } from './pixelGrid'
 
 /** Bản vẽ theo toạ độ 32×32 nhưng dựng trên lưới 64×64 ô (gấp đôi chi tiết) để phóng to vẫn mịn */
 export const PICTURE_SCALE = 2
@@ -1404,7 +1405,7 @@ const stripVariation = (s: string): string => s.replace(/️/g, '')
 /** Id hình tương ứng với một emoji (hoặc chính id hình); undefined nếu không có */
 export function pictureFor(emojiOrId: string): string | undefined {
   const key = stripVariation(emojiOrId.trim())
-  if (key in PAINTERS) return key
+  if (key in PAINTERS || key in PICTURE_EXTRAS) return key
   return EMOJI_TO_PICTURE[key]
 }
 
@@ -1421,25 +1422,59 @@ export function splitLeadingPicture(text: string): { picture?: string; rest: str
 
 const cache = new Map<string, Grid>()
 
-function pictureGrid(id: string): Grid {
-  let grid = cache.get(id)
+/** `scale` = số ô mỗi đơn vị logic: 2 (bộ cài, SVG) hoặc cao hơn (ảnh PNG nét, vd 8 → 256×256) */
+function pictureGrid(id: string, scale = PICTURE_SCALE): Grid {
+  const key = `${id}@${scale}`
+  let grid = cache.get(key)
   if (!grid) {
     const paint = PAINTERS[id]
     if (!paint) throw new Error(`Unknown picture: ${id}`)
-    grid = new Grid(PICTURE_LOGICAL, PICTURE_SCALE)
+    grid = new Grid(PICTURE_LOGICAL, scale)
     paint(grid)
-    grid.shadeAndOutline(2, 1)
-    cache.set(id, grid)
+    // Bản thô: rim 2, viền 1 ô; bản nét: viền và dải sáng/tối dày ~1 đơn vị logic
+    if (scale <= PICTURE_SCALE) grid.shadeAndOutline(2, 1)
+    else {
+      grid.shadeAndOutline(scale, Math.max(1, Math.round(scale * 0.8)))
+      detailShade(grid, scale)
+    }
+    cache.set(key, grid)
   }
   return grid
 }
 
+/**
+ * Bản nét: đổ sáng mượt theo hướng đèn (trên-trái sáng, dưới-phải tối) trên toàn hình thay vì chỉ ở mép,
+ * giữ nguyên ô viền tối để hình không bị nhoè.
+ */
+function detailShade(grid: Grid, scale: number): void {
+  const d = grid.dim
+  let [x0, y0, x1, y1] = [d, d, 0, 0]
+  for (let y = 0; y < d; y++)
+    for (let x = 0; x < d; x++)
+      if (grid.get(x, y)) {
+        x0 = Math.min(x0, x)
+        y0 = Math.min(y0, y)
+        x1 = Math.max(x1, x)
+        y1 = Math.max(y1, y)
+      }
+  const span = Math.max(1, x1 - x0 + (y1 - y0))
+  for (let y = y0; y <= y1; y++)
+    for (let x = x0; x <= x1; x++) {
+      const c = grid.get(x, y)
+      if (!c || c === DARK || c === '#1e1b2e') continue
+      const u = (x - x0 + (y - y0)) / span // 0 = góc trên-trái, 1 = dưới-phải
+      grid.set(x, y, u < 0.5 ? lighten(c, (0.5 - u) * 0.24) : darken(c, (u - 0.5) * 0.3))
+    }
+  void scale
+}
+
 /** Các ô màu của một hình (chưa gộp) */
-export function picturePixels(id: string): BadgePixel[] {
-  const grid = pictureGrid(id)
+export function picturePixels(id: string, scale = PICTURE_SCALE): BadgePixel[] {
+  const grid = pictureGrid(id, scale)
+  const dim = PICTURE_LOGICAL * scale
   const out: BadgePixel[] = []
-  for (let y = 0; y < PICTURE_SIZE; y++) {
-    for (let x = 0; x < PICTURE_SIZE; x++) {
+  for (let y = 0; y < dim; y++) {
+    for (let x = 0; x < dim; x++) {
       const color = grid.get(x, y)
       if (color) out.push({ x, y, color })
     }
@@ -1513,8 +1548,15 @@ export const PICTURE_WORDS: Record<string, { en: string; vi: string }> = {
   car: { en: 'car', vi: 'xe hơi' },
   ball: { en: 'ball', vi: 'quả bóng' },
   heart: { en: 'heart', vi: 'trái tim' },
-  cloud: { en: 'cloud', vi: 'đám mây' }
+  cloud: { en: 'cloud', vi: 'đám mây' },
+  // Hình bổ sung từ Twemoji (pictureExtras.ts): có từ + nghĩa như hình vẽ, nhưng không có bản vẽ pixel
+  ...Object.fromEntries(
+    Object.entries(PICTURE_EXTRAS).map(([id, e]) => [id, { en: e.en, vi: e.vi }])
+  )
 }
+
+/** Mọi hình có thể hiển thị: hình vẽ (PICTURE_IDS) + hình Twemoji bổ sung — dùng cho bộ thẻ/sticker trẻ em */
+export const ALL_PICTURE_IDS: readonly string[] = [...Object.keys(PAINTERS), ...PICTURE_EXTRA_IDS]
 
 const WORD_TO_PICTURE = new Map(
   Object.entries(PICTURE_WORDS).map(([id, word]) => [word.en.toLowerCase(), id])

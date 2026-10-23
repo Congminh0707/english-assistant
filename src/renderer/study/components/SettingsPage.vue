@@ -50,7 +50,8 @@ const CREDIT_KEYS = [
   'opusmt',
   'whisper',
   'wav2vec2',
-  'tatoeba'
+  'tatoeba',
+  'twemoji'
 ] as const
 
 const profiles = ref<ProfileInfo[]>([])

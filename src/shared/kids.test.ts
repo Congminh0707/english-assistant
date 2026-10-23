@@ -8,7 +8,7 @@ import {
   pictureIdOf,
   ratingFromTries
 } from './kids'
-import { PICTURE_IDS } from './pictures'
+import { ALL_PICTURE_IDS } from './pictures'
 
 describe('kids', () => {
   it('id thẻ hình', () => {
@@ -19,7 +19,7 @@ describe('kids', () => {
   })
 
   it('thứ tự học gồm đủ mọi hình đúng một lần, vật quen thuộc trước', () => {
-    expect([...KIDS_PICTURE_ORDER].sort()).toEqual([...PICTURE_IDS].sort())
+    expect([...KIDS_PICTURE_ORDER].sort()).toEqual([...ALL_PICTURE_IDS].sort())
     expect(KIDS_PICTURE_ORDER.slice(0, 3)).toEqual(['dog', 'cat', 'apple'])
   })
 

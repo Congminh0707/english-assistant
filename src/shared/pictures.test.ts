@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  ALL_PICTURE_IDS,
   PICTURE_IDS,
   PICTURE_WORDS,
   PICTURE_SIZE,
@@ -68,11 +69,11 @@ describe('pictures', () => {
   })
 
   it('mỗi hình đều có từ tiếng Anh và nghĩa tiếng Việt cho bộ thẻ của trẻ', () => {
-    for (const id of PICTURE_IDS) {
+    for (const id of ALL_PICTURE_IDS) {
       expect(PICTURE_WORDS[id], id).toBeDefined()
       expect(PICTURE_WORDS[id].en.length).toBeGreaterThan(0)
       expect(PICTURE_WORDS[id].vi.length).toBeGreaterThan(0)
     }
-    expect(Object.keys(PICTURE_WORDS).length).toBe(PICTURE_IDS.length)
+    expect(Object.keys(PICTURE_WORDS).length).toBe(ALL_PICTURE_IDS.length)
   })
 })

@@ -136,6 +136,8 @@ Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được n
 
 Đóng gói file font + file `OFL.txt` vào app. Cần font IPA → kiểm tra Be Vietnam Pro, nếu thiếu ký tự IPA dùng thêm Noto Sans / Charis SIL (OFL).
 
+> **Twemoji đã dùng (2026-10-23):** 99 hình bổ sung cho bộ thẻ/sticker trẻ em (`src/shared/pictureExtras.ts`, SVG trong `src/renderer/shared/assets/pictures/twemoji/`, tải bằng `scripts/images/twemoji.mjs`) — CC-BY 4.0, ghi công trong Cài đặt → Giấy phép & ghi công (`credits.twemoji`). Chỉ chọn emoji có nghĩa đúng 1-1 với từ.
+
 ## 9. Model AI & thư viện có license cần chú ý
 
 | Thành phần                                                                | License                                                                                                                                                                                           | Trạng thái | Ghi chú                                                                                                                                                                                                                  |

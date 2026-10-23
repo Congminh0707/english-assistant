@@ -1087,7 +1087,8 @@
     "opusmt": "Dịch câu: opus-mt en→vi (Helsinki-NLP) — Apache-2.0.",
     "tatoeba": "Câu ví dụ: Tatoeba — CC BY 2.0 FR.",
     "whisper": "Whisper base.en (OpenAI, Apache-2.0; bản ONNX của Xenova) — nhận dạng giọng nói offline cho bài nói",
-    "wav2vec2": "wav2vec2 phoneme (Meta/Facebook, Apache-2.0; bản ONNX int8 của duyentq) — chấm phát âm theo âm vị, tải tuỳ chọn"
+    "wav2vec2": "wav2vec2 phoneme (Meta/Facebook, Apache-2.0; bản ONNX int8 của duyentq) — chấm phát âm theo âm vị, tải tuỳ chọn",
+    "twemoji": "Hình minh hoạ bổ sung: Twemoji (Twitter, Inc. và những người đóng góp; bản jdecked/twemoji) — CC-BY 4.0, https://creativecommons.org/licenses/by/4.0/. Hình đã đổi kích thước."
   },
   "kids": {
     "home": "Màn hình chính",

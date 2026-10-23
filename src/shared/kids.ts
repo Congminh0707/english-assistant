@@ -1,6 +1,6 @@
 // Chế độ trẻ em: bộ thẻ "nghe → chạm hình" (hướng thẻ audio_picture), cách chấm, giới hạn thời gian — phần thuần dùng ở
 // main, renderer và test. docs/07-learning-modules.md#9-phonics--mầm-non-p1
-import { PICTURE_IDS } from './pictures'
+import { ALL_PICTURE_IDS } from './pictures'
 
 /** Thẻ hình của trẻ: contentId = 'pic:<id hình>' (không phụ thuộc gói từ điển) */
 export const PICTURE_CARD_PREFIX = 'pic:'
@@ -43,8 +43,8 @@ const FIRST = [
   'bear'
 ]
 export const KIDS_PICTURE_ORDER: readonly string[] = [
-  ...FIRST.filter((id) => PICTURE_IDS.includes(id)),
-  ...PICTURE_IDS.filter((id) => !FIRST.includes(id))
+  ...FIRST.filter((id) => ALL_PICTURE_IDS.includes(id)),
+  ...ALL_PICTURE_IDS.filter((id) => !FIRST.includes(id))
 ]
 
 /**

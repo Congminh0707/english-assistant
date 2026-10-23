@@ -1074,7 +1074,8 @@
     "opusmt": "Sentence translation: opus-mt en→vi (Helsinki-NLP) — Apache-2.0.",
     "tatoeba": "Example sentences: Tatoeba — CC BY 2.0 FR.",
     "whisper": "Whisper base.en (OpenAI, Apache-2.0; ONNX build by Xenova) — offline speech recognition for speaking practice",
-    "wav2vec2": "wav2vec2 phoneme (Meta/Facebook, Apache-2.0; int8 ONNX build by duyentq) — optional phoneme-level pronunciation scoring"
+    "wav2vec2": "wav2vec2 phoneme (Meta/Facebook, Apache-2.0; int8 ONNX build by duyentq) — optional phoneme-level pronunciation scoring",
+    "twemoji": "Extra illustrations: Twemoji (Twitter, Inc. and other contributors; jdecked/twemoji fork) — CC-BY 4.0, https://creativecommons.org/licenses/by/4.0/. Images resized."
   },
   "kids": {
     "home": "Home",

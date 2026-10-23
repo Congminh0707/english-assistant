@@ -49,15 +49,27 @@ export class SpritePackManager implements Installable {
     return this.deps.spec.size
   }
 
-  isInstalled(): boolean {
+  /** Phiên bản đang cài (null nếu chưa cài) */
+  private installedVersion(): string | null {
     try {
       const marker = JSON.parse(readFileSync(join(this.dir, MARKER), 'utf8')) as {
         version?: string
       }
-      return marker.version === this.deps.spec.version
+      return marker.version ?? null
     } catch {
-      return false
+      return null
     }
+  }
+
+  /** Có gói đã cài (kể cả bản cũ — vẫn dùng được cho tới khi người dùng cập nhật) */
+  isInstalled(): boolean {
+    return this.installedVersion() !== null
+  }
+
+  /** Đã cài nhưng app có bản mới hơn: người dùng chọn Cập nhật, không tự tải ngầm */
+  updateAvailable(): boolean {
+    const v = this.installedVersion()
+    return v !== null && v !== this.deps.spec.version
   }
 
   async install(onProgress: (receivedBytes: number) => void, signal?: AbortSignal): Promise<void> {

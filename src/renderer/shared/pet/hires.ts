@@ -23,23 +23,26 @@ const metas = new Map<string, Promise<SpriteMeta | null>>()
 export function startHires(): void {
   if (started) return
   started = true
-  const apply = (ready: boolean): void => {
-    if (ready === hiresReady.value) return
+  /** Đang cập nhật gói đã cài: giữ nguyên bản cũ đang dùng, xong thì nạp lại ảnh mới */
+  let updating = false
+  const apply = (status: TranslateStatus): void => {
+    packStatus.value = status
+    if (status.state === 'downloading') {
+      updating = hiresReady.value
+      return
+    }
+    const ready = status.state === 'ready'
+    if (ready === hiresReady.value && !updating) return
+    updating = false
     assets.clear()
     metas.clear()
     hiresReady.value = ready
     hiresVersion.value++
   }
   void invoke('sprites:status')
-    .then((s) => {
-      packStatus.value = s
-      apply(s.state === 'ready')
-    })
+    .then(apply)
     .catch(() => undefined)
-  window.api.on('sprites:status-changed', (s) => {
-    packStatus.value = s
-    apply(s.state === 'ready')
-  })
+  window.api.on('sprites:status-changed', apply)
 }
 
 const stageOf = (stage: string): SpriteStage => stage as SpriteStage

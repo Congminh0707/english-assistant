@@ -1293,7 +1293,9 @@
     "cancel": "Cancel",
     "ready": "Installed",
     "remove": "Remove pack",
-    "retry": "Retry download"
+    "retry": "Retry download",
+    "updateAvailable": "Update available",
+    "update": "Update ({mb} MB)"
   },
   "phoneme": {
     "tip": {
@@ -1333,6 +1335,8 @@
     "cancel": "Cancel",
     "ready": "Installed",
     "remove": "Remove pack",
-    "retry": "Retry download"
+    "retry": "Retry download",
+    "updateAvailable": "Update available",
+    "update": "Update ({mb} MB)"
   }
 }

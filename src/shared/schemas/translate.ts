@@ -26,8 +26,10 @@ export const TranslateStatusSchema = z.object({
   sizeBytes: z.number().int(),
   /** Đang tải: số byte đã nhận */
   receivedBytes: z.number().int(),
-  /** Mã lỗi khi state = 'error' (khoá i18n) */
-  errorKey: z.string().nullable()
+  /** Mã lỗi khi state = 'error' hoặc khi cập nhật gói thất bại (khoá i18n) */
+  errorKey: z.string().nullable(),
+  /** Gói tải thêm đã cài nhưng có bản mới hơn (bản cũ vẫn dùng được) */
+  updateAvailable: z.boolean().optional()
 })
 export type TranslateStatus = z.infer<typeof TranslateStatusSchema>
 

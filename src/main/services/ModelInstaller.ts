@@ -4,6 +4,8 @@ import { AppError } from '../core/AppError'
 export interface Installable {
   readonly sizeBytes: number
   isInstalled(): boolean
+  /** Gói đã cài nhưng app có bản mới hơn (bản đã cài vẫn dùng được); model AI không có khái niệm này */
+  updateAvailable?(): boolean
   /** Tải về; `onProgress` nhận tổng số byte đã có */
   install(onProgress: (receivedBytes: number) => void, signal?: AbortSignal): Promise<void>
 }
@@ -44,16 +46,23 @@ export class ModelInstaller {
         : this.errorKey
           ? 'error'
           : 'not-installed'
+    const updateAvailable = models.isInstalled() && (models.updateAvailable?.() ?? false)
     return {
       state,
       sizeBytes: models.sizeBytes,
       receivedBytes: this.downloading?.received ?? 0,
-      errorKey: state === 'error' ? this.errorKey : null
+      // Lỗi tải bản cập nhật: gói cũ vẫn 'ready' nhưng vẫn báo lỗi để người dùng thử lại
+      errorKey: state === 'error' || (state === 'ready' && updateAvailable) ? this.errorKey : null,
+      ...(updateAvailable ? { updateAvailable } : {})
     }
   }
 
   install(): Promise<TranslateStatus> {
-    if (this.deps.models.isInstalled()) return Promise.resolve(this.status())
+    const { models } = this.deps
+    // Đã cài và không có bản mới → không tải lại; có bản mới → tải để cập nhật
+    if (models.isInstalled() && !(models.updateAvailable?.() ?? false)) {
+      return Promise.resolve(this.status())
+    }
     this.installPromise ??= this.run().finally(() => {
       this.installPromise = null
     })

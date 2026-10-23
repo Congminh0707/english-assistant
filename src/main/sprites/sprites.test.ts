@@ -149,3 +149,66 @@ describe('SpritePackService', () => {
     expect(service.remove().state).toBe('not-installed')
   })
 })
+
+describe('cập nhật gói tải thêm', () => {
+  it('đổi version: bản cũ vẫn dùng được, báo có bản mới; bấm cập nhật mới tải bản mới', async () => {
+    const v1 = buildZip()
+    const first = new SpritePackManager({
+      packsDir: dir,
+      spec: specOf(v1),
+      fetch: fakeFetch(v1.zip)
+    })
+    await first.install(() => undefined)
+
+    // App mới đi kèm spec 1.1.0 (zip khác nội dung)
+    const v2 = buildZip({ 'bi/adult/sheet.webp': enc('BODY-V2') })
+    const states: string[] = []
+    const service = new SpritePackService({
+      pack: new SpritePackManager({
+        packsDir: dir,
+        spec: { ...specOf(v2), version: '1.1.0' },
+        fetch: fakeFetch(v2.zip)
+      }),
+      onStatus: (s) => states.push(`${s.state}${s.updateAvailable ? '+update' : ''}`)
+    })
+    const before = service.status()
+    expect(before).toMatchObject({ state: 'ready', updateAvailable: true })
+    // Bản cũ vẫn đọc được trong lúc chưa cập nhật
+    expect(service.asset({ character: 'bi', stage: 'adult', name: 'sheet' })).toContain(
+      Buffer.from('BODY').toString('base64')
+    )
+
+    const after = await service.install()
+    expect(after.state).toBe('ready')
+    expect(after.updateAvailable).toBeUndefined()
+    expect(states).toContain('downloading+update')
+    expect(service.asset({ character: 'bi', stage: 'adult', name: 'sheet' })).toBe(
+      `data:image/webp;base64,${Buffer.from('BODY-V2').toString('base64')}`
+    )
+    // Đã mới nhất: gọi lại không tải nữa
+    expect((await service.install()).updateAvailable).toBeUndefined()
+  })
+
+  it('cập nhật thất bại thì bản cũ còn nguyên và báo lỗi', async () => {
+    const v1 = buildZip()
+    await new SpritePackManager({
+      packsDir: dir,
+      spec: specOf(v1),
+      fetch: fakeFetch(v1.zip)
+    }).install(() => undefined)
+    const v2 = buildZip({ 'bi/adult/sheet.webp': enc('BODY-V2') })
+    const service = new SpritePackService({
+      pack: new SpritePackManager({
+        packsDir: dir,
+        spec: { ...specOf(v2), version: '1.1.0', sha256: '0'.repeat(64) },
+        fetch: fakeFetch(v2.zip)
+      })
+    })
+    const result = await service.install()
+    expect(result).toMatchObject({ state: 'ready', updateAvailable: true })
+    expect(result.errorKey).toBeTruthy()
+    expect(service.asset({ character: 'bi', stage: 'adult', name: 'sheet' })).toContain(
+      Buffer.from('BODY').toString('base64')
+    )
+  })
+})

@@ -123,6 +123,11 @@ Không nằm trong bộ cài (bộ cài chỉ có sprite 96px). Tạo và đăng
 4. Điền `size` + `sha256` thật vào `src/main/sprites/packSpec.ts` (app từ chối gói sai kích thước/sha256), rồi phát hành app như bình thường.
 Đổi nội dung: build lại, tăng `VERSION` trong `packSpec.ts` và dùng tag release mới.
 
+## 6d. Cập nhật content và gói tải thêm cho người đã cài
+
+- **Từ điển (content pack đi kèm bộ cài):** tự cập nhật. Mỗi lần khởi động `ContentPackService.ensureBundled` cài bản đi kèm nếu mới hơn bản đang dùng; người dùng chỉ cần cập nhật app (auto-update). Từ đã lưu giữ nguyên vì tham chiếu theo word id.
+- **Gói tải thêm (âm thanh bài nghe, sprite 288px):** đổi `VERSION` trong `packSpec.ts` thì app mới coi bản đã cài là **cũ nhưng vẫn dùng được** (`updateAvailable`): panel Cài đặt hiện nhãn "Có bản mới" + nút **Cập nhật (… MB)**. **Không tự tải ngầm** (gói lớn, tốn dữ liệu); người dùng bấm mới tải, tải lỗi/huỷ thì bản cũ còn nguyên. Khi cập nhật xong, cửa sổ mascot/Học tập nạp lại ảnh mới. Muốn buộc người dùng có bản mới (đổi định dạng không tương thích) → đổi `id`/cấu trúc gói thì bản cũ không còn hợp lệ.
+
 ## 7. Checklist trước mỗi bản phát hành
 
 - [ ] Cài mới trên Windows 10 và 11 sạch (máy ảo).

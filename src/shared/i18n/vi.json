@@ -1306,7 +1306,9 @@
     "cancel": "Huỷ",
     "ready": "Đã cài",
     "remove": "Gỡ gói",
-    "retry": "Thử tải lại"
+    "retry": "Thử tải lại",
+    "updateAvailable": "Có bản mới",
+    "update": "Cập nhật ({mb} MB)"
   },
   "phoneme": {
     "tip": {
@@ -1346,6 +1348,8 @@
     "cancel": "Huỷ",
     "ready": "Đã cài",
     "remove": "Gỡ gói",
-    "retry": "Thử tải lại"
+    "retry": "Thử tải lại",
+    "updateAvailable": "Có bản mới",
+    "update": "Cập nhật ({mb} MB)"
   }
 }

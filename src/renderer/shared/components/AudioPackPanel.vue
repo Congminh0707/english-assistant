@@ -36,6 +36,15 @@ const percent = computed(() => {
       </template>
       <template v-else-if="state === 'ready'">
         <span class="ok">✓ {{ t('audioPack.ready') }}</span>
+        <template v-if="pack.status.value?.updateAvailable">
+          <span class="chip chip--primary">{{ t('audioPack.updateAvailable') }}</span>
+          <button type="button" class="btn btn--primary btn--sm" @click="pack.install()">
+            {{ t('audioPack.update', { mb: sizeMb }) }}
+          </button>
+          <span v-if="pack.status.value?.errorKey" class="err">{{
+            t(pack.status.value.errorKey)
+          }}</span>
+        </template>
         <button type="button" class="btn" @click="pack.remove()">
           {{ t('audioPack.remove') }}
         </button>

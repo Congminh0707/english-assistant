@@ -534,6 +534,9 @@ function buildWord(
 
   // Nghĩa tiếng Việt
   const vi: ViMeaning[] = []
+  // Nghĩa đã duyệt lại để THAY nghĩa Wiktionary (docs/09 §10.6): bỏ hẳn nghĩa Wiktionary, kể cả theo từng sense
+  const replaceVi = ctx.generated?.replace === true && isUsable(ctx.generated)
+  if (replaceVi) for (const s of senses) s.vi = []
   const pushVi = (m: ViMeaning): void => {
     if (!vi.some((x) => x.text === m.text)) vi.push(m)
   }
@@ -541,15 +544,15 @@ function buildWord(
   for (const s of senses)
     for (const text of s.vi) pushVi({ text, pos: s.pos, origin: 'wiktionary' })
   for (const e of lemmaEntries)
-    for (const v of e.vi)
+    for (const v of replaceVi ? [] : e.vi)
       pushVi({ text: v.text, pos: e.pos, senseHint: v.senseHint, origin: 'wiktionary' })
-  if (!vi.length) {
+  if (!vi.length && !replaceVi) {
     for (const r of ctx.viReverse[key] ?? [])
       pushVi({ text: r.text, pos: r.pos, origin: 'wiktionary-vi' })
   }
   const order = ctx.rankVi(vi.map((v) => v.text))
   vi.sort((a, b) => order.indexOf(a.text) - order.indexOf(b.text))
-  if (vi.length) attribute(wikiRef)
+  if (vi.length && !replaceVi) attribute(wikiRef)
   // Không có nghĩa Wiktionary nào → nghĩa LLM sinh (giữ đúng thứ tự đã duyệt, không xếp lại)
   else if (ctx.generated && isUsable(ctx.generated)) {
     for (const m of toViMeanings(ctx.generated)) pushVi(m)

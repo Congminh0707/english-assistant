@@ -194,7 +194,7 @@ export async function reviewVi(args: string[]): Promise<void> {
 }
 
 /** Chuẩn hoá nghĩa đã sửa: tách ";" , bỏ trùng/trống/quá dài/lặp lại lemma, pos ngoài danh sách thì bỏ pos */
-function sanitize(
+export function sanitize(
   meanings: { text: string; pos: z.infer<typeof Pos> }[],
   word: Pick<PromptWord, 'lemma' | 'pos'>
 ): { text: string; pos?: z.infer<typeof Pos> }[] {

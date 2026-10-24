@@ -38,6 +38,8 @@ export const GeneratedViEntry = z.object({
   confidence: z.enum(['high', 'medium', 'low']).optional(),
   /** Ghi chú của người duyệt (lý do sửa / từ chối) */
   note: z.string().optional(),
+  /** true = THAY HẲN nghĩa Việt từ Wiktionary (đã duyệt lại vì nghĩa gốc sai/thiếu lịch sự, vd her → chỉ/bả); false/thiếu = chỉ bù khi từ không có nghĩa Wiktionary */
+  replace: z.boolean().optional(),
   source: GeneratedSourceRef,
   /** draft = vừa sinh; ai_checked = đã qua bước kiểm tra tự động bằng AI; approved = người duyệt OK;
    * rejected = không dùng (và không sinh lại — xoá mục để sinh lại) */

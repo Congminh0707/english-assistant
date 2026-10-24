@@ -17,7 +17,7 @@ export interface PackConfig {
 export const PACKS: Record<string, PackConfig> = {
   'core-dictionary': {
     id: 'core-dictionary',
-    version: '1.4.0',
+    version: '1.5.0',
     title: { vi: 'Từ điển Anh–Việt cốt lõi', en: 'Core English–Vietnamese dictionary' },
     license: 'CC-BY-SA-4.0',
     tracks: []

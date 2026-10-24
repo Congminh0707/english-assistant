@@ -5,6 +5,8 @@ import type { KidsActivity, KidsCompleteResult, KidsItem } from '@shared/schemas
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
+import { useStt } from '@renderer/shared/composables/useStt'
 import TraceCanvas from './TraceCanvas.vue'
 import { FOOD_NAME, FOOD_PICTURE, PRAISE, pick, TRY_AGAIN } from './kidsText'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
@@ -16,6 +18,20 @@ const emit = defineEmits<{ back: []; changed: [] }>()
 
 const { t } = useI18n()
 const { speak } = useTts()
+const stt = useStt()
+
+// Chấm phát âm theo âm vị (model tuỳ chọn, phụ huynh tải trong Cài đặt): có thì bé nói thật và được chấm, chưa có thì như cũ
+const pronReady = computed(() => stt.pronunciation.value?.state === 'ready')
+/** Kết quả lần nói đầu của mục hiện tại: null = chưa nói; true = đạt (verdict không phải 'retry') */
+const scoredFirst = ref<boolean | null>(null)
+/** Ở màn học: bật khung nói thử cho mục hiện tại */
+const practice = ref(false)
+const practiceWord = computed(() =>
+  props.activity.kind === 'blend' ? item.value?.text : item.value?.word
+)
+const canPractice = computed(
+  () => pronReady.value && !!practiceWord.value && props.activity.kind !== 'sight'
+)
 
 type Phase = 'teach' | 'quiz' | 'trace' | 'say' | 'result'
 const phase = ref<Phase>('teach')
@@ -34,6 +50,7 @@ function teachSpeak(): void {
 }
 
 function nextTeach(): void {
+  practice.value = false
   if (index.value + 1 < items.value.length) {
     index.value++
     teachSpeak()
@@ -42,6 +59,7 @@ function nextTeach(): void {
 
 function prevTeach(): void {
   if (index.value > 0) {
+    practice.value = false
     index.value--
     teachSpeak()
   }
@@ -125,11 +143,16 @@ function sayPrompt(): void {
 }
 
 function advanceStep(passed: boolean): void {
+  scoredFirst.value = null
   if (passed) firstTry.value++
   if (q.value + 1 < questions.value.length) {
     q.value++
     if (phase.value === 'say') sayPrompt()
   } else void finish()
+}
+
+function onScored(score: { verdict: string }): void {
+  if (scoredFirst.value === null) scoredFirst.value = score.verdict !== 'retry'
 }
 
 function saidIt(): void {
@@ -238,6 +261,20 @@ onMounted(teachSpeak)
         <button type="button" class="k-round" @click="sayItem(item)"><UiIcon name="play" /></button>
       </div>
 
+      <div v-if="canPractice" class="k-practice">
+        <button v-if="!practice" type="button" class="k-round" @click="practice = true">
+          <UiIcon name="mic" />
+        </button>
+        <SpeakPractice
+          v-else
+          :key="index"
+          :expected="practiceWord ?? ''"
+          phonemes
+          phoneme-only
+          kids
+        />
+      </div>
+
       <div class="k-row">
         <button type="button" class="k-round" :disabled="index === 0" @click="prevTeach">◀</button>
         <button type="button" class="k-primary" @click="nextTeach">
@@ -296,11 +333,30 @@ onMounted(teachSpeak)
         <button type="button" class="k-round big-speaker" @click="sayPrompt">
           <UiIcon name="volume" />
         </button>
-        <button type="button" class="k-primary mic" @click="saidIt">
+        <button v-if="!pronReady" type="button" class="k-primary mic" @click="saidIt">
           <UiIcon name="mic" /> <UiIcon name="check" />
         </button>
       </div>
-      <p class="k-sub">{{ t('kids.activity.sayHint') }}</p>
+      <template v-if="pronReady">
+        <SpeakPractice
+          :key="q"
+          :expected="questions[q].item.text"
+          phonemes
+          phoneme-only
+          kids
+          @scored="onScored"
+        />
+        <!-- Bé luôn được đi tiếp (kể cả khi chưa đạt); lần đầu đạt thì tính là đúng -->
+        <button
+          v-if="scoredFirst !== null"
+          type="button"
+          class="k-primary"
+          @click="advanceStep(scoredFirst === true)"
+        >
+          <UiIcon name="play" :size="26" />
+        </button>
+      </template>
+      <p class="k-sub">{{ t(pronReady ? 'kids.activity.sayGraded' : 'kids.activity.sayHint') }}</p>
     </template>
 
     <!-- KẾT QUẢ -->
@@ -386,5 +442,9 @@ onMounted(teachSpeak)
   gap: 6px;
   justify-items: center;
   animation: k-pop 420ms ease;
+}
+.k-practice {
+  display: grid;
+  justify-items: center;
 }
 </style>

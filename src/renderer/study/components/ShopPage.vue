@@ -5,6 +5,7 @@ import type { ShopItem, ShopState } from '@shared/schemas/shop'
 import { invoke, IpcError } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import { Coins } from 'lucide-vue-next'
+import ItemEmoji from '@renderer/shared/components/ItemEmoji.vue'
 
 // Cửa hàng: mua đồ ăn và phụ kiện bằng xu, đeo/tháo phụ kiện cho mascot.
 const emit = defineEmits<{ changed: [] }>()
@@ -95,7 +96,7 @@ onMounted(load)
           class="card item"
           :class="{ locked: item.locked && item.owned === 0 }"
         >
-          <div class="emoji">{{ item.emoji }}</div>
+          <ItemEmoji class="emoji" :emoji="item.emoji" :size="48" />
           <div class="name">{{ nameOf(item) }}</div>
           <span class="chip price"><Coins :size="13" :stroke-width="2.4" />{{ item.price }}</span>
           <div class="note">
@@ -133,7 +134,7 @@ onMounted(load)
           class="card item"
           :class="{ locked: item.locked && item.owned === 0 }"
         >
-          <div class="emoji">{{ item.emoji }}</div>
+          <ItemEmoji class="emoji" :emoji="item.emoji" :size="48" />
           <div class="name">{{ nameOf(item) }}</div>
           <span class="chip price"><Coins :size="13" :stroke-width="2.4" />{{ item.price }}</span>
           <div class="note">
@@ -154,7 +155,7 @@ onMounted(load)
       <h2>{{ t('shop.foodTitle') }}</h2>
       <div class="grid">
         <article v-for="item in foods" :key="item.id" class="card item">
-          <div class="emoji">{{ item.emoji }}</div>
+          <ItemEmoji class="emoji" :emoji="item.emoji" :size="48" />
           <div class="name">{{ nameOf(item) }}</div>
           <span class="chip price"><Coins :size="13" :stroke-width="2.4" />{{ item.price }}</span>
           <div class="note">
@@ -236,8 +237,7 @@ h2 {
   opacity: 0.65;
 }
 .emoji {
-  font-size: 40px;
-  line-height: 1.1;
+  flex: none;
 }
 .name {
   font-weight: 700;

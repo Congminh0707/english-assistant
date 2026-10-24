@@ -54,10 +54,21 @@ describe('scorePhonemes', () => {
   it('think nói thành f ɪ ŋ k ə: θ sai (nghe được f), âm đệm ə cuối không bị phạt nặng', () => {
     const s = scorePhonemes(['θ', 'ɪ', 'ŋ', 'k'], ['f', 'ɪ', 'ŋ', 'k', 'ə'])
     const first = s.phonemes[0]
-    expect(first).toEqual({ phoneme: 'θ', status: 'wrong', heard: 'f' })
+    expect(first).toEqual({ phoneme: 'θ', status: 'wrong', heard: 'f', near: true })
     expect(s.correctCount).toBe(3)
-    expect(s.accuracy).toBe(75)
+    // 3 âm đúng + 0,3 điểm cho θ→f (kiểu thay âm quen thuộc) = 3,3/4
+    expect(s.accuracy).toBe(83)
     expect(s.verdict).toBe('good')
+  })
+
+  it('thay âm lạ (θ → m) không được điểm gần đúng, còn kiểu Việt (ð → d) thì có', () => {
+    const odd = scorePhonemes(['θ', 'ɪ', 'ŋ', 'k'], ['m', 'ɪ', 'ŋ', 'k'])
+    expect(odd.phonemes[0].near).toBeUndefined()
+    expect(odd.accuracy).toBe(75)
+    const near = scorePhonemes(['ð', 'æ', 't'], ['d', 'æ', 't'])
+    expect(near.phonemes[0].near).toBe(true)
+    expect(near.accuracy).toBeGreaterThan(odd.accuracy - 1)
+    expect(near.accuracy).toBeLessThan(100)
   })
 
   it('thiếu âm cuối (cats → k æ) và âm thừa có hại', () => {

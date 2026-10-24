@@ -91,6 +91,7 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
 }
 .bubble.interactive {
   cursor: default;
+  max-width: 336px;
 }
 /* Khung nổi bật trên mọi nền: bóng đổ do filter, bỏ bóng của PxPanel để khỏi bị cắt ở mép cửa sổ */
 .bubble :deep(.px-panel) {

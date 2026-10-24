@@ -77,6 +77,16 @@ const activeProfile = ref<ProfileInfo | null>(null)
 const parentMode = ref(false)
 let timeTimer = 0
 const kidsMode = computed(() => !!activeProfile.value?.isChild && !parentMode.value)
+// Đổi sang hồ sơ khác (hoặc hồ sơ người lớn) thì thoát chế độ phụ huynh, không còn nút "quay lại màn hình bé"
+watch(
+  () => [activeProfile.value?.id, activeProfile.value?.isChild] as const,
+  ([id], [prevId]) => {
+    if (id !== prevId || !activeProfile.value?.isChild) {
+      parentMode.value = false
+      if (page.value === 'parent') page.value = 'home'
+    }
+  }
+)
 const missions = ref<MissionsState | null>(null)
 /** Bài kiểm tra mở từ màn hình chào thì tự bắt đầu ngay */
 const autostartTest = ref(false)

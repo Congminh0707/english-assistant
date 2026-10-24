@@ -162,7 +162,7 @@ onUnmounted(() => window.clearTimeout(closeTimer))
 .quiz {
   display: grid;
   gap: 6px;
-  width: 216px;
+  width: 300px;
 }
 .head {
   display: flex;
@@ -205,7 +205,7 @@ onUnmounted(() => window.clearTimeout(closeTimer))
   background: var(--c-surface);
   font: inherit;
   font-size: var(--fs-xs);
-  line-height: 1.25;
+  line-height: 1.3;
   text-align: left;
   cursor: pointer;
   overflow-wrap: anywhere;

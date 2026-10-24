@@ -6,7 +6,8 @@ import { sendTo } from '../ipc/broadcast'
 import { loadPage } from './loadPage'
 import { forwardConsoleInDev } from './devConsole'
 
-const SIZE = { width: 320, height: 320 }
+// Đủ cao/rộng cho thẻ hỏi ôn có nghĩa dài (bong bóng nằm phía trên nhân vật)
+const SIZE = { width: 360, height: 440 }
 /** Kích thước khung sprite gốc (px); hiển thị = FRAME_PX × scale */
 const FRAME_PX = 48
 const FRAME_MS = 16

@@ -1111,7 +1111,9 @@
     },
     "activity": {
       "again": "Play again",
-      "sayHint": "Listen, say it out loud, then tap ✓ (speech is not graded yet)"
+      "sayHint": "Listen, say it out loud, then tap ✓ (speech is not graded yet)",
+      "sayGraded": "Tap the mic and say it out loud!",
+      "tryMic": "Say it"
     },
     "album": {
       "hint": "Tap a sticker to hear it. Answer correctly to collect more!"
@@ -1277,6 +1279,11 @@
       "great": "Great!",
       "good": "Pretty good!",
       "retry": "Try again"
+    },
+    "kids": {
+      "great": "Super!",
+      "good": "Almost there!",
+      "retry": "Try once more!"
     },
     "error": {
       "denied": "Microphone access is blocked. Allow it in Windows Settings → Privacy → Microphone.",

@@ -10,6 +10,8 @@ export interface PhonemeResult {
   status: PhonemeStatus
   /** Âm nghe được khi nói sai ('wrong') */
   heard?: string
+  /** 'wrong' nhưng là kiểu thay âm quen thuộc của người Việt (vd θ→t/s/f): vẫn nhắc sửa, được tính nửa điểm nhỏ */
+  near?: boolean
 }
 
 export interface PhonemeScore {
@@ -80,6 +82,43 @@ function canon(p: string): string {
 
 export const samePhoneme = (a: string, b: string): boolean => canon(a) === canon(b)
 
+/** Ngưỡng xếp loại theo độ chính xác (%) — một chỗ duy nhất; giao diện bé dùng chính `verdict` này */
+export const PHONEME_GREAT_MIN = 85
+export const PHONEME_GOOD_MIN = 65
+/** Điểm cho âm "gần đúng" kiểu người Việt (so với 1 điểm âm đúng): đủ để phân biệt "fink" với "think" nhưng không đẩy lên hạng cao */
+export const NEAR_CREDIT = 0.3
+
+/**
+ * Các cặp [âm đúng, âm thường nói thành] của người Việt (hoặc chung của người học Anh ngữ): không có âm /θ ð/ trong
+ * tiếng Việt nên thay bằng t/s/f và d/z; /ʃ ʒ/ → s/z (phương ngữ), /tʃ dʒ/ → c/z. Đây là heuristic từ tài liệu
+ * giảng dạy, chưa hiệu chỉnh bằng dữ liệu ghi âm thật (docs/11 §4).
+ */
+const VIETNAMESE_NEAR: Array<[string, string]> = [
+  ['θ', 't'],
+  ['θ', 's'],
+  ['θ', 'f'],
+  ['ð', 'd'],
+  ['ð', 'z'],
+  ['ʃ', 's'],
+  ['ʒ', 'z'],
+  ['tʃ', 'ts'],
+  ['tʃ', 'c'],
+  ['dʒ', 'z'],
+  ['dʒ', 'd'],
+  ['v', 'b'],
+  ['z', 's'],
+  ['ɪ', 'iː'],
+  ['iː', 'ɪ'],
+  ['ʊ', 'uː'],
+  ['uː', 'ʊ'],
+  ['æ', 'ɛ'],
+  ['ʌ', 'ɑː'],
+  ['ɹ', 'l']
+]
+
+const isNear = (expected: string, heard: string): boolean =>
+  VIETNAMESE_NEAR.some(([e, h]) => canon(e) === canon(expected) && canon(h) === canon(heard))
+
 /** Chi phí thay thế: 0 nếu tương đương, 0,6 nếu cùng loại (nguyên âm–nguyên âm / phụ âm–phụ âm), ngược lại 1 */
 function subCost(a: string, b: string): number {
   if (samePhoneme(a, b)) return 0
@@ -115,7 +154,9 @@ export function scorePhonemes(expected: string[], heard: string[]): PhonemeScore
       phonemes.push(
         samePhoneme(expected[i - 1], heard[j - 1])
           ? { phoneme: expected[i - 1], status: 'ok' }
-          : { phoneme: expected[i - 1], status: 'wrong', heard: heard[j - 1] }
+          : isNear(expected[i - 1], heard[j - 1])
+            ? { phoneme: expected[i - 1], status: 'wrong', heard: heard[j - 1], near: true }
+            : { phoneme: expected[i - 1], status: 'wrong', heard: heard[j - 1] }
       )
       i--
       j--
@@ -133,13 +174,13 @@ export function scorePhonemes(expected: string[], heard: string[]): PhonemeScore
   const harmfulExtra = phonemes.filter(
     (p) => p.status === 'extra' && !IGNORABLE_EXTRA.has(p.phoneme)
   ).length
-  const accuracy =
-    n === 0
-      ? 0
-      : Math.round(Math.max(0, Math.min(1, (correctCount - 0.5 * harmfulExtra) / n)) * 100)
+  const nearCount = phonemes.filter((p) => p.near).length
+  const credit = correctCount + NEAR_CREDIT * nearCount - 0.5 * harmfulExtra
+  const accuracy = n === 0 ? 0 : Math.round(Math.max(0, Math.min(1, credit / n)) * 100)
   return {
     accuracy,
-    verdict: accuracy >= 85 ? 'great' : accuracy >= 65 ? 'good' : 'retry',
+    verdict:
+      accuracy >= PHONEME_GREAT_MIN ? 'great' : accuracy >= PHONEME_GOOD_MIN ? 'good' : 'retry',
     phonemes,
     expectedCount: n,
     correctCount

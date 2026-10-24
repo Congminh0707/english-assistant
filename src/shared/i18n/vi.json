@@ -1124,7 +1124,9 @@
     },
     "activity": {
       "again": "Chơi lại",
-      "sayHint": "Nghe rồi nói theo, xong bấm nút ✓ (chưa chấm giọng nói)"
+      "sayHint": "Nghe rồi nói theo, xong bấm nút ✓ (chưa chấm giọng nói)",
+      "sayGraded": "Bấm micro và nói to nhé!",
+      "tryMic": "Nói thử"
     },
     "album": {
       "hint": "Chạm vào sticker để nghe. Trả lời đúng để dán thêm!"
@@ -1290,6 +1292,11 @@
       "great": "Tuyệt vời!",
       "good": "Khá tốt!",
       "retry": "Thử lại nhé"
+    },
+    "kids": {
+      "great": "Giỏi quá!",
+      "good": "Gần đúng rồi!",
+      "retry": "Cố lên, nói lại nhé!"
     },
     "error": {
       "denied": "Chưa có quyền dùng micro. Bật micro cho ứng dụng ở Cài đặt Windows → Quyền riêng tư → Micro.",

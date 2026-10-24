@@ -29,6 +29,8 @@ const props = defineProps<{
   phonemes?: boolean
   /** Chỉ chấm theo âm vị (vd chữ cái, âm đơn): chưa có model thì mời tải model phát âm */
   phonemeOnly?: boolean
+  /** Giao diện cho bé: kết quả chỉ là sao + lời khen (không hiện ký hiệu âm vị/mẹo) */
+  kids?: boolean
 }>()
 const emit = defineEmits<{ scored: [score: SpeechScore, heard: string] }>()
 
@@ -97,6 +99,11 @@ const tips = computed(() => {
   })
   return out.slice(0, 3)
 })
+
+/** great → 3 sao, good → 2 sao, còn lại 1 sao (bé luôn được động viên) */
+const kidsStars = computed(() =>
+  score.value?.verdict === 'great' ? 3 : score.value?.verdict === 'good' ? 2 : 1
+)
 
 async function toggle(): Promise<void> {
   if (busy.value) return
@@ -242,8 +249,23 @@ function cancelInstall(): void {
       <p v-if="micError" class="err">{{ micError }}</p>
       <p v-if="failure" class="err">{{ failure }}</p>
 
+      <!-- Kết quả cho bé: sao + lời khen -->
+      <div v-if="kids && score" class="result kids-result" :class="score.verdict" role="status">
+        <div class="kids-stars" aria-hidden="true">
+          <UiIcon
+            v-for="n in 3"
+            :key="n"
+            name="star"
+            :size="34"
+            :class="{ off: n > kidsStars }"
+          />
+        </div>
+        <div class="verdict">{{ t(`speech.kids.${score.verdict}`) }}</div>
+        <button type="button" class="btn" @click="retry">{{ t('speech.retry') }}</button>
+      </div>
+
       <!-- Kết quả theo âm vị -->
-      <div v-if="phonemeScore && score" class="result" :class="score.verdict">
+      <div v-else-if="phonemeScore && score" class="result" :class="score.verdict">
         <div class="verdict">
           {{ t(`speech.verdict.${score.verdict}`) }} ·
           {{ t('speech.accuracy', { n: score.accuracy }) }}
@@ -387,6 +409,17 @@ function cancelInstall(): void {
 .result.retry {
   background: #fdebec;
 }
+.kids-stars {
+  display: flex;
+  gap: 6px;
+  color: var(--c-warning, #f5b301);
+}
+.kids-stars .off {
+  opacity: 0.25;
+}
+.kids-result .verdict {
+  font-size: 22px;
+}
 .verdict {
   font-size: 16px;
   font-weight: 700;
@@ -409,6 +442,9 @@ function cancelInstall(): void {
 .ph.wrong {
   color: #d8364e;
   font-weight: 700;
+}
+.ph.wrong.near {
+  color: #b46a00;
 }
 .w.missing,
 .ph.missing {

@@ -60,7 +60,7 @@ flowchart LR
 
 | Cửa sổ | File tạo | Đặc điểm | Khi nào hiện |
 |---|---|---|---|
-| **Mascot** | `src/main/windows/MascotWindow.ts` | `transparent`, `frame:false`, `alwaysOnTop`, `skipTaskbar`, `resizable:false`, `focusable:false` (mặc định), kích thước ~ 320×320 (chứa nhân vật + bong bóng thoại). Vùng trong suốt **click xuyên qua** (`setIgnoreMouseEvents(true, {forward:true})`). | Luôn chạy khi app mở (trừ khi ẩn). |
+| **Mascot** | `src/main/windows/MascotWindow.ts` | `transparent`, `frame:false`, `alwaysOnTop`, `skipTaskbar`, `resizable:false`, `focusable:false` (mặc định), kích thước ~ 360×440 (chứa nhân vật + bong bóng thoại). Vùng trong suốt **click xuyên qua** (`setIgnoreMouseEvents(true, {forward:true})`). | Luôn chạy khi app mở (trừ khi ẩn). |
 | **Study** (Học tập) | `src/main/windows/studyWindow.ts` | Cửa sổ thường (~1100×750), có thể dùng khung tuỳ biến kiểu pixel. Chứa router: Trang chủ, Từ vựng, Đọc, Nghe, Nói, Viết, Luyện thi, Thú cưng, Thống kê, Cài đặt. | Người dùng click "Học ngay" / tray. |
 | **Popup** (Dịch nhanh) | `src/main/windows/popupWindow.ts` | Nhỏ (~380×260), không khung, hiện cạnh con trỏ chuột, tự ẩn khi mất focus. Tạo sẵn 1 lần và ẩn/hiện để mở nhanh. | Phím tắt dịch, click icon dịch. |
 | **OCR overlay** | `src/main/windows/ocrOverlayWindow.ts` | Phủ toàn màn hình, trong suốt mờ, người dùng kéo chọn vùng. | Phím tắt OCR. |

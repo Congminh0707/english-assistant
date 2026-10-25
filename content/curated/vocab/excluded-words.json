@@ -1,6 +1,10 @@
 {
   "$comment": "Mục từ bị loại khỏi core-dictionary dù được chọn theo tần suất/danh sách (nghĩa riêng sai hoặc vô ích cho người học). Khoá = word id, giá trị = lý do. Sửa xong: pnpm content:normalize merge level && pnpm content:build",
   "entries": {
+    "word:en:da": "không phải từ tiếng Anh chuẩn (phương ngữ/tiếng nước ngoài, thường là tên riêng Da Nang, Hue, Dong...), nghĩa gây hiểu nhầm",
+    "word:en:dong": "không phải từ tiếng Anh chuẩn (phương ngữ/tiếng nước ngoài, thường là tên riêng Da Nang, Hue, Dong...), nghĩa gây hiểu nhầm",
+    "word:en:hoy": "không phải từ tiếng Anh chuẩn (phương ngữ/tiếng nước ngoài, thường là tên riêng Da Nang, Hue, Dong...), nghĩa gây hiểu nhầm",
+    "word:en:nang": "không phải từ tiếng Anh chuẩn (phương ngữ/tiếng nước ngoài, thường là tên riêng Da Nang, Hue, Dong...), nghĩa gây hiểu nhầm",
     "word:en:am": "chữ viết tắt AM (Huân chương Úc), không phải \"a.m.\"",
     "word:en:apples": "dạng chia của từ khác; mục riêng chỉ mang nghĩa hiếm/lóng — tra qua word_forms",
     "word:en:asked": "dạng chia của từ khác; mục riêng chỉ mang nghĩa hiếm/lóng — tra qua word_forms",

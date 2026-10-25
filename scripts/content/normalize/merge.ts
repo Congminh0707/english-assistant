@@ -268,6 +268,18 @@ export async function mergeWords(): Promise<void> {
     }
     return false
   }
+  // Từ chỉ thêm theo tần suất mà MỌI nghĩa đều mang nhãn phương ngữ/tiếng lóng vùng/tiếng nước ngoài lẫn vào (da = "bố" Ireland,
+  // "vâng" Russianism; loch, nowt...) không phải tiếng Anh chuẩn cho người học → không đưa vào từ điển.
+  const NONSTANDARD_TAGS = new Set([
+    'dialectal', 'Scotland', 'Shetland', 'Northern-England', 'Northumbria', 'Cockney', 'Geordie', 'Yorkshire', 'Midlands',
+    'Wales', 'Multicultural-London-English', 'Singlish', 'Hawaii', 'Russianism', 'nonstandard', 'eye-dialect',
+    'pronunciation-spelling', 'obsolete', 'archaic'
+  ])
+  const droppedNonStandard: string[] = []
+  const isNonStandardOnly = (key: string): boolean => {
+    const senses = (byKey.get(key) ?? []).flatMap((e) => e.senses.filter(isGoodSense))
+    return senses.length > 0 && senses.every((s) => s.tags.some((t) => NONSTANDARD_TAGS.has(t)))
+  }
   const extra = [...folded.entries()]
     // Có wordfreq thì phải nằm trong bảng đó (loại tên riêng/lỗi gõ chỉ Tatoeba gặp); không có wordfreq thì như cũ
     .filter(
@@ -277,6 +289,11 @@ export async function mergeWords(): Promise<void> {
     .filter(([k]) => {
       if (!isWeakInflection(k)) return true
       droppedInflected.push(k)
+      return false
+    })
+    .filter(([k]) => {
+      if (!isNonStandardOnly(k)) return true
+      droppedNonStandard.push(k)
       return false
     })
     // Tatoeba nhiều → ít; cùng số lần (nhất là các từ chỉ có trong wordfreq) → phổ biến hơn trước
@@ -377,6 +394,10 @@ export async function mergeWords(): Promise<void> {
   log(
     `merge: ${sensitiveCount} words flagged sensitive (child profiles hide them)${missingSensitive.length ? `; not in the dictionary: ${missingSensitive.join(', ')}` : ''}`
   )
+  if (droppedNonStandard.length)
+    log(
+      `merge: dropped ${droppedNonStandard.length} dialect/archaic-only entries: ${droppedNonStandard.slice(0, 40).join(', ')}...`
+    )
   if (droppedInflected.length)
     log(
       `merge: dropped ${droppedInflected.length} standalone entries of inflected forms (they resolve through word_forms): ${droppedInflected.slice(0, 40).join(', ')}...`

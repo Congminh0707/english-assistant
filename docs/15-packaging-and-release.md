@@ -102,10 +102,10 @@ Luôn dùng helper `paths.ts` thay vì viết cứng đường dẫn.
 **Các job** (tách riêng để lỗi ở đâu chạy lại đúng chỗ đó): `version` → song song `lint` / `typecheck` / `test` / `content-pack` (tải + kiểm tra sha256) → `build` (windows, `pnpm build:win`, cần cả 4 job trên xanh) → `publish` (`gh release create v<version>` kèm `*-setup.exe`, `*.blockmap`, `latest.yml`; electron-updater đọc `latest.yml`; đánh dấu "latest", **công khai ngay**).
 Job lỗi: vào lần chạy trên tab Actions → **Re-run failed jobs** (chỉ chạy lại job lỗi và các job phụ thuộc; job đã xanh giữ nguyên; artifact `content-pack`/`installer` giữ 7 ngày). Nếu `publish` đã tạo release rồi mà muốn làm lại cùng version: xoá release + tag (`gh release delete v1.0.1 --cleanup-tag`) rồi push lại `release`.
 
-**Content pack (làm một lần):** file `content/packs/core-dictionary-*.eapack` (~26 MB) bị `.gitignore` nên CI không có sẵn; workflow tải nó từ một release phụ có tag `content-pack-1.5.0` (biến `CONTENT_PACK_TAG` trong workflow) và kiểm tra sha256. Tải lên một lần từ máy có pack:
+**Content pack (làm một lần):** file `content/packs/core-dictionary-*.eapack` (~26 MB) bị `.gitignore` nên CI không có sẵn; workflow tải nó từ một release phụ có tag `content-pack-1.6.0` (biến `CONTENT_PACK_TAG` trong workflow) và kiểm tra sha256. Tải lên một lần từ máy có pack (chỉ đưa file của đúng version — workflow tải theo mẫu `core-dictionary-*`):
 
 ```powershell
-gh release create content-pack-1.5.0 (Get-ChildItem content/packs/core-dictionary-*.eapack*) --prerelease --title "Content pack 1.5.0" --notes "Gói từ điển đi kèm bản cài (không phải bản app)"
+gh release create content-pack-1.6.0 content/packs/core-dictionary-1.6.0.eapack content/packs/core-dictionary-1.6.0.eapack.sha256 --prerelease --title "Content pack 1.6.0" --notes "Gói từ điển đi kèm bản cài (không phải bản app)"
 ```
 
 Release này là `--prerelease` và tag `content-pack-*` không bị `check-version` coi là version app (chỉ tag `v*`), nên không ảnh hưởng auto-update. Khi build lại pack với version mới: tải lên release mới và đổi `CONTENT_PACK_TAG`. Repo đang công khai: pack gồm dữ liệu CC BY-SA/Wiktionary nên cần giữ ghi công trong app (docs/08).
@@ -115,8 +115,8 @@ Release này là `--prerelease` và tag `content-pack-*` không bị `check-vers
 Không nằm trong bộ cài. Tạo và đăng khi nội dung bài nghe đổi (hoặc lần đầu):
 
 1. Bật "Giọng tự nhiên" trong app một lần để có model Kokoro trong `%APPDATA%/english-assistant/models`.
-2. `node scripts/audio/build-listening-audio.mjs 1.0.0` (~30 phút) → `content/.build/audio/listening-audio-1.0.0.zip` + `.sha256`.
-3. Đăng lên release phụ (pre-release, không ảnh hưởng auto-update): `gh release create listening-audio-1.0.0 content/.build/audio/listening-audio-1.0.0.zip content/.build/audio/listening-audio-1.0.0.zip.sha256 --prerelease --title "Listening audio 1.0.0"`.
+2. `node scripts/audio/build-listening-audio.mjs <ver>` (~30 phút) → `content/.build/audio/listening-audio-<ver>.zip` + `.sha256`.
+3. Đăng lên release phụ (pre-release, không ảnh hưởng auto-update): `gh release create listening-audio-<ver> content/.build/audio/listening-audio-<ver>.zip content/.build/audio/listening-audio-<ver>.zip.sha256 --prerelease --title "Listening audio <ver>"`.
 4. Điền `size` + `sha256` thật vào `src/main/audio/packSpec.ts` (bắt buộc: app từ chối gói sai kích thước/sha256), rồi phát hành app như bình thường.
    Đổi nội dung: build lại, tăng `VERSION` trong `packSpec.ts` và tag release mới.
 

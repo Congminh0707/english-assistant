@@ -9,6 +9,7 @@ import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
+import { tokenizeWords } from '@shared/properNouns'
 
 // Trình đọc tương tác (docs/07-learning-modules.md#5): bấm từ để tra, từ trên level được gạch chân,
 // nghe từng câu hoặc cả đoạn, bật/tắt bản dịch tiếng Việt từng đoạn, lưu từ kèm câu ngữ cảnh.
@@ -31,15 +32,14 @@ interface Sentence {
   pieces: Piece[]
 }
 
-const WORD = /[A-Za-z]+(?:['’-][A-Za-z]+)*/g
-
+/** Tên riêng/từ viết tắt (xem shared/properNouns.ts) hiện như chữ thường, không bấm tra/lưu được */
 function pieces(sentence: string): Piece[] {
   const out: Piece[] = []
   let last = 0
-  for (const m of sentence.matchAll(WORD)) {
-    if (m.index > last) out.push({ text: sentence.slice(last, m.index), word: false })
-    out.push({ text: m[0], word: true })
-    last = m.index + m[0].length
+  for (const w of tokenizeWords(sentence)) {
+    if (w.index > last) out.push({ text: sentence.slice(last, w.index), word: false })
+    out.push({ text: w.text, word: !w.proper })
+    last = w.index + w.text.length
   }
   if (last < sentence.length) out.push({ text: sentence.slice(last), word: false })
   return out

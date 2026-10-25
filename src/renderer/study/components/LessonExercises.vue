@@ -276,7 +276,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       <div v-if="checked" class="feedback" :class="{ ok: correct }">
         <strong>{{ correct ? t('study.lessons.correct') : t('study.lessons.wrong') }}</strong>
         <div v-if="!correct" class="solution">
-          <PicText v-if="ex.type === 'picture'" :text="ex.choices[ex.answer]" :size="48" />
+          <PicText v-if="ex.type === 'picture'" :text="ex.choices[ex.answer]" :size="48" ids />
           {{ solution }}
         </div>
         <div v-if="'explain' in ex && ex.explain" class="explain">

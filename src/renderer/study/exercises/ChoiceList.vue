@@ -34,7 +34,7 @@ function pick(i: number): void {
       @click="pick(i)"
     >
       <span class="num">{{ i + 1 }}</span>
-      <PicText v-if="pictures" :text="c" :size="72" />
+      <PicText v-if="pictures" :text="c" :size="72" ids />
       <template v-else>{{ c }}</template>
     </button>
   </div>

@@ -74,13 +74,22 @@ export class VocabRepository {
       .run()
   }
 
-  /** Trong các content id cho trước, id nào đã được lưu */
+  /**
+   * Trong các content id cho trước, id nào đã được lưu: tính theo thẻ ôn còn dùng của profile (cùng nguồn với Sổ từ/Ôn từ),
+   * để từ chỉ còn dấu vết trong saved_words (thẻ đã xoá) vẫn hiện nút Lưu.
+   */
   savedContentIds(profileId: string, contentIds: string[]): Set<string> {
     if (!contentIds.length) return new Set()
     const rows = this.db
-      .select({ contentId: savedWords.contentId })
-      .from(savedWords)
-      .where(and(eq(savedWords.profileId, profileId), inArray(savedWords.contentId, contentIds)))
+      .select({ contentId: srsCards.contentId })
+      .from(srsCards)
+      .where(
+        and(
+          eq(srsCards.profileId, profileId),
+          isNull(srsCards.deletedAt),
+          inArray(srsCards.contentId, contentIds)
+        )
+      )
       .all()
     return new Set(rows.map((r) => r.contentId).filter((id): id is string => !!id))
   }

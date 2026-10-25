@@ -39,13 +39,12 @@ for (const file of readdirSync(DIR).filter((f) => f.endsWith('.json'))) {
     for (const block of lesson.blocks) {
       if (block.type !== 'audio') continue
       for (const line of block.lines) {
-        // Người nói A giọng Mỹ, B giọng Anh; không có người nói → cả hai giọng (người dùng chọn Mỹ/Anh)
-        const accents = line.speaker === 'A' ? ['us'] : line.speaker === 'B' ? ['uk'] : ['us', 'uk']
-        for (const accent of accents) for (const rate of [0.6, 0.8, 1]) add(line.en, accent, rate)
+        // Mọi câu đều tạo cả hai giọng (bf_emma Anh + af_heart Mỹ) bất kể người nói, để giọng Anh mặc định luôn có
+        for (const accent of ['uk', 'us']) for (const rate of [0.6, 0.8, 1]) add(line.en, accent, rate)
       }
     }
     for (const ex of lesson.exercises) {
-      if (ex.type === 'listen') for (const accent of ['us', 'uk']) add(ex.say, accent, 0.9)
+      if (ex.type === 'listen') for (const accent of ['uk', 'us']) add(ex.say, accent, 0.9)
     }
   }
 }
@@ -82,7 +81,9 @@ const files = {}
 const clips = {}
 let n = 0
 const t0 = Date.now()
-for (const [key, item] of wanted) {
+// Giọng Anh (bf_emma) tạo trước: nếu build bị ngắt thì phần dở dang vẫn là giọng Mỹ, không mất giọng mặc định
+const queue = [...wanted].sort(([, a], [, b]) => Number(b.accent === 'uk') - Number(a.accent === 'uk'))
+for (const [key, item] of queue) {
   const out = await tts.generate(item.text, {
     voice: PACK_VOICES[item.accent],
     speed: kokoroSpeed(item.rate)

@@ -78,8 +78,8 @@ export const settingDefinitions = {
   'tts.engine': z.enum(['system', 'kokoro']).default('system'),
   /** Giọng mặc định khi đọc bài học, bài tập, câu hỏi (nút có ghi rõ Mỹ/Anh vẫn đọc đúng giọng đó) */
   'tts.accent': z.enum(['us', 'uk']).default('us'),
-  'tts.voiceUs': z.enum(US_VOICE_IDS).default('af_heart'),
-  'tts.voiceUk': z.enum(UK_VOICE_IDS).default('bf_emma'),
+  'tts.voiceUs': z.enum(US_VOICE_IDS).default('af_bella'),
+  'tts.voiceUk': z.enum(UK_VOICE_IDS).default('bf_isabella'),
   /** Chế độ yên lặng: tạm ẩn mascot khi đang họp trực tuyến (Zoom, Teams, Meet...) */
   'quiet.meetings': z.boolean().default(true),
   /** Chế độ yên lặng: khung giờ không làm phiền (có thể vắt qua nửa đêm) */

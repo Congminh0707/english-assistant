@@ -5,7 +5,7 @@ export const LISTENING_PACK_ID = 'listening-audio'
 /** Tốc độ (kiểu `speechSynthesis`) mà trình nghe phát: 0,6 / 0,8 / 1 và 0,9 cho bài tập nghe-chọn */
 export const PACK_RATES = [0.6, 0.8, 0.9, 1] as const
 /** Giọng Kokoro dùng khi tạo gói (trùng mặc định `tts.voiceUs` / `tts.voiceUk` trong cài đặt) */
-export const PACK_VOICES = { us: 'af_heart', uk: 'bf_emma' } as const
+export const PACK_VOICES = { us: 'af_bella', uk: 'bf_isabella' } as const
 
 export type PackAccent = 'us' | 'uk'
 

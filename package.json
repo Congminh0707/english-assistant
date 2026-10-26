@@ -1,6 +1,6 @@
 {
   "name": "english-assistant",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "An Electron application with Vue and TypeScript",
   "main": "./out/main/index.js",
   "author": "Minh Ngo",

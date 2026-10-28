@@ -111,6 +111,13 @@ export const PAT_MOOD_GAIN = 1
 /** XP cần để từ level n lên n+1 */
 export const xpForNextLevel = (level: number): number => Math.round(50 * Math.pow(level, 1.5))
 
+/** Tổng XP tối thiểu để đạt level `level` (level 1 = 0) */
+export function totalXpForLevel(level: number): number {
+  let sum = 0
+  for (let n = 1; n < level; n++) sum += xpForNextLevel(n)
+  return sum
+}
+
 export interface LevelInfo {
   level: number
   xpInLevel: number

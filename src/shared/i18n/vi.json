@@ -751,7 +751,9 @@
       "edited": "Đã lưu thay đổi",
       "devTitle": "Công cụ dev (chỉ bản chạy dev)",
       "devGrantCoins": "Cộng 1.000.000 xu",
-      "devGranted": "Đã cộng 1.000.000 xu"
+      "devGranted": "Đã cộng 1.000.000 xu",
+      "devLevelUp": "Tăng 10 level",
+      "devLeveled": "Đã tăng 10 level"
     },
     "practice": {
       "title": "Luyện tập",

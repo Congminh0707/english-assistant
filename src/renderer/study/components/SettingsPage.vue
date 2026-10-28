@@ -102,6 +102,15 @@ async function saveEdit(p: ProfileInfo): Promise<void> {
 /** Công cụ chỉ có khi chạy dev (không xuất hiện trong bản đóng gói) */
 const isDev = import.meta.env.DEV
 const devNote = ref('')
+async function devLevelUp(): Promise<void> {
+  try {
+    await invoke('dev:level-up', { levels: 10 })
+    devNote.value = t('study.settings.devLeveled')
+    emit('changed')
+  } catch (err) {
+    devNote.value = String(err)
+  }
+}
 async function devGrantCoins(): Promise<void> {
   try {
     await invoke('dev:grant-coins', { coins: 1_000_000 })
@@ -251,6 +260,9 @@ onMounted(loadProfiles)
       <h2>{{ t('study.settings.devTitle') }}</h2>
       <button type="button" class="btn btn--sm" @click="devGrantCoins">
         {{ t('study.settings.devGrantCoins') }}
+      </button>
+      <button type="button" class="btn btn--sm" @click="devLevelUp">
+        {{ t('study.settings.devLevelUp') }}
       </button>
       <p v-if="devNote" class="saved-note">{{ devNote }}</p>
     </PxPanel>

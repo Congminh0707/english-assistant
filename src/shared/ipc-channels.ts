@@ -34,6 +34,8 @@ export const INVOKE_CHANNELS = [
   'profile:update',
   /** Chỉ bản dev (app chưa đóng gói): cộng xu thử nghiệm — main không đăng ký handler khi đã đóng gói */
   'dev:grant-coins',
+  /** Chỉ bản dev: tăng level thú cưng bằng cách cộng đủ XP (ghi sổ XP) */
+  'dev:level-up',
   'profile:switch',
   'placement:start',
   'placement:checkpoint-start',

@@ -1,3 +1,4 @@
+import { totalXpForLevel } from '@shared/pet'
 import type { LessonKind } from '@shared/schemas/lesson'
 import type { Container } from '../container'
 import type { LessonService } from '../services/LessonService'
@@ -62,6 +63,11 @@ export function registerAppIpc(
       'dev:grant-coins',
       ({ coins }) => c.xp.grant({ amount: 0, coins, reason: 'dev.grant' }).state
     )
+    handle('dev:level-up', ({ levels }) => {
+      const pet = c.pet.get()
+      const need = totalXpForLevel(pet.level + levels) - pet.totalXp
+      return c.xp.grant({ amount: need, reason: 'dev.grant' }).state
+    })
   }
   handle('profile:update', (input) => {
     const info = c.profiles.update(input)

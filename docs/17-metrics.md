@@ -19,7 +19,7 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 
 | Hạng mục                                       | Giá trị                                                                                     | Đo bằng      | Đo ngày    |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
-| Phiên bản app                                  | 1.4.2                                                                                       | `pnpm stats` | 2026-10-26 |
+| Phiên bản app                                  | 1.4.3                                                                                       | `pnpm stats` | 2026-10-28 |
 | Test (Vitest)                                  | 371 test / 40 file                                                                          | `pnpm test`  | 2026-10-24 |
 | Kênh IPC                                       | 94 invoke · 4 send · 14 event                                                               | `pnpm stats` | 2026-10-22 |
 | Migration DB (Drizzle)                         | 7 (`0000`–`0006`)                                                                           | `pnpm stats` | 2026-10-22 |
@@ -70,6 +70,6 @@ Các bản trước (1.0.0 → 1.2.0) ghi ở [09 §10.3](09-content-pipeline.md
 | Whisper base.en           | ~80 MB                                                                | chấm nói                                                                                        |
 | wav2vec2 phoneme int8     | ~355 MB                                                               | chấm âm vị, tuỳ chọn                                                                            |
 | Gói audio bài nghe        | 22,3 MB (1050 đoạn, đủ giọng Anh + Mỹ cho mọi câu)                                                               | release `listening-audio-1.2.0`                                                                 |
-| Gói sprite thú cưng 288px | 57,2 MB (zip: 575 ảnh WebP lossless + 25 `sheet.json`; PNG gốc 94 MB) | `pet-sprites-hires-1.0.0`, đo 2026-10-23, **chưa đăng release**; bộ cài giữ sprite 96px ≈ 22 MB |
+| Gói sprite thú cưng 288px | 65,9 MB (zip: 575 ảnh WebP lossless + 25 `sheet.json`, khung có lề) | `pet-sprites-hires-1.1.0`, đo 2026-10-28, **chưa đăng release**; bộ cài giữ sprite 96px ≈ 22 MB |
 
 > Các kích thước model lấy từ `modelFiles.ts` / manifest; đổi model → đo lại và sửa bảng.

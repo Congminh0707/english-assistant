@@ -69,6 +69,8 @@ const { line, greetingTopic } = useLines()
 const canvas = ref<HTMLCanvasElement>()
 const dragging = ref(false)
 const overSprite = ref(false)
+/** Lề trong suốt phía trên khung sprite (px màn hình): trừ khỏi bố cục để lời thoại không bị đẩy lên cao */
+const padTop = ref(0)
 
 let ctx: CanvasRenderingContext2D | null = null
 let brain: MascotBrain | null = null
@@ -331,6 +333,7 @@ async function evolveTo(next: string): Promise<void> {
   shownStage = next
   const look = await loadLook(next)
   animator.setSheet(look.image, look.meta)
+  padTop.value = animator.padTopPx
   await applyAccessories(petStore.pet?.equipped ?? [])
   if (previous) {
     brain?.react('happy')
@@ -364,6 +367,7 @@ watch(
   () => settingsStore.settings['mascot.scale'],
   (scale) => {
     animator?.setScale(scale)
+    if (animator) padTop.value = animator.padTopPx
     brain?.setStepPx(scale)
   }
 )
@@ -387,6 +391,7 @@ onMounted(async () => {
   const scale = settings['mascot.scale']
   ctx = canvas.value!.getContext('2d', { willReadFrequently: true })!
   animator = new SpriteAnimator(image, meta, ctx, scale)
+  padTop.value = animator.padTopPx
   brain = new MascotBrain(animator, (dx) => invoke('mascot:walk', dx), onWindowMoved, scale)
   await applyAccessories(petStore.pet?.equipped ?? [])
   if (hiresChangedEarly || (hiresReady.value && !hiresLooks.has(stage.value))) {
@@ -467,6 +472,7 @@ onUnmounted(() => {
       ref="canvas"
       class="sprite"
       :class="{ grab: overSprite && !dragging, grabbing: dragging }"
+      :style="{ marginTop: `-${padTop}px` }"
       @mousedown="onMouseDown"
       @contextmenu="onContextMenu"
       @dragstart.prevent

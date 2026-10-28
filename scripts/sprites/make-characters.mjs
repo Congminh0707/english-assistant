@@ -4,7 +4,7 @@
 //          PREVIEW=anim → content/.build/anim-<nhân vật>-<giai đoạn>.png (mọi frame, để duyệt hoạt ảnh)
 import { mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
-import { createCanvas, encodePng, PX, SCALE, W } from './gfx.mjs'
+import { createCanvas, encodePng, PAD_TOP, PAD_X, PX_H, PX_W, SCALE, W } from './gfx.mjs'
 import { CHARACTERS, drawCreature, STAGES } from './creature.mjs'
 import { ACCESSORY_DRAW } from './accessories.mjs'
 import { flatten } from './anim.mjs'
@@ -12,17 +12,17 @@ import { flatten } from './anim.mjs'
 // SPRITE_SCALE=3 → khung 288px; SPRITE_OUT: ghi sang thư mục khác (để đo dung lượng / xem thử)
 const OUT_BASE = resolve(process.env.SPRITE_OUT ?? 'src/renderer/mascot/assets/characters')
 const COLUMNS = 8
-const sheetW = COLUMNS * PX
+const sheetW = COLUMNS * PX_W
 
 const onlyChar = process.argv[2]
 const onlyStage = process.argv[3]
 
 function blit(sheet, cv, index) {
-  const ox = (index % COLUMNS) * PX
-  const oy = Math.floor(index / COLUMNS) * PX
-  for (let y = 0; y < PX; y++)
-    for (let x = 0; x < PX; x++) {
-      const si = (y * PX + x) * 4
+  const ox = (index % COLUMNS) * PX_W
+  const oy = Math.floor(index / COLUMNS) * PX_H
+  for (let y = 0; y < PX_H; y++)
+    for (let x = 0; x < PX_W; x++) {
+      const si = (y * PX_W + x) * 4
       if (cv.px[si + 3] === 0) continue
       const di = ((oy + y) * sheetW + ox + x) * 4
       for (let k = 0; k < 4; k++) sheet.px[di + k] = cv.px[si + k]
@@ -36,10 +36,12 @@ for (const charId of Object.keys(CHARACTERS)) {
   if (onlyChar && onlyChar !== charId) continue
   // Mỗi nhân vật có bộ hoạt ảnh riêng (chung + chỉnh + quirk_*) nên số frame/hàng khác nhau
   const { frames, anims, rows } = flatten(charId, COLUMNS)
-  const sheetH = rows * PX
+  const sheetH = rows * PX_H
   const meta = {
-    frameSize: { w: PX, h: PX },
-    anchor: { x: PX / 2, y: PX - 5 * SCALE },
+    frameSize: { w: PX_W, h: PX_H },
+    // Lề (px thật) quanh vùng nhân vật 96×96: hai bên + phía trên; vùng nhân vật rộng frameSize.w - 2 × pad.x
+    pad: { x: PAD_X * SCALE, top: PAD_TOP * SCALE },
+    anchor: { x: PX_W / 2, y: PX_H - 5 * SCALE },
     scale: SCALE,
     animations: anims
   }
@@ -79,6 +81,7 @@ for (const charId of Object.keys(CHARACTERS)) {
       const gw = cols * W * SC
       const gh = Math.ceil(ids.length / cols) * W * SC
       const grid = createCanvas(gw, gh)
+      const cv0 = createCanvas() // chỉ để lấy độ lệch lề; xem vùng 96×96 ở frame 0 (giả định SPRITE_SCALE=1)
       const px = (cv, x, y) => (y * sheetW + x) * 4
       ids.forEach((id, n) => {
         const layers = [acc[`accb-${id}`], main, acc[`acc-${id}`]]
@@ -92,7 +95,7 @@ for (const charId of Object.keys(CHARACTERS)) {
             const bg = ((x >> 4) + (y >> 4)) % 2 ? 236 : 246
             let rgb = [bg, bg, bg]
             for (const l of layers) {
-              const i = px(l, sx, sy)
+              const i = px(l, sx + cv0.ox, sy + cv0.oy)
               const a = l.px[i + 3] / 255
               if (a > 0) rgb = rgb.map((v, k) => l.px[i + k] * a + v * (1 - a))
             }
@@ -128,7 +131,7 @@ if (process.env.PREVIEW === '1' && previewCells.length) {
     const c = STAGES.indexOf(stage)
     for (let y = 0; y < W * SC; y++)
       for (let x = 0; x < W * SC; x++) {
-        const si = (Math.floor(y / SC) * W + Math.floor(x / SC)) * 4
+        const si = ((Math.floor(y / SC) + cv.oy) * cv.w + Math.floor(x / SC) + cv.ox) * 4
         const o = ((r * W * SC + y) * gw + c * W * SC + x) * 4
         const bg = ((x >> 4) + (y >> 4)) % 2 ? 236 : 246
         const a = cv.px[si + 3] / 255

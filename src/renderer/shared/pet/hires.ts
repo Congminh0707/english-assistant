@@ -17,7 +17,7 @@ let startPromise: Promise<void> | null = null
 export const hiresVersion = ref(0)
 
 const assets = new Map<string, Promise<string | null>>()
-const bitmaps = new Map<string, Promise<ImageBitmap | null>>()
+const bitmaps = new Map<string, Promise<IdleStrip | null>>()
 const metas = new Map<string, Promise<SpriteMeta | null>>()
 
 /**
@@ -66,6 +66,15 @@ export function hiresAsset(character: string, stage: string, name: string): Prom
   return p
 }
 
+/** Hàng idle của một lớp ảnh + kích thước khung (px của gói) và lề quanh vùng nhân vật; gói cũ không có lề */
+export interface IdleStrip {
+  bitmap: ImageBitmap
+  frameW: number
+  frameH: number
+  padX: number
+  padTop: number
+}
+
 /** Số khung idle (hàng đầu của sheet) — cùng bộ cài (sprites.ts IDLE_FRAMES) */
 const IDLE_FRAMES = 8
 /** Giải mã tuần tự: mỗi sheet 288px là 2304×8928 ≈ 82 MB khi giải mã, chạy song song sẽ ngốn bộ nhớ */
@@ -80,7 +89,7 @@ export function hiresIdleBitmap(
   character: string,
   stage: string,
   name: string
-): Promise<ImageBitmap | null> {
+): Promise<IdleStrip | null> {
   const key = `${character}/${stage}/${name}`
   let p = bitmaps.get(key)
   if (!p) {
@@ -93,13 +102,18 @@ export function hiresIdleBitmap(
       const bin = atob(url.slice(comma + 1))
       const bytes = new Uint8Array(bin.length)
       for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i)
-      return createImageBitmap(
+      // Kích thước khung đọc từ sheet.json của gói (gói cũ: 288 vuông, không lề)
+      const meta = await hiresMeta(character, stage)
+      const frameW = meta?.frameSize.w ?? HIRES_FRAME
+      const frameH = meta?.frameSize.h ?? HIRES_FRAME
+      const bitmap = await createImageBitmap(
         new Blob([bytes], { type: mime }),
         0,
         0,
-        HIRES_FRAME * IDLE_FRAMES,
-        HIRES_FRAME
+        frameW * IDLE_FRAMES,
+        frameH
       )
+      return { bitmap, frameW, frameH, padX: meta?.pad?.x ?? 0, padTop: meta?.pad?.top ?? 0 }
     })
     p = job.catch(() => null)
     decodeQueue = p

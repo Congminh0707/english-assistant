@@ -95,6 +95,7 @@ describe('tiến hoá', () => {
   it('mọi nhân vật × giai đoạn có sheet, metadata, hoạt ảnh bắt buộc, quirk riêng và đủ phụ kiện', () => {
     type Meta = {
       frameSize: { w: number; h: number }
+      pad?: { x: number; top: number }
       animations: Record<string, { frames: number[] }>
     }
     const required = [
@@ -124,7 +125,9 @@ describe('tiến hoá', () => {
       const first = JSON.parse(
         readFileSync(resolve(BASE, char, 'egg', 'sheet.json'), 'utf8')
       ) as Meta
-      expect(first.frameSize).toEqual({ w: 96, h: 96 })
+      // Vùng nhân vật 96×96 + lề hai bên/phía trên (khớp hằng số trong renderer/shared/pet/sprites.ts)
+      expect(first.frameSize).toEqual({ w: 152, h: 116 })
+      expect(first.pad).toEqual({ x: 28, top: 20 })
       // Hoạt ảnh mà MascotBrain gọi phải có trong sheet; idle luôn là 8 frame đầu (PetSprite dựa vào đó)
       for (const name of required) expect(first.animations[name], `${char}/${name}`).toBeDefined()
       expect(first.animations.idle.frames).toEqual([0, 1, 2, 3, 4, 5, 6, 7])

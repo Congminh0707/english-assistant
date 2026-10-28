@@ -12,6 +12,7 @@ import {
   hex,
   line,
   mix,
+  PAD_TOP,
   paint,
   poly,
   put,
@@ -548,7 +549,7 @@ function drawFx(cv, f, bx, top) {
       // Sợi tơ từ tay bắn thẳng lên mép khung (anchor) hoặc một đoạn ngắn
       const sx = x
       const sy = y
-      const topY = f.anchor ? 0 : sy - 14 * s
+      const topY = f.anchor ? -PAD_TOP : sy - 14 * s
       const dark = [58, 64, 92, 255]
       const light = [240, 242, 250, 255]
       const steps = Math.max(8, Math.round(sy - topY))

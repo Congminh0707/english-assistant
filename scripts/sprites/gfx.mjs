@@ -5,7 +5,17 @@ import { deflateSync, crc32 } from 'node:zlib'
 export const W = 96
 /** Hệ số độ phân giải: toạ độ vẽ luôn là toạ độ logic 96×96; canvas thật là W×SCALE (SPRITE_SCALE=2 → 192px, 4 → 384px) */
 export const SCALE = Math.max(1, Math.round(Number(process.env.SPRITE_SCALE ?? 1)))
-/** Cạnh khung thật (px) */
+/**
+ * Lề của khung (toạ độ logic): vùng ngoài 96×96 cho chân/đuôi/cánh/tơ thò ra khỏi thân.
+ * Hai bên bằng nhau (mascot lật ngang quanh tâm khung); đáy không lề để chân vẫn chạm đáy cửa sổ.
+ * Phải là bội số của 4 để mẫu dither Bayer (theo toạ độ pixel) không đổi so với lúc chưa có lề.
+ */
+export const PAD_X = Number(process.env.SPRITE_PAD_X ?? 28)
+export const PAD_TOP = Number(process.env.SPRITE_PAD_TOP ?? 20)
+/** Kích thước khung thật (px) */
+export const PX_W = (W + 2 * PAD_X) * SCALE
+export const PX_H = (W + PAD_TOP) * SCALE
+/** Cạnh vùng 96×96 logic (px) — tức "kích thước nhân vật" */
 export const PX = W * SCALE
 
 // ---------------------------------------------------------------- màu
@@ -78,8 +88,21 @@ export function ramp(base) {
 export const mix = (a, b, t) => [0, 1, 2, 3].map((i) => Math.round(a[i] + (b[i] - a[i]) * t))
 
 // ---------------------------------------------------------------- canvas
-export function createCanvas(w = PX, h = PX) {
-  return { w, h, px: new Uint8Array(w * h * 4) }
+/**
+ * Không tham số = một khung (có lề). Toạ độ vẽ vẫn tính từ góc trên-trái của vùng 96×96:
+ * ox/oy là độ lệch của lề, nên toạ độ âm hoặc ≥ 96 hợp lệ (nằm trong lề).
+ */
+export function createCanvas(w, h) {
+  const frame = w === undefined && h === undefined
+  w ??= PX_W
+  h ??= PX_H
+  return {
+    w,
+    h,
+    ox: frame ? PAD_X * SCALE : 0,
+    oy: frame ? PAD_TOP * SCALE : 0,
+    px: new Uint8Array(w * h * 4)
+  }
 }
 /** Chấm một điểm theo toạ độ logic (phóng thành khối SCALE×SCALE) */
 export function put(cv, x, y, c) {
@@ -89,8 +112,8 @@ export function put(cv, x, y, c) {
 }
 /** Chấm một điểm theo toạ độ thật của canvas */
 export function putPx(cv, x, y, c) {
-  x = Math.round(x)
-  y = Math.round(y)
+  x = Math.round(x) + cv.ox
+  y = Math.round(y) + cv.oy
   if (x < 0 || y < 0 || x >= cv.w || y >= cv.h) return
   const i = (y * cv.w + x) * 4
   if (c[3] === 255) {
@@ -107,8 +130,11 @@ export function putPx(cv, x, y, c) {
     cv.px[i + k] = Math.round((c[k] * a + cv.px[i + k] * ba * (1 - a)) / oa)
   cv.px[i + 3] = Math.round(oa * 255)
 }
-export const alphaAt = (cv, x, y) =>
-  x < 0 || y < 0 || x >= cv.w || y >= cv.h ? 0 : cv.px[(y * cv.w + x) * 4 + 3]
+export const alphaAt = (cv, x, y) => {
+  x += cv.ox
+  y += cv.oy
+  return x < 0 || y < 0 || x >= cv.w || y >= cv.h ? 0 : cv.px[(y * cv.w + x) * 4 + 3]
+}
 
 // ---------------------------------------------------------------- hình khối (SDF)
 // Mỗi hình: { d(x,y) → khoảng cách có dấu (âm = bên trong), bbox:[x0,y0,x1,y1], dep }
@@ -247,10 +273,10 @@ function bboxOf(shapes, cv) {
   }
   // bbox của hình là toạ độ logic → đổi sang toạ độ thật
   return [
-    Math.max(0, Math.floor(x0 * SCALE)),
-    Math.max(0, Math.floor(y0 * SCALE)),
-    Math.min(cv.w - 1, Math.ceil(x1 * SCALE)),
-    Math.min(cv.h - 1, Math.ceil(y1 * SCALE))
+    Math.max(-cv.ox, Math.floor(x0 * SCALE)),
+    Math.max(-cv.oy, Math.floor(y0 * SCALE)),
+    Math.min(cv.w - 1 - cv.ox, Math.ceil(x1 * SCALE)),
+    Math.min(cv.h - 1 - cv.oy, Math.ceil(y1 * SCALE))
   ]
 }
 

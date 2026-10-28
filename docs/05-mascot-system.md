@@ -303,6 +303,10 @@ Trước đây cả 5 nhân vật dùng chung một bộ hoạt ảnh. Nay `scri
 - Thêm phản ứng bấm mới: thêm hoạt ảnh `click_*` vào `CLICKS[nhân vật]` rồi `pnpm sprites:characters <nhân vật>`; Brain tự nhận từ `sheet.json`.
 - Ghi chú: file `characters/**/sheet.json` do script sinh nên đã nằm trong `.prettierignore` — đừng chạy prettier lên chúng.
 
+## 10b. Lề khung sprite (2026-10-28)
+
+Chân nhện, đuôi/cánh rồng, tơ, cánh phụ kiện của level cao vượt vùng nhân vật 96×96 và từng bị cắt ngay trong sheet. Nay mỗi khung gồm **vùng nhân vật 96×96 + lề**: 28 px mỗi bên (đối xứng để lật ngang quanh tâm), 20 px phía trên, **không lề đáy** (chân vẫn chạm đáy cửa sổ). Khung = **152×116** (sheet 8 cột = 1216 px rộng). Toạ độ vẽ vẫn tính từ góc vùng 96×96 (âm/≥96 hợp lệ); `gfx.mjs` có `PAD_X`/`PAD_TOP` (env `SPRITE_PAD_X/TOP`, bội số của 4 để dither không đổi). `sheet.json` có `pad: {x, top}` (px thật); `SpriteAnimator` tính tỉ lệ theo vùng nhân vật (`frameSize.w - 2·pad.x`) nên nhân vật không nhỏ đi, và bù lề trên bằng margin âm. Gói 288px cũ (không `pad`) vẫn chạy nhưng còn bị cắt đến khi build lại gói (§11). Hằng số renderer: `shared/pet/sprites.ts` (`PAD_X`, `PAD_TOP`).
+
 ## 11. Sprite độ phân giải cao 288px (gói tải thêm, 2026-10-23)
 
 Bộ cài giữ sprite **96×96** (≈ 22 MB). Chủ dự án muốn nét hơn → có thêm **gói tải thêm 288px (3×)** cho cả 5 nhân vật × 5 giai đoạn + toàn bộ lớp phụ kiện, cài trong **Cài đặt → "Thú cưng nét hơn"** (như gói âm thanh bài nghe).

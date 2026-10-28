@@ -23,6 +23,9 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
+- [x] 2026-10-28: sửa hoạt ảnh level cao bị cắt — khung sprite thêm lề (docs/05 §10b); sheet bộ cài đã sinh lại, lint/test pass.
+- [x] 2026-10-28: gói hires 1.1.0 đã build (69.090.373 B, 65,9 MB; packSpec đã cập nhật). 🚧 Còn: tải `content/.build/pet-sprites-hires-1.1.0.zip` lên GitHub Release tag `pet-sprites-hires-1.1.0` (pre-release), rồi đo lại `pnpm stats` (docs/17).
+
 > Quy tắc: ghi `🚧 Đang làm` trước khi bắt đầu việc dài, xoá/đổi thành `[x]` ngay khi xong. Xem AGENTS.md.
 
 - ✅ Xong (2026-10-25): **Sửa lỗi báo cáo**: `PicText` giữ nguyên chữ ASCII (pig/hat) trừ bài chọn hình (`ids`) → ghép cặp & "cặp vô thanh – hữu thanh" không còn thay chữ bằng ảnh; bài đọc không tra/lưu tên riêng (Hue, Da Nang); trạng thái "đã lưu" tính theo thẻ ôn còn dùng của profile. Tên riêng dùng `shared/properNouns.ts` (có test); pack từ điển 1.6.0 đã lọc từ không phải tiếng Anh chuẩn (đã build, chưa phát hành — xem docs/09). lint 0 lỗi, 371 test, ui:audit 0 lỗi.

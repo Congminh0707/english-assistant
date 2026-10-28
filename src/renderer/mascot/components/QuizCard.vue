@@ -162,7 +162,8 @@ onUnmounted(() => window.clearTimeout(closeTimer))
 .quiz {
   display: grid;
   gap: 6px;
-  width: 300px;
+  width: 100%;
+  min-width: 0;
 }
 .head {
   display: flex;

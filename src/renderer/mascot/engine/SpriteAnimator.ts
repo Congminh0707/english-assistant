@@ -12,6 +12,8 @@ export interface AnimationDef {
 /** Định dạng sheet.json — docs/05-mascot-system.md#2-sprite-sheet--định-dạng-chuẩn */
 export interface SpriteSheetMeta {
   frameSize: { w: number; h: number }
+  /** Lề (px thật) quanh vùng nhân vật cho chân/đuôi/cánh thò ra: hai bên + phía trên. Sheet cũ không có = không lề */
+  pad?: { x: number; top: number }
   anchor: { x: number; y: number }
   animations: Record<string, AnimationDef>
 }
@@ -48,7 +50,7 @@ export class SpriteAnimator {
     // Mỗi nhân vật có bộ hoạt ảnh riêng (quirk_*) nên khi đổi nhân vật phải đổi cả metadata
     if (meta) this.meta = meta
     this.columns = Math.floor(image.width / this.meta.frameSize.w)
-    this.drawnFrame = -1
+    this.resizeCanvas() // khung (lề) có thể khác sheet trước, vd gói 288px cũ chưa có lề
   }
 
   /** Đặt các lớp phụ kiện đang đeo: `front` vẽ đè lên thân, `back` vẽ phía sau (vẽ lại ngay) */
@@ -66,10 +68,17 @@ export class SpriteAnimator {
 
   /**
    * Hệ số phóng thực tế. `scale` tính theo khung gốc 48px (kích thước hiển thị = 48 × scale) nên sheet
-   * chi tiết hơn (khung 96px) được thu lại tương ứng: scale 2 → vừa khít 1:1.
+   * chi tiết hơn (vùng nhân vật 96px) được thu lại tương ứng: scale 2 → vừa khít 1:1. Lề không tính vào
+   * vùng nhân vật, nên thêm lề cho khung không làm nhân vật nhỏ đi.
    */
   private get displayScale(): number {
-    return (this.scale * BASE_FRAME) / this.meta.frameSize.w
+    const characterW = this.meta.frameSize.w - 2 * (this.meta.pad?.x ?? 0)
+    return (this.scale * BASE_FRAME) / characterW
+  }
+
+  /** Lề trong suốt phía trên khung (px màn hình) */
+  get padTopPx(): number {
+    return Math.round((this.meta.pad?.top ?? 0) * this.displayScale)
   }
 
   private resizeCanvas(): void {

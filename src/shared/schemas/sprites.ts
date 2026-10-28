@@ -16,6 +16,8 @@ export const SpriteMetaInputSchema = SpriteAssetInputSchema.pick({ character: tr
 /** sheet.json của gói (cùng định dạng SpriteSheetMeta của mascot) */
 export const SpriteMetaSchema = z.object({
   frameSize: z.object({ w: z.number(), h: z.number() }),
+  /** Lề quanh vùng nhân vật (px thật); gói/sheet cũ không có */
+  pad: z.object({ x: z.number(), top: z.number() }).optional(),
   anchor: z.object({ x: z.number(), y: z.number() }),
   animations: z.record(
     z.string(),

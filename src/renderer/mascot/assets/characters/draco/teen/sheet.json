@@ -1,12 +1,17 @@
 {
   "frameSize": {
-    "w": 96,
-    "h": 96
+    "w": 152,
+    "h": 116
+  },
+  "pad": {
+    "x": 28,
+    "top": 20
   },
   "anchor": {
-    "x": 48,
-    "y": 91
+    "x": 76,
+    "y": 111
   },
+  "scale": 1,
   "animations": {
     "idle": {
       "frames": [

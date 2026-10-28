@@ -35,6 +35,11 @@ async function keepOnScreen(): Promise<void> {
   if (left < screenLeft + margin) shift.value = screenLeft + margin - left
   else if (right > screenLeft + scr.availWidth - margin)
     shift.value = screenLeft + scr.availWidth - margin - right
+  // Cửa sổ mascot cắt mọi thứ ngoài biên: không đẩy bong bóng ra khỏi cửa sổ
+  const winMargin = 4
+  const minShift = winMargin - rect.left
+  const maxShift = window.innerWidth - winMargin - rect.right
+  shift.value = Math.min(Math.max(shift.value, minShift), Math.max(minShift, maxShift))
 }
 
 watch(() => props.bubble.id, keepOnScreen, { immediate: true })
@@ -91,7 +96,8 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
 }
 .bubble.interactive {
   cursor: default;
-  max-width: 336px;
+  width: 336px;
+  max-width: calc(100vw - 8px);
 }
 /* Khung nổi bật trên mọi nền: bóng đổ do filter, bỏ bóng của PxPanel để khỏi bị cắt ở mép cửa sổ */
 .bubble :deep(.px-panel) {

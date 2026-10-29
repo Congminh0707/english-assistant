@@ -223,6 +223,13 @@ Mẫu:
 **Đã cân nhắc và loại:** NLLB-200 600M (chất lượng tốt nhưng CC-BY-NC — vi phạm chính sách license), VinAI en2vi v2 (AGPL-3.0), MADLAD-400 3B (Apache nhưng ~3 GB, quá chậm cho popup), M2M100 418M (chất lượng không hơn rõ). LLM qua API (Claude) vẫn là hướng nâng cấp tiếp theo nếu cần chất lượng cao nhất.
 **Hệ quả:** Chậm hơn (2–5 s/câu) và nặng RAM hơn khi bật; vẫn sai ở thành ngữ/cụm động từ; thẻ model HF không ghi license (cần xác nhận trước khi thương mại hoá).
 
+## #34 — Dịch: NLLB-200 thay mBART-50; thêm dịch online tuỳ chọn (2026-10-29) — Chấp nhận (thay thế phần chọn model của #27)
+
+**Bối cảnh:** mBART-50 dịch sai nặng ("Removes unused" → "Cấy loại những gì chưa được sử dụng", có khi chèn chữ Nga). Đã đo trên máy (q8): chỉnh `num_beams`/luồng không cải thiện; VinAI en2vi v2 (bản ONNX) chạy qua transformers.js bị lặp chữ; NLLB-200 600M đúng hơn rõ ("sa thải" thay vì "lao động", "Chức năng trả lại null…"), 1–4 s/câu.
+**Quyết định:** (1) Model chất lượng cao = NLLB-200 distilled 600M (một model hai chiều, mã `eng_Latn`/`vie_Latn`), giữ khoá `high`. License CC-BY-NC-4.0 chấp nhận vì app miễn phí và model do người dùng tự tải, không phân phối kèm (ghi ở docs/08). (2) Thêm dịch online **tuỳ chọn, mặc định tắt**: gọi Claude qua `fetch` với API key do người dùng nhập, lưu mã hoá bằng `safeStorage`, lỗi thì rơi về model offline.
+**Đã cân nhắc:** LLM nhỏ offline (Qwen/Gemma ~2 GB, chậm, thêm runtime lớn), NLLB 1.3B/MADLAD 3B (nặng, chậm), Google/DeepL không chính thức (vi phạm ToS/cần key riêng).
+**Hệ quả:** Người đã tải mBART phải tải NLLB (~870 MB); thư mục mBART cũ được xoá một lần khi khởi động. Khi online bật, văn bản bôi đen được gửi tới Anthropic (cảnh báo trong Cài đặt). Thương mại hoá app phải bỏ NLLB.
+
 ## #29 — Sprite 288px là gói tải thêm, bộ cài giữ 96px (2026-10-23) — Chấp nhận
 
 **Bối cảnh:** Chủ dự án muốn thú cưng/phụ kiện nét hơn khung 96×96. Bản mẫu Bi ở 192/288/384px cho thấy cùng thiết kế mịn hơn rõ; nhưng đo thật (Bi trưởng thành): thư mục sprite 0,8 MB (96px) → 3,8 MB (288px PNG, 4,6×), toàn bộ đo thật 94 MB PNG → **57,2 MB** gói zip (WebP lossless) so với 22 MB hiện nay.

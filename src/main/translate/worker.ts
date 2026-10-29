@@ -19,8 +19,8 @@ type ModelKey = Direction | 'high'
 const MODEL_IDS: Record<ModelKey, string> = {
   'en-vi': 'Xenova/opus-mt-en-vi',
   'vi-en': 'Xenova/opus-mt-vi-en',
-  // mBART-50 many-to-many: một model cho cả hai chiều (mã ngôn ngữ en_XX / vi_VN)
-  high: 'Xenova/mbart-large-50-many-to-many-mmt'
+  // NLLB-200 distilled 600M: một model cho cả hai chiều (mã ngôn ngữ eng_Latn / vie_Latn)
+  high: 'Xenova/nllb-200-distilled-600M'
 }
 /** Nhóm câu đưa vào model chất lượng cao một lần (ký tự) */
 const HIGH_GROUP_CHARS = 320
@@ -47,10 +47,10 @@ function loadTranslator(direction: ModelKey): Promise<Translator> {
   return loading
 }
 
-/** Dịch bằng mBART-50: nhóm 2–3 câu một lần để giữ ngữ cảnh */
+/** Dịch bằng NLLB-200: nhóm 2–3 câu một lần để giữ ngữ cảnh */
 async function translateHigh(text: string, direction: Direction): Promise<string> {
   const translator = await loadTranslator('high')
-  const [src, tgt] = direction === 'en-vi' ? ['en_XX', 'vi_VN'] : ['vi_VN', 'en_XX']
+  const [src, tgt] = direction === 'en-vi' ? ['eng_Latn', 'vie_Latn'] : ['vie_Latn', 'eng_Latn']
   const out: string[] = []
   for (const group of groupSentences(splitSentences(text), HIGH_GROUP_CHARS)) {
     const words = group.split(' ').length
@@ -58,7 +58,6 @@ async function translateHigh(text: string, direction: Direction): Promise<string
       src_lang: src,
       tgt_lang: tgt,
       max_new_tokens: Math.min(400, Math.max(48, words * 3 + 24)),
-      no_repeat_ngram_size: 3,
       num_beams: 2
     })
     out.push(result[0]?.translation_text?.trim() ?? '')

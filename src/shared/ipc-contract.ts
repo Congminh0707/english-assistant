@@ -88,6 +88,8 @@ import {
 import {
   TranslateDirectionInputSchema,
   TranslateInputSchema,
+  TranslateOnlineStatusSchema,
+  TranslateSetKeyInputSchema,
   TranslateResultSchema,
   TranslateStatusEventSchema,
   TranslateStatusSchema
@@ -169,6 +171,9 @@ export const invokeContract = {
   'translate:cancel': { input: TranslateDirectionInputSchema, output: z.void() },
   'translate:remove': { input: TranslateDirectionInputSchema, output: TranslateStatusSchema },
   'translate:text': { input: TranslateInputSchema, output: TranslateResultSchema },
+  'translate:online-status': { input: z.void(), output: TranslateOnlineStatusSchema },
+  'translate:set-key': { input: TranslateSetKeyInputSchema, output: TranslateOnlineStatusSchema },
+  'translate:clear-key': { input: z.void(), output: TranslateOnlineStatusSchema },
   'practice:start': { input: PracticeStartInputSchema, output: PracticeStartResultSchema },
   'practice:answer': { input: PracticeAnswerInputSchema, output: PracticeAnswerResultSchema },
   'shop:state': { input: z.void(), output: ShopStateSchema },

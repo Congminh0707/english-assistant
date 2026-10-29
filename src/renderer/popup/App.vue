@@ -35,7 +35,7 @@ const translation = ref<{
   text: string
   errorKey: string
   /** Engine đã dịch (để gợi ý nâng cấp khi dùng bản nhanh) */
-  engine: 'opus-mt' | 'mbart-50' | null
+  engine: 'opus-mt' | 'nllb-200' | 'claude' | null
 }>({ phase: 'idle', text: '', errorKey: '', engine: null })
 const models = useTranslateModels()
 /** Chiều dịch của văn bản đang tra (tự nhận: có dấu tiếng Việt → Việt→Anh) */
@@ -47,9 +47,15 @@ const highReady = computed(
   () =>
     models.statuses.high.value?.state === 'ready' && settingsStore.settings['translate.highQuality']
 )
-/** Dịch được ngay: có model chất lượng cao, hoặc opus-mt của chiều này */
+/** Dịch online (Claude) đã bật trong cài đặt và đã có key */
+const onlineHasKey = ref(false)
+const onlineReady = computed(
+  () => onlineHasKey.value && !!settingsStore.settings['translate.online']
+)
+/** Dịch được ngay: dịch online, model chất lượng cao, hoặc opus-mt của chiều này */
 const canTranslate = computed(
-  () => highReady.value || models.statuses[direction.value].value?.state === 'ready'
+  () =>
+    onlineReady.value || highReady.value || models.statuses[direction.value].value?.state === 'ready'
 )
 /** Model đang hiển thị trạng thái tải: bản chất lượng cao nếu đang tải, ngược lại opus-mt của chiều này */
 const downloadKey = computed<'high' | TranslateDirection>(() =>
@@ -90,17 +96,23 @@ const sentenceTokens = computed(() =>
 
 const sizeMb = computed(() => Math.round((modelStatus.value?.sizeBytes ?? 0) / MB))
 const doneMb = computed(() => Math.round((modelStatus.value?.receivedBytes ?? 0) / MB))
-const showTranslation = computed(() => {
-  const r = result.value
-  if (!r || r.packMissing) return false
-  return r.kind === 'sentence' || (r.kind === 'phrase' && r.entries.length === 0)
-})
+/** Câu, hoặc từ/cụm không có trong từ điển → dịch máy (từ có trong từ điển thì chỉ dùng từ điển) */
+function needsTranslation(r: LookupResult): boolean {
+  if (r.packMissing) return false
+  return r.kind === 'sentence' || ((r.kind === 'phrase' || r.kind === 'word') && !r.entries.length)
+}
+const showTranslation = computed(() => !!result.value && needsTranslation(result.value))
 
 async function translate(text: string): Promise<void> {
   const seq = ++translateSeq
   pendingText = text
   // Trạng thái model có thể đã cũ (tải ở cửa sổ khác, popup mở từ lâu): hỏi lại main trước khi quyết định
-  await models.refresh()
+  await Promise.all([
+    models.refresh(),
+    invoke('translate:online-status')
+      .then((st) => (onlineHasKey.value = st.hasKey))
+      .catch(() => undefined)
+  ])
   if (seq !== translateSeq) return
   if (!canTranslate.value) {
     translation.value = { phase: 'idle', text: '', errorKey: '', engine: null }
@@ -154,12 +166,7 @@ async function lookup(text: string): Promise<void> {
     translateSeq++
     translation.value = { phase: 'idle', text: '', errorKey: '', engine: null }
     pendingText = null
-    if (
-      !res.packMissing &&
-      (res.kind === 'sentence' || (res.kind === 'phrase' && res.entries.length === 0))
-    ) {
-      void translate(res.query)
-    }
+    if (needsTranslation(res)) void translate(res.query)
   } catch (err) {
     console.warn('[popup] lookup failed', err)
   } finally {
@@ -288,7 +295,13 @@ onUnmounted(() => {
         <div v-if="showTranslation" class="translation">
           <div class="tr-head">
             <strong>{{ t('translate.title') }}</strong>
-            <span class="chip chip--warning ai" :title="t('translate.machineHint')">{{
+            <span
+              v-if="translation.engine === 'claude'"
+              class="chip chip--primary ai"
+              :title="t('translate.onlineHintPopup')"
+              >{{ t('translate.onlineBadge') }}</span
+            >
+            <span v-else class="chip chip--warning ai" :title="t('translate.machineHint')">{{
               t('translate.machineBadge')
             }}</span>
           </div>
@@ -358,7 +371,13 @@ onUnmounted(() => {
         <div v-if="showTranslation" class="translation">
           <div class="tr-head">
             <strong>{{ t('translate.title') }}</strong>
-            <span class="chip chip--warning ai" :title="t('translate.machineHint')">{{
+            <span
+              v-if="translation.engine === 'claude'"
+              class="chip chip--primary ai"
+              :title="t('translate.onlineHintPopup')"
+              >{{ t('translate.onlineBadge') }}</span
+            >
+            <span v-else class="chip chip--warning ai" :title="t('translate.machineHint')">{{
               t('translate.machineBadge')
             }}</span>
           </div>

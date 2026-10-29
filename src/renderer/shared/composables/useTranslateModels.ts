@@ -2,7 +2,7 @@ import { ref, type Ref } from 'vue'
 import type { TranslateModelKey, TranslateStatus } from '@shared/schemas/translate'
 import { invoke } from '../ipc'
 
-// Trạng thái các model dịch (opus-mt từng chiều + 'high' = mBART-50 chất lượng cao): dùng chung trong cả cửa sổ
+// Trạng thái các model dịch (opus-mt từng chiều + 'high' = NLLB-200 chất lượng cao): dùng chung trong cả cửa sổ
 const statuses: Record<TranslateModelKey, Ref<TranslateStatus | null>> = {
   'en-vi': ref(null),
   'vi-en': ref(null),

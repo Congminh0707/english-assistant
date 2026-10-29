@@ -12,6 +12,7 @@ import { TranslationService } from '../services/TranslationService'
 import type { TranslationEngine } from './engine'
 import type { ModelSpec } from './modelFiles'
 import { ModelManager } from './ModelManager'
+import { OnlineTranslator } from './OnlineTranslator'
 
 const sha = (data: string): string => createHash('sha256').update(data).digest('hex')
 
@@ -137,6 +138,9 @@ describe('TranslationService', () => {
         const tag = quality === 'high' ? 'HQ' : ''
         return direction === 'en-vi' ? `VI${tag}(${text})` : `EN${tag}(${text})`
       },
+      warmup: async (direction: TranslateDirection, quality: 'fast' | 'high'): Promise<void> => {
+        calls.push(`warmup:${quality}:${direction}`)
+      },
       dispose(): void {
         engine.disposed++
       }
@@ -199,6 +203,94 @@ describe('TranslationService', () => {
     expect(engine.calls).toEqual(['fast:en-vi:Good morning.'])
   })
 
+  it('warmup: chỉ nạp sẵn model khi đã tải, đúng chiều và engine', async () => {
+    const { service, engine } = setup()
+    service.warmup('Hello')
+    expect(engine.calls).toEqual([])
+    await service.install('vi-en')
+    service.warmup('Tôi đang học')
+    service.warmup('   ')
+    expect(engine.calls).toEqual(['warmup:fast:vi-en'])
+  })
+
+  describe('dịch online (Claude)', () => {
+    function online(opts: { enabled?: boolean; fail?: boolean; key?: string | null } = {}): {
+      service: TranslationService
+      engine: TranslationEngine & { calls: string[] }
+      onlineCalls: string[]
+      stored: { key: string | null }
+    } {
+      const { engine, models } = setup()
+      const onlineCalls: string[] = []
+      const stored = { key: opts.key === undefined ? 'sk-ant-test-key-0000000000' : opts.key }
+      const service = new TranslationService({
+        models,
+        engine,
+        online: {
+          enabled: () => opts.enabled ?? true,
+          translate: async (text, direction) => {
+            onlineCalls.push(`${direction}:${text}`)
+            if (opts.fail) throw new Error('boom')
+            return `CL(${text})`
+          }
+        },
+        keys: {
+          canStore: () => true,
+          has: () => !!stored.key,
+          set: (k) => (stored.key = k),
+          clear: () => (stored.key = null)
+        },
+        now: () => 0
+      })
+      return { service, engine, onlineCalls, stored }
+    }
+
+    it('bật + có key → dịch bằng Claude, không cần tải model, có cache', async () => {
+      const { service, engine, onlineCalls } = online()
+      const res = await service.translate('Removes unused')
+      expect(res).toEqual({
+        text: 'CL(Removes unused)',
+        engine: 'claude',
+        cached: false,
+        direction: 'en-vi'
+      })
+      expect((await service.translate('Removes unused')).cached).toBe(true)
+      expect(onlineCalls).toHaveLength(1)
+      expect(engine.calls).toEqual([])
+    })
+
+    it('tắt hoặc chưa có key → không gọi online', async () => {
+      for (const o of [{ enabled: false }, { key: null }]) {
+        const { service, onlineCalls } = online(o)
+        await expect(service.translate('Hello')).rejects.toThrow(/TRANSLATE_NOT_READY/)
+        expect(onlineCalls).toEqual([])
+      }
+    })
+
+    it('online lỗi → rơi về model offline; chưa có model thì báo lỗi dịch', async () => {
+      const { service, engine, onlineCalls } = online({ fail: true })
+      await expect(service.translate('Hello')).rejects.toThrow(/TRANSLATE_FAILED/)
+      await service.install('en-vi')
+      const res = await service.translate('Hello')
+      expect(res).toMatchObject({ text: 'VI(Hello)', engine: 'opus-mt' })
+      expect(onlineCalls).toHaveLength(2)
+      expect(engine.calls).toEqual(['fast:en-vi:Hello'])
+    })
+
+    it('trạng thái key không lộ key; xoá key bỏ cache Claude', async () => {
+      const { service, stored } = online({ key: null })
+      expect(service.onlineStatus()).toEqual({ hasKey: false, canStore: true })
+      expect(service.setOnlineKey('sk-ant-abcdefghijklmnopqrst')).toEqual({
+        hasKey: true,
+        canStore: true
+      })
+      expect(stored.key).toBe('sk-ant-abcdefghijklmnopqrst')
+      await service.translate('Hello')
+      expect(service.clearOnlineKey().hasKey).toBe(false)
+      expect(stored.key).toBeNull()
+    })
+  })
+
   it('văn bản rỗng bị từ chối', async () => {
     const { service } = setup()
     await service.install('en-vi')
@@ -223,10 +315,10 @@ describe('TranslationService', () => {
     await expect(service.translate('Hello')).rejects.toThrow(/TRANSLATE_NOT_READY/)
     await service.install('high')
     const vi = await service.translate('She wants to buy a present for him.')
-    expect(vi).toMatchObject({ engine: 'mbart-50', direction: 'en-vi' })
+    expect(vi).toMatchObject({ engine: 'nllb-200', direction: 'en-vi' })
     expect(vi.text).toBe('VIHQ(She wants to buy a present for him.)')
     const en = await service.translate('Tôi đang học tiếng Anh')
-    expect(en).toMatchObject({ engine: 'mbart-50', direction: 'vi-en' })
+    expect(en).toMatchObject({ engine: 'nllb-200', direction: 'vi-en' })
     expect(engine.calls).toEqual([
       'high:en-vi:She wants to buy a present for him.',
       'high:vi-en:Tôi đang học tiếng Anh'
@@ -264,5 +356,49 @@ describe('TranslationService', () => {
     })
     const status = await service.install('en-vi')
     expect(status).toMatchObject({ state: 'error', errorKey: 'errors.modelDownload' })
+  })
+})
+
+describe('OnlineTranslator', () => {
+  const ok = (body: unknown, status = 200) => async (): Promise<{ ok: boolean; status: number; json(): Promise<unknown> }> => ({
+    ok: status < 400,
+    status,
+    json: async () => body
+  })
+
+  it('gửi key + model + văn bản, ghép các khối text', async () => {
+    let sent: { headers: Record<string, string>; body: string } | null = null
+    const t = new OnlineTranslator({
+      getKey: () => 'sk-ant-k',
+      fetch: async (_url, init) => {
+        sent = { headers: init.headers, body: init.body }
+        return {
+          ok: true,
+          status: 200,
+          json: async () => ({
+            stop_reason: 'end_turn',
+            content: [
+              { type: 'text', text: 'Xin ' },
+              { type: 'text', text: 'chào' }
+            ]
+          })
+        }
+      }
+    })
+    expect(await t.translate('Hello', 'en-vi')).toBe('Xin chào')
+    expect(sent!.headers['x-api-key']).toBe('sk-ant-k')
+    const body = JSON.parse(sent!.body)
+    expect(body.model).toBe('claude-haiku-5-5')
+    expect(body.messages[0].content).toContain('Vietnamese')
+    expect(body.messages[0].content).toContain('Hello')
+  })
+
+  it('lỗi HTTP / bị từ chối / rỗng / không có key → throw', async () => {
+    const mk = (fetch: ConstructorParameters<typeof OnlineTranslator>[0]['fetch']): OnlineTranslator =>
+      new OnlineTranslator({ getKey: () => 'sk-ant-k', fetch })
+    await expect(mk(ok({}, 401)).translate('a', 'en-vi')).rejects.toThrow(/401/)
+    await expect(mk(ok({ stop_reason: 'refusal', content: [] })).translate('a', 'en-vi')).rejects.toThrow()
+    await expect(mk(ok({ content: [] })).translate('a', 'vi-en')).rejects.toThrow()
+    await expect(new OnlineTranslator({ getKey: () => null }).translate('a', 'en-vi')).rejects.toThrow()
   })
 })

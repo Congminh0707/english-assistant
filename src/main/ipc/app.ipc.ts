@@ -90,6 +90,9 @@ export function registerAppIpc(
   handle('translate:cancel', ({ direction }) => translation.cancelInstall(direction))
   handle('translate:remove', ({ direction }) => translation.remove(direction))
   handle('translate:text', ({ text }) => translation.translate(text))
+  handle('translate:online-status', () => translation.onlineStatus())
+  handle('translate:set-key', ({ key }) => translation.setOnlineKey(key))
+  handle('translate:clear-key', () => translation.clearOnlineKey())
   handle('practice:start', ({ mode }) => ({ exercise: c.practice.start(mode) }))
   handle('practice:answer', ({ sessionId, exerciseId, answer }) =>
     c.practice.answer(sessionId, exerciseId, answer)

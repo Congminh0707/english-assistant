@@ -25,6 +25,7 @@ gantt
 
 - [x] 2026-10-28: sửa hoạt ảnh level cao bị cắt — khung sprite thêm lề (docs/05 §10b); sheet bộ cài đã sinh lại, lint/test pass.
 - [x] 2026-10-28: gói hires 1.1.0 đã build (69.090.373 B, 65,9 MB; packSpec đã cập nhật). 🚧 Còn: tải `content/.build/pet-sprites-hires-1.1.0.zip` lên GitHub Release tag `pet-sprites-hires-1.1.0` (pre-release), rồi đo lại `pnpm stats` (docs/17).
+- [x] 2026-10-29: dịch popup — NLLB-200 thay mBART-50 (từ không có trong từ điển cũng dịch máy; nạp sẵn model khi mở popup/khởi động) + dịch online tuỳ chọn (Claude, key người dùng, safeStorage). `pnpm lint && pnpm test` (385) pass; 🚧 Còn: thử tay trong app thật (tải NLLB ~870 MB, dán key, bôi đen dịch), đo lại thời gian, commit.
 
 > Quy tắc: ghi `🚧 Đang làm` trước khi bắt đầu việc dài, xoá/đổi thành `[x]` ngay khi xong. Xem AGENTS.md.
 

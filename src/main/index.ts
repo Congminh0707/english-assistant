@@ -1,9 +1,12 @@
 import { app, powerMonitor, screen } from 'electron'
 import { autoUpdater } from 'electron-updater'
+import { existsSync, rmSync } from 'node:fs'
 import { join } from 'path'
 import { electronApp } from '@electron-toolkit/utils'
 import { systemClock } from './core/Clock'
 import { paths } from './core/paths'
+import { OnlineTranslator } from './translate/OnlineTranslator'
+import { SafeStorageSecretStore } from './system/SecretStore'
 import { openUserDb, type UserDbConnection } from './db/client'
 import { createContainer } from './container'
 import { MascotWindow } from './windows/MascotWindow'
@@ -26,7 +29,7 @@ import { QuietModeService } from './services/QuietModeService'
 import { SleepService } from './services/SleepService'
 import { TranslationService } from './services/TranslationService'
 import { ModelManager } from './translate/ModelManager'
-import { MBART_50, OPUS_MT_EN_VI, OPUS_MT_VI_EN } from './translate/modelFiles'
+import { NLLB_200, OPUS_MT_EN_VI, OPUS_MT_VI_EN } from './translate/modelFiles'
 import { OpusMtEngine } from './translate/OpusMtEngine'
 import { TtsService } from './services/TtsService'
 import { AudioPackService } from './services/AudioPackService'
@@ -101,17 +104,34 @@ if (!app.requestSingleInstanceLock()) {
     const s = new StudyWindow()
     study = s
     // Dịch câu offline: model tải về userData/models khi người dùng đồng ý, chạy trong utilityProcess
+    const secrets = new SafeStorageSecretStore(paths.secrets())
+    const onlineTranslator = new OnlineTranslator({ getKey: () => secrets.get('anthropic') })
     const translationService = new TranslationService({
       models: {
         'en-vi': new ModelManager({ modelsDir: paths.models(), spec: OPUS_MT_EN_VI }),
         'vi-en': new ModelManager({ modelsDir: paths.models(), spec: OPUS_MT_VI_EN }),
-        high: new ModelManager({ modelsDir: paths.models(), spec: MBART_50 })
+        high: new ModelManager({ modelsDir: paths.models(), spec: NLLB_200 })
       },
       engine: new OpusMtEngine(paths.models()),
       preferHigh: () => c.settings.get('translate.highQuality'),
+      online: {
+        enabled: () => c.settings.get('translate.online'),
+        translate: (text, direction) => onlineTranslator.translate(text, direction)
+      },
+      keys: {
+        canStore: () => secrets.canStore(),
+        has: () => onlineTranslator.hasKey(),
+        set: (key) => secrets.set('anthropic', key),
+        clear: () => secrets.delete('anthropic')
+      },
       onStatus: (direction, status) => broadcast('translate:status-changed', { direction, status })
     })
     translation = translationService
+    // mBART-50 (~890 MB) đã được thay bằng NLLB-200 (docs/decisions.md #34): xoá bản cũ còn sót trên đĩa
+    const oldMbart = join(paths.models(), 'Xenova', 'mbart-large-50-many-to-many-mmt')
+    if (existsSync(oldMbart)) rmSync(oldMbart, { recursive: true, force: true })
+    // Nạp sẵn model dịch (nếu đã tải) sau khi app khởi động xong: lần tra đầu tiên không phải chờ ~3 giây nạp model
+    setTimeout(() => translationService.warmup('Hello'), 8_000)
     // Giọng đọc tự nhiên offline (Kokoro): model tải khi người dùng đồng ý, chạy trong utilityProcess riêng
     const ttsService = new TtsService({
       models: new ModelManager({ modelsDir: paths.models(), spec: KOKORO }),
@@ -200,6 +220,8 @@ if (!app.requestSingleInstanceLock()) {
           c.settings.get('translate.autoCopy')
         )
         p.showAtCursor()
+        // Nạp model dịch song song với việc tra từ điển để bản dịch hiện nhanh hơn
+        translationService.warmup(text)
         sendTo(p.win, 'popup:query', { text })
       }
     })

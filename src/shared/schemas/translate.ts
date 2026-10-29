@@ -8,7 +8,7 @@ export const TranslateDirectionSchema = z.enum(['en-vi', 'vi-en'])
 export type TranslateDirection = z.infer<typeof TranslateDirectionSchema>
 
 /**
- * Model dịch có thể tải: opus-mt từng chiều (nhanh, nhỏ) hoặc 'high' = mBART-50 một model cho cả hai chiều
+ * Model dịch có thể tải: opus-mt từng chiều (nhanh, nhỏ) hoặc 'high' = NLLB-200 một model cho cả hai chiều
  * (chậm hơn, ~890 MB (848 MiB), chuẩn hơn rõ rệt)
  */
 export const TranslateModelKeySchema = z.enum(['en-vi', 'vi-en', 'high'])
@@ -45,10 +45,28 @@ export const TranslateInputSchema = z.object({ text: z.string().min(1).max(TRANS
 
 export const TranslateResultSchema = z.object({
   text: z.string(),
-  /** Engine đã dịch: 'opus-mt' (nhanh, chất lượng trung bình) hoặc 'mbart-50' (chất lượng cao) */
-  engine: z.enum(['opus-mt', 'mbart-50']),
+  /** Engine đã dịch: 'opus-mt' (nhanh, chất lượng trung bình), 'nllb-200' (chất lượng cao, offline) hoặc 'claude' (online, tuỳ chọn) */
+  engine: z.enum(['opus-mt', 'nllb-200', 'claude']),
   cached: z.boolean(),
   /** Chiều đã dịch (tự nhận từ văn bản) */
   direction: TranslateDirectionSchema
 })
 export type TranslateResult = z.infer<typeof TranslateResultSchema>
+
+/** Dịch online (Claude): chỉ báo đã có key hay chưa — renderer không bao giờ nhận lại key */
+export const TranslateOnlineStatusSchema = z.object({
+  hasKey: z.boolean(),
+  /** Máy có mã hoá được key (Electron safeStorage) không; false → không lưu key */
+  canStore: z.boolean()
+})
+export type TranslateOnlineStatus = z.infer<typeof TranslateOnlineStatusSchema>
+
+/** API key Anthropic do người dùng nhập (sk-ant-…) */
+export const TranslateSetKeyInputSchema = z.object({
+  key: z
+    .string()
+    .trim()
+    .min(20)
+    .max(300)
+    .regex(/^sk-ant-[A-Za-z0-9_-]+$/)
+})

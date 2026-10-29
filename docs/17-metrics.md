@@ -19,9 +19,9 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 
 | Hạng mục                                       | Giá trị                                                                                     | Đo bằng      | Đo ngày    |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
-| Phiên bản app                                  | 1.4.3                                                                                       | `pnpm stats` | 2026-10-28 |
-| Test (Vitest)                                  | 371 test / 40 file                                                                          | `pnpm test`  | 2026-10-24 |
-| Kênh IPC                                       | 94 invoke · 4 send · 14 event                                                               | `pnpm stats` | 2026-10-22 |
+| Phiên bản app                                  | 1.5.0                                                                                       | `pnpm stats` | 2026-10-28 |
+| Test (Vitest)                                  | 385 test / 41 file                                                                          | `pnpm test`  | 2026-10-29 |
+| Kênh IPC                                       | 99 invoke · 4 send · 14 event                                                               | `pnpm stats` | 2026-10-29 |
 | Migration DB (Drizzle)                         | 7 (`0000`–`0006`)                                                                           | `pnpm stats` | 2026-10-22 |
 | Nhân vật thú cưng                              | 5 (Bi, Webby, Draco, Robo, Kitsu)                                                           | `pnpm stats` | 2026-10-22 |
 | Hoạt ảnh mỗi nhân vật (giai đoạn trưởng thành) | 25 (Bi, Webby, Draco: 20 chung + 3 `quirk_*` + 2 `click_*`) · 26 (Robo, Kitsu: 4 `quirk_*`) | `pnpm stats` | 2026-10-22 |
@@ -66,7 +66,7 @@ Các bản trước (1.0.0 → 1.2.0) ghi ở [09 §10.3](09-content-pipeline.md
 | Model                     | Kích thước tải                                                        | Ghi chú                                                                                         |
 | ------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | opus-mt en→vi / vi→en     | ~107 MB (102 MiB) mỗi chiều                                           | dịch nhanh, chất lượng trung bình                                                               |
-| mBART-50 (chất lượng cao) | ~890 MB (848 MiB), dùng cả hai chiều                                  | `translate.highQuality`                                                                         |
+| NLLB-200 (chất lượng cao) | ~870 MB (831 MiB), dùng cả hai chiều; CC-BY-NC                        | `translate.highQuality`                                                                         |
 | Whisper base.en           | ~80 MB                                                                | chấm nói                                                                                        |
 | wav2vec2 phoneme int8     | ~355 MB                                                               | chấm âm vị, tuỳ chọn                                                                            |
 | Gói audio bài nghe        | 22,3 MB (1050 đoạn, đủ giọng Anh + Mỹ cho mọi câu)                                                               | release `listening-audio-1.2.0`                                                                 |

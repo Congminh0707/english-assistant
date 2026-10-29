@@ -6,6 +6,8 @@ export const paths = {
   userDb: (): string => join(app.getPath('userData'), 'user.db'),
   /** Bộ nhớ đệm âm thanh giọng đọc đã tạo: userData/tts-cache */
   ttsCache: (): string => join(app.getPath('userData'), 'tts-cache'),
+  /** API key người dùng nhập, đã mã hoá bằng safeStorage: userData/secrets.json */
+  secrets: (): string => join(app.getPath('userData'), 'secrets.json'),
   /** Model AI tải về (dịch offline...): userData/models */
   models: (): string => join(app.getPath('userData'), 'models'),
   /** Gói âm thanh tạo sẵn đã tải (bài nghe): userData/audio-packs */

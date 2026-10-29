@@ -91,52 +91,47 @@ export const OPUS_MT_VI_EN: ModelSpec = {
 }
 
 /**
- * Model dịch chất lượng cao: mBART-50 many-to-many (Meta/Facebook, fairseq MIT), bản ONNX lượng tử hoá 8-bit của Xenova.
- * MỘT model dịch cả Anh→Việt và Việt→Anh (mã ngôn ngữ en_XX / vi_VN), ~890 MB (848 MiB) — tuỳ chọn tải thêm, chuẩn hơn rõ rệt
- * so với opus-mt (đã thử: từ nhiều nghĩa, cụm danh từ, đoạn văn). ⚠️ Thẻ model trên Hugging Face không ghi license;
- * mã nguồn/trọng số fairseq là MIT — xem docs/08-content-sources.md.
+ * Model dịch chất lượng cao: NLLB-200 distilled 600M (Meta AI, CC-BY-NC-4.0 — phi thương mại), bản ONNX lượng tử hoá 8-bit của Xenova.
+ * MỘT model dịch cả Anh→Việt và Việt→Anh (mã ngôn ngữ eng_Latn / vie_Latn), ~870 MB (831 MiB) — tuỳ chọn tải thêm, chuẩn hơn rõ rệt
+ * so với mBART-50 (đã đo: docs/decisions.md #34). Không đóng gói kèm app — xem docs/08-content-sources.md.
  */
-export const MBART_50: ModelSpec = {
-  id: 'Xenova/mbart-large-50-many-to-many-mmt',
-  revision: '8818d85d37c2142c5b2ded4758b1d74bbe8c0d13',
+export const NLLB_200: ModelSpec = {
+  id: 'Xenova/nllb-200-distilled-600M',
+  revision: '261c31d1a5732c67cdd16d80e8d6088507c7ccea',
   files: [
     {
       path: 'config.json',
-      size: 1402,
-      sha256: 'c8412fe43ee9846aa18ec7173fe827cda0fd510926133cc731d43356113ebb03'
+      size: 873,
+      sha256: '52f035acb54ac80e5ef7fe78d6967f8ddf8e8799f078d1a92a2c8168d8ff4a20'
     },
     {
       path: 'generation_config.json',
-      size: 261,
-      sha256: '64e66c4cf226989cfbf661fef7f38e3c2ff0dc570767e2949dfb4d1bd4fd3d49'
-    },
-    {
-      path: 'special_tokens_map.json',
-      size: 880,
-      sha256: '4564cc3fd76b6c58fce58eadc5efe69d8fc6269abc7d469250193a3320dae95b'
-    },
-    {
-      path: 'tokenizer.json',
-      size: 17109943,
-      sha256: '11d385c8cc206ef325f896d49d1904ffe309d6ad4d24caa42d7aec5a0a2d5377'
+      size: 189,
+      sha256: '1ce846259ae04c572ae1863e358534bbc376ff3d3f100b1494feda6200b51de8'
     },
     {
       path: 'tokenizer_config.json',
-      size: 1249,
-      sha256: '1533af19cfaf539148b8c968d062ac2d525764c4fd2acf94b816d6b1e6305671'
+      size: 544,
+      sha256: 'ddf411c9f790d081e72de76bb8e8b714d74e160e61bc10c9bd8f56022dcd7fd7'
+    },
+    {
+      path: 'tokenizer.json',
+      size: 17331224,
+      sha256: '8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94'
     },
     {
       path: 'onnx/encoder_model_quantized.onnx',
-      size: 409679125,
-      sha256: 'b4fae22ee426fd1cd2ed2bc8fe958520eb31e50408502d3de06b365646a59aeb'
+      size: 419120483,
+      sha256: '5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28'
     },
     {
       path: 'onnx/decoder_model_merged_quantized.onnx',
-      size: 462864719,
-      sha256: '66fb637e23fe5e41d77f6681f355cefd4f440f8e904eba3a3f719584fc3fff10'
+      size: 475505771,
+      sha256: 'dd66608c2a4194e78f95548fa0e64f24302303698c5b09fa8e1f9e16ec00676b'
     }
   ]
 }
+
 
 export const modelBaseUrl = (spec: ModelSpec): string =>
   `https://huggingface.co/${spec.id}/resolve/${spec.revision}/`

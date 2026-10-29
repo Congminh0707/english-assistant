@@ -10,6 +10,7 @@ import { invoke } from '@renderer/shared/ipc'
 import { useTts, useTtsModel } from '@renderer/shared/composables/useTts'
 import { useStt } from '@renderer/shared/composables/useStt'
 import { useTranslateModels } from '@renderer/shared/composables/useTranslateModels'
+import type { TranslateOnlineStatus } from '@shared/schemas/translate'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useUpdateStatus } from '@renderer/shared/composables/useUpdateStatus'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
@@ -28,6 +29,29 @@ const ttsModel = useTtsModel()
 const trModels = useTranslateModels()
 const stt = useStt()
 const TR_DIRECTIONS = ['high', 'en-vi', 'vi-en'] as const
+
+// Dịch online (Claude): chỉ biết đã có key chưa — key nhập xong là gửi thẳng sang main, không giữ lại ở renderer
+const onlineStatus = ref<TranslateOnlineStatus>({ hasKey: false, canStore: true })
+const apiKeyInput = ref('')
+const keyMessage = ref('')
+
+async function saveKey(): Promise<void> {
+  keyMessage.value = ''
+  try {
+    onlineStatus.value = await invoke('translate:set-key', { key: apiKeyInput.value })
+    apiKeyInput.value = ''
+    keyMessage.value = t('translate.keySaved')
+  } catch {
+    keyMessage.value = onlineStatus.value.canStore
+      ? t('translate.keyInvalid')
+      : t('translate.keyCannotStore')
+  }
+}
+
+async function clearKey(): Promise<void> {
+  onlineStatus.value = await invoke('translate:clear-key')
+  keyMessage.value = ''
+}
 const MB = 1024 * 1024
 const toMb = (bytes: number | undefined): number => Math.round((bytes ?? 0) / MB)
 const ttsSizeMb = computed(() => Math.round((ttsModel.status.value?.sizeBytes ?? 0) / MB))
@@ -49,6 +73,7 @@ const CREDIT_KEYS = [
   'kokoroData',
   'espeak',
   'opusmt',
+  'nllb',
   'whisper',
   'wav2vec2',
   'tatoeba',
@@ -171,7 +196,10 @@ async function createProfile(): Promise<void> {
 const levelLabel = (code: string): string =>
   `${cefrLabel(code as never)} · ${code.replace('_', '.')}`
 
-onMounted(loadProfiles)
+onMounted(async () => {
+  void loadProfiles()
+  onlineStatus.value = await invoke('translate:online-status')
+})
 </script>
 
 <template>
@@ -384,6 +412,38 @@ onMounted(loadProfiles)
           </span>
         </template>
       </div>
+    </PxPanel>
+
+    <PxPanel class="block">
+      <h2>{{ t('translate.onlineTitle') }}</h2>
+      <p class="muted">{{ t('translate.onlineHint') }}</p>
+      <label class="row">
+        {{ t('translate.onlineToggle') }}
+        <input
+          type="checkbox"
+          :checked="settingsStore.settings['translate.online']"
+          @change="setSetting('translate.online', ($event.target as HTMLInputElement).checked)"
+        />
+      </label>
+      <div class="model">
+        <input
+          v-model="apiKeyInput"
+          type="password"
+          autocomplete="off"
+          spellcheck="false"
+          :placeholder="t('translate.keyPlaceholder')"
+          @keydown.enter="saveKey"
+        />
+        <button type="button" class="btn btn--sm" :disabled="!apiKeyInput" @click="saveKey">
+          {{ t('translate.keySave') }}
+        </button>
+        <button v-if="onlineStatus.hasKey" type="button" class="btn btn--sm" @click="clearKey">
+          {{ t('translate.keyClear') }}
+        </button>
+      </div>
+      <p class="muted">
+        {{ keyMessage || (onlineStatus.hasKey ? t('translate.keySaved') : t('translate.keyNone')) }}
+      </p>
     </PxPanel>
 
     <PxPanel class="block">

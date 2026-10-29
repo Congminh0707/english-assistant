@@ -33,8 +33,10 @@ export const settingDefinitions = {
   'mascot.quizMinutes': z
     .union([z.literal(0), z.literal(15), z.literal(25), z.literal(45)])
     .default(25),
-  /** Dịch câu/đoạn: ưu tiên model chất lượng cao (mBART-50) khi đã tải; tắt = luôn dùng bản nhanh opus-mt */
+  /** Dịch câu/đoạn: ưu tiên model chất lượng cao (NLLB-200) khi đã tải; tắt = luôn dùng bản nhanh opus-mt */
   'translate.highQuality': z.boolean().default(true),
+  /** Dịch online bằng Claude (cần API key của người dùng; văn bản được gửi tới Anthropic). Mặc định tắt */
+  'translate.online': z.boolean().default(false),
   /** Ôn thẻ: số từ mới đưa vào ôn mỗi ngày (0 = không giới hạn) */
   'review.newPerDay': z
     .union([z.literal(0), z.literal(5), z.literal(10), z.literal(20), z.literal(50)])

@@ -70,6 +70,7 @@ Các bản trước (1.0.0 → 1.2.0) ghi ở [09 §10.3](09-content-pipeline.md
 | Whisper base.en           | ~80 MB                                                                | chấm nói                                                                                        |
 | wav2vec2 phoneme int8     | ~355 MB                                                               | chấm âm vị, tuỳ chọn                                                                            |
 | Gói audio bài nghe        | 22,3 MB (1050 đoạn, đủ giọng Anh + Mỹ cho mọi câu)                                                               | release `listening-audio-1.2.0`                                                                 |
+| Gói bản đồ bé `kids-world` | 📋 chưa build — đo khi build ([19 §6](19-kids-world.md)) | mục tiêu ≤ 50 MB |
 | Gói sprite thú cưng 288px | 65,9 MB (zip: 575 ảnh WebP lossless + 25 `sheet.json`, khung có lề) | `pet-sprites-hires-1.1.0`, đo 2026-10-28, **chưa đăng release**; bộ cài giữ sprite 96px ≈ 22 MB |
 
 > Các kích thước model lấy từ `modelFiles.ts` / manifest; đổi model → đo lại và sửa bảng.

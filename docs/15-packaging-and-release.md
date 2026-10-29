@@ -130,6 +130,10 @@ Không nằm trong bộ cài (bộ cài chỉ có sprite 96px). Tạo và đăng
 4. Điền `size` + `sha256` thật vào `src/main/sprites/packSpec.ts` (app từ chối gói sai kích thước/sha256), rồi phát hành app như bình thường.
    Đổi nội dung: build lại, tăng `VERSION` trong `packSpec.ts` và dùng tag release mới.
 
+## 6d. Gói bản đồ thế giới của bé `kids-world` (📋 chưa làm)
+
+Tài nguyên bản đồ 3D + âm thanh nền ([19 §6](19-kids-world.md), [decisions #36](decisions.md)), cùng cơ chế với gói sprite 288px: build bằng script → zip + `.sha256` → release phụ `kids-world-<ver>` (pre-release) → điền `size` + `sha256` vào `src/main/world/packSpec.ts`. Lệnh cụ thể ghi khi làm.
+
 ## 6d. Cập nhật content và gói tải thêm cho người đã cài
 
 - **Từ điển (content pack đi kèm bộ cài):** tự cập nhật. Mỗi lần khởi động `ContentPackService.ensureBundled` cài bản đi kèm nếu mới hơn bản đang dùng; người dùng chỉ cần cập nhật app (auto-update). Từ đã lưu giữ nguyên vì tham chiếu theo word id.

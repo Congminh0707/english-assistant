@@ -43,6 +43,7 @@ Người viết code chính có nền tảng **Laravel + Vue**, chưa có kinh n
 | 16 | [16-privacy-and-security.md](16-privacy-and-security.md) | Quyền riêng tư (clipboard, mic, màn hình), bảo mật Electron |
 | 17 | [17-metrics.md](17-metrics.md) | **Bảng số liệu** (số từ, bài học, test, pack…) + lệnh đo lại |
 | 18 | [18-ui-rules.md](18-ui-rules.md) | **Quy tắc giao diện** (bo góc, nút, icon, huy hiệu…) + `pnpm ui:audit` |
+| 19 | [19-kids-world.md](19-kids-world.md) | 📋 Bản đồ thế giới của bé (tỉnh → nước → Trái Đất; 3D three.js + 2D dự phòng, gói tải thêm), lượt học 5 bước, nội dung, IPC |
 | — | [glossary.md](glossary.md) | Thuật ngữ desktop/Electron giải thích cho dev web |
 | — | [decisions.md](decisions.md) | Nhật ký quyết định kiến trúc (ADR rút gọn) |
 

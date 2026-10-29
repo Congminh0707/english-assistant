@@ -126,6 +126,8 @@ Mã PIN phụ huynh không nằm ở bảng riêng: lưu dạng `{salt, hash}` �
 | INDEX(profile_id, due) | |
 
 ### lesson_progress (bài học nền tảng — migration 0004)
+
+> 📋 Bản đồ thế giới của bé ([19 §5.1](19-kids-world.md)) sẽ dùng thêm tiền tố `kids.word.<pictureId>` (từ đã qua đủ 5 bước) và `kids.place.<placeId>` (nơi đã xong) — không cần migration.
 | Cột | Kiểu | Ghi chú |
 |---|---|---|
 | id | TEXT PK | UUID v7 |

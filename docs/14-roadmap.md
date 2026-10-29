@@ -27,6 +27,8 @@ gantt
 - [x] 2026-10-28: gói hires 1.1.0 đã build (69.090.373 B, 65,9 MB; packSpec đã cập nhật). 🚧 Còn: tải `content/.build/pet-sprites-hires-1.1.0.zip` lên GitHub Release tag `pet-sprites-hires-1.1.0` (pre-release), rồi đo lại `pnpm stats` (docs/17).
 - [x] 2026-10-29: dịch popup — NLLB-200 thay mBART-50 (từ không có trong từ điển cũng dịch máy; nạp sẵn model khi mở popup/khởi động) + dịch online tuỳ chọn (Claude, key người dùng, safeStorage). `pnpm lint && pnpm test` (385) pass; 🚧 Còn: thử tay trong app thật (tải NLLB ~870 MB, dán key, bôi đen dịch), đo lại thời gian, commit.
 
+- [x] 2026-10-29: lên kế hoạch **mở rộng mạnh từ vựng trẻ em** — đã ghi roadmap [Phase 2b](#phase-2b--mở-rộng-từ-vựng-trẻ-em-đề-xuất-2026-10-29) + [decisions #35](decisions.md). Chưa code. 🚧 Bước tiếp theo: viết thiết kế chi tiết giai đoạn A (cấu trúc chủ đề, migration, kênh IPC) rồi mới code; chủ dự án đã đồng ý làm A + B.
+
 > Quy tắc: ghi `🚧 Đang làm` trước khi bắt đầu việc dài, xoá/đổi thành `[x]` ngay khi xong. Xem AGENTS.md.
 
 - ✅ Xong (2026-10-25): **Sửa lỗi báo cáo**: `PicText` giữ nguyên chữ ASCII (pig/hat) trừ bài chọn hình (`ids`) → ghép cặp & "cặp vô thanh – hữu thanh" không còn thay chữ bằng ảnh; bài đọc không tra/lưu tên riêng (Hue, Da Nang); trạng thái "đã lưu" tính theo thẻ ôn còn dùng của profile. Tên riêng dùng `shared/properNouns.ts` (có test); pack từ điển 1.6.0 đã lọc từ không phải tiếng Anh chuẩn (đã build, chưa phát hành — xem docs/09). lint 0 lỗi, 371 test, ui:audit 0 lỗi.
@@ -168,6 +170,43 @@ Mục tiêu: dùng được hằng ngày: thú cưng + dịch nhanh + từ vựn
 - [x] Auto-update: `electron-updater` qua GitHub Releases (`UpdateManager`): kiểm tra nền sau 45 giây và mỗi 6 giờ (tắt được), chỉ tải/cài khi người dùng đồng ý, UI trong Cài đặt; `user.db` được sao lưu tự động trước khi migrate (giữ 3 bản). **Còn**: phát hành bản đầu (`GH_TOKEN=... pnpm release:win`), ký số code signing, kiểm thử cập nhật thật giữa hai bản
 
 **DoD:** Một người A1–B1 và một bé 6–8 tuổi đều có lộ trình học ≥ 4 tuần không hết bài.
+
+## Phase 2b — Mở rộng từ vựng trẻ em (đề xuất 2026-10-29)
+
+Hiện trạng: bé chỉ có một dạng thẻ (`audio_picture`: nghe từ → chạm 1 trong 3 hình, ≤ 6 hình mới/ngày) + 4 hoạt động chữ cái/âm/ghép vần/sight words. Điểm nghẽn: (1) số từ bị giới hạn bởi số hình pixel đã vẽ (`src/shared/pictures.ts`); (2) mỗi từ chỉ được dạy một cách; (3) không có bản đồ tiến độ cho bé; (4) phụ huynh chưa có việc làm cùng bé. Quyết định: [decisions #35](decisions.md). Ràng buộc giữ nguyên: hình pixel tự vẽ ([#30](decisions.md)), không chấm khắt khe/không AI hội thoại tự do với trẻ, lọc từ nhạy cảm, nội dung tự soạn (`source.license`), IPC/i18n như quy ước.
+
+**Giai đoạn A — Thế giới từ theo chủ đề + chuỗi 5 bước (làm trước)**
+
+- [ ] Thiết kế chi tiết (cấu trúc `content/curated/kids/topics`, bảng/migration tiến độ từ theo chủ đề, kênh IPC) → ghi docs/07 §9, docs/10, docs/03.
+- [ ] ~25 chủ đề × 8–12 từ (~250–300 từ): con vật, đồ ăn, màu, số đếm, cơ thể, gia đình, quần áo, đồ vật trong nhà, trường lớp, thời tiết, phương tiện, hành động…; mỗi từ đủ hình + giọng đọc + IPA + nghĩa Việt; `content:validate` kiểm tra.
+- [ ] **Bản đồ thế giới 3 tầng** trong `KidsApp` (chốt 2026-10-29, [decisions #35](decisions.md)): bé bắt đầu ở một tỉnh/thành nhỏ → mở dần các nước → ra cả Trái Đất (cấp cao nhất). Tầng 1 = Việt Nam, ~8–10 tỉnh/thành tiêu biểu (Hà Nội, Huế, Đà Nẵng, Đà Lạt, TP.HCM, Cần Thơ, Hạ Long…); tầng 2 = vài quốc gia (Nhật, Anh, Mỹ, Úc, Ai Cập, Brazil, Kenya…); tầng 3 = Trái Đất (ôn tổng hợp, từ khó, câu hoàn chỉnh, màn cuối). **Cùng tầng = cùng độ khó và cùng số từ** (lấy từ kho từ chung theo bậc), mỗi nơi khác chủ điểm/bản sắc (vd Hà Nội: lake, bike, pho; Đà Nẵng: sea, bridge, sand); bé chọn nơi nào trước cũng được. Mở tầng sau khi xong đủ N trên M nơi của tầng trước (không bắt học hết) và từ đang ở mức nhớ ổn.
+- [ ] Mức nhớ từng từ hạt giống → mầm → bông hoa (dựa FSRS, bé không thấy điểm; từ sắp quên héo nhẹ, không phạt, không mất chuỗi ngày).
+- [ ] Animation bản đồ (nhẹ, CSS/SVG/sprite; tôn trọng `prefers-reduced-motion`, tạm dừng khi cửa sổ ẩn): thú cưng đi dọc đường tới nơi kế (hoạt ảnh đi/nhảy sẵn có), nơi chưa mở bị mây/sương che và tan khi mở khoá, zoom mượt giữa tỉnh → nước → Trái Đất, mây/chim/bướm/sóng, ngày–đêm theo giờ máy, nơi hôm nay lấp lánh, chạm thú cưng/vật trên bản đồ để nghe lại từ. Phần sau (giai đoạn C): từ đã học xuất hiện trong thế giới (học "cow" thì có bò ở nông trại), rương thưởng cố định cuối mỗi nơi, lễ ăn mừng cuối tầng, phương tiện đi lại, nhiệm vụ nhỏ trên đường.
+- [ ] Chuỗi 5 bước mỗi từ: làm quen (hình + mascot nói) → chạm hình (đã có) → chơi → nói theo (sao/vỗ tay, không chấm khắt khe) → dùng trong câu ("I see a cat").
+- [ ] Hình pixel mới cho các từ chưa có hình (ước ~200; ưu tiên danh từ cụ thể; kiểm tra bằng `pnpm ui:audit`) + nền pixel cho từng nơi (dựng bằng `pixelGrid.ts`, dùng chung khuôn theo tầng để tái dùng vật trang trí).
+- [ ] Địa lý/văn hoá: bản đồ cách điệu, **không vẽ đường biên giới/chủ quyền**, tránh chủ đề tranh chấp; món ăn/địa danh/cờ phải đúng, cần người Việt duyệt trước khi phát hành (nội dung hiện do AI soạn).
+
+**Giai đoạn B — Mini-game (làm sau A)**
+
+- [ ] Lật thẻ ghép cặp (memory) · bắn bóng bay đúng từ nghe được · Simon says (TPR) · phân loại (con vật/đồ ăn).
+- [ ] Mỗi game dùng chung bộ từ chủ đề, có sao thưởng/sticker như hoạt động hiện tại.
+
+**Giai đoạn C — Động từ/tính từ qua mascot + thú cưng "học trò"**
+
+- [ ] Dạy động từ/tính từ bằng hoạt ảnh sẵn có của mascot (chạy, ngủ, ăn, vui, buồn…) thay vì vẽ hình mới.
+- [ ] Bé "dạy" thú cưng từ mới (học bằng cách dạy người khác).
+- [ ] Thêm game: tô màu theo lệnh, kéo đồ vào cảnh, tìm đồ trong cảnh (I-spy), đếm số.
+
+**Giai đoạn D — Phân tầng tuổi + audio**
+
+- [ ] 3–4 tuổi: chỉ hình/âm, không chữ, phiên 3–5 phút · 5–6: hiện chữ, nhận mặt chữ · 7–8: ghép chữ, điền chữ thiếu, câu ngắn (cùng bộ từ, khác cách chơi).
+- [ ] Gói audio MP3 tạo sẵn cho từ/câu của bé (như gói bài nghe 1.2.0); đánh dấu `reviewed` theo chủ đề khi có người duyệt.
+
+**Giai đoạn E — Gói phụ huynh**
+
+- [ ] "Từ của tuần" + gợi ý câu hỏi hỏi bé ở nhà · báo cáo "bé đã biết N từ" · thẻ từ in được (PDF).
+
+**DoD:** Bé 3–6 tuổi có lộ trình từ vựng ≥ 4 tuần không hết từ mới, mỗi từ gặp ≥ 3 cách chơi khác nhau; phụ huynh thấy số từ bé đã biết.
 
 ## Phase 3 — Nói, Viết, AI (≈ 8 tuần)
 

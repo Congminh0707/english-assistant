@@ -29,7 +29,10 @@ gantt
 
 - [x] 2026-10-29: lên kế hoạch **mở rộng mạnh từ vựng trẻ em** — đã ghi roadmap [Phase 2b](#phase-2b--mở-rộng-từ-vựng-trẻ-em-đề-xuất-2026-10-29) + [decisions #35](decisions.md). Chưa code; chủ dự án đã đồng ý làm A + B.
 - [x] 2026-10-29: thiết kế chi tiết giai đoạn A → `docs/19-kids-world.md` (12 nơi có công trình, bản đồ 3D three.js voxel + 2D dự phòng, gói tải thêm `kids-world`, decisions #36).
-- 🚧 Đang làm (2026-10-30): code giai đoạn A theo docs/19 §8. Xong bước 1 (schema `src/shared/schemas/kidsWorld.ts` + logic thuần `src/shared/kidsWorld.ts` + 22 test; lint 0 lỗi, 407 test pass, chưa commit) — bước tiếp theo: bước 2 (nội dung tầng 1: `content/curated/kids/world/world.json` + 12 file nơi, hình từ còn thiếu, `voxelGrid.ts` + công trình voxel). Kiểm tra: `pnpm lint && pnpm test`.
+- [x] 2026-10-30: bước 1 docs/19 §8 — schema `src/shared/schemas/kidsWorld.ts` + logic thuần `src/shared/kidsWorld.ts` + 22 test (commit `e1a1527`).
+- [x] 2026-10-30: bước 2 docs/19 §8 — nội dung tầng 1 (`content/curated/kids/world/`: 12 nơi × 10 từ), 24 hình pixel mới (`src/shared/picturesMore.ts`), lõi voxel + 12 công trình voxel (`src/shared/voxels/`), test nội dung + voxel.
+- [x] 2026-10-30: bước 3 docs/19 §8 — `KidsWorldLibrary`, `KidsWorldService`, kênh `kids:world`/`kids:visit`/`kids:visit-done`, `kids:home` có tiến độ bản đồ, test service (7). `pnpm stats` đếm thêm nơi/từ/công trình/hình. lint 0 lỗi, typecheck sạch, 428 test pass.
+- 🚧 Tiếp theo: bước 4 docs/19 §8 — `KidsVisit.vue` (lượt 5 bước) + bản đồ 2D (`KidsWorld.vue`/`KidsWorld2D.vue`, hình công trình 2D từ `landmarkImage`), ô Chơi mở bản đồ, đổi `kids:next` thôi tự giới thiệu hình mới, thử tay với hồ sơ trẻ em mới + hồ sơ cũ. Kiểm tra: `pnpm lint && pnpm test && pnpm ui:audit`.
 
 > Quy tắc: ghi `🚧 Đang làm` trước khi bắt đầu việc dài, xoá/đổi thành `[x]` ngay khi xong. Xem AGENTS.md.
 

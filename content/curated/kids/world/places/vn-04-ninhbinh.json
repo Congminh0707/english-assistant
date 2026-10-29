@@ -1,0 +1,94 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "ninhbinh",
+    "tier": "vn",
+    "region": "north",
+    "order": 4,
+    "suggestOrder": 8,
+    "title": "Ninh Binh",
+    "vi": "Ninh Bình",
+    "topic": "Numbers",
+    "topicVi": "Số đếm 1–10",
+    "landmark": "ninhbinh-trang-an",
+    "landmarkVi": "Thuyền qua hang Tràng An",
+    "pos": {
+      "x": 36,
+      "y": 27
+    },
+    "decor": ["karst", "river-boat", "cave"]
+  },
+  "words": [
+    {
+      "picture": "one",
+      "sentence": {
+        "en": "It's one.",
+        "vi": "Đó là số một."
+      }
+    },
+    {
+      "picture": "two",
+      "sentence": {
+        "en": "It's two.",
+        "vi": "Đó là số hai."
+      }
+    },
+    {
+      "picture": "three",
+      "sentence": {
+        "en": "It's three.",
+        "vi": "Đó là số ba."
+      }
+    },
+    {
+      "picture": "four",
+      "sentence": {
+        "en": "It's four.",
+        "vi": "Đó là số bốn."
+      }
+    },
+    {
+      "picture": "five",
+      "sentence": {
+        "en": "It's five.",
+        "vi": "Đó là số năm."
+      }
+    },
+    {
+      "picture": "six",
+      "sentence": {
+        "en": "It's six.",
+        "vi": "Đó là số sáu."
+      }
+    },
+    {
+      "picture": "seven",
+      "sentence": {
+        "en": "It's seven.",
+        "vi": "Đó là số bảy."
+      }
+    },
+    {
+      "picture": "eight",
+      "sentence": {
+        "en": "It's eight.",
+        "vi": "Đó là số tám."
+      }
+    },
+    {
+      "picture": "nine",
+      "sentence": {
+        "en": "It's nine.",
+        "vi": "Đó là số chín."
+      }
+    },
+    {
+      "picture": "ten",
+      "sentence": {
+        "en": "It's ten.",
+        "vi": "Đó là số mười."
+      }
+    }
+  ]
+}

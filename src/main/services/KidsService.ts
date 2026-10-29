@@ -8,7 +8,8 @@ import {
   pickChoices,
   pictureContentId,
   pictureIdOf,
-  ratingFromTries
+  ratingFromTries,
+  starsFor
 } from '@shared/kids'
 import { PICTURE_WORDS } from '@shared/pictures'
 import type {
@@ -68,6 +69,8 @@ export class KidsService {
       random?: () => number
       /** Có đặt PIN phụ huynh chưa (để giao diện biết có cần hướng dẫn đặt PIN) */
       pinSet: () => boolean
+      /** Số nơi đã xong / tổng số nơi trên bản đồ thế giới (KidsWorldService, nối qua hàm) */
+      worldProgress?: () => { done: number; total: number }
     }
   ) {}
 
@@ -210,9 +213,10 @@ export class KidsService {
   }
 
   home(): KidsHome {
-    const { srs, pet, pinSet } = this.deps
+    const { srs, pet, pinSet, worldProgress } = this.deps
     const stickers = this.stickers()
     const progress = this.activityProgress()
+    const world = worldProgress?.() ?? { done: 0, total: 0 }
     return {
       petName: pet.get().name,
       dueCount: srs.dueCount(['audio_picture']),
@@ -220,6 +224,8 @@ export class KidsService {
       stickersTotal: stickers.total,
       activitiesDone: progress.done,
       activitiesTotal: progress.total,
+      worldPlacesDone: world.done,
+      worldPlacesTotal: world.total,
       pinSet: pinSet(),
       usage: this.usageStatus()
     }
@@ -231,7 +237,8 @@ export class KidsService {
     return (this.deps.random ?? Math.random)()
   }
 
-  private giveFood(): string {
+  /** Tặng một món ăn ngẫu nhiên cho thú cưng (dùng chung cho thưởng hoạt động và rương bản đồ) */
+  giveFood(): string {
     const foodId = REWARD_FOODS[Math.floor(this.rnd() * REWARD_FOODS.length)]
     this.deps.inventory.add(foodId, 1)
     return foodId
@@ -248,12 +255,15 @@ export class KidsService {
 
   /** Đưa hình kế tiếp (chưa có thẻ) vào học: tạo thẻ mới đến hạn ngay */
   private introduceNext(profileId: string, now: number): SrsCardRow | undefined {
-    const { vocab } = this.deps
-    const have = new Set(vocab.contentIdsByDirection(profileId, 'audio_picture'))
+    const have = new Set(this.deps.vocab.contentIdsByDirection(profileId, 'audio_picture'))
     const pictureId = KIDS_PICTURE_ORDER.find((id) => !have.has(pictureContentId(id)))
-    if (!pictureId) return undefined
+    return pictureId ? this.introducePicture(profileId, pictureId, now) : undefined
+  }
+
+  /** Tạo thẻ hình mới (đến hạn ngay) cho một hình — dùng cả khi bé học từ mới ở bản đồ thế giới */
+  introducePicture(profileId: string, pictureId: string, now: number): SrsCardRow {
     const card = createEmptyCard(new Date(now))
-    return vocab.insertCard(
+    return this.deps.vocab.insertCard(
       {
         profileId,
         contentId: pictureContentId(pictureId),
@@ -292,10 +302,4 @@ export class KidsService {
       isNew: row.state === 0
     }
   }
-}
-
-/** Điểm → số sao: ≥ 90 ba sao, ≥ 70 hai sao, ≥ 1 một sao */
-function starsFor(score: number | null): number {
-  if (score === null || score <= 0) return 0
-  return score >= 90 ? 3 : score >= 70 ? 2 : 1
 }

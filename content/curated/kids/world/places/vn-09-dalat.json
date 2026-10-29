@@ -1,0 +1,94 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "dalat",
+    "tier": "vn",
+    "region": "south",
+    "order": 9,
+    "suggestOrder": 9,
+    "title": "Da Lat",
+    "vi": "Đà Lạt",
+    "topic": "The garden",
+    "topicVi": "Vườn rau",
+    "landmark": "dalat-station",
+    "landmarkVi": "Ga Đà Lạt – hồ Xuân Hương",
+    "pos": {
+      "x": 60,
+      "y": 71
+    },
+    "decor": ["pine-hill", "lake"]
+  },
+  "words": [
+    {
+      "picture": "strawberry",
+      "sentence": {
+        "en": "I see a strawberry.",
+        "vi": "Bé thấy một quả dâu tây."
+      }
+    },
+    {
+      "picture": "carrot",
+      "sentence": {
+        "en": "It's a carrot.",
+        "vi": "Đó là một củ cà rốt."
+      }
+    },
+    {
+      "picture": "tomato",
+      "sentence": {
+        "en": "I see a tomato.",
+        "vi": "Bé thấy một quả cà chua."
+      }
+    },
+    {
+      "picture": "potato",
+      "sentence": {
+        "en": "It's a potato.",
+        "vi": "Đó là một củ khoai tây."
+      }
+    },
+    {
+      "picture": "broccoli",
+      "sentence": {
+        "en": "I see the broccoli.",
+        "vi": "Bé thấy súp lơ xanh."
+      }
+    },
+    {
+      "picture": "mushroom",
+      "sentence": {
+        "en": "It's a mushroom.",
+        "vi": "Đó là một cây nấm."
+      }
+    },
+    {
+      "picture": "cucumber",
+      "sentence": {
+        "en": "I see a cucumber.",
+        "vi": "Bé thấy một quả dưa chuột."
+      }
+    },
+    {
+      "picture": "onion",
+      "sentence": {
+        "en": "It's an onion.",
+        "vi": "Đó là một củ hành."
+      }
+    },
+    {
+      "picture": "garlic",
+      "sentence": {
+        "en": "I see the garlic.",
+        "vi": "Bé thấy củ tỏi."
+      }
+    },
+    {
+      "picture": "corn",
+      "sentence": {
+        "en": "I see the corn.",
+        "vi": "Bé thấy bắp ngô."
+      }
+    }
+  ]
+}

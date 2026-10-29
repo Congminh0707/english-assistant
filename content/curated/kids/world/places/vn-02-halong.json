@@ -1,0 +1,94 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "halong",
+    "tier": "vn",
+    "region": "north",
+    "order": 2,
+    "suggestOrder": 5,
+    "title": "Ha Long",
+    "vi": "Hạ Long",
+    "topic": "The sea",
+    "topicVi": "Biển",
+    "landmark": "halong-trong-mai",
+    "landmarkVi": "Hòn Trống Mái – vịnh Hạ Long",
+    "pos": {
+      "x": 50,
+      "y": 10
+    },
+    "decor": ["karst", "sea"]
+  },
+  "words": [
+    {
+      "picture": "boat",
+      "sentence": {
+        "en": "I see a boat.",
+        "vi": "Bé thấy một chiếc thuyền."
+      }
+    },
+    {
+      "picture": "fish",
+      "sentence": {
+        "en": "I see a fish.",
+        "vi": "Bé thấy một con cá."
+      }
+    },
+    {
+      "picture": "crab",
+      "sentence": {
+        "en": "It's a crab.",
+        "vi": "Đó là một con cua."
+      }
+    },
+    {
+      "picture": "octopus",
+      "sentence": {
+        "en": "I see an octopus.",
+        "vi": "Bé thấy một con bạch tuộc."
+      }
+    },
+    {
+      "picture": "dolphin",
+      "sentence": {
+        "en": "I see a dolphin.",
+        "vi": "Bé thấy một con cá heo."
+      }
+    },
+    {
+      "picture": "whale",
+      "sentence": {
+        "en": "It's a whale.",
+        "vi": "Đó là một con cá voi."
+      }
+    },
+    {
+      "picture": "shark",
+      "sentence": {
+        "en": "I see a shark.",
+        "vi": "Bé thấy một con cá mập."
+      }
+    },
+    {
+      "picture": "turtle",
+      "sentence": {
+        "en": "It's a turtle.",
+        "vi": "Đó là một con rùa."
+      }
+    },
+    {
+      "picture": "wave",
+      "sentence": {
+        "en": "I see a wave.",
+        "vi": "Bé thấy một con sóng."
+      }
+    },
+    {
+      "picture": "shell",
+      "sentence": {
+        "en": "This is my shell.",
+        "vi": "Đây là vỏ sò của bé."
+      }
+    }
+  ]
+}

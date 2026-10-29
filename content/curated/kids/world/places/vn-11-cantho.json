@@ -1,0 +1,94 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "cantho",
+    "tier": "vn",
+    "region": "south",
+    "order": 11,
+    "suggestOrder": 3,
+    "title": "Can Tho",
+    "vi": "Cần Thơ",
+    "topic": "Fruit",
+    "topicVi": "Trái cây",
+    "landmark": "cantho-floating-market",
+    "landmarkVi": "Chợ nổi Cái Răng",
+    "pos": {
+      "x": 28,
+      "y": 87
+    },
+    "decor": ["river-boat", "fruit-boat"]
+  },
+  "words": [
+    {
+      "picture": "banana",
+      "sentence": {
+        "en": "I see a banana.",
+        "vi": "Bé thấy một quả chuối."
+      }
+    },
+    {
+      "picture": "mango",
+      "sentence": {
+        "en": "It's a mango.",
+        "vi": "Đó là một quả xoài."
+      }
+    },
+    {
+      "picture": "watermelon",
+      "sentence": {
+        "en": "I see a watermelon.",
+        "vi": "Bé thấy một quả dưa hấu."
+      }
+    },
+    {
+      "picture": "coconut",
+      "sentence": {
+        "en": "It's a coconut.",
+        "vi": "Đó là một quả dừa."
+      }
+    },
+    {
+      "picture": "pineapple",
+      "sentence": {
+        "en": "I see a pineapple.",
+        "vi": "Bé thấy một quả dứa."
+      }
+    },
+    {
+      "picture": "orange",
+      "sentence": {
+        "en": "It's an orange.",
+        "vi": "Đó là một quả cam."
+      }
+    },
+    {
+      "picture": "grapes",
+      "sentence": {
+        "en": "I see the grapes.",
+        "vi": "Bé thấy chùm nho."
+      }
+    },
+    {
+      "picture": "lemon",
+      "sentence": {
+        "en": "It's a lemon.",
+        "vi": "Đó là một quả chanh."
+      }
+    },
+    {
+      "picture": "peach",
+      "sentence": {
+        "en": "I see a peach.",
+        "vi": "Bé thấy một quả đào."
+      }
+    },
+    {
+      "picture": "apple",
+      "sentence": {
+        "en": "I see an apple.",
+        "vi": "Bé thấy một quả táo."
+      }
+    }
+  ]
+}

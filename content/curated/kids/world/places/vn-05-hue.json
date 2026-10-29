@@ -1,0 +1,94 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "hue",
+    "tier": "vn",
+    "region": "central",
+    "order": 5,
+    "suggestOrder": 7,
+    "title": "Hue",
+    "vi": "Huế",
+    "topic": "Colors and flowers",
+    "topicVi": "Màu sắc & hoa",
+    "landmark": "hue-ngo-mon",
+    "landmarkVi": "Ngọ Môn – Đại Nội Huế",
+    "pos": {
+      "x": 54,
+      "y": 37
+    },
+    "decor": ["perfume-river", "lotus-pond"]
+  },
+  "words": [
+    {
+      "picture": "red",
+      "sentence": {
+        "en": "It's red.",
+        "vi": "Đó là màu đỏ."
+      }
+    },
+    {
+      "picture": "blue",
+      "sentence": {
+        "en": "It's blue.",
+        "vi": "Đó là màu xanh dương."
+      }
+    },
+    {
+      "picture": "yellow",
+      "sentence": {
+        "en": "It's yellow.",
+        "vi": "Đó là màu vàng."
+      }
+    },
+    {
+      "picture": "green",
+      "sentence": {
+        "en": "It's green.",
+        "vi": "Đó là màu xanh lá."
+      }
+    },
+    {
+      "picture": "pink",
+      "sentence": {
+        "en": "It's pink.",
+        "vi": "Đó là màu hồng."
+      }
+    },
+    {
+      "picture": "flower",
+      "sentence": {
+        "en": "I see a flower.",
+        "vi": "Bé thấy một bông hoa."
+      }
+    },
+    {
+      "picture": "rose",
+      "sentence": {
+        "en": "It's a rose.",
+        "vi": "Đó là một bông hoa hồng."
+      }
+    },
+    {
+      "picture": "sunflower",
+      "sentence": {
+        "en": "I see a sunflower.",
+        "vi": "Bé thấy một bông hoa hướng dương."
+      }
+    },
+    {
+      "picture": "butterfly",
+      "sentence": {
+        "en": "I see a butterfly.",
+        "vi": "Bé thấy một con bướm."
+      }
+    },
+    {
+      "picture": "rainbow",
+      "sentence": {
+        "en": "I see a rainbow.",
+        "vi": "Bé thấy cầu vồng."
+      }
+    }
+  ]
+}

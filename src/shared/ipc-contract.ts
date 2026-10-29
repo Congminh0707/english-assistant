@@ -50,6 +50,13 @@ import {
   ParentVerifyResultSchema,
   UsageStatusSchema
 } from './schemas/kids'
+import {
+  KidsVisitDoneInputSchema,
+  KidsVisitDoneResultSchema,
+  KidsVisitInputSchema,
+  KidsVisitSchema,
+  KidsWorldViewSchema
+} from './schemas/kidsWorld'
 import { CourseDetailSchema, CourseListSchema } from './schemas/course'
 import { PhrasebookSchema } from './schemas/phrasebook'
 import { StatsSchema } from './schemas/stats'
@@ -197,6 +204,9 @@ export const invokeContract = {
   'kids:stickers': { input: z.void(), output: KidsStickersSchema },
   'kids:reward': { input: z.void(), output: KidsRewardResultSchema },
   'kids:tick': { input: KidsTickInputSchema, output: UsageStatusSchema },
+  'kids:world': { input: z.void(), output: KidsWorldViewSchema },
+  'kids:visit': { input: KidsVisitInputSchema, output: KidsVisitSchema },
+  'kids:visit-done': { input: KidsVisitDoneInputSchema, output: KidsVisitDoneResultSchema },
   'parent:status': { input: z.void(), output: ParentStatusSchema },
   'parent:set-pin': { input: ParentSetPinInputSchema, output: ParentStatusSchema },
   'parent:verify': { input: ParentVerifyInputSchema, output: ParentVerifyResultSchema },

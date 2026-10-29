@@ -1,0 +1,94 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "hanoi",
+    "tier": "vn",
+    "region": "north",
+    "order": 1,
+    "suggestOrder": 1,
+    "title": "Ha Noi",
+    "vi": "Hà Nội",
+    "topic": "Family and home",
+    "topicVi": "Gia đình & ở nhà",
+    "landmark": "hanoi-turtle-tower",
+    "landmarkVi": "Tháp Rùa – Hồ Gươm",
+    "pos": {
+      "x": 30,
+      "y": 16
+    },
+    "decor": ["lake", "red-bridge", "old-street"]
+  },
+  "words": [
+    {
+      "picture": "mom",
+      "sentence": {
+        "en": "This is my mom.",
+        "vi": "Đây là mẹ của bé."
+      }
+    },
+    {
+      "picture": "dad",
+      "sentence": {
+        "en": "This is my dad.",
+        "vi": "Đây là bố của bé."
+      }
+    },
+    {
+      "picture": "baby",
+      "sentence": {
+        "en": "I see a baby.",
+        "vi": "Bé thấy một em bé."
+      }
+    },
+    {
+      "picture": "grandma",
+      "sentence": {
+        "en": "This is my grandma.",
+        "vi": "Đây là bà của bé."
+      }
+    },
+    {
+      "picture": "grandpa",
+      "sentence": {
+        "en": "This is my grandpa.",
+        "vi": "Đây là ông của bé."
+      }
+    },
+    {
+      "picture": "house",
+      "sentence": {
+        "en": "This is my house.",
+        "vi": "Đây là nhà của bé."
+      }
+    },
+    {
+      "picture": "door",
+      "sentence": {
+        "en": "I see a door.",
+        "vi": "Bé thấy một cánh cửa."
+      }
+    },
+    {
+      "picture": "bed",
+      "sentence": {
+        "en": "This is my bed.",
+        "vi": "Đây là giường của bé."
+      }
+    },
+    {
+      "picture": "chair",
+      "sentence": {
+        "en": "I see a chair.",
+        "vi": "Bé thấy một cái ghế."
+      }
+    },
+    {
+      "picture": "television",
+      "sentence": {
+        "en": "I see the television.",
+        "vi": "Bé thấy cái ti vi."
+      }
+    }
+  ]
+}

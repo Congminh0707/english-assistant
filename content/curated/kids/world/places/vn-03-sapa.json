@@ -1,0 +1,94 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "sapa",
+    "tier": "vn",
+    "region": "north",
+    "order": 3,
+    "suggestOrder": 2,
+    "title": "Sa Pa",
+    "vi": "Sa Pa",
+    "topic": "The farm",
+    "topicVi": "Nông trại",
+    "landmark": "sapa-terraces",
+    "landmarkVi": "Ruộng bậc thang Sa Pa",
+    "pos": {
+      "x": 12,
+      "y": 9
+    },
+    "decor": ["terraces", "stilt-house", "mountain-cloud"]
+  },
+  "words": [
+    {
+      "picture": "horse",
+      "sentence": {
+        "en": "I see a horse.",
+        "vi": "Bé thấy một con ngựa."
+      }
+    },
+    {
+      "picture": "cow",
+      "sentence": {
+        "en": "It's a cow.",
+        "vi": "Đó là một con bò."
+      }
+    },
+    {
+      "picture": "pig",
+      "sentence": {
+        "en": "I see a pig.",
+        "vi": "Bé thấy một con heo."
+      }
+    },
+    {
+      "picture": "chicken",
+      "sentence": {
+        "en": "It's a chicken.",
+        "vi": "Đó là một con gà."
+      }
+    },
+    {
+      "picture": "duck",
+      "sentence": {
+        "en": "I see a duck.",
+        "vi": "Bé thấy một con vịt."
+      }
+    },
+    {
+      "picture": "goat",
+      "sentence": {
+        "en": "It's a goat.",
+        "vi": "Đó là một con dê."
+      }
+    },
+    {
+      "picture": "sheep",
+      "sentence": {
+        "en": "I see a sheep.",
+        "vi": "Bé thấy một con cừu."
+      }
+    },
+    {
+      "picture": "dog",
+      "sentence": {
+        "en": "This is my dog.",
+        "vi": "Đây là con chó của bé."
+      }
+    },
+    {
+      "picture": "cat",
+      "sentence": {
+        "en": "This is my cat.",
+        "vi": "Đây là con mèo của bé."
+      }
+    },
+    {
+      "picture": "rabbit",
+      "sentence": {
+        "en": "I see a rabbit.",
+        "vi": "Bé thấy một con thỏ."
+      }
+    }
+  ]
+}

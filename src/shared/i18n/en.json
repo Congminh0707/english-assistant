@@ -466,6 +466,7 @@
     "translateFailed": "Translation failed, please try again.",
     "translateKeyStore": "This computer cannot encrypt the key, so the app did not save it.",
     "pinWrong": "Wrong PIN.",
+    "placeLocked": "This place is not open yet.",
     "modelDownload": "Could not download the model (check your connection and try again).",
     "modelCorrupt": "The downloaded model file is corrupt, please download it again.",
     "notEnoughCoins": "Not enough coins to buy this.",

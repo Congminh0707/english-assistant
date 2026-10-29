@@ -1,0 +1,94 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "hoian",
+    "tier": "vn",
+    "region": "central",
+    "order": 7,
+    "suggestOrder": 6,
+    "title": "Hoi An",
+    "vi": "Hội An",
+    "topic": "Festival and toys",
+    "topicVi": "Lễ hội & đồ chơi",
+    "landmark": "hoian-bridge-pagoda",
+    "landmarkVi": "Chùa Cầu – Hội An",
+    "pos": {
+      "x": 58,
+      "y": 53
+    },
+    "decor": ["lantern-street", "thu-bon-river"]
+  },
+  "words": [
+    {
+      "picture": "lantern",
+      "sentence": {
+        "en": "I see a lantern.",
+        "vi": "Bé thấy một chiếc đèn lồng."
+      }
+    },
+    {
+      "picture": "balloon",
+      "sentence": {
+        "en": "This is my balloon.",
+        "vi": "Đây là quả bóng bay của bé."
+      }
+    },
+    {
+      "picture": "gift",
+      "sentence": {
+        "en": "It's a gift.",
+        "vi": "Đó là một món quà."
+      }
+    },
+    {
+      "picture": "drum",
+      "sentence": {
+        "en": "I see a drum.",
+        "vi": "Bé thấy một cái trống."
+      }
+    },
+    {
+      "picture": "ball",
+      "sentence": {
+        "en": "This is my ball.",
+        "vi": "Đây là quả bóng của bé."
+      }
+    },
+    {
+      "picture": "bell",
+      "sentence": {
+        "en": "I see a bell.",
+        "vi": "Bé thấy một cái chuông."
+      }
+    },
+    {
+      "picture": "cake",
+      "sentence": {
+        "en": "It's a cake.",
+        "vi": "Đó là một cái bánh kem."
+      }
+    },
+    {
+      "picture": "candy",
+      "sentence": {
+        "en": "I see the candy.",
+        "vi": "Bé thấy kẹo."
+      }
+    },
+    {
+      "picture": "crown",
+      "sentence": {
+        "en": "This is my crown.",
+        "vi": "Đây là vương miện của bé."
+      }
+    },
+    {
+      "picture": "guitar",
+      "sentence": {
+        "en": "I see a guitar.",
+        "vi": "Bé thấy một cây đàn ghi-ta."
+      }
+    }
+  ]
+}

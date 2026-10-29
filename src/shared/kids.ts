@@ -82,6 +82,12 @@ export function pickChoices(
   return shuffle([answer, ...others])
 }
 
+/** Điểm → số sao: ≥ 90 ba sao, ≥ 70 hai sao, ≥ 1 một sao */
+export function starsFor(score: number | null): number {
+  if (score === null || score <= 0) return 0
+  return score >= 90 ? 3 : score >= 70 ? 2 : 1
+}
+
 /** Phụ huynh chọn tối đa bấy nhiêu phút mỗi ngày (0 = không giới hạn) */
 export const KIDS_DAILY_MINUTES = [0, 10, 15, 20, 30, 45, 60] as const
 

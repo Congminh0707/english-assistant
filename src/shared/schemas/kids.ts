@@ -153,6 +153,9 @@ export const KidsHomeSchema = z.object({
   stickersTotal: z.number().int(),
   activitiesDone: z.number().int(),
   activitiesTotal: z.number().int(),
+  /** Bản đồ thế giới: số nơi đã xong / tổng số nơi (docs/19) */
+  worldPlacesDone: z.number().int(),
+  worldPlacesTotal: z.number().int(),
   pinSet: z.boolean(),
   usage: UsageStatusSchema
 })

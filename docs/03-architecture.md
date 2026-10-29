@@ -119,7 +119,7 @@ english-assistant/
 │  │  │  ├─ CourseService.ts       # khoá học Course → Unit → Lesson
 │  │  │  ├─ ProgressService.ts     # Elo theo kỹ năng, độ chính xác, thời gian học
 │  │  │  ├─ PlacementService.ts    # kiểm tra đầu vào + bài kiểm tra lên cấp (checkpoint)
-│  │  │  ├─ PracticeService.ts, StatsService.ts, KidsService.ts, ParentService.ts
+│  │  │  ├─ PracticeService.ts, StatsService.ts, KidsService.ts, KidsWorldService.ts (bản đồ thế giới của bé, docs/19), ParentService.ts
 │  │  │  └─ ...
 │  │  ├─ content/               # thư viện nội dung đóng gói sẵn: LessonLibrary, CourseLibrary, KidsLibrary,
 │  │  │                         #   PhrasebookLibrary, PlacementBank, bundledLessons (glob content/curated/**)

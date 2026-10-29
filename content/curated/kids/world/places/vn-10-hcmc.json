@@ -1,0 +1,94 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "hcmc",
+    "tier": "vn",
+    "region": "south",
+    "order": 10,
+    "suggestOrder": 10,
+    "title": "Ho Chi Minh City",
+    "vi": "TP. Hồ Chí Minh",
+    "topic": "The city",
+    "topicVi": "Phố & xe",
+    "landmark": "hcmc-ben-thanh",
+    "landmarkVi": "Chợ Bến Thành",
+    "pos": {
+      "x": 44,
+      "y": 79
+    },
+    "decor": ["city-street", "tall-building"]
+  },
+  "words": [
+    {
+      "picture": "car",
+      "sentence": {
+        "en": "I see a car.",
+        "vi": "Bé thấy một chiếc xe hơi."
+      }
+    },
+    {
+      "picture": "bus",
+      "sentence": {
+        "en": "It's a bus.",
+        "vi": "Đó là một chiếc xe buýt."
+      }
+    },
+    {
+      "picture": "bicycle",
+      "sentence": {
+        "en": "This is my bicycle.",
+        "vi": "Đây là xe đạp của bé."
+      }
+    },
+    {
+      "picture": "motorbike",
+      "sentence": {
+        "en": "I see a motorbike.",
+        "vi": "Bé thấy một chiếc xe máy."
+      }
+    },
+    {
+      "picture": "train",
+      "sentence": {
+        "en": "It's a train.",
+        "vi": "Đó là một đoàn tàu."
+      }
+    },
+    {
+      "picture": "van",
+      "sentence": {
+        "en": "I see a van.",
+        "vi": "Bé thấy một chiếc xe tải nhỏ."
+      }
+    },
+    {
+      "picture": "phone",
+      "sentence": {
+        "en": "This is my phone.",
+        "vi": "Đây là điện thoại của bé."
+      }
+    },
+    {
+      "picture": "laptop",
+      "sentence": {
+        "en": "It's a laptop.",
+        "vi": "Đó là một cái máy tính."
+      }
+    },
+    {
+      "picture": "clock",
+      "sentence": {
+        "en": "I see a clock.",
+        "vi": "Bé thấy một cái đồng hồ."
+      }
+    },
+    {
+      "picture": "key",
+      "sentence": {
+        "en": "This is my key.",
+        "vi": "Đây là chìa khoá của bé."
+      }
+    }
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "danang",
+    "tier": "vn",
+    "region": "central",
+    "order": 6,
+    "suggestOrder": 12,
+    "title": "Da Nang",
+    "vi": "Đà Nẵng",
+    "topic": "The sky",
+    "topicVi": "Bầu trời & thời tiết",
+    "landmark": "danang-dragon-bridge",
+    "landmarkVi": "Cầu Rồng – sông Hàn",
+    "pos": {
+      "x": 68,
+      "y": 45
+    },
+    "decor": ["han-river", "beach"]
+  },
+  "words": [
+    {
+      "picture": "sun",
+      "sentence": {
+        "en": "I see the sun.",
+        "vi": "Bé thấy mặt trời."
+      }
+    },
+    {
+      "picture": "cloud",
+      "sentence": {
+        "en": "I see a cloud.",
+        "vi": "Bé thấy một đám mây."
+      }
+    },
+    {
+      "picture": "moon",
+      "sentence": {
+        "en": "I see the moon.",
+        "vi": "Bé thấy mặt trăng."
+      }
+    },
+    {
+      "picture": "star",
+      "sentence": {
+        "en": "I see a star.",
+        "vi": "Bé thấy một ngôi sao."
+      }
+    },
+    {
+      "picture": "raindrop",
+      "sentence": {
+        "en": "It's a raindrop.",
+        "vi": "Đó là một giọt mưa."
+      }
+    },
+    {
+      "picture": "lightning",
+      "sentence": {
+        "en": "I see lightning.",
+        "vi": "Bé thấy tia chớp."
+      }
+    },
+    {
+      "picture": "umbrella",
+      "sentence": {
+        "en": "This is my umbrella.",
+        "vi": "Đây là cái ô của bé."
+      }
+    },
+    {
+      "picture": "bird",
+      "sentence": {
+        "en": "I see a bird.",
+        "vi": "Bé thấy một con chim."
+      }
+    },
+    {
+      "picture": "airplane",
+      "sentence": {
+        "en": "I see an airplane.",
+        "vi": "Bé thấy một chiếc máy bay."
+      }
+    },
+    {
+      "picture": "kite",
+      "sentence": {
+        "en": "This is my kite.",
+        "vi": "Đây là con diều của bé."
+      }
+    }
+  ]
+}

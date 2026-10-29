@@ -1,0 +1,94 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "nhatrang",
+    "tier": "vn",
+    "region": "central",
+    "order": 8,
+    "suggestOrder": 11,
+    "title": "Nha Trang",
+    "vi": "Nha Trang",
+    "topic": "Clothes and things",
+    "topicVi": "Quần áo & đồ mang theo",
+    "landmark": "nhatrang-tram-huong",
+    "landmarkVi": "Tháp Trầm Hương – biển Nha Trang",
+    "pos": {
+      "x": 75,
+      "y": 63
+    },
+    "decor": ["beach", "palm"]
+  },
+  "words": [
+    {
+      "picture": "hat",
+      "sentence": {
+        "en": "This is my hat.",
+        "vi": "Đây là cái mũ của bé."
+      }
+    },
+    {
+      "picture": "glasses",
+      "sentence": {
+        "en": "I see my glasses.",
+        "vi": "Bé thấy kính của bé."
+      }
+    },
+    {
+      "picture": "tshirt",
+      "sentence": {
+        "en": "This is my t-shirt.",
+        "vi": "Đây là áo phông của bé."
+      }
+    },
+    {
+      "picture": "dress",
+      "sentence": {
+        "en": "It's a dress.",
+        "vi": "Đó là một cái váy."
+      }
+    },
+    {
+      "picture": "shoe",
+      "sentence": {
+        "en": "This is my shoe.",
+        "vi": "Đây là chiếc giày của bé."
+      }
+    },
+    {
+      "picture": "socks",
+      "sentence": {
+        "en": "I see my socks.",
+        "vi": "Bé thấy đôi tất của bé."
+      }
+    },
+    {
+      "picture": "backpack",
+      "sentence": {
+        "en": "This is my backpack.",
+        "vi": "Đây là ba lô của bé."
+      }
+    },
+    {
+      "picture": "watch",
+      "sentence": {
+        "en": "This is my watch.",
+        "vi": "Đây là đồng hồ của bé."
+      }
+    },
+    {
+      "picture": "headphones",
+      "sentence": {
+        "en": "I see my headphones.",
+        "vi": "Bé thấy tai nghe của bé."
+      }
+    },
+    {
+      "picture": "camera",
+      "sentence": {
+        "en": "It's a camera.",
+        "vi": "Đó là một cái máy ảnh."
+      }
+    }
+  ]
+}

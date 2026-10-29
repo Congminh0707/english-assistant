@@ -119,6 +119,9 @@ export function registerAppIpc(
   handle('kids:stickers', () => c.kids.stickers())
   handle('kids:reward', () => ({ foodId: c.kids.reward() }))
   handle('kids:tick', ({ seconds }) => c.kids.tick(seconds))
+  handle('kids:world', () => c.kidsWorld.world())
+  handle('kids:visit', ({ placeId }) => c.kidsWorld.visit(placeId))
+  handle('kids:visit-done', (input) => c.kidsWorld.visitDone(input))
   handle('parent:status', () => ({ pinSet: c.parent.pinSet() }))
   handle('parent:set-pin', ({ pin, currentPin }) => {
     c.parent.setPin(pin, currentPin)

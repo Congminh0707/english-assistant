@@ -25,6 +25,7 @@ import { StudyService } from './services/StudyService'
 import { AchievementService } from './services/AchievementService'
 import { CourseService } from './services/CourseService'
 import { KidsService } from './services/KidsService'
+import { KidsWorldService } from './services/KidsWorldService'
 import { MissionService } from './services/MissionService'
 import { ProgressService } from './services/ProgressService'
 import { ParentService } from './services/ParentService'
@@ -41,12 +42,15 @@ import {
   bundledListeningFiles,
   bundledPhrasebookFiles,
   bundledKidsFiles,
+  bundledKidsPlaceFiles,
+  bundledKidsWorldFiles,
   bundledPlacementFiles,
   bundledReadingFiles
 } from './content/bundledLessons'
 import { PhrasebookLibrary } from './content/PhrasebookLibrary'
 import { CourseLibrary } from './content/CourseLibrary'
 import { KidsLibrary } from './content/KidsLibrary'
+import { KidsWorldLibrary } from './content/KidsWorldLibrary'
 import { PlacementBank } from './content/PlacementBank'
 import {
   GrammarUnitFileSchema,
@@ -85,6 +89,7 @@ export interface Container {
   listening: LessonService
   phrasebook: PhrasebookLibrary
   kids: KidsService
+  kidsWorld: KidsWorldService
   courses: CourseService
   parent: ParentService
 }
@@ -290,6 +295,7 @@ export function createContainer(
 
   // Chế độ trẻ em + khu vực phụ huynh (parent cần kids để báo cáo, kids cần parent để biết đã có PIN → nối qua hàm)
   let parentService: ParentService | null = null
+  let worldService: KidsWorldService | null = null
   const kids = new KidsService({
     library: new KidsLibrary(bundledKidsFiles),
     vocab: repos.vocab,
@@ -304,8 +310,23 @@ export function createContainer(
     settings,
     clock,
     transaction,
-    pinSet: () => parentService?.pinSet() ?? false
+    pinSet: () => parentService?.pinSet() ?? false,
+    worldProgress: () => worldService?.progress() ?? { done: 0, total: 0 }
   })
+  const kidsWorld = new KidsWorldService({
+    library: new KidsWorldLibrary(bundledKidsWorldFiles, bundledKidsPlaceFiles),
+    vocab: repos.vocab,
+    lessonRepo: repos.lessons,
+    xpRepo: repos.xp,
+    settingsRepo: repos.settings,
+    srs,
+    xp,
+    kids,
+    profiles,
+    clock,
+    transaction
+  })
+  worldService = kidsWorld
   const parent = new ParentService({
     settingsRepo: repos.settings,
     settings,
@@ -344,6 +365,7 @@ export function createContainer(
     listening,
     phrasebook,
     kids,
+    kidsWorld,
     parent,
     courses
   }

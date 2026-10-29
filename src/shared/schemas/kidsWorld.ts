@@ -79,3 +79,102 @@ export const KidsPlaceFileSchema = z.object({
   words: z.array(KidsWorldWordSchema).min(1)
 })
 export type KidsPlaceFile = z.infer<typeof KidsPlaceFileSchema>
+
+// --- Dữ liệu cho giao diện (kênh kids:world / kids:visit / kids:visitDone) ---
+
+const WordStageSchema = z.enum(['hidden', 'seed', 'sprout', 'flower'])
+const Tries = z.union([z.literal(0), z.literal(1), z.literal(2)])
+
+export const KidsWorldViewSchema = z.object({
+  tiers: z.array(
+    z.object({
+      id: z.string(),
+      title: z.string(),
+      vi: z.string(),
+      scene: z.string(),
+      unlocked: z.boolean(),
+      places: z.array(
+        KidsPlaceSchema.omit({ tier: true }).extend({
+          state: z.enum(['locked', 'open', 'done']),
+          /** 0–3 sao (lượt tốt nhất khi xong nơi) */
+          stars: z.number().int().min(0).max(3),
+          words: z.array(
+            z.object({
+              pictureId: z.string(),
+              word: z.string(),
+              vi: z.string(),
+              stage: WordStageSchema,
+              thirsty: z.boolean(),
+              /** Đã qua đủ 5 bước */
+              done: z.boolean()
+            })
+          )
+        })
+      )
+    })
+  ),
+  /** Nơi thú cưng đang đứng */
+  currentPlaceId: z.string().nullable(),
+  /** Nơi gợi ý hôm nay (lấp lánh); null khi đã xong mọi nơi đang mở */
+  todayPlaceId: z.string().nullable(),
+  /** Số từ mới còn được học hôm nay (chung mọi nơi) */
+  newLeftToday: z.number().int().min(0),
+  /** Số thẻ hình đến hạn ôn (bình tưới) */
+  dueCount: z.number().int().min(0)
+})
+export type KidsWorldView = z.infer<typeof KidsWorldViewSchema>
+
+export const KidsVisitInputSchema = z.object({ placeId: z.string().min(1).max(64) })
+
+export const KidsVisitSchema = z.object({
+  placeId: z.string(),
+  batch: z.array(
+    z.object({
+      pictureId: z.string(),
+      word: z.string(),
+      vi: z.string(),
+      /** Thẻ FSRS để chấm bước 2 qua kids:rate */
+      cardId: z.string(),
+      /** Thẻ chưa học lần nào (bước 1 làm quen) */
+      isNew: z.boolean(),
+      sentence: z.object({ en: z.string(), vi: z.string() }),
+      /** Lựa chọn hình cho bước 2 và 5 (đã xáo, gồm hình đúng) */
+      choices: z.array(z.string()).min(2).max(4)
+    })
+  ),
+  /** Lượt chỉ ôn (hết từ mới trong hạn mức hoặc nơi đã xong) */
+  reviewOnly: z.boolean()
+})
+export type KidsVisit = z.infer<typeof KidsVisitSchema>
+
+export const KidsVisitDoneInputSchema = z.object({
+  placeId: z.string().min(1).max(64),
+  results: z
+    .array(
+      z.object({
+        pictureId: z.string().min(1).max(64),
+        /** Bước 2 và 5: 1 = đúng ngay, 2 = đúng lần hai, 0 = không ra */
+        tapTries: Tries,
+        sentenceTries: Tries,
+        /** Bước 3 (chơi) và 4 (nói theo) đã làm */
+        played: z.boolean(),
+        spoke: z.boolean()
+      })
+    )
+    .min(1)
+    .max(8)
+})
+export type KidsVisitDoneInput = z.infer<typeof KidsVisitDoneInputSchema>
+
+export const KidsVisitDoneResultSchema = z.object({
+  stars: z.number().int().min(0).max(3),
+  /** Nơi này vừa xong hết từ */
+  placeDone: z.boolean(),
+  /** Lần đầu xong nơi → mở rương thưởng */
+  firstTime: z.boolean(),
+  foodId: z.string().nullable(),
+  /** Tầng vừa được mở nhờ lượt này (null nếu không) */
+  tierUnlocked: z.string().nullable(),
+  stages: z.array(z.object({ pictureId: z.string(), stage: WordStageSchema }))
+})
+export type KidsVisitDoneResult = z.infer<typeof KidsVisitDoneResultSchema>

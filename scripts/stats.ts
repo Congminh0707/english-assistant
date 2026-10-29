@@ -5,7 +5,9 @@ import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { CHARACTER_IDS } from '../src/shared/characters'
 import { INVOKE_CHANNELS, SEND_CHANNELS, EVENT_NAMES } from '../src/shared/ipc-channels'
+import { ALL_PICTURE_IDS } from '../src/shared/pictures'
 import { shopCatalog } from '../src/shared/shop'
+import { LANDMARK_IDS } from '../src/shared/voxels/landmarks'
 
 const ROOT = resolve(fileURLToPath(import.meta.url), '../..')
 const CURATED = join(ROOT, 'content', 'curated')
@@ -65,6 +67,10 @@ const rows: Array<[string, string | number]> = [
   ['phrasebook (mẫu câu)', countItems('phrasebook', 'phrases').items],
   ['placement (câu kiểm tra đầu vào)', countItems('placement', 'items').items],
   ['kids (hoạt động trẻ em)', countItems('kids', 'activities').items],
+  ['kids world places (nơi trên bản đồ)', countItems('kids/world/places', 'words').files],
+  ['kids world words (từ trên bản đồ)', countItems('kids/world/places', 'words').items],
+  ['kids world landmarks (công trình voxel)', LANDMARK_IDS.length],
+  ['pictures (hình từ: pixel + Twemoji)', ALL_PICTURE_IDS.length],
   ['courses (khoá) files', countItems('courses', 'units').files],
   ['courses (unit)', countItems('courses', 'units').items],
   ['characters', CHARACTER_IDS.length],

@@ -29,6 +29,19 @@ export const bundledPlacementFiles: unknown[] = load(
 export const bundledKidsFiles: unknown[] = load(
   import.meta.glob('../../../content/curated/kids/*.json', { eager: true, import: 'default' })
 )
+// Bản đồ thế giới của bé (docs/19): world.json + một file mỗi nơi
+export const bundledKidsWorldFiles: unknown[] = load(
+  import.meta.glob('../../../content/curated/kids/world/world.json', {
+    eager: true,
+    import: 'default'
+  })
+)
+export const bundledKidsPlaceFiles: unknown[] = load(
+  import.meta.glob('../../../content/curated/kids/world/places/*.json', {
+    eager: true,
+    import: 'default'
+  })
+)
 export const bundledListeningFiles: unknown[] = load(
   import.meta.glob('../../../content/curated/listening/*.json', { eager: true, import: 'default' })
 )

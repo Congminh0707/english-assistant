@@ -20,8 +20,8 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 | Hạng mục                                       | Giá trị                                                                                     | Đo bằng      | Đo ngày    |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
 | Phiên bản app                                  | 1.5.0                                                                                       | `pnpm stats` | 2026-10-28 |
-| Test (Vitest)                                  | 407 test / 42 file                                                                          | `pnpm test`  | 2026-10-30 |
-| Kênh IPC                                       | 99 invoke · 4 send · 14 event                                                               | `pnpm stats` | 2026-10-29 |
+| Test (Vitest)                                  | 428 test / 45 file                                                                          | `pnpm test`  | 2026-10-30 |
+| Kênh IPC                                       | 102 invoke · 4 send · 14 event                                                              | `pnpm stats` | 2026-10-30 |
 | Migration DB (Drizzle)                         | 7 (`0000`–`0006`)                                                                           | `pnpm stats` | 2026-10-22 |
 | Nhân vật thú cưng                              | 5 (Bi, Webby, Draco, Robo, Kitsu)                                                           | `pnpm stats` | 2026-10-22 |
 | Hoạt ảnh mỗi nhân vật (giai đoạn trưởng thành) | 25 (Bi, Webby, Draco: 20 chung + 3 `quirk_*` + 2 `click_*`) · 26 (Robo, Kitsu: 4 `quirk_*`) | `pnpm stats` | 2026-10-22 |
@@ -29,16 +29,18 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 
 ## 2. Nội dung tự soạn (`content/curated/`)
 
-| Hạng mục             | Số lượng                        | Ghi chú                                                                          | Đo ngày    |
-| -------------------- | ------------------------------- | -------------------------------------------------------------------------------- | ---------- |
-| Bài học nền tảng     | 43 bài / 7 chương / 423 bài tập | chữ cái–phát âm, mẫu câu, các thì, cấu trúc, giao tiếp, hình minh hoạ, luyện nói | 2026-10-22 |
-| Điểm ngữ pháp        | 40                              |                                                                                  | 2026-10-22 |
-| Bài đọc              | 50                              |                                                                                  | 2026-10-22 |
-| Bài nghe             | 30                              | đọc bằng TTS; có gói audio MP3 tạo sẵn tải thêm                                  | 2026-10-22 |
-| Sổ mẫu câu           | 108 mẫu câu                     |                                                                                  | 2026-10-22 |
-| Câu kiểm tra đầu vào | 60                              |                                                                                  | 2026-10-22 |
-| Hoạt động trẻ em     | 25                              |                                                                                  | 2026-10-22 |
-| Khoá học             | 3 khoá / 14 unit                |                                                                                  | 2026-10-22 |
+| Hạng mục               | Số lượng                              | Ghi chú                                                                          | Đo ngày    |
+| ---------------------- | ------------------------------------- | -------------------------------------------------------------------------------- | ---------- |
+| Bài học nền tảng       | 43 bài / 7 chương / 423 bài tập       | chữ cái–phát âm, mẫu câu, các thì, cấu trúc, giao tiếp, hình minh hoạ, luyện nói | 2026-10-22 |
+| Điểm ngữ pháp          | 40                                    |                                                                                  | 2026-10-22 |
+| Bài đọc                | 50                                    |                                                                                  | 2026-10-22 |
+| Bài nghe               | 30                                    | đọc bằng TTS; có gói audio MP3 tạo sẵn tải thêm                                  | 2026-10-22 |
+| Sổ mẫu câu             | 108 mẫu câu                           |                                                                                  | 2026-10-22 |
+| Câu kiểm tra đầu vào   | 60                                    |                                                                                  | 2026-10-22 |
+| Hoạt động trẻ em       | 25                                    |                                                                                  | 2026-10-22 |
+| Bản đồ thế giới của bé | 12 nơi / 120 từ / 12 công trình voxel | tầng 1 Việt Nam, `reviewed: false` (docs/19)                                     | 2026-10-30 |
+| Hình từ (bé)           | 183 = pixel tự vẽ + Twemoji           | `ALL_PICTURE_IDS`                                                                | 2026-10-30 |
+| Khoá học               | 3 khoá / 14 unit                      |                                                                                  | 2026-10-22 |
 
 Tất cả do AI soạn, **chưa có giáo viên người thật duyệt** ([08](08-content-sources.md)).
 
@@ -63,14 +65,14 @@ Các bản trước (1.0.0 → 1.2.0) ghi ở [09 §10.3](09-content-pipeline.md
 
 ## 4. Model offline tải thêm (app hiển thị theo MiB; docs ghi MB thập phân kèm MiB)
 
-| Model                     | Kích thước tải                                                        | Ghi chú                                                                                         |
-| ------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| opus-mt en→vi / vi→en     | ~107 MB (102 MiB) mỗi chiều                                           | dịch nhanh, chất lượng trung bình                                                               |
-| NLLB-200 (chất lượng cao) | ~870 MB (831 MiB), dùng cả hai chiều; CC-BY-NC                        | `translate.highQuality`                                                                         |
-| Whisper base.en           | ~80 MB                                                                | chấm nói                                                                                        |
-| wav2vec2 phoneme int8     | ~355 MB                                                               | chấm âm vị, tuỳ chọn                                                                            |
-| Gói audio bài nghe        | 22,3 MB (1050 đoạn, đủ giọng Anh + Mỹ cho mọi câu)                                                               | release `listening-audio-1.2.0`                                                                 |
-| Gói bản đồ bé `kids-world` | 📋 chưa build — đo khi build ([19 §6](19-kids-world.md)) | mục tiêu ≤ 50 MB |
-| Gói sprite thú cưng 288px | 65,9 MB (zip: 575 ảnh WebP lossless + 25 `sheet.json`, khung có lề) | `pet-sprites-hires-1.1.0`, đo 2026-10-28, **chưa đăng release**; bộ cài giữ sprite 96px ≈ 22 MB |
+| Model                      | Kích thước tải                                                      | Ghi chú                                                                                         |
+| -------------------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| opus-mt en→vi / vi→en      | ~107 MB (102 MiB) mỗi chiều                                         | dịch nhanh, chất lượng trung bình                                                               |
+| NLLB-200 (chất lượng cao)  | ~870 MB (831 MiB), dùng cả hai chiều; CC-BY-NC                      | `translate.highQuality`                                                                         |
+| Whisper base.en            | ~80 MB                                                              | chấm nói                                                                                        |
+| wav2vec2 phoneme int8      | ~355 MB                                                             | chấm âm vị, tuỳ chọn                                                                            |
+| Gói audio bài nghe         | 22,3 MB (1050 đoạn, đủ giọng Anh + Mỹ cho mọi câu)                  | release `listening-audio-1.2.0`                                                                 |
+| Gói bản đồ bé `kids-world` | 📋 chưa build — đo khi build ([19 §6](19-kids-world.md))            | mục tiêu ≤ 50 MB                                                                                |
+| Gói sprite thú cưng 288px  | 65,9 MB (zip: 575 ảnh WebP lossless + 25 `sheet.json`, khung có lề) | `pet-sprites-hires-1.1.0`, đo 2026-10-28, **chưa đăng release**; bộ cài giữ sprite 96px ≈ 22 MB |
 
 > Các kích thước model lấy từ `modelFiles.ts` / manifest; đổi model → đo lại và sửa bảng.

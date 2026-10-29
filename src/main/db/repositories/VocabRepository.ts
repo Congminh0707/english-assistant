@@ -280,6 +280,21 @@ export class VocabRepository {
       .map((r) => r.contentId)
   }
 
+  /** Mọi thẻ còn dùng ở một hướng (vd thẻ hình của bé, để tính mức nhớ trên bản đồ) */
+  cardsByDirection(profileId: string, direction: CardDirection): SrsCardRow[] {
+    return this.db
+      .select()
+      .from(srsCards)
+      .where(
+        and(
+          eq(srsCards.profileId, profileId),
+          eq(srsCards.direction, direction),
+          isNull(srsCards.deletedAt)
+        )
+      )
+      .all()
+  }
+
   /** Số thẻ ở một hướng được tạo từ một thời điểm (vd số hình mới đưa vào học hôm nay) */
   countCardsCreatedSince(profileId: string, direction: CardDirection, sinceMs: number): number {
     const row = this.db

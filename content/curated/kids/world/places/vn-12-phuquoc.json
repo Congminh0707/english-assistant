@@ -1,0 +1,94 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "phuquoc",
+    "tier": "vn",
+    "region": "south",
+    "order": 12,
+    "suggestOrder": 4,
+    "title": "Phu Quoc",
+    "vi": "Phú Quốc",
+    "topic": "Meals",
+    "topicVi": "Bữa ăn",
+    "landmark": "phuquoc-fishing-village",
+    "landmarkVi": "Làng chài Phú Quốc",
+    "pos": {
+      "x": 12,
+      "y": 80
+    },
+    "decor": ["basket-boat", "beach", "palm"]
+  },
+  "words": [
+    {
+      "picture": "rice",
+      "sentence": {
+        "en": "I see the rice.",
+        "vi": "Bé thấy cơm."
+      }
+    },
+    {
+      "picture": "noodles",
+      "sentence": {
+        "en": "I see the noodles.",
+        "vi": "Bé thấy mì."
+      }
+    },
+    {
+      "picture": "bread",
+      "sentence": {
+        "en": "It's bread.",
+        "vi": "Đó là bánh mì."
+      }
+    },
+    {
+      "picture": "egg",
+      "sentence": {
+        "en": "I see an egg.",
+        "vi": "Bé thấy một quả trứng."
+      }
+    },
+    {
+      "picture": "soup",
+      "sentence": {
+        "en": "It's soup.",
+        "vi": "Đó là món súp."
+      }
+    },
+    {
+      "picture": "milk",
+      "sentence": {
+        "en": "This is my milk.",
+        "vi": "Đây là sữa của bé."
+      }
+    },
+    {
+      "picture": "spoon",
+      "sentence": {
+        "en": "This is my spoon.",
+        "vi": "Đây là cái thìa của bé."
+      }
+    },
+    {
+      "picture": "fork",
+      "sentence": {
+        "en": "I see a fork.",
+        "vi": "Bé thấy một cái nĩa."
+      }
+    },
+    {
+      "picture": "honey",
+      "sentence": {
+        "en": "I see the honey.",
+        "vi": "Bé thấy mật ong."
+      }
+    },
+    {
+      "picture": "cookie",
+      "sentence": {
+        "en": "It's a cookie.",
+        "vi": "Đó là một cái bánh quy."
+      }
+    }
+  ]
+}

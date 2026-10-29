@@ -1,0 +1,89 @@
+{
+  "license": "proprietary-own",
+  "tiers": [
+    {
+      "id": "vn",
+      "order": 1,
+      "title": "Viet Nam",
+      "vi": "Việt Nam",
+      "scene": "vn",
+      "wordsPerPlace": 10,
+      "maxSentenceWords": 5,
+      "wordRange": [50, 150],
+      "frameWords": ["i", "see", "a", "an", "it's", "this", "is", "my", "the"],
+      "unlock": null
+    },
+    {
+      "id": "world",
+      "order": 2,
+      "title": "The World",
+      "vi": "Các nước",
+      "scene": "islands",
+      "wordsPerPlace": 12,
+      "maxSentenceWords": 7,
+      "wordRange": [60, 200],
+      "frameWords": [
+        "i",
+        "see",
+        "a",
+        "an",
+        "it's",
+        "this",
+        "is",
+        "my",
+        "the",
+        "and",
+        "big",
+        "small",
+        "can",
+        "have",
+        "they",
+        "are",
+        "it"
+      ],
+      "unlock": {
+        "tier": "vn",
+        "placesDoneShare": 0.75,
+        "sproutShare": 0.6
+      }
+    },
+    {
+      "id": "earth",
+      "order": 3,
+      "title": "The Earth",
+      "vi": "Trái Đất",
+      "scene": "globe",
+      "wordsPerPlace": 12,
+      "maxSentenceWords": 9,
+      "wordRange": [30, 120],
+      "frameWords": [
+        "i",
+        "see",
+        "a",
+        "an",
+        "it's",
+        "this",
+        "is",
+        "my",
+        "the",
+        "and",
+        "big",
+        "small",
+        "can",
+        "have",
+        "they",
+        "are",
+        "it",
+        "in",
+        "on",
+        "look",
+        "at"
+      ],
+      "unlock": {
+        "tier": "world",
+        "placesDoneShare": 0.75,
+        "sproutShare": 0.6
+      }
+    }
+  ]
+}

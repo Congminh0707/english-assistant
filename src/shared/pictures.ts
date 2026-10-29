@@ -4,6 +4,7 @@
 import { mergeRuns, type BadgePixel, type BadgeRect } from './badgeArt'
 import { PICTURE_EXTRAS, PICTURE_EXTRA_IDS } from './pictureExtras'
 import { darken, Grid, lighten } from './pixelGrid'
+import { MORE_PAINTERS, MORE_WORDS } from './picturesMore'
 
 /** Bản vẽ theo toạ độ 32×32 nhưng dựng trên lưới 64×64 ô (gấp đôi chi tiết) để phóng to vẫn mịn */
 export const PICTURE_SCALE = 2
@@ -1329,7 +1330,9 @@ const PAINTERS: Record<string, Painter> = {
     eyes(g, 17.5, 3.4, 1.3)
     g.line(14.5, 20.8, 16, 21.8, 0.4, DARK)
     g.line(16, 21.8, 17.5, 20.8, 0.4, DARK)
-  }
+  },
+  // Hình cho bản đồ thế giới của trẻ (picturesMore.ts, docs/19-kids-world.md)
+  ...MORE_PAINTERS
 }
 
 /** Tên (id) các hình có sẵn */
@@ -1549,6 +1552,7 @@ export const PICTURE_WORDS: Record<string, { en: string; vi: string }> = {
   ball: { en: 'ball', vi: 'quả bóng' },
   heart: { en: 'heart', vi: 'trái tim' },
   cloud: { en: 'cloud', vi: 'đám mây' },
+  ...MORE_WORDS,
   // Hình bổ sung từ Twemoji (pictureExtras.ts): có từ + nghĩa như hình vẽ, nhưng không có bản vẽ pixel
   ...Object.fromEntries(
     Object.entries(PICTURE_EXTRAS).map(([id, e]) => [id, { en: e.en, vi: e.vi }])

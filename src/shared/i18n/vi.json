@@ -479,6 +479,7 @@
     "translateFailed": "Dịch không thành công, thử lại nhé.",
     "translateKeyStore": "Máy này không mã hoá được key nên app không lưu key.",
     "pinWrong": "PIN chưa đúng.",
+    "placeLocked": "Nơi này chưa mở.",
     "modelDownload": "Không tải được model (kiểm tra kết nối mạng rồi thử lại).",
     "modelCorrupt": "File model tải về bị hỏng, hãy thử tải lại.",
     "notEnoughCoins": "Chưa đủ xu để mua món này.",

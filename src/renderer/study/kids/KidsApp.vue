@@ -11,6 +11,8 @@ import KidsHome from './KidsHome.vue'
 import KidsPet from './KidsPet.vue'
 import KidsReview from './KidsReview.vue'
 import KidsUnits from './KidsUnits.vue'
+import KidsVisit from './KidsVisit.vue'
+import KidsWorld from './KidsWorld.vue'
 import ParentGate from './ParentGate.vue'
 import type { KidsTile } from './kidsText'
 import { useKidsUsage } from './useKidsUsage'
@@ -24,9 +26,10 @@ const emit = defineEmits<{ parent: []; changed: [] }>()
 const { t } = useI18n()
 const petStore = usePetStore()
 
-type View = 'home' | 'play' | 'abc' | 'activity' | 'stickers' | 'pet'
+type View = 'home' | 'play' | 'visit' | 'review' | 'abc' | 'activity' | 'stickers' | 'pet'
 const view = ref<View>('home')
 const activity = ref<KidsActivity | null>(null)
+const placeId = ref<string | null>(null)
 const home = ref<KidsHomeData | null>(null)
 const gate = ref<'enter' | 'set' | 'extend' | null>(null)
 const { usage, set: setUsage } = useKidsUsage()
@@ -51,6 +54,15 @@ function openActivity(a: KidsActivity): void {
 function goHome(): void {
   view.value = 'home'
   void loadHome()
+}
+
+function openPlace(id: string): void {
+  placeId.value = id
+  view.value = 'visit'
+}
+
+function backToMap(): void {
+  view.value = 'play'
 }
 
 function backToList(): void {
@@ -100,7 +112,15 @@ onMounted(loadHome)
 
     <main class="body">
       <KidsHome v-if="view === 'home'" :home="home" @open="open" />
-      <KidsReview v-else-if="view === 'play'" @done="goHome" @changed="changed" />
+      <KidsWorld v-else-if="view === 'play'" @visit="openPlace" @review="view = 'review'" />
+      <KidsVisit
+        v-else-if="view === 'visit' && placeId"
+        :key="placeId"
+        :place-id="placeId"
+        @back="backToMap"
+        @changed="changed"
+      />
+      <KidsReview v-else-if="view === 'review'" @done="backToMap" @changed="changed" />
       <KidsUnits v-else-if="view === 'abc'" @open="openActivity" />
       <KidsActivityView
         v-else-if="view === 'activity' && activity"

@@ -32,7 +32,7 @@ gantt
 - [x] 2026-10-30: bước 1 docs/19 §8 — schema `src/shared/schemas/kidsWorld.ts` + logic thuần `src/shared/kidsWorld.ts` + 22 test (commit `e1a1527`).
 - [x] 2026-10-30: bước 2 docs/19 §8 — nội dung tầng 1 (`content/curated/kids/world/`: 12 nơi × 10 từ), 24 hình pixel mới (`src/shared/picturesMore.ts`), lõi voxel + 12 công trình voxel (`src/shared/voxels/`), test nội dung + voxel.
 - [x] 2026-10-30: bước 3 docs/19 §8 — `KidsWorldLibrary`, `KidsWorldService`, kênh `kids:world`/`kids:visit`/`kids:visit-done`, `kids:home` có tiến độ bản đồ, test service (7). `pnpm stats` đếm thêm nơi/từ/công trình/hình. lint 0 lỗi, typecheck sạch, 428 test pass.
-- 🚧 Tiếp theo: bước 4 docs/19 §8 — `KidsVisit.vue` (lượt 5 bước) + bản đồ 2D (`KidsWorld.vue`/`KidsWorld2D.vue`, hình công trình 2D từ `landmarkImage`), ô Chơi mở bản đồ, đổi `kids:next` thôi tự giới thiệu hình mới, thử tay với hồ sơ trẻ em mới + hồ sơ cũ. Kiểm tra: `pnpm lint && pnpm test && pnpm ui:audit`.
+- 🚧 Đang làm (2026-10-30): bước 4 docs/19 §8 — ✅ code xong: `src/renderer/study/kids/KidsWorld.vue` (bản đồ 2D), `KidsVisit.vue` (lượt 5 bước), `LandmarkPicture.vue`, ô Chơi mở bản đồ, `kids:next` thôi tự giới thiệu hình mới; lint 0 lỗi, typecheck, `ui:audit` 0 lỗi, 429 test, `pnpm build` qua. **Còn: thử tay trong app thật** (`pnpm dev`, tạo hồ sơ trẻ em mới + hồ sơ cũ đã có thẻ hình: đi bản đồ, chơi đủ 5 bước, xong một nơi nhận rương, bình tưới). Sau đó: bước 5 spike 3D.
 
 > Quy tắc: ghi `🚧 Đang làm` trước khi bắt đầu việc dài, xoá/đổi thành `[x]` ngay khi xong. Xem AGENTS.md.
 

@@ -159,6 +159,12 @@ describe('KidsWorldService', () => {
     expect(c.kidsWorld.world().tiers[2].unlocked).toBe(false)
   })
 
+  it('có bản đồ thì phần ôn (bình tưới) không tự giới thiệu hình mới, chỉ trả thẻ đến hạn', () => {
+    expect(c.kids.nextCard().card).toBeNull()
+    const visit = c.kidsWorld.visit('hanoi')
+    expect(c.kids.nextCard().card?.cardId).toBe(visit.batch[0].cardId) // thẻ vừa tạo ở lượt chơi đến hạn ngay
+  })
+
   it('kết quả lượt có từ không thuộc nơi → lỗi', () => {
     expect(() =>
       c.kidsWorld.visitDone({

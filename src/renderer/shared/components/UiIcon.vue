@@ -1,17 +1,21 @@
 <script setup lang="ts">
 import type { Component } from 'vue'
 import {
+  ArrowRight,
   BookmarkCheck,
   BookmarkPlus,
   Check,
   Circle,
   CircleCheck,
   Delete,
+  Droplets,
   Gamepad2,
+  Gift,
   Headphones,
   House,
   Lightbulb,
   Lock,
+  Map as MapIcon,
   Mic,
   PartyPopper,
   Pause,
@@ -58,7 +62,11 @@ const ICONS = {
   write: PenLine,
   party: PartyPopper,
   pet: PawPrint,
-  backspace: Delete
+  backspace: Delete,
+  next: ArrowRight,
+  water: Droplets,
+  gift: Gift,
+  map: MapIcon
 } as const satisfies Record<string, Component>
 
 export type UiIconName = keyof typeof ICONS

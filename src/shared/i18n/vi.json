@@ -1124,7 +1124,7 @@
     "home": "Màn hình chính",
     "parentArea": "Khu vực phụ huynh",
     "tile": {
-      "play": "Chơi thẻ nghe – chạm hình",
+      "play": "Bản đồ: đi chơi, học từ mới",
       "abc": "Học chữ cái, âm, từ",
       "stickers": "Album sticker",
       "pet": "Cho thú cưng ăn"
@@ -1191,6 +1191,18 @@
       "changePin": "Đặt / đổi PIN",
       "extended": "Đã cho bé dùng thêm 10 phút hôm nay.",
       "pinSaved": "Đã lưu PIN."
+    },
+    "world": {
+      "hint": "Chạm một nơi để thú cưng đi tới và học từ mới. Chấm tròn dưới mỗi nơi là cây từ: nâu = hạt, xanh = mầm, hồng = hoa.",
+      "tomorrow": "Hôm nay bé đã học đủ từ mới. Mai học tiếp nhé! (Vẫn có thể ôn bằng bình tưới.)",
+      "water": "Tưới cây: ôn các từ đến hạn",
+      "locked": "Học thêm ở tầng hiện tại để mở",
+      "chest": "Rương kho báu! Quà cho thú cưng",
+      "tierOpen": "Vùng đất mới đã mở!",
+      "steps": "Các bước của lượt chơi",
+      "next": "Tiếp",
+      "spoke": "Bé đã nói xong",
+      "sayHint": "Nghe rồi nói theo, nói xong chạm ngôi sao (chưa chấm giọng nói)"
     }
   },
   "player": {

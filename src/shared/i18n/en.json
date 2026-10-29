@@ -1111,7 +1111,7 @@
     "home": "Home",
     "parentArea": "Parent area",
     "tile": {
-      "play": "Listen-and-tap card game",
+      "play": "World map: explore and learn words",
       "abc": "Learn letters, sounds, words",
       "stickers": "Sticker album",
       "pet": "Feed the pet"
@@ -1178,6 +1178,18 @@
       "changePin": "Set / change PIN",
       "extended": "Gave 10 more minutes today.",
       "pinSaved": "PIN saved."
+    },
+    "world": {
+      "hint": "Tap a place to walk there and learn new words. Dots under each place are word plants: brown = seed, green = sprout, pink = flower.",
+      "tomorrow": "Enough new words for today. More tomorrow! (You can still review with the watering can.)",
+      "water": "Water the plants: review due words",
+      "locked": "Keep learning here to unlock",
+      "chest": "Treasure chest! A present for your pet",
+      "tierOpen": "A new land is open!",
+      "steps": "Steps of this round",
+      "next": "Next",
+      "spoke": "I said it",
+      "sayHint": "Listen, say it, then tap the star (speech is not graded yet)"
     }
   },
   "player": {

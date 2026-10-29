@@ -71,6 +71,11 @@ export class KidsService {
       pinSet: () => boolean
       /** Số nơi đã xong / tổng số nơi trên bản đồ thế giới (KidsWorldService, nối qua hàm) */
       worldProgress?: () => { done: number; total: number }
+      /**
+       * Phần ôn (kids:next) tự đưa hình mới vào học theo KIDS_PICTURE_ORDER. Tắt khi có bản đồ thế giới:
+       * từ mới chỉ vào qua lượt chơi ở các nơi (docs/19 §7.2). Mặc định bật.
+       */
+      introduceInReview?: () => boolean
     }
   ) {}
 
@@ -88,7 +93,8 @@ export class KidsService {
         'audio_picture',
         startOfLocalDay(now)
       )
-      if (introduced < KIDS_NEW_PER_DAY) row = this.introduceNext(profileId, now)
+      const allowed = this.deps.introduceInReview?.() ?? true
+      if (allowed && introduced < KIDS_NEW_PER_DAY) row = this.introduceNext(profileId, now)
     }
     return { card: row ? this.toCard(row) : null, dueCount: srs.dueCount(['audio_picture']) }
   }

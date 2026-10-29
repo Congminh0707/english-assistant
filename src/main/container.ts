@@ -97,6 +97,8 @@ export interface Container {
 export interface ContainerOptions {
   /** Thư mục giải nén content pack (userData/packs) */
   packsDir: string
+  /** Tắt bản đồ thế giới của bé (test cũ của thẻ nghe–chạm hình tự giới thiệu hình mới) */
+  kidsWorld?: boolean
 }
 
 export function createContainer(
@@ -311,10 +313,14 @@ export function createContainer(
     clock,
     transaction,
     pinSet: () => parentService?.pinSet() ?? false,
-    worldProgress: () => worldService?.progress() ?? { done: 0, total: 0 }
+    worldProgress: () => worldService?.progress() ?? { done: 0, total: 0 },
+    introduceInReview: () => !(worldService?.enabled ?? false)
   })
   const kidsWorld = new KidsWorldService({
-    library: new KidsWorldLibrary(bundledKidsWorldFiles, bundledKidsPlaceFiles),
+    library: new KidsWorldLibrary(
+      options.kidsWorld === false ? [] : bundledKidsWorldFiles,
+      options.kidsWorld === false ? [] : bundledKidsPlaceFiles
+    ),
     vocab: repos.vocab,
     lessonRepo: repos.lessons,
     xpRepo: repos.xp,

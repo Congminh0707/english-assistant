@@ -295,7 +295,7 @@ SVG 16:9 toạ độ % (§4.1 `pos`), hình công trình pixel 2D, đường đi
 
 ## 8. Thứ tự làm (mỗi bước xong → cập nhật docs + `pnpm lint && pnpm test`)
 
-1. Schema + `kidsWorld.ts` + `validateWorld` + test (dùng fixture).
+1. ✅ (2026-10-30) Schema + `kidsWorld.ts` + `validateWorld` + test (dùng fixture): `src/shared/schemas/kidsWorld.ts`, `src/shared/kidsWorld.ts` (`wordStage`, `isThirsty`, `placeProgress`, `placeState`, `tierUnlocked`, `pickVisitBatch`, `validateWorld`, `missingPictures`), `src/shared/kidsWorld.test.ts` (22 test). Chưa nối vào main/IPC/giao diện.
 2. Nội dung tầng 1: `world.json` + 12 file nơi (`reviewed: false`); vẽ hình từ còn thiếu; `voxelGrid.ts` + 12 công trình voxel + script chiếu ra hình 2D; test nội dung pass.
 3. `KidsWorldLibrary` + `KidsWorldService` + kênh `kids:world/visit/visitDone` + đổi `kids:next`/`kids:home` + test service.
 4. `KidsVisit.vue` (5 bước) + **bản đồ 2D** hoàn chỉnh → thử tay với hồ sơ trẻ em mới **và** hồ sơ cũ đã có thẻ. Đến đây tính năng đã dùng được, không phụ thuộc 3D.

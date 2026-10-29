@@ -28,7 +28,8 @@ gantt
 - [x] 2026-10-29: dịch popup — NLLB-200 thay mBART-50 (từ không có trong từ điển cũng dịch máy; nạp sẵn model khi mở popup/khởi động) + dịch online tuỳ chọn (Claude, key người dùng, safeStorage). `pnpm lint && pnpm test` (385) pass; 🚧 Còn: thử tay trong app thật (tải NLLB ~870 MB, dán key, bôi đen dịch), đo lại thời gian, commit.
 
 - [x] 2026-10-29: lên kế hoạch **mở rộng mạnh từ vựng trẻ em** — đã ghi roadmap [Phase 2b](#phase-2b--mở-rộng-từ-vựng-trẻ-em-đề-xuất-2026-10-29) + [decisions #35](decisions.md). Chưa code; chủ dự án đã đồng ý làm A + B.
-- 🚧 Đang làm (2026-10-29): thiết kế chi tiết giai đoạn A → `docs/19-kids-world.md` (đã sửa lần 1: 12 nơi có công trình pixel, bản đồ 3D three.js + 2D dự phòng, gói tải thêm `kids-world`, decisions #36) ; kiểu vẽ đã chốt **voxel** — bước tiếp theo: bắt đầu code bước 1 của docs/19 §8 (schema + `kidsWorld.ts` + `validateWorld` + test). Chưa sửa file code nào.
+- [x] 2026-10-29: thiết kế chi tiết giai đoạn A → `docs/19-kids-world.md` (12 nơi có công trình, bản đồ 3D three.js voxel + 2D dự phòng, gói tải thêm `kids-world`, decisions #36).
+- 🚧 Đang làm (2026-10-30): code giai đoạn A theo docs/19 §8. Xong bước 1 (schema `src/shared/schemas/kidsWorld.ts` + logic thuần `src/shared/kidsWorld.ts` + 22 test; lint 0 lỗi, 407 test pass, chưa commit) — bước tiếp theo: bước 2 (nội dung tầng 1: `content/curated/kids/world/world.json` + 12 file nơi, hình từ còn thiếu, `voxelGrid.ts` + công trình voxel). Kiểm tra: `pnpm lint && pnpm test`.
 
 > Quy tắc: ghi `🚧 Đang làm` trước khi bắt đầu việc dài, xoá/đổi thành `[x]` ngay khi xong. Xem AGENTS.md.
 

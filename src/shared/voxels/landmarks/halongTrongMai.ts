@@ -67,8 +67,8 @@ export const halongTrongMai: VoxelModel = {
 
     // Hai trụ đá nghiêng vào nhau: Trống (cao, phía sau trái) và Mái (thấp hơn, phía trước phải)
     const pillars: Pillar[] = [
-      { x0: 12.5, x1: 18, z0: 20, z1: 14.5, y0: 4, y1: 33, r0: 5.2, r1: 2.1 },
-      { x0: 28, x1: 21.8, z0: 10, z1: 13.4, y0: 4, y1: 27, r0: 4.6, r1: 1.7 }
+      { x0: 12.5, x1: 15.5, z0: 18, z1: 15, y0: 4, y1: 33, r0: 5.2, r1: 2.3 },
+      { x0: 28, x1: 24.5, z0: 12, z1: 14, y0: 4, y1: 27, r0: 4.6, r1: 2 }
     ]
     for (const p of pillars) {
       for (let y = p.y0; y <= p.y1; y++) {
@@ -97,6 +97,13 @@ export const halongTrongMai: VoxelModel = {
       const tcx = p.x1
       g.ellipsoid(tcx, top + 0.6, p.z1, p.r1 + 1.6, 1.8, p.r1 * 0.9 + 1.4, VP.leaf)
       g.ellipsoid(tcx + 0.4, top + 1.6, p.z1 + 0.3, p.r1 + 0.4, 1.2, p.r1 * 0.8 + 0.4, VP.leafLight)
+      // "đầu gà": mào đỏ (trống) hoặc mào thấp (mái) + mỏ vàng hướng về nhau
+      const rooster = p === pillars[0]
+      const dir = rooster ? 1 : -1
+      const hx = Math.round(tcx)
+      const hz = Math.round(p.z1)
+      g.box(hx - 1, top + 3, hz, hx + 1, top + (rooster ? 5 : 4), hz, VP.lacquer)
+      g.box(hx + dir * 3, top + 2, hz, hx + dir * 4, top + 2, hz, VP.gold)
     }
     // cây bám vách
     for (let y = 8; y < 30; y++)

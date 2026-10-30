@@ -18,11 +18,13 @@ import {
 } from '@shared/kidsWorldLayout'
 import type { KidsWorldView } from '@shared/schemas/kidsWorld'
 import { isVnLand, projectVn, VN_SIZE } from '@shared/vnMap'
+import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
+import Landmark3D from './Landmark3D.vue'
 import { buildScene, drawFrame, type Particle, type ScenePlace } from './scene'
 import { playSfx } from './sfx'
 import TripVehicle, { type VehicleKind } from './TripVehicle.vue'
@@ -390,6 +392,7 @@ function arrive(id: string, now: number): void {
   vehicle.value = null
   follow = false
   petAt.value = id
+  if (byId.value.get(id)?.state !== 'locked') void invoke('kids:arrive', { placeId: id }).catch(() => undefined)
   pet.hop = 0
   pet.shadow = 30
   petRot = 0
@@ -593,6 +596,7 @@ onUnmounted(() => {
         <h2 class="title">{{ card.title }}</h2>
         <p class="topic">{{ card.topic }}</p>
         <p class="vi-line">{{ card.vi }} · {{ card.topicVi }} · {{ card.landmarkVi }}</p>
+        <Landmark3D :id="card.landmark" :width="560" :height="230" />
         <div class="preview">
           <button
             v-for="w in preview"

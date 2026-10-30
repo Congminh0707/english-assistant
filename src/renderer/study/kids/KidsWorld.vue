@@ -30,9 +30,9 @@ const reducedMotion =
 const tier = computed(
   () => world.value?.tiers.find((x) => x.id === tierId.value) ?? world.value?.tiers[0] ?? null
 )
-const tiersWithPlaces = computed(() => world.value?.tiers.filter((x) => x.places.length > 0) ?? [])
+const tiersWithPlaces = computed(() => world.value?.tiers.filter((x) => x.unlocked && x.places.length > 0) ?? [])
 const nextLocked = computed(
-  () => world.value?.tiers.find((x) => !x.unlocked && x.places.length === 0) ?? null
+  () => world.value?.tiers.find((x) => !x.unlocked) ?? null
 )
 const places = computed(() => [...(tier.value?.places ?? [])].sort((a, b) => a.order - b.order))
 const petPlace = computed(() => places.value.find((p) => p.id === petAt.value) ?? null)

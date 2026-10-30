@@ -270,3 +270,9 @@ Mẫu:
 - Đi lại: ô tô trên đất, thuyền khi đường ở ngoài biển (đường bộ dừng ở bờ, có bến gỗ), máy bay khi quãng đường bộ > `FLY_MIN` (bay thẳng, có độ cao + bóng). Mỗi xe đi đều tốc độ riêng.
 **Phương án đã cân nhắc:** dùng dữ liệu bản đồ có sẵn (Natural Earth — public domain, nhưng đường biên/chủ quyền theo chuẩn quốc tế, có thể không thể hiện Hoàng Sa/Trường Sa đúng quan điểm Việt Nam) — không chọn; dải đất cách điệu — chủ dự án không chọn.
 **Hệ quả:** hình bản đồ và vị trí các nơi cần người thật duyệt (địa lý, chủ quyền) cùng cờ `reviewed`; tầng 2/3 (quốc gia, Trái Đất) vẫn cách điệu, không vẽ biên giới.
+
+## #38 — Tầng 2–3 của bản đồ bé dùng hết 63 hình còn lại; 3D bắt đầu bằng công trình xoay được (2026-10-30) — Chấp nhận
+**Bối cảnh:** sau tầng 1 (120 từ) chỉ còn 63 hình từ chưa dùng (183 tổng), mà thiết kế gốc cần 8×12 + 4×12 = 144 từ cho tầng 2–3.
+**Quyết định:** không vẽ thêm hàng chục hình vector; hạ `wordsPerPlace` còn **7** cho cả hai tầng: tầng 2 `world` = 6 nước (Nhật, Trung Quốc, Úc, Kê-ni-a, Pháp, Hoa Kỳ) × 7 = 42 từ, tầng 3 `earth` = 3 vùng (Hành tinh hoang dã, Băng giá & bầu trời, Đồ vật thông minh) × 7 = 21 từ; `wordRange` đổi thành [30, 120] và [15, 60]. Luật mở tầng (75 % nơi + 60 % từ ≥ mầm) giữ nguyên (tầng 2 cần 9/12 nơi VN). Muốn thêm nơi/từ về sau thì vẽ thêm hình trước rồi thêm file `places/*.json`.
+**3D:** cài `three` (0.186) và làm **bước nhỏ trước**: thẻ "Bắt đầu" của mỗi nơi có công trình voxel xoay được (kéo để xoay, tự xoay chậm), dựng thẳng từ lưới voxel bằng `meshVoxels` — không cần gói tải thêm vì công trình chỉ vài nghìn khối. Bản đồ 3D đầy đủ + gói `kids-world` (#36) **chưa làm**, vẫn là phần còn lại của bước 5–6 docs/19.
+**Hệ quả:** nội dung tầng 2–3 do AI soạn, `reviewed: false` như tầng 1 — cần người duyệt (đặc biệt cờ/địa danh/món ăn từng nước) trước khi phát hành.

@@ -14,6 +14,15 @@ import { ninhbinhTrangAn } from './ninhbinhTrangAn'
 import { nhatrangTramHuong } from './nhatrangTramHuong'
 import { phuquocFishingVillage } from './phuquocFishingVillage'
 import { sapaTerraces } from './sapaTerraces'
+import { chinaGreatWall } from './chinaGreatWall'
+import { earthPolar } from './earthPolar'
+import { earthVolcanoIsle } from './earthVolcanoIsle'
+import { earthWorkshopTower } from './earthWorkshopTower'
+import { japanFuji } from './japanFuji'
+import { kenyaSavanna } from './kenyaSavanna'
+import { parisEiffel } from './parisEiffel'
+import { sydneyOpera } from './sydneyOpera'
+import { usaLiberty } from './usaLiberty'
 
 export const LANDMARKS: Record<string, VoxelModel> = Object.fromEntries(
   [
@@ -28,7 +37,16 @@ export const LANDMARKS: Record<string, VoxelModel> = Object.fromEntries(
     dalatStation,
     hcmcBenThanh,
     canthoFloatingMarket,
-    phuquocFishingVillage
+    phuquocFishingVillage,
+    chinaGreatWall,
+    earthPolar,
+    earthVolcanoIsle,
+    earthWorkshopTower,
+    japanFuji,
+    kenyaSavanna,
+    parisEiffel,
+    sydneyOpera,
+    usaLiberty
   ].map((m) => [m.id, m])
 )
 

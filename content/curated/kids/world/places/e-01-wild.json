@@ -1,0 +1,75 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "wild-planet",
+    "tier": "earth",
+    "region": "land",
+    "order": 1,
+    "suggestOrder": 1,
+    "title": "Wild Planet",
+    "vi": "Hành tinh hoang dã",
+    "topic": "Nature",
+    "topicVi": "Thiên nhiên",
+    "landmark": "earth-volcano-isle",
+    "landmarkVi": "Đảo núi lửa",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": [
+      "volcano"
+    ]
+  },
+  "words": [
+    {
+      "picture": "volcano",
+      "sentence": {
+        "en": "Look at the volcano!",
+        "vi": "Nhìn núi lửa kìa!"
+      }
+    },
+    {
+      "picture": "fire",
+      "sentence": {
+        "en": "I can see fire.",
+        "vi": "Bé nhìn thấy ngọn lửa."
+      }
+    },
+    {
+      "picture": "cactus",
+      "sentence": {
+        "en": "It's a big cactus.",
+        "vi": "Đó là một cây xương rồng to."
+      }
+    },
+    {
+      "picture": "tulip",
+      "sentence": {
+        "en": "This is my tulip.",
+        "vi": "Đây là hoa tulip của bé."
+      }
+    },
+    {
+      "picture": "tree",
+      "sentence": {
+        "en": "Look at the tree!",
+        "vi": "Nhìn cái cây kìa!"
+      }
+    },
+    {
+      "picture": "ant",
+      "sentence": {
+        "en": "I can see an ant.",
+        "vi": "Bé nhìn thấy một con kiến."
+      }
+    },
+    {
+      "picture": "mouse",
+      "sentence": {
+        "en": "It's a big mouse.",
+        "vi": "Đó là một con chuột to."
+      }
+    }
+  ]
+}

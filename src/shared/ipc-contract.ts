@@ -208,6 +208,7 @@ export const invokeContract = {
   'kids:tick': { input: KidsTickInputSchema, output: UsageStatusSchema },
   'kids:world': { input: z.void(), output: KidsWorldViewSchema },
   'kids:visit': { input: KidsVisitInputSchema, output: KidsVisitSchema },
+  'kids:arrive': { input: KidsVisitInputSchema, output: z.void() },
   'kids:visit-done': { input: KidsVisitDoneInputSchema, output: KidsVisitDoneResultSchema },
   'parent:status': { input: z.void(), output: ParentStatusSchema },
   'parent:set-pin': { input: ParentSetPinInputSchema, output: ParentStatusSchema },

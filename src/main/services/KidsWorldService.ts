@@ -88,6 +88,16 @@ export class KidsWorldService {
     return { done: s.donePlaces.size, total: this.deps.library.places.length }
   }
 
+  /** Thú cưng đã tới một nơi (bé chạm nơi đó): nhớ vị trí để lần sau bản đồ mở đúng chỗ, dù chưa bấm Chơi */
+  arrive(placeId: string): void {
+    const { library, settingsRepo } = this.deps
+    const file = library.place(placeId)
+    if (!file) throw new AppError('NOT_FOUND', 'errors.notFound')
+    const s = this.snapshot()
+    if (!s.unlocked.has(file.place.tier)) throw new AppError('FORBIDDEN', 'errors.placeLocked')
+    settingsRepo.set(PLACE_KEY, placeId, s.now, profileScope(s.profileId))
+  }
+
   world(): KidsWorldView {
     const { library, srs } = this.deps
     const s = this.snapshot()
@@ -293,8 +303,12 @@ export class KidsWorldService {
     const donePlaces = new Set(
       placeWords.filter((p) => p.words.every((w) => completed.has(w))).map((p) => p.id)
     )
+    // Chỉ để thử tay: KIDS_UNLOCK_ALL=1 pnpm dev mở mọi tầng (không có trong bản phát hành)
+    const unlockAll = process.env.KIDS_UNLOCK_ALL === '1'
     const unlocked = new Set(
-      library.tiers.filter((t) => tierUnlocked(t, placeWords, donePlaces, stages)).map((t) => t.id)
+      library.tiers
+        .filter((t) => unlockAll || tierUnlocked(t, placeWords, donePlaces, stages))
+        .map((t) => t.id)
     )
     return { profileId, now, cards, stages, completed, placeBest, donePlaces, unlocked }
   }

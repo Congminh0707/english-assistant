@@ -1,0 +1,76 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "japan",
+    "tier": "world",
+    "region": "asia",
+    "order": 1,
+    "suggestOrder": 3,
+    "title": "Japan",
+    "vi": "Nhật Bản",
+    "topic": "Tasty things",
+    "topicVi": "Món ngon & trái cây",
+    "landmark": "japan-fuji",
+    "landmarkVi": "Núi Phú Sĩ & cổng torii",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": [
+      "mountain",
+      "lake"
+    ]
+  },
+  "words": [
+    {
+      "picture": "sushi",
+      "sentence": {
+        "en": "I see sushi.",
+        "vi": "Bé thấy món sushi."
+      }
+    },
+    {
+      "picture": "tea",
+      "sentence": {
+        "en": "It's tea.",
+        "vi": "Đó là trà."
+      }
+    },
+    {
+      "picture": "cherry",
+      "sentence": {
+        "en": "This is my cherry.",
+        "vi": "Đây là quả anh đào của bé."
+      }
+    },
+    {
+      "picture": "pear",
+      "sentence": {
+        "en": "I have a pear.",
+        "vi": "Bé có một quả lê."
+      }
+    },
+    {
+      "picture": "kiwi",
+      "sentence": {
+        "en": "I see a kiwi.",
+        "vi": "Bé thấy một quả kiwi."
+      }
+    },
+    {
+      "picture": "avocado",
+      "sentence": {
+        "en": "It's an avocado.",
+        "vi": "Đó là một quả bơ."
+      }
+    },
+    {
+      "picture": "salad",
+      "sentence": {
+        "en": "This is my salad.",
+        "vi": "Đây là món salad của bé."
+      }
+    }
+  ]
+}

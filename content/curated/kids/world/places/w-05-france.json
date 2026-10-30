@@ -1,0 +1,75 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "france",
+    "tier": "world",
+    "region": "europe",
+    "order": 5,
+    "suggestOrder": 5,
+    "title": "France",
+    "vi": "Pháp",
+    "topic": "Cafe time",
+    "topicVi": "Giờ ăn nhẹ",
+    "landmark": "paris-eiffel",
+    "landmarkVi": "Tháp Eiffel",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": [
+      "river"
+    ]
+  },
+  "words": [
+    {
+      "picture": "cheese",
+      "sentence": {
+        "en": "I see cheese.",
+        "vi": "Bé thấy phô mai."
+      }
+    },
+    {
+      "picture": "coffee",
+      "sentence": {
+        "en": "It's coffee.",
+        "vi": "Đó là cà phê."
+      }
+    },
+    {
+      "picture": "jam",
+      "sentence": {
+        "en": "This is my jam.",
+        "vi": "Đây là mứt của bé."
+      }
+    },
+    {
+      "picture": "icecream",
+      "sentence": {
+        "en": "I have ice cream.",
+        "vi": "Bé có kem."
+      }
+    },
+    {
+      "picture": "pancake",
+      "sentence": {
+        "en": "I see a pancake.",
+        "vi": "Bé thấy một bánh kếp."
+      }
+    },
+    {
+      "picture": "sandwich",
+      "sentence": {
+        "en": "It's a sandwich.",
+        "vi": "Đó là một bánh sandwich."
+      }
+    },
+    {
+      "picture": "chocolate",
+      "sentence": {
+        "en": "This is my chocolate.",
+        "vi": "Đây là sô cô la của bé."
+      }
+    }
+  ]
+}

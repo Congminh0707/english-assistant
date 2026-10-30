@@ -1,0 +1,75 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "kenya",
+    "tier": "world",
+    "region": "africa",
+    "order": 4,
+    "suggestOrder": 4,
+    "title": "Kenya",
+    "vi": "Kê-ni-a",
+    "topic": "Safari",
+    "topicVi": "Thảo nguyên hoang dã",
+    "landmark": "kenya-savanna",
+    "landmarkVi": "Cây keo thảo nguyên",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": [
+      "savanna"
+    ]
+  },
+  "words": [
+    {
+      "picture": "elephant",
+      "sentence": {
+        "en": "I see a big elephant.",
+        "vi": "Bé thấy một con voi to."
+      }
+    },
+    {
+      "picture": "giraffe",
+      "sentence": {
+        "en": "It's a giraffe.",
+        "vi": "Đó là một hươu cao cổ."
+      }
+    },
+    {
+      "picture": "zebra",
+      "sentence": {
+        "en": "This is my zebra.",
+        "vi": "Đây là ngựa vằn của bé."
+      }
+    },
+    {
+      "picture": "lion",
+      "sentence": {
+        "en": "I have a lion.",
+        "vi": "Bé có một con sư tử."
+      }
+    },
+    {
+      "picture": "monkey",
+      "sentence": {
+        "en": "I see a big monkey.",
+        "vi": "Bé thấy một con khỉ to."
+      }
+    },
+    {
+      "picture": "snake",
+      "sentence": {
+        "en": "It's a snake.",
+        "vi": "Đó là một con rắn."
+      }
+    },
+    {
+      "picture": "owl",
+      "sentence": {
+        "en": "This is my owl.",
+        "vi": "Đây là con cú của bé."
+      }
+    }
+  ]
+}

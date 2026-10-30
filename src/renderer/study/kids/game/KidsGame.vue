@@ -29,9 +29,9 @@ const placeId = ref<string | null>(null)
 const scale = ref(1)
 
 const sound = computed(() => settings.settings['kids.gameSound'])
-const tiersWithPlaces = computed(() => world.value?.tiers.filter((x) => x.places.length > 0) ?? [])
+const tiersWithPlaces = computed(() => world.value?.tiers.filter((x) => x.unlocked && x.places.length > 0) ?? [])
 const nextLocked = computed(
-  () => world.value?.tiers.find((x) => !x.unlocked && x.places.length === 0) ?? null
+  () => world.value?.tiers.find((x) => !x.unlocked) ?? null
 )
 const totals = computed(() => {
   let stars = 0
@@ -63,9 +63,14 @@ function start(id: string): void {
   view.value = 'visit'
 }
 
-function backToMap(): void {
+/** Nạp lại tiến độ rồi mới dựng bản đồ, để thú cưng/camera đứng đúng nơi vừa học (không dùng dữ liệu cũ) */
+async function backToMap(): Promise<void> {
+  await load()
+  if (placeId.value) {
+    const tier = world.value?.tiers.find((x) => x.places.some((p) => p.id === placeId.value))
+    if (tier) tierId.value = tier.id
+  }
   view.value = 'map'
-  void load()
 }
 
 function changed(): void {

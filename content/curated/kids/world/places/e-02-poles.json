@@ -1,0 +1,75 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "ice-and-sky",
+    "tier": "earth",
+    "region": "poles",
+    "order": 2,
+    "suggestOrder": 2,
+    "title": "Ice and Sky",
+    "vi": "Băng giá & bầu trời",
+    "topic": "Snow and space",
+    "topicVi": "Tuyết & vũ trụ",
+    "landmark": "earth-polar",
+    "landmarkVi": "Cực Bắc & tàu vũ trụ",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": [
+      "ice"
+    ]
+  },
+  "words": [
+    {
+      "picture": "penguin",
+      "sentence": {
+        "en": "Look at the penguin!",
+        "vi": "Nhìn chim cánh cụt kìa!"
+      }
+    },
+    {
+      "picture": "snowman",
+      "sentence": {
+        "en": "I can see a snowman.",
+        "vi": "Bé nhìn thấy một người tuyết."
+      }
+    },
+    {
+      "picture": "snowflake",
+      "sentence": {
+        "en": "I see the snowflake.",
+        "vi": "Bé thấy bông tuyết."
+      }
+    },
+    {
+      "picture": "flag",
+      "sentence": {
+        "en": "This is my flag.",
+        "vi": "Đây là lá cờ của bé."
+      }
+    },
+    {
+      "picture": "earth",
+      "sentence": {
+        "en": "Look at the earth!",
+        "vi": "Nhìn trái đất kìa!"
+      }
+    },
+    {
+      "picture": "rocket",
+      "sentence": {
+        "en": "I can see a rocket.",
+        "vi": "Bé nhìn thấy một tên lửa."
+      }
+    },
+    {
+      "picture": "heart",
+      "sentence": {
+        "en": "It's a heart.",
+        "vi": "Đó là một trái tim."
+      }
+    }
+  ]
+}

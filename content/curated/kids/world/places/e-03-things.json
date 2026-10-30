@@ -1,0 +1,75 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "clever-things",
+    "tier": "earth",
+    "region": "home",
+    "order": 3,
+    "suggestOrder": 3,
+    "title": "Clever Things",
+    "vi": "Đồ vật thông minh",
+    "topic": "Things we use",
+    "topicVi": "Đồ dùng quanh ta",
+    "landmark": "earth-workshop-tower",
+    "landmarkVi": "Tháp đồng hồ trường học",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": [
+      "clock"
+    ]
+  },
+  "words": [
+    {
+      "picture": "books",
+      "sentence": {
+        "en": "Look at the books!",
+        "vi": "Nhìn sách kìa!"
+      }
+    },
+    {
+      "picture": "pencil",
+      "sentence": {
+        "en": "I can see a pencil.",
+        "vi": "Bé nhìn thấy một bút chì."
+      }
+    },
+    {
+      "picture": "scissors",
+      "sentence": {
+        "en": "It's a scissors.",
+        "vi": "Đó là một cái kéo."
+      }
+    },
+    {
+      "picture": "piano",
+      "sentence": {
+        "en": "This is my piano.",
+        "vi": "Đây là đàn piano của bé."
+      }
+    },
+    {
+      "picture": "toothbrush",
+      "sentence": {
+        "en": "Look at the toothbrush!",
+        "vi": "Nhìn bàn chải đánh răng kìa!"
+      }
+    },
+    {
+      "picture": "hammer",
+      "sentence": {
+        "en": "I can see a hammer.",
+        "vi": "Bé nhìn thấy một cái búa."
+      }
+    },
+    {
+      "picture": "lightbulb",
+      "sentence": {
+        "en": "It's a light bulb.",
+        "vi": "Đó là một bóng đèn."
+      }
+    }
+  ]
+}

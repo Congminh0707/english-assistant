@@ -1,0 +1,75 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "australia",
+    "tier": "world",
+    "region": "oceania",
+    "order": 3,
+    "suggestOrder": 1,
+    "title": "Australia",
+    "vi": "Úc",
+    "topic": "Animals down under",
+    "topicVi": "Thú xứ Úc",
+    "landmark": "sydney-opera",
+    "landmarkVi": "Nhà hát Con Sò (Sydney)",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": [
+      "harbour"
+    ]
+  },
+  "words": [
+    {
+      "picture": "kangaroo",
+      "sentence": {
+        "en": "I see a big kangaroo.",
+        "vi": "Bé thấy một chuột túi to."
+      }
+    },
+    {
+      "picture": "koala",
+      "sentence": {
+        "en": "It's a koala.",
+        "vi": "Đó là một gấu koala."
+      }
+    },
+    {
+      "picture": "camel",
+      "sentence": {
+        "en": "This is my camel.",
+        "vi": "Đây là con lạc đà của bé."
+      }
+    },
+    {
+      "picture": "frog",
+      "sentence": {
+        "en": "I have a frog.",
+        "vi": "Bé có một con ếch."
+      }
+    },
+    {
+      "picture": "bee",
+      "sentence": {
+        "en": "I see a big bee.",
+        "vi": "Bé thấy một con ong to."
+      }
+    },
+    {
+      "picture": "snail",
+      "sentence": {
+        "en": "It's a snail.",
+        "vi": "Đó là một con ốc sên."
+      }
+    },
+    {
+      "picture": "swan",
+      "sentence": {
+        "en": "This is my swan.",
+        "vi": "Đây là thiên nga của bé."
+      }
+    }
+  ]
+}

@@ -512,6 +512,62 @@ function drawPin(ctx: CanvasRenderingContext2D, anchor: Point, p: Point): void {
   ctx.restore()
 }
 
+/** Bụi cây, đá và cỏ dọc mép bệ (cố định theo góc) cho bệ hoà vào đất thay vì như chiếc đĩa */
+function drawRim(ctx: CanvasRenderingContext2D, p: Point): void {
+  ctx.save()
+  ctx.lineWidth = 3
+  ctx.strokeStyle = INK
+  const items: Array<[number, 'bush' | 'rock' | 'tuft', number]> = [
+    [3.3, 'bush', 1],
+    [3.75, 'rock', 0.8],
+    [4.3, 'bush', 1.2],
+    [4.9, 'tuft', 1],
+    [5.5, 'bush', 0.9],
+    [5.95, 'rock', 1],
+    [0.25, 'tuft', 1],
+    [2.9, 'tuft', 1]
+  ]
+  for (const [a, kind, s] of items) {
+    const x = p.x + Math.cos(a) * 96
+    const y = p.y + Math.sin(a) * 35
+    if (kind === 'bush') {
+      for (const [dx, dy, r, c] of [
+        [-7, 0, 9, '#5fae48'],
+        [6, -1, 10, '#6fc457'],
+        [0, -7, 9, '#7fd065']
+      ] as const) {
+        ctx.beginPath()
+        ctx.arc(x + dx * s, y + dy * s, r * s, 0, Math.PI * 2)
+        ctx.fillStyle = c
+        ctx.fill()
+        ctx.stroke()
+      }
+    } else if (kind === 'rock') {
+      ctx.beginPath()
+      ctx.ellipse(x, y, 13 * s, 8 * s, 0, 0, Math.PI * 2)
+      ctx.fillStyle = '#b9b4a8'
+      ctx.fill()
+      ctx.stroke()
+      ctx.beginPath()
+      ctx.ellipse(x - 3 * s, y - 2 * s, 6 * s, 3 * s, 0, 0, Math.PI * 2)
+      ctx.fillStyle = '#d8d3c6'
+      ctx.fill()
+    } else {
+      ctx.strokeStyle = '#4f9a3b'
+      ctx.lineCap = 'round'
+      for (const dx of [-5, 0, 5]) {
+        ctx.beginPath()
+        ctx.moveTo(x + dx, y + 3)
+        ctx.lineTo(x + dx * 1.6, y - 9 - Math.abs(dx))
+        ctx.stroke()
+      }
+      ctx.strokeStyle = INK
+      ctx.lineCap = 'butt'
+    }
+  }
+  ctx.restore()
+}
+
 function drawPlace(
   ctx: CanvasRenderingContext2D,
   p: Point,
@@ -547,6 +603,8 @@ function drawPlace(
   ellipse(ctx, p.x - 8, p.y - 6, 72, 23)
   ctx.fill()
 
+  drawRim(ctx, p)
+
   const bmp = landmarkBitmap(place.landmark)
   if (bmp) {
     const k = Math.min(190 / bmp.width, 175 / bmp.height)
@@ -555,7 +613,8 @@ function drawPlace(
     ctx.fillStyle = 'rgb(30 50 20 / 22%)'
     ellipse(ctx, p.x, p.y + 4, w * 0.42, 14)
     ctx.fill()
-    ctx.imageSmoothingEnabled = false
+    ctx.imageSmoothingEnabled = true
+    ctx.imageSmoothingQuality = 'high'
     ctx.drawImage(bmp, p.x - w / 2, p.y + 12 - h, w, h)
   }
 

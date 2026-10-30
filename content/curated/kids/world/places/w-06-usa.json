@@ -1,0 +1,75 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "usa",
+    "tier": "world",
+    "region": "america",
+    "order": 6,
+    "suggestOrder": 6,
+    "title": "USA",
+    "vi": "Hoa Kỳ",
+    "topic": "Fast food and fun",
+    "topicVi": "Đồ ăn nhanh & vui chơi",
+    "landmark": "usa-liberty",
+    "landmarkVi": "Tượng Nữ thần Tự do",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": [
+      "harbour"
+    ]
+  },
+  "words": [
+    {
+      "picture": "pizza",
+      "sentence": {
+        "en": "I see a big pizza.",
+        "vi": "Bé thấy một bánh pizza to."
+      }
+    },
+    {
+      "picture": "hamburger",
+      "sentence": {
+        "en": "It's a hamburger.",
+        "vi": "Đó là một bánh hamburger."
+      }
+    },
+    {
+      "picture": "hotdog",
+      "sentence": {
+        "en": "This is my hot dog.",
+        "vi": "Đây là bánh mì xúc xích của bé."
+      }
+    },
+    {
+      "picture": "fries",
+      "sentence": {
+        "en": "I have fries.",
+        "vi": "Bé có khoai tây chiên."
+      }
+    },
+    {
+      "picture": "popcorn",
+      "sentence": {
+        "en": "I see popcorn.",
+        "vi": "Bé thấy bắp rang."
+      }
+    },
+    {
+      "picture": "donut",
+      "sentence": {
+        "en": "It's a donut.",
+        "vi": "Đó là một bánh vòng."
+      }
+    },
+    {
+      "picture": "trophy",
+      "sentence": {
+        "en": "This is my trophy.",
+        "vi": "Đây là cúp vô địch của bé."
+      }
+    }
+  ]
+}

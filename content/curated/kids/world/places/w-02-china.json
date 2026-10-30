@@ -1,0 +1,75 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "china",
+    "tier": "world",
+    "region": "asia",
+    "order": 2,
+    "suggestOrder": 2,
+    "title": "China",
+    "vi": "Trung Quốc",
+    "topic": "Forest friends",
+    "topicVi": "Bạn thú rừng núi",
+    "landmark": "china-great-wall",
+    "landmarkVi": "Vạn Lý Trường Thành",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": [
+      "mountain"
+    ]
+  },
+  "words": [
+    {
+      "picture": "panda",
+      "sentence": {
+        "en": "I see a big panda.",
+        "vi": "Bé thấy một gấu trúc to."
+      }
+    },
+    {
+      "picture": "tiger",
+      "sentence": {
+        "en": "It's a tiger.",
+        "vi": "Đó là một con hổ."
+      }
+    },
+    {
+      "picture": "deer",
+      "sentence": {
+        "en": "This is my deer.",
+        "vi": "Đây là con nai của bé."
+      }
+    },
+    {
+      "picture": "fox",
+      "sentence": {
+        "en": "I have a fox.",
+        "vi": "Bé có một con cáo."
+      }
+    },
+    {
+      "picture": "wolf",
+      "sentence": {
+        "en": "I see a big wolf.",
+        "vi": "Bé thấy một con sói to."
+      }
+    },
+    {
+      "picture": "bear",
+      "sentence": {
+        "en": "It's a bear.",
+        "vi": "Đó là một con gấu."
+      }
+    },
+    {
+      "picture": "mountain",
+      "sentence": {
+        "en": "This is my mountain.",
+        "vi": "Đây là ngọn núi của bé."
+      }
+    }
+  ]
+}

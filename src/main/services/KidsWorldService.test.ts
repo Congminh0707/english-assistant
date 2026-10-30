@@ -69,7 +69,7 @@ describe('KidsWorldService', () => {
     expect(world.currentPlaceId).toBe('hanoi')
     expect(world.todayPlaceId).toBe('hanoi')
     expect(world.newLeftToday).toBe(6)
-    expect(c.kids.home()).toMatchObject({ worldPlacesDone: 0, worldPlacesTotal: 12 })
+    expect(c.kids.home()).toMatchObject({ worldPlacesDone: 0, worldPlacesTotal: 21 })
   })
 
   it('lượt chơi: tối đa 4 từ, tạo thẻ cho từ mới, đặt chỗ thú cưng, trừ hạn mức', () => {

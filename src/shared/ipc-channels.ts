@@ -75,6 +75,7 @@ export const INVOKE_CHANNELS = [
   'kids:tick',
   'kids:world',
   'kids:visit',
+  'kids:arrive',
   'kids:visit-done',
   'parent:status',
   'parent:set-pin',

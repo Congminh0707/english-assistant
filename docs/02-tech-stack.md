@@ -74,7 +74,7 @@ Nếu sau này dung lượng/RAM thành vấn đề lớn, phần giao diện Vu
 |---|---|
 | **Canvas 2D thuần** (mặc định) | Sprite sheet pixel art, vẽ từng frame. Đơn giản, nhẹ, đủ dùng. |
 | `pixi.js` | Khi cần hiệu ứng hạt, nhiều layer, shader. Chưa cần ở MVP. |
-| `three` | 📋 Bản đồ thế giới 3D của bé ([19](19-kids-world.md), [decisions #36](decisions.md)): chỉ nạp lười trong cửa sổ Học tập khi mở bản đồ; tài nguyên trong gói tải thêm `kids-world`. Chưa cài. |
+| `three` | 📋 Bản đồ thế giới 3D của bé ([19](19-kids-world.md), [decisions #36](decisions.md)): chỉ nạp lười trong cửa sổ Học tập khi mở bản đồ; tài nguyên trong gói tải thêm `kids-world`. Đã cài (0.186, 2026-10-30): dùng cho công trình 3D xoay được trên thẻ nơi của màn game bé (`game/landmark3d.ts`), nạp lười thành chunk riêng. Bản đồ 3D đầy đủ vẫn chưa làm. |
 
 ### Test & chất lượng
 | Thư viện | Vai trò | Tương đương |

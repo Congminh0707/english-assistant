@@ -38,7 +38,7 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 | Sổ mẫu câu             | 108 mẫu câu                                      |                                                                                  | 2026-10-22 |
 | Câu kiểm tra đầu vào   | 60                                               |                                                                                  | 2026-10-22 |
 | Hoạt động trẻ em       | 25                                               |                                                                                  | 2026-10-22 |
-| Bản đồ thế giới của bé | 12 nơi / 120 từ / 12 công trình voxel            | tầng 1 Việt Nam, `reviewed: false` (docs/19)                                     | 2026-10-30 |
+| Bản đồ thế giới của bé | 21 nơi / 183 từ / 21 công trình voxel            | tầng 1 VN 12×10, tầng 2 (6 nước) 6×7, tầng 3 (3 vùng) 3×7; `reviewed: false` (docs/19) | 2026-10-30 |
 | Hình từ (bé)           | 183 = pixel tự vẽ + Twemoji                      | `ALL_PICTURE_IDS`                                                                | 2026-10-30 |
 | Hình từ vector (bé)    | 183/183 (mọi hình từ), ưu tiên hơn pixel/Twemoji | `pnpm stats` (`src/renderer/shared/art/pictures/`)                               | 2026-10-30 |
 | Khoá học               | 3 khoá / 14 unit                                 |                                                                                  | 2026-10-22 |

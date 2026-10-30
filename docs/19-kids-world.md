@@ -249,6 +249,37 @@ Cả hai dùng chung dữ liệu (`kids:world`) và luồng (§3); bé không m�
 
 SVG 16:9 toạ độ % (§4.1 `pos`), hình công trình pixel 2D, đường đi `<path>`; thú cưng đi bằng `getPointAtLength` + rAF; mây che tầng khoá; ngày–đêm bằng lớp phủ màu; vài vật chạy CSS keyframes. Dừng khi ẩn, tôn trọng giảm chuyển động.
 
+### 5.4 Chế độ game toàn màn hình — 📋 kế hoạch (chủ dự án yêu cầu 2026-10-30)
+
+Bản 2D đầu tiên (bước 4) chạy được nhưng **chưa ra chất game**. Chủ dự án xem ảnh chụp và chốt: màn **Chơi** phải là một màn chơi game toàn màn hình, không phải khung nhỏ trong cửa sổ Học tập. Lỗi thấy trong ảnh chụp (2026-10-30):
+
+- Bản đồ là khung ~1080×600 giữa cửa sổ, xung quanh trống; chữ hướng dẫn rất nhỏ.
+- Các nơi **đè nhau** (Ninh Bình che Hà Nội; Huế/Đà Nẵng/Hội An/Đà Lạt chồng lên nhau), tên bị cắt ("Hà Nội · Gia đì", "Huế · Màu").
+- Mây vẽ thành hai thanh trắng dẹt — trông như nút bị lỗi.
+- Đất là một khối xanh chung chung, góc trái trống; ba nơi miền Nam xếp thành hàng ngang.
+- 10 chấm nhỏ dưới mỗi nơi rối mắt; thú cưng đứng che tên nơi; nút chọn tầng/bình tưới trông như nút app.
+
+**Thiết kế mới:**
+
+1. **Toàn màn hình**: bấm ô Chơi → cửa sổ Học tập chuyển toàn màn hình (`BrowserWindow.setFullScreen` qua kênh IPC mới, chỉ khi bé bấm — không cướp focus khi không được yêu cầu); thoát bằng nút Nhà hoặc `Esc`, trả cửa sổ về kích thước cũ. Sân khấu game 16:9 co giãn vừa màn hình (letterbox màu trời), mọi toạ độ theo đơn vị sân khấu, không theo px cửa sổ.
+2. **Bản đồ cuộn dọc kiểu "đường màn chơi"** (như Candy Crush/Duolingo): một dải đất cách điệu dài từ trên (Sa Pa) xuống dưới (Phú Quốc), uốn lượn ven biển — **vẫn không dựng hình dạng lãnh thổ/biên giới thật** (§5.2). Mỗi nơi cách nhau đủ xa (không đè), camera cuộn mượt theo thú cưng, kéo/lăn chuột để xem.
+3. **Mỗi nơi là một ô màn chơi**: công trình đặt trên một đảo/bệ nhỏ, biển tên lớn (tên Anh to, tên Việt nhỏ). Thay 10 chấm bằng **3 sao + đếm hoa** (vd 🌸 4/10 bằng `UiIcon`). Nơi chưa mở: phủ sương mù + ổ khoá; mở khoá có hiệu ứng tan sương + sao rơi. Nơi gợi ý hôm nay có vòng sáng nhấp nháy.
+4. **Chạm một nơi**: thú cưng đi **theo đường cong** tới đó, camera phóng to, hiện thẻ "Bắt đầu" (xem trước các hình sẽ học, nút Chơi to).
+5. **Sinh động**: mây sprite thật trôi nhiều lớp (parallax), sóng biển, thuyền, chim bay, lá rơi; rương mở có pháo giấy; âm thanh chạm/đi/mở khoá/rương (nguồn CC0 phải ghi [08](08-content-sources.md) trước), có nút tắt tiếng; tôn trọng giảm chuyển động.
+6. **HUD kiểu game**: nút Nhà góc trái, sao/xu giữa trên, bình tưới + chọn tầng là nút tròn lớn có viền dày; không dùng `.btn` kiểu app ở trong sân khấu (ngoại lệ ghi vào [18](18-ui-rules.md)).
+7. **Lượt chơi 5 bước** (`KidsVisit`) cũng hiện trong sân khấu toàn màn hình, thẻ to.
+8. **Công nghệ**: một `<canvas>` 2D cho cả cảnh (vòng rAF tự dừng khi ẩn/không chuyển động), HUD là Vue phủ lên trên. Công trình chiếu từ voxel ở **độ phân giải cao hơn** (ô 8–10 px mỗi khối thay vì 4 px) + viền tối + bóng đổ/AO, cache thành bitmap. Bản 3D three.js (§5.2) để sau, làm như bản nâng cấp của cùng sân khấu này.
+
+### 5.5 Nâng chất lượng hình từ — 📋 kế hoạch
+
+Hình từ hiện có: ~84 hình pixel vẽ bằng code trên lưới 32×32 (`pictures.ts`, `picturesMore.ts`) + 99 hình Twemoji. Chủ dự án thấy hình pixel **chất lượng kém**; đang cân nhắc **tự vẽ bằng canvas**.
+
+- Canvas tự nó không làm hình đẹp hơn — cái quyết định là **kiểu vẽ**. Hướng đề xuất: chuyển từ chấm điểm trên lưới sang **hình vector kiểu hoạt hình mũm mĩm** (khối tròn, tô màu chuyển, viền, điểm sáng) vẽ bằng `Path2D`, dùng **bộ "nét chung"** (mắt, má, bóng, viền, bảng màu) để mọi hình cùng một phong cách; xuất ra bitmap có cache như công trình.
+- Mỗi lần vẽ: script xuất **bảng tổng hợp** (contact sheet) mọi hình ra PNG để soi và sửa — không vẽ mò.
+- Thứ tự: 120 từ của bản đồ trước (gia đình, số, màu là dễ nhất), Twemoji giữ cho phần còn lại tới khi thay xong. License `proprietary-own`.
+- Phương án dự phòng nếu tự vẽ không đạt: bộ có sẵn Fluent Emoji (Microsoft, MIT) hoặc Noto Emoji (Apache 2.0) — phải ghi [08](08-content-sources.md) trước khi dùng.
+- **Chưa làm** — chờ chủ dự án chốt kiểu vẽ (xem §9).
+
 ## 6. Gói tải thêm `kids-world`
 
 - **Nội dung gói**: địa hình/cảnh 3D từng tầng, mô hình hoặc sprite công trình độ chi tiết cao, vật trang trí, texture, âm thanh nền (chim, sóng, phố) — nguồn âm thanh phải có trong [08](08-content-sources.md) trước (vd Kenney CC0) hoặc tự tạo. Dung lượng: đo khi build, ghi [17](17-metrics.md); mục tiêu ≤ 50 MB.
@@ -301,6 +332,7 @@ SVG 16:9 toạ độ % (§4.1 `pos`), hình công trình pixel 2D, đường đi
 2. ✅ (2026-10-30) Nội dung tầng 1: ✅ `content/curated/kids/world/world.json` (3 tầng) + 12 file `places/vn-XX-<nơi>.json` (120 từ, `reviewed: false`); ✅ 24 hình từ còn thiếu (`src/shared/picturesMore.ts`: gia đình, số 1–10, 5 màu, vỏ sò, diều, đèn lồng, xe máy); ✅ lõi voxel (`voxelGrid.ts`, `mesh.ts`, `isometric.ts`, `palette.ts`) + **12 công trình voxel** (`src/shared/voxels/landmarks/`, 4–12 nghìn khối mỗi cái; Hòn Trống Mái nhìn giống vòm hai cột hơn là "hai con gà" — có thể vẽ lại sau); ✅ test nội dung `src/main/content/kidsWorld.content.test.ts` + test voxel `src/shared/voxels/voxels.test.ts`.
 3. ✅ (2026-10-30) `KidsWorldLibrary` + `KidsWorldService` + kênh `kids:world`/`kids:visit`/`kids:visit-done` + `kids:home` có tiến độ bản đồ + test service `src/main/services/KidsWorldService.test.ts` (7 test: bản đồ ban đầu, lượt chơi, hạn mức, xong nơi + rương một lần, mở tầng 2 khi đủ 9/12 nơi + mầm). Còn: đổi `kids:next` → làm cùng bước 4.
 4. 🚧 (2026-10-30) ✅ `KidsVisit.vue` (5 bước) + **bản đồ 2D** + ô Chơi mở bản đồ + `kids:next` thôi tự giới thiệu hình mới; lint/typecheck/`ui:audit` (0 lỗi; cảnh báo mã màu cứng như các màn hình bé khác)/429 test/`pnpm build` qua. **Chưa thử tay trong app thật** với hồ sơ trẻ em mới **và** hồ sơ cũ đã có thẻ — việc còn lại của bước này. Đến đây tính năng đã dùng được, không phụ thuộc 3D.
+   4b. 📋 **Chế độ game toàn màn hình** (§5.4): kênh IPC toàn màn hình, sân khấu canvas 16:9, bản đồ cuộn dọc không đè, ô màn chơi + sao/hoa, thú cưng đi theo đường cong, hiệu ứng + âm thanh, HUD game, `KidsVisit` trong sân khấu. Song song: **hình từ mới** (§5.5) sau khi chốt kiểu vẽ. Làm trước bước 5 vì 3D sẽ dựng trên cùng sân khấu.
 5. **Spike 3D voxel** (1 cảnh địa hình voxel, 2–3 công trình, greedy meshing, cây instancing, ngày–đêm): đo fps trên máy yếu/GPU tích hợp, RAM, dung lượng gói ước tính → báo chủ dự án, chốt rồi mới làm tiếp.
 6. Bản đồ 3D đầy đủ tầng 1 + gói `kids-world` (build script, release phụ, `packSpec`, panel tải, bước tải khi tạo hồ sơ trẻ em, nhắc trong khu phụ huynh). **Đây là phần tốn công nhất** (địa hình voxel, 12 công trình voxel chi tiết, cây/nước/người/xe voxel, hiệu ứng) — có thể chia nhiều đợt, mỗi đợt thêm vài nơi.
 7. Đo `pnpm stats`, dung lượng gói; cập nhật [17](17-metrics.md), 07 §9, 10, 03, 15; đánh dấu roadmap.
@@ -310,3 +342,5 @@ SVG 16:9 toạ độ % (§4.1 `pos`), hình công trình pixel 2D, đường đi
 1. ~~Kiểu vẽ công trình trong 3D~~ → **đã chốt voxel** (2026-10-29, §5.2).
 2. Danh sách 12 nơi, chủ điểm, công trình §2.2 có đổi gì không?
 3. Bé 6–8 tuổi (rating khởi điểm 100) vẫn đi từ tầng 1? Đề xuất: có — phân tầng tuổi để giai đoạn D.
+4. Hình từ (§5.5): tự vẽ vector bằng canvas (đề xuất, làm thử 10 hình rồi duyệt) hay dùng bộ có sẵn (Fluent Emoji/Noto)?
+5. Toàn màn hình (§5.4): dùng toàn màn hình thật (che thanh tác vụ) hay chỉ phóng to cửa sổ? Đề xuất: toàn màn hình thật, `Esc` để thoát.

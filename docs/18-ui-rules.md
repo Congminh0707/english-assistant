@@ -107,7 +107,7 @@ Lớp: `.btn` + một biến thể màu (`--primary` hành động chính, `--su
 
 - Công trình rộng `LANDMARK_SPAN` = 3,4 đơn vị thế giới; tới nơi thì cận cảnh (khoảng cách ~4,6, nghiêng 0,5) và lượn chậm quanh công trình.
 - Camera không bao giờ chui vào đất/núi (luôn cao hơn mặt đất dưới nó).
-- Đường đi bám địa hình, dừng ở cổng công trình, không cắt ngang công trình.
+- Đường đi bám địa hình, **một tuyến chính chạy ngang qua bên cạnh** mỗi nơi (điểm dừng nằm trên đường, lệch vuông góc với hướng đi) — không rẽ vào rồi quay ra (không có hai đường song song ra vào), không cắt ngang công trình.
 - Đường là **đường mòn đất** cùng tông bản đồ (vàng đất, mép mềm tan vào cỏ, vệt mòn sáng ở giữa, không vạch sơn), **nét liền** — không đứt; hai đầu tuyến **mờ dần**. Qua sông ngắn thì **cầu gỗ nối liền** với đường; qua biển/sông lớn thì **bến gỗ** ở hai bờ + đường phà chấm trắng. Mặt đất dưới đường được san theo cao độ đường đã làm mượt để xe không rung giật.
 
 **Quy trình rà soát**

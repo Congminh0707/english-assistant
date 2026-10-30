@@ -203,13 +203,30 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     const lm = landmarkOf.get(id) ?? ''
     if (sp && (WATER_LANDMARKS.has(lm) || onLand.get(id) === false))
       return { x: sp.x * TERRAIN_UNIT, y: (sp.z + LANDMARK_SPAN * 0.42) * TERRAIN_UNIT, sea: true }
-    const [ox, oz] = REST_OFFSET[lm] ?? [-0.3, 0.62]
-    return sp
-      ? {
-          x: (sp.x + LANDMARK_SPAN * ox) * TERRAIN_UNIT,
-          y: (sp.z + LANDMARK_SPAN * oz) * TERRAIN_UNIT
-        }
-      : { x: 0, y: 0 }
+    if (!sp) return { x: 0, y: 0 }
+    const fixed = REST_OFFSET[lm]
+    if (fixed)
+      return {
+        x: (sp.x + LANDMARK_SPAN * fixed[0]) * TERRAIN_UNIT,
+        y: (sp.z + LANDMARK_SPAN * fixed[1]) * TERRAIN_UNIT
+      }
+    // một con đường chính chạy NGANG QUA bên cạnh công trình (không rẽ vào rồi quay ra): điểm dừng nằm trên đường,
+    // lệch vuông góc với hướng đi (từ nơi trước tới nơi sau), về phía trước màn hình nếu là đất liền
+    const k = opts.places.findIndex((pl) => pl.id === id)
+    const prev = spotOf.get(opts.places[Math.max(0, k - 1)].id) ?? sp
+    const next = spotOf.get(opts.places[Math.min(opts.places.length - 1, k + 1)].id) ?? sp
+    let dx = next.x - prev.x
+    let dz = next.z - prev.z
+    const l = Math.hypot(dx, dz) || 1
+    dx /= l
+    dz /= l
+    const d = LANDMARK_SPAN * 0.8
+    const cands = [
+      { x: sp.x - dz * d, z: sp.z + dx * d },
+      { x: sp.x + dz * d, z: sp.z - dx * d }
+    ].sort((a2, b2) => b2.z - a2.z)
+    const pick = cands.find((c) => hf.heightAt(c.x, c.z) > 0.02) ?? cands[0]
+    return { x: pick.x * TERRAIN_UNIT, y: pick.z * TERRAIN_UNIT }
   }
   const legs: RoutePoint[][] = opts.places.slice(1).map((p, i) => {
     // bỏ phần đường nằm trong khuôn viên hai công trình (đường dừng ở cổng, không cắt ngang công trình)
@@ -219,6 +236,14 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     const outside = (q: RoutePoint, sp?: { x: number; z: number }): boolean =>
       !sp || Math.hypot(q.x - sp.x * TERRAIN_UNIT, q.y - sp.z * TERRAIN_UNIT) > clear
     const pts = (opts.routes?.[i] ?? []).filter((q) => outside(q, a) && outside(q, c))
+    // bỏ đoạn đường quay ngược (điểm trung gian nằm phía sau điểm xuất phát / vượt quá điểm đến) → không có hai đường
+    // song song ra vào cùng một nơi
+    const s0 = restPoint(opts.places[i].id)
+    const s1 = restPoint(p.id)
+    const dist = (u: RoutePoint, v: RoutePoint): number => Math.hypot(u.x - v.x, u.y - v.y)
+    const span = dist(s0, s1)
+    while (pts.length && dist(pts[0], s1) > span * 0.98) pts.shift()
+    while (pts.length && dist(pts[pts.length - 1], s0) > span * 0.98) pts.pop()
     // gần công trình trên nước (chợ nổi) thì đi thuyền: đánh dấu đoạn đó là đường thuỷ
     const wet = (q: RoutePoint): boolean =>
       [opts.places[i], p].some((pl) => {

@@ -18,7 +18,7 @@ import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { mountVnMap3D, type Map3DHandle } from './map3d'
 import { playSfx } from './sfx'
-import TripVehicle, { type VehicleKind } from './TripVehicle.vue'
+import type { VehicleKind } from './map3dVehicles'
 
 // Bản đồ 3D tầng Việt Nam (docs/19-kids-world.md §5.2): địa hình voxel + công trình voxel dựng bằng three.js, cùng dữ
 // liệu và luồng với bản 2D (WorldMap.vue). Thú cưng là sprite đứng trên đất (đặt theo phép chiếu 3D, to nhỏ theo xa gần,
@@ -39,14 +39,13 @@ const RAMP_MS = 420
 const FLY_RAMP_MS = 900
 const TRIP_MAX_MS = 9000
 /** Độ cao máy bay (số ô địa hình) và cỡ thú cưng trên bản đồ (số ô) */
-const FLY_ALT = 24
-const PET_CELLS = 3.6
+const FLY_ALT = 10
+const PET_CELLS = 1.8
 /** Thú cưng ngồi xe thì thu nhỏ lại (xe to hơn thú cưng nhiều) */
-const VEHICLE_SHRINK = 0.62
+const VEHICLE_SHRINK = 0.8
 const PET_PX = 88
 /** Bệ công trình cao hơn mặt đất một chút */
-const REST_LIFT = 1.2
-const SEAT: Record<VehicleKind, number> = { car: 30, boat: 14, plane: 44 }
+const REST_LIFT = 0.45
 
 const host = ref<HTMLDivElement | null>(null)
 const petEl = ref<HTMLDivElement | null>(null)
@@ -69,7 +68,7 @@ const places = computed(() =>
 const byId = computed(() => new Map(places.value.map((p) => [p.id, p])))
 
 // --- Thú cưng ---
-const pet = { x: 0, y: 0, hop: 0, rot: 0 }
+const pet = { x: 0, y: 0, hop: 0, rot: 0, heading: 0 }
 interface Trip {
   at: (u: number) => Point & { dx: number; i: number }
   dur: number
@@ -104,7 +103,13 @@ function tripProgress(elapsed: number, dur: number, ramp: number): number {
 }
 
 function applyPet(): void {
-  handle?.setPet({ x: pet.x, y: pet.y, hop: pet.hop + REST_LIFT })
+  handle?.setPet({
+    x: pet.x,
+    y: pet.y,
+    hop: pet.hop + (vehicle.value ? 0 : REST_LIFT),
+    kind: vehicle.value,
+    heading: pet.heading
+  })
 }
 
 function placePetEl(): void {
@@ -127,6 +132,11 @@ function loop(now: number): void {
       playSfx(kind === 'boat' ? 'splash' : 'car')
       vehicle.value = kind
     }
+    if (Math.hypot(p.x - pet.x, p.y - pet.y) > 0.5) {
+      const want = Math.atan2(p.y - pet.y, p.x - pet.x)
+      const diff = Math.atan2(Math.sin(want - pet.heading), Math.cos(want - pet.heading))
+      pet.heading += diff * 0.25
+    }
     pet.x = p.x
     pet.y = p.y
     if (Math.abs(p.dx) > 0.5) facingLeft.value = p.dx < 0
@@ -144,7 +154,7 @@ function loop(now: number): void {
       pet.hop = Math.abs(Math.sin(sec * 14)) * 0.24
     }
     pet.rot = facingLeft.value ? -tilt : tilt
-    handle?.follow(p.x, p.y, trip.fly ? 200 : 120)
+    handle?.follow(p.x, p.y, trip.fly ? 100 : 56)
     applyPet()
     if (elapsed >= trip.dur) arrive(trip.to, now)
   } else if (cheerAt) {
@@ -183,10 +193,10 @@ function go(id: string): void {
     arrive(id, now)
     return
   }
-  const road = [restPos(petAt.value), ...walkPoints(layout, from, to), restPos(id)]
+  const road = handle?.route(petAt.value ?? '', id) ?? [restPos(petAt.value), restPos(id)]
   const fly = polylineSampler(road).length > FLY_MIN
   const pts = fly ? [road[0], road[road.length - 1]] : road
-  const sea = pts.map((q) => 'sea' in q && q.sea === true)
+  const sea = pts.map((q) => ('sea' in q && q.sea === true) || false)
   const sampler = polylineSampler(pts, (i) =>
     fly ? 1 / SPEED.plane : sea[i] && !isVnLand(pts[i]) ? 1 / SPEED.boat : 1 / SPEED.car
   )
@@ -252,6 +262,7 @@ onMounted(async () => {
       height: 900,
       pixelRatio: Math.min(2, (window.devicePixelRatio || 1) * props.scale),
       reduceMotion: reduced,
+      routes: lay.points.slice(1).map((_, i) => walkPoints(lay, i, i + 1)),
       places: places.value.flatMap((p) => {
         const pt = lay.points.find((q) => q.id === p.id)
         return pt
@@ -287,7 +298,7 @@ onMounted(async () => {
     pet.x = r.x
     pet.y = r.y
     h.setPet({ x: pet.x, y: pet.y, hop: REST_LIFT })
-    h.follow(r.x, r.y, 120)
+    h.follow(r.x, r.y, 62)
     ready.value = true
   } catch {
     emit('fail')
@@ -318,13 +329,7 @@ function play(): void {
     <div ref="host" class="gl" />
 
     <div v-if="ready && petStore.pet" ref="petEl" class="pet">
-      <div v-if="vehicle" class="veh-layer" :class="{ flip: facingLeft }">
-        <TripVehicle :kind="vehicle" layer="back" />
-      </div>
-      <div
-        class="rider"
-        :style="vehicle ? { transform: `translateY(-${SEAT[vehicle]}px)` } : undefined"
-      >
+      <div class="rider">
         <PetSprite
           :character="normalizeCharacterId(petStore.pet.characterId)"
           :stage="petStore.pet.stage"
@@ -333,9 +338,6 @@ function play(): void {
           animate
           :flip="facingLeft"
         />
-      </div>
-      <div v-if="vehicle" class="veh-layer" :class="{ flip: facingLeft }">
-        <TripVehicle :kind="vehicle" layer="front" />
       </div>
     </div>
 

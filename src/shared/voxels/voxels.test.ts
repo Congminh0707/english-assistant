@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { isometric, isometricRects } from './isometric'
-import { LANDMARKS, LANDMARK_IDS, landmarkGrid, landmarkImage } from './landmarks'
+import { LANDMARKS, LANDMARK_IDS, landmarkBuilding, landmarkGrid, landmarkImage } from './landmarks'
 import { meshVoxels } from './mesh'
 import { VoxelGrid } from './voxelGrid'
 
@@ -115,5 +115,17 @@ describe('công trình voxel', () => {
       expect(meshVoxels(g).quads, id).toBeLessThan(g.count() * 6)
     }
     expect(landmarkGrid('nope')).toBeUndefined()
+  })
+})
+
+describe('công trình bỏ bệ nền', () => {
+  it('còn đủ chi tiết, không nhiều hơn bản gốc và thấp hơn hoặc bằng', () => {
+    for (const id of LANDMARK_IDS) {
+      const full = landmarkGrid(id)!
+      const built = landmarkBuilding(id)!
+      expect(built.count(), id).toBeGreaterThan(500)
+      expect(built.count(), id).toBeLessThanOrEqual(full.count())
+      expect(built.sy, id).toBeLessThanOrEqual(full.sy)
+    }
   })
 })

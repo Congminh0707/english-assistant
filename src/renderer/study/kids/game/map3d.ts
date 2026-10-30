@@ -3,7 +3,15 @@
 // sâu); công trình voxel có bóng đổ + che sáng đặt trên nền phẳng, nhãn tên, thú cưng đứng trên đất. Kéo = trượt bản đồ,
 // kéo chuột phải / Shift = xoay, lăn chuột = zoom, chạm công trình = chọn nơi. Dừng khi cửa sổ ẩn. docs/19-kids-world.md §5.2
 import type * as ThreeNS from 'three'
-import { landmarkGrid } from '@shared/voxels/landmarks'
+import { landmarkBuilding, landmarkGrid } from '@shared/voxels/landmarks'
+import { isVnLand } from '@shared/vnMap'
+import {
+  SEAT,
+  buildRoads,
+  createVehicleRig,
+  type RoutePoint,
+  type VehicleKind
+} from './map3dVehicles'
 import { meshVoxelsAO, type VoxelMeshAO } from '@shared/voxels/meshAO'
 import { TERRAIN_UNIT, VERTEX_STEP, WATER_Y, buildVnHeightfield } from '@shared/vnHeightfield'
 
@@ -27,6 +35,8 @@ export interface Map3DOptions {
   pixelRatio: number
   reduceMotion: boolean
   onSelect: (id: string | null) => void
+  /** `routes[i]`: đường từ `places[i]` tới `places[i + 1]` (đơn vị sân khấu, có cờ `sea` cho đoạn đi phà) */
+  routes?: RoutePoint[][]
   /** Vị trí màn hình (đơn vị khung hình) + tỉ lệ của thú cưng sau mỗi lần vẽ; `k` = số px trên màn hình mỗi đơn vị thế giới */
   onPet?: (s: { x: number; y: number; k: number }) => void
 }
@@ -36,6 +46,9 @@ export interface Map3DPet {
   x: number
   y: number
   hop: number
+  /** Đang ngồi phương tiện nào (3D) và hướng đi (rad, 0 = hướng +x của bản đồ) */
+  kind?: VehicleKind | null
+  heading?: number
 }
 
 export interface Map3DHandle {
@@ -47,11 +60,13 @@ export interface Map3DHandle {
   follow: (x: number, y: number, dist?: number) => void
   /** Chỗ thú cưng đứng khi ở một nơi (đơn vị sân khấu): trên nền công trình, sát mép trước */
   restOf: (id: string) => { x: number; y: number }
+  /** Đường đi từ nơi này tới nơi kia (đơn vị sân khấu, đã nối vào chỗ đứng của hai nơi) */
+  route: (fromId: string, toId: string) => RoutePoint[]
   dispose: () => void
 }
 
 /** Kích thước chân công trình trên bản đồ (đơn vị thế giới) */
-const LANDMARK_SPAN = 18
+const LANDMARK_SPAN = 10
 const MAX_PIXELS = 2560 * 1440
 const MAX_TREES = 30000
 
@@ -150,7 +165,13 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   }
   const spotOf = new Map(spots.map((s) => [s.id, s]))
 
-  const hf = buildVnHeightfield(spots.map((s) => ({ x: s.x, z: s.z, r: LANDMARK_SPAN * 0.6 })))
+  // công trình trên đất liền thì đặt thẳng lên địa hình (nền phẳng nhỏ); công trình ngoài biển (Hạ Long, Phú Quốc…) giữ bệ nước
+  const onLand = new Map(
+    spots.map((s) => [s.id, isVnLand({ x: s.x * TERRAIN_UNIT, y: s.z * TERRAIN_UNIT }, 30)])
+  )
+  const hf = buildVnHeightfield(
+    spots.map((s) => ({ x: s.x, z: s.z, r: onLand.get(s.id) ? LANDMARK_SPAN * 0.55 : 0 }))
+  )
   const { width: mapW, depth: mapD } = hf
 
   const renderer = new THREE.WebGLRenderer({
@@ -340,7 +361,8 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   const pickables: ThreeNS.Object3D[] = []
   const anchors = new Map<string, ThreeNS.Vector3>()
   opts.places.forEach((p) => {
-    const grid = landmarkGrid(p.landmark)
+    const landed = onLand.get(p.id) === true
+    const grid = landed ? landmarkBuilding(p.landmark) : landmarkGrid(p.landmark)
     const spot = spotOf.get(p.id)
     const padIndex = spots.findIndex((s) => s.id === p.id)
     if (!grid || !spot) return
@@ -349,7 +371,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
       own(geometryOf(THREE, meshVoxelsAO(grid, { jitter: 0.03, strength: 0.5 }))),
       material
     )
-    const gy = hf.padHeights[padIndex] - 0.2
+    const gy = landed ? hf.padHeights[padIndex] - 0.05 : -0.3
     mesh.scale.setScalar(k)
     mesh.position.set(spot.x - (grid.sx * k) / 2, gy, spot.z - (grid.sz * k) / 2)
     mesh.castShadow = true
@@ -412,7 +434,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
 
   // bóng thú cưng trên đất
   const shadow = new THREE.Mesh(
-    own(new THREE.CircleGeometry(1.4, 24)),
+    own(new THREE.CircleGeometry(0.8, 24)),
     own(
       new THREE.MeshBasicMaterial({
         color: 0x1d3a1d,
@@ -493,15 +515,64 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   passScene.add(pass)
   const passCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1)
 
+  // --- đường đi giữa các nơi + phương tiện ---
+  const restPoint = (id: string): RoutePoint => {
+    const sp = spotOf.get(id)
+    return sp
+      ? {
+          x: (sp.x - LANDMARK_SPAN * 0.25) * TERRAIN_UNIT,
+          y: (sp.z + LANDMARK_SPAN * 0.5 - 0.8) * TERRAIN_UNIT
+        }
+      : { x: 0, y: 0 }
+  }
+  const legs: RoutePoint[][] = opts.places.slice(1).map((p, i) => {
+    const pts = (opts.routes?.[i] ?? []).map((q) => ({ ...q }))
+    const from = restPoint(opts.places[i].id)
+    const to = restPoint(p.id)
+    return [from, ...pts.slice(1, Math.max(1, pts.length - 1)), to]
+  })
+  const roads = buildRoads(
+    THREE,
+    scene,
+    legs.map((leg) =>
+      leg.map((q) => ({ x: q.x / TERRAIN_UNIT, y: q.y / TERRAIN_UNIT, sea: q.sea }))
+    ),
+    (x, z) => hf.heightAt(x, z)
+  )
+  own(roads)
+  const rig = createVehicleRig(THREE, scene)
+  own(rig)
+  const route = (fromId: string, toId: string): RoutePoint[] => {
+    const a = opts.places.findIndex((p) => p.id === fromId)
+    const b = opts.places.findIndex((p) => p.id === toId)
+    if (a < 0 || b < 0 || a === b) return [restPoint(toId)]
+    const out: RoutePoint[] = []
+    const step = a < b ? 1 : -1
+    for (let i = a; i !== b; i += step) {
+      const leg = legs[Math.min(i, i + step)]
+      // cờ `sea` nằm ở điểm đích của từng đoạn → đi ngược thì dịch cờ sang điểm kế
+      const pts =
+        step > 0
+          ? leg
+          : [...leg].reverse().map((q, k, arr) => ({
+              ...q,
+              sea: k === 0 ? false : (arr[k - 1] && leg[leg.length - k]?.sea) || false
+            }))
+      out.push(...(out.length ? pts.slice(1) : pts))
+    }
+    return out
+  }
+  let vehicleTime = 0
+
   // camera: quay quanh `look`, đứng cách `dist`
-  const home = { x: mapW / 2, z: mapD / 2, dist: 120, pitch: 0.85, yaw: 0 }
+  const home = { x: mapW / 2, z: mapD / 2, dist: 62, pitch: 0.85, yaw: 0 }
   const cam = { ...home }
   const goal = { ...home }
   let dirty = true
 
   const clampGoal = (): void => {
     goal.pitch = Math.min(1.35, Math.max(0.45, goal.pitch))
-    goal.dist = Math.min(300, Math.max(30, goal.dist))
+    goal.dist = Math.min(200, Math.max(14, goal.dist))
     goal.x = Math.min(mapW, Math.max(0, goal.x))
     goal.z = Math.min(mapD, Math.max(0, goal.z))
   }
@@ -517,7 +588,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
 
   const focus = (id: string | null): void => {
     const a = id ? anchors.get(id) : null
-    if (a) Object.assign(goal, { x: a.x, z: a.z, dist: 52, pitch: 0.9 })
+    if (a) Object.assign(goal, { x: a.x, z: a.z, dist: 26, pitch: 0.9 })
     else Object.assign(goal, home)
     clampGoal()
     if (opts.reduceMotion) Object.assign(cam, goal)
@@ -531,7 +602,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
       const gx = p.x / TERRAIN_UNIT
       const gz = p.y / TERRAIN_UNIT
       shadow.position.set(gx, groundAt(gx, gz) + 0.1, gz)
-      shadow.scale.setScalar(Math.max(0.35, 1 - p.hop / 20))
+      shadow.scale.setScalar(Math.max(0.35, 1 - p.hop / 10))
     }
     dirty = true
   }
@@ -547,7 +618,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     if (!petState || !opts.onPet) return
     const gx = petState.x / TERRAIN_UNIT
     const gz = petState.y / TERRAIN_UNIT
-    const gy = groundAt(gx, gz) + petState.hop
+    const gy = groundAt(gx, gz) + petState.hop + (petState.kind ? SEAT[petState.kind] : 0)
     feet.set(gx, gy, gz).project(camera)
     const sx = (feet.x * 0.5 + 0.5) * opts.width
     const sy = (-feet.y * 0.5 + 0.5) * opts.height
@@ -558,8 +629,8 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     const sp = spotOf.get(id)
     if (!sp) return { x: 0, y: 0 }
     return {
-      x: (sp.x - LANDMARK_SPAN * 0.22) * TERRAIN_UNIT,
-      y: (sp.z + LANDMARK_SPAN / 2 - 1.6) * TERRAIN_UNIT
+      x: (sp.x - LANDMARK_SPAN * 0.25) * TERRAIN_UNIT,
+      y: (sp.z + LANDMARK_SPAN * 0.5 - 0.8) * TERRAIN_UNIT
     }
   }
 
@@ -658,6 +729,23 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
       }
     }
     place()
+    vehicleTime += dt
+    if (petState) {
+      const gx = petState.x / TERRAIN_UNIT
+      const gz = petState.y / TERRAIN_UNIT
+      const ground = groundAt(gx, gz)
+      rig.update(
+        {
+          kind: petState.kind ?? null,
+          x: gx,
+          y: (petState.kind === 'boat' ? WATER_Y : ground) + petState.hop,
+          z: gz,
+          heading: petState.heading ?? 0
+        },
+        dt,
+        vehicleTime
+      )
+    } else rig.update({ kind: null, x: 0, y: 0, z: 0, heading: 0 }, dt, vehicleTime)
     renderer.setRenderTarget(target)
     renderer.clear()
     renderer.render(scene, camera)
@@ -686,6 +774,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     setPet,
     follow,
     restOf,
+    route,
     dispose: () => {
       cancelAnimationFrame(raf)
       document.removeEventListener('visibilitychange', visibility)

@@ -260,10 +260,12 @@ export function buildVnHeightfield(pads: readonly Pad[] = []): VnHeightfield {
 
   // 4. nền phẳng cho công trình
   const padHeights = pads.map((p) => {
+    if (p.r <= 0) return -0.1
     const i = Math.round(p.z / VERTEX_STEP) * cols + Math.round(p.x / VERTEX_STEP)
     return Math.max(0.9, heights[Math.min(n - 1, Math.max(0, i))] ?? 0.9)
   })
   pads.forEach((p, k) => {
+    if (p.r <= 0) return
     const outer = p.r * 1.55
     const ix0 = Math.max(0, Math.floor((p.x - outer) / VERTEX_STEP))
     const ix1 = Math.min(cols - 1, Math.ceil((p.x + outer) / VERTEX_STEP))

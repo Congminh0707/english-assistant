@@ -10,6 +10,7 @@ import {
   SEAT,
   buildRoads,
   createVehicleRig,
+  type RoadSample,
   type RoutePoint,
   type VehicleKind
 } from './map3dVehicles'
@@ -61,7 +62,7 @@ export interface Map3DHandle {
   /** Camera bám theo một điểm trên bản đồ (đơn vị sân khấu) */
   follow: (x: number, y: number, dist?: number) => void
   /** Chỗ thú cưng đứng khi ở một nơi (đơn vị sân khấu): trên nền công trình, sát mép trước */
-  restOf: (id: string) => { x: number; y: number }
+  restOf: (id: string) => { x: number; y: number; sea: boolean }
   /** Đường đi từ nơi này tới nơi kia (đơn vị sân khấu, đã nối vào chỗ đứng của hai nơi) */
   route: (fromId: string, toId: string) => RoutePoint[]
   dispose: () => void
@@ -72,7 +73,10 @@ const LANDMARK_SPAN = 3.4
 /** Tỉ lệ phương tiện + đường so với mô hình gốc (xe dài ~2,6 → ~0,9 đơn vị) */
 const VS = 0.42
 /** Công trình nằm trên mặt nước (chợ nổi): nền hạ xuống dưới mực nước để nước biển/sông lộ ra quanh */
-const WATER_LANDMARKS = new Set(['cantho-floating-market'])
+const WATER_LANDMARKS = new Set(['cantho-floating-market', 'halong-trong-mai'])
+/** Chỗ đứng/cổng của công trình (theo bề rộng công trình); mặc định trước-trái. Làng chài Phú Quốc: phía bãi cát sau
+ * (phía trước là đầm nước của mô hình, xe không được băng qua) */
+const REST_OFFSET: Record<string, [number, number]> = { 'phuquoc-fishing-village': [0.15, -0.62] }
 const MAX_PIXELS = 2560 * 1440
 const MAX_TREES = 40000
 /** Cây/nhà thu nhỏ để vẫn nhỏ hơn hẳn công trình */
@@ -191,6 +195,202 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     }))
   )
   const { width: mapW, depth: mapD } = hf
+
+  // --- đường đi giữa các nơi + phương tiện ---
+  const landmarkOf = new Map(opts.places.map((p) => [p.id, p.landmark]))
+  const restPoint = (id: string): RoutePoint => {
+    const sp = spotOf.get(id)
+    const lm = landmarkOf.get(id) ?? ''
+    if (sp && (WATER_LANDMARKS.has(lm) || onLand.get(id) === false))
+      return { x: sp.x * TERRAIN_UNIT, y: (sp.z + LANDMARK_SPAN * 0.42) * TERRAIN_UNIT, sea: true }
+    const [ox, oz] = REST_OFFSET[lm] ?? [-0.3, 0.62]
+    return sp
+      ? {
+          x: (sp.x + LANDMARK_SPAN * ox) * TERRAIN_UNIT,
+          y: (sp.z + LANDMARK_SPAN * oz) * TERRAIN_UNIT
+        }
+      : { x: 0, y: 0 }
+  }
+  const legs: RoutePoint[][] = opts.places.slice(1).map((p, i) => {
+    // bỏ phần đường nằm trong khuôn viên hai công trình (đường dừng ở cổng, không cắt ngang công trình)
+    const a = spotOf.get(opts.places[i].id)
+    const c = spotOf.get(p.id)
+    const clear = LANDMARK_SPAN * 0.78 * TERRAIN_UNIT
+    const outside = (q: RoutePoint, sp?: { x: number; z: number }): boolean =>
+      !sp || Math.hypot(q.x - sp.x * TERRAIN_UNIT, q.y - sp.z * TERRAIN_UNIT) > clear
+    const pts = (opts.routes?.[i] ?? []).filter((q) => outside(q, a) && outside(q, c))
+    // gần công trình trên nước (chợ nổi) thì đi thuyền: đánh dấu đoạn đó là đường thuỷ
+    const wet = (q: RoutePoint): boolean =>
+      [opts.places[i], p].some((pl) => {
+        const sp = spotOf.get(pl.id)
+        return (
+          !!sp &&
+          (WATER_LANDMARKS.has(pl.landmark) || onLand.get(pl.id) === false) &&
+          Math.hypot(q.x - sp.x * TERRAIN_UNIT, q.y - sp.z * TERRAIN_UNIT) <
+            LANDMARK_SPAN * 2.2 * TERRAIN_UNIT
+        )
+      })
+    // đi thuyền chỉ ở chỗ thật sự là nước; phần trên cạn của đoạn phà/đoạn gần chợ nổi vẫn là đường bộ (có bến ở mép nước)
+    const water = (q: RoutePoint): boolean =>
+      hf.heightAt(q.x / TERRAIN_UNIT, q.y / TERRAIN_UNIT) < 0.05
+    const ends = [restPoint(opts.places[i].id), restPoint(p.id)]
+    const raw = [ends[0], ...pts, ends[1]].map((q, k, arr) => {
+      if (k === 0 || k === arr.length - 1) return q
+      const sea = (!!q.sea || wet(q)) && water(q)
+      return { ...q, sea }
+    })
+    return chaikin(chaikin(raw))
+  })
+
+  // --- tuyến đường: cao độ mặt đường làm mượt, san nền dưới đường (hết rung giật), cầu qua chỗ nước ---
+  const profiles: RoadSample[][] = legs.map((leg) => {
+    const pts: RoadSample[] = []
+    for (let i = 0; i + 1 < leg.length; i++) {
+      const a = leg[i]
+      const b = leg[i + 1]
+      const ax = a.x / TERRAIN_UNIT
+      const az = a.y / TERRAIN_UNIT
+      const bx = b.x / TERRAIN_UNIT
+      const bz = b.y / TERRAIN_UNIT
+      const n = Math.max(1, Math.ceil(Math.hypot(bx - ax, bz - az) / 0.12))
+      for (let k = 0; k < n; k++) {
+        const t = k / n
+        pts.push({
+          x: ax + (bx - ax) * t,
+          z: az + (bz - az) * t,
+          y: 0,
+          sea: !!b.sea,
+          bridge: false
+        })
+      }
+    }
+    const last = leg[leg.length - 1]
+    if (last)
+      pts.push({
+        x: last.x / TERRAIN_UNIT,
+        z: last.y / TERRAIN_UNIT,
+        y: 0,
+        sea: !!last.sea,
+        bridge: false
+      })
+    // đường đi men theo sông thì dời lên bờ (chỉ những đoạn cắt ngang mặt nước mới là cầu)
+    for (let i = 0; i < pts.length; i++) {
+      const q = pts[i]
+      if (q.sea || hf.heightAt(q.x, q.z) >= 0.06) continue
+      const prev = pts[Math.max(0, i - 1)]
+      const next = pts[Math.min(pts.length - 1, i + 1)]
+      const dx = next.x - prev.x
+      const dz = next.z - prev.z
+      const l = Math.hypot(dx, dz) || 1
+      const nx = -dz / l
+      const nz = dx / l
+      for (let d = 0.2; d <= 1.6; d += 0.1) {
+        const sd = [1, -1].find((s2) => hf.heightAt(q.x + nx * d * s2, q.z + nz * d * s2) > 0.12)
+        if (sd) {
+          q.x += nx * (d + 0.15) * sd
+          q.z += nz * (d + 0.15) * sd
+          break
+        }
+      }
+    }
+    for (let pass = 0; pass < 2; pass++) {
+      const xs = pts.map((q) => q.x)
+      const zs = pts.map((q) => q.z)
+      for (let i = 1; i + 1 < pts.length; i++) {
+        if (pts[i].sea) continue
+        let sx = 0
+        let sz = 0
+        let c = 0
+        for (let d = -4; d <= 4; d++) {
+          const j = i + d
+          if (j < 0 || j >= pts.length || pts[j].sea) continue
+          sx += xs[j]
+          sz += zs[j]
+          c++
+        }
+        pts[i].x = sx / c
+        pts[i].z = sz / c
+      }
+    }
+    // phân loại lại theo mặt đất thật: trên cạn luôn là đường; mỗi quãng nước liền nhau là PHÀ (dài, hoặc chạm bến
+    // ở đầu/cuối tuyến, hoặc tuyến vốn đi phà) hay CẦU (quãng ngắn cắt ngang sông) — nhờ vậy đường không bao giờ đứt
+    const wetS = pts.map((q) => hf.heightAt(q.x, q.z) < 0.06)
+    for (let i = 0; i < pts.length;) {
+      if (!wetS[i]) {
+        pts[i].sea = false
+        pts[i].bridge = false
+        i++
+        continue
+      }
+      let j = i
+      while (j < pts.length && wetS[j]) j++
+      const ferry =
+        i === 0 || j === pts.length || (j - i) * 0.12 > 2.2 || pts.slice(i, j).some((q) => q.sea)
+      for (let k = i; k < j; k++) {
+        pts[k].sea = ferry
+        pts[k].bridge = !ferry
+      }
+      i = j
+    }
+    let ys = pts.map((q) => {
+      if (q.sea) return WATER_Y
+      if (q.bridge) return 0.32
+      return Math.max(hf.heightAt(q.x, q.z), 0.08)
+    })
+    for (let pass = 0; pass < 3; pass++) {
+      const out = ys.slice()
+      for (let i = 0; i < ys.length; i++) {
+        if (pts[i].sea) continue
+        let sum = 0
+        let cnt = 0
+        for (let d = -8; d <= 8; d++) {
+          const j = i + d
+          if (j < 0 || j >= ys.length || pts[j].sea) continue
+          sum += ys[j]
+          cnt++
+        }
+        out[i] = sum / cnt
+      }
+      ys = out
+    }
+    pts.forEach((q, i) => (q.y = q.sea ? WATER_Y : q.bridge ? Math.max(ys[i], 0.32) : ys[i]))
+    return pts
+  })
+  // san nền: kéo mặt đất dọc đường về đúng cao độ đường; ghi lại mặt cầu để xe chạy trên cầu
+  const deck = new Map<number, number>()
+  const deckKey = (x: number, z: number): number =>
+    Math.floor(x / 0.25) * 100003 + Math.floor(z / 0.25)
+  for (const prof of profiles)
+    for (const q of prof) {
+      if (q.sea) continue
+      if (q.bridge) {
+        const key = deckKey(q.x, q.z)
+        deck.set(key, Math.max(deck.get(key) ?? -9, q.y))
+        continue
+      }
+      const r = 0.7
+      const ix0 = Math.max(0, Math.floor((q.x - r) / VERTEX_STEP))
+      const ix1 = Math.min(hf.cols - 1, Math.ceil((q.x + r) / VERTEX_STEP))
+      const iz0 = Math.max(0, Math.floor((q.z - r) / VERTEX_STEP))
+      const iz1 = Math.min(hf.rows - 1, Math.ceil((q.z + r) / VERTEX_STEP))
+      for (let iz = iz0; iz <= iz1; iz++)
+        for (let ix = ix0; ix <= ix1; ix++) {
+          const d = Math.hypot(ix * VERTEX_STEP - q.x, iz * VERTEX_STEP - q.z)
+          if (d > r) continue
+          const k = hf.cols * iz + ix
+          const cur = hf.heights[k]
+          if (cur < 0.05) continue
+          const w = d < 0.38 ? 1 : 1 - (d - 0.38) / (r - 0.38)
+          hf.heights[k] = cur + (q.y - 0.03 - cur) * w
+        }
+    }
+  const deckAt = (x: number, z: number): number => {
+    let best = -9
+    for (const dx of [-0.25, 0, 0.25])
+      for (const dz of [-0.25, 0, 0.25])
+        best = Math.max(best, deck.get(deckKey(x + dx, z + dz)) ?? -9)
+    return best
+  }
 
   const renderer = new THREE.WebGLRenderer({
     antialias: false,
@@ -561,55 +761,11 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   passScene.add(pass)
   const passCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1)
 
-  // --- đường đi giữa các nơi + phương tiện ---
-  const landmarkOf = new Map(opts.places.map((p) => [p.id, p.landmark]))
-  const restPoint = (id: string): RoutePoint => {
-    const sp = spotOf.get(id)
-    if (sp && WATER_LANDMARKS.has(landmarkOf.get(id) ?? ''))
-      return { x: sp.x * TERRAIN_UNIT, y: (sp.z + LANDMARK_SPAN * 0.42) * TERRAIN_UNIT, sea: true }
-    return sp
-      ? {
-          x: (sp.x - LANDMARK_SPAN * 0.3) * TERRAIN_UNIT,
-          y: (sp.z + LANDMARK_SPAN * 0.62) * TERRAIN_UNIT
-        }
-      : { x: 0, y: 0 }
-  }
-  const legs: RoutePoint[][] = opts.places.slice(1).map((p, i) => {
-    // bỏ phần đường nằm trong khuôn viên hai công trình (đường dừng ở cổng, không cắt ngang công trình)
-    const a = spotOf.get(opts.places[i].id)
-    const c = spotOf.get(p.id)
-    const clear = LANDMARK_SPAN * 0.78 * TERRAIN_UNIT
-    const outside = (q: RoutePoint, sp?: { x: number; z: number }): boolean =>
-      !sp || Math.hypot(q.x - sp.x * TERRAIN_UNIT, q.y - sp.z * TERRAIN_UNIT) > clear
-    const pts = (opts.routes?.[i] ?? []).filter((q) => outside(q, a) && outside(q, c))
-    // gần công trình trên nước (chợ nổi) thì đi thuyền: đánh dấu đoạn đó là đường thuỷ
-    const wet = (q: RoutePoint): boolean =>
-      [opts.places[i], p].some((pl) => {
-        const sp = spotOf.get(pl.id)
-        return (
-          !!sp &&
-          WATER_LANDMARKS.has(pl.landmark) &&
-          Math.hypot(q.x - sp.x * TERRAIN_UNIT, q.y - sp.z * TERRAIN_UNIT) <
-            LANDMARK_SPAN * 1.15 * TERRAIN_UNIT
-        )
-      })
-    const raw = [restPoint(opts.places[i].id), ...pts, restPoint(p.id)].map((q, k) =>
-      k > 0 && wet(q) ? { ...q, sea: true } : q
-    )
-    return chaikin(chaikin(raw))
-  })
-  const roads = buildRoads(
-    THREE,
-    scene,
-    legs.map((leg) =>
-      leg.map((q) => ({ x: q.x / TERRAIN_UNIT, y: q.y / TERRAIN_UNIT, sea: q.sea }))
-    ),
-    (x, z) => hf.heightAt(x, z),
-    VS
-  )
+  const roads = buildRoads(THREE, scene, profiles, VS)
   own(roads)
   const rig = createVehicleRig(THREE, scene, VS)
   own(rig)
+  // tuyến thú cưng đi = đúng tuyến đường đã vẽ (cùng điểm mẫu, cùng chỗ cầu/phà)
   const route = (fromId: string, toId: string): RoutePoint[] => {
     const a = opts.places.findIndex((p) => p.id === fromId)
     const b = opts.places.findIndex((p) => p.id === toId)
@@ -617,19 +773,17 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     const out: RoutePoint[] = []
     const step = a < b ? 1 : -1
     for (let i = a; i !== b; i += step) {
-      const leg = legs[Math.min(i, i + step)]
-      // cờ `sea` nằm ở điểm đích của từng đoạn → đi ngược thì dịch cờ sang điểm kế
-      const pts =
-        step > 0
-          ? leg
-          : [...leg].reverse().map((q, k, arr) => ({
-              ...q,
-              sea: k === 0 ? false : (arr[k - 1] && leg[leg.length - k]?.sea) || false
-            }))
+      const prof = profiles[Math.min(i, i + step)]
+      const pts = (step > 0 ? prof : [...prof].reverse()).map((q) => ({
+        x: q.x * TERRAIN_UNIT,
+        y: q.z * TERRAIN_UNIT,
+        sea: q.sea
+      }))
       out.push(...(out.length ? pts.slice(1) : pts))
     }
     return out
   }
+
   let vehicleTime = 0
 
   // camera: quay quanh `look`, đứng cách `dist`
@@ -657,6 +811,14 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
       hf.heightAt((camera.position.x + look.x) / 2, (camera.position.z + look.z) / 2)
     )
     camera.position.y = Math.max(camera.position.y, under + 1.2 + cam.dist * 0.08)
+    // không để sườn núi che mất chỗ đang nhìn: nâng camera tới khi đường ngắm vượt qua mọi điểm địa hình ở giữa
+    for (let i = 1; i < 10; i++) {
+      const t = i / 10
+      const sx = look.x + (camera.position.x - look.x) * t
+      const sz = look.z + (camera.position.z - look.z) * t
+      const need = look.y + (hf.heightAt(sx, sz) + 0.5 - look.y) / t
+      if (need > camera.position.y) camera.position.y = need
+    }
     camera.lookAt(look)
   }
 
@@ -671,7 +833,8 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     if (opts.reduceMotion) Object.assign(cam, goal)
     dirty = true
   }
-  const groundAt = (gx: number, gz: number): number => Math.max(WATER_Y, hf.heightAt(gx, gz))
+  const groundAt = (gx: number, gz: number): number =>
+    Math.max(WATER_Y, hf.heightAt(gx, gz), deckAt(gx, gz))
   const setPet = (p: Map3DPet | null): void => {
     petState = p
     shadow.visible = !!p
@@ -708,13 +871,9 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     )
     opts.onPet({ x: sx, y: sy, k })
   }
-  const restOf = (id: string): { x: number; y: number } => {
-    const sp = spotOf.get(id)
-    if (!sp) return { x: 0, y: 0 }
-    return {
-      x: (sp.x - LANDMARK_SPAN * 0.3) * TERRAIN_UNIT,
-      y: (sp.z + LANDMARK_SPAN * 0.62) * TERRAIN_UNIT
-    }
+  const restOf = (id: string): { x: number; y: number; sea: boolean } => {
+    const r = restPoint(id)
+    return { x: r.x, y: r.y, sea: !!r.sea }
   }
 
   // thao tác

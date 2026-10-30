@@ -532,12 +532,27 @@ export interface RoutePoint {
   sea?: boolean
 }
 
-/** Đường bộ (dải đất nện + vạch trắng giữa) uốn theo địa hình và đường phà (chấm trắng) — mỗi tuyến là dãy điểm đơn vị thế giới */
+/** Một điểm mẫu của đường (đơn vị thế giới) với cao độ mặt đường đã làm mượt */
+export interface RoadSample {
+  x: number
+  z: number
+  /** Cao độ mặt đường (đã làm mượt; trên cầu là mặt cầu) */
+  y: number
+  /** Đoạn đi phà trên biển/sông lớn */
+  sea: boolean
+  /** Đoạn cầu bắc qua sông/kênh */
+  bridge: boolean
+}
+
+/**
+ * Đường bộ liền mạch theo cao độ đã làm mượt: lề đất + mặt đường + vạch trắng; đoạn qua nước thành **cầu** nối liền
+ * (mặt cầu bê tông, thành cầu, trụ cầu) chứ không đứt; chỗ chuyển sang đi phà có **bến gỗ** nhô ra nước; đường phà là chấm
+ * trắng trên mặt nước. Mỗi tuyến là dãy điểm mẫu dày (~0,12 đơn vị).
+ */
 export function buildRoads(
   THREE: Three,
   scene: ThreeNS.Scene,
-  routes: ReadonlyArray<ReadonlyArray<RoutePoint>>,
-  heightAt: (x: number, z: number) => number,
+  paths: ReadonlyArray<ReadonlyArray<RoadSample>>,
   scale = 1
 ): { dispose: () => void } {
   const pos: number[] = []
@@ -553,66 +568,152 @@ export function buildRoads(
   }
   const lin = (hex: number): number[] =>
     [(hex >> 16) & 255, (hex >> 8) & 255, hex & 255].map((v) => Math.pow(v / 255, 2.2))
-  const dirt = lin(0xd8c49a)
-  const edge = lin(0x9a825c)
-  const paint = lin(0xfff6dc)
-  const dots = lin(0xffffff)
-  const lift = (x: number, z: number, up: number): number =>
-    Math.max(0.03, heightAt(x, z)) + up * scale
+  const C = {
+    dirt: lin(0xd8c49a),
+    edge: lin(0x9a825c),
+    paint: lin(0xfff6dc),
+    dots: lin(0xffffff),
+    deck: lin(0xcfc8b6),
+    deckSide: lin(0x9a9384),
+    rail: lin(0xe8e2d2),
+    pillar: lin(0xb3ac9c),
+    wood: lin(0xa07a4a),
+    woodDark: lin(0x6b4a32)
+  }
+  const W = 0.32 * scale // nửa bề rộng mặt đường
+  const E = 0.44 * scale // nửa bề rộng cả lề
 
-  for (const route of routes) {
-    const step = 0.3 * scale
-    const pts: Array<{ x: number; z: number; sea: boolean }> = []
-    for (let i = 0; i + 1 < route.length; i++) {
-      const a = route[i]
-      const b = route[i + 1]
-      const len = Math.hypot(b.x - a.x, b.y - a.y)
-      const n = Math.max(1, Math.ceil(len / step))
-      for (let k = 0; k < n; k++) {
-        const t = k / n
-        pts.push({ x: a.x + (b.x - a.x) * t, z: a.y + (b.y - a.y) * t, sea: !!(b.sea ?? a.sea) })
-      }
-    }
-    const last = route[route.length - 1]
-    if (last) pts.push({ x: last.x, z: last.y, sea: !!last.sea })
+  /** Dải nằm ngang giữa hai điểm mẫu, lệch ngang [w0, w1] (âm = bên trái), cao thêm `up` */
+  const strip = (
+    p: RoadSample,
+    q: RoadSample,
+    w0: number,
+    w1: number,
+    up: number,
+    rgb: number[]
+  ): void => {
+    const dx = q.x - p.x
+    const dz = q.z - p.z
+    const len = Math.hypot(dx, dz) || 1
+    const nx = -dz / len
+    const nz = dx / len
+    quad(
+      [p.x + nx * w1, p.y + up, p.z + nz * w1],
+      [q.x + nx * w1, q.y + up, q.z + nz * w1],
+      [q.x + nx * w0, q.y + up, q.z + nz * w0],
+      [p.x + nx * w0, p.y + up, p.z + nz * w0],
+      rgb
+    )
+  }
+  /** Mặt đứng dọc theo cạnh (lệch ngang w) từ cao y0 tới y1 (tương đối mặt đường) */
+  const wall = (
+    p: RoadSample,
+    q: RoadSample,
+    w: number,
+    y0: number,
+    y1: number,
+    rgb: number[]
+  ): void => {
+    const dx = q.x - p.x
+    const dz = q.z - p.z
+    const len = Math.hypot(dx, dz) || 1
+    const nx = -dz / len
+    const nz = dx / len
+    quad(
+      [p.x + nx * w, p.y + y0, p.z + nz * w],
+      [q.x + nx * w, q.y + y0, q.z + nz * w],
+      [q.x + nx * w, q.y + y1, q.z + nz * w],
+      [p.x + nx * w, p.y + y1, p.z + nz * w],
+      rgb
+    )
+  }
+  /** Cột đứng (hình hộp nhỏ) tại một điểm, từ y0 tới y1 */
+  const post = (x: number, z: number, y0: number, y1: number, r: number, rgb: number[]): void => {
+    quad([x - r, y0, z - r], [x + r, y0, z - r], [x + r, y1, z - r], [x - r, y1, z - r], rgb)
+    quad([x + r, y0, z + r], [x - r, y0, z + r], [x - r, y1, z + r], [x + r, y1, z + r], rgb)
+    quad([x - r, y0, z + r], [x - r, y0, z - r], [x - r, y1, z - r], [x - r, y1, z + r], rgb)
+    quad([x + r, y0, z - r], [x + r, y0, z + r], [x + r, y1, z + r], [x + r, y1, z - r], rgb)
+  }
+
+  for (const path of paths) {
     let travelled = 0
-    for (let i = 0; i + 1 < pts.length; i++) {
-      const p = pts[i]
-      const q = pts[i + 1]
-      const dx = q.x - p.x
-      const dz = q.z - p.z
-      const len = Math.hypot(dx, dz) || 1
-      const nx = -dz / len
-      const nz = dx / len
+    let lastDot = -1
+    for (let i = 0; i + 1 < path.length; i++) {
+      const p = path[i]
+      const q = path[i + 1]
+      const len = Math.hypot(q.x - p.x, q.z - p.z)
       travelled += len
-      if (p.sea || q.sea) {
-        if (
-          Math.floor(travelled / (0.9 * scale)) !== Math.floor((travelled - len) / (0.9 * scale))
-        ) {
-          const r = 0.12 * scale
+      if (q.sea && p.sea) {
+        const k = Math.floor(travelled / (0.9 * scale))
+        if (k !== lastDot) {
+          lastDot = k
+          const r = 0.1 * scale
           quad(
-            [p.x - r, 0.06, p.z - r],
-            [p.x - r, 0.06, p.z + r],
-            [p.x + r, 0.06, p.z + r],
-            [p.x + r, 0.06, p.z - r],
-            dots
+            [q.x - r, 0.06, q.z - r],
+            [q.x - r, 0.06, q.z + r],
+            [q.x + r, 0.06, q.z + r],
+            [q.x + r, 0.06, q.z - r],
+            C.dots
           )
         }
         continue
       }
-      const ribbon = (w: number, up: number, rgb: number[]): void => {
-        const ww = w * scale
-        quad(
-          [p.x + nx * ww, lift(p.x + nx * ww, p.z + nz * ww, up), p.z + nz * ww],
-          [q.x + nx * ww, lift(q.x + nx * ww, q.z + nz * ww, up), q.z + nz * ww],
-          [q.x - nx * ww, lift(q.x - nx * ww, q.z - nz * ww, up), q.z - nz * ww],
-          [p.x - nx * ww, lift(p.x - nx * ww, p.z - nz * ww, up), p.z - nz * ww],
-          rgb
-        )
+      if (p.sea !== q.sea) {
+        // bến gỗ: sàn nhô ra nước theo hướng đi + cọc
+        const land = p.sea ? q : p
+        const sea = p.sea ? p : q
+        const dx = sea.x - land.x
+        const dz = sea.z - land.z
+        const l = Math.hypot(dx, dz) || 1
+        const end: RoadSample = {
+          x: land.x + (dx / l) * 0.55,
+          z: land.z + (dz / l) * 0.55,
+          y: 0.12,
+          sea: false,
+          bridge: false
+        }
+        const start: RoadSample = { ...land, y: Math.max(0.12, land.y) }
+        strip(start, end, -W, W, 0.02, C.wood)
+        wall(start, end, -W, -0.12, 0.02, C.woodDark)
+        wall(start, end, W, -0.12, 0.02, C.woodDark)
+        for (const t of [0.35, 1]) {
+          const px = start.x + (end.x - start.x) * t
+          const pz = start.z + (end.z - start.z) * t
+          const nx = -(end.z - start.z) / 0.55
+          const nz = (end.x - start.x) / 0.55
+          for (const sd of [-1, 1])
+            post(px + nx * W * sd, pz + nz * W * sd, -0.1, 0.22, 0.025 * scale, C.woodDark)
+        }
+        continue
       }
-      ribbon(0.42, 0.05, edge)
-      ribbon(0.3, 0.075, dirt)
-      if (Math.floor(travelled / (0.7 * scale)) % 2 === 0) ribbon(0.035, 0.1, paint)
+      if (p.bridge || q.bridge) {
+        // cầu: mặt cầu + thành cầu + trụ, nối liền hai đầu đường
+        strip(p, q, -E, E, 0.04, C.deck)
+        wall(p, q, -E, -0.08, 0.04, C.deckSide)
+        wall(p, q, E, -0.08, 0.04, C.deckSide)
+        wall(p, q, -E + 0.02, 0.04, 0.16, C.rail)
+        wall(p, q, E - 0.02, 0.04, 0.16, C.rail)
+        strip(p, q, -0.025 * scale, 0.025 * scale, 0.05, C.paint)
+        if (i % 7 === 0) {
+          const dx = q.x - p.x
+          const dz = q.z - p.z
+          const l = Math.hypot(dx, dz) || 1
+          for (const sd of [-1, 1])
+            post(
+              p.x - (dz / l) * W * 0.7 * sd,
+              p.z + (dx / l) * W * 0.7 * sd,
+              -0.3,
+              p.y - 0.06,
+              0.05 * scale,
+              C.pillar
+            )
+        }
+        continue
+      }
+      strip(p, q, -E, E, 0.05, C.edge)
+      strip(p, q, -W, W, 0.065, C.dirt)
+      if (Math.floor(travelled / (0.6 * scale)) % 2 === 0)
+        strip(p, q, -0.025 * scale, 0.025 * scale, 0.075, C.paint)
     }
   }
   const geo = new THREE.BufferGeometry()
@@ -629,6 +730,7 @@ export function buildRoads(
   })
   const mesh = new THREE.Mesh(geo, mat)
   mesh.receiveShadow = true
+  mesh.castShadow = true
   scene.add(mesh)
   return {
     dispose: () => {

@@ -258,7 +258,9 @@ export function buildVnHeightfield(pads: readonly Pad[] = []): VnHeightfield {
   for (let i = 0; i < n; i++) {
     if (riverW[i] > 0 && heights[i] > -0.1) {
       const w = riverW[i] * smooth(0.55, 0.8, f[i])
-      heights[i] = heights[i] * (1 - w) + -0.28 * w
+      // lòng sông: đồng bằng thì xuống dưới mực nước, miền núi chỉ là rãnh nông (không khoét thành hẻm vực)
+      const bed = heights[i] > 2.5 ? heights[i] - 0.9 : -0.28
+      heights[i] = heights[i] * (1 - w) + bed * w
     }
   }
 

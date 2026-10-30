@@ -227,7 +227,8 @@ function go(id: string): void {
 function arrive(id: string, now: number): void {
   trip = null
   traveling.value = false
-  vehicle.value = null
+  // nơi nằm trên mặt nước (chợ nổi, vịnh): thú cưng ngồi lại trên thuyền
+  vehicle.value = handle?.restOf(id).sea ? 'boat' : null
   petAt.value = id
   pet.hop = 0
   pet.rot = 0
@@ -334,7 +335,8 @@ onMounted(async () => {
     const r = restPos(petAt.value)
     pet.x = r.x
     pet.y = r.y
-    h.setPet({ x: pet.x, y: pet.y, hop: REST_LIFT })
+    if (h.restOf(petAt.value ?? '').sea) vehicle.value = 'boat'
+    applyPet()
     h.follow(r.x, r.y, 20)
     ready.value = true
   } catch {

@@ -3,6 +3,7 @@
 // nhún + khói, thuyền chòng chành + buồm phồng + cờ phất + sóng đuôi, máy bay quay cánh quạt + nghiêng khi vòng + vệt mây.
 // Kích thước mô hình tính theo đơn vị riêng (xe dài ~2,4) rồi nhân `scale` của bản đồ. docs/19-kids-world.md §5.4
 import type * as ThreeNS from 'three'
+import { toon } from './toon'
 
 type Three = typeof ThreeNS
 
@@ -29,16 +30,16 @@ interface Puff {
 }
 
 class Mats {
-  private readonly cache = new Map<string, ThreeNS.MeshLambertMaterial>()
+  private readonly cache = new Map<string, ThreeNS.MeshToonMaterial>()
   constructor(private readonly THREE: Three) {}
   get(
     color: number,
-    extra: Partial<ThreeNS.MeshLambertMaterialParameters> = {}
-  ): ThreeNS.MeshLambertMaterial {
+    extra: Partial<ThreeNS.MeshToonMaterialParameters> = {}
+  ): ThreeNS.MeshToonMaterial {
     const key = `${color}|${JSON.stringify(extra)}`
     let m = this.cache.get(key)
     if (!m) {
-      m = new this.THREE.MeshLambertMaterial({ color, ...extra })
+      m = toon(this.THREE, { color, ...extra })
       this.cache.set(key, m)
     }
     return m
@@ -610,7 +611,7 @@ export function buildRoads(
   geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3))
   geo.setIndex(idx)
   geo.computeVertexNormals()
-  const mat = new THREE.MeshLambertMaterial({
+  const mat = toon(THREE, {
     vertexColors: true,
     polygonOffset: true,
     polygonOffsetFactor: -2,

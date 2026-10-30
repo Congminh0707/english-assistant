@@ -36,13 +36,27 @@ export function hueNgoMon(THREE: Three): ThreeNS.Group {
   hall(3.3, 1.8, 2, 0.95)
   // cột cờ vàng + cây
   k.cyl(0.04, 0.05, 4.4, 0x6b4a32, -4.6, 0, 3.4, 8)
-  k.box(0.9, 0.5, 0.03, 0xf2c200, -4.15, 3.7, 3.4)
+  const flag = k.box(0.9, 0.5, 0.03, 0xf2c200, -4.15, 3.7, 3.4)
   for (const [x, z] of [
     [4.7, 3.6],
     [-4.9, -1.5],
     [4.9, -1.3]
   ] as const)
     k.tree(x, z, 0.9, 0.05)
+  // cờ phất + thuyền rồng trên hào
+  const dboat = new THREE.Group()
+  k.box(2.2, 0.2, 0.4, 0xc8322b, 0, 0, 0, dboat)
+  k.ball(0.18, 0xf2b630, 1.15, 0.3, 0, 1.2, 1, 0.8, dboat)
+  k.cone(0.08, 0.3, 0xf2b630, 1.25, 0.45, 0, 6, dboat)
+  k.box(0.7, 0.35, 0.36, 0xf2b630, -0.3, 0.18, 0, dboat)
+  k.put(dboat, 0, 0.06, 4.6)
+  k.group.userData.tick = (t: number): void => {
+    flag.rotation.y = Math.sin(t * 4) * 0.25
+    flag.scale.x = 0.9 + Math.sin(t * 6) * 0.1
+    dboat.position.x = Math.sin(t * 0.18) * 3.6
+    dboat.rotation.y = Math.cos(t * 0.18) > 0 ? 0 : Math.PI
+    dboat.position.y = 0.06 + Math.sin(t * 2.4) * 0.03
+  }
   return k.group
 }
 
@@ -122,6 +136,31 @@ export function danangDragonBridge(THREE: Three): ThreeNS.Group {
     [2.0, 3.2]
   ] as const)
     k.palm(x, z, 0.8, 0.05)
+  // rồng phun lửa định kỳ + xe chạy trên cầu
+  const fire = new THREE.Group()
+  k.cone(0.22, 0.9, 0xff8a2a, 0, 0, 0, 10, fire).rotation.z = -Math.PI / 2
+  k.cone(0.13, 0.6, 0xffe27a, 0.05, 0.02, 0, 10, fire).rotation.z = -Math.PI / 2
+  k.put(fire, head.x + 1.05, head.y - 0.05, head.z)
+  const cars: ThreeNS.Group[] = []
+  for (let i = 0; i < 3; i++) {
+    const c = new THREE.Group()
+    k.box(0.5, 0.18, 0.28, [0xe24a3b, 0x4aa8d8, 0xf2b630][i], 0, 0, 0, c)
+    k.box(0.28, 0.14, 0.24, 0xf6ecd2, -0.04, 0.18, 0, c)
+    k.put(c, 0, 0.92, i % 2 ? -0.35 : 0.35)
+    cars.push(c)
+  }
+  k.group.userData.tick = (t: number): void => {
+    const phase = t % 6
+    const on = phase > 4.6
+    fire.visible = on
+    if (on)
+      fire.scale.set(0.6 + Math.sin(t * 30) * 0.15 + (phase - 4.6), 1 + Math.sin(t * 25) * 0.15, 1)
+    cars.forEach((c, i) => {
+      const dir = i % 2 ? -1 : 1
+      c.position.x = dir * (((((t * 0.9 + i * 3.1) % 10.4) + 10.4) % 10.4) - 5.2)
+      c.rotation.y = dir > 0 ? 0 : Math.PI
+    })
+  }
   return k.group
 }
 
@@ -174,6 +213,26 @@ export function hoianBridgePagoda(THREE: Three): ThreeNS.Group {
   k.box(1.5, 0.22, 0.55, 0xa5522e, 0, 0, 0, b)
   k.ball(0.14, 0xf2b630, 0.3, 0.45, 0, 1.2, 1, 1, b, { emissive: 0x4a3006 })
   k.put(b, -1.2, 0.05, 1.7)
+  // hoa đăng trôi trên sông + thuyền nan trôi chậm
+  const floats: ThreeNS.Mesh[] = []
+  for (let i = 0; i < 9; i++) {
+    floats.push(
+      k.ball(0.09, [0xffd166, 0xf08ac0, 0xff8a5a][i % 3], 0, 0.12, 0, 0.7, 1, 1, undefined, {
+        emissive: 0x6a4a10
+      })
+    )
+  }
+  k.group.userData.tick = (t: number): void => {
+    floats.forEach((f, i) => {
+      f.position.set(
+        ((t * 0.18 + i * 1.17) % 10.4) - 5.2,
+        0.12 + Math.sin(t * 2 + i) * 0.02,
+        -1.6 + (i % 4) * 0.9 + Math.sin(t * 0.5 + i) * 0.15
+      )
+    })
+    b.position.set(-1.2 + Math.sin(t * 0.12) * 2.6, 0.05 + Math.sin(t * 2.2) * 0.02, 1.7)
+    b.rotation.y = Math.cos(t * 0.12) > 0 ? 0 : Math.PI
+  }
   return k.group
 }
 
@@ -212,6 +271,23 @@ export function nhatrangTramHuong(THREE: Three): ThreeNS.Group {
   ] as const)
     k.palm(x, z, s, 0.1)
   k.person(1.4, 0.15, 3.4, 0x4aa8d8, true)
+  // sóng vỗ bờ + ca nô chạy ngoài khơi
+  const foam = k.mesh(new THREE.CylinderGeometry(4.25, 4.25, 0.03, 40, 1, true), 0xffffff, {
+    opacity: 0.6,
+    double: true
+  })
+  k.put(foam, 0, 0.06, 3.8)
+  const speed = new THREE.Group()
+  k.box(0.9, 0.18, 0.36, 0xffffff, 0, 0, 0, speed)
+  k.box(0.35, 0.18, 0.3, 0x4aa8d8, -0.1, 0.18, 0, speed)
+  k.put(speed, 0, 0.05, 5.4)
+  k.group.userData.tick = (t: number): void => {
+    const w = (t * 0.4) % 1
+    foam.scale.set(0.9 + w * 0.12, 1, 0.9 + w * 0.12)
+    speed.position.x = Math.sin(t * 0.25) * 4.2
+    speed.rotation.y = Math.cos(t * 0.25) > 0 ? 0 : Math.PI
+    speed.position.y = 0.05 + Math.abs(Math.sin(t * 6)) * 0.04
+  }
   return k.group
 }
 
@@ -259,12 +335,27 @@ export function dalatStation(THREE: Three): ThreeNS.Group {
   k.box(0.7, 0.55, 0.7, 0xf3e7c4, -0.5, 0.95, 0, loco)
   for (const x of [-0.6, -0.1, 0.5])
     k.cyl(0.19, 0.19, 0.1, 0x2b2b36, x, 0.02, 0.33, 14, loco).rotation.x = Math.PI / 2
-  k.put(loco, -2.0, 0.1, 1.65)
+  const train = new THREE.Group()
+  k.put(train, 0, 0, 0)
+  k.put(loco, -2.0, 0.1, 1.65, train)
   for (let i = 0; i < 2; i++) {
     const car = new THREE.Group()
     k.box(1.6, 0.6, 0.62, i ? 0x4aa8d8 : 0xf2b630, 0, 0.25, 0, car)
     for (const x of [-0.5, 0, 0.5]) k.box(0.28, 0.22, 0.03, 0x9fd3ef, x, 0.6, 0.32, car)
-    k.put(car, -0.1 + i * 1.8, 0.1, 1.65)
+    k.put(car, -0.1 + i * 1.8, 0.1, 1.65, train)
+  }
+  // đoàn tàu chạy ra chạy vào ga + khói hơi nước
+  const steam: ThreeNS.Mesh[] = []
+  for (let i = 0; i < 6; i++) steam.push(k.ball(0.16, 0xffffff, 0, 0, 0, 1, 1, 1, train))
+  k.group.userData.tick = (t: number): void => {
+    const u = (t * 0.05) % 2
+    const ease = (v: number): number => v * v * (3 - 2 * v)
+    train.position.x = u < 1 ? -1.6 + ease(u) * 3.4 : 1.8 - ease(u - 1) * 3.4
+    steam.forEach((p, i) => {
+      const life = (t * 0.8 + i / 6) % 1
+      p.position.set(-1.3 - life * 0.6, 1.25 + life * 1.2, 1.65)
+      p.scale.setScalar(0.6 + life * 1.4)
+    })
   }
   return k.group
 }

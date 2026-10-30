@@ -5,7 +5,7 @@ import { normalizeCharacterId } from '@shared/characters'
 import {
   geoLayout,
   polylineSampler,
-  walkPoints,
+  smoothSegments,
   type MapLayout,
   type Point
 } from '@shared/kidsWorldLayout'
@@ -33,11 +33,11 @@ const petStore = usePetStore()
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 /** Tốc độ đều của từng xe (đơn vị sân khấu/giây) — cùng bản 2D */
-const SPEED: Record<VehicleKind, number> = { car: 420, boat: 250, plane: 950 }
-const FLY_MIN = 1100
-const RAMP_MS = 420
-const FLY_RAMP_MS = 900
-const TRIP_MAX_MS = 9000
+const SPEED: Record<VehicleKind, number> = { car: 150, boat: 95, plane: 300 }
+const FLY_MIN = 900
+const RAMP_MS = 900
+const FLY_RAMP_MS = 2600
+const TRIP_MAX_MS = 24000
 /** Độ cao máy bay (số ô địa hình) và cỡ thú cưng trên bản đồ (số ô) */
 const FLY_ALT = 3.2
 const PET_CELLS = 0.62
@@ -256,13 +256,42 @@ onMounted(async () => {
       VN_SIZE,
       (p) => isVnLand(p)
     )
+    // 3D đặt các nơi đúng vị trí thật (không dời như bố cục 2D) và đường đi bám các điểm `via`, uốn mượt
+    const ids = places.value.map((p) => p.id)
+    layout = { ...layout, points: layout.anchors.map((a, i) => ({ id: ids[i], x: a.x, y: a.y })) }
     const lay = layout
+    const routes = places.value.slice(1).map((p, i) => {
+      const via = (p.via ?? []).map(([lon, lat]) => projectVn(lon, lat))
+      const raw = [lay.points[i], ...via, lay.points[i + 1]]
+      const out: Array<Point & { sea?: boolean }> = [{ x: raw[0].x, y: raw[0].y }]
+      smoothSegments(raw).forEach((seg, k) => {
+        const sea = !!p.ferry && k === raw.length - 2
+        for (let t = 1; t <= 16; t++) {
+          const u = t / 16
+          const v = 1 - u
+          out.push({
+            x:
+              v * v * v * seg.p0.x +
+              3 * v * v * u * seg.c1.x +
+              3 * v * u * u * seg.c2.x +
+              u * u * u * seg.p1.x,
+            y:
+              v * v * v * seg.p0.y +
+              3 * v * v * u * seg.c1.y +
+              3 * v * u * u * seg.c2.y +
+              u * u * u * seg.p1.y,
+            sea
+          })
+        }
+      })
+      return out
+    })
     const h = await mountVnMap3D(host.value, {
       width: 1600,
       height: 900,
       pixelRatio: Math.min(2, (window.devicePixelRatio || 1) * props.scale),
       reduceMotion: reduced,
-      routes: lay.points.slice(1).map((_, i) => walkPoints(lay, i, i + 1)),
+      routes,
       places: places.value.flatMap((p) => {
         const pt = lay.points.find((q) => q.id === p.id)
         return pt

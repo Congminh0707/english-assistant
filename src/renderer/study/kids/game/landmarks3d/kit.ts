@@ -2,6 +2,7 @@
 // mô hình voxel (voxel chỉ còn dùng ở bản đồ 2D). Mọi toạ độ là đơn vị cục bộ: chân công trình rộng ~10, y = 0 là mặt đất,
 // mặt trước hướng +z. Bản đồ co lại bằng `scale`. docs/19-kids-world.md §5.2
 import type * as ThreeNS from 'three'
+import { toon } from '../toon'
 
 type Three = typeof ThreeNS
 type Color = number | string
@@ -20,7 +21,7 @@ export class Kit {
     const key = `${color}|${opts.emissive ?? ''}|${opts.opacity ?? ''}|${opts.double ? 1 : 0}`
     let m = this.mats.get(key)
     if (!m) {
-      m = new this.THREE.MeshLambertMaterial({
+      m = toon(this.THREE, {
         color: new this.THREE.Color(color as number),
         emissive: opts.emissive !== undefined ? new this.THREE.Color(opts.emissive) : undefined,
         transparent: opts.opacity !== undefined,

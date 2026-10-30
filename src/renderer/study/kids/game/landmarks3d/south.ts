@@ -4,7 +4,7 @@ import { Kit } from './kit'
 
 type Three = typeof ThreeNS
 
-function smallCar(k: Kit, x: number, z: number, color: number, rot = 0): void {
+function smallCar(k: Kit, x: number, z: number, color: number, rot = 0): ThreeNS.Group {
   const g = new k.THREE.Group()
   k.box(0.9, 0.22, 0.45, color, 0, 0.12, 0, g)
   k.box(0.5, 0.2, 0.4, 0xf3e7c4, -0.05, 0.32, 0, g)
@@ -16,7 +16,7 @@ function smallCar(k: Kit, x: number, z: number, color: number, rot = 0): void {
   ])
     k.cyl(0.1, 0.1, 0.08, 0x2b2b36, dx, 0.02, dz, 10, g).rotation.x = Math.PI / 2
   g.rotation.y = rot
-  k.put(g, x, 0.05, z)
+  return k.put(g, x, 0.05, z)
 }
 
 export function hcmcBenThanh(THREE: Three): ThreeNS.Group {
@@ -47,7 +47,7 @@ export function hcmcBenThanh(THREE: Three): ThreeNS.Group {
   k.box(0.26, 0.04, 0.03, 0x111111, 0.1, 3.35, -0.2)
   k.hip(1.9, 1.9, 0.9, 0x7a4a36, 0, 4.2, -1.0)
   k.cyl(0.03, 0.04, 0.9, 0xb9b4a8, 0, 5.1, -1.0, 6)
-  k.box(0.6, 0.35, 0.03, 0xd92b2b, 0.32, 5.55, -1.0)
+  const flag = k.box(0.6, 0.35, 0.03, 0xd92b2b, 0.32, 5.55, -1.0)
   k.ball(0.15, 0xf2c200, 0.34, 5.55, -0.97, 1, 1, 0.3)
   // cây xanh, xe máy + ô tô nhỏ, người đi bộ
   for (const [x, z] of [
@@ -57,15 +57,26 @@ export function hcmcBenThanh(THREE: Three): ThreeNS.Group {
     [4.5, 3.0]
   ] as const)
     k.tree(x, z, 1.0, 0.1)
-  smallCar(k, -1.5, 4.1, 0xe24a3b)
-  smallCar(k, 2.2, 3.7, 0x4aa8d8, Math.PI)
-  smallCar(k, -4.4, 1.2, 0xf2b630, Math.PI / 2)
+  const rides = [
+    smallCar(k, -1.5, 4.1, 0xe24a3b),
+    smallCar(k, 2.2, 3.7, 0x4aa8d8, Math.PI),
+    smallCar(k, -4.4, 1.2, 0xf2b630, Math.PI / 2)
+  ]
   for (const [x, z, c] of [
     [-0.8, 2.5, 0xe24a3b],
     [0.4, 2.8, 0x4aa8d8],
     [1.3, 2.4, 0xf2c94c]
   ] as const)
     k.person(x, 0.1, z, c, false)
+  // xe chạy vòng quanh chợ, cờ bay
+  k.group.userData.tick = (t: number): void => {
+    rides.forEach((c, i) => {
+      const a = t * 0.22 + (i * Math.PI * 2) / 3
+      c.position.set(Math.cos(a) * 4.7, 0.05, Math.sin(a) * 4.7)
+      c.rotation.y = -a - Math.PI / 2
+    })
+    flag.rotation.y = Math.sin(t * 4) * 0.3
+  }
   return k.group
 }
 
@@ -77,7 +88,7 @@ function sampan(
   cargo: number[],
   rot: number,
   hat = true
-): void {
+): ThreeNS.Group {
   const { THREE } = k
   const g = new THREE.Group()
   const prof = new THREE.Shape()
@@ -120,14 +131,23 @@ function sampan(
     )
   k.box(0.5, 0.18, 0.03, 0xe24a3b, 1.28, 3.0, 0, g)
   g.rotation.y = rot
-  k.put(g, x, 0.03, z)
+  return k.put(g, x, 0.03, z)
 }
 
 export function canthoFloatingMarket(THREE: Three): ThreeNS.Group {
   const k = new Kit(THREE)
-  k.water(10.8, 10.8, 0, 0, true, 0x8c6e45) // nước phù sa
-  k.water(10.2, 10.2, 0, 0, true, 0xa08455, 0.07)
-  sampan(k, -2.4, -1.8, 0x2f8a6a, [0xf2b630, 0xf2b630, 0xe8432e, 0x7cc45a, 0xf08ac0, 0x7cc45a], 0.2)
+  const boats: ThreeNS.Group[] = []
+  k.water(10.8, 10.8, 0, 0, true, 0x6aa7a8) // nước sông (xanh đục)
+  boats.push(
+    sampan(
+      k,
+      -2.4,
+      -1.8,
+      0x2f8a6a,
+      [0xf2b630, 0xf2b630, 0xe8432e, 0x7cc45a, 0xf08ac0, 0x7cc45a],
+      0.2
+    )
+  )
   sampan(
     k,
     2.5,
@@ -136,8 +156,19 @@ export function canthoFloatingMarket(THREE: Three): ThreeNS.Group {
     [0x7cc45a, 0x4f9a3b, 0xf2b630, 0xf2b630, 0xe8432e, 0xe8432e],
     -0.25
   )
-  sampan(k, -2.2, 2.0, 0x4aa8d8, [0xe8432e, 0xf08ac0, 0xf2b630, 0x7cc45a, 0xf2b630, 0xe8432e], -0.1)
-  sampan(k, 2.4, 2.2, 0xf2b630, [0x7cc45a, 0x7cc45a, 0xf2b630, 0xe8432e, 0xf08ac0, 0x4f9a3b], 0.3)
+  boats.push(
+    sampan(
+      k,
+      -2.2,
+      2.0,
+      0x4aa8d8,
+      [0xe8432e, 0xf08ac0, 0xf2b630, 0x7cc45a, 0xf2b630, 0xe8432e],
+      -0.1
+    )
+  )
+  boats.push(
+    sampan(k, 2.4, 2.2, 0xf2b630, [0x7cc45a, 0x7cc45a, 0xf2b630, 0xe8432e, 0xf08ac0, 0x4f9a3b], 0.3)
+  )
   // nhà sàn ven sông + cọ + cầu khỉ
   for (const [x, z] of [
     [-4.6, 0],
@@ -149,6 +180,17 @@ export function canthoFloatingMarket(THREE: Three): ThreeNS.Group {
     k.palm(x + (x < 0 ? 0.9 : -0.9), z - 1.4, 0.9, 0)
   }
   k.palm(0, -4.5, 1.1, 0)
+  // ghe xuồng dập dềnh, trôi chậm, xoay nhẹ theo con nước
+  const home = boats.map((b) => ({ x: b.position.x, z: b.position.z, r: b.rotation.y }))
+  k.group.userData.tick = (t: number): void => {
+    boats.forEach((b, i) => {
+      b.position.x = home[i].x + Math.sin(t * 0.3 + i * 1.7) * 0.5
+      b.position.z = home[i].z + Math.cos(t * 0.25 + i) * 0.3
+      b.position.y = 0.03 + Math.sin(t * 2 + i) * 0.04
+      b.rotation.y = home[i].r + Math.sin(t * 0.4 + i) * 0.12
+      b.rotation.z = Math.sin(t * 1.6 + i) * 0.04
+    })
+  }
   return k.group
 }
 
@@ -218,5 +260,26 @@ export function phuquocFishingVillage(THREE: Three): ThreeNS.Group {
     [0.6, -4.2, 1.2]
   ] as const)
     k.palm(x, z, s, 0.1)
+  // thuyền chài dập dềnh, thuyền thúng xoay tròn
+  const tubs: ThreeNS.Group[] = []
+  for (const [x, z, c] of [
+    [-1.6, 3.6, 0x7cc45a],
+    [1.4, 2.6, 0xf08ac0]
+  ] as const) {
+    const tub = new THREE.Group()
+    k.cyl(0.5, 0.36, 0.26, c, 0, 0, 0, 20, tub)
+    k.cyl(0.42, 0.3, 0.05, 0x9b6a43, 0, 0.27, 0, 20, tub)
+    k.person(0, 0.15, 0, 0x4aa8d8, true, tub)
+    k.put(tub, x, 0.04, z)
+    tubs.push(tub)
+  }
+  k.group.userData.tick = (t: number): void => {
+    boat.position.y = 0.03 + Math.sin(t * 1.8) * 0.05
+    boat.rotation.z = Math.sin(t * 1.4) * 0.05
+    tubs.forEach((tub, i) => {
+      tub.rotation.y = t * (i ? -0.6 : 0.5)
+      tub.position.y = 0.04 + Math.sin(t * 2.2 + i) * 0.04
+    })
+  }
   return k.group
 }

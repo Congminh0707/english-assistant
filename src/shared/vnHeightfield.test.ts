@@ -15,13 +15,13 @@ const at = (lon: number, lat: number): number => {
 
 describe('buildVnHeightfield', () => {
   it('đất liền cao hơn mặt nước, biển ngoài khơi thấp hơn', () => {
-    expect(at(106.1, 21.5)).toBeGreaterThan(0.3) // châu thổ sông Hồng
-    expect(at(106.7, 10.8)).toBeGreaterThan(0.3) // TP.HCM
-    expect(at(112.5, 13.5)).toBeLessThan(-1) // biển Đông
+    expect(at(106.1, 21.5)).toBeGreaterThan(0.1) // châu thổ sông Hồng
+    expect(at(106.7, 10.8)).toBeGreaterThan(0.1) // TP.HCM
+    expect(at(112.5, 13.5)).toBeLessThan(-0.4) // biển Đông
   })
 
   it('núi Tây Bắc cao hơn đồng bằng sông Hồng', () => {
-    expect(at(103.6, 22.15)).toBeGreaterThan(at(106.1, 21.5) + 4)
+    expect(at(103.6, 22.15)).toBeGreaterThan(at(106.1, 21.5) + 1.6)
   })
 
   it('có Phú Quốc, Hoàng Sa, Trường Sa nhô khỏi mặt nước', () => {

@@ -20,12 +20,16 @@ export const TERRAIN_UNIT = 22.5
 export const VERTEX_STEP = 0.35
 /** Mặt nước nằm ở y = 0 */
 export const WATER_Y = 0
+/** Hệ số nén độ cao khi xuất ra (núi/bờ dốc thấp lại cho vừa tỉ lệ công trình) */
+export const HEIGHT_SCALE = 0.4
 
 /** Nền phẳng cho công trình: tâm (x, z) đơn vị thế giới, bán kính nền phẳng r */
 export interface Pad {
   x: number
   z: number
   r: number
+  /** Nền là mặt nước (chợ nổi…): hạ xuống dưới mực nước thay vì nâng thành đất */
+  water?: boolean
 }
 
 export interface VnHeightfield {
@@ -170,7 +174,7 @@ export function buildVnHeightfield(pads: readonly Pad[] = []): VnHeightfield {
       let h = fv > 0.5 ? (fv - 0.5) * 3.2 : Math.max(-4, (fv - 0.5) * 9)
       const w = smooth(0.52, 0.85, fv)
       if (w > 0) {
-        h += w * ((vnoise(x / 9, z / 9, 3) - 0.5) * 5 + (vnoise(x / 3.2, z / 3.2, 4) - 0.5) * 1.8)
+        h += w * ((vnoise(x / 9, z / 9, 3) - 0.5) * 3.4 + (vnoise(x / 3.2, z / 3.2, 4) - 0.5) * 1.0)
         let m = 0
         for (const mt of mountains) {
           const d = Math.hypot(x - mt.x, z - mt.z)
@@ -261,12 +265,13 @@ export function buildVnHeightfield(pads: readonly Pad[] = []): VnHeightfield {
   // 4. nền phẳng cho công trình
   const padHeights = pads.map((p) => {
     if (p.r <= 0) return -0.1
+    if (p.water) return -0.7
     const i = Math.round(p.z / VERTEX_STEP) * cols + Math.round(p.x / VERTEX_STEP)
     return Math.max(0.9, heights[Math.min(n - 1, Math.max(0, i))] ?? 0.9)
   })
   pads.forEach((p, k) => {
     if (p.r <= 0) return
-    const outer = p.r * 1.55
+    const outer = p.r * 2.4
     const ix0 = Math.max(0, Math.floor((p.x - outer) / VERTEX_STEP))
     const ix1 = Math.min(cols - 1, Math.ceil((p.x + outer) / VERTEX_STEP))
     const iz0 = Math.max(0, Math.floor((p.z - outer) / VERTEX_STEP))
@@ -409,6 +414,12 @@ export function buildVnHeightfield(pads: readonly Pad[] = []): VnHeightfield {
       )
     }
   }
+
+  // nén độ cao: bờ biển và núi thoải hơn, vừa với công trình nhỏ trên bản đồ
+  for (let i = 0; i < n; i++) heights[i] *= HEIGHT_SCALE
+  for (let i = 1; i < trees.length; i += 8) trees[i] *= HEIGHT_SCALE
+  for (let i = 1; i < houses.length; i += 6) houses[i] *= HEIGHT_SCALE
+  for (let k = 0; k < padHeights.length; k++) padHeights[k] *= HEIGHT_SCALE
 
   return {
     cols,

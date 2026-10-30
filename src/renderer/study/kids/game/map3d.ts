@@ -49,6 +49,8 @@ export interface Map3DPet {
   /** Đang ngồi phương tiện nào (3D) và hướng đi (rad, 0 = hướng +x của bản đồ) */
   kind?: VehicleKind | null
   heading?: number
+  /** Chúc/ngóc đầu (rad); bỏ trống thì xe tự nghiêng theo dốc đường */
+  pitch?: number
 }
 
 export interface Map3DHandle {
@@ -68,7 +70,7 @@ export interface Map3DHandle {
 /** Kích thước chân công trình trên bản đồ (đơn vị thế giới) */
 const LANDMARK_SPAN = 3.4
 /** Tỉ lệ phương tiện + đường so với mô hình gốc (xe dài ~2,6 → ~0,9 đơn vị) */
-const VS = 0.34
+const VS = 0.42
 /** Công trình nằm trên mặt nước (chợ nổi): nền hạ xuống dưới mực nước để nước biển/sông lộ ra quanh */
 const WATER_LANDMARKS = new Set(['cantho-floating-market'])
 const MAX_PIXELS = 2560 * 1440
@@ -129,6 +131,20 @@ function sparkleTexture(THREE: Three): ThreeNS.CanvasTexture {
 }
 
 const hashAngle = (i: number): number => ((i * 2654435761) % 6283) / 1000
+
+/** Làm mượt đường gấp khúc (Chaikin): giữ hai đầu, cờ `sea` theo điểm đích của từng đoạn */
+function chaikin(pts: RoutePoint[]): RoutePoint[] {
+  if (pts.length < 3) return pts
+  const out: RoutePoint[] = [pts[0]]
+  for (let i = 0; i + 1 < pts.length; i++) {
+    const p = pts[i]
+    const q = pts[i + 1]
+    out.push({ x: p.x * 0.75 + q.x * 0.25, y: p.y * 0.75 + q.y * 0.25, sea: q.sea })
+    out.push({ x: p.x * 0.25 + q.x * 0.75, y: p.y * 0.25 + q.y * 0.75, sea: q.sea })
+  }
+  out.push(pts[pts.length - 1])
+  return out
+}
 
 export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promise<Map3DHandle> {
   const THREE = await import('three')
@@ -546,8 +562,11 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   const passCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1)
 
   // --- đường đi giữa các nơi + phương tiện ---
+  const landmarkOf = new Map(opts.places.map((p) => [p.id, p.landmark]))
   const restPoint = (id: string): RoutePoint => {
     const sp = spotOf.get(id)
+    if (sp && WATER_LANDMARKS.has(landmarkOf.get(id) ?? ''))
+      return { x: sp.x * TERRAIN_UNIT, y: (sp.z + LANDMARK_SPAN * 0.42) * TERRAIN_UNIT, sea: true }
     return sp
       ? {
           x: (sp.x - LANDMARK_SPAN * 0.3) * TERRAIN_UNIT,
@@ -563,7 +582,21 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     const outside = (q: RoutePoint, sp?: { x: number; z: number }): boolean =>
       !sp || Math.hypot(q.x - sp.x * TERRAIN_UNIT, q.y - sp.z * TERRAIN_UNIT) > clear
     const pts = (opts.routes?.[i] ?? []).filter((q) => outside(q, a) && outside(q, c))
-    return [restPoint(opts.places[i].id), ...pts, restPoint(p.id)]
+    // gần công trình trên nước (chợ nổi) thì đi thuyền: đánh dấu đoạn đó là đường thuỷ
+    const wet = (q: RoutePoint): boolean =>
+      [opts.places[i], p].some((pl) => {
+        const sp = spotOf.get(pl.id)
+        return (
+          !!sp &&
+          WATER_LANDMARKS.has(pl.landmark) &&
+          Math.hypot(q.x - sp.x * TERRAIN_UNIT, q.y - sp.z * TERRAIN_UNIT) <
+            LANDMARK_SPAN * 1.15 * TERRAIN_UNIT
+        )
+      })
+    const raw = [restPoint(opts.places[i].id), ...pts, restPoint(p.id)].map((q, k) =>
+      k > 0 && wet(q) ? { ...q, sea: true } : q
+    )
+    return chaikin(chaikin(raw))
   })
   const roads = buildRoads(
     THREE,
@@ -663,11 +696,17 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     const gx = petState.x / TERRAIN_UNIT
     const gz = petState.y / TERRAIN_UNIT
     const gy = groundAt(gx, gz) + petState.hop + (petState.kind ? SEAT[petState.kind] * VS : 0)
-    feet.set(gx, gy, gz).project(camera)
+    // cỡ thú cưng = số px của 1 đơn vị đo theo phương ngang màn hình (đúng cả khi camera xoay quanh)
+    const world = new THREE.Vector3(gx, gy, gz)
+    side.setFromMatrixColumn(camera.matrixWorld, 0).normalize().add(world).project(camera)
+    feet.copy(world).project(camera)
     const sx = (feet.x * 0.5 + 0.5) * opts.width
     const sy = (-feet.y * 0.5 + 0.5) * opts.height
-    side.set(gx + 1, gy, gz).project(camera)
-    opts.onPet({ x: sx, y: sy, k: Math.abs((side.x - feet.x) * 0.5 * opts.width) })
+    const k = Math.hypot(
+      (side.x - feet.x) * 0.5 * opts.width,
+      (side.y - feet.y) * 0.5 * opts.height
+    )
+    opts.onPet({ x: sx, y: sy, k })
   }
   const restOf = (id: string): { x: number; y: number } => {
     const sp = spotOf.get(id)
@@ -792,7 +831,22 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
           x: gx,
           y: (petState.kind === 'boat' ? WATER_Y : ground) + petState.hop,
           z: gz,
-          heading: petState.heading ?? 0
+          heading: petState.heading ?? 0,
+          pitch:
+            petState.pitch ??
+            (petState.kind === 'car'
+              ? Math.atan2(
+                  groundAt(
+                    gx + Math.cos(petState.heading ?? 0) * 0.35,
+                    gz + Math.sin(petState.heading ?? 0) * 0.35
+                  ) -
+                    groundAt(
+                      gx - Math.cos(petState.heading ?? 0) * 0.35,
+                      gz - Math.sin(petState.heading ?? 0) * 0.35
+                    ),
+                  0.7
+                )
+              : 0)
         },
         dt,
         vehicleTime

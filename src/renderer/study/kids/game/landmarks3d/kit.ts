@@ -380,7 +380,7 @@ export class Kit {
     return m
   }
 
-  /** Người nhỏ: thân ngắn + đầu + nón (tuỳ chọn nón lá) */
+  /** Người nhỏ kiểu búp bê: chân, thân áo, tay, đầu, tóc hoặc nón lá; `s` = tỉ lệ */
   person(
     x: number,
     y: number,
@@ -389,14 +389,117 @@ export class Kit {
     hat = false,
     into?: ThreeNS.Object3D,
     s = 1
-  ): void {
+  ): ThreeNS.Group {
     const g = new this.THREE.Group()
+    g.scale.setScalar(s * 0.85)
+    const skin = 0xf1c9a0
+    const pants = 0x3a4a6a
+    for (const dz of [-0.06, 0.06]) {
+      this.cyl(0.04, 0.045, 0.24, pants, 0, 0, dz, 8, g)
+      this.ball(0.05, 0x2b2b36, 0.02, 0.02, dz, 0.6, 1.3, 1, g) // giày
+    }
+    this.cyl(0.1, 0.13, 0.3, shirt, 0, 0.22, 0, 12, g) // thân áo
+    this.ball(0.1, shirt, 0, 0.5, 0, 0.6, 1, 1, g) // vai
+    for (const dz of [-0.14, 0.14]) {
+      const arm = this.cyl(0.03, 0.035, 0.26, shirt, 0, 0.26, dz, 8, g)
+      arm.rotation.x = dz > 0 ? -0.15 : 0.15
+      this.ball(0.035, skin, 0, 0.25, dz * 1.08, 1, 1, 1, g)
+    }
+    this.cyl(0.035, 0.04, 0.06, skin, 0, 0.54, 0, 8, g) // cổ
+    this.ball(0.11, skin, 0, 0.68, 0, 1.05, 1, 1, g)
+    this.ball(0.015, 0x2b2b36, 0.1, 0.7, 0.04, 1, 1, 1, g) // mắt
+    this.ball(0.015, 0x2b2b36, 0.1, 0.7, -0.04, 1, 1, 1, g)
+    if (hat) {
+      this.cone(0.24, 0.16, 0xe8d28a, 0, 0.74, 0, 18, g) // nón lá
+      this.cyl(0.24, 0.24, 0.012, 0xd9bf72, 0, 0.74, 0, 18, g)
+    } else {
+      this.ball(0.115, 0x2b2b36, -0.015, 0.72, 0, 0.75, 1, 1.02, g) // tóc
+    }
+    return this.put(g, x, y, z, into)
+  }
+
+  /** Thiên nga / vịt: thân bầu dục, đuôi vểnh, cổ cong, đầu + mỏ cam */
+  swan(
+    x: number,
+    y: number,
+    z: number,
+    s = 1,
+    color: Color = 0xffffff,
+    into?: ThreeNS.Object3D
+  ): ThreeNS.Group {
+    const g = new this.THREE.Group()
+    this.ball(0.3, color, 0, 0.14, 0, 0.55, 1.35, 0.85, g)
+    const tail = this.cone(0.12, 0.22, color, -0.42, 0.18, 0, 8, g)
+    tail.rotation.z = 1.9
+    for (const dz of [-0.17, 0.17]) this.ball(0.18, color, -0.05, 0.22, dz, 0.4, 1.3, 0.35, g) // cánh
+    const curve = new this.THREE.QuadraticBezierCurve3(
+      new this.THREE.Vector3(0.28, 0.2, 0),
+      new this.THREE.Vector3(0.48, 0.45, 0),
+      new this.THREE.Vector3(0.3, 0.68, 0)
+    )
+    this.put(
+      new this.THREE.Mesh(new this.THREE.TubeGeometry(curve, 10, 0.05, 8), this.mat(color)),
+      0,
+      0,
+      0,
+      g
+    )
+    this.ball(0.08, color, 0.33, 0.7, 0, 0.9, 1.25, 0.9, g)
+    const beak = this.cone(0.035, 0.12, 0xf28a2a, 0.45, 0.66, 0, 8, g)
+    beak.rotation.z = -Math.PI / 2
+    this.ball(0.015, 0x111111, 0.38, 0.73, 0.06, 1, 1, 1, g)
+    this.ball(0.015, 0x111111, 0.38, 0.73, -0.06, 1, 1, 1, g)
     g.scale.setScalar(s)
-    this.cyl(0.13, 0.16, 0.42, shirt, 0, 0.08, 0, 10, g)
-    this.ball(0.13, 0xf1c9a0, 0, 0.64, 0, 1, 1, 1, g)
-    if (hat) this.cone(0.3, 0.2, 0xe8d28a, 0, 0.66, 0, 14, g)
-    else this.ball(0.14, 0x2b2b36, 0, 0.7, -0.02, 0.7, 1, 1, g)
-    this.put(g, x, y, z, into)
+    return this.put(g, x, y, z, into)
+  }
+
+  /** Ô tô nhỏ trang trí: thân bo, cabin kính, bánh có vành */
+  car(x: number, z: number, color: Color, rot = 0, into?: ThreeNS.Object3D, s = 1): ThreeNS.Group {
+    const g = new this.THREE.Group()
+    const body = new this.THREE.Shape()
+    body.moveTo(-0.5, 0.08)
+    body.lineTo(0.5, 0.08)
+    body.quadraticCurveTo(0.56, 0.1, 0.55, 0.2)
+    body.lineTo(0.5, 0.26)
+    body.lineTo(-0.5, 0.26)
+    body.quadraticCurveTo(-0.56, 0.24, -0.55, 0.12)
+    body.closePath()
+    const geo = new this.THREE.ExtrudeGeometry(body, {
+      depth: 0.36,
+      bevelEnabled: true,
+      bevelSize: 0.03,
+      bevelThickness: 0.03,
+      bevelSegments: 2
+    })
+    geo.translate(0, 0, -0.18)
+    this.put(this.mesh(geo, color), 0, 0, 0, g)
+    const cab = new this.THREE.Shape()
+    cab.moveTo(-0.3, 0)
+    cab.lineTo(0.2, 0)
+    cab.lineTo(0.1, 0.17)
+    cab.lineTo(-0.24, 0.17)
+    cab.closePath()
+    const cg = new this.THREE.ExtrudeGeometry(cab, { depth: 0.34, bevelEnabled: false })
+    cg.translate(0, 0, -0.17)
+    this.put(this.mesh(cg, 0x9fd3ef), 0, 0.28, 0, g)
+    for (const [dx, dz] of [
+      [0.32, 0.2],
+      [-0.32, 0.2],
+      [0.32, -0.2],
+      [-0.32, -0.2]
+    ]) {
+      const w = this.cyl(0.09, 0.09, 0.07, 0x23232d, dx, -0.035, dz, 12, g)
+      w.rotation.x = Math.PI / 2
+      w.position.y = 0.09
+      const hub = this.cyl(0.045, 0.045, 0.075, 0xd9d9e0, dx, -0.04, dz, 10, g)
+      hub.rotation.x = Math.PI / 2
+      hub.position.y = 0.09
+    }
+    this.ball(0.035, 0xffe27a, 0.55, 0.18, 0.12, 1, 1, 1, g, { emissive: 0x6a5410 })
+    this.ball(0.035, 0xffe27a, 0.55, 0.18, -0.12, 1, 1, 1, g, { emissive: 0x6a5410 })
+    g.rotation.y = rot
+    g.scale.setScalar(s)
+    return this.put(g, x, 0.02, z, into)
   }
 
   /** Biển chữ (bảng tên, hoành phi) vẽ bằng canvas — `w` × `h`, mặt quay về +z (hoặc xoay `rotY`) */

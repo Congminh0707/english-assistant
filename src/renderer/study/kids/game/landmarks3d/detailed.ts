@@ -173,12 +173,9 @@ export function hanoiHoGuom(THREE: Three): ThreeNS.Group {
   k.ball(0.26, 0x5e7a3a, 0, 0.04, 0, 0.42, 1.25, 1, turtle)
   k.ball(0.1, 0x8aa05a, 0.34, 0.07, 0, 0.8, 1, 1, turtle)
   k.put(turtle, 2.6, 0.13, 0)
-  const swan = new THREE.Group()
-  k.box(0.7, 0.24, 0.42, 0xffffff, 0, 0, 0, swan)
-  k.cyl(0.04, 0.05, 0.32, 0xffffff, 0.32, 0.16, 0, 6, swan)
-  k.ball(0.09, 0xffffff, 0.34, 0.5, 0, 1, 1, 1, swan)
-  k.cone(0.04, 0.12, 0xf2b630, 0.47, 0.44, 0, 6, swan).rotation.z = -1.4
-  k.put(swan, -2.8, 0.13, 1.5)
+  const swan = k.swan(-2.8, 0.13, 1.5, 0.7)
+  const swan2 = k.swan(-2.4, 0.13, 1.8, 0.45)
+
   k.group.userData.tick = (t: number): void => {
     const a = t * 0.2
     turtle.position.set(
@@ -194,6 +191,12 @@ export function hanoiHoGuom(THREE: Three): ThreeNS.Group {
       Math.sin(b) * 2.0 + 2.2
     )
     swan.rotation.y = -b + Math.PI / 2
+    swan2.position.set(
+      swan.position.x - Math.cos(b) * 0.5,
+      swan.position.y,
+      swan.position.z - Math.sin(b) * 0.5
+    )
+    swan2.rotation.y = swan.rotation.y
   }
   return k.group
 }

@@ -10,7 +10,7 @@ type Three = typeof ThreeNS
 export type VehicleKind = 'car' | 'boat' | 'plane'
 
 /** Độ cao chỗ ngồi của thú cưng so với điểm đặt phương tiện (đơn vị mô hình, chưa nhân scale) */
-export const SEAT: Record<VehicleKind, number> = { car: 0.62, boat: 0.5, plane: 0.55 }
+export const SEAT: Record<VehicleKind, number> = { car: 0.62, boat: 0.66, plane: 0.42 }
 
 export interface VehicleState {
   kind: VehicleKind | null
@@ -20,6 +20,8 @@ export interface VehicleState {
   z: number
   /** Hướng đi (rad, quanh trục y; 0 = hướng +x) */
   heading: number
+  /** Chúc/ngóc đầu (rad, dương = ngóc lên) */
+  pitch?: number
 }
 
 interface Puff {
@@ -157,7 +159,10 @@ function buildCar(
     rim.rotation.x = Math.PI / 2
     w.add(rim)
     for (let i = 0; i < 3; i++) {
-      const spoke = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.045, 0.14), mats.get(0x9a9aa6))
+      const spoke = new THREE.Mesh(
+        new THREE.BoxGeometry(0.4, 0.045, 0.14),
+        mats.get(i === 0 ? 0xe2483a : 0x9a9aa6)
+      )
       spoke.rotation.z = (i * Math.PI) / 3
       w.add(spoke)
     }
@@ -394,6 +399,7 @@ export function createVehicleRig(THREE: Three, scene: ThreeNS.Scene, scale = 1):
   let hasLast = false
   let sinceSpawn = 0
   let bank = 0
+  let pitchNow = 0
 
   const spawn = (
     x: number,
@@ -442,14 +448,17 @@ export function createVehicleRig(THREE: Three, scene: ThreeNS.Scene, scale = 1):
       lastHeading = s.heading
       hasLast = true
       root.position.set(s.x, s.y, s.z)
-      root.rotation.set(0, -s.heading, 0)
+      root.rotation.order = 'YZX'
+      pitchNow += ((s.pitch ?? 0) - pitchNow) * Math.min(1, dt * 6)
+      root.rotation.set(0, -s.heading, pitchNow)
       const run = Math.min(1, speed / 7)
       const back = (d: number): [number, number] => [
         s.x - Math.cos(s.heading) * d * scale,
         s.z + Math.sin(s.heading) * d * scale
       ]
       if (s.kind === 'car') {
-        for (const w of car.wheels) w.rotation.z -= moved / 0.3
+        // bánh lăn đúng theo quãng đường (giới hạn mỗi khung để không bị "đứng hình" do quay quá nhanh)
+        for (const w of car.wheels) w.rotation.z -= Math.min(0.5, moved / 0.3)
         // treo nhún: thân xe nhún theo mặt đường, chúi khi vòng
         car.body.position.y = Math.abs(Math.sin(t * 20)) * 0.035 * run
         car.body.rotation.z = Math.sin(t * 8) * 0.015 * run

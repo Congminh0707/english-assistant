@@ -33,7 +33,7 @@ const petStore = usePetStore()
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 /** Tốc độ đều của từng xe (đơn vị sân khấu/giây) — cùng bản 2D */
-const SPEED: Record<VehicleKind, number> = { car: 150, boat: 95, plane: 300 }
+const SPEED: Record<VehicleKind, number> = { car: 95, boat: 70, plane: 260 }
 const FLY_MIN = 900
 const RAMP_MS = 900
 const FLY_RAMP_MS = 2600
@@ -68,7 +68,13 @@ const places = computed(() =>
 const byId = computed(() => new Map(places.value.map((p) => [p.id, p])))
 
 // --- Thú cưng ---
-const pet = { x: 0, y: 0, hop: 0, rot: 0, heading: 0 }
+const pet: { x: number; y: number; hop: number; rot: number; heading: number; pitch?: number } = {
+  x: 0,
+  y: 0,
+  hop: 0,
+  rot: 0,
+  heading: 0
+}
 interface Trip {
   at: (u: number) => Point & { dx: number; i: number }
   dur: number
@@ -108,7 +114,8 @@ function applyPet(): void {
     y: pet.y,
     hop: pet.hop + (vehicle.value ? 0 : REST_LIFT),
     kind: vehicle.value,
-    heading: pet.heading
+    heading: pet.heading,
+    pitch: vehicle.value ? pet.pitch : undefined
   })
 }
 
@@ -127,7 +134,7 @@ function loop(now: number): void {
     const elapsed = now - trip.start
     const u = tripProgress(elapsed, trip.dur, trip.ramp)
     const p = trip.at(u)
-    const kind: VehicleKind = trip.fly ? 'plane' : trip.sea[p.i] && !isVnLand(p) ? 'boat' : 'car'
+    const kind: VehicleKind = trip.fly ? 'plane' : trip.sea[p.i] ? 'boat' : 'car'
     if (kind !== vehicle.value) {
       playSfx(kind === 'boat' ? 'splash' : 'car')
       vehicle.value = kind
@@ -145,13 +152,14 @@ function loop(now: number): void {
     if (kind === 'plane') {
       const e = Math.min(1, u / 0.18, (1 - u) / 0.18)
       const lift = e * e * (3 - 2 * e)
-      pet.hop = FLY_ALT * lift + Math.sin(sec * 3) * 0.6 * lift
-      tilt = u < 0.18 ? -9 : u > 0.82 ? 7 : Math.sin(sec * 2) * 2
-    } else if (kind === 'boat') {
-      pet.hop = 0.2 + Math.sin(sec * 3) * 0.24
-      tilt = Math.sin(sec * 2.2) * 4
+      pet.hop = FLY_ALT * lift + Math.sin(sec * 3) * 0.08 * lift
+      // ngóc lên khi cất cánh, chúc xuống khi hạ cánh
+      pet.pitch = u < 0.18 ? 0.28 * (1 - e) + 0.02 : u > 0.82 ? -0.24 * (1 - e) : 0
+      tilt = Math.sin(sec * 2) * 1.5
     } else {
-      pet.hop = Math.abs(Math.sin(sec * 14)) * 0.24
+      // thuyền/xe tự chòng chành, nhún trong mô hình 3D — thú cưng ngồi yên trong đó
+      pet.hop = 0
+      pet.pitch = undefined
     }
     pet.rot = facingLeft.value ? -tilt : tilt
     handle?.follow(p.x, p.y, trip.fly ? 34 : 17)
@@ -198,7 +206,7 @@ function go(id: string): void {
   const pts = fly ? [road[0], road[road.length - 1]] : road
   const sea = pts.map((q) => ('sea' in q && q.sea === true) || false)
   const sampler = polylineSampler(pts, (i) =>
-    fly ? 1 / SPEED.plane : sea[i] && !isVnLand(pts[i]) ? 1 / SPEED.boat : 1 / SPEED.car
+    fly ? 1 / SPEED.plane : sea[i] ? 1 / SPEED.boat : 1 / SPEED.car
   )
   const ramp = fly ? FLY_RAMP_MS : RAMP_MS
   trip = {
@@ -360,7 +368,7 @@ function play(): void {
     <div ref="host" class="gl" />
 
     <div v-if="ready && petStore.pet" ref="petEl" class="pet">
-      <div class="rider">
+      <div class="rider" :class="{ riding: !!vehicle }">
         <PetSprite
           :character="normalizeCharacterId(petStore.pet.characterId)"
           :stage="petStore.pet.stage"
@@ -411,6 +419,11 @@ function play(): void {
 }
 .rider {
   position: relative;
+}
+/* Ngồi trong xe/thuyền/máy bay: hạ thấp và che nửa dưới để thú cưng lọt vào khoang */
+.rider.riding {
+  transform: translateY(30px);
+  clip-path: inset(0 0 34% 0);
 }
 /* Gốc lớp xe = điểm chạm đất của thú cưng (giữa chân) */
 .veh-layer {

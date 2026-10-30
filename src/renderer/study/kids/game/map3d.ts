@@ -232,7 +232,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
       })
     // đi thuyền chỉ ở chỗ thật sự là nước; phần trên cạn của đoạn phà/đoạn gần chợ nổi vẫn là đường bộ (có bến ở mép nước)
     const water = (q: RoutePoint): boolean =>
-      hf.heightAt(q.x / TERRAIN_UNIT, q.y / TERRAIN_UNIT) < 0.05
+      hf.heightAt(q.x / TERRAIN_UNIT, q.y / TERRAIN_UNIT) < -0.02
     const ends = [restPoint(opts.places[i].id), restPoint(p.id)]
     const raw = [ends[0], ...pts, ends[1]].map((q, k, arr) => {
       if (k === 0 || k === arr.length - 1) return q
@@ -276,7 +276,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     // đường đi men theo sông thì dời lên bờ (chỉ những đoạn cắt ngang mặt nước mới là cầu)
     for (let i = 0; i < pts.length; i++) {
       const q = pts[i]
-      if (q.sea || hf.heightAt(q.x, q.z) >= 0.06) continue
+      if (q.sea || hf.heightAt(q.x, q.z) >= -0.02) continue
       const prev = pts[Math.max(0, i - 1)]
       const next = pts[Math.min(pts.length - 1, i + 1)]
       const dx = next.x - prev.x
@@ -285,7 +285,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
       const nx = -dz / l
       const nz = dx / l
       for (let d = 0.2; d <= 1.6; d += 0.1) {
-        const sd = [1, -1].find((s2) => hf.heightAt(q.x + nx * d * s2, q.z + nz * d * s2) > 0.12)
+        const sd = [1, -1].find((s2) => hf.heightAt(q.x + nx * d * s2, q.z + nz * d * s2) > 0.04)
         if (sd) {
           q.x += nx * (d + 0.15) * sd
           q.z += nz * (d + 0.15) * sd
@@ -314,7 +314,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     }
     // phân loại lại theo mặt đất thật: trên cạn luôn là đường; mỗi quãng nước liền nhau là PHÀ (dài, hoặc chạm bến
     // ở đầu/cuối tuyến, hoặc tuyến vốn đi phà) hay CẦU (quãng ngắn cắt ngang sông) — nhờ vậy đường không bao giờ đứt
-    const wetS = pts.map((q) => hf.heightAt(q.x, q.z) < 0.06)
+    const wetS = pts.map((q) => hf.heightAt(q.x, q.z) < -0.02)
     for (let i = 0; i < pts.length;) {
       if (!wetS[i]) {
         pts[i].sea = false

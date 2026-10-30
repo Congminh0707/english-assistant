@@ -566,16 +566,51 @@ export function buildRoads(
     }
     idx.push(base, base + 1, base + 2, base, base + 2, base + 3)
   }
+  // đường mòn: lưới riêng có độ trong (mép mềm, hai đầu mờ dần)
+  const tpos: number[] = []
+  const tcol: number[] = []
+  const tidx: number[] = []
+  /** Dải giữa hai điểm mẫu: lệch ngang [l, r] ở mỗi đầu, độ đục theo từng đỉnh (pL, pR, qR, qL) */
+  const band = (
+    p: RoadSample,
+    q: RoadSample,
+    pl: number,
+    pr: number,
+    ql: number,
+    qr: number,
+    up: number,
+    rgb: number[],
+    alpha: [number, number, number, number]
+  ): void => {
+    const dx = q.x - p.x
+    const dz = q.z - p.z
+    const len = Math.hypot(dx, dz) || 1
+    const nx = -dz / len
+    const nz = dx / len
+    const base = tpos.length / 3
+    const v: Array<[number, number, number]> = [
+      [p.x + nx * pl, p.y + up, p.z + nz * pl],
+      [p.x + nx * pr, p.y + up, p.z + nz * pr],
+      [q.x + nx * qr, q.y + up, q.z + nz * qr],
+      [q.x + nx * ql, q.y + up, q.z + nz * ql]
+    ]
+    v.forEach((pt, k) => {
+      tpos.push(pt[0], pt[1], pt[2])
+      tcol.push(rgb[0], rgb[1], rgb[2], alpha[k])
+    })
+    tidx.push(base, base + 1, base + 2, base, base + 2, base + 3)
+  }
   const lin = (hex: number): number[] =>
     [(hex >> 16) & 255, (hex >> 8) & 255, hex & 255].map((v) => Math.pow(v / 255, 2.2))
   const C = {
-    dirt: lin(0xd8c49a),
-    edge: lin(0x9a825c),
+    dirt: lin(0xd9bf86),
+    edge: lin(0xbfa06a),
+    worn: lin(0xe8d5a6),
     paint: lin(0xfff6dc),
     dots: lin(0xffffff),
-    deck: lin(0xcfc8b6),
+    deck: lin(0xb98a55),
     deckSide: lin(0x9a9384),
-    rail: lin(0xe8e2d2),
+    rail: lin(0x8a5e3a),
     pillar: lin(0xb3ac9c),
     wood: lin(0xa07a4a),
     woodDark: lin(0x6b4a32)
@@ -635,7 +670,18 @@ export function buildRoads(
     quad([x + r, y0, z - r], [x + r, y0, z + r], [x + r, y1, z + r], [x + r, y1, z - r], rgb)
   }
 
+  const sm = (t: number): number => {
+    const c = Math.min(1, Math.max(0, t))
+    return c * c * (3 - 2 * c)
+  }
   for (const path of paths) {
+    // độ dài tích luỹ để làm mờ hai đầu tuyến
+    const cum = [0]
+    for (let i = 1; i < path.length; i++)
+      cum.push(cum[i - 1] + Math.hypot(path[i].x - path[i - 1].x, path[i].z - path[i - 1].z))
+    const total = cum[cum.length - 1] || 1
+    const fadeLen = 1.1
+    const fade = (i: number): number => sm(cum[i] / fadeLen) * sm((total - cum[i]) / fadeLen)
     let travelled = 0
     let lastDot = -1
     for (let i = 0; i + 1 < path.length; i++) {
@@ -693,7 +739,15 @@ export function buildRoads(
         wall(p, q, E, -0.08, 0.04, C.deckSide)
         wall(p, q, -E + 0.02, 0.04, 0.16, C.rail)
         wall(p, q, E - 0.02, 0.04, 0.16, C.rail)
-        strip(p, q, -0.025 * scale, 0.025 * scale, 0.05, C.paint)
+        for (let pl = 0; pl < 3; pl++)
+          strip(
+            p,
+            q,
+            -E + 0.05 + pl * 0.09 * scale,
+            -E + 0.07 + pl * 0.09 * scale,
+            0.045,
+            C.woodDark
+          )
         if (i % 7 === 0) {
           const dx = q.x - p.x
           const dz = q.z - p.z
@@ -710,10 +764,22 @@ export function buildRoads(
         }
         continue
       }
-      strip(p, q, -E, E, 0.05, C.edge)
-      strip(p, q, -W, W, 0.065, C.dirt)
-      if (Math.floor(travelled / (0.6 * scale)) % 2 === 0)
-        strip(p, q, -0.025 * scale, 0.025 * scale, 0.075, C.paint)
+      // đường mòn đất: bề rộng hơi uốn lượn, mép mềm tan vào cỏ, vệt mòn sáng ở giữa, hai đầu tuyến mờ dần
+      const fa = fade(i)
+      const fb = fade(i + 1)
+      const wa = W * (1 + Math.sin(cum[i] * 2.3) * 0.12)
+      const wb = W * (1 + Math.sin(cum[i + 1] * 2.3) * 0.12)
+      const ea = wa + (E - W) * 1.3
+      const eb = wb + (E - W) * 1.3
+      band(p, q, -ea, -wa, -eb, -wb, 0.05, C.edge, [0, fa * 0.9, fb * 0.9, 0])
+      band(p, q, wa, ea, wb, eb, 0.05, C.edge, [fa * 0.9, 0, 0, fb * 0.9])
+      band(p, q, -wa, wa, -wb, wb, 0.055, C.dirt, [fa, fa, fb, fb])
+      band(p, q, -wa * 0.35, wa * 0.35, -wb * 0.35, wb * 0.35, 0.06, C.worn, [
+        fa * 0.6,
+        fa * 0.6,
+        fb * 0.6,
+        fb * 0.6
+      ])
     }
   }
   const geo = new THREE.BufferGeometry()
@@ -732,11 +798,32 @@ export function buildRoads(
   mesh.receiveShadow = true
   mesh.castShadow = true
   scene.add(mesh)
+  const tgeo = new THREE.BufferGeometry()
+  tgeo.setAttribute('position', new THREE.Float32BufferAttribute(tpos, 3))
+  tgeo.setAttribute('color', new THREE.Float32BufferAttribute(tcol, 4))
+  tgeo.setIndex(tidx)
+  tgeo.computeVertexNormals()
+  const tmat = toon(THREE, {
+    vertexColors: true,
+    transparent: true,
+    depthWrite: false,
+    polygonOffset: true,
+    polygonOffsetFactor: -3,
+    polygonOffsetUnits: -3,
+    side: THREE.DoubleSide
+  })
+  const trail = new THREE.Mesh(tgeo, tmat)
+  trail.receiveShadow = true
+  trail.renderOrder = 1
+  scene.add(trail)
   return {
     dispose: () => {
       scene.remove(mesh)
+      scene.remove(trail)
       geo.dispose()
       mat.dispose()
+      tgeo.dispose()
+      tmat.dispose()
     }
   }
 }

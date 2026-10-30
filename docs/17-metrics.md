@@ -29,19 +29,19 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 
 ## 2. Nội dung tự soạn (`content/curated/`)
 
-| Hạng mục               | Số lượng                                              | Ghi chú                                                                          | Đo ngày    |
-| ---------------------- | ----------------------------------------------------- | -------------------------------------------------------------------------------- | ---------- |
-| Bài học nền tảng       | 43 bài / 7 chương / 423 bài tập                       | chữ cái–phát âm, mẫu câu, các thì, cấu trúc, giao tiếp, hình minh hoạ, luyện nói | 2026-10-22 |
-| Điểm ngữ pháp          | 40                                                    |                                                                                  | 2026-10-22 |
-| Bài đọc                | 50                                                    |                                                                                  | 2026-10-22 |
-| Bài nghe               | 30                                                    | đọc bằng TTS; có gói audio MP3 tạo sẵn tải thêm                                  | 2026-10-22 |
-| Sổ mẫu câu             | 108 mẫu câu                                           |                                                                                  | 2026-10-22 |
-| Câu kiểm tra đầu vào   | 60                                                    |                                                                                  | 2026-10-22 |
-| Hoạt động trẻ em       | 25                                                    |                                                                                  | 2026-10-22 |
-| Bản đồ thế giới của bé | 12 nơi / 120 từ / 12 công trình voxel                 | tầng 1 Việt Nam, `reviewed: false` (docs/19)                                     | 2026-10-30 |
-| Hình từ (bé)           | 183 = pixel tự vẽ + Twemoji                           | `ALL_PICTURE_IDS`                                                                | 2026-10-30 |
-| Hình từ vector (bé)    | 120 (đủ 120 từ của bản đồ), ưu tiên hơn pixel/Twemoji | `pnpm stats` (`src/renderer/shared/art/pictures/`)                               | 2026-10-30 |
-| Khoá học               | 3 khoá / 14 unit                                      |                                                                                  | 2026-10-22 |
+| Hạng mục               | Số lượng                                         | Ghi chú                                                                          | Đo ngày    |
+| ---------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------- | ---------- |
+| Bài học nền tảng       | 43 bài / 7 chương / 423 bài tập                  | chữ cái–phát âm, mẫu câu, các thì, cấu trúc, giao tiếp, hình minh hoạ, luyện nói | 2026-10-22 |
+| Điểm ngữ pháp          | 40                                               |                                                                                  | 2026-10-22 |
+| Bài đọc                | 50                                               |                                                                                  | 2026-10-22 |
+| Bài nghe               | 30                                               | đọc bằng TTS; có gói audio MP3 tạo sẵn tải thêm                                  | 2026-10-22 |
+| Sổ mẫu câu             | 108 mẫu câu                                      |                                                                                  | 2026-10-22 |
+| Câu kiểm tra đầu vào   | 60                                               |                                                                                  | 2026-10-22 |
+| Hoạt động trẻ em       | 25                                               |                                                                                  | 2026-10-22 |
+| Bản đồ thế giới của bé | 12 nơi / 120 từ / 12 công trình voxel            | tầng 1 Việt Nam, `reviewed: false` (docs/19)                                     | 2026-10-30 |
+| Hình từ (bé)           | 183 = pixel tự vẽ + Twemoji                      | `ALL_PICTURE_IDS`                                                                | 2026-10-30 |
+| Hình từ vector (bé)    | 183/183 (mọi hình từ), ưu tiên hơn pixel/Twemoji | `pnpm stats` (`src/renderer/shared/art/pictures/`)                               | 2026-10-30 |
+| Khoá học               | 3 khoá / 14 unit                                 |                                                                                  | 2026-10-22 |
 
 Tất cả do AI soạn, **chưa có giáo viên người thật duyệt** ([08](08-content-sources.md)).
 

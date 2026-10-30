@@ -253,71 +253,138 @@ export const PICTURES: Record<string, Painter> = {
     smile(c, 200, 140, 8)
   },
   wave(c) {
+    // con sóng nhỏ phía sau
+    shape(c, P('M150 210 C 170 186, 196 160, 222 164 C 238 168, 244 186, 246 210 Z'), '#7cc8f5', {
+      y0: 160,
+      y1: 210,
+      gloss: [206, 174, 12, 4, -0.3]
+    })
+    tube(c, 'M196 170 Q 214 158 232 168', '#ffffff', 6)
+    // con sóng lớn cuộn ngọn
     const body = P(
-      'M18 226 C 22 150, 60 64, 144 46 C 200 36, 240 72, 232 114 C 226 142, 196 150, 182 132 C 172 118, 180 100, 196 104 C 190 86, 158 82, 140 104 C 116 136, 134 196, 238 226 Z'
+      'M12 214 C 18 140, 62 62, 142 44 C 198 34, 238 64, 234 100 C 232 126, 206 136, 192 122 C 182 110, 188 94, 204 98 C 198 80, 170 76, 152 96 C 128 124, 132 180, 172 214 Z'
     )
-    shape(c, body, '#2f86d6', { y0: 46, y1: 226, gloss: [70, 120, 12, 34, 0.5] })
+    shape(c, body, '#2f86d6', { y0: 40, y1: 214, gloss: [62, 120, 10, 34, 0.5] })
     c.save()
     c.clip(body)
     flat(
       c,
-      P('M140 104 C 116 136, 134 196, 238 226 L 238 160 C 200 150, 170 130, 182 132 Z'),
-      '#45b3f7'
+      P('M152 96 C 128 124, 132 180, 172 214 L 196 214 C 156 176, 150 128, 176 104 Z'),
+      '#6cc6f7'
     )
+    flat(c, P('M204 98 C 198 80, 170 76, 152 96 L 160 100 C 176 88, 194 90, 204 104 Z'), '#a8e0fb')
     c.restore()
     c.lineWidth = 6
     c.strokeStyle = '#3b2a3a'
+    c.lineJoin = 'round'
     c.stroke(body)
+    // bọt trắng dọc mép sóng
+    tube(
+      c,
+      'M54 104 C 84 66, 116 50, 146 46 C 196 40, 230 64, 230 98 Q 228 120 208 122',
+      '#ffffff',
+      14
+    )
     for (const [x, y, r] of [
-      [118, 54, 13],
-      [146, 46, 12],
-      [174, 46, 11],
-      [200, 54, 11],
-      [220, 72, 10],
-      [92, 70, 11]
+      [64, 94, 9],
+      [86, 72, 12],
+      [114, 54, 13],
+      [146, 44, 14],
+      [178, 42, 13],
+      [206, 52, 12],
+      [226, 74, 11],
+      [230, 98, 9],
+      [214, 116, 8]
     ])
-      shape(c, ell(x, y, r, r), '#ffffff', { lw: 4 })
-    eye(c, 66, 160, 9)
-    eye(c, 106, 160, 9)
-    cheek(c, 52, 182)
-    cheek(c, 120, 182)
-    smile(c, 86, 178, 9)
-    drop(c, 226, 160, 0.8)
+      shape(c, ell(x, y, r, r), '#ffffff', { lw: 4, gloss: [x - 3, y - 3, r * 0.4, r * 0.3] })
+    // mặt biển ngang đáy hình
+    let d = 'M10 206'
+    for (let i = 0; i < 6; i++) {
+      const a = 10 + i * 39.3
+      d += ` Q ${a + 10} ${198} ${a + 20} ${206} Q ${a + 30} ${214} ${a + 39.3} ${206}`
+    }
+    d += ' L 246 236 Q 246 244 238 244 L 18 244 Q 10 244 10 236 Z'
+    shape(c, P(d), '#1f6fc0', { y0: 198, y1: 244, gloss: [70, 214, 30, 3] })
+    line(
+      c,
+      'M40 226 Q 56 220 72 226 M120 230 Q 136 224 152 230 M188 224 Q 204 218 220 224',
+      4,
+      '#5aa7e6'
+    )
+    eye(c, 62, 150, 9)
+    eye(c, 102, 150, 9)
+    cheek(c, 48, 172)
+    cheek(c, 116, 172)
+    smile(c, 82, 168, 9)
+    drop(c, 236, 140, 0.7)
+    drop(c, 30, 70, 0.8)
   },
   shell(c) {
-    shadow(c, 230, 76)
+    // gò cát nhỏ
+    const sand = P(
+      'M12 232 Q 22 190 128 186 Q 234 190 244 232 Q 244 240 236 240 L 20 240 Q 12 240 12 232 Z'
+    )
+    shape(c, sand, '#f5d58a', { y0: 186, y1: 240 })
+    for (const [x, y] of [
+      [40, 222],
+      [70, 206],
+      [196, 208],
+      [222, 224],
+      [150, 228],
+      [96, 230]
+    ])
+      flat(c, ell(x, y, 3, 2), '#d9b066')
+    // tai bản lề hai bên
+    shape(c, P('M88 184 L 168 184 L 160 214 Q 128 222 96 214 Z'), '#f6a48a', {
+      lw: 5,
+      y0: 184,
+      y1: 220
+    })
+    // vỏ sò điệp: viền tròn lượn sóng, gân xen kẽ sáng/sẫm toả từ bản lề
     const hx = 128
-    const hy = 210
-    const R = 118
-    const n = 7
-    const a0 = -Math.PI + 0.55
-    const a1 = -0.55
-    const pt = (a: number, r: number): [number, number] => [
-      hx + Math.cos(a) * r,
-      hy + Math.sin(a) * r
+    const hy = 204
+    const ex = (t: number, k = 1): [number, number] => [
+      128 + Math.cos(t) * 100 * k,
+      128 + Math.sin(t) * 80 * k
     ]
-    const [sx, sy] = pt(a0, R)
-    let d = `M${hx} ${hy} L ${sx} ${sy}`
-    const ribs: string[] = []
+    const n = 9
+    const t0 = Math.PI - 0.5
+    const t1 = 2 * Math.PI + 0.5
+    const ts = Array.from({ length: n + 1 }, (_, i) => t0 + ((t1 - t0) * i) / n)
+    const [lx, ly] = ex(t0)
+    let d = `M${hx - 18} ${hy} L ${lx} ${ly}`
     for (let i = 0; i < n; i++) {
-      const aa = a0 + ((a1 - a0) * i) / n
-      const ab = a0 + ((a1 - a0) * (i + 1)) / n
-      const [cx, cy] = pt((aa + ab) / 2, R + 20)
-      const [ex, ey] = pt(ab, R)
-      d += ` Q ${cx} ${cy} ${ex} ${ey}`
-      if (i < n - 1) ribs.push(`M${hx} ${hy - 10} L ${ex} ${ey}`)
+      const [qx, qy] = ex((ts[i] + ts[i + 1]) / 2, 1.12)
+      const [px, py] = ex(ts[i + 1])
+      d += ` Q ${qx} ${qy} ${px} ${py}`
     }
-    d += ' Z'
-    const fan = P(d)
-    shape(c, fan, '#ffa98f', { y0: 80, y1: 212, gloss: [98, 112, 22, 10, -0.5] })
+    d += ` L ${hx + 18} ${hy} Z`
+    const shell = P(d)
+    shape(c, shell, '#ffc7ae', { y0: 40, y1: 206 })
     c.save()
-    c.clip(fan)
-    for (const r of ribs) line(c, r, 4, '#e8806a')
+    c.clip(shell)
+    for (let i = 0; i < n; i += 2) {
+      const [ax, ay] = ex(ts[i], 1.3)
+      const [bx, by] = ex(ts[i + 1], 1.3)
+      flat(c, P(`M${hx} ${hy} L ${ax} ${ay} L ${bx} ${by} Z`), '#f59a80')
+    }
+    // ánh ngọc trai
+    c.fillStyle = 'rgba(255,255,255,.5)'
+    c.beginPath()
+    c.ellipse(84, 82, 26, 10, -0.6, 0, TAU)
+    c.fill()
     c.restore()
     c.lineWidth = 6
     c.strokeStyle = '#3b2a3a'
-    c.stroke(fan)
-    shape(c, P('M104 222 L 110 196 L 146 196 L 152 222 Z'), '#f08f74', { lw: 5, y0: 196, y1: 222 })
-    face(c, 128, 150, 22, 8)
+    c.lineJoin = 'round'
+    c.stroke(shell)
+    face(c, 128, 136, 22, 8)
+    // ốc xoắn nhỏ bên cạnh
+    shape(c, P('M196 226 Q 194 200 216 196 Q 238 196 238 214 Q 238 228 222 230 Z'), '#ffe2c4', {
+      lw: 4,
+      y0: 194,
+      y1: 230
+    })
+    line(c, 'M222 230 Q 208 222 212 210 Q 218 202 226 208 Q 230 216 222 218', 3, '#d98a6a')
   }
 }

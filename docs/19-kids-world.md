@@ -270,7 +270,7 @@ Bản 2D đầu tiên (bước 4) chạy được nhưng **chưa ra chất game*
 7. **Lượt chơi 5 bước** (`KidsVisit`) cũng hiện trong sân khấu toàn màn hình, thẻ to.
 8. **Công nghệ**: một `<canvas>` 2D cho cả cảnh (vòng rAF tự dừng khi ẩn/không chuyển động), HUD là Vue phủ lên trên. Công trình chiếu từ voxel ở **độ phân giải cao hơn** (ô 8–10 px mỗi khối thay vì 4 px) + viền tối + bóng đổ/AO, cache thành bitmap. Bản 3D three.js (§5.2) để sau, làm như bản nâng cấp của cùng sân khấu này.
 
-### 5.5 Nâng chất lượng hình từ — ✅ xong 120 từ của bản đồ (2026-10-30)
+### 5.5 Nâng chất lượng hình từ — ✅ xong cả 183 hình từ (2026-10-30)
 
 Hình từ hiện có: ~84 hình pixel vẽ bằng code trên lưới 32×32 (`pictures.ts`, `picturesMore.ts`) + 99 hình Twemoji. Chủ dự án thấy hình pixel **chất lượng kém**; đang cân nhắc **tự vẽ bằng canvas**.
 
@@ -285,7 +285,7 @@ Hình từ hiện có: ~84 hình pixel vẽ bằng code trên lưới 32×32 (`p
   - `index.ts` — `vectorPictureUrl(id)` vẽ một lần ra PNG `data:` 384px, cache theo id. `PixelPicture.vue` **ưu tiên hình vector**, thiếu thì dùng PNG/Twemoji/pixel cũ như trước → mọi màn hình dùng thẻ hình (bé, bài tập chọn hình, album) đổi theo, không phải sửa từng chỗ.
   - `art.test.ts` — không trùng id, id có thật, mọi hình chạy không lỗi (canvas giả trong Node).
 - ✅ **Soi hình**: `pnpm pictures:sheet [--file <nhóm>] [--ids a,b] --out x.png` — Node đóng gói trang (esbuild), Electron ẩn (userData tạm, không đụng dữ liệu app) vẽ và chụp bảng tổng hợp ở 184/64/40 px (`scripts/pictures/vector-sheet.mjs`, `vector-sheet-capture.cjs`).
-- ✅ (2026-10-30) **Đủ 120 hình** cho 120 từ của bản đồ, 13 file: `trial` (10 hình đã duyệt), `family`, `numbers`, `sea`, `farm`, `colors`, `sky`, `festival`, `clothes`, `garden`, `fruit`, `city`, `meals` (vẽ song song bằng tác vụ con, mỗi nhóm soi bảng tổng hợp 2–3 lượt). Test `art.test.ts` bắt buộc mọi từ trên bản đồ có hình vector. Còn lại 63 hình từ khác (ngoài bản đồ) vẫn dùng pixel/Twemoji — vẽ dần sau. Điểm nhỏ có thể chỉnh: tai heo hơi giống tai mèo ở 40 px; hoa hồng ở 40 px chỉ còn khối đỏ; má hồng hơi đục trên rau xanh.
+- ✅ (2026-10-30) **Đủ 120 hình** cho 120 từ của bản đồ, 13 file: `trial` (10 hình đã duyệt), `family`, `numbers`, `sea`, `farm`, `colors`, `sky`, `festival`, `clothes`, `garden`, `fruit`, `city`, `meals` (vẽ song song bằng tác vụ con, mỗi nhóm soi bảng tổng hợp 2–3 lượt). Test `art.test.ts` bắt buộc mọi từ trên bản đồ có hình vector. ✅ Cùng ngày: vẽ lại bread, honey, milk, wave, shell và đũa của rice/noodles (chủ dự án thấy khó nhận ra; đũa không cắm dựng đứng vào cơm) + 63 hình còn lại (`critters`, `wild`, `food`, `things`, `nature`; lá cờ là cờ chung chung không thuộc nước nào, trái đất chỉ có mảng đất trừu tượng, không có đường biên) → **mọi hình từ đều là vector**; PNG/Twemoji/pixel cũ chỉ còn là dự phòng. Điểm nhỏ có thể chỉnh: tai heo hơi giống tai mèo ở 40 px; hoa hồng ở 40 px chỉ còn khối đỏ; má hồng hơi đục trên rau xanh.
 
 ## 6. Gói tải thêm `kids-world`
 

@@ -162,7 +162,8 @@ describe('KidsWorldService', () => {
   it('có bản đồ thì phần ôn (bình tưới) không tự giới thiệu hình mới, chỉ trả thẻ đến hạn', () => {
     expect(c.kids.nextCard().card).toBeNull()
     const visit = c.kidsWorld.visit('hanoi')
-    expect(c.kids.nextCard().card?.cardId).toBe(visit.batch[0].cardId) // thẻ vừa tạo ở lượt chơi đến hạn ngay
+    // thẻ vừa tạo ở lượt chơi đến hạn ngay (cùng lúc → thẻ nào ra trước cũng được)
+    expect(visit.batch.map((w) => w.cardId)).toContain(c.kids.nextCard().card?.cardId)
   })
 
   it('kết quả lượt có từ không thuộc nơi → lỗi', () => {

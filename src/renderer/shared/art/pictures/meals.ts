@@ -14,6 +14,7 @@ import {
   shadow,
   shape,
   smile,
+  star,
   tube,
   type Painter
 } from '../kit'
@@ -43,6 +44,37 @@ function turned(
   c.restore()
 }
 
+/** Chiếc đũa thon: đầu to (x0, y0) → đầu nhỏ (x1, y1); gỗ sáng, đầu đũa sẫm, viền mực mảnh. */
+function chopstick(
+  c: CanvasRenderingContext2D,
+  x0: number,
+  y0: number,
+  x1: number,
+  y1: number,
+  w0 = 9,
+  w1 = 5
+): void {
+  const dx = x1 - x0
+  const dy = y1 - y0
+  const len = Math.hypot(dx, dy)
+  const nx = -dy / len
+  const ny = dx / len
+  const at = (t: number, s: number): string => {
+    const h = (w0 + (w1 - w0) * t) / 2
+    return `${x0 + dx * t + nx * h * s} ${y0 + dy * t + ny * h * s}`
+  }
+  const p = P(`M${at(0, 1)} L ${at(1, 1)} L ${at(1, -1)} L ${at(0, -1)} Z`)
+  shape(c, p, '#f0cf98', { line: false, y0: Math.min(y0, y1) - 6, y1: Math.max(y0, y1) + 6 })
+  c.save()
+  c.clip(p)
+  flat(c, P(`M${at(0.78, 2)} L ${at(1.1, 2)} L ${at(1.1, -2)} L ${at(0.78, -2)} Z`), '#a8683a')
+  c.restore()
+  c.lineWidth = 4
+  c.strokeStyle = INK
+  c.lineJoin = 'round'
+  c.stroke(p)
+}
+
 /** Bát (cạnh trên y = top), chân bát, viền hoa văn — trả về path thân bát. */
 function bowl(c: CanvasRenderingContext2D, top: number, color: string, band: string): Path2D {
   shape(c, rrect(98, top + 72, 60, 16, 6), color, { lw: 5 })
@@ -60,7 +92,6 @@ function bowl(c: CanvasRenderingContext2D, top: number, color: string, band: str
 export const PICTURES: Record<string, Painter> = {
   rice(c) {
     shadow(c, 228, 70)
-    tube(c, 'M60 52 L 220 104', '#c98a4a', 7)
     const mound = P('M40 132 C 44 66, 104 54, 128 58 C 152 54, 212 66, 216 132 Z')
     shape(c, mound, '#fbfaf2', { y0: 58, y1: 132, gloss: [96, 80, 20, 8, -0.4] })
     c.save()
@@ -81,19 +112,21 @@ export const PICTURES: Record<string, Painter> = {
       c.fill()
     }
     c.restore()
-    tube(c, 'M50 64 L 222 118', '#e0a35a', 7)
     bowl(c, 132, '#ffffff', '#5aa7e6')
     cute(c, 128, 168)
+    // đôi đũa gác ngang miệng bát (không cắm vào cơm)
+    chopstick(c, 244, 116, 24, 124)
+    chopstick(c, 244, 128, 28, 138)
   },
   noodles(c) {
     shadow(c, 228, 70)
     // sợi mì được đũa gắp lên
-    for (const x of [-14, -4, 6, 16]) {
+    for (const x of [-12, 0, 12]) {
       tube(
         c,
-        `M${150 + x} 62 Q ${138 + x} 84 ${152 + x} 100 Q ${166 + x} 116 ${150 + x} 136`,
+        `M${140 + x} 70 Q ${128 + x} 88 ${140 + x} 104 Q ${152 + x} 120 ${140 + x} 136`,
         '#ffd36b',
-        6
+        5
       )
     }
     shape(c, ell(128, 132, 90, 16), '#f0a54a', { y0: 116, y1: 148, lw: 5 })
@@ -108,12 +141,11 @@ export const PICTURES: Record<string, Painter> = {
     flat(c, ell(196, 136, 10, 5), '#5cc25b')
     flat(c, ell(80, 140, 8, 4, 0.4), '#5cc25b')
     c.restore()
-    for (const x of [-14, -4, 6, 16])
-      tube(c, `M${150 + x} 62 Q ${146 + x} 72 ${148 + x} 84`, '#ffd36b', 6)
-    tube(c, 'M108 28 L 214 70', '#c98a4a', 7)
-    tube(c, 'M104 46 L 216 80', '#c98a4a', 7)
     bowl(c, 132, '#f2554f', '#ffd36b')
     cute(c, 128, 172)
+    // đôi đũa cầm chéo, kẹp sợi mì
+    chopstick(c, 236, 22, 122, 66)
+    chopstick(c, 240, 40, 126, 80)
   },
   soup(c) {
     shadow(c, 230, 84)
@@ -137,17 +169,42 @@ export const PICTURES: Record<string, Painter> = {
     cute(c, 128, 160)
   },
   bread(c) {
-    shadow(c, 208, 96)
-    const loaf = P('M16 172 C 26 98, 150 58, 240 90 C 244 152, 120 218, 16 172 Z')
-    shape(c, loaf, '#eaa04a', { y0: 80, y1: 200, gloss: [96, 120, 34, 8, -0.35] })
-    for (const [x, y] of [
-      [66, 138],
-      [110, 118],
-      [154, 104],
-      [198, 100]
+    shadow(c, 226, 106)
+    // ổ bánh mì gối: thân thẳng, nóc vồng vàng nâu
+    const loaf = P(
+      'M34 206 L 34 124 C 18 112, 24 70, 64 64 C 90 56, 146 56, 172 64 C 212 70, 218 112, 202 124 L 202 206 Q 202 214 194 214 L 42 214 Q 34 214 34 206 Z'
+    )
+    shape(c, loaf, '#e39a48', { y0: 56, y1: 214, gloss: [76, 80, 28, 9, -0.25] })
+    c.save()
+    c.clip(loaf)
+    flat(
+      c,
+      P('M20 128 C 60 116, 176 116, 216 128 L 216 136 C 176 124, 60 124, 20 136 Z'),
+      '#c97a34'
+    )
+    c.restore()
+    c.lineWidth = LW
+    c.strokeStyle = INK
+    c.stroke(loaf)
+    for (const x of [70, 108, 146]) line(c, `M${x} 90 Q ${x + 12} 78 ${x + 24} 84`, 5, '#ffd894')
+    cute(c, 86, 160, 18, 8)
+    // lát bánh cắt dựng phía trước: vỏ nâu, ruột trắng kem
+    const slice = P(
+      'M144 222 L 144 162 C 132 154, 134 126, 158 122 C 172 116, 198 116, 212 122 C 236 126, 238 154, 226 162 L 226 222 Q 226 228 220 228 L 150 228 Q 144 228 144 222 Z'
+    )
+    shape(c, slice, '#c97a34', { y0: 116, y1: 228 })
+    const crumb = P(
+      'M153 218 L 153 157 C 143 151, 146 133, 162 130 C 174 125, 196 125, 208 130 C 224 133, 227 151, 217 157 L 217 218 Z'
+    )
+    shape(c, crumb, '#fff4da', { line: false, y0: 124, y1: 220, gloss: [170, 140, 14, 7, -0.3] })
+    for (const [x, y, r] of [
+      [170, 168, 3],
+      [196, 156, 2.5],
+      [184, 192, 3],
+      [204, 204, 2.5],
+      [166, 204, 2]
     ])
-      tube(c, `M${x - 14} ${y + 10} Q ${x} ${y - 2} ${x + 14} ${y - 4}`, '#ffd894', 5)
-    cute(c, 138, 150, 20, 8)
+      flat(c, ell(x, y, r * 1.4, r), '#efd9a8')
   },
   egg(c) {
     shadow(c, 222, 96)
@@ -159,33 +216,64 @@ export const PICTURES: Record<string, Painter> = {
     cute(c, 132, 132, 18, 8)
   },
   milk(c) {
-    shadow(c, 230, 66)
-    shape(c, rrect(88, 30, 80, 20, 5), '#f2f4f8', { lw: 5 })
-    const roof = P('M68 104 L 92 48 L 164 48 L 188 104 Z')
-    shape(c, roof, '#45a0f0', { y0: 48, y1: 104 })
-    line(c, 'M128 50 L 128 102', 4, '#2f7cc8')
-    const body = rrect(68, 100, 120, 124, 10)
-    shape(c, body, '#ffffff', { y0: 100, y1: 224 })
+    shadow(c, 230, 104)
+    // chai thuỷ tinh đựng sữa, nắp xanh, dải đốm bò
+    const bottle = P(
+      'M70 64 L 106 64 L 106 92 Q 106 104 120 114 Q 132 124 132 144 L 132 214 Q 132 228 118 228 L 58 228 Q 44 228 44 214 L 44 144 Q 44 124 56 114 Q 70 104 70 92 Z'
+    )
+    shape(c, bottle, '#dff1fd', { line: false })
     c.save()
-    c.clip(body)
-    flat(c, P('M60 186 Q 98 170 128 184 Q 160 198 196 180 L 196 230 L 60 230 Z'), '#45a0f0')
-    flat(c, ell(74, 116, 18, 14, 0.4), '#3b2a3a')
-    flat(c, ell(190, 132, 16, 20, -0.2), '#3b2a3a')
-    flat(c, ell(176, 104, 7, 6), '#3b2a3a')
-    flat(c, P('M78 104 L 106 104 L 78 150 Z'), 'rgba(255,255,255,.35)')
+    c.clip(bottle)
+    shape(c, P('M30 104 Q 88 96 146 104 L 146 240 L 30 240 Z'), '#fbfbf7', {
+      line: false,
+      y0: 100,
+      y1: 232
+    })
+    flat(c, P('M34 178 L 142 178 L 142 204 L 34 204 Z'), '#ffffff')
+    for (const [x, y, rx, ry] of [
+      [58, 186, 11, 8],
+      [92, 196, 9, 6],
+      [120, 184, 10, 7]
+    ])
+      flat(c, ell(x, y, rx, ry, 0.3), INK)
+    line(c, 'M30 178 L 146 178 M30 204 L 146 204', 3)
+    flat(c, rrect(52, 120, 9, 50, 5), 'rgba(255,255,255,.85)')
     c.restore()
     c.lineWidth = LW
     c.strokeStyle = INK
-    c.stroke(body)
+    c.lineJoin = 'round'
+    c.stroke(bottle)
+    shape(c, rrect(64, 46, 48, 22, 7), '#3f8be0', { lw: 5, gloss: [78, 52, 10, 4] })
+    cute(c, 88, 142, 17, 7)
+    // cốc sữa đầy
+    const glass = P('M146 126 L 226 126 L 216 220 Q 215 228 207 228 L 165 228 Q 157 228 156 220 Z')
+    shape(c, glass, '#dff1fd', { line: false })
+    c.save()
+    c.clip(glass)
+    shape(c, P('M140 140 L 232 140 L 232 240 L 140 240 Z'), '#fbfbf7', {
+      line: false,
+      y0: 136,
+      y1: 232
+    })
+    flat(c, ell(186, 140, 40, 7), '#ffffff')
+    flat(c, rrect(160, 146, 8, 62, 4), 'rgba(255,255,255,.85)')
+    c.restore()
+    line(c, 'M148 140 Q 186 150 224 140', 3, '#c9d6e2')
+    c.lineWidth = LW
+    c.strokeStyle = INK
+    c.stroke(glass)
+    // giọt sữa bắn lên
     shape(
       c,
-      P('M128 180 Q 142 198 140 206 Q 136 216 128 216 Q 120 216 116 206 Q 114 198 128 180 Z'),
+      P(
+        'M162 136 Q 166 120 158 106 Q 172 112 176 124 Q 180 104 186 92 Q 194 106 196 124 Q 202 112 216 106 Q 208 120 210 136 Z'
+      ),
       '#ffffff',
-      {
-        lw: 4
-      }
+      { lw: 4 }
     )
-    cute(c, 128, 148)
+    shape(c, ell(154, 90, 5, 6), '#ffffff', { lw: 4 })
+    shape(c, ell(186, 72, 6, 7), '#ffffff', { lw: 4 })
+    shape(c, ell(220, 88, 5, 6), '#ffffff', { lw: 4 })
   },
   spoon(c) {
     shadow(c, 226, 60)
@@ -242,36 +330,111 @@ export const PICTURES: Record<string, Painter> = {
     })
   },
   honey(c) {
-    shadow(c, 230, 74)
-    const jar = P('M70 102 Q 46 122 46 164 Q 46 224 128 224 Q 210 224 210 164 Q 210 122 186 102 Z')
-    shape(c, jar, '#ffb21a', { y0: 102, y1: 224, gloss: [80, 150, 10, 26, 0.1] })
+    shadow(c, 230, 100)
+    // vũng mật dưới gáo
+    shape(c, ell(206, 224, 26, 7), '#f5a623', { lw: 4 })
+    // hũ thuỷ tinh tròn đầy mật
+    const jar = P(
+      'M84 96 L 148 96 L 148 108 Q 148 114 158 120 Q 184 136 184 168 Q 184 226 116 226 Q 48 226 48 168 Q 48 136 74 120 Q 84 114 84 108 Z'
+    )
+    shape(c, jar, '#e8f4fb', { line: false })
     c.save()
     c.clip(jar)
-    flat(
-      c,
-      P(
-        'M40 100 L 216 100 L 216 124 Q 200 124 196 136 Q 192 150 184 136 Q 176 122 150 126 Q 136 150 126 128 Q 110 120 90 126 Q 84 144 76 128 Q 66 120 40 124 Z'
-      ),
-      '#e88a10'
-    )
-    c.restore()
-    shape(c, rrect(64, 90, 128, 22, 9), '#ffcf5a', { lw: 5 })
-    // gáo múc mật
-    tube(c, 'M96 22 L 160 62', '#c98a4a', 8)
-    turned(c, 0.55, 174, 72, () => {
-      shape(c, ell(174, 72, 24, 15), '#e0a35a', { y0: 57, y1: 87 })
-      line(c, 'M162 58 L 162 86 M174 57 L 174 87 M186 58 L 186 86', 4, '#a86a30')
+    shape(c, P('M40 120 Q 116 112 192 120 L 192 236 L 40 236 Z'), '#f5a623', {
+      line: false,
+      y0: 116,
+      y1: 228
     })
-    tube(c, 'M176 86 Q 178 92 178 98', '#ffb21a', 6)
+    flat(c, rrect(60, 134, 10, 64, 5), 'rgba(255,255,255,.6)')
+    // nhãn tổ ong (không chữ)
+    shape(c, rrect(78, 168, 76, 40, 10), '#fff3c4', { lw: 4, y0: 168, y1: 208 })
+    for (const [x, y] of [
+      [104, 180],
+      [116, 187],
+      [128, 180],
+      [104, 194],
+      [128, 194],
+      [116, 201],
+      [92, 187],
+      [140, 187]
+    ]) {
+      c.fillStyle = '#ffc93a'
+      c.fill(star(x, y, 7, 7, 6, 0))
+      c.lineWidth = 2.5
+      c.strokeStyle = '#d98a10'
+      c.stroke(star(x, y, 7, 7, 6, 0))
+    }
+    c.restore()
+    c.lineWidth = LW
+    c.strokeStyle = INK
+    c.lineJoin = 'round'
+    c.stroke(jar)
+    // mật chảy tràn qua miệng hũ
     shape(
       c,
-      P('M178 100 Q 172 104 172 108 Q 172 112 178 112 Q 184 112 184 108 Q 184 104 178 100 Z'),
+      P(
+        'M142 106 L 156 106 Q 160 112 160 122 L 160 134 Q 160 142 154 142 Q 148 142 148 134 L 146 120 Q 142 114 142 106 Z'
+      ),
       '#ffb21a',
-      {
-        lw: 3
-      }
+      { lw: 4, y0: 104, y1: 144 }
     )
-    cute(c, 128, 166)
+    shape(
+      c,
+      P('M78 106 L 90 106 Q 90 112 88 118 L 86 124 Q 84 130 80 128 Q 76 126 76 118 Z'),
+      '#ffb21a',
+      { lw: 4, y0: 104, y1: 130 }
+    )
+    // khăn vải đậy nắp, buộc dây
+    const cloth = P(
+      'M72 100 C 70 78, 92 68, 116 68 C 140 68, 162 78, 160 100 L 166 112 Q 156 118 148 110 Q 140 120 130 111 Q 122 120 112 111 Q 102 120 94 111 Q 84 118 66 112 Z'
+    )
+    shape(c, cloth, '#ef5350', { y0: 68, y1: 118, gloss: [96, 80, 14, 5, -0.2] })
+    c.save()
+    c.clip(cloth)
+    for (const [x, y] of [
+      [92, 86],
+      [116, 78],
+      [140, 86],
+      [104, 102],
+      [128, 102],
+      [152, 102],
+      [80, 104]
+    ])
+      flat(c, circle(x, y, 4), '#ffffff')
+    c.restore()
+    tube(c, 'M76 100 Q 116 106 156 100', '#c98a4a', 4)
+    tube(c, 'M76 100 Q 64 92 62 82 M76 100 Q 62 104 58 112', '#c98a4a', 4)
+    cute(c, 116, 144, 18, 8)
+    // gáo múc mật bằng gỗ
+    tube(c, 'M232 30 L 212 150', '#c98a4a', 8)
+    const dip = ell(210, 170, 17, 24, 0.17)
+    shape(c, dip, '#e0a35a', { y0: 146, y1: 194 })
+    c.save()
+    c.clip(dip)
+    for (const y of [156, 168, 180]) line(c, `M188 ${y - 4} L 232 ${y + 4}`, 4, '#a86a30')
+    c.restore()
+    shape(c, P('M204 192 Q 212 194 212 200 L 210 214 Q 206 220 204 214 Z'), '#ffb21a', {
+      lw: 3
+    })
+    // chú ong nhỏ
+    c.save()
+    c.translate(46, 50)
+    shape(c, ell(-4, -12, 9, 12, -0.5), '#dff3ff', { lw: 3 })
+    shape(c, ell(6, -12, 9, 12, 0.5), '#dff3ff', { lw: 3 })
+    const bee = ell(0, 4, 18, 13)
+    shape(c, bee, '#ffd23f', { lw: 4, y0: -10, y1: 18 })
+    c.save()
+    c.clip(bee)
+    flat(c, rrect(2, -12, 6, 30, 2), INK)
+    flat(c, rrect(12, -12, 6, 30, 2), INK)
+    c.restore()
+    c.lineWidth = 4
+    c.strokeStyle = INK
+    c.stroke(bee)
+    eye(c, -10, 2, 3.5)
+    eye(c, -2, 2, 3.5)
+    c.restore()
+    line(c, 'M70 58 Q 82 70 76 80 Q 70 88 82 92', 3, '#c9b48a')
   },
   cookie(c) {
     shadow(c, 224, 80)

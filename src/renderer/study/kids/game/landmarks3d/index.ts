@@ -31,11 +31,8 @@ const PLATES: Record<
   { top: number; channel?: { cx: number; cz: number; hx: number; hz: number } }
 > = {
   'hoian-bridge-pagoda': { top: 0.83, channel: { cx: 0, cz: 0.4, hx: 2.7, hz: 2.0 } },
-  'danang-dragon-bridge': { top: 0.36, channel: { cx: 0, cz: 0, hx: 5.4, hz: 2.3 } },
-  'hanoi-turtle-tower': { top: 0.12 },
-  'nhatrang-tram-huong': { top: 0.12 },
-  'dalat-station': { top: 0.08 },
-  'hcmc-ben-thanh': { top: 0.08 }
+  'danang-dragon-bridge': { top: 0.36, channel: { cx: 0, cz: 0, hx: 5.4, hz: 2.3 } }
+  // mô hình có viền bờ/nền mỏng (Hồ Gươm, Bến Thành…) KHÔNG nâng đất — nâng sẽ lấp mất viền bờ hồ
 }
 
 /** Mô hình 3D mịn của công trình (chân ~10 đơn vị, y = 0 là mặt đất); undefined nếu chưa có */

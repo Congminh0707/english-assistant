@@ -368,7 +368,10 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     const nearLandmark = (q: RoadSample): boolean =>
       spots.some(
         (sp, k) =>
-          onLand.get(sp.id) && Math.hypot(q.x - sp.x, q.z - sp.z) < LANDMARK_SPAN * 1.2 && k >= 0
+          onLand.get(sp.id) &&
+          !WATER_LANDMARKS.has(landmarkOf.get(sp.id) ?? '') &&
+          Math.hypot(q.x - sp.x, q.z - sp.z) < LANDMARK_SPAN * 1.2 &&
+          k >= 0
       )
     const wetS = pts.map((q) => hf.heightAt(q.x, q.z) < -0.02 && !nearLandmark(q))
     for (let i = 0; i < pts.length;) {
@@ -412,14 +415,78 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     pts.forEach((q, i) => (q.y = q.sea ? WATER_Y : q.bridge ? Math.max(ys[i], 0.32) : ys[i]))
     return pts
   })
+  // làm mượt cả tuyến xuyên suốt (kể cả chỗ nối giữa hai chặng) → không còn góc gấp; rồi tính lại cao độ mặt đường
+  {
+    const net = profiles.flat()
+    for (let pass = 0; pass < 10; pass++) {
+      const xs = net.map((q) => q.x)
+      const zs = net.map((q) => q.z)
+      for (let i = 1; i + 1 < net.length; i++) {
+        if (net[i].sea) continue
+        let sx = 0
+        let sz = 0
+        let c = 0
+        for (let d = -6; d <= 6; d++) {
+          const j = i + d
+          if (j < 0 || j >= net.length || net[j].sea) continue
+          sx += xs[j]
+          sz += zs[j]
+          c++
+        }
+        net[i].x = sx / c
+        net[i].z = sz / c
+      }
+      // không cho đường cắt qua khuôn viên công trình (hồ, sân…): đẩy ra ngoài vòng bao
+      for (const q of net) {
+        if (q.sea) continue
+        for (const sp of spots) {
+          if (!onLand.get(sp.id) || WATER_LANDMARKS.has(landmarkOf.get(sp.id) ?? '')) continue
+          const R = LANDMARK_SPAN * 0.74
+          const dx = q.x - sp.x
+          const dz = q.z - sp.z
+          const d = Math.hypot(dx, dz)
+          if (d < R && d > 1e-4) {
+            q.x = sp.x + (dx / d) * R
+            q.z = sp.z + (dz / d) * R
+          }
+        }
+      }
+    }
+    // sau khi uốn, đoạn nào còn nằm trên mặt nước mà không phải phà thì thành cầu (không vẽ đường chìm dưới nước)
+    for (const q of net) if (!q.sea) q.bridge = hf.heightAt(q.x, q.z) < -0.02
+    let ys = net.map((q) =>
+      q.sea ? WATER_Y : q.bridge ? 0.32 : Math.max(hf.heightAt(q.x, q.z), 0.08)
+    )
+    for (let pass = 0; pass < 3; pass++) {
+      const out = ys.slice()
+      for (let i = 0; i < ys.length; i++) {
+        if (net[i].sea) continue
+        let sum = 0
+        let cnt = 0
+        for (let d = -8; d <= 8; d++) {
+          const j = i + d
+          if (j < 0 || j >= ys.length || net[j].sea) continue
+          sum += ys[j]
+          cnt++
+        }
+        out[i] = sum / cnt
+      }
+      ys = out
+    }
+    net.forEach((q, i) => (q.y = q.sea ? WATER_Y : q.bridge ? Math.max(ys[i], 0.32) : ys[i]))
+  }
   // san nền: kéo mặt đất dọc đường về đúng cao độ đường; ghi lại mặt cầu để xe chạy trên cầu
   const deck = new Map<number, number>()
   const grade = new Map<number, { w: number; y: number }>()
+  const roadTop = new Map<number, number>()
   const deckKey = (x: number, z: number): number =>
     Math.floor(x / 0.25) * 100003 + Math.floor(z / 0.25)
   for (const prof of profiles)
     for (const q of prof) {
       if (q.sea) continue
+      // mặt đường (để xe/thú cưng chạy TRÊN đường, không bị đường che)
+      const rk = deckKey(q.x, q.z)
+      roadTop.set(rk, Math.max(roadTop.get(rk) ?? -9, q.y + 0.07))
       if (q.bridge) {
         const key = deckKey(q.x, q.z)
         deck.set(key, Math.max(deck.get(key) ?? -9, q.y))
@@ -450,7 +517,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     for (const dx of [-0.25, 0, 0.25])
       for (const dz of [-0.25, 0, 0.25])
         best = Math.max(best, deck.get(deckKey(x + dx, z + dz)) ?? -9)
-    return best
+    return Math.max(best, roadTop.get(deckKey(x, z)) ?? -9)
   }
 
   const renderer = new THREE.WebGLRenderer({

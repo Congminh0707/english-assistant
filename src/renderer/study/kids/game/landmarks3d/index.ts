@@ -1,10 +1,9 @@
 // Công trình 3D (mịn, cùng phong cách địa hình) cho bản đồ game — id khớp `place.landmark`. Các mô hình voxel trong
 // src/shared/voxels chỉ còn dùng ở bản đồ 2D và sticker. docs/19-kids-world.md §5.2
 import type * as ThreeNS from 'three'
-import { nhatrangTramHuong, dalatStation } from './central'
 import { dragonBridge, halongBay, sapaValley, trangAn } from './detailed2'
 import { hanoiHoGuom, hcmcBenThanh2, hoianChuaCau, hueNgoMon2 } from './detailed'
-import { canthoFloatingMarket, phuquocFishingVillage } from './south'
+import { caiRang, dalatStation2, hamNinh, ponagar } from './detailed3'
 
 type Builder = (THREE: typeof ThreeNS) => ThreeNS.Group
 
@@ -16,11 +15,11 @@ export const LANDMARKS_3D: Record<string, Builder> = {
   'hue-ngo-mon': hueNgoMon2,
   'danang-dragon-bridge': dragonBridge,
   'hoian-bridge-pagoda': hoianChuaCau,
-  'nhatrang-tram-huong': nhatrangTramHuong,
-  'dalat-station': dalatStation,
+  'nhatrang-tram-huong': ponagar,
+  'dalat-station': dalatStation2,
   'hcmc-ben-thanh': hcmcBenThanh2,
-  'cantho-floating-market': canthoFloatingMarket,
-  'phuquoc-fishing-village': phuquocFishingVillage
+  'cantho-floating-market': caiRang,
+  'phuquoc-fishing-village': hamNinh
 }
 
 /** Mô hình 3D mịn của công trình (chân ~10 đơn vị, y = 0 là mặt đất); undefined nếu chưa có */

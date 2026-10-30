@@ -53,10 +53,10 @@ function toggle3d(): void {
 }
 
 const sound = computed(() => settings.settings['kids.gameSound'])
-const tiersWithPlaces = computed(() => world.value?.tiers.filter((x) => x.unlocked && x.places.length > 0) ?? [])
-const nextLocked = computed(
-  () => world.value?.tiers.find((x) => !x.unlocked) ?? null
+const tiersWithPlaces = computed(
+  () => world.value?.tiers.filter((x) => x.unlocked && x.places.length > 0) ?? []
 )
+const nextLocked = computed(() => world.value?.tiers.find((x) => !x.unlocked) ?? null)
 const totals = computed(() => {
   let stars = 0
   let flowers = 0

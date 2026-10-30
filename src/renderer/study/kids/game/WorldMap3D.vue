@@ -39,13 +39,13 @@ const RAMP_MS = 420
 const FLY_RAMP_MS = 900
 const TRIP_MAX_MS = 9000
 /** Độ cao máy bay (số ô địa hình) và cỡ thú cưng trên bản đồ (số ô) */
-const FLY_ALT = 10
-const PET_CELLS = 1.8
+const FLY_ALT = 3.2
+const PET_CELLS = 0.62
 /** Thú cưng ngồi xe thì thu nhỏ lại (xe to hơn thú cưng nhiều) */
 const VEHICLE_SHRINK = 0.8
 const PET_PX = 88
 /** Bệ công trình cao hơn mặt đất một chút */
-const REST_LIFT = 0.45
+const REST_LIFT = 0.12
 
 const host = ref<HTMLDivElement | null>(null)
 const petEl = ref<HTMLDivElement | null>(null)
@@ -154,7 +154,7 @@ function loop(now: number): void {
       pet.hop = Math.abs(Math.sin(sec * 14)) * 0.24
     }
     pet.rot = facingLeft.value ? -tilt : tilt
-    handle?.follow(p.x, p.y, trip.fly ? 100 : 56)
+    handle?.follow(p.x, p.y, trip.fly ? 34 : 17)
     applyPet()
     if (elapsed >= trip.dur) arrive(trip.to, now)
   } else if (cheerAt) {
@@ -298,7 +298,7 @@ onMounted(async () => {
     pet.x = r.x
     pet.y = r.y
     h.setPet({ x: pet.x, y: pet.y, hop: REST_LIFT })
-    h.follow(r.x, r.y, 62)
+    h.follow(r.x, r.y, 20)
     ready.value = true
   } catch {
     emit('fail')
@@ -314,7 +314,9 @@ onBeforeUnmount(() => {
 
 function closeCard(): void {
   card.value = null
-  handle?.focus(null)
+  // zoom ra nhưng vẫn giữ thú cưng làm tâm (không bay về giữa bản đồ)
+  const r = restPos(petAt.value)
+  handle?.follow(r.x, r.y, 62)
 }
 
 function play(): void {

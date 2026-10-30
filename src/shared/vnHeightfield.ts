@@ -17,7 +17,7 @@ import {
 /** Một đơn vị thế giới = bấy nhiêu đơn vị sân khấu */
 export const TERRAIN_UNIT = 22.5
 /** Khoảng cách giữa hai đỉnh lưới (đơn vị thế giới) */
-export const VERTEX_STEP = 0.5
+export const VERTEX_STEP = 0.35
 /** Mặt nước nằm ở y = 0 */
 export const WATER_Y = 0
 
@@ -332,7 +332,11 @@ export function buildVnHeightfield(pads: readonly Pad[] = []): VnHeightfield {
         c = mix(c, C.forest, smooth(0.5, 0.62, forest) * smooth(1.4, 3, h))
         c = mix(c, C.forestDark, smooth(0.66, 0.78, forest) * 0.6)
         c = mix(c, C.hill, smooth(5, 8, h))
-        c = mix(c, C.rock, Math.max(smooth(9.5, 12.5, h), smooth(0.9, 1.5, slope)))
+        c = mix(
+          c,
+          C.rock,
+          Math.max(smooth(9.5, 12.5, h), smooth(0.9, 1.5, slope) * smooth(1.6, 3.2, h))
+        )
         c = mix(c, C.rockDark, smooth(1.4, 2.2, slope) * 0.6)
         c = mix(c, C.snow, smooth(13.5, 15.5, h))
         c = mix(c, C.sand, 1 - smooth(0.25, 0.75, h))
@@ -348,7 +352,7 @@ export function buildVnHeightfield(pads: readonly Pad[] = []): VnHeightfield {
 
   // 6. cây
   const trees: number[] = []
-  const step = 0.33
+  const step = 0.24
   for (let z = 0.3; z < depth; z += step)
     for (let x = 0.3; x < width; x += step) {
       const gi = Math.round(x * 1000)

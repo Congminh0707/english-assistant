@@ -23,7 +23,13 @@ const reduceMotion = (): boolean => window.matchMedia('(prefers-reduced-motion: 
 onMounted(async () => {
   try {
     if (!host.value) return
-    const stop = await mountLandmark3D(host.value, props.id, props.width, props.height, !reduceMotion())
+    const stop = await mountLandmark3D(
+      host.value,
+      props.id,
+      props.width,
+      props.height,
+      !reduceMotion()
+    )
     if (gone) stop()
     else dispose = stop
   } catch {
@@ -39,7 +45,13 @@ onBeforeUnmount(() => {
 
 <template>
   <div class="viewer" :style="{ width: `${width}px`, height: `${height}px` }">
-    <div v-show="!failed" ref="host" class="gl" role="img" :aria-label="t('kids.game.landmark3d')" />
+    <div
+      v-show="!failed"
+      ref="host"
+      class="gl"
+      role="img"
+      :aria-label="t('kids.game.landmark3d')"
+    />
     <LandmarkPicture v-if="failed" :id="id" :width="Math.min(width, 300)" />
   </div>
 </template>

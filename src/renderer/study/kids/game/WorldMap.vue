@@ -392,7 +392,8 @@ function arrive(id: string, now: number): void {
   vehicle.value = null
   follow = false
   petAt.value = id
-  if (byId.value.get(id)?.state !== 'locked') void invoke('kids:arrive', { placeId: id }).catch(() => undefined)
+  if (byId.value.get(id)?.state !== 'locked')
+    void invoke('kids:arrive', { placeId: id }).catch(() => undefined)
   pet.hop = 0
   pet.shadow = 30
   petRot = 0

@@ -104,7 +104,8 @@ export interface VisitBatch {
 
 /**
  * Chọn đợt từ cho một lượt: ưu tiên từ chưa qua đủ 5 bước (từ đã có thẻ không tốn hạn mức, từ mới tốn 1);
- * không còn từ nào học được thì lấy từ đã xong để ôn, mức nhớ thấp trước.
+ * hết hạn mức trong ngày (newLeftToday = 0) hoặc không còn từ nào học được thì lấy từ đã xong để ôn,
+ * mức nhớ thấp trước.
  */
 export function pickVisitBatch(input: {
   words: readonly string[]
@@ -118,7 +119,8 @@ export function pickVisitBatch(input: {
   const words: string[] = []
   const newWords: string[] = []
   let newLeft = Math.max(0, input.newLeftToday)
-  for (const w of input.words) {
+  // Hết hạn mức hôm nay thì không học thêm gì nữa, kể cả từ đã có thẻ nhưng chưa xong
+  for (const w of newLeft > 0 ? input.words : []) {
     if (words.length >= size) break
     if (input.completed.has(w)) continue
     if (input.hasCard.has(w)) words.push(w)

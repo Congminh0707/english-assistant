@@ -107,7 +107,7 @@ describe('công trình voxel', () => {
     expect(LANDMARK_IDS.length).toBeGreaterThan(0)
     for (const id of LANDMARK_IDS) {
       const size = LANDMARKS[id].size
-      for (const s of size) expect(s, id).toBeLessThanOrEqual(48)
+      for (const s of size) expect(s, id).toBeLessThanOrEqual(96)
       const g = landmarkGrid(id)!
       expect(g.count(), id).toBeGreaterThan(1000)
       const img = landmarkImage(id)!

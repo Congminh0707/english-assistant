@@ -20,7 +20,7 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 | Hạng mục                                       | Giá trị                                                                                     | Đo bằng      | Đo ngày    |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
 | Phiên bản app                                  | 1.5.0                                                                                       | `pnpm stats` | 2026-10-28 |
-| Test (Vitest)                                  | 445 test / 48 file                                                                          | `pnpm test`  | 2026-10-30 |
+| Test (Vitest)                                  | 446 test / 48 file                                                                          | `pnpm test`  | 2026-10-30 |
 | Kênh IPC                                       | 103 invoke · 4 send · 14 event                                                              | `pnpm stats` | 2026-10-30 |
 | Migration DB (Drizzle)                         | 7 (`0000`–`0006`)                                                                           | `pnpm stats` | 2026-10-22 |
 | Nhân vật thú cưng                              | 5 (Bi, Webby, Draco, Robo, Kitsu)                                                           | `pnpm stats` | 2026-10-22 |

@@ -7,9 +7,9 @@ import { darken, lighten } from '@shared/pixelGrid'
 // làm mượt về cỡ vừa đủ cho sân khấu. Cache theo id. docs/19-kids-world.md §5.4 mục 8.
 const INK = '#3b2a3a'
 /** Nửa rộng, nửa cao của mặt trên, và cao của mặt bên, tính bằng px khi vẽ (mỗi khối) */
-const A = 7
-const B = 3.5
-const H = 7
+let A = 7
+let B = 3.5
+let H = 7
 const OUTLINE = 4
 /** Cạnh dài tối đa của bitmap cuối (px) */
 const MAX_SIDE = 640
@@ -22,7 +22,12 @@ function tint(color: string, face: Face, shadow: number, ground: number): string
   const key = `${color}|${face}|${shadow}|${ground}`
   let out = tints.get(key)
   if (!out) {
-    const base = face === 'top' ? lighten(color, 0.2) : face === 'left' ? darken(color, 0.06) : darken(color, 0.3)
+    const base =
+      face === 'top'
+        ? lighten(color, 0.2)
+        : face === 'left'
+          ? darken(color, 0.06)
+          : darken(color, 0.3)
     out = darken(base, Math.min(0.55, shadow * 0.07 + ground * 0.14))
     tints.set(key, out)
   }
@@ -30,6 +35,11 @@ function tint(color: string, face: Face, shadow: number, ground: number): string
 }
 
 function paintVoxels(grid: VoxelGrid): HTMLCanvasElement | null {
+  // mô hình độ phân giải cao (nhiều khối hơn) thì mỗi khối vẽ nhỏ lại để bitmap không phình ra
+  const unit = Math.min(1, 52 / Math.max(grid.sx, grid.sz))
+  A = 7 * unit
+  B = 3.5 * unit
+  H = 7 * unit
   const ox = (grid.sz - 1) * A
   const oy = (grid.sy - 1) * H
   const voxels = [...grid.voxels()].sort((a, b) => a.x + a.z - (b.x + b.z) || a.y - b.y)
@@ -63,7 +73,10 @@ function paintVoxels(grid: VoxelGrid): HTMLCanvasElement | null {
     const ground = 1 - y / grid.sy
     if (!grid.get(x, y + 1, z)) {
       const ao =
-        filled(x - 1, y + 1, z) + filled(x + 1, y + 1, z) + filled(x, y + 1, z - 1) + filled(x, y + 1, z + 1)
+        filled(x - 1, y + 1, z) +
+        filled(x + 1, y + 1, z) +
+        filled(x, y + 1, z - 1) +
+        filled(x, y + 1, z + 1)
       poly(
         [bx + A, by, bx + 2 * A, by + B, bx + A, by + 2 * B, bx, by + B],
         tint(color, 'top', ao, ground * 0.4)

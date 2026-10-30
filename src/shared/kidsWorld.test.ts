@@ -239,6 +239,16 @@ describe('kidsWorld — đợt từ của lượt chơi', () => {
     expect(batch).toEqual({ words: ['w3', 'w2', 'w1'], newWords: [], reviewOnly: true })
   })
 
+  it('hết hạn mức: từ đã có thẻ nhưng chưa xong cũng không học tiếp, chỉ ôn từ đã xong', () => {
+    const batch = pickVisitBatch({
+      words,
+      completed: new Set(['w1']),
+      hasCard: new Set(['w1', 'w2']),
+      newLeftToday: 0
+    })
+    expect(batch).toEqual({ words: ['w1'], newWords: [], reviewOnly: true })
+  })
+
   it('nơi đã xong hết thì lượt là ôn', () => {
     const batch = pickVisitBatch({
       words: ['w1'],

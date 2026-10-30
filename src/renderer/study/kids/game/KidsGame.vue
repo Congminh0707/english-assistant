@@ -252,7 +252,7 @@ onUnmounted(() => {
         </span>
       </div>
 
-      <p v-if="world && view === 'map'" class="hint">
+      <p v-if="world && view === 'map' && !show3d" class="hint">
         {{ world.newLeftToday > 0 ? t('kids.world.hint') : t('kids.world.tomorrow') }}
       </p>
     </div>

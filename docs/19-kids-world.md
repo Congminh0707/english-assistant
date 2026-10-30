@@ -278,7 +278,7 @@ Hình từ hiện có: ~84 hình pixel vẽ bằng code trên lưới 32×32 (`p
 - Mỗi lần vẽ: script xuất **bảng tổng hợp** (contact sheet) mọi hình ra PNG để soi và sửa — không vẽ mò.
 - Thứ tự: 120 từ của bản đồ trước (gia đình, số, màu là dễ nhất), Twemoji giữ cho phần còn lại tới khi thay xong. License `proprietary-own`.
 - Phương án dự phòng nếu tự vẽ không đạt: bộ có sẵn Fluent Emoji (Microsoft, MIT) hoặc Noto Emoji (Apache 2.0) — phải ghi [08](08-content-sources.md) trước khi dùng.
-- **Chưa làm** — chờ chủ dự án chốt kiểu vẽ (xem §9).
+- 🚧 **Bản thử (2026-10-30)**: `scripts/pictures/vector-trial/` (`art.js` + `pics.html`, chưa nối vào app) — bộ nét chung (`shape` tô màu chuyển + điểm sáng + viền mực `#3b2a3a`, `tube`, `eye`, `cheek`, `smile`, `shadow`) trên khung 256×256 và 10 hình: mom, baby, grandpa, cat, dog, apple, fish, three, lantern, motorbike. Xem: chạy một server tĩnh trong thư mục đó (vd `python -m http.server`) rồi mở `pics.html` (hiện ở 184px và 64px). Nhìn ở 64px vẫn rõ. Chờ chủ dự án duyệt phong cách; nếu đạt: chuyển sang TypeScript (`src/renderer/study/kids/art/`), vẽ tiếp 120 từ của bản đồ, `PixelPicture` ưu tiên hình vector, xuất bitmap có cache.
 
 ## 6. Gói tải thêm `kids-world`
 

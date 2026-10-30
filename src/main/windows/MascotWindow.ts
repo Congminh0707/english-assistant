@@ -26,6 +26,7 @@ export class MascotWindow {
   private userHidden = false
   /** Tạm ẩn do chế độ yên lặng (app toàn màn hình...) */
   private quiet = false
+  private gameMode = false
   /** Người dùng chọn "Ẩn 30 phút / 1 giờ" */
   private snoozeUntil: number | null = null
   private snoozeTimer: NodeJS.Timeout | null = null
@@ -200,6 +201,12 @@ export class MascotWindow {
     else this.applyVisibility()
   }
 
+  /** Bé đang chơi game toàn màn hình: ẩn mascot để không che màn chơi, thoát game thì hiện lại */
+  setGameMode(on: boolean): void {
+    this.gameMode = on
+    this.applyVisibility()
+  }
+
   setQuiet(quiet: boolean): void {
     this.quiet = quiet
     this.applyVisibility()
@@ -207,7 +214,7 @@ export class MascotWindow {
 
   private applyVisibility(): void {
     if (this.win.isDestroyed()) return
-    const shouldShow = !this.userHidden && !this.quiet && !this.snoozeUntil
+    const shouldShow = !this.userHidden && !this.quiet && !this.snoozeUntil && !this.gameMode
     if (shouldShow && !this.win.isVisible()) {
       this.win.showInactive() // hiện mà không lấy focus
     } else if (!shouldShow && this.win.isVisible()) {

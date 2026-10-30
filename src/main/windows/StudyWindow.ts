@@ -40,11 +40,15 @@ export class StudyWindow {
     win.once('ready-to-show', () => win.show())
     win.on('closed', () => {
       if (this.win === win) this.win = null
+      this.onClosed?.()
     })
     forwardConsoleInDev(win, 'study')
     loadPage(win, 'study')
     this.win = win
   }
+
+  /** Gọi khi cửa sổ đóng (vd đóng giữa lúc chơi game → hiện lại mascot) */
+  onClosed: (() => void) | null = null
 
   get webContents(): WebContents[] {
     return this.win && !this.win.isDestroyed() ? [this.win.webContents] : []

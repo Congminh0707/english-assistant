@@ -418,11 +418,16 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   // làm mượt cả tuyến xuyên suốt (kể cả chỗ nối giữa hai chặng) → không còn góc gấp; rồi tính lại cao độ mặt đường
   {
     const net = profiles.flat()
+    // gần bến phà thì giữ nguyên để đường chạy liền tới mép nước (không bị kéo lùi khỏi bến)
+    const nearFerry = net.map((_, i) => {
+      for (let d = -8; d <= 8; d++) if (net[i + d]?.sea) return true
+      return false
+    })
     for (let pass = 0; pass < 10; pass++) {
       const xs = net.map((q) => q.x)
       const zs = net.map((q) => q.z)
       for (let i = 1; i + 1 < net.length; i++) {
-        if (net[i].sea) continue
+        if (net[i].sea || nearFerry[i]) continue
         let sx = 0
         let sz = 0
         let c = 0
@@ -453,7 +458,11 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
       }
     }
     // sau khi uốn, đoạn nào còn nằm trên mặt nước mà không phải phà thì thành cầu (không vẽ đường chìm dưới nước)
-    for (const q of net) if (!q.sea) q.bridge = hf.heightAt(q.x, q.z) < -0.02
+    for (const q of net) {
+      const h = hf.heightAt(q.x, q.z)
+      if (q.sea && h > 0.02) q.sea = false // điểm phà nằm trên bờ → đường bộ tới tận bến
+      if (!q.sea) q.bridge = h < -0.02
+    }
     let ys = net.map((q) =>
       q.sea ? WATER_Y : q.bridge ? 0.32 : Math.max(hf.heightAt(q.x, q.z), 0.08)
     )

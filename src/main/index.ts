@@ -212,7 +212,7 @@ if (!app.requestSingleInstanceLock()) {
       showMascotMenu(c, m, { quizNow: () => quizJob.trigger(), openStudy: () => s.open() })
     )
     registerPopupIpc(p)
-    registerStudyIpc(s)
+    registerStudyIpc(s, m)
     registerShortcuts({
       // Bôi đen chữ (hoặc đã Ctrl+C) rồi bấm phím tắt → popup tra từ cạnh con trỏ
       quickTranslate: async () => {

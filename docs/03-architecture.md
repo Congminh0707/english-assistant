@@ -6,15 +6,15 @@
 
 Một app Electron có **hai loại tiến trình (process)**:
 
-| Electron | Nó là gì | So với Laravel + Vue |
-|---|---|---|
-| **Main process** (1 cái) | Chương trình Node.js chạy nền. Tạo cửa sổ, đọc/ghi file, database, phím tắt, tray, gọi API ngoài. **Không có giao diện.** | Giống **Laravel backend**: routes, controllers, services, models, scheduler. |
-| **Renderer process** (mỗi cửa sổ 1 cái) | Một trang web Chromium hiển thị giao diện. Ở đây chạy **Vue**. Bị sandbox, không được tự đọc file/DB. | Giống **frontend Vue** chạy trên trình duyệt. |
-| **Preload script** | Đoạn script nhỏ chạy trước renderer, "mở một cánh cửa" an toàn để renderer gọi main. | Giống **API client** (axios) đã cấu hình sẵn các endpoint được phép. |
-| **IPC** (Inter-Process Communication) | Kênh gửi tin nhắn giữa renderer ↔ main. | Giống **HTTP request** từ Vue lên Laravel, nhưng nội bộ, không cần mạng. |
-| `ipcMain.handle('pet:feed', ...)` | Đăng ký xử lý một kênh. | `Route::post('/pet/feed', [PetController::class, 'feed'])` |
-| `ipcRenderer.invoke('pet:feed', data)` | Gọi kênh và chờ kết quả. | `await axios.post('/pet/feed', data)` |
-| `webContents.send('pet:updated', state)` | Main **chủ động đẩy** dữ liệu xuống cửa sổ. | Giống **broadcast** (Laravel Echo/WebSocket). |
+| Electron                                 | Nó là gì                                                                                                                  | So với Laravel + Vue                                                         |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Main process** (1 cái)                 | Chương trình Node.js chạy nền. Tạo cửa sổ, đọc/ghi file, database, phím tắt, tray, gọi API ngoài. **Không có giao diện.** | Giống **Laravel backend**: routes, controllers, services, models, scheduler. |
+| **Renderer process** (mỗi cửa sổ 1 cái)  | Một trang web Chromium hiển thị giao diện. Ở đây chạy **Vue**. Bị sandbox, không được tự đọc file/DB.                     | Giống **frontend Vue** chạy trên trình duyệt.                                |
+| **Preload script**                       | Đoạn script nhỏ chạy trước renderer, "mở một cánh cửa" an toàn để renderer gọi main.                                      | Giống **API client** (axios) đã cấu hình sẵn các endpoint được phép.         |
+| **IPC** (Inter-Process Communication)    | Kênh gửi tin nhắn giữa renderer ↔ main.                                                                                   | Giống **HTTP request** từ Vue lên Laravel, nhưng nội bộ, không cần mạng.     |
+| `ipcMain.handle('pet:feed', ...)`        | Đăng ký xử lý một kênh.                                                                                                   | `Route::post('/pet/feed', [PetController::class, 'feed'])`                   |
+| `ipcRenderer.invoke('pet:feed', data)`   | Gọi kênh và chờ kết quả.                                                                                                  | `await axios.post('/pet/feed', data)`                                        |
+| `webContents.send('pet:updated', state)` | Main **chủ động đẩy** dữ liệu xuống cửa sổ.                                                                               | Giống **broadcast** (Laravel Echo/WebSocket).                                |
 
 **Quy tắc vàng:** Renderer (Vue) **không bao giờ** truy cập trực tiếp DB, file, hệ thống. Mọi thứ đi qua `window.api.*` (do preload cung cấp) → IPC → main.
 Giống như Vue không bao giờ kết nối thẳng MySQL mà phải gọi API Laravel.
@@ -58,16 +58,17 @@ flowchart LR
 
 ## 3. Các cửa sổ (windows)
 
-| Cửa sổ | File tạo | Đặc điểm | Khi nào hiện |
-|---|---|---|---|
-| **Mascot** | `src/main/windows/MascotWindow.ts` | `transparent`, `frame:false`, `alwaysOnTop`, `skipTaskbar`, `resizable:false`, `focusable:false` (mặc định), kích thước ~ 360×440 (chứa nhân vật + bong bóng thoại). Vùng trong suốt **click xuyên qua** (`setIgnoreMouseEvents(true, {forward:true})`). | Luôn chạy khi app mở (trừ khi ẩn). |
-| **Study** (Học tập) | `src/main/windows/studyWindow.ts` | Cửa sổ thường (~1100×750), có thể dùng khung tuỳ biến kiểu pixel. Chứa router: Trang chủ, Từ vựng, Đọc, Nghe, Nói, Viết, Luyện thi, Thú cưng, Thống kê, Cài đặt. | Người dùng click "Học ngay" / tray. |
-| **Popup** (Dịch nhanh) | `src/main/windows/popupWindow.ts` | Nhỏ (~380×260), không khung, hiện cạnh con trỏ chuột, tự ẩn khi mất focus. Tạo sẵn 1 lần và ẩn/hiện để mở nhanh. | Phím tắt dịch, click icon dịch. |
-| **OCR overlay** | `src/main/windows/ocrOverlayWindow.ts` | Phủ toàn màn hình, trong suốt mờ, người dùng kéo chọn vùng. | Phím tắt OCR. |
+| Cửa sổ                 | File tạo                               | Đặc điểm                                                                                                                                                                                                                                                 | Khi nào hiện                        |
+| ---------------------- | -------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| **Mascot**             | `src/main/windows/MascotWindow.ts`     | `transparent`, `frame:false`, `alwaysOnTop`, `skipTaskbar`, `resizable:false`, `focusable:false` (mặc định), kích thước ~ 360×440 (chứa nhân vật + bong bóng thoại). Vùng trong suốt **click xuyên qua** (`setIgnoreMouseEvents(true, {forward:true})`). | Luôn chạy khi app mở (trừ khi ẩn).  |
+| **Study** (Học tập)    | `src/main/windows/studyWindow.ts`      | Cửa sổ thường (~1100×750), có thể dùng khung tuỳ biến kiểu pixel. Chứa router: Trang chủ, Từ vựng, Đọc, Nghe, Nói, Viết, Luyện thi, Thú cưng, Thống kê, Cài đặt.                                                                                         | Người dùng click "Học ngay" / tray. |
+| **Popup** (Dịch nhanh) | `src/main/windows/popupWindow.ts`      | Nhỏ (~380×260), không khung, hiện cạnh con trỏ chuột, tự ẩn khi mất focus. Tạo sẵn 1 lần và ẩn/hiện để mở nhanh.                                                                                                                                         | Phím tắt dịch, click icon dịch.     |
+| **OCR overlay**        | `src/main/windows/ocrOverlayWindow.ts` | Phủ toàn màn hình, trong suốt mờ, người dùng kéo chọn vùng.                                                                                                                                                                                              | Phím tắt OCR.                       |
 
 > Mỗi cửa sổ là **một entry Vue riêng** (multi-page) để nhẹ: cửa sổ mascot không cần tải code của trang Luyện thi.
 
 ### Kỹ thuật cửa sổ mascot (quan trọng nhất của dự án)
+
 1. **Trong suốt**: `transparent: true`, `backgroundColor: '#00000000'`, CSS `html, body { background: transparent }`.
 2. **Click xuyên qua vùng trống**: mặc định `setIgnoreMouseEvents(true, { forward: true })` → chuột đi xuyên qua xuống app bên dưới, nhưng renderer vẫn nhận `mousemove`.
    Trong renderer, mỗi lần `mousemove` kiểm tra con trỏ có nằm trên **pixel không trong suốt** của nhân vật/bong bóng không:
@@ -141,6 +142,7 @@ english-assistant/
 │  │  ├─ popup/                 # dịch nhanh
 │  │  ├─ ocr/                   # overlay chọn vùng
 │  │  └─ shared/
+│  │     ├─ art/                # hình từ vector vẽ bằng canvas: kit.ts (bộ nét chung), pictures/<nhóm>.ts, index.ts (vectorPictureUrl, PixelPicture ưu tiên) — docs/19 §5.5
 │  │     ├─ components/         # PixelButton, PixelPanel, AudioPlayer, ...
 │  │     ├─ composables/        # useTts, useRecorder, useHotkeys...
 │  │     ├─ stores/             # Pinia stores (đồng bộ với main qua sự kiện)
@@ -186,29 +188,30 @@ sequenceDiagram
 ```
 
 ### Event bus (giống Laravel Events)
+
 Các event chính (định nghĩa kiểu trong `src/main/events/types.ts`):
 
-| Event | Ai phát | Ai nghe |
-|---|---|---|
-| `lesson.completed` | LessonService | XpService, PetService, AchievementService, QuestService |
-| `card.reviewed` | SrsService | XpService, QuestService |
-| `word.saved` | DictionaryService | QuestService |
-| `pet.fed` / `pet.played` | PetService | AchievementService |
-| `level.up` (profile hoặc pet) | XpService | PetService (mở khoá), NotificationService |
-| `quiet-mode.changed` | QuietModeService | MascotController (ẩn/hiện, dừng nhắc) |
-| `settings.changed` | SettingsService | nhiều nơi |
+| Event                         | Ai phát           | Ai nghe                                                 |
+| ----------------------------- | ----------------- | ------------------------------------------------------- |
+| `lesson.completed`            | LessonService     | XpService, PetService, AchievementService, QuestService |
+| `card.reviewed`               | SrsService        | XpService, QuestService                                 |
+| `word.saved`                  | DictionaryService | QuestService                                            |
+| `pet.fed` / `pet.played`      | PetService        | AchievementService                                      |
+| `level.up` (profile hoặc pet) | XpService         | PetService (mở khoá), NotificationService               |
+| `quiet-mode.changed`          | QuietModeService  | MascotController (ẩn/hiện, dừng nhắc)                   |
+| `settings.changed`            | SettingsService   | nhiều nơi                                               |
 
 ## 6. Tác vụ nền (scheduler)
 
 Chạy trong main bằng `setInterval` được quản lý tập trung ở `src/main/jobs/` (giống `$schedule->...` trong Laravel):
 
-| Job | Chu kỳ | Việc làm |
-|---|---|---|
-| `QuietModeJob` | 2 giây | Kiểm tra cửa sổ active: fullscreen? app họp (Zoom, Teams, Meet trên trình duyệt)? → bật/tắt chế độ yên lặng. |
-| `PetDecayJob` | 1 phút | Giảm nhẹ hunger/mood/energy theo thời gian thực (tính theo `last_tick_at`, nên tắt máy vẫn đúng — có giới hạn sàn). |
-| `MicroLessonJob` | 1 phút | Đến giờ nhắc & không ở chế độ yên lặng & người dùng không gõ phím liên tục → yêu cầu mascot hiện "Từ của khoảnh khắc"/thẻ SRS. |
-| `DailyResetJob` | khi qua ngày mới | Reset nhiệm vụ ngày, tính streak. |
-| `BackupJob` | 1 ngày | Sao lưu `user.db` (giữ 7 bản gần nhất). |
+| Job              | Chu kỳ           | Việc làm                                                                                                                       |
+| ---------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `QuietModeJob`   | 2 giây           | Kiểm tra cửa sổ active: fullscreen? app họp (Zoom, Teams, Meet trên trình duyệt)? → bật/tắt chế độ yên lặng.                   |
+| `PetDecayJob`    | 1 phút           | Giảm nhẹ hunger/mood/energy theo thời gian thực (tính theo `last_tick_at`, nên tắt máy vẫn đúng — có giới hạn sàn).            |
+| `MicroLessonJob` | 1 phút           | Đến giờ nhắc & không ở chế độ yên lặng & người dùng không gõ phím liên tục → yêu cầu mascot hiện "Từ của khoảnh khắc"/thẻ SRS. |
+| `DailyResetJob`  | khi qua ngày mới | Reset nhiệm vụ ngày, tính streak.                                                                                              |
+| `BackupJob`      | 1 ngày           | Sao lưu `user.db` (giữ 7 bản gần nhất).                                                                                        |
 
 > Không dùng cron hệ thống. Khi app tắt thì job tắt; khi mở lại, các job tự "bù" dựa trên timestamp lưu trong DB.
 
@@ -238,12 +241,12 @@ flowchart LR
 
 ## 8. Hiệu năng — ngân sách tài nguyên
 
-| Hạng mục | Mục tiêu |
-|---|---|
-| RAM khi chỉ có mascot chạy | < 250 MB |
-| CPU khi mascot idle | < 1–2% (animation 12 fps cho pixel art là đủ, dừng hẳn khi ẩn) |
-| Mở popup dịch | < 300 ms (cửa sổ tạo sẵn, ẩn/hiện) |
-| Khởi động app | < 3 giây tới khi mascot xuất hiện |
-| Model AI local | Chỉ tải khi dùng lần đầu, chạy trong utilityProcess, giải phóng khi không dùng 10 phút |
+| Hạng mục                   | Mục tiêu                                                                               |
+| -------------------------- | -------------------------------------------------------------------------------------- |
+| RAM khi chỉ có mascot chạy | < 250 MB                                                                               |
+| CPU khi mascot idle        | < 1–2% (animation 12 fps cho pixel art là đủ, dừng hẳn khi ẩn)                         |
+| Mở popup dịch              | < 300 ms (cửa sổ tạo sẵn, ẩn/hiện)                                                     |
+| Khởi động app              | < 3 giây tới khi mascot xuất hiện                                                      |
+| Model AI local             | Chỉ tải khi dùng lần đầu, chạy trong utilityProcess, giải phóng khi không dùng 10 phút |
 
 Mẹo: cửa sổ Study chỉ tạo khi mở và có thể huỷ khi đóng (giải phóng RAM); cửa sổ Mascot và Popup luôn tồn tại.

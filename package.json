@@ -38,7 +38,8 @@
     "stats": "tsx scripts/stats.ts",
     "ui:audit": "node scripts/ui-audit.mjs",
     "badges": "tsx scripts/badges/make-badges.ts",
-    "pictures": "tsx scripts/pictures/make-pictures.ts"
+    "pictures": "tsx scripts/pictures/make-pictures.ts",
+    "pictures:sheet": "node scripts/pictures/vector-sheet.mjs"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",

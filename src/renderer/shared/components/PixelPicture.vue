@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { PICTURE_SIZE, pictureRects } from '@shared/pictures'
+import { vectorPictureUrl } from '../art'
 
-// Hình minh hoạ cho bài tập chọn hình, lưới âm và giao diện trẻ em. Ưu tiên ảnh đóng gói sẵn: PNG 256×256 vẽ từ
+// Hình minh hoạ cho bài tập chọn hình, lưới âm và giao diện trẻ em. Ưu tiên hình vector vẽ bằng canvas (shared/art,
+// kiểu hoạt hình — docs/19 §5.5), rồi tới ảnh đóng gói sẵn: PNG 256×256 vẽ từ
 // shared/pictures.ts (pnpm pictures) hoặc SVG Twemoji (CC-BY 4.0) cho các từ bổ sung; thiếu ảnh thì vẽ bản pixel
 // 32×32 bằng SVG. Chỉ nhận id hình (xem shared/pictures.ts, shared/pictureExtras.ts).
 const props = withDefaults(defineProps<{ id: string; size?: number }>(), { size: 96 })
@@ -20,7 +22,9 @@ const svgs = import.meta.glob('../assets/pictures/twemoji/*.svg', {
 
 const src = computed(
   () =>
-    pngs[`../assets/pictures/${props.id}.png`] ?? svgs[`../assets/pictures/twemoji/${props.id}.svg`]
+    vectorPictureUrl(props.id) ??
+    pngs[`../assets/pictures/${props.id}.png`] ??
+    svgs[`../assets/pictures/twemoji/${props.id}.svg`]
 )
 const rects = computed(() => (src.value ? [] : pictureRects(props.id)))
 </script>

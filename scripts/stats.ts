@@ -49,6 +49,19 @@ function countAnimations(id: string): string {
   return `${names.length} (quirk ${n('quirk_')}, click ${n('click_')})`
 }
 
+/** Số hình từ vector (src/renderer/shared/art/pictures/*.ts, mỗi file xuất PICTURES) */
+function countVectorPictures(): number {
+  const dir = join(ROOT, 'src/renderer/shared/art/pictures')
+  let n = 0
+  for (const f of readdirSync(dir).filter((x) => x.endsWith('.ts'))) {
+    // tsx chạy script dạng CommonJS → require được file .ts (import động cần top-level await, không có ở CJS)
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const m = require(join(dir, f)) as { PICTURES: Record<string, unknown> }
+    n += Object.keys(m.PICTURES).length
+  }
+  return n
+}
+
 const pkg = JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')) as { version: string }
 const shop = shopCatalog()
 const byKind = (kind: string): number => shop.filter((s) => s.kind === kind).length
@@ -71,6 +84,7 @@ const rows: Array<[string, string | number]> = [
   ['kids world words (từ trên bản đồ)', countItems('kids/world/places', 'words').items],
   ['kids world landmarks (công trình voxel)', LANDMARK_IDS.length],
   ['pictures (hình từ: pixel + Twemoji)', ALL_PICTURE_IDS.length],
+  ['vector pictures (hình từ vẽ vector, ưu tiên)', countVectorPictures()],
   ['courses (khoá) files', countItems('courses', 'units').files],
   ['courses (unit)', countItems('courses', 'units').items],
   ['characters', CHARACTER_IDS.length],

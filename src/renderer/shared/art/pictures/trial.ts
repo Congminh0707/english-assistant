@@ -1,116 +1,24 @@
-/* eslint-disable @typescript-eslint/no-unused-vars -- globals used by pics.html */
-// Trial: shared "chibi sticker" kit + 10 pictures, drawn on a 256x256 canvas.
-const INK = '#3b2a3a'
-const LW = 6
-const TAU = Math.PI * 2
+// 10 hình đầu tiên (bản thử đã duyệt 2026-10-30). Khung 256×256, xem kit.ts.
+import {
+  INK,
+  P,
+  SKIN,
+  TAU,
+  cheek,
+  ell,
+  eye,
+  flat,
+  happyEye,
+  line,
+  rrect,
+  shadow,
+  shape,
+  smile,
+  tube,
+  type Painter
+} from '../kit'
 
-function mix(hex, t) {
-  const n = parseInt(hex.slice(1), 16)
-  let r = n >> 16,
-    g = (n >> 8) & 255,
-    b = n & 255
-  const k = t > 0 ? 255 : 0,
-    a = Math.abs(t)
-  r = Math.round(r + (k - r) * a)
-  g = Math.round(g + (k - g) * a)
-  b = Math.round(b + (k - b) * a)
-  return `rgb(${r},${g},${b})`
-}
-const P = (d) => new Path2D(d)
-function ell(cx, cy, rx, ry, rot = 0) {
-  const p = new Path2D()
-  p.ellipse(cx, cy, rx, ry, rot, 0, TAU)
-  return p
-}
-function rrect(x, y, w, h, r) {
-  const p = new Path2D()
-  p.roundRect(x, y, w, h, r)
-  return p
-}
-
-// Filled shape: soft vertical gradient, optional gloss spot, ink outline.
-function shape(c, p, color, o = {}) {
-  const g = c.createLinearGradient(0, o.y0 ?? 0, 0, o.y1 ?? 256)
-  g.addColorStop(0, mix(color, 0.25))
-  g.addColorStop(0.5, color)
-  g.addColorStop(1, mix(color, -0.15))
-  c.fillStyle = g
-  c.fill(p)
-  if (o.gloss) {
-    const [x, y, rx, ry, rot = 0] = o.gloss
-    c.save()
-    c.clip(p)
-    c.fillStyle = 'rgba(255,255,255,.5)'
-    c.beginPath()
-    c.ellipse(x, y, rx, ry, rot, 0, TAU)
-    c.fill()
-    c.restore()
-  }
-  if (o.line !== false) {
-    c.lineWidth = o.lw ?? LW
-    c.strokeStyle = INK
-    c.lineJoin = 'round'
-    c.stroke(p)
-  }
-}
-function flat(c, p, color) {
-  c.fillStyle = color
-  c.fill(p)
-}
-// Thick coloured stroke with ink edge (tails, strings, numbers).
-function tube(c, d, color, w) {
-  const p = typeof d === 'string' ? P(d) : d
-  c.lineCap = 'round'
-  c.lineJoin = 'round'
-  c.lineWidth = w + LW * 2 - 2
-  c.strokeStyle = INK
-  c.stroke(p)
-  c.lineWidth = w
-  c.strokeStyle = color
-  c.stroke(p)
-}
-function line(c, d, w = 5, color = INK) {
-  c.lineCap = 'round'
-  c.lineJoin = 'round'
-  c.lineWidth = w
-  c.strokeStyle = color
-  c.stroke(P(d))
-}
-function eye(c, x, y, r = 10) {
-  c.fillStyle = INK
-  c.beginPath()
-  c.ellipse(x, y, r, r * 1.2, 0, 0, TAU)
-  c.fill()
-  c.fillStyle = '#fff'
-  c.beginPath()
-  c.arc(x - r * 0.3, y - r * 0.45, r * 0.4, 0, TAU)
-  c.fill()
-  c.beginPath()
-  c.arc(x + r * 0.35, y + r * 0.4, r * 0.16, 0, TAU)
-  c.fill()
-}
-function happyEye(c, x, y) {
-  line(c, `M${x - 9} ${y + 3} Q ${x} ${y - 8} ${x + 9} ${y + 3}`, 5)
-}
-function cheek(c, x, y, s = 1) {
-  c.fillStyle = 'rgba(255,110,140,.42)'
-  c.beginPath()
-  c.ellipse(x, y, 13 * s, 8 * s, 0, 0, TAU)
-  c.fill()
-}
-function smile(c, x, y, w = 12) {
-  line(c, `M${x - w} ${y} Q ${x} ${y + w} ${x + w} ${y}`, 5)
-}
-function shadow(c, y = 234, rx = 70) {
-  c.fillStyle = 'rgba(60,40,80,.13)'
-  c.beginPath()
-  c.ellipse(128, y, rx, 10, 0, 0, TAU)
-  c.fill()
-}
-
-const SKIN = '#ffd6b8'
-
-const PICS = {
+export const PICTURES: Record<string, Painter> = {
   mom(c) {
     shadow(c)
     shape(c, P('M58 138 C 44 50, 212 50, 198 138 L 206 214 Q 128 230 50 214 Z'), '#6b4430', {
@@ -175,12 +83,14 @@ const PICS = {
     line(c, 'M123 132 Q 128 127 133 132', 4)
     cheek(c, 84, 162)
     cheek(c, 172, 162)
-    shape(c, ell(128, 152, 9, 8), mix(SKIN, -0.08), { lw: 4 })
+    shape(c, ell(128, 152, 9, 8), '#f2c4a2', { lw: 4 })
     shape(
       c,
       P('M98 166 Q 112 150 128 160 Q 144 150 158 166 Q 142 178 128 168 Q 114 178 98 166 Z'),
       '#f4f4f4',
-      { lw: 4 }
+      {
+        lw: 4
+      }
     )
   },
   cat(c) {
@@ -223,7 +133,10 @@ const PICS = {
     shape(c, ell(128, 150, 36, 24), '#f8e6cc', { lw: 4 })
     shape(c, P('M121 158 Q 128 178 135 158 Z'), '#ff7b8f', { lw: 3 })
     line(c, 'M128 144 L 128 154 M114 156 Q 121 163 128 154 Q 135 163 142 156', 4)
-    eye(c, 128, 138, 10)
+    shape(c, P('M114 134 Q 128 126 142 134 Q 140 148 128 150 Q 116 148 114 134 Z'), '#3b2a3a', {
+      line: false,
+      gloss: [122, 134, 5, 3]
+    })
     eye(c, 100, 112)
     eye(c, 156, 112)
     cheek(c, 82, 140)
@@ -245,12 +158,10 @@ const PICS = {
       '#ef4444',
       { y0: 66, y1: 220 }
     )
-    c.save()
     c.fillStyle = 'rgba(255,255,255,.75)'
     c.beginPath()
     c.ellipse(86, 116, 11, 22, -0.4, 0, TAU)
     c.fill()
-    c.restore()
     eye(c, 108, 148, 9)
     eye(c, 148, 148, 9)
     cheek(c, 92, 168)
@@ -285,12 +196,13 @@ const PICS = {
     line(c, 'M66 142 Q 76 150 86 143', 4)
   },
   three(c) {
-    const d = 'M88 52 Q 128 20 164 48 Q 184 76 136 94 Q 188 110 166 150 Q 138 184 84 158'
-    tube(c, d, '#9b6cff', 38)
-    c.save()
-    c.translate(-5, -6)
-    line(c, 'M100 46 Q 128 28 154 46', 8, 'rgba(255,255,255,.55)')
-    c.restore()
+    tube(
+      c,
+      'M88 52 Q 128 20 164 48 Q 184 76 136 94 Q 188 110 166 150 Q 138 184 84 158',
+      '#9b6cff',
+      38
+    )
+    line(c, 'M95 40 Q 123 22 149 40', 8, 'rgba(255,255,255,.55)')
     for (const x of [84, 128, 172])
       shape(c, ell(x, 222, 17, 17), '#ffd23f', { lw: 5, gloss: [x - 6, 215, 6, 4] })
   },
@@ -340,17 +252,4 @@ const PICS = {
     line(c, 'M96 78 L 128 70', 9)
     shape(c, ell(112, 100, 10, 9), '#ffe066', { lw: 4 })
   }
-}
-
-function render(paint, size) {
-  const cv = document.createElement('canvas')
-  const dpr = window.devicePixelRatio || 1
-  cv.width = size * dpr
-  cv.height = size * dpr
-  cv.style.width = size + 'px'
-  cv.style.height = size + 'px'
-  const c = cv.getContext('2d')
-  c.scale((size * dpr) / 256, (size * dpr) / 256)
-  paint(c)
-  return cv
 }

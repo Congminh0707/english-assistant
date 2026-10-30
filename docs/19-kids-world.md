@@ -270,7 +270,7 @@ Bản 2D đầu tiên (bước 4) chạy được nhưng **chưa ra chất game*
 7. **Lượt chơi 5 bước** (`KidsVisit`) cũng hiện trong sân khấu toàn màn hình, thẻ to.
 8. **Công nghệ**: một `<canvas>` 2D cho cả cảnh (vòng rAF tự dừng khi ẩn/không chuyển động), HUD là Vue phủ lên trên. Công trình chiếu từ voxel ở **độ phân giải cao hơn** (ô 8–10 px mỗi khối thay vì 4 px) + viền tối + bóng đổ/AO, cache thành bitmap. Bản 3D three.js (§5.2) để sau, làm như bản nâng cấp của cùng sân khấu này.
 
-### 5.5 Nâng chất lượng hình từ — 📋 kế hoạch
+### 5.5 Nâng chất lượng hình từ — ✅ xong 120 từ của bản đồ (2026-10-30)
 
 Hình từ hiện có: ~84 hình pixel vẽ bằng code trên lưới 32×32 (`pictures.ts`, `picturesMore.ts`) + 99 hình Twemoji. Chủ dự án thấy hình pixel **chất lượng kém**; đang cân nhắc **tự vẽ bằng canvas**.
 
@@ -278,7 +278,14 @@ Hình từ hiện có: ~84 hình pixel vẽ bằng code trên lưới 32×32 (`p
 - Mỗi lần vẽ: script xuất **bảng tổng hợp** (contact sheet) mọi hình ra PNG để soi và sửa — không vẽ mò.
 - Thứ tự: 120 từ của bản đồ trước (gia đình, số, màu là dễ nhất), Twemoji giữ cho phần còn lại tới khi thay xong. License `proprietary-own`.
 - Phương án dự phòng nếu tự vẽ không đạt: bộ có sẵn Fluent Emoji (Microsoft, MIT) hoặc Noto Emoji (Apache 2.0) — phải ghi [08](08-content-sources.md) trước khi dùng.
-- 🚧 **Bản thử (2026-10-30)**: `scripts/pictures/vector-trial/` (`art.js` + `pics.html`, chưa nối vào app) — bộ nét chung (`shape` tô màu chuyển + điểm sáng + viền mực `#3b2a3a`, `tube`, `eye`, `cheek`, `smile`, `shadow`) trên khung 256×256 và 10 hình: mom, baby, grandpa, cat, dog, apple, fish, three, lantern, motorbike. Xem: chạy một server tĩnh trong thư mục đó (vd `python -m http.server`) rồi mở `pics.html` (hiện ở 184px và 64px). Nhìn ở 64px vẫn rõ. Chờ chủ dự án duyệt phong cách; nếu đạt: chuyển sang TypeScript (`src/renderer/study/kids/art/`), vẽ tiếp 120 từ của bản đồ, `PixelPicture` ưu tiên hình vector, xuất bitmap có cache.
+- ✅ **Phong cách duyệt (2026-10-30)** từ bản thử 10 hình (mom, baby, grandpa, cat, dog, apple, fish, three, lantern, motorbike).
+- ✅ **Mã nguồn** `src/renderer/shared/art/`:
+  - `kit.ts` — bộ nét chung trên khung 256×256: `shape` (tô màu chuyển + điểm sáng + viền mực `#3b2a3a`; màu phải dạng `#rrggbb`), `flat`, `tube`, `line`, `eye`, `happyEye`, `cheek`, `smile`, `face`, `shadow`, `ell`, `circle`, `rrect`, `star`, `P`.
+  - `pictures/<nhóm>.ts` — mỗi file xuất `PICTURES: Record<id, Painter>` (id = id hình trong `ALL_PICTURE_IDS`); file mới tự được nạp (`import.meta.glob`). Quy ước: người/con vật/đồ ăn/vật trên trời có mặt cười; xe cộ, đồ dùng, quần áo không có mặt; chữ số = số to + đúng ngần ấy chấm đếm; màu = vệt sơn có mặt + cọ cùng màu.
+  - `index.ts` — `vectorPictureUrl(id)` vẽ một lần ra PNG `data:` 384px, cache theo id. `PixelPicture.vue` **ưu tiên hình vector**, thiếu thì dùng PNG/Twemoji/pixel cũ như trước → mọi màn hình dùng thẻ hình (bé, bài tập chọn hình, album) đổi theo, không phải sửa từng chỗ.
+  - `art.test.ts` — không trùng id, id có thật, mọi hình chạy không lỗi (canvas giả trong Node).
+- ✅ **Soi hình**: `pnpm pictures:sheet [--file <nhóm>] [--ids a,b] --out x.png` — Node đóng gói trang (esbuild), Electron ẩn (userData tạm, không đụng dữ liệu app) vẽ và chụp bảng tổng hợp ở 184/64/40 px (`scripts/pictures/vector-sheet.mjs`, `vector-sheet-capture.cjs`).
+- ✅ (2026-10-30) **Đủ 120 hình** cho 120 từ của bản đồ, 13 file: `trial` (10 hình đã duyệt), `family`, `numbers`, `sea`, `farm`, `colors`, `sky`, `festival`, `clothes`, `garden`, `fruit`, `city`, `meals` (vẽ song song bằng tác vụ con, mỗi nhóm soi bảng tổng hợp 2–3 lượt). Test `art.test.ts` bắt buộc mọi từ trên bản đồ có hình vector. Còn lại 63 hình từ khác (ngoài bản đồ) vẫn dùng pixel/Twemoji — vẽ dần sau. Điểm nhỏ có thể chỉnh: tai heo hơi giống tai mèo ở 40 px; hoa hồng ở 40 px chỉ còn khối đỏ; má hồng hơi đục trên rau xanh.
 
 ## 6. Gói tải thêm `kids-world`
 

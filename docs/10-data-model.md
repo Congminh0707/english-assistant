@@ -202,6 +202,7 @@ Key–value: `scope ('global' hoặc id profile), key, value (JSON), updated_at`
 (Không dùng `profile_id NULL` làm khoá chính vì SQLite coi các giá trị NULL là khác nhau.)
 Danh sách khoá + kiểu + mặc định định nghĩa bằng zod ở `src/shared/schemas/settings.ts`; giá trị lưu sai/cũ tự rơi về mặc định.
 Ví dụ key: `hotkeys.translate`, `mascot.scale`, `mascot.reminderMinutes`, `quiet.apps`, `quiet.dndHours`, `tts.voice`, `ai.provider`, `clipboard.watch`.
+Khoá bé (2026-10-30): `kids.gameSound` (boolean, mặc định `true`) — bật/tắt tiếng động của màn game bản đồ ([19 §5.4](19-kids-world.md)); giọng đọc từ không bị ảnh hưởng.
 > **API key KHÔNG lưu ở đây** — lưu mã hoá bằng `safeStorage` của Electron vào file riêng (xem [16](16-privacy-and-security.md)).
 
 ## 4. Schema `content.db` (mỗi pack)

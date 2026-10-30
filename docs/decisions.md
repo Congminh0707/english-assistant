@@ -259,3 +259,14 @@ Mẫu:
 
 **Phương án đã cân nhắc:** sprite pixel 2D đặt trong cảnh 3D kiểu "HD-2D" (một bản vẽ, nhẹ hơn, nhưng góc nhìn bị giới hạn — không chọn); PixiJS 2.5D (nhẹ hơn nhưng khó có chiều sâu/ánh sáng/camera bay như tham khảo); CSS 3D transform (không đủ cho địa hình/nước/cây dày); Babylon.js (nặng hơn, không cần tính năng game engine); đóng tài nguyên vào bộ cài (bộ cài nặng thêm cho cả người lớn không dùng).
 **Hệ quả:** thêm thư viện three.js (~vài trăm KB, chỉ trong chunk bản đồ bé) → ghi [02](02-tech-stack.md); thêm quy trình build/đăng gói ở [15](15-packaging-and-release.md), dung lượng ở [17](17-metrics.md) (đo khi build); công vẽ voxel (địa hình, 12 công trình, cây/nước/người/xe, hiệu ứng) là phần tốn nhất của Phase 2b — làm theo đợt; ngân sách hiệu năng theo [03 §8](03-architecture.md#8-hiệu-năng--ngân-sách-tài-nguyên) (render theo yêu cầu, dừng khi ẩn, giải phóng khi rời bản đồ).
+
+
+## #37 — Tầng Việt Nam vẽ theo bản đồ Việt Nam thật (giản lược), có Hoàng Sa và Trường Sa; đi lại bằng xe/thuyền/máy bay (2026-10-30) — Chấp nhận (thay phần "bản đồ cách điệu, không dựng hình lãnh thổ" của #35/#36 cho tầng 1)
+
+**Bối cảnh:** Màn game toàn màn hình (docs/19 §5.4) ban đầu dùng dải đất cách điệu. Chủ dự án yêu cầu các nơi nằm đúng vị trí trên bản đồ Việt Nam, "có thể không chi tiết 100 % nhưng phải thể hiện được đó là bản đồ Việt Nam"; đường đi bám theo đất liền; đi ô tô trên đất, đi xa thì bay, ra biển thì đi thuyền.
+**Quyết định:**
+- Hình chữ S tự vẽ giản lược (src/shared/vnMap.ts, toạ độ kinh/vĩ độ, ~100 điểm bờ + đảo Phú Quốc, đảo nhỏ, sông Hồng/Mê Kông, vùng núi), chiếu phẳng đều (projectVn). **Luôn vẽ quần đảo Hoàng Sa và Trường Sa** kèm nhãn "(Việt Nam)" và nhãn "Biển Đông". **Không vẽ nước láng giềng và đường biên giới đất liền** (đất ngoài Việt Nam để biển trống) — tránh tranh chấp vẽ sai biên.
+- Mỗi nơi có geo (vĩ/kinh độ thật) + ia (các điểm đường đi qua từ nơi trước, đại khái theo QL1/đường thật) + erry (đoạn cuối đi biển). Bệ công trình dời vừa đủ để không đè và ưu tiên giữ trên đất (separatePlaces(…, onLand)); test bắt buộc mọi đoạn đường bộ nằm trên đất (lệch ≤ ~0,1 độ).
+- Đi lại: ô tô trên đất, thuyền khi đường ở ngoài biển (đường bộ dừng ở bờ, có bến gỗ), máy bay khi quãng đường bộ > `FLY_MIN` (bay thẳng, có độ cao + bóng). Mỗi xe đi đều tốc độ riêng.
+**Phương án đã cân nhắc:** dùng dữ liệu bản đồ có sẵn (Natural Earth — public domain, nhưng đường biên/chủ quyền theo chuẩn quốc tế, có thể không thể hiện Hoàng Sa/Trường Sa đúng quan điểm Việt Nam) — không chọn; dải đất cách điệu — chủ dự án không chọn.
+**Hệ quả:** hình bản đồ và vị trí các nơi cần người thật duyệt (địa lý, chủ quyền) cùng cờ `reviewed`; tầng 2/3 (quốc gia, Trái Đất) vẫn cách điệu, không vẽ biên giới.

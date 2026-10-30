@@ -59,6 +59,8 @@ Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được n
 **Bộ từ trẻ em** (mầm non, tiểu học) nên **tự soạn** theo chủ đề (màu sắc, con vật, gia đình, đồ ăn, trường học, cơ thể, số đếm...) — vừa sạch bản quyền vừa đúng văn hoá Việt Nam.
 
 > ✅ **Bản đồ thế giới của bé (2026-10-30)**: `content/curated/kids/world/` — 12 tỉnh/thành × 10 từ + câu nghe, tự soạn bằng AI (`license: proprietary-own`, `reviewed: false` — **chưa có người Việt/giáo viên duyệt** từ, câu, địa danh). Hình từ: **hình vector tự vẽ bằng code** (`src/renderer/shared/art/`, kiểu hoạt hình, `proprietary-own`, không chép/đồ lại hình của ai — từ 2026-10-30, ưu tiên khi có), còn lại pixel tự vẽ (`pictures.ts`, `picturesMore.ts`) + Twemoji CC-BY đã ghi công. Công trình (Chùa Cầu, chợ Bến Thành…) là mô hình voxel tự dựng bằng code, cách điệu, không chép ảnh/tranh của ai (`src/shared/voxels/`). Xem [19](19-kids-world.md).
+>
+> ✅ **Bản đồ Việt Nam + âm thanh màn game bé (2026-10-30)**: hình chữ S giản lược (`src/shared/vnMap.ts`) **tự vẽ** — vài trăm điểm kinh/vĩ độ chọn tay theo hiểu biết địa lý chung (không chép file bản đồ/shapefile của ai), có Hoàng Sa, Trường Sa, không vẽ nước láng giềng/biên giới ([decisions #37](decisions.md)); vị trí các nơi (`geo`) và điểm đường đi (`via`) là toạ độ địa lý (sự kiện, không có bản quyền). Tiếng động **tự tạo bằng WebAudio** lúc chạy (`game/sfx.ts`), không có file âm thanh. Cần người thật duyệt hình bản đồ.
 
 ## 3. Từ điển, nghĩa, phát âm
 

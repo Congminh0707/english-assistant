@@ -17,6 +17,8 @@
       "x": 28,
       "y": 87
     },
+    "geo": { "lat": 10.03, "lon": 105.78 },
+    "via": [[106.3, 10.45]],
     "decor": ["river-boat", "fruit-boat"]
   },
   "words": [

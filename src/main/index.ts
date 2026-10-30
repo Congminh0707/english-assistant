@@ -15,6 +15,7 @@ import { StudyWindow } from './windows/StudyWindow'
 import { registerAppIpc } from './ipc/app.ipc'
 import { registerMascotIpc } from './ipc/mascot.ipc'
 import { registerPopupIpc } from './ipc/popup.ipc'
+import { registerStudyIpc } from './ipc/study.ipc'
 import { broadcast, sendTo } from './ipc/broadcast'
 import { createTray, type AppTray } from './system/tray'
 import { showMascotMenu } from './system/mascotMenu'
@@ -211,6 +212,7 @@ if (!app.requestSingleInstanceLock()) {
       showMascotMenu(c, m, { quizNow: () => quizJob.trigger(), openStudy: () => s.open() })
     )
     registerPopupIpc(p)
+    registerStudyIpc(s)
     registerShortcuts({
       // Bôi đen chữ (hoặc đã Ctrl+C) rồi bấm phím tắt → popup tra từ cạnh con trỏ
       quickTranslate: async () => {

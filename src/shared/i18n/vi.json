@@ -1193,7 +1193,7 @@
       "pinSaved": "Đã lưu PIN."
     },
     "world": {
-      "hint": "Chạm một nơi để thú cưng đi tới và học từ mới. Chấm tròn dưới mỗi nơi là cây từ: nâu = hạt, xanh = mầm, hồng = hoa.",
+      "hint": "Chạm một nơi để thú cưng đi tới và học từ mới. Kéo hoặc lăn chuột để xem cả bản đồ. Hạt, mầm, hoa quanh mỗi nơi là các từ bé đã gặp.",
       "tomorrow": "Hôm nay bé đã học đủ từ mới. Mai học tiếp nhé! (Vẫn có thể ôn bằng bình tưới.)",
       "water": "Tưới cây: ôn các từ đến hạn",
       "locked": "Học thêm ở tầng hiện tại để mở",
@@ -1203,6 +1203,16 @@
       "next": "Tiếp",
       "spoke": "Bé đã nói xong",
       "sayHint": "Nghe rồi nói theo, nói xong chạm ngôi sao (chưa chấm giọng nói)"
+    },
+    "game": {
+      "map": "Về bản đồ",
+      "play": "Chơi",
+      "close": "Đóng",
+      "mute": "Tắt tiếng động",
+      "unmute": "Bật tiếng động",
+      "eastSea": "Biển Đông",
+      "paracel": "Quần đảo Hoàng Sa (Việt Nam)",
+      "spratly": "Quần đảo Trường Sa (Việt Nam)"
     }
   },
   "player": {

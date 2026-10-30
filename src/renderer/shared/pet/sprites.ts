@@ -1,7 +1,8 @@
 import { normalizeCharacterId } from '@shared/characters'
 
 // Sprite sheet của thú cưng dùng trong cửa sổ Học tập (cùng file với mascot, do
-// scripts/sprites/make-characters.mjs sinh). Vùng nhân vật 96×96 + lề (chân/đuôi/cánh thò ra), 8 cột; hoạt ảnh idle = frame 0–7.
+// scripts/sprites/make-characters.mjs sinh). Vùng nhân vật 96×96 + lề (chân/đuôi/cánh thò ra), 8 cột; hoạt ảnh idle = frame 0–7,
+// đi bộ = frame 98–105.
 // Phải khớp PAD_X / PAD_TOP trong scripts/sprites/gfx.mjs (và `pad` trong sheet.json).
 export const FRAME = 96
 export const PAD_X = 28
@@ -10,6 +11,9 @@ export const FRAME_W = FRAME + 2 * PAD_X
 export const FRAME_H = FRAME + PAD_TOP
 export const COLUMNS = 8
 export const IDLE_FRAMES = 8
+/** Hoạt ảnh đi bộ (cùng mọi nhân vật/giai đoạn, khớp `animations.walk` trong sheet.json); sprite gốc quay sang phải */
+export const WALK_FRAMES = [98, 99, 100, 101, 102, 103, 104, 105]
+export const WALK_FPS = 12
 
 const sheetUrls = import.meta.glob('../../mascot/assets/characters/*/*/sheet.png', {
   eager: true,

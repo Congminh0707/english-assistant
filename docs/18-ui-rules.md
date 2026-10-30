@@ -31,6 +31,7 @@ Lớp: `.btn` + một biến thể màu (`--primary` hành động chính, `--su
 - Nút chỉ có icon: `class="btn btn--icon btn--sm"` + `title`/`aria-label` (vd nút loa, nút lưu, nút mic).
 - Nút vô hiệu hoá dùng `:disabled` (đã có kiểu mờ), không tự đổi màu.
 - Tuyệt đối **không** định nghĩa lại `.btn` trong `<style scoped>` của component.
+- **Ngoại lệ — sân khấu game của bé** (`src/renderer/study/kids/game/`, [19 §5.4](19-kids-world.md)): nút HUD/thẻ trong màn game toàn màn hình là nút tròn lớn viền mực dày kiểu game (lớp riêng của component, không dùng `.btn`), màu cứng theo bảng màu tranh vẽ; vẫn phải có `aria-label`, icon bằng `<UiIcon>`, chuỗi qua i18n.
 
 ## 4. Icon
 

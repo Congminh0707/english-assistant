@@ -7,6 +7,7 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { FOOD_PICTURE, PRAISE, pick, TRY_AGAIN } from './kidsText'
+import { playSfx } from './game/sfx'
 
 // Lượt chơi tại một nơi trên bản đồ (docs/19-kids-world.md §3.2): một đợt ≤ 4 từ đi qua 5 bước
 // 1 làm quen → 2 chạm hình (chấm FSRS qua kids:rate) → 3 lật thẻ ghép cặp → 4 nói theo (không chấm, không ghi âm)
@@ -107,6 +108,7 @@ async function choose(pictureId: string): Promise<void> {
     }
     if (!right) wrong.value.push(pictureId)
     solved.value = true
+    if (right) playSfx('right')
     const tries: 0 | 1 | 2 = right ? (wrong.value.length === 0 ? 1 : 2) : 0
     speak(right ? `${pick(PRAISE)} ${it.word}` : `It is ${it.word}`, 'us', 0.9)
     const track = tracks.value[it.pictureId]
@@ -164,6 +166,7 @@ function flip(card: Card): void {
   firstOpen = null
   if (a.pictureId === card.pictureId) {
     a.matched = card.matched = true
+    playSfx('right')
     tracks.value[card.pictureId].played = true
     if (cards.value.every((c) => c.matched)) {
       speak(pick(PRAISE), 'us', 0.9)
@@ -197,11 +200,22 @@ async function finish(): Promise<void> {
   step.value = 'done'
   emit('changed')
   const r = result.value
+  playSfx(r.firstTime ? 'chest' : 'open')
   speak(
     r.firstTime ? 'You did it! Open the treasure!' : r.stars >= 3 ? 'Perfect!' : 'Great job!',
     'us',
     0.9
   )
+}
+
+const CONFETTI = ['#ff5a5a', '#ffd34d', '#5cc85a', '#4aa8d8', '#ff7eb6', '#a77bff']
+function confettiStyle(n: number): Record<string, string> {
+  return {
+    left: `${(n * 37) % 100}%`,
+    background: CONFETTI[n % CONFETTI.length],
+    animationDelay: `${((n * 53) % 90) / 100}s`,
+    animationDuration: `${1.6 + ((n * 29) % 10) / 10}s`
+  }
 }
 
 onMounted(load)
@@ -219,6 +233,9 @@ onMounted(load)
     </template>
 
     <template v-else-if="step === 'done' && result">
+      <div v-if="result.firstTime" class="confetti" aria-hidden="true">
+        <i v-for="n in 36" :key="n" :style="confettiStyle(n)" />
+      </div>
       <PixelPicture :id="result.firstTime ? 'gift' : 'star'" :size="150" />
       <h1 class="k-title">{{ result.placeDone ? 'You did it!' : 'Great job!' }}</h1>
       <p class="k-row stars">
@@ -406,9 +423,31 @@ onMounted(load)
   font-size: 22px;
   animation: k-pop 420ms ease;
 }
+.confetti {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.confetti i {
+  position: absolute;
+  top: -20px;
+  width: 12px;
+  height: 18px;
+  border-radius: 3px;
+  animation: fall 2s ease-in 2 forwards;
+}
+@keyframes fall {
+  to {
+    transform: translateY(1000px) rotate(540deg);
+    opacity: 0.2;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
-  .pop {
+  .pop,
+  .confetti {
     animation: none;
+    display: none;
   }
 }
 </style>

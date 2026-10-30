@@ -66,6 +66,14 @@ export const KidsPlaceSchema = z.object({
   landmarkVi: Text,
   /** Vị trí trên cảnh 2D 16:9, tính theo % */
   pos: z.object({ x: z.number().min(0).max(100), y: z.number().min(0).max(100) }),
+  /** Vị trí thật (vĩ độ, kinh độ) — tầng có bản đồ địa lý (Việt Nam) đặt nơi theo toạ độ này */
+  geo: z
+    .object({ lat: z.number().min(-90).max(90), lon: z.number().min(-180).max(180) })
+    .optional(),
+  /** Đường từ nơi trước (order − 1) tới nơi này đi qua các điểm [kinh độ, vĩ độ] — để đường bám đất liền */
+  via: z.array(z.tuple([z.number(), z.number()])).optional(),
+  /** Đoạn cuối (sau điểm `via` cuối) đi phà trên biển (vd ra đảo Phú Quốc) */
+  ferry: z.boolean().optional(),
   /** Id vật trang trí quanh nơi này */
   decor: z.array(Id).default([])
 })

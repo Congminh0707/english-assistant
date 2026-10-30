@@ -5,7 +5,7 @@
     "id": "hanoi",
     "tier": "vn",
     "region": "north",
-    "order": 1,
+    "order": 2,
     "suggestOrder": 1,
     "title": "Ha Noi",
     "vi": "Hà Nội",
@@ -17,6 +17,8 @@
       "x": 30,
       "y": 16
     },
+    "geo": { "lat": 21.03, "lon": 105.85 },
+    "via": [[104.4, 22], [104.95, 21.6], [105.45, 21.25]],
     "decor": ["lake", "red-bridge", "old-street"]
   },
   "words": [

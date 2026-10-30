@@ -1180,7 +1180,7 @@
       "pinSaved": "PIN saved."
     },
     "world": {
-      "hint": "Tap a place to walk there and learn new words. Dots under each place are word plants: brown = seed, green = sprout, pink = flower.",
+      "hint": "Tap a place to walk there and learn new words. Drag or scroll to see the whole map. Seeds, sprouts and flowers around each place are the words you have met.",
       "tomorrow": "Enough new words for today. More tomorrow! (You can still review with the watering can.)",
       "water": "Water the plants: review due words",
       "locked": "Keep learning here to unlock",
@@ -1190,6 +1190,16 @@
       "next": "Next",
       "spoke": "I said it",
       "sayHint": "Listen, say it, then tap the star (speech is not graded yet)"
+    },
+    "game": {
+      "map": "Back to map",
+      "play": "Play",
+      "close": "Close",
+      "mute": "Sounds off",
+      "unmute": "Sounds on",
+      "eastSea": "East Sea",
+      "paracel": "Hoang Sa Islands (Viet Nam)",
+      "spratly": "Truong Sa Islands (Viet Nam)"
     }
   },
   "player": {

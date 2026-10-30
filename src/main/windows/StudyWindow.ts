@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, type WebContents } from 'electron'
 import { join } from 'path'
 import icon from '../../../resources/icon.png?asset'
 import { loadPage } from './loadPage'
@@ -44,6 +44,18 @@ export class StudyWindow {
     forwardConsoleInDev(win, 'study')
     loadPage(win, 'study')
     this.win = win
+  }
+
+  get webContents(): WebContents[] {
+    return this.win && !this.win.isDestroyed() ? [this.win.webContents] : []
+  }
+
+  /** Toàn màn hình theo yêu cầu của trang (màn game của bé); trả về trạng thái sau khi đổi */
+  setFullScreen(on: boolean): boolean {
+    const win = this.win
+    if (!win || win.isDestroyed()) return false
+    if (win.isFullScreen() !== on) win.setFullScreen(on)
+    return on
   }
 
   destroy(): void {

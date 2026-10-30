@@ -145,6 +145,8 @@ export const invokeContract = {
   'study:undo': { input: z.void(), output: StudyNextSchema },
   'study:backfill': { input: z.void(), output: StudyBackfillResultSchema },
   'study:missions': { input: z.void(), output: MissionsStateSchema },
+  /** input: bật/tắt; output: trạng thái toàn màn hình sau khi đổi */
+  'study:fullscreen': { input: z.boolean(), output: z.boolean() },
   'vocab:list': { input: z.void(), output: z.array(WordListItemSchema) },
   'vocab:remove': { input: z.object({ contentId: z.string().min(1) }), output: z.boolean() },
   'vocab:suspend': {

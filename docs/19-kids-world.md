@@ -1,4 +1,4 @@
-# 19 — Bản đồ thế giới của bé (Phase 2b, giai đoạn A) — 📋 thiết kế, chưa code
+# 19 — Bản đồ thế giới của bé (Phase 2b, giai đoạn A) — 🚧 đang làm (bước 1–4 xong, đang làm 4b; xem §8)
 
 > Thiết kế chi tiết cho [14 — Phase 2b](14-roadmap.md#phase-2b--mở-rộng-từ-vựng-trẻ-em-đề-xuất-2026-10-29) giai đoạn A, [decisions #35](decisions.md) và [#36](decisions.md) (bản đồ 3D + gói tải thêm). Viết 2026-10-29, sửa lần 1 cùng ngày theo góp ý chủ dự án (mỗi nơi có công trình nổi bật, tăng số nơi, bản đồ 3D chi tiết, tài nguyên tải thêm). **Chờ duyệt.** Khi code xong từng phần, đổi 📋 → ✅ ở đây và ở [07 §9](07-learning-modules.md#9-phonics--mầm-non-p1), [10](10-data-model.md), [03](03-architecture.md), [15](15-packaging-and-release.md), [17](17-metrics.md).
 
@@ -233,7 +233,7 @@ Cả hai dùng chung dữ liệu (`kids:world`) và luồng (§3); bé không m�
 
 **Hiệu ứng**: thú cưng (sprite sheet hiện có, billboard) đi dọc đường tới nơi kế · mây che tầng khoá, tan khi mở + sao rơi · zoom tầng: tỉnh → các đảo quốc gia → quả địa cầu xoay · ngày–đêm theo giờ máy (đêm: đèn lồng Hội An sáng, đom đóm) · thời tiết nhẹ theo chủ điểm vừa học (mưa → cầu vồng) · cây mọc theo mức nhớ · chạm vật để nghe từ.
 
-**Bản đồ cách điệu**: tầng 1 là thung lũng/con đường uốn lượn qua các nơi xếp đại khái Bắc → Nam, **không dựng hình dạng lãnh thổ/đường biên giới thật**; tầng 2 là các đảo nổi; tầng 3 là quả địa cầu cách điệu không có ranh giới quốc gia.
+**Bản đồ**: tầng 1 vẽ **theo bản đồ Việt Nam thật, giản lược** (hình chữ S, có Hoàng Sa, Trường Sa; không vẽ nước láng giềng/biên giới — [decisions #37](decisions.md), thay cho "dải đất cách điệu" ban đầu); tầng 2 là các đảo nổi; tầng 3 là quả địa cầu cách điệu không có ranh giới quốc gia.
 
 **Hiệu năng** (theo [03 §8](03-architecture.md#8-hiệu-năng--ngân-sách-tài-nguyên)):
 
@@ -249,7 +249,20 @@ Cả hai dùng chung dữ liệu (`kids:world`) và luồng (§3); bé không m�
 
 SVG 16:9 toạ độ % (§4.1 `pos`), hình công trình pixel 2D, đường đi `<path>`; thú cưng đi bằng `getPointAtLength` + rAF; mây che tầng khoá; ngày–đêm bằng lớp phủ màu; vài vật chạy CSS keyframes. Dừng khi ẩn, tôn trọng giảm chuyển động.
 
-### 5.4 Chế độ game toàn màn hình — 📋 kế hoạch (chủ dự án yêu cầu 2026-10-30)
+### 5.4 Chế độ game toàn màn hình — 🚧 đã code, chờ thử tay (chủ dự án yêu cầu 2026-10-30)
+
+**Đã làm (2026-10-30)** — khác thiết kế gốc bên dưới ở mục 2 và 4 theo góp ý của chủ dự án:
+
+- **Toàn màn hình**: kênh `study:fullscreen` (`boolean` → `boolean`, `src/main/ipc/study.ipc.ts`, chỉ nhận từ cửa sổ Học tập) gọi `BrowserWindow.setFullScreen`; `KidsGame.vue` bật khi mở, tắt khi thoát (nút Nhà / `Esc`). Không nới quyền `fullscreen` của trình duyệt. **Đổi code main → phải khởi động lại `pnpm dev`** mới có hiệu lực.
+- **Bản đồ Việt Nam** (`src/shared/vnMap.ts`, decisions #37): các nơi theo `geo` thật, đường đi qua `via` bám đất liền (Sa Pa → Hà Nội theo thung lũng sông Hồng; Ninh Bình → Huế dọc dải miền Trung; Hội An → Nha Trang ven biển; Cần Thơ → Hà Tiên rồi đi thuyền ra Phú Quốc). Bố cục `geoLayout` (`src/shared/kidsWorldLayout.ts`): tách bệ không đè, ưu tiên trên đất, chấm đỏ = vị trí thật khi bệ bị dời; mỗi chặng `legs[i]` là các đoạn cong, đoạn biển có `sea`. Thứ tự đổi thành Sa Pa 1 → Hà Nội 2 → Hạ Long 3 → … → Phú Quốc 12.
+- **Camera**: mặc định toàn cảnh (zoom 0,62), đi máy bay lùi thêm (0,5), tới nơi phóng to (1,25) rồi mới hiện thẻ "Bắt đầu"; kéo để trượt, lăn chuột để cuộn.
+- **Đi lại bằng xe** (`TripVehicle.vue`, hai lớp kẹp thú cưng để trông như ngồi trong xe): **ô tô** trên đất (bánh quay, khói), **thuyền** khi đường ra biển (đường bộ dừng ở bờ + bến gỗ, thuyền lắc, bọt nước), **máy bay** khi quãng đường bộ > 1100 đơn vị (~4 độ vĩ — vd Ninh Bình → Huế): bay thẳng, cất/hạ cánh có nghiêng, bóng nhỏ dần theo độ cao, vệt mây. Mỗi xe đi **đều tốc độ riêng** (ô tô 420, thuyền 250, máy bay 950 đơn vị/giây; tăng/giảm tốc ở hai đầu; trần 9 s), không còn "gần thì chậm, xa thì nhanh". Tới nơi: nhảy mừng + pháo sáng.
+- **Cảnh** (`game/scene.ts`, canvas 2D): biển có sóng + thuyền trôi, đất có cát/bọt sóng, núi tuyết Tây Bắc, cây theo miền (thông → cây tròn → dừa), sông, mây và chim (parallax), công trình voxel viền mực (`landmarkBitmap.ts`), cây từ trên bệ (hạt → mầm → hoa, khát nước có giọt xanh), cờ khi xong, sương + khoá khi chưa mở, lớp phủ chiều/tối. Vẽ ~30 khung/giây khi đứng yên, 60 khi chuyển động, dừng khi ẩn; giảm chuyển động → nhảy thẳng.
+- **Âm thanh** tự tạo bằng WebAudio (`game/sfx.ts`, không có file/nguồn ngoài): chạm, mở, rương, đúng, còi xe, còi thuyền, máy bay, nước; tắt bằng nút loa (cài đặt `kids.gameSound`).
+- **HUD** (`KidsGame.vue`): Nhà, Bản đồ, tổng sao + hoa, loa, bình tưới (số thẻ đến hạn), chọn tầng; `KidsVisit`/`KidsReview` hiện trong sân khấu; pháo giấy khi xong nơi lần đầu.
+- Soi hình bản đồ không cần mở app: chưa có lệnh cố định (đã dùng script tạm trong phiên làm) — 💡 có thể thêm `pnpm kids:map-sheet` theo mẫu `pictures:sheet`.
+
+**Thiết kế gốc (để đối chiếu):**
 
 Bản 2D đầu tiên (bước 4) chạy được nhưng **chưa ra chất game**. Chủ dự án xem ảnh chụp và chốt: màn **Chơi** phải là một màn chơi game toàn màn hình, không phải khung nhỏ trong cửa sổ Học tập. Lỗi thấy trong ảnh chụp (2026-10-30):
 
@@ -330,7 +343,8 @@ Hình từ hiện có: ~84 hình pixel vẽ bằng code trên lưới 32×32 (`p
 
 - ✅ (2026-10-30, bản 2D) `src/renderer/study/kids/KidsWorld.vue`: bản đồ 2D (dải đất + biển cách điệu, đường cong nối các nơi theo `order`, công trình `LandmarkPicture.vue` vẽ từ voxel lên canvas → ảnh `data:` có cache, hàng chấm mức nhớ từng từ, nơi gợi ý hôm nay nhún nhảy, thú cưng `PetSprite` đi tới nơi bằng CSS transition ~1,2 s, mây trôi, lớp phủ chiều/tối theo giờ máy, nút bình tưới có số thẻ đến hạn, nút chọn tầng; tôn trọng giảm chuyển động). `KidsVisit.vue`: lượt 5 bước (làm quen chỉ cho từ mới → chạm hình chấm `kids:rate` → lật thẻ ghép cặp → nói theo bấm sao → nghe câu chạm hình → `kids:visit-done`, màn hình sao + rương). Icon mới trong `UiIcon`: `next`, `water`, `gift`, `map`.
 - 📋 Bản 3D: `world3d/` (scene, camera, địa hình, nước, cây instancing, công trình, thú cưng, thời tiết, ngày–đêm — nạp lười), `useWorldMotion.ts` (rAF theo đường cong, dừng khi ẩn); thú cưng ở bản 2D hiện đi đường thẳng, chưa đi theo đường cong.
-- ✅ `KidsApp.vue`: ô **Chơi** mở `KidsWorld` thay vì vào thẳng `KidsReview`; `KidsReview` mở từ bình tưới.
+- ✅ (2026-10-30) Thú cưng có **hoạt ảnh đi bộ** khi di chuyển trên bản đồ: `PetSprite` thêm prop `walking` (chạy khung `walk` 98–105, 12 fps, của sheet 96px hoặc gói 288px — `hires.ts` `hiresStrip(…, 'walk')` chỉ giải mã các hàng chứa hoạt ảnh) và `flip` (quay mặt sang trái theo hướng đi). `KidsWorld.vue` bật hai prop này khi đi; màn game toàn màn hình dùng lại được.
+- ✅ `KidsApp.vue`: ô **Chơi** mở `KidsWorld` thay vì vào thẳng `KidsReview`; `KidsReview` mở từ bình tưới. → (2026-10-30) ô Chơi mở **`game/KidsGame.vue`** (toàn màn hình, §5.4) thay cho `KidsWorld`; `game/`: `KidsGame.vue`, `WorldMap.vue`, `TripVehicle.vue`, `scene.ts`, `landmarkBitmap.ts`, `sfx.ts`. Dữ liệu dùng chung: `src/shared/vnMap.ts`, `src/shared/kidsWorldLayout.ts` (+ test). Nội dung nơi thêm `geo`, `via`, `ferry` (schema `KidsPlaceSchema`).
 - Chuỗi giao diện qua `vi.json`/`en.json`; class/token theo [18](18-ui-rules.md), chạy `pnpm ui:audit`.
 
 ## 8. Thứ tự làm (mỗi bước xong → cập nhật docs + `pnpm lint && pnpm test`)
@@ -338,8 +352,8 @@ Hình từ hiện có: ~84 hình pixel vẽ bằng code trên lưới 32×32 (`p
 1. ✅ (2026-10-30) Schema + `kidsWorld.ts` + `validateWorld` + test (dùng fixture): `src/shared/schemas/kidsWorld.ts`, `src/shared/kidsWorld.ts` (`wordStage`, `isThirsty`, `placeProgress`, `placeState`, `tierUnlocked`, `pickVisitBatch`, `validateWorld`, `missingPictures`), `src/shared/kidsWorld.test.ts` (22 test). Chưa nối vào main/IPC/giao diện.
 2. ✅ (2026-10-30) Nội dung tầng 1: ✅ `content/curated/kids/world/world.json` (3 tầng) + 12 file `places/vn-XX-<nơi>.json` (120 từ, `reviewed: false`); ✅ 24 hình từ còn thiếu (`src/shared/picturesMore.ts`: gia đình, số 1–10, 5 màu, vỏ sò, diều, đèn lồng, xe máy); ✅ lõi voxel (`voxelGrid.ts`, `mesh.ts`, `isometric.ts`, `palette.ts`) + **12 công trình voxel** (`src/shared/voxels/landmarks/`, 4–12 nghìn khối mỗi cái; Hòn Trống Mái nhìn giống vòm hai cột hơn là "hai con gà" — có thể vẽ lại sau); ✅ test nội dung `src/main/content/kidsWorld.content.test.ts` + test voxel `src/shared/voxels/voxels.test.ts`.
 3. ✅ (2026-10-30) `KidsWorldLibrary` + `KidsWorldService` + kênh `kids:world`/`kids:visit`/`kids:visit-done` + `kids:home` có tiến độ bản đồ + test service `src/main/services/KidsWorldService.test.ts` (7 test: bản đồ ban đầu, lượt chơi, hạn mức, xong nơi + rương một lần, mở tầng 2 khi đủ 9/12 nơi + mầm). Còn: đổi `kids:next` → làm cùng bước 4.
-4. 🚧 (2026-10-30) ✅ `KidsVisit.vue` (5 bước) + **bản đồ 2D** + ô Chơi mở bản đồ + `kids:next` thôi tự giới thiệu hình mới; lint/typecheck/`ui:audit` (0 lỗi; cảnh báo mã màu cứng như các màn hình bé khác)/429 test/`pnpm build` qua. **Chưa thử tay trong app thật** với hồ sơ trẻ em mới **và** hồ sơ cũ đã có thẻ — việc còn lại của bước này. Đến đây tính năng đã dùng được, không phụ thuộc 3D.
-   4b. 📋 **Chế độ game toàn màn hình** (§5.4): kênh IPC toàn màn hình, sân khấu canvas 16:9, bản đồ cuộn dọc không đè, ô màn chơi + sao/hoa, thú cưng đi theo đường cong, hiệu ứng + âm thanh, HUD game, `KidsVisit` trong sân khấu. Song song: **hình từ mới** (§5.5) sau khi chốt kiểu vẽ. Làm trước bước 5 vì 3D sẽ dựng trên cùng sân khấu.
+4. ✅ (2026-10-30) `KidsVisit.vue` (5 bước) + **bản đồ 2D** + ô Chơi mở bản đồ + `kids:next` thôi tự giới thiệu hình mới; lint/typecheck/`ui:audit` (0 lỗi; cảnh báo mã màu cứng như các màn hình bé khác)/429 test/`pnpm build` qua. **Chưa thử tay trong app thật** với hồ sơ trẻ em mới **và** hồ sơ cũ đã có thẻ — việc còn lại của bước này. Đến đây tính năng đã dùng được, không phụ thuộc 3D.
+   4b. 🚧 (2026-10-30) **Chế độ game toàn màn hình** (§5.4): ✅ đã code đủ (kênh `study:fullscreen`, sân khấu canvas 16:9, bản đồ Việt Nam thật + đường bám đất liền, ô màn chơi + sao/hoa, đi ô tô/thuyền/máy bay, hiệu ứng + âm thanh WebAudio, HUD game, `KidsVisit` trong sân khấu); lint/typecheck/441 test/`ui:audit` qua. **Còn: thử tay trong app** (khởi động lại `pnpm dev`), duyệt hình bản đồ + vị trí (địa lý/chủ quyền). `KidsWorld.vue` + `LandmarkPicture.vue` (bản đồ 2D cũ) không còn được dùng — xoá khi chắc không cần.
 5. **Spike 3D voxel** (1 cảnh địa hình voxel, 2–3 công trình, greedy meshing, cây instancing, ngày–đêm): đo fps trên máy yếu/GPU tích hợp, RAM, dung lượng gói ước tính → báo chủ dự án, chốt rồi mới làm tiếp.
 6. Bản đồ 3D đầy đủ tầng 1 + gói `kids-world` (build script, release phụ, `packSpec`, panel tải, bước tải khi tạo hồ sơ trẻ em, nhắc trong khu phụ huynh). **Đây là phần tốn công nhất** (địa hình voxel, 12 công trình voxel chi tiết, cây/nước/người/xe voxel, hiệu ứng) — có thể chia nhiều đợt, mỗi đợt thêm vài nơi.
 7. Đo `pnpm stats`, dung lượng gói; cập nhật [17](17-metrics.md), 07 §9, 10, 03, 15; đánh dấu roadmap.
@@ -349,5 +363,5 @@ Hình từ hiện có: ~84 hình pixel vẽ bằng code trên lưới 32×32 (`p
 1. ~~Kiểu vẽ công trình trong 3D~~ → **đã chốt voxel** (2026-10-29, §5.2).
 2. Danh sách 12 nơi, chủ điểm, công trình §2.2 có đổi gì không?
 3. Bé 6–8 tuổi (rating khởi điểm 100) vẫn đi từ tầng 1? Đề xuất: có — phân tầng tuổi để giai đoạn D.
-4. Hình từ (§5.5): tự vẽ vector bằng canvas (đề xuất, làm thử 10 hình rồi duyệt) hay dùng bộ có sẵn (Fluent Emoji/Noto)?
-5. Toàn màn hình (§5.4): dùng toàn màn hình thật (che thanh tác vụ) hay chỉ phóng to cửa sổ? Đề xuất: toàn màn hình thật, `Esc` để thoát.
+4. ~~Hình từ (§5.5)~~ → **đã chốt tự vẽ vector bằng canvas** (2026-10-30), đủ 183/183 hình.
+5. ~~Toàn màn hình (§5.4)~~ → **toàn màn hình thật** (che thanh tác vụ), `Esc` hoặc nút Nhà để thoát (2026-10-30, theo đề xuất).

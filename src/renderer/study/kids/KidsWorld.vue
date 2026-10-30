@@ -23,6 +23,7 @@ const world = ref<KidsWorldView | null>(null)
 const tierId = ref<string | null>(null)
 const petAt = ref<string | null>(null)
 const walking = ref(false)
+const facingLeft = ref(false)
 const reducedMotion =
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
@@ -83,6 +84,8 @@ function go(placeId: string): void {
     emit('visit', placeId)
     return
   }
+  const from = petPlace.value
+  if (from) facingLeft.value = place.pos.x < from.pos.x
   walking.value = true
   petAt.value = placeId
   window.setTimeout(() => {
@@ -201,6 +204,8 @@ onUnmounted(() => window.clearInterval(clockTimer))
           :accessories="petStore.pet.equipped"
           :size="64"
           animate
+          :walking="walking"
+          :flip="facingLeft"
         />
       </div>
     </div>
@@ -390,18 +395,14 @@ onUnmounted(() => window.clearInterval(clockTimer))
   pointer-events: none;
   transform: translate(-90%, -100%);
   transition:
-    left 1.2s ease-in-out,
-    top 1.2s ease-in-out;
-}
-.pet.walking {
-  animation: k-bounce 0.4s ease infinite;
+    left 1.2s linear,
+    top 1.2s linear;
 }
 .map.night .place .name {
   background: rgb(255 240 200 / 90%);
 }
 @media (prefers-reduced-motion: reduce) {
   .cloud,
-  .pet.walking,
   .place.today .name {
     animation: none;
   }

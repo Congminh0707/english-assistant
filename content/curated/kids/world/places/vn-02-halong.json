@@ -5,7 +5,7 @@
     "id": "halong",
     "tier": "vn",
     "region": "north",
-    "order": 2,
+    "order": 3,
     "suggestOrder": 5,
     "title": "Ha Long",
     "vi": "Hạ Long",
@@ -17,6 +17,8 @@
       "x": 50,
       "y": 10
     },
+    "geo": { "lat": 20.95, "lon": 107.08 },
+    "via": [[106.3, 21], [106.7, 20.95]],
     "decor": ["karst", "sea"]
   },
   "words": [

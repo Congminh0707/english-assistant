@@ -5,7 +5,7 @@
     "id": "sapa",
     "tier": "vn",
     "region": "north",
-    "order": 3,
+    "order": 1,
     "suggestOrder": 2,
     "title": "Sa Pa",
     "vi": "Sa Pa",
@@ -17,6 +17,7 @@
       "x": 12,
       "y": 9
     },
+    "geo": { "lat": 22.34, "lon": 103.84 },
     "decor": ["terraces", "stilt-house", "mountain-cloud"]
   },
   "words": [

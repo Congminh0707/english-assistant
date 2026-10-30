@@ -28,9 +28,11 @@ import {
   Square,
   Star,
   FlaskConical,
+  Flower2,
   Trash2,
   Turtle,
   Volume2,
+  VolumeX,
   X
 } from 'lucide-vue-next'
 
@@ -66,7 +68,9 @@ const ICONS = {
   next: ArrowRight,
   water: Droplets,
   gift: Gift,
-  map: MapIcon
+  map: MapIcon,
+  flower: Flower2,
+  mute: VolumeX
 } as const satisfies Record<string, Component>
 
 export type UiIconName = keyof typeof ICONS

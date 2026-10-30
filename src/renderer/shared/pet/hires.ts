@@ -17,7 +17,7 @@ let startPromise: Promise<void> | null = null
 export const hiresVersion = ref(0)
 
 const assets = new Map<string, Promise<string | null>>()
-const bitmaps = new Map<string, Promise<IdleStrip | null>>()
+const bitmaps = new Map<string, Promise<SpriteStrip | null>>()
 const metas = new Map<string, Promise<SpriteMeta | null>>()
 
 /**
@@ -66,31 +66,43 @@ export function hiresAsset(character: string, stage: string, name: string): Prom
   return p
 }
 
-/** Hàng idle của một lớp ảnh + kích thước khung (px của gói) và lề quanh vùng nhân vật; gói cũ không có lề */
-export interface IdleStrip {
+/**
+ * Các hàng của một lớp ảnh chứa một hoạt ảnh + kích thước khung (px của gói) và lề quanh vùng nhân vật (gói cũ
+ * không có lề). `frames` là toạ độ từng khung trong `bitmap` (đã trừ hàng đầu của dải).
+ */
+export interface SpriteStrip {
   bitmap: ImageBitmap
   frameW: number
   frameH: number
   padX: number
   padTop: number
+  frames: Array<{ sx: number; sy: number }>
 }
 
-/** Số khung idle (hàng đầu của sheet) — cùng bộ cài (sprites.ts IDLE_FRAMES) */
-const IDLE_FRAMES = 8
+export type StripAnim = 'idle' | 'walk'
+
+/** Số cột của sheet — cùng bộ cài (sprites.ts COLUMNS) */
+const COLUMNS = 8
+/** Khung mặc định khi sheet.json của gói không ghi hoạt ảnh — cùng bộ cài (sprites.ts IDLE/WALK_FRAMES) */
+const DEFAULT_FRAMES: Record<StripAnim, number[]> = {
+  idle: [0, 1, 2, 3, 4, 5, 6, 7],
+  walk: [98, 99, 100, 101, 102, 103, 104, 105]
+}
 /** Giải mã tuần tự: mỗi sheet 288px là 2304×8928 ≈ 82 MB khi giải mã, chạy song song sẽ ngốn bộ nhớ */
 let decodeQueue: Promise<unknown> = Promise.resolve()
 
 /**
- * Chỉ HÀNG IDLE của một lớp ảnh (2304×288 ≈ 2,6 MB) dưới dạng ImageBitmap, giải mã một lần rồi nhớ lại.
- * Trang Thú cưng hiện ~12 sprite: dùng nguyên sheet làm background-image thì mỗi sheet 82 MB × 12 ≈ 1 GB ảnh giải mã
- * → giật nặng. Ở đây chỉ giữ phần cần vẽ (hoạt ảnh idle).
+ * Chỉ CÁC HÀNG chứa một hoạt ảnh của một lớp ảnh (idle: 2304×288 ≈ 2,6 MB) dưới dạng ImageBitmap, giải mã một lần
+ * rồi nhớ lại. Trang Thú cưng hiện ~12 sprite: dùng nguyên sheet làm background-image thì mỗi sheet 82 MB × 12 ≈ 1 GB
+ * ảnh giải mã → giật nặng. Ở đây chỉ giữ phần cần vẽ.
  */
-export function hiresIdleBitmap(
+export function hiresStrip(
   character: string,
   stage: string,
-  name: string
-): Promise<IdleStrip | null> {
-  const key = `${character}/${stage}/${name}`
+  name: string,
+  anim: StripAnim = 'idle'
+): Promise<SpriteStrip | null> {
+  const key = `${character}/${stage}/${name}/${anim}`
   let p = bitmaps.get(key)
   if (!p) {
     const job = decodeQueue.then(async () => {
@@ -106,14 +118,27 @@ export function hiresIdleBitmap(
       const meta = await hiresMeta(character, stage)
       const frameW = meta?.frameSize.w ?? HIRES_FRAME
       const frameH = meta?.frameSize.h ?? HIRES_FRAME
+      const list = meta?.animations[anim]?.frames ?? DEFAULT_FRAMES[anim]
+      const row0 = Math.floor(Math.min(...list) / COLUMNS)
+      const rows = Math.floor(Math.max(...list) / COLUMNS) - row0 + 1
       const bitmap = await createImageBitmap(
         new Blob([bytes], { type: mime }),
         0,
-        0,
-        frameW * IDLE_FRAMES,
-        frameH
+        row0 * frameH,
+        frameW * COLUMNS,
+        frameH * rows
       )
-      return { bitmap, frameW, frameH, padX: meta?.pad?.x ?? 0, padTop: meta?.pad?.top ?? 0 }
+      return {
+        bitmap,
+        frameW,
+        frameH,
+        padX: meta?.pad?.x ?? 0,
+        padTop: meta?.pad?.top ?? 0,
+        frames: list.map((f) => ({
+          sx: (f % COLUMNS) * frameW,
+          sy: (Math.floor(f / COLUMNS) - row0) * frameH
+        }))
+      }
     })
     p = job.catch(() => null)
     decodeQueue = p

@@ -22,6 +22,8 @@ export const INVOKE_CHANNELS = [
   'study:undo',
   'study:backfill',
   'study:missions',
+  /** Cửa sổ Học tập vào/thoát toàn màn hình (chỉ khi người dùng bấm — màn game của bé) */
+  'study:fullscreen',
   'vocab:list',
   'vocab:remove',
   'vocab:suspend',

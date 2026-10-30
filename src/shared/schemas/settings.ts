@@ -76,6 +76,8 @@ export const settingDefinitions = {
       z.literal(60)
     ])
     .default(15),
+  /** Chế độ trẻ em: tiếng động của màn game (chạm, đi, rương…); giọng đọc từ vẫn luôn bật */
+  'kids.gameSound': z.boolean().default(true),
   /** Giọng đọc: 'system' = giọng Windows có sẵn; 'kokoro' = giọng tự nhiên offline (cần tải model) */
   'tts.engine': z.enum(['system', 'kokoro']).default('system'),
   /** Giọng mặc định khi đọc bài học, bài tập, câu hỏi (nút có ghi rõ Mỹ/Anh vẫn đọc đúng giọng đó) */

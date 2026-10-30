@@ -109,6 +109,7 @@ english-assistant/
 │  │  │  ├─ index.ts            # đăng ký tất cả handler
 │  │  │  ├─ pet.ipc.ts
 │  │  │  ├─ dictionary.ipc.ts
+│  │  │  ├─ study.ipc.ts        # study:fullscreen — toàn màn hình cửa sổ Học tập (màn game bé), chỉ nhận từ cửa sổ đó
 │  │  │  └─ ...
 │  │  ├─ services/              # nghiệp vụ (~ app/Services)
 │  │  │  ├─ PetService.ts

@@ -161,7 +161,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     x: p.x / TERRAIN_UNIT,
     z: p.y / TERRAIN_UNIT
   }))
-  const minGap = LANDMARK_SPAN * 1.15
+  const minGap = LANDMARK_SPAN * 1.75
   for (let it = 0; it < 200; it++) {
     for (let i = 0; i < spots.length; i++)
       for (let j = i + 1; j < spots.length; j++) {
@@ -186,12 +186,28 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   const onLand = new Map(
     spots.map((s) => [s.id, isVnLand({ x: s.x * TERRAIN_UNIT, y: s.z * TERRAIN_UNIT }, 30)])
   )
+  // dựng mô hình trước để biết mặt nền / lòng sông của từng công trình (đất quanh nâng ngang mặt nền)
+  const LK = LANDMARK_SPAN / 10
+  const models = new Map(opts.places.map((p) => [p.id, buildLandmark3D(THREE, p.landmark)]))
+  const plateOf = (
+    id: string
+  ): { top: number; channel?: { cx: number; cz: number; hx: number; hz: number } } => {
+    const pl = models.get(id)?.userData.plate as
+      { top: number; channel?: { cx: number; cz: number; hx: number; hz: number } } | undefined
+    if (!pl) return { top: 0 }
+    const c = pl.channel
+    return {
+      top: pl.top * LK,
+      channel: c ? { cx: c.cx * LK, cz: c.cz * LK, hx: c.hx * LK, hz: c.hz * LK } : undefined
+    }
+  }
   const hf = buildVnHeightfield(
     spots.map((s, i) => ({
       x: s.x,
       z: s.z,
       r: onLand.get(s.id) ? LANDMARK_SPAN * 0.85 : 0,
-      water: WATER_LANDMARKS.has(opts.places[i].landmark)
+      water: WATER_LANDMARKS.has(opts.places[i].landmark),
+      ...(onLand.get(s.id) ? plateOf(s.id) : {})
     }))
   )
   const { width: mapW, depth: mapD } = hf
@@ -224,7 +240,16 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     const cands = [
       { x: sp.x - dz * d, z: sp.z + dx * d },
       { x: sp.x + dz * d, z: sp.z - dx * d }
-    ].sort((a2, b2) => b2.z - a2.z)
+    ]
+    // chọn phía mà đường tự nhiên đi qua (gần đoạn nối nơi trước → nơi sau nhất) để đường không vòng quanh công trình
+    const segDist = (c: { x: number; z: number }): number => {
+      const vx = next.x - prev.x
+      const vz = next.z - prev.z
+      const l2 = vx * vx + vz * vz || 1
+      const t = Math.min(1, Math.max(0, ((c.x - prev.x) * vx + (c.z - prev.z) * vz) / l2))
+      return Math.hypot(c.x - (prev.x + vx * t), c.z - (prev.z + vz * t))
+    }
+    cands.sort((a2, b2) => segDist(a2) - segDist(b2))
     const pick = cands.find((c) => hf.heightAt(c.x, c.z) > 0.02) ?? cands[0]
     return { x: pick.x * TERRAIN_UNIT, y: pick.z * TERRAIN_UNIT }
   }
@@ -339,7 +364,13 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     }
     // phân loại lại theo mặt đất thật: trên cạn luôn là đường; mỗi quãng nước liền nhau là PHÀ (dài, hoặc chạm bến
     // ở đầu/cuối tuyến, hoặc tuyến vốn đi phà) hay CẦU (quãng ngắn cắt ngang sông) — nhờ vậy đường không bao giờ đứt
-    const wetS = pts.map((q) => hf.heightAt(q.x, q.z) < -0.02)
+    // trong khuôn viên công trình luôn là đất (lòng sông của mô hình không làm đứt đường)
+    const nearLandmark = (q: RoadSample): boolean =>
+      spots.some(
+        (sp, k) =>
+          onLand.get(sp.id) && Math.hypot(q.x - sp.x, q.z - sp.z) < LANDMARK_SPAN * 1.2 && k >= 0
+      )
+    const wetS = pts.map((q) => hf.heightAt(q.x, q.z) < -0.02 && !nearLandmark(q))
     for (let i = 0; i < pts.length;) {
       if (!wetS[i]) {
         pts[i].sea = false
@@ -383,6 +414,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   })
   // san nền: kéo mặt đất dọc đường về đúng cao độ đường; ghi lại mặt cầu để xe chạy trên cầu
   const deck = new Map<number, number>()
+  const grade = new Map<number, { w: number; y: number }>()
   const deckKey = (x: number, z: number): number =>
     Math.floor(x / 0.25) * 100003 + Math.floor(z / 0.25)
   for (const prof of profiles)
@@ -403,12 +435,16 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
           const d = Math.hypot(ix * VERTEX_STEP - q.x, iz * VERTEX_STEP - q.z)
           if (d > r) continue
           const k = hf.cols * iz + ix
-          const cur = hf.heights[k]
-          if (cur < 0.05) continue
+          if (hf.heights[k] < 0.05) continue
           const w = d < 0.38 ? 1 : 1 - (d - 0.38) / (r - 0.38)
-          hf.heights[k] = cur + (q.y - 0.03 - cur) * w
+          // nhiều đoạn đường gần nhau (chỗ hai tuyến gặp): đất phải thấp hơn MỌI mặt đường, không để tuyến sau đắp đất lấp tuyến trước
+          const prev = grade.get(k)
+          const y = q.y - 0.03
+          if (!prev) grade.set(k, { w, y })
+          else grade.set(k, { w: Math.max(prev.w, w), y: Math.min(prev.y, y) })
         }
     }
+  for (const [k, g] of grade) hf.heights[k] = hf.heights[k] + (g.y - hf.heights[k]) * g.w
   const deckAt = (x: number, z: number): number => {
     let best = -9
     for (const dx of [-0.25, 0, 0.25])
@@ -537,18 +573,12 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   // --- cây (đặt theo dữ liệu địa hình) ---
   // cây không mọc đè lên đường: đánh dấu các ô lưới có đường đi qua
   const roadCell = new Set<number>()
-  for (const route of opts.routes ?? [])
-    for (let i = 0; i + 1 < route.length; i++) {
-      const a = route[i]
-      const b = route[i + 1]
-      const steps = Math.max(1, Math.ceil(Math.hypot(b.x - a.x, b.y - a.y) / TERRAIN_UNIT / 0.15))
-      for (let t = 0; t <= steps; t++) {
-        const gx = (a.x + ((b.x - a.x) * t) / steps) / TERRAIN_UNIT
-        const gz = (a.y + ((b.y - a.y) * t) / steps) / TERRAIN_UNIT
-        for (const dx of [-1, 0, 1])
-          for (const dz of [-1, 0, 1])
-            roadCell.add(Math.floor(gx / 0.3 + dx) * 100003 + Math.floor(gz / 0.3 + dz))
-      }
+  for (const prof of profiles)
+    for (const q of prof) {
+      if (q.sea) continue
+      for (const dx of [-1, 0, 1])
+        for (const dz of [-1, 0, 1])
+          roadCell.add(Math.floor(q.x / 0.3 + dx) * 100003 + Math.floor(q.z / 0.3 + dz))
     }
   const onRoad = (x: number, z: number): boolean =>
     roadCell.has(Math.floor(x / 0.3) * 100003 + Math.floor(z / 0.3))
@@ -603,7 +633,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
       const s = hf.houses[o + 4]
       dummy.position.set(hf.houses[o], hf.houses[o + 1] + 0.13 * s * TREE_K, hf.houses[o + 2])
       dummy.rotation.set(0, hf.houses[o + 3], 0)
-      dummy.scale.setScalar(s * TREE_K)
+      dummy.scale.setScalar(onRoad(hf.houses[o], hf.houses[o + 2]) ? 0 : s * TREE_K) // nhà không nằm trên đường
       dummy.updateMatrix()
       bodies.setMatrixAt(i, dummy.matrix)
       dummy.position.y = hf.houses[o + 1] + 0.38 * s * TREE_K
@@ -627,7 +657,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   const anchors = new Map<string, ThreeNS.Vector3>()
   opts.places.forEach((p) => {
     const landed = onLand.get(p.id) === true
-    const model = buildLandmark3D(THREE, p.landmark)
+    const model = models.get(p.id)
     const spot = spotOf.get(p.id)
     const padIndex = spots.findIndex((s) => s.id === p.id)
     if (!model || !spot) return
@@ -786,7 +816,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   passScene.add(pass)
   const passCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1)
 
-  const roads = buildRoads(THREE, scene, profiles, VS)
+  const roads = buildRoads(THREE, scene, [profiles.flat()], VS) // một tuyến xuyên suốt: chỉ mờ ở hai đầu cả nước
   own(roads)
   const rig = createVehicleRig(THREE, scene, VS)
   own(rig)

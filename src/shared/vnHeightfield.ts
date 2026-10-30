@@ -30,6 +30,11 @@ export interface Pad {
   r: number
   /** Nền là mặt nước (chợ nổi…): hạ xuống dưới mực nước thay vì nâng thành đất */
   water?: boolean
+  /** Mặt nền của mô hình cao hơn chân mô hình bao nhiêu (đơn vị thế giới): đất quanh nâng lên ngang mặt nền để mô hình
+   * như nằm lọt trong bản đồ, không thành khối đặt lên */
+  top?: number
+  /** Lòng sông/hồ của mô hình (hình chữ nhật theo trục, tâm lệch cx/cz, nửa cạnh hx/hz): giữ thấp ở chân mô hình */
+  channel?: { cx: number; cz: number; hx: number; hz: number }
 }
 
 export interface VnHeightfield {
@@ -284,7 +289,11 @@ export function buildVnHeightfield(pads: readonly Pad[] = []): VnHeightfield {
         if (d >= outer) continue
         const t = 1 - smooth(p.r, outer, d)
         const i = iz * cols + ix
-        heights[i] = heights[i] * (1 - t) + padHeights[k] * t
+        const ch = p.channel
+        const inChannel =
+          !!ch && Math.abs(px(ix) - p.x - ch.cx) < ch.hx && Math.abs(pz(iz) - p.z - ch.cz) < ch.hz
+        const target = padHeights[k] + (inChannel ? -0.05 : (p.top ?? 0) / HEIGHT_SCALE)
+        heights[i] = heights[i] * (1 - t) + target * t
       }
   })
 

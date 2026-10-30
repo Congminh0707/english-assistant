@@ -22,7 +22,25 @@ export const LANDMARKS_3D: Record<string, Builder> = {
   'phuquoc-fishing-village': hamNinh
 }
 
+/**
+ * Mặt nền của mô hình (đơn vị cục bộ): `top` = độ cao mặt nền (bờ kè, sân…), `channel` = lòng sông/hồ trong mô hình.
+ * Bản đồ nâng đất quanh công trình ngang `top` và chừa lòng sông, để công trình như nằm lọt trong bản đồ.
+ */
+const PLATES: Record<
+  string,
+  { top: number; channel?: { cx: number; cz: number; hx: number; hz: number } }
+> = {
+  'hoian-bridge-pagoda': { top: 0.83, channel: { cx: 0, cz: 0.4, hx: 2.7, hz: 2.0 } },
+  'danang-dragon-bridge': { top: 0.36, channel: { cx: 0, cz: 0, hx: 5.4, hz: 2.3 } },
+  'hanoi-turtle-tower': { top: 0.12 },
+  'nhatrang-tram-huong': { top: 0.12 },
+  'dalat-station': { top: 0.08 },
+  'hcmc-ben-thanh': { top: 0.08 }
+}
+
 /** Mô hình 3D mịn của công trình (chân ~10 đơn vị, y = 0 là mặt đất); undefined nếu chưa có */
 export function buildLandmark3D(THREE: typeof ThreeNS, id: string): ThreeNS.Group | undefined {
-  return LANDMARKS_3D[id]?.(THREE)
+  const g = LANDMARKS_3D[id]?.(THREE)
+  if (g && PLATES[id]) g.userData.plate = PLATES[id]
+  return g
 }

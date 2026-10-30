@@ -94,13 +94,14 @@ Lớp: `.btn` + một biến thể màu (`--primary` hành động chính, `--su
 - Tỉ lệ đúng tương đối (cao/rộng, số tầng, số cửa, số cột) — đếm theo ảnh thật; không ước đại.
 - Mái Việt/Á Đông: dùng `eaveRoof`/`gable` + đầu đao, có diềm mái; ngói nhiều lớp (dải ngói) khi nhìn gần.
 - Chi tiết theo 3 cấp: **khối chính** (thấy từ toàn cảnh) → **đặc điểm** (cửa vòm, cột, lan can, bảng tên, đèn lồng) → **trang trí nhỏ** (con giống, hoa văn, chậu cây, người). Cấp 3 chỉ cần khi camera cận cảnh (chân công trình ~10 đơn vị cục bộ).
+- Công trình **nằm lọt trong bản đồ**: đất quanh được nâng ngang mặt nền mô hình (`PLATES` trong `landmarks3d/index.ts`: `top`, `channel` cho lòng sông của mô hình), không thành khối đặt lên; các công trình cách nhau ≥ 1,75 lần bề rộng để không đè nhau.
 - Nền công trình: hình tròn/hữu cơ hoặc theo đúng hình thật (hồ, sông, quảng trường) — không tấm vuông dán lên đất. Công trình trên nước (chợ nổi, vịnh) phải nằm trên mặt nước thật (nền nước).
 - Có người/xe/thuyền nhỏ để thấy tỉ lệ và sự sống.
 
 **Hoạt ảnh**
 
 - Mỗi nơi có ít nhất một hoạt ảnh lặp riêng (`group.userData.tick(t)`): chậm, êm (chu kỳ ≥ 4 giây), không giật, không nhấp nháy mạnh.
-- Phương tiện: bánh xe lăn theo quãng đường, thuyền chòng chành, máy bay quay cánh quạt; tốc độ đi chậm vừa phải (ô tô 150, thuyền 95, máy bay 300 đơn vị sân khấu/giây), chuyến dài thì bay lâu hơn (tối đa 24 giây).
+- Phương tiện: **xe mui trần**, **ca nô**, **máy bay phản lực nhỏ**; bánh xe lăn theo quãng đường, thuyền chòng chành, máy bay quay cánh quạt; tốc độ đi chậm vừa phải (ô tô 150, thuyền 95, máy bay 300 đơn vị sân khấu/giây), chuyến dài thì bay lâu hơn (tối đa 24 giây).
 - Tôn trọng giảm chuyển động: camera nhảy thẳng, không lượn vòng.
 
 **Camera & tỉ lệ**
@@ -108,7 +109,7 @@ Lớp: `.btn` + một biến thể màu (`--primary` hành động chính, `--su
 - Công trình rộng `LANDMARK_SPAN` = 3,4 đơn vị thế giới; tới nơi thì cận cảnh (khoảng cách ~4,6, nghiêng 0,5) và lượn chậm quanh công trình.
 - Camera không bao giờ chui vào đất/núi (luôn cao hơn mặt đất dưới nó).
 - Đường đi bám địa hình, **một tuyến chính chạy ngang qua bên cạnh** mỗi nơi (điểm dừng nằm trên đường, lệch vuông góc với hướng đi) — không rẽ vào rồi quay ra (không có hai đường song song ra vào), không cắt ngang công trình.
-- Đường là **đường mòn đất** cùng tông bản đồ (vàng đất, mép mềm tan vào cỏ, vệt mòn sáng ở giữa, không vạch sơn), **nét liền** — không đứt; hai đầu tuyến **mờ dần**. Qua sông ngắn thì **cầu gỗ nối liền** với đường; qua biển/sông lớn thì **bến gỗ** ở hai bờ + đường phà chấm trắng. Mặt đất dưới đường được san theo cao độ đường đã làm mượt để xe không rung giật.
+- Đường là **đường mòn đất** cùng tông bản đồ (vàng đất, mép mềm tan vào cỏ, vệt mòn sáng ở giữa, không vạch sơn), **nét liền** — cả nước là **một tuyến xuyên suốt**, chỉ mờ dần ở hai đầu tuyến; cây/nhà không mọc trên đường. Qua sông ngắn thì **cầu gỗ nối liền** với đường; qua biển/sông lớn thì **bến gỗ** ở hai bờ + đường phà chấm trắng. Mặt đất dưới đường được san theo cao độ đường đã làm mượt để xe không rung giật.
 
 **Quy trình rà soát**
 

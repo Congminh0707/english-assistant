@@ -23,7 +23,7 @@ export class Kit {
     if (!m) {
       m = toon(this.THREE, {
         color: new this.THREE.Color(color as number),
-        emissive: opts.emissive !== undefined ? new this.THREE.Color(opts.emissive) : undefined,
+        ...(opts.emissive !== undefined ? { emissive: new this.THREE.Color(opts.emissive) } : {}),
         transparent: opts.opacity !== undefined,
         opacity: opts.opacity ?? 1,
         side: opts.double ? this.THREE.DoubleSide : this.THREE.FrontSide

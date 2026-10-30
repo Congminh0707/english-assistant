@@ -75,280 +75,339 @@ function extrude(
   return g
 }
 
+/** Xe mui trần thể thao: thân thấp bo tròn, nắp ca-pô dài, kính chắn gió nghiêng, hai ghế da, đèn tròn, mâm crôm */
 function buildCar(
   THREE: Three,
   mats: Mats
 ): { group: ThreeNS.Group; wheels: ThreeNS.Group[]; body: ThreeNS.Group } {
   const group = new THREE.Group()
   const body = new THREE.Group()
-  // thân xe: profile bên hông (mũi bên phải +x)
+  const red = 0xe23a3a
   const s = new THREE.Shape()
-  s.moveTo(-1.2, 0.18)
-  s.lineTo(1.2, 0.18)
-  s.quadraticCurveTo(1.32, 0.2, 1.3, 0.38)
-  s.quadraticCurveTo(1.28, 0.5, 1.05, 0.55)
-  s.lineTo(0.35, 0.58)
-  s.lineTo(-0.9, 0.58)
-  s.quadraticCurveTo(-1.28, 0.55, -1.3, 0.38)
-  s.quadraticCurveTo(-1.32, 0.2, -1.2, 0.18)
-  body.add(new THREE.Mesh(extrude(THREE, s, 1.12, 0.07), mats.get(0xe2483a)))
-  // dải trắng + gầm
-  const stripe = new THREE.Mesh(new THREE.BoxGeometry(2.3, 0.07, 1.18), mats.get(0xfff6dc))
-  stripe.position.set(0, 0.36, 0)
-  body.add(stripe)
-  const under = new THREE.Mesh(new THREE.BoxGeometry(2.3, 0.1, 1.0), mats.get(0x2b2b36))
-  under.position.set(0, 0.14, 0)
-  body.add(under)
-  // kính chắn gió + khung
-  const glass = new THREE.Mesh(
-    new THREE.BoxGeometry(0.06, 0.34, 1.0),
-    mats.get(0x9fd3ef, { transparent: true, opacity: 0.7 })
-  )
-  glass.position.set(0.42, 0.78, 0)
-  glass.rotation.z = -0.5
-  body.add(glass)
-  for (const z of [-0.5, 0.5]) {
-    const post = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.4, 0.05), mats.get(0xfff6dc))
-    post.position.set(0.42, 0.78, z)
-    post.rotation.z = -0.5
-    body.add(post)
+  s.moveTo(-1.25, 0.2)
+  s.lineTo(1.2, 0.2)
+  s.quadraticCurveTo(1.38, 0.22, 1.36, 0.36)
+  s.quadraticCurveTo(1.3, 0.46, 0.95, 0.5)
+  s.lineTo(0.35, 0.52)
+  s.lineTo(-0.85, 0.52)
+  s.quadraticCurveTo(-1.2, 0.54, -1.3, 0.42)
+  s.quadraticCurveTo(-1.34, 0.24, -1.25, 0.2)
+  body.add(new THREE.Mesh(extrude(THREE, s, 1.1, 0.1), mats.get(red)))
+  // khoang ngồi khoét (mảng tối) + ghế da kem + tựa đầu
+  const cockpit = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.06, 0.86), mats.get(0x3a2a2a))
+  cockpit.position.set(-0.32, 0.535, 0)
+  body.add(cockpit)
+  for (const z of [-0.22, 0.22]) {
+    const seat = new THREE.Mesh(new THREE.BoxGeometry(0.34, 0.1, 0.34), mats.get(0xf3e3c3))
+    seat.position.set(-0.45, 0.58, z)
+    body.add(seat)
+    const back = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.32, 0.34), mats.get(0xf3e3c3))
+    back.position.set(-0.66, 0.72, z)
+    back.rotation.z = 0.15
+    body.add(back)
   }
-  // ghế + vô lăng
-  const seat = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.12, 0.95), mats.get(0xf2c94c))
-  seat.position.set(-0.4, 0.58, 0)
-  body.add(seat)
-  const back = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.36, 0.95), mats.get(0xf2c94c))
-  back.position.set(-0.78, 0.76, 0)
-  body.add(back)
-  const wheel = new THREE.Mesh(new THREE.TorusGeometry(0.17, 0.025, 6, 14), mats.get(0x2b2b36))
-  wheel.position.set(0.18, 0.88, 0)
+  // kính chắn gió viền crôm
+  const glass = new THREE.Mesh(
+    new THREE.BoxGeometry(0.04, 0.26, 0.98),
+    mats.get(0xbfe6ff, { transparent: true, opacity: 0.55 })
+  )
+  glass.position.set(0.2, 0.66, 0)
+  glass.rotation.z = -0.55
+  body.add(glass)
+  const frame = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.03, 1.02), mats.get(0xe8e8ee))
+  frame.position.set(0.13, 0.78, 0)
+  body.add(frame)
+  // vô lăng, gương, nắp ca-pô có gân
+  const wheel = new THREE.Mesh(new THREE.TorusGeometry(0.11, 0.02, 6, 14), mats.get(0x2b2b36))
+  wheel.position.set(0.0, 0.66, 0.2)
   wheel.rotation.y = Math.PI / 2
-  wheel.rotation.x = 0.4
+  wheel.rotation.x = 0.5
   body.add(wheel)
-  // đèn pha tròn + lưới tản nhiệt + cản + đèn hậu + ống xả
-  for (const z of [-0.36, 0.36]) {
+  const ridge = new THREE.Mesh(new THREE.BoxGeometry(0.75, 0.025, 0.06), mats.get(0xc22f2f))
+  ridge.position.set(0.75, 0.51, 0)
+  body.add(ridge)
+  // dải trắng thể thao + viền crôm hông
+  for (const z of [-0.555, 0.555]) {
+    const chrome = new THREE.Mesh(new THREE.BoxGeometry(2.3, 0.03, 0.02), mats.get(0xe8e8ee))
+    chrome.position.set(0, 0.36, z)
+    body.add(chrome)
+  }
+  for (const z of [-0.1, 0.1]) {
+    const stripe = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.012, 0.08), mats.get(0xfff6dc))
+    stripe.position.set(0.05, 0.52, z)
+    body.add(stripe)
+  }
+  // đèn pha tròn, đèn hậu, lưới tản nhiệt, cản crôm, ống xả
+  for (const z of [-0.34, 0.34]) {
     const lamp = new THREE.Mesh(
-      new THREE.SphereGeometry(0.1, 12, 8),
-      mats.get(0xffe27a, { emissive: new THREE.Color(0x6a5410) })
+      new THREE.SphereGeometry(0.09, 12, 8),
+      mats.get(0xfff1b8, { emissive: new THREE.Color(0x6a5a20) })
     )
-    lamp.position.set(1.28, 0.42, z)
+    lamp.position.set(1.3, 0.38, z)
     body.add(lamp)
-    const tail = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.1, 0.18), mats.get(0xc0392b))
-    tail.position.set(-1.3, 0.42, z * 0.9)
+    const tail = new THREE.Mesh(new THREE.SphereGeometry(0.06, 10, 6), mats.get(0xff4a3a))
+    tail.position.set(-1.31, 0.4, z * 0.9)
     body.add(tail)
   }
-  const grille = new THREE.Mesh(new THREE.BoxGeometry(0.05, 0.14, 0.5), mats.get(0x2b2b36))
-  grille.position.set(1.32, 0.34, 0)
+  const grille = new THREE.Mesh(new THREE.BoxGeometry(0.04, 0.1, 0.42), mats.get(0x2b2b36))
+  grille.position.set(1.36, 0.3, 0)
   body.add(grille)
-  const bumper = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.07, 1.2), mats.get(0xd9d9d9))
-  bumper.position.set(1.34, 0.2, 0)
-  body.add(bumper)
+  for (const x of [1.38, -1.33]) {
+    const bumper = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.05, 1.12), mats.get(0xe8e8ee))
+    bumper.position.set(x, 0.22, 0)
+    body.add(bumper)
+  }
+  const pipe = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.12, 8), mats.get(0xb0b0b8))
+  pipe.rotation.z = Math.PI / 2
+  pipe.position.set(-1.36, 0.2, 0.3)
+  body.add(pipe)
   group.add(body)
-  // bánh xe: lốp + vành + nan hoa (quay quanh trục z)
   const wheels: ThreeNS.Group[] = []
   for (const [x, z] of [
-    [0.8, 0.62],
-    [0.8, -0.62],
-    [-0.8, 0.62],
-    [-0.8, -0.62]
+    [0.82, 0.58],
+    [0.82, -0.58],
+    [-0.82, 0.58],
+    [-0.82, -0.58]
   ]) {
     const w = new THREE.Group()
-    const tire = new THREE.Mesh(new THREE.TorusGeometry(0.22, 0.1, 8, 18), mats.get(0x23232d))
-    w.add(tire)
-    const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.2, 0.1, 14), mats.get(0xe8e8ee))
+    w.add(new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.09, 10, 20), mats.get(0x23232d)))
+    const rim = new THREE.Mesh(new THREE.CylinderGeometry(0.17, 0.17, 0.09, 16), mats.get(0xe8e8ee))
     rim.rotation.x = Math.PI / 2
     w.add(rim)
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 5; i++) {
       const spoke = new THREE.Mesh(
-        new THREE.BoxGeometry(0.4, 0.045, 0.14),
-        mats.get(i === 0 ? 0xe2483a : 0x9a9aa6)
+        new THREE.BoxGeometry(0.03, 0.3, 0.11),
+        mats.get(i === 0 ? 0xe23a3a : 0x9a9aa6)
       )
-      spoke.rotation.z = (i * Math.PI) / 3
+      spoke.rotation.z = (i * Math.PI * 2) / 5
       w.add(spoke)
     }
-    const hub = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 6), mats.get(0xe2483a))
-    hub.position.z = z > 0 ? 0.05 : -0.05
-    w.add(hub)
-    w.position.set(x, 0.3, z)
+    w.position.set(x, 0.28, z)
     group.add(w)
     wheels.push(w)
   }
   return { group: shadowed(group), wheels, body }
 }
 
+/** Ca nô: thân trắng mũi nhọn ngóc lên, sọc xanh, kính chắn gió cong, ghế, máy gắn đuôi có chân vịt */
 function buildBoat(
   THREE: Three,
   mats: Mats
-): {
-  group: ThreeNS.Group
-  hull: ThreeNS.Group
-  sail: ThreeNS.Mesh
-  flag: ThreeNS.Mesh
-  sailBase: Float32Array
-} {
+): { group: ThreeNS.Group; hull: ThreeNS.Group; prop: ThreeNS.Object3D } {
   const group = new THREE.Group()
   const hull = new THREE.Group()
-  // thân thuyền: mũi nhọn cong lên, đáy tròn
+  // mặt cắt dọc: đáy vát, mũi nhọn cao
   const s = new THREE.Shape()
-  s.moveTo(-1.45, 0.62)
-  s.quadraticCurveTo(-1.3, 0.05, -0.55, -0.02)
-  s.lineTo(0.7, -0.02)
-  s.quadraticCurveTo(1.5, 0.1, 1.95, 0.72)
-  s.quadraticCurveTo(1.0, 0.5, -0.1, 0.46)
-  s.lineTo(-1.45, 0.62)
-  hull.add(new THREE.Mesh(extrude(THREE, s, 0.95, 0.09), mats.get(0xa5522e)))
-  const rim = new THREE.Mesh(new THREE.BoxGeometry(3.1, 0.06, 1.0), mats.get(0xe2483a))
-  rim.position.set(0.15, 0.55, 0)
-  hull.add(rim)
-  const deck = new THREE.Mesh(new THREE.BoxGeometry(2.7, 0.05, 0.8), mats.get(0xe6b877))
-  deck.position.set(0, 0.42, 0)
-  hull.add(deck)
-  // mui + cửa sổ tròn
-  const cabin = new THREE.Mesh(new THREE.BoxGeometry(0.85, 0.42, 0.7), mats.get(0xf6ecd2))
-  cabin.position.set(-0.85, 0.68, 0)
-  hull.add(cabin)
-  const roof = new THREE.Mesh(new THREE.CylinderGeometry(0.0, 0.62, 0.3, 4), mats.get(0xc8322b))
-  roof.rotation.y = Math.PI / 4
-  roof.position.set(-0.85, 1.02, 0)
-  roof.scale.set(1, 1, 0.8)
-  hull.add(roof)
-  for (const z of [-0.36, 0.36]) {
-    const win = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 0.04, 12), mats.get(0x9fd3ef))
-    win.rotation.x = Math.PI / 2
-    win.position.set(-0.85, 0.72, z)
-    hull.add(win)
+  s.moveTo(-1.25, 0.5)
+  s.lineTo(-1.3, 0.12)
+  s.quadraticCurveTo(-1.1, -0.02, -0.4, -0.04)
+  s.lineTo(0.6, -0.02)
+  s.quadraticCurveTo(1.35, 0.1, 1.7, 0.55)
+  s.lineTo(-1.25, 0.5)
+  const geo = extrude(THREE, s, 0.95, 0.12)
+  // thu hẹp mũi: co bề ngang theo x
+  const p = geo.attributes.position
+  for (let i = 0; i < p.count; i++) {
+    const x = p.getX(i)
+    const k = x > 0.3 ? 1 - ((x - 0.3) / 1.45) * 0.85 : 1
+    p.setZ(i, p.getZ(i) * Math.max(0.12, k))
   }
-  // cột buồm + buồm cong (phồng theo gió) + cờ
-  const mast = new THREE.Mesh(new THREE.CylinderGeometry(0.04, 0.055, 2.5, 8), mats.get(0x5e3b22))
-  mast.position.set(0.35, 1.7, 0)
-  hull.add(mast)
-  const sailGeo = new THREE.PlaneGeometry(1.35, 1.9, 8, 10)
-  const base = new Float32Array(sailGeo.attributes.position.array)
-  const sail = new THREE.Mesh(
-    sailGeo,
-    mats.get(0xffffff, { side: THREE.DoubleSide, emissive: new THREE.Color(0x555555) })
+  geo.computeVertexNormals()
+  hull.add(new THREE.Mesh(geo, mats.get(0xfbfbf6)))
+  // sọc xanh dọc mạn + vạch đỏ đáy
+  const stripeG = extrude(THREE, s, 0.97, 0.12)
+  const sp = stripeG.attributes.position
+  for (let i = 0; i < sp.count; i++) {
+    const x = sp.getX(i)
+    const k = x > 0.3 ? 1 - ((x - 0.3) / 1.45) * 0.85 : 1
+    sp.setZ(i, sp.getZ(i) * Math.max(0.12, k))
+  }
+  const stripe = new THREE.Mesh(stripeG, mats.get(0x2f7fc8))
+  stripe.scale.y = 0.35
+  stripe.position.y = 0.16
+  hull.add(stripe)
+  // sàn + ghế + kính chắn gió cong
+  const deck = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.05, 0.78), mats.get(0xd9b98a))
+  deck.position.set(-0.35, 0.48, 0)
+  hull.add(deck)
+  for (const z of [-0.2, 0.2]) {
+    const seat = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.14, 0.3), mats.get(0x2f7fc8))
+    seat.position.set(-0.35, 0.57, z)
+    hull.add(seat)
+  }
+  const wind = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.46, 0.46, 0.24, 18, 1, true, -Math.PI / 2.4, Math.PI / 1.2),
+    mats.get(0xbfe6ff, { transparent: true, opacity: 0.55, side: THREE.DoubleSide })
   )
-  sail.position.set(0.88, 1.65, 0)
-  sail.rotation.y = Math.PI / 2
-  hull.add(sail)
+  wind.position.set(0.0, 0.66, 0)
+  wind.rotation.z = -0.25
+  hull.add(wind)
+  // máy đuôi + chân vịt
+  const motor = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.34, 0.22), mats.get(0x2b2b36))
+  motor.position.set(-1.36, 0.42, 0)
+  hull.add(motor)
+  const cap = new THREE.Mesh(new THREE.BoxGeometry(0.26, 0.1, 0.24), mats.get(0xe23a3a))
+  cap.position.set(-1.36, 0.62, 0)
+  hull.add(cap)
+  const shaft = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.36, 0.06), mats.get(0x6b6b75))
+  shaft.position.set(-1.4, 0.1, 0)
+  hull.add(shaft)
+  const prop = new THREE.Group()
+  for (const r of [0, Math.PI / 2]) {
+    const blade = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.2, 0.05), mats.get(0xb0b0b8))
+    blade.rotation.x = r
+    prop.add(blade)
+  }
+  prop.position.set(-1.46, -0.05, 0)
+  hull.add(prop)
+  // cờ nhỏ + đèn hành trình
+  const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.015, 0.015, 0.4, 6), mats.get(0xe8e8ee))
+  pole.position.set(-1.15, 0.7, 0.3)
+  hull.add(pole)
   const flag = new THREE.Mesh(
-    new THREE.PlaneGeometry(0.5, 0.26, 4, 1),
-    mats.get(0xe2483a, { side: THREE.DoubleSide })
+    new THREE.PlaneGeometry(0.2, 0.12),
+    mats.get(0xe23a3a, { side: THREE.DoubleSide })
   )
-  flag.position.set(0.35, 2.82, 0.26)
-  flag.rotation.y = Math.PI / 2
+  flag.position.set(-1.25, 0.84, 0.3)
   hull.add(flag)
-  const lantern = new THREE.Mesh(
-    new THREE.SphereGeometry(0.1, 10, 8),
-    mats.get(0xffd166, { emissive: new THREE.Color(0x6a4a10) })
-  )
-  lantern.position.set(1.55, 0.78, 0)
-  hull.add(lantern)
   group.add(hull)
-  return { group: shadowed(group), hull, sail, flag, sailBase: base }
+  return { group: shadowed(group), hull, prop }
 }
 
+/** Máy bay phản lực nhỏ: thân tiện thon, mũi tròn, cửa sổ, cánh xuôi có đầu cánh vểnh, hai động cơ có cánh quạt quay */
 function buildPlane(
   THREE: Three,
   mats: Mats
 ): { group: ThreeNS.Group; prop: ThreeNS.Group; disc: ThreeNS.Mesh } {
   const group = new THREE.Group()
-  // thân: tiện tròn
   const prof: ThreeNS.Vector2[] = [
-    [0, 1.55],
-    [0.17, 1.5],
-    [0.32, 1.25],
-    [0.4, 0.7],
-    [0.4, -0.2],
-    [0.3, -0.9],
-    [0.16, -1.45],
-    [0.06, -1.7],
-    [0, -1.75]
+    [0, 1.7],
+    [0.2, 1.62],
+    [0.34, 1.4],
+    [0.42, 1.0],
+    [0.44, 0.2],
+    [0.4, -0.6],
+    [0.28, -1.3],
+    [0.14, -1.7],
+    [0.05, -1.85],
+    [0, -1.88]
   ].map(([r, y]) => new THREE.Vector2(r, y))
-  const fus = new THREE.Mesh(new THREE.LatheGeometry(prof, 20), mats.get(0xf8f8f8))
+  const fus = new THREE.Mesh(new THREE.LatheGeometry(prof, 24), mats.get(0xf8f8f8))
   fus.rotation.z = -Math.PI / 2
   group.add(fus)
-  const nose = new THREE.Mesh(new THREE.SphereGeometry(0.26, 14, 10), mats.get(0xe2483a))
-  nose.scale.set(1.1, 1, 1)
-  nose.position.set(1.42, 0, 0)
-  group.add(nose)
-  const band = new THREE.Mesh(new THREE.CylinderGeometry(0.405, 0.405, 0.3, 20), mats.get(0xe2483a))
-  band.rotation.z = Math.PI / 2
-  band.position.set(0.1, 0, 0)
-  group.add(band)
-  // cánh thon dần (đùn hình thang)
+  // sọc thân + bụng xanh
+  const belly = new THREE.Mesh(
+    new THREE.LatheGeometry(prof, 24, Math.PI * 0.62, Math.PI * 0.76),
+    mats.get(0x2f6fc0)
+  )
+  belly.rotation.z = -Math.PI / 2
+  belly.scale.setScalar(1.005)
+  group.add(belly)
+  // kính buồng lái + cửa sổ tròn
+  const cock = new THREE.Mesh(
+    new THREE.SphereGeometry(0.3, 16, 10, 0, Math.PI * 2, 0, Math.PI / 2.2),
+    mats.get(0x5aa8e0)
+  )
+  cock.scale.set(1.5, 0.7, 1)
+  cock.position.set(1.15, 0.2, 0)
+  group.add(cock)
+  for (let i = 0; i < 6; i++)
+    for (const z of [-0.42, 0.42]) {
+      const win = new THREE.Mesh(
+        new THREE.CylinderGeometry(0.06, 0.06, 0.03, 10),
+        mats.get(0x5aa8e0)
+      )
+      win.rotation.x = Math.PI / 2
+      win.position.set(0.6 - i * 0.28, 0.12, z)
+      group.add(win)
+    }
+  // cánh xuôi + đầu cánh vểnh
   const w = new THREE.Shape()
-  w.moveTo(0.4, 0)
+  w.moveTo(0.45, 0)
   w.lineTo(-0.35, 0)
-  w.lineTo(-0.15, 2.0)
-  w.lineTo(0.2, 2.0)
+  w.lineTo(-0.75, 2.1)
+  w.lineTo(-0.4, 2.1)
   w.closePath()
-  const wing = new THREE.Mesh(extrude(THREE, w, 0.09, 0.025), mats.get(0x3f78c8))
-  wing.rotation.x = Math.PI / 2
-  wing.position.set(0.2, -0.05, -0.04)
-  const wing2 = wing.clone()
-  wing2.rotation.x = -Math.PI / 2
-  wing2.position.set(0.2, -0.05, 0.04)
-  group.add(wing, wing2)
-  // đuôi
-  const tailH = new THREE.Mesh(new THREE.BoxGeometry(0.45, 0.05, 1.5), mats.get(0x3f78c8))
-  tailH.position.set(-1.45, 0.05, 0)
+  for (const sd of [-1, 1]) {
+    const wing = new THREE.Mesh(extrude(THREE, w, 0.08, 0.025), mats.get(0xf0f0f4))
+    wing.rotation.x = (sd * Math.PI) / 2
+    wing.position.set(0.15, -0.12, sd * 0.04)
+    group.add(wing)
+    const tip = new THREE.Mesh(new THREE.BoxGeometry(0.32, 0.36, 0.05), mats.get(0x2f6fc0))
+    tip.position.set(-0.55, 0.04, sd * 2.12)
+    tip.rotation.z = 0.25
+    group.add(tip)
+  }
+  // đuôi ngang + đuôi đứng
+  const tailH = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.05, 1.3), mats.get(0xf0f0f4))
+  tailH.position.set(-1.55, 0.12, 0)
   group.add(tailH)
   const fin = new THREE.Shape()
   fin.moveTo(0, 0)
-  fin.lineTo(0.5, 0)
-  fin.lineTo(0.12, 0.7)
-  fin.lineTo(-0.05, 0.7)
+  fin.lineTo(0.55, 0)
+  fin.lineTo(0.05, 0.8)
+  fin.lineTo(-0.15, 0.8)
   fin.closePath()
-  const tailV = new THREE.Mesh(extrude(THREE, fin, 0.07, 0.02), mats.get(0xe2483a))
-  tailV.position.set(-1.65, 0.1, 0)
+  const tailV = new THREE.Mesh(extrude(THREE, fin, 0.07, 0.02), mats.get(0x2f6fc0))
+  tailV.position.set(-1.8, 0.25, 0)
   group.add(tailV)
-  // buồng lái hở: kính chắn gió + yên
-  const wind = new THREE.Mesh(
-    new THREE.BoxGeometry(0.05, 0.28, 0.5),
-    mats.get(0x9fd3ef, { transparent: true, opacity: 0.7 })
-  )
-  wind.position.set(0.55, 0.52, 0)
-  wind.rotation.z = -0.5
-  group.add(wind)
-  const seat = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.1, 0.5), mats.get(0xf2c94c))
-  seat.position.set(0.05, 0.38, 0)
-  group.add(seat)
-  // càng đáp + bánh
-  for (const z of [-0.4, 0.4]) {
-    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.03, 0.03, 0.5, 6), mats.get(0x6b6b75))
-    leg.position.set(0.55, -0.45, z)
-    leg.rotation.z = 0.2
+  // hai động cơ dưới cánh có quạt
+  const prop = new THREE.Group()
+  let disc: ThreeNS.Mesh | null = null
+  for (const sd of [-1, 1]) {
+    const pod = new THREE.Mesh(new THREE.CylinderGeometry(0.17, 0.14, 0.62, 16), mats.get(0xd9d9e0))
+    pod.rotation.z = Math.PI / 2
+    pod.position.set(0.25, -0.32, sd * 0.95)
+    group.add(pod)
+    const intake = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.14, 0.14, 0.03, 16),
+      mats.get(0x2b2b36)
+    )
+    intake.rotation.z = Math.PI / 2
+    intake.position.set(0.57, -0.32, sd * 0.95)
+    group.add(intake)
+    const fan = new THREE.Group()
+    for (let i = 0; i < 6; i++) {
+      const blade = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.12, 0.035), mats.get(0xb0b0b8))
+      blade.rotation.x = (i * Math.PI) / 3
+      blade.position.set(0, Math.cos((i * Math.PI) / 3) * 0.06, Math.sin((i * Math.PI) / 3) * 0.06)
+      fan.add(blade)
+    }
+    fan.position.set(0.59, -0.32, sd * 0.95)
+    prop.add(fan)
+    const d = new THREE.Mesh(
+      new THREE.CircleGeometry(0.13, 18),
+      mats.get(0xffffff, {
+        transparent: true,
+        opacity: 0.2,
+        side: THREE.DoubleSide,
+        depthWrite: false
+      })
+    )
+    d.rotation.y = Math.PI / 2
+    d.position.set(0.6, -0.32, sd * 0.95)
+    group.add(d)
+    disc = d
+  }
+  group.add(prop)
+  // càng đáp
+  for (const [x, z] of [
+    [1.0, 0],
+    [-0.1, -0.35],
+    [-0.1, 0.35]
+  ]) {
+    const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.025, 0.025, 0.3, 6), mats.get(0x6b6b75))
+    leg.position.set(x, -0.5, z)
     group.add(leg)
-    const wheel = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.15, 0.15, 0.1, 12),
+    const tire = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.09, 0.09, 0.07, 12),
       mats.get(0x23232d)
     )
-    wheel.rotation.x = Math.PI / 2
-    wheel.position.set(0.6, -0.7, z)
-    group.add(wheel)
+    tire.rotation.x = Math.PI / 2
+    tire.position.set(x, -0.66, z)
+    group.add(tire)
   }
-  // cánh quạt + đĩa mờ khi quay
-  const prop = new THREE.Group()
-  prop.position.set(1.72, 0, 0)
-  for (const rot of [0, Math.PI / 2]) {
-    const blade = new THREE.Mesh(new THREE.BoxGeometry(0.05, 1.5, 0.14), mats.get(0x3a2a22))
-    blade.rotation.x = rot
-    prop.add(blade)
-  }
-  const disc = new THREE.Mesh(
-    new THREE.CircleGeometry(0.75, 24),
-    mats.get(0xffffff, {
-      transparent: true,
-      opacity: 0.18,
-      side: THREE.DoubleSide,
-      depthWrite: false
-    })
-  )
-  disc.rotation.y = Math.PI / 2
-  disc.position.set(1.74, 0, 0)
-  group.add(prop, disc)
-  return { group: shadowed(group), prop, disc }
+  return { group: shadowed(group), prop, disc: disc as ThreeNS.Mesh }
 }
 
 export interface VehicleRig {
@@ -470,27 +529,12 @@ export function createVehicleRig(THREE: Three, scene: ThreeNS.Scene, scale = 1):
           spawn(px, s.y + 0.3 * scale, pz, 0xd9d9d9, 0.7, 2.4)
         }
       } else if (s.kind === 'boat') {
-        boat.hull.rotation.z = Math.sin(t * 2.3) * 0.06
-        boat.hull.rotation.x = Math.sin(t * 1.7) * 0.045
+        boat.hull.rotation.z = Math.sin(t * 2.3) * 0.04
+        boat.hull.rotation.x = Math.sin(t * 1.7) * 0.04
         boat.hull.position.y = Math.sin(t * 2.8) * 0.05
-        // buồm phồng gió + cờ phất
-        const pos = boat.sail.geometry.attributes.position as ThreeNS.BufferAttribute
-        for (let i = 0; i < pos.count; i++) {
-          const bx = boat.sailBase[i * 3]
-          const by = boat.sailBase[i * 3 + 1]
-          const u = (bx + 0.675) / 1.35
-          const v = (by + 0.95) / 1.9
-          pos.setZ(
-            i,
-            Math.sin(u * Math.PI) * Math.sin(v * Math.PI) * 0.28 + Math.sin(t * 3 + by * 2) * 0.02
-          )
-          pos.setY(i, by * (1 - 0.35 * u))
-        }
-        pos.needsUpdate = true
-        const fp = boat.flag.geometry.attributes.position as ThreeNS.BufferAttribute
-        for (let i = 0; i < fp.count; i++)
-          fp.setZ(i, Math.sin(t * 9 + fp.getX(i) * 8) * 0.05 * (fp.getX(i) + 0.25))
-        fp.needsUpdate = true
+        // ca nô ngóc mũi khi chạy nhanh, chân vịt quay
+        boat.hull.rotation.z += run * 0.12
+        boat.prop.rotation.x += dt * 40
         sinceSpawn += dt
         if (sinceSpawn > 0.09 && run > 0.1) {
           sinceSpawn = 0
@@ -498,7 +542,7 @@ export function createVehicleRig(THREE: Three, scene: ThreeNS.Scene, scale = 1):
           spawn(px, s.y + 0.05 * scale, pz, 0xffffff, 1.1, 3.4)
         }
       } else {
-        plane.prop.rotation.x += dt * 55
+        for (const fan of plane.prop.children) fan.rotation.x += dt * 55
         bank += (Math.max(-0.5, Math.min(0.5, -turn * 0.25)) - bank) * Math.min(1, dt * 6)
         plane.group.rotation.x = bank
         plane.group.rotation.z = Math.sin(t * 2) * 0.03

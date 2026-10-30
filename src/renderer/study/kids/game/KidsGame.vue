@@ -10,6 +10,7 @@ import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import KidsReview from '../KidsReview.vue'
 import KidsVisit from '../KidsVisit.vue'
 import WorldMap from './WorldMap.vue'
+import WorldMap3D from './WorldMap3D.vue'
 import { playSfx, setSfxEnabled } from './sfx'
 
 // Màn game toàn màn hình của bé (docs/19-kids-world.md §5.4): bấm ô Chơi → cửa sổ Học tập toàn màn hình (kênh
@@ -27,6 +28,29 @@ const world = ref<KidsWorldView | null>(null)
 const tierId = ref<string | null>(null)
 const placeId = ref<string | null>(null)
 const scale = ref(1)
+/** Bản đồ 3D (chỉ tầng có bản đồ địa lý); nhớ lựa chọn, tự về 2D nếu máy không dựng được WebGL */
+const prefs3d = ((): boolean => {
+  try {
+    return localStorage.getItem('kids.map3d') === '1'
+  } catch {
+    return false
+  }
+})()
+const want3d = ref(prefs3d)
+const webglFailed = ref(false)
+
+const tier = computed(() => world.value?.tiers.find((x) => x.id === tierId.value) ?? null)
+const can3d = computed(() => tier.value?.scene === 'vn' && !webglFailed.value)
+const show3d = computed(() => can3d.value && want3d.value)
+
+function toggle3d(): void {
+  want3d.value = !want3d.value
+  try {
+    localStorage.setItem('kids.map3d', want3d.value ? '1' : '0')
+  } catch {
+    /* không lưu được thì thôi */
+  }
+}
 
 const sound = computed(() => settings.settings['kids.gameSound'])
 const tiersWithPlaces = computed(() => world.value?.tiers.filter((x) => x.unlocked && x.places.length > 0) ?? [])
@@ -123,8 +147,17 @@ onUnmounted(() => {
       }"
     >
       <template v-if="world && tierId">
+        <WorldMap3D
+          v-if="view === 'map' && show3d"
+          :key="`3d-${tierId}`"
+          :world="world"
+          :tier-id="tierId"
+          :scale="scale"
+          @start="start"
+          @fail="webglFailed = true"
+        />
         <WorldMap
-          v-if="view === 'map'"
+          v-else-if="view === 'map'"
           :world="world"
           :tier-id="tierId"
           :scale="scale"
@@ -177,6 +210,16 @@ onUnmounted(() => {
           <UiIcon :name="sound ? 'volume' : 'mute'" :size="40" />
         </button>
         <template v-if="world && view === 'map'">
+          <button
+            v-if="can3d"
+            type="button"
+            class="hud-btn"
+            :aria-label="show3d ? t('kids.game.view2d') : t('kids.game.view3d')"
+            :title="show3d ? t('kids.game.view2d') : t('kids.game.view3d')"
+            @click="toggle3d"
+          >
+            <UiIcon :name="show3d ? 'map' : 'box'" :size="40" />
+          </button>
           <button
             type="button"
             class="hud-btn water"

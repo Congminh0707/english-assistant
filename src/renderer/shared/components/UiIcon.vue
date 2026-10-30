@@ -4,6 +4,7 @@ import {
   ArrowRight,
   BookmarkCheck,
   BookmarkPlus,
+  Box,
   Check,
   Circle,
   CircleCheck,
@@ -70,6 +71,7 @@ const ICONS = {
   gift: Gift,
   map: MapIcon,
   flower: Flower2,
+  box: Box,
   mute: VolumeX
 } as const satisfies Record<string, Component>
 

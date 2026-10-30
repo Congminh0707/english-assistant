@@ -1,29 +1,24 @@
 // Công trình 3D (mịn, cùng phong cách địa hình) cho bản đồ game — id khớp `place.landmark`. Các mô hình voxel trong
 // src/shared/voxels chỉ còn dùng ở bản đồ 2D và sticker. docs/19-kids-world.md §5.2
 import type * as ThreeNS from 'three'
-import {
-  danangDragonBridge,
-  hoianBridgePagoda,
-  hueNgoMon,
-  nhatrangTramHuong,
-  dalatStation
-} from './central'
-import { halongTrongMai, hanoiTurtleTower, ninhbinhTrangAn, sapaTerraces } from './north'
-import { canthoFloatingMarket, hcmcBenThanh, phuquocFishingVillage } from './south'
+import { danangDragonBridge, nhatrangTramHuong, dalatStation } from './central'
+import { halongTrongMai, ninhbinhTrangAn, sapaTerraces } from './north'
+import { hanoiHoGuom, hcmcBenThanh2, hoianChuaCau, hueNgoMon2 } from './detailed'
+import { canthoFloatingMarket, phuquocFishingVillage } from './south'
 
 type Builder = (THREE: typeof ThreeNS) => ThreeNS.Group
 
 export const LANDMARKS_3D: Record<string, Builder> = {
-  'hanoi-turtle-tower': hanoiTurtleTower,
+  'hanoi-turtle-tower': hanoiHoGuom,
   'halong-trong-mai': halongTrongMai,
   'sapa-terraces': sapaTerraces,
   'ninhbinh-trang-an': ninhbinhTrangAn,
-  'hue-ngo-mon': hueNgoMon,
+  'hue-ngo-mon': hueNgoMon2,
   'danang-dragon-bridge': danangDragonBridge,
-  'hoian-bridge-pagoda': hoianBridgePagoda,
+  'hoian-bridge-pagoda': hoianChuaCau,
   'nhatrang-tram-huong': nhatrangTramHuong,
   'dalat-station': dalatStation,
-  'hcmc-ben-thanh': hcmcBenThanh,
+  'hcmc-ben-thanh': hcmcBenThanh2,
   'cantho-floating-market': canthoFloatingMarket,
   'phuquoc-fishing-village': phuquocFishingVillage
 }

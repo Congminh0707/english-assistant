@@ -387,13 +387,107 @@ export class Kit {
     z: number,
     shirt: Color,
     hat = false,
-    into?: ThreeNS.Object3D
+    into?: ThreeNS.Object3D,
+    s = 1
   ): void {
     const g = new this.THREE.Group()
+    g.scale.setScalar(s)
     this.cyl(0.13, 0.16, 0.42, shirt, 0, 0.08, 0, 10, g)
     this.ball(0.13, 0xf1c9a0, 0, 0.64, 0, 1, 1, 1, g)
     if (hat) this.cone(0.3, 0.2, 0xe8d28a, 0, 0.66, 0, 14, g)
     else this.ball(0.14, 0x2b2b36, 0, 0.7, -0.02, 0.7, 1, 1, g)
     this.put(g, x, y, z, into)
+  }
+
+  /** Biển chữ (bảng tên, hoành phi) vẽ bằng canvas — `w` × `h`, mặt quay về +z (hoặc xoay `rotY`) */
+  sign(
+    text: string,
+    w: number,
+    h: number,
+    bg: string,
+    fg: string,
+    x: number,
+    y: number,
+    z: number,
+    rotY = 0,
+    into?: ThreeNS.Object3D
+  ): ThreeNS.Mesh {
+    const px = 64
+    const cv = document.createElement('canvas')
+    cv.width = Math.max(64, Math.round(w * px * 2))
+    cv.height = Math.max(32, Math.round(h * px * 2))
+    const c = cv.getContext('2d')
+    if (c) {
+      c.fillStyle = bg
+      c.fillRect(0, 0, cv.width, cv.height)
+      c.fillStyle = fg
+      c.textAlign = 'center'
+      c.textBaseline = 'middle'
+      c.font = `800 ${Math.round(cv.height * 0.62)}px system-ui, sans-serif`
+      c.fillText(text, cv.width / 2, cv.height / 2, cv.width * 0.92)
+    }
+    const tex = new this.THREE.CanvasTexture(cv)
+    tex.colorSpace = this.THREE.SRGBColorSpace
+    const m = new this.THREE.Mesh(
+      new this.THREE.PlaneGeometry(w, h),
+      new this.THREE.MeshBasicMaterial({ map: tex })
+    )
+    m.rotation.y = rotY
+    m.position.set(x, y, z)
+    ;(into ?? this.group).add(m)
+    return m
+  }
+
+  /** Lan can: cột + tay vịn chạy từ (x0, z0) tới (x1, z1) ở độ cao y */
+  railing(
+    x0: number,
+    z0: number,
+    x1: number,
+    z1: number,
+    y: number,
+    h: number,
+    color: Color,
+    posts = 8,
+    into?: ThreeNS.Object3D
+  ): void {
+    const len = Math.hypot(x1 - x0, z1 - z0)
+    const ang = Math.atan2(z1 - z0, x1 - x0)
+    for (let i = 0; i <= posts; i++) {
+      const t = i / posts
+      this.box(0.05, h, 0.05, color, x0 + (x1 - x0) * t, y, z0 + (z1 - z0) * t, into)
+    }
+    const rail = this.box(len, 0.04, 0.05, color, (x0 + x1) / 2, y + h - 0.04, (z0 + z1) / 2, into)
+    rail.rotation.y = -ang
+    const mid = this.box(len, 0.03, 0.03, color, (x0 + x1) / 2, y + h * 0.45, (z0 + z1) / 2, into)
+    mid.rotation.y = -ang
+  }
+
+  /** Cột đèn đường kiểu cổ */
+  lamp(x: number, z: number, y = 0, into?: ThreeNS.Object3D, s = 0.55): void {
+    this.cyl(0.03 * s, 0.045 * s, 1.1 * s, 0x2b2b36, x, y, z, 8, into)
+    this.ball(0.09 * s, 0xfff1b8, x, y + 1.18 * s, z, 1.1, 1, 1, into, { emissive: 0x6a5a20 })
+    this.cone(0.11 * s, 0.08 * s, 0x2b2b36, x, y + 1.27 * s, z, 8, into)
+  }
+
+  /** Xe máy nhỏ có người lái */
+  motorbike(x: number, z: number, color: Color, rot = 0, into?: ThreeNS.Object3D): ThreeNS.Group {
+    const g = new this.THREE.Group()
+    this.box(0.5, 0.14, 0.1, color, 0, 0.14, 0, g)
+    for (const dx of [-0.2, 0.2])
+      this.cyl(0.08, 0.08, 0.05, 0x2b2b36, dx, 0.0, 0, 10, g).rotation.x = Math.PI / 2
+    this.person(-0.02, 0.2, 0, color === 0xe24a3b ? 0x4aa8d8 : 0xe24a3b, false, g)
+    g.rotation.y = rot
+    g.scale.setScalar(0.7)
+    return this.put(g, x, 0.08, z, into)
+  }
+
+  /** Băng ghế công viên */
+  bench(x: number, z: number, rot = 0, into?: ThreeNS.Object3D): void {
+    const g = new this.THREE.Group()
+    this.box(0.6, 0.05, 0.2, 0x8a5a36, 0, 0.18, 0, g)
+    this.box(0.6, 0.18, 0.04, 0x8a5a36, 0, 0.22, -0.09, g)
+    for (const dx of [-0.25, 0.25]) this.box(0.04, 0.18, 0.18, 0x2b2b36, dx, 0, 0, g)
+    g.rotation.y = rot
+    this.put(g, x, 0, z, into)
   }
 }

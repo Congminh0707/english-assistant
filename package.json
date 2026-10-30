@@ -40,7 +40,8 @@
     "badges": "tsx scripts/badges/make-badges.ts",
     "pictures": "tsx scripts/pictures/make-pictures.ts",
     "pictures:sheet": "node scripts/pictures/vector-sheet.mjs",
-    "landmarks:sheet": "node scripts/pictures/landmark-sheet.mjs"
+    "landmarks:sheet": "node scripts/pictures/landmark-sheet.mjs",
+    "landmarks3d:sheet": "node scripts/pictures/landmark3d-sheet.mjs"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",

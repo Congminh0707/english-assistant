@@ -76,3 +76,41 @@ Lớp: `.btn` + một biến thể màu (`--primary` hành động chính, `--su
 - [ ] Thẻ lưới cùng chiều cao, nút thẳng hàng.
 - [ ] Không màu hex/px bán kính riêng; khoảng cách theo `--sp-*`.
 - [ ] Xem ở ~800px không vỡ bố cục, không thanh cuộn ngang thừa.
+
+## 10. Bản đồ 3D & công trình 3D (màn game bé — docs/19 §5.2)
+
+Áp dụng cho `src/renderer/study/kids/game/map3d.ts`, `landmarks3d/*`, `map3dVehicles.ts`. Mục tiêu: **một bức tranh hoạt hình thống nhất, đẹp và chi tiết, bám sát công trình thật**.
+
+**Phong cách chung**
+
+- Chất liệu: luôn qua `toon()` (`game/toon.ts`, 4 bậc sáng). Không dùng `MeshLambert/Standard` riêng lẻ trừ mặt nước (Phong trong mờ) và hiệu ứng (mây, khói: Basic trong mờ).
+- Viền mực do hậu kỳ theo độ sâu (không vẽ viền bằng tay). Nhãn tên vẽ **sau** hậu kỳ (scene riêng) để viền không cắt chữ.
+- Màu: tươi nhưng không chói; dùng đúng màu thật của công trình (ngói âm dương nâu sẫm Hội An, ngói lưu ly vàng Huế, gạch nung đỏ tháp Chăm, tường vàng kem Bến Thành…). Tránh đen tuyệt đối (tối nhất `#2b2b36`) và trắng tuyệt đối trên mảng lớn (`#f6f4ee`).
+- Không voxel/pixel trên bản đồ 3D — voxel chỉ cho bản đồ 2D/sticker.
+
+**Hình khối & chi tiết (bám thực tế)**
+
+- Mỗi công trình phải có **≥ 3 đặc điểm nhận diện thật** (ghi ở đầu hàm dựng), vd Ngọ Môn: đài hình chữ U có hai cánh vươn ra trước, 5 cửa (3 trước + 2 ở hai cánh), lầu Ngũ Phụng 2 tầng mái ngói vàng/xanh.
+- Tỉ lệ đúng tương đối (cao/rộng, số tầng, số cửa, số cột) — đếm theo ảnh thật; không ước đại.
+- Mái Việt/Á Đông: dùng `eaveRoof`/`gable` + đầu đao, có diềm mái; ngói nhiều lớp (dải ngói) khi nhìn gần.
+- Chi tiết theo 3 cấp: **khối chính** (thấy từ toàn cảnh) → **đặc điểm** (cửa vòm, cột, lan can, bảng tên, đèn lồng) → **trang trí nhỏ** (con giống, hoa văn, chậu cây, người). Cấp 3 chỉ cần khi camera cận cảnh (chân công trình ~10 đơn vị cục bộ).
+- Nền công trình: hình tròn/hữu cơ hoặc theo đúng hình thật (hồ, sông, quảng trường) — không tấm vuông dán lên đất. Công trình trên nước (chợ nổi, vịnh) phải nằm trên mặt nước thật (nền nước).
+- Có người/xe/thuyền nhỏ để thấy tỉ lệ và sự sống.
+
+**Hoạt ảnh**
+
+- Mỗi nơi có ít nhất một hoạt ảnh lặp riêng (`group.userData.tick(t)`): chậm, êm (chu kỳ ≥ 4 giây), không giật, không nhấp nháy mạnh.
+- Phương tiện: bánh xe lăn theo quãng đường, thuyền chòng chành, máy bay quay cánh quạt; tốc độ đi chậm vừa phải (ô tô 150, thuyền 95, máy bay 300 đơn vị sân khấu/giây), chuyến dài thì bay lâu hơn (tối đa 24 giây).
+- Tôn trọng giảm chuyển động: camera nhảy thẳng, không lượn vòng.
+
+**Camera & tỉ lệ**
+
+- Công trình rộng `LANDMARK_SPAN` = 3,4 đơn vị thế giới; tới nơi thì cận cảnh (khoảng cách ~4,6, nghiêng 0,5) và lượn chậm quanh công trình.
+- Camera không bao giờ chui vào đất/núi (luôn cao hơn mặt đất dưới nó).
+- Đường đi bám địa hình, dừng ở cổng công trình, không cắt ngang công trình.
+
+**Quy trình rà soát**
+
+1. `pnpm landmarks3d:sheet --ids a,b --out x.png` xuất ảnh các công trình (toàn cảnh + cận cảnh) để soi, so với ảnh thật.
+2. Kiểm tra trên bản đồ: `KIDS_UNLOCK_ALL=1 pnpm dev`, bật 3D, đi tới từng nơi.
+3. Ngân sách: mỗi công trình ≤ ~60 nghìn tam giác; toàn bản đồ giữ ≥ 30 fps trên GPU tích hợp ở 1080p.

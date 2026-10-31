@@ -66,7 +66,7 @@ erDiagram
 | Cột | Kiểu | Ghi chú |
 |---|---|---|
 | id, profile_id | TEXT | |
-| character_id | TEXT | `bi`/`webster`/`draco`/`robo`/`kitsu` (bản cũ lưu `placeholder` = `bi`; code dùng `normalizeCharacterId`). Nhân vật đã mua nằm ở `inventory` dạng `char:<id>` — không cần migration |
+| character_id | TEXT | `bi`/`lupo`/`draco`/`robo`/`kitsu` (bản cũ lưu `placeholder` = `bi`; code dùng `normalizeCharacterId`). Nhân vật đã mua nằm ở `inventory` dạng `char:<id>`. **Migration 0007 (2026-11-01):** Lupo thay Webby — `pet_states.character_id` `webster` → `lupo` (tên `Webby` → `Lupo`, tên tự đặt giữ nguyên) và `inventory_items.item_id` `char:webster` → `char:lupo`; test ở `src/main/db/client.test.ts` |
 | name | TEXT | Người dùng đặt tên |
 | level, xp | INTEGER | XP trong level hiện tại |
 | total_xp | INTEGER | |

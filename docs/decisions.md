@@ -302,3 +302,8 @@ Mẫu:
 
 **Quyết định:** đóng gói font bằng `@fontsource` thay vì Google Fonts, để chạy offline và giữ CSP. CSP thêm `font-src 'self' data:`. Tranh Làng chữ là SVG sinh từ `scripts/design-data/export-art.py`, nhúng qua `ArtScene.vue` trong Shadow DOM để id và lớp CSS không đụng trang, nạp chậm. Nhãn địa điểm vẽ bằng HTML để đi qua i18n.
 **Hệ quả:** thêm khoảng 15 MB tranh vào bộ cài, chưa tối ưu.
+
+## #43 — Thú cưng chibi vector và Lupo thay Webby (2026-11-01) — Đã quyết định
+
+**Quyết định:** `PetSprite` vẽ vector từ `art/pets/<id>.pet.json` (sinh bằng `export-mascot.py`), nhúng Shadow DOM như `ArtScene`. Giai đoạn baby/teen/adult/legend dùng chung một hình, khác tỉ lệ và màu bằng CSS (Kitsu thêm số đuôi), trứng lấy từ bảng `Char*`; thiết kế chỉ vẽ dáng đầy đủ nên không có hình riêng từng giai đoạn. Lupo thay Webby: id `webster` đổi thành `lupo`, migration `0007_webby_to_lupo` chuyển hồ sơ đang dùng hoặc sở hữu Webby (không sửa migration cũ).
+**Hệ quả:** cửa sổ mascot (desktop) vẫn dùng sprite pixel; thư mục sprite `webster` chỉ đổi tên thành `lupo` để test còn qua, vẫn là hình nhện cũ cho tới khi mascot chuyển sang vector.

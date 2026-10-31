@@ -21,10 +21,10 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
 | Phiên bản app                                  | 1.6.0                                                                                       | `pnpm stats` | 2026-10-30 |
 | Test (Vitest)                                  | 446 test / 48 file                                                                          | `pnpm test`  | 2026-10-30 |
-| Kênh IPC                                       | 103 invoke · 4 send · 14 event                                                              | `pnpm stats` | 2026-10-30 |
-| Migration DB (Drizzle)                         | 7 (`0000`–`0006`)                                                                           | `pnpm stats` | 2026-10-22 |
-| Nhân vật thú cưng                              | 5 (Bi, Webby, Draco, Robo, Kitsu)                                                           | `pnpm stats` | 2026-10-22 |
-| Hoạt ảnh mỗi nhân vật (giai đoạn trưởng thành) | 25 (Bi, Webby, Draco: 20 chung + 3 `quirk_*` + 2 `click_*`) · 26 (Robo, Kitsu: 4 `quirk_*`) | `pnpm stats` | 2026-10-22 |
+| Kênh IPC                                       | 104 invoke · 4 send · 14 event                                                              | `pnpm stats` | 2026-11-01 |
+| Migration DB (Drizzle)                         | 8 (`0000`–`0007`)                                                                           | `pnpm stats` | 2026-11-01 |
+| Nhân vật thú cưng                              | 5 (Bi, Lupo, Draco, Robo, Kitsu)                                                           | `pnpm stats` | 2026-10-22 |
+| Hoạt ảnh mỗi nhân vật (giai đoạn trưởng thành) | 25 (Bi, Lupo, Draco: 20 chung + 3 `quirk_*` + 2 `click_*`) · 26 (Robo, Kitsu: 4 `quirk_*`) | `pnpm stats` | 2026-10-22 |
 | Vật phẩm cửa hàng                              | 41 = 17 đồ ăn + 20 phụ kiện + 4 nhân vật bán bằng xu (Bi có sẵn)                            | `pnpm stats` | 2026-10-22 |
 
 ## 2. Nội dung tự soạn (`content/curated/`)

@@ -97,3 +97,47 @@ describe('sao lưu user.db trước khi migrate', () => {
     conn.close()
   })
 })
+
+describe('migration 0007: Webby thành Lupo', () => {
+  it('chuyển thú cưng và vật phẩm nhân vật webster sang lupo, giữ nguyên nhân vật khác và tên tự đặt', () => {
+    const file = join(dir, 'user.db')
+    const old = openUserDb(file, partialMigrations(7))
+    const ins = (id: string, ch: string, name: string): void => {
+      old.sqlite
+        .prepare(
+          "INSERT INTO profiles (id, name, track, created_at, updated_at) VALUES (?, 'p', 'general', 1, 1)"
+        )
+        .run(id)
+      old.sqlite
+        .prepare(
+          `INSERT INTO pet_states (id, profile_id, character_id, name, hunger, mood, energy, last_tick_at, created_at, updated_at)
+           VALUES (?, ?, ?, ?, 1, 1, 1, 1, 1, 1)`
+        )
+        .run('pet-' + id, id, ch, name)
+      old.sqlite
+        .prepare(
+          'INSERT INTO inventory_items (id, profile_id, item_id, quantity, created_at, updated_at) VALUES (?, ?, ?, 1, 1, 1)'
+        )
+        .run('inv-' + id, id, 'char:' + ch)
+    }
+    ins('a', 'webster', 'Webby')
+    ins('b', 'webster', 'Nhện nhỏ')
+    ins('c', 'bi', 'Bi')
+    old.close()
+
+    const db = openUserDb(file, FULL)
+    const pets = db.sqlite
+      .prepare('SELECT profile_id p, character_id c, name n FROM pet_states ORDER BY profile_id')
+      .all()
+    expect(pets).toEqual([
+      { p: 'a', c: 'lupo', n: 'Lupo' },
+      { p: 'b', c: 'lupo', n: 'Nhện nhỏ' },
+      { p: 'c', c: 'bi', n: 'Bi' }
+    ])
+    const items = db.sqlite
+      .prepare('SELECT item_id i FROM inventory_items ORDER BY profile_id')
+      .all()
+    expect(items).toEqual([{ i: 'char:lupo' }, { i: 'char:lupo' }, { i: 'char:bi' }])
+    db.close()
+  })
+})

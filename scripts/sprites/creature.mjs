@@ -127,7 +127,7 @@ export const CHARACTERS = {
       }
     }
   },
-  webster: {
+  lupo: {
     kind: 'hero',
     stages: {
       egg: eggSpec('#e8505e'),

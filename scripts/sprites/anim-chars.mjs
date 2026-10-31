@@ -72,8 +72,8 @@ const bi = {
   }
 }
 
-// ============================================================ Webby — nhện hero
-const webster = {
+// ============================================================ Lupo (tạm: hình nhện cũ, chờ vẽ lại) — nhện hero
+const lupo = {
   tweaks: {
     idle: (_p, i) => ({
       armL: 55,
@@ -416,7 +416,7 @@ const CLICKS = {
       }))
     )
   },
-  webster: {
+  lupo: {
     // Giác quan nhện: giật mình rồi tạo dáng
     click_spidey: once(
       10,
@@ -561,7 +561,7 @@ const INTERACTION_TWEAKS = {
     eat: () => ({ tail: 0.9 })
   },
   // Webby: bắn tơ bám trần khi rơi, tiếp đất tư thế anh hùng
-  webster: {
+  lupo: {
     // Bị kéo lên: treo lủng lẳng trên sợi tơ như anh hùng nhện
     drag: (_p, i) => ({
       eyes: 'wide',
@@ -655,7 +655,7 @@ function mergeTweaks(...groups) {
   return out
 }
 
-const CHARS = { bi, webster, draco, robo, kitsu }
+const CHARS = { bi, lupo, draco, robo, kitsu }
 export const TWEAKS = Object.fromEntries(
   Object.entries(CHARS).map(([id, c]) => [id, mergeTweaks(c.tweaks, INTERACTION_TWEAKS[id])])
 )

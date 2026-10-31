@@ -2,7 +2,7 @@
 // Mỗi nhân vật có 5 giai đoạn tiến hoá; level/XP thuộc về hồ sơ nên đổi nhân vật vẫn giữ nguyên tiến độ.
 // Sprite: src/renderer/mascot/assets/characters/<id>/<giai đoạn>/ (sinh bởi scripts/sprites/make-characters.mjs).
 
-export const CHARACTER_IDS = ['bi', 'webster', 'draco', 'robo', 'kitsu'] as const
+export const CHARACTER_IDS = ['bi', 'lupo', 'draco', 'robo', 'kitsu'] as const
 export type CharacterId = (typeof CHARACTER_IDS)[number]
 
 export interface CharacterDef {
@@ -17,7 +17,7 @@ export interface CharacterDef {
 
 export const CHARACTERS = {
   bi: { price: 0, minLevel: 0, emoji: '🐣', name: 'Bi' },
-  webster: { price: 500, minLevel: 5, emoji: '🕷️', name: 'Webby' },
+  lupo: { price: 500, minLevel: 5, emoji: '🐺', name: 'Lupo' },
   draco: { price: 700, minLevel: 8, emoji: '🐲', name: 'Draco' },
   robo: { price: 700, minLevel: 8, emoji: '🤖', name: 'Robo' },
   kitsu: { price: 600, minLevel: 5, emoji: '🦊', name: 'Kitsu' }

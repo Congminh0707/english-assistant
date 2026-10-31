@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { Copy, Headphones, ListOrdered, Pencil, Star, Volume2 } from 'lucide-vue-next'
+import type { Component } from 'vue'
 import {
   EXERCISE_KINDS,
   type Exercise,
@@ -11,8 +13,7 @@ import {
 } from '@shared/schemas/practice'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
-import PxBar from '@renderer/shared/components/PxBar.vue'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import AudioPrompt from '../exercises/AudioPrompt.vue'
 import ChoiceList from '../exercises/ChoiceList.vue'
 import MatchBoard from '../exercises/MatchBoard.vue'
@@ -38,17 +39,40 @@ const typed = ref('') // dictation
 const pairMap = ref<Array<number | null>>([]) // match_pairs: left → right
 const dictationInput = ref<HTMLInputElement>()
 
-const modes = computed(() => [
-  { id: 'mixed' as const, icon: '🎲', label: t('study.practice.mixed') },
-  ...EXERCISE_KINDS.map((k) => ({ id: k, icon: ICONS[k], label: t(`study.practice.kind.${k}`) }))
-])
-const ICONS: Record<ExerciseKind, string> = {
-  cloze: '✏️',
-  word_order: '🧩',
-  listen_choice: '🎧',
-  dictation: '⌨️',
-  match_pairs: '🔗'
+const ICONS: Record<ExerciseKind, Component> = {
+  cloze: Pencil,
+  word_order: ListOrdered,
+  listen_choice: Headphones,
+  dictation: Volume2,
+  match_pairs: Copy
 }
+const modes = computed(() => [
+  {
+    id: 'mixed' as const,
+    icon: Star as Component,
+    label: t('study.practice.mixed'),
+    desc: t('study.practice.desc.mixed')
+  },
+  ...EXERCISE_KINDS.map((k) => ({
+    id: k,
+    icon: ICONS[k],
+    label: t(`study.practice.kind.${k}`),
+    desc: t(`study.practice.desc.${k}`)
+  }))
+])
+/** Ước lượng thời gian còn lại: khoảng 30 giây mỗi bài */
+const eta = computed(() => {
+  const e = exercise.value
+  const left = e ? e.total - e.index + (phase.value === 'feedback' ? 0 : 1) : 10
+  return t('study.practice.eta', { n: Math.max(1, Math.round((left * 30) / 60)) })
+})
+const keyHint = computed(() => {
+  const e = exercise.value
+  if (phase.value === 'feedback') return t('study.practice.keyNext')
+  if (e && (e.kind === 'cloze' || e.kind === 'listen_choice')) return t('study.practice.keyChoice')
+  if (e?.kind === 'dictation') return t('study.practice.keyDictation')
+  return t('study.practice.keyCheck')
+})
 
 const canCheck = computed(() => {
   const e = exercise.value
@@ -150,6 +174,17 @@ const percent = computed(() =>
 )
 
 function onKeyDown(e: KeyboardEvent): void {
+  if (e.ctrlKey || e.metaKey || e.altKey) return
+  const ex0 = exercise.value
+  if (
+    e.key.toLowerCase() === 'r' &&
+    (e.target as HTMLElement | null)?.tagName !== 'INPUT' &&
+    ex0 &&
+    (ex0.kind === 'listen_choice' || ex0.kind === 'dictation')
+  ) {
+    speak(ex0.audioText, undefined, 0.9)
+    return
+  }
   if (e.key === 'Enter' && !e.shiftKey) {
     if (phase.value === 'feedback') {
       e.preventDefault()
@@ -179,31 +214,46 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   <section class="practice">
     <h1>{{ t('study.practice.title') }}</h1>
 
-    <PxPanel v-if="phase === 'menu' || phase === 'empty'" class="box">
-      <p>{{ t('study.practice.intro') }}</p>
+    <template v-if="phase === 'menu' || phase === 'empty'">
+      <p class="muted">{{ t('study.practice.intro') }} · {{ eta }}</p>
       <p v-if="phase === 'empty'" class="warn">{{ t('study.practice.empty') }}</p>
       <div class="modes">
         <button
-          v-for="m in modes"
+          v-for="(m, i) in modes"
           :key="m.id"
           type="button"
           class="mode"
+          :class="{ first: i === 0 }"
           :disabled="busy"
           @click="start(m.id)"
         >
-          <span class="icon">{{ m.icon }}</span> {{ m.label }}
+          <span class="icon"><component :is="m.icon" :size="18" :stroke-width="2.2" /></span>
+          <strong>{{ m.label }}</strong>
+          <span class="desc">{{ m.desc }}</span>
         </button>
       </div>
-    </PxPanel>
+    </template>
 
     <template v-else-if="(phase === 'question' || phase === 'feedback') && exercise">
-      <PxBar :value="exercise.index - 1" :max="exercise.total" label="progress" />
-      <p class="muted">
-        {{ t('study.practice.counter', { index: exercise.index, total: exercise.total }) }} ·
-        {{ t(`study.practice.kind.${exercise.kind}`) }}
-      </p>
+      <div class="progress">
+        <div
+          class="bar"
+          role="progressbar"
+          aria-label="progress"
+          :aria-valuenow="exercise.index - 1"
+        >
+          <div
+            class="fill"
+            :style="{ width: `${((exercise.index - 1) / exercise.total) * 100}%` }"
+          />
+        </div>
+        <span class="muted">
+          {{ t('study.practice.counter', { index: exercise.index, total: exercise.total }) }} ·
+          {{ t(`study.practice.kind.${exercise.kind}`) }} · {{ eta }}
+        </span>
+      </div>
 
-      <PxPanel class="box">
+      <div class="card box">
         <!-- Điền từ -->
         <template v-if="exercise.kind === 'cloze'">
           <p class="instruction">{{ t('study.practice.clozeHelp') }}</p>
@@ -266,13 +316,14 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 
         <!-- Phản hồi -->
         <div v-if="phase === 'feedback' && result" class="feedback" :class="{ ok: result.correct }">
-          <strong>{{
-            result.correct ? t('study.practice.correct') : t('study.practice.wrong')
-          }}</strong>
+          <strong class="verdict">
+            <UiIcon :name="result.correct ? 'check' : 'close'" :size="16" />
+            {{ result.correct ? t('study.practice.correct') : t('study.practice.wrong') }}
+          </strong>
           <span v-if="percent !== null"> · {{ t('study.practice.accuracy', { n: percent }) }}</span>
           <div class="solution">{{ result.solution }}</div>
         </div>
-      </PxPanel>
+      </div>
 
       <div class="actions">
         <button
@@ -282,15 +333,18 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           :disabled="!canCheck || busy"
           @click="check"
         >
-          {{ t('study.practice.check') }}
+          {{ t('study.practice.check') }} <kbd>Enter</kbd>
         </button>
         <button v-else type="button" class="btn btn--primary" @click="next">
           {{ result?.next ? t('study.practice.next') : t('study.practice.finish') }}
+          <kbd>Enter</kbd>
         </button>
       </div>
+      <p class="muted keys">{{ keyHint }}</p>
     </template>
 
-    <PxPanel v-else-if="phase === 'summary' && summary" class="box result">
+    <div v-else-if="phase === 'summary' && summary" class="card box result">
+      <UiIcon name="party" :size="32" class="party" />
       <h2>{{ t('study.practice.summaryTitle') }}</h2>
       <p>
         {{ t('study.practice.summaryBody', { correct: summary.correct, total: summary.total }) }}
@@ -302,15 +356,15 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       <button type="button" class="btn btn--primary" @click="phase = 'menu'">
         {{ t('study.practice.again') }}
       </button>
-    </PxPanel>
+    </div>
   </section>
 </template>
 
 <style scoped>
 .practice {
   display: grid;
-  gap: 12px;
-  max-width: 680px;
+  gap: var(--sp-3);
+  max-width: 820px;
   margin: 0 auto;
 }
 h1 {
@@ -320,63 +374,98 @@ h1 {
 .muted {
   margin: 0;
   color: var(--c-ink-soft);
-  font-size: 13px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.progress {
+  display: grid;
+  gap: var(--sp-1);
+}
+.bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+}
+.fill {
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: var(--c-primary);
+  transition: width 0.3s ease;
 }
 .warn {
-  padding: 6px 8px;
-  background: var(--c-warning);
-  border: 1px solid var(--c-line);
+  margin: 0;
+  padding: var(--sp-2) var(--sp-3);
+  background: var(--c-warning-soft);
+  color: var(--c-warning);
+  font-weight: 600;
   border-radius: var(--r-md);
 }
 .box {
   display: grid;
-  gap: 14px;
-  padding: 20px 22px;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
 }
 .instruction {
   margin: 0;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--c-xp);
 }
 .sentence {
   margin: 0;
-  font-size: 22px;
+  font-size: var(--fs-xl);
   font-weight: 700;
 }
 .sentence.vi {
-  font-size: 18px;
+  font-size: var(--fs-lg);
 }
 .modes {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--sp-3);
 }
 .mode {
-  padding: 12px;
-  border: 1px solid var(--c-line);
-  background: var(--c-bg);
+  display: grid;
+  gap: var(--sp-1);
+  align-content: start;
+  padding: var(--sp-4);
+  border: 2px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--c-ink);
   font: inherit;
-  font-weight: 600;
   text-align: left;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  border-radius: var(--r-md);
+  border-radius: var(--r-lg);
 }
-.mode:hover:not(:disabled) {
+.mode.first {
+  border-color: var(--c-primary);
   background: var(--c-primary-soft);
 }
-.icon {
-  display: inline-block;
-  width: 26px;
+.mode:hover:not(:disabled) {
+  background: var(--c-surface-2);
+}
+.mode .icon {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  margin-bottom: var(--sp-2);
+  border-radius: var(--r-md);
+  background: var(--c-surface-2);
+  color: var(--c-primary);
+}
+.mode .desc {
+  color: var(--c-ink-soft);
+  font-size: var(--fs-sm);
 }
 .typed {
   box-sizing: border-box;
   width: 100%;
-  padding: 10px 12px;
+  padding: var(--sp-3);
   border: 1px solid var(--c-line);
   background: var(--c-surface);
   font: inherit;
-  font-size: 16px;
+  font-size: var(--fs-lg);
   outline: none;
   border-radius: var(--r-md);
 }
@@ -385,9 +474,9 @@ h1 {
   box-shadow: 0 0 0 3px var(--c-primary-soft);
 }
 .feedback {
-  padding: 8px 10px;
+  padding: var(--sp-3);
   color: var(--c-danger);
-  background: #fde8e8;
+  background: var(--c-danger-soft);
   border-left: 4px solid var(--c-danger);
   border-radius: var(--r-md);
 }
@@ -396,8 +485,13 @@ h1 {
   background: var(--c-success-soft);
   border-left-color: var(--c-success);
 }
+.verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
 .solution {
-  margin-top: 4px;
+  margin-top: var(--sp-1);
   color: var(--c-ink);
   font-weight: 400;
 }
@@ -405,12 +499,24 @@ h1 {
   display: flex;
   justify-content: center;
 }
+kbd {
+  font: inherit;
+  font-size: var(--fs-xs);
+  opacity: 0.75;
+}
+.keys {
+  text-align: center;
+  font-weight: 500;
+}
 .result {
   text-align: center;
   justify-items: center;
 }
 .result h2 {
   margin: 0;
+}
+.party {
+  color: var(--c-coin);
 }
 .reward {
   margin: 0;

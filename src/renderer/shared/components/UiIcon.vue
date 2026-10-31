@@ -14,6 +14,7 @@ import {
   Gamepad2,
   Gift,
   Headphones,
+  Heart,
   House,
   Lightbulb,
   Lock,
@@ -76,6 +77,7 @@ const ICONS = {
   box: Box,
   mute: VolumeX,
   back: ChevronLeft,
+  heart: Heart,
   moon: Moon
 } as const satisfies Record<string, Component>
 

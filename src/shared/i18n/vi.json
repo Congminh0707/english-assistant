@@ -1258,6 +1258,8 @@
       "extend": "Cho dùng thêm 10 phút (cần PIN)"
     },
     "gate": {
+      "delete": "Xoá",
+      "ok": "Xong",
       "enterPin": "Nhập PIN phụ huynh",
       "newPin": "Đặt PIN phụ huynh (4 số)",
       "confirmPin": "Nhập lại PIN để xác nhận",

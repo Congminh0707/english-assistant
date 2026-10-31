@@ -459,7 +459,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="stage">
+  <div class="stage modern">
     <SpeechBubble
       v-if="bubble.current.value"
       :bubble="bubble.current.value"

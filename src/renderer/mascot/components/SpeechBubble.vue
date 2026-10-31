@@ -82,7 +82,7 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
         </div>
       </div>
     </PxPanel>
-    <div class="tail" :style="{ transform: `translateX(${-shift}px)` }" />
+    <div class="tail" :style="{ left: `calc(50% - ${shift}px)` }" />
   </div>
 </template>
 
@@ -92,17 +92,15 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
   max-width: 240px;
   margin-bottom: 12px;
   cursor: pointer;
-  filter: drop-shadow(0 6px 12px rgb(0 0 0 / 28%));
 }
 .bubble.interactive {
   cursor: default;
   width: 336px;
   max-width: calc(100vw - 8px);
 }
-/* Khung nổi bật trên mọi nền: bóng đổ do filter, bỏ bóng của PxPanel để khỏi bị cắt ở mép cửa sổ */
+/* Khung giấy viền mảnh, bóng nhẹ của PxPanel (bảng S4Bubbles) */
 .bubble :deep(.px-panel) {
-  padding: var(--sp-3) var(--sp-4);
-  box-shadow: none;
+  padding: var(--sp-3);
 }
 .text {
   margin: 0;
@@ -137,21 +135,22 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
   gap: 6px;
   font-size: var(--fs-sm);
   font-weight: 600;
-  color: #8a5a00;
+  color: var(--c-warning);
 }
 .coins :deep(svg) {
   color: var(--c-coin);
 }
-/* Đuôi bong bóng chỉ xuống nhân vật */
+/* Đuôi bong bóng: ô vuông xoay 45°, viền cùng khung, chỉ xuống nhân vật */
 .tail {
   position: absolute;
   left: 50%;
-  bottom: -8px;
-  width: 0;
-  height: 0;
-  margin-left: -7px;
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  border-top: 9px solid var(--c-surface);
+  bottom: -7px;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  background: var(--c-surface);
+  border-right: 1px solid var(--c-line);
+  border-bottom: 1px solid var(--c-line);
+  transform: rotate(45deg);
 }
 </style>

@@ -215,14 +215,14 @@ onUnmounted(() => window.clearTimeout(closeTimer))
   background: var(--c-primary-soft);
 }
 .choice.right {
-  border-color: transparent;
+  border-color: var(--c-success);
   background: var(--c-success);
-  color: #fff;
+  color: var(--c-on-primary);
 }
 .choice.wrong {
-  border-color: transparent;
+  border-color: var(--c-danger);
   background: var(--c-danger);
-  color: #fff;
+  color: var(--c-on-primary);
 }
 .feedback {
   margin: 2px 0 0;

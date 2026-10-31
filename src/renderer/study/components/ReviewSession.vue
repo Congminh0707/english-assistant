@@ -6,8 +6,6 @@ import type { StudyCard, StudyRating } from '@shared/schemas/study'
 import { invoke } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useTts } from '@renderer/shared/composables/useTts'
-import PxBar from '@renderer/shared/components/PxBar.vue'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
 import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
 import { pictureForWord } from '@shared/pictures'
@@ -15,7 +13,8 @@ import { formatInterval } from '../format'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Phiên ôn thẻ SRS với 4 dạng thẻ: nhận diện (lật thẻ), Việt→Anh (gõ từ), nghe-gõ, điền từ.
-// Gõ đáp án thì gợi ý mức chấm (đúng → Được, gần đúng → Khó, sai → Quên); phím 1–4 chấm, U hoặc Ctrl+Z hoàn tác.
+// Gõ đáp án thì gợi ý mức chấm (đúng → Được, gần đúng → Khó, sai → Quên); phím 1–4 chấm, Enter chọn mức gợi ý,
+// R mở/đóng khung nói to, Z (hoặc U, Ctrl+Z) hoàn tác.
 const emit = defineEmits<{ exit: []; changed: [] }>()
 
 const { t } = useI18n()
@@ -38,8 +37,17 @@ const shownLetters = ref(1)
 const picked = ref<number | null>(null)
 const speakOpen = ref(false)
 let shownAt = 0
+/** Tổng thời gian đã ôn trong phiên (ms), để ước lượng thời gian còn lại */
+let spentMs = 0
 
 const total = computed(() => reviewed.value + dueCount.value)
+/** Ước lượng thời gian còn lại: trung bình đã đo (từ 3 thẻ), mặc định 20 giây/thẻ */
+const eta = computed(() => {
+  const per = reviewed.value >= 3 ? spentMs / reviewed.value : 20_000
+  const min = Math.round((dueCount.value * per) / 60_000)
+  return min < 1 ? t('study.review.etaShort') : t('study.review.eta', { n: min })
+})
+const percent = computed(() => Math.min(100, (reviewed.value / Math.max(total.value, 1)) * 100))
 const finished = computed(() => !loading.value && !card.value)
 
 /** Thẻ nhận diện đang chờ chọn nghĩa (trắc nghiệm) */
@@ -183,6 +191,7 @@ async function rate(rating: StudyRating): Promise<void> {
       rating,
       elapsedMs: Math.round(performance.now() - shownAt)
     })
+    spentMs += Math.min(performance.now() - shownAt, 120_000)
     reviewed.value++
     canUndo.value = true
     emit('changed')
@@ -226,14 +235,17 @@ function onKeyDown(e: KeyboardEvent): void {
   const inInput = (e.target as HTMLElement | null)?.tagName === 'INPUT'
   if (inInput && !revealed.value) return // đang gõ đáp án: Enter xử lý ở ô nhập
   if (e.key === ' ' || e.key === 'Enter') {
+    if (finished.value || loading.value) return
     e.preventDefault()
     if (revealed.value) void rate(suggested.value ?? 3)
     else if (!answerable.value) reveal()
   } else if (['1', '2', '3', '4'].includes(e.key)) {
     if (choiceMode.value) pickChoice(Number(e.key) - 1)
     else void rate(Number(e.key) as StudyRating)
-  } else if (e.key.toLowerCase() === 'u') {
+  } else if (e.key.toLowerCase() === 'z' || e.key.toLowerCase() === 'u') {
     void undo()
+  } else if (e.key.toLowerCase() === 'r' && !inInput) {
+    speakOpen.value = !speakOpen.value
   }
 }
 
@@ -255,7 +267,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   <section class="review">
     <p v-if="loading" class="muted">…</p>
 
-    <PxPanel v-else-if="finished" class="done">
+    <div v-else-if="finished" class="card done">
+      <UiIcon name="party" :size="32" class="done-icon" />
       <h2>{{ t('study.review.doneTitle') }}</h2>
       <p>{{ t('study.review.doneBody', { n: reviewed }) }}</p>
       <div class="row">
@@ -263,22 +276,31 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           {{ t('study.review.backHome') }}
         </button>
         <button v-if="canUndo" type="button" class="btn btn--ghost btn--sm" @click="undo">
-          ↶ {{ t('study.review.undo') }}
+          <UiIcon name="reset" /> {{ t('study.review.undo') }} <kbd>Z</kbd>
         </button>
       </div>
-    </PxPanel>
+    </div>
 
     <template v-else-if="card">
       <div class="progress">
-        <PxBar :value="reviewed" :max="Math.max(total, 1)" label="progress" />
-        <span class="muted">{{ t('study.review.remaining', { count: dueCount }) }}</span>
+        <div
+          class="bar"
+          role="progressbar"
+          aria-label="progress"
+          :aria-valuenow="Math.round(percent)"
+        >
+          <div class="fill" :style="{ width: `${percent}%` }" />
+        </div>
+        <span class="muted"
+          >{{ t('study.review.remaining', { count: dueCount }) }} · {{ eta }}</span
+        >
       </div>
 
-      <PxPanel class="card">
+      <div class="card main">
         <div class="face">
-          <span v-if="card.isNew" class="tag new">{{ t('study.review.new') }}</span>
-          <span class="tag level">{{ card.level.replace('_', '.') }}</span>
-          <span class="tag kind">{{ t(`study.review.kind.${card.direction}`) }}</span>
+          <span v-if="card.isNew" class="chip chip--success">{{ t('study.review.new') }}</span>
+          <span class="chip chip--xp">{{ card.level.replace('_', '.') }}</span>
+          <span class="chip">{{ t(`study.review.kind.${card.direction}`) }}</span>
 
           <PixelPicture v-if="picture" :id="picture" :size="96" class="pic" />
 
@@ -413,7 +435,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
             </div>
           </div>
         </div>
-      </PxPanel>
+      </div>
 
       <div class="actions">
         <button
@@ -435,12 +457,19 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
             class="rate"
             :class="[r.tone, { suggested: suggested === r.value }]"
             :disabled="busy"
+            :title="
+              t(`study.review.rateTip.${r.value}`, { when: formatInterval(card.intervals[i], t) })
+            "
             @click="rate(r.value)"
           >
             <span class="rate-label">{{ r.value }} · {{ r.label }}</span>
             <span class="rate-interval">{{ formatInterval(card.intervals[i], t) }}</span>
           </button>
         </div>
+        <p v-if="revealed && suggested" class="suggest">
+          <UiIcon name="hint" :size="14" />
+          {{ t('study.review.suggest', { rating: ratings[suggested - 1].label }) }}
+        </p>
         <div class="row">
           <button
             v-if="canUndo"
@@ -449,13 +478,13 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
             :disabled="busy"
             @click="undo"
           >
-            ↶ {{ t('study.review.undo') }}
+            <UiIcon name="reset" /> {{ t('study.review.undo') }} <kbd>Z</kbd>
           </button>
           <p class="muted hint">{{ hintText }}</p>
         </div>
         <button type="button" class="btn btn--sm btn--ghost" @click="speakOpen = !speakOpen">
           <UiIcon name="mic" />
-          {{ speakOpen ? t('study.review.closeSay') : t('study.review.sayIt') }}
+          {{ speakOpen ? t('study.review.closeSay') : t('study.review.sayIt') }} <kbd>R</kbd>
         </button>
         <div v-if="speakOpen" class="speak-panel">
           <SpeakPractice :key="card.cardId" :expected="card.lemma" can-listen phonemes />
@@ -479,14 +508,35 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   color: var(--c-ink-soft);
 }
 .progress {
-  display: grid;
-  gap: 4px;
-  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  font-size: var(--fs-sm);
+  font-weight: 600;
 }
-.card {
+.bar {
+  flex: 1;
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+}
+.fill {
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: var(--c-primary);
+  transition: width 0.3s ease;
+}
+.card.main {
   display: grid;
-  gap: 16px;
-  padding: 28px 32px;
+  gap: var(--sp-4);
+  padding: var(--sp-6) var(--sp-5);
+}
+kbd {
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  opacity: 0.7;
 }
 .pic {
   display: block;
@@ -495,24 +545,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 .face {
   text-align: center;
 }
-.tag {
-  display: inline-block;
-  margin: 0 3px;
-  padding: 0 5px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #fff;
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-pill);
-}
-.tag.new {
-  background: var(--c-success);
-}
-.tag.level {
-  background: var(--c-xp);
-}
-.tag.kind {
-  background: var(--c-ink-soft);
+.face .chip {
+  margin: 0 var(--sp-1);
 }
 .lemma {
   margin: 8px 0;
@@ -602,11 +636,12 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 .choice {
   width: 100%;
   padding: 12px 10px;
-  border: 1px solid var(--c-line);
+  border: 2px solid var(--c-line);
   background: var(--c-surface);
   color: inherit;
   font: inherit;
-  font-size: 16px;
+  font-size: var(--fs-lg);
+  font-weight: 600;
   text-align: left;
   cursor: pointer;
   border-radius: var(--r-md);
@@ -630,7 +665,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   border-color: var(--c-success);
 }
 .choice.wrong {
-  background: #fdebec;
+  background: var(--c-danger-soft);
   border-color: var(--c-danger);
 }
 .choice:disabled {
@@ -648,7 +683,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   font-style: normal;
   font-weight: 700;
   color: var(--c-ink);
-  background: #fff2a8;
+  background: var(--c-warning-soft);
 }
 .speak-panel {
   width: 100%;
@@ -768,13 +803,11 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 .rate {
   display: grid;
   gap: 2px;
-  padding: 12px 4px;
-  font-size: 15px;
-  border: 1px solid var(--c-line);
-  color: #fff;
+  padding: var(--sp-3) var(--sp-1);
+  font-size: var(--fs-md);
+  border: 2px solid var(--c-line);
   font: inherit;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
   border-radius: var(--r-md);
 }
 .rate:disabled {
@@ -792,21 +825,37 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   font-weight: 700;
 }
 .rate-interval {
-  font-size: 12px;
+  font-size: var(--fs-xs);
   opacity: 0.9;
 }
 .rate.again {
-  background: var(--c-danger);
+  border-color: var(--c-danger);
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
 }
 .rate.hard {
-  background: var(--c-warning);
-  color: var(--c-ink);
+  border-color: var(--c-warning);
+  background: var(--c-warning-soft);
+  color: var(--c-warning);
 }
 .rate.good {
-  background: var(--c-success);
+  border-color: var(--c-success);
+  background: var(--c-success-soft);
+  color: var(--c-success);
 }
 .rate.easy {
-  background: var(--c-primary);
+  border-color: var(--c-xp);
+  background: var(--c-xp-soft);
+  color: var(--c-xp);
+}
+.suggest {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--c-ink-soft);
+  font-size: var(--fs-sm);
+  font-weight: 600;
 }
 .row {
   display: flex;
@@ -820,8 +869,11 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   font-size: 12px;
 }
 .done {
-  padding: 24px;
+  padding: var(--sp-6);
   text-align: center;
+}
+.done-icon {
+  color: var(--c-coin);
 }
 .done h2 {
   margin: 0 0 8px;

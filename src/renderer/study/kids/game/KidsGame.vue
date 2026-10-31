@@ -9,6 +9,8 @@ import { useSettingsStore } from '@renderer/shared/stores/settings'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import KidsReview from '../KidsReview.vue'
 import KidsVisit from '../KidsVisit.vue'
+import { PLACE_ART } from './placeArt.generated'
+import PlaceScene from './PlaceScene.vue'
 import WorldMap from './WorldMap.vue'
 import WorldMap3D from './WorldMap3D.vue'
 import { playSfx, setSfxEnabled } from './sfx'
@@ -22,7 +24,7 @@ const { t, locale } = useI18n()
 const petStore = usePetStore()
 const settings = useSettingsStore()
 
-type View = 'map' | 'visit' | 'review'
+type View = 'map' | 'place' | 'visit' | 'review'
 const view = ref<View>('map')
 const world = ref<KidsWorldView | null>(null)
 const tierId = ref<string | null>(null)
@@ -40,6 +42,9 @@ const want3d = ref(prefs3d)
 const webglFailed = ref(false)
 
 const tier = computed(() => world.value?.tiers.find((x) => x.id === tierId.value) ?? null)
+const currentPlace = computed(
+  () => world.value?.tiers.flatMap((x) => x.places).find((p) => p.id === placeId.value) ?? null
+)
 const can3d = computed(() => tier.value?.scene === 'vn' && !webglFailed.value)
 const show3d = computed(() => can3d.value && want3d.value)
 
@@ -82,9 +87,18 @@ async function load(): Promise<void> {
   }
 }
 
+/** Nơi có cảnh chi tiết thì vào cảnh trước, nơi khác vào thẳng bài học */
 function start(id: string): void {
   placeId.value = id
-  view.value = 'visit'
+  view.value = PLACE_ART[id] ? 'place' : 'visit'
+}
+
+/** Xong hoặc thoát bài học: quay về cảnh của nơi đó nếu có */
+async function afterVisit(): Promise<void> {
+  if (placeId.value && PLACE_ART[placeId.value]) {
+    await load()
+    view.value = 'place'
+  } else await backToMap()
 }
 
 /** Nạp lại tiến độ rồi mới dựng bản đồ, để thú cưng/camera đứng đúng nơi vừa học (không dùng dữ liệu cũ) */
@@ -117,6 +131,7 @@ function onKey(e: KeyboardEvent): void {
   e.preventDefault()
   // Esc lùi một bậc: đang trong màn con thì về bản đồ, đang ở bản đồ thì thoát game
   if (view.value === 'map') exit()
+  else if (view.value === 'visit') void afterVisit()
   else void backToMap()
 }
 
@@ -164,13 +179,22 @@ onUnmounted(() => {
           :scale="scale"
           @start="start"
         />
+        <Transition v-else-if="view === 'place' && currentPlace" name="enter" appear>
+          <PlaceScene
+            :key="currentPlace.id"
+            :place="currentPlace"
+            :width="STAGE_W"
+            :height="STAGE_H"
+            @learn="view = 'visit'"
+          />
+        </Transition>
         <div v-else class="panel">
           <div class="panel-body">
             <KidsVisit
               v-if="view === 'visit' && placeId"
               :key="placeId"
               :place-id="placeId"
-              @back="backToMap"
+              @back="afterVisit"
               @changed="changed"
             />
             <KidsReview v-else-if="view === 'review'" @done="backToMap" @changed="changed" />
@@ -252,6 +276,25 @@ onUnmounted(() => {
 </template>
 
 <style scoped>
+/* Từ bản đồ vào cảnh: cảnh phóng từ xa tới, nền giấy hiện dần */
+.enter-enter-active {
+  transition:
+    opacity 480ms ease,
+    transform 620ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.enter-enter-from {
+  opacity: 0;
+  transform: scale(1.18);
+}
+@media (prefers-reduced-motion: reduce) {
+  .enter-enter-active {
+    transition: none;
+  }
+  .enter-enter-from {
+    opacity: 1;
+    transform: none;
+  }
+}
 .game {
   position: fixed;
   inset: 0;

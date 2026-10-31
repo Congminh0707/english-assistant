@@ -5,6 +5,8 @@
 
 > **Áp dụng v2, phần H (2026-11-01):** ✅ Bản đồ Việt Nam 2D và 3D theo `R5World`: nền đất vẽ sẵn ra canvas phụ (`game/sceneBase.ts`; mảng đất chỉ trang trí, không phải ranh giới tỉnh, đất vẫn lấy từ `src/shared/vnMap.ts`), công trình trên bệ tròn là ảnh webp dựng từ mô hình 3D (`game/pads/`, 312 KB), biển lục giác `HexLabel.vue`, thẻ góc `PlaceCard.vue`. Đường, `geoLayout`, luật ô tô/thuyền/máy bay không đổi. Mức chất lượng ở `game/mapQuality.ts` (khoá `kids.mapQuality` trong `localStorage`, tự hạ khi 5 giây đầu dưới 24 fps; mức thấp: bản 2D bỏ sóng động, mây, chim, DPR 1; bản 3D bỏ bóng đổ, pixelRatio 1).
 
+> ✅ Cảnh địa điểm (2026-11-01): 12 nơi tầng 1 có cảnh `game/PlaceScene.vue` dùng `ArtScene`. `export-art.py --kids --only-kids` gỡ biển tên, chấm chạm và thú cưng vẽ sẵn khỏi tranh, ghi toạ độ vào `game/placeArt.generated.ts`; 5 biển là nút HTML, nhãn ở `kids.game.spots.<nơi>`. Biển dịch vào trong khung để không đè hàng nút trên. Chạm biển: đọc tên tiếng Anh rồi mở lượt 5 bước `KidsVisit` từ đầu (chưa nhảy thẳng tới một bước, xem báo cáo phần H). `Esc`: bài học về cảnh, cảnh về bản đồ, bản đồ thoát game.
+
 > Thiết kế chi tiết cho [14 — Phase 2b](14-roadmap.md#phase-2b--mở-rộng-từ-vựng-trẻ-em-đề-xuất-2026-10-29) giai đoạn A, [decisions #35](decisions.md) và [#36](decisions.md) (bản đồ 3D + gói tải thêm). Viết 2026-10-29, sửa lần 1 cùng ngày theo góp ý chủ dự án (mỗi nơi có công trình nổi bật, tăng số nơi, bản đồ 3D chi tiết, tài nguyên tải thêm). **Chờ duyệt.** Khi code xong từng phần, đổi 📋 → ✅ ở đây và ở [07 §9](07-learning-modules.md#9-phonics--mầm-non-p1), [10](10-data-model.md), [03](03-architecture.md), [15](15-packaging-and-release.md), [17](17-metrics.md).
 
 ## 1. Mục tiêu & phạm vi

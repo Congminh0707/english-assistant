@@ -159,6 +159,7 @@ kbd {
   transform: translateX(-50%);
 }
 .go kbd {
+  border-radius: 4px;
   background: rgb(255 255 255 / 22%);
   color: inherit;
 }

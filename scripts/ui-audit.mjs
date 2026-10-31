@@ -42,7 +42,7 @@ const OLD_BUTTON = new Set([
 ])
 // Không cần bo: thanh/ô lưới/lớp phủ/khung toàn trang
 const NO_RADIUS =
-  /(bar|seg|dot|cell|fill|track|swatch|tick|thumb|progress|canvas|grid|layer|sprite|overlay|backdrop|^\.study$|^\.side$|^\.content$|^50%$|^code$|^th$|^td$|^mark$)/i
+  /(bar|seg|dot|cell|fill|track|swatch|tick|thumb|progress|canvas|grid|layer|sprite|overlay|backdrop|^\.study$|^\.side$|^\.content$|^\.paper$|^50%$|^code$|^th$|^td$|^mark$)/i
 
 function walk(dir, out = []) {
   for (const name of readdirSync(dir)) {

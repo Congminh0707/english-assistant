@@ -119,8 +119,15 @@
         "Hi there, %PET% is here.",
         "Take a short break, then study again?"
       ],
-      "greetingEvening": ["Good evening! 🌙", "How was your day?", "What did you learn today?"],
-      "greetingNight": ["It's getting late... 😴", "Don't stay up too late!"],
+      "greetingEvening": [
+        "Good evening! 🌙",
+        "How was your day?",
+        "What did you learn today?"
+      ],
+      "greetingNight": [
+        "It's getting late... 😴",
+        "Don't stay up too late!"
+      ],
       "pat": [
         "Hehe, that tickles!",
         "%PET% loves this ♥",
@@ -129,24 +136,48 @@
         "Hehe, I like it! ♥",
         "A little more~"
       ],
-      "patTired": ["%PET% needs a little break~"],
-      "fed": ["Yummy! Thank you 😋", "Delicious!", "So full now~", "So, so yummy! 🍙"],
-      "full": ["%PET% is too full to eat more!"],
+      "patTired": [
+        "%PET% needs a little break~"
+      ],
+      "fed": [
+        "Yummy! Thank you 😋",
+        "Delicious!",
+        "So full now~",
+        "So, so yummy! 🍙"
+      ],
+      "full": [
+        "%PET% is too full to eat more!"
+      ],
       "hungry": [
         "%PET% is hungry... 🍙",
         "Feed me, please~",
         "My tummy is rumbling...",
         "Can %PET% have a snack? 🥺"
       ],
-      "levelUp": ["Level up! 🎉", "%PET% got stronger!", "Thanks to your hard work! 🌟"],
-      "wake": ["%PET% is awake! ☀️", "Yaaawn... you are back!", "Good morning (again)!"],
-      "sleepyPat": ["Zzz... let %PET% sleep a bit more~", "Zzz... five more minutes..."],
+      "levelUp": [
+        "Level up! 🎉",
+        "%PET% got stronger!",
+        "Thanks to your hard work! 🌟"
+      ],
+      "wake": [
+        "%PET% is awake! ☀️",
+        "Yaaawn... you are back!",
+        "Good morning (again)!"
+      ],
+      "sleepyPat": [
+        "Zzz... let %PET% sleep a bit more~",
+        "Zzz... five more minutes..."
+      ],
       "missionDone": [
         "Mission complete! 🎯",
         "Well done, here is your reward! ⭐",
         "You did it! 🎉"
       ],
-      "evolved": ["%PET% evolved! ✨", "Wow, %PET% grew up! 🎉", "Look at the new %PET%! ⭐"],
+      "evolved": [
+        "%PET% evolved! ✨",
+        "Wow, %PET% grew up! 🎉",
+        "Look at the new %PET%! ⭐"
+      ],
       "idle": [
         "What are you doing? %PET% is peeking~",
         "Even 5 minutes is enough! ⏱️",
@@ -187,9 +218,21 @@
           "Nyaa... so hungry, feed me~",
           "I'm hungry! Where's my rice ball?"
         ],
-        "fed": ["So yummy, nyaa! 😋", "Yummy! Thank you!", "Nom nom... delicious~"],
-        "levelUp": ["Nyaa! Level up! 🎉", "%PET% got stronger!", "Yay! Am I good or what?"],
-        "wake": ["Yaaawn... %PET% is up~", "You're back! Nyaa ☀️", "Good morning (round two)!"],
+        "fed": [
+          "So yummy, nyaa! 😋",
+          "Yummy! Thank you!",
+          "Nom nom... delicious~"
+        ],
+        "levelUp": [
+          "Nyaa! Level up! 🎉",
+          "%PET% got stronger!",
+          "Yay! Am I good or what?"
+        ],
+        "wake": [
+          "Yaaawn... %PET% is up~",
+          "You're back! Nyaa ☀️",
+          "Good morning (round two)!"
+        ],
         "missionDone": [
           "Mission complete, nyaa! 🎯",
           "Great job, take your reward! ⭐",
@@ -239,7 +282,11 @@
           "I need energy, feed me~",
           "I'm hungry! Patrolling is tiring."
         ],
-        "fed": ["Energy recharged! 💪", "Yummy! Power at 100%!", "Thanks, partner!"],
+        "fed": [
+          "Energy recharged! 💪",
+          "Yummy! Power at 100%!",
+          "Thanks, partner!"
+        ],
         "levelUp": [
           "Level up! Spider power rising! 🎉",
           "Higher webs ahead!",
@@ -250,7 +297,11 @@
           "Yaaawn... any mission, partner?",
           "My spider-sense says you are back!"
         ],
-        "missionDone": ["Mission accomplished! 🎯", "Great work, partner! ⭐", "Another victory!"],
+        "missionDone": [
+          "Mission accomplished! 🎯",
+          "Great work, partner! ⭐",
+          "Another victory!"
+        ],
         "evolved": [
           "%PET% evolved! Like my new suit? ✨",
           "Wow, new powers! 🎉",
@@ -359,7 +410,11 @@
           "Beep... need to recharge!",
           "I'm hungry! Battery at 10%."
         ],
-        "fed": ["Charging... done! 🔋", "Yummy! Performance +20%.", "Beep boop, thank you!"],
+        "fed": [
+          "Charging... done! 🔋",
+          "Yummy! Performance +20%.",
+          "Beep boop, thank you!"
+        ],
         "levelUp": [
           "Upgrade complete! 🎉",
           "Level up! New version installed!",
@@ -529,7 +584,9 @@
       "start": "Start review ({count} cards)",
       "nothingDue": "Nothing left to review today 🎉",
       "noCards": "No words yet. Copy a word and press {shortcut} to look it up and save it!",
-      "packMissing": "The dictionary pack is not installed yet, so reviewing is unavailable."
+      "packMissing": "The dictionary pack is not installed yet, so reviewing is unavailable.",
+      "search": "Search",
+      "goReview": "To the well, review {n} words"
     },
     "review": {
       "show": "Show answer",
@@ -1039,6 +1096,18 @@
       "great": "Awesome!",
       "rename": "Rename",
       "renamePlaceholder": "Pet name"
+    },
+    "place": {
+      "back": "Village",
+      "school": "Village school",
+      "library": "Library",
+      "hall": "Communal hall",
+      "well": "Village well",
+      "tower": "Writing Tower",
+      "pier": "Boat pier",
+      "market": "Market",
+      "home": "Pet house",
+      "office": "Village office"
     }
   },
   "translate": {

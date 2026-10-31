@@ -297,3 +297,8 @@ Mẫu:
 **Quyết định:** dùng hướng "Làng chữ": app là ngôi làng Việt Nam vẽ phẳng, bỏ pixel hoàn toàn, thú cưng chibi, Lupo (Ngân Lang) thay Webby. Kids World: bản đồ 2D kiểu Làng chữ, công trình 3D trên bệ tròn, cảnh chi tiết cho từng nơi lấy Hội An làm chuẩn. Tầng 2 dùng máy bay thay chim hạc. Tầng 3 là quả địa cầu quay, 7 châu lục, địa điểm là kỳ quan thế giới.
 **Thay thế:** hướng Cozy Paper Farm trong [21](21-redesign-v2.md), phần nhện của #39. Hướng hình ảnh của #40 đổi theo quyết định này; lựa chọn thư viện ở #40 giữ nguyên.
 **Hệ quả:** phải vẽ lại mascot, đổi `tokens`, viết lại `ui:audit`, soạn lại nội dung tầng 3 (`e-*.json`). Chi tiết: [23](23-design-v2-spec.md).
+
+## #42 — Font đóng gói và tranh nhúng Shadow DOM (2026-10-31) — Đã quyết định
+
+**Quyết định:** đóng gói font bằng `@fontsource` thay vì Google Fonts, để chạy offline và giữ CSP. CSP thêm `font-src 'self' data:`. Tranh Làng chữ là SVG sinh từ `scripts/design-data/export-art.py`, nhúng qua `ArtScene.vue` trong Shadow DOM để id và lớp CSS không đụng trang, nạp chậm. Nhãn địa điểm vẽ bằng HTML để đi qua i18n.
+**Hệ quả:** thêm khoảng 15 MB tranh vào bộ cài, chưa tối ưu.

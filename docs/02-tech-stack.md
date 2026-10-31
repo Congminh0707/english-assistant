@@ -123,3 +123,7 @@ Chi tiết: [09](09-content-pipeline.md#10-đã-làm-pipeline-core-dictionary-v1
 | **DB Browser for SQLite** | Xem database (giống TablePlus/phpMyAdmin) |
 
 Hướng dẫn từng bước: [04-getting-started.md](04-getting-started.md).
+
+## Font đóng gói (thiết kế v2)
+
+`@fontsource/be-vietnam-pro`, `@fontsource/baloo-2`, `@fontsource/noto-sans` (OFL): nạp phần Latin, Latin mở rộng, tiếng Việt trong `src/renderer/shared/styles/fonts.css`, chạy offline. Xem [decisions #42](decisions.md).

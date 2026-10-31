@@ -124,7 +124,10 @@
         "Good evening! Hôm nay thế nào?",
         "Hôm nay bạn đã học được gì nào?"
       ],
-      "greetingNight": ["Khuya rồi đó... 😴", "Nhớ ngủ sớm nha!"],
+      "greetingNight": [
+        "Khuya rồi đó... 😴",
+        "Nhớ ngủ sớm nha!"
+      ],
       "pat": [
         "Hihi, nhột quá!",
         "%PET% thích được vuốt ve ♥",
@@ -133,29 +136,48 @@
         "Hihi, thích quá! ♥",
         "Thêm chút nữa nha~"
       ],
-      "patTired": ["%PET% hơi mỏi rồi, để lát nhé~"],
+      "patTired": [
+        "%PET% hơi mỏi rồi, để lát nhé~"
+      ],
       "fed": [
         "Ngon quá! Cảm ơn nha 😋",
         "Yummy! Thank you!",
         "No căng bụng rồi~",
         "Ngon ơi là ngon! 🍙"
       ],
-      "full": ["%PET% no lắm rồi, không ăn nổi nữa!"],
+      "full": [
+        "%PET% no lắm rồi, không ăn nổi nữa!"
+      ],
       "hungry": [
         "%PET% đói rồi... 🍙",
         "I'm hungry! Cho %PET% ăn với~",
         "Bụng %PET% kêu ọt ọt...",
         "Cho %PET% ăn xíu được không nè? 🥺"
       ],
-      "levelUp": ["Lên cấp rồi! 🎉", "Level up! %PET% mạnh hơn rồi!", "Nhờ bạn chăm học đó! 🌟"],
-      "wake": ["%PET% dậy rồi! ☀️", "Hoaaam... bạn quay lại rồi!", "Good morning (lần hai)!"],
-      "sleepyPat": ["Zzz... để %PET% ngủ thêm chút~", "Zzz... 5 phút nữa thôi..."],
+      "levelUp": [
+        "Lên cấp rồi! 🎉",
+        "Level up! %PET% mạnh hơn rồi!",
+        "Nhờ bạn chăm học đó! 🌟"
+      ],
+      "wake": [
+        "%PET% dậy rồi! ☀️",
+        "Hoaaam... bạn quay lại rồi!",
+        "Good morning (lần hai)!"
+      ],
+      "sleepyPat": [
+        "Zzz... để %PET% ngủ thêm chút~",
+        "Zzz... 5 phút nữa thôi..."
+      ],
       "missionDone": [
         "Xong nhiệm vụ rồi! 🎯",
         "Giỏi quá, nhận thưởng nè! ⭐",
         "Bạn làm được rồi! 🎉"
       ],
-      "evolved": ["%PET% tiến hoá rồi! ✨", "Wow, %PET% lớn lên rồi! 🎉", "Nhìn %PET% mới này! ⭐"],
+      "evolved": [
+        "%PET% tiến hoá rồi! ✨",
+        "Wow, %PET% lớn lên rồi! 🎉",
+        "Nhìn %PET% mới này! ⭐"
+      ],
       "idle": [
         "Bạn đang làm gì đó? %PET% ngó chút nha~",
         "Học 5 phút thôi cũng được mà! ⏱️",
@@ -196,13 +218,21 @@
           "Nyaa... đói quá, cho ăn với~",
           "I'm hungry! Cơm nắm đâu rồi?"
         ],
-        "fed": ["Ngon quá nyaa! 😋", "Yummy! Cảm ơn bạn!", "Nhồm nhoàm... ngon ghê~"],
+        "fed": [
+          "Ngon quá nyaa! 😋",
+          "Yummy! Cảm ơn bạn!",
+          "Nhồm nhoàm... ngon ghê~"
+        ],
         "levelUp": [
           "Nyaa! Lên cấp rồi! 🎉",
           "Level up! %PET% mạnh hơn rồi!",
           "Yay! %PET% giỏi chưa nè?"
         ],
-        "wake": ["Hoaaam... %PET% dậy rồi~", "Bạn về rồi! Nyaa ☀️", "Good morning (lần hai)!"],
+        "wake": [
+          "Hoaaam... %PET% dậy rồi~",
+          "Bạn về rồi! Nyaa ☀️",
+          "Good morning (lần hai)!"
+        ],
         "missionDone": [
           "Xong nhiệm vụ rồi nyaa! 🎯",
           "Giỏi quá, nhận thưởng nào! ⭐",
@@ -252,7 +282,11 @@
           "Tớ cần năng lượng, cho ăn với~",
           "I'm hungry! Tuần tra mệt quá."
         ],
-        "fed": ["Nạp năng lượng xong! 💪", "Yummy! Sức mạnh tăng 100%!", "Cảm ơn nha, đồng đội!"],
+        "fed": [
+          "Nạp năng lượng xong! 💪",
+          "Yummy! Sức mạnh tăng 100%!",
+          "Cảm ơn nha, đồng đội!"
+        ],
         "levelUp": [
           "Lên cấp rồi! Sức mạnh nhện tăng! 🎉",
           "Level up! Giăng tơ cao hơn nữa!",
@@ -312,7 +346,11 @@
           "Khè... đói quá, cho ăn với!",
           "I'm hungry! Rồng cần thịt... à không, cơm nắm!"
         ],
-        "fed": ["Ngon! Rồng no rồi, khè~ 😋", "Yummy! Cảm ơn bạn nhỏ!", "Nạp lửa xong rồi! 🔥"],
+        "fed": [
+          "Ngon! Rồng no rồi, khè~ 😋",
+          "Yummy! Cảm ơn bạn nhỏ!",
+          "Nạp lửa xong rồi! 🔥"
+        ],
         "levelUp": [
           "Rồng mạnh hơn rồi! 🔥",
           "Level up! Lửa cháy to hơn!",
@@ -446,7 +484,11 @@
           "Level up! Thêm một cái đuôi... chưa đâu~",
           "%PET% giỏi chưa nè?"
         ],
-        "wake": ["Hoaaam... cáo dậy rồi~", "Bạn về rồi! Hihi ☀️", "Cáo ngủ gật xíu thôi mà!"],
+        "wake": [
+          "Hoaaam... cáo dậy rồi~",
+          "Bạn về rồi! Hihi ☀️",
+          "Cáo ngủ gật xíu thôi mà!"
+        ],
         "missionDone": [
           "Xong nhiệm vụ rồi! Cáo nhanh chưa? 🎯",
           "Giỏi quá, quà của bạn đây! ⭐",
@@ -542,7 +584,9 @@
       "start": "Bắt đầu ôn ({count} thẻ)",
       "nothingDue": "Hôm nay hết thẻ để ôn 🎉",
       "noCards": "Chưa có từ nào trong sổ. Copy một từ rồi bấm {shortcut} để tra và lưu nhé!",
-      "packMissing": "Chưa cài gói từ điển nên chưa ôn được."
+      "packMissing": "Chưa cài gói từ điển nên chưa ôn được.",
+      "search": "Tìm từ",
+      "goReview": "Tới Giếng làng, ôn {n} từ"
     },
     "review": {
       "show": "Hiện đáp án",
@@ -1052,6 +1096,18 @@
       "great": "Tuyệt vời!",
       "rename": "Đổi tên",
       "renamePlaceholder": "Tên thú cưng"
+    },
+    "place": {
+      "back": "Về làng",
+      "school": "Trường làng",
+      "library": "Thư các",
+      "hall": "Đình làng",
+      "well": "Giếng làng",
+      "tower": "Tháp Bút",
+      "pier": "Bến thuyền",
+      "market": "Chợ quê",
+      "home": "Nhà thú cưng",
+      "office": "Nhà làng"
     }
   },
   "translate": {

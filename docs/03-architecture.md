@@ -251,3 +251,7 @@ flowchart LR
 | Model AI local             | Chỉ tải khi dùng lần đầu, chạy trong utilityProcess, giải phóng khi không dùng 10 phút |
 
 Mẹo: cửa sổ Study chỉ tạo khi mở và có thể huỷ khi đóng (giải phóng RAM); cửa sổ Mascot và Popup luôn tồn tại.
+
+## Khung cửa sổ Học tập v2
+
+`App.vue`: `page === 'home'` hiện `VillageMap`; trang khác nằm trong `PlaceShell` (cảnh + giấy + tab). Trang nào thuộc địa điểm nào ở `src/renderer/study/places.ts`. `pnpm ui:shot` chụp app thật, chạy dữ liệu riêng qua biến `EA_USER_DATA`; cờ `--open-study` mở thẳng cửa sổ Học tập.

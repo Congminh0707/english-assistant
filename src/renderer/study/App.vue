@@ -6,28 +6,9 @@ import type { MissionsState, StudyOverview } from '@shared/schemas/study'
 import { invoke } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
-import {
-  BarChart3,
-  BookMarked,
-  BookOpen,
-  Brain,
-  ClipboardCheck,
-  Coins,
-  Compass,
-  Headphones,
-  House,
-  Library,
-  MessageCircle,
-  PawPrint,
-  PenLine,
-  Settings,
-  ShoppingBag,
-  Target,
-  Users
-} from 'lucide-vue-next'
-import type { Component } from 'vue'
-import PxBar from '@renderer/shared/components/PxBar.vue'
-import StudyHome from './components/StudyHome.vue'
+import VillageMap from './components/VillageMap.vue'
+import PlaceShell from './components/PlaceShell.vue'
+import { PLACE_PAGES, placeOf, type Place, type StudyPage } from './places'
 import ReviewSession from './components/ReviewSession.vue'
 import WordList from './components/WordList.vue'
 import PlacementTest from './components/PlacementTest.vue'
@@ -46,31 +27,13 @@ import TtsIndicator from '@renderer/shared/components/TtsIndicator.vue'
 import EvolutionOverlay from './components/EvolutionOverlay.vue'
 import { useEvolution } from './useEvolution'
 
-// Cửa sổ Học tập (docs/12-ui-ux-guidelines.md#cửa-sổ-học-tập-study): thanh bên + trang nội dung.
-type Page =
-  | 'home'
-  | 'parent'
-  | 'courses'
-  | 'lessons'
-  | 'reading'
-  | 'listening'
-  | 'grammar'
-  | 'phrasebook'
-  | 'review'
-  | 'practice'
-  | 'words'
-  | 'pet'
-  | 'shop'
-  | 'stats'
-  | 'placement'
-  | 'settings'
-
+// Cửa sổ Học tập v2 (docs/23): bản đồ làng, vào địa điểm thì có cảnh + nội dung trên giấy.
 const { t, locale } = useI18n()
 const settingsStore = useSettingsStore()
 const petStore = usePetStore()
 const { evolution, dismiss: dismissEvolution } = useEvolution(computed(() => petStore.pet))
 
-const page = ref<Page>('home')
+const page = ref<StudyPage>('home')
 const overview = ref<StudyOverview | null>(null)
 /** Hồ sơ đang dùng; hồ sơ trẻ em thấy giao diện của bé, phụ huynh vào bằng PIN (parentMode) */
 const activeProfile = ref<ProfileInfo | null>(null)
@@ -95,51 +58,8 @@ const checkpointMode = ref(false)
 const loaded = ref(false)
 const cleanups: Array<() => void> = []
 
-const ICONS: Record<Page, Component> = {
-  home: House,
-  parent: Users,
-  courses: Compass,
-  lessons: Library,
-  reading: BookOpen,
-  listening: Headphones,
-  grammar: PenLine,
-  phrasebook: MessageCircle,
-  review: Brain,
-  practice: Target,
-  words: BookMarked,
-  pet: PawPrint,
-  shop: ShoppingBag,
-  stats: BarChart3,
-  placement: ClipboardCheck,
-  settings: Settings
-}
-
-const PAGE_ORDER: Page[] = [
-  'home',
-  'parent',
-  'courses',
-  'lessons',
-  'reading',
-  'listening',
-  'grammar',
-  'phrasebook',
-  'review',
-  'practice',
-  'words',
-  'pet',
-  'shop',
-  'stats',
-  'placement',
-  'settings'
-]
-
-const pages = computed<Array<{ id: Page; icon: Component; label: string }>>(() =>
-  PAGE_ORDER.filter((id) => id !== 'parent' || activeProfile.value?.isChild).map((id) => ({
-    id,
-    icon: ICONS[id],
-    label: t(`study.nav.${id}`)
-  }))
-)
+const dark = computed(() => document.documentElement.dataset.theme === 'dark')
+const place = computed(() => placeOf(page.value))
 
 async function refresh(): Promise<void> {
   try {
@@ -154,7 +74,11 @@ async function refresh(): Promise<void> {
   }
 }
 
-function go(next: Page): void {
+function goPlace(p: Place): void {
+  go(PLACE_PAGES[p][0])
+}
+
+function go(next: StudyPage): void {
   autostartTest.value = false
   checkpointMode.value = false
   page.value = next
@@ -176,11 +100,6 @@ function startCheckpoint(): void {
   go('placement')
   checkpointMode.value = true
   autostartTest.value = true
-}
-
-async function setGoal(value: number): Promise<void> {
-  await settingsStore.set('learning.dailyGoal', value as 5 | 10 | 20 | 30)
-  await refresh()
 }
 
 // XP đổi (ôn thẻ ở mascot, nhận thưởng nhiệm vụ...) → làm mới số liệu
@@ -222,47 +141,24 @@ onUnmounted(() => {
   <div class="study modern">
     <KidsApp v-if="kidsMode" class="kids-fill" @parent="parentMode = true" @changed="refresh" />
 
-    <aside v-if="loaded && !kidsMode" class="side">
-      <div class="pet">
-        <div class="pet-name">{{ petStore.pet?.name ?? '…' }}</div>
-        <template v-if="petStore.pet">
-          <div class="pet-level">
-            {{ t('stats.level', { level: petStore.pet.level }) }} ·
-            {{ t(`pet.stage.${petStore.pet.stage}`) }}
-          </div>
-          <PxBar
-            :value="petStore.pet.xpInLevel"
-            :max="petStore.pet.xpForNext"
-            color="var(--c-xp)"
-            label="XP"
-          />
-          <div class="muted xp">{{ petStore.pet.xpInLevel }} / {{ petStore.pet.xpForNext }} XP</div>
-          <div class="coins">
-            <Coins :size="15" :stroke-width="2.2" />
-            {{ t('shop.coins', { coins: petStore.pet.coins }) }}
-          </div>
-        </template>
-      </div>
-
-      <nav class="nav">
-        <button
-          v-for="p in pages"
-          :key="p.id"
-          type="button"
-          class="nav-item"
-          :class="{ active: page === p.id }"
-          @click="go(p.id)"
-        >
-          <component :is="p.icon" class="icon" :size="18" :stroke-width="2" />
-          {{ p.label }}
-          <span v-if="p.id === 'review' && overview?.dueCount" class="badge">
-            {{ overview.dueCount }}
-          </span>
-        </button>
-      </nav>
-    </aside>
-
-    <main v-if="loaded && !kidsMode" class="content">
+    <VillageMap
+      v-if="loaded && !kidsMode && page === 'home'"
+      :streak="overview?.streakDays ?? 0"
+      :coins="petStore.pet?.coins ?? 0"
+      :level="petStore.pet?.level ?? 1"
+      :due="overview?.dueCount ?? 0"
+      @go="goPlace"
+      @start="go('review')"
+      @settings="go('settings')"
+    />
+    <PlaceShell
+      v-else-if="loaded && !kidsMode"
+      :place="place"
+      :page="page"
+      :dark="dark"
+      @home="go('home')"
+      @go="go"
+    >
       <p v-if="parentMode" class="parent-banner">
         {{ t('study.parent.banner') }}
         <button type="button" class="btn btn--sm" @click="parentMode = false">
@@ -270,13 +166,6 @@ onUnmounted(() => {
         </button>
       </p>
       <ParentReport v-if="page === 'parent'" />
-      <StudyHome
-        v-else-if="page === 'home'"
-        :overview="overview"
-        :missions="missions"
-        @start="go('review')"
-        @goal="setGoal"
-      />
       <CoursesPage v-else-if="page === 'courses'" @changed="refresh" />
       <LessonsPage v-else-if="page === 'lessons'" kind="lesson" @changed="refresh" />
       <LessonsPage v-else-if="page === 'reading'" kind="reading" @changed="refresh" />
@@ -296,7 +185,7 @@ onUnmounted(() => {
         @done="go('home')"
       />
       <SettingsPage v-else @retest="go('placement')" @changed="refresh" />
-    </main>
+    </PlaceShell>
 
     <TtsIndicator />
 
@@ -328,7 +217,7 @@ onUnmounted(() => {
   padding: var(--sp-2) var(--sp-3);
   border-radius: var(--r-md);
   background: var(--c-warning-soft);
-  color: #7a5200;
+  color: var(--c-warning);
   font-weight: 600;
 }
 .study {
@@ -336,105 +225,5 @@ onUnmounted(() => {
   height: 100vh;
   background: var(--c-bg);
   color: var(--c-ink);
-}
-.side {
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-4);
-  flex: none;
-  width: 224px;
-  min-height: 0;
-  /* Màn hình thấp: cuộn thanh bên thay vì bị cắt mất mục */
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: var(--sp-4) var(--sp-3);
-  background: var(--c-surface);
-  border-right: 1px solid var(--c-line);
-}
-.pet {
-  display: grid;
-  flex: none;
-  gap: 6px;
-  padding: var(--sp-3);
-  border-radius: var(--r-md);
-  background: var(--c-surface-2);
-}
-.pet-name {
-  font-size: var(--fs-lg);
-  font-weight: 700;
-}
-.pet-level {
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: var(--c-xp);
-}
-.xp {
-  font-size: var(--fs-xs);
-}
-.coins {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: var(--fs-sm);
-  font-weight: 600;
-  color: #8a5a00;
-}
-.coins :deep(svg) {
-  color: var(--c-coin);
-}
-.muted {
-  color: var(--c-ink-soft);
-}
-.nav {
-  display: grid;
-  flex: none;
-  gap: 2px;
-}
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-height: 38px;
-  padding: 0 var(--sp-3);
-  border: 0;
-  border-radius: var(--r-md);
-  background: transparent;
-  color: var(--c-ink-soft);
-  font: inherit;
-  font-weight: 500;
-  text-align: left;
-  cursor: pointer;
-  transition:
-    background-color 120ms ease,
-    color 120ms ease;
-}
-.nav-item:hover {
-  background: var(--c-surface-2);
-  color: var(--c-ink);
-}
-.nav-item.active {
-  background: var(--c-primary-soft);
-  color: var(--c-primary-strong);
-  font-weight: 700;
-}
-.icon {
-  flex: none;
-}
-.badge {
-  margin-left: auto;
-  min-width: 22px;
-  padding: 1px 7px;
-  border-radius: var(--r-pill);
-  background: var(--c-danger);
-  color: #fff;
-  font-size: var(--fs-xs);
-  font-weight: 700;
-  text-align: center;
-}
-.content {
-  flex: 1;
-  min-width: 0;
-  overflow-y: auto;
-  padding: var(--sp-5) 28px;
 }
 </style>

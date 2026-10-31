@@ -23,6 +23,8 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
+- 🚧 Đang làm (2026-10-31): **áp dụng thiết kế v2 vào app** ([23](23-design-v2-spec.md)). Xong: global (font, token, `ui.css`, `pnpm ui:shot`), khung làng + địa điểm (`VillageMap`, `PlaceShell`, `ArtScene`, `export-art.py`). Bước tiếp: các màn song song theo mục "Áp dụng thiết kế v2", mỗi màn một commit. Kiểm tra: `pnpm lint && pnpm test && pnpm ui:audit`.
+
 - [x] 2026-10-30: **thiết kế lại UI v2 trên Claude Design** (chưa đụng code) — nhật ký đầy đủ ở [21](21-redesign-v2.md): prompt [20](20-claude-design-prompt.md), bỏ pixel ([decisions #39](decisions.md)), Kitsu + Robo đã duyệt, Bi/Draco/Webby v4 chờ duyệt, bản đồ VN 34 tỉnh + châu Á + Trái Đất + cảnh Hội An + thời tiết + di chuyển + hoạt ảnh bài học + khu phụ huynh (script `scripts/design-data/`). 🚧 Tiếp theo: duyệt nhân vật, hoạt ảnh 6 trạng thái cho cả 5 con, cảnh địa danh còn lại, các màn Study còn lại — xem checklist 21 §6.
 - [x] 2026-10-31: **thiết kế v2 "Làng chữ"** đã duyệt trên canvas, tổng hợp ở [23](23-design-v2-spec.md). Bước tiếp theo: mục "Áp dụng thiết kế v2" bên dưới. Chưa đổi code app.
 - [x] 2026-10-31: **áp "Làng chữ" cho toàn bộ S1–S5** trên canvas, chờ chủ dự án duyệt ([22 §10](22-redesign-plan.md)). Chưa đổi code app.
@@ -102,7 +104,7 @@ gantt
 
 Theo [23](23-design-v2-spec.md), làm từng phần, mỗi phần qua `pnpm lint && pnpm test`, `pnpm ui:audit`:
 
-- [ ] Token, font, `<UiIcon>`, cập nhật [18](18-ui-rules.md) và `ui:audit`
+- [x] Token, font, `.btn/.card/.chip`, khung làng và địa điểm
 - [ ] Trang chủ làng (ngày, chiều, đêm) và điều hướng theo địa điểm
 - [ ] Học tập, ôn tập, luyện tập, phím tắt
 - [ ] Mascot chibi 5 con, 16 trạng thái, thay sprite pixel; Lupo thay Webby (có đường chuyển cho người đang dùng Webby)

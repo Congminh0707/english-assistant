@@ -173,6 +173,7 @@ onUnmounted(() => {
       :overview="overview"
       :missions="missions"
       :pet="petStore.pet"
+      :dark="dark"
       @go="goPlace"
       @start="go('review')"
       @settings="go('settings')"

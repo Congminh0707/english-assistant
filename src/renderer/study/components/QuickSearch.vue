@@ -57,7 +57,7 @@ onMounted(() => void nextTick(() => input.value?.focus()))
       <ul v-if="result?.entries.length" class="list">
         <li v-for="e in result.entries.slice(0, 6)" :key="e.id" class="item">
           <strong>{{ e.lemma }}</strong>
-          <span v-if="e.ipaUs" class="ipa">/{{ e.ipaUs }}/</span>
+          <span v-if="e.ipaUs" class="ipa">{{ e.ipaUs }}</span>
           <span class="chip">{{ e.level }}</span>
           <span class="vi">{{ gloss(e) }}</span>
         </li>

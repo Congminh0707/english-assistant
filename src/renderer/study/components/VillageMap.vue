@@ -11,7 +11,7 @@ import ArtScene from '@renderer/shared/components/ArtScene.vue'
 import type { Place } from '../places'
 
 // Trang chủ v2: bản đồ làng theo giờ, mỗi địa điểm là một mục (docs/23 §1). Toạ độ theo tranh 1100×720.
-defineProps<{
+const props = defineProps<{
   streak: number
   coins: number
   level: number
@@ -19,6 +19,8 @@ defineProps<{
   overview: StudyOverview | null
   missions: MissionsState | null
   pet: PetState | null
+  /** Giao diện tối: luôn dùng tranh làng ban đêm */
+  dark?: boolean
 }>()
 const emit = defineEmits<{
   go: [place: Place]
@@ -46,6 +48,7 @@ const PET = { x: 380, y: 420 }
 
 const hour = ref(new Date().getHours())
 const scene = computed(() => {
+  if (props.dark) return 'village-night'
   if (hour.value >= 18 || hour.value < 5) return 'village-night'
   return hour.value >= 16 ? 'village-dusk' : 'village-day'
 })

@@ -7,7 +7,6 @@ import { isChildTrack } from '@shared/schemas/profile'
 import { invoke } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { petName as sharedPetName } from '@renderer/shared/i18n'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Màn hình chào lần đầu: tên + mục tiêu → tên thú cưng → trình độ (làm kiểm tra hoặc tự chọn).
@@ -23,6 +22,7 @@ const petName = ref('Bi')
 // Văn bản các bước sau nhắc tên thú cưng ngay khi người dùng gõ
 watch(petName, (name) => (sharedPetName.value = name.trim() || 'Bi'), { immediate: true })
 const busy = ref(false)
+const failed = ref(false)
 
 const MANUAL_LEVELS: Array<{ level: LevelCode }> = [
   { level: 'PA1_2' },
@@ -40,6 +40,7 @@ const canNext = computed(() =>
 async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
   if (busy.value) return
   busy.value = true
+  failed.value = false
   try {
     await invoke('profile:setup', {
       name: name.value.trim(),
@@ -48,6 +49,8 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
     })
     if (level) await settingsStore.set('learning.level', level)
     emit('done', startTest)
+  } catch {
+    failed.value = true
   } finally {
     busy.value = false
   }
@@ -56,8 +59,11 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
 
 <template>
   <div class="overlay">
-    <PxPanel class="card">
-      <h1>{{ t('study.onboarding.title') }}</h1>
+    <div class="card box" role="dialog" aria-modal="true" aria-labelledby="onb-title">
+      <h1 id="onb-title">{{ t('study.onboarding.title') }}</h1>
+      <div class="steps" aria-hidden="true">
+        <span v-for="n in 3" :key="n" class="dot" :class="{ on: n <= step }" />
+      </div>
 
       <template v-if="step === 1">
         <h2>{{ t('study.onboarding.step1') }}</h2>
@@ -78,7 +84,7 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
               v-for="tr in TRACKS"
               :key="tr"
               type="button"
-              class="track"
+              class="chip-btn"
               :class="{ active: track === tr }"
               @click="track = tr"
             >
@@ -120,7 +126,7 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
               v-for="l in MANUAL_LEVELS"
               :key="l.level"
               type="button"
-              class="track"
+              class="chip-btn"
               :disabled="busy"
               @click="finish(false, l.level)"
             >
@@ -129,6 +135,8 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
           </div>
         </div>
       </template>
+
+      <p v-if="failed" class="fail" role="alert">{{ t('study.state.error') }}</p>
 
       <footer class="nav">
         <button v-if="step > 1" type="button" class="btn btn--ghost btn--sm" @click="step--">
@@ -145,7 +153,7 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
           {{ t('study.onboarding.next') }}
         </button>
       </footer>
-    </PxPanel>
+    </div>
   </div>
 </template>
 
@@ -157,14 +165,15 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  background: rgba(43, 43, 58, 0.55);
+  padding: var(--sp-5);
+  background: color-mix(in srgb, var(--c-ink) 55%, transparent);
 }
-.card {
+.box {
   display: grid;
-  gap: 14px;
+  gap: var(--sp-4);
   width: min(560px, 100%);
-  padding: 24px 28px;
+  padding: var(--sp-5) var(--sp-6);
+  box-shadow: var(--shadow-md);
 }
 h1 {
   margin: 0;
@@ -173,7 +182,20 @@ h1 {
 h2 {
   margin: 0;
   font-size: var(--fs-lg);
-  color: var(--c-xp);
+  color: var(--c-primary);
+}
+.steps {
+  display: flex;
+  gap: var(--sp-2);
+}
+.dot {
+  width: 28px;
+  height: 6px;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+}
+.dot.on {
+  background: var(--c-primary);
 }
 .field {
   display: grid;
@@ -182,13 +204,7 @@ h2 {
 }
 input {
   box-sizing: border-box;
-  padding: 8px 10px;
-  border: 1px solid var(--c-line);
-  background: var(--c-surface);
-  font: inherit;
   font-weight: 400;
-  outline: none;
-  border-radius: var(--r-md);
 }
 input:focus {
   border-color: var(--c-primary);
@@ -197,34 +213,50 @@ input:focus {
 .tracks {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--sp-2);
 }
-.track {
-  padding: 8px 12px;
-  border: 1px solid var(--c-line);
-  background: var(--c-bg);
+.chip-btn {
+  min-height: var(--btn-h-sm);
+  padding: 0 var(--sp-3);
+  border: 2px solid var(--c-line);
+  border-radius: var(--r-pill);
+  background: var(--c-surface);
+  color: var(--c-ink);
   font: inherit;
-  font-weight: 400;
+  font-size: var(--fs-sm);
+  font-weight: 600;
   cursor: pointer;
 }
-.track:hover:not(:disabled) {
+.chip-btn:hover:not(:disabled) {
   background: var(--c-primary-soft);
 }
-.track.active {
+.chip-btn.active {
+  border-color: var(--c-coin);
   background: var(--c-primary);
-  color: #fff;
+  color: var(--c-on-primary);
   font-weight: 700;
+}
+.chip-btn:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 2px;
 }
 .hint {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   font-weight: 400;
   color: var(--c-ink-soft);
+}
+.fail {
+  margin: 0;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+  font-weight: 600;
 }
 .nav {
   display: flex;
   align-items: center;
-  margin-top: 6px;
 }
 .spacer {
   flex: 1;

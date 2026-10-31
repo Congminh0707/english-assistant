@@ -5,7 +5,7 @@ import eslintPluginVue from 'eslint-plugin-vue'
 import vueParser from 'vue-eslint-parser'
 
 export default defineConfig(
-  { ignores: ['**/node_modules', '**/dist', '**/out', '.claude/**'] },
+  { ignores: ['**/node_modules', '**/dist', '**/out', '.claude/**', 'scripts/design-data/**'] },
   tseslint.configs.recommended,
   eslintPluginVue.configs['flat/recommended'],
   {

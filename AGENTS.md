@@ -6,7 +6,8 @@ Dự án: **English Assistant** — Desktop Mascot (chibi/pixel) cho Windows gi�
 1. [docs/README.md](docs/README.md) — mục lục & quy tắc tài liệu.
 2. [docs/03-architecture.md](docs/03-architecture.md) — kiến trúc Electron (main / preload / renderer).
 3. [docs/13-coding-conventions.md](docs/13-coding-conventions.md) — quy ước code bắt buộc.
-4. Tài liệu module liên quan tới task (mascot → 05, level → 06, bài học → 07, nội dung → 08/09, DB → 10, AI → 11).
+4. Việc đụng tới giao diện: [docs/23-design-v2-spec.md](docs/23-design-v2-spec.md) — thiết kế v2 đã chốt, chưa áp dụng hết vào code.
+5. Tài liệu module liên quan tới task (mascot → 05, level → 06, bài học → 07, nội dung → 08/09, DB → 10, AI → 11).
 
 ## Stack (tóm tắt)
 Electron + electron-vite · Vue 3 (`<script setup lang="ts">`) + Pinia + Tailwind · TypeScript strict · SQLite (better-sqlite3 + Drizzle) · zod · ts-fsrs · Vitest/Playwright · electron-builder (NSIS). Chi tiết: [docs/02-tech-stack.md](docs/02-tech-stack.md).

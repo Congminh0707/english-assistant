@@ -44,6 +44,10 @@ Người viết code chính có nền tảng **Laravel + Vue**, chưa có kinh n
 | 17 | [17-metrics.md](17-metrics.md) | **Bảng số liệu** (số từ, bài học, test, pack…) + lệnh đo lại |
 | 18 | [18-ui-rules.md](18-ui-rules.md) | **Quy tắc giao diện** (bo góc, nút, icon, huy hiệu…) + `pnpm ui:audit` |
 | 19 | [19-kids-world.md](19-kids-world.md) | 📋 Bản đồ thế giới của bé (tỉnh → nước → Trái Đất; 3D three.js + 2D dự phòng, gói tải thêm), lượt học 5 bước, nội dung, IPC |
+| 20 | [20-claude-design-prompt.md](20-claude-design-prompt.md) | Prompt dán vào Claude Design để thiết kế lại toàn bộ giao diện |
+| 21 | [21-redesign-v2.md](21-redesign-v2.md) | **Thiết kế lại giao diện v2** (nhật ký canvas, quy tắc v2, tiến hoá nhân vật, thế giới của bé v2) — bản thiết kế, chưa áp dụng |
+| 22 | [22-redesign-plan.md](22-redesign-plan.md) | Kế hoạch và nhật ký thiết kế lại toàn app |
+| 23 | [23-design-v2-spec.md](23-design-v2-spec.md) | **Thiết kế v2 "Làng chữ" đã chốt**: nguồn sự thật cho giao diện mới, chưa áp dụng vào code |
 | — | [glossary.md](glossary.md) | Thuật ngữ desktop/Electron giải thích cho dev web |
 | — | [decisions.md](decisions.md) | Nhật ký quyết định kiến trúc (ADR rút gọn) |
 

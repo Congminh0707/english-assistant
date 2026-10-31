@@ -144,6 +144,25 @@ Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được n
 
 > **Icon giao diện (2026-10-23):** `lucide-vue-next` (Lucide, license ISC — cho phép dùng/sao chép/phân phối kèm thông báo bản quyền, đi kèm trong gói npm). Hình minh hoạ vẫn là pixel art tự vẽ bằng code; quyết định (2026-10-23): **không dùng ảnh thật**, giữ hình pixel tự vẽ (đã thử Commons/Openverse CC0/CC BY rồi huỷ — xem decisions #30).
 
+### 8c. Dữ liệu bản đồ cho thiết kế lại (thiết kế đã duyệt 2026-10-31, chưa dùng trong app)
+
+| Nguồn | License | Trạng thái | Dùng cho |
+| --- | --- | --- | --- |
+| geoBoundaries VNM ADM1 (wmgeolab) | Phạm vi công cộng | ⏳ mới dùng trong bản thiết kế, **chưa đưa vào app** | ranh giới 63 đơn vị cũ → ghép 34 tỉnh |
+| provinces.open-api.vn (v2) | tra điều khoản trước khi dùng trong app | ⏳ | tên/mã 34 tỉnh thành sau sáp nhập |
+| Natural Earth 50 m | Phạm vi công cộng | ⏳ | bản đồ châu Á, Trái Đất, nước láng giềng |
+| Be Vietnam Pro, Baloo 2, Noto Sans | OFL | ⏳ chưa bundle | font giao diện v2 ([21](21-redesign-v2.md)) |
+
+Dữ liệu chỉ vào repo/app sau khi mục này được duyệt (quy trình 11).
+
+### 8d. Tài nguyên 3D miễn phí cho KidsWorld v3 (chờ duyệt khi áp dụng, 2026-10-31)
+
+| Nguồn | Dùng cho | Giấy phép | Trạng thái |
+| ----- | -------- | --------- | ---------- |
+| Kenney Nature Kit 2.1 (kenney.nl; bản tải từ OpenGameArt, có `License.txt`) | cây, cọ, tre, cỏ, hoa, đá, súng trong lát mẫu | CC0 (kenney.nl/support: dùng thương mại được, không bắt buộc ghi công) | ⏳ chỉ dùng trong nguyên mẫu, chưa vào repo |
+
+Công trình nổi tiếng **không** dùng kit có sẵn: vẫn tự dựng, `proprietary-own`. Mỗi nguồn mới phải kiểm tra giấy phép ở trang của tác giả (Quaternius khác nhau theo từng gói).
+
 ## 9. Model AI & thư viện có license cần chú ý
 
 | Thành phần                                                                | License                                                                                                                                                                                           | Trạng thái | Ghi chú                                                                                                                                                                                                                  |

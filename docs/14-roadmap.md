@@ -23,6 +23,10 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
+- [x] 2026-10-30: **thiết kế lại UI v2 trên Claude Design** (chưa đụng code) — nhật ký đầy đủ ở [21](21-redesign-v2.md): prompt [20](20-claude-design-prompt.md), bỏ pixel ([decisions #39](decisions.md)), Kitsu + Robo đã duyệt, Bi/Draco/Webby v4 chờ duyệt, bản đồ VN 34 tỉnh + châu Á + Trái Đất + cảnh Hội An + thời tiết + di chuyển + hoạt ảnh bài học + khu phụ huynh (script `scripts/design-data/`). 🚧 Tiếp theo: duyệt nhân vật, hoạt ảnh 6 trạng thái cho cả 5 con, cảnh địa danh còn lại, các màn Study còn lại — xem checklist 21 §6.
+- [x] 2026-10-31: **thiết kế v2 "Làng chữ"** đã duyệt trên canvas, tổng hợp ở [23](23-design-v2-spec.md). Bước tiếp theo: mục "Áp dụng thiết kế v2" bên dưới. Chưa đổi code app.
+- [x] 2026-10-31: **áp "Làng chữ" cho toàn bộ S1–S5** trên canvas, chờ chủ dự án duyệt ([22 §10](22-redesign-plan.md)). Chưa đổi code app.
+
 - [x] 2026-10-28: sửa hoạt ảnh level cao bị cắt — khung sprite thêm lề (docs/05 §10b); sheet bộ cài đã sinh lại, lint/test pass.
 - [x] 2026-10-28: gói hires 1.1.0 đã build (69.090.373 B, 65,9 MB; packSpec đã cập nhật). 🚧 Còn: tải `content/.build/pet-sprites-hires-1.1.0.zip` lên GitHub Release tag `pet-sprites-hires-1.1.0` (pre-release), rồi đo lại `pnpm stats` (docs/17).
 - [x] 2026-10-29: dịch popup — NLLB-200 thay mBART-50 (từ không có trong từ điển cũng dịch máy; nạp sẵn model khi mở popup/khởi động) + dịch online tuỳ chọn (Claude, key người dùng, safeStorage). `pnpm lint && pnpm test` (385) pass; 🚧 Còn: thử tay trong app thật (tải NLLB ~870 MB, dán key, bôi đen dịch), đo lại thời gian, commit.
@@ -93,6 +97,19 @@ gantt
 - ✅ Xong code (2026-10-22, chưa thử tay): **Sửa popup dịch** — (1) văn bản dài bị cắt ở 200 ký tự (`MAX_QUERY` trong `normalizeQuery`) → nâng lên 1200 (= `TRANSLATE_MAX_CHARS`), clipboard/selection chỉ chặn 20k ký tự; vượt 1200 thì cắt và popup hiện thông báo `translate.truncated` (`LookupResult.truncated`); (2) popup báo "chưa tải model" dù đã tải → làm mới `translate:status` trước mỗi lần dịch (`useTranslateModels.refresh`), tự dịch lại khi `canTranslate` chuyển true, khối tải chỉ hiện khi thật sự chưa dịch được; (3) sửa chuỗi `v-if/v-else-if` bị gợi ý nâng cấp chèn giữa. Kiểm tra: `pnpm lint && pnpm test`.
 
 - ✅ Xong code (2026-10-22, **chưa thử tay**): **Bôi đen rồi Ctrl+Alt+T là dịch được** (không cần Ctrl+C): `system/selection.ts` gửi Ctrl+C giả lập, đọc chữ, khôi phục clipboard; bỏ qua terminal; có công tắc `translate.autoCopy`. Chi tiết docs/11 + docs/16.
+
+## Áp dụng thiết kế v2 "Làng chữ"
+
+Theo [23](23-design-v2-spec.md), làm từng phần, mỗi phần qua `pnpm lint && pnpm test`, `pnpm ui:audit`:
+
+- [ ] Token, font, `<UiIcon>`, cập nhật [18](18-ui-rules.md) và `ui:audit`
+- [ ] Trang chủ làng (ngày, chiều, đêm) và điều hướng theo địa điểm
+- [ ] Học tập, ôn tập, luyện tập, phím tắt
+- [ ] Mascot chibi 5 con, 16 trạng thái, thay sprite pixel; Lupo thay Webby (có đường chuyển cho người đang dùng Webby)
+- [ ] Thẻ từ mới 183 từ thay hình pixel
+- [ ] Kids World: bản đồ, bệ 3D, cảnh 12 nơi (xuất ảnh), máy bay tầng 2
+- [ ] Kids World tầng 3: quả cầu three.js, soạn lại nội dung kỳ quan thay `e-*.json`
+- [ ] Việc thiết kế còn thiếu ở [23 §7](23-design-v2-spec.md)
 
 ## Phase 0 — Spike: cửa sổ mascot (≈ 2 tuần)
 

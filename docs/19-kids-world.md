@@ -1,5 +1,8 @@
 # 19 — Bản đồ thế giới của bé (Phase 2b, giai đoạn A) — 🚧 đang làm (bước 1–4 xong, đang làm 4b; xem §8)
 
+> **Thiết kế v2 "Làng chữ" đã duyệt ([23](23-design-v2-spec.md)).** Đổi lớn: bản đồ 2D kiểu Làng chữ có công trình 3D trên bệ tròn, cảnh chi tiết cho từng nơi, máy bay ở tầng 2, quả địa cầu với kỳ quan thế giới ở tầng 3. Code hiện tại vẫn theo tài liệu này cho tới khi được áp dụng.
+
+
 > Thiết kế chi tiết cho [14 — Phase 2b](14-roadmap.md#phase-2b--mở-rộng-từ-vựng-trẻ-em-đề-xuất-2026-10-29) giai đoạn A, [decisions #35](decisions.md) và [#36](decisions.md) (bản đồ 3D + gói tải thêm). Viết 2026-10-29, sửa lần 1 cùng ngày theo góp ý chủ dự án (mỗi nơi có công trình nổi bật, tăng số nơi, bản đồ 3D chi tiết, tài nguyên tải thêm). **Chờ duyệt.** Khi code xong từng phần, đổi 📋 → ✅ ở đây và ở [07 §9](07-learning-modules.md#9-phonics--mầm-non-p1), [10](10-data-model.md), [03](03-architecture.md), [15](15-packaging-and-release.md), [17](17-metrics.md).
 
 ## 1. Mục tiêu & phạm vi

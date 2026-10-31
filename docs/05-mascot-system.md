@@ -1,5 +1,8 @@
 # 05 — Hệ thống Mascot
 
+> **Thiết kế v2 "Làng chữ" đã duyệt ([23](23-design-v2-spec.md)).** Giao diện mới bỏ pixel, thú cưng vẽ chibi, Lupo thay Webby, mỗi con 16 trạng thái và 3 dáng đi xe, thuyền, máy bay. Code hiện tại vẫn theo tài liệu này cho tới khi được áp dụng.
+
+
 ## 1. Nhân vật
 
 - **Tên tạm**: _Bi_ (đổi được). Một sinh vật chibi tròn trịa, dễ thương với cả trẻ em và người lớn.

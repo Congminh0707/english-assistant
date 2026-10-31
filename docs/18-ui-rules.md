@@ -1,5 +1,8 @@
 # 18 — Quy tắc giao diện (UI rules)
 
+> **Thiết kế v2 "Làng chữ" đã duyệt ([23](23-design-v2-spec.md)).** Khi áp dụng, cập nhật file này và `pnpm ui:audit` theo `scripts/design-data/sync/tokens.json`. Code hiện tại vẫn theo tài liệu này cho tới khi được áp dụng.
+
+
 Bộ quy tắc **bắt buộc** cho giao diện cửa sổ Học tập và component dùng chung, để mọi trang đồng bộ (bo góc, nút, icon, huy hiệu, màu). Lý do và bối cảnh: [12 §1b](12-ui-ux-guidelines.md), [decisions #28](decisions.md). Kiểm tra tự động: `pnpm ui:audit` (bắt cả nút còn lớp cũ như `primary/small/link` hoặc `<button>` không có lớp, emoji làm icon, khối thiếu bo góc, kiểu pixel cũ) (chạy trước khi xong task giao diện; phải **0 lỗi**).
 
 **Phạm vi:** `src/renderer/study/**`, `src/renderer/shared/components/**` `src/renderer/mascot/components/**` (bong bóng mascot) và `src/renderer/popup/**`. Phần tử gốc của cửa sổ/bong bóng phải có class `modern` và nạp `shared/styles/ui.css`. Còn kiểu pixel chỉ ở `PxPanel`/`PxBar` mặc định, sprite, huy hiệu, hình minh hoạ (đọc `--px`, `--c-border` qua `PxPanel`/`PxBar`) nên không áp các quy tắc dưới; giao diện trẻ em dùng `kids.css` (lớp `.k-*`) với cùng token nhưng nút to hơn.

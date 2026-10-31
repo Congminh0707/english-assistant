@@ -1,0 +1,177 @@
+{
+  "_note": "Danh sách màn hình phải có bảng thiết kế. part = phần việc phụ trách.",
+  "exempt": [
+    "AnimKitsu.dc.html",
+    "CharBi.dc.html",
+    "CharDraco.dc.html",
+    "CharKitsu.dc.html",
+    "CharLupo.dc.html",
+    "CharRobo.dc.html",
+    "KidsAsia.dc.html",
+    "KidsEarth.dc.html",
+    "KidsLandmark.dc.html",
+    "KidsMapVN.dc.html",
+    "KidsTravel.dc.html",
+    "KidsV3.dc.html",
+    "KidsWeather.dc.html",
+    "KidsLessonFx.dc.html",
+    "KidsParent.dc.html",
+    "KidsWorld.dc.html",
+    "KidsHome.dc.html",
+    "Main.dc.html",
+    "Mascot.dc.html",
+    "Review.dc.html",
+    "StudyHome.dc.html",
+    "S1Home.dc.html",
+    "S1HomeDark.dc.html",
+    "S1HomeDone.dc.html",
+    "R1Home.dc.html"
+  ],
+  "screens": [
+    {
+      "src": "study/components/StudyHome.vue",
+      "board": "S1Home",
+      "part": "S1"
+    },
+    {
+      "src": "study/components/CoursesPage.vue",
+      "board": "S1Courses",
+      "part": "S1"
+    },
+    {
+      "src": "study/components/LessonsPage.vue",
+      "board": "S1Lessons",
+      "part": "S1"
+    },
+    {
+      "src": "study/components/LessonViewer.vue + LessonExercises.vue",
+      "board": "S1Lesson",
+      "part": "S1"
+    },
+    {
+      "src": "study/exercises/* (ChoiceList, MatchBoard, WordOrderBoard, AudioPrompt)",
+      "board": "S1Exercises",
+      "part": "S1"
+    },
+    {
+      "src": "study/components/ReadingPassage.vue",
+      "board": "S1Reading",
+      "part": "S1"
+    },
+    {
+      "src": "study/components/ListeningPlayer.vue",
+      "board": "S1Listening",
+      "part": "S1"
+    },
+    {
+      "src": "study/components/ReviewSession.vue",
+      "board": "S2Review",
+      "part": "S2"
+    },
+    {
+      "src": "study/components/PracticeSession.vue + SpeakPractice.vue",
+      "board": "S2Practice",
+      "part": "S2"
+    },
+    {
+      "src": "study/components/WordList.vue",
+      "board": "S2Words",
+      "part": "S2"
+    },
+    {
+      "src": "study/components/PhrasebookPage.vue",
+      "board": "S2Phrases",
+      "part": "S2"
+    },
+    {
+      "src": "study/components/PlacementTest.vue",
+      "board": "S2Placement",
+      "part": "S2"
+    },
+    {
+      "src": "study/components/PetPage.vue",
+      "board": "S3Pet",
+      "part": "S3"
+    },
+    {
+      "src": "study/components/ShopPage.vue",
+      "board": "S3Shop",
+      "part": "S3"
+    },
+    {
+      "src": "study/components/StatsPage.vue + MissionList.vue",
+      "board": "S3Stats",
+      "part": "S3"
+    },
+    {
+      "src": "study/components/SettingsPage.vue (+ AudioPackPanel, SpritePackPanel)",
+      "board": "S3Settings",
+      "part": "S3"
+    },
+    {
+      "src": "study/components/Onboarding.vue",
+      "board": "S3Onboarding",
+      "part": "S3"
+    },
+    {
+      "src": "study/components/EvolutionOverlay.vue",
+      "board": "S3Evolution",
+      "part": "S3"
+    },
+    {
+      "src": "study/components/ParentReport.vue",
+      "board": "S3Parent",
+      "part": "S3"
+    },
+    {
+      "src": "mascot/App.vue + SpeechBubble.vue",
+      "board": "S4Mascot",
+      "part": "S4"
+    },
+    {
+      "src": "mascot/components/QuizCard.vue",
+      "board": "S4Quiz",
+      "part": "S4"
+    },
+    {
+      "src": "popup/App.vue",
+      "board": "S4Popup",
+      "part": "S4"
+    },
+    {
+      "src": "kids/KidsHome.vue",
+      "board": "S5KidsHome",
+      "part": "S5"
+    },
+    {
+      "src": "kids/KidsUnits.vue + KidsActivity.vue + TraceCanvas.vue",
+      "board": "S5KidsLearn",
+      "part": "S5"
+    },
+    {
+      "src": "kids/KidsVisit.vue (lượt 5 bước)",
+      "board": "S5KidsVisit",
+      "part": "S5"
+    },
+    {
+      "src": "kids/KidsReview.vue",
+      "board": "S5KidsReview",
+      "part": "S5"
+    },
+    {
+      "src": "kids/KidsAlbum.vue",
+      "board": "S5KidsAlbum",
+      "part": "S5"
+    },
+    {
+      "src": "kids/KidsPet.vue",
+      "board": "S5KidsPet",
+      "part": "S5"
+    },
+    {
+      "src": "kids/ParentGate.vue",
+      "board": "S5KidsGate",
+      "part": "S5"
+    }
+  ]
+}

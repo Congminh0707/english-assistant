@@ -1,5 +1,8 @@
 # 12 — Hướng dẫn UI/UX
 
+> **Thiết kế v2 "Làng chữ" đã duyệt ([23](23-design-v2-spec.md)).** Phong cách mới là ngôi làng Việt Nam vẽ phẳng, không còn pixel. Code hiện tại vẫn theo tài liệu này cho tới khi được áp dụng.
+
+
 ## 1. Phong cách tổng thể
 
 - **Chibi + pixel art**: nhân vật, icon, huy hiệu, khung viền, nút bấm mang chất pixel; nhưng **chữ nội dung bài học phải dễ đọc** (font thường, không pixel).

@@ -16,3 +16,7 @@ content/.build/
 content/packs/*
 !content/packs/samples/
 *.tsbuildinfo
+
+# Python
+__pycache__/
+*.pyc

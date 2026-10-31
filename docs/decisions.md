@@ -276,3 +276,24 @@ Mẫu:
 **Quyết định:** không vẽ thêm hàng chục hình vector; hạ `wordsPerPlace` còn **7** cho cả hai tầng: tầng 2 `world` = 6 nước (Nhật, Trung Quốc, Úc, Kê-ni-a, Pháp, Hoa Kỳ) × 7 = 42 từ, tầng 3 `earth` = 3 vùng (Hành tinh hoang dã, Băng giá & bầu trời, Đồ vật thông minh) × 7 = 21 từ; `wordRange` đổi thành [30, 120] và [15, 60]. Luật mở tầng (75 % nơi + 60 % từ ≥ mầm) giữ nguyên (tầng 2 cần 9/12 nơi VN). Muốn thêm nơi/từ về sau thì vẽ thêm hình trước rồi thêm file `places/*.json`.
 **3D:** cài `three` (0.186) và làm **bước nhỏ trước**: thẻ "Bắt đầu" của mỗi nơi có công trình voxel xoay được (kéo để xoay, tự xoay chậm), dựng thẳng từ lưới voxel bằng `meshVoxels` — không cần gói tải thêm vì công trình chỉ vài nghìn khối. Bản đồ 3D đầy đủ + gói `kids-world` (#36) **chưa làm**, vẫn là phần còn lại của bước 5–6 docs/19.
 **Hệ quả:** nội dung tầng 2–3 do AI soạn, `reviewed: false` như tầng 1 — cần người duyệt (đặc biệt cờ/địa danh/món ăn từng nước) trước khi phát hành.
+
+## #39 — Bỏ hẳn phong cách pixel trong thiết kế lại giao diện (2026-10-30) — Đề xuất
+
+**Bối cảnh:** Chủ dự án đã chuyển giao diện sang hiện đại thay cho pixel; prompt Claude Design đầu tiên ([20](20-claude-design-prompt.md)) vẫn giữ pixel cho nhân vật nên ra bản thiết kế lai pixel.
+**Quyết định:** Bản thiết kế lại **không dùng pixel ở đâu cả** (chữ, viền, icon, nhân vật). Nhân vật/vật phẩm/huy hiệu sẽ được vẽ lại bằng vector hiện đại. Sprite pixel hiện có (docs/05) chỉ là hiện trạng, sẽ thay khi có art mới. Chưa đổi code; khi áp thiết kế vào code phải sửa docs/12, 18, 05 trước.
+
+**Cập nhật #39 (2026-10-30):** Kitsu và Robo đã được duyệt; Webby bỏ dạng người, chuyển sang **nhện công** (peacock spider) xoè quạt rồi thoát xác; Draco vẽ lại tròn dễ thương, cấp cuối cánh vàng khổng lồ kiểu rồng phương Tây; Bi tiến hoá "wow" (cánh lá → cánh hoa → cánh cầu vồng + mandala). Chi tiết [21 §4](21-redesign-v2.md).
+
+## #40 — KidsWorld v3: hướng hình ảnh và thư viện (2026-10-31) — Đề xuất
+
+**Bối cảnh:** chủ dự án muốn làm đẹp lại toàn bộ KidsWorld (3D + 2D), được dùng thư viện miễn phí.
+**Đề xuất:** giữ three.js, thêm hậu kỳ có sẵn trong `three/examples` (GTAO, bloom) theo mức chất lượng; tài nguyên phụ CC0 dạng GLB không nén, tô lại theo bảng màu; công trình nổi tiếng tiếp tục tự dựng; bản 2D là nền nướng từ cảnh 3D trên canvas thường.
+**Không chọn:** Draco/meshopt (cần wasm, phải nới CSP); GSAP (điều kiện khi sản phẩm thu phí); PixiJS (Canvas còn thử nghiệm, chưa cần).
+**Chi tiết:** [21 §10](21-redesign-v2.md). Chờ duyệt lát mẫu và đo fps trên máy thật.
+
+## #41 — Chốt thiết kế v2 "Làng chữ" (2026-10-31) — Đã quyết định
+
+**Bối cảnh:** giao diện cũ theo lối mòn, pixel không còn hợp; chủ dự án thiết kế lại toàn app trên canvas.
+**Quyết định:** dùng hướng "Làng chữ": app là ngôi làng Việt Nam vẽ phẳng, bỏ pixel hoàn toàn, thú cưng chibi, Lupo (Ngân Lang) thay Webby. Kids World: bản đồ 2D kiểu Làng chữ, công trình 3D trên bệ tròn, cảnh chi tiết cho từng nơi lấy Hội An làm chuẩn. Tầng 2 dùng máy bay thay chim hạc. Tầng 3 là quả địa cầu quay, 7 châu lục, địa điểm là kỳ quan thế giới.
+**Thay thế:** hướng Cozy Paper Farm trong [21](21-redesign-v2.md), phần nhện của #39. Hướng hình ảnh của #40 đổi theo quyết định này; lựa chọn thư viện ở #40 giữ nguyên.
+**Hệ quả:** phải vẽ lại mascot, đổi `tokens`, viết lại `ui:audit`, soạn lại nội dung tầng 3 (`e-*.json`). Chi tiết: [23](23-design-v2-spec.md).

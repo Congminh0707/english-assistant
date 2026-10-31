@@ -26,7 +26,7 @@ onMounted(() => {
 
 <template>
   <div class="overlay" role="dialog" aria-modal="true" @keydown.esc="emit('close')">
-    <div class="card" :class="{ flash: phase === 1 }">
+    <div class="card" aria-live="polite" :class="{ flash: phase === 1 }">
       <h2>
         {{
           phase < 2
@@ -78,33 +78,35 @@ onMounted(() => {
   z-index: 50;
   display: grid;
   place-items: center;
-  background: rgba(20, 20, 40, 0.7);
+  background: color-mix(in srgb, var(--c-bg) 25%, black 75%);
+  backdrop-filter: blur(2px);
 }
 .card {
   display: grid;
-  gap: 16px;
+  gap: var(--sp-4);
   justify-items: center;
-  padding: 28px 40px;
+  padding: var(--sp-5) var(--sp-7);
   text-align: center;
   background: var(--c-surface);
-  border: 1px solid var(--c-line);
-  box-shadow: var(--shadow-sm);
-  border-radius: var(--r-md);
+  border: 2px solid var(--c-coin);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--r-lg);
 }
 .card.flash {
-  animation: flash 0.35s steps(2) infinite;
+  animation: flash 0.5s ease-in-out infinite;
 }
 h2 {
   margin: 0;
-  font-size: var(--fs-lg);
+  font-size: var(--fs-xl);
+  font-weight: 800;
 }
 .stage {
   padding: 8px;
 }
 @keyframes flash {
   50% {
-    background: #fff;
-    filter: brightness(1.6);
+    background: var(--c-warning-soft);
+    filter: brightness(1.3);
   }
 }
 @media (prefers-reduced-motion: reduce) {

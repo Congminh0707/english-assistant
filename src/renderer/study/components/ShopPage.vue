@@ -15,6 +15,8 @@ const petStore = usePetStore()
 
 const state = ref<ShopState | null>(null)
 const message = ref('')
+const isError = ref(false)
+const loadFailed = ref(false)
 const busy = ref(false)
 let messageTimer = 0
 
@@ -27,8 +29,9 @@ const nameOf = (item: ShopItem): string =>
     ? t(`characters.${item.id.split(':')[1]}.name`)
     : t(`items.${item.id.split(':')[1]}`)
 
-function say(text: string): void {
+function say(text: string, error = false): void {
   message.value = text
+  isError.value = error
   window.clearTimeout(messageTimer)
   messageTimer = window.setTimeout(() => (message.value = ''), 2500)
 }
@@ -41,7 +44,7 @@ async function run(action: () => Promise<ShopState>, done?: string): Promise<voi
     if (done) say(done)
     emit('changed')
   } catch (err) {
-    say(t(err instanceof IpcError ? err.info.messageKey : 'errors.unknown'))
+    say(t(err instanceof IpcError ? err.info.messageKey : 'errors.unknown'), true)
     await load()
   } finally {
     busy.value = false
@@ -49,7 +52,12 @@ async function run(action: () => Promise<ShopState>, done?: string): Promise<voi
 }
 
 async function load(): Promise<void> {
-  state.value = await invoke('shop:state')
+  loadFailed.value = false
+  try {
+    state.value = await invoke('shop:state')
+  } catch {
+    loadFailed.value = true
+  }
 }
 
 const buy = (item: ShopItem): Promise<void> =>
@@ -85,7 +93,15 @@ onMounted(load)
       </span>
     </header>
     <p class="muted">{{ t('shop.earnHint') }}</p>
-    <p v-if="message" class="message">{{ message }}</p>
+    <p v-if="message" class="message" :class="{ 'message--error': isError }" role="status">
+      {{ message }}
+    </p>
+
+    <div v-if="loadFailed" class="card state state--error" role="alert">
+      <p>{{ t('study.state.error') }}</p>
+      <button type="button" class="btn btn--sm" @click="load">{{ t('study.state.retry') }}</button>
+    </div>
+    <div v-else-if="!state" class="card skeleton" aria-busy="true" :aria-label="t('study.state.loading')" />
 
     <template v-if="state">
       <h2>{{ t('shop.accessoryTitle', { pet: petStore.pet?.name ?? '' }) }}</h2>
@@ -215,8 +231,45 @@ h2 {
   padding: var(--sp-2) var(--sp-3);
   border-radius: var(--r-md);
   background: var(--c-success-soft);
-  color: #25693a;
+  color: var(--c-success);
   font-weight: 600;
+}
+.message--error {
+  border-radius: var(--r-md);
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+}
+.state {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.state p {
+  margin: 0;
+}
+.state--error {
+  border-radius: var(--r-lg);
+  border-color: var(--c-danger);
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+}
+.skeleton {
+  min-height: 160px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(90deg, var(--c-surface-2), var(--c-surface), var(--c-surface-2));
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
 }
 /* Mọi thẻ cùng chiều cao; hàng nút luôn nằm đáy → các nút thẳng hàng dù có/không có ghi chú */
 .grid {

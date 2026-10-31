@@ -1296,6 +1296,7 @@
       "pinSaved": "PIN saved."
     },
     "world": {
+      "back": "Back to map",
       "hint": "Tap a place to walk there and learn new words. Drag or scroll to see the whole map. Seeds, sprouts and flowers around each place are the words you have met.",
       "tomorrow": "Enough new words for today. More tomorrow! (You can still review with the watering can.)",
       "water": "Water the plants: review due words",

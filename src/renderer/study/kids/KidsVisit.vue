@@ -38,6 +38,15 @@ const tracks = ref<Record<string, Track>>({})
 
 const item = computed(() => visit.value?.batch[index.value] ?? null)
 const STEPS: Step[] = ['intro', 'tap', 'play', 'speak', 'sentence']
+const STEP_ICON = {
+  intro: 'eye',
+  tap: 'hand',
+  play: 'cards',
+  speak: 'chat',
+  sentence: 'ear',
+  done: 'check',
+  empty: 'check'
+} as const
 const stepNo = computed(() => STEPS.indexOf(step.value) + 1)
 
 async function load(): Promise<void> {
@@ -223,13 +232,20 @@ onMounted(load)
 
 <template>
   <section class="k-screen">
-    <p v-if="!visit" class="k-sub">…</p>
+    <p v-if="!visit" class="k-sub">{{ t('kids.loading') }}</p>
 
     <template v-else-if="step === 'empty'">
-      <PixelPicture id="moon" :size="170" />
-      <h1 class="k-title">See you tomorrow!</h1>
+      <UiIcon name="moon" :size="140" class="moon" />
+      <h1 class="k-bubble title">See you tomorrow!</h1>
       <p class="k-sub">{{ t('kids.world.tomorrow') }}</p>
-      <button type="button" class="k-primary" @click="emit('back')"><UiIcon name="map" /></button>
+      <button
+        type="button"
+        class="k-primary"
+        :aria-label="t('kids.world.back')"
+        @click="emit('back')"
+      >
+        <UiIcon name="map" :size="36" />
+      </button>
     </template>
 
     <template v-else-if="step === 'done' && result">
@@ -237,7 +253,7 @@ onMounted(load)
         <i v-for="n in 36" :key="n" :style="confettiStyle(n)" />
       </div>
       <PixelPicture :id="result.firstTime ? 'gift' : 'star'" :size="150" />
-      <h1 class="k-title">{{ result.placeDone ? 'You did it!' : 'Great job!' }}</h1>
+      <h1 class="k-bubble title">{{ result.placeDone ? 'You did it!' : 'Great job!' }}</h1>
       <p class="k-row stars">
         <UiIcon
           v-for="n in 3"
@@ -247,12 +263,19 @@ onMounted(load)
           :class="{ lit: n <= result.stars }"
         />
       </p>
-      <div v-if="result.foodId" class="pop">
+      <div v-if="result.foodId" class="k-big soft pop">
         <PixelPicture :id="FOOD_PICTURE[result.foodId] ?? 'cake'" :size="96" />
         <strong>{{ t('kids.world.chest') }}</strong>
       </div>
       <p v-if="result.tierUnlocked" class="k-sub">{{ t('kids.world.tierOpen') }}</p>
-      <button type="button" class="k-primary" @click="emit('back')"><UiIcon name="map" /></button>
+      <button
+        type="button"
+        class="k-primary"
+        :aria-label="t('kids.world.back')"
+        @click="emit('back')"
+      >
+        <UiIcon name="map" :size="36" />
+      </button>
     </template>
 
     <template v-else>
@@ -261,7 +284,9 @@ onMounted(load)
           v-for="(s, i) in STEPS"
           :key="s"
           :class="{ on: i + 1 === stepNo, past: i + 1 < stepNo }"
-        />
+        >
+          <UiIcon :name="i + 1 < stepNo ? 'check' : STEP_ICON[s]" :size="20" />
+        </li>
       </ol>
 
       <!-- 1. Làm quen -->
@@ -277,14 +302,14 @@ onMounted(load)
           :aria-label="t('kids.world.next')"
           @click="nextItem"
         >
-          <UiIcon name="next" :size="28" />
+          <UiIcon name="next" :size="36" />
         </button>
       </template>
 
       <!-- 2. Chạm hình / 5. Nghe câu -->
       <template v-else-if="(step === 'tap' || step === 'sentence') && item">
         <button type="button" class="k-round big-speaker" @click="present">
-          <UiIcon name="volume" :size="40" />
+          <UiIcon name="volume" :size="48" />
         </button>
         <p v-if="step === 'sentence'" class="k-sub">{{ item.sentence.vi }}</p>
         <div class="k-row">
@@ -300,12 +325,14 @@ onMounted(load)
             <PixelPicture :id="id" :size="150" />
           </button>
         </div>
-        <p v-if="solved" class="answer">{{ step === 'sentence' ? item.sentence.en : item.word }}</p>
+        <p v-if="solved" class="k-bubble answer">
+          {{ step === 'sentence' ? item.sentence.en : item.word }}
+        </p>
       </template>
 
       <!-- 3. Lật thẻ ghép cặp -->
       <template v-else-if="step === 'play'">
-        <h1 class="k-title">Find the pairs!</h1>
+        <h1 class="k-bubble title">Find the pairs!</h1>
         <div
           class="pairs"
           :style="{ gridTemplateColumns: `repeat(${Math.min(4, cards.length)}, auto)` }"
@@ -349,77 +376,92 @@ onMounted(load)
 <style scoped>
 .steps {
   display: flex;
-  gap: 8px;
+  gap: var(--sp-2);
   margin: 0;
-  padding: 0;
+  padding: var(--sp-1) var(--sp-3);
   list-style: none;
+  border: 3px solid var(--c-ink);
+  border-radius: var(--r-pill);
+  background: var(--c-surface);
+  box-shadow: 0 4px 0 var(--c-ink);
 }
 .steps li {
-  width: 34px;
-  height: 10px;
-  border-radius: 999px;
-  background: var(--c-line);
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+  color: var(--c-ink-soft);
 }
 .steps li.past {
   background: var(--c-success);
+  color: var(--c-surface);
 }
 .steps li.on {
-  background: var(--c-primary);
+  background: var(--c-xp);
+  color: var(--c-surface);
+}
+.title {
+  margin: 0;
+  font-size: 32px;
+}
+.moon {
+  color: var(--c-warning);
 }
 .hero {
-  padding: 18px 26px;
+  padding: var(--sp-5) var(--sp-7);
 }
 .word,
 .answer {
-  font-size: 38px;
+  font-size: 40px;
   font-weight: 800;
-  color: var(--c-primary);
+  color: var(--c-xp);
 }
 .answer {
   margin: 0;
 }
 .big-speaker {
-  width: 96px;
-  height: 96px;
-  background: #fff3a0;
+  width: 112px;
+  height: 112px;
+  background: var(--c-warning-soft);
+  color: var(--c-warning);
 }
 .big-star {
-  width: 96px;
-  height: 96px;
+  width: 112px;
+  height: 112px;
   background: var(--c-warning-soft);
-  color: #e8a400;
+  color: var(--c-coin);
+}
+.big-star :deep(.ui-icon) {
+  fill: currentcolor;
 }
 .choice {
-  padding: 12px;
+  min-width: 220px;
+  padding: var(--sp-4);
 }
 .pairs {
   display: grid;
-  gap: 14px;
+  gap: var(--sp-4);
 }
 .flip {
   width: 128px;
   height: 128px;
   min-width: 0;
   place-content: center;
-  color: var(--c-primary);
+  color: var(--c-xp);
 }
 .stars {
   margin: 0;
-  gap: 6px;
+  gap: var(--sp-2);
   color: var(--c-line);
 }
 .stars .lit {
-  color: #e0a620;
-  fill: #ffd34d;
+  color: var(--c-coin);
+  fill: currentcolor;
 }
 .pop {
-  display: grid;
-  gap: 6px;
-  justify-items: center;
-  padding: 14px 28px;
-  border: 2px solid var(--c-line);
-  border-radius: 18px;
-  background: var(--c-warning-soft);
+  padding: var(--sp-4) var(--sp-6);
   font-size: 22px;
   animation: k-pop 420ms ease;
 }

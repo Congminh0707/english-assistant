@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { Bookmark, Search, SearchX } from 'lucide-vue-next'
 import type { WordListItem } from '@shared/schemas/study'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
@@ -24,6 +25,14 @@ const search = ref('')
 const filter = ref<Filter>('all')
 const sort = ref<Sort>('saved')
 const loading = ref(true)
+
+/** Màu chip theo trạng thái thẻ: mới / đang học / ôn dài hạn / học lại */
+const STATE_CHIP: Record<number, string> = {
+  0: '',
+  1: 'chip--warning',
+  2: 'chip--success',
+  3: 'chip--warning'
+}
 
 const FILTERS: Filter[] = [
   'all',
@@ -151,19 +160,48 @@ async function reset(w: WordListItem): Promise<void> {
   }
 }
 
-onMounted(load)
+const searchInput = ref<HTMLInputElement>()
+
+function clearFilters(): void {
+  search.value = ''
+  filter.value = 'all'
+}
+
+/** Phím "/" nhảy tới ô tìm, Esc trong ô tìm thì xoá chữ đang gõ */
+function onKey(e: KeyboardEvent): void {
+  if (e.ctrlKey || e.metaKey || e.altKey) return
+  const inField = ['INPUT', 'SELECT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)
+  if (e.key === '/' && !inField) {
+    e.preventDefault()
+    searchInput.value?.focus()
+  } else if (e.key === 'Escape' && e.target === searchInput.value && search.value) {
+    e.preventDefault()
+    search.value = ''
+  }
+}
+
+onMounted(() => {
+  window.addEventListener('keydown', onKey)
+  void load()
+})
+onUnmounted(() => window.removeEventListener('keydown', onKey))
 </script>
 
 <template>
   <section class="words">
     <header class="head">
       <h1>{{ t('study.words.count', { count: words.length }) }}</h1>
-      <input
-        v-model="search"
-        type="search"
-        spellcheck="false"
-        :placeholder="t('study.words.search')"
-      />
+      <label class="search">
+        <Search :size="16" :stroke-width="2.2" />
+        <input
+          ref="searchInput"
+          v-model="search"
+          type="text"
+          spellcheck="false"
+          :placeholder="t('study.words.search')"
+        />
+        <kbd>/</kbd>
+      </label>
     </header>
 
     <div class="tools">
@@ -172,8 +210,8 @@ onMounted(load)
           v-for="f in FILTERS"
           :key="f"
           type="button"
-          class="btn btn--sm btn--pill"
-          :class="{ 'btn--primary': filter === f }"
+          class="fchip"
+          :class="{ on: filter === f }"
           @click="filter = f"
         >
           {{ t(`study.words.filter.${f}`) }} <span class="n">{{ counts[f] }}</span>
@@ -187,8 +225,18 @@ onMounted(load)
       </label>
     </div>
 
-    <p v-if="!loading && !words.length" class="muted">{{ t('study.words.empty') }}</p>
-    <p v-else-if="!loading && !visible.length" class="muted">{{ t('study.words.noMatch') }}</p>
+    <div v-if="!loading && !words.length" class="empty">
+      <span class="empty-icon"><Bookmark :size="28" :stroke-width="2.2" /></span>
+      <strong>{{ t('study.words.empty') }}</strong>
+      <span class="muted">{{ t('study.words.emptyHint') }}</span>
+    </div>
+    <div v-else-if="!loading && !visible.length" class="empty">
+      <span class="empty-icon"><SearchX :size="28" :stroke-width="2.2" /></span>
+      <strong>{{ t('study.words.noMatch') }}</strong>
+      <button type="button" class="btn btn--sm" @click="clearFilters">
+        {{ t('study.words.clearFilters') }}
+      </button>
+    </div>
 
     <ul class="list">
       <li v-for="w in visible" :key="w.cardId" class="row" :class="{ paused: w.suspended }">
@@ -198,20 +246,22 @@ onMounted(load)
         <div class="main">
           <div class="line">
             <strong class="lemma">{{ w.lemma }}</strong>
-            <span v-if="w.level" class="level">{{ w.level.replace('_', '.') }}</span>
-            <span v-if="w.isPhrase" class="badge">{{ t('study.words.phrase') }}</span>
+            <span v-if="w.level" class="chip chip--xp">{{ w.level.replace('_', '.') }}</span>
+            <span v-if="w.isPhrase" class="chip">{{ t('study.words.phrase') }}</span>
             <span
               v-if="w.siblings"
-              class="badge"
+              class="chip"
               :title="t('study.words.siblingsHint', { n: w.siblings })"
             >
-              ＋{{ w.siblings }}
+              +{{ w.siblings }}
             </span>
           </div>
           <div class="vi">{{ w.vi ?? '—' }}</div>
         </div>
         <div class="meta">
-          <span class="state" :class="`s${w.state}`">{{ t(`study.words.state${w.state}`) }}</span>
+          <span class="chip" :class="STATE_CHIP[w.state] ?? 'chip--warning'">{{
+            t(`study.words.state${w.state}`)
+          }}</span>
           <span class="muted">{{ dueText(w) }}</span>
           <span v-if="w.lapses" class="muted">{{ t('study.words.lapses', { n: w.lapses }) }}</span>
         </div>
@@ -251,59 +301,123 @@ onMounted(load)
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 10px;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-3);
 }
 h1 {
   margin: 0;
   font-size: var(--fs-2xl);
 }
-input {
-  box-sizing: border-box;
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
   width: 240px;
-  padding: 6px 8px;
+  min-height: var(--btn-h);
+  padding: 0 var(--sp-3);
   border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
   background: var(--c-surface);
-  font: inherit;
-  outline: none;
-  border-radius: var(--r-md);
+  color: var(--c-ink-soft);
 }
-input:focus {
+.search:focus-within {
   border-color: var(--c-primary);
   box-shadow: 0 0 0 3px var(--c-primary-soft);
+}
+.search input {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  outline: none;
+}
+kbd {
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 600;
 }
 .tools {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-4);
+  flex-wrap: nowrap;
 }
 .chips {
+  flex: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--sp-2);
+}
+.fchip {
+  min-height: 28px;
+  padding: 0 var(--sp-2);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+  color: var(--c-ink);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+.fchip:hover {
+  background: var(--c-line);
+}
+.fchip.on {
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.fchip .n {
+  opacity: 0.7;
 }
 .sort {
   display: flex;
   align-items: center;
-  gap: 6px;
-  font-size: 12px;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--c-ink-soft);
+}
+.sort {
+  flex: none;
 }
 .sort select {
-  padding: 2px 6px;
-  border: 1px solid var(--c-line);
-  background: var(--c-surface);
-  font: inherit;
-  border-radius: var(--r-md);
+  min-height: 28px;
+  padding: 0 var(--sp-2);
+  border: 0;
+  background: transparent;
+  border-radius: var(--r-pill);
+  font-weight: 700;
 }
 .muted {
   color: var(--c-ink-soft);
 }
+.empty {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-7) var(--sp-4);
+  text-align: center;
+}
+.empty strong {
+  font-size: var(--fs-lg);
+}
+.empty-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--r-pill);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
 .list {
   display: grid;
-  gap: 8px;
+  gap: var(--sp-3);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -311,11 +425,11 @@ input:focus {
 .row {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
   background: var(--c-surface);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-md);
+  border: 2px solid var(--c-line);
+  border-radius: var(--r-lg);
 }
 .row.paused {
   opacity: 0.6;
@@ -327,32 +441,15 @@ input:focus {
 .line {
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px;
+  align-items: center;
+  gap: var(--sp-2);
 }
 .lemma {
-  font-size: 16px;
-}
-.level {
-  padding: 0 4px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #fff;
-  background: var(--c-xp);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-pill);
-}
-.badge {
-  padding: 0 4px;
-  font-size: 11px;
-  color: var(--c-ink);
-  background: var(--c-surface-2);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-pill);
+  font-size: var(--fs-lg);
 }
 .vi {
   overflow: hidden;
-  font-size: 13px;
+  font-size: var(--fs-sm);
   color: var(--c-ink-soft);
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -361,27 +458,10 @@ input:focus {
   display: grid;
   gap: 2px;
   justify-items: end;
-  font-size: 12px;
-}
-.state {
-  padding: 0 6px;
-  font-weight: 700;
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-pill);
-}
-.state.s0 {
-  background: var(--c-surface-2);
-}
-.state.s1,
-.state.s3 {
-  background: var(--c-warning);
-}
-.state.s2 {
-  color: #fff;
-  background: var(--c-success);
+  font-size: var(--fs-sm);
 }
 .actions {
   display: flex;
-  gap: 4px;
+  gap: var(--sp-1);
 }
 </style>

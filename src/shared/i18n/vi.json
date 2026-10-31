@@ -1223,6 +1223,8 @@
       "stars": "{n} sao"
     },
     "activity": {
+      "prev": "Trước",
+      "next": "Tiếp",
       "again": "Chơi lại",
       "sayHint": "Nghe rồi nói theo, xong bấm nút ✓ (chưa chấm giọng nói)",
       "sayGraded": "Bấm micro và nói to nhé!",

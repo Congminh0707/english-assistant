@@ -1237,6 +1237,8 @@
       "stars": "{n} stars"
     },
     "activity": {
+      "prev": "Previous",
+      "next": "Next",
       "again": "Play again",
       "sayHint": "Listen, say it out loud, then tap ✓ (speech is not graded yet)",
       "sayGraded": "Tap the mic and say it out loud!",

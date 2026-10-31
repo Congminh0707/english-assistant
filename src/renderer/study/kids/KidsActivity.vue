@@ -207,8 +207,6 @@ function again(): void {
   teachSpeak()
 }
 
-const stars = (n: number): string => '★'.repeat(n) + '☆'.repeat(3 - n)
-
 onMounted(teachSpeak)
 </script>
 
@@ -217,36 +215,55 @@ onMounted(teachSpeak)
     <!-- HỌC -->
     <template v-if="phase === 'teach'">
       <p class="k-sub">{{ index + 1 }} / {{ items.length }}</p>
-      <button type="button" class="k-big card" @click="teachSpeak">
-        <template v-if="activity.kind === 'letters' || activity.kind === 'trace'">
-          <span class="letter"
-            >{{ item.text }}<small>{{ item.text.toLowerCase() }}</small></span
-          >
-          <PixelPicture v-if="item.picture" :id="item.picture" :size="150" />
-          <span v-if="item.word" class="word">{{ item.word }}</span>
-        </template>
-        <template v-else-if="activity.kind === 'sounds'">
-          <span class="letter">{{ item.text }}</span>
-          <PixelPicture v-if="item.picture" :id="item.picture" :size="150" />
-          <span v-if="item.word" class="word">{{ item.word }}</span>
-        </template>
-        <template v-else-if="activity.kind === 'blend'">
-          <PixelPicture v-if="item.picture" :id="item.picture" :size="150" />
-          <span class="word">{{ item.text }}</span>
-        </template>
-        <template v-else-if="activity.kind === 'book'">
-          <PixelPicture v-if="item.picture" :id="item.picture" :size="190" />
-          <span class="sentence">{{ item.text }}</span>
-        </template>
-        <template v-else-if="activity.kind === 'speak'">
-          <PixelPicture v-if="item.picture" :id="item.picture" :size="170" />
-          <span class="word">{{ item.text }}</span>
-        </template>
-        <template v-else>
-          <span class="sight">{{ item.text }}</span>
-        </template>
-        <span class="speaker"><UiIcon name="volume" /></span>
-      </button>
+      <div class="stage">
+        <button
+          type="button"
+          class="k-round side"
+          :disabled="index === 0"
+          :aria-label="t('kids.activity.prev')"
+          @click="prevTeach"
+        >
+          <UiIcon name="back" :size="32" />
+        </button>
+        <button type="button" class="k-big card" @click="teachSpeak">
+          <template v-if="activity.kind === 'letters' || activity.kind === 'trace'">
+            <span class="letter"
+              >{{ item.text }}<small>{{ item.text.toLowerCase() }}</small></span
+            >
+            <PixelPicture v-if="item.picture" :id="item.picture" :size="150" />
+            <span v-if="item.word" class="word">{{ item.word }}</span>
+          </template>
+          <template v-else-if="activity.kind === 'sounds'">
+            <span class="letter">{{ item.text }}</span>
+            <PixelPicture v-if="item.picture" :id="item.picture" :size="150" />
+            <span v-if="item.word" class="word">{{ item.word }}</span>
+          </template>
+          <template v-else-if="activity.kind === 'blend'">
+            <PixelPicture v-if="item.picture" :id="item.picture" :size="150" />
+            <span class="word">{{ item.text }}</span>
+          </template>
+          <template v-else-if="activity.kind === 'book'">
+            <PixelPicture v-if="item.picture" :id="item.picture" :size="190" />
+            <span class="sentence">{{ item.text }}</span>
+          </template>
+          <template v-else-if="activity.kind === 'speak'">
+            <PixelPicture v-if="item.picture" :id="item.picture" :size="170" />
+            <span class="word">{{ item.text }}</span>
+          </template>
+          <template v-else>
+            <span class="sight">{{ item.text }}</span>
+          </template>
+          <span class="speaker"><UiIcon name="volume" :size="28" /></span>
+        </button>
+        <button
+          type="button"
+          class="k-primary side"
+          :aria-label="t('kids.activity.next')"
+          @click="nextTeach"
+        >
+          <UiIcon :name="index + 1 < items.length ? 'play' : 'game'" :size="36" />
+        </button>
+      </div>
 
       <div v-if="activity.kind === 'blend' && item.letters" class="k-row">
         <button
@@ -258,12 +275,14 @@ onMounted(teachSpeak)
         >
           {{ l }}
         </button>
-        <button type="button" class="k-round" @click="sayItem(item)"><UiIcon name="play" /></button>
+        <button type="button" class="k-round" @click="sayItem(item)">
+          <UiIcon name="volume" :size="28" />
+        </button>
       </div>
 
       <div v-if="canPractice" class="k-practice">
         <button v-if="!practice" type="button" class="k-round" @click="practice = true">
-          <UiIcon name="mic" />
+          <UiIcon name="mic" :size="28" />
         </button>
         <SpeakPractice
           v-else
@@ -273,13 +292,6 @@ onMounted(teachSpeak)
           phoneme-only
           kids
         />
-      </div>
-
-      <div class="k-row">
-        <button type="button" class="k-round" :disabled="index === 0" @click="prevTeach">◀</button>
-        <button type="button" class="k-primary" @click="nextTeach">
-          <UiIcon :name="index + 1 < items.length ? 'play' : 'game'" :size="26" />
-        </button>
       </div>
     </template>
 
@@ -291,8 +303,9 @@ onMounted(teachSpeak)
         class="k-round big-speaker"
         @click="speak(questions[q].item.say ?? questions[q].item.text, 'us', 0.8)"
       >
-        <UiIcon name="volume" />
+        <UiIcon name="volume" :size="44" />
       </button>
+      <p v-if="wrongPicks.length" class="k-bubble again">Try again!</p>
       <div class="k-row">
         <button
           v-for="c in questions[q].choices"
@@ -331,10 +344,10 @@ onMounted(teachSpeak)
       <span class="word">{{ questions[q].item.text }}</span>
       <div class="k-row">
         <button type="button" class="k-round big-speaker" @click="sayPrompt">
-          <UiIcon name="volume" />
+          <UiIcon name="volume" :size="44" />
         </button>
         <button v-if="!pronReady" type="button" class="k-primary mic" @click="saidIt">
-          <UiIcon name="mic" /> <UiIcon name="check" />
+          <UiIcon name="mic" :size="32" /> <UiIcon name="check" :size="32" />
         </button>
       </div>
       <template v-if="pronReady">
@@ -353,7 +366,7 @@ onMounted(teachSpeak)
           class="k-primary"
           @click="advanceStep(scoredFirst === true)"
         >
-          <UiIcon name="play" :size="26" />
+          <UiIcon name="play" :size="36" />
         </button>
       </template>
       <p class="k-sub">{{ t(pronReady ? 'kids.activity.sayGraded' : 'kids.activity.sayHint') }}</p>
@@ -364,17 +377,29 @@ onMounted(teachSpeak)
       <h1 class="k-title">
         {{ result.stars >= 3 ? 'Perfect!' : result.stars >= 2 ? 'Great job!' : 'Good try!' }}
       </h1>
-      <p class="k-stars big-stars">{{ stars(result.stars) }}</p>
+      <p
+        class="k-stars big-stars"
+        role="img"
+        :aria-label="t('kids.units.stars', { n: result.stars })"
+      >
+        <UiIcon
+          v-for="n in 3"
+          :key="n"
+          name="star"
+          :size="72"
+          :class="n <= result.stars ? 'on' : 'off'"
+        />
+      </p>
       <div v-if="result.foodId" class="gift">
         <PixelPicture :id="FOOD_PICTURE[result.foodId] ?? 'cake'" :size="120" />
         <strong>{{ t('kids.review.present') }}</strong>
       </div>
       <div class="k-row">
         <button type="button" class="k-round" :title="t('kids.activity.again')" @click="again">
-          ↻
+          <UiIcon name="reset" :size="30" />
         </button>
         <button type="button" class="k-primary" @click="emit('back')">
-          <UiIcon name="play" />
+          <UiIcon name="play" :size="36" />
         </button>
       </div>
     </template>
@@ -382,69 +407,111 @@ onMounted(teachSpeak)
 </template>
 
 <style scoped>
+.stage {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-5);
+}
+.side {
+  flex: none;
+}
 .card {
-  min-width: 280px;
-  padding: 20px 30px;
+  position: relative;
+  min-width: 360px;
+  min-height: 300px;
+  padding: var(--sp-5) var(--sp-7);
+  box-shadow: 0 8px 0 var(--c-ink);
 }
 .letter {
-  font-size: 96px;
+  font-size: 112px;
   line-height: 1;
 }
 .letter small {
-  margin-left: 14px;
-  font-size: 64px;
-  color: var(--c-primary);
+  margin-left: var(--sp-4);
+  font-size: 72px;
+  color: var(--c-xp);
 }
 .word {
-  font-size: 34px;
+  font-size: 36px;
+  color: var(--c-xp);
 }
 .sentence {
   max-width: 440px;
-  font-size: 30px;
-  font-weight: 800;
-  line-height: 1.3;
+  font-size: 32px;
+  line-height: 1.25;
   text-align: center;
 }
 .mic {
   font-size: 28px;
 }
 .sight {
-  font-size: 96px;
+  font-size: 112px;
   line-height: 1.1;
 }
 .speaker {
-  font-size: 24px;
+  position: absolute;
+  top: var(--sp-3);
+  right: var(--sp-3);
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 3px solid var(--c-ink);
+  border-radius: var(--r-pill);
+  background: var(--c-warning-soft);
+  color: var(--c-warning);
 }
 .tile {
-  min-width: 90px;
-  font-size: 46px;
+  min-width: 88px;
+  min-height: 80px;
+  padding: var(--sp-2) var(--sp-4);
+  font-size: 44px;
+  box-shadow: 0 4px 0 var(--c-ink);
 }
 .big-speaker {
   width: 96px;
   height: 96px;
-  font-size: 46px;
   background: var(--c-warning-soft);
+  color: var(--c-warning);
+}
+.again {
+  font-size: var(--fs-xl);
 }
 .choice {
-  padding: 16px 22px;
-  min-width: 170px;
+  padding: var(--sp-5) var(--sp-6);
+  min-width: 190px;
+  min-height: 200px;
 }
 .quiz-text {
-  font-size: 80px;
+  font-size: 88px;
   line-height: 1.1;
 }
 .big-stars {
-  font-size: 60px;
-  color: #e0a620;
+  margin: 0;
+  gap: var(--sp-3);
+}
+.big-stars .on {
+  fill: currentcolor;
 }
 .gift {
   display: grid;
-  gap: 6px;
+  gap: var(--sp-2);
   justify-items: center;
+  padding: var(--sp-4) var(--sp-6);
+  border: 4px solid var(--c-warning);
+  border-radius: var(--r-lg);
+  background: var(--c-warning-soft);
+  box-shadow: 0 8px 0 var(--c-warning);
+  font-size: 24px;
   animation: k-pop 420ms ease;
 }
 .k-practice {
   display: grid;
   justify-items: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gift {
+    animation: none;
+  }
 }
 </style>

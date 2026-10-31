@@ -59,7 +59,8 @@ if (!app.isPackaged && process.env['REMOTE_DEBUG_PORT']) {
 }
 
 // Cố định thư mục dữ liệu là %APPDATA%\english-assistant (productName khi đóng gói có dấu cách sẽ đổi đường dẫn mặc định)
-app.setPath('userData', join(app.getPath('appData'), 'english-assistant'))
+// EA_USER_DATA: scripts/ui-shot.mjs chạy trên dữ liệu riêng, không đụng dữ liệu thật
+app.setPath('userData', process.env['EA_USER_DATA'] ?? join(app.getPath('appData'), 'english-assistant'))
 
 // Giữ tham chiếu ở cấp module để không bị garbage collect
 let conn: UserDbConnection | null = null
@@ -236,7 +237,9 @@ if (!app.requestSingleInstanceLock()) {
     m.onVisibilityChanged = () => tray?.refresh()
 
     // Lần đầu chạy: mở cửa sổ Học tập để chào hỏi (tên, mục tiêu, trình độ)
-    if (!c.settings.get('app.onboarded')) setTimeout(() => s.open(), 800)
+    // --open-study: scripts/ui-shot.mjs mở thẳng cửa sổ Học tập để chụp
+    if (!c.settings.get('app.onboarded') || process.argv.includes('--open-study'))
+      setTimeout(() => s.open(), 800)
 
     // Sự kiện nội bộ → đẩy xuống các cửa sổ
     c.bus.on('pet.updated', (state) => broadcast('pet:updated', state))

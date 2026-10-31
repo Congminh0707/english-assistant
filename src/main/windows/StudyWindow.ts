@@ -28,7 +28,7 @@ export class StudyWindow {
       title: 'English Assistant',
       icon,
       autoHideMenuBar: true,
-      backgroundColor: '#fdf6e3',
+      backgroundColor: '#fbefd8',
       webPreferences: {
         preload: join(__dirname, '../preload/index.js'),
         contextIsolation: true,

@@ -20,3 +20,6 @@ content/packs/*
 # Python
 __pycache__/
 *.pyc
+
+# Ảnh và dữ liệu tạm của scripts/ui-shot.mjs
+.ui-shot/

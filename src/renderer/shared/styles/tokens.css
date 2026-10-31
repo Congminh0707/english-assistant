@@ -1,48 +1,77 @@
-/* Design tokens — docs/12-ui-ux-guidelines.md#2. Component dùng biến, không viết mã màu cứng. */
+/* Design tokens thiết kế v2 "Làng chữ" — docs/23-design-v2-spec.md, nguồn: scripts/design-data/sync/tokens.json.
+   Component dùng biến, không viết mã màu cứng. */
 :root {
-  --c-bg: #fdf6e3;
-  --c-surface: #ffffff;
-  --c-ink: #2b2b3a;
-  --c-ink-soft: #6b6b80;
-  --c-primary: #5b8def;
-  --c-success: #4caf6a;
-  --c-warning: #f2b33d;
-  --c-danger: #e05a5a;
-  --c-xp: #9b6bff;
-  --c-coin: #f5c542;
-  --c-border: #2b2b3a;
+  --c-bg: #FBEFD8;
+  --c-surface: #FFF9EA;
+  --c-surface-2: #F6E6C4;
+  --c-line: #E7C98E;
+  --c-ink: #3A2413;
+  --c-ink-soft: #6B4A30;
+  --c-primary: #D32F2F;
+  --c-primary-strong: #b71c1c;
+  --c-primary-soft: #FBE0DA;
+  --c-on-primary: #ffffff;
+  --c-success: #0B7A52;
+  --c-success-soft: #D9F5E4;
+  --c-warning: #8F5A06;
+  --c-warning-soft: #FFE9B8;
+  --c-danger: #9E1B1F;
+  --c-danger-soft: #FBE3E3;
+  --c-xp: #0E7C8C;
+  --c-xp-soft: #D4F3F2;
+  --c-coin: #F7B91A;
+  --c-border: #3A2413;
+  --shadow-sm: 0 1px 2px rgb(58 36 19 / 6%), 0 1px 3px rgb(58 36 19 / 8%);
+  --shadow-md: 0 6px 18px rgb(58 36 19 / 12%);
 
   --px: 2px;
-  --font-ui: 'Segoe UI', system-ui, sans-serif;
-  /* Font pixel có dấu tiếng Việt (VT323) sẽ được đóng gói ở bước làm cửa sổ Học tập */
+  --font-ui: 'Be Vietnam Pro', system-ui, sans-serif;
+  --font-kids: 'Baloo 2', 'Be Vietnam Pro', system-ui, sans-serif;
+  --font-ipa: 'Noto Sans', 'Be Vietnam Pro', sans-serif;
+  /* Kiểu pixel cũ của mascot/popup, bỏ khi hai cửa sổ đó được áp dụng */
   --font-pixel: 'VT323', 'Consolas', monospace;
 
-  /* Thang thiết kế hiện đại (cửa sổ Học tập dùng; popup/mascot giữ kiểu pixel) — docs/12 §2b */
-  --c-line: #e3e6ee;
-  --c-surface-2: #f3f5fa;
-  --c-primary-strong: #3f74e6;
-  --c-primary-soft: #e8f0ff;
-  --c-success-soft: #e3f5e9;
-  --c-warning-soft: #fff4d6;
-  --c-danger-soft: #fde8e8;
-  --c-xp-soft: #f0e9ff;
   --r-sm: 8px;
   --r-md: 12px;
   --r-lg: 16px;
   --r-pill: 999px;
-  --shadow-sm: 0 1px 2px rgb(23 28 45 / 6%), 0 1px 3px rgb(23 28 45 / 8%);
-  --shadow-md: 0 6px 18px rgb(23 28 45 / 10%);
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 12px;
   --sp-4: 16px;
   --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 40px;
   --fs-xs: 12px;
   --fs-sm: 13px;
   --fs-md: 14px;
   --fs-lg: 16px;
   --fs-xl: 20px;
   --fs-2xl: 26px;
+  --fs-3xl: 32px;
   --btn-h: 36px;
-  --btn-h-sm: 30px;
+  --btn-h-sm: 28px;
+}
+:root[data-theme='dark'] {
+  --c-bg: #141A3A;
+  --c-surface: #1F2750;
+  --c-surface-2: #2A3364;
+  --c-line: #3D4880;
+  --c-ink: #FFF3D6;
+  --c-ink-soft: #C9CDEE;
+  --c-primary: #F7B91A;
+  --c-primary-strong: #ffcf4d;
+  --c-primary-soft: #3E3420;
+  --c-on-primary: #141A3A;
+  --c-success: #6BCB8F;
+  --c-success-soft: #1F4034;
+  --c-warning: #EDBB5C;
+  --c-warning-soft: #4A3B1E;
+  --c-danger: #EE8A8A;
+  --c-danger-soft: #4D2A2E;
+  --c-xp: #7FE3E0;
+  --c-xp-soft: #1F4650;
+  --c-border: #FFF3D6;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 24%), 0 1px 3px rgb(0 0 0 / 28%);
+  --shadow-md: 0 6px 18px rgb(0 0 0 / 36%);
 }

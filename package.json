@@ -37,6 +37,7 @@
     "content:stats": "tsx scripts/content/stats.ts",
     "stats": "tsx scripts/stats.ts",
     "ui:audit": "node scripts/ui-audit.mjs",
+    "ui:shot": "node scripts/ui-shot.mjs",
     "badges": "tsx scripts/badges/make-badges.ts",
     "pictures": "tsx scripts/pictures/make-pictures.ts",
     "pictures:sheet": "node scripts/pictures/vector-sheet.mjs",
@@ -46,6 +47,9 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
     "@electron-toolkit/utils": "^4.0.0",
+    "@fontsource/baloo-2": "^5.3.0",
+    "@fontsource/be-vietnam-pro": "^5.3.0",
+    "@fontsource/noto-sans": "^5.3.0",
     "@huggingface/transformers": "4.3.1",
     "better-sqlite3": "^13.0.3",
     "drizzle-orm": "^0.45.4",

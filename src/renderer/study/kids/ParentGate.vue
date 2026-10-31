@@ -159,18 +159,36 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="overlay" role="dialog" aria-modal="true">
-    <div class="gate">
-      <h2>{{ title }}</h2>
-      <p v-if="mode === 'set' && step === 'new' && !changing" class="muted">
-        {{ t('kids.gate.setHint') }}
-      </p>
-      <p v-if="step === 'forgot' && forgot" class="question">{{ forgot.a }} × {{ forgot.b }} = ?</p>
-      <div v-if="step !== 'forgot'" class="dots" aria-hidden="true">
-        <span v-for="i in 4" :key="i" class="dot" :class="{ on: digits.length >= i }" />
+  <div class="overlay" role="dialog" aria-modal="true" :aria-label="title">
+    <div class="gate" :class="{ confirm: step === 'confirm', bad: !!message && retryAfter === 0 }">
+      <div class="info">
+        <UiIcon name="lock" :size="40" class="lock" />
+        <h2>{{ title }}</h2>
+        <p v-if="mode === 'set' && step === 'new' && !changing" class="muted">
+          {{ t('kids.gate.setHint') }}
+        </p>
+        <p v-if="step === 'forgot' && forgot" class="question">
+          {{ forgot.a }} × {{ forgot.b }} = ?
+        </p>
+        <div v-if="step !== 'forgot'" class="dots" aria-hidden="true">
+          <span v-for="i in 4" :key="i" class="dot" :class="{ on: digits.length >= i }" />
+        </div>
+        <p v-else class="answer">{{ digits || '…' }}</p>
+        <p class="msg" :class="{ show: message }" role="status">{{ message }}</p>
+        <div class="actions">
+          <button
+            v-if="step === 'verify' && mode !== 'extend'"
+            type="button"
+            class="k-ghost"
+            @click="startForgot"
+          >
+            {{ t('kids.gate.forgot') }}
+          </button>
+          <button type="button" class="k-ghost" @click="emit('close')">
+            {{ t('kids.gate.cancel') }}
+          </button>
+        </div>
       </div>
-      <p v-else class="answer">{{ digits || '…' }}</p>
-      <p class="msg" :class="{ show: message }">{{ message }}</p>
       <div class="pad">
         <button
           v-for="k in KEYS"
@@ -179,24 +197,14 @@ onUnmounted(() => {
           class="key"
           :class="{ action: k === 'del' || k === 'ok' }"
           :disabled="busy || retryAfter > 0"
+          :aria-label="k === 'del' ? t('kids.gate.delete') : k === 'ok' ? t('kids.gate.ok') : k"
           @click="press(k)"
         >
-          <UiIcon v-if="k === 'del'" name="backspace" :size="22" />
-          <UiIcon v-else-if="k === 'ok'" name="check" :size="22" />
+          <UiIcon v-if="k === 'del'" name="backspace" :size="28" />
+          <UiIcon v-else-if="k === 'ok'" name="check" :size="28" />
           <template v-else>{{ k }}</template>
         </button>
       </div>
-      <button
-        v-if="step === 'verify' && mode !== 'extend'"
-        type="button"
-        class="cancel"
-        @click="startForgot"
-      >
-        {{ t('kids.gate.forgot') }}
-      </button>
-      <button type="button" class="cancel" @click="emit('close')">
-        {{ t('kids.gate.cancel') }}
-      </button>
     </div>
   </div>
 </template>
@@ -209,98 +217,139 @@ onUnmounted(() => {
   display: grid;
   place-items: center;
   background: rgb(30 27 46 / 70%);
+  font-family: var(--font-kids);
 }
 .gate {
+  --gate-color: var(--c-xp);
   display: grid;
-  gap: 10px;
-  justify-items: center;
-  width: min(340px, 92vw);
-  padding: 22px 24px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-6);
+  align-items: center;
+  width: min(840px, 94vw);
+  padding: var(--sp-6) var(--sp-7);
   color: var(--c-ink);
   background: var(--c-bg);
-  border: 1px solid var(--c-line);
-  box-shadow: var(--shadow-md);
-  border-radius: var(--r-md);
+  border: 4px solid var(--c-ink);
+  box-shadow: 0 8px 0 var(--c-ink);
+  border-radius: var(--r-lg);
+}
+.gate.confirm {
+  --gate-color: var(--c-primary);
+}
+.info {
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: center;
+}
+.lock {
+  color: var(--gate-color);
+}
+.gate.bad .lock {
+  color: var(--c-danger);
 }
 h2 {
   margin: 0;
-  font-size: 18px;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.15;
   text-align: center;
 }
 .muted {
   margin: 0;
-  font-size: 13px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
   color: var(--c-ink-soft);
   text-align: center;
 }
 .dots {
   display: flex;
-  gap: 14px;
+  gap: var(--sp-4);
 }
 .dot {
-  width: 18px;
-  height: 18px;
-  border: 1px solid var(--c-line);
-  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--c-ink);
+  border-radius: var(--r-pill);
   background: var(--c-surface);
 }
 .dot.on {
-  background: var(--c-primary);
+  background: var(--gate-color);
 }
 .question {
   margin: 0;
-  font-size: 26px;
+  font-size: 34px;
   font-weight: 800;
 }
 .answer {
-  min-width: 90px;
+  min-width: 110px;
   margin: 0;
-  padding: 4px 14px;
-  font-size: 28px;
+  padding: var(--sp-1) var(--sp-4);
+  font-size: 34px;
   font-weight: 800;
   text-align: center;
-  border-bottom: 3px solid var(--c-border);
+  color: var(--c-xp);
+  border-bottom: 4px solid var(--c-ink);
 }
 .msg {
   min-height: 1.4em;
   margin: 0;
-  font-size: 13px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-md);
+  font-weight: 600;
   color: var(--c-danger);
   text-align: center;
 }
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+}
 .pad {
   display: grid;
-  grid-template-columns: repeat(3, 76px);
-  gap: 10px;
+  grid-template-columns: repeat(3, 84px);
+  gap: var(--sp-3);
 }
 .key {
-  height: 60px;
-  border: 1px solid var(--c-line);
-  background: var(--c-surface);
-  font: inherit;
-  font-size: 24px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: var(--shadow-sm);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  padding: 0;
+  border: 3px solid var(--c-ink);
   border-radius: var(--r-md);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  font: inherit;
+  font-size: 32px;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--c-ink);
 }
 .key:active:not(:disabled) {
-  transform: translate(2px, 2px);
-  box-shadow: none;
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--c-ink);
 }
 .key.action {
+  background: var(--c-xp-soft);
+  color: var(--c-xp);
+}
+.gate.confirm .key.action {
   background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.gate.bad .key.action {
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
 }
 .key:disabled {
   opacity: 0.5;
   cursor: default;
 }
-.cancel {
-  border: none;
-  background: transparent;
-  color: var(--c-ink-soft);
-  font: inherit;
-  text-decoration: underline;
-  cursor: pointer;
+@media (max-width: 700px) {
+  .gate {
+    grid-template-columns: 1fr;
+    justify-items: center;
+  }
 }
 </style>

@@ -14,6 +14,7 @@ import type { ShopItem, ShopState } from '@shared/schemas/shop'
 import { invoke, IpcError } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import PxBar from '@renderer/shared/components/PxBar.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { Coins } from 'lucide-vue-next'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 
@@ -96,14 +97,32 @@ function lockText(id: CharacterId): string {
     : ''
 }
 
-onMounted(async () => {
-  shop.value = await invoke('shop:state')
-  viewing.value = normalizeCharacterId(shop.value.character)
-})
+const loadFailed = ref(false)
+async function load(): Promise<void> {
+  loadFailed.value = false
+  try {
+    shop.value = await invoke('shop:state')
+    viewing.value = normalizeCharacterId(shop.value.character)
+  } catch {
+    loadFailed.value = true
+  }
+}
+onMounted(load)
 </script>
 
 <template>
-  <section v-if="pet" class="pet-page">
+  <section v-if="loadFailed" class="pet-page">
+    <h1 class="page-title">{{ t('study.pet.title') }}</h1>
+    <div class="card state state--error" role="alert">
+      <p>{{ t('study.state.error') }}</p>
+      <button type="button" class="btn btn--sm" @click="load">{{ t('study.state.retry') }}</button>
+    </div>
+  </section>
+  <section v-else-if="!pet || !shop" class="pet-page" aria-busy="true">
+    <h1 class="page-title">{{ t('study.pet.title') }}</h1>
+    <div class="card state skeleton" />
+  </section>
+  <section v-else class="pet-page">
     <h1 class="page-title">{{ t('study.pet.title') }}</h1>
     <p v-if="message" class="message">{{ message }}</p>
 
@@ -261,7 +280,7 @@ h2 {
   padding: var(--sp-2) var(--sp-3);
   border-radius: var(--r-md);
   background: var(--c-success-soft);
-  color: #25693a;
+  color: var(--c-success);
   font-weight: 600;
 }
 .hero {
@@ -368,5 +387,38 @@ h2 {
 }
 .price :deep(svg) {
   color: var(--c-coin);
+}
+.state {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.state p {
+  margin: 0;
+}
+.state--error {
+  border-radius: var(--r-lg);
+  border-color: var(--c-danger);
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+}
+.skeleton {
+  border-radius: var(--r-lg);
+  min-height: 160px;
+  background: linear-gradient(90deg, var(--c-surface-2), var(--c-surface), var(--c-surface-2));
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+  border-radius: var(--r-lg);
+    animation: none;
+  }
 }
 </style>

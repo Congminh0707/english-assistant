@@ -586,7 +586,15 @@
       "noCards": "No words yet. Copy a word and press {shortcut} to look it up and save it!",
       "packMissing": "The dictionary pack is not installed yet, so reviewing is unavailable.",
       "search": "Search",
-      "goReview": "To the well, review {n} words"
+      "goReview": "To the well, review {n} words",
+      "todayPanel": "Today",
+      "close": "Close"
+    },
+    "search": {
+      "title": "Search words",
+      "placeholder": "Type an English word or Vietnamese meaning…",
+      "none": "No match.",
+      "suggest": "Did you mean: {words}?"
     },
     "review": {
       "show": "Show answer",
@@ -598,7 +606,7 @@
       "context": "Your saved sentence",
       "hint": "Space/Enter: flip or rate · 1–4: rate · U: undo",
       "remaining": "{count} cards left",
-      "doneTitle": "All done! 🎉",
+      "doneTitle": "All done!",
       "doneBody": "You reviewed every due card. This session: {n} cards.",
       "backHome": "Back to home",
       "noAnswer": "(no Vietnamese meaning yet)",
@@ -623,10 +631,19 @@
       "letters": "{n} letters",
       "hearSentence": "Hear the sentence",
       "moreHint": "Reveal one more letter",
-      "hintChoice": "Pick the right meaning (keys 1–4) · Space: show answer",
-      "hintType": "Type the answer, then Enter · Space/Enter after: next card",
-      "hintFlip": "Space: show answer",
-      "hintRate": "Rate how well you remembered: 1 Again · 2 Hard · 3 Good · 4 Easy — Enter: suggested · U: undo",
+      "hintChoice": "Pick the right meaning (keys 1–4) · Enter: show answer · R: say aloud",
+      "hintType": "Type the answer, then Enter · Enter again: suggested rating · Z: undo",
+      "hintFlip": "Enter: show answer · R: say aloud · Z: undo",
+      "hintRate": "Rate how well you remembered: 1 Again · 2 Hard · 3 Good · 4 Easy — Enter: suggested · Z: undo",
+      "suggest": "Suggested: {rating} (Enter)",
+      "eta": "about {n} min",
+      "etaShort": "under 1 min",
+      "rateTip": {
+        "1": "Forgot: card returns in {when}",
+        "2": "Hard to recall: see it again in {when}",
+        "3": "Remembered: see it again in {when}",
+        "4": "Too easy: see it again in {when}"
+      },
       "sayIt": "Say this word aloud",
       "closeSay": "Close speaking"
     },
@@ -754,6 +771,10 @@
       "dndFrom": "from",
       "dndTo": "to",
       "appearance": "Appearance",
+      "theme": "Colour theme",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "themeSystem": "Follow system",
       "language": "Language",
       "size": "Mascot size",
       "launchAtLogin": "Launch at Windows startup",
@@ -1097,6 +1118,11 @@
       "rename": "Rename",
       "renamePlaceholder": "Pet name"
     },
+    "state": {
+      "retry": "Retry",
+      "loading": "Loading…",
+      "error": "Could not load data."
+    },
     "place": {
       "back": "Village",
       "school": "Village school",
@@ -1177,6 +1203,7 @@
     "twemoji": "Extra illustrations: Twemoji (Twitter, Inc. and other contributors; jdecked/twemoji fork) — CC-BY 4.0, https://creativecommons.org/licenses/by/4.0/. Images resized."
   },
   "kids": {
+    "loading": "Loading…",
     "home": "Home",
     "parentArea": "Parent area",
     "tile": {

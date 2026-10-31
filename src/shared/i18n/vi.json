@@ -586,7 +586,15 @@
       "noCards": "Chưa có từ nào trong sổ. Copy một từ rồi bấm {shortcut} để tra và lưu nhé!",
       "packMissing": "Chưa cài gói từ điển nên chưa ôn được.",
       "search": "Tìm từ",
-      "goReview": "Tới Giếng làng, ôn {n} từ"
+      "goReview": "Tới Giếng làng, ôn {n} từ",
+      "todayPanel": "Hôm nay",
+      "close": "Đóng"
+    },
+    "search": {
+      "title": "Tìm từ",
+      "placeholder": "Gõ từ tiếng Anh hoặc nghĩa tiếng Việt…",
+      "none": "Không thấy từ này.",
+      "suggest": "Có phải: {words}?"
     },
     "review": {
       "show": "Hiện đáp án",
@@ -598,7 +606,7 @@
       "context": "Câu bạn đã lưu",
       "hint": "Space/Enter: lật hoặc chấm · 1–4: chấm điểm · U: hoàn tác",
       "remaining": "Còn {count} thẻ",
-      "doneTitle": "Xong rồi! 🎉",
+      "doneTitle": "Xong rồi!",
       "doneBody": "Bạn đã ôn hết thẻ đến hạn. Phiên này: {n} thẻ.",
       "backHome": "Về trang chủ",
       "noAnswer": "(chưa có nghĩa tiếng Việt)",
@@ -623,10 +631,19 @@
       "letters": "{n} chữ cái",
       "hearSentence": "Nghe câu",
       "moreHint": "Gợi ý thêm 1 chữ",
-      "hintChoice": "Chọn nghĩa đúng (phím 1–4) · Space: xem đáp án",
-      "hintType": "Gõ đáp án rồi Enter · Space/Enter sau đó: chuyển thẻ",
-      "hintFlip": "Space: xem đáp án",
-      "hintRate": "Tự chấm mức nhớ: 1 Quên · 2 Khó · 3 Được · 4 Dễ — Enter: chọn mức gợi ý · U: hoàn tác",
+      "hintChoice": "Chọn nghĩa đúng (phím 1–4) · Enter: xem đáp án · R: nói to",
+      "hintType": "Gõ đáp án rồi Enter · Enter tiếp: chấm mức gợi ý · Z: hoàn tác",
+      "hintFlip": "Enter: xem đáp án · R: nói to · Z: hoàn tác",
+      "hintRate": "Tự chấm mức nhớ: 1 Quên · 2 Khó · 3 Được · 4 Dễ — Enter: chọn mức gợi ý · Z: hoàn tác",
+      "suggest": "Gợi ý: {rating} (Enter)",
+      "eta": "khoảng {n} phút",
+      "etaShort": "dưới 1 phút",
+      "rateTip": {
+        "1": "Quên hẳn: thẻ quay lại sau {when}",
+        "2": "Nhớ khó nhọc: gặp lại sau {when}",
+        "3": "Nhớ đúng: gặp lại sau {when}",
+        "4": "Quá dễ: gặp lại sau {when}"
+      },
       "sayIt": "Nói to từ này",
       "closeSay": "Đóng phần nói"
     },
@@ -754,6 +771,10 @@
       "dndFrom": "từ",
       "dndTo": "đến",
       "appearance": "Giao diện",
+      "theme": "Chủ đề màu",
+      "themeLight": "Sáng",
+      "themeDark": "Tối",
+      "themeSystem": "Theo hệ thống",
       "language": "Ngôn ngữ",
       "size": "Kích thước mascot",
       "launchAtLogin": "Khởi động cùng Windows",
@@ -1068,7 +1089,7 @@
       "progress": "{done}/{total} bài",
       "continue": "Học tiếp",
       "start": "Bắt đầu",
-      "done": "Hoàn thành khoá 🎉",
+      "done": "Hoàn thành khoá",
       "back": "Tất cả khoá học",
       "backToCourse": "Về lộ trình",
       "levels": "Từ {from} đến {to}",
@@ -1096,6 +1117,11 @@
       "great": "Tuyệt vời!",
       "rename": "Đổi tên",
       "renamePlaceholder": "Tên thú cưng"
+    },
+    "state": {
+      "retry": "Thử lại",
+      "loading": "Đang tải…",
+      "error": "Không tải được dữ liệu."
     },
     "place": {
       "back": "Về làng",
@@ -1177,6 +1203,7 @@
     "twemoji": "Hình minh hoạ bổ sung: Twemoji (Twitter, Inc. và những người đóng góp; bản jdecked/twemoji) — CC-BY 4.0, https://creativecommons.org/licenses/by/4.0/. Hình đã đổi kích thước."
   },
   "kids": {
+    "loading": "Đang tải…",
     "home": "Màn hình chính",
     "parentArea": "Khu vực phụ huynh",
     "tile": {

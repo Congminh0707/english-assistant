@@ -1089,7 +1089,7 @@
       "progress": "{done}/{total} lessons",
       "continue": "Continue",
       "start": "Start",
-      "done": "Course complete 🎉",
+      "done": "Course complete",
       "back": "All courses",
       "backToCourse": "Back to course",
       "levels": "From {from} to {to}",

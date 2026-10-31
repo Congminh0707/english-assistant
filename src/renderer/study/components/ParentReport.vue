@@ -6,7 +6,6 @@ import type { ParentReport } from '@shared/schemas/kids'
 import { invoke } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import PxBar from '@renderer/shared/components/PxBar.vue'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import ParentGate from '../kids/ParentGate.vue'
 
 // Khu vực phụ huynh cho hồ sơ trẻ em: thời gian bé đã dùng và số thẻ ôn 7 ngày, tiến độ sticker/hoạt động,
@@ -18,8 +17,14 @@ const report = ref<ParentReport | null>(null)
 const gate = ref<'set' | 'extend' | null>(null)
 const message = ref('')
 
+const loadFailed = ref(false)
 async function load(): Promise<void> {
-  report.value = await invoke('parent:report')
+  loadFailed.value = false
+  try {
+    report.value = await invoke('parent:report')
+  } catch {
+    loadFailed.value = true
+  }
 }
 
 const minutes = (seconds: number): number => Math.round(seconds / 60)
@@ -45,10 +50,16 @@ onMounted(load)
 
 <template>
   <section class="report">
-    <h1>{{ t('kids.report.title') }}</h1>
+    <h1 class="page-title">{{ t('kids.report.title') }}</h1>
+
+    <div v-if="loadFailed" class="card state state--error" role="alert">
+      <p>{{ t('study.state.error') }}</p>
+      <button type="button" class="btn btn--sm" @click="load">{{ t('study.state.retry') }}</button>
+    </div>
+    <div v-else-if="!report" class="card skeleton" aria-busy="true" :aria-label="t('study.state.loading')" />
 
     <template v-if="report">
-      <PxPanel class="block">
+      <section class="card block">
         <h2>{{ t('kids.report.usage') }}</h2>
         <p class="muted">
           {{ t('kids.report.today', { n: todayMinutes }) }}
@@ -72,10 +83,10 @@ onMounted(load)
           </div>
         </div>
         <p class="muted small">{{ t('kids.report.usageHint') }}</p>
-      </PxPanel>
+      </section>
 
       <div class="two">
-        <PxPanel class="block">
+        <section class="card block">
           <h2>{{ t('kids.report.stickers') }}</h2>
           <PxBar
             :value="report.stickersEarned"
@@ -83,8 +94,8 @@ onMounted(load)
             label="stickers"
           />
           <p class="muted">{{ report.stickersEarned }} / {{ report.stickersTotal }}</p>
-        </PxPanel>
-        <PxPanel class="block">
+        </section>
+        <section class="card block">
           <h2>{{ t('kids.report.activities') }}</h2>
           <PxBar
             :value="report.activitiesDone"
@@ -92,10 +103,10 @@ onMounted(load)
             label="activities"
           />
           <p class="muted">{{ report.activitiesDone }} / {{ report.activitiesTotal }}</p>
-        </PxPanel>
+        </section>
       </div>
 
-      <PxPanel class="block">
+      <section class="card block">
         <h2>{{ t('kids.report.hardest') }}</h2>
         <p v-if="!report.hardest.length" class="muted">{{ t('kids.report.noHardest') }}</p>
         <ul v-else class="hard">
@@ -104,9 +115,9 @@ onMounted(load)
             <span class="muted small">{{ t('kids.report.forgot', { n: h.lapses }) }}</span>
           </li>
         </ul>
-      </PxPanel>
+      </section>
 
-      <PxPanel class="block">
+      <section class="card block">
         <h2>{{ t('kids.report.controls') }}</h2>
         <label class="row">
           {{ t('kids.report.dailyLimit') }}
@@ -128,7 +139,7 @@ onMounted(load)
           </button>
         </div>
         <p v-if="message" class="ok">{{ message }}</p>
-      </PxPanel>
+      </section>
     </template>
 
     <ParentGate
@@ -144,39 +155,38 @@ onMounted(load)
 <style scoped>
 .report {
   display: grid;
-  gap: 14px;
+  gap: var(--sp-4);
   max-width: 760px;
-  margin: 0 auto;
 }
-h1 {
+.report .page-title {
   margin: 0;
-  font-size: var(--fs-2xl);
 }
 h2 {
-  margin: 0 0 8px;
+  margin: 0 0 var(--sp-2);
   font-size: var(--fs-lg);
-  color: var(--c-xp);
+  color: var(--c-ink);
 }
 .block {
-  padding: 14px 16px;
+  padding: var(--sp-4);
 }
 .muted {
-  margin: 4px 0;
+  margin: var(--sp-1) 0;
   color: var(--c-ink-soft);
 }
 .small {
-  font-size: 12px;
+  font-size: var(--fs-xs);
 }
 .two {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  gap: var(--sp-4);
 }
 .bars {
   display: flex;
   align-items: flex-end;
-  gap: 8px;
+  gap: var(--sp-2);
   height: 130px;
+  border-bottom: 1px solid var(--c-line);
 }
 .bar-col {
   display: grid;
@@ -184,30 +194,66 @@ h2 {
   gap: 2px;
   justify-items: center;
   align-content: end;
-  font-size: 11px;
+  font-size: var(--fs-xs);
+  font-variant-numeric: tabular-nums;
 }
 .bar {
   width: 70%;
+  max-width: 30px;
+  border-radius: var(--r-sm) var(--r-sm) 0 0;
   background: var(--c-primary);
-  border: 1px solid var(--c-line);
+}
+.bar-day {
+  color: var(--c-ink-soft);
 }
 .hard {
   display: grid;
-  gap: 4px;
+  gap: var(--sp-1);
   margin: 0;
-  padding-left: 18px;
+  padding-left: var(--sp-5);
 }
 .row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 4px 0;
+  gap: var(--sp-3);
+  padding: var(--sp-1) 0;
 }
-select,
 .ok {
-  margin: 4px 0 0;
+  margin: var(--sp-1) 0 0;
   color: var(--c-success);
   font-weight: 600;
+}
+.state {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.state p {
+  margin: 0;
+}
+.state--error {
+  border-color: var(--c-danger);
+  border-radius: var(--r-lg);
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+}
+.skeleton {
+  min-height: 160px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(90deg, var(--c-surface-2), var(--c-surface), var(--c-surface-2));
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+  }
 }
 </style>

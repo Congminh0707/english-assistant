@@ -5,56 +5,18 @@ import type { MascotReaction, MascotSleep } from '@shared/schemas/pet'
 import { invoke } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
-import { SpriteAnimator, type SpriteSheetMeta } from './engine/SpriteAnimator'
+import { PoseAnimator } from './engine/PoseAnimator'
 import { MascotBrain } from './engine/MascotBrain'
 import { BubblePriority, useBubble } from './composables/useBubble'
 import { useLines } from './composables/useLines'
 import SpeechBubble from './components/SpeechBubble.vue'
 import TtsIndicator from '@renderer/shared/components/TtsIndicator.vue'
-import { ACCESSORY_DRAW_ORDER } from '@shared/shop'
+import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 import { normalizeCharacterId } from '@shared/characters'
-import {
-  hiresAsset,
-  hiresMeta,
-  hiresReady,
-  hiresVersion,
-  startHires
-} from '@renderer/shared/pet/hires'
-
-/**
- * Sheet theo nhân vật và giai đoạn tiến hoá (characters/<nhân vật>/<egg|baby|teen|adult|legend>/) và sheet phụ kiện (acc-bow.png...) do
- * scripts/sprites/make-characters.mjs sinh ra; phụ kiện cùng bố cục frame với sheet chính của giai đoạn đó.
- */
-const sheetUrls = import.meta.glob('./assets/characters/*/*/sheet.png', {
-  eager: true,
-  query: '?url',
-  import: 'default'
-}) as Record<string, string>
-const sheetMetas = import.meta.glob('./assets/characters/*/*/sheet.json', {
-  eager: true,
-  import: 'default'
-}) as Record<string, SpriteSheetMeta>
-const accessoryUrls = import.meta.glob('./assets/characters/*/*/acc-*.png', {
-  eager: true,
-  query: '?url',
-  import: 'default'
-}) as Record<string, string>
-const accessoryBackUrls = import.meta.glob('./assets/characters/*/*/accb-*.png', {
-  eager: true,
-  query: '?url',
-  import: 'default'
-}) as Record<string, string>
-/** Phụ kiện đã nạp, khoá `<nhân vật>/<giai đoạn>:<id>` */
-const accessoryImages = new Map<string, HTMLImageElement>()
-/** Các `look` đang dùng sheet 288px từ gói tải thêm (phụ kiện phải cùng độ phân giải với thân) */
-const hiresLooks = new Set<string>()
-/** `look` = '<nhân vật>/<giai đoạn>', vd 'draco/teen' */
-const stageKey = (look: string, file: string): string => `./assets/characters/${look}/${file}`
-const FALLBACK_LOOK = 'bi/baby'
 
 /** Di chuột dưới ngưỡng này (px) giữa lúc nhấn và thả thì tính là click, không phải kéo */
 const CLICK_THRESHOLD = 4
-/** Pixel art chỉ cần 3–12 fps: tick 20 lần/giây thay vì requestAnimationFrame 60Hz để tiết kiệm CPU */
+/** Tick 20 lần/giây (hoạt ảnh lặp do CSS trong hình) thay vì requestAnimationFrame 60Hz để tiết kiệm CPU */
 const TICK_MS = 50
 /** Giữ chuột trên nhân vật bao lâu thì hiện thẻ chỉ số */
 const HOVER_STATS_MS = 900
@@ -66,15 +28,25 @@ const settingsStore = useSettingsStore()
 const bubble = useBubble()
 const { line, greetingTopic } = useLines()
 
-const canvas = ref<HTMLCanvasElement>()
+/** Kích thước vùng thú cưng = 48 × scale × hệ số này (chibi to hơn sprite cũ cùng scale) */
+const SIZE_FACTOR = 1.5
+/** Phần hình chiếm trong khung theo giai đoạn (khớp tỉ lệ trong PetFigure) để xác định vùng bấm */
+const STAGE_FILL: Record<string, number> = {
+  egg: 0.8,
+  baby: 0.72,
+  teen: 0.84,
+  adult: 0.92,
+  legend: 1
+}
+
+const sprite = ref<InstanceType<typeof PetSprite>>()
 const dragging = ref(false)
 const overSprite = ref(false)
-/** Lề trong suốt phía trên khung sprite (px màn hình): trừ khỏi bố cục để lời thoại không bị đẩy lên cao */
-const padTop = ref(0)
+const pose = ref('idle')
+const flipped = ref(false)
 
-let ctx: CanvasRenderingContext2D | null = null
 let brain: MascotBrain | null = null
-let animator: SpriteAnimator | null = null
+let animator: PoseAnimator | null = null
 let clickThrough = true
 let lastPointer: { x: number; y: number } | null = null
 let downAt = { x: 0, y: 0 }
@@ -89,15 +61,20 @@ function setClickThrough(enabled: boolean): void {
   window.api.send('mascot:set-click-through', enabled)
 }
 
-/** Con trỏ có nằm trên pixel không trong suốt của nhân vật không */
+/**
+ * Con trỏ có nằm trên thú cưng không. Hình vector nằm trong Shadow DOM nên không đọc được alpha từng điểm:
+ * dùng hình elip bao thân (đầu + thân, bỏ phần đất và đuôi xa) co theo giai đoạn tiến hoá.
+ */
 function isOverSprite(point: { x: number; y: number }): boolean {
-  const c = canvas.value
-  if (!c || !ctx) return false
-  const r = c.getBoundingClientRect()
-  const x = Math.floor(point.x - r.left)
-  const y = Math.floor(point.y - r.top)
-  if (x < 0 || y < 0 || x >= c.width || y >= c.height) return false
-  return ctx.getImageData(x, y, 1, 1).data[3] > 10
+  const el = (sprite.value?.$el as HTMLElement | undefined) ?? null
+  if (!el) return false
+  const r = el.getBoundingClientRect()
+  const fill = STAGE_FILL[petStore.pet?.stage ?? 'baby'] ?? 0.9
+  const cx = r.left + r.width / 2
+  const cy = r.bottom - r.height * 0.5 * fill - r.height * 0.06
+  const rx = r.width * 0.36 * fill
+  const ry = r.height * 0.46 * fill
+  return ((point.x - cx) / rx) ** 2 + ((point.y - cy) / ry) ** 2 <= 1
 }
 
 /** Con trỏ có nằm trên bong bóng thoại không (bấm vào để đóng) */
@@ -194,7 +171,7 @@ function onReaction({ kind, achievementId, count }: MascotReaction): void {
       BubblePriority.important
     )
   } else if (kind === 'level-up') {
-    brain?.react('dance')
+    brain?.react('levelup')
     bubble.say(line('levelUp'), BubblePriority.important)
   }
 }
@@ -226,7 +203,8 @@ function tick(): void {
   lastTime = time
   if (brain && animator) {
     brain.tick(dt)
-    animator.update(dt, brain.facing < 0)
+    animator.update(dt)
+    flipped.value = brain.facing < 0
   }
 }
 
@@ -257,119 +235,28 @@ function onVisibilityChange(): void {
   }
 }
 
-/** Ngoại hình hiện tại: nhân vật + giai đoạn tiến hoá (không có sheet thì rơi về baby của nhân vật, rồi Bi) */
-const stage = computed(() => {
-  const char = normalizeCharacterId(petStore.pet?.characterId ?? '')
-  const wanted = `${char}/${petStore.pet?.stage ?? 'baby'}`
-  if (stageKey(wanted, 'sheet.png') in sheetUrls) return wanted
-  const baby = `${char}/baby`
-  return stageKey(baby, 'sheet.png') in sheetUrls ? baby : FALLBACK_LOOK
-})
-let shownStage = ''
+/** Ngoại hình hiện tại: nhân vật + giai đoạn tiến hoá */
+const character = computed(() => normalizeCharacterId(petStore.pet?.characterId ?? ''))
+const stage = computed(() => petStore.pet?.stage ?? 'baby')
+const size = computed(() => Math.round(48 * settingsStore.settings['mascot.scale'] * SIZE_FACTOR))
 
-/** Nạp (một lần) ảnh một lớp phụ kiện; undefined nếu nhân vật/giai đoạn này không có lớp đó */
-async function accessoryImage(
-  urls: Record<string, string>,
-  look: string,
-  file: string
-): Promise<HTMLImageElement | undefined> {
-  const hi = hiresLooks.has(look)
-  const key = `${hi ? 'hi:' : ''}${look}:${file}`
-  const cached = accessoryImages.get(key)
-  if (cached) return cached
-  const [char, stg] = look.split('/')
-  // Thân đã là sheet 288px thì chỉ dùng lớp phụ kiện 288px (không trộn hai độ phân giải)
-  const url = hi
-    ? await hiresAsset(char, stg, file.replace(/\.png$/, ''))
-    : urls[stageKey(look, file)]
-  if (!url) return undefined
-  const image = new Image()
-  image.src = url
-  await image.decode()
-  accessoryImages.set(key, image)
-  return image
-}
-
-/** Áp dụng các phụ kiện đang đeo: lớp trước đè lên thân, lớp sau (áo choàng, cánh) nằm sau lưng */
-async function applyAccessories(equipped: string[]): Promise<void> {
-  const wanted = ACCESSORY_DRAW_ORDER.filter((id) => equipped.includes(id))
-  const current = stage.value
-  const front: HTMLImageElement[] = []
-  const back: HTMLImageElement[] = []
-  for (const id of wanted) {
-    const name = id.split(':')[1]
-    const f = await accessoryImage(accessoryUrls, current, `acc-${name}.png`)
-    const b = await accessoryImage(accessoryBackUrls, current, `accb-${name}.png`)
-    if (f) front.push(f)
-    if (b) back.push(b)
-  }
-  animator?.setOverlays(front, back)
-}
-
-/** Nạp sheet + metadata của một ngoại hình: ưu tiên gói 288px nếu đã tải, không thì sprite 96px của bộ cài */
-async function loadLook(look: string): Promise<{ image: HTMLImageElement; meta: SpriteSheetMeta }> {
-  hiresLooks.delete(look)
-  if (hiresReady.value) {
-    const [char, stg] = look.split('/')
-    const [url, meta] = await Promise.all([hiresAsset(char, stg, 'sheet'), hiresMeta(char, stg)])
-    if (url && meta) {
-      const image = new Image()
-      image.src = url
-      await image.decode()
-      hiresLooks.add(look)
-      return { image, meta: meta as SpriteSheetMeta }
-    }
-  }
-  const image = new Image()
-  image.src = sheetUrls[stageKey(look, 'sheet.png')]
-  await image.decode()
-  return { image, meta: sheetMetas[stageKey(look, 'sheet.json')] }
-}
-
-/** Lên giai đoạn mới (lên cấp qua mốc): đổi sheet và phụ kiện, ăn mừng */
-async function evolveTo(next: string): Promise<void> {
-  if (!animator || next === shownStage) return
-  const previous = shownStage
-  shownStage = next
-  const look = await loadLook(next)
-  animator.setSheet(look.image, look.meta)
-  padTop.value = animator.padTopPx
-  await applyAccessories(petStore.pet?.equipped ?? [])
-  if (previous) {
-    brain?.react('happy')
-    // Chỉ chúc mừng tiến hoá khi cùng nhân vật lên giai đoạn mới (đổi nhân vật thì không)
-    if (previous.split('/')[0] === next.split('/')[0]) {
-      bubble.say(line('evolved'), BubblePriority.important)
-    }
-  }
-}
-
-watch(stage, (next) => void evolveTo(next))
-// Gói sprite 288px vừa tải xong / bị gỡ: nạp lại ngoại hình hiện tại ở độ phân giải mới
-let hiresChangedEarly = false
-watch(hiresVersion, () => {
-  // Gói đổi trạng thái khi mascot chưa dựng xong (animator chưa có) → làm lại ngay sau khi dựng, tránh kẹt sprite 96px
-  if (!animator) {
-    hiresChangedEarly = true
-    return
-  }
-  shownStage = ''
-  void evolveTo(stage.value)
-})
-
+/** Lên giai đoạn mới (lên cấp qua mốc): ăn mừng. Đổi nhân vật thì không chúc mừng */
+let shown = ''
 watch(
-  () => petStore.pet?.equipped.join(','),
-  () => void applyAccessories(petStore.pet?.equipped ?? [])
+  () => `${character.value}/${stage.value}`,
+  (next) => {
+    const previous = shown
+    shown = next
+    if (!previous || previous.split('/')[0] !== next.split('/')[0]) return
+    brain?.react('levelup')
+    bubble.say(line('evolved'), BubblePriority.important)
+  }
 )
 
 // Đổi kích thước mascot từ menu chuột phải
 watch(
   () => settingsStore.settings['mascot.scale'],
-  (scale) => {
-    animator?.setScale(scale)
-    if (animator) padTop.value = animator.padTopPx
-    brain?.setStepPx(scale)
-  }
+  (scale) => brain?.setStepPx(scale)
 )
 // Đổi ngôn ngữ từ menu chuột phải
 watch(
@@ -383,21 +270,10 @@ onMounted(async () => {
   const [settings] = await Promise.all([settingsStore.load(), petStore.load()])
   locale.value = settings['ui.language']
 
-  // Biết gói 288px có sẵn không TRƯỚC khi chọn sprite (trước đây nạp 96px rồi kẹt nếu trạng thái gói về muộn)
-  await startHires()
-  const { image, meta } = await loadLook(stage.value)
-  shownStage = stage.value
-
+  shown = `${character.value}/${stage.value}`
   const scale = settings['mascot.scale']
-  ctx = canvas.value!.getContext('2d', { willReadFrequently: true })!
-  animator = new SpriteAnimator(image, meta, ctx, scale)
-  padTop.value = animator.padTopPx
+  animator = new PoseAnimator((p) => (pose.value = p))
   brain = new MascotBrain(animator, (dx) => invoke('mascot:walk', dx), onWindowMoved, scale)
-  await applyAccessories(petStore.pet?.equipped ?? [])
-  if (hiresChangedEarly || (hiresReady.value && !hiresLooks.has(stage.value))) {
-    shownStage = ''
-    await evolveTo(stage.value)
-  }
 
   window.addEventListener('mousemove', onMouseMove)
   window.addEventListener('mouseup', onMouseUp)
@@ -409,6 +285,7 @@ onMounted(async () => {
     window.api.on('mascot:sleep', onSleep),
     window.api.on('mascot:quiz', (quiz) => {
       window.clearTimeout(hoverTimer)
+      brain?.react('think')
       bubble.showQuiz(quiz)
     }),
     petStore.listen(),
@@ -468,11 +345,17 @@ onUnmounted(() => {
       @quiz-result="onQuizResult"
     />
     <TtsIndicator compact />
-    <canvas
-      ref="canvas"
+    <PetSprite
+      ref="sprite"
       class="sprite"
       :class="{ grab: overSprite && !dragging, grabbing: dragging }"
-      :style="{ marginTop: `-${padTop}px` }"
+      :character="character"
+      :stage="stage"
+      :accessories="petStore.pet?.equipped ?? []"
+      :size="size"
+      :pose="pose"
+      :flip="flipped"
+      animate
       @mousedown="onMouseDown"
       @contextmenu="onContextMenu"
       @dragstart.prevent
@@ -490,7 +373,8 @@ onUnmounted(() => {
   justify-content: flex-end;
 }
 .sprite {
-  image-rendering: pixelated;
+  /* Chỉ vùng thân (elip trong isOverSprite) mới nhận chuột; phần còn lại của khung vẫn xuyên qua nhờ click-through */
+  user-select: none;
 }
 .grab {
   cursor: grab;

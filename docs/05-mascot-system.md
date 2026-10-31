@@ -1,6 +1,6 @@
 # 05 — Hệ thống Mascot
 
-> **Thiết kế v2 "Làng chữ" đã duyệt ([23](23-design-v2-spec.md)).** Giao diện mới bỏ pixel, thú cưng vẽ chibi, Lupo thay Webby, mỗi con 16 trạng thái và 3 dáng đi xe, thuyền, máy bay. Bong bóng (`say`, `stats`, `quiz`) và popup Dịch nhanh đã áp dụng v2 (2026-11-01: gốc `.modern`, đuôi bong bóng là ô vuông xoay có viền, bản tối theo `documentElement.dataset.theme`). Chưa có kênh dữ liệu cho `word-card`, `reward`, `translate-hint` nên chưa làm giao diện; **Thú cưng chibi đã áp dụng (2026-11-01):** `PetSprite` (props giữ nguyên, thêm `pose`) vẽ vector chibi qua `PetFigure.vue` từ `src/renderer/shared/art/pets/<id>.pet.json`, sinh bằng `scripts/design-data/export-mascot.py` (nguồn `review/gen_mascot.py` + `Char*.dc.html`). Mỗi con có 19 trạng thái (16 hoạt ảnh `idle walk run jump sit sleep eat drink read listen say hello happy sad surprised levelup` + 3 dáng `car boat plane`) và hình trứng; 4 giai đoạn sau trứng dùng chung hình, khác tỉ lệ + màu (CSS lớp `.st-*`), Kitsu 1/3/5/9 đuôi. App hiện chỉ dùng `idle` và `walk`; các trạng thái còn lại đã xuất đủ, gọi bằng prop `pose`. Phụ kiện là biểu tượng đặt theo vị trí đeo (chưa vẽ riêng từng con). **Cửa sổ mascot (desktop) vẫn dùng sprite pixel + gói 288px**, chưa chuyển sang vector. Phần còn lại theo tài liệu này.
+> **Thiết kế v2 "Làng chữ" đã duyệt ([23](23-design-v2-spec.md)).** Giao diện mới bỏ pixel, thú cưng vẽ chibi, Lupo thay Webby, mỗi con 16 trạng thái và 3 dáng đi xe, thuyền, máy bay. Bong bóng (`say`, `stats`, `quiz`) và popup Dịch nhanh đã áp dụng v2 (2026-11-01: gốc `.modern`, đuôi bong bóng là ô vuông xoay có viền, bản tối theo `documentElement.dataset.theme`). Chưa có kênh dữ liệu cho `word-card`, `reward`, `translate-hint` nên chưa làm giao diện; **Thú cưng chibi đã áp dụng (2026-11-01):** `PetSprite` (props giữ nguyên, thêm `pose`) vẽ vector chibi qua `PetFigure.vue` từ `src/renderer/shared/art/pets/<id>.pet.json`, sinh bằng `scripts/design-data/export-mascot.py` (nguồn `review/gen_mascot.py` + `Char*.dc.html`). Mỗi con có 19 trạng thái (16 hoạt ảnh `idle walk run jump sit sleep eat drink read listen say hello happy sad surprised levelup` + 3 dáng `car boat plane`) và hình trứng; 4 giai đoạn sau trứng dùng chung hình, khác tỉ lệ + màu (CSS lớp `.st-*`), Kitsu 1/3/5/9 đuôi. App hiện chỉ dùng `idle` và `walk`; các trạng thái còn lại đã xuất đủ, gọi bằng prop `pose`. Phụ kiện là biểu tượng đặt theo vị trí đeo (chưa vẽ riêng từng con). **Cửa sổ mascot (desktop) cũng dùng vector (2026-11-01):** `mascot/App.vue` vẽ `PetSprite`, `engine/PoseAnimator.ts` đổi trạng thái của `MascotBrain` thành dáng (`idle walk`, kéo/rơi = `surprised`, hạ cánh = `sit`, ăn `eat`, ngủ `sleep`, vui `happy`, lên cấp và tiến hoá `levelup`, quiz `read`, vẫy `hello`...; dáng một lần giữ vài giây rồi về idle). Vùng bấm là elip bao thân co theo giai đoạn (hình trong Shadow DOM nên không đọc được alpha). Phụ kiện là biểu tượng. Không còn `quirk_*`/`click_*` riêng từng nhân vật. Sprite pixel, `SpriteAnimator`, `hires.ts`, gói 288px và kênh `sprites:*` đã gỡ. Phần còn lại theo tài liệu này.
 
 
 ## 1. Nhân vật
@@ -16,6 +16,8 @@
   - **Cách thay bằng art thật sau:** giữ tên file, tên hoạt ảnh trong `sheet.json`, khung 96×96, 8 cột. Phụ kiện phải khớp bố cục frame của sheet chính.
 
 ## 2. Sprite sheet — định dạng chuẩn
+
+> **Đã gỡ (2026-11-01, [decisions #45](decisions.md)):** toàn bộ sprite pixel/sprite sheet và script `scripts/sprites/` (trừ `make-icon.mjs`) đã xoá; phần mô tả dưới đây chỉ là lịch sử.
 
 Mỗi bộ nhân vật nằm trong `src/renderer/mascot/assets/characters/<characterId>/<stage>/`:
 
@@ -272,6 +274,8 @@ Danh sách app họp/game có thể chỉnh trong Cài đặt (lưu theo tên pr
 
 ## 10. Biểu cảm & hành động riêng từng nhân vật (2026-10-21)
 
+> **Đã gỡ (2026-11-01, [decisions #45](decisions.md)):** hoạt ảnh `quirk_*`/`click_*` không còn (hình vector dùng 19 dáng chung).
+
 Trước đây cả 5 nhân vật dùng chung một bộ hoạt ảnh. Nay `scripts/sprites/anim.mjs` giữ bộ **chung** (20 hoạt ảnh) và `scripts/sprites/anim-chars.mjs` thêm:
 
 - **TWEAKS** — chỉnh hoạt ảnh chung theo nhân vật (đổi mắt, hiệu ứng, đuôi/cánh): vd Robo "love" mắt thành trái tim, "sad" mắt chữ X, "sleep" tắt đèn; Draco "idle" vỗ cánh nhẹ + khói mũi, "angry" có lửa; Kitsu "happy" nhảy zích-zắc kèm lửa ma xanh; Webby "happy" bắn tơ, "surprised" có vạch giác quan nhện.
@@ -311,6 +315,8 @@ Trước đây cả 5 nhân vật dùng chung một bộ hoạt ảnh. Nay `scri
 Chân nhện, đuôi/cánh rồng, tơ, cánh phụ kiện của level cao vượt vùng nhân vật 96×96 và từng bị cắt ngay trong sheet. Nay mỗi khung gồm **vùng nhân vật 96×96 + lề**: 28 px mỗi bên (đối xứng để lật ngang quanh tâm), 20 px phía trên, **không lề đáy** (chân vẫn chạm đáy cửa sổ). Khung = **152×116** (sheet 8 cột = 1216 px rộng). Toạ độ vẽ vẫn tính từ góc vùng 96×96 (âm/≥96 hợp lệ); `gfx.mjs` có `PAD_X`/`PAD_TOP` (env `SPRITE_PAD_X/TOP`, bội số của 4 để dither không đổi). `sheet.json` có `pad: {x, top}` (px thật); `SpriteAnimator` tính tỉ lệ theo vùng nhân vật (`frameSize.w - 2·pad.x`) nên nhân vật không nhỏ đi, và bù lề trên bằng margin âm. Gói 288px cũ (không `pad`) vẫn chạy nhưng còn bị cắt đến khi build lại gói (§11). Hằng số renderer: `shared/pet/sprites.ts` (`PAD_X`, `PAD_TOP`).
 
 ## 11. Sprite độ phân giải cao 288px (gói tải thêm, 2026-10-23)
+
+> **Đã gỡ (2026-11-01, [decisions #45](decisions.md)):** gói 288px, `SpritePackManager/Service`, kênh `sprites:*`, panel Cài đặt đã xoá; khi khởi động app tự xoá `userData/sprite-packs/` của người đã tải.
 
 Bộ cài giữ sprite **96×96** (≈ 22 MB). Chủ dự án muốn nét hơn → có thêm **gói tải thêm 288px (3×)** cho cả 5 nhân vật × 5 giai đoạn + toàn bộ lớp phụ kiện, cài trong **Cài đặt → "Thú cưng nét hơn"** (như gói âm thanh bài nghe).
 

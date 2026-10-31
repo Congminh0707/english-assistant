@@ -15,7 +15,6 @@ import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useUpdateStatus } from '@renderer/shared/composables/useUpdateStatus'
 import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import AudioPackPanel from '@renderer/shared/components/AudioPackPanel.vue'
-import SpritePackPanel from '@renderer/shared/components/SpritePackPanel.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Cài đặt: hồ sơ, học tập, chế độ yên lặng, giao diện. Đổi là lưu ngay (main đẩy lại cho mọi cửa sổ).
@@ -634,10 +633,6 @@ onMounted(async () => {
 
     <PxPanel class="block">
       <AudioPackPanel />
-    </PxPanel>
-
-    <PxPanel class="block">
-      <SpritePackPanel />
     </PxPanel>
 
     <PxPanel class="block">

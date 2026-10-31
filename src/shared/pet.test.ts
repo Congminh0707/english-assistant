@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from 'node:fs'
+import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
@@ -9,7 +9,6 @@ import {
   isCharacterItem,
   normalizeCharacterId
 } from './characters'
-import { ACCESSORIES } from './shop'
 import {
   applyFood,
   decayStats,
@@ -89,79 +88,38 @@ describe('level', () => {
 })
 
 describe('tiến hoá', () => {
-  const BASE = resolve('src/renderer/mascot/assets/characters')
   const STAGES = ['egg', 'baby', 'teen', 'adult', 'legend'] as const
 
-  it('mọi nhân vật × giai đoạn có sheet, metadata, hoạt ảnh bắt buộc, quirk riêng và đủ phụ kiện', () => {
-    type Meta = {
-      frameSize: { w: number; h: number }
-      pad?: { x: number; top: number }
-      animations: Record<string, { frames: number[] }>
-    }
-    const required = [
+  it('mọi nhân vật có hình vector đủ 19 dáng + trứng và CSS cho 5 giai đoạn', () => {
+    const poses = [
       'idle',
       'walk',
-      'drag',
-      'fall',
-      'land',
-      'happy',
-      'eat',
+      'run',
+      'jump',
+      'sit',
       'sleep',
+      'eat',
+      'drink',
+      'read',
+      'listen',
+      'say',
+      'hello',
+      'happy',
       'sad',
       'surprised',
-      'angry',
-      'love',
-      'look',
-      'wag',
-      'yawn',
-      'stretch',
-      'wave',
-      'dance',
-      'spin',
-      'think'
+      'levelup',
+      'car',
+      'boat',
+      'plane',
+      'egg'
     ]
-    const accessories = Object.keys(ACCESSORIES).map((id) => id.split(':')[1])
     for (const char of CHARACTER_IDS) {
-      const first = JSON.parse(
-        readFileSync(resolve(BASE, char, 'egg', 'sheet.json'), 'utf8')
-      ) as Meta
-      // Vùng nhân vật 96×96 + lề hai bên/phía trên (khớp hằng số trong renderer/shared/pet/sprites.ts)
-      expect(first.frameSize).toEqual({ w: 152, h: 116 })
-      expect(first.pad).toEqual({ x: 28, top: 20 })
-      // Hoạt ảnh mà MascotBrain gọi phải có trong sheet; idle luôn là 8 frame đầu (PetSprite dựa vào đó)
-      for (const name of required) expect(first.animations[name], `${char}/${name}`).toBeDefined()
-      expect(first.animations.idle.frames).toEqual([0, 1, 2, 3, 4, 5, 6, 7])
-      // Mỗi nhân vật có ít nhất 2 phản ứng riêng khi bị bấm (click_*)
-      const clicks = Object.keys(first.animations).filter((n) => n.startsWith('click_'))
-      expect(clicks.length, `${char} clicks`).toBeGreaterThanOrEqual(2)
-      // Mỗi nhân vật có ít nhất 3 hoạt ảnh đặc trưng riêng (quirk_*)
-      const quirks = Object.keys(first.animations).filter((n) => n.startsWith('quirk_'))
-      expect(quirks.length, `${char} quirks`).toBeGreaterThanOrEqual(3)
-      for (const stage of STAGES) {
-        const dir = resolve(BASE, char, stage)
-        expect(existsSync(resolve(dir, 'sheet.png')), `${char}/${stage}`).toBe(true)
-        // Mọi giai đoạn của cùng một nhân vật dùng chung bố cục hoạt ảnh
-        const meta = JSON.parse(readFileSync(resolve(dir, 'sheet.json'), 'utf8')) as unknown
-        expect(meta, `${char}/${stage}`).toEqual(first)
-        for (const acc of accessories) {
-          const has =
-            existsSync(resolve(dir, `acc-${acc}.png`)) ||
-            existsSync(resolve(dir, `accb-${acc}.png`))
-          expect(has, `${char}/${stage}/${acc}`).toBe(true)
-        }
-      }
+      const art = JSON.parse(
+        readFileSync(resolve('src/renderer/shared/art/pets', `${char}.pet.json`), 'utf8')
+      ) as { css: string; defs: string; states: Record<string, string> }
+      for (const p of poses) expect(art.states[p], `${char}/${p}`).toContain('<svg')
+      for (const st of ['baby', 'teen', 'adult', 'legend']) expect(art.css).toContain(`.st-${st}`)
     }
-    // Các nhân vật có bộ quirk khác nhau (không dùng chung hành động)
-    const names = CHARACTER_IDS.map((char) =>
-      Object.keys(
-        (JSON.parse(readFileSync(resolve(BASE, char, 'egg', 'sheet.json'), 'utf8')) as Meta)
-          .animations
-      )
-        .filter((n) => n.startsWith('quirk_'))
-        .sort()
-        .join(',')
-    )
-    expect(new Set(names).size).toBe(CHARACTER_IDS.length)
   })
 
   it('mốc level đổi giai đoạn theo thứ tự egg → baby → teen → adult → legend', () => {

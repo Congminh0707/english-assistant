@@ -1,11 +1,11 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { MascotBrain } from './MascotBrain'
-import type { SpriteAnimator } from './SpriteAnimator'
+import type { Animator } from './PoseAnimator'
 
 // Hoạt ảnh riêng của từng nhân vật (click_*, quirk_*) phải được MascotBrain tự nhận từ sheet đang dùng.
 
 function fakeAnimator(names: string[]): {
-  animator: SpriteAnimator
+  animator: Animator
   played: string[]
   finish: (name: string) => void
 } {
@@ -16,7 +16,7 @@ function fakeAnimator(names: string[]): {
     names: () => names
   }
   return {
-    animator: fake as unknown as SpriteAnimator,
+    animator: fake as unknown as Animator,
     played,
     finish: (name) => fake.onFinish?.(name)
   }

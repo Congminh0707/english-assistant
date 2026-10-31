@@ -36,17 +36,12 @@ function countLessonExercises(): number {
   return n
 }
 
-/** Số hoạt ảnh của một nhân vật (giai đoạn trưởng thành): tổng / quirk_* / click_* */
-function countAnimations(id: string): string {
-  const sheet = JSON.parse(
-    readFileSync(
-      join(ROOT, 'src/renderer/mascot/assets/characters', id, 'adult', 'sheet.json'),
-      'utf8'
-    )
-  ) as { animations: Record<string, unknown> }
-  const names = Object.keys(sheet.animations)
-  const n = (prefix: string): number => names.filter((x) => x.startsWith(prefix)).length
-  return `${names.length} (quirk ${n('quirk_')}, click ${n('click_')})`
+/** Số dáng (trạng thái) vector của một nhân vật: src/renderer/shared/art/pets/<id>.pet.json */
+function countPoses(id: string): string {
+  const art = JSON.parse(
+    readFileSync(join(ROOT, 'src/renderer/shared/art/pets', `${id}.pet.json`), 'utf8')
+  ) as { states: Record<string, unknown> }
+  return String(Object.keys(art.states).length)
 }
 
 /** Số hình từ vector (src/renderer/shared/art/pictures/*.ts, mỗi file xuất PICTURES) */
@@ -88,7 +83,7 @@ const rows: Array<[string, string | number]> = [
   ['courses (khoá) files', countItems('courses', 'units').files],
   ['courses (unit)', countItems('courses', 'units').items],
   ['characters', CHARACTER_IDS.length],
-  ...CHARACTER_IDS.map((id): [string, string] => [`animations ${id} (adult)`, countAnimations(id)]),
+  ...CHARACTER_IDS.map((id): [string, string] => [`poses ${id} (vector)`, countPoses(id)]),
   ['shop food', byKind('food')],
   ['shop accessory', byKind('accessory')],
   ['shop character', byKind('character')],

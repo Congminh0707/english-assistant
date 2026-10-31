@@ -312,3 +312,9 @@ Mẫu:
 
 **Quyết định:** 183 thẻ từ là SVG sinh từ `review/gen_cards.py` bằng `scripts/design-data/export-cards.py` vào `src/renderer/shared/art/cards/<id hình>.svg` (khoảng 323 KB), giữ nguyên id hình. `PixelPicture` ưu tiên thẻ này, rồi mới tới hình canvas, PNG, Twemoji, pixel cũ (còn làm dự phòng cho id ngoài 183 từ, chưa xoá).
 **Hệ quả:** test `art/cards.test.ts` bắt buộc mọi từ trong `content/curated/kids/world/places` có thẻ.
+
+## #45 — Gỡ sprite pixel và gói sprite 288px (2026-11-01) — Đã quyết định
+
+**Bối cảnh:** thiết kế v2 bỏ pixel ([#41](#41--chốt-thiết-kế-v2-làng-chữ-2026-10-31--đã-quyết-định)); cửa sổ mascot đã chuyển sang `PetSprite` vector nên gói 288px không còn người dùng.
+**Quyết định:** xoá sprite sheet (`mascot/assets/characters`, ~24 MB), `SpriteAnimator`, `hires.ts`, `SpritePackManager/Service`, `packSpec`, kênh `sprites:*`, `SpritePackPanel`, i18n `spritePack`, script sinh sprite (giữ `scripts/sprites/make-icon.mjs` cho icon app). `MascotBrain` giữ nguyên, chỉ đổi cơ thể thành `PoseAnimator` (trạng thái → dáng vector). Người đã tải gói: khi khởi động app xoá thư mục `userData/sprite-packs/`, không cần migration vì không có dữ liệu trong DB; cài đặt `mascot.scale` giữ nguyên ý nghĩa (khung = 48 × scale × 1,5 px).
+**Hệ quả:** mất hoạt ảnh `quirk_*`/`click_*` riêng từng nhân vật; vùng bấm của mascot là elip xấp xỉ. Release GitHub `pet-sprites-hires-*` không còn dùng.

@@ -1,5 +1,5 @@
 import type { WalkResult } from '@shared/ipc-contract'
-import type { SpriteAnimator } from './SpriteAnimator'
+import type { Animator } from './PoseAnimator'
 
 /** Hoạt ảnh "tự chơi" khi rảnh: nhìn quanh, vẫy đuôi, ngáp, vươn vai, vẫy tay, nhảy múa, xoay, suy nghĩ */
 const FIDGETS = ['look', 'wag', 'yawn', 'stretch', 'wave', 'dance', 'spin', 'think'] as const
@@ -18,6 +18,7 @@ export type MascotState =
   | 'surprised'
   | 'angry'
   | 'love'
+  | 'levelup'
   | Fidget
   /** Hoạt ảnh đặc trưng của từng nhân vật (tên bắt đầu bằng `quirk_`, có trong sheet.json) */
   | `quirk_${string}`
@@ -26,7 +27,18 @@ export type MascotState =
 
 /** Phản ứng một lần (animation không lặp rồi quay về nghỉ) */
 export type MascotReactionAnim =
-  'happy' | 'eat' | 'sad' | 'love' | 'surprised' | 'angry' | 'wave' | 'dance' | 'stretch' | 'yawn'
+  | 'happy'
+  | 'eat'
+  | 'sad'
+  | 'love'
+  | 'surprised'
+  | 'angry'
+  | 'wave'
+  | 'dance'
+  | 'stretch'
+  | 'yawn'
+  | 'think'
+  | 'levelup'
 
 const QUIRK_PREFIX = 'quirk_'
 const CLICK_PREFIX = 'click_'
@@ -43,6 +55,7 @@ const ONE_SHOT_STATES: MascotState[] = [
   'surprised',
   'angry',
   'love',
+  'levelup',
   ...FIDGETS
 ]
 
@@ -80,7 +93,7 @@ export class MascotBrain {
   private walkInFlight = false
 
   constructor(
-    private readonly animator: SpriteAnimator,
+    private readonly animator: Animator,
     private readonly walk: (dx: number) => Promise<WalkResult>,
     /** Báo cửa sổ vừa dịch đi bao nhiêu px (để kiểm tra lại con trỏ có còn trên nhân vật) */
     private readonly onMoved: (dx: number) => void,

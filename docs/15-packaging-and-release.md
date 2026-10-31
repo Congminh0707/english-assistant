@@ -120,7 +120,9 @@ Không nằm trong bộ cài. Tạo và đăng khi nội dung bài nghe đổi (
 4. Điền `size` + `sha256` thật vào `src/main/audio/packSpec.ts` (bắt buộc: app từ chối gói sai kích thước/sha256), rồi phát hành app như bình thường.
    Đổi nội dung: build lại, tăng `VERSION` trong `packSpec.ts` và tag release mới.
 
-## 6c. Gói sprite thú cưng 288px (tải thêm)
+## 6c. Gói sprite thú cưng 288px (tải thêm) — đã bỏ 2026-11-01
+
+> Không còn gói này (decisions #45); phần dưới chỉ là lịch sử. Release `pet-sprites-hires-*` có thể để nguyên hoặc xoá.
 
 Không nằm trong bộ cài (bộ cài chỉ có sprite 96px). Tạo và đăng khi nhân vật/phụ kiện đổi:
 

@@ -49,6 +49,7 @@ code {
   font-family: inherit;
   font-weight: 700;
   color: var(--c-xp);
-  background: #f1ecff;
+  background: var(--c-xp-soft);
+  border-radius: var(--r-sm);
 }
 </style>

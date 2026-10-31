@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Lesson } from '@shared/schemas/lesson'
 import { useTts } from '@renderer/shared/composables/useTts'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import { ArrowLeft } from 'lucide-vue-next'
 import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
 import MdText from './MdText.vue'
 import PicText from '@renderer/shared/components/PicText.vue'
@@ -18,7 +18,7 @@ defineEmits<{ start: []; back: [] }>()
 const { t } = useI18n()
 const { speak, prefetch } = useTts()
 
-/** Ô âm đang luyện phát âm (bấm 🎤): chữ hiển thị và chuỗi để chấm */
+/** Ô âm đang luyện phát âm (bấm nút micro): chữ hiển thị và chuỗi để chấm */
 const practicing = ref<{ block: number; label: string; text: string } | null>(null)
 
 // Giọng tự nhiên: tạo trước âm thanh của ví dụ và lưới âm ở nền để bấm nghe là có ngay
@@ -35,22 +35,22 @@ onMounted(() => {
 <template>
   <section class="viewer">
     <button type="button" class="btn btn--ghost btn--sm" @click="$emit('back')">
-      ← {{ t('study.lessons.back') }}
+      <ArrowLeft :size="16" :stroke-width="2.4" /> {{ t('study.lessons.back') }}
     </button>
-    <h1>{{ lesson.title }}</h1>
+    <h1 class="page-title">{{ lesson.title }}</h1>
     <p class="summary">{{ lesson.summary }}</p>
 
     <template v-for="(block, i) in lesson.blocks" :key="i">
-      <PxPanel v-if="block.type === 'text'" class="block">
+      <div v-if="block.type === 'text'" class="card block">
         <MdText :md="block.md" />
-      </PxPanel>
+      </div>
 
       <div v-else-if="block.type === 'tip'" class="tip">
         <span class="tip-icon"><UiIcon name="hint" /></span>
         <MdText :md="block.md" />
       </div>
 
-      <PxPanel v-else-if="block.type === 'examples'" class="block">
+      <div v-else-if="block.type === 'examples'" class="card block">
         <h2 v-if="block.title">{{ block.title }}</h2>
         <ul class="examples">
           <li v-for="(ex, j) in block.items" :key="j">
@@ -69,9 +69,9 @@ onMounted(() => {
             </div>
           </li>
         </ul>
-      </PxPanel>
+      </div>
 
-      <PxPanel v-else-if="block.type === 'table'" class="block">
+      <div v-else-if="block.type === 'table'" class="card block">
         <h2 v-if="block.title">{{ block.title }}</h2>
         <div class="table-wrap">
           <table>
@@ -87,9 +87,9 @@ onMounted(() => {
             </tbody>
           </table>
         </div>
-      </PxPanel>
+      </div>
 
-      <PxPanel v-else-if="block.type === 'sounds'" class="block">
+      <div v-else-if="block.type === 'sounds'" class="card block">
         <h2 v-if="block.title">{{ block.title }}</h2>
         <div class="sounds">
           <div v-for="(item, j) in block.items" :key="j" class="sound-cell">
@@ -132,7 +132,7 @@ onMounted(() => {
             phoneme-only
           />
         </div>
-      </PxPanel>
+      </div>
 
       <ListeningPlayer
         v-else-if="block.type === 'audio'"
@@ -160,13 +160,14 @@ onMounted(() => {
 <style scoped>
 .viewer {
   display: grid;
-  gap: 12px;
-  max-width: 720px;
-  margin: 0 auto;
+  gap: var(--sp-3);
+  max-width: 760px;
 }
-h1 {
+.viewer > .btn--ghost {
+  justify-self: start;
+}
+.page-title {
   margin: 0;
-  font-size: var(--fs-2xl);
 }
 h2 {
   margin: 0 0 8px;
@@ -178,15 +179,20 @@ h2 {
   color: var(--c-ink-soft);
 }
 .block {
-  padding: 14px 16px;
+  padding: var(--sp-4);
 }
 .tip {
   display: flex;
   gap: 8px;
-  padding: 10px 12px;
+  padding: var(--sp-3) var(--sp-4);
   background: var(--c-warning-soft);
-  border-left: 4px solid var(--c-warning);
+  color: var(--c-ink);
+  border: 2px solid var(--c-coin);
   border-radius: var(--r-md);
+}
+.tip-icon {
+  display: inline-flex;
+  color: var(--c-warning);
 }
 .examples {
   display: grid;
@@ -278,8 +284,9 @@ th {
   gap: 2px;
   justify-items: center;
   padding: 14px 6px 10px;
-  border: 1px solid var(--c-line);
-  background: var(--c-bg);
+  border: 2px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--c-ink);
   font: inherit;
   cursor: pointer;
   border-radius: var(--r-md);

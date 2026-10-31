@@ -832,7 +832,6 @@ onMounted(async () => {
   display: grid;
   gap: 16px;
   max-width: 680px;
-  margin: 0 auto;
 }
 h1 {
   margin: 0;

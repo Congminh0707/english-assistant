@@ -59,7 +59,7 @@ onMounted(async () => {
         class="k-big act"
         @click="open(a)"
       >
-        <PixelPicture :id="a.picture ?? unit.picture" :size="120" />
+        <PixelPicture :id="a.picture ?? unit.picture" :size="96" />
         <span class="name">{{ a.title }}</span>
         <span class="k-stars" role="img" :aria-label="t('kids.units.stars', { n: a.stars })">
           <UiIcon
@@ -100,11 +100,11 @@ onMounted(async () => {
   color: var(--c-ink-soft);
 }
 .cards {
-  gap: var(--sp-5);
+  gap: var(--sp-4);
   padding-top: var(--sp-2);
 }
 .act {
-  min-width: 200px;
+  min-width: 180px;
   gap: var(--sp-3);
   padding: var(--sp-5) var(--sp-4);
 }

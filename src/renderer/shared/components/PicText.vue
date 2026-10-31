@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { pictureFor, splitLeadingPicture } from '@shared/pictures'
 import PixelPicture from './PixelPicture.vue'
 
-// Hiển thị một chuỗi nội dung bài học: nếu là emoji có hình pixel (hoặc "emoji + chữ") thì vẽ hình pixel,
+// Hiển thị một chuỗi nội dung bài học: nếu là emoji có hình minh hoạ (hoặc "emoji + chữ") thì vẽ hình minh hoạ,
 // ngược lại hiện chữ nguyên văn. Nhờ vậy nội dung cũ dùng emoji vẫn có hình rõ ràng, nhất quán giữa các máy.
 // Chữ ASCII thường ("pig", "hat") là từ cần học nên luôn giữ nguyên chữ; chỉ khi `ids` (bài chọn hình) mới coi là id hình.
 const props = withDefaults(

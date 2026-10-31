@@ -4,7 +4,7 @@ import { useTtsLoading } from '../composables/useTts'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Chỉ báo nhỏ góc dưới phải: hiện khi giọng tự nhiên đang được tạo (để biết app vẫn đang chạy, không bị đứng).
-// `compact`: bản nhỏ cho cửa sổ mascot (chỉ vòng xoay + 🔊, đặt phía trên nhân vật, không bắt chuột)
+// `compact`: bản nhỏ cho cửa sổ mascot (chỉ vòng xoay + icon loa, đặt phía trên nhân vật, không bắt chuột)
 defineProps<{ compact?: boolean }>()
 const loading = useTtsLoading()
 const { t } = useI18n()
@@ -39,10 +39,11 @@ const { t } = useI18n()
   padding: 6px 12px;
   background: var(--c-surface);
   color: var(--c-ink);
-  border: var(--px) solid var(--c-border);
-  box-shadow: var(--px) var(--px) 0 0 var(--c-border);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
+  box-shadow: var(--shadow-sm);
   font-family: var(--font-ui);
-  font-size: 13px;
+  font-size: var(--fs-sm);
   font-weight: 600;
 }
 .tts-indicator.compact {
@@ -58,7 +59,7 @@ const { t } = useI18n()
 .spinner {
   width: 14px;
   height: 14px;
-  border: 3px solid var(--c-border);
+  border: 3px solid var(--c-primary);
   border-top-color: transparent;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;

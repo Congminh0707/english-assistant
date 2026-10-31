@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 
-// Thanh tiến độ kiểu pixel (chỉ số thú cưng, XP...)
+// Thanh tiến độ bo tròn (chỉ số thú cưng, XP...)
 const props = defineProps<{ value: number; max?: number; color?: string; label?: string }>()
 const percent = computed(() => Math.max(0, Math.min(100, (props.value / (props.max ?? 100)) * 100)))
 </script>
@@ -16,13 +16,18 @@ const percent = computed(() => Math.max(0, Math.min(100, (props.value / (props.m
 .px-bar {
   height: var(--bar-height, 8px);
   overflow: hidden;
-  background: var(--bar-track, #e8e2d0);
-  border: var(--bar-border, var(--px) solid var(--c-border));
-  border-radius: var(--bar-radius, 0);
+  background: var(--bar-track, var(--c-surface-2));
+  border: var(--bar-border, 0);
+  border-radius: var(--bar-radius, var(--r-pill));
 }
 .fill {
   height: 100%;
-  border-radius: var(--bar-radius, 0);
-  transition: width 0.3s steps(6);
+  border-radius: var(--bar-radius, var(--r-pill));
+  transition: width 0.3s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    transition: none;
+  }
 }
 </style>

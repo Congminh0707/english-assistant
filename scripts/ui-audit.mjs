@@ -2,7 +2,7 @@
 // Lỗi (exit 1): emoji dùng làm icon trong template · kiểu pixel cũ (var(--px) solid var(--c-border)) ·
 //   khối có viền/nền mà thiếu border-radius · tự định nghĩa lại .btn trong component.
 // Cảnh báo: mã màu hex cứng trong <style> (nên dùng token).
-// Phạm vi: cửa sổ Học tập (src/renderer/study) + component dùng chung. Popup/mascot giữ kiểu pixel nên không quét.
+// Phạm vi: cửa sổ Học tập (src/renderer/study) + component dùng chung + mascot/popup (đã bỏ kiểu pixel).
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -16,14 +16,8 @@ const SCAN = [
 ]
 // Component pixel art cố ý giữ kiểu pixel
 const PIXEL_OK = new Set([
-  'PxPanel.vue',
-  'PxBar.vue',
-  'PixelBadge.vue',
   'PixelPicture.vue',
-  'PicText.vue',
-  'TraceCanvas.vue',
-  // Dùng chung với popup/mascot: kiểu viền đọc biến (--px, --c-border) nên tự khớp từng cửa sổ
-  'TtsIndicator.vue'
+  'TraceCanvas.vue'
 ])
 const EMOJI = /[\u{1F300}-\u{1FAFF}☀-➿⭐✅❌⬆⬇▶⏱♻]️?/gu
 // Lớp nút kiểu cũ (đã thay bằng .btn); nút còn dùng các tên này mà không có .btn là sót

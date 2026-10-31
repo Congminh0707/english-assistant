@@ -198,7 +198,11 @@ const levelLabel = (code: string): string =>
 
 onMounted(async () => {
   void loadProfiles()
-  onlineStatus.value = await invoke('translate:online-status')
+  try {
+    onlineStatus.value = await invoke('translate:online-status')
+  } catch {
+    // Không đọc được trạng thái: giữ giá trị mặc định (chưa có khoá)
+  }
 })
 </script>
 
@@ -909,7 +913,7 @@ input[type='time'] {
   padding: var(--sp-2) var(--sp-3);
   border-radius: var(--r-md);
   background: var(--c-warning-soft);
-  color: #7a5200;
+  color: var(--c-warning);
   font-size: var(--fs-xs);
 }
 .edit-actions {
@@ -926,7 +930,7 @@ input[type='time'] {
   margin-left: 6px;
   padding: 0 5px;
   font-size: 11px;
-  color: #fff;
+  color: var(--c-on-primary);
   background: var(--c-xp);
   border: 1px solid var(--c-line);
   border-radius: var(--r-pill);

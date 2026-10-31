@@ -84,7 +84,7 @@ const percent = computed(() => {
   font-size: var(--fs-sm);
 }
 .ok {
-  color: #1f8a4c;
+  color: var(--c-success);
   font-weight: 700;
 }
 .err {

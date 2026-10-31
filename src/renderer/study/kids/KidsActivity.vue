@@ -225,7 +225,7 @@ onMounted(teachSpeak)
         >
           <UiIcon name="back" :size="32" />
         </button>
-        <button type="button" class="k-big card" @click="teachSpeak">
+        <button type="button" class="k-big face" @click="teachSpeak">
           <template v-if="activity.kind === 'letters' || activity.kind === 'trace'">
             <span class="letter"
               >{{ item.text }}<small>{{ item.text.toLowerCase() }}</small></span
@@ -415,12 +415,20 @@ onMounted(teachSpeak)
 .side {
   flex: none;
 }
-.card {
+.face {
   position: relative;
-  min-width: 360px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3) var(--sp-6);
+  min-width: 520px;
   min-height: 300px;
-  padding: var(--sp-5) var(--sp-7);
-  box-shadow: 0 8px 0 var(--c-ink);
+  padding: var(--sp-6) var(--sp-7);
+}
+.face .word {
+  flex-basis: 100%;
+  text-align: center;
 }
 .letter {
   font-size: 112px;

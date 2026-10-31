@@ -21,9 +21,14 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="k-screen">
-    <h1 class="k-title"><UiIcon name="star" /> {{ progress }}</h1>
-    <p class="k-sub">{{ t('kids.album.hint') }}</p>
+  <section class="k-screen wide">
+    <div class="k-row head">
+      <span class="k-bubble progress">
+        <UiIcon name="star" :size="30" class="fill" />
+        {{ progress || t('kids.loading') }}
+      </span>
+      <p class="k-sub">{{ t('kids.album.hint') }}</p>
+    </div>
     <div class="grid">
       <button
         v-for="s in data?.stickers ?? []"
@@ -44,28 +49,51 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.wide {
+  max-width: 1000px;
+}
+.head {
+  gap: var(--sp-4);
+}
+.progress {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: 28px;
+}
+.progress .fill {
+  color: var(--c-coin);
+  fill: currentcolor;
+}
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(124px, 1fr));
+  gap: var(--sp-4);
   width: 100%;
+  padding-bottom: var(--sp-3);
 }
 .slot {
   display: grid;
-  gap: 4px;
+  gap: var(--sp-1);
   justify-items: center;
-  padding: 10px 4px 8px;
+  padding: var(--sp-3) var(--sp-1) var(--sp-2);
   border: 3px dashed var(--c-ink-soft);
-  border-radius: 12px;
+  border-radius: var(--r-md);
   background: transparent;
   font: inherit;
+  font-family: var(--font-kids);
+  color: var(--c-ink);
   cursor: default;
 }
 .slot.earned {
-  border: 2px solid var(--c-line);
+  border: 3px solid var(--c-ink);
   background: var(--c-surface);
   cursor: pointer;
-  box-shadow: 0 4px 0 0 #d3d9e8;
+  box-shadow: 0 4px 0 var(--c-ink);
+}
+.slot.earned:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--c-ink);
 }
 .pic {
   filter: brightness(0) opacity(0.18);
@@ -74,11 +102,12 @@ onMounted(async () => {
   filter: none;
 }
 .word {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 800;
 }
 .q {
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 800;
   color: var(--c-ink-soft);
 }
 </style>

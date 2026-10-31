@@ -12,8 +12,10 @@ const props = withDefaults(
     pictures?: boolean
     /** Một cột (câu dài, vd bản dịch tiếng Việt) */
     single?: boolean
+    /** Chỉ số đáp án đúng; có giá trị khi đã chấm để tô xanh đáp án đúng, đỏ lựa chọn sai */
+    correct?: number | null
   }>(),
-  { locked: false, pictures: false, single: false }
+  { locked: false, pictures: false, single: false, correct: null }
 )
 const emit = defineEmits<{ 'update:modelValue': [value: number] }>()
 
@@ -29,7 +31,12 @@ function pick(i: number): void {
       :key="i"
       type="button"
       class="choice"
-      :class="{ picked: modelValue === i && !locked, pic: pictures }"
+      :class="{
+        picked: modelValue === i && !locked,
+        right: locked && correct === i,
+        wrong: locked && modelValue === i && correct !== null && correct !== i,
+        pic: pictures
+      }"
       :disabled="locked"
       @click="pick(i)"
     >
@@ -44,35 +51,67 @@ function pick(i: number): void {
 .choices {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: var(--sp-2);
 }
 .choices.one {
   grid-template-columns: 1fr;
 }
 .choice {
-  padding: 10px 12px;
-  border: 1px solid var(--c-line);
-  background: var(--c-bg);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border: 2px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--c-ink);
   font: inherit;
   text-align: left;
   cursor: pointer;
   border-radius: var(--r-md);
 }
+.choice:disabled {
+  cursor: default;
+}
 .choice.picked {
-  background: var(--c-primary);
-  color: #fff;
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
 }
 .choice:hover:not(:disabled):not(.picked) {
-  background: var(--c-primary-soft);
+  background: var(--c-surface-2);
+}
+.choice.right {
+  border-color: var(--c-success);
+  background: var(--c-success-soft);
+}
+.choice.wrong {
+  border-color: var(--c-danger);
+  background: var(--c-danger-soft);
 }
 .choice.pic {
   min-width: 112px;
-  padding: 10px;
+  padding: var(--sp-3);
 }
 .num {
-  display: inline-block;
-  width: 18px;
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: var(--r-sm);
+  background: var(--c-surface-2);
+  font-size: var(--fs-xs);
   font-weight: 700;
-  opacity: 0.6;
+}
+.choice.picked .num {
+  background: var(--c-primary);
+  color: var(--c-on-primary);
+}
+.choice.right .num {
+  background: var(--c-success);
+  color: var(--c-on-primary);
+}
+.choice.wrong .num {
+  background: var(--c-danger);
+  color: var(--c-on-primary);
 }
 </style>

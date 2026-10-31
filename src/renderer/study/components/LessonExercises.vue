@@ -6,8 +6,7 @@ import type { SpeechScore } from '@shared/speech'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PicText from '@renderer/shared/components/PicText.vue'
 import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
-import PxBar from '@renderer/shared/components/PxBar.vue'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import { ArrowLeft } from 'lucide-vue-next'
 import AudioPrompt from '../exercises/AudioPrompt.vue'
 import ChoiceList from '../exercises/ChoiceList.vue'
 import MatchBoard from '../exercises/MatchBoard.vue'
@@ -86,6 +85,17 @@ const matchColumns = computed(() => {
   return e.type === 'match'
     ? { left: e.pairs.map((p) => p.left), right: state.rightOrder.map((i) => e.pairs[i].right) }
     : null
+})
+/** Chỉ số đáp án đúng của dạng có lựa chọn (để tô xanh/đỏ sau khi chấm) */
+const answerIndex = computed<number | null>(() => {
+  const e = ex.value
+  if (e.type === 'mcq' || e.type === 'listen' || e.type === 'picture') return e.answer
+  if (e.type === 'tf') return TF_ORDER.indexOf(e.answer)
+  if (e.type === 'gap' && e.choices) {
+    const hit = e.choices.findIndex((_, i) => isCorrectEx(e, { ...state, chosen: i }))
+    return hit >= 0 ? hit : null
+  }
+  return null
 })
 const promptParts = computed(() => (ex.value.type === 'gap' ? ex.value.prompt.split('___') : []))
 const solution = computed(() => solutionOf(ex.value, tfLabel))
@@ -188,14 +198,14 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 <template>
   <section class="exercises">
     <button type="button" class="btn btn--ghost btn--sm" @click="$emit('back')">
-      ← {{ t('study.lessons.backToLesson') }}
+      <ArrowLeft :size="16" :stroke-width="2.4" /> {{ t('study.lessons.backToLesson') }}
     </button>
-    <PxBar :value="idx" :max="total" label="progress" />
+    <progress class="bar" :value="idx" :max="total" />
     <p class="muted">
       {{ t('study.lessons.counter', { index: idx + 1, total }) }} · {{ lesson.title }}
     </p>
 
-    <PxPanel class="box">
+    <div class="card box">
       <p v-if="ex.type === 'tf'" class="instruction">
         {{ ex.ng ? t('study.lessons.tfHelpNg') : t('study.lessons.tfHelp') }}
       </p>
@@ -270,11 +280,16 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
         v-model="state.chosen"
         :choices="choices"
         :locked="checked"
+        :correct="checked ? answerIndex : null"
         :pictures="ex.type === 'picture'"
       />
 
       <div v-if="checked" class="feedback" :class="{ ok: correct }">
-        <strong>{{ correct ? t('study.lessons.correct') : t('study.lessons.wrong') }}</strong>
+        <strong class="verdict"
+          ><UiIcon :name="correct ? 'done' : 'close'" />{{
+            correct ? t('study.lessons.correct') : t('study.lessons.wrong')
+          }}</strong
+        >
         <div v-if="!correct" class="solution">
           <PicText v-if="ex.type === 'picture'" :text="ex.choices[ex.answer]" :size="48" ids />
           {{ solution }}
@@ -283,7 +298,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           <UiIcon name="hint" /> {{ ex.explain }}
         </div>
       </div>
-    </PxPanel>
+    </div>
 
     <div class="actions">
       <button
@@ -305,27 +320,34 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       </button>
       <button v-else type="button" class="btn btn--primary" @click="next">
         {{ idx + 1 >= total ? t('study.lessons.finish') : t('study.lessons.next') }}
+        <UiIcon name="next" />
       </button>
     </div>
+    <p class="keys">{{ t('study.lessons.keysHint') }}</p>
   </section>
 </template>
 
 <style scoped>
 .exercises {
   display: grid;
-  gap: 12px;
-  max-width: 680px;
-  margin: 0 auto;
+  gap: var(--sp-3);
+  max-width: 720px;
+}
+.exercises > .btn--ghost {
+  justify-self: start;
 }
 .muted {
   margin: 0;
   color: var(--c-ink-soft);
-  font-size: 13px;
+  font-size: var(--fs-sm);
+}
+.bar {
+  width: 100%;
 }
 .box {
   display: grid;
-  gap: 14px;
-  padding: 20px 22px;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
 }
 .instruction {
   margin: 0;
@@ -334,16 +356,16 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 }
 .prompt {
   margin: 0;
-  font-size: 20px;
-  font-weight: 700;
+  font-size: var(--fs-xl);
+  font-weight: 800;
 }
 .prompt.vi {
-  font-size: 17px;
+  font-size: var(--fs-lg);
 }
 .blank {
   display: inline-block;
   min-width: 56px;
-  margin: 0 4px;
+  margin: 0 var(--sp-1);
   padding: 0 6px;
   text-align: center;
   color: var(--c-primary);
@@ -352,11 +374,12 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 .typed {
   box-sizing: border-box;
   width: 100%;
-  padding: 10px 12px;
-  border: 1px solid var(--c-line);
+  padding: var(--sp-3);
+  border: 2px solid var(--c-line);
   background: var(--c-surface);
+  color: var(--c-ink);
   font: inherit;
-  font-size: 16px;
+  font-size: var(--fs-lg);
   outline: none;
   border-radius: var(--r-md);
 }
@@ -365,33 +388,45 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   box-shadow: 0 0 0 3px var(--c-primary-soft);
 }
 .feedback {
-  padding: 8px 10px;
+  padding: var(--sp-3) var(--sp-4);
   color: var(--c-danger);
-  background: #fde8e8;
-  border-left: 4px solid var(--c-danger);
+  background: var(--c-danger-soft);
+  border: 2px solid var(--c-danger);
   border-radius: var(--r-md);
 }
 .feedback.ok {
   color: var(--c-success);
   background: var(--c-success-soft);
-  border-left-color: var(--c-success);
+  border-color: var(--c-success);
+}
+.verdict {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
 }
 .solution {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 4px;
+  gap: var(--sp-2);
+  margin-top: var(--sp-1);
   color: var(--c-ink);
   font-weight: 600;
 }
 .explain {
-  margin-top: 6px;
+  margin-top: var(--sp-2);
   color: var(--c-ink);
   font-weight: 400;
-  font-size: 13px;
+  font-size: var(--fs-sm);
 }
 .actions {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  gap: var(--sp-2);
+}
+.keys {
+  margin: 0;
+  color: var(--c-ink-soft);
+  font-size: var(--fs-xs);
+  text-align: right;
 }
 </style>

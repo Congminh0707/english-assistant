@@ -72,34 +72,42 @@ const owner = (pos: number): number | null => {
 .pairs {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: var(--sp-4);
 }
 .col {
   display: grid;
-  gap: 8px;
+  gap: var(--sp-2);
   align-content: start;
 }
 .pair {
   position: relative;
-  padding: 8px 10px;
-  border: 1px solid var(--c-line);
-  background: var(--c-bg);
+  padding: var(--sp-2) var(--sp-3);
+  border: 2px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--c-ink);
   font: inherit;
   text-align: left;
   cursor: pointer;
   border-radius: var(--r-md);
 }
 .pair.active {
-  background: var(--c-warning);
+  border-color: var(--c-coin);
+  background: var(--c-warning-soft);
 }
 .pair.linked {
-  background: #dff3e4;
+  border-color: var(--c-success);
+  background: var(--c-success-soft);
 }
 .num {
-  display: inline-block;
-  width: 18px;
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin-right: var(--sp-2);
+  border-radius: var(--r-sm);
+  background: var(--c-surface-2);
+  font-size: var(--fs-xs);
   font-weight: 700;
-  opacity: 0.6;
 }
 .badge {
   position: absolute;
@@ -108,7 +116,7 @@ const owner = (pos: number): number | null => {
   padding: 0 5px;
   font-size: 11px;
   font-weight: 700;
-  color: #fff;
+  color: var(--c-on-primary);
   background: var(--c-xp);
   border-radius: var(--r-pill);
 }

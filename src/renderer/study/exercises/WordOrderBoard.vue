@@ -53,28 +53,29 @@ function unpick(pos: number): void {
 .pool {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  min-height: 42px;
-  padding: 8px;
+  gap: var(--sp-2);
+  min-height: 48px;
+  padding: var(--sp-2);
 }
 .answer-line {
-  border-bottom: 2px dashed var(--c-ink-soft);
+  border-bottom: 2px dashed var(--c-line);
 }
 .muted {
   color: var(--c-ink-soft);
 }
 .token {
-  padding: 6px 12px;
-  border: 1px solid var(--c-line);
+  padding: var(--sp-2) var(--sp-3);
+  border: 2px solid var(--c-line);
   background: var(--c-surface);
+  color: var(--c-ink);
   font: inherit;
-  font-size: 16px;
+  font-size: var(--fs-lg);
   cursor: pointer;
   border-radius: var(--r-md);
 }
 .token.placed {
   background: var(--c-primary);
-  color: #fff;
+  color: var(--c-on-primary);
 }
 .token:disabled:not(.placed) {
   opacity: 0.3;

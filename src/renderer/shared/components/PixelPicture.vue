@@ -3,7 +3,8 @@ import { computed } from 'vue'
 import { PICTURE_SIZE, pictureRects } from '@shared/pictures'
 import { vectorPictureUrl } from '../art'
 
-// Hình minh hoạ cho bài tập chọn hình, lưới âm và giao diện trẻ em. Ưu tiên hình vector vẽ bằng canvas (shared/art,
+// Hình minh hoạ cho bài tập chọn hình, lưới âm và giao diện trẻ em. Ưu tiên thẻ từ SVG của thiết kế v2 (shared/art/cards,
+// sinh từ scripts/design-data/export-cards.py), rồi hình vector vẽ bằng canvas (shared/art,
 // kiểu hoạt hình — docs/19 §5.5), rồi tới ảnh đóng gói sẵn: PNG 256×256 vẽ từ
 // shared/pictures.ts (pnpm pictures) hoặc SVG Twemoji (CC-BY 4.0) cho các từ bổ sung; thiếu ảnh thì vẽ bản pixel
 // 32×32 bằng SVG. Chỉ nhận id hình (xem shared/pictures.ts, shared/pictureExtras.ts).
@@ -20,8 +21,15 @@ const svgs = import.meta.glob('../assets/pictures/twemoji/*.svg', {
   import: 'default'
 }) as Record<string, string>
 
+const cards = import.meta.glob('../art/cards/*.svg', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+}) as Record<string, string>
+
 const src = computed(
   () =>
+    cards[`../art/cards/${props.id}.svg`] ??
     vectorPictureUrl(props.id) ??
     pngs[`../assets/pictures/${props.id}.png`] ??
     svgs[`../assets/pictures/twemoji/${props.id}.svg`]

@@ -307,3 +307,8 @@ Mẫu:
 
 **Quyết định:** `PetSprite` vẽ vector từ `art/pets/<id>.pet.json` (sinh bằng `export-mascot.py`), nhúng Shadow DOM như `ArtScene`. Giai đoạn baby/teen/adult/legend dùng chung một hình, khác tỉ lệ và màu bằng CSS (Kitsu thêm số đuôi), trứng lấy từ bảng `Char*`; thiết kế chỉ vẽ dáng đầy đủ nên không có hình riêng từng giai đoạn. Lupo thay Webby: id `webster` đổi thành `lupo`, migration `0007_webby_to_lupo` chuyển hồ sơ đang dùng hoặc sở hữu Webby (không sửa migration cũ).
 **Hệ quả:** cửa sổ mascot (desktop) vẫn dùng sprite pixel; thư mục sprite `webster` chỉ đổi tên thành `lupo` để test còn qua, vẫn là hình nhện cũ cho tới khi mascot chuyển sang vector.
+
+## #44 — Thẻ từ SVG của thiết kế v2 (2026-11-01) — Đã quyết định
+
+**Quyết định:** 183 thẻ từ là SVG sinh từ `review/gen_cards.py` bằng `scripts/design-data/export-cards.py` vào `src/renderer/shared/art/cards/<id hình>.svg` (khoảng 323 KB), giữ nguyên id hình. `PixelPicture` ưu tiên thẻ này, rồi mới tới hình canvas, PNG, Twemoji, pixel cũ (còn làm dự phòng cho id ngoài 183 từ, chưa xoá).
+**Hệ quả:** test `art/cards.test.ts` bắt buộc mọi từ trong `content/curated/kids/world/places` có thẻ.

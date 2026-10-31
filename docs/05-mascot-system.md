@@ -1,6 +1,6 @@
 # 05 — Hệ thống Mascot
 
-> **Thiết kế v2 "Làng chữ" đã duyệt ([23](23-design-v2-spec.md)).** Giao diện mới bỏ pixel, thú cưng vẽ chibi, Lupo thay Webby, mỗi con 16 trạng thái và 3 dáng đi xe, thuyền, máy bay. Code hiện tại vẫn theo tài liệu này cho tới khi được áp dụng.
+> **Thiết kế v2 "Làng chữ" đã duyệt ([23](23-design-v2-spec.md)).** Giao diện mới bỏ pixel, thú cưng vẽ chibi, Lupo thay Webby, mỗi con 16 trạng thái và 3 dáng đi xe, thuyền, máy bay. Bong bóng (`say`, `stats`, `quiz`) và popup Dịch nhanh đã áp dụng v2 (2026-11-01: gốc `.modern`, đuôi bong bóng là ô vuông xoay có viền, bản tối theo `documentElement.dataset.theme`). Chưa có kênh dữ liệu cho `word-card`, `reward`, `translate-hint` nên chưa làm giao diện; **Thú cưng chibi đã áp dụng (2026-11-01):** `PetSprite` (props giữ nguyên, thêm `pose`) vẽ vector chibi qua `PetFigure.vue` từ `src/renderer/shared/art/pets/<id>.pet.json`, sinh bằng `scripts/design-data/export-mascot.py` (nguồn `review/gen_mascot.py` + `Char*.dc.html`). Mỗi con có 19 trạng thái (16 hoạt ảnh `idle walk run jump sit sleep eat drink read listen say hello happy sad surprised levelup` + 3 dáng `car boat plane`) và hình trứng; 4 giai đoạn sau trứng dùng chung hình, khác tỉ lệ + màu (CSS lớp `.st-*`), Kitsu 1/3/5/9 đuôi. App hiện chỉ dùng `idle` và `walk`; các trạng thái còn lại đã xuất đủ, gọi bằng prop `pose`. Phụ kiện là biểu tượng đặt theo vị trí đeo (chưa vẽ riêng từng con). **Cửa sổ mascot (desktop) vẫn dùng sprite pixel + gói 288px**, chưa chuyển sang vector. Phần còn lại theo tài liệu này.
 
 
 ## 1. Nhân vật

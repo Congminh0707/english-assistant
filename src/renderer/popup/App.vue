@@ -683,5 +683,7 @@ onUnmounted(() => {
   background: var(--c-surface-2);
   font-size: var(--fs-xs);
   color: var(--c-ink-soft);
+  /* nằm trong khung .popup đã bo góc + overflow: hidden */
+  border-radius: 0;
 }
 </style>

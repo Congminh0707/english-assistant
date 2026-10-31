@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { KidsActivity, KidsUnits } from '@shared/schemas/kids'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
 
 // Danh sách hoạt động ABC: chữ cái, âm, ghép âm, từ nhìn là nhớ. Mỗi ô có hình, tên đọc to và số sao đã đạt.
@@ -13,8 +14,14 @@ const { t } = useI18n()
 const { speak } = useTts()
 
 const data = ref<KidsUnits | null>(null)
+const current = ref(0)
+const unit = computed(() => data.value?.units[current.value] ?? null)
 
-const stars = (n: number): string => '★'.repeat(n) + '☆'.repeat(3 - n)
+function pickUnit(i: number): void {
+  current.value = i
+  const u = data.value?.units[i]
+  if (u) speak(u.title, 'us', 0.85)
+}
 
 function open(activity: KidsActivity): void {
   speak(activity.title, 'us', 0.85)
@@ -27,58 +34,84 @@ onMounted(async () => {
 </script>
 
 <template>
-  <section class="k-screen">
+  <section class="k-screen wide">
     <h1 class="k-title">ABC</h1>
-    <div v-for="unit in data?.units ?? []" :key="unit.id" class="unit">
-      <h2 class="unit-head">
-        <PixelPicture :id="unit.picture" :size="56" />
-        <span>{{ unit.title }}</span>
-        <span class="vi">{{ unit.vi }}</span>
-      </h2>
-      <div class="k-row">
-        <button
-          v-for="a in unit.activities"
-          :key="a.id"
-          type="button"
-          class="k-big act"
-          @click="open(a)"
-        >
-          <PixelPicture :id="a.picture ?? unit.picture" :size="96" />
-          <span class="name">{{ a.title }}</span>
-          <span class="k-stars" :aria-label="t('kids.units.stars', { n: a.stars })">{{
-            stars(a.stars)
-          }}</span>
-        </button>
-      </div>
+    <p v-if="!data" class="k-sub">{{ t('kids.loading') }}</p>
+    <div v-else class="tabs">
+      <button
+        v-for="(u, i) in data.units"
+        :key="u.id"
+        type="button"
+        class="k-big tab"
+        :class="{ soft: i === current }"
+        @click="pickUnit(i)"
+      >
+        <PixelPicture :id="u.picture" :size="48" />
+        <span class="tab-name">{{ u.title }}</span>
+        <span class="vi">{{ u.vi }}</span>
+      </button>
+    </div>
+    <div v-if="unit" class="k-row cards">
+      <button
+        v-for="a in unit.activities"
+        :key="a.id"
+        type="button"
+        class="k-big act"
+        @click="open(a)"
+      >
+        <PixelPicture :id="a.picture ?? unit.picture" :size="120" />
+        <span class="name">{{ a.title }}</span>
+        <span class="k-stars" role="img" :aria-label="t('kids.units.stars', { n: a.stars })">
+          <UiIcon
+            v-for="n in 3"
+            :key="n"
+            name="star"
+            :size="28"
+            :class="n <= a.stars ? 'on' : 'off'"
+          />
+        </span>
+      </button>
     </div>
   </section>
 </template>
 
 <style scoped>
-.unit {
-  display: grid;
-  gap: 12px;
-  width: 100%;
+.wide {
+  max-width: 1080px;
 }
-.unit-head {
+.tabs {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 0;
-  font-size: 26px;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-4);
 }
-.vi {
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--c-ink-soft);
+.tab {
+  min-width: 120px;
+  padding: var(--sp-2) var(--sp-3);
+  box-shadow: 0 4px 0 var(--c-ink);
 }
-.act {
-  min-width: 170px;
-}
-.name {
+.tab-name {
   font-size: 18px;
 }
-.k-stars {
-  color: #e0a620;
+.vi {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--c-ink-soft);
+}
+.cards {
+  gap: var(--sp-5);
+  padding-top: var(--sp-2);
+}
+.act {
+  min-width: 200px;
+  gap: var(--sp-3);
+  padding: var(--sp-5) var(--sp-4);
+}
+.name {
+  font-size: 22px;
+}
+.k-stars .on {
+  fill: currentcolor;
 }
 </style>

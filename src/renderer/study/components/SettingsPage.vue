@@ -733,6 +733,17 @@ onMounted(async () => {
         </select>
       </label>
       <label class="row">
+        {{ t('study.settings.theme') }}
+        <select
+          :value="settingsStore.settings['ui.theme']"
+          @change="setSetting('ui.theme', ($event.target as HTMLSelectElement).value as never)"
+        >
+          <option value="system">{{ t('study.settings.themeSystem') }}</option>
+          <option value="light">{{ t('study.settings.themeLight') }}</option>
+          <option value="dark">{{ t('study.settings.themeDark') }}</option>
+        </select>
+      </label>
+      <label class="row">
         {{ t('study.settings.size') }}
         <select
           :value="settingsStore.settings['mascot.scale']"

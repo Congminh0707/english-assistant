@@ -589,6 +589,14 @@
       "goReview": "Tới Giếng làng, ôn {n} từ",
       "todayPanel": "Hôm nay",
       "close": "Đóng"
+      "todayPanel": "Hôm nay",
+      "close": "Đóng"
+    },
+    "search": {
+      "title": "Tìm từ",
+      "placeholder": "Gõ từ tiếng Anh hoặc nghĩa tiếng Việt…",
+      "none": "Không thấy từ này.",
+      "suggest": "Có phải: {words}?"
     },
     "search": {
       "title": "Tìm từ",
@@ -771,6 +779,10 @@
       "dndFrom": "từ",
       "dndTo": "đến",
       "appearance": "Giao diện",
+      "theme": "Chủ đề màu",
+      "themeLight": "Sáng",
+      "themeDark": "Tối",
+      "themeSystem": "Theo hệ thống",
       "theme": "Chủ đề màu",
       "themeLight": "Sáng",
       "themeDark": "Tối",

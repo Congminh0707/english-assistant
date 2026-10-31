@@ -589,6 +589,14 @@
       "goReview": "To the well, review {n} words",
       "todayPanel": "Today",
       "close": "Close"
+      "todayPanel": "Today",
+      "close": "Close"
+    },
+    "search": {
+      "title": "Search words",
+      "placeholder": "Type an English word or Vietnamese meaning…",
+      "none": "No match.",
+      "suggest": "Did you mean: {words}?"
     },
     "search": {
       "title": "Search words",
@@ -771,6 +779,10 @@
       "dndFrom": "from",
       "dndTo": "to",
       "appearance": "Appearance",
+      "theme": "Colour theme",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "themeSystem": "Follow system",
       "theme": "Colour theme",
       "themeLight": "Light",
       "themeDark": "Dark",

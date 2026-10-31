@@ -1,19 +1,29 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
-import { CircleCheck, Flame, Layers, Sprout } from 'lucide-vue-next'
+import { CircleCheck, Flame, Layers, Sprout, X } from 'lucide-vue-next'
 import type { MissionsState, StudyOverview } from '@shared/schemas/study'
 import MissionList from './MissionList.vue'
 
 defineProps<{ overview: StudyOverview | null; missions: MissionsState | null }>()
-defineEmits<{ start: []; goal: [value: number] }>()
+defineEmits<{ start: []; goal: [value: number]; close: [] }>()
 
 const { t } = useI18n()
 const SHORTCUT = 'Ctrl + Alt + T'
 </script>
 
 <template>
-  <section class="home">
-    <h1 class="page-title">{{ t('study.home.welcome') }}</h1>
+  <aside class="home" role="dialog" :aria-label="t('study.home.todayPanel')">
+    <header class="top">
+      <h1 class="page-title">{{ t('study.home.welcome') }}</h1>
+      <button
+        type="button"
+        class="btn btn--ghost btn--sm"
+        :aria-label="t('study.home.close')"
+        @click="$emit('close')"
+      >
+        <X :size="16" />
+      </button>
+    </header>
 
     <template v-if="overview">
       <p v-if="overview.packMissing" class="warn">{{ t('study.home.packMissing') }}</p>
@@ -67,30 +77,52 @@ const SHORTCUT = 'Ctrl + Alt + T'
 
       <MissionList v-if="missions" :state="missions" @goal="$emit('goal', $event)" />
     </template>
-  </section>
+  </aside>
 </template>
 
 <style scoped>
 .home {
-  max-width: 880px;
+  position: absolute;
+  top: 56px;
+  right: var(--sp-4);
+  bottom: var(--sp-4);
+  z-index: 5;
+  width: min(440px, calc(100% - 2 * var(--sp-4)));
+  overflow-y: auto;
+  padding: var(--sp-4);
+  border: 2px solid var(--c-line);
+  border-radius: var(--r-lg);
+  background: var(--c-bg);
+  box-shadow: var(--shadow-md);
+}
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.top .page-title {
+  margin: 0;
+  font-size: var(--fs-xl);
 }
 .warn {
   padding: var(--sp-2) var(--sp-3);
   border-radius: var(--r-md);
   background: var(--c-warning-soft);
-  color: #7a5200;
+  color: var(--c-warning);
 }
 .cta {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-4);
-  min-height: 84px;
-  padding: var(--sp-4) var(--sp-5);
+  min-height: 72px;
+  margin-top: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
   border-radius: var(--r-lg);
-  background: linear-gradient(135deg, var(--c-primary) 0%, #7aa2ff 100%);
+  background: var(--c-primary);
   box-shadow: var(--shadow-md);
-  color: #fff;
+  color: var(--c-on-primary);
   font-size: var(--fs-lg);
   font-weight: 600;
 }
@@ -114,7 +146,7 @@ const SHORTCUT = 'Ctrl + Alt + T'
 }
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--sp-3);
   margin-top: var(--sp-4);
 }
@@ -133,7 +165,7 @@ const SHORTCUT = 'Ctrl + Alt + T'
 }
 .stat-icon.warm {
   background: var(--c-warning-soft);
-  color: #e08a00;
+  color: var(--c-warning);
 }
 .stat-icon.ok {
   background: var(--c-success-soft);

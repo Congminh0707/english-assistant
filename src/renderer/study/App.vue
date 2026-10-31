@@ -26,6 +26,8 @@ import PetPage from './components/PetPage.vue'
 import TtsIndicator from '@renderer/shared/components/TtsIndicator.vue'
 import EvolutionOverlay from './components/EvolutionOverlay.vue'
 import { useEvolution } from './useEvolution'
+import { isDark } from '@renderer/shared/theme'
+import QuickSearch from './components/QuickSearch.vue'
 
 // Cửa sổ Học tập v2 (docs/23): bản đồ làng, vào địa điểm thì có cảnh + nội dung trên giấy.
 const { t, locale } = useI18n()
@@ -56,9 +58,10 @@ const autostartTest = ref(false)
 /** Kiểm tra lên cấp thay vì kiểm tra đầu vào */
 const checkpointMode = ref(false)
 const loaded = ref(false)
+const searching = ref(false)
 const cleanups: Array<() => void> = []
 
-const dark = computed(() => document.documentElement.dataset.theme === 'dark')
+const dark = isDark
 const place = computed(() => placeOf(page.value))
 
 async function refresh(): Promise<void> {
@@ -102,6 +105,24 @@ function startCheckpoint(): void {
   autostartTest.value = true
 }
 
+function openWords(): void {
+  searching.value = false
+  go('words')
+}
+
+async function setGoal(value: number): Promise<void> {
+  await settingsStore.set('learning.dailyGoal', value as 5 | 10 | 20 | 30)
+  void refresh()
+}
+
+/** Ctrl K: mở ô tìm từ ở mọi màn (trừ giao diện của bé) */
+function onGlobalKey(e: KeyboardEvent): void {
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+    e.preventDefault()
+    if (!kidsMode.value) searching.value = !searching.value
+  }
+}
+
 // XP đổi (ôn thẻ ở mascot, nhận thưởng nhiệm vụ...) → làm mới số liệu
 watch(
   () => petStore.pet?.totalXp,
@@ -120,6 +141,7 @@ const onFocus = (): void => void refresh()
 
 onMounted(async () => {
   window.addEventListener('focus', onFocus)
+  window.addEventListener('keydown', onGlobalKey)
   // Thời gian học (người lớn): báo định kỳ khi cửa sổ đang hiện và được chọn; trẻ em đếm riêng ở KidsApp
   timeTimer = window.setInterval(() => {
     if (activeProfile.value?.isChild) return
@@ -132,6 +154,7 @@ onMounted(async () => {
 })
 onUnmounted(() => {
   window.removeEventListener('focus', onFocus)
+  window.removeEventListener('keydown', onGlobalKey)
   window.clearInterval(timeTimer)
   cleanups.forEach((fn) => fn())
 })
@@ -147,9 +170,14 @@ onUnmounted(() => {
       :coins="petStore.pet?.coins ?? 0"
       :level="petStore.pet?.level ?? 1"
       :due="overview?.dueCount ?? 0"
+      :overview="overview"
+      :missions="missions"
+      :pet="petStore.pet"
       @go="goPlace"
       @start="go('review')"
       @settings="go('settings')"
+      @search="searching = true"
+      @goal="setGoal"
     />
     <PlaceShell
       v-else-if="loaded && !kidsMode"
@@ -187,6 +215,7 @@ onUnmounted(() => {
       <SettingsPage v-else @retest="go('placement')" @changed="refresh" />
     </PlaceShell>
 
+    <QuickSearch v-if="searching && !kidsMode" @close="searching = false" @words="openWords" />
     <TtsIndicator />
 
     <EvolutionOverlay

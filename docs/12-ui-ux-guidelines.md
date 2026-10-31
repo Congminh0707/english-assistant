@@ -1,4 +1,5 @@
 # 12 — Hướng dẫn UI/UX
+> v2: giao diện sáng/tối theo `ui.theme` (Cài đặt → Giao diện), gán `documentElement.dataset.theme` ở cả 3 cửa sổ qua `src/renderer/shared/theme.ts`; Ctrl K mở ô tìm từ ở cửa sổ Học tập.
 
 > **Thiết kế v2 "Làng chữ" đã duyệt ([23](23-design-v2-spec.md)).** Phong cách mới là ngôi làng Việt Nam vẽ phẳng, không còn pixel. Code hiện tại vẫn theo tài liệu này cho tới khi được áp dụng.
 
@@ -11,11 +12,11 @@
 
 ## 1b. Cập nhật phong cách (2026-10-23) — cửa sổ Học tập hiện đại hơn
 
-Chủ dự án thấy giao diện pixel/viền đậm "xấu, nút và chữ chưa đồng đều" → **cửa sổ Học tập** chuyển sang phong cách phẳng hiện đại (bo góc, viền mảnh, bóng mềm, icon nét). **Pixel art chỉ còn ở nhân vật, hình minh hoạ, huy hiệu**; **bong bóng mascot** (chỉ số/thoại/từ của khoảnh khắc) cũng đã hiện đại hoá (2026-10-23, dùng lớp `.modern`); popup **Dịch nhanh** cũng đã chuyển sang `.modern` (cửa sổ trong suốt để bo góc, đầu popup gradient xanh, chip/nút dùng lớp chung). Chỉ còn nhân vật, hình minh hoạ, huy hiệu là pixel art. Chi tiết: [decisions #28](decisions.md). **Quy tắc bắt buộc và checklist: [18-ui-rules.md](18-ui-rules.md)** (kiểm bằng `pnpm ui:audit`).
+Chủ dự án thấy giao diện pixel/viền đậm "xấu, nút và chữ chưa đồng đều" → **cửa sổ Học tập** chuyển sang phong cách phẳng hiện đại (bo góc, viền mảnh, bóng mềm, icon nét). **Pixel art chỉ còn ở nhân vật, hình minh hoạ, huy hiệu**; **bong bóng mascot** (chỉ số/thoại/từ của khoảnh khắc) cũng đã hiện đại hoá (2026-10-23, dùng lớp `.modern`); popup **Dịch nhanh** cũng đã chuyển sang `.modern` (cửa sổ trong suốt để bo góc, đầu popup 32px nền giấy, chân 44px, chip/nút dùng lớp chung). Từ v2 (2026-11-01) `PxPanel`/`PxBar`/`TtsIndicator`/`PixelBadge`/`PicText` không còn kiểu pixel; chỉ còn sprite thú cưng (chờ agent F vẽ lại) và `PixelPicture`. Chi tiết: [decisions #28](decisions.md). **Quy tắc bắt buộc và checklist: [18-ui-rules.md](18-ui-rules.md)** (kiểm bằng `pnpm ui:audit`).
 
 - **Token** (`tokens.css`): `--c-line`, `--c-surface-2`, `--c-*-soft`, bán kính `--r-sm/md/lg/pill`, bóng `--shadow-sm/md`, khoảng cách `--sp-1…5`, cỡ chữ `--fs-xs…2xl`, chiều cao nút `--btn-h` (36) / `--btn-h-sm` (30).
 - **Lớp dùng chung** (`shared/styles/ui.css`, áp trong phần tử gốc `.modern` — cửa sổ Học tập và bong bóng mascot): `.btn` (+ `--primary --success --danger --ghost --sm --block`), `.card`, `.chip` (+ `--success --primary --warning --danger`), `.page-title`; ô nhập/`select` cùng bán kính và chiều cao. **Mọi nút mới dùng `.btn`**, không tự viết kiểu nút riêng trong component.
-- `.study` đặt lại `--c-border` = `--c-line`, `--px` = 1px và các biến `--panel-*`/`--bar-*` nên `PxPanel`/`PxBar` tự hiện đại trong cửa sổ Học tập nhưng vẫn pixel ở mascot/popup.
+- `.study` đặt lại `--c-border` = `--c-line`, `--px` = 1px và các biến `--panel-*`/`--bar-*` và mặc định của `PxPanel`/`PxBar` đã là kiểu v2 (viền mảnh, bo `--r-lg`, thanh bo tròn) ở mọi cửa sổ, kể cả mascot/popup (đều có `modern`).
 - **Icon:** `lucide-vue-next` (ISC) thay emoji ở thanh bên, thẻ thống kê, nhiệm vụ, ví xu (emoji hiển thị lệch kích thước trên Windows). Emoji vẫn dùng làm hình món đồ trong cửa hàng cho tới khi có ảnh.
 - **Thẻ lưới** (Cửa hàng, Thú cưng): thẻ cùng chiều cao (`flex` cột, hàng nút `margin-top: auto`), dòng ghi chú chừa chỗ cố định → nút luôn thẳng hàng; mô tả cắt 2 dòng.
 - **Biểu đồ** (Thống kê): lịch hoạt động trải đủ chiều ngang bằng ô vuông (không thanh cuộn), cột bo góc, thanh chính xác tô đỏ/vàng/xanh theo mức.

@@ -1,13 +1,33 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Coins, Flame, Search, Settings, TrendingUp } from 'lucide-vue-next'
+import { ClipboardList, Coins, Flame, Search, Settings, TrendingUp } from 'lucide-vue-next'
+import type { MissionsState, StudyOverview } from '@shared/schemas/study'
+import { normalizeCharacterId } from '@shared/characters'
+import type { PetState } from '@shared/schemas/pet'
+import PetSprite from '@renderer/shared/pet/PetSprite.vue'
+import TodayDrawer from './TodayDrawer.vue'
 import ArtScene from '@renderer/shared/components/ArtScene.vue'
 import type { Place } from '../places'
 
 // Trang chủ v2: bản đồ làng theo giờ, mỗi địa điểm là một mục (docs/23 §1). Toạ độ theo tranh 1100×720.
-defineProps<{ streak: number; coins: number; level: number; due: number }>()
-const emit = defineEmits<{ go: [place: Place]; start: []; settings: [] }>()
+defineProps<{
+  streak: number
+  coins: number
+  level: number
+  due: number
+  overview: StudyOverview | null
+  missions: MissionsState | null
+  pet: PetState | null
+}>()
+const emit = defineEmits<{
+  go: [place: Place]
+  start: []
+  settings: []
+  search: []
+  goal: [value: number]
+}>()
+const drawer = ref(false)
 const { t } = useI18n()
 
 const PINS: Array<{ id: Place; x: number; y: number }> = [
@@ -21,6 +41,9 @@ const PINS: Array<{ id: Place; x: number; y: number }> = [
   { id: 'home', x: 150, y: 680 }
 ]
 
+/** Vị trí thú cưng trên đường (toạ độ tranh 1100×720) */
+const PET = { x: 380, y: 420 }
+
 const hour = ref(new Date().getHours())
 const scene = computed(() => {
   if (hour.value >= 18 || hour.value < 5) return 'village-night'
@@ -28,6 +51,10 @@ const scene = computed(() => {
 })
 let timer = 0
 function onKey(e: KeyboardEvent): void {
+  if (e.key === 'Escape' && drawer.value) {
+    drawer.value = false
+    return
+  }
   if (e.key === 'Enter' && (e.target as HTMLElement).tagName !== 'BUTTON') emit('start')
 }
 onMounted(() => {
@@ -62,11 +89,37 @@ onUnmounted(() => {
       <span class="pill"><TrendingUp :size="15" />{{ t('stats.level', { level }) }}</span>
     </div>
     <div class="hud right">
-      <span class="pill"><Search :size="15" />{{ t('study.home.search') }} <kbd>Ctrl K</kbd></span>
+      <button type="button" class="pill" data-nav="today" @click="drawer = !drawer">
+        <ClipboardList :size="15" />{{ t('study.home.todayPanel') }}
+      </button>
+      <button type="button" class="pill" data-nav="search" @click="emit('search')">
+        <Search :size="15" />{{ t('study.home.search') }} <kbd>Ctrl K</kbd>
+      </button>
       <button type="button" class="pill" data-nav="settings" @click="emit('settings')">
         <Settings :size="15" />{{ t('study.nav.settings') }}
       </button>
     </div>
+    <div
+      v-if="pet"
+      class="pet"
+      :style="{ left: `${(PET.x / 1100) * 100}%`, top: `${(PET.y / 720) * 100}%` }"
+    >
+      <PetSprite
+        :character="normalizeCharacterId(pet.characterId)"
+        :stage="pet.stage"
+        :accessories="pet.equipped"
+        :size="72"
+        animate
+      />
+    </div>
+    <TodayDrawer
+      v-if="drawer"
+      :overview="overview"
+      :missions="missions"
+      @start="emit('start')"
+      @goal="emit('goal', $event)"
+      @close="drawer = false"
+    />
     <button v-if="due > 0" type="button" class="btn btn--primary btn--lg go" @click="emit('start')">
       {{ t('study.home.goReview', { n: due }) }} <kbd>Enter</kbd>
     </button>
@@ -116,6 +169,11 @@ onUnmounted(() => {
   background: var(--c-surface);
   color: var(--c-primary);
   font-size: var(--fs-xs);
+}
+.pet {
+  position: absolute;
+  transform: translate(-50%, -85%);
+  pointer-events: none;
 }
 .hud {
   position: absolute;

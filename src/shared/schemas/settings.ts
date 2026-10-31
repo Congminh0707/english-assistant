@@ -11,6 +11,8 @@ const ClockTime = z.string().regex(/^([01]?\d|2[0-3]):[0-5]\d$/)
  */
 export const settingDefinitions = {
   'ui.language': z.enum(['vi', 'en']).default('vi'),
+  /** Chủ đề màu giao diện: sáng, tối, hoặc theo hệ điều hành */
+  'ui.theme': z.enum(['light', 'dark', 'system']).default('system'),
   /** Bấm phím tắt dịch thì tự lấy chữ đang bôi đen (gửi Ctrl+C giả lập, khôi phục clipboard); tắt = chỉ dùng chữ đã Ctrl+C */
   'translate.autoCopy': z.boolean().default(true),
   /** Kích thước mascot theo khung gốc 48px: 1 = 48px, 2 = 96px, 3 = 144px (sheet 96×96 được thu lại tương ứng) */

@@ -524,6 +524,7 @@ onUnmounted(() => {
   border: 1px solid var(--c-line);
   border-radius: var(--r-lg);
   background: var(--c-surface);
+  box-shadow: var(--shadow-sm);
   color: var(--c-ink);
   font-size: var(--fs-md);
 }
@@ -531,20 +532,16 @@ onUnmounted(() => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 6px var(--sp-3) 6px var(--sp-4);
-  background: linear-gradient(135deg, var(--c-primary) 0%, #7aa2ff 100%);
-  color: #fff;
-  /* nằm trong khung .popup đã bo góc + overflow: hidden */
-  border-radius: 0;
+  flex: none;
+  height: 32px;
+  padding: 0 var(--sp-2) 0 var(--sp-4);
+  font-size: var(--fs-sm);
 }
 .title {
   font-weight: 700;
 }
 .close {
-  color: #fff;
-}
-.close:hover:not(:disabled) {
-  background: rgb(255 255 255 / 20%) !important;
+  color: var(--c-ink-soft);
 }
 .search {
   padding: var(--sp-3) var(--sp-4) 0;
@@ -556,7 +553,7 @@ onUnmounted(() => {
   padding: 0 var(--sp-3);
   border-radius: var(--r-md);
   background: var(--c-surface-2);
-  border-color: transparent;
+  border-color: var(--c-primary);
 }
 .search input:focus {
   border-color: var(--c-primary);
@@ -679,11 +676,12 @@ onUnmounted(() => {
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-2);
-  padding: var(--sp-2) var(--sp-4);
+  flex: none;
+  min-height: 44px;
+  padding: 0 var(--sp-4);
   border-top: 1px solid var(--c-line);
   background: var(--c-surface-2);
   font-size: var(--fs-xs);
   color: var(--c-ink-soft);
-  border-radius: 0;
 }
 </style>

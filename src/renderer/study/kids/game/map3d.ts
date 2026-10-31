@@ -4,6 +4,7 @@
 // kéo chuột phải / Shift = xoay, lăn chuột = zoom, chạm công trình = chọn nơi. Dừng khi cửa sổ ẩn. docs/19-kids-world.md §5.2
 import type * as ThreeNS from 'three'
 import { buildLandmark3D } from './landmarks3d'
+import { fpsGuard, type MapQuality } from './mapQuality'
 import { toon } from './toon'
 import { isVnLand } from '@shared/vnMap'
 import {
@@ -35,6 +36,10 @@ export interface Map3DOptions {
   height: number
   pixelRatio: number
   reduceMotion: boolean
+  /** Mức thấp: không bóng đổ, pixelRatio 1 */
+  quality?: MapQuality
+  /** Máy không đủ khung hình trong 5 giây đầu */
+  onLowFps?: () => void
   onSelect: (id: string | null) => void
   /** `routes[i]`: đường từ `places[i]` tới `places[i + 1]` (đơn vị sân khấu, có cờ `sea` cho đoạn đi phà) */
   routes?: RoutePoint[][]
@@ -79,6 +84,8 @@ const WATER_LANDMARKS = new Set(['cantho-floating-market', 'halong-trong-mai'])
 const REST_OFFSET: Record<string, [number, number]> = { 'phuquoc-fishing-village': [0.15, -0.62] }
 const MAX_PIXELS = 2560 * 1440
 const MAX_TREES = 40000
+/** Bệ tròn nhô khỏi mặt đất, công trình đứng trên bệ */
+const PAD_LIFT = 0.24
 /** Cây/nhà thu nhỏ để vẫn nhỏ hơn hẳn công trình */
 const TREE_K = 0.36
 
@@ -90,20 +97,27 @@ function labelTexture(THREE: Three, p: Map3DPlace): { tex: ThreeNS.CanvasTexture
   cv.height = h
   const c = cv.getContext('2d')
   if (c) {
+    // Biển lục giác như bản đồ 2D
     c.beginPath()
-    c.roundRect(4, 4, w - 8, h - 8, 28)
-    c.fillStyle = p.done ? '#e6f7d8' : '#fff8e2'
+    c.moveTo(34, 4)
+    c.lineTo(w - 34, 4)
+    c.lineTo(w - 4, h / 2)
+    c.lineTo(w - 34, h - 4)
+    c.lineTo(34, h - 4)
+    c.lineTo(4, h / 2)
+    c.closePath()
+    c.fillStyle = p.done ? '#e6f7d8' : '#fff9ea'
     c.fill()
     c.lineWidth = 6
-    c.strokeStyle = '#3b2a3a'
+    c.strokeStyle = '#d9a24a'
     c.stroke()
-    c.fillStyle = '#3b2a3a'
+    c.fillStyle = '#6b3e1e'
     c.textAlign = 'center'
-    c.font = '800 44px system-ui, sans-serif'
+    c.font = "800 44px 'Baloo 2', system-ui, sans-serif"
     c.fillText(p.title, w / 2, 58)
-    c.font = '600 26px system-ui, sans-serif'
-    c.fillStyle = '#6b5566'
-    c.fillText(p.vi, w / 2, 94)
+    c.font = "600 26px 'Baloo 2', system-ui, sans-serif"
+    c.fillStyle = '#6b3e1e'
+    c.fillText(p.vi, w / 2, 92)
   }
   const tex = new THREE.CanvasTexture(cv)
   tex.colorSpace = THREE.SRGBColorSpace
@@ -535,25 +549,26 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     powerPreference: 'high-performance'
   })
   const pr = Math.min(opts.pixelRatio, Math.sqrt(MAX_PIXELS / (opts.width * opts.height)))
-  renderer.setPixelRatio(pr)
+  let low = opts.quality === 'low'
+  renderer.setPixelRatio(low ? 1 : pr)
   renderer.setSize(opts.width, opts.height)
   renderer.setClearColor(0x000000, 0)
   renderer.domElement.style.cssText =
     'position:absolute;inset:0;width:100%;height:100%;touch-action:none'
   host.appendChild(renderer.domElement)
-  renderer.shadowMap.enabled = true
+  renderer.shadowMap.enabled = !low
   renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
   const scene = new THREE.Scene()
   /** Nhãn vẽ sau hậu kỳ để viền mực không cắt qua chữ */
   const labelScene = new THREE.Scene()
-  scene.fog = new THREE.Fog(0xcfe9fb, 170, 480)
+  scene.fog = new THREE.Fog(0xbfeee8, 170, 480)
   scene.add(new THREE.HemisphereLight(0xe2f3ff, 0x8aa070, 1.35))
   const sun = new THREE.DirectionalLight(0xfff0d8, 2.5)
   sun.position.set(mapW / 2 - 70, 150, mapD / 2 + 80)
   sun.target.position.set(mapW / 2, 0, mapD / 2)
   sun.castShadow = true
-  sun.shadow.mapSize.set(4096, 4096)
+  sun.shadow.mapSize.set(low ? 1024 : 4096, low ? 1024 : 4096)
   Object.assign(sun.shadow.camera, {
     left: -40,
     right: 40,
@@ -615,7 +630,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     own(new THREE.PlaneGeometry(mapW + 2400, mapD + 2400)),
     own(
       new THREE.MeshPhongMaterial({
-        color: 0x3fa5db,
+        color: 0x12b4c8,
         transparent: true,
         opacity: 0.5,
         shininess: 120,
@@ -744,7 +759,8 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
         ? hf.padHeights[padIndex] - 0.02
         : WATER_Y
     model.scale.setScalar(k)
-    model.position.set(spot.x, gy, spot.z)
+    const lift = landed && !WATER_LANDMARKS.has(p.landmark) ? PAD_LIFT : 0
+    model.position.set(spot.x, gy + lift, spot.z)
     model.traverse((o) => {
       const m = o as ThreeNS.Mesh
       if (m.isMesh) {
@@ -754,6 +770,27 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
       }
     })
     scene.add(model)
+    // Bệ tròn dưới công trình trên đất, như bảng R5World
+    if (landed && !WATER_LANDMARKS.has(p.landmark)) {
+      const r = LANDMARK_SPAN * 0.62
+      const rim = new THREE.Mesh(
+        own(new THREE.CylinderGeometry(r, r * 0.93, 0.5, 48)),
+        own(new THREE.MeshLambertMaterial({ color: 0x8a5a2e }))
+      )
+      rim.position.set(spot.x, gy + lift - 0.26, spot.z)
+      const top = new THREE.Mesh(
+        own(new THREE.CircleGeometry(r * 0.985, 48)),
+        own(new THREE.MeshLambertMaterial({ color: 0xa6ec72 }))
+      )
+      top.rotation.x = -Math.PI / 2
+      top.position.set(spot.x, gy + lift - 0.012, spot.z)
+      rim.receiveShadow = top.receiveShadow = true
+      for (const m of [rim, top]) {
+        m.userData.placeId = p.id
+        pickables.push(m)
+        scene.add(m)
+      }
+    }
     const tick = model.userData.tick as ((t: number) => void) | undefined
     if (tick) ticks.push(tick)
     anchors.set(p.id, new THREE.Vector3(spot.x, gy + 1, spot.z))
@@ -1079,8 +1116,15 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   let raf = 0
   let prev = performance.now()
   let lastRender = 0
+  const watchFps = fpsGuard(() => {
+    low = true
+    renderer.shadowMap.enabled = false
+    renderer.setPixelRatio(1)
+    opts.onLowFps?.()
+  })
   const frame = (now: number): void => {
     raf = requestAnimationFrame(frame)
+    watchFps(now)
     const dt = Math.min(0.1, (now - prev) / 1000)
     prev = now
     const k = 1 - Math.exp(-dt * 5)

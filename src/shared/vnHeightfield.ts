@@ -125,22 +125,22 @@ const mix = (
 ]
 
 const C = {
-  deep: hex('#2b7fbd'),
-  mid: hex('#46a8de'),
-  shallow: hex('#7fd3ee'),
-  shore: hex('#b6efee'),
-  wet: hex('#e4cf93'),
-  sand: hex('#f4e0a4'),
-  paddy: hex('#b9dc66'),
-  grass: hex('#86c85a'),
-  grassDark: hex('#5fae48'),
-  forest: hex('#3f8f3a'),
-  forestDark: hex('#2f7a34'),
+  deep: hex('#1e93d6'),
+  mid: hex('#12b4c8'),
+  shallow: hex('#27d3d6'),
+  shore: hex('#8fefe0'),
+  wet: hex('#ebd08f'),
+  sand: hex('#f2dda6'),
+  paddy: hex('#c7eb6a'),
+  grass: hex('#7edb62'),
+  grassDark: hex('#4cc768'),
+  forest: hex('#24a65e'),
+  forestDark: hex('#0e8a58'),
   hill: hex('#8fa15d'),
   rock: hex('#9a9487'),
   rockDark: hex('#7a756a'),
   snow: hex('#f4f8fb'),
-  river: hex('#5fb9e8')
+  river: hex('#12b4c8')
 }
 
 export function buildVnHeightfield(pads: readonly Pad[] = []): VnHeightfield {

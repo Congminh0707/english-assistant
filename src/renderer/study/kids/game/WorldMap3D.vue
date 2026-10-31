@@ -15,7 +15,8 @@ import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
-import UiIcon from '@renderer/shared/components/UiIcon.vue'
+import PlaceCard from './PlaceCard.vue'
+import { savedQuality } from './mapQuality'
 import { mountVnMap3D, type Map3DHandle } from './map3d'
 import { playSfx } from './sfx'
 import type { VehicleKind } from './map3dVehicles'
@@ -27,7 +28,7 @@ import type { VehicleKind } from './map3dVehicles'
 const props = defineProps<{ world: KidsWorldView; tierId: string; scale: number }>()
 const emit = defineEmits<{ start: [placeId: string]; fail: [] }>()
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const { speak } = useTts()
 const petStore = usePetStore()
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -300,6 +301,7 @@ onMounted(async () => {
       height: 900,
       pixelRatio: Math.min(2, (window.devicePixelRatio || 1) * props.scale),
       reduceMotion: reduced,
+      quality: savedQuality(),
       routes,
       places: places.value.flatMap((p) => {
         const pt = lay.points.find((q) => q.id === p.id)
@@ -383,18 +385,21 @@ function play(): void {
     </div>
 
     <p v-if="ready && !card && !traveling" class="help">{{ t('kids.game.help3d') }}</p>
-    <div v-if="card" class="card" @pointerdown.stop>
-      <button type="button" class="close" :aria-label="t('kids.game.close')" @click="closeCard">
-        <UiIcon name="close" :size="26" />
-      </button>
-      <div class="text">
-        <h2>{{ card.title }}</h2>
-        <p>{{ card.vi }} · {{ card.topicVi }} · {{ card.landmarkVi }}</p>
-      </div>
-      <button type="button" class="go" :aria-label="t('kids.game.play')" @click="play">
-        <UiIcon name="play" :size="48" />
-      </button>
-    </div>
+    <PlaceCard
+      v-if="card"
+      :title="locale === 'vi' ? card.vi : card.title"
+      :detail="
+        t('kids.game.cardDetail', {
+          topic: locale === 'vi' ? card.topicVi : card.topic,
+          total: card.words.length,
+          done: card.words.filter((w) => w.done).length
+        })
+      "
+      :action="t('kids.game.enter', { name: locale === 'vi' ? card.vi : card.title })"
+      @pointerdown.stop
+      @go="play"
+      @close="closeCard"
+    />
   </div>
 </template>
 
@@ -403,7 +408,7 @@ function play(): void {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: linear-gradient(#79cdf2, #46a5db);
+  background: linear-gradient(135deg, #27d3d6, #12b4c8 50%, #1e93d6);
   user-select: none;
 }
 .gl {
@@ -445,70 +450,12 @@ function play(): void {
   max-width: 300px;
   margin: 0;
   padding: 10px 18px;
-  border: 4px solid #3b2a3a;
-  border-radius: 24px;
-  background: #fff8e2;
-  color: #3b2a3a;
+  border: 3px solid #e7c98e;
+  border-radius: 20px;
+  background: #fff9ea;
+  color: #6b3e1e;
   font-size: 20px;
   font-weight: 700;
   pointer-events: none;
-}
-.card {
-  position: absolute;
-  bottom: 28px;
-  left: 50%;
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  padding: 18px 28px 22px 34px;
-  border: 5px solid #3b2a3a;
-  border-radius: 36px;
-  background: #fff8e2;
-  box-shadow: 0 8px 0 0 #c9a46a;
-  color: #3b2a3a;
-  transform: translateX(-50%);
-}
-.text h2 {
-  margin: 0;
-  font-size: 44px;
-  line-height: 1.1;
-}
-.text p {
-  margin: 4px 0 0;
-  font-size: 22px;
-  color: #6b5566;
-}
-.go {
-  display: grid;
-  place-items: center;
-  width: 104px;
-  height: 104px;
-  flex: none;
-  border: 5px solid #3b2a3a;
-  border-radius: 50%;
-  background: #5cc85a;
-  color: #fff;
-  fill: #fff;
-  cursor: pointer;
-  box-shadow: 0 8px 0 0 #2f8a35;
-}
-.go:active {
-  transform: translateY(6px);
-  box-shadow: 0 2px 0 0 #2f8a35;
-}
-.close {
-  position: absolute;
-  top: -18px;
-  right: -14px;
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  padding: 0;
-  border: 4px solid #3b2a3a;
-  border-radius: 50%;
-  background: #fff;
-  color: #3b2a3a;
-  cursor: pointer;
 }
 </style>

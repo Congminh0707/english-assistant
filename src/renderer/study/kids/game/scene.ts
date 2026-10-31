@@ -22,6 +22,19 @@ import {
   type LonLat
 } from '@shared/vnMap'
 import { landmarkBitmap } from './landmarkBitmap'
+import type { MapQuality } from './mapQuality'
+import { padImage } from './padImages'
+import {
+  BOARD_INK,
+  boardMountain,
+  boardPin,
+  boardRoad,
+  boardTree,
+  drawCrane,
+  drawSwirlCloud,
+  fillLand,
+  landCells
+} from './sceneBase'
 
 // Vẽ cảnh bản đồ của màn game bé lên một <canvas> 2D (docs/19-kids-world.md §5.4): biển có sóng, hình Việt Nam giản
 // lược (src/shared/vnMap.ts — đất liền, đảo, Hoàng Sa, Trường Sa, sông, núi), con đường nối các nơi, cây, thuyền, bệ +
@@ -29,7 +42,11 @@ import { landmarkBitmap } from './landmarkBitmap'
 // khấu; vật trang trí đặt bằng số giả ngẫu nhiên cố định nên không đổi giữa các lần mở.
 export type ScenePlace = KidsWorldView['tiers'][number]['places'][number]
 
-const INK = '#3b2a3a'
+const INK = BOARD_INK
+/** Rộng của bệ công trình trên bản đồ (đơn vị sân khấu) */
+const PAD_W = 300
+/** Lớp nền vẽ sẵn: số px cho một đơn vị sân khấu */
+const BASE_SCALE = { high: 0.72, low: 0.45 }
 
 type TreeKind = 'pine' | 'round' | 'palm'
 interface Tree extends Point {
@@ -60,6 +77,10 @@ interface Islet extends Point {
 export interface Scene {
   layout: MapLayout
   road: Path2D
+  /** Mảng đất trang trí */
+  cells: Point[][]
+  /** Lớp nền vẽ sẵn, dựng khi vẽ khung đầu */
+  base: { canvas: HTMLCanvasElement; quality: MapQuality } | null
   /** Bến thuyền: chỗ chuyển giữa đi ô tô và đi thuyền */
   docks: Point[]
   land: Path2D | null
@@ -167,9 +188,9 @@ export function buildScene(layout: MapLayout, geo: boolean): Scene {
     const rad = r * VN_PER_LAT
     for (let k = 0, n = 0; k < 60 && n < 7; k++) {
       const p = { x: c.x + (rnd() * 2 - 1) * rad, y: c.y + (rnd() * 2 - 1) * rad * 0.7 }
-      if (!isLand(p) || nearPlace(p) < 170 || minDist(p, roadPts) < 60) continue
+      if (!isLand(p) || nearPlace(p) < 250 || minDist(p, roadPts) < 90) continue
       if (mountains.some((m) => Math.hypot(m.x - p.x, m.y - p.y) < 60)) continue
-      mountains.push({ ...p, size: 0.8 + rnd() * 0.6, snow: la > 20.5 && rnd() < 0.5 })
+      mountains.push({ ...p, size: 0.62 + rnd() * 0.4, snow: la > 20.5 && rnd() < 0.5 })
       n++
     }
   }
@@ -188,14 +209,14 @@ export function buildScene(layout: MapLayout, geo: boolean): Scene {
     : { x0: 0, x1: 0, y0: 0, y1: 0 }
   const southY = projectVn(0, 12.5).y
   const northY = projectVn(0, 19).y
-  for (let tries = 0; geo && tries < 9000 && trees.length < 260; tries++) {
+  for (let tries = 0; geo && tries < 9000 && trees.length < 150; tries++) {
     const p = {
       x: bounds.x0 + rnd() * (bounds.x1 - bounds.x0),
       y: bounds.y0 + rnd() * (bounds.y1 - bounds.y0)
     }
-    if (!isLand(p) || nearPlace(p) < 165 || minDist(p, roadPts) < 48) continue
-    if (trees.some((t) => Math.hypot(t.x - p.x, t.y - p.y) < 40)) continue
-    if (mountains.some((m) => Math.hypot(m.x - p.x, m.y - p.y) < 50)) continue
+    if (!isLand(p) || nearPlace(p) < 190 || minDist(p, roadPts) < 76) continue
+    if (trees.some((t) => Math.hypot(t.x - p.x, t.y - p.y) < 92)) continue
+    if (mountains.some((m) => Math.hypot(m.x - p.x, m.y - p.y) < 80)) continue
     const kind: TreeKind =
       p.y < northY ? (rnd() < 0.65 ? 'pine' : 'round') : p.y < southY ? 'round' : 'palm'
     trees.push({ ...p, kind, size: 0.7 + rnd() * 0.4 })
@@ -217,6 +238,17 @@ export function buildScene(layout: MapLayout, geo: boolean): Scene {
     boats.push({ ...p, phase: rnd() * 6, color: BOAT_COLORS[boats.length % BOAT_COLORS.length] })
   }
 
+  // Mảng đất trang trí: rải điểm trên đất, cách nhau đủ xa
+  const seeds: Point[] = []
+  for (let tries = 0; geo && tries < 6000 && seeds.length < 36; tries++) {
+    const p = {
+      x: bounds.x0 + rnd() * (bounds.x1 - bounds.x0),
+      y: bounds.y0 + rnd() * (bounds.y1 - bounds.y0)
+    }
+    if (isLand(p) && minDist(p, seeds) > 170) seeds.push(p)
+  }
+  const cells = geo ? landCells(bounds, seeds) : []
+
   const clouds: Cloud[] = Array.from({ length: 7 }, (_, i) => ({
     x: rnd() * (STAGE_W + 400) - 200,
     y: (i / 7) * (STAGE_H * 1.6) + rnd() * 80,
@@ -227,6 +259,8 @@ export function buildScene(layout: MapLayout, geo: boolean): Scene {
   return {
     layout,
     road,
+    cells,
+    base: null,
     docks,
     land,
     rivers,
@@ -252,115 +286,6 @@ function ellipse(
 ): void {
   ctx.beginPath()
   ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2)
-}
-
-function blob(ctx: CanvasRenderingContext2D, x: number, y: number, r: number, fill: string): void {
-  ctx.beginPath()
-  ctx.arc(x, y, r, 0, Math.PI * 2)
-  ctx.fillStyle = fill
-  ctx.fill()
-  ctx.lineWidth = 3
-  ctx.strokeStyle = INK
-  ctx.stroke()
-}
-
-function drawTree(ctx: CanvasRenderingContext2D, t: Tree, time: number): void {
-  const s = t.size
-  ctx.save()
-  ctx.translate(t.x, t.y)
-  ctx.scale(s, s)
-  ctx.fillStyle = 'rgb(40 60 30 / 18%)'
-  ellipse(ctx, 0, 4, 26, 9)
-  ctx.fill()
-  ctx.lineWidth = 3
-  ctx.strokeStyle = INK
-  if (t.kind === 'palm') {
-    const sway = Math.sin(time * 1.3 + t.x * 0.01) * 0.06
-    ctx.rotate(sway)
-    ctx.beginPath()
-    ctx.moveTo(0, 0)
-    ctx.quadraticCurveTo(8, -30, 2, -58)
-    ctx.lineWidth = 9
-    ctx.stroke()
-    ctx.lineWidth = 5
-    ctx.strokeStyle = '#b07a4a'
-    ctx.stroke()
-    for (const a of [-2.6, -1.9, -1.2, -0.5, 0.2]) {
-      ctx.beginPath()
-      ctx.ellipse(2 + Math.cos(a) * 20, -58 + Math.sin(a) * 10, 22, 7, a, 0, Math.PI * 2)
-      ctx.fillStyle = '#4fae4a'
-      ctx.fill()
-      ctx.lineWidth = 2.5
-      ctx.strokeStyle = INK
-      ctx.stroke()
-    }
-  } else if (t.kind === 'pine') {
-    ctx.fillStyle = '#8a5a35'
-    ctx.fillRect(-4, -12, 8, 14)
-    ctx.strokeRect(-4, -12, 8, 14)
-    for (const [w, y] of [
-      [26, -10],
-      [21, -28],
-      [15, -44]
-    ]) {
-      ctx.beginPath()
-      ctx.moveTo(-w, y)
-      ctx.lineTo(w, y)
-      ctx.lineTo(0, y - 30)
-      ctx.closePath()
-      ctx.fillStyle = '#2f8f57'
-      ctx.fill()
-      ctx.stroke()
-    }
-  } else {
-    ctx.fillStyle = '#8a5a35'
-    ctx.fillRect(-5, -16, 10, 18)
-    ctx.strokeRect(-5, -16, 10, 18)
-    blob(ctx, -12, -28, 16, '#55b357')
-    blob(ctx, 12, -28, 16, '#55b357')
-    blob(ctx, 0, -42, 20, '#62c062')
-    ctx.fillStyle = 'rgb(255 255 255 / 35%)'
-    ellipse(ctx, -6, -50, 8, 5)
-    ctx.fill()
-  }
-  ctx.restore()
-}
-
-function drawMountain(ctx: CanvasRenderingContext2D, m: Mountain): void {
-  ctx.save()
-  ctx.translate(m.x, m.y)
-  ctx.scale(m.size, m.size)
-  ctx.lineWidth = 3
-  ctx.strokeStyle = INK
-  ctx.lineJoin = 'round'
-  ctx.beginPath()
-  ctx.moveTo(-46, 0)
-  ctx.lineTo(-6, -64)
-  ctx.lineTo(40, 0)
-  ctx.closePath()
-  ctx.fillStyle = '#6d9e5a'
-  ctx.fill()
-  ctx.stroke()
-  ctx.beginPath()
-  ctx.moveTo(-6, -64)
-  ctx.lineTo(40, 0)
-  ctx.lineTo(6, 0)
-  ctx.closePath()
-  ctx.fillStyle = '#5a8a4a'
-  ctx.fill()
-  if (m.snow) {
-    ctx.beginPath()
-    ctx.moveTo(-20, -42)
-    ctx.lineTo(-6, -64)
-    ctx.lineTo(9, -44)
-    ctx.lineTo(-2, -48)
-    ctx.lineTo(-10, -40)
-    ctx.closePath()
-    ctx.fillStyle = '#ffffff'
-    ctx.fill()
-    ctx.stroke()
-  }
-  ctx.restore()
 }
 
 function drawBoat(ctx: CanvasRenderingContext2D, b: Boat, t: number): void {
@@ -468,7 +393,6 @@ function drawPlant(
   }
 }
 
-/** Chấm vị trí thật + đường chỉ tới bệ khi bệ phải dời ra cho khỏi đè */
 /** Bến gỗ nhỏ có cọc */
 function drawDock(ctx: CanvasRenderingContext2D, p: Point): void {
   ctx.save()
@@ -495,79 +419,6 @@ function drawDock(ctx: CanvasRenderingContext2D, p: Point): void {
   ctx.restore()
 }
 
-function drawPin(ctx: CanvasRenderingContext2D, anchor: Point, p: Point): void {
-  if (Math.hypot(anchor.x - p.x, anchor.y - p.y) < 30) return
-  ctx.save()
-  ctx.beginPath()
-  ctx.arc(anchor.x, anchor.y, 11, 0, Math.PI * 2)
-  ctx.fillStyle = '#ffffff'
-  ctx.fill()
-  ctx.lineWidth = 3
-  ctx.strokeStyle = INK
-  ctx.stroke()
-  ctx.beginPath()
-  ctx.arc(anchor.x, anchor.y, 6, 0, Math.PI * 2)
-  ctx.fillStyle = '#ff5a5a'
-  ctx.fill()
-  ctx.restore()
-}
-
-/** Bụi cây, đá và cỏ dọc mép bệ (cố định theo góc) cho bệ hoà vào đất thay vì như chiếc đĩa */
-function drawRim(ctx: CanvasRenderingContext2D, p: Point): void {
-  ctx.save()
-  ctx.lineWidth = 3
-  ctx.strokeStyle = INK
-  const items: Array<[number, 'bush' | 'rock' | 'tuft', number]> = [
-    [3.3, 'bush', 1],
-    [3.75, 'rock', 0.8],
-    [4.3, 'bush', 1.2],
-    [4.9, 'tuft', 1],
-    [5.5, 'bush', 0.9],
-    [5.95, 'rock', 1],
-    [0.25, 'tuft', 1],
-    [2.9, 'tuft', 1]
-  ]
-  for (const [a, kind, s] of items) {
-    const x = p.x + Math.cos(a) * 96
-    const y = p.y + Math.sin(a) * 35
-    if (kind === 'bush') {
-      for (const [dx, dy, r, c] of [
-        [-7, 0, 9, '#5fae48'],
-        [6, -1, 10, '#6fc457'],
-        [0, -7, 9, '#7fd065']
-      ] as const) {
-        ctx.beginPath()
-        ctx.arc(x + dx * s, y + dy * s, r * s, 0, Math.PI * 2)
-        ctx.fillStyle = c
-        ctx.fill()
-        ctx.stroke()
-      }
-    } else if (kind === 'rock') {
-      ctx.beginPath()
-      ctx.ellipse(x, y, 13 * s, 8 * s, 0, 0, Math.PI * 2)
-      ctx.fillStyle = '#b9b4a8'
-      ctx.fill()
-      ctx.stroke()
-      ctx.beginPath()
-      ctx.ellipse(x - 3 * s, y - 2 * s, 6 * s, 3 * s, 0, 0, Math.PI * 2)
-      ctx.fillStyle = '#d8d3c6'
-      ctx.fill()
-    } else {
-      ctx.strokeStyle = '#4f9a3b'
-      ctx.lineCap = 'round'
-      for (const dx of [-5, 0, 5]) {
-        ctx.beginPath()
-        ctx.moveTo(x + dx, y + 3)
-        ctx.lineTo(x + dx * 1.6, y - 9 - Math.abs(dx))
-        ctx.stroke()
-      }
-      ctx.strokeStyle = INK
-      ctx.lineCap = 'butt'
-    }
-  }
-  ctx.restore()
-}
-
 function drawPlace(
   ctx: CanvasRenderingContext2D,
   p: Point,
@@ -577,67 +428,56 @@ function drawPlace(
 ): void {
   const locked = place.state === 'locked'
   ctx.save()
+  ctx.fillStyle = 'rgb(10 58 64 / 30%)'
+  ellipse(ctx, p.x + 4, p.y + 34, PAD_W * 0.46, 42)
+  ctx.fill()
   if (today && !locked) {
-    ctx.globalAlpha = 0.45 + 0.4 * Math.sin(t * 4)
+    ctx.globalAlpha = 0.5 + 0.4 * Math.sin(t * 4)
     ctx.lineWidth = 9
-    ctx.strokeStyle = '#ffd34d'
-    ellipse(ctx, p.x, p.y + 8, 124 + Math.sin(t * 4) * 4, 50)
+    ctx.strokeStyle = '#F7B91A'
+    ellipse(ctx, p.x, p.y + 14, PAD_W * 0.56, 66)
     ctx.stroke()
     ctx.globalAlpha = 1
   }
   if (locked) ctx.filter = 'grayscale(1) brightness(1.1)'
-  ctx.fillStyle = 'rgb(30 50 20 / 20%)'
-  ellipse(ctx, p.x, p.y + 26, 110, 42)
-  ctx.fill()
-  ctx.lineWidth = 4
-  ctx.strokeStyle = INK
-  ctx.fillStyle = '#b4794a'
-  ellipse(ctx, p.x, p.y + 15, 102, 40)
-  ctx.fill()
-  ctx.stroke()
-  ctx.fillStyle = '#9fdc72'
-  ellipse(ctx, p.x, p.y, 102, 38)
-  ctx.fill()
-  ctx.stroke()
-  ctx.fillStyle = '#b6e889'
-  ellipse(ctx, p.x - 8, p.y - 6, 72, 23)
-  ctx.fill()
-
-  drawRim(ctx, p)
-
-  const bmp = landmarkBitmap(place.landmark)
-  if (bmp) {
-    const k = Math.min(190 / bmp.width, 175 / bmp.height)
-    const w = bmp.width * k
-    const h = bmp.height * k
-    ctx.fillStyle = 'rgb(30 50 20 / 22%)'
-    ellipse(ctx, p.x, p.y + 4, w * 0.42, 14)
-    ctx.fill()
+  const pad = padImage(place.landmark)
+  if (pad) {
+    const h = (PAD_W * pad.naturalHeight) / pad.naturalWidth
     ctx.imageSmoothingEnabled = true
     ctx.imageSmoothingQuality = 'high'
-    ctx.drawImage(bmp, p.x - w / 2, p.y + 12 - h, w, h)
+    ctx.drawImage(pad, p.x - PAD_W / 2, p.y + 46 - h, PAD_W, h)
+  } else {
+    const bmp = landmarkBitmap(place.landmark)
+    if (bmp) {
+      const k = Math.min(190 / bmp.width, 175 / bmp.height)
+      const w = bmp.width * k
+      const h = bmp.height * k
+      ctx.drawImage(bmp, p.x - w / 2, p.y + 12 - h, w, h)
+    }
   }
 
   const n = place.words.length
   place.words.forEach((w, i) => {
     if (w.stage === 'hidden') return
     const a = Math.PI * (0.12 + (0.76 * i) / Math.max(1, n - 1))
-    drawPlant(ctx, p.x - Math.cos(a) * 86, p.y + Math.sin(a) * 27 + 6, w.stage, w.thirsty, t)
+    const px = p.x - Math.cos(a) * PAD_W * 0.4
+    drawPlant(ctx, px, p.y + Math.sin(a) * 26 + 16, w.stage, w.thirsty, t)
   })
 
   if (place.state === 'done') {
-    ctx.lineWidth = 4
+    const fx = p.x + PAD_W * 0.43
+    ctx.lineWidth = 5
     ctx.strokeStyle = INK
     ctx.beginPath()
-    ctx.moveTo(p.x + 86, p.y + 2)
-    ctx.lineTo(p.x + 86, p.y - 58)
+    ctx.moveTo(fx, p.y + 6)
+    ctx.lineTo(fx, p.y - 96)
     ctx.stroke()
     ctx.beginPath()
-    ctx.moveTo(p.x + 88, p.y - 58)
-    ctx.lineTo(p.x + 122, p.y - 48 + Math.sin(t * 3) * 3)
-    ctx.lineTo(p.x + 88, p.y - 38)
+    ctx.moveTo(fx + 2, p.y - 96)
+    ctx.lineTo(fx + 46, p.y - 82 + Math.sin(t * 3) * 3)
+    ctx.lineTo(fx + 2, p.y - 66)
     ctx.closePath()
-    ctx.fillStyle = '#ff5a5a'
+    ctx.fillStyle = '#E2483E'
     ctx.fill()
     ctx.lineWidth = 3
     ctx.stroke()
@@ -666,55 +506,24 @@ function drawPlace(
 function drawClouds(ctx: CanvasRenderingContext2D, scene: Scene, camY: number, t: number): void {
   const span = STAGE_W + 500
   const vSpan = STAGE_H * 1.6
-  for (const c of scene.clouds) {
+  for (const c of scene.clouds.slice(0, 4)) {
     const x = ((((c.x + t * c.speed) % span) + span) % span) - 250
     const y = ((((c.y - camY * 0.35) % vSpan) + vSpan) % vSpan) - STAGE_H * 0.3
-    ctx.save()
-    ctx.translate(x, y)
-    ctx.scale(c.s, c.s)
-    ctx.globalAlpha = 0.85
-    ctx.fillStyle = '#dbe8f6'
-    for (const [dx, dy, r] of [
-      [-60, 10, 34],
-      [-20, 0, 46],
-      [30, 4, 40],
-      [70, 14, 28]
-    ]) {
-      ctx.beginPath()
-      ctx.arc(dx, dy + 8, r, 0, Math.PI * 2)
-      ctx.fill()
-    }
-    ctx.fillStyle = '#ffffff'
-    for (const [dx, dy, r] of [
-      [-60, 6, 32],
-      [-20, -6, 44],
-      [30, -2, 38],
-      [70, 10, 26]
-    ]) {
-      ctx.beginPath()
-      ctx.arc(dx, dy, r, 0, Math.PI * 2)
-      ctx.fill()
-    }
-    ctx.restore()
+    drawSwirlCloud(ctx, x, y, c.s * 1.3)
   }
 }
 
+/** Đàn hạc bay ngang màn hình */
 function drawBirds(ctx: CanvasRenderingContext2D, t: number): void {
-  ctx.save()
-  ctx.strokeStyle = INK
-  ctx.lineWidth = 3
-  ctx.lineCap = 'round'
-  for (let i = 0; i < 3; i++) {
-    const x = ((t * 40 + i * 70) % (STAGE_W + 300)) - 150
-    const y = 140 + i * 26 + Math.sin(t + i) * 10
-    const flap = Math.sin(t * 8 + i) * 6
-    ctx.beginPath()
-    ctx.moveTo(x - 14, y - flap)
-    ctx.quadraticCurveTo(x - 6, y - 6, x, y)
-    ctx.quadraticCurveTo(x + 6, y - 6, x + 14, y - flap)
-    ctx.stroke()
+  const span = STAGE_W + 500
+  for (const [dx, dy, s, d] of [
+    [0, 90, 0.56, 0],
+    [-110, 120, 0.46, 0.7],
+    [-80, 55, 0.42, 1.4]
+  ]) {
+    const x = ((t * 26) % span) - 200 + dx
+    drawCrane(ctx, x, dy + Math.sin(t * 0.7 + d) * 8, s, Math.sin(t * 3.2 + d))
   }
-  ctx.restore()
 }
 
 function label(
@@ -811,88 +620,55 @@ export interface DrawState {
   /** `shadow`: nửa bề ngang bóng (0 = không bóng, vd đang trên thuyền) */
   pet: { x: number; y: number; hop: number; shadow: number } | null
   labels: { sea: string; paracel: string; spratly: string }
+  /** Mức thấp: bỏ sóng động, mây, chim */
+  quality: MapQuality
 }
 
-/** Vẽ một khung hình; `k` = số px canvas cho một đơn vị sân khấu */
-export function drawFrame(
+function drawWaves(
   ctx: CanvasRenderingContext2D,
   scene: Scene,
-  s: DrawState,
-  k: number
+  t: number,
+  seen: (p: Point) => boolean
 ): void {
-  const { layout } = scene
-  ctx.setTransform(k, 0, 0, k, 0, 0)
-  const sea = ctx.createLinearGradient(0, 0, 0, STAGE_H)
-  sea.addColorStop(0, '#79cdf2')
-  sea.addColorStop(1, '#46a5db')
-  ctx.fillStyle = sea
-  ctx.fillRect(0, 0, STAGE_W, STAGE_H)
-
-  const z = s.zoom
-  ctx.setTransform(
-    k * z,
-    0,
-    0,
-    k * z,
-    k * (STAGE_W / 2 - s.camX * z),
-    k * (STAGE_H / 2 - s.camY * z)
-  )
-  const y0 = s.camY - STAGE_H / 2 / z - 200
-  const y1 = s.camY + STAGE_H / 2 / z + 260
-  const x0 = s.camX - STAGE_W / 2 / z - 200
-  const x1 = s.camX + STAGE_W / 2 / z + 200
-  const visible = (p: Point): boolean => p.y > y0 && p.y < y1 && p.x > x0 && p.x < x1
-
-  ctx.strokeStyle = 'rgb(255 255 255 / 55%)'
-  ctx.lineWidth = 3
+  ctx.strokeStyle = 'rgb(255 255 255 / 60%)'
+  ctx.lineWidth = 3.4
   ctx.lineCap = 'round'
   ctx.beginPath()
   for (const w of scene.waves) {
-    if (!visible(w)) continue
-    const dx = Math.sin(s.t * 0.8 + w.phase) * 8
-    ctx.moveTo(w.x - 16 + dx, w.y)
-    ctx.quadraticCurveTo(w.x - 8 + dx, w.y - 7, w.x + dx, w.y)
-    ctx.quadraticCurveTo(w.x + 8 + dx, w.y - 7, w.x + 16 + dx, w.y)
+    if (!seen(w)) continue
+    const dx = Math.sin(t * 0.8 + w.phase) * 8
+    ctx.moveTo(w.x - 26 + dx, w.y)
+    ctx.quadraticCurveTo(w.x - 13 + dx, w.y - 12, w.x + dx, w.y)
+    ctx.quadraticCurveTo(w.x + 13 + dx, w.y - 12, w.x + 26 + dx, w.y)
   }
   ctx.stroke()
+}
 
+/** Vẽ phần không đổi của bản đồ một lần */
+function paintBase(ctx: CanvasRenderingContext2D, scene: Scene, s: DrawState): void {
+  const { layout } = scene
+  if (s.quality === 'low') drawWaves(ctx, scene, 0, () => true)
   if (scene.seaLabel) {
-    label(ctx, s.labels.sea, scene.seaLabel.x, scene.seaLabel.y, 64, 'rgb(30 90 140 / 75%)')
+    label(ctx, s.labels.sea, scene.seaLabel.x, scene.seaLabel.y, 64, 'rgb(14 90 120 / 85%)')
   }
-
-  // Đất: viền bọt sóng → bãi cát → cỏ
-  if (scene.land) {
-    ctx.lineJoin = 'round'
-    ctx.lineWidth = 34 + Math.sin(s.t * 1.3) * 6
-    ctx.strokeStyle = 'rgb(255 255 255 / 45%)'
-    ctx.stroke(scene.land)
-    ctx.lineWidth = 18
-    ctx.strokeStyle = '#f2d78f'
-    ctx.stroke(scene.land)
-    ctx.fillStyle = '#86c766'
-    ctx.fill(scene.land)
-  }
+  if (scene.land) fillLand(ctx, scene.land, scene.cells)
   for (const i of scene.islets) {
     ctx.beginPath()
-    ctx.arc(i.x, i.y, i.r + 8, 0, Math.PI * 2)
-    ctx.fillStyle = '#f2d78f'
+    ctx.arc(i.x, i.y, i.r + 10, 0, Math.PI * 2)
+    ctx.fillStyle = '#F2DDA6'
     ctx.fill()
     ctx.beginPath()
     ctx.arc(i.x, i.y, i.r, 0, Math.PI * 2)
-    ctx.fillStyle = '#86c766'
+    ctx.fillStyle = '#7EDB62'
     ctx.fill()
   }
   for (const a of scene.archipelagos) {
     for (const i of a.islets) {
       ctx.beginPath()
-      ctx.arc(i.x, i.y, 13 + Math.sin(s.t * 1.2 + i.x) * 1.5, 0, Math.PI * 2)
-      ctx.fillStyle = 'rgb(255 255 255 / 55%)'
+      ctx.arc(i.x, i.y, 12, 0, Math.PI * 2)
+      ctx.fillStyle = '#F2DDA6'
       ctx.fill()
-      ctx.beginPath()
-      ctx.arc(i.x, i.y, 9, 0, Math.PI * 2)
-      ctx.fillStyle = '#f2d78f'
-      ctx.fill()
-      ctx.lineWidth = 2.5
+      ctx.lineWidth = 2
       ctx.strokeStyle = INK
       ctx.stroke()
     }
@@ -909,10 +685,10 @@ export function drawFrame(
     ctx.lineCap = 'round'
     ctx.lineJoin = 'round'
     ctx.lineWidth = 14
-    ctx.strokeStyle = '#4aa8d8'
+    ctx.strokeStyle = '#12B4C8'
     ctx.stroke(scene.rivers)
     ctx.lineWidth = 6
-    ctx.strokeStyle = '#8fd3f5'
+    ctx.strokeStyle = '#6FD3E8'
     ctx.stroke(scene.rivers)
   }
   if (!scene.land) {
@@ -920,49 +696,93 @@ export function drawFrame(
     for (const p of layout.points) {
       ctx.beginPath()
       ctx.arc(p.x, p.y, 190, 0, Math.PI * 2)
-      ctx.fillStyle = '#f2d78f'
+      ctx.fillStyle = '#F2DDA6'
       ctx.fill()
       ctx.beginPath()
       ctx.arc(p.x, p.y, 172, 0, Math.PI * 2)
-      ctx.fillStyle = '#86c766'
+      ctx.fillStyle = '#7EDB62'
       ctx.fill()
     }
   }
-
-  ctx.lineCap = 'round'
-  ctx.lineWidth = 36
-  ctx.strokeStyle = '#d9b46e'
-  ctx.stroke(scene.road)
-  ctx.lineWidth = 27
-  ctx.strokeStyle = '#f5dfa6'
-  ctx.stroke(scene.road)
-  ctx.lineWidth = 4
-  ctx.strokeStyle = '#fff6d8'
-  ctx.setLineDash([14, 20])
-  ctx.lineDashOffset = -s.t * 8
-  ctx.stroke(scene.road)
-  ctx.setLineDash([])
-  for (const d of scene.docks) if (visible(d)) drawDock(ctx, d)
-
-  for (const b of scene.boats) if (visible(b)) drawBoat(ctx, b, s.t)
-
+  boardRoad(ctx, scene.road)
+  for (const d of scene.docks) drawDock(ctx, d)
   layout.points.forEach((p, i) => {
     const a = layout.anchors[i]
-    if (a && visible(p)) drawPin(ctx, a, p)
+    if (a) boardPin(ctx, a, p)
   })
-
-  const items: Array<{ y: number; draw: () => void }> = []
-  for (const m of scene.mountains)
-    if (visible(m)) items.push({ y: m.y, draw: () => drawMountain(ctx, m) })
-  for (const tr of scene.trees)
-    if (visible(tr)) items.push({ y: tr.y, draw: () => drawTree(ctx, tr, s.t) })
-  for (const p of layout.points) {
-    const place = s.places.get(p.id)
-    if (!place || !visible(p)) continue
-    items.push({ y: p.y, draw: () => drawPlace(ctx, p, place, place.id === s.todayId, s.t) })
-  }
+  const items = [
+    ...scene.mountains.map((m) => ({
+      y: m.y,
+      draw: () => boardMountain(ctx, m.x, m.y, m.size, m.snow)
+    })),
+    ...scene.trees.map((t, i) => ({
+      y: t.y,
+      draw: () => boardTree(ctx, t.x, t.y, t.size * 0.72, i + 7)
+    }))
+  ]
   items.sort((a, b) => a.y - b.y)
   for (const it of items) it.draw()
+}
+
+function baseCanvas(scene: Scene, s: DrawState): HTMLCanvasElement {
+  if (scene.base?.quality === s.quality) return scene.base.canvas
+  const k = BASE_SCALE[s.quality]
+  const canvas = document.createElement('canvas')
+  canvas.width = Math.ceil(scene.layout.width * k)
+  canvas.height = Math.ceil(scene.layout.height * k)
+  const ctx = canvas.getContext('2d')
+  if (ctx) {
+    ctx.scale(k, k)
+    paintBase(ctx, scene, s)
+  }
+  scene.base = { canvas, quality: s.quality }
+  return canvas
+}
+
+/** Vẽ một khung hình; `k` = số px canvas cho một đơn vị sân khấu */
+export function drawFrame(
+  ctx: CanvasRenderingContext2D,
+  scene: Scene,
+  s: DrawState,
+  k: number
+): void {
+  const { layout } = scene
+  ctx.setTransform(k, 0, 0, k, 0, 0)
+  const sea = ctx.createLinearGradient(0, 0, STAGE_W, STAGE_H)
+  sea.addColorStop(0, '#27D3D6')
+  sea.addColorStop(0.5, '#12B4C8')
+  sea.addColorStop(1, '#1E93D6')
+  ctx.fillStyle = sea
+  ctx.fillRect(0, 0, STAGE_W, STAGE_H)
+
+  const z = s.zoom
+  ctx.setTransform(
+    k * z,
+    0,
+    0,
+    k * z,
+    k * (STAGE_W / 2 - s.camX * z),
+    k * (STAGE_H / 2 - s.camY * z)
+  )
+  const y0 = s.camY - STAGE_H / 2 / z - 240
+  const y1 = s.camY + STAGE_H / 2 / z + 300
+  const x0 = s.camX - STAGE_W / 2 / z - 240
+  const x1 = s.camX + STAGE_W / 2 / z + 240
+  const visible = (p: Point): boolean => p.y > y0 && p.y < y1 && p.x > x0 && p.x < x1
+
+  if (s.quality === 'high') drawWaves(ctx, scene, s.t, visible)
+  ctx.imageSmoothingEnabled = true
+  ctx.imageSmoothingQuality = s.quality === 'high' ? 'high' : 'low'
+  ctx.drawImage(baseCanvas(scene, s), 0, 0, layout.width, layout.height)
+
+  if (s.quality === 'high') for (const b of scene.boats) if (visible(b)) drawBoat(ctx, b, s.t)
+
+  const pads = layout.points.flatMap((p) => {
+    const place = s.places.get(p.id)
+    return place && visible(p) ? [{ p, place }] : []
+  })
+  pads.sort((a, b) => a.p.y - b.p.y)
+  for (const { p, place } of pads) drawPlace(ctx, p, place, place.id === s.todayId, s.t)
 
   if (s.pet && s.pet.shadow > 0) {
     const k2 = 1 - Math.min(0.6, s.pet.hop / 260)
@@ -973,6 +793,8 @@ export function drawFrame(
   drawParticles(ctx, s.particles, s.clock)
 
   ctx.setTransform(k, 0, 0, k, 0, 0)
-  drawClouds(ctx, scene, s.camY, s.t)
-  drawBirds(ctx, s.t)
+  if (s.quality === 'high') {
+    drawClouds(ctx, scene, s.camY, s.t)
+    drawBirds(ctx, s.t)
+  }
 }

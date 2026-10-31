@@ -250,67 +250,67 @@
           "%PET% ngồi đây với bạn~"
         ]
       },
-      "webster": {
+      "lupo": {
         "greetingMorning": [
-          "Nhện hero có mặt! Chào buổi sáng! 🕸️",
-          "Sáng rồi, giăng tơ học thôi!",
-          "Good morning, đồng đội!"
+          "Ngao~ Chào buổi sáng, bạn nhỏ! 🌙",
+          "Sáng rồi, sói bạc thức dậy học cùng bạn!",
+          "Good morning! Trăng lặn rồi, mặt trời lên~"
         ],
         "greetingAfternoon": [
-          "Chiều nay có nhiệm vụ: học 5 từ mới!",
-          "Good afternoon! %PET% đu tơ tới đây~",
-          "Tới giờ luyện tập siêu anh hùng!"
+          "Chiều rồi! Ta đi săn vài từ mới nhé?",
+          "Good afternoon! %PET% chạy tới đây~",
+          "Gió chiều mát, học tiếp thôi!"
         ],
         "greetingEvening": [
-          "Tối rồi, tuần tra một vòng bài ôn nhé 🌙",
-          "Good evening, đồng đội!",
-          "Thành phố yên bình, ta ôn bài thôi."
+          "Tối rồi, trăng lên, ôn bài một vòng nhé 🌙",
+          "Good evening! Sói bạc ngồi canh bài cho bạn.",
+          "Ao~ ôn một chút rồi nghỉ nha."
         ],
         "greetingNight": [
-          "Siêu anh hùng cũng cần ngủ... 😴",
+          "Trăng sáng quá... nhưng khuya rồi, đi ngủ thôi 😴",
           "Khuya rồi, nghỉ thôi nha!",
-          "Good night! Mai lại giăng tơ tiếp~"
+          "Good night! Mai gặp lại dưới ánh trăng~"
         ],
         "pat": [
-          "Hihi, giác quan nhện nhột nhột!",
-          "Thank you, đồng đội ♥",
+          "Hihi, lông sói nhột nhột!",
+          "Thank you, bạn nhỏ ♥",
           "%PET% thích được vuốt ve!",
-          "Tơ nhện của tớ rung lên rồi!"
+          "Đuôi của tớ vẫy rồi nè!"
         ],
         "hungry": [
-          "Siêu anh hùng cũng đói bụng... 🍙",
-          "Tớ cần năng lượng, cho ăn với~",
-          "I'm hungry! Tuần tra mệt quá."
+          "Bụng sói kêu ọc ọc... 🍙",
+          "Tớ đói rồi, cho ăn với~",
+          "I'm hungry! Chạy nhiều mệt quá."
         ],
         "fed": [
-          "Nạp năng lượng xong! 💪",
+          "No bụng rồi! 💪",
           "Yummy! Sức mạnh tăng 100%!",
-          "Cảm ơn nha, đồng đội!"
+          "Cảm ơn nha, bạn nhỏ!"
         ],
         "levelUp": [
-          "Lên cấp rồi! Sức mạnh nhện tăng! 🎉",
-          "Level up! Giăng tơ cao hơn nữa!",
+          "Lên cấp rồi! Sói bạc mạnh hơn! 🎉",
+          "Level up! Ao~ ao~",
           "%PET% mạnh hơn rồi nè!"
         ],
         "wake": [
-          "%PET% đã trở lại! 🕸️",
-          "Hoaaam... có việc gì không đồng đội?",
-          "Giác quan nhện báo bạn về rồi!"
+          "%PET% đã trở lại! 🌙",
+          "Hoaaam... có việc gì không bạn nhỏ?",
+          "Ngửi thấy mùi bạn về rồi!"
         ],
         "missionDone": [
           "Nhiệm vụ hoàn thành! 🎯",
-          "Giỏi lắm, đồng đội! ⭐",
+          "Giỏi lắm, bạn nhỏ! ⭐",
           "Một chiến thắng nữa!"
         ],
         "evolved": [
-          "%PET% tiến hoá rồi! Bộ đồ mới ngầu chưa? ✨",
+          "%PET% tiến hoá rồi! Bộ lông mới đẹp chưa? ✨",
           "Wow, sức mạnh mới! 🎉",
           "Nhìn %PET% mới này! ⭐"
         ],
         "idle": [
-          "Giác quan nhện báo: đến giờ học rồi! 🕸️",
-          "Học thêm một từ nhé, đồng đội?",
-          "Đang giăng tơ chờ bạn đây~",
+          "Ao~ đến giờ học rồi! 🌙",
+          "Học thêm một từ nhé, bạn nhỏ?",
+          "Sói ngồi chờ bạn đây~",
           "Nhiệm vụ nhỏ: uống nước! 💧"
         ]
       },
@@ -589,14 +589,6 @@
       "goReview": "Tới Giếng làng, ôn {n} từ",
       "todayPanel": "Hôm nay",
       "close": "Đóng"
-      "todayPanel": "Hôm nay",
-      "close": "Đóng"
-    },
-    "search": {
-      "title": "Tìm từ",
-      "placeholder": "Gõ từ tiếng Anh hoặc nghĩa tiếng Việt…",
-      "none": "Không thấy từ này.",
-      "suggest": "Có phải: {words}?"
     },
     "search": {
       "title": "Tìm từ",
@@ -674,6 +666,8 @@
       "reset": "Đặt lại tiến độ",
       "confirmReset": "Đặt lại tiến độ của “{word}”? Từ sẽ ôn lại từ đầu, các thẻ phụ sẽ được tạo lại khi bạn thuộc từ.",
       "noMatch": "Không có từ nào khớp bộ lọc.",
+      "clearFilters": "Xoá bộ lọc",
+      "emptyHint": "Copy một từ rồi tra để lưu vào sổ, hoặc lưu từ trong bài học.",
       "phrase": "Mẫu câu",
       "siblingsHint": "{n} thẻ phụ (Việt→Anh, nghe-gõ, điền từ)",
       "sortBy": "Sắp xếp",
@@ -713,7 +707,7 @@
       "ielts": "Luyện thi IELTS"
     },
     "onboarding": {
-      "title": "Chào mừng bạn đến với English Assistant! 🎉",
+      "title": "Chào mừng bạn đến với English Assistant!",
       "step1": "Bạn tên là gì và học tiếng Anh để làm gì?",
       "name": "Tên của bạn",
       "namePlaceholder": "Ví dụ: Lan",
@@ -783,10 +777,6 @@
       "themeLight": "Sáng",
       "themeDark": "Tối",
       "themeSystem": "Theo hệ thống",
-      "theme": "Chủ đề màu",
-      "themeLight": "Sáng",
-      "themeDark": "Tối",
-      "themeSystem": "Theo hệ thống",
       "language": "Ngôn ngữ",
       "size": "Kích thước mascot",
       "launchAtLogin": "Khởi động cùng Windows",
@@ -847,6 +837,19 @@
         "match_pairs": "Ghép từ với nghĩa"
       },
       "counter": "Bài {index}/{total}",
+      "eta": "khoảng {n} phút",
+      "keyChoice": "1–4: chọn đáp án · Enter: kiểm tra · R: nghe lại (bài nghe)",
+      "keyDictation": "Gõ câu rồi Enter để kiểm tra · R: nghe lại (khi không đang gõ)",
+      "keyCheck": "Enter: kiểm tra khi đã đủ đáp án",
+      "keyNext": "Enter: sang bài tiếp",
+      "desc": {
+        "mixed": "Đủ năm dạng bài trong một phiên",
+        "cloze": "Chọn từ điền vào chỗ trống",
+        "word_order": "Bấm các từ theo đúng thứ tự để ghép câu",
+        "listen_choice": "Nghe câu rồi chọn nghĩa tiếng Việt đúng",
+        "dictation": "Nghe và gõ lại câu",
+        "match_pairs": "Bấm một từ, rồi bấm nghĩa tương ứng"
+      },
       "clozeHelp": "Chọn từ điền vào chỗ trống:",
       "orderHelp": "Bấm các từ theo đúng thứ tự để ghép thành câu tiếng Anh:",
       "listenHelp": "Nghe câu tiếng Anh rồi chọn nghĩa tiếng Việt đúng:",
@@ -861,7 +864,7 @@
       "correct": "Chính xác! ✓",
       "wrong": "Chưa đúng — đáp án:",
       "accuracy": "đúng {n}% số từ",
-      "summaryTitle": "Hoàn thành phiên luyện tập! 🎉",
+      "summaryTitle": "Hoàn thành phiên luyện tập!",
       "summaryBody": "Bạn làm đúng {correct}/{total} bài.",
       "noReward": "Hôm nay bạn đã nhận đủ thưởng luyện tập (5 phiên) — vẫn luyện thoải mái nhé!",
       "again": "Luyện tiếp"
@@ -1062,6 +1065,7 @@
       "tapToHear": "Bấm vào ô để nghe phát âm.",
       "startExercises": "Làm bài tập ({n} câu)",
       "counter": "Câu {index}/{total}",
+      "keysHint": "Enter để kiểm tra / tiếp tục · 1-4 để chọn đáp án",
       "tf": {
         "true": "Đúng",
         "false": "Sai",
@@ -1081,7 +1085,7 @@
       "check": "Kiểm tra",
       "next": "Câu tiếp",
       "finish": "Xem kết quả",
-      "correct": "Chính xác! ✓",
+      "correct": "Chính xác!",
       "wrong": "Chưa đúng — đáp án:",
       "passed": "Hoàn thành bài! {score}%",
       "notPassed": "Bạn đạt {score}%",
@@ -1302,7 +1306,12 @@
       "sayHint": "Nghe rồi nói theo, nói xong chạm ngôi sao (chưa chấm giọng nói)"
     },
     "game": {
+      "spots": {"cantho": ["Cây bẹo", "Dưa hấu", "Chợ nổi", "Trái thơm", "Bến Ninh Kiều"], "dalat": ["Ga Đà Lạt", "Tàu hơi nước", "Đồi thông", "Hồ Xuân Hương", "Hoa"], "danang": ["Cầu Rồng", "Lửa rồng", "Sông Hàn", "Cao ốc", "Cầu quay"], "halong": ["Đảo đá", "Thuyền buồm", "Hang đá", "Làng chài", "Lồng cá"], "hanoi": ["Tháp Rùa", "Đền Ngọc Sơn", "Cầu Thê Húc", "Phố cổ", "Xích lô"], "hcmc": ["Tháp đồng hồ", "Chợ Bến Thành", "Cây sao", "Xe buýt", "Xe máy"], "hue": ["Ngọ Môn", "Sông Hương", "Thuyền rồng", "Cầu Tràng Tiền", "Áo dài"], "nhatrang": ["Tháp Bà", "Hòn đảo", "Biển", "Thuyền thúng", "Bãi cát"], "ninhbinh": ["Núi đá", "Hang", "Ruộng lúa", "Chèo chân", "Trâu"], "phuquoc": ["Hoàng hôn", "Làng chài", "Nhà sàn", "Thuyền thúng", "Lưới cá"], "sapa": ["Núi mây", "Ruộng bậc thang", "Bản làng", "Trâu", "Ruộng nước"], "hoian": ["Chùa Cầu", "Đèn lồng", "Hoa đăng", "Thuyền", "Nhà cổ"]},
       "map": "Về bản đồ",
+      "village": "Về làng",
+      "starsCount": "{n} sao",
+      "cardDetail": "{topic}, {total} từ, đã xong {done}",
+      "enter": "Vào {name}",
       "play": "Chơi",
       "close": "Đóng",
       "landmark3d": "Công trình 3D — kéo để xoay",
@@ -1395,9 +1404,9 @@
       "name": "Bi",
       "desc": "Bạn đồng hành đầu tiên"
     },
-    "webster": {
-      "name": "Webby",
-      "desc": "Nhện hero nhanh nhẹn"
+    "lupo": {
+      "name": "Lupo",
+      "desc": "Sói bạc dịu dàng, hú dưới trăng"
     },
     "draco": {
       "name": "Draco",
@@ -1500,17 +1509,5 @@
       "v": "Răng trên chạm môi dưới và rung (very); đừng đọc thành \"b\" hay \"v\" kiểu Việt.",
       "f": "Răng trên chạm môi dưới, thổi hơi, không rung (fish)."
     }
-  },
-  "spritePack": {
-    "title": "Thú cưng nét hơn (độ phân giải cao)",
-    "desc": "Tải thêm (~{mb} MB) để thú cưng và phụ kiện hiện ở độ phân giải 288px, sắc nét hơn bản 96px trong bộ cài. Không bắt buộc.",
-    "download": "Tải về ({mb} MB)",
-    "downloading": "Đang tải… {pct}%",
-    "cancel": "Huỷ",
-    "ready": "Đã cài",
-    "remove": "Gỡ gói",
-    "retry": "Thử tải lại",
-    "updateAvailable": "Có bản mới",
-    "update": "Cập nhật ({mb} MB)"
   }
 }

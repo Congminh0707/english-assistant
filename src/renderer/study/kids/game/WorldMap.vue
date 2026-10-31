@@ -22,11 +22,12 @@ import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
-import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
-import Landmark3D from './Landmark3D.vue'
+import { fpsGuard, savedQuality } from './mapQuality'
 import { buildScene, drawFrame, type Particle, type ScenePlace } from './scene'
 import { playSfx } from './sfx'
+import HexLabel from './HexLabel.vue'
+import PlaceCard from './PlaceCard.vue'
 import TripVehicle, { type VehicleKind } from './TripVehicle.vue'
 
 // Bản đồ trên sân khấu toàn màn hình (docs/19-kids-world.md §5.4): tầng Việt Nam vẽ hình chữ S, các nơi đặt theo
@@ -36,7 +37,7 @@ import TripVehicle, { type VehicleKind } from './TripVehicle.vue'
 const props = defineProps<{ world: KidsWorldView; tierId: string; scale: number }>()
 const emit = defineEmits<{ start: [placeId: string] }>()
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const { speak } = useTts()
 const petStore = usePetStore()
 const reduced =
@@ -44,7 +45,7 @@ const reduced =
 
 /** Toàn cảnh khi xem/đi và cận cảnh khi tới nơi để học */
 const MAP_ZOOM = 0.62
-const FOCUS_ZOOM = 1.25
+const FOCUS_ZOOM = 1
 /** Bay khi xa — camera lùi thêm để thấy đường bay */
 const FLY_ZOOM = 0.5
 /** Tốc độ đều của từng xe (đơn vị sân khấu/giây) */
@@ -90,6 +91,9 @@ const labels = computed(() => ({
   paracel: t('kids.game.paracel'),
   spratly: t('kids.game.spratly')
 }))
+
+let quality = savedQuality()
+const watchFps = fpsGuard(() => (quality = 'low'))
 
 const canvas = ref<HTMLCanvasElement | null>(null)
 const worldEl = ref<HTMLDivElement | null>(null)
@@ -227,7 +231,7 @@ function draw(now: number): void {
   const el = canvas.value
   const ctx = el?.getContext('2d')
   if (!el || !ctx) return
-  const k = props.scale * (window.devicePixelRatio || 1)
+  const k = props.scale * (quality === 'low' ? 1 : window.devicePixelRatio || 1)
   const w = Math.round(STAGE_W * k)
   const h = Math.round(STAGE_H * k)
   if (el.width !== w || el.height !== h) {
@@ -247,7 +251,8 @@ function draw(now: number): void {
       todayId: props.world.todayPlaceId,
       particles,
       pet: petStore.pet ? pet : null,
-      labels: labels.value
+      labels: labels.value,
+      quality
     },
     k
   )
@@ -256,6 +261,7 @@ function draw(now: number): void {
 
 function frame(now: number): void {
   raf = requestAnimationFrame(frame)
+  watchFps(now)
   const dt = Math.min(0.05, (now - (lastNow || now)) / 1000)
   lastNow = now
   let moving = false
@@ -316,7 +322,7 @@ function frame(now: number): void {
   if (particles.length) moving = true
 
   if (moving || dragging) dirty = true
-  if (dirty || (!reduced && now - lastDraw > 33)) {
+  if (dirty || (!reduced && now - lastDraw > (quality === 'low' ? 50 : 33))) {
     draw(now)
     lastDraw = now
     dirty = false
@@ -422,11 +428,6 @@ function play(): void {
   emit('start', c.id)
 }
 
-/** Hình xem trước: từ chưa xong trước, tối đa 4 */
-const preview = computed(() => {
-  const words = card.value?.words ?? []
-  return [...words.filter((w) => !w.done), ...words.filter((w) => w.done)].slice(0, 4)
-})
 const doneCount = (p: ScenePlace): number => p.words.filter((w) => w.done).length
 
 /** Buổi trong ngày theo giờ máy: lớp phủ chiều/tối */
@@ -546,22 +547,17 @@ onUnmounted(() => {
         @click="go(p)"
       >
         <span v-if="p.state === 'locked'" class="lock"><UiIcon name="lock" :size="34" /></span>
-        <span class="sign">
-          <strong class="name">{{ p.title }}</strong>
-          <span class="meta">
-            <span class="stars">
-              <UiIcon
-                v-for="n in 3"
-                :key="n"
-                name="star"
-                :size="16"
-                :class="{ lit: n <= p.stars }"
-              />
-            </span>
-            <span class="flowers">
-              <UiIcon name="flower" :size="16" />{{ doneCount(p) }}/{{ p.words.length }}
-            </span>
-          </span>
+        <HexLabel :text="locale === 'vi' ? p.vi : p.title" :hot="p.id === petAt" />
+        <span class="meta">
+          <UiIcon
+            v-for="n in 3"
+            :key="n"
+            name="star"
+            :size="22"
+            class="star"
+            :class="{ lit: n <= p.stars }"
+          />
+          <UiIcon name="flower" :size="22" class="flower" />{{ doneCount(p) }}/{{ p.words.length }}
         </span>
       </button>
 
@@ -588,41 +584,29 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <!-- Thẻ "Bắt đầu" khi thú cưng tới nơi -->
-    <div v-if="card" class="card-wrap" @pointerdown.stop>
-      <div class="card">
-        <button type="button" class="close" :aria-label="t('kids.game.close')" @click="closeCard">
-          <UiIcon name="close" :size="30" />
-        </button>
-        <h2 class="title">{{ card.title }}</h2>
-        <p class="topic">{{ card.topic }}</p>
-        <p class="vi-line">{{ card.vi }} · {{ card.topicVi }} · {{ card.landmarkVi }}</p>
-        <Landmark3D :id="card.landmark" :width="560" :height="230" />
-        <div class="preview">
-          <button
-            v-for="w in preview"
-            :key="w.pictureId"
-            type="button"
-            class="peek"
-            :class="{ done: w.done }"
-            @click="speak(w.word, 'us', 0.8)"
-          >
-            <PixelPicture :id="w.pictureId" :size="120" />
-          </button>
-        </div>
-        <button type="button" class="go" :aria-label="t('kids.game.play')" @click="play">
-          <UiIcon name="play" :size="54" />
-        </button>
-        <p v-if="world.newLeftToday === 0 && card.state !== 'done'" class="note">
-          {{ t('kids.world.tomorrow') }}
-        </p>
-      </div>
-    </div>
+    <PlaceCard
+      v-if="card"
+      :title="locale === 'vi' ? card.vi : card.title"
+      :detail="
+        t('kids.game.cardDetail', {
+          topic: locale === 'vi' ? card.topicVi : card.topic,
+          total: card.words.length,
+          done: doneCount(card)
+        })
+      "
+      :action="t('kids.game.enter', { name: locale === 'vi' ? card.vi : card.title })"
+      :note="world.newLeftToday === 0 && card.state !== 'done' ? t('kids.world.tomorrow') : ''"
+      @pointerdown.stop
+      @go="play"
+      @close="closeCard"
+    />
   </div>
 </template>
 
 <style scoped>
 .map {
+  --k-ink: #3a2413;
+  --k-gold: #f7b91a;
   position: absolute;
   inset: 0;
   overflow: hidden;
@@ -687,52 +671,38 @@ onUnmounted(() => {
   background: #fff;
   color: #3b2a3a;
 }
-.sign {
-  display: grid;
-  justify-items: center;
-  gap: 1px;
-  max-width: 230px;
-  padding: 4px 14px 6px;
-  border: 4px solid #3b2a3a;
-  border-radius: 16px;
-  background: #fff8e2;
-  box-shadow: 0 5px 0 0 #c9a46a;
-  color: #3b2a3a;
-}
-.place.today .sign {
-  background: #fff1a8;
-  animation: k-bounce 1.4s ease infinite;
-}
-.place.locked .sign {
-  opacity: 0.7;
-}
-.name {
-  font-size: 26px;
-  font-weight: 900;
-  line-height: 1.1;
-  white-space: nowrap;
-}
 .meta {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 15px;
+  gap: 2px;
+  margin-top: 4px;
+  padding: 1px 10px;
+  border-radius: var(--r-pill);
+  background: rgb(255 249 234 / 92%);
+  color: var(--k-ink);
+  font-size: 21px;
   font-weight: 800;
   white-space: nowrap;
 }
-.stars {
-  display: flex;
+.place :deep(.hex) {
+  font-size: 34px;
+}
+.star {
   color: #c8b89a;
 }
-.stars .lit {
-  color: #e0a620;
-  fill: #ffd34d;
+.star.lit {
+  color: #d9a24a;
+  fill: var(--k-gold);
 }
-.flowers {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
+.flower {
+  margin-left: 6px;
   color: #e0508f;
+}
+.place.today :deep(.hex) {
+  animation: k-bounce 1.4s ease infinite;
+}
+.place.locked :deep(.hex) {
+  opacity: 0.7;
 }
 .pet {
   position: absolute;
@@ -757,99 +727,8 @@ onUnmounted(() => {
 .veh-layer.flip {
   transform: scaleX(-1);
 }
-.card-wrap {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  background: rgb(20 40 70 / 28%);
-}
-.card {
-  position: relative;
-  display: grid;
-  justify-items: center;
-  gap: 10px;
-  width: 760px;
-  padding: 30px 40px 34px;
-  border: 5px solid #3b2a3a;
-  border-radius: 36px;
-  background: #fff8e2;
-  box-shadow: 0 10px 0 0 #c9a46a;
-  color: #3b2a3a;
-  animation: k-pop 360ms ease;
-}
-.title {
-  margin: 0;
-  font-size: 54px;
-  font-weight: 900;
-}
-.topic {
-  margin: -6px 0 0;
-  font-size: 28px;
-  font-weight: 800;
-  color: #e0508f;
-}
-.vi-line {
-  margin: 0;
-  font-size: 17px;
-  color: #7a5a45;
-}
-.preview {
-  display: flex;
-  gap: 16px;
-  margin: 8px 0;
-}
-.peek {
-  padding: 8px;
-  border: 4px solid #3b2a3a;
-  border-radius: 24px;
-  background: #fff;
-  cursor: pointer;
-}
-.peek.done {
-  background: #e8f8dc;
-}
-.go {
-  display: grid;
-  place-items: center;
-  width: 128px;
-  height: 128px;
-  border: 5px solid #3b2a3a;
-  border-radius: 50%;
-  background: #5cc85a;
-  color: #fff;
-  fill: #fff;
-  cursor: pointer;
-  box-shadow: 0 8px 0 0 #2f8a35;
-  animation: k-bounce 1.6s ease infinite;
-}
-.go:active {
-  transform: translateY(6px);
-  box-shadow: 0 2px 0 0 #2f8a35;
-}
-.close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  display: grid;
-  place-items: center;
-  width: 60px;
-  height: 60px;
-  border: 4px solid #3b2a3a;
-  border-radius: 50%;
-  background: #fff;
-  color: #3b2a3a;
-  cursor: pointer;
-}
-.note {
-  margin: 0;
-  font-size: 16px;
-  color: #7a5a45;
-}
 @media (prefers-reduced-motion: reduce) {
-  .place.today .sign,
-  .go,
-  .card {
+  .place.today :deep(.hex) {
     animation: none;
   }
 }

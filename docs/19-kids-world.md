@@ -3,6 +3,8 @@
 > **Thiết kế v2 "Làng chữ" đã duyệt ([23](23-design-v2-spec.md)).** Đổi lớn: bản đồ 2D kiểu Làng chữ có công trình 3D trên bệ tròn, cảnh chi tiết cho từng nơi, máy bay ở tầng 2, quả địa cầu với kỳ quan thế giới ở tầng 3. Code hiện tại vẫn theo tài liệu này cho tới khi được áp dụng.
 
 
+> **Áp dụng v2, phần H (2026-11-01):** ✅ Bản đồ Việt Nam 2D và 3D theo `R5World`: nền đất vẽ sẵn ra canvas phụ (`game/sceneBase.ts`; mảng đất chỉ trang trí, không phải ranh giới tỉnh, đất vẫn lấy từ `src/shared/vnMap.ts`), công trình trên bệ tròn là ảnh webp dựng từ mô hình 3D (`game/pads/`, 312 KB), biển lục giác `HexLabel.vue`, thẻ góc `PlaceCard.vue`. Đường, `geoLayout`, luật ô tô/thuyền/máy bay không đổi. Mức chất lượng ở `game/mapQuality.ts` (khoá `kids.mapQuality` trong `localStorage`, tự hạ khi 5 giây đầu dưới 24 fps; mức thấp: bản 2D bỏ sóng động, mây, chim, DPR 1; bản 3D bỏ bóng đổ, pixelRatio 1).
+
 > Thiết kế chi tiết cho [14 — Phase 2b](14-roadmap.md#phase-2b--mở-rộng-từ-vựng-trẻ-em-đề-xuất-2026-10-29) giai đoạn A, [decisions #35](decisions.md) và [#36](decisions.md) (bản đồ 3D + gói tải thêm). Viết 2026-10-29, sửa lần 1 cùng ngày theo góp ý chủ dự án (mỗi nơi có công trình nổi bật, tăng số nơi, bản đồ 3D chi tiết, tài nguyên tải thêm). **Chờ duyệt.** Khi code xong từng phần, đổi 📋 → ✅ ở đây và ở [07 §9](07-learning-modules.md#9-phonics--mầm-non-p1), [10](10-data-model.md), [03](03-architecture.md), [15](15-packaging-and-release.md), [17](17-metrics.md).
 
 ## 1. Mục tiêu & phạm vi

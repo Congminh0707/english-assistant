@@ -18,7 +18,7 @@ import { playSfx, setSfxEnabled } from './sfx'
 // Bản đồ, lượt chơi 5 bước và ôn (bình tưới) đều ở trong sân khấu. Thoát bằng nút Nhà hoặc Esc.
 const emit = defineEmits<{ exit: []; changed: [] }>()
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const petStore = usePetStore()
 const settings = useSettingsStore()
 
@@ -113,10 +113,11 @@ function exit(): void {
 }
 
 function onKey(e: KeyboardEvent): void {
-  if (e.key === 'Escape') {
-    e.preventDefault()
-    exit()
-  }
+  if (e.key !== 'Escape') return
+  e.preventDefault()
+  // Esc lùi một bậc: đang trong màn con thì về bản đồ, đang ở bản đồ thì thoát game
+  if (view.value === 'map') exit()
+  else void backToMap()
 }
 
 onMounted(async () => {
@@ -179,25 +180,35 @@ onUnmounted(() => {
 
       <!-- HUD -->
       <div class="hud left">
-        <button type="button" class="hud-btn" :aria-label="t('kids.home')" @click="exit">
-          <UiIcon name="home" :size="44" />
+        <button type="button" class="pill-btn" @click="exit">
+          <UiIcon name="home" :size="26" />{{ t('kids.game.village') }}
         </button>
-        <button
-          v-if="view !== 'map'"
-          type="button"
-          class="hud-btn"
-          :aria-label="t('kids.game.map')"
-          @click="backToMap"
-        >
-          <UiIcon name="map" :size="44" />
+        <template v-if="world && view === 'map'">
+          <button
+            v-for="x in tiersWithPlaces"
+            :key="x.id"
+            type="button"
+            class="pill-btn"
+            :class="{ on: x.id === tierId }"
+            @click="tierId = x.id"
+          >
+            {{ locale === 'vi' ? x.vi : x.title }}
+          </button>
+          <span v-if="nextLocked" class="pill-btn locked" :title="t('kids.world.locked')">
+            <UiIcon name="lock" :size="22" />{{
+              locale === 'vi' ? nextLocked.vi : nextLocked.title
+            }}
+          </span>
+          <span class="pill-btn stat">
+            <UiIcon name="star" :size="24" class="star" />{{
+              t('kids.game.starsCount', { n: totals.stars })
+            }}
+            <UiIcon name="flower" :size="24" class="flower" />{{ totals.flowers }}
+          </span>
+        </template>
+        <button v-else type="button" class="pill-btn" @click="backToMap">
+          <UiIcon name="map" :size="26" />{{ t('kids.game.map') }}
         </button>
-      </div>
-
-      <div v-if="world && view === 'map'" class="hud center">
-        <span class="pill">
-          <UiIcon name="star" :size="34" class="star" />{{ totals.stars }}
-          <UiIcon name="flower" :size="34" class="flower" />{{ totals.flowers }}
-        </span>
       </div>
 
       <div class="hud right">
@@ -207,7 +218,7 @@ onUnmounted(() => {
           :aria-label="sound ? t('kids.game.mute') : t('kids.game.unmute')"
           @click="toggleSound"
         >
-          <UiIcon :name="sound ? 'volume' : 'mute'" :size="40" />
+          <UiIcon :name="sound ? 'volume' : 'mute'" :size="30" />
         </button>
         <template v-if="world && view === 'map'">
           <button
@@ -218,7 +229,7 @@ onUnmounted(() => {
             :title="show3d ? t('kids.game.view2d') : t('kids.game.view3d')"
             @click="toggle3d"
           >
-            <UiIcon :name="show3d ? 'map' : 'box'" :size="40" />
+            <UiIcon :name="show3d ? 'map' : 'box'" :size="30" />
           </button>
           <button
             type="button"
@@ -227,29 +238,10 @@ onUnmounted(() => {
             :aria-label="t('kids.world.water')"
             @click="view = 'review'"
           >
-            <UiIcon name="water" :size="44" />
+            <UiIcon name="water" :size="32" />
             <span v-if="world.dueCount" class="badge">{{ world.dueCount }}</span>
           </button>
         </template>
-      </div>
-
-      <div v-if="world && view === 'map'" class="hud tiers">
-        <button
-          v-for="x in tiersWithPlaces"
-          :key="x.id"
-          type="button"
-          class="hud-btn tier"
-          :class="{ on: x.id === tierId }"
-          :aria-label="x.title"
-          @click="tierId = x.id"
-        >
-          <UiIcon name="map" :size="34" />
-          <span class="tier-name">{{ x.title }}</span>
-        </button>
-        <span v-if="nextLocked" class="hud-btn tier locked" :title="t('kids.world.locked')">
-          <UiIcon name="lock" :size="30" />
-          <span class="tier-name">{{ nextLocked.title }}</span>
-        </span>
       </div>
 
       <p v-if="world && view === 'map' && !show3d" class="hint">
@@ -265,9 +257,9 @@ onUnmounted(() => {
   inset: 0;
   z-index: 30;
   overflow: hidden;
-  background: linear-gradient(#79cdf2, #46a5db);
-  color: #3b2a3a;
-  font-family: var(--font-ui);
+  background: #12b4c8;
+  color: #3a2413;
+  font-family: var(--font-kids);
 }
 .stage {
   position: absolute;
@@ -301,127 +293,113 @@ onUnmounted(() => {
   position: absolute;
   z-index: 5;
   display: flex;
-  gap: 16px;
+  align-items: center;
+  gap: 10px;
   pointer-events: none;
 }
 .hud > * {
   pointer-events: auto;
 }
 .left {
-  top: 24px;
-  left: 28px;
+  top: 20px;
+  left: 24px;
 }
 .right {
-  top: 24px;
-  right: 28px;
+  top: 20px;
+  right: 24px;
 }
-.center {
-  top: 26px;
-  left: 50%;
-  transform: translateX(-50%);
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 58px;
+  padding: 0 22px;
+  border: 3px solid #e7c98e;
+  border-radius: 29px;
+  background: #fff9ea;
+  color: #6b3e1e;
+  font-family: var(--font-kids);
+  font-size: 22px;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
 }
-.tiers {
-  right: 28px;
-  bottom: 28px;
+.pill-btn.on {
+  border-color: #f7b91a;
+  background: #d32f2f;
+  color: #fff;
+}
+.pill-btn.locked,
+.pill-btn.stat {
+  cursor: default;
+}
+.pill-btn.locked {
+  opacity: 0.72;
+}
+.pill-btn:focus-visible,
+.hud-btn:focus-visible {
+  outline: 4px solid #16bfc8;
+  outline-offset: 3px;
+}
+.star {
+  color: #d9a24a;
+  fill: #f7b91a;
+}
+.flower {
+  margin-left: 8px;
+  color: #e0508f;
 }
 .hud-btn {
   position: relative;
   display: grid;
   place-items: center;
-  width: 92px;
-  height: 92px;
+  width: 64px;
+  height: 64px;
   padding: 0;
-  border: 5px solid #3b2a3a;
+  border: 3px solid #e7c98e;
   border-radius: 50%;
-  background: #fff8e2;
-  color: #3b2a3a;
-  font: inherit;
+  background: #fff9ea;
+  color: #6b3e1e;
   cursor: pointer;
-  box-shadow: 0 7px 0 0 #3b2a3a;
 }
 .hud-btn:active:not(:disabled) {
-  transform: translateY(6px);
-  box-shadow: 0 1px 0 0 #3b2a3a;
+  transform: translateY(3px);
 }
 .hud-btn:disabled {
   opacity: 0.5;
   cursor: default;
 }
 .water {
-  background: #d6f0ff;
-  color: #2f7fb8;
+  color: #1e93d6;
 }
 .badge {
   position: absolute;
-  top: -10px;
-  right: -10px;
-  min-width: 38px;
-  padding: 3px 8px;
-  border: 4px solid #3b2a3a;
+  top: -8px;
+  right: -8px;
+  min-width: 30px;
+  padding: 1px 7px;
+  border: 3px solid #f7b91a;
   border-radius: 999px;
-  background: #ff5a5a;
+  background: #d32f2f;
   color: #fff;
-  font-size: 20px;
-  font-weight: 900;
-}
-.tier {
-  width: 108px;
-  height: 108px;
-  align-content: center;
-  gap: 2px;
-}
-.tier.on {
-  background: #ffe066;
-}
-.tier.locked {
-  opacity: 0.6;
-  cursor: default;
-}
-.tier-name {
-  max-width: 96px;
-  overflow: hidden;
-  font-size: 15px;
-  font-weight: 900;
-  line-height: 1.1;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.pill {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 28px;
-  border: 5px solid #3b2a3a;
-  border-radius: 999px;
-  background: #fff8e2;
-  box-shadow: 0 7px 0 0 #3b2a3a;
-  font-size: 36px;
-  font-weight: 900;
-}
-.pill .star {
-  color: #e0a620;
-  fill: #ffd34d;
-}
-.pill .flower {
-  margin-left: 14px;
-  color: #e0508f;
+  font-size: 17px;
+  font-weight: 800;
 }
 .hint {
   position: absolute;
-  bottom: 30px;
-  left: 50%;
+  bottom: 24px;
+  right: 24px;
   z-index: 5;
-  max-width: 900px;
+  max-width: 620px;
   margin: 0;
-  padding: 10px 24px;
-  border: 4px solid #3b2a3a;
-  border-radius: 22px;
-  background: rgb(255 248 226 / 92%);
+  padding: 8px 20px;
+  border: 3px solid #e7c98e;
+  border-radius: 20px;
+  background: rgb(255 249 234 / 94%);
+  color: #6b3e1e;
+  font-family: var(--font-kids);
   font-size: 19px;
-  font-weight: 700;
-  text-align: center;
-  transform: translateX(-50%);
+  font-weight: 600;
   pointer-events: none;
 }
 </style>

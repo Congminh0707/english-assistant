@@ -589,14 +589,6 @@
       "goReview": "To the well, review {n} words",
       "todayPanel": "Today",
       "close": "Close"
-      "todayPanel": "Today",
-      "close": "Close"
-    },
-    "search": {
-      "title": "Search words",
-      "placeholder": "Type an English word or Vietnamese meaning…",
-      "none": "No match.",
-      "suggest": "Did you mean: {words}?"
     },
     "search": {
       "title": "Search words",
@@ -674,6 +666,8 @@
       "reset": "Reset progress",
       "confirmReset": "Reset progress for “{word}”? It will start over, and extra cards will be recreated once you know the word.",
       "noMatch": "No words match the filter.",
+      "clearFilters": "Clear filters",
+      "emptyHint": "Copy a word and look it up to save it, or save words from lessons.",
       "phrase": "Phrase",
       "siblingsHint": "{n} extra cards (Vietnamese→English, listen & type, fill the blank)",
       "sortBy": "Sort by",
@@ -713,7 +707,7 @@
       "ielts": "IELTS preparation"
     },
     "onboarding": {
-      "title": "Welcome to English Assistant! 🎉",
+      "title": "Welcome to English Assistant!",
       "step1": "What is your name and why are you learning English?",
       "name": "Your name",
       "namePlaceholder": "For example: Lan",
@@ -783,10 +777,6 @@
       "themeLight": "Light",
       "themeDark": "Dark",
       "themeSystem": "Follow system",
-      "theme": "Colour theme",
-      "themeLight": "Light",
-      "themeDark": "Dark",
-      "themeSystem": "Follow system",
       "language": "Language",
       "size": "Mascot size",
       "launchAtLogin": "Launch at Windows startup",
@@ -847,7 +837,6 @@
         "match_pairs": "Match words with meanings"
       },
       "counter": "Exercise {index}/{total}",
-      "keysHint": "Enter to check / continue · 1-4 to pick an answer",
       "eta": "about {n} min",
       "keyChoice": "1–4: pick an answer · Enter: check · R: replay (listening)",
       "keyDictation": "Type the sentence, then Enter to check · R: replay (when not typing)",
@@ -1076,6 +1065,7 @@
       "tapToHear": "Tap a tile to hear the pronunciation.",
       "startExercises": "Start exercises ({n} questions)",
       "counter": "Question {index}/{total}",
+      "keysHint": "Enter to check / continue · 1-4 to pick an answer",
       "tf": {
         "true": "True",
         "false": "False",
@@ -1095,7 +1085,7 @@
       "check": "Check",
       "next": "Next",
       "finish": "See results",
-      "correct": "Correct! ✓",
+      "correct": "Correct!",
       "wrong": "Not quite — answer:",
       "passed": "Lesson complete! {score}%",
       "notPassed": "You scored {score}%",
@@ -1316,6 +1306,7 @@
       "sayHint": "Listen, say it, then tap the star (speech is not graded yet)"
     },
     "game": {
+      "spots": {"cantho": ["Sign pole", "Watermelons", "Floating market", "Pineapples", "Ninh Kieu Wharf"], "dalat": ["Da Lat Station", "Steam train", "Pine hill", "Xuan Huong Lake", "Flowers"], "danang": ["Dragon Bridge", "Dragon fire", "Han River", "Tall buildings", "Swing bridge"], "halong": ["Rock islands", "Sailboat", "Cave", "Fishing village", "Fish cages"], "hanoi": ["Turtle Tower", "Ngoc Son Temple", "The Huc Bridge", "Old Quarter", "Cyclo"], "hcmc": ["Clock tower", "Ben Thanh Market", "Sao tree", "Bus", "Motorbikes"], "hue": ["Noon Gate", "Perfume River", "Dragon boat", "Trang Tien Bridge", "Ao dai"], "nhatrang": ["Ponagar Towers", "Island", "Sea", "Basket boat", "Sandy beach"], "ninhbinh": ["Limestone hills", "Cave", "Rice field", "Foot rowing", "Buffalo"], "phuquoc": ["Sunset", "Fishing village", "Stilt house", "Basket boat", "Fishing net"], "sapa": ["Misty mountain", "Rice terraces", "Hill village", "Buffalo", "Paddy field"], "hoian": ["Bridge Pagoda", "Lanterns", "Floating lanterns", "Boat", "Old house"]},
       "map": "Back to map",
       "village": "Back to village",
       "starsCount": "{n} stars",
@@ -1518,17 +1509,5 @@
       "v": "Top teeth touch the lower lip and the sound is voiced (very); not \"b\".",
       "f": "Top teeth touch the lower lip and you blow air, no voice (fish)."
     }
-  },
-  "spritePack": {
-    "title": "Sharper pets (high resolution)",
-    "desc": "Download (~{mb} MB) to show pets and accessories at 288px, sharper than the 96px sprites bundled with the app. Optional.",
-    "download": "Download ({mb} MB)",
-    "downloading": "Downloading… {pct}%",
-    "cancel": "Cancel",
-    "ready": "Installed",
-    "remove": "Remove pack",
-    "retry": "Retry download",
-    "updateAvailable": "Update available",
-    "update": "Update ({mb} MB)"
   }
 }

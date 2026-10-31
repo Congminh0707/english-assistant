@@ -10,8 +10,7 @@ import type {
 } from '@shared/schemas/lesson'
 import { LESSON_PASS_PERCENT } from '@shared/schemas/lesson'
 import { invoke } from '@renderer/shared/ipc'
-import PxBar from '@renderer/shared/components/PxBar.vue'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import { BookOpen } from 'lucide-vue-next'
 import AudioPackPanel from '@renderer/shared/components/AudioPackPanel.vue'
 import LessonExercises from './LessonExercises.vue'
 import LessonViewer from './LessonViewer.vue'
@@ -118,9 +117,9 @@ onMounted(async () => {
       @finish="finish"
     />
 
-    <PxPanel v-else-if="mode === 'result' && result && lesson" class="result">
+    <div v-else-if="mode === 'result' && result && lesson" class="card result">
       <div class="stars" aria-hidden="true">
-        <UiIcon v-for="n in stars" :key="n" name="star" :size="28" />
+        <UiIcon v-for="n in stars" :key="n" name="star" :size="32" />
       </div>
       <h2>
         {{
@@ -130,7 +129,7 @@ onMounted(async () => {
         }}
       </h2>
       <p class="muted">{{ lesson.title }} · {{ t('study.lessons.best', { n: result.best }) }}</p>
-      <p v-if="result.firstCompletion" class="reward">
+      <p v-if="result.firstCompletion" class="chip chip--xp">
         {{ t('study.missions.reward', { xp: result.xp, coins: result.coins }) }}
       </p>
       <p v-else-if="result.score < LESSON_PASS_PERCENT" class="muted">
@@ -143,7 +142,7 @@ onMounted(async () => {
           class="btn btn--primary"
           @click="open(result.nextLessonId)"
         >
-          {{ t('study.lessons.nextLesson') }} →
+          {{ t('study.lessons.nextLesson') }} <UiIcon name="next" />
         </button>
         <button type="button" class="btn" @click="mode = 'read'">
           {{ t('study.lessons.reread') }}
@@ -155,31 +154,34 @@ onMounted(async () => {
           {{ courseMode ? t('study.courses.backToCourse') : t('study.lessons.toList') }}
         </button>
       </div>
-    </PxPanel>
+    </div>
 
     <template v-else-if="catalog">
-      <h1>{{ t(`study.${kindKey}.title`) }}</h1>
+      <h1 class="page-title">{{ t(`study.${kindKey}.title`) }}</h1>
       <p class="muted">{{ t(`study.${kindKey}.intro`) }}</p>
       <AudioPackPanel v-if="kind === 'listening'" compact />
 
-      <PxPanel class="progress">
+      <div class="card progress">
         <div class="progress-text">
           {{ t('study.lessons.progress', { done: catalog.doneCount, total: catalog.totalCount }) }}
         </div>
-        <PxBar :value="catalog.doneCount" :max="Math.max(1, catalog.totalCount)" label="progress" />
+        <progress class="bar" :value="catalog.doneCount" :max="Math.max(1, catalog.totalCount)" />
         <button v-if="nextUp" type="button" class="btn btn--primary" @click="open(nextUp.id)">
           <UiIcon name="play" /> {{ t('study.lessons.continue') }}: {{ nextUp.title }}
         </button>
-        <p v-else-if="catalog.totalCount" class="reward">
+        <p v-else-if="catalog.totalCount" class="chip chip--success">
           <UiIcon name="party" /> {{ t('study.lessons.allDone') }}
         </p>
-      </PxPanel>
+      </div>
 
-      <p v-if="!catalog.units.length" class="muted">{{ t('study.lessons.empty') }}</p>
+      <div v-if="!catalog.units.length" class="empty">
+        <span class="empty-ico"><BookOpen :size="22" :stroke-width="2.2" /></span>
+        <strong>{{ t('study.lessons.empty') }}</strong>
+      </div>
 
-      <PxPanel v-for="unit in catalog.units" :key="unit.id" class="unit">
+      <section v-for="unit in catalog.units" :key="unit.id" class="card unit">
         <header class="unit-head">
-          <span class="unit-icon">{{ unit.icon }}</span>
+          <span class="unit-icon"><BookOpen :size="20" :stroke-width="2.2" /></span>
           <div>
             <h2>{{ unit.title }}</h2>
             <p class="muted">{{ unit.summary }}</p>
@@ -202,14 +204,14 @@ onMounted(async () => {
                 <span class="lesson-summary">{{ l.summary }}</span>
               </span>
               <span class="lesson-meta">
-                <span class="tag">{{ cefrLabel(l.level) }}</span>
+                <span class="chip chip--primary">{{ cefrLabel(l.level) }}</span>
                 <span class="muted">{{ t('study.lessons.minutes', { n: l.minutes }) }}</span>
                 <span v-if="l.progress.best !== null" class="best">{{ l.progress.best }}%</span>
               </span>
             </button>
           </li>
         </ul>
-      </PxPanel>
+      </section>
     </template>
   </section>
 </template>
@@ -217,50 +219,56 @@ onMounted(async () => {
 <style scoped>
 .lessons {
   display: grid;
-  gap: 12px;
-  max-width: 760px;
-  margin: 0 auto;
+  gap: var(--sp-3);
+  max-width: 980px;
 }
-h1 {
+.page-title {
   margin: 0;
-  font-size: var(--fs-2xl);
 }
 h2 {
   margin: 0;
   font-size: var(--fs-lg);
+  font-weight: 800;
 }
 .muted {
   margin: 0;
   color: var(--c-ink-soft);
-  font-size: 13px;
+  font-size: var(--fs-sm);
 }
 .progress {
   display: grid;
-  gap: 8px;
-  padding: 14px 16px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--sp-1) var(--sp-4);
+  align-items: center;
+}
+.progress .bar {
+  width: 100%;
 }
 .progress-text {
   font-weight: 700;
 }
-.reward {
-  margin: 0;
-  font-weight: 700;
-  color: var(--c-xp);
-}
-.unit {
-  padding: 14px 16px;
+.progress .btn,
+.progress .chip {
+  grid-row: 1 / 3;
+  grid-column: 2;
 }
 .unit-head {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-3);
 }
 .unit-head > div {
   flex: 1;
 }
 .unit-icon {
-  font-size: 30px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-md);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
 }
 .unit-count {
   font-weight: 700;
@@ -268,7 +276,7 @@ h2 {
 }
 .list {
   display: grid;
-  gap: 6px;
+  gap: var(--sp-2);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -276,21 +284,26 @@ h2 {
 .lesson {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: var(--sp-3);
   width: 100%;
-  padding: 8px 10px;
-  border: 1px solid var(--c-line);
-  background: var(--c-bg);
+  padding: var(--sp-2) var(--sp-3);
+  border: 2px solid var(--c-line);
+  border-radius: var(--r-md);
+  background: var(--c-surface);
+  color: var(--c-ink);
   font: inherit;
   text-align: left;
   cursor: pointer;
-  border-radius: var(--r-md);
 }
 .lesson:hover {
-  background: var(--c-primary-soft);
+  background: var(--c-surface-2);
 }
-.lesson.done {
-  background: #eef8f0;
+.lesson .state {
+  display: inline-flex;
+  color: var(--c-line);
+}
+.lesson.done .state {
+  color: var(--c-success);
 }
 .lesson-main {
   flex: 1;
@@ -302,7 +315,7 @@ h2 {
 }
 .lesson-summary {
   overflow: hidden;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: var(--c-ink-soft);
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -310,31 +323,45 @@ h2 {
 .lesson-meta {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
-}
-.tag {
-  padding: 0 5px;
-  font-weight: 700;
-  color: #fff;
-  background: var(--c-xp);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-pill);
+  gap: var(--sp-2);
+  font-size: var(--fs-xs);
 }
 .best {
   font-weight: 700;
   color: var(--c-success);
 }
+.empty {
+  display: grid;
+  gap: var(--sp-3);
+  justify-items: center;
+  padding: var(--sp-7) 0;
+  font-size: var(--fs-xl);
+  text-align: center;
+}
+.empty-ico {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--r-md);
+  background: var(--c-surface-2);
+  color: var(--c-ink-soft);
+}
 .result {
   display: grid;
-  gap: 8px;
+  gap: var(--sp-2);
   justify-items: center;
-  padding: 28px 24px;
+  max-width: 560px;
+  margin: var(--sp-6) auto 0;
+  padding: var(--sp-6) var(--sp-5);
   text-align: center;
+}
+.result h2 {
+  font-size: var(--fs-2xl);
 }
 .stars {
   display: flex;
-  gap: 6px;
+  gap: var(--sp-2);
   color: var(--c-coin);
 }
 .stars :deep(svg) {
@@ -344,7 +371,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
-  margin-top: 8px;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
 }
 </style>

@@ -1,115 +1,197 @@
-/* Kiểu dùng chung cho giao diện trẻ em: nút to, màu tươi, ít chữ. Tiền tố k- để không đụng giao diện người lớn. */
+/* Kiểu dùng chung cho giao diện trẻ em (thiết kế v2, bảng S5Kids*): Baloo 2, ô to viền mực, ít chữ. Tiền tố k- để không đụng giao diện người lớn. */
 .k-screen {
-  --k-edge: #d3d9e8;
   display: grid;
-  gap: 18px;
+  gap: var(--sp-5);
   justify-items: center;
   align-content: start;
   width: 100%;
   max-width: 880px;
   margin: 0 auto;
+  font-family: var(--font-kids);
 }
 .k-title {
   margin: 0;
-  font-size: 34px;
+  font-family: var(--font-kids);
+  font-size: 40px;
   font-weight: 800;
+  line-height: 1.1;
   text-align: center;
   color: var(--c-ink);
 }
 .k-sub {
+  display: inline-block;
   margin: 0;
-  font-size: 14px;
-  color: var(--c-ink-soft);
+  padding: var(--sp-2) var(--sp-4);
+  border: 3px solid var(--c-ink);
+  border-radius: var(--r-pill);
+  background: var(--c-surface);
+  box-shadow: 0 4px 0 var(--c-ink);
+  font-size: var(--fs-lg);
+  font-weight: 600;
   text-align: center;
+  color: var(--c-ink-soft);
 }
 .k-big {
+  position: relative;
   display: grid;
-  gap: 8px;
+  gap: var(--sp-2);
   justify-items: center;
-  padding: 16px 18px;
+  align-content: center;
+  padding: var(--sp-4);
   min-width: 150px;
-  border: 2px solid var(--c-line);
-  border-radius: 24px;
+  border: 4px solid var(--c-ink);
+  border-radius: var(--r-lg);
   background: var(--c-surface);
   font: inherit;
-  font-size: 22px;
+  font-family: var(--font-kids);
+  font-size: 24px;
   font-weight: 800;
+  line-height: 1.1;
   color: var(--c-ink);
   cursor: pointer;
-  box-shadow:
-    0 6px 0 0 var(--k-edge, #d3d9e8),
-    0 14px 22px rgb(23 28 45 / 8%);
+  box-shadow: 0 8px 0 var(--c-ink);
   transition: transform 80ms ease;
 }
 .k-big:hover:not(:disabled) {
   background: var(--c-surface-2);
 }
 .k-big:active:not(:disabled) {
-  transform: translateY(5px);
-  box-shadow: 0 1px 0 0 var(--k-edge, #d3d9e8);
+  transform: translateY(6px);
+  box-shadow: 0 2px 0 var(--c-ink);
 }
 .k-big:disabled {
-  opacity: 0.55;
   cursor: default;
+}
+.k-big.off {
+  background: var(--c-surface-2);
+  box-shadow: 0 4px 0 var(--c-ink);
+}
+.k-big.soft {
+  background: var(--c-warning-soft);
+  border-color: var(--c-warning);
+  box-shadow: 0 8px 0 var(--c-warning);
 }
 .k-big.right {
   background: var(--c-success-soft);
   border-color: var(--c-success);
+  box-shadow: 0 8px 0 var(--c-success);
 }
 .k-big.wrong {
   background: var(--c-danger-soft);
   border-color: var(--c-danger);
+  box-shadow: 0 8px 0 var(--c-danger);
   animation: k-shake 360ms ease;
 }
 .k-primary {
-  padding: 14px 34px;
-  border: 0;
-  border-radius: 999px;
-  background: var(--c-primary);
-  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-3);
+  min-width: 136px;
+  height: 88px;
+  padding: 0 var(--sp-6);
+  border: 4px solid var(--c-ink);
+  border-radius: var(--r-pill);
+  background: var(--c-success);
+  color: var(--c-surface);
   font: inherit;
-  font-size: 24px;
+  font-family: var(--font-kids);
+  font-size: 26px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow:
-    0 6px 0 0 var(--c-primary-strong),
-    0 14px 22px rgb(63 116 230 / 28%);
+  box-shadow: 0 8px 0 var(--c-ink);
 }
-.k-primary:active {
-  transform: translateY(5px);
-  box-shadow: 0 1px 0 0 var(--k-edge, #d3d9e8);
+.k-primary:active:not(:disabled) {
+  transform: translateY(6px);
+  box-shadow: 0 2px 0 var(--c-ink);
+}
+.k-primary:disabled {
+  opacity: 0.5;
+  cursor: default;
 }
 .k-round {
-  display: grid;
+  display: inline-grid;
   place-items: center;
+  flex: none;
   width: 64px;
   height: 64px;
-  border: 2px solid var(--c-line);
-  border-radius: 50%;
+  padding: 0;
+  border: 3px solid var(--c-ink);
+  border-radius: var(--r-pill);
   background: var(--c-surface);
+  color: var(--c-ink);
   font: inherit;
-  font-size: 30px;
   cursor: pointer;
-  box-shadow: 0 5px 0 0 var(--k-edge, #d3d9e8);
+  box-shadow: 0 4px 0 var(--c-ink);
 }
-.k-round:active {
-  transform: translateY(4px);
-  box-shadow: 0 1px 0 0 var(--k-edge, #d3d9e8);
+.k-round:active:not(:disabled) {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--c-ink);
 }
 .k-round:disabled {
   opacity: 0.4;
   cursor: default;
+}
+.k-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  padding: 0 var(--sp-5);
+  border: 3px solid var(--c-ink);
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--c-ink);
+  font: inherit;
+  font-family: var(--font-ui);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  cursor: pointer;
+}
+.k-bubble {
+  position: relative;
+  display: inline-block;
+  padding: var(--sp-3) var(--sp-5);
+  border: 3px solid var(--c-ink);
+  border-radius: var(--r-lg);
+  background: var(--c-surface);
+  box-shadow: 0 4px 0 var(--c-ink);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--c-ink);
 }
 .k-row {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 18px;
+  gap: var(--sp-5);
 }
 .k-stars {
-  letter-spacing: 2px;
-  font-size: 22px;
+  display: inline-flex;
+  gap: var(--sp-1);
+  color: var(--c-coin);
+}
+.k-stars .off {
+  color: var(--c-line);
+}
+.k-badge {
+  position: absolute;
+  top: calc(var(--sp-3) * -1);
+  right: calc(var(--sp-3) * -1);
+  min-width: 36px;
+  padding: 0 var(--sp-2);
+  border: 3px solid var(--c-ink);
+  border-radius: var(--r-pill);
+  background: var(--c-danger);
+  color: var(--c-surface);
+  font-size: 20px;
+  line-height: 30px;
+  text-align: center;
+}
+.k-badge.soft {
+  background: var(--c-coin);
+  color: var(--c-ink);
 }
 @keyframes k-shake {
   0%,

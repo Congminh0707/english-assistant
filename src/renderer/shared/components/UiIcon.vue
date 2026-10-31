@@ -6,6 +6,7 @@ import {
   BookmarkPlus,
   Box,
   Check,
+  ChevronLeft,
   Circle,
   CircleCheck,
   Delete,
@@ -17,6 +18,7 @@ import {
   Lightbulb,
   Lock,
   Map as MapIcon,
+  Moon,
   Mic,
   PartyPopper,
   Pause,
@@ -72,7 +74,9 @@ const ICONS = {
   map: MapIcon,
   flower: Flower2,
   box: Box,
-  mute: VolumeX
+  mute: VolumeX,
+  back: ChevronLeft,
+  moon: Moon
 } as const satisfies Record<string, Component>
 
 export type UiIconName = keyof typeof ICONS

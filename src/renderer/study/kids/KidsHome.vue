@@ -2,6 +2,7 @@
 import { useI18n } from 'vue-i18n'
 import type { KidsHome } from '@shared/schemas/kids'
 import { useTts } from '@renderer/shared/composables/useTts'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
 import { TILES, type KidsTile } from './kidsText'
 
@@ -19,8 +20,12 @@ function tap(tile: KidsTile): void {
 </script>
 
 <template>
-  <section class="k-screen">
-    <h1 class="k-title">{{ home ? `Hello, ${home.petName}!` : 'Hello!' }}</h1>
+  <section class="home">
+    <div class="pet">
+      <span class="k-bubble hello">{{ home ? `Hello, ${home.petName}!` : 'Hello!' }}</span>
+      <!-- Chỗ đặt hình thú cưng (agent F thay bằng hình chibi) -->
+      <PixelPicture id="cat" :size="200" class="pet-pic" />
+    </div>
     <div class="grid">
       <button
         v-for="tile in TILES"
@@ -29,11 +34,14 @@ function tap(tile: KidsTile): void {
         class="k-big tile"
         @click="tap(tile)"
       >
-        <PixelPicture :id="tile.picture" :size="128" />
-        <span class="label">{{ tile.say }}</span>
-        <span class="vi">{{ t(tile.viKey) }}</span>
-        <span v-if="tile.id === 'play' && home?.dueCount" class="badge">{{ home.dueCount }}</span>
-        <span v-if="tile.id === 'stickers' && home" class="badge soft">
+        <span class="pic"><PixelPicture :id="tile.picture" :size="96" /></span>
+        <span class="text">
+          <span class="label">{{ tile.say }}</span>
+          <span class="vi">{{ t(tile.viKey) }}</span>
+          <UiIcon name="volume" :size="24" class="say" />
+        </span>
+        <span v-if="tile.id === 'play' && home?.dueCount" class="k-badge">{{ home.dueCount }}</span>
+        <span v-if="tile.id === 'stickers' && home" class="k-badge soft">
           {{ home.stickersEarned }}/{{ home.stickersTotal }}
         </span>
       </button>
@@ -42,39 +50,66 @@ function tap(tile: KidsTile): void {
 </template>
 
 <style scoped>
+.home {
+  display: grid;
+  grid-template-columns: minmax(200px, 280px) 1fr;
+  gap: var(--sp-6);
+  align-items: center;
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  font-family: var(--font-kids);
+}
+.pet {
+  display: grid;
+  gap: var(--sp-4);
+  justify-items: center;
+}
+.hello {
+  font-size: 28px;
+  white-space: nowrap;
+}
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(220px, 1fr));
-  gap: 22px;
-  width: 100%;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  gap: var(--sp-6) var(--sp-5);
 }
 .tile {
-  position: relative;
-  padding: 18px 12px 14px;
+  display: flex;
+  gap: var(--sp-4);
+  justify-content: flex-start;
+  min-height: 150px;
+  text-align: left;
+}
+.pic {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 120px;
+  height: 120px;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+}
+.text {
+  display: grid;
+  gap: var(--sp-1);
+  justify-items: start;
 }
 .label {
-  font-size: 28px;
+  font-size: 30px;
 }
 .vi {
-  font-size: 12px;
-  font-weight: 500;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
   color: var(--c-ink-soft);
 }
-.badge {
-  position: absolute;
-  top: 10px;
-  right: 12px;
-  min-width: 34px;
-  padding: 2px 8px;
-  border: 2px solid var(--c-line);
-  border-radius: 20px;
-  background: var(--c-danger);
-  color: #fff;
-  font-size: 20px;
-  text-align: center;
+.say {
+  color: var(--c-warning);
 }
-.badge.soft {
-  background: var(--c-warning);
-  color: var(--c-ink);
+@media (max-width: 900px) {
+  .home {
+    grid-template-columns: 1fr;
+  }
 }
 </style>

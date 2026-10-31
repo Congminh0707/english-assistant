@@ -250,67 +250,67 @@
           "%PET% is sitting right here with you~"
         ]
       },
-      "webster": {
+      "lupo": {
         "greetingMorning": [
-          "Hero reporting for duty! Good morning! 🕸️",
-          "It's morning, let's spin some study webs!",
-          "Good morning, partner!"
+          "Awoo~ Good morning, little friend! 🌙",
+          "It's morning, the silver wolf is up to study with you!",
+          "Good morning! The moon is down, the sun is up~"
         ],
         "greetingAfternoon": [
-          "Today's mission: learn 5 new words!",
-          "Good afternoon! %PET% swung right over~",
-          "It's hero training time!"
+          "Afternoon! Shall we hunt a few new words?",
+          "Good afternoon! %PET% ran right over~",
+          "Cool breeze, let's keep learning!"
         ],
         "greetingEvening": [
-          "It's evening, let's patrol our reviews 🌙",
-          "Good evening, partner!",
-          "The city is quiet, perfect for reviewing."
+          "Evening, the moon is up. A quick review round? 🌙",
+          "Good evening! The silver wolf is guarding your lessons.",
+          "Awoo~ a little review, then rest."
         ],
         "greetingNight": [
-          "Even heroes need sleep... 😴",
-          "It's late, time to rest!",
-          "Good night! More webs tomorrow~"
+          "The moon is bright... but it's late, time to sleep 😴",
+          "It's late, let's rest!",
+          "Good night! See you under the moonlight~"
         ],
         "pat": [
-          "Hehe, my spider-sense is tickling!",
-          "Thank you, partner ♥",
+          "Hehe, my fur tickles!",
+          "Thank you, little friend ♥",
           "%PET% loves pats!",
-          "My web is vibrating!"
+          "My tail is wagging!"
         ],
         "hungry": [
-          "Even heroes get hungry... 🍙",
-          "I need energy, feed me~",
-          "I'm hungry! Patrolling is tiring."
+          "My wolf tummy is rumbling... 🍙",
+          "I'm hungry, feed me~",
+          "I'm hungry! All that running is tiring."
         ],
         "fed": [
-          "Energy recharged! 💪",
-          "Yummy! Power at 100%!",
-          "Thanks, partner!"
+          "Full tummy! 💪",
+          "Yummy! Power up 100%!",
+          "Thanks, little friend!"
         ],
         "levelUp": [
-          "Level up! Spider power rising! 🎉",
-          "Higher webs ahead!",
+          "Level up! The silver wolf is stronger! 🎉",
+          "Level up! Awoo~ awoo~",
           "%PET% got stronger!"
         ],
         "wake": [
-          "%PET% is back in action! 🕸️",
-          "Yaaawn... any mission, partner?",
-          "My spider-sense says you are back!"
+          "%PET% is back! 🌙",
+          "Yaaawn... anything to do, little friend?",
+          "I smell you're back!"
         ],
         "missionDone": [
-          "Mission accomplished! 🎯",
-          "Great work, partner! ⭐",
-          "Another victory!"
+          "Mission complete! 🎯",
+          "Great job, little friend! ⭐",
+          "Another win!"
         ],
         "evolved": [
-          "%PET% evolved! Like my new suit? ✨",
-          "Wow, new powers! 🎉",
+          "%PET% evolved! Like the new fur? ✨",
+          "Wow, new power! 🎉",
           "Look at the new %PET%! ⭐"
         ],
         "idle": [
-          "Spider-sense says: study time! 🕸️",
-          "One more word, partner?",
-          "Spinning a web while I wait~",
+          "Awoo~ it's study time! 🌙",
+          "Learn one more word, little friend?",
+          "The wolf is waiting for you~",
           "Tiny mission: drink some water! 💧"
         ]
       },
@@ -835,6 +835,20 @@
         "match_pairs": "Match words with meanings"
       },
       "counter": "Exercise {index}/{total}",
+      "keysHint": "Enter to check / continue · 1-4 to pick an answer",
+      "eta": "about {n} min",
+      "keyChoice": "1–4: pick an answer · Enter: check · R: replay (listening)",
+      "keyDictation": "Type the sentence, then Enter to check · R: replay (when not typing)",
+      "keyCheck": "Enter: check once every answer is set",
+      "keyNext": "Enter: next exercise",
+      "desc": {
+        "mixed": "All five exercise types in one session",
+        "cloze": "Pick the word that fits the blank",
+        "word_order": "Tap the words in order to build the sentence",
+        "listen_choice": "Hear a sentence, pick the right Vietnamese meaning",
+        "dictation": "Listen and type the sentence",
+        "match_pairs": "Tap a word, then its matching meaning"
+      },
       "clozeHelp": "Choose the word that fills the blank:",
       "orderHelp": "Tap the words in the right order to build the English sentence:",
       "listenHelp": "Listen to the English sentence and choose the correct Vietnamese meaning:",
@@ -849,7 +863,7 @@
       "correct": "Correct! ✓",
       "wrong": "Not quite — answer:",
       "accuracy": "{n}% of the words right",
-      "summaryTitle": "Practice session complete! 🎉",
+      "summaryTitle": "Practice session complete!",
       "summaryBody": "You got {correct}/{total} right.",
       "noReward": "You have already earned all of today’s practice rewards (5 sessions) — keep practising anyway!",
       "again": "Practise more"
@@ -1289,6 +1303,10 @@
     },
     "game": {
       "map": "Back to map",
+      "village": "Back to village",
+      "starsCount": "{n} stars",
+      "cardDetail": "{topic}, {total} words, {done} done",
+      "enter": "Enter {name}",
       "play": "Play",
       "close": "Close",
       "landmark3d": "3D landmark — drag to turn",
@@ -1381,9 +1399,9 @@
       "name": "Bi",
       "desc": "Your first companion"
     },
-    "webster": {
-      "name": "Webby",
-      "desc": "A nimble spider hero"
+    "lupo": {
+      "name": "Lupo",
+      "desc": "A gentle silver wolf who howls at the moon"
     },
     "draco": {
       "name": "Draco",

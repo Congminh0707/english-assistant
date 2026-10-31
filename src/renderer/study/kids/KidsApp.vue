@@ -82,24 +82,34 @@ onMounted(loadHome)
       <button
         v-if="view !== 'home'"
         type="button"
-        class="k-round"
+        class="k-round home"
         :aria-label="t('kids.home')"
         @click="goHome"
       >
-        <PixelPicture id="house" :size="44" />
+        <UiIcon name="home" :size="32" />
       </button>
       <span v-else class="spacer" />
-      <span v-if="home" class="score">
-        <PixelPicture id="star" :size="34" />
+      <span v-if="home" class="k-bubble score">
+        <UiIcon name="star" :size="30" class="fill" />
         {{ home.stickersEarned }}
       </span>
-      <button type="button" class="lock" :title="t('kids.parentArea')" @click="openGate('enter')">
-        <UiIcon name="lock" />
+      <button
+        type="button"
+        class="k-round lock"
+        :title="t('kids.parentArea')"
+        :aria-label="t('kids.parentArea')"
+        @click="openGate('enter')"
+      >
+        <UiIcon name="lock" :size="20" />
       </button>
     </header>
 
     <main class="body">
-      <KidsHome v-if="view === 'home'" :home="home" @open="open" />
+      <p v-if="view === 'home' && !home" class="loading">
+        <PixelPicture id="star" :size="96" class="spin" />
+        <span class="k-bubble">{{ t('kids.loading') }}</span>
+      </p>
+      <KidsHome v-else-if="view === 'home'" :home="home" @open="open" />
       <KidsUnits v-else-if="view === 'abc'" @open="openActivity" />
       <KidsActivityView
         v-else-if="view === 'activity' && activity"
@@ -117,13 +127,13 @@ onMounted(loadHome)
 
     <!-- Hết giờ: bé nghỉ ngơi, phụ huynh nhập PIN để cho dùng thêm -->
     <div v-if="locked" class="rest">
-      <PixelPicture id="moon" :size="180" />
+      <UiIcon name="moon" :size="120" />
       <h1>Time to rest!</h1>
       <p class="sub">{{ t('kids.rest.text') }}</p>
-      <button type="button" class="ask" @click="openGate('extend')">
+      <button type="button" class="k-ghost ask" @click="openGate('extend')">
         {{ t('kids.rest.extend') }}
       </button>
-      <button type="button" class="ask" @click="openGate('enter')">
+      <button type="button" class="k-ghost ask" @click="openGate('enter')">
         {{ t('kids.parentArea') }}
       </button>
     </div>
@@ -138,77 +148,82 @@ onMounted(loadHome)
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: linear-gradient(#cfe9ff 0, #eaf6ff 40%, #fff8e7 100%);
+  background: linear-gradient(var(--c-xp-soft) 0, var(--c-bg) 70%, var(--c-success-soft) 100%);
   color: var(--c-ink);
-  font-family: var(--font-ui);
+  font-family: var(--font-kids);
 }
 .bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 12px 18px 0;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5) 0;
+}
+.home {
+  width: 64px;
+  height: 64px;
 }
 .spacer {
   width: 64px;
 }
 .score {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 4px 16px 4px 10px;
-  border: 2px solid var(--c-line);
-  border-radius: 30px;
-  background: var(--c-surface);
-  font-size: 24px;
-  font-weight: 800;
+  gap: var(--sp-2);
+  padding: var(--sp-1) var(--sp-4) var(--sp-1) var(--sp-3);
+  font-size: 26px;
+  line-height: 1.3;
+}
+.score .fill {
+  color: var(--c-coin);
+  fill: currentcolor;
 }
 .lock {
-  width: 44px;
-  height: 44px;
-  border: 2px solid var(--c-line);
-  border-radius: 10px;
-  background: var(--c-surface);
-  font-size: 18px;
-  opacity: 0.6;
-  cursor: pointer;
-}
-.lock:hover {
-  opacity: 1;
+  width: 48px;
+  height: 48px;
+  background: var(--c-surface-2);
+  color: var(--c-ink-soft);
 }
 .body {
   flex: 1;
   overflow-y: auto;
-  padding: 14px 22px 28px;
+  padding: var(--sp-4) var(--sp-5) var(--sp-6);
+}
+.loading {
+  display: grid;
+  gap: var(--sp-4);
+  justify-items: center;
+  margin: var(--sp-7) 0 0;
+}
+.spin {
+  animation: k-bounce 900ms ease infinite;
 }
 .rest {
   position: fixed;
   inset: 0;
   z-index: 40;
   display: grid;
-  gap: 12px;
+  gap: var(--sp-3);
   place-content: center;
   justify-items: center;
-  background: #1f2a52;
-  color: #fff;
+  background: var(--c-bg);
+  color: var(--c-ink);
   text-align: center;
 }
 .rest h1 {
   margin: 0;
-  font-size: 44px;
+  font-size: 48px;
+  font-weight: 800;
 }
 .sub {
   margin: 0;
   max-width: 420px;
-  color: #cfd8ff;
+  font-family: var(--font-ui);
+  color: var(--c-ink-soft);
 }
-.ask {
-  padding: 8px 18px;
-  border: 2px solid #8fa0ff;
-  border-radius: 10px;
-  background: transparent;
-  color: #cfd8ff;
-  font: inherit;
-  cursor: pointer;
+@media (prefers-reduced-motion: reduce) {
+  .spin {
+    animation: none;
+  }
 }
 </style>

@@ -52,12 +52,12 @@ function tap(tile: KidsTile): void {
 <style scoped>
 .home {
   display: grid;
-  grid-template-columns: minmax(200px, 280px) 1fr;
+  grid-template-columns: minmax(180px, 260px) minmax(0, 1fr);
   gap: var(--sp-6);
   align-items: center;
   width: 100%;
   max-width: 1080px;
-  margin: 0 auto;
+  margin: var(--sp-6) auto 0;
   font-family: var(--font-kids);
 }
 .pet {
@@ -71,7 +71,7 @@ function tap(tile: KidsTile): void {
 }
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--sp-6) var(--sp-5);
 }
 .tile {
@@ -79,6 +79,7 @@ function tap(tile: KidsTile): void {
   gap: var(--sp-4);
   justify-content: flex-start;
   min-height: 150px;
+  min-width: 0;
   text-align: left;
 }
 .pic {

@@ -82,7 +82,7 @@ onMounted(loadHome)
       <button
         v-if="view !== 'home'"
         type="button"
-        class="k-round home"
+        class="k-round home-btn"
         :aria-label="t('kids.home')"
         @click="goHome"
       >
@@ -159,7 +159,7 @@ onMounted(loadHome)
   gap: var(--sp-3);
   padding: var(--sp-4) var(--sp-5) 0;
 }
-.home {
+.home-btn {
   width: 64px;
   height: 64px;
 }
@@ -167,6 +167,8 @@ onMounted(loadHome)
   width: 64px;
 }
 .score {
+  margin-left: auto;
+  margin-right: auto;
   display: inline-flex;
   align-items: center;
   gap: var(--sp-2);

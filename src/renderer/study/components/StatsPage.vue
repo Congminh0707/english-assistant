@@ -22,8 +22,14 @@ import {
 const emit = defineEmits<{ checkpoint: [] }>()
 const { t } = useI18n()
 const stats = ref<Stats | null>(null)
+const loadFailed = ref(false)
 async function load(): Promise<void> {
-  stats.value = await invoke('study:stats')
+  loadFailed.value = false
+  try {
+    stats.value = await invoke('study:stats')
+  } catch {
+    loadFailed.value = true
+  }
 }
 
 /** Ô lịch: bắt đầu từ Thứ Hai; chèn ô trống đầu tiên để cột đầu đúng thứ */
@@ -97,6 +103,12 @@ onMounted(load)
 <template>
   <section class="stats">
     <h1 class="page-title">{{ t('study.stats.title') }}</h1>
+
+    <div v-if="loadFailed" class="card state state--error" role="alert">
+      <p>{{ t('study.state.error') }}</p>
+      <button type="button" class="btn btn--sm" @click="load">{{ t('study.state.retry') }}</button>
+    </div>
+    <div v-else-if="!stats" class="card skeleton" aria-busy="true" :aria-label="t('study.state.loading')" />
 
     <template v-if="stats">
       <div class="cards">
@@ -416,7 +428,7 @@ h2 {
 }
 .kpi-icon.warm {
   background: var(--c-warning-soft);
-  color: #e08a00;
+  color: var(--c-warning);
 }
 .kpi-icon.ok {
   background: var(--c-success-soft);
@@ -730,6 +742,38 @@ h2 {
 @media (max-width: 760px) {
   .two {
     grid-template-columns: 1fr;
+  }
+}
+.state {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.state p {
+  margin: 0;
+}
+.state--error {
+  border-radius: var(--r-lg);
+  border-color: var(--c-danger);
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+}
+.skeleton {
+  min-height: 160px;
+  border-radius: var(--r-lg);
+  background: linear-gradient(90deg, var(--c-surface-2), var(--c-surface), var(--c-surface-2));
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
   }
 }
 </style>

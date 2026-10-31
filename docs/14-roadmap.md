@@ -105,10 +105,10 @@ gantt
 Theo [23](23-design-v2-spec.md), làm từng phần, mỗi phần qua `pnpm lint && pnpm test`, `pnpm ui:audit`:
 
 - [x] Token, font, `.btn/.card/.chip`, khung làng và địa điểm
-- [ ] Trang chủ làng (ngày, chiều, đêm) và điều hướng theo địa điểm
+- [x] Trang chủ làng (ngày, chiều, đêm) và điều hướng theo địa điểm. Phần A (2026-11-01): ngăn kéo "Hôm nay" (`TodayDrawer`: đến hạn, thống kê, nhiệm vụ, mục tiêu, chưa có gói) mở từ HUD thay cho `StudyHome` (đã xoá); thú cưng đứng trên đường; Ctrl K `QuickSearch` (kênh `dictionary:lookup`); setting `ui.theme` (sáng/tối/theo hệ thống, `shared/theme.ts` ở cả 3 cửa sổ, làng tối dùng `village-night`)
 - [ ] Học tập, ôn tập, luyện tập, phím tắt
-- [ ] Mascot chibi 5 con, 16 trạng thái, thay sprite pixel; Lupo thay Webby (có đường chuyển cho người đang dùng Webby)
-- [ ] Thẻ từ mới 183 từ thay hình pixel
+- [x] Mascot chibi 5 con, 16 trạng thái + 3 dáng phương tiện, thay sprite pixel trong `PetSprite`; Lupo thay Webby, migration 0007 (2026-11-01). Còn: cửa sổ mascot desktop vẫn sprite pixel + gói 288px (chưa chuyển vector nên chưa gỡ `SpritePackManager`, xem decisions #43)
+- [x] Thẻ từ mới 183 từ thay hình pixel (2026-11-01: `art/cards/*.svg` sinh bằng `scripts/design-data/export-cards.py`, `PixelPicture` ưu tiên; test `art/cards.test.ts`)
 - [ ] Kids World: bản đồ, bệ 3D, cảnh 12 nơi (xuất ảnh), máy bay tầng 2
 - [ ] Kids World tầng 3: quả cầu three.js, soạn lại nội dung kỳ quan thay `e-*.json`
 - [ ] Việc thiết kế còn thiếu ở [23 §7](23-design-v2-spec.md)

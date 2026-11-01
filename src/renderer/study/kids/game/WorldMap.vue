@@ -63,6 +63,9 @@ const SEAT: Record<VehicleKind, number> = { car: 30, boat: 14, plane: 44 }
 const SHADOW: Record<VehicleKind, number> = { car: 82, boat: 0, plane: 100 }
 /** Khói xe / bọt nước / vệt mây, mỗi bao nhiêu ms một lần */
 const PUFF_MS = 150
+/** Chỗ đỗ cách tâm bệ và lệch khỏi tim đường bao nhiêu đơn vị */
+const PARK_FROM_PAD = 250
+const PARK_SIDE = 44
 
 const tier = computed(() => props.world.tiers.find((x) => x.id === props.tierId) ?? null)
 const places = computed(() => [...(tier.value?.places ?? [])].sort((a, b) => a.order - b.order))
@@ -204,9 +207,34 @@ function ring(x: number, y: number, now: number): void {
   })
 }
 
+/**
+ * Chỗ đỗ của thú cưng: bên lề đường, ngoài bệ, để xe và máy bay không che công trình lẫn biển tên.
+ * Đi ngược theo con đường từ nơi đó tới khi ra khỏi bệ rồi lệch sang một bên.
+ */
 function restPos(id: string | null): Point {
   const p = pointOf(id) ?? layout.value.points[0]
   if (!p) return { x: STAGE_W / 2, y: STAGE_H / 2 }
+  const pts = layout.value.points
+  const i = pts.indexOf(p)
+  /** Xa mọi bệ và biển tên (biển nằm dưới bệ, nên phía dưới cần rộng hơn) */
+  const open = (q: Point): boolean =>
+    pts.every((o) => Math.hypot(q.x - o.x, (q.y - o.y) * (q.y > o.y ? 0.6 : 1)) > PARK_FROM_PAD)
+  const roads = [
+    i + 1 < pts.length ? walkPoints(layout.value, i, i + 1, 30) : [],
+    i > 0 ? walkPoints(layout.value, i, i - 1, 30) : []
+  ]
+  for (const road of roads) {
+    const k = road.findIndex(open)
+    if (k > 0) {
+      const q = road[k]
+      const before = road[k - 1]
+      const len = Math.hypot(q.x - before.x, q.y - before.y) || 1
+      return {
+        x: q.x + ((q.y - before.y) / len) * PARK_SIDE,
+        y: q.y - ((q.x - before.x) / len) * PARK_SIDE
+      }
+    }
+  }
   const o = petRestOffset()
   return { x: p.x + o.x, y: p.y + o.y }
 }
@@ -373,7 +401,16 @@ function go(place: ScenePlace): void {
     arrive(place.id, now)
     return
   }
-  const road = [restPos(petAt.value), ...walkPoints(layout.value, from, to), restPos(place.id)]
+  const a = layout.value.points[from]
+  const b = layout.value.points[to]
+  const clear = (q: Point): boolean =>
+    Math.hypot(q.x - a.x, q.y - a.y) > PARK_FROM_PAD &&
+    Math.hypot(q.x - b.x, q.y - b.y) > PARK_FROM_PAD
+  const road = [
+    restPos(petAt.value),
+    ...walkPoints(layout.value, from, to).filter(clear),
+    restPos(place.id)
+  ]
   const fly = polylineSampler(road).length > FLY_MIN
   const pts = fly ? [road[0], road[road.length - 1]] : road
   const sea = pts.map((q) => 'sea' in q && q.sea === true)

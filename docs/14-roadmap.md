@@ -24,7 +24,7 @@ gantt
 ## Nhật ký tiến độ (cập nhật liên tục)
 
 - [x] (2026-11-01) Thiết kế v2, phần H, thế giới của bé: bản đồ Việt Nam 2D/3D, 12 cảnh địa điểm, tầng 2 Các nước, tầng 3 quả địa cầu với 9 kỳ quan ([19](19-kids-world.md)). Còn: cảnh chi tiết cho 6 nước, nhảy thẳng tới một bước của bài học, đo fps trên máy yếu.
-- 🚧 Đang làm (2026-10-31): **áp dụng thiết kế v2 vào app** ([23](23-design-v2-spec.md)). Xong: global (font, token, `ui.css`, `pnpm ui:shot`), khung làng + địa điểm (`VillageMap`, `PlaceShell`, `ArtScene`, `export-art.py`). Bước tiếp: các màn song song theo mục "Áp dụng thiết kế v2", mỗi màn một commit. Kiểm tra: `pnpm lint && pnpm test && pnpm ui:audit`.
+- [x] 2026-11-01: **áp dụng thiết kế v2 vào app** xong, chờ chủ dự án thử tay. Còn: trạng thái phụ S1, S2 chưa đối chiếu ảnh, KidsReview chưa có ảnh, thử mascot kéo bấm, fps máy yếu.
 
 - [x] 2026-10-30: **thiết kế lại UI v2 trên Claude Design** (chưa đụng code) — nhật ký đầy đủ ở [21](21-redesign-v2.md): prompt [20](20-claude-design-prompt.md), bỏ pixel ([decisions #39](decisions.md)), Kitsu + Robo đã duyệt, Bi/Draco/Webby v4 chờ duyệt, bản đồ VN 34 tỉnh + châu Á + Trái Đất + cảnh Hội An + thời tiết + di chuyển + hoạt ảnh bài học + khu phụ huynh (script `scripts/design-data/`). 🚧 Tiếp theo: duyệt nhân vật, hoạt ảnh 6 trạng thái cho cả 5 con, cảnh địa danh còn lại, các màn Study còn lại — xem checklist 21 §6.
 - [x] 2026-10-31: **thiết kế v2 "Làng chữ"** đã duyệt trên canvas, tổng hợp ở [23](23-design-v2-spec.md). Bước tiếp theo: mục "Áp dụng thiết kế v2" bên dưới. Chưa đổi code app.
@@ -114,8 +114,8 @@ Theo [23](23-design-v2-spec.md), làm từng phần, mỗi phần qua `pnpm lint
 - [x] Thẻ từ mới 183 từ thay hình pixel (2026-11-01: `art/cards/*.svg` sinh bằng `scripts/design-data/export-cards.py`, `PixelPicture` ưu tiên; test `art/cards.test.ts`)
 - [x] Phần G (2026-11-01): giao diện bé (`study/kids/*` trừ `game/*`, `KidsWorld.vue`) theo `S5Kids*`: `kids.css` viết lại (Baloo 2 `--font-kids`, ô viền mực 4px + bóng 8px, nút xanh `.k-primary`, `.k-round`, `.k-bubble`, `.k-ghost`), Trang chính, ABC (tab + thẻ hoạt động), bài học/quiz/nói/tập viết/kết quả, Ôn, Thú cưng, Album, lượt chơi tại nơi, cổng PIN hai cột, hết giờ, đang tải. Còn: ảnh đối chiếu Ôn/Lượt chơi (cần vào game), bản tối từng màn, hình thú cưng + thẻ từ chờ agent F, `kids.rest` màn đêm chưa tối riêng
 - [x] Lượt soát cuối (2026-11-01): nhãn Tháp Bút dời xuống dưới thanh trên (`max(84px, …)`), thanh phải của làng chỉ còn icon khi cửa sổ ≤ 780px; `PlaceShell` ẩn tab khi đang học một bài (`SHELL_FOCUS`, `LessonsPage` báo qua provide/inject); 680×520 và 900×640 không còn thanh cuộn ngang (tab địa điểm ngắt dòng, KPI thống kê 2 cột, cột thống kê co lại, tab Cài đặt ngắt dòng, nút Về làng giấu `Esc`); bé: nền cảnh `kids-bg`/`kids-bg-night` (sinh từ `export-art.py --kids`), trang chính và Thú cưng dùng `PetSprite` của thú cưng thật, màn nghỉ ban đêm. `pnpm ui:audit` 0 lỗi, còn 9 cảnh báo màu cứng, đều trong `kids/game/*` và `KidsWorld.vue`. Còn: chưa chụp đối chiếu `KidsReview` (nằm trong game), `PixelPicture`/`PixelBadge` giữ tên cũ (đổi tên cần sửa `KidsVisit`/`kids/game`), `ui-shot` thêm `--js2`.
-- [ ] Kids World: bản đồ, bệ 3D, cảnh 12 nơi (xuất ảnh), máy bay tầng 2
-- [ ] Kids World tầng 3: quả cầu three.js, soạn lại nội dung kỳ quan thay `e-*.json`
+- [x] Kids World: bản đồ, bệ 3D, cảnh 12 nơi, máy bay tầng 2
+- [x] Kids World tầng 3: quả cầu three.js, nội dung 9 kỳ quan (chờ chủ dự án duyệt `reviewed`)
 - [ ] Việc thiết kế còn thiếu ở [23 §7](23-design-v2-spec.md)
 
 ## Phase 0 — Spike: cửa sổ mascot (≈ 2 tuần)

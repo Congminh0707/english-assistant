@@ -445,7 +445,7 @@ function play(): void {
 }
 .help {
   position: absolute;
-  top: 160px;
+  bottom: 24px;
   left: 28px;
   max-width: 300px;
   margin: 0;

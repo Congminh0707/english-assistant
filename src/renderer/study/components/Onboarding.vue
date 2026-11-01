@@ -8,6 +8,9 @@ import { invoke } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { petName as sharedPetName } from '@renderer/shared/i18n'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
+import ArtScene from '@renderer/shared/components/ArtScene.vue'
+import PetSprite from '@renderer/shared/pet/PetSprite.vue'
+import { CHARACTER_IDS } from '@shared/characters'
 
 // Màn hình chào lần đầu: tên + mục tiêu → tên thú cưng → trình độ (làm kiểm tra hoặc tự chọn).
 const emit = defineEmits<{ done: [startTest: boolean] }>()
@@ -58,12 +61,19 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
 </script>
 
 <template>
-  <div class="overlay">
-    <div class="card box" role="dialog" aria-modal="true" aria-labelledby="onb-title">
-      <h1 id="onb-title">{{ t('study.onboarding.title') }}</h1>
-      <div class="steps" aria-hidden="true">
+  <div class="overlay" role="dialog" aria-modal="true" aria-labelledby="onb-title">
+    <aside class="scene">
+      <ArtScene class="art" name="place-pet" />
+      <div class="crew" aria-hidden="true">
+        <PetSprite v-for="id in CHARACTER_IDS" :key="id" :character="id" stage="adult" :size="64" />
+      </div>
+    </aside>
+    <main class="box">
+      <div class="steps">
+        <span class="step-no">{{ t('study.onboarding.stepOf', { n: step }) }}</span>
         <span v-for="n in 3" :key="n" class="dot" :class="{ on: n <= step }" />
       </div>
+      <h1 id="onb-title">{{ t('study.onboarding.title') }}</h1>
 
       <template v-if="step === 1">
         <h2>{{ t('study.onboarding.step1') }}</h2>
@@ -153,7 +163,7 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
           {{ t('study.onboarding.next') }}
         </button>
       </footer>
-    </div>
+    </main>
   </div>
 </template>
 
@@ -163,39 +173,65 @@ async function finish(startTest: boolean, level?: LevelCode): Promise<void> {
   inset: 0;
   z-index: 10;
   display: flex;
-  align-items: center;
+  background: var(--c-bg);
+}
+.scene {
+  position: relative;
+  flex: none;
+  width: 216px;
+  overflow: hidden;
+}
+.art {
+  position: absolute;
+  inset: 0;
+}
+.crew {
+  position: absolute;
+  right: 0;
+  bottom: var(--sp-5);
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
   justify-content: center;
-  padding: var(--sp-5);
-  background: color-mix(in srgb, var(--c-ink) 55%, transparent);
+  gap: 0 var(--sp-1);
 }
 .box {
   display: grid;
+  flex: 1;
+  align-content: center;
   gap: var(--sp-4);
-  width: min(560px, 100%);
-  padding: var(--sp-5) var(--sp-6);
-  box-shadow: var(--shadow-md);
-}
-h1 {
-  margin: 0;
-  font-size: var(--fs-2xl);
-}
-h2 {
-  margin: 0;
-  font-size: var(--fs-lg);
-  color: var(--c-primary);
+  min-width: 0;
+  max-width: 680px;
+  padding: var(--sp-6) var(--sp-7);
+  overflow-y: auto;
 }
 .steps {
   display: flex;
+  align-items: center;
   gap: var(--sp-2);
 }
+.step-no {
+  color: var(--c-ink-soft);
+  font-size: var(--fs-sm);
+}
 .dot {
-  width: 28px;
+  flex: 1;
   height: 6px;
   border-radius: var(--r-pill);
   background: var(--c-surface-2);
 }
 .dot.on {
   background: var(--c-primary);
+}
+h1 {
+  margin: var(--sp-5) 0 0;
+  font-size: var(--fs-3xl);
+}
+h2 {
+  margin: 0;
+  font-size: var(--fs-xl);
+  color: var(--c-ink);
 }
 .field {
   display: grid;
@@ -211,29 +247,30 @@ input:focus {
   box-shadow: 0 0 0 3px var(--c-primary-soft);
 }
 .tracks {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: var(--sp-2);
 }
 .chip-btn {
-  min-height: var(--btn-h-sm);
+  min-height: 40px;
   padding: 0 var(--sp-3);
   border: 2px solid var(--c-line);
-  border-radius: var(--r-pill);
+  border-radius: var(--r-md);
   background: var(--c-surface);
   color: var(--c-ink);
   font: inherit;
   font-size: var(--fs-sm);
   font-weight: 600;
+  text-align: left;
   cursor: pointer;
 }
 .chip-btn:hover:not(:disabled) {
-  background: var(--c-primary-soft);
+  background: var(--c-surface-2);
 }
 .chip-btn.active {
-  border-color: var(--c-coin);
-  background: var(--c-primary);
-  color: var(--c-on-primary);
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
   font-weight: 700;
 }
 .chip-btn:focus-visible {
@@ -257,8 +294,20 @@ input:focus {
 .nav {
   display: flex;
   align-items: center;
+  margin-top: var(--sp-4);
 }
 .spacer {
   flex: 1;
+}
+@media (max-width: 820px) {
+  .scene {
+    width: 160px;
+  }
+  .crew {
+    display: none;
+  }
+  .box {
+    padding: var(--sp-5);
+  }
 }
 </style>

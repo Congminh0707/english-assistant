@@ -707,6 +707,7 @@
       "ielts": "IELTS preparation"
     },
     "onboarding": {
+      "stepOf": "Step {n}/3",
       "title": "Welcome to English Assistant!",
       "step1": "What is your name and why are you learning English?",
       "name": "Your name",

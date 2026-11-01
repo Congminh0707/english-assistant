@@ -707,6 +707,7 @@
       "ielts": "Luyện thi IELTS"
     },
     "onboarding": {
+      "stepOf": "Bước {n}/3",
       "title": "Chào mừng bạn đến với English Assistant!",
       "step1": "Bạn tên là gì và học tiếng Anh để làm gì?",
       "name": "Tên của bạn",

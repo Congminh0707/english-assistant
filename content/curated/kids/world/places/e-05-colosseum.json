@@ -1,0 +1,49 @@
+{
+  "license": "proprietary-own",
+  "source": {
+    "license": "proprietary-own",
+    "origin": "tự soạn"
+  },
+  "reviewed": false,
+  "place": {
+    "id": "colosseum",
+    "tier": "earth",
+    "region": "europe",
+    "order": 5,
+    "suggestOrder": 5,
+    "title": "Colosseum",
+    "vi": "Đấu trường La Mã",
+    "topic": "An old round building",
+    "topicVi": "Toà nhà tròn cổ",
+    "landmark": "wonder-colosseum",
+    "landmarkVi": "Ý, châu Âu",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "hammer",
+      "sentence": {
+        "en": "I can see a hammer.",
+        "vi": "Bé thấy một cái búa."
+      }
+    },
+    {
+      "picture": "fire",
+      "sentence": {
+        "en": "Look at the fire!",
+        "vi": "Nhìn ngọn lửa kìa!"
+      }
+    },
+    {
+      "picture": "scissors",
+      "sentence": {
+        "en": "They are my scissors.",
+        "vi": "Đó là cái kéo của bé."
+      }
+    }
+  ]
+}

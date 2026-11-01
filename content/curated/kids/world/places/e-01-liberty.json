@@ -1,0 +1,49 @@
+{
+  "license": "proprietary-own",
+  "source": {
+    "license": "proprietary-own",
+    "origin": "tự soạn"
+  },
+  "reviewed": false,
+  "place": {
+    "id": "liberty",
+    "tier": "earth",
+    "region": "north-america",
+    "order": 1,
+    "suggestOrder": 1,
+    "title": "Statue of Liberty",
+    "vi": "Tượng Nữ thần Tự do",
+    "topic": "A tall statue",
+    "topicVi": "Bức tượng cao",
+    "landmark": "wonder-liberty",
+    "landmarkVi": "Hoa Kỳ, Bắc Mỹ",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "torch",
+      "sentence": {
+        "en": "Look at the torch!",
+        "vi": "Nhìn ngọn đuốc kìa!"
+      }
+    },
+    {
+      "picture": "flag",
+      "sentence": {
+        "en": "I see a big flag.",
+        "vi": "Bé thấy một lá cờ to."
+      }
+    },
+    {
+      "picture": "books",
+      "sentence": {
+        "en": "They have books.",
+        "vi": "Họ có sách."
+      }
+    }
+  ]
+}

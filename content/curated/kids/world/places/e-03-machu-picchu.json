@@ -1,0 +1,49 @@
+{
+  "license": "proprietary-own",
+  "source": {
+    "license": "proprietary-own",
+    "origin": "tự soạn"
+  },
+  "reviewed": false,
+  "place": {
+    "id": "machu-picchu",
+    "tier": "earth",
+    "region": "south-america",
+    "order": 3,
+    "suggestOrder": 3,
+    "title": "Machu Picchu",
+    "vi": "Machu Picchu",
+    "topic": "A city in the mountains",
+    "topicVi": "Thành phố trên núi",
+    "landmark": "wonder-machu",
+    "landmarkVi": "Peru, Nam Mỹ",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "llama",
+      "sentence": {
+        "en": "Look at the llama!",
+        "vi": "Nhìn con lạc đà không bướu kìa!"
+      }
+    },
+    {
+      "picture": "volcano",
+      "sentence": {
+        "en": "I see a volcano.",
+        "vi": "Bé thấy một ngọn núi lửa."
+      }
+    },
+    {
+      "picture": "mouse",
+      "sentence": {
+        "en": "It is a small mouse.",
+        "vi": "Đó là một con chuột nhỏ."
+      }
+    }
+  ]
+}

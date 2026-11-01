@@ -1,0 +1,49 @@
+{
+  "license": "proprietary-own",
+  "source": {
+    "license": "proprietary-own",
+    "origin": "tự soạn"
+  },
+  "reviewed": false,
+  "place": {
+    "id": "giza",
+    "tier": "earth",
+    "region": "africa",
+    "order": 6,
+    "suggestOrder": 6,
+    "title": "Pyramids of Giza",
+    "vi": "Kim tự tháp Giza",
+    "topic": "Big pyramids",
+    "topicVi": "Kim tự tháp lớn",
+    "landmark": "wonder-giza",
+    "landmarkVi": "Ai Cập, châu Phi",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "pyramid",
+      "sentence": {
+        "en": "It is a big pyramid.",
+        "vi": "Đó là một kim tự tháp to."
+      }
+    },
+    {
+      "picture": "sand",
+      "sentence": {
+        "en": "Look at the sand!",
+        "vi": "Nhìn cát kìa!"
+      }
+    },
+    {
+      "picture": "lightbulb",
+      "sentence": {
+        "en": "I see a light bulb.",
+        "vi": "Bé thấy một bóng đèn."
+      }
+    }
+  ]
+}

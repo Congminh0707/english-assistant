@@ -9,6 +9,9 @@
 
 > ✅ Tầng 2 (2026-11-01): `game/AsiaMap.vue` dùng tranh `kids-pasia`, biển tên là nút HTML, thú cưng đi máy bay theo đường cong tới nước vừa chọn rồi hiện thẻ. **6 nước (`w-*.json`) chưa có cảnh chi tiết:** nút trên thẻ vào thẳng bài học, bản đồ PAsia là cảnh của tầng này. Biển Việt Nam quay về tầng 1.
 
+> ✅ Tầng 3 (2026-11-01): `game/GlobeMap.vue` + `game/globe3d.ts`: quả cầu three.js thật, kéo xoay, tự quay chậm, dừng khi chọn, nhãn HTML chỉ hiện nơi gần tâm và không đè nhau. Bản đồ vẽ lên canvas rồi dán lên khối cầu; đất gộp theo 7 châu lục, không biên giới (`game/earthLand.json`, 76 KB, sinh bằng `scripts/design-data/export-earth.py`). Có sao, Mặt Trăng, vệ tinh, tên lửa, Mặt Trời, hành tinh có vành. 9 kỳ quan: `src/shared/earthWonders.ts`, ảnh `game/wonders/` (158 KB) xuất từ bảng thiết kế. Không có WebGL thì dùng bản đồ `WorldMap` dự phòng. Giảm chuyển động: không tự quay, vật thể đứng yên.
+> Nội dung: `e-01`…`e-09` (3 từ mỗi nơi, tổng 27), giữ nguyên 21 hình cũ của tầng 3 và thêm 6 từ mới (torch, pyramid, sand, llama, dome, brick) có hình vector và thẻ SVG. Vạn Lý Trường Thành trùng Trung Quốc ở tầng 2: tầng 3 dạy từ khác (brick, snowman, snowflake). `wordsPerPlace` tầng 3 đổi 7 → 3 vì mọi hình đã có chủ; chọn 7 từ sẽ phải vẽ thêm 42 hình. Tiến độ cũ không mất, không cần xoá dữ liệu: xem [10](10-data-model.md).
+
 > Thiết kế chi tiết cho [14 — Phase 2b](14-roadmap.md#phase-2b--mở-rộng-từ-vựng-trẻ-em-đề-xuất-2026-10-29) giai đoạn A, [decisions #35](decisions.md) và [#36](decisions.md) (bản đồ 3D + gói tải thêm). Viết 2026-10-29, sửa lần 1 cùng ngày theo góp ý chủ dự án (mỗi nơi có công trình nổi bật, tăng số nơi, bản đồ 3D chi tiết, tài nguyên tải thêm). **Chờ duyệt.** Khi code xong từng phần, đổi 📋 → ✅ ở đây và ở [07 §9](07-learning-modules.md#9-phonics--mầm-non-p1), [10](10-data-model.md), [03](03-architecture.md), [15](15-packaging-and-release.md), [17](17-metrics.md).
 
 ## 1. Mục tiêu & phạm vi
@@ -25,7 +28,7 @@
 | --------- | -------------------------------------------------------- | ---------------------------------------- | -------------- | ----------------------------------------- | --------------------------------------------------------- |
 | 1 `vn`    | 12 tỉnh/thành Việt Nam (3 miền × 4)                      | PA1_1 (50–150 từ)                        | 10             | khung cố định ≤ 5 từ: _It's a cat._       | có sẵn, mọi nơi mở ngay                                   |
 | 2 `world` | ✅ 6 quốc gia (decisions #38)                            | PA1_2                                    | 7              | ≤ 7 từ, thêm tính từ/số nhiều: _Two big…_ | xong **75 %** số nơi tầng 1 **và** ≥ 60 % từ tầng 1 ≥ mầm |
-| 3 `earth` | ✅ Trái Đất: 3 vùng (thiên nhiên, băng & vũ trụ, đồ vật) | PA1_2 cao                                | 7              | câu hoàn chỉnh + ôn trộn mọi tầng         | xong 75 % số nơi tầng 2 + cùng điều kiện mầm              |
+| 3 `earth` | ✅ Trái Đất: 9 kỳ quan thế giới (2026-11-01)             | PA1_2 cao                                | 3              | câu hoàn chỉnh + ôn trộn mọi tầng         | xong 75 % số nơi tầng 2 + cùng điều kiện mầm              |
 
 - **Luật mở tầng giữ nguyên** như đã chốt (6/8 nơi = 75 %, 60 % từ ≥ mầm), viết dạng tỉ lệ để số nơi tăng vẫn đúng: 12 nơi → cần 9 nơi.
 - Mọi con số (12 nơi, 10 từ, 75 %, 60 %) là **tham số** trong `world.json` (§4), thêm nơi không cần sửa code.

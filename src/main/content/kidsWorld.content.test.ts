@@ -3,6 +3,7 @@ import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { missingPictures, validateWorld } from '@shared/kidsWorld'
 import { PICTURE_WORDS } from '@shared/pictures'
+import { WONDER_IDS } from '@shared/earthWonders'
 import { LANDMARK_IDS } from '@shared/voxels/landmarks'
 import { KidsPlaceFileSchema, KidsWorldFileSchema } from '@shared/schemas/kidsWorld'
 import { bundledKidsPlaceFiles, bundledKidsWorldFiles } from './bundledLessons'
@@ -36,7 +37,7 @@ describe('nội dung bản đồ thế giới của bé', () => {
     const errors = validateWorld(world, places, {
       pictureWords: PICTURE_WORDS,
       sensitive,
-      landmarks: new Set(LANDMARK_IDS)
+      landmarks: new Set([...LANDMARK_IDS, ...WONDER_IDS])
     })
       .filter((i) => i.level === 'error')
       .map((i) => `${i.where}: ${i.message}`)

@@ -1,0 +1,49 @@
+{
+  "license": "proprietary-own",
+  "source": {
+    "license": "proprietary-own",
+    "origin": "tự soạn"
+  },
+  "reviewed": false,
+  "place": {
+    "id": "great-wall",
+    "tier": "earth",
+    "region": "asia",
+    "order": 8,
+    "suggestOrder": 8,
+    "title": "Great Wall",
+    "vi": "Vạn Lý Trường Thành",
+    "topic": "A long wall",
+    "topicVi": "Bức tường dài",
+    "landmark": "wonder-wall",
+    "landmarkVi": "Trung Quốc, châu Á",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "brick",
+      "sentence": {
+        "en": "It is a big brick.",
+        "vi": "Đó là một viên gạch to."
+      }
+    },
+    {
+      "picture": "snowman",
+      "sentence": {
+        "en": "I see a snowman.",
+        "vi": "Bé thấy một người tuyết."
+      }
+    },
+    {
+      "picture": "snowflake",
+      "sentence": {
+        "en": "Look at the snowflake!",
+        "vi": "Nhìn bông tuyết kìa!"
+      }
+    }
+  ]
+}

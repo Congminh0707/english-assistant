@@ -10,6 +10,7 @@ import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import KidsReview from '../KidsReview.vue'
 import KidsVisit from '../KidsVisit.vue'
 import AsiaMap from './AsiaMap.vue'
+import GlobeMap from './GlobeMap.vue'
 import { PLACE_ART } from './placeArt.generated'
 import PlaceScene from './PlaceScene.vue'
 import WorldMap from './WorldMap.vue'
@@ -41,6 +42,7 @@ const prefs3d = ((): boolean => {
 })()
 const want3d = ref(prefs3d)
 const webglFailed = ref(false)
+const globeFailed = ref(false)
 
 const tier = computed(() => world.value?.tiers.find((x) => x.id === tierId.value) ?? null)
 const currentPlace = computed(
@@ -181,6 +183,17 @@ onUnmounted(() => {
           :height="STAGE_H"
           @start="start"
           @tier="tierId = $event"
+        />
+        <GlobeMap
+          v-else-if="view === 'map' && tier?.scene === 'globe' && !globeFailed"
+          :key="`globe-${tierId}`"
+          :world="world"
+          :tier-id="tierId"
+          :width="STAGE_W"
+          :height="STAGE_H"
+          :scale="scale"
+          @start="start"
+          @fail="globeFailed = true"
         />
         <WorldMap
           v-else-if="view === 'map'"

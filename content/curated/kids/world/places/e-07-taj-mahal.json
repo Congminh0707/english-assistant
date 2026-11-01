@@ -1,0 +1,49 @@
+{
+  "license": "proprietary-own",
+  "source": {
+    "license": "proprietary-own",
+    "origin": "tự soạn"
+  },
+  "reviewed": false,
+  "place": {
+    "id": "taj-mahal",
+    "tier": "earth",
+    "region": "asia",
+    "order": 7,
+    "suggestOrder": 7,
+    "title": "Taj Mahal",
+    "vi": "Lăng Taj Mahal",
+    "topic": "A white building",
+    "topicVi": "Lăng trắng",
+    "landmark": "wonder-taj",
+    "landmarkVi": "Ấn Độ, châu Á",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "dome",
+      "sentence": {
+        "en": "Look at the big dome!",
+        "vi": "Nhìn mái vòm to kìa!"
+      }
+    },
+    {
+      "picture": "tulip",
+      "sentence": {
+        "en": "This is my tulip.",
+        "vi": "Đây là hoa tulip của bé."
+      }
+    },
+    {
+      "picture": "toothbrush",
+      "sentence": {
+        "en": "I have a toothbrush.",
+        "vi": "Bé có một bàn chải đánh răng."
+      }
+    }
+  ]
+}

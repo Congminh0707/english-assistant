@@ -280,3 +280,7 @@ export const timestamps = {
 - `BackupJob` mỗi ngày: dùng `db.backup()` của better-sqlite3 → `userData/backups/user-YYYYMMDD.db`, giữ 7 bản.
 - Cài đặt → "Xuất dữ liệu": file `.zip` gồm `user.db` + `recordings/` (tuỳ chọn). "Nhập dữ liệu": thay thế sau khi xác nhận.
 - Xoá profile = soft delete, dọn hẳn sau 30 ngày (hoặc nút "Xoá vĩnh viễn" có xác nhận).
+
+## Thế giới của bé: đổi nội dung tầng 3 (2026-11-01)
+
+Không có migration. `content/curated/kids/world/places/e-*.json` đổi từ 3 nơi cũ sang 9 kỳ quan. 21 hình cũ vẫn thuộc tầng 3 nên `srs_cards` (`pic:<id>`) và `lesson_progress` (`kids.word.<id>`) giữ nguyên ý nghĩa. Hàng `kids.place.wild-planet`, `ice-and-sky`, `clever-things` và `xp_events` tương ứng còn trong DB nhưng không được đọc nữa, nên sao của 3 nơi cũ không còn tính vào tổng trên bản đồ. Khoá `kids.worldPlace` trỏ tới nơi cũ tự về nơi gợi ý đầu tiên.

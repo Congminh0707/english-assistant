@@ -144,13 +144,13 @@ Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được n
 
 > **Icon giao diện (2026-10-23):** `lucide-vue-next` (Lucide, license ISC — cho phép dùng/sao chép/phân phối kèm thông báo bản quyền, đi kèm trong gói npm). Hình minh hoạ vẫn là pixel art tự vẽ bằng code; quyết định (2026-10-23): **không dùng ảnh thật**, giữ hình pixel tự vẽ (đã thử Commons/Openverse CC0/CC BY rồi huỷ — xem decisions #30).
 
-### 8c. Dữ liệu bản đồ cho thiết kế lại (thiết kế đã duyệt 2026-10-31, chưa dùng trong app)
+### 8c. Dữ liệu bản đồ cho thiết kế lại (thiết kế đã duyệt 2026-10-31)
 
 | Nguồn | License | Trạng thái | Dùng cho |
 | --- | --- | --- | --- |
 | geoBoundaries VNM ADM1 (wmgeolab) | Phạm vi công cộng | ⏳ mới dùng trong bản thiết kế, **chưa đưa vào app** | ranh giới 63 đơn vị cũ → ghép 34 tỉnh |
 | provinces.open-api.vn (v2) | tra điều khoản trước khi dùng trong app | ⏳ | tên/mã 34 tỉnh thành sau sáp nhập |
-| Natural Earth 50 m | Phạm vi công cộng | ⏳ | bản đồ châu Á, Trái Đất, nước láng giềng |
+| Natural Earth 50 m | Phạm vi công cộng | ✅ trong app từ 2026-11-01: `src/renderer/study/kids/game/earthLand.json` (gộp theo châu lục, giản lược, không có biên giới, sinh bằng `scripts/design-data/export-earth.py`) | quả địa cầu tầng 3; bản đồ châu Á, nước láng giềng trên thiết kế |
 | Be Vietnam Pro, Baloo 2, Noto Sans | OFL | ⏳ chưa bundle | font giao diện v2 ([21](21-redesign-v2.md)) |
 
 Dữ liệu chỉ vào repo/app sau khi mục này được duyệt (quy trình 11).

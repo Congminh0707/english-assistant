@@ -1,0 +1,49 @@
+{
+  "license": "proprietary-own",
+  "source": {
+    "license": "proprietary-own",
+    "origin": "tự soạn"
+  },
+  "reviewed": false,
+  "place": {
+    "id": "chichen-itza",
+    "tier": "earth",
+    "region": "north-america",
+    "order": 2,
+    "suggestOrder": 2,
+    "title": "Chichen Itza",
+    "vi": "Chichén Itzá",
+    "topic": "A stone temple",
+    "topicVi": "Đền đá",
+    "landmark": "wonder-chichen",
+    "landmarkVi": "Mexico, Bắc Mỹ",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "cactus",
+      "sentence": {
+        "en": "It is a big cactus.",
+        "vi": "Đó là một cây xương rồng to."
+      }
+    },
+    {
+      "picture": "ant",
+      "sentence": {
+        "en": "I see a small ant.",
+        "vi": "Bé thấy một con kiến nhỏ."
+      }
+    },
+    {
+      "picture": "pencil",
+      "sentence": {
+        "en": "I have a pencil.",
+        "vi": "Bé có một cây bút chì."
+      }
+    }
+  ]
+}

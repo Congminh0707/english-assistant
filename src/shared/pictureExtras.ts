@@ -113,7 +113,14 @@ export const PICTURE_EXTRAS: Record<string, PictureExtra> = {
   cactus: { en: 'cactus', vi: 'cây xương rồng', code: '1f335' },
   sunflower: { en: 'sunflower', vi: 'hoa hướng dương', code: '1f33b' },
   rose: { en: 'rose', vi: 'hoa hồng', code: '1f339' },
-  tulip: { en: 'tulip', vi: 'hoa tulip', code: '1f337' }
+  tulip: { en: 'tulip', vi: 'hoa tulip', code: '1f337' },
+  // Tầng Trái Đất: có hình vector riêng (shared/art/pictures/wonders.ts), `code` chỉ là dự phòng
+  torch: { en: 'torch', vi: 'ngọn đuốc', code: '1f526' },
+  pyramid: { en: 'pyramid', vi: 'kim tự tháp', code: '1f53a' },
+  sand: { en: 'sand', vi: 'cát', code: '1f3d6' },
+  llama: { en: 'llama', vi: 'con lạc đà không bướu', code: '1f999' },
+  dome: { en: 'dome', vi: 'mái vòm', code: '1f54c' },
+  brick: { en: 'brick', vi: 'viên gạch', code: '1f9f1' }
 }
 
 export const PICTURE_EXTRA_IDS: readonly string[] = Object.keys(PICTURE_EXTRAS)

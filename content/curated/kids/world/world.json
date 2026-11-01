@@ -69,7 +69,7 @@
       "title": "The Earth",
       "vi": "Trái Đất",
       "scene": "globe",
-      "wordsPerPlace": 7,
+      "wordsPerPlace": 3,
       "maxSentenceWords": 9,
       "wordRange": [
         15,

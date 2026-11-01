@@ -1,0 +1,49 @@
+{
+  "license": "proprietary-own",
+  "source": {
+    "license": "proprietary-own",
+    "origin": "tự soạn"
+  },
+  "reviewed": false,
+  "place": {
+    "id": "sydney-opera",
+    "tier": "earth",
+    "region": "oceania",
+    "order": 9,
+    "suggestOrder": 9,
+    "title": "Sydney Opera House",
+    "vi": "Nhà hát Sydney",
+    "topic": "A house of music",
+    "topicVi": "Nhà hát",
+    "landmark": "wonder-sydney",
+    "landmarkVi": "Úc, châu Đại Dương",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "piano",
+      "sentence": {
+        "en": "I can see a piano.",
+        "vi": "Bé thấy một cây đàn piano."
+      }
+    },
+    {
+      "picture": "penguin",
+      "sentence": {
+        "en": "It is a small penguin.",
+        "vi": "Đó là một chú chim cánh cụt nhỏ."
+      }
+    },
+    {
+      "picture": "rocket",
+      "sentence": {
+        "en": "Look at the rocket!",
+        "vi": "Nhìn tên lửa kìa!"
+      }
+    }
+  ]
+}

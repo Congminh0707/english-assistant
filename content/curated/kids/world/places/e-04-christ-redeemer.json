@@ -1,0 +1,49 @@
+{
+  "license": "proprietary-own",
+  "source": {
+    "license": "proprietary-own",
+    "origin": "tự soạn"
+  },
+  "reviewed": false,
+  "place": {
+    "id": "christ-redeemer",
+    "tier": "earth",
+    "region": "south-america",
+    "order": 4,
+    "suggestOrder": 4,
+    "title": "Christ the Redeemer",
+    "vi": "Tượng Chúa Cứu Thế",
+    "topic": "A statue on a hill",
+    "topicVi": "Tượng trên đồi",
+    "landmark": "wonder-christ",
+    "landmarkVi": "Brazil, Nam Mỹ",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "heart",
+      "sentence": {
+        "en": "I see a big heart.",
+        "vi": "Bé thấy một trái tim to."
+      }
+    },
+    {
+      "picture": "tree",
+      "sentence": {
+        "en": "Look at the tree!",
+        "vi": "Nhìn cái cây kìa!"
+      }
+    },
+    {
+      "picture": "earth",
+      "sentence": {
+        "en": "The earth is big.",
+        "vi": "Trái đất thật to."
+      }
+    }
+  ]
+}

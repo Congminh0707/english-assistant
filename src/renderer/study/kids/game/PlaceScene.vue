@@ -10,6 +10,8 @@ import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 import { PLACE_ART } from './placeArt.generated'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import PlaceProgress from './PlaceProgress.vue'
+import SceneWeather from './SceneWeather.vue'
+import { pickWeather } from './sceneWeather'
 import { playSfx } from './sfx'
 
 // Cảnh trong một địa điểm (docs/23-design-v2-spec.md §3): tranh 1280×720 phủ sân khấu, 5 biển chạm là nút HTML đặt theo
@@ -33,6 +35,7 @@ const PET_SPOT: Readonly<Record<string, { x: number; y: number }>> = {
   hoian: { x: 1130, y: 462 }
 }
 const art = computed(() => PLACE_ART[props.place.id])
+const weather = computed(() => pickWeather(props.place.id))
 const petAt = computed(() => PET_SPOT[props.place.id] ?? art.value?.pet ?? { x: 0, y: 0 })
 const sx = computed(() => props.width / 1280)
 const sy = computed(() => props.height / 720)
@@ -69,6 +72,7 @@ function tap(i: number): void {
 <template>
   <div class="place-scene">
     <ArtScene v-if="art" class="art" :name="art.art" />
+    <SceneWeather v-if="art" :place-id="place.id" :weather="weather" />
     <div
       v-if="art && petStore.pet"
       class="pet"

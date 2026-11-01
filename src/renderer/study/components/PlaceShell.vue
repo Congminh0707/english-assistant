@@ -30,7 +30,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 <template>
   <div class="shell">
     <aside class="scene">
-      <ArtScene class="art" :name="scene" />
+      <ArtScene class="art" :name="scene" fill />
       <div class="head">
         <button type="button" class="back" data-nav="village" @click="emit('home')">
           <ArrowLeft :size="15" :stroke-width="2.4" />{{ t('study.place.back') }} <kbd>Esc</kbd>
@@ -89,12 +89,13 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   gap: 6px;
   min-height: 32px;
   padding: 0 var(--sp-3);
-  border: 2px solid var(--c-line);
+  border: 2px solid var(--c-ink);
   border-radius: var(--r-pill);
   background: var(--c-surface);
   color: var(--c-ink);
   font: inherit;
   font-weight: 700;
+  box-shadow: 0 2px 0 var(--c-ink);
   cursor: pointer;
 }
 .back kbd {
@@ -106,9 +107,10 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   align-items: center;
   min-height: 28px;
   padding: 0 var(--sp-3);
-  border: 2px solid var(--c-coin);
+  border: 2px solid var(--c-surface);
   border-radius: var(--r-pill);
   background: var(--c-primary);
+  box-shadow: 0 2px 0 var(--c-ink);
   color: var(--c-on-primary);
   font-size: var(--fs-sm);
   font-weight: 800;

@@ -549,6 +549,19 @@ describe('MissionService', () => {
     expect(c.pet.get().totalXp).toBe(xp0 + 13)
   })
 
+  it('từ lưu từ cùng một câu không bị hỏi liên tiếp khi còn thẻ khác', () => {
+    const context = 'Let us go home and leave now.'
+    c.vocab.save({ contentId: 'word:en:go', text: 'go', context })
+    c.vocab.save({ contentId: 'word:en:leave', text: 'leave', context })
+    c.vocab.save({ contentId: 'word:en:apple', text: 'apple' })
+    const first = c.study.next().card!
+    expect(c.study.next().card!.cardId).toBe(first.cardId) // hỏi lại thì vẫn là thẻ đó
+    c.study.rate(first.cardId, 3, 1000)
+    const second = c.study.next().card!
+    expect(first.context).toBe(context)
+    expect(second.context).toBeNull() // thẻ từ cùng câu bị đẩy lại sau
+  })
+
   it('nhiệm vụ đã xong thì thanh tiến độ không tụt lại khi có thẻ mới đến hạn', () => {
     c.vocab.save({ contentId: 'word:en:go', text: 'go' })
     for (let i = 0; i < 5; i++) {

@@ -27,13 +27,20 @@ const DAY_MS = 86_400_000
 const STREAK_WINDOW_DAYS = 400
 const WORD_LIST_LIMIT = 1000
 /** Số thẻ đến hạn lấy ra mỗi lần để tìm thẻ có nội dung hiển thị được */
-const CANDIDATES = 8
+const CANDIDATES = 12
 
 /**
  * Cửa sổ Học tập: số liệu trang chủ, phiên ôn thẻ SRS (nhiều dạng thẻ → chấm 1–4, hoàn tác), sổ từ và quản lý thẻ.
  * Dùng chung SrsService với mascot nên lịch ôn và XP luôn thống nhất.
  */
 export class StudyService {
+  /** Thẻ vừa hiện: để thẻ kế tiếp không cùng câu ngữ cảnh / cùng kiểu hỏi liên tiếp */
+  private shown: {
+    cardId: string
+    context: string | null
+    direction: StudyCard['direction']
+  } | null = null
+
   constructor(
     private readonly deps: {
       vocab: VocabRepository
@@ -73,11 +80,42 @@ export class StudyService {
   next(): StudyNext {
     const { srs } = this.deps
     const dueCount = srs.dueCount()
+    const cards: Array<{ row: SrsCardRow; card: StudyCard }> = []
     for (const row of srs.dueCards(CANDIDATES)) {
-      const card = this.toCard(row)
-      if (card) return { card, dueCount }
+      const card = this.toCard(row, this.askAsCloze(row))
+      if (card) cards.push({ row, card })
     }
-    return { card: null, dueCount }
+    const last = this.shown
+    // Tránh liên tiếp các từ lưu từ cùng một câu ngữ cảnh khi còn thẻ khác để hỏi
+    const pick =
+      cards.find((c) => !last || c.row.id === last.cardId || !sameSentence(c.row, last)) ?? cards[0]
+    if (!pick) return { card: null, dueCount }
+    this.shown = {
+      cardId: pick.row.id,
+      context: pick.row.contextSentence,
+      direction: pick.card.direction
+    }
+    return { card: pick.card, dueCount }
+  }
+
+  /**
+   * Từ lưu từ một câu: các thẻ nhận diện (en_vi) đã gặp rồi sẽ xen kiểu "điền từ" vào câu đó để không hỏi cùng một
+   * kiểu nhiều lần liên tiếp. Thẻ mới luôn hỏi nghĩa trước. Chấm điểm vẫn tính vào thẻ gốc.
+   */
+  private askAsCloze(row: SrsCardRow): boolean {
+    const last = this.shown
+    if (
+      row.direction !== 'en_vi' ||
+      row.state === 0 ||
+      !row.contextSentence ||
+      isPhraseId(row.contentId)
+    )
+      return false
+    if (!last) return false
+    if (last.cardId === row.id) return last.direction === 'cloze'
+    if (last.direction !== 'en_vi') return false
+    const entry = this.deps.dictionary.entryById(row.contentId)
+    return !!entry && makeCloze(row.contextSentence, entry.lemma) !== null
   }
 
   rate(cardId: string, rating: StudyRating, elapsedMs: number): StudyRateResult {
@@ -178,7 +216,7 @@ export class StudyService {
   }
 
   /** Dựng thẻ hiển thị từ một dòng srs_cards; null nếu không còn nội dung (từ/mẫu câu đã bị gỡ) */
-  private toCard(row: SrsCardRow): StudyCard | null {
+  private toCard(row: SrsCardRow, asCloze = false): StudyCard | null {
     const { dictionary, phrasebook, srs } = this.deps
     const base = {
       cardId: row.id,
@@ -217,7 +255,7 @@ export class StudyService {
 
     const entry = dictionary.entryById(row.contentId)
     if (!entry) return null
-    let direction = toDirection(row.direction)
+    let direction = asCloze ? 'cloze' : toDirection(row.direction)
     let cloze: StudyCard['cloze'] = null
     let hint: string | null = null
     let answers = [entry.lemma]
@@ -308,6 +346,11 @@ export class StudyService {
       isPhrase: false
     }
   }
+}
+
+/** Hai thẻ lưu từ cùng một câu ngữ cảnh */
+function sameSentence(row: SrsCardRow, last: { cardId: string; context: string | null }): boolean {
+  return last.context !== null && row.contextSentence === last.context
 }
 
 function toDirection(direction: SrsCardRow['direction']): StudyCard['direction'] {

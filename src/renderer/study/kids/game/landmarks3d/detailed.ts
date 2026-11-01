@@ -320,17 +320,57 @@ export function hueNgoMon2(THREE: Three): ThreeNS.Group {
   return k.group
 }
 
+const HOIAN_R = 4.9
+/** Lạch nước uốn nhẹ chảy theo trục z: tâm x và nửa bề rộng theo z (rộng nhất dưới chân cầu) */
+const hoianCx = (z: number): number => 0.3 * Math.sin(z * 0.6)
+const hoianHw = (z: number): number => 1.5 + 0.4 * Math.cos(z * 0.4)
+
+/** Một bên bờ kè của bệ tròn: phần đĩa bán kính HOIAN_R nằm ngoài lạch (side = -1 bờ tây, +1 bờ đông) */
+function hoianBank(
+  k: Kit,
+  side: number,
+  y: number,
+  h: number,
+  color: number
+): ThreeNS.Mesh {
+  const THREE = k.THREE
+  const R = HOIAN_R
+  const edge: Array<[number, number]> = []
+  for (let i = 0; i <= 48; i++) {
+    const z = -R + (2 * R * i) / 48
+    const u = side * hoianCx(z) + hoianHw(z)
+    if (Math.hypot(u, z) < R - 0.03) edge.push([u, z])
+  }
+  const s = new THREE.Shape()
+  edge.forEach(([u, z], i) => (i === 0 ? s.moveTo(side * u, z) : s.lineTo(side * u, z)))
+  const last = edge[edge.length - 1]
+  const first = edge[0]
+  const a1 = Math.atan2(last[1], last[0])
+  const a0 = Math.atan2(first[1], first[0])
+  for (let i = 0; i <= 28; i++) {
+    const a = a1 + ((a0 - a1) * i) / 28
+    s.lineTo(side * R * Math.cos(a), R * Math.sin(a))
+  }
+  s.closePath()
+  const geo = new THREE.ExtrudeGeometry(s, { depth: h, bevelEnabled: false })
+  geo.rotateX(Math.PI / 2)
+  geo.translate(0, h, 0)
+  return k.put(k.mesh(geo, color), 0, y, 0)
+}
+
 /**
- * Chùa Cầu (Hội An). Đặc điểm thật: cầu gỗ có mái che dài bắc qua lạch nước, mái ngói âm dương sẫm màu, thân cầu
- * cong nhẹ, chùa nhỏ nhô ra giữa phía bắc (sau cầu) có mái riêng, cửa giữa có biển "LAI VIỄN KIỀU", tượng khỉ ở một đầu
- * và chó ở đầu kia; phố cổ hai bên tường vàng mái ngói, đèn lồng nhiều màu, thuyền trên sông Hoài.
+ * Chùa Cầu (Hội An) dựng cho bệ tròn: đĩa kè đá bán kính ~4,9 với lạch sông Hoài uốn nhẹ chạy qua giữa. Đặc điểm thật:
+ * cầu gỗ có mái che bắc qua lạch, mái ngói âm dương sẫm màu, thân cầu cong nhẹ, chùa nhỏ nhô ra giữa phía bắc (sau
+ * cầu) có mái riêng, cửa giữa có biển "LAI VIỄN KIỀU", tượng khỉ ở một đầu và chó ở đầu kia; phố cổ hai bên tường
+ * vàng mái ngói xếp thành cung quanh bờ, đèn lồng nhiều màu, thuyền và hoa đăng trên sông.
  */
 export function hoianChuaCau(THREE: Three): ThreeNS.Group {
   const k = new Kit(THREE)
-  k.water(10.6, 4.0, 0, 0.4, false, 0x4aa59a)
+  const R = HOIAN_R
+  k.water(R * 2, 0, 0, 0, true, 0x4aa59a)
   for (const sx of [-1, 1]) {
-    k.box(2.6, 0.75, 9.6, 0xbcb39e, sx * 4.0, 0, 0)
-    k.box(2.6, 0.08, 9.6, 0xd7c89e, sx * 4.0, 0.75, 0)
+    hoianBank(k, sx, 0, 0.75, 0xbcb39e)
+    hoianBank(k, sx, 0.75, 0.08, 0xd7c89e)
   }
   // thân cầu: trụ đá + vòm gỗ, sàn cong
   const L = 5.4
@@ -360,7 +400,6 @@ export function hoianChuaCau(THREE: Three): ThreeNS.Group {
   for (const sx of [-1, 1]) {
     const gx = sx * (L / 2 + 0.25)
     k.box(0.5, 1.05, 1.7, 0x8a3a24, gx, 0.8, 0)
-    k.arch(0.5, 0.95, 1.72, 0.0001, 0.0001, 0x8a3a24, gx, 0.8, 0).visible = false
     k.box(0.52, 0.8, 0.9, 0x2a1a14, gx, 0.8, 0) // lối vào tối
     k.eaveRoof(0.95, 2.1, 1, ROOF_DARK, 0xd8d2c0, gx, 1.85, 0)
     for (const sz of [-0.7, 0.7]) {
@@ -368,37 +407,54 @@ export function hoianChuaCau(THREE: Three): ThreeNS.Group {
       k.box(0.2, 0.18, 0.2, 0xd8d2c0, 0, 0, 0, statue)
       k.ball(0.11, sx < 0 ? 0xa48a64 : 0xc9b48a, 0, 0.3, 0, 1.2, 1, 1, statue)
       k.ball(0.07, sx < 0 ? 0xa48a64 : 0xc9b48a, 0.06 * -sx, 0.46, 0, 1, 1, 1, statue)
-      k.put(statue, gx + sx * 0.45, 0.8, sz)
+      k.put(statue, gx + sx * 0.45, 0.83, sz)
     }
   }
-  // chùa nhỏ nhô ra phía bắc (sau cầu) giữa cầu
+  // chùa nhỏ nhô ra phía bắc (sau cầu) giữa cầu, đứng trên trụ đá giữa dòng
   const cy = deck(0.5)
+  k.box(1.1, cy, 0.9, 0x9a927e, 0, 0, -1.25)
   k.box(1.2, 0.9, 1.0, 0xe9c25a, 0, cy, -1.25)
   k.box(1.24, 0.1, 1.04, 0x8a3a24, 0, cy, -1.25)
   for (const sx of [-0.5, 0.5]) k.column(0.05, 0.9, LACQUER, sx, cy, -0.76)
   k.eaveRoof(1.7, 1.5, 2, ROOF_DARK, 0xd8d2c0, 0, cy + 0.9, -1.25)
   // cửa giữa + biển Lai Viễn Kiều
-  k.sign('LAI VIỄN KIỀU', 0.9, 0.2, '#3a2418', '#f2c94c', 0, cy + 0.98, 0.79)
+  k.sign('LAI VIỄN KIỀU', 0.9, 0.2, '#3a2418', '#f2c94c', 0, cy + 1.13, 1.02)
   for (let i = 0; i < 9; i++) {
+    if (i === 4) continue // chừa chỗ cho biển
     const x = -L / 2 + 0.3 + (i * (L - 0.6)) / 8
     k.lantern(x, deck(0.5 + x / L) + 0.82, 0.78, [0xe8432e, 0xf2b630, 0x4aa8d8, 0xf08ac0][i % 4])
   }
-  // phố cổ hai bờ: nhà tường vàng mái ngói, ban công gỗ, đèn lồng giăng ngang
+  // phố cổ xếp cung quanh hai bờ: nhà tường vàng mái ngói, ban công gỗ, đèn lồng treo hiên, mặt quay về phía lạch
   const shop = (x: number, z: number, wall: number): void => {
-    k.box(1.3, 0.95, 1.1, wall, x, 0.83, z)
-    k.box(1.32, 0.06, 0.25, 0x6b3a22, x, 1.3, z + 0.62) // ban công
-    for (const dx of [-0.35, 0.35]) k.box(0.28, 0.4, 0.03, 0x5e3b22, x + dx, 0.88, z + 0.56)
-    k.gable(1.5, 1.4, 0.5, ROOF_DARK, x, 1.78, z)
+    const g = new THREE.Group()
+    k.box(1.3, 0.95, 1.1, wall, 0, 0, 0, g)
+    k.box(1.32, 0.06, 0.25, 0x6b3a22, 0, 0.47, 0.62, g) // ban công
+    for (const dx of [-0.35, 0.35]) k.box(0.28, 0.4, 0.03, 0x5e3b22, dx, 0.05, 0.56, g)
+    k.gable(1.5, 1.4, 0.5, ROOF_DARK, 0, 0.95, 0, g)
+    for (const dx of [-0.5, 0.5]) k.lantern(dx, 0.62, 0.7, dx < 0 ? 0xe8432e : 0xf2b630, g)
+    g.rotation.y = Math.atan2(-x, -z)
+    k.put(g, x, 0.83, z)
   }
-  shop(-4.1, -3.2, 0xf2c94c)
-  shop(-4.1, -1.8, 0xe9b44a)
-  shop(4.0, -3.0, 0xf2c94c)
-  shop(4.0, 2.9, 0xe9b44a)
-  shop(-4.1, 3.0, 0xf2d06a)
-  for (let i = 0; i < 6; i++)
-    k.lantern(-4.6 + i * 0.25, 2.1, 1.8 + (i % 2) * 0.1, [0xe8432e, 0xf2b630, 0x4aa8d8][i % 3])
-  k.tree(4.4, 0.9, 1.0, 0.83, undefined, 0x8fc65c, 0x5f9a3e)
-  // hoa đăng + thuyền
+  const walls = [0xf2c94c, 0xe9b44a, 0xf2d06a, 0xe9b44a]
+  let wi = 0
+  for (const sx of [-1, 1])
+    for (const sz of [-1, 1])
+      for (const deg of [30, 47]) {
+        const a = (deg * Math.PI) / 180
+        shop(sx * 4.0 * Math.cos(a), sz * 4.0 * Math.sin(a), walls[wi++ % walls.length])
+      }
+  // cây, người đi dạo trên bờ kè
+  for (const [x, z] of [
+    [2.7, 3.9],
+    [-2.7, -3.9],
+    [2.7, -3.9],
+    [-2.7, 3.9]
+  ] as const)
+    k.tree(x, z, 0.9, 0.83, undefined, 0x8fc65c, 0x5f9a3e)
+  k.person(-3.5, 0.83, -0.9, 0x7cc45a, true)
+  k.person(3.6, 0.83, 1.0, 0xe8432e, true)
+  k.person(-2.9, 0.83, 0.95, 0x4aa8d8)
+  // hoa đăng + thuyền trôi dọc lạch phía trước cầu (z > 0) để không chui qua gầm cầu
   const floats: ThreeNS.Mesh[] = []
   for (let i = 0; i < 10; i++)
     floats.push(
@@ -411,18 +467,15 @@ export function hoianChuaCau(THREE: Three): ThreeNS.Group {
   k.box(0.5, 0.25, 0.4, 0xc9a35a, -0.2, 0.18, 0, boat)
   k.lantern(0.45, 0.45, 0, 0xe8432e, boat)
   k.person(0.35, 0.1, 0, 0x7cc45a, true, boat)
-  k.put(boat, 0, 0.1, 1.6)
+  k.put(boat, 0, 0.1, 2.0)
   k.group.userData.tick = (t: number): void => {
     floats.forEach((f, i) => {
-      f.position.set(
-        ((t * 0.16 + i * 1.07) % 5.6) - 2.8,
-        0.12 + Math.sin(t * 2 + i) * 0.02,
-        -1.0 + (i % 5) * 0.55
-      )
+      const z = 1.2 + ((t * 0.12 + i * 0.29) % 2.9)
+      f.position.set(hoianCx(z) + (((i * 7) % 5) - 2) * 0.28, 0.12 + Math.sin(t * 2 + i) * 0.02, z)
     })
-    boat.position.x = Math.sin(t * 0.12) * 2.0
-    boat.rotation.y = Math.cos(t * 0.12) > 0 ? 0 : Math.PI
-    boat.position.y = 0.1 + Math.sin(t * 2.2) * 0.02
+    const z = 2.6 + Math.sin(t * 0.12) * 1.0
+    boat.position.set(hoianCx(z) + 0.4, 0.1 + Math.sin(t * 2.2) * 0.02, z)
+    boat.rotation.y = Math.cos(t * 0.12) > 0 ? -Math.PI / 2 : Math.PI / 2
   }
   return k.group
 }

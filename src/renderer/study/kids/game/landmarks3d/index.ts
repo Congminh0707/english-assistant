@@ -30,8 +30,8 @@ const PLATES: Record<
   string,
   { top: number; channel?: { cx: number; cz: number; hx: number; hz: number } }
 > = {
-  'hoian-bridge-pagoda': { top: 0.83, channel: { cx: 0, cz: 0.4, hx: 2.7, hz: 2.0 } },
-  'danang-dragon-bridge': { top: 0.36, channel: { cx: 0, cz: 0, hx: 5.4, hz: 2.3 } }
+  'hoian-bridge-pagoda': { top: 0.83, channel: { cx: 0, cz: 0, hx: 1.7, hz: 4.5 } },
+  'danang-dragon-bridge': { top: 0.36, channel: { cx: 0, cz: 0, hx: 1.7, hz: 4.9 } }
   // mô hình có viền bờ/nền mỏng (Hồ Gươm, Bến Thành…) KHÔNG nâng đất — nâng sẽ lấp mất viền bờ hồ
 }
 

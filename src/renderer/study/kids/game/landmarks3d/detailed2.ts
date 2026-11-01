@@ -399,41 +399,116 @@ export function trangAn(THREE: Three): ThreeNS.Group {
   return k.group
 }
 
+/** Lát đĩa bán kính R cắt giữa x0..x1 (mặt phẳng xy của Shape; sau rotateX(-π/2) thành mặt đất xz) */
+function discSlice(THREE: Three, R: number, x0: number, x1: number): ThreeNS.Shape {
+  const s = new THREE.Shape()
+  const N = 40
+  const yAt = (x: number): number => Math.sqrt(Math.max(0, R * R - x * x))
+  for (let i = 0; i <= N; i++) {
+    const x = x0 + (x1 - x0) * (i / N)
+    if (i === 0) s.moveTo(x, yAt(x))
+    else s.lineTo(x, yAt(x))
+  }
+  for (let i = N; i >= 0; i--) {
+    const x = x0 + (x1 - x0) * (i / N)
+    s.lineTo(x, -yAt(x))
+  }
+  s.closePath()
+  return s
+}
+
 /**
- * Cầu Rồng (Đà Nẵng). Đặc điểm thật: thân rồng thép sơn vàng uốn thành nhiều vòm cong vắt qua giữa mặt cầu, đầu rồng ở
- * đầu cầu phía biển (phun lửa và phun nước vào cuối tuần), vảy và vây đỏ, mặt cầu rộng nhiều làn xe, trụ cầu trên sông
- * Hàn, nhà cao tầng hai bờ, đèn dọc cầu.
+ * Cầu Rồng (Đà Nẵng) dựng cho bệ tròn: đĩa đất đường kính ~9,8, sông Hàn chạy dọc trục z giữa đĩa, cầu vồng cong nhẹ
+ * chéo qua sông (từ bờ tây sang bờ đông). Đặc điểm thật: thân rồng thép sơn vàng uốn thành nhiều vòm cong vắt qua
+ * giữa mặt cầu, đầu rồng ở đầu cầu (phun lửa), vảy và vây đỏ, mặt cầu nhiều làn xe, trụ cầu trên sông, nhà cao tầng
+ * hai bờ, đèn dọc cầu, cọ + lối dạo ven sông.
  */
 export function dragonBridge(THREE: Three): ThreeNS.Group {
   const k = new Kit(THREE)
-  k.water(10.8, 4.6, 0, 0, false, 0x3f9ad0)
-  for (const sz of [-1, 1]) {
-    k.box(10.8, 0.3, 2.9, 0xb9b4a8, 0, 0, sz * 3.75) // kè hai bờ
-    k.box(10.8, 0.06, 2.9, 0x7cc45a, 0, 0.3, sz * 3.75)
+  const R = 4.9 // bán kính đĩa
+  const W = 1.7 // nửa bề rộng sông Hàn (dọc trục z)
+  const L = 3.9 // nửa chiều dài cầu (tham số u)
+  const DECK = 0.75
+  const extrudeFlat = (shape: ThreeNS.Shape, depth: number): ThreeNS.BufferGeometry => {
+    const geo = new THREE.ExtrudeGeometry(shape, { depth, bevelEnabled: false })
+    geo.rotateX(-Math.PI / 2)
+    return geo
   }
-  // mặt cầu + làn đường + lan can + trụ
-  k.box(10.6, 0.18, 1.8, 0x4a4f5c, 0, 0.75, 0)
-  for (let i = -10; i <= 10; i++) {
-    k.box(0.3, 0.012, 0.05, 0xffffff, i * 0.5, 0.93, 0.3)
-    k.box(0.3, 0.012, 0.05, 0xffffff, i * 0.5, 0.93, -0.3)
+  // đĩa đất hai bờ (kè đá + cỏ) và dòng sông ở giữa
+  for (const s of [-1, 1]) {
+    const a = s > 0 ? W : -R
+    const b = s > 0 ? R : -W
+    k.put(k.mesh(extrudeFlat(discSlice(THREE, R, a, b), 0.3), 0xb9b4a8), 0, 0, 0)
+    k.put(
+      k.mesh(extrudeFlat(discSlice(THREE, R - 0.12, s > 0 ? W : -(R - 0.12), s > 0 ? R - 0.12 : -W), 0.06), 0x7cc45a),
+      0,
+      0.3,
+      0
+    )
+    // lối dạo ven sông
+    k.box(0.5, 0.03, 8.2, 0xd9d2c0, s * (W + 0.45), 0.35, 0)
   }
-  k.box(10.6, 0.012, 0.06, 0xf2c94c, 0, 0.93, 0)
-  for (const sz of [-0.88, 0.88]) {
-    k.box(10.6, 0.14, 0.06, 0xd9d2c0, 0, 0.93, sz)
-    for (let i = -5; i <= 5; i++) k.lamp(i, sz * 1.02, 0.93, undefined, 0.45)
+  const river = k.mesh(extrudeFlat(discSlice(THREE, R, -W, W), 0.2), 0x3f9ad0, { opacity: 0.92 })
+  river.castShadow = false
+  k.put(river, 0, 0, 0)
+
+  // đường tim cầu: cong nhẹ, chéo qua sông
+  const TH = 0.3
+  const BOW = 0.8
+  const cs = Math.cos(TH)
+  const sn = Math.sin(TH)
+  const P = (u: number): { x: number; z: number } => {
+    const b = BOW * (1 - (u / L) * (u / L))
+    return { x: u * cs - b * sn, z: u * sn + b * cs }
   }
-  for (const x of [-4.2, -2.1, 0, 2.1, 4.2]) {
-    k.cyl(0.22, 0.26, 0.75, 0xb9b4a8, x, 0, -0.45, 12)
-    k.cyl(0.22, 0.26, 0.75, 0xb9b4a8, x, 0, 0.45, 12)
+  const dirAt = (u: number): { x: number; z: number; ang: number } => {
+    const a = P(u - 0.02)
+    const b = P(u + 0.02)
+    const ang = Math.atan2(b.z - a.z, b.x - a.x)
+    return { x: Math.cos(ang), z: Math.sin(ang), ang }
   }
+  // mặt cầu + làn đường + lan can + đèn
+  const M = 28
+  for (let i = 0; i < M; i++) {
+    const um = -L + ((i + 0.5) / M) * 2 * L
+    const p = P(um)
+    const d = dirAt(um)
+    const len = ((2 * L) / M) * 1.08
+    const nx = -d.z
+    const nz = d.x
+    const seg = (w: number, h: number, dd: number, c: number, off: number, y: number): void => {
+      k.box(w, h, dd, c, p.x + nx * off, y, p.z + nz * off).rotation.y = -d.ang
+    }
+    seg(len, 0.18, 1.6, 0x4a4f5c, 0, DECK)
+    seg(len, 0.012, 0.06, 0xf2c94c, 0, DECK + 0.18)
+    if (i % 2 === 0) {
+      seg(len * 0.5, 0.012, 0.05, 0xffffff, 0.4, DECK + 0.18)
+      seg(len * 0.5, 0.012, 0.05, 0xffffff, -0.4, DECK + 0.18)
+    }
+    for (const off of [-0.8, 0.8]) seg(len, 0.14, 0.06, 0xd9d2c0, off, DECK + 0.18)
+    if (i % 4 === 1) for (const off of [-0.86, 0.86]) k.lamp(p.x + nx * off, p.z + nz * off, DECK + 0.18, undefined, 0.45)
+  }
+  // trụ cầu: hai cột mỗi hàng, đầu cầu có mố đá
+  for (const u of [-3.4, -1.7, 0, 1.7, 3.4]) {
+    const p = P(u)
+    const d = dirAt(u)
+    for (const off of [-0.5, 0.5])
+      k.cyl(0.2, 0.25, DECK, 0xb9b4a8, p.x - d.z * off, 0, p.z + d.x * off, 12)
+  }
+  for (const u of [-L, L]) {
+    const p = P(u)
+    const d = dirAt(u)
+    k.box(0.5, DECK, 1.7, 0xb9b4a8, p.x, 0, p.z).rotation.y = -d.ang
+  }
+
   // thân rồng: các vòm cong đặt giữa mặt cầu, chạm mặt cầu ở chân vòm
   const pts: ThreeNS.Vector3[] = []
   const N = 80
   for (let i = 0; i <= N; i++) {
     const t = i / N
-    const x = -4.8 + t * 9.0
-    const y = 0.95 + Math.abs(Math.sin(t * Math.PI * 3)) * (1.1 + Math.sin(t * Math.PI) * 0.4)
-    pts.push(new THREE.Vector3(x, y, Math.sin(t * Math.PI * 6) * 0.05))
+    const p = P(-L + t * 2 * L)
+    const y = 0.95 + Math.abs(Math.sin(t * Math.PI * 3)) * (1.1 + Math.sin(t * Math.PI) * 0.4) + t ** 8 * 0.15
+    pts.push(new THREE.Vector3(p.x, y, p.z))
   }
   const curve = new THREE.CatmullRomCurve3(pts)
   k.put(k.mesh(new THREE.TubeGeometry(curve, 240, 0.16, 14, false), 0xf2b630), 0, 0, 0)
@@ -447,11 +522,18 @@ export function dragonBridge(THREE: Three): ThreeNS.Group {
       ring.lookAt(p.clone().add(tng))
     }
     const fin = k.cone(0.07, 0.24, 0xc8322b, p.x, p.y + 0.12, p.z, 6)
-    fin.rotation.z = -Math.atan2(tng.y, tng.x) * 0.5
+    fin.rotation.order = 'YXZ'
+    fin.rotation.y = -Math.atan2(tng.z, tng.x)
+    fin.rotation.z = -Math.atan2(tng.y, Math.hypot(tng.x, tng.z)) * 0.5
   }
-  // đầu rồng: hàm, mũi, mắt, sừng, bờm, râu
+  // đầu rồng: hàm, mũi, mắt, sừng, bờm, râu — quay theo hướng cầu
   const head = curve.getPointAt(1)
+  const htn = curve.getTangentAt(1)
+  const hyaw = -Math.atan2(htn.z, htn.x)
   const hg = new THREE.Group()
+  hg.rotation.order = 'YXZ'
+  hg.rotation.y = hyaw
+  hg.rotation.z = 0.12
   k.ball(0.32, 0xf2b630, 0, 0.05, 0, 0.9, 1.3, 1, hg)
   k.ball(0.2, 0xf2b630, 0.42, -0.02, 0, 0.6, 1.5, 0.9, hg) // mõm
   k.ball(0.15, 0xe8432e, 0.4, -0.16, 0, 0.35, 1.4, 0.8, hg) // hàm dưới
@@ -477,28 +559,27 @@ export function dragonBridge(THREE: Three): ThreeNS.Group {
     )
     mane.rotation.z = 1.2
   }
-  k.put(hg, head.x + 0.2, head.y, head.z)
-  // lửa / nước phun từ miệng
+  // lửa / nước phun từ miệng (con của đầu nên đi theo hướng đầu)
   const fire = new THREE.Group()
   k.cone(0.2, 0.8, 0xff8a2a, 0, 0, 0, 10, fire).rotation.z = -Math.PI / 2
   k.cone(0.12, 0.55, 0xffe27a, 0.06, 0.02, 0, 10, fire).rotation.z = -Math.PI / 2
-  k.put(fire, head.x + 1.15, head.y - 0.02, head.z)
+  k.put(fire, 0.95, -0.02, 0, hg)
+  k.put(hg, head.x + Math.cos(-hyaw) * 0.2, head.y, head.z + Math.sin(-hyaw) * 0.2)
   // đuôi xoắn
   const tail = curve.getPointAt(0)
-  k.put(
-    k.mesh(new THREE.TorusGeometry(0.2, 0.08, 8, 16, Math.PI * 1.5), 0xf2b630),
-    tail.x - 0.2,
-    tail.y + 0.15,
-    tail.z
-  )
-  // nhà cao tầng hai bờ
+  const ttn = curve.getTangentAt(0)
+  const tg = new THREE.Group()
+  tg.rotation.y = -Math.atan2(ttn.z, ttn.x)
+  k.put(k.mesh(new THREE.TorusGeometry(0.2, 0.08, 8, 16, Math.PI * 1.5), 0xf2b630), -0.2, 0.15, 0, tg)
+  k.put(tg, tail.x, tail.y, tail.z)
+
+  // nhà cao tầng hai bờ (phía sau sông, tránh đường cầu)
   const towers: Array<[number, number, number, number, number]> = [
-    [-4.3, -3.4, 0.8, 2.8, 0xdfe6ea],
-    [-3.0, -3.8, 0.7, 2.0, 0xf3e7c4],
-    [-1.6, -3.6, 0.6, 1.4, 0xd5e4ee],
-    [3.0, -3.5, 0.9, 3.4, 0xd5e4ee],
-    [4.4, -3.2, 0.7, 2.4, 0xf6d9a8],
-    [4.3, 3.6, 0.8, 1.8, 0xf3e7c4]
+    [-3.3, -2.5, 0.8, 2.8, 0xdfe6ea],
+    [-2.2, -3.4, 0.7, 2.0, 0xf3e7c4],
+    [3.3, -1.7, 0.9, 3.4, 0xd5e4ee],
+    [2.6, -3.0, 0.7, 2.4, 0xf6d9a8],
+    [4.1, -0.4, 0.6, 1.6, 0xf3e7c4]
   ]
   for (const [x, z, w, h, c] of towers) {
     k.box(w, h, w, c, x, 0.36, z)
@@ -507,12 +588,19 @@ export function dragonBridge(THREE: Three): ThreeNS.Group {
     k.box(w + 0.06, 0.08, w + 0.06, 0xa05a3a, x, 0.36 + h, z)
   }
   for (const [x, z] of [
-    [-4.4, 3.2],
-    [-2.6, 3.6],
-    [2.4, 3.4],
-    [-0.6, 3.8]
+    [-3.4, 2.3],
+    [-2.1, 3.6],
+    [3.5, 2.8],
+    [2.1, 3.7]
   ] as const)
     k.palm(x, z, 0.7, 0.36)
+  k.bench(-2.5, 2.8, Math.PI / 2, undefined)
+  k.bench(2.5, -1.2, -Math.PI / 2, undefined)
+  // người dạo bờ sông
+  k.person(-2.15, 0.37, -2.0, 0xe24a3b, false, undefined, 0.9)
+  k.person(-2.2, 0.37, 1.6, 0x4aa8d8, false, undefined, 0.9)
+  k.person(2.15, 0.37, -2.7, 0xf2b630, true, undefined, 0.9)
+  k.person(2.2, 0.37, 3.0, 0x7cc45a, false, undefined, 0.9)
   // xe chạy trên cầu + thuyền trên sông
   const cars = [
     k.car(0, 0, 0xe24a3b),
@@ -520,10 +608,13 @@ export function dragonBridge(THREE: Three): ThreeNS.Group {
     k.car(0, 0, 0xf2b630),
     k.car(0, 0, 0xffffff)
   ]
-  const boat = new THREE.Group()
-  k.box(0.9, 0.18, 0.34, 0xffffff, 0, 0, 0, boat)
-  k.box(0.4, 0.2, 0.28, 0x3a7aa0, -0.1, 0.18, 0, boat)
-  k.put(boat, 0, 0.08, 1.6)
+  const boats = [0, 1].map((i) => {
+    const b = new THREE.Group()
+    k.box(0.9, 0.18, 0.34, i ? 0xf2b630 : 0xffffff, 0, 0, 0, b)
+    k.box(0.4, 0.2, 0.28, 0x3a7aa0, -0.1, 0.18, 0, b)
+    return k.put(b, 0, 0.2, 0)
+  })
+  const span = 2 * L
   k.group.userData.tick = (t: number): void => {
     const phase = t % 8
     fire.visible = phase > 6
@@ -535,14 +626,22 @@ export function dragonBridge(THREE: Three): ThreeNS.Group {
       )
     cars.forEach((c, i) => {
       const dir = i % 2 ? -1 : 1
-      const x = ((((t * 0.7 + i * 2.6) % 10.4) + 10.4) % 10.4) - 5.2
-      c.position.set(dir * x, 0.93, dir * 0.42)
-      c.rotation.y = dir > 0 ? 0 : Math.PI
+      const f = ((((t * 0.06 + i * 0.27) % 1) + 1) % 1) // 0..1 dọc cầu
+      const u = dir > 0 ? -L + f * span : L - f * span
+      const p = P(u)
+      const d = dirAt(u)
+      const off = dir * 0.42
+      c.position.set(p.x - d.z * off, DECK + 0.18, p.z + d.x * off)
+      c.rotation.y = -d.ang + (dir > 0 ? 0 : Math.PI)
       c.scale.setScalar(0.5)
     })
-    boat.position.x = Math.sin(t * 0.1) * 4.4
-    boat.rotation.y = Math.cos(t * 0.1) > 0 ? 0 : Math.PI
-    boat.position.y = 0.08 + Math.sin(t * 2) * 0.02
+    boats.forEach((b, i) => {
+      const f = (t * 0.03 + i * 0.5) % 1
+      const down = i % 2 === 0
+      const z = (down ? -1 : 1) * (4.0 - f * 8)
+      b.position.set((i ? 0.7 : -0.7) + Math.sin(t * 0.4 + i) * 0.1, 0.2 + Math.sin(t * 2 + i) * 0.02, z)
+      b.rotation.y = down ? -Math.PI / 2 : Math.PI / 2
+    })
   }
   return k.group
 }

@@ -23,6 +23,11 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
+
+- [x] (2026-11-01) Giếng làng: các từ lưu từ cùng một câu không bị hỏi liên tiếp (`StudyService.next` đẩy thẻ cùng câu ra sau; thẻ nhận diện đã gặp xen kiểu điền từ khi thẻ trước cũng là nhận diện, thẻ mới vẫn hỏi nghĩa trước). Thanh tranh bên trái `PlaceShell` phủ kín chiều cao giữ nguyên nét cong (`ArtScene fill`: dải trời trên và dải đất dưới được giãn dọc, phần giữa giữ cỡ gốc), nút Về làng + huy hiệu nơi viền tách màu khỏi tranh.
+
+- [x] (2026-11-01) Sửa lỗi chủ dự án báo sau khi thử tay: cây nằm trên sông ở nền `kids-visitbg`; hạn mức từ mới đếm theo từ đã học xong + cài đặt `kids.newPerDay` (0 = không giới hạn, mặc định); màn giới thiệu nơi trước khi vào + biển "Giới thiệu" trong cảnh (`place.about` cho 27 nơi, chờ người duyệt nội dung); đang học chỉ còn nút quay lại nơi; lời chào thú cưng ở màn bé không bị ô che. Còn: chưa thử tay trong app, chưa soát cây-trên-nước ở các cảnh nơi khác.
+
 - [x] (2026-11-01) Thiết kế v2, phần H, thế giới của bé: bản đồ Việt Nam 2D/3D, 12 cảnh địa điểm, tầng 2 Các nước, tầng 3 quả địa cầu với 9 kỳ quan ([19](19-kids-world.md)). Còn: cảnh chi tiết cho 6 nước, nhảy thẳng tới một bước của bài học, đo fps trên máy yếu.
 - [x] 2026-11-01: **áp dụng thiết kế v2 vào app** xong, chờ chủ dự án thử tay. Còn: trạng thái phụ S1, S2 chưa đối chiếu ảnh, KidsReview chưa có ảnh, thử mascot kéo bấm, fps máy yếu.
 
@@ -234,6 +239,11 @@ Hiện trạng: bé chỉ có một dạng thẻ (`audio_picture`: nghe từ →
 - [ ] **Gói tải thêm `kids-world`** (tài nguyên 3D + âm thanh nền, không nằm trong bộ cài): tải ở bước tạo hồ sơ trẻ em, Cài đặt → Tải thêm, hoặc nhắc trong khu phụ huynh; theo mẫu gói sprite 288px (`packSpec` size + sha256, release phụ).
 - [x] (2026-10-30, đã thử tay OK) Chuỗi 5 bước mỗi từ (`KidsVisit.vue`): làm quen (hình + mascot nói) → chạm hình (đã có) → chơi → nói theo (sao/vỗ tay, không chấm khắt khe) → dùng trong câu ("I see a cat").
 - [x] (2026-10-30) Hình mới cho các từ chưa có hình (nay mọi 183 hình từ là vector, docs/19 §5.5) — ưu tiên hình có sẵn (60 hình pixel + ~100 hình Twemoji trong `ALL_PICTURE_IDS`); số hình thiếu do `validateWorld` liệt kê (biết trước: gia đình, số 1–10, màu, vài vật) + 12 công trình **voxel** (`src/shared/voxels/`, chốt 2026-10-29), hình 2D cho bản đồ 2D/sticker chiếu tự động từ voxel lúc build.
+- [ ] **Vẽ lại bộ thẻ từ** (189 thẻ `src/renderer/shared/art/cards/*.svg`, sinh từ `scripts/design-data/review/gen_cards.py`). Chủ dự án thấy thẻ hiện tại chưa đẹp, đặc biệt con vật (lạc đà, kangaroo, hươu cao cổ, ngựa…); tạm hoãn ngày 2026-11-01. Ghi lại để làm tiếp:
+  - **Phong cách đích** (chủ dự án chọn 2026-11-01): tranh thiếu nhi kiểu truyện tranh — nét viền nâu chắc, dày mỏng có chủ đích; tô bóng mềm kiểu màu nước; đầu to, mắt to long lanh, má hồng, miệng cười; nhiều chi tiết (đốm, lông, móng, hoa văn). Tham khảo: ảnh hươu cao cổ cho nét vẽ, ảnh voi/lạc đà (pngtree, **có bản quyền — chỉ tham khảo, không đưa vào app**) cho mức chi tiết. Con vật bốn chân nên đứng/đi ngang thay vì ngồi nhìn thẳng.
+  - **Đã thử và loại** (2026-11-01): tự viết SVG bằng toạ độ (vẽ lại chi tiết theo nét cũ, kiểu phẳng gradient hiện đại, hình bóng giải phẫu PhyloPic CC0 tô lại, kiểu truyện tranh) — đều chưa đạt: hình khối chung chung, nét đều, bóng đổ là đốm mờ, ghép bộ phận rời. Viết SVG tay có giới hạn chất lượng thấp hơn mức ảnh tham khảo.
+  - **Hướng đề xuất**: tạo ảnh bằng AI qua API (GPT Image hoặc Recraft — Recraft xuất được SVG; hoặc plugin Claude như CellCog/Asset Generator), một câu mô tả phong cách cố định + ảnh tham chiếu tự tạo để giữ đồng bộ; script tự chạy cả 189 từ, tách nền, nén WebP ~512 px, đặt tên theo id hình. Midjourney đẹp nhưng không có API chính thức (phải gõ tay). Chi phí ước tính vài USD đến vài chục USD.
+  - **Trước khi đưa vào app**: chủ dự án tự tạo API key (đặt biến môi trường, không đưa key cho AI nhập); kiểm tra điều khoản thương mại của công cụ; ghi nguồn vào [docs/08-content-sources.md](08-content-sources.md); duyệt thử 5 con (hươu cao cổ, voi, lạc đà, ngựa, kangaroo) rồi mới làm cả bộ; `PixelPicture.vue` đã nhận ảnh thường nên sửa code ít.
 - [ ] Địa lý/văn hoá: bản đồ cách điệu, **không vẽ đường biên giới/chủ quyền**, tránh chủ đề tranh chấp; món ăn/địa danh/cờ phải đúng, cần người Việt duyệt trước khi phát hành (nội dung hiện do AI soạn).
 
 **Giai đoạn B — Mini-game (làm sau A)**

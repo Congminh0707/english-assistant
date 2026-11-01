@@ -123,7 +123,12 @@ onMounted(load)
     <div class="card state skeleton" />
   </section>
   <section v-else class="pet-page">
-    <h1 class="page-title">{{ t('study.pet.title') }}</h1>
+    <header class="head">
+      <h1 class="page-title">{{ t('study.pet.title') }}</h1>
+      <span class="chip chip--warning wallet">
+        <Coins :size="15" :stroke-width="2.2" />{{ t('shop.coins', { coins: shop.coins }) }}
+      </span>
+    </header>
     <p v-if="message" class="message">{{ message }}</p>
 
     <div class="card hero">
@@ -131,7 +136,7 @@ onMounted(load)
         :character="current"
         :stage="pet.stage"
         :accessories="pet.equipped"
-        :size="240"
+        :size="136"
         animate
       />
       <div class="hero-info">
@@ -168,6 +173,9 @@ onMounted(load)
           {{ t(`pet.stage.${pet.stage}`) }}
         </div>
         <PxBar :value="pet.xpInLevel" :max="pet.xpForNext" color="var(--c-xp)" />
+        <p class="muted xp-line">
+          <span>{{ pet.xpInLevel }}/{{ pet.xpForNext }} XP</span>
+        </p>
         <p v-if="upcoming" class="muted">
           {{
             t('study.pet.nextEvolution', {
@@ -178,6 +186,7 @@ onMounted(load)
         </p>
         <p v-else class="muted">{{ t('study.pet.maxStage') }}</p>
       </div>
+      <p class="muted small hero-note">{{ t('study.pet.keepHint') }}</p>
     </div>
 
     <h2>{{ t('study.pet.chooseTitle') }}</h2>
@@ -190,16 +199,13 @@ onMounted(load)
       >
         <button type="button" class="view" @click="viewing = id">
           <span class="sprite"
-            ><PetSprite :character="id" :stage="pet.stage" :size="132" :silhouette="!owned(id)"
+            ><PetSprite :character="id" :stage="pet.stage" :size="92" :silhouette="!owned(id)"
           /></span>
           <span class="cname">{{ t(`characters.${id}.name`) }}</span>
           <span class="muted small desc">{{ t(`characters.${id}.desc`) }}</span>
         </button>
         <div class="note">
-          <span v-if="current === id" class="chip chip--success">{{
-            t('study.pet.selected')
-          }}</span>
-          <template v-else-if="!owned(id)">
+          <template v-if="current !== id && !owned(id)">
             <span class="chip price"
               ><Coins :size="13" :stroke-width="2.4" />{{ CHARACTERS[id].price }}</span
             >
@@ -242,7 +248,7 @@ onMounted(load)
           <PetSprite
             :character="viewing"
             :stage="s.stage"
-            :size="132"
+            :size="92"
             :silhouette="pet.level < s.minLevel"
             :animate="viewing === current && pet.stage === s.stage"
           />
@@ -253,7 +259,6 @@ onMounted(load)
         <div class="muted small">{{ t('study.pet.fromLevel', { level: s.minLevel }) }}</div>
       </article>
     </div>
-    <p class="muted small">{{ t('study.pet.keepHint') }}</p>
   </section>
 </template>
 
@@ -261,7 +266,7 @@ onMounted(load)
 .pet-page {
   display: grid;
   gap: var(--sp-2);
-  max-width: 820px;
+  max-width: 100%;
 }
 h2 {
   margin: var(--sp-4) 0 0;
@@ -283,11 +288,37 @@ h2 {
   color: var(--c-success);
   font-weight: 600;
 }
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.head .page-title {
+  margin: 0;
+}
+.wallet {
+  min-height: 30px;
+  font-size: var(--fs-sm);
+}
+.wallet :deep(svg) {
+  color: var(--c-coin);
+}
+.xp-line {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.hero-note {
+  max-width: 190px;
+  padding-left: var(--sp-5);
+  border-left: 1px solid var(--c-line);
+}
 .hero {
   display: flex;
   gap: var(--sp-5);
   align-items: center;
-  padding: var(--sp-4) var(--sp-5);
+  padding: var(--sp-3) var(--sp-5);
 }
 .hero-info {
   flex: 1;
@@ -315,7 +346,7 @@ h2 {
 .chars,
 .stages {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: stretch;
   gap: var(--sp-3);
 }
@@ -345,8 +376,8 @@ h2 {
 .sprite {
   display: grid;
   place-items: center;
-  width: 132px;
-  height: 132px;
+  width: 96px;
+  height: 96px;
   overflow: visible;
 }
 .view {
@@ -380,7 +411,7 @@ h2 {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  min-height: 40px;
+  min-height: 26px;
   color: var(--c-ink-soft);
   font-size: var(--fs-xs);
   line-height: 1.3;

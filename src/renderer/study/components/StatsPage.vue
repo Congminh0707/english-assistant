@@ -33,7 +33,8 @@ const tab = ref<Tab>('overview')
 const missions = ref<MissionsState | null>(null)
 const achGroup = ref<string>('')
 const shownAch = computed(
-  () => achievementGroups.value.find((g) => g.group === achGroup.value) ?? achievementGroups.value[0]
+  () =>
+    achievementGroups.value.find((g) => g.group === achGroup.value) ?? achievementGroups.value[0]
 )
 async function setGoal(value: number): Promise<void> {
   await settingsStore.set('learning.dailyGoal', value as 5 | 10 | 20 | 30)
@@ -144,7 +145,12 @@ onMounted(load)
       <p>{{ t('study.state.error') }}</p>
       <button type="button" class="btn btn--sm" @click="load">{{ t('study.state.retry') }}</button>
     </div>
-    <div v-else-if="!stats" class="card skeleton" aria-busy="true" :aria-label="t('study.state.loading')" />
+    <div
+      v-else-if="!stats"
+      class="card skeleton"
+      aria-busy="true"
+      :aria-label="t('study.state.loading')"
+    />
 
     <template v-if="stats && tab === 'overview'">
       <div class="cards">
@@ -829,6 +835,11 @@ h2 {
 }
 .hardest .small {
   margin-left: var(--sp-2);
+}
+@media (max-width: 820px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 @media (max-width: 760px) {
   .two {

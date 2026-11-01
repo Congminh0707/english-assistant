@@ -84,6 +84,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 }
 .back {
   display: inline-flex;
+  white-space: nowrap;
   align-items: center;
   gap: 6px;
   min-height: 32px;
@@ -120,7 +121,10 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   background: var(--c-bg);
 }
 .tabs {
-  display: inline-flex;
+  display: flex;
+  flex-wrap: wrap;
+  width: fit-content;
+  max-width: 100%;
   gap: var(--sp-1);
   margin-bottom: var(--sp-4);
   padding: var(--sp-1);
@@ -149,6 +153,9 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
 @media (max-width: 820px) {
   .scene {
     width: 128px;
+  }
+  .back kbd {
+    display: none;
   }
 }
 </style>

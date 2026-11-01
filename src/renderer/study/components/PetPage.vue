@@ -446,9 +446,14 @@ h2 {
     background-position: -200% 0;
   }
 }
+@media (max-width: 820px) {
+  .hero-note {
+    display: none;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .skeleton {
-  border-radius: var(--r-lg);
+    border-radius: var(--r-lg);
     animation: none;
   }
 }

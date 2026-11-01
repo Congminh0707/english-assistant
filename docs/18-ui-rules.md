@@ -1,19 +1,19 @@
 # 18 — Quy tắc giao diện (UI rules)
 
-> **Thiết kế v2 "Làng chữ" đã duyệt ([23](23-design-v2-spec.md)).** Khi áp dụng, cập nhật file này và `pnpm ui:audit` theo `scripts/design-data/sync/tokens.json`. Code hiện tại vẫn theo tài liệu này cho tới khi được áp dụng.
+> Áp dụng thiết kế v2 "Làng chữ" ([23](23-design-v2-spec.md)); token lấy từ `scripts/design-data/sync/tokens.json`.
 
+Bộ quy tắc **bắt buộc** cho giao diện cửa sổ Học tập và component dùng chung, để mọi trang đồng bộ (bo góc, nút, icon, huy hiệu, màu). Lý do và bối cảnh: [12 §1b](12-ui-ux-guidelines.md), [decisions #28](decisions.md). Kiểm tra tự động: `pnpm ui:audit` (bắt cả nút còn lớp cũ như `primary/small/link` hoặc `<button>` không có lớp, emoji làm icon, khối thiếu bo góc, viền kiểu cũ `var(--px) solid var(--c-border)`) (chạy trước khi xong task giao diện; phải **0 lỗi**).
 
-Bộ quy tắc **bắt buộc** cho giao diện cửa sổ Học tập và component dùng chung, để mọi trang đồng bộ (bo góc, nút, icon, huy hiệu, màu). Lý do và bối cảnh: [12 §1b](12-ui-ux-guidelines.md), [decisions #28](decisions.md). Kiểm tra tự động: `pnpm ui:audit` (bắt cả nút còn lớp cũ như `primary/small/link` hoặc `<button>` không có lớp, emoji làm icon, khối thiếu bo góc, kiểu pixel cũ) (chạy trước khi xong task giao diện; phải **0 lỗi**).
-
-**Phạm vi:** `src/renderer/study/**`, `src/renderer/shared/components/**` `src/renderer/mascot/components/**` (bong bóng mascot) và `src/renderer/popup/**`. Phần tử gốc của cửa sổ/bong bóng phải có class `modern` và nạp `shared/styles/ui.css`. `PxPanel`, `PxBar`, `TtsIndicator`, `PixelBadge`, `PicText` đã bỏ pixel nên được quét như mọi file; `PIXEL_OK` trong `scripts/ui-audit.mjs` chỉ còn `PixelPicture.vue` và `TraceCanvas.vue`; giao diện trẻ em dùng `kids.css` (lớp `.k-*`) với cùng token nhưng nút to hơn.
+**Phạm vi:** `src/renderer/study/**`, `src/renderer/shared/components/**` `src/renderer/mascot/components/**` (bong bóng mascot) và `src/renderer/popup/**`. Phần tử gốc của cửa sổ/bong bóng phải có class `modern` và nạp `shared/styles/ui.css`. Giao diện trẻ em dùng `kids.css` (lớp `.k-*`, font `--font-kids`) với cùng token nhưng nút to hơn, ô viền mực 4px và bóng 8px. `PIXEL_OK` trong `scripts/ui-audit.mjs` liệt kê các component vẽ canvas/ô lưới được phép giữ kiểu riêng (`PixelPicture.vue` là component thẻ từ vector, `TraceCanvas.vue`).
 
 ## 1. Nguyên tắc
 
-1. **Một hệ, không tự chế.** Màu, cỡ chữ, khoảng cách, bán kính, bóng đều lấy từ token (`shared/styles/tokens.css`). Không viết mã màu hex, `px` bán kính hay `box-shadow` riêng trong component (chỉ `#fff` trên nền màu được phép).
+1. **Một hệ, không tự chế.** Màu, cỡ chữ, khoảng cách, bán kính, bóng đều lấy từ token (`shared/styles/tokens.css`). Không viết mã màu hex, `px` bán kính hay `box-shadow` riêng trong component (chỉ `#fff` trên nền màu được phép; riêng tranh vẽ và sân khấu game của bé xem §3).
 2. **Dùng lớp dùng chung trước, CSS riêng sau.** Nút, thẻ, chip, ô nhập có sẵn trong `shared/styles/ui.css`; thiếu biến thể → thêm vào `ui.css` (và mục dưới), không viết lại trong component.
-3. **Đã bo góc thì bo góc tất cả.** Mọi khối có nền hoặc viền (hàng danh sách, ô nhắc, ô nhập, nút, huy hiệu…) phải có `border-radius` theo bảng §2. Không để góc vuông lẫn góc bo trong cùng một trang. 4. **Icon là SVG (lucide), không phải emoji.** Dùng `<UiIcon name="…" />`. Emoji chỉ được nằm trong **dữ liệu nội dung** (tên chương, hình món đồ cửa hàng chờ ảnh thật, câu thoại mascot), không dùng làm nút/biểu tượng trong template.
-4. **Thẳng hàng quan trọng hơn đẹp.** Thẻ trong lưới cùng chiều cao; hàng nút nằm đáy (`margin-top: auto`); dòng ghi chú chừa chỗ cố định → nút luôn thẳng hàng dù có/không có ghi chú.
-5. **Sprite giữ pixel art** (`image-rendering: pixelated`); phần còn lại phẳng, bo góc, bóng mềm.
+3. **Đã bo góc thì bo góc tất cả.** Mọi khối có nền hoặc viền (hàng danh sách, ô nhắc, ô nhập, nút, huy hiệu…) phải có `border-radius` theo bảng §2. Không để góc vuông lẫn góc bo trong cùng một trang.
+4. **Icon là SVG (lucide), không phải emoji.** Dùng `<UiIcon name="…" />`. Emoji chỉ được nằm trong **dữ liệu nội dung** (tên chương, hình món đồ cửa hàng chờ ảnh thật, câu thoại mascot), không dùng làm nút/biểu tượng trong template.
+5. **Thẳng hàng quan trọng hơn đẹp.** Thẻ trong lưới cùng chiều cao; hàng nút nằm đáy (`margin-top: auto`); dòng ghi chú chừa chỗ cố định → nút luôn thẳng hàng dù có/không có ghi chú.
+6. **Tranh là vector.** Thú cưng, thẻ từ, cảnh làng đều là SVG vẽ phẳng viền mảnh; không dùng `image-rendering: pixelated` hay font pixel.
 
 ## 2. Bán kính
 
@@ -51,7 +51,7 @@ Lớp: `.btn` + một biến thể màu (`--primary` hành động chính, `--su
 
 ## 6. Thẻ, hàng danh sách, ô nhập
 
-- Thẻ: `.card` (nền trắng, viền `--c-line` 1px, `--r-lg`, `--shadow-sm`, đệm `--sp-4`). Hàng trong thẻ: viền mảnh hoặc nền `--c-surface-2`, `--r-md`.
+- Thẻ: `.card` (nền `--c-surface` giấy kem, viền `--c-line` 1px, `--r-lg`, `--shadow-sm`, đệm `--sp-4`). Hàng trong thẻ: viền mảnh hoặc nền `--c-surface-2`, `--r-md`.
 - Ô nhập/`select`: kiểu chung đã có trong `ui.css` (cao 30px, `--r-sm`); đừng đặt lại viền/bán kính.
 - Tiêu đề trang: `<h1 class="page-title">`; tiêu đề khối `h2` cỡ `--fs-lg`.
 - Khoảng cách theo `--sp-1…5` (4/8/12/16/24); không dùng số lẻ như 5px, 7px, 10px.
@@ -67,7 +67,7 @@ Lớp: `.btn` + một biến thể màu (`--primary` hành động chính, `--su
 
 1. Dùng lớp/component dùng chung; nếu thiếu, thêm vào `ui.css` hoặc `UiIcon` rồi mới dùng.
 2. `pnpm ui:audit` → 0 lỗi (cảnh báo màu hex nên giảm dần, không tăng).
-3. `pnpm lint && pnpm test`; chạy app (hoặc mở trang `study` với dữ liệu mẫu) và xem lại các trang đụng tới ở độ rộng ~800px và ≥ 1100px.
+3. `pnpm lint && pnpm test`; chụp app thật bằng `pnpm ui:shot <ảnh.png> --w 900 --h 640` (có `--js` để bấm vào trang) và xem lại các trang đụng tới ở 680×520, 900×640 và 1100×720, cả bản sáng và tối.
 4. Thêm quy tắc mới/ngoại lệ → sửa file này **trước**, rồi mới sửa code. Ngoại lệ có chủ đích → thêm vào `PIXEL_OK` trong `scripts/ui-audit.mjs` kèm chú thích lý do.
 
 ## 9. Checklist rà soát nhanh (mỗi trang)
@@ -78,7 +78,8 @@ Lớp: `.btn` + một biến thể màu (`--primary` hành động chính, `--su
 - [ ] Nhãn/huy hiệu cùng pill, cùng cỡ.
 - [ ] Thẻ lưới cùng chiều cao, nút thẳng hàng.
 - [ ] Không màu hex/px bán kính riêng; khoảng cách theo `--sp-*`.
-- [ ] Xem ở ~800px không vỡ bố cục, không thanh cuộn ngang thừa.
+- [ ] Xem ở 680×520 và 900×640 không vỡ bố cục, không thanh cuộn ngang thừa; tab địa điểm ngắt dòng thay vì tràn.
+- [ ] Có bản tối (token `:root[data-theme='dark']`) và có trạng thái đang tải / lỗi / trống.
 
 ## 10. Bản đồ 3D & công trình 3D (màn game bé — docs/19 §5.2)
 

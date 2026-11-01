@@ -6,10 +6,10 @@
 ## 1. Nhân vật
 
 - **Tên tạm**: _Bi_ (đổi được). Một sinh vật chibi tròn trịa, dễ thương với cả trẻ em và người lớn.
-- **Phong cách**: pixel art, khung sheet **96×96 px** (vẽ chi tiết: đổ bóng 5 tông, viền theo màu, mặt biểu cảm, tay/chân/đuôi), mặc định hiển thị **96px** (cài đặt kích thước 1/2/3 = 48/96/144px, tính theo khung gốc 48; sheet 96 được thu lại tương ứng) trên màn hình (Phase 1 cho chỉnh ×1/×2/×3 trong cài đặt — luôn số nguyên để pixel sắc nét). Kích thước trước đây (64px ×3 = 192px) bị đánh giá là quá to.
+- **Phong cách (v2)**: chibi vẽ vector (SVG), nét viền mực, màu phẳng có đổ bóng nhẹ, 16 trạng thái và 3 dáng đi xe, thuyền, máy bay (`src/renderer/shared/art/pets/`, hiển thị bằng `PetSprite`/`PetFigure`). Mascot hiển thị cỡ 1/2/3 = 48/96/144 px. Không còn pixel art ([decisions #39](decisions.md), [23 §2](23-design-v2-spec.md)).
 - **Tính cách**: tò mò, hay khen, hơi lười buổi trưa, thích ăn. Câu thoại ngắn, có cả tiếng Anh và tiếng Việt tuỳ level người dùng.
 - **Tiến hoá** (theo level thú cưng): Trứng (lv 1) → Bé (lv 2–9) → Thiếu niên (lv 10–24) → Trưởng thành (lv 25–49) → Huyền thoại (lv 50+). Mỗi giai đoạn là một bộ sprite mới.
-  - **Nhiều nhân vật (2026-10-20):** `src/shared/characters.ts` — `bi`, `lupo` (Ngân Lang — sói bạc, trăng trên trán; **thay Webby từ 2026-11-01**, id cũ `webster`; sprite pixel của cửa sổ mascot vẫn là hình nhện cũ đổi tên thư mục, chờ vẽ lại), `draco` (rồng: sừng, bụng kem, đuôi gai, cánh từ thiếu niên, lửa ở huyền thoại), `robo` (robot: kính tối đèn xanh, ăng-ten, tấm ngực, vầng sáng), `kitsu` (cáo: tai chóp nâu, đuôi xù 1→3 đuôi). **Tất cả là thiết kế gốc, không dùng nhân vật có bản quyền** (không dùng Spider-Man/Pokémon... — nhện hero chỉ lấy ý "anh hùng mặt nạ nhện"). Sprite: `characters/<id>/<giai đoạn>/` do `make-placeholder.mjs` sinh (`CHARACTER_SPECS`; `PREVIEW=1` ghi ảnh tổng hợp `content/.build/characters-preview.png`). `pet_states.character_id` lưu id; bản cũ `placeholder` được coi là `bi`. Cửa sổ mascot chọn sheet theo `<nhân vật>/<giai đoạn>`.
+  - **Nhiều nhân vật (2026-10-20):** `src/shared/characters.ts` — `bi`, `lupo` (Ngân Lang — sói bạc, trăng trên trán; **thay Webby từ 2026-11-01**, id cũ `webster`; vẽ vector như bốn con còn lại), `draco` (rồng: sừng, bụng kem, đuôi gai, cánh từ thiếu niên, lửa ở huyền thoại), `robo` (robot: kính tối đèn xanh, ăng-ten, tấm ngực, vầng sáng), `kitsu` (cáo: tai chóp nâu, đuôi xù 1→3 đuôi). **Tất cả là thiết kế gốc, không dùng nhân vật có bản quyền** (không dùng Spider-Man/Pokémon... — nhện hero chỉ lấy ý "anh hùng mặt nạ nhện"). Sprite: `characters/<id>/<giai đoạn>/` do `make-placeholder.mjs` sinh (`CHARACTER_SPECS`; `PREVIEW=1` ghi ảnh tổng hợp `content/.build/characters-preview.png`). `pet_states.character_id` lưu id; bản cũ `placeholder` được coi là `bi`. Cửa sổ mascot chọn sheet theo `<nhân vật>/<giai đoạn>`.
   - **Màn hình tiến hoá:** trang "Thú cưng" (`PetPage.vue`) có cây tiến hoá từng nhân vật (giai đoạn chưa đạt hiện bóng đen `???`), và `EvolutionOverlay.vue` tự hiện khi thú cưng lên giai đoạn mới (`useEvolution.ts`, nhớ giai đoạn đã xem theo nhân vật trong localStorage; lần đầu thấy một nhân vật không báo).
   - **Sprite hiện tại (2026-10-20, làm lại chi tiết gấp 4):** sinh bằng code trong `scripts/sprites/` — `gfx.mjs` (lõi: hình khối SDF, đổ bóng 5 tông có dither Bayer, viền theo màu, PNG), `creature.mjs` (5 nhân vật × 5 giai đoạn: thân, tai/sừng/ăng-ten, đuôi, cánh, chân nhện, tay, chân, mặt, hoa văn, hiệu ứng nhỏ), `accessories.mjs` (12 phụ kiện, có lớp sau lưng cho áo choàng/cánh), `anim.mjs` (hoạt ảnh), `make-characters.mjs` (xuất `characters/<nhân vật>/<giai đoạn>/sheet.png|json`, `acc-<id>.png` lớp trước, `accb-<id>.png` lớp sau). `pnpm sprites:characters [nhân vật] [giai đoạn]`; `PREVIEW=1` ảnh tổng hợp, `PREVIEW=anim` mọi frame, `PREVIEW=acc` thử phụ kiện (ghi vào `content/.build/`). Sheet 768×2304 (8 cột × 24 hàng, 186 frame).
   - **20 hoạt ảnh:** idle (thở+chớp mắt), look, wag, yawn, stretch, wave, dance, spin, think (tự chơi khi rảnh), walk, drag, fall, land, happy, eat, sleep, sad (khi đói), surprised, angry, love (khi bị vuốt). `MascotBrain` chọn ngẫu nhiên hoạt ảnh tự chơi (~35% mỗi lần hết thời gian nghỉ), click → happy/love, đói → sad, lên cấp → dance, thức dậy → stretch, chào → wave.
@@ -115,7 +115,7 @@ export class SpriteAnimator {
 }
 ```
 
-- Vòng lặp dùng `requestAnimationFrame`, nhưng **chỉ vẽ lại khi frame thay đổi** (pixel art 6–12 fps) để tiết kiệm CPU.
+- Vòng lặp dùng `requestAnimationFrame`, nhưng **chỉ vẽ lại khi frame thay đổi** (hoạt ảnh 6–12 fps) để tiết kiệm CPU.
 - Khi cửa sổ bị ẩn (chế độ yên lặng) → dừng vòng lặp hoàn toàn.
 - Chế độ hiệu năng thấp: giới hạn tối đa 8 fps.
 
@@ -274,6 +274,8 @@ Danh sách app họp/game có thể chỉnh trong Cài đặt (lưu theo tên pr
 
 ## 10. Biểu cảm & hành động riêng từng nhân vật (2026-10-21)
 
+> **Lịch sử:** các mô tả sprite sheet, script `scripts/sprites/` và gói 288px ở §2, §10, §10b, §11 là bản pixel cũ, đã gỡ ở v2. Hành vi (tương tác, biểu cảm, câu thoại) vẫn đúng.
+
 > **Đã gỡ (2026-11-01, [decisions #45](decisions.md)):** hoạt ảnh `quirk_*`/`click_*` không còn (hình vector dùng 19 dáng chung).
 
 Trước đây cả 5 nhân vật dùng chung một bộ hoạt ảnh. Nay `scripts/sprites/anim.mjs` giữ bộ **chung** (20 hoạt ảnh) và `scripts/sprites/anim-chars.mjs` thêm:
@@ -323,7 +325,7 @@ Bộ cài giữ sprite **96×96** (≈ 22 MB). Chủ dự án muốn nét hơn �
 - **Cách vẽ:** lõi `scripts/sprites/gfx.mjs` có hệ số `SPRITE_SCALE` (1 mặc định). Toạ độ vẽ trong `creature.mjs`/`accessories.mjs` vẫn là toạ độ logic 96×96; canvas thật là `96 × SCALE`, hình khối SDF lấy mẫu ở độ phân giải thật nên đường nét mịn hơn (bóng, dither, viền dày ≈ 1 pixel logic). Thiết kế nhân vật không đổi, chỉ nét hơn. `SPRITE_OUT=<thư mục>` ghi sang chỗ khác để không đè sprite 96px của bộ cài.
 - **Sinh:** `SPRITE_SCALE=3 SPRITE_OUT=content/.build/sprites-hires node scripts/sprites/make-characters.mjs` (~45 phút) → `node scripts/sprites/build-hires-pack.mjs [ver]` (cần Python + Pillow: PNG → WebP lossless) → `content/.build/pet-sprites-hires-<ver>.zip` + `.sha256`.
 - **Chạy trong app:** main (`SpritePackManager`/`SpritePackService`, kênh `sprites:*`) tải gói, kiểm kích thước + sha256, giải nén vào `userData/sprite-packs/`, chỉ nhận đường dẫn đúng mẫu `<nhân vật>/<giai đoạn>/(sheet|acc-*|accb-*).webp|sheet.json`. Ảnh trả cho renderer dạng data URL (CSP đã có `img-src data:`). Renderer: `shared/pet/hires.ts` theo dõi trạng thái; `PetSprite` (cửa sổ Học tập) và `mascot/App.vue` (cửa sổ mascot) dùng gói khi đã cài và rơi về sprite 96px khi chưa cài/thiếu lớp. `SpriteAnimator` vốn đã suy ra tỉ lệ từ `meta.frameSize` nên không đổi bố cục hoạt ảnh. Không trộn hai độ phân giải: thân 288px thì chỉ dùng phụ kiện 288px.
-- **Hiển thị:** mascot cỡ 1×–3× hiển thị 48–144px nên sprite 288px được thu nhỏ có làm mịn (không còn "pixel vuông"); trang Thú cưng/tiến hoá dùng `image-rendering: auto` khi có gói.
+- **Hiển thị:** mascot cỡ 1×–3× hiển thị 48–144px (vector nên luôn nét; gói 288px đã gỡ).
 - Dung lượng, số liệu: [17-metrics.md §4](17-metrics.md). Quyết định: [decisions #29](decisions.md).
 
 > **Hiệu năng sprite 288px (2026-10-23):** mỗi sheet trong gói 288px là 2304×8928 px (≈ 82 MB khi giải mã) vì chứa mọi hoạt ảnh. `PetSprite` (cửa sổ Học tập) chỉ cần hoạt ảnh idle nên cắt **hàng đầu** thành `ImageBitmap` (`hiresIdleBitmap`) và vẽ bằng canvas; không dùng nguyên sheet làm `background-image` (12 sprite ≈ 1 GB gây giật). Cửa sổ mascot cần mọi hoạt ảnh nên vẫn nạp cả sheet.

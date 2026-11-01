@@ -1,6 +1,6 @@
 # AGENTS.md — Hướng dẫn cho AI agent & người mới
 
-Dự án: **English Assistant** — Desktop Mascot (chibi/pixel) cho Windows giúp học tiếng Anh trong lúc dùng máy tính, từ mầm non tới TOEIC 990 / IELTS 9.0.
+Dự án: **English Assistant** — Desktop Mascot (thú cưng chibi vẽ vector, giao diện "Làng chữ") cho Windows giúp học tiếng Anh trong lúc dùng máy tính, từ mầm non tới TOEIC 990 / IELTS 9.0.
 
 ## Đọc trước khi làm bất cứ việc gì
 1. [docs/README.md](docs/README.md) — mục lục & quy tắc tài liệu.

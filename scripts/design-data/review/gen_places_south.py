@@ -815,6 +815,112 @@ def net_rack(x, y, s=1):
     for k in range(9): o += '<circle cx="%d" cy="-68" r="2.6" fill="#E8743C" stroke="#5A2A10" stroke-width=".6"/>' % (-64 + k * 16)
     return o + '</g>'
 
+# --- PPhuquoc: chi tiết đời sống đảo (thêm cho đủ độ dày như R5Arrive) ---
+RP = random.Random(77)
+PQ_CSS = """<style>
+@keyframes sidle{0%,100%{transform:translateX(-9px)}50%{transform:translateX(9px)}}
+.sidle{animation:sidle var(--t,5s) ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes glint{0%,100%{opacity:.15;transform:scale(.6)}50%{opacity:1;transform:scale(1.1)}}
+.glint{animation:glint var(--t,3s) ease-in-out infinite;animation-delay:var(--d,0s);transform-box:fill-box;transform-origin:center}
+@keyframes ray{0%,100%{opacity:.55}50%{opacity:.9}}
+.ray{animation:ray 7s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.sidle,.glint,.ray{animation:none}}
+</style>"""
+
+def pq_barrel(x, y, s=1, c='#7A4A32'):
+    """Thùng nước mắm gỗ: thân phình, đai tre, nắp, vòi."""
+    o = '<g transform="translate(%d %d) scale(%.2f)"><ellipse cy="3" rx="22" ry="6" fill="#2A1038" opacity=".4"/>' % (x, y, s)
+    o += '<path d="M-17 0Q-23 -22 -17 -44H17Q23 -22 17 0Q0 6 -17 0Z" fill="%s" stroke="%s" stroke-width="1.5"/>' % (c, INK)
+    for k in range(-2, 3):
+        o += '<path d="M%d -42Q%d -22 %d -2" stroke="#4A2A1E" stroke-width="1" fill="none" opacity=".6"/>' % (k * 6, k * 7.5, k * 6)
+    for yy in (-36, -8):
+        o += '<path d="M%d %dQ0 %d %d %d" stroke="#C9A464" stroke-width="3" fill="none"/>' % (-19 if yy < -20 else -21, yy, yy + 5, 19 if yy < -20 else 21, yy)
+    o += '<ellipse cy="-44" rx="17" ry="5" fill="#9A6A48" stroke="%s" stroke-width="1.2"/><ellipse cy="-44" rx="11" ry="3" fill="#6A4028"/><path d="M-17 -14l-9 3v4" stroke="#2A1C22" stroke-width="2.4" fill="none"/>' % INK
+    o += '<path d="M10 -40Q14 -22 10 -4" stroke="#FFC08A" stroke-width="3" opacity=".3" fill="none"/>'
+    return o + '</g>'
+
+def pq_fish(x, y, s=1, c='#CFD8E8'):
+    return '<g transform="translate(%.0f %.0f) scale(%.2f)"><path d="M-8 0Q0 -5 8 0Q0 5 -8 0ZM8 0l5 -4v8Z" fill="%s" stroke="#4A3A5A" stroke-width=".7"/><circle cx="-5" cy="-.8" r=".9" fill="#2A1C22"/></g>' % (x, y, s, c)
+
+def pq_rack(x, y, s=1, rows=3, w_=120):
+    """Giàn phơi cá/mực: khung tre, dây ngang, cá treo từng hàng."""
+    o = '<g transform="translate(%d %d) scale(%.2f)"><ellipse cy="2" rx="%d" ry="5" fill="#2A1038" opacity=".35"/>' % (x, y, s, w_ / 2 + 6)
+    o += '<path d="M%d 0V-%d M0 0V-%d M%d 0V-%d" stroke="#6B4322" stroke-width="4" stroke-linecap="round"/>' % (-w_ / 2, 20 + rows * 22, 20 + rows * 22, w_ / 2, 20 + rows * 22)
+    for r_ in range(rows):
+        yy = -22 - r_ * 22
+        o += '<path d="M%d %dH%d" stroke="#8F5A2E" stroke-width="2.4"/>' % (-w_ / 2 - 6, yy, w_ / 2 + 6)
+        for k in range(int(w_ / 15)):
+            fx = -w_ / 2 + 8 + k * 15
+            o += '<path d="M%.0f %dv5" stroke="#6B4322" stroke-width=".8"/><path d="M%.0f %dq-4 8 0 17q4 -9 0 -17Z" fill="%s" stroke="#4A3A5A" stroke-width=".6"/>' % (fx, yy, fx, yy + 4, RP.choice(['#CFD8E8', '#E8C8B0', '#F0B8A0', '#BFD0E0']))
+    return o + '</g>'
+
+def pq_basket(x, y, s=1, fish=True):
+    o = '<g transform="translate(%d %d) scale(%.2f)"><ellipse cy="3" rx="19" ry="5" fill="#2A1038" opacity=".35"/><path d="M-18 -16Q-16 2 0 3Q16 2 18 -16Z" fill="#B88A4E" stroke="%s" stroke-width="1.3"/>' % (x, y, s, INK)
+    for k in range(-3, 4):
+        o += '<path d="M%d -16Q%d -6 %d 2" stroke="#6E4A2A" stroke-width=".9" fill="none"/>' % (k * 5, k * 5, k * 3)
+    o += '<path d="M-18 -9Q0 -4 18 -9" stroke="#6E4A2A" stroke-width=".9" fill="none"/><ellipse cy="-16" rx="18" ry="5" fill="#6A4A2A" stroke="%s" stroke-width="1"/>' % INK
+    if fish:
+        for k, c_ in enumerate(['#CFD8E8', '#F0B8A0', '#BFD0E0']):
+            o += pq_fish(-8 + k * 8, -17 - (k % 2) * 2, .75, c_)
+    return o + '</g>'
+
+def pq_crab(x, y, t=5, d=0):
+    o = '<g class="sidle" style="--t:%.1fs;--d:-%.1fs"><g transform="translate(%d %d)"><ellipse rx="7" ry="4.4" fill="#E8584A" stroke="#5A1A18" stroke-width=".9"/>' % (t, d, x, y)
+    for sg in (-1, 1):
+        o += '<path d="M%d -2l%d -6M%d -5l%d -2M%d 1l%d 3M%d 3l%d 4" stroke="#5A1A18" stroke-width="1" fill="none" stroke-linecap="round"/>' % (sg * 6, sg * 4, sg * 4, sg * 5, sg * 6, sg * 5, sg * 5, sg * 4)
+        o += '<circle cx="%d" cy="-9" r="2.6" fill="#F27A62" stroke="#5A1A18" stroke-width=".7"/><circle cx="%d" cy="-4" r="1.2" fill="#fff"/>' % (sg * 11, sg * 2)
+    return o + '</g></g>'
+
+def pq_shells(x0, x1, y0, y1, n):
+    o = ''
+    for _ in range(n):
+        x, y, k = RP.randint(x0, x1), RP.randint(y0, y1), RP.random()
+        sz = .7 + (y - y0) / max(1, y1 - y0) * .8
+        if k < .4:
+            o += '<g transform="translate(%d %d) scale(%.2f) rotate(%d)"><path d="M0 0L-6 -7Q0 -11 6 -7Z" fill="#FFE8DC" stroke="#9A5A7A" stroke-width=".8"/><path d="M0 0L-3 -9M0 0V-10M0 0L3 -9" stroke="#C88AA0" stroke-width=".6"/></g>' % (x, y, sz, RP.randint(-30, 30))
+        elif k < .6:
+            o += '<g transform="translate(%d %d) scale(%.2f) rotate(%d)"><path d="M0 -8L2.4 -2.6L8 -2.4L3.6 1.4L5 7L0 4L-5 7L-3.6 1.4L-8 -2.4L-2.4 -2.6Z" fill="#F29A62" stroke="#8A3A22" stroke-width=".8"/></g>' % (x, y, sz, RP.randint(0, 70))
+        elif k < .8:
+            o += '<g transform="translate(%d %d) scale(%.2f)"><path d="M-6 0Q-7 -9 0 -9Q7 -9 6 -2Q5 3 -1 3Q-6 3 -4 -3" fill="#F8D8C8" stroke="#8A4A6A" stroke-width=".9"/><path d="M-3 -2Q0 -6 3 -3" stroke="#C88AA0" stroke-width=".7" fill="none"/></g>' % (x, y, sz)
+        else:
+            o += '<ellipse cx="%d" cy="%d" rx="%.1f" ry="%.1f" fill="%s" stroke="#4A2A5A" stroke-width=".9"/><path d="M%.0f %dq4 -3 8 -1" stroke="#fff" stroke-width="1" opacity=".3" fill="none"/>' % (x, y, 8 * sz, 4.6 * sz, RP.choice(['#8A6A8E', '#A07A98', '#7A5A80']), x - 4 * sz, y - 2)
+    return o
+
+def pq_tuft(x, y, s=1, c='#2F6A4A'):
+    """Cỏ/bụi ven cát, ngả theo gió."""
+    o = '<g transform="translate(%d %d) scale(%.2f)">' % (x, y, s)
+    for k in range(-4, 5):
+        o += '<path d="M%d 0Q%d -14 %d %d" stroke="%s" stroke-width="2.2" fill="none" stroke-linecap="round"/>' % (k * 2, k * 3, k * 5 + 4, -22 + abs(k) * 2, c if k % 2 else '#4A8A5A')
+    return V.sway(o + '</g>', x, y, 3.6 + (x % 4) * .3, (x % 5) * .5)
+
+def pq_gull(x, y, s=1, d=0):
+    return '<g class="lap" style="--t:%.1fs;--d:-%.1fs"><path d="M%d %dq%.0f %.0f %.0f 0q%.0f %.0f %.0f 0" stroke="#2A1438" stroke-width="%.1f" fill="none" stroke-linecap="round"/></g>' % (5 + d % 3, d, x, y, 7 * s, -7 * s, 14 * s, 7 * s, 7 * s, 14 * s, max(1.3, 1.8 * s))
+
+def pq_sparkle(x, y, r=5, c='#FFF3B0', t=3, d=0):
+    return '<path class="glint" style="--t:%.1fs;--d:-%.1fs" d="M%d %dL%.1f %.1fL%d %dL%.1f %.1fL%d %dL%.1f %.1fL%d %dL%.1f %.1fZ" fill="%s"/>' % (t, d, x, y - r, x + r * .25, y - r * .25, x + r, y, x + r * .25, y + r * .25, x, y + r, x - r * .25, y + r * .25, x - r, y, x - r * .25, y - r * .25, c)
+
+def pq_lanterns(x0, y0, x1, y1, sag, n, cols=('#F2484A', '#FFB02E', '#F2484A', '#FFD27A')):
+    """Dây đèn lồng giăng giữa các nhà sàn."""
+    cy_ = (y0 + y1) / 2 + sag * 2
+    o = '<path d="M%d %dQ%.0f %.0f %d %d" stroke="#2A1C22" stroke-width="1.4" fill="none"/>' % (x0, y0, (x0 + x1) / 2, cy_, x1, y1)
+    for k in range(1, n + 1):
+        t = k / (n + 1)
+        px = (1 - t) ** 2 * x0 + 2 * (1 - t) * t * (x0 + x1) / 2 + t * t * x1
+        py = (1 - t) ** 2 * y0 + 2 * (1 - t) * t * cy_ + t * t * y1
+        o += G.halo(px, py + 6, 15, .6) + '<ellipse cx="%.0f" cy="%.0f" rx="4.2" ry="5.4" fill="%s" stroke="#5A1A18" stroke-width=".8"/><path d="M%.0f %.0fv2" stroke="#2A1C22"/>' % (px, py + 6, cols[k % len(cols)], px, py)
+    return o
+
+def pq_stilts_detail(x, y, w_, s=1):
+    """Chi tiết nhà sàn: thang, xà ngang giữa cột, lưới phơi, phao."""
+    o = '<g transform="translate(%d %d) scale(%.2f)">' % (x, y, s)
+    o += '<path d="M%d 34H%d" stroke="#3A2A30" stroke-width="2.4"/>' % (-w_ / 2, w_ / 2)
+    o += '<path d="M%d 0L%d 52M%d 0L%d 52" stroke="#6B4322" stroke-width="2.4"/>' % (w_ / 2 + 6, w_ / 2 + 22, w_ / 2 + 14, w_ / 2 + 30)
+    for k in range(6):
+        o += '<path d="M%.0f %dh7" stroke="#6B4322" stroke-width="1.6"/>' % (w_ / 2 + 7 + k * 3, 6 + k * 8)
+    o += '<path d="M%d -6Q%d 16 0 2Q%d 16 %d -6" fill="#2FA8A0" opacity=".45" stroke="#1F6A70" stroke-width=".8"/>' % (-w_ / 2 - 8, -w_ / 4, w_ / 4, w_ / 2 + 8)
+    o += '<circle cx="%d" cy="-14" r="5" fill="#E8743C" stroke="#5A2A10" stroke-width=".8"/><circle cx="%d" cy="-14" r="5" fill="#F4F0E4" stroke="#5A2A10" stroke-width=".8"/>' % (-w_ / 2 - 16, -w_ / 2 - 28)
+    return o + '</g>'
+
 def pphuquoc():
     HZ = 348
     d = lin('skP', [('0', '#3A2E96'), ('.3', '#8A3EB8'), ('.58', '#E8589A'), ('.8', '#FF9A4A'), ('1', '#FFDC6A')]) + lin('seaP', [('0', '#FFB26A'), ('.16', '#F0789A'), ('.55', '#9A4AA8'), ('1', '#4E2E86')]) + lin('sandP', [('0', '#F2A49A'), ('.5', '#E88AA4'), ('1', '#C86E9E')]) + water_defs(HZ, 22, 8)
@@ -822,14 +928,41 @@ def pphuquoc():
     for _ in range(50): o += '<circle class="tw" style="--t:%.1fs;--d:-%.1fs" cx="%d" cy="%d" r="1.2" fill="#fff"/>' % (R.uniform(2, 5), R.uniform(0, 4), R.randint(0, 1280), R.randint(0, 96))
     for x, y, w_, h_, c_ in [(160, 110, 340, 13, '#F27AA8'), (480, 70, 280, 10, '#C86AC8'), (900, 96, 420, 14, '#F27AA8'), (1120, 170, 320, 10, '#FFA88A'), (300, 210, 300, 9, '#FF9A8A'), (760, 240, 380, 8, '#FFC47A'), (1000, 280, 260, 6, '#FFD08A')]:
         o += '<ellipse class="drift" style="--t:300s;--d:-%ds" cx="%d" cy="%d" rx="%d" ry="%d" fill="%s" opacity=".7"/>' % (x % 40, x, y, w_ / 2, h_, c_)
+    # mây tầng thấp ánh cam, tia nắng quạt, đàn chim về tổ
+    for x, y, w_, c_ in [(140, 300, 420, '#FFB88A'), (1010, 318, 360, '#FFC47A'), (560, 330, 300, '#FF9A8A')]:
+        o += '<ellipse class="drift" style="--t:380s;--d:-%ds" cx="%d" cy="%d" rx="%d" ry="5" fill="%s" opacity=".55"/>' % (x % 53, x, y, w_ / 2, c_)
+    o += cloud(330, 150, 150, '#FFC0B0', '#E87AA8', .55, 340) + cloud(1050, 120, 170, '#FFD0A8', '#F07AA0', .5, 420)
+    o += '<g class="ray" opacity=".55">'
+    for k in range(-5, 6):
+        a = math.radians(k * 11 - 2)
+        o += '<path d="M790 %d L%.0f %.0f L%.0f %.0f Z" fill="#FFE8A0" opacity="%.2f"/>' % (HZ - 18, 790 + math.sin(a - .035) * 760, HZ - 18 - math.cos(a - .035) * 760, 790 + math.sin(a + .035) * 760, HZ - 18 - math.cos(a + .035) * 760, .07 + .04 * (k % 2))
+    o += '</g>'
     sc = V.uid()
     o += '<circle cx="790" cy="%d" r="240" fill="url(#hg)"/><clipPath id="%s"><rect width="1280" height="%d"/></clipPath><g clip-path="url(#%s)"><circle cx="790" cy="%d" r="58" fill="#FFF0A0"/><circle cx="790" cy="%d" r="46" fill="#FFD24A"/></g>' % (HZ - 20, sc, HZ, sc, HZ - 18, HZ - 18)
     o += '<path d="M880 %dQ930 %d 990 %dQ1040 %d 1100 %dT1280 %dV%dH880Z" fill="#7A3A8E"/><path d="M380 %dQ430 %d 500 %dT620 %dZ" fill="#8A3E8E"/>' % (HZ, HZ - 16, HZ - 8, HZ - 26, HZ - 10, HZ - 22, HZ, HZ, HZ - 12, HZ - 5, HZ)
     o += V.flock(190, 66, 8, .36) + '<rect y="%d" width="1280" height="372" fill="url(#seaP)"/>' % HZ
+    # chân trời: đảo xa nhiều lớp, thuyền buồm xa, cụm dừa xa, sương cam
+    o += '<path d="M0 %d Q60 %d 140 %d T300 %d V%d H0Z" fill="#9A4A98" opacity=".75"/><path d="M1030 %d Q1090 %d 1160 %d T1280 %d V%d H1030Z" fill="#6E3486" opacity=".8"/>' % (HZ, HZ - 22, HZ - 12, HZ - 4, HZ + 1, HZ, HZ - 20, HZ - 10, HZ - 24, HZ + 1)
+    for x, h_ in ((1100, 40), (1124, 52), (1150, 34), (60, 30), (90, 38)):
+        o += coco(x, HZ - 4, h_, 6 if x > 1000 else -5, '#3A1E5A', '#3A1E5A', '#3A1E5A', 7, 16)
+    for x, y, s_ in ((350, HZ + 6, .5), (590, HZ + 4, .38), (1000, HZ + 7, .46), (1240, HZ + 10, .6)):
+        o += '<g transform="translate(%d %d) scale(%.2f)" opacity=".85"><path d="M-30 0H34L26 9H-22Z" fill="#3A1E5A"/><path d="M2 -2V-44L30 -4Z" fill="#FFC8A0" opacity=".9"/><path d="M-2 -2V-36L-24 -4Z" fill="#E88AA8" opacity=".9"/></g>' % (x, y, s_)
+    o += '<rect y="%d" width="1280" height="14" fill="#FFB890" opacity=".35"/>' % (HZ - 6)
+    for x, y, s_, d_ in ((470, 90, 1, 0), (500, 112, .8, 2), (560, 80, .7, 4), (420, 150, .9, 1), (980, 60, .9, 3), (1040, 84, .7, 5), (1180, 230, .8, 2)):
+        o += pq_gull(x, y, s_, d_)
     boats = fishing(905, 398, .5) + fishing(1160, 430, .74, '#2E6AC8', '#F4F0E4', '#E8743C', True) + fishing(650, 386, .36, '#D9543C', '#2FB8C6', '#2E6AC8', True) + fishing(510, 374, .3)
     village = ''
     for x, y, w_, h_, wl, rf, s_ in [(44, 330, 96, 44, '#8A5A6A', '#6A4A7A', .74), (124, 328, 84, 40, '#7A6A8A', '#8A4A4E', .74), (200, 336, 92, 44, '#A87A6A', '#5A5A8A', .78), (280, 330, 84, 40, '#6E6A8E', '#8A5A4E', .72), (346, 338, 76, 38, '#946A6E', '#54507E', .7), (-20, 392, 120, 54, '#B2806A', '#7E4A52', 1.04), (106, 396, 112, 50, '#6E7AA0', '#8E5A4E', 1.08), (226, 400, 116, 52, '#BE8E72', '#4E5E8E', 1.12), (346, 404, 100, 48, '#8E6E8E', '#96584E', 1.04)]:
         village += nhasan(x, y, w_, h_, wl, rf, s_)
+    # đời sống trên nhà sàn: đèn lồng, ván nối, lưới phơi, thang, thuyền thúng buộc dưới sàn, khói bếp
+    village += pq_lanterns(30, 372, 150, 372, 6, 4) + pq_lanterns(150, 368, 296, 376, 7, 5) + pq_lanterns(296, 376, 420, 384, 6, 4)
+    village += pq_lanterns(-10, 428, 110, 432, 8, 4) + pq_lanterns(110, 432, 240, 436, 8, 5, ('#FFB02E', '#F2484A', '#FFD27A'))
+    for x, y, w_ in ((60, 440, 96), (170, 444, 92), (290, 450, 96)):
+        village += pq_stilts_detail(x, y, w_, .85)
+    village += '<path d="M-10 416H70M150 418H190M262 420H330" stroke="#5A3E3A" stroke-width="5"/>'
+    for x, y, c_ in ((72, 312, '#E8743C'), (298, 328, '#3E8EB8'), (176, 292, '#C9A464')):
+        village += '<g class="smoke" style="--d:-%.1fs"><circle cx="%d" cy="%d" r="5" fill="#F4E6EE" opacity=".55"/></g><g class="smoke" style="--d:-%.1fs"><circle cx="%d" cy="%d" r="4" fill="#F4E6EE" opacity=".45"/></g>' % (x % 4, x, y, x % 3 + 1.8, x + 6, y - 10)
+    village += thung(210, 472, .3, False, False, 60) + thung(110, 474, .26, False, False, 60) + thung(340, 476, .28, True, False, 60)
     o += reflect(boats + village, HZ + 110, HZ + 4)
     for _ in range(90):
         y = R.randint(HZ + 3, 500); sp = (y - HZ) * .3 + 26; x = 790 + R.uniform(-1, 1) * sp
@@ -837,6 +970,13 @@ def pphuquoc():
     for _ in range(150):
         x, y = R.randint(0, 1280), R.randint(HZ + 3, 520)
         o += '<path class="lap" style="--t:%.1fs;--d:-%.1fs" d="M%d %dh%d" stroke="%s" stroke-width="2" opacity="%.2f" stroke-linecap="round"/>' % (R.uniform(3, 6), R.uniform(0, 4), x, y, R.randint(14, 66), R.choice(['#FFC0A0', '#F7A0C4', '#D08AD8', '#FFE29A']), R.uniform(.2, .6))
+    for _ in range(26):
+        y = RP.randint(HZ + 6, 480); sp = (y - HZ) * .34 + 40
+        o += pq_sparkle(int(790 + RP.uniform(-1, 1) * sp), y, RP.uniform(3, 6.5), RP.choice(['#FFF3B0', '#FFFFFF', '#FFE27A']), RP.uniform(2, 4.5), RP.uniform(0, 4))
+    # phao neo, hàng phao nuôi trai, bóng bay màu cam trên mặt nước
+    for x, y in ((560, 438), (600, 444), (650, 430), (1100, 482), (1135, 490), (980, 452)):
+        o += '<g class="lap" style="--t:%.1fs;--d:-%.1fs"><ellipse cx="%d" cy="%d" rx="9" ry="2.6" fill="#2A1038" opacity=".3"/><ellipse cx="%d" cy="%d" rx="5.4" ry="4" fill="#E8743C" stroke="%s" stroke-width=".9"/><path d="M%d %dq2 -2 5 -1" stroke="#fff" stroke-width="1" fill="none" opacity=".6"/></g>' % (RP.uniform(3, 5), RP.uniform(0, 4), x, y + 4, x, y, INK, x - 3, y - 1)
+    o += '<path d="M540 436Q600 446 668 432" stroke="#2A1C22" stroke-width="1" fill="none" opacity=".6"/>'
     o += '<g class="rock">' + boats + '</g>' + village + thung(636, 452, .62, False, True) + thung(470, 436, .42, False, True)
     # bãi cát, sóng liếm bờ
     o += '<path d="M-10 492Q150 462 330 492Q560 532 760 512Q1000 486 1290 532V560H-10Z" fill="#FFE2E2" opacity=".7" class="lap" style="--t:5s"/>'
@@ -844,6 +984,18 @@ def pphuquoc():
     for _ in range(260):
         x, y = R.randint(-10, 1280), R.randint(530, 718); w_ = R.randint(20, 90) * (.5 + (y - 500) / 300)
         o += '<path d="M%d %dq%.0f %d %.0f 0" stroke="%s" stroke-width="1.4" fill="none" opacity=".5"/>' % (x, y, w_ / 2, R.randint(-5, 5), w_, R.choice(['#FFD2CC', '#B85E96', '#F7AAB8', '#A85090']))
+    # cát ướt phản chiếu mặt trời, bóng dừa đổ về phía người xem, vỏ sò, đá, cỏ, cua
+    o += '<path d="M700 518Q790 508 880 520L1000 720H560Z" fill="#FFE2B0" opacity=".16"/><path d="M740 524Q790 516 840 526L900 720H680Z" fill="#FFF0C8" opacity=".14"/>'
+    for x, y, w_, a_ in ((120, 600, 130, 14), (1130, 640, 150, -16), (1040, 590, 100, -10), (1235, 680, 120, -12)):
+        o += '<path d="M%d %dL%d %dL%d %dZ" fill="#5A2A6A" opacity=".2"/>' % (x - 6, y - 20, x + w_ * (1 if a_ > 0 else -1) * .5, y + 60, x + 8, y - 20)
+    o += pq_shells(20, 380, 540, 710, 16) + pq_shells(740, 1260, 530, 712, 22)
+    for x, y, s_ in ((30, 540, 1.1), (210, 530, 1), (1180, 542, 1.2), (900, 700, 1.4), (690, 560, .8)):
+        o += '<g transform="translate(%d %d) scale(%.2f)"><ellipse cy="3" rx="26" ry="6" fill="#2A1038" opacity=".3"/><path d="M-24 0Q-24 -16 -8 -20Q4 -26 16 -16Q28 -8 24 0Z" fill="#8A6A8E" stroke="%s" stroke-width="1.4"/><path d="M-10 -14Q0 -22 10 -14" stroke="#C8A8C8" stroke-width="2" fill="none" opacity=".6"/><path d="M-6 -4Q4 -10 14 -4" stroke="#5A3A66" stroke-width="1.2" fill="none"/></g>' % (x, y, s_, INK)
+    o += '<path d="M780 640Q830 632 880 646" stroke="#7A4A32" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M830 636l12 -12M850 640l10 -8" stroke="#7A4A32" stroke-width="3" stroke-linecap="round"/>'
+    for x, y, s_ in ((16, 526, 1), (232, 526, .9), (1150, 530, 1.1), (1060, 520, .8), (700, 536, .8), (700, 700, 1.2), (60, 640, 1.1)):
+        o += pq_tuft(x, y, s_, '#2A5A44')
+    for x, y, t_, d_ in ((240, 650, 5, 0), (940, 698, 6, 2), (1205, 650, 4.6, 1), (410, 520, 5.2, 3)):
+        o += pq_crab(x, y, t_, d_)
     # cầu ván từ làng ra bãi: lối đi của thú cưng
     pier = 'M380 462L436 448L720 720H470Z'; wid = V.uid()
     o += '<clipPath id="%s"><path d="%s"/></clipPath>' % (wid, pier)
@@ -861,14 +1013,23 @@ def pphuquoc():
             o += '<path d="M%.0f %.0fv%.0f" stroke="#5A3628" stroke-width="%.1f"/>' % (x, y, -22 - 34 * t, 3 + 3 * t)
     o += thung(170, 610, 1.3) + thung(320, 680, 1.06) + thung(60, 690, 1.0, False) + thung(860, 610, 1.16) + thung(1010, 660, 1.5)
     o += net_rack(1190, 598, 1.1) + net_rack(760, 548, .7) + V.non(1130, 616, '#D9543C') + V.non(800, 590, '#2FB8C6') + G.walker(900, 540, '#F2C25A', s=.84)
+    # xóm nước mắm & cá phơi: thùng nước mắm, giàn phơi cá, rổ cá, người làng
+    o += pq_rack(246, 552, .8, 3, 110) + pq_rack(985, 560, .85, 2, 130) + pq_rack(1195, 700, .75, 2, 100)
+    o += pq_barrel(318, 566, .95) + pq_barrel(352, 574, 1.0, '#6A3E2C') + pq_barrel(334, 548, .85, '#8A5638')
+    o += pq_barrel(842, 556, .85) + pq_barrel(870, 564, .9, '#6A3E2C') + pq_barrel(1070, 700, 1.1) + pq_barrel(1102, 712, 1.0, '#8A5638')
+    o += pq_basket(402, 642, 1.1) + pq_basket(1100, 580, .9) + pq_basket(715, 640, 1.0) + pq_basket(1000, 702, .9, False)
+    o += V.non(280, 604, '#2FB8C6', True) + V.non(1235, 664, '#D9543C') + V.non(370, 690, '#F2C25A') + G.walker(1160, 708, '#3E8EB8', s=.9) + G.walker(960, 592, '#E8743C', s=.8) + G.walker(35, 608, '#8A5AD8', s=.9) + G.walker(680, 600, '#2FB8C6', s=.7)
     for x, y in ((230, 560), (780, 680), (1120, 700)):
         o += '<circle cx="%d" cy="%d" r="8" fill="#E8743C" stroke="%s"/><circle cx="%d" cy="%d" r="3" fill="#FFE29A"/>' % (x, y, INK, x - 2, y - 3)
     bl, bt_ = '#1E1438', '#2A1A40'
     o += coco(1136, 560, 330, -56, bl, bt_, bl, 12, 96) + coco(1230, 586, 420, 60, bl, bt_, bl, 12, 110) + coco(1040, 520, 250, 34, bl, bt_, bl, 11, 80) + coco(120, 540, 300, 70, bl, bt_, bl, 11, 90)
+    o += coco(1000, 516, 190, -26, bl, bt_, bl, 10, 66) + coco(1190, 524, 210, 28, bl, bt_, bl, 10, 72) + coco(24, 548, 220, 36, bl, bt_, bl, 10, 74)
+    # tán lá dừa phía trước góc dưới, và vùng tối quanh khung cho ấm hơn
+    o += '<radialGradient id="vgP" cx=".5" cy=".55" r=".75"><stop offset=".6" stop-color="#2A1038" stop-opacity="0"/><stop offset="1" stop-color="#2A1038" stop-opacity=".42"/></radialGradient><rect y="340" width="1280" height="380" fill="url(#vgP)" pointer-events="none"/>'
     o += V.kitsu(590, 672, 106, 'ehappy', 'walk')
     for t_, x, y, dn in [('Hoàng hôn', 790, 236, True), ('Làng chài', 270, 214, True), ('Nhà sàn', 400, 300, False), ('Thuyền thúng', 1010, 590, False), ('Lưới cá', 760, 462, False)]:
         o += G.bubble(x, y, t_, dn)
-    page('PPhuquoc', 'Kids World, Phú Quốc hoàng hôn', 'Làng chài Phú Quốc lúc hoàng hôn: nhà sàn trên biển, thuyền thúng trên cát, ghe đánh cá, hàng dừa', d, o, 'Phú Quốc')
+    page('PPhuquoc', 'Kids World, Phú Quốc hoàng hôn', 'Làng chài Phú Quốc lúc hoàng hôn: nhà sàn trên biển, thuyền thúng trên cát, ghe đánh cá, hàng dừa', d, o, 'Phú Quốc', PQ_CSS)
 
 
 # ---------- bản đồ phẳng tầng 2-3: không biên giới, mọi nước gộp một khối ----------

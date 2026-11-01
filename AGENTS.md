@@ -22,6 +22,7 @@ pnpm content:validate
 pnpm content:stats   # số liệu từ điển (pack) — cập nhật docs/17-metrics.md
 pnpm stats           # số liệu app/nội dung tự soạn — cập nhật docs/17-metrics.md
 pnpm ui:audit        # kiểm tra giao diện theo docs/18-ui-rules.md (phải 0 lỗi)
+pnpm ui:contrast     # đo tương phản chữ/nền của token màu (WCAG, sáng + tối)
 pnpm build:win      # build installer
 ```
 

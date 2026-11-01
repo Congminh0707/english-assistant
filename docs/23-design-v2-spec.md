@@ -71,6 +71,6 @@ Generator ở `scripts/design-data/`, cách dùng ở [22 §1, §12](22-redesign
 - `PHcmc`, `PPhuquoc`, phần nào `PCantho` thưa hơn `R5Arrive`.
 - Nhà sàn, cây bẹo, cây sao, mặt tiền nhà ống, nhà người Mông vẽ theo hiểu biết chung vì thiếu ảnh. Ngọ Môn, tháp Bà, ga Đà Lạt ghép gần cảnh khác, không đúng địa lý.
 - Mô hình 3D Hội An và Đà Nẵng chưa dựng lại riêng cho bệ tròn.
-- Chưa có: biến thể thời tiết, 20 phụ kiện, 18 đồ ăn, bản đồ cho cửa sổ nhỏ 900×640, kiểm tra tương phản.
+- Chưa có: biến thể thời tiết, 20 phụ kiện, 18 đồ ăn, bản đồ cho cửa sổ nhỏ 900×640. Kiểm tra tương phản đã có (2026-11-01): `pnpm ui:contrast` đo các cặp chữ/nền trong `tokens.css` (sáng + tối), 0 cặp trượt; để đạt, nền `primary-soft` #FBE0DA→#FFF2EF và `xp-soft` #D4F3F2→#EDFAF9 (đã sửa cả `design-data/sync/tokens.json`). Viền `--c-line` là đường kẻ trang trí nên không tính.
 - Hoạt ảnh chưa xem chạy liên tục trên canvas; `prefers-reduced-motion` chưa thử.
 - Thẻ xoài còn gần giống đào và cam. Tay của Kitsu, Draco, Lupo là phần vẽ thêm.

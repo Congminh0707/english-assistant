@@ -6,7 +6,7 @@ import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 import { normalizeCharacterId } from '@shared/characters'
-import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import { TILES, type KidsTile } from './kidsText'
 
 // Màn hình chính của bé: vài ô thật to có hình, bấm là nghe tên ô — bé chưa biết đọc vẫn tự chọn được.
@@ -45,7 +45,7 @@ function tap(tile: KidsTile): void {
         class="k-big tile"
         @click="tap(tile)"
       >
-        <span class="pic"><PixelPicture :id="tile.picture" :size="96" /></span>
+        <span class="pic"><PictureImage :id="tile.picture" :size="96" /></span>
         <span class="text">
           <span class="label">{{ tile.say }}</span>
           <span class="vi">{{ t(tile.viKey) }}</span>

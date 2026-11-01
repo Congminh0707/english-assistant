@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import type { KidsActivity, KidsHome as KidsHomeData } from '@shared/schemas/kids'
 import { invoke } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
-import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import KidsActivityView from './KidsActivity.vue'
 import KidsAlbum from './KidsAlbum.vue'
 import KidsHome from './KidsHome.vue'
@@ -110,7 +110,7 @@ onMounted(loadHome)
 
     <main class="body">
       <p v-if="view === 'home' && !home" class="loading">
-        <PixelPicture id="star" :size="96" class="spin" />
+        <PictureImage id="star" :size="96" class="spin" />
         <span class="k-bubble">{{ t('kids.loading') }}</span>
       </p>
       <KidsHome v-else-if="view === 'home'" :home="home" @open="open" />

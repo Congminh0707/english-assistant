@@ -131,7 +131,7 @@ function tap(i: number): void {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #fbefd8;
+  background: var(--g-cream);
 }
 .art {
   position: absolute;
@@ -153,9 +153,9 @@ function tap(i: number): void {
 .panel {
   width: 440px;
   padding: 16px 20px;
-  border: 4px solid #f7b91a;
+  border: 4px solid var(--g-coin);
   border-radius: 26px;
-  background: #fff9ea;
+  background: var(--g-paper);
 }
 .dock-btn {
   display: inline-flex;
@@ -163,10 +163,10 @@ function tap(i: number): void {
   gap: 8px;
   height: 58px;
   padding: 0 22px;
-  border: 3px solid #f7b91a;
+  border: 3px solid var(--g-coin);
   border-radius: 29px;
-  background: #fff9ea;
-  color: #6b3e1e;
+  background: var(--g-paper);
+  color: var(--g-brown);
   font-family: var(--font-kids);
   font-size: 22px;
   font-weight: 700;
@@ -174,14 +174,14 @@ function tap(i: number): void {
 }
 .stars {
   display: inline-flex;
-  color: #d9c9a6;
+  color: var(--g-sand);
 }
 .stars .lit {
-  color: #f7b91a;
+  color: var(--g-coin);
   fill: currentcolor;
 }
 .dock-btn:focus-visible {
-  outline: 4px solid #16bfc8;
+  outline: 4px solid var(--g-teal);
   outline-offset: 3px;
 }
 .pet {
@@ -190,10 +190,10 @@ function tap(i: number): void {
   transform: translate(-50%, -100%);
 }
 .spot {
-  --edge: #d9a24a;
-  --fill: #fff9ea;
-  --ink: #6b3e1e;
-  --dot: #0b7a52;
+  --edge: var(--g-gold);
+  --fill: var(--g-paper);
+  --ink: var(--g-brown);
+  --dot: var(--g-green);
   position: absolute;
   display: grid;
   justify-items: center;
@@ -210,16 +210,16 @@ function tap(i: number): void {
   animation: spot-bob 3s ease-in-out infinite;
 }
 .spot.next {
-  --edge: #f7b91a;
-  --fill: #d32f2f;
+  --edge: var(--g-coin);
+  --fill: var(--g-red);
   --ink: #fff;
-  --dot: #d32f2f;
+  --dot: var(--g-red);
 }
 .spot:nth-of-type(2n) {
   animation-delay: -1.1s;
 }
 .spot:focus-visible {
-  outline: 4px solid #16bfc8;
+  outline: 4px solid var(--g-teal);
   outline-offset: 4px;
   border-radius: 12px;
 }
@@ -261,12 +261,12 @@ function tap(i: number): void {
 .dot {
   width: 16px;
   height: 16px;
-  border: 3px solid #fff9ea;
+  border: 3px solid var(--g-paper);
   border-radius: 50%;
   background: var(--dot);
 }
 .spot:not(.done, .next) .dot {
-  background: #d9a24a;
+  background: var(--g-gold);
 }
 @keyframes spot-bob {
   50% {

@@ -143,7 +143,7 @@ english-assistant/
 │  │  ├─ popup/                 # dịch nhanh
 │  │  ├─ ocr/                   # overlay chọn vùng
 │  │  └─ shared/
-│  │     ├─ art/                # hình từ vector vẽ bằng canvas: kit.ts (bộ nét chung), pictures/<nhóm>.ts, index.ts (vectorPictureUrl, PixelPicture ưu tiên) — docs/19 §5.5
+│  │     ├─ art/                # hình từ vector vẽ bằng canvas: kit.ts (bộ nét chung), pictures/<nhóm>.ts, index.ts (vectorPictureUrl, PictureImage ưu tiên) — docs/19 §5.5
 │  │     ├─ components/         # PixelButton, PixelPanel, AudioPlayer, ...
 │  │     ├─ composables/        # useTts, useRecorder, useHotkeys...
 │  │     ├─ stores/             # Pinia stores (đồng bộ với main qua sự kiện)
@@ -255,3 +255,4 @@ Mẹo: cửa sổ Study chỉ tạo khi mở và có thể huỷ khi đóng (gi�
 ## Khung cửa sổ Học tập v2
 
 `App.vue`: `page === 'home'` hiện `VillageMap`; trang khác nằm trong `PlaceShell` (cảnh + giấy + tab). Trang nào thuộc địa điểm nào ở `src/renderer/study/places.ts`. `pnpm ui:shot` chụp app thật, chạy dữ liệu riêng qua biến `EA_USER_DATA`; cờ `--open-study` mở thẳng cửa sổ Học tập.
+nCửa sổ Học tập luôn mở **phóng to** (`StudyWindow.open` gọi `maximize()`, thanh tác vụ vẫn hiện); cỡ 900×640 chỉ là cỡ khi người dùng bấm thu nhỏ lại.

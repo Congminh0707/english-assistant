@@ -1,7 +1,7 @@
-// pnpm ui:shot <ảnh.png> [--w 1100] [--h 720] [--page mascot|popup|study] [--js "<mã chạy trong trang>"] [--wait 1500] [--no-build]
+// pnpm ui:shot <ảnh.png> [--w 1100] [--h 720] [--page mascot|popup|study] [--js "<mã chạy trong trang>"] [--js2 "<mã chạy sau khi trang nạp lại>"] [--wait2 ms] [--wait 1500] [--no-build]
 // Chụp app thật qua Chrome DevTools Protocol, không cần thư viện. Dữ liệu người dùng riêng ở .ui-shot/profile.
 // Có khoá .ui-shot/lock nên nhiều phiên chạy cùng lúc sẽ xếp hàng (cùng dùng thư mục out/).
-// Trong --js có sẵn: nav(tênTrang) bấm mục thanh bên, sleep(ms), click(văn bản nút), api = window.api.
+// Trong --js có sẵn: nav(tênTrang) bấm mục thanh bên, sleep(ms), click(văn bản nút), api = window.api. --js2 chạy sau --js khi --js làm trang nạp lại (ví dụ đổi hồ sơ), cùng bộ hàm trên.
 import { spawn, spawnSync } from 'node:child_process'
 import { mkdirSync, rmSync, statSync, writeFileSync } from 'node:fs'
 import { join, resolve } from 'node:path'

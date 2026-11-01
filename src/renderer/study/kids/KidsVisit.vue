@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import type { KidsVisit, KidsVisitDoneResult } from '@shared/schemas/kidsWorld'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
-import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { FOOD_PICTURE, PRAISE, pick, TRY_AGAIN } from './kidsText'
 import { playSfx } from './game/sfx'
@@ -263,7 +263,7 @@ onMounted(load)
       <div v-if="result.firstTime" class="confetti" aria-hidden="true">
         <i v-for="n in 36" :key="n" :style="confettiStyle(n)" />
       </div>
-      <PixelPicture :id="result.firstTime ? 'gift' : 'star'" :size="150" />
+      <PictureImage :id="result.firstTime ? 'gift' : 'star'" :size="150" />
       <h1 class="k-bubble title">{{ result.placeDone ? 'You did it!' : 'Great job!' }}</h1>
       <p class="k-row stars">
         <UiIcon
@@ -275,7 +275,7 @@ onMounted(load)
         />
       </p>
       <div v-if="result.foodId" class="k-big soft pop">
-        <PixelPicture :id="FOOD_PICTURE[result.foodId] ?? 'cake'" :size="96" />
+        <PictureImage :id="FOOD_PICTURE[result.foodId] ?? 'cake'" :size="96" />
         <strong>{{ t('kids.world.chest') }}</strong>
       </div>
       <p v-if="result.tierUnlocked" class="k-sub">{{ t('kids.world.tierOpen') }}</p>
@@ -303,7 +303,7 @@ onMounted(load)
       <!-- 1. Làm quen -->
       <template v-if="step === 'intro' && item">
         <button type="button" class="k-big hero" @click="speak(item.word, 'us', 0.75)">
-          <PixelPicture :id="item.pictureId" :size="220" />
+          <PictureImage :id="item.pictureId" :size="220" />
           <span class="word">{{ item.word }}</span>
         </button>
         <p class="k-sub">{{ item.vi }}</p>
@@ -333,7 +333,7 @@ onMounted(load)
             :disabled="solved || wrong.includes(id)"
             @click="choose(id)"
           >
-            <PixelPicture :id="id" :size="150" />
+            <PictureImage :id="id" :size="150" />
           </button>
         </div>
         <p v-if="solved" class="k-bubble answer">
@@ -356,7 +356,7 @@ onMounted(load)
             :class="{ right: c.matched }"
             @click="flip(c)"
           >
-            <PixelPicture v-if="c.open || c.matched" :id="c.pictureId" :size="96" />
+            <PictureImage v-if="c.open || c.matched" :id="c.pictureId" :size="96" />
             <UiIcon v-else name="star" :size="48" />
           </button>
         </div>
@@ -364,7 +364,7 @@ onMounted(load)
 
       <!-- 4. Nói theo -->
       <template v-else-if="step === 'speak' && item">
-        <PixelPicture :id="item.pictureId" :size="200" />
+        <PictureImage :id="item.pictureId" :size="200" />
         <div class="k-row">
           <button type="button" class="k-round big-speaker" @click="present">
             <UiIcon name="volume" :size="40" />

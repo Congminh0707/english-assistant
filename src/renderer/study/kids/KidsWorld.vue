@@ -254,7 +254,7 @@ onUnmounted(() => window.clearInterval(clockTimer))
 }
 .water {
   position: relative;
-  color: #2f7fb8;
+  color: var(--g-2f7fb8);
 }
 .badge {
   position: absolute;
@@ -382,12 +382,12 @@ onUnmounted(() => window.clearInterval(clockTimer))
   border-style: dashed;
 }
 .sprout.thirsty {
-  box-shadow: 0 0 0 2px #4aa8d8;
+  box-shadow: 0 0 0 2px var(--g-4aa8d8);
 }
 .stars {
   display: flex;
-  color: #e0a620;
-  fill: #ffd34d;
+  color: var(--g-e0a620);
+  fill: var(--g-sun);
 }
 .pet {
   position: absolute;

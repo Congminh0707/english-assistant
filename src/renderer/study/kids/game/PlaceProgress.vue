@@ -71,7 +71,7 @@ const left = computed(() => total.value - done.value)
   display: grid;
   gap: 8px;
   font-family: var(--font-kids);
-  color: #3a2413;
+  color: var(--g-ink);
 }
 .head {
   display: flex;
@@ -83,30 +83,30 @@ const left = computed(() => total.value - done.value)
 .stars {
   display: inline-flex;
   gap: 2px;
-  color: #d9c9a6;
+  color: var(--g-sand);
 }
 .stars .lit {
-  color: #f7b91a;
+  color: var(--g-coin);
   fill: currentcolor;
 }
 .bar {
   height: 16px;
   overflow: hidden;
-  border: 3px solid #e7c98e;
+  border: 3px solid var(--g-line);
   border-radius: 999px;
   background: #fff;
 }
 .bar i {
   display: block;
   height: 100%;
-  background: #0b7a52;
+  background: var(--g-green);
   transition: width 400ms ease;
 }
 .note {
   margin: 0;
   font-size: 17px;
   font-weight: 600;
-  color: #6b3e1e;
+  color: var(--g-brown);
 }
 .chips {
   display: flex;
@@ -121,24 +121,24 @@ const left = computed(() => total.value - done.value)
   align-items: center;
   gap: 4px;
   padding: 3px 12px 3px 8px;
-  border: 3px solid #e7c98e;
+  border: 3px solid var(--g-line);
   border-radius: 999px;
   background: #fff;
   font-size: 18px;
   font-weight: 700;
 }
 .chips li.done {
-  border-color: #0b7a52;
-  background: #e2f6ea;
-  color: #0b7a52;
+  border-color: var(--g-green);
+  background: var(--g-green-soft);
+  color: var(--g-green);
 }
 .chips li.learning {
-  border-color: #f7b91a;
-  background: #fff3cf;
-  color: #8a5a00;
+  border-color: var(--g-coin);
+  background: var(--g-yellow-soft);
+  color: var(--g-amber);
 }
 .chips li.todo {
-  color: #8c7a63;
+  color: var(--g-taupe);
   border-style: dashed;
 }
 .legend {
@@ -155,12 +155,12 @@ const left = computed(() => total.value - done.value)
   gap: 4px;
 }
 .legend .done {
-  color: #0b7a52;
+  color: var(--g-green);
 }
 .legend .learning {
-  color: #8a5a00;
+  color: var(--g-amber);
 }
 .legend .todo {
-  color: #8c7a63;
+  color: var(--g-taupe);
 }
 </style>

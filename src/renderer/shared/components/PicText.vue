@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { pictureFor, splitLeadingPicture } from '@shared/pictures'
-import PixelPicture from './PixelPicture.vue'
+import PictureImage from './PictureImage.vue'
 
 // Hiển thị một chuỗi nội dung bài học: nếu là emoji có hình minh hoạ (hoặc "emoji + chữ") thì vẽ hình minh hoạ,
 // ngược lại hiện chữ nguyên văn. Nhờ vậy nội dung cũ dùng emoji vẫn có hình rõ ràng, nhất quán giữa các máy.
@@ -22,7 +22,7 @@ const parsed = computed(() => {
 
 <template>
   <span v-if="parsed.picture" class="pic-text">
-    <PixelPicture :id="parsed.picture" :size="size" />
+    <PictureImage :id="parsed.picture" :size="size" />
     <span v-if="withLabel && parsed.rest" class="label">{{ parsed.rest }}</span>
   </span>
   <span v-else>{{ text }}</span>

@@ -4,7 +4,7 @@
 
 Bộ quy tắc **bắt buộc** cho giao diện cửa sổ Học tập và component dùng chung, để mọi trang đồng bộ (bo góc, nút, icon, huy hiệu, màu). Lý do và bối cảnh: [12 §1b](12-ui-ux-guidelines.md), [decisions #28](decisions.md). Kiểm tra tự động: `pnpm ui:audit` (bắt cả nút còn lớp cũ như `primary/small/link` hoặc `<button>` không có lớp, emoji làm icon, khối thiếu bo góc, viền kiểu cũ `var(--px) solid var(--c-border)`) (chạy trước khi xong task giao diện; phải **0 lỗi**).
 
-**Phạm vi:** `src/renderer/study/**`, `src/renderer/shared/components/**` `src/renderer/mascot/components/**` (bong bóng mascot) và `src/renderer/popup/**`. Phần tử gốc của cửa sổ/bong bóng phải có class `modern` và nạp `shared/styles/ui.css`. Giao diện trẻ em dùng `kids.css` (lớp `.k-*`, font `--font-kids`) với cùng token nhưng nút to hơn, ô viền mực 4px và bóng 8px. `PIXEL_OK` trong `scripts/ui-audit.mjs` liệt kê các component vẽ canvas/ô lưới được phép giữ kiểu riêng (`PixelPicture.vue` là component thẻ từ vector, `TraceCanvas.vue`).
+**Phạm vi:** `src/renderer/study/**`, `src/renderer/shared/components/**` `src/renderer/mascot/components/**` (bong bóng mascot) và `src/renderer/popup/**`. Phần tử gốc của cửa sổ/bong bóng phải có class `modern` và nạp `shared/styles/ui.css`. Giao diện trẻ em dùng `kids.css` (lớp `.k-*`, font `--font-kids`) với cùng token nhưng nút to hơn, ô viền mực 4px và bóng 8px. `PIXEL_OK` trong `scripts/ui-audit.mjs` liệt kê các component vẽ canvas/ô lưới được phép giữ kiểu riêng (`PictureImage.vue` là component thẻ từ vector, `TraceCanvas.vue`).
 
 ## 1. Nguyên tắc
 
@@ -67,6 +67,7 @@ Lớp: `.btn` + một biến thể màu (`--primary` hành động chính, `--su
 
 1. Dùng lớp/component dùng chung; nếu thiếu, thêm vào `ui.css` hoặc `UiIcon` rồi mới dùng.
 2. `pnpm ui:audit` → 0 lỗi (cảnh báo màu hex nên giảm dần, không tăng).
+3. `pnpm ui:contrast` → 0 cặp chữ trượt (khi đổi màu trong `tokens.css`).
 3. `pnpm lint && pnpm test`; chụp app thật bằng `pnpm ui:shot <ảnh.png> --w 900 --h 640` (có `--js` để bấm vào trang) và xem lại các trang đụng tới ở 680×520, 900×640 và 1100×720, cả bản sáng và tối.
 4. Thêm quy tắc mới/ngoại lệ → sửa file này **trước**, rồi mới sửa code. Ngoại lệ có chủ đích → thêm vào `PIXEL_OK` trong `scripts/ui-audit.mjs` kèm chú thích lý do.
 

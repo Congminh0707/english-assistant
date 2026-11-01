@@ -169,7 +169,7 @@ onBeforeUnmount(() => cancelAnimationFrame(raf))
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: #12b4c8;
+  background: var(--g-teal-2);
   user-select: none;
 }
 .art {
@@ -185,7 +185,7 @@ onBeforeUnmount(() => cancelAnimationFrame(raf))
   transform: translate(-50%, -50%);
 }
 .spot:focus-visible {
-  outline: 4px solid #16bfc8;
+  outline: 4px solid var(--g-teal);
   outline-offset: 4px;
 }
 .pet {

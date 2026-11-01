@@ -55,7 +55,7 @@ Từ + IPA + nút phát âm US/UK, nhãn level và loại từ, nghĩa chính to
 | Giới hạn thời gian     | Hết giờ → màn đêm "Time to rest!" (nền `kids-bg-night`), cần PIN để dùng thêm    |
 | Không AI tự do         | Xem [11](11-ai-and-speech.md#kiểm-soát-chi-phí--an-toàn)                         |
 
-**Giao diện** (`renderer/study/kids/`, `kids.css`): nền cảnh đồng cỏ + sông (`kids-bg`, bản đêm `kids-bg-night` khi giao diện tối), ô viền mực 4px có bóng 8px, nút xanh `.k-primary`, `.k-round`, `.k-bubble`. Trang chính có thú cưng thật của hồ sơ (`PetSprite`) cùng bốn ô lớn; hình từ vựng là thẻ từ vẽ vector (`PixelPicture`, tên cũ của component thẻ từ).
+**Giao diện** (`renderer/study/kids/`, `kids.css`): nền cảnh đồng cỏ + sông (`kids-bg`, bản đêm `kids-bg-night` khi giao diện tối), ô viền mực 4px có bóng 8px, nút xanh `.k-primary`, `.k-round`, `.k-bubble`. Trang chính có thú cưng thật của hồ sơ (`PetSprite`) cùng bốn ô lớn; hình từ vựng là thẻ từ vẽ vector (`PictureImage`, tên cũ của component thẻ từ).
 
 **Đã triển khai** (hồ sơ `isChild`): KidsApp, KidsHome, KidsReview, KidsUnits, KidsActivity, KidsAlbum, KidsPet, ParentGate, bản đồ thế giới ([19](19-kids-world.md)), thẻ nghe–chạm–chọn hình, hoạt động chữ cái/âm/ghép vần/từ thường gặp/sách tranh/tô chữ/nói theo, sticker, khu phụ huynh (PIN băm muối, khoá tạm khi sai nhiều lần, quên PIN → thử thách, giới hạn thời gian/ngày, báo cáo 7 ngày). Chi tiết ở [07](07-learning-modules.md).
 

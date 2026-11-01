@@ -219,7 +219,7 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 50%, #27306a, #141a3a 70%);
+  background: radial-gradient(circle at 50% 50%, var(--g-27306a), var(--g-141a3a) 70%);
   user-select: none;
 }
 .gl {
@@ -241,12 +241,12 @@ onBeforeUnmount(() => {
   font-weight: 800;
   pointer-events: none;
   text-shadow:
-    0 0 4px #5a2a4a,
-    0 2px 2px #5a2a4a;
+    0 0 4px var(--g-5a2a4a),
+    0 2px 2px var(--g-5a2a4a);
   white-space: nowrap;
 }
 .continent.dark {
-  color: #5b7f95;
+  color: var(--g-5b7f95);
   text-shadow: 0 0 4px #fff;
 }
 .spot {
@@ -256,7 +256,7 @@ onBeforeUnmount(() => {
   cursor: pointer;
 }
 .spot:focus-visible {
-  outline: 4px solid #16bfc8;
+  outline: 4px solid var(--g-teal);
   outline-offset: 4px;
 }
 .pet {

@@ -101,7 +101,7 @@ function say(key: (typeof SECTIONS)[number]['key']): void {
   place-items: center;
   background: rgb(58 36 19 / 45%);
   font-family: var(--font-kids);
-  color: #3a2413;
+  color: var(--g-ink);
 }
 .sheet {
   position: relative;
@@ -111,22 +111,22 @@ function say(key: (typeof SECTIONS)[number]['key']): void {
   max-height: 820px;
   padding: 30px 40px 34px;
   overflow-y: auto;
-  border: 5px solid #f7b91a;
+  border: 5px solid var(--g-coin);
   border-radius: 32px;
-  background: #fff9ea;
+  background: var(--g-paper);
   animation: k-pop 320ms ease;
 }
 h2 {
   margin: 0;
   padding-right: 60px;
-  color: #6b3e1e;
+  color: var(--g-brown);
   font-size: 48px;
   font-weight: 800;
   line-height: 1.1;
 }
 h3 {
   margin: 0 0 8px;
-  color: #6b3e1e;
+  color: var(--g-brown);
   font-size: 26px;
 }
 .count {
@@ -138,7 +138,7 @@ h3 {
   margin: -8px 0 0;
   font-size: 21px;
   font-weight: 600;
-  color: #6b3e1e;
+  color: var(--g-brown);
 }
 .sections {
   display: grid;
@@ -152,7 +152,7 @@ h3 {
   align-items: center;
   gap: 16px;
   padding: 12px 16px;
-  border: 3px solid #e7c98e;
+  border: 3px solid var(--g-line);
   border-radius: 22px;
   background: #fff;
 }
@@ -163,8 +163,8 @@ h3 {
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: #fde9b8;
-  color: #d32f2f;
+  background: var(--g-butter);
+  color: var(--g-red);
 }
 .body {
   display: grid;
@@ -174,7 +174,7 @@ h3 {
   line-height: 1.3;
 }
 .body strong {
-  color: #6b3e1e;
+  color: var(--g-brown);
   font-size: 20px;
 }
 .say,
@@ -185,10 +185,10 @@ h3 {
   width: 52px;
   height: 52px;
   padding: 0;
-  border: 3px solid #e7c98e;
+  border: 3px solid var(--g-line);
   border-radius: 50%;
-  background: #fff9ea;
-  color: #6b3e1e;
+  background: var(--g-paper);
+  color: var(--g-brown);
   cursor: pointer;
 }
 .close {
@@ -199,7 +199,7 @@ h3 {
 .say:focus-visible,
 .close:focus-visible,
 .go:focus-visible {
-  outline: 4px solid #16bfc8;
+  outline: 4px solid var(--g-teal);
   outline-offset: 3px;
 }
 .steps {
@@ -224,7 +224,7 @@ h3 {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: #d32f2f;
+  background: var(--g-red);
   color: #fff;
   font-size: 17px;
   font-weight: 800;
@@ -232,9 +232,9 @@ h3 {
 .go {
   min-height: 72px;
   padding: 0 20px;
-  border: 4px solid #f7b91a;
+  border: 4px solid var(--g-coin);
   border-radius: 36px;
-  background: #d32f2f;
+  background: var(--g-red);
   color: #fff;
   font: inherit;
   font-size: 27px;

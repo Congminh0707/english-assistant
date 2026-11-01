@@ -6,7 +6,7 @@ import type { StudyCard, StudyRating } from '@shared/schemas/study'
 import { invoke } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useTts } from '@renderer/shared/composables/useTts'
-import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
 import { pictureForWord } from '@shared/pictures'
 import { formatInterval } from '../format'
@@ -302,7 +302,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           <span class="chip chip--xp">{{ card.level.replace('_', '.') }}</span>
           <span class="chip">{{ t(`study.review.kind.${card.direction}`) }}</span>
 
-          <PixelPicture v-if="picture" :id="picture" :size="96" class="pic" />
+          <PictureImage v-if="picture" :id="picture" :size="96" class="pic" />
 
           <!-- Nhận diện: thấy từ → nhớ nghĩa -->
           <template v-if="card.direction === 'en_vi'">

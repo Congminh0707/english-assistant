@@ -648,8 +648,8 @@ onUnmounted(() => {
 
 <style scoped>
 .map {
-  --k-ink: #3a2413;
-  --k-gold: #f7b91a;
+  --k-ink: var(--g-ink);
+  --k-gold: var(--g-coin);
   position: absolute;
   inset: 0;
   overflow: hidden;
@@ -694,7 +694,7 @@ onUnmounted(() => {
   cursor: pointer;
 }
 .place:focus-visible {
-  outline: 4px solid #ffd34d;
+  outline: 4px solid var(--g-sun);
   outline-offset: -8px;
 }
 .place.locked {
@@ -709,10 +709,10 @@ onUnmounted(() => {
   width: 64px;
   height: 64px;
   margin-left: -32px;
-  border: 4px solid #3b2a3a;
+  border: 4px solid var(--g-3b2a3a);
   border-radius: 50%;
   background: #fff;
-  color: #3b2a3a;
+  color: var(--g-3b2a3a);
 }
 .meta {
   display: flex;
@@ -731,15 +731,15 @@ onUnmounted(() => {
   font-size: 34px;
 }
 .star {
-  color: #c8b89a;
+  color: var(--g-c8b89a);
 }
 .star.lit {
-  color: #d9a24a;
+  color: var(--g-gold);
   fill: var(--k-gold);
 }
 .flower {
   margin-left: 6px;
-  color: #e0508f;
+  color: var(--g-pink);
 }
 .place.today :deep(.hex) {
   animation: k-bounce 1.4s ease infinite;

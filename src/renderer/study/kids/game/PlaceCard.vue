@@ -28,17 +28,17 @@ const { t } = useI18n()
   z-index: 6;
   width: 400px;
   padding: 22px 24px;
-  border: 4px solid #f7b91a;
+  border: 4px solid var(--g-coin);
   border-radius: 26px;
-  background: #fff9ea;
-  color: #3a2413;
+  background: var(--g-paper);
+  color: var(--g-ink);
   font-family: var(--font-kids);
   animation: k-pop 320ms ease;
 }
 h2 {
   margin: 0;
   padding-right: 44px;
-  color: #6b3e1e;
+  color: var(--g-brown);
   font-size: 38px;
   font-weight: 800;
   line-height: 1.1;
@@ -51,15 +51,15 @@ p {
 .note {
   margin-top: -8px;
   font-size: 18px;
-  color: #6b3e1e;
+  color: var(--g-brown);
 }
 .go {
   width: 100%;
   min-height: 72px;
   padding: 0 20px;
-  border: 4px solid #f7b91a;
+  border: 4px solid var(--g-coin);
   border-radius: 36px;
-  background: #d32f2f;
+  background: var(--g-red);
   color: #fff;
   font: inherit;
   font-size: 25px;
@@ -71,7 +71,7 @@ p {
 }
 .go:focus-visible,
 .close:focus-visible {
-  outline: 4px solid #16bfc8;
+  outline: 4px solid var(--g-teal);
   outline-offset: 3px;
 }
 .close {
@@ -83,10 +83,10 @@ p {
   width: 44px;
   height: 44px;
   padding: 0;
-  border: 2px solid #e7c98e;
+  border: 2px solid var(--g-line);
   border-radius: 50%;
   background: #fff;
-  color: #6b3e1e;
+  color: var(--g-brown);
   cursor: pointer;
 }
 @media (prefers-reduced-motion: reduce) {

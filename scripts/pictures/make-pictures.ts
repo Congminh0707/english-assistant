@@ -1,5 +1,5 @@
 // Sinh ảnh PNG 256×256 cho 60 hình minh hoạ vẽ bằng mã (src/shared/pictures.ts) ở độ phân giải cao (scale 8).
-// Ảnh nằm trong src/renderer/shared/assets/pictures/ và PixelPicture.vue dùng trực tiếp.
+// Ảnh nằm trong src/renderer/shared/assets/pictures/ và PictureImage.vue dùng trực tiếp.
 // Chạy: pnpm pictures   (đổi bản vẽ trong pictures.ts thì chạy lại và commit các PNG)
 import { mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'

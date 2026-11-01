@@ -9,7 +9,7 @@
   --c-ink-soft: #6B4A30;
   --c-primary: #D32F2F;
   --c-primary-strong: #b71c1c;
-  --c-primary-soft: #FBE0DA;
+  --c-primary-soft: #FFF2EF;
   --c-on-primary: #ffffff;
   --c-success: #0B7A52;
   --c-success-soft: #D9F5E4;
@@ -18,9 +18,42 @@
   --c-danger: #9E1B1F;
   --c-danger-soft: #FBE3E3;
   --c-xp: #0E7C8C;
-  --c-xp-soft: #D4F3F2;
+  --c-xp-soft: #EDFAF9;
   --c-coin: #F7B91A;
   --c-border: #3A2413;
+
+  /* Màu cố định của thế giới của bé (game): giữ nguyên ở cả bản tối, không đổi theo theme */
+  --g-141a3a: #141a3a;
+  --g-27306a: #27306a;
+  --g-27d3d6: #27d3d6;
+  --g-2f7fb8: #2f7fb8;
+  --g-3b2a3a: #3b2a3a;
+  --g-4aa8d8: #4aa8d8;
+  --g-5a2a4a: #5a2a4a;
+  --g-5b7f95: #5b7f95;
+  --g-amber: #8a5a00;
+  --g-blue: #1e93d6;
+  --g-brown: #6b3e1e;
+  --g-butter: #fde9b8;
+  --g-c8b89a: #c8b89a;
+  --g-coin: #f7b91a;
+  --g-cream: #fbefd8;
+  --g-e0a620: #e0a620;
+  --g-gold: #d9a24a;
+  --g-green: #0b7a52;
+  --g-green-soft: #e2f6ea;
+  --g-ink: #3a2413;
+  --g-line: #e7c98e;
+  --g-paper: #fff9ea;
+  --g-pink: #e0508f;
+  --g-red: #d32f2f;
+  --g-sand: #d9c9a6;
+  --g-sky: #6fd3e8;
+  --g-sun: #ffd34d;
+  --g-taupe: #8c7a63;
+  --g-teal: #16bfc8;
+  --g-teal-2: #12b4c8;
+  --g-yellow-soft: #fff3cf;
   --shadow-sm: 0 1px 2px rgb(58 36 19 / 6%), 0 1px 3px rgb(58 36 19 / 8%);
   --shadow-md: 0 6px 18px rgb(58 36 19 / 12%);
 

@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import type { KidsStickers } from '@shared/schemas/kids'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
-import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Album sticker: mỗi hình bé đã trả lời đúng trong thẻ "nghe → chạm hình" thì được dán (hình còn lại là bóng mờ).
@@ -40,7 +40,7 @@ onMounted(async () => {
         :title="s.earned ? `${s.word} — ${s.vi}` : ''"
         @click="speak(s.word, 'us', 0.8)"
       >
-        <PixelPicture :id="s.pictureId" :size="84" class="pic" />
+        <PictureImage :id="s.pictureId" :size="84" class="pic" />
         <span v-if="s.earned" class="word">{{ s.word }}</span>
         <span v-else class="q">?</span>
       </button>

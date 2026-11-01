@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import type { KidsActivity, KidsCompleteResult, KidsItem } from '@shared/schemas/kids'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
-import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
 import { useStt } from '@renderer/shared/composables/useStt'
 import TraceCanvas from './TraceCanvas.vue'
@@ -230,24 +230,24 @@ onMounted(teachSpeak)
             <span class="letter"
               >{{ item.text }}<small>{{ item.text.toLowerCase() }}</small></span
             >
-            <PixelPicture v-if="item.picture" :id="item.picture" :size="150" />
+            <PictureImage v-if="item.picture" :id="item.picture" :size="150" />
             <span v-if="item.word" class="word">{{ item.word }}</span>
           </template>
           <template v-else-if="activity.kind === 'sounds'">
             <span class="letter">{{ item.text }}</span>
-            <PixelPicture v-if="item.picture" :id="item.picture" :size="150" />
+            <PictureImage v-if="item.picture" :id="item.picture" :size="150" />
             <span v-if="item.word" class="word">{{ item.word }}</span>
           </template>
           <template v-else-if="activity.kind === 'blend'">
-            <PixelPicture v-if="item.picture" :id="item.picture" :size="150" />
+            <PictureImage v-if="item.picture" :id="item.picture" :size="150" />
             <span class="word">{{ item.text }}</span>
           </template>
           <template v-else-if="activity.kind === 'book'">
-            <PixelPicture v-if="item.picture" :id="item.picture" :size="190" />
+            <PictureImage v-if="item.picture" :id="item.picture" :size="190" />
             <span class="sentence">{{ item.text }}</span>
           </template>
           <template v-else-if="activity.kind === 'speak'">
-            <PixelPicture v-if="item.picture" :id="item.picture" :size="170" />
+            <PictureImage v-if="item.picture" :id="item.picture" :size="170" />
             <span class="word">{{ item.text }}</span>
           </template>
           <template v-else>
@@ -316,7 +316,7 @@ onMounted(teachSpeak)
           :disabled="solved || wrongPicks.includes(c)"
           @click="choose(c)"
         >
-          <PixelPicture v-if="pictureQuiz" :id="c" :size="150" />
+          <PictureImage v-if="pictureQuiz" :id="c" :size="150" />
           <span v-else class="quiz-text">{{ c }}</span>
         </button>
       </div>
@@ -336,7 +336,7 @@ onMounted(teachSpeak)
     <!-- NÓI LẶP LẠI -->
     <template v-else-if="phase === 'say' && questions[q]">
       <p class="k-sub">{{ q + 1 }} / {{ questions.length }}</p>
-      <PixelPicture
+      <PictureImage
         v-if="questions[q].item.picture"
         :id="questions[q].item.picture ?? ''"
         :size="170"
@@ -391,7 +391,7 @@ onMounted(teachSpeak)
         />
       </p>
       <div v-if="result.foodId" class="gift">
-        <PixelPicture :id="FOOD_PICTURE[result.foodId] ?? 'cake'" :size="120" />
+        <PictureImage :id="FOOD_PICTURE[result.foodId] ?? 'cake'" :size="120" />
         <strong>{{ t('kids.review.present') }}</strong>
       </div>
       <div class="k-row">

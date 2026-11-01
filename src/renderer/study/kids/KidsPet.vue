@@ -8,7 +8,7 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 import { normalizeCharacterId } from '@shared/characters'
-import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import { FOOD_NAME, FOOD_PICTURE } from './kidsText'
 
 // Thú cưng của bé: xem no/vui/khoẻ bằng trái tim, cho ăn bằng đồ ăn kiếm được khi học (bấm vào hình món ăn).
@@ -72,7 +72,7 @@ onMounted(load)
     <div class="side">
       <div class="k-big meters">
         <div v-for="m in meters" :key="m.key" class="meter">
-          <PixelPicture :id="m.icon" :size="40" />
+          <PictureImage :id="m.icon" :size="40" />
           <span class="hearts" role="img" :aria-label="`${hearts(m.value)} / 5`">
             <UiIcon
               v-for="n in 5"
@@ -94,13 +94,13 @@ onMounted(load)
           class="k-big food"
           @click="feed(f)"
         >
-          <PixelPicture :id="FOOD_PICTURE[f.itemId]" :size="72" />
+          <PictureImage :id="FOOD_PICTURE[f.itemId]" :size="72" />
           <span class="name-food">{{ FOOD_NAME[f.itemId] }}</span>
           <span class="k-badge soft">×{{ f.quantity }}</span>
         </button>
       </div>
       <div v-else class="empty">
-        <PixelPicture id="cake" :size="72" class="ghost" />
+        <PictureImage id="cake" :size="72" class="ghost" />
       </div>
     </div>
   </section>

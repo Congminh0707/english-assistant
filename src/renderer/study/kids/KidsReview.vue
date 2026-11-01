@@ -5,7 +5,7 @@ import { KIDS_REWARD_EVERY } from '@shared/kids'
 import type { KidsCard } from '@shared/schemas/kids'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
-import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import { FOOD_NAME, FOOD_PICTURE, PRAISE, pick, TRY_AGAIN } from './kidsText'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
@@ -123,17 +123,17 @@ onMounted(load)
           :disabled="solved || wrong.includes(id)"
           @click="choose(id)"
         >
-          <PixelPicture :id="id" :size="150" />
+          <PictureImage :id="id" :size="150" />
         </button>
       </div>
       <p v-if="solved" class="k-bubble answer">{{ card.word }}</p>
 
       <div v-if="newSticker" class="k-big soft pop">
-        <PixelPicture :id="newSticker" :size="110" />
+        <PictureImage :id="newSticker" :size="110" />
         <strong>{{ t('kids.review.newSticker') }}</strong>
       </div>
       <div v-if="prize" class="k-big soft pop">
-        <PixelPicture :id="FOOD_PICTURE[prize] ?? 'cake'" :size="110" />
+        <PictureImage :id="FOOD_PICTURE[prize] ?? 'cake'" :size="110" />
         <strong>{{ t('kids.review.present') }}</strong>
       </div>
     </template>

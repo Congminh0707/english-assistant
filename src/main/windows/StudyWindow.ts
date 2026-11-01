@@ -6,7 +6,7 @@ import { forwardConsoleInDev } from './devConsole'
 
 /**
  * Cửa sổ Học tập: cửa sổ thường (có khung, hiện trên thanh tác vụ) mở theo yêu cầu người dùng.
- * Tạo khi mở lần đầu, đóng thì huỷ để không tốn RAM khi không học (docs/03-architecture.md#3).
+ * Tạo khi mở lần đầu, đóng thì huỷ để không tốn RAM khi không học (docs/03-architecture.md#3). Luôn mở phóng to.
  */
 export class StudyWindow {
   private win: BrowserWindow | null = null
@@ -37,6 +37,8 @@ export class StudyWindow {
       }
     })
     win.removeMenu()
+    // Mở phóng to kín màn hình làm việc (vẫn thấy thanh tác vụ); cỡ 900×640 là cỡ khi người dùng thu nhỏ lại
+    win.maximize()
     win.once('ready-to-show', () => win.show())
     win.on('closed', () => {
       if (this.win === win) this.win = null

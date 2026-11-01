@@ -1,7 +1,7 @@
 # Xuất thẻ từ Kids World sang asset của app: src/renderer/shared/art/cards/<id hình>.svg
 #   python scripts/design-data/export-cards.py
 # Hình lấy từ review/gen_cards.py (bảng CCards*), một SVG độc lập mỗi từ, id = id hình trong shared/pictures*.ts.
-# PixelPicture ưu tiên các SVG này, thiếu thì dùng hình cũ.
+# PictureImage ưu tiên các SVG này, thiếu thì dùng hình cũ.
 import os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))

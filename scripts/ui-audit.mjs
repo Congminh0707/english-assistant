@@ -16,7 +16,7 @@ const SCAN = [
 ]
 // Component pixel art cố ý giữ kiểu pixel
 const PIXEL_OK = new Set([
-  'PixelPicture.vue',
+  'PictureImage.vue',
   'TraceCanvas.vue'
 ])
 const EMOJI = /[\u{1F300}-\u{1FAFF}☀-➿⭐✅❌⬆⬇▶⏱♻]️?/gu

@@ -380,8 +380,8 @@ onUnmounted(() => {
   inset: 0;
   z-index: 30;
   overflow: hidden;
-  background: #12b4c8;
-  color: #3a2413;
+  background: var(--g-teal-2);
+  color: var(--g-ink);
   font-family: var(--font-kids);
 }
 .stage {
@@ -397,14 +397,14 @@ onUnmounted(() => {
   display: grid;
   place-items: center;
   overflow: hidden;
-  background: #6fd3e8;
+  background: var(--g-sky);
 }
 .panel-art {
   position: absolute;
   inset: 0;
 }
 .panel-body {
-  --c-surface: #fff9ea;
+  --c-surface: var(--g-paper);
   position: relative;
   width: 1320px;
   max-height: 800px;
@@ -437,10 +437,10 @@ onUnmounted(() => {
   gap: 8px;
   height: 58px;
   padding: 0 22px;
-  border: 3px solid #e7c98e;
+  border: 3px solid var(--g-line);
   border-radius: 29px;
-  background: #fff9ea;
-  color: #6b3e1e;
+  background: var(--g-paper);
+  color: var(--g-brown);
   font-family: var(--font-kids);
   font-size: 22px;
   font-weight: 700;
@@ -448,8 +448,8 @@ onUnmounted(() => {
   cursor: pointer;
 }
 .pill-btn.on {
-  border-color: #f7b91a;
-  background: #d32f2f;
+  border-color: var(--g-coin);
+  background: var(--g-red);
   color: #fff;
 }
 .pill-btn.locked,
@@ -461,16 +461,16 @@ onUnmounted(() => {
 }
 .pill-btn:focus-visible,
 .hud-btn:focus-visible {
-  outline: 4px solid #16bfc8;
+  outline: 4px solid var(--g-teal);
   outline-offset: 3px;
 }
 .star {
-  color: #d9a24a;
-  fill: #f7b91a;
+  color: var(--g-gold);
+  fill: var(--g-coin);
 }
 .flower {
   margin-left: 8px;
-  color: #e0508f;
+  color: var(--g-pink);
 }
 .hud-btn {
   position: relative;
@@ -479,10 +479,10 @@ onUnmounted(() => {
   width: 64px;
   height: 64px;
   padding: 0;
-  border: 3px solid #e7c98e;
+  border: 3px solid var(--g-line);
   border-radius: 50%;
-  background: #fff9ea;
-  color: #6b3e1e;
+  background: var(--g-paper);
+  color: var(--g-brown);
   cursor: pointer;
 }
 .hud-btn:active:not(:disabled) {
@@ -493,7 +493,7 @@ onUnmounted(() => {
   cursor: default;
 }
 .water {
-  color: #1e93d6;
+  color: var(--g-blue);
 }
 .badge {
   position: absolute;
@@ -501,9 +501,9 @@ onUnmounted(() => {
   right: -8px;
   min-width: 30px;
   padding: 1px 7px;
-  border: 3px solid #f7b91a;
+  border: 3px solid var(--g-coin);
   border-radius: 999px;
-  background: #d32f2f;
+  background: var(--g-red);
   color: #fff;
   font-size: 17px;
   font-weight: 800;
@@ -516,10 +516,10 @@ onUnmounted(() => {
   max-width: 620px;
   margin: 0;
   padding: 8px 20px;
-  border: 3px solid #e7c98e;
+  border: 3px solid var(--g-line);
   border-radius: 20px;
   background: rgb(255 249 234 / 94%);
-  color: #6b3e1e;
+  color: var(--g-brown);
   font-family: var(--font-kids);
   font-size: 19px;
   font-weight: 600;

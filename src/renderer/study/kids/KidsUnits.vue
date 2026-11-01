@@ -5,7 +5,7 @@ import type { KidsActivity, KidsUnits } from '@shared/schemas/kids'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
-import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
+import PictureImage from '@renderer/shared/components/PictureImage.vue'
 
 // Danh sách hoạt động ABC: chữ cái, âm, ghép âm, từ nhìn là nhớ. Mỗi ô có hình, tên đọc to và số sao đã đạt.
 const emit = defineEmits<{ open: [activity: KidsActivity] }>()
@@ -46,7 +46,7 @@ onMounted(async () => {
         :class="{ soft: i === current }"
         @click="pickUnit(i)"
       >
-        <PixelPicture :id="u.picture" :size="48" />
+        <PictureImage :id="u.picture" :size="48" />
         <span class="tab-name">{{ u.title }}</span>
         <span class="vi">{{ u.vi }}</span>
       </button>
@@ -59,7 +59,7 @@ onMounted(async () => {
         class="k-big act"
         @click="open(a)"
       >
-        <PixelPicture :id="a.picture ?? unit.picture" :size="96" />
+        <PictureImage :id="a.picture ?? unit.picture" :size="96" />
         <span class="name">{{ a.title }}</span>
         <span class="k-stars" role="img" :aria-label="t('kids.units.stars', { n: a.stars })">
           <UiIcon

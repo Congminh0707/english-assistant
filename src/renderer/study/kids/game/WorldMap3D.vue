@@ -408,7 +408,7 @@ function play(): void {
   position: absolute;
   inset: 0;
   overflow: hidden;
-  background: linear-gradient(135deg, #27d3d6, #12b4c8 50%, #1e93d6);
+  background: linear-gradient(135deg, var(--g-27d3d6), var(--g-teal-2) 50%, var(--g-blue));
   user-select: none;
 }
 .gl {
@@ -450,10 +450,10 @@ function play(): void {
   max-width: 300px;
   margin: 0;
   padding: 10px 18px;
-  border: 3px solid #e7c98e;
+  border: 3px solid var(--g-line);
   border-radius: 20px;
-  background: #fff9ea;
-  color: #6b3e1e;
+  background: var(--g-paper);
+  color: var(--g-brown);
   font-size: 20px;
   font-weight: 700;
   pointer-events: none;

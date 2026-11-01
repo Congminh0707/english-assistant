@@ -8,7 +8,7 @@ import type { MissionsState } from '@shared/schemas/study'
 import { invoke } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import MissionList from './MissionList.vue'
-import PixelBadge from '@renderer/shared/components/PixelBadge.vue'
+import BadgeImage from '@renderer/shared/components/BadgeImage.vue'
 import PxBar from '@renderer/shared/components/PxBar.vue'
 import {
   Award,
@@ -454,7 +454,7 @@ onMounted(load)
               :class="{ locked: !a.unlocked }"
               :title="t(`study.stats.achDesc.${a.group}`, { n: a.target })"
             >
-              <PixelBadge :glyph="a.glyph" :tier="a.tier" :locked="!a.unlocked" />
+              <BadgeImage :glyph="a.glyph" :tier="a.tier" :locked="!a.unlocked" />
               <strong>{{ a.unlocked ? t(`study.stats.ach.${a.id}`) : '???' }}</strong>
               <span class="ach-desc muted small">{{
                 t(`study.stats.achDesc.${a.group}`, { n: a.target })

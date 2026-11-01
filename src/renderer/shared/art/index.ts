@@ -1,6 +1,6 @@
 // Hình từ vẽ vector bằng canvas (docs/19 §5.5). Mỗi file trong ./pictures/ xuất `PICTURES: Record<id, Painter>`
 // (id = id hình trong shared/pictures.ts / pictureExtras.ts); file mới tự được nạp. Hình vẽ một lần ra PNG `data:`
-// (CSP cho phép img-src data:) và cache theo id — PixelPicture ưu tiên hình này, thiếu thì dùng PNG/Twemoji hoặc bản vẽ lưới ô.
+// (CSP cho phép img-src data:) và cache theo id — PictureImage ưu tiên hình này, thiếu thì dùng PNG/Twemoji hoặc bản vẽ lưới ô.
 import { ART_SIZE, type Painter } from './kit'
 
 const modules = import.meta.glob<{ PICTURES: Record<string, Painter> }>('./pictures/*.ts', {

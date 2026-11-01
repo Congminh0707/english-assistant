@@ -1,5 +1,5 @@
 // Sinh ảnh PNG 256×256 cho mọi huy hiệu thành tựu (biểu tượng × hạng + huy hiệu khoá) từ src/shared/badgeArt.ts
-// ở độ phân giải cao (scale 8). Ảnh nằm trong src/renderer/shared/assets/badges/ và PixelBadge.vue dùng trực tiếp.
+// ở độ phân giải cao (scale 8). Ảnh nằm trong src/renderer/shared/assets/badges/ và BadgeImage.vue dùng trực tiếp.
 // Chạy: pnpm badges   (đổi thiết kế trong badgeArt.ts thì chạy lại và commit các PNG)
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'

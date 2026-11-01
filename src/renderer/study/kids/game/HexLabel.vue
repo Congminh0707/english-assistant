@@ -11,12 +11,12 @@ defineProps<{ text: string; hot?: boolean }>()
 
 <style scoped>
 .hex {
-  --edge: #d9a24a;
-  --fill: #fff9ea;
+  --edge: var(--g-gold);
+  --fill: var(--g-paper);
   position: relative;
   display: inline-block;
   padding: 6px 30px;
-  color: #6b3e1e;
+  color: var(--g-brown);
   font-family: var(--font-kids);
   font-size: 24px;
   font-weight: 700;
@@ -25,8 +25,8 @@ defineProps<{ text: string; hot?: boolean }>()
   isolation: isolate;
 }
 .hex.hot {
-  --edge: #f7b91a;
-  --fill: #d32f2f;
+  --edge: var(--g-coin);
+  --fill: var(--g-red);
   color: #fff;
 }
 .hex::before,

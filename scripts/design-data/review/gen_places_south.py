@@ -725,6 +725,79 @@ def balustrade(x0, y0, x1, y1, n=11):
         o += '<rect x="%.0f" y="%.0f" width="%.0f" height="%.0f" fill="#F4F0E4" stroke="%s" stroke-width="1.2"/><rect x="%.0f" y="%.0f" width="%.0f" height="%.0f" fill="#B9B4AA"/>' % (x - w_ / 2, tp, w_, h_, INK, x + w_ * .1, tp, w_ * .4, h_)
     return o
 
+CT_CSS = """<style>
+@keyframes ctring{0%{transform:scale(.3);opacity:.55}100%{transform:scale(1.5);opacity:0}}
+.ctring{animation:ctring 4.2s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes ctglint{0%,100%{opacity:.5}50%{opacity:.85}}
+.ctglint{animation:ctglint 5s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.ctring,.ctglint{animation:none}.ctring{opacity:.25}}
+</style>"""
+
+def pumpkin(x, y, r=9):
+    o = '<g transform="translate(%.0f %.0f)"><ellipse rx="%.1f" ry="%.1f" fill="%s" stroke="#7A3E10" stroke-width=".9"/>' % (x, y, r, r * .78, R.choice(['#E8892E', '#EE9A3A', '#DC7A26']))
+    for k in (-.55, 0, .55): o += '<path d="M%.1f %.1fQ%.1f 0 %.1f %.1f" stroke="#9A4E14" stroke-width="1" fill="none"/>' % (k * r * .4, -r * .74, k * r * 1.4, k * r * .4, r * .74)
+    return o + '<path d="M0 %.1fq1 -5 4 -6" stroke="#4A6A1E" stroke-width="2.2" fill="none" stroke-linecap="round"/></g>' % (-r * .72)
+
+def ct_xuong(x, y, s=1, top='#D9543C', goods='melon', flip=False, pole=None):
+    """Xuồng ba lá chất đầy dưa/bí/thơm, người nón lá chèo, có cây bẹo."""
+    o = '<g class="rock" style="animation-delay:-%.1fs"><g transform="translate(%d %d) scale(%.2f %.2f)">' % (x % 3, x, y, -s if flip else s, s)
+    o += '<ellipse cy="15" rx="96" ry="7" fill="#3A2412" opacity=".4"/><path d="M-96 -12Q-70 14 -40 14H52Q88 10 104 -18Q40 -2 -40 -2Q-74 -2 -96 -12Z" fill="#7A6A4E" stroke="%s" stroke-width="1.6"/><path d="M-90 -8Q-20 4 98 -13" stroke="#EFE6CC" stroke-width="2.6" fill="none"/>' % INK
+    for r_ in range(3):
+        for k in range(8 - r_ * 2):
+            px, py = -2 + r_ * 8 + k * 14, -6 - r_ * 9
+            if goods == 'melon': o += melon(px, py, 8)
+            elif goods == 'pumpkin': o += pumpkin(px, py, 8.5)
+            else: o += pine(px, py - 2, .62)
+    o += '<g transform="translate(-48 -4) scale(1.06)">' + V.non(0, 0, top).replace(NOSH, '') + '</g>'
+    o += '<g class="row"><path d="M-40 -34L-74 34" stroke="#8F5A2E" stroke-width="3.2"/><path d="M-74 34l-8 14l8 2l6 -14Z" fill="#6B4322"/></g>'
+    if pole is not None: o += beo(60, -8, 180, pole, .5)
+    return o + '</g></g>'
+
+def nipa(x, y, s=1):
+    """Dừa nước ven bờ: tàu lá dài xoè từ gốc."""
+    o = '<g transform="translate(%d %d) scale(%.2f)">' % (x, y, s)
+    for a in (-62, -38, -16, 8, 30, 56):
+        o += '<path d="M0 0Q%.0f %.0f %.0f %.0f" stroke="%s" stroke-width="4.4" fill="none" stroke-linecap="round"/>' % (math.sin(math.radians(a)) * 22, -30 - abs(a) * .1, math.sin(math.radians(a)) * 46, -52 + abs(a) * .5, R.choice(['#2F6A46', '#3C7E52', '#265A3C']))
+    return o + '</g>'
+
+def stilt_house(x, y, s=1, wall='#B9A484', roof='#7A8A8E'):
+    """Nhà sàn ven sông Hậu: cột tre, vách ván, mái tôn, dây phơi áo."""
+    o = '<g transform="translate(%d %d) scale(%.2f)">' % (x, y, s)
+    for k in range(4): o += '<path d="M%d 0V30" stroke="#4A3A2E" stroke-width="3"/>' % (-27 + k * 18)
+    o += '<rect x="-34" y="-4" width="68" height="6" fill="#6A4A34" stroke="%s" stroke-width=".9"/><rect x="-28" y="-34" width="56" height="30" fill="%s" stroke="%s" stroke-width="1"/>' % (INK, wall, INK)
+    o += '<rect x="-20" y="-28" width="14" height="14" fill="#FFD27A" stroke="%s"/><rect x="8" y="-30" width="12" height="26" fill="#4A3A2E" stroke="%s"/>' % (INK, INK)
+    o += '<path d="M-38 -32L0 -52L38 -32Z" fill="%s" stroke="%s"/>' % (roof, INK)
+    o += '<path d="M34 -20Q50 -12 66 -20" stroke="#4A3A2E" stroke-width="1" fill="none"/>'
+    for k, c in enumerate(('#E2483E', '#F2C53A', '#3E8EB8')): o += '<rect x="%d" y="%d" width="7" height="10" fill="%s"/>' % (40 + k * 9, -20 + (1 if k == 1 else 0) * 5, c)
+    return o + '</g>'
+
+def ct_extra():
+    """Chi tiết thêm cho PCantho, gom theo lớp; dùng seed riêng để không đổi dãy ngẫu nhiên của cảnh gốc và các cảnh sau."""
+    st = R.getstate(); R.seed(77); L = {}
+    g = '<g class="ctglint"><path d="M850 262L910 262L1010 720L760 720Z" fill="#FFE9A8" opacity=".14"/>'
+    for k in range(26):
+        y = 268 + k * 17; w_ = 24 + k * 6; g += '<rect x="%.0f" y="%d" width="%.0f" height="2.6" rx="1.3" fill="#FFF3C8" opacity="%.2f"/>' % (880 - w_ / 2 + R.randint(-14, 14), y, w_, .6 - k * .016)
+    L['glint'] = g + '</g>'
+    rings = ''
+    for x, y, rx in ((330, 548, 70), (1090, 548, 70), (640, 585, 120), (900, 646, 44), (590, 692, 56), (420, 654, 40), (1060, 690, 54)):
+        rings += '<ellipse class="ctring" style="animation-delay:-%.1fs" cx="%d" cy="%d" rx="%d" ry="%d" fill="none" stroke="#FFE9B8" stroke-width="1.6"/>' % (R.uniform(0, 4), x, y, rx, rx * .14)
+    L['rings'] = rings
+    nb = ''
+    for x in (14, 96, 168, 262, 352, 452, 536, 702, 842, 934, 1030, 1150, 1244): nb += nipa(x, 266 + R.randint(-2, 3), R.uniform(.5, .8))
+    for x, w_, r_ in ((60, '#B9A484', '#7A8A8E'), (470, '#A8B49A', '#8A6A5E'), (640, '#C4A49A', '#6A7A8E'), (1000, '#B9A484', '#8A6A5E'), (1190, '#A8B49A', '#7A8A8E')): nb += stilt_house(x, 268, .62, w_, r_)
+    L['bank'] = nb
+    gh = ghe(270, 522, .5, 'mix', '#5E4234', '#D9744C', '#6AA0B8', False, None) + ghe(1130, 522, .58, 'coco', '#6A4530', '#3E6AA8', '#B86A5A', True, 2)
+    L['boats'] = gh
+    L['front'] = ct_xuong(560, 688, .8, '#F2C25A', 'pumpkin', False, None) + ct_xuong(912, 650, .62, '#E86AA8', 'melon', True, 1) + ct_xuong(424, 654, .54, '#2FB8C6', 'pine', False, 2) + ct_xuong(770, 700, .5, '#D9543C', 'pumpkin', True, None)
+    hy = ''
+    for x, y in ((470, 612), (735, 718), (1010, 706), (960, 578), (350, 690), (1250, 600)):
+        hy += '<g class="rock" style="animation-delay:-%.1fs">' % R.uniform(0, 3)
+        for _ in range(12): hy += '<ellipse cx="%d" cy="%d" rx="%d" ry="4.4" fill="%s" stroke="#1F4A2A" stroke-width=".7"/>' % (x + R.randint(-26, 26), y + R.randint(-5, 5), R.randint(8, 12), R.choice(['#3CA45C', '#2F8A4A', '#5AB864']))
+        for _ in range(3): hy += '<path d="M%d %dv-8" stroke="#2F8A4A" stroke-width="1.4"/><circle cx="%d" cy="%d" r="3.2" fill="%s"/>' % (x + R.randint(-14, 14), y, x + R.randint(-14, 14), y - 9, R.choice(['#B98ADC', '#C9A0E8', '#A874D0']))
+        hy += '</g>'
+    L['hyacinth'] = hy
+    R.setstate(st); return L
+
 def pcantho():
     d = lin('skC', [('0', '#6A78B8'), ('.34', '#C49AB8'), ('.68', '#FFC9A0'), ('1', '#FFE2A0')]) + lin('watC', [('0', '#F2C48E'), ('.16', '#C89462'), ('.5', '#94683E'), ('1', '#66462A')]) + water_defs(250, 24, 5)
     o = '<rect width="1280" height="262" fill="url(#skC)"/><circle cx="880" cy="200" r="210" fill="url(#hg)"/><circle cx="880" cy="202" r="44" fill="#FFF0B0"/><circle cx="880" cy="202" r="34" fill="#FFE27A"/>'
@@ -744,11 +817,15 @@ def pcantho():
     for _ in range(40):
         y = R.randint(262, 420); x = 880 + (y - 262) * R.uniform(-.4, .4)
         o += '<ellipse class="tw" style="--t:%.1fs;--d:-%.1fs" cx="%d" cy="%d" rx="%d" ry="1.6" fill="#FFF3C8"/>' % (R.uniform(2, 5), R.uniform(0, 4), x, y, R.randint(6, 20))
+    ex = ct_extra()
+    o += ex['glint'] + ex['rings']
     # lục bình trôi
     for x, y in ((860, 690), (1070, 610), (1200, 690), (520, 690)):
         o += '<g class="rock">' + ''.join('<ellipse cx="%d" cy="%d" rx="9" ry="4" fill="%s" stroke="#1F4A2A" stroke-width=".7"/>' % (x + R.randint(-20, 20), y + R.randint(-5, 5), R.choice(['#3CA45C', '#2F8A4A', '#5AB864'])) for _ in range(9)) + '<circle cx="%d" cy="%d" r="3" fill="#B98ADC"/></g>' % (x, y - 6)
+    o += ex['bank'] + ex['hyacinth']
     o += fleet + '<g class="rock">' + mid + '</g><g class="rock" style="animation-delay:-1s">' + near + '</g>'
     o += xuong(250, 412, .62, '#2FB8C6', 'soup', True) + xuong(800, 330, .46, '#F2C25A', 'fruit') + xuong(610, 318, .44, '#E86AA8', 'fruit')
+    o += reflect(ex['boats'], 566, 300) + '<g class="rock" style="animation-delay:-3s">' + ex['boats'] + '</g>' + ex['front']
     o += '<g class="rock" style="animation-delay:-2s">' + hero + '<g transform="translate(680 536) scale(1.14)"><g transform="translate(-178 -74)">' + V.non(0, 0, '#F4F0E4').replace(NOSH, '') + '</g><g transform="translate(142 -58)">' + V.non(0, 0, '#2F8F5B').replace(NOSH, '') + '</g></g></g>'
     o += xuong(1110, 660, 1.04, '#D9543C', 'fruit', True)
     # bến Ninh Kiều: kè chéo tiền cảnh, gạch lục giác, lan can trắng, đèn chùm
@@ -760,7 +837,7 @@ def pcantho():
     o += G.walker(130, 610, '#F2C25A', '#2E3A5A', s=1.02) + V.non(90, 586, '#D9543C') + V.kitsu(232, 704, 108, 'ehappy', 'walk')
     for t_, x, y, dn in [('Cây bẹo', 587, 186, True), ('Dưa hấu', 720, 392, True), ('Chợ nổi', 300, 216, False), ('Trái thơm', 1000, 262, False), ('Bến Ninh Kiều', 120, 418, False)]:
         o += G.bubble(x, y, t_, dn)
-    page('PCantho', 'Kids World, Cần Thơ bình minh', 'Chợ nổi Cái Răng lúc bình minh: ghe chở dưa hấu, cây bẹo treo hàng, xuồng bán đồ ăn, bến Ninh Kiều', d, o, 'Cần Thơ')
+    page('PCantho', 'Kids World, Cần Thơ bình minh', 'Chợ nổi Cái Răng lúc bình minh: ghe chở dưa hấu, cây bẹo treo hàng, xuồng bán đồ ăn, bến Ninh Kiều', d, o, 'Cần Thơ', CT_CSS)
 
 
 # ---------- PPhuquoc: làng chài lúc hoàng hôn trên biển ----------

@@ -92,13 +92,31 @@ onUnmounted(() => {
       <span class="pill"><TrendingUp :size="15" />{{ t('stats.level', { level }) }}</span>
     </div>
     <div class="hud right">
-      <button type="button" class="pill" data-nav="today" :aria-label="t('study.home.todayPanel')" @click="drawer = !drawer">
+      <button
+        type="button"
+        class="pill"
+        data-nav="today"
+        :aria-label="t('study.home.todayPanel')"
+        @click="drawer = !drawer"
+      >
         <ClipboardList :size="15" /><span class="lbl">{{ t('study.home.todayPanel') }}</span>
       </button>
-      <button type="button" class="pill" data-nav="search" :aria-label="t('study.home.search')" @click="emit('search')">
+      <button
+        type="button"
+        class="pill"
+        data-nav="search"
+        :aria-label="t('study.home.search')"
+        @click="emit('search')"
+      >
         <Search :size="15" /><span class="lbl">{{ t('study.home.search') }}</span> <kbd>Ctrl K</kbd>
       </button>
-      <button type="button" class="pill" data-nav="settings" :aria-label="t('study.nav.settings')" @click="emit('settings')">
+      <button
+        type="button"
+        class="pill"
+        data-nav="settings"
+        :aria-label="t('study.nav.settings')"
+        @click="emit('settings')"
+      >
         <Settings :size="15" /><span class="lbl">{{ t('study.nav.settings') }}</span>
       </button>
     </div>

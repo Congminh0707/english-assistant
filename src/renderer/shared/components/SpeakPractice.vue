@@ -13,7 +13,7 @@ import { IpcError } from '../ipc'
 import { useRecorder } from '../composables/useRecorder'
 import { useStt } from '../composables/useStt'
 import { useTts } from '../composables/useTts'
-import PxBar from './PxBar.vue'
+import { MicOff, TriangleAlert } from 'lucide-vue-next'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Luyện nói: ghi âm → chấm. Hai chế độ:
@@ -203,7 +203,9 @@ function cancelInstall(): void {
           }}
         </p>
         <template v-if="downloading">
-          <PxBar :value="percent" :max="100" />
+          <div class="bar" role="progressbar" :aria-valuenow="percent">
+            <div class="fill" :style="{ width: `${percent}%` }" />
+          </div>
           <span class="muted">{{ t('speech.downloading', { pct: percent }) }}</span>
           <button type="button" class="btn" @click="cancelInstall">{{ t('speech.cancel') }}</button>
         </template>
@@ -211,7 +213,7 @@ function cancelInstall(): void {
           <button type="button" class="btn btn--primary" @click="install">
             {{ t('speech.download', { mb: sizeMb }) }}
           </button>
-          <span v-if="setupStatus?.state === 'error'" class="err">{{
+          <span v-if="setupStatus?.state === 'error'" class="alert">{{
             t(setupStatus.errorKey ?? 'errors.modelDownload')
           }}</span>
         </template>
@@ -246,19 +248,20 @@ function cancelInstall(): void {
         <div class="level" :style="{ width: `${Math.round(recorder.level.value * 100)}%` }" />
         <span>{{ t('speech.recording', { s: recorder.seconds.value }) }}</span>
       </div>
-      <p v-if="micError" class="err">{{ micError }}</p>
-      <p v-if="failure" class="err">{{ failure }}</p>
+      <div v-if="micError" class="alert" role="alert">
+        <MicOff :size="18" />
+        <span>{{ micError }}</span>
+        <button type="button" class="btn btn--sm" @click="toggle">{{ t('speech.retry') }}</button>
+      </div>
+      <div v-if="failure" class="alert" role="alert">
+        <TriangleAlert :size="18" />
+        <span>{{ failure }}</span>
+      </div>
 
       <!-- Kết quả cho bé: sao + lời khen -->
       <div v-if="kids && score" class="result kids-result" :class="score.verdict" role="status">
         <div class="kids-stars" aria-hidden="true">
-          <UiIcon
-            v-for="n in 3"
-            :key="n"
-            name="star"
-            :size="34"
-            :class="{ off: n > kidsStars }"
-          />
+          <UiIcon v-for="n in 3" :key="n" name="star" :size="34" :class="{ off: n > kidsStars }" />
         </div>
         <div class="verdict">{{ t(`speech.kids.${score.verdict}`) }}</div>
         <button type="button" class="btn" @click="retry">{{ t('speech.retry') }}</button>
@@ -332,57 +335,67 @@ function cancelInstall(): void {
 <style scoped>
 .speak {
   display: grid;
-  gap: 10px;
+  gap: var(--sp-3);
   justify-items: center;
   text-align: center;
 }
 .setup {
   display: grid;
-  gap: 8px;
+  gap: var(--sp-2);
   justify-items: center;
+}
+.bar {
+  width: min(320px, 100%);
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+}
+.fill {
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: var(--c-primary);
+  transition: width 0.3s ease;
 }
 .actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: var(--sp-3);
   justify-content: center;
 }
 .mic {
-  padding: 8px 16px;
-  border: 1px solid transparent;
-  border-radius: var(--r-md);
-  background: var(--c-surface);
-  color: inherit;
+  display: inline-flex;
+  gap: var(--sp-2);
+  align-items: center;
+  justify-content: center;
+  min-width: 150px;
+  min-height: var(--btn-h);
+  padding: 0 var(--sp-4);
+  border: 2px solid var(--c-coin);
+  border-radius: var(--r-pill);
+  background: var(--c-primary);
+  color: var(--c-on-primary);
   font: inherit;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
 }
 .mic:disabled {
   opacity: 0.5;
   cursor: default;
 }
-.mic {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  min-width: 150px;
-  justify-content: center;
-  background: var(--c-success);
-  color: #fff;
-  font-size: 16px;
-  border-radius: var(--r-md);
-}
 .mic.on {
-  background: #d8364e;
+  background: var(--c-primary-strong);
   animation: pulse 1s steps(2) infinite;
 }
 .mic-icon {
-  font-size: 20px;
+  display: inline-flex;
 }
 .meter {
   display: grid;
-  gap: 4px;
+  gap: var(--sp-1);
   width: min(320px, 100%);
+  font-size: var(--fs-sm);
+  font-weight: 600;
 }
 .level {
   height: 10px;
@@ -392,10 +405,10 @@ function cancelInstall(): void {
 }
 .result {
   display: grid;
-  gap: 6px;
+  gap: var(--sp-2);
   justify-items: center;
   width: 100%;
-  padding: 10px 12px;
+  padding: var(--sp-3);
   border: 1px solid var(--c-line);
   background: var(--c-surface);
   border-radius: var(--r-md);
@@ -404,24 +417,24 @@ function cancelInstall(): void {
   background: var(--c-success-soft);
 }
 .result.good {
-  background: #fff8e0;
+  background: var(--c-warning-soft);
 }
 .result.retry {
-  background: #fdebec;
+  background: var(--c-danger-soft);
 }
 .kids-stars {
   display: flex;
-  gap: 6px;
-  color: var(--c-warning, #f5b301);
+  gap: var(--sp-2);
+  color: var(--c-coin);
 }
 .kids-stars .off {
   opacity: 0.25;
 }
 .kids-result .verdict {
-  font-size: 22px;
+  font-size: var(--fs-xl);
 }
 .verdict {
-  font-size: 16px;
+  font-size: var(--fs-lg);
   font-weight: 700;
 }
 .words,
@@ -429,22 +442,33 @@ function cancelInstall(): void {
   margin: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 8px;
+  gap: var(--sp-1) var(--sp-2);
   justify-content: center;
-  font-size: 18px;
+  font-size: var(--fs-lg);
+}
+.ph {
+  padding: 0 var(--sp-2);
+  border-radius: var(--r-pill);
+}
+.ph.ok {
+  background: var(--c-success-soft);
+}
+.ph.wrong,
+.ph.missing {
+  background: var(--c-danger-soft);
 }
 .w.ok,
 .ph.ok {
-  color: #1f8a4c;
+  color: var(--c-success);
   font-weight: 700;
 }
 .w.wrong,
 .ph.wrong {
-  color: #d8364e;
+  color: var(--c-danger);
   font-weight: 700;
 }
 .ph.wrong.near {
-  color: #b46a00;
+  color: var(--c-warning);
 }
 .w.missing,
 .ph.missing {
@@ -453,38 +477,51 @@ function cancelInstall(): void {
 }
 .w.extra,
 .ph.extra {
-  color: #b46a00;
+  color: var(--c-warning);
   font-style: italic;
 }
 .tips {
+  display: grid;
+  gap: var(--sp-1);
+  width: 100%;
   margin: 0;
-  padding: 6px 10px;
+  padding: var(--sp-2) var(--sp-3);
   list-style: none;
   text-align: left;
-  font-size: 13px;
-  background: #fff;
-  border-left: 4px solid var(--c-primary);
-  display: grid;
-  gap: 4px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  background: var(--c-warning-soft);
   border-radius: var(--r-md);
 }
 .suggest {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: var(--c-ink-soft);
 }
 .muted {
   margin: 0;
   color: var(--c-ink-soft);
-  font-size: 13px;
+  font-size: var(--fs-sm);
 }
 .small {
-  font-size: 12px;
+  font-size: var(--fs-xs);
 }
-.err {
+.alert {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  width: 100%;
   margin: 0;
-  color: #d8364e;
-  font-size: 13px;
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-danger-soft);
+  color: var(--c-danger);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  text-align: left;
+}
+.alert span {
+  flex: 1;
 }
 @keyframes pulse {
   50% {

@@ -85,9 +85,18 @@ const REST_OFFSET: Record<string, [number, number]> = { 'phuquoc-fishing-village
 const MAX_PIXELS = 2560 * 1440
 const MAX_TREES = 40000
 /** Bệ tròn nhô khỏi mặt đất, công trình đứng trên bệ */
-const PAD_LIFT = 0.24
+const PAD_LIFT = 0.5
+/** Bán kính bệ tròn và phần công trình được chiếm, so với LANDMARK_SPAN */
+const PAD_R = 0.76
+const PAD_FILL = 0.92
 /** Cây/nhà thu nhỏ để vẫn nhỏ hơn hẳn công trình */
 const TREE_K = 0.36
+/** Lấy 1 trong số TREE_STEP cây của địa hình */
+const TREE_STEP = 4
+const TREE_SCALE = 1.45
+const LEAF_COLORS = [0x1fa36a, 0x3bc77a, 0x0e8a58, 0x5fd068]
+/** Lấy 1 trong số HOUSE_STEP nhà của địa hình */
+const HOUSE_STEP = 3
 
 function labelTexture(THREE: Three, p: Map3DPlace): { tex: ThreeNS.CanvasTexture; ratio: number } {
   const w = 360
@@ -232,7 +241,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     const sp = spotOf.get(id)
     const lm = landmarkOf.get(id) ?? ''
     if (sp && (WATER_LANDMARKS.has(lm) || onLand.get(id) === false))
-      return { x: sp.x * TERRAIN_UNIT, y: (sp.z + LANDMARK_SPAN * 0.42) * TERRAIN_UNIT, sea: true }
+      return { x: sp.x * TERRAIN_UNIT, y: (sp.z + LANDMARK_SPAN * 0.9) * TERRAIN_UNIT, sea: true }
     if (!sp) return { x: 0, y: 0 }
     const fixed = REST_OFFSET[lm]
     if (fixed)
@@ -676,7 +685,8 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   const treeCount = Math.min(hf.trees.length / 8, MAX_TREES)
   const round: number[] = []
   const pine: number[] = []
-  for (let i = 0; i < treeCount; i++) {
+  // Thưa bớt cho thoáng như bảng R5World: tán to hơn, số cây ít đi
+  for (let i = 0; i < treeCount; i += TREE_STEP) {
     if (onRoad(hf.trees[i * 8], hf.trees[i * 8 + 2])) continue
     ;(hf.trees[i * 8 + 4] ? pine : round).push(i)
   }
@@ -694,11 +704,15 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
       const o = id * 8
       const s = hf.trees[o + 3]
       dummy.position.set(hf.trees[o], hf.trees[o + 1] + lift * s * TREE_K, hf.trees[o + 2])
-      dummy.scale.set(s * TREE_K, s * TREE_K * tall, s * TREE_K)
+      dummy.scale.set(
+        s * TREE_K * TREE_SCALE,
+        s * TREE_K * tall * TREE_SCALE,
+        s * TREE_K * TREE_SCALE
+      )
       dummy.rotation.set(0, hashAngle(id), 0)
       dummy.updateMatrix()
       mesh.setMatrixAt(k, dummy.matrix)
-      col.setRGB(hf.trees[o + 5], hf.trees[o + 6], hf.trees[o + 7])
+      col.set(LEAF_COLORS[id % LEAF_COLORS.length])
       mesh.setColorAt(k, col)
     })
     mesh.castShadow = true
@@ -709,25 +723,27 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
   addTrees(pine, new THREE.ConeGeometry(0.3, 1, 7), 0.5, 1.15)
 
   // --- nhà trong làng ---
-  const houseCount = hf.houses.length / 6
+  const houseCount = Math.floor(hf.houses.length / 6 / HOUSE_STEP)
   if (houseCount > 0) {
-    const bodyGeo = own(new THREE.BoxGeometry(0.4, 0.26, 0.3))
-    const roofGeo = own(new THREE.ConeGeometry(0.34, 0.24, 4))
-    roofGeo.rotateY(Math.PI / 4)
+    const bodyGeo = own(new THREE.BoxGeometry(0.46, 0.3, 0.32))
+    // Mái hai dốc: lăng trụ tam giác nằm ngang, nhìn từ trên vẫn ra cái nhà thay vì ô vuông màu
+    const roofGeo = own(new THREE.CylinderGeometry(0.3, 0.3, 0.56, 3))
+    roofGeo.rotateZ(Math.PI / 2)
+    roofGeo.rotateX(-Math.PI / 2)
     const bodies = new THREE.InstancedMesh(bodyGeo, instMaterial, houseCount)
     const roofs = new THREE.InstancedMesh(roofGeo, instMaterial, houseCount)
-    const wall = [0xf6ecd2, 0xf2dca8, 0xd9e8f2]
-    const roof = [0xb8452f, 0x8a5a46, 0x4a7f9a]
-    const lc = (hex: number): ThreeNS.Color => new THREE.Color(hex).convertSRGBToLinear()
+    const wall = [0xfff3d6, 0xf6e2b4, 0xf2d48e]
+    const roof = [0xb5613c, 0x9a5230, 0xc7743f]
+    const lc = (hex: number): ThreeNS.Color => new THREE.Color(hex)
     for (let i = 0; i < houseCount; i++) {
-      const o = i * 6
-      const s = hf.houses[o + 4]
-      dummy.position.set(hf.houses[o], hf.houses[o + 1] + 0.13 * s * TREE_K, hf.houses[o + 2])
+      const o = i * HOUSE_STEP * 6
+      const s = hf.houses[o + 4] * 1.25
+      dummy.position.set(hf.houses[o], hf.houses[o + 1] + 0.15 * s * TREE_K, hf.houses[o + 2])
       dummy.rotation.set(0, hf.houses[o + 3], 0)
       dummy.scale.setScalar(onRoad(hf.houses[o], hf.houses[o + 2]) ? 0 : s * TREE_K) // nhà không nằm trên đường
       dummy.updateMatrix()
       bodies.setMatrixAt(i, dummy.matrix)
-      dummy.position.y = hf.houses[o + 1] + 0.38 * s * TREE_K
+      dummy.position.y = hf.houses[o + 1] + 0.4 * s * TREE_K
       dummy.updateMatrix()
       roofs.setMatrixAt(i, dummy.matrix)
       const t = hf.houses[o + 5]
@@ -752,14 +768,17 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     const spot = spotOf.get(p.id)
     const padIndex = spots.findIndex((s) => s.id === p.id)
     if (!model || !spot) return
-    const k = LANDMARK_SPAN / 10
-    const gy = WATER_LANDMARKS.has(p.landmark)
-      ? WATER_Y - 0.03
-      : landed
-        ? hf.padHeights[padIndex] - 0.02
-        : WATER_Y
+    // Công trình luôn nằm gọn trong bệ tròn, mô hình nền rộng được thu nhỏ theo góc xa nhất
+    const padR = LANDMARK_SPAN * PAD_R
+    const box = new THREE.Box3().setFromObject(model)
+    const reach = Math.max(
+      ...[box.min.x, box.max.x].flatMap((x) => [box.min.z, box.max.z].map((z) => Math.hypot(x, z)))
+    )
+    const k = Math.min(LANDMARK_SPAN / 10, (padR * PAD_FILL) / Math.max(0.01, reach))
+    const water = WATER_LANDMARKS.has(p.landmark) || !landed
+    const gy = water ? WATER_Y + 0.02 : hf.padHeights[padIndex] - 0.02
     model.scale.setScalar(k)
-    const lift = landed && !WATER_LANDMARKS.has(p.landmark) ? PAD_LIFT : 0
+    const lift = PAD_LIFT
     model.position.set(spot.x, gy + lift, spot.z)
     model.traverse((o) => {
       const m = o as ThreeNS.Mesh
@@ -770,26 +789,37 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
       }
     })
     scene.add(model)
-    // Bệ tròn dưới công trình trên đất, như bảng R5World
-    if (landed && !WATER_LANDMARKS.has(p.landmark)) {
-      const r = LANDMARK_SPAN * 0.76
-      const rim = new THREE.Mesh(
-        own(new THREE.CylinderGeometry(r, r * 0.93, 0.5, 48)),
-        own(new THREE.MeshLambertMaterial({ color: 0x8a5a2e }))
-      )
-      rim.position.set(spot.x, gy + lift - 0.28, spot.z)
-      const top = new THREE.Mesh(
-        own(new THREE.CircleGeometry(r * 0.985, 48)),
-        own(new THREE.MeshLambertMaterial({ color: 0xa6ec72 }))
-      )
-      top.rotation.x = -Math.PI / 2
-      top.position.set(spot.x, gy + lift - 0.012, spot.z)
-      rim.receiveShadow = top.receiveShadow = true
-      for (const m of [rim, top]) {
-        m.userData.placeId = p.id
-        pickables.push(m)
-        scene.add(m)
-      }
+    // Bệ tròn dưới công trình như bảng R5World; nơi trên mặt nước dùng bệ màu nước
+    const rim = new THREE.Mesh(
+      own(new THREE.CylinderGeometry(padR, padR * 0.95, 0.74, 48)),
+      own(new THREE.MeshLambertMaterial({ color: water ? 0x2f8a9a : 0x8a5a2e }))
+    )
+    rim.position.set(spot.x, gy + lift - 0.39, spot.z)
+    const top = new THREE.Mesh(
+      own(new THREE.CircleGeometry(padR * 0.985, 48)),
+      own(new THREE.MeshLambertMaterial({ color: water ? 0x7fe3e0 : 0xc7f58e }))
+    )
+    top.rotation.x = -Math.PI / 2
+    top.position.set(spot.x, gy + lift - 0.012, spot.z)
+    // Viền kem cho bệ tách khỏi cỏ, bóng mềm dưới chân bệ
+    const edge = new THREE.Mesh(
+      own(new THREE.RingGeometry(padR * 0.93, padR * 1.005, 64)),
+      own(new THREE.MeshBasicMaterial({ color: 0xf2dda6 }))
+    )
+    edge.rotation.x = -Math.PI / 2
+    edge.position.set(spot.x, gy + lift - 0.006, spot.z)
+    const foot = new THREE.Mesh(
+      own(new THREE.CircleGeometry(padR * 1.16, 48)),
+      own(new THREE.MeshBasicMaterial({ color: 0x0a3a40, transparent: true, opacity: 0.22 }))
+    )
+    foot.rotation.x = -Math.PI / 2
+    foot.position.set(spot.x + 0.08, gy + 0.03, spot.z + 0.12)
+    rim.receiveShadow = top.receiveShadow = true
+    scene.add(foot)
+    for (const m of [rim, top, edge]) {
+      m.userData.placeId = p.id
+      pickables.push(m)
+      scene.add(m)
     }
     const tick = model.userData.tick as ((t: number) => void) | undefined
     if (tick) ticks.push(tick)
@@ -809,7 +839,7 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     )
     sprite.scale.set(0.095, 0.095 * ratio, 1) // cỡ không đổi theo zoom (đơn vị = chiều cao khung hình)
     sprite.center.set(0.5, 1) // nhãn treo ngay dưới mép trước của công trình
-    sprite.position.set(spot.x, gy + 0.05, spot.z + LANDMARK_SPAN * 0.52)
+    sprite.position.set(spot.x, gy + 0.05, spot.z + padR * 1.04)
     sprite.renderOrder = 10
     labelScene.add(sprite)
   })

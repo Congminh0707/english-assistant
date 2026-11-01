@@ -3,7 +3,17 @@ import { computed } from 'vue'
 
 // Biểu tượng vật phẩm (đồ ăn, phụ kiện, nhân vật): SVG Twemoji (CC-BY 4.0) đóng gói sẵn trong assets/items
 // (scripts/images/twemoji-items.mjs) để giống nhau trên mọi máy; thiếu ảnh thì hiện chính emoji.
-const props = withDefaults(defineProps<{ emoji: string; size?: number }>(), { size: 48 })
+// Có `id` vật phẩm (vd `food:cake`, `acc:bow`) và đã có hình vẽ riêng trong art/items thì dùng hình vẽ (docs/23 §7).
+const props = withDefaults(defineProps<{ emoji: string; size?: number; id?: string }>(), {
+  size: 48,
+  id: undefined
+})
+
+const drawn = import.meta.glob('../art/items/*.svg', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+}) as Record<string, string>
 
 const svgs = import.meta.glob('../assets/items/*.svg', {
   eager: true,
@@ -18,7 +28,11 @@ const code = computed(() =>
     .map((cp) => cp.toString(16))
     .join('-')
 )
-const src = computed(() => svgs[`../assets/items/${code.value}.svg`])
+const src = computed(
+  () =>
+    (props.id ? drawn[`../art/items/${props.id.replace(':', '-')}.svg`] : undefined) ??
+    svgs[`../assets/items/${code.value}.svg`]
+)
 </script>
 
 <template>

@@ -149,7 +149,7 @@ onMounted(load)
             :class="{ locked: item.locked && item.owned === 0 }"
           >
             <div class="top">
-              <span class="art"><ItemEmoji :emoji="item.emoji" :size="36" /></span>
+              <span class="art"><ItemEmoji :id="item.id" :emoji="item.emoji" :size="36" /></span>
               <div class="info">
                 <div class="name">{{ nameOf(item) }}</div>
                 <span class="chip price"
@@ -193,7 +193,7 @@ onMounted(load)
             class="card item item--big"
             :class="{ locked: item.locked && item.owned === 0 }"
           >
-            <ItemEmoji :emoji="item.emoji" :size="56" />
+            <ItemEmoji :id="item.id" :emoji="item.emoji" :size="56" />
             <div class="name">{{ nameOf(item) }}</div>
             <div class="foot foot--center">
               <span class="chip price"
@@ -217,7 +217,7 @@ onMounted(load)
         <div v-else class="items">
           <article v-for="item in foods" :key="item.id" class="card item">
             <div class="top">
-              <span class="art"><ItemEmoji :emoji="item.emoji" :size="36" /></span>
+              <span class="art"><ItemEmoji :id="item.id" :emoji="item.emoji" :size="36" /></span>
               <div class="info">
                 <div class="name">{{ nameOf(item) }}</div>
                 <span class="chip price"

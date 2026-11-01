@@ -79,7 +79,7 @@ const worn = computed(() =>
   >
     <PetFigure class="fig" :character="character" :stage="stage" :pose="state" :animate="live" />
     <span v-for="w in worn" :key="w.id" class="acc" :style="w.style">
-      <ItemEmoji :emoji="w.emoji" :size="w.px" />
+      <ItemEmoji :id="w.id" :emoji="w.emoji" :size="w.px" />
     </span>
   </div>
 </template>

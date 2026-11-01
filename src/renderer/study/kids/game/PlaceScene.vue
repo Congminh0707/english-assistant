@@ -36,7 +36,7 @@ const busy = ref(false)
 
 /** Đổi toạ độ tranh sang sân khấu, giữ biển trong khung và tránh hàng nút trên cùng */
 const SIDE = 120
-const TOP_BAR = 104
+const TOP_BAR = 138
 function spotStyle(s: { x: number; y: number }): { left: string; top: string } {
   const x = Math.min(props.width - SIDE, Math.max(SIDE, s.x * sx.value))
   let y = Math.min(props.height - 56, Math.max(36, s.y * sy.value))

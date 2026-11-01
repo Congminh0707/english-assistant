@@ -7,6 +7,8 @@
 
 > ✅ Cảnh địa điểm (2026-11-01): 12 nơi tầng 1 có cảnh `game/PlaceScene.vue` dùng `ArtScene`. `export-art.py --kids --only-kids` gỡ biển tên, chấm chạm và thú cưng vẽ sẵn khỏi tranh, ghi toạ độ vào `game/placeArt.generated.ts`; 5 biển là nút HTML, nhãn ở `kids.game.spots.<nơi>`. Biển dịch vào trong khung để không đè hàng nút trên. Chạm biển: đọc tên tiếng Anh rồi mở lượt 5 bước `KidsVisit` từ đầu (chưa nhảy thẳng tới một bước, xem báo cáo phần H). `Esc`: bài học về cảnh, cảnh về bản đồ, bản đồ thoát game.
 
+> ✅ Tầng 2 (2026-11-01): `game/AsiaMap.vue` dùng tranh `kids-pasia`, biển tên là nút HTML, thú cưng đi máy bay theo đường cong tới nước vừa chọn rồi hiện thẻ. **6 nước (`w-*.json`) chưa có cảnh chi tiết:** nút trên thẻ vào thẳng bài học, bản đồ PAsia là cảnh của tầng này. Biển Việt Nam quay về tầng 1.
+
 > Thiết kế chi tiết cho [14 — Phase 2b](14-roadmap.md#phase-2b--mở-rộng-từ-vựng-trẻ-em-đề-xuất-2026-10-29) giai đoạn A, [decisions #35](decisions.md) và [#36](decisions.md) (bản đồ 3D + gói tải thêm). Viết 2026-10-29, sửa lần 1 cùng ngày theo góp ý chủ dự án (mỗi nơi có công trình nổi bật, tăng số nơi, bản đồ 3D chi tiết, tài nguyên tải thêm). **Chờ duyệt.** Khi code xong từng phần, đổi 📋 → ✅ ở đây và ở [07 §9](07-learning-modules.md#9-phonics--mầm-non-p1), [10](10-data-model.md), [03](03-architecture.md), [15](15-packaging-and-release.md), [17](17-metrics.md).
 
 ## 1. Mục tiêu & phạm vi

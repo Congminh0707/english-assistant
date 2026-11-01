@@ -9,6 +9,7 @@ import { useSettingsStore } from '@renderer/shared/stores/settings'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import KidsReview from '../KidsReview.vue'
 import KidsVisit from '../KidsVisit.vue'
+import AsiaMap from './AsiaMap.vue'
 import { PLACE_ART } from './placeArt.generated'
 import PlaceScene from './PlaceScene.vue'
 import WorldMap from './WorldMap.vue'
@@ -172,6 +173,15 @@ onUnmounted(() => {
           @start="start"
           @fail="webglFailed = true"
         />
+        <AsiaMap
+          v-else-if="view === 'map' && tier?.scene === 'islands'"
+          :world="world"
+          :tier-id="tierId"
+          :width="STAGE_W"
+          :height="STAGE_H"
+          @start="start"
+          @tier="tierId = $event"
+        />
         <WorldMap
           v-else-if="view === 'map'"
           :world="world"
@@ -268,7 +278,7 @@ onUnmounted(() => {
         </template>
       </div>
 
-      <p v-if="world && view === 'map' && !show3d" class="hint">
+      <p v-if="world && view === 'map' && tier?.scene === 'vn' && !show3d" class="hint">
         {{ world.newLeftToday > 0 ? t('kids.world.hint') : t('kids.world.tomorrow') }}
       </p>
     </div>

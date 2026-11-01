@@ -470,7 +470,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           <UiIcon name="hint" :size="14" />
           {{ t('study.review.suggest', { rating: ratings[suggested - 1].label }) }}
         </p>
-        <div class="row">
+        <p class="muted hint">{{ hintText }}</p>
+        <div class="foot">
           <button
             v-if="canUndo"
             type="button"
@@ -480,12 +481,12 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           >
             <UiIcon name="reset" /> {{ t('study.review.undo') }} <kbd>Z</kbd>
           </button>
-          <p class="muted hint">{{ hintText }}</p>
+          <span v-else />
+          <button type="button" class="btn btn--sm btn--ghost" @click="speakOpen = !speakOpen">
+            <UiIcon name="mic" />
+            {{ speakOpen ? t('study.review.closeSay') : t('study.review.sayIt') }} <kbd>R</kbd>
+          </button>
         </div>
-        <button type="button" class="btn btn--sm btn--ghost" @click="speakOpen = !speakOpen">
-          <UiIcon name="mic" />
-          {{ speakOpen ? t('study.review.closeSay') : t('study.review.sayIt') }} <kbd>R</kbd>
-        </button>
         <div v-if="speakOpen" class="speak-panel">
           <SpeakPractice :key="card.cardId" :expected="card.lemma" can-listen phonemes />
         </div>
@@ -863,6 +864,15 @@ kbd {
   align-items: center;
   justify-content: center;
   gap: 12px;
+}
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.actions .speak-panel {
+  width: 100%;
 }
 .hint {
   margin: 0;

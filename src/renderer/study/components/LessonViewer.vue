@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Lesson } from '@shared/schemas/lesson'
 import { useTts } from '@renderer/shared/composables/useTts'
-import { ArrowLeft } from 'lucide-vue-next'
+import { ChevronLeft } from 'lucide-vue-next'
+import { cefrLabel } from '@shared/placement'
 import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
 import MdText from './MdText.vue'
 import PicText from '@renderer/shared/components/PicText.vue'
@@ -17,6 +18,14 @@ defineEmits<{ start: []; back: [] }>()
 
 const { t } = useI18n()
 const { speak, prefetch } = useTts()
+
+/** Khối ví dụ nằm cột phải (kèm nút làm bài); các khối còn lại ở cột chính, giữ chỉ số gốc */
+const mainBlocks = computed(() =>
+  props.lesson.blocks.map((block, i) => ({ block, i })).filter((x) => x.block.type !== 'examples')
+)
+const sideBlocks = computed(() =>
+  props.lesson.blocks.map((block, i) => ({ block, i })).filter((x) => x.block.type === 'examples')
+)
 
 /** Ô âm đang luyện phát âm (bấm nút micro): chữ hiển thị và chuỗi để chấm */
 const practicing = ref<{ block: number; label: string; text: string } | null>(null)
@@ -34,125 +43,135 @@ onMounted(() => {
 
 <template>
   <section class="viewer">
-    <button type="button" class="btn btn--ghost btn--sm" @click="$emit('back')">
-      <ArrowLeft :size="16" :stroke-width="2.4" /> {{ t('study.lessons.back') }}
+    <button type="button" class="back" @click="$emit('back')">
+      <ChevronLeft :size="16" :stroke-width="2.4" /> {{ t('study.lessons.back') }}
     </button>
-    <h1 class="page-title">{{ lesson.title }}</h1>
+    <div class="title-row">
+      <h1 class="page-title">{{ lesson.title }}</h1>
+      <span class="chip chip--primary">{{ cefrLabel(lesson.level) }}</span>
+      <span class="chip">{{ t('study.lessons.minutes', { n: lesson.minutes }) }}</span>
+    </div>
     <p class="summary">{{ lesson.summary }}</p>
 
-    <template v-for="(block, i) in lesson.blocks" :key="i">
-      <div v-if="block.type === 'text'" class="card block">
-        <MdText :md="block.md" />
-      </div>
+    <div class="cols" :class="{ single: !sideBlocks.length }">
+      <div class="main">
+        <template v-for="{ block, i } in mainBlocks" :key="i">
+          <div v-if="block.type === 'text'" class="card block">
+            <MdText :md="block.md" />
+          </div>
 
-      <div v-else-if="block.type === 'tip'" class="tip">
-        <span class="tip-icon"><UiIcon name="hint" /></span>
-        <MdText :md="block.md" />
-      </div>
+          <div v-else-if="block.type === 'tip'" class="tip">
+            <span class="tip-icon"><UiIcon name="hint" /></span>
+            <MdText :md="block.md" />
+          </div>
 
-      <div v-else-if="block.type === 'examples'" class="card block">
-        <h2 v-if="block.title">{{ block.title }}</h2>
-        <ul class="examples">
-          <li v-for="(ex, j) in block.items" :key="j">
-            <button
-              type="button"
-              class="btn btn--sm btn--icon"
-              :title="t('study.lessons.listen')"
-              @click="speak(ex.en, undefined, 0.9)"
-            >
-              <UiIcon name="volume" />
-            </button>
-            <div>
-              <div class="en">{{ ex.en }}</div>
-              <div class="vi">{{ ex.vi }}</div>
-              <div v-if="ex.note" class="note">{{ ex.note }}</div>
+          <div v-else-if="block.type === 'table'" class="card block">
+            <h2 v-if="block.title">{{ block.title }}</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th v-for="(h, j) in block.head" :key="j">{{ h }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr v-for="(row, r) in block.rows" :key="r">
+                    <td v-for="(cell, c) in row" :key="c">{{ cell }}</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </li>
-        </ul>
-      </div>
-
-      <div v-else-if="block.type === 'table'" class="card block">
-        <h2 v-if="block.title">{{ block.title }}</h2>
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th v-for="(h, j) in block.head" :key="j">{{ h }}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(row, r) in block.rows" :key="r">
-                <td v-for="(cell, c) in row" :key="c">{{ cell }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div v-else-if="block.type === 'sounds'" class="card block">
-        <h2 v-if="block.title">{{ block.title }}</h2>
-        <div class="sounds">
-          <div v-for="(item, j) in block.items" :key="j" class="sound-cell">
-            <button
-              type="button"
-              class="sound"
-              @click="speak(item.say ?? item.text, undefined, 0.8)"
-            >
-              <PicText class="sound-text" :text="item.text" :size="64" :with-label="true" />
-              <span v-if="item.ipa" class="sound-ipa">{{ item.ipa }}</span>
-              <span v-if="item.note" class="sound-note">{{ item.note }}</span>
-            </button>
-            <button
-              type="button"
-              class="btn btn--xs btn--icon btn--ghost sound-mic"
-              :title="t('speech.practiceSound')"
-              :aria-label="t('speech.practiceSound')"
-              @click="practicing = { block: i, label: item.text, text: item.say ?? item.text }"
-            >
-              <UiIcon name="mic" />
-            </button>
           </div>
-        </div>
-        <p class="hint">
-          <UiIcon name="volume" /> {{ t('study.lessons.tapToHear') }} · <UiIcon name="mic" />
-          {{ t('speech.practiceSound') }}
-        </p>
-        <div v-if="practicing && practicing.block === i" class="practice">
-          <div class="practice-head">
-            <strong>{{ practicing.label }}</strong>
-            <button type="button" class="btn btn--ghost btn--sm" @click="practicing = null">
-              {{ t('speech.closePractice') }}
-            </button>
+
+          <div v-else-if="block.type === 'sounds'" class="card block">
+            <h2 v-if="block.title">{{ block.title }}</h2>
+            <div class="sounds">
+              <div v-for="(item, j) in block.items" :key="j" class="sound-cell">
+                <button
+                  type="button"
+                  class="sound"
+                  @click="speak(item.say ?? item.text, undefined, 0.8)"
+                >
+                  <PicText class="sound-text" :text="item.text" :size="64" :with-label="true" />
+                  <span v-if="item.ipa" class="sound-ipa">{{ item.ipa }}</span>
+                  <span v-if="item.note" class="sound-note">{{ item.note }}</span>
+                </button>
+                <button
+                  type="button"
+                  class="btn btn--xs btn--icon btn--ghost sound-mic"
+                  :title="t('speech.practiceSound')"
+                  :aria-label="t('speech.practiceSound')"
+                  @click="practicing = { block: i, label: item.text, text: item.say ?? item.text }"
+                >
+                  <UiIcon name="mic" />
+                </button>
+              </div>
+            </div>
+            <p class="hint">
+              <UiIcon name="volume" /> {{ t('study.lessons.tapToHear') }} · <UiIcon name="mic" />
+              {{ t('speech.practiceSound') }}
+            </p>
+            <div v-if="practicing && practicing.block === i" class="practice">
+              <div class="practice-head">
+                <strong>{{ practicing.label }}</strong>
+                <button type="button" class="btn btn--ghost btn--sm" @click="practicing = null">
+                  {{ t('speech.closePractice') }}
+                </button>
+              </div>
+              <SpeakPractice
+                :key="practicing.text"
+                :expected="practicing.text"
+                can-listen
+                phonemes
+                phoneme-only
+              />
+            </div>
           </div>
-          <SpeakPractice
-            :key="practicing.text"
-            :expected="practicing.text"
-            can-listen
-            phonemes
-            phoneme-only
+
+          <ListeningPlayer
+            v-else-if="block.type === 'audio'"
+            :title="block.title"
+            :lines="block.lines"
+            :hide-text="block.hideText"
           />
-        </div>
+
+          <ReadingPassage
+            v-else-if="block.type === 'passage'"
+            :title="block.title"
+            :paragraphs="block.paragraphs"
+          />
+        </template>
       </div>
-
-      <ListeningPlayer
-        v-else-if="block.type === 'audio'"
-        :title="block.title"
-        :lines="block.lines"
-        :hide-text="block.hideText"
-      />
-
-      <ReadingPassage
-        v-else-if="block.type === 'passage'"
-        :title="block.title"
-        :paragraphs="block.paragraphs"
-      />
-    </template>
-
-    <div class="actions">
-      <button type="button" class="btn btn--primary" @click="$emit('start')">
-        <UiIcon name="pencil" />
-        {{ t('study.lessons.startExercises', { n: lesson.exercises.length }) }}
-      </button>
+      <aside class="side">
+        <template v-for="{ block, i } in sideBlocks" :key="i">
+          <div v-if="block.type === 'examples'" class="card block">
+            <h2 v-if="block.title">{{ block.title }}</h2>
+            <ul class="examples">
+              <li v-for="(ex, j) in block.items" :key="j">
+                <button
+                  type="button"
+                  class="btn btn--sm btn--icon"
+                  :title="t('study.lessons.listen')"
+                  @click="speak(ex.en, undefined, 0.9)"
+                >
+                  <UiIcon name="volume" />
+                </button>
+                <div>
+                  <div class="en">{{ ex.en }}</div>
+                  <div class="vi">{{ ex.vi }}</div>
+                  <div v-if="ex.note" class="note">{{ ex.note }}</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </template>
+        <div class="actions">
+          <button type="button" class="btn btn--primary btn--block" @click="$emit('start')">
+            <UiIcon name="pencil" />
+            {{ t('study.lessons.startExercises', { n: lesson.exercises.length }) }}
+          </button>
+        </div>
+      </aside>
     </div>
   </section>
 </template>
@@ -160,14 +179,54 @@ onMounted(() => {
 <style scoped>
 .viewer {
   display: grid;
-  gap: var(--sp-3);
-  max-width: 760px;
+  gap: var(--sp-2);
 }
-.viewer > .btn--ghost {
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
   justify-self: start;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--c-ink-soft);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+.back:hover {
+  color: var(--c-ink);
+}
+.title-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-3);
 }
 .page-title {
   margin: 0;
+}
+.cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 340px);
+  gap: var(--sp-4);
+  align-items: start;
+  margin-top: var(--sp-2);
+}
+.cols.single {
+  grid-template-columns: minmax(0, 1fr);
+}
+.main,
+.side {
+  display: grid;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+@media (max-width: 900px) {
+  .cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 h2 {
   margin: 0 0 8px;
@@ -313,7 +372,9 @@ th {
 }
 .actions {
   display: flex;
-  justify-content: center;
-  padding: 8px 0 16px;
+  justify-content: stretch;
+}
+.cols.single .actions {
+  justify-content: flex-end;
 }
 </style>

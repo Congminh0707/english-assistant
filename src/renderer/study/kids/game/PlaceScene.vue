@@ -155,6 +155,7 @@ function tap(i: number): void {
   gap: 10px;
 }
 .panel {
+  zoom: var(--hz, 1);
   width: 440px;
   padding: 16px 20px;
   border: 4px solid var(--g-coin);
@@ -162,6 +163,7 @@ function tap(i: number): void {
   background: var(--g-paper);
 }
 .dock-btn {
+  zoom: var(--hz, 1);
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -229,6 +231,7 @@ function tap(i: number): void {
 }
 .face {
   position: relative;
+  zoom: var(--hz, 1);
   padding: 7px 30px;
   line-height: 1.2;
   white-space: nowrap;

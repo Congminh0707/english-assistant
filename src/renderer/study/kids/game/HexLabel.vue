@@ -23,6 +23,7 @@ defineProps<{ text: string; hot?: boolean }>()
   line-height: 1.2;
   white-space: nowrap;
   isolation: isolate;
+  zoom: var(--hz, 1);
 }
 .hex.hot {
   --edge: var(--g-coin);

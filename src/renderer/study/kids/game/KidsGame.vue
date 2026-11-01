@@ -85,6 +85,11 @@ const totals = computed(() => {
   return { stars, flowers }
 })
 
+/** Cửa sổ nhỏ (vd 900×640): sân khấu co lại ~0.56 nên nút và chữ nhỏ quá; phóng HUD và biển tên lên cho cỡ thật không dưới ~0.8 */
+const HUD_MIN_SIZE = 0.8
+const HUD_MAX_ZOOM = 1.5
+const hudZoom = computed(() => Math.min(HUD_MAX_ZOOM, Math.max(1, HUD_MIN_SIZE / scale.value)))
+
 function fit(): void {
   scale.value = Math.min(window.innerWidth / STAGE_W, window.innerHeight / STAGE_H)
 }
@@ -189,7 +194,8 @@ onUnmounted(() => {
       :style="{
         width: `${STAGE_W}px`,
         height: `${STAGE_H}px`,
-        transform: `translate(-50%, -50%) scale(${scale})`
+        transform: `translate(-50%, -50%) scale(${scale})`,
+        '--hz': hudZoom
       }"
     >
       <template v-if="world && tierId">
@@ -422,10 +428,13 @@ onUnmounted(() => {
 }
 .hud > * {
   pointer-events: auto;
+  zoom: var(--hz, 1);
 }
 .left {
   top: 20px;
   left: 24px;
+  flex-wrap: wrap;
+  max-width: calc(100% - 460px);
 }
 .right {
   top: 20px;
@@ -514,6 +523,7 @@ onUnmounted(() => {
   right: 24px;
   z-index: 5;
   max-width: 620px;
+  zoom: var(--hz, 1);
   margin: 0;
   padding: 8px 20px;
   border: 3px solid var(--g-line);

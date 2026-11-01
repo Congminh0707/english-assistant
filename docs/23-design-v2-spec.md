@@ -72,6 +72,7 @@ Generator ở `scripts/design-data/`, cách dùng ở [22 §1, §12](22-redesign
 - Nhà sàn, cây bẹo, cây sao, mặt tiền nhà ống, nhà người Mông vẽ theo hiểu biết chung vì thiếu ảnh. Ngọ Môn, tháp Bà, ga Đà Lạt ghép gần cảnh khác, không đúng địa lý.
 - Mô hình 3D Hội An và Đà Nẵng chưa dựng lại riêng cho bệ tròn.
 - Biến thể thời tiết đã có (2026-11-01): `SceneWeather.vue` phủ mưa / nắng / đêm lên cảnh địa điểm (đêm theo giờ máy 19h–6h, ban ngày chọn theo ngày + nơi, `sceneWeather.ts`), tắt hoạt ảnh khi `prefers-reduced-motion`; chưa thử tay.
-- Chưa có: 20 phụ kiện, 18 đồ ăn, bản đồ cho cửa sổ nhỏ 900×640. Kiểm tra tương phản đã có (2026-11-01): `pnpm ui:contrast` đo các cặp chữ/nền trong `tokens.css` (sáng + tối), 0 cặp trượt; để đạt, nền `primary-soft` #FBE0DA→#FFF2EF và `xp-soft` #D4F3F2→#EDFAF9 (đã sửa cả `design-data/sync/tokens.json`). Viền `--c-line` là đường kẻ trang trí nên không tính.
+- Cửa sổ nhỏ 900×640 (2026-11-01): `KidsGame.vue` đặt `--hz` = clamp(0.8 / tỉ lệ co, 1, 1.5) trên sân khấu; `.hud > *`, `HexLabel`, `.face`/`.panel`/`.dock-btn` của `PlaceScene` dùng `zoom: var(--hz)` để nút và chữ không nhỏ hơn ~0.8 cỡ thật; chưa thử tay.
+- Chưa có: 20 phụ kiện, 18 đồ ăn, Kiểm tra tương phản đã có (2026-11-01): `pnpm ui:contrast` đo các cặp chữ/nền trong `tokens.css` (sáng + tối), 0 cặp trượt; để đạt, nền `primary-soft` #FBE0DA→#FFF2EF và `xp-soft` #D4F3F2→#EDFAF9 (đã sửa cả `design-data/sync/tokens.json`). Viền `--c-line` là đường kẻ trang trí nên không tính.
 - Hoạt ảnh chưa xem chạy liên tục trên canvas; `prefers-reduced-motion` chưa thử.
 - Thẻ xoài còn gần giống đào và cam. Tay của Kitsu, Draco, Lupo là phần vẽ thêm.

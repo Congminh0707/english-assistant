@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, inject, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { cefrLabel } from '@shared/placement'
 import type {
@@ -15,6 +15,7 @@ import AudioPackPanel from '@renderer/shared/components/AudioPackPanel.vue'
 import LessonExercises from './LessonExercises.vue'
 import LessonViewer from './LessonViewer.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
+import { SHELL_FOCUS } from '../places'
 
 // Bài học nền tảng: danh sách theo chương → đọc bài → làm bài tập → kết quả (thưởng lần đầu đạt).
 const props = withDefaults(
@@ -34,6 +35,19 @@ const catalog = ref<LessonCatalog | null>(null)
 const lesson = ref<Lesson | null>(null)
 const result = ref<LessonCompleteResult | null>(null)
 const busy = ref(false)
+
+// Đang đọc/làm/xem kết quả một bài → báo PlaceShell ẩn tab
+const shellFocus = inject(SHELL_FOCUS, null)
+watch(
+  mode,
+  (m) => {
+    if (shellFocus) shellFocus.value = m !== 'list'
+  },
+  { immediate: true }
+)
+onUnmounted(() => {
+  if (shellFocus) shellFocus.value = false
+})
 
 const nextUp = computed(() => {
   for (const unit of catalog.value?.units ?? []) {

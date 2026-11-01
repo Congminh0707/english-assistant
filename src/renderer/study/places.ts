@@ -1,3 +1,5 @@
+import type { InjectionKey, Ref } from 'vue'
+
 // Điều hướng v2: mỗi địa điểm trong làng gom một nhóm trang (docs/23 §1).
 export type StudyPage =
   | 'home'
@@ -57,3 +59,6 @@ export function placeOf(page: StudyPage): Place {
   const hit = (Object.keys(PLACE_PAGES) as Place[]).find((p) => PLACE_PAGES[p].includes(page))
   return hit ?? 'school'
 }
+
+/** Trang con báo cho PlaceShell ẩn tab khi đang học một bài (docs/23 S1Lesson) */
+export const SHELL_FOCUS: InjectionKey<Ref<boolean>> = Symbol('place-shell-focus')

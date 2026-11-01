@@ -1,14 +1,17 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted } from 'vue'
+import { computed, onMounted, onUnmounted, provide, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ArrowLeft } from 'lucide-vue-next'
 import ArtScene from '@renderer/shared/components/ArtScene.vue'
-import { PLACE_PAGES, PLACE_SCENE, type Place, type StudyPage } from '../places'
+import { PLACE_PAGES, PLACE_SCENE, SHELL_FOCUS, type Place, type StudyPage } from '../places'
 
 // Khung màn trong v2: cảnh địa điểm bên trái, nội dung trên nền giấy bên phải (docs/23 §1).
 const props = defineProps<{ place: Place; page: StudyPage; dark: boolean; parentTab: boolean }>()
 const emit = defineEmits<{ home: []; go: [page: StudyPage] }>()
 const { t } = useI18n()
+/** Đang học một bài: ẩn tab, chỉ còn nút quay lại */
+const focus = ref(false)
+provide(SHELL_FOCUS, focus)
 
 const scene = computed(() => `place-${PLACE_SCENE[props.place]}${props.dark ? '-dark' : ''}`)
 const tabs = computed(() =>
@@ -36,7 +39,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
       </div>
     </aside>
     <main class="paper">
-      <nav v-if="tabs.length > 1" class="tabs">
+      <nav v-if="tabs.length > 1 && !focus" class="tabs">
         <button
           v-for="p in tabs"
           :key="p"

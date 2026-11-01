@@ -80,7 +80,7 @@ const hintText = computed(() =>
         : t('study.review.hintFlip')
 )
 
-/** Hình minh hoạ pixel nếu từ của thẻ có hình (thẻ điền từ dùng hình của từ cần điền làm gợi ý) */
+/** Hình minh hoạ nếu từ của thẻ có hình (thẻ điền từ dùng hình của từ cần điền làm gợi ý) */
 const picture = computed(() => {
   const c = card.value
   if (!c || c.direction === 'audio_en') return undefined

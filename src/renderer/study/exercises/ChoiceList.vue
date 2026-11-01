@@ -2,7 +2,7 @@
 import PicText from '@renderer/shared/components/PicText.vue'
 
 // Danh sách lựa chọn có đánh số (dùng cho trắc nghiệm, nghe chọn, đúng/sai, điền từ có lựa chọn, chọn hình, điền từ/nghe chọn
-// của luyện tập). Chế độ `pictures`: mỗi lựa chọn là một hình pixel lớn (id hình hoặc emoji).
+// của luyện tập). Chế độ `pictures`: mỗi lựa chọn là một hình thẻ từ lớn (id hình hoặc emoji).
 const props = withDefaults(
   defineProps<{
     choices: string[]

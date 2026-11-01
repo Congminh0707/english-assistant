@@ -28,8 +28,6 @@
   --font-ui: 'Be Vietnam Pro', system-ui, sans-serif;
   --font-kids: 'Baloo 2', 'Be Vietnam Pro', system-ui, sans-serif;
   --font-ipa: 'Noto Sans', 'Be Vietnam Pro', sans-serif;
-  /* Kiểu pixel cũ của mascot/popup, bỏ khi hai cửa sổ đó được áp dụng */
-  --font-pixel: 'VT323', 'Consolas', monospace;
 
   --r-sm: 8px;
   --r-md: 12px;

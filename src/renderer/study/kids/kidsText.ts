@@ -9,7 +9,7 @@ export const pick = <T>(items: readonly T[]): T => items[Math.floor(Math.random(
 /** Ô trên màn hình chính của bé */
 export interface KidsTile {
   id: 'play' | 'abc' | 'stickers' | 'pet'
-  /** Id hình pixel */
+  /** Id hình thẻ từ */
   picture: string
   /** Câu đọc to và nhãn hiện to */
   say: string
@@ -24,7 +24,7 @@ export const TILES: readonly KidsTile[] = [
   { id: 'pet', picture: 'cat', say: 'My pet', viKey: 'kids.tile.pet' }
 ]
 
-/** Đồ ăn thưởng → hình pixel */
+/** Đồ ăn thưởng → hình thẻ từ */
 export const FOOD_PICTURE: Record<string, string> = {
   'food:onigiri': 'rice',
   'food:cake': 'cake',

@@ -23,14 +23,14 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
-- 🚧 Đang làm: gói việc thiết kế còn thiếu [23 §7](23-design-v2-spec.md) theo thứ tự T1→T7 (T1 thời tiết cảnh, T2 cảnh 6 nước, T3 độ thưa HCMC/Phú Quốc/Cần Thơ, T4 bản đồ 900×640, T5 mô hình 3D Hội An + Đà Nẵng, T6 phụ kiện/đồ ăn đối chiếu spec, T7 thẻ xoài). Kiểm tra tương phản xong. T1 xong (lớp thời tiết CSS, `SceneWeather.vue`). Bước tiếp theo: T2. Mỗi task xong là commit riêng + xoá/đổi dòng này.
+- 🚧 Đang làm: gói việc thiết kế còn thiếu [23 §7](23-design-v2-spec.md) theo thứ tự T1→T7 (T1 thời tiết cảnh, T2 cảnh 6 nước, T3 độ thưa HCMC/Phú Quốc/Cần Thơ, T4 bản đồ 900×640, T5 mô hình 3D Hội An + Đà Nẵng, T6 phụ kiện/đồ ăn đối chiếu spec, T7 thẻ xoài). Kiểm tra tương phản xong. T1 xong (lớp thời tiết CSS, `SceneWeather.vue`). T2 xong (6 cảnh nước: `gen_places_{japan,china,australia,kenya,france,usa}.py`, xuất qua `export-art.py --kids`, nhãn 5 biển trong i18n `kids.game.spots`; chưa thử tay). Bước tiếp theo: T3. Mỗi task xong là commit riêng + xoá/đổi dòng này.
 
 
 - [x] (2026-11-01) Giếng làng: các từ lưu từ cùng một câu không bị hỏi liên tiếp (`StudyService.next` đẩy thẻ cùng câu ra sau; thẻ nhận diện đã gặp xen kiểu điền từ khi thẻ trước cũng là nhận diện, thẻ mới vẫn hỏi nghĩa trước). Thanh tranh bên trái `PlaceShell` phủ kín chiều cao giữ nguyên nét cong (`ArtScene fill`: dải trời trên và dải đất dưới được giãn dọc, phần giữa giữ cỡ gốc), nút Về làng + huy hiệu nơi viền tách màu khỏi tranh.
 
 - [x] (2026-11-01) Sửa lỗi chủ dự án báo sau khi thử tay: cây nằm trên sông ở nền `kids-visitbg`; hạn mức từ mới đếm theo từ đã học xong + cài đặt `kids.newPerDay` (0 = không giới hạn, mặc định); màn giới thiệu nơi trước khi vào + biển "Giới thiệu" trong cảnh (`place.about` cho 27 nơi, chờ người duyệt nội dung); đang học chỉ còn nút quay lại nơi; lời chào thú cưng ở màn bé không bị ô che. Chủ dự án đã thử tay OK (2026-11-01). Đã soát cây-trên-nước ở 12 cảnh nơi khác (2026-11-01): không có lỗi.
 
-- [x] (2026-11-01) Thiết kế v2, phần H, thế giới của bé: bản đồ Việt Nam 2D/3D, 12 cảnh địa điểm, tầng 2 Các nước, tầng 3 quả địa cầu với 9 kỳ quan ([19](19-kids-world.md)). Còn: cảnh chi tiết cho 6 nước (nhảy thẳng tới một bước bài học đã có cho nơi có cảnh: chạm biển → `startStep`; nơi chưa có cảnh vào bài từ bước 1), đo fps trên máy yếu.
+- [x] (2026-11-01) Thiết kế v2, phần H, thế giới của bé: bản đồ Việt Nam 2D/3D, 12 cảnh địa điểm, tầng 2 Các nước, tầng 3 quả địa cầu với 9 kỳ quan ([19](19-kids-world.md)). Cảnh chi tiết 6 nước đã có (2026-11-01). Còn: đo fps trên máy yếu.
 - [x] 2026-11-01: **áp dụng thiết kế v2 vào app** xong, chủ dự án đã thử tay OK. Còn: trạng thái phụ S1, S2 chưa đối chiếu ảnh, KidsReview chưa có ảnh, thử mascot kéo bấm, fps máy yếu.
 
 - [x] 2026-10-30: **thiết kế lại UI v2 trên Claude Design** (chưa đụng code) — nhật ký đầy đủ ở [21](21-redesign-v2.md): prompt [20](20-claude-design-prompt.md), bỏ pixel ([decisions #39](decisions.md)), Kitsu + Robo đã duyệt, Bi/Draco/Webby v4 chờ duyệt, bản đồ VN 34 tỉnh + châu Á + Trái Đất + cảnh Hội An + thời tiết + di chuyển + hoạt ảnh bài học + khu phụ huynh (script `scripts/design-data/`). 🚧 Tiếp theo: duyệt nhân vật, hoạt ảnh 6 trạng thái cho cả 5 con, cảnh địa danh còn lại, các màn Study còn lại — xem checklist 21 §6.

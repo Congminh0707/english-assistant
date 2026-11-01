@@ -7,6 +7,17 @@ export interface PlaceArt {
 }
 
 export const PLACE_ART: Readonly<Record<string, PlaceArt>> = {
+  australia: {
+    art: 'kids-paustralia',
+    pet: { x: 650, y: 706, w: 106 },
+    spots: [
+      { x: 700, y: 285 }, // Chuột túi
+      { x: 1090, y: 330 }, // Gấu koala
+      { x: 1150, y: 456 }, // Con kiến
+      { x: 250, y: 590 }, // Con ếch
+      { x: 425, y: 405 } // Thiên nga đen
+    ]
+  },
   cantho: {
     art: 'kids-pcantho',
     pet: { x: 232, y: 704, w: 108 },
@@ -16,6 +27,17 @@ export const PLACE_ART: Readonly<Record<string, PlaceArt>> = {
       { x: 300, y: 216 }, // Chợ nổi
       { x: 1000, y: 262 }, // Trái thơm
       { x: 120, y: 418 } // Bến Ninh Kiều
+    ]
+  },
+  china: {
+    art: 'kids-pchina',
+    pet: { x: 640, y: 712, w: 104 },
+    spots: [
+      { x: 900, y: 112 }, // Núi
+      { x: 226, y: 462 }, // Gấu trúc
+      { x: 618, y: 336 }, // Nai
+      { x: 840, y: 420 }, // Hổ
+      { x: 1126, y: 450 } // Gấu
     ]
   },
   dalat: {
@@ -38,6 +60,17 @@ export const PLACE_ART: Readonly<Record<string, PlaceArt>> = {
       { x: 84, y: 498 }, // Sông Hàn
       { x: 62, y: 78 }, // Cao ốc
       { x: 1150, y: 226 } // Cầu quay
+    ]
+  },
+  france: {
+    art: 'kids-pfrance',
+    pet: { x: 700, y: 708, w: 104 },
+    spots: [
+      { x: 205, y: 372 }, // Cà phê
+      { x: 524, y: 424 }, // Phô mai
+      { x: 700, y: 482 }, // Mứt
+      { x: 906, y: 424 }, // Bánh kếp
+      { x: 1146, y: 448 } // Kem
     ]
   },
   halong: {
@@ -84,6 +117,28 @@ export const PLACE_ART: Readonly<Record<string, PlaceArt>> = {
       { x: 396, y: 590 } // Áo dài
     ]
   },
+  japan: {
+    art: 'kids-pjapan',
+    pet: { x: 640, y: 712, w: 104 },
+    spots: [
+      { x: 262, y: 428 }, // Sushi
+      { x: 330, y: 150 }, // Cherry
+      { x: 572, y: 498 }, // Salad
+      { x: 860, y: 438 }, // Pear
+      { x: 1140, y: 440 } // Kiwi
+    ]
+  },
+  kenya: {
+    art: 'kids-pkenya',
+    pet: { x: 400, y: 700, w: 104 },
+    spots: [
+      { x: 872, y: 66 }, // Hươu cao cổ
+      { x: 612, y: 330 }, // Khỉ
+      { x: 190, y: 388 }, // Ngựa vằn
+      { x: 640, y: 498 }, // Sư tử
+      { x: 1000, y: 452 } // Voi
+    ]
+  },
   nhatrang: {
     art: 'kids-pnhatrang',
     pet: { x: 718, y: 708, w: 92 },
@@ -126,6 +181,17 @@ export const PLACE_ART: Readonly<Record<string, PlaceArt>> = {
       { x: 650, y: 318 }, // Bản làng
       { x: 676, y: 512 }, // Trâu
       { x: 1090, y: 620 } // Ruộng nước
+    ]
+  },
+  usa: {
+    art: 'kids-pusa',
+    pet: { x: 560, y: 712, w: 104 },
+    spots: [
+      { x: 300, y: 112 }, // Tên lửa
+      { x: 500, y: 296 }, // Bánh rán
+      { x: 830, y: 350 }, // Xúc xích
+      { x: 130, y: 340 }, // Bắp rang
+      { x: 1068, y: 270 } // Pizza
     ]
   },
   hoian: {

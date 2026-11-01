@@ -383,3 +383,5 @@ Hình từ hiện có: ~84 hình pixel vẽ bằng code trên lưới 32×32 (`p
 3. Bé 6–8 tuổi (rating khởi điểm 100) vẫn đi từ tầng 1? Đề xuất: có — phân tầng tuổi để giai đoạn D.
 4. ~~Hình từ (§5.5)~~ → **đã chốt tự vẽ vector bằng canvas** (2026-10-30), đủ 183/183 hình.
 5. ~~Toàn màn hình (§5.4)~~ → **toàn màn hình thật** (che thanh tác vụ), `Esc` hoặc nút Nhà để thoát (2026-10-30, theo đề xuất).
+
+> ✅ (2026-11-01) Tầng 2 có cảnh chi tiết như tầng 1: Nhật, Trung Quốc, Úc, Kê-ni-a, Pháp, Hoa Kỳ (`kids-pjapan` … `kids-pusa`, sinh bởi `scripts/design-data/review/gen_places_<nước>.py` + `export-art.py --kids`). 5 biển = 5 bước bài (làm quen / chạm / ghép / nói / câu), nhãn biển ở `kids.game.spots.<id>`; mỗi nước có 7 từ nên một số từ chỉ là hình trang trí, không có biển. Chạm biển nhảy thẳng tới bước đó. Chưa thử tay.

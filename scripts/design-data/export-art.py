@@ -39,7 +39,7 @@ if '--only-kids' not in sys.argv:
 HEX = r'<g transform="translate\((-?[\d.]+) (-?[\d.]+)\)"><path d="M-[\d.]+ -15H[^"]*"[^>]*/><text[^>]*>([^<]+)</text></g>'
 SPOT = re.compile(r'<g class="next"[^>]*>' + HEX + r'</g><circle cx="-?[\d.]+" cy="-?[\d.]+" r="6"[^>]*/>')
 PET = re.compile(r'<g transform="translate\((-?[\d.]+) (-?[\d.]+)\)"><g class="walk"><svg x="-?\d+" y="-?\d+" width="(\d+)" height="\d+" viewBox="-20 -20 200 180">.*?</svg></g></g>', re.S)
-PLACE_OF = {'R5Arrive': 'hoian', 'PSapa': 'sapa', 'PHanoi': 'hanoi', 'PHalong': 'halong', 'PNinhbinh': 'ninhbinh', 'PHue': 'hue', 'PDanang': 'danang', 'PNhatrang': 'nhatrang', 'PDalat': 'dalat', 'PHcmc': 'hcmc', 'PCantho': 'cantho', 'PPhuquoc': 'phuquoc'}
+PLACE_OF = {'R5Arrive': 'hoian', 'PSapa': 'sapa', 'PHanoi': 'hanoi', 'PHalong': 'halong', 'PNinhbinh': 'ninhbinh', 'PHue': 'hue', 'PDanang': 'danang', 'PNhatrang': 'nhatrang', 'PDalat': 'dalat', 'PHcmc': 'hcmc', 'PCantho': 'cantho', 'PPhuquoc': 'phuquoc', 'PJapan': 'japan', 'PChina': 'china', 'PAustralia': 'australia', 'PKenya': 'kenya', 'PFrance': 'france', 'PUsa': 'usa'}
 COUNTRY_OF = {'Việt Nam': 'vn', 'Trung Quốc': 'china', 'Nhật Bản': 'japan', 'Pháp': 'france', 'Kê-ni-a': 'kenya', 'Úc': 'australia', 'Hoa Kỳ': 'usa'}
 gen_place, gen_asia = {}, {}
 
@@ -63,7 +63,7 @@ if '--kids' in sys.argv:
     # Cảnh địa điểm và bản đồ: lấy nguyên tranh trên bảng, bỏ phần HUD HTML
     for f in sorted(os.listdir(PROJ)):
         n = f.replace('.dc.html', '')
-        if not re.match(r'^(R5Arrive|PAsia|PSapa|PHanoi|PHalong|PNinhbinh|PHue|PDanang|PNhatrang|PDalat|PHcmc|PCantho|PPhuquoc)$', n): continue
+        if not re.match(r'^(R5Arrive|PAsia|PSapa|PHanoi|PHalong|PNinhbinh|PHue|PDanang|PNhatrang|PDalat|PHcmc|PCantho|PPhuquoc|PJapan|PChina|PAustralia|PKenya|PFrance|PUsa)$', n): continue
         h = open(os.path.join(PROJ, f), encoding='utf-8').read()
         css = ''.join(re.findall(r'<style>.*?</style>', h, re.S))
         css = re.sub(r'body\{margin:0\}', '', css)

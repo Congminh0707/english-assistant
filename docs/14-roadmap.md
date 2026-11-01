@@ -26,10 +26,10 @@ gantt
 
 - [x] (2026-11-01) Giếng làng: các từ lưu từ cùng một câu không bị hỏi liên tiếp (`StudyService.next` đẩy thẻ cùng câu ra sau; thẻ nhận diện đã gặp xen kiểu điền từ khi thẻ trước cũng là nhận diện, thẻ mới vẫn hỏi nghĩa trước). Thanh tranh bên trái `PlaceShell` phủ kín chiều cao giữ nguyên nét cong (`ArtScene fill`: dải trời trên và dải đất dưới được giãn dọc, phần giữa giữ cỡ gốc), nút Về làng + huy hiệu nơi viền tách màu khỏi tranh.
 
-- [x] (2026-11-01) Sửa lỗi chủ dự án báo sau khi thử tay: cây nằm trên sông ở nền `kids-visitbg`; hạn mức từ mới đếm theo từ đã học xong + cài đặt `kids.newPerDay` (0 = không giới hạn, mặc định); màn giới thiệu nơi trước khi vào + biển "Giới thiệu" trong cảnh (`place.about` cho 27 nơi, chờ người duyệt nội dung); đang học chỉ còn nút quay lại nơi; lời chào thú cưng ở màn bé không bị ô che. Còn: chưa thử tay trong app, chưa soát cây-trên-nước ở các cảnh nơi khác.
+- [x] (2026-11-01) Sửa lỗi chủ dự án báo sau khi thử tay: cây nằm trên sông ở nền `kids-visitbg`; hạn mức từ mới đếm theo từ đã học xong + cài đặt `kids.newPerDay` (0 = không giới hạn, mặc định); màn giới thiệu nơi trước khi vào + biển "Giới thiệu" trong cảnh (`place.about` cho 27 nơi, chờ người duyệt nội dung); đang học chỉ còn nút quay lại nơi; lời chào thú cưng ở màn bé không bị ô che. Chủ dự án đã thử tay OK (2026-11-01). Đã soát cây-trên-nước ở 12 cảnh nơi khác (2026-11-01): không có lỗi.
 
 - [x] (2026-11-01) Thiết kế v2, phần H, thế giới của bé: bản đồ Việt Nam 2D/3D, 12 cảnh địa điểm, tầng 2 Các nước, tầng 3 quả địa cầu với 9 kỳ quan ([19](19-kids-world.md)). Còn: cảnh chi tiết cho 6 nước, nhảy thẳng tới một bước của bài học, đo fps trên máy yếu.
-- [x] 2026-11-01: **áp dụng thiết kế v2 vào app** xong, chờ chủ dự án thử tay. Còn: trạng thái phụ S1, S2 chưa đối chiếu ảnh, KidsReview chưa có ảnh, thử mascot kéo bấm, fps máy yếu.
+- [x] 2026-11-01: **áp dụng thiết kế v2 vào app** xong, chủ dự án đã thử tay OK. Còn: trạng thái phụ S1, S2 chưa đối chiếu ảnh, KidsReview chưa có ảnh, thử mascot kéo bấm, fps máy yếu.
 
 - [x] 2026-10-30: **thiết kế lại UI v2 trên Claude Design** (chưa đụng code) — nhật ký đầy đủ ở [21](21-redesign-v2.md): prompt [20](20-claude-design-prompt.md), bỏ pixel ([decisions #39](decisions.md)), Kitsu + Robo đã duyệt, Bi/Draco/Webby v4 chờ duyệt, bản đồ VN 34 tỉnh + châu Á + Trái Đất + cảnh Hội An + thời tiết + di chuyển + hoạt ảnh bài học + khu phụ huynh (script `scripts/design-data/`). 🚧 Tiếp theo: duyệt nhân vật, hoạt ảnh 6 trạng thái cho cả 5 con, cảnh địa danh còn lại, các màn Study còn lại — xem checklist 21 §6.
 - [x] 2026-10-31: **thiết kế v2 "Làng chữ"** đã duyệt trên canvas, tổng hợp ở [23](23-design-v2-spec.md). Bước tiếp theo: mục "Áp dụng thiết kế v2" bên dưới. Chưa đổi code app.
@@ -37,7 +37,7 @@ gantt
 
 - [x] 2026-10-28: sửa hoạt ảnh level cao bị cắt — khung sprite thêm lề (docs/05 §10b); sheet bộ cài đã sinh lại, lint/test pass.
 - [x] 2026-10-28: gói hires 1.1.0 đã build (69.090.373 B, 65,9 MB; packSpec đã cập nhật). 🚧 Còn: tải `content/.build/pet-sprites-hires-1.1.0.zip` lên GitHub Release tag `pet-sprites-hires-1.1.0` (pre-release), rồi đo lại `pnpm stats` (docs/17).
-- [x] 2026-10-29: dịch popup — NLLB-200 thay mBART-50 (từ không có trong từ điển cũng dịch máy; nạp sẵn model khi mở popup/khởi động) + dịch online tuỳ chọn (Claude, key người dùng, safeStorage). `pnpm lint && pnpm test` (385) pass; 🚧 Còn: thử tay trong app thật (tải NLLB ~870 MB, dán key, bôi đen dịch), đo lại thời gian, commit.
+- [x] 2026-10-29: dịch popup — NLLB-200 thay mBART-50 (từ không có trong từ điển cũng dịch máy; nạp sẵn model khi mở popup/khởi động) + dịch online tuỳ chọn (Claude, key người dùng, safeStorage). `pnpm lint && pnpm test` (385) pass; Đã thử tay (2026-11-01): tạm ổn nhưng **dịch hơi lâu** — 🚧 Còn: đo thời gian dịch và tối ưu (nạp sẵn model, lượng tử hoá, cache) ở lần cập nhật sau.
 
 - [x] 2026-10-29: lên kế hoạch **mở rộng mạnh từ vựng trẻ em** — đã ghi roadmap [Phase 2b](#phase-2b--mở-rộng-từ-vựng-trẻ-em-đề-xuất-2026-10-29) + [decisions #35](decisions.md). Chưa code; chủ dự án đã đồng ý làm A + B.
 - [x] 2026-10-29: thiết kế chi tiết giai đoạn A → `docs/19-kids-world.md` (12 nơi có công trình, bản đồ 3D three.js voxel + 2D dự phòng, gói tải thêm `kids-world`, decisions #36).

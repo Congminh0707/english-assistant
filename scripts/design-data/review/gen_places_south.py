@@ -245,15 +245,318 @@ def pavers(y0, y1):
         y_ += h_; r_ += 1
     return o
 
+# ---- PHcmc: lớp chi tiết phố Sài Gòn (mật độ ngang R5Arrive). Random riêng HR để không đổi cảnh khác. ----
+HR = random.Random(77)
+HC_CSS = """<style>
+@keyframes hcflag{0%,100%{transform:skewY(-5deg) scaleX(1)}50%{transform:skewY(6deg) scaleX(.9)}}
+.hc-flag{animation:hcflag var(--t,2.6s) ease-in-out infinite;animation-delay:var(--d,0s);transform-box:fill-box;transform-origin:left center}
+@keyframes hcbunt{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg)}}
+.hc-bunt{animation:hcbunt var(--t,3.4s) ease-in-out infinite;animation-delay:var(--d,0s);transform-box:fill-box;transform-origin:top center}
+@keyframes hcsteam{0%{transform:translate(0,0) scale(.6);opacity:0}30%{opacity:.6}100%{transform:translate(7px,-36px) scale(1.5);opacity:0}}
+.hc-steam{animation:hcsteam var(--t,3.6s) ease-out infinite;animation-delay:var(--d,0s);transform-box:fill-box;transform-origin:center}
+@keyframes hcpeck{0%,60%,100%{transform:rotate(0)}70%,85%{transform:rotate(22deg)}}
+.hc-peck{animation:hcpeck var(--t,4s) ease-in-out infinite;animation-delay:var(--d,0s);transform-box:fill-box;transform-origin:50% 100%}
+@keyframes hcglint{0%,100%{opacity:.35}50%{opacity:1}}
+.hc-glint{animation:hcglint var(--t,5s) ease-in-out infinite;animation-delay:var(--d,0s)}
+@keyframes hcwire{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.hc-dangle{animation:hcwire 3.8s ease-in-out infinite;transform-box:fill-box;transform-origin:top center}
+@media (prefers-reduced-motion:reduce){.hc-flag,.hc-bunt,.hc-steam,.hc-peck,.hc-glint,.hc-dangle{animation:none}.hc-steam{opacity:0}}
+</style>"""
+HC_SKY = [(-10, 80, 230), (70, 60, 186), (136, 90, 262), (232, 64, 170), (306, 96, 214), (884, 92, 226), (982, 66, 184), (1054, 100, 278), (1160, 66, 196), (1224, 80, 240)]
+
+def hc_far():
+    """Lớp nhà cao xa mờ trong khói bụi + tháp kính thon (không hiệu, không logo)."""
+    o = ''
+    for x, w_, h_ in ((20, 60, 150), (100, 46, 190), (200, 56, 140), (290, 64, 176), (390, 46, 124), (850, 54, 150), (920, 50, 210), (1000, 46, 160), (1140, 54, 208), (1210, 60, 150)):
+        y_ = 372 - h_
+        o += '<rect x="%d" y="%d" width="%d" height="%d" fill="#E4BCA6" opacity=".6"/>' % (x, y_, w_, h_)
+        for r_ in range(int(h_ / 14)):
+            o += '<path d="M%d %dh%d" stroke="#D2A28C" stroke-width="1.6" opacity=".6"/>' % (x + 4, y_ + 8 + r_ * 14, w_ - 8)
+    tx = 806
+    o += '<path d="M%d 372L%d 150L%d 112L%d 150L%d 372Z" fill="#C9A090" opacity=".85"/><path d="M%d 372L%d 150L%d 112V372Z" fill="#B88A7C" opacity=".6"/><path d="M%d 112V70" stroke="#8A6A60" stroke-width="2.2"/>' % (tx - 20, tx - 12, tx, tx + 12, tx + 20, tx, tx, tx, tx)
+    for k in range(34):
+        o += '<path d="M%.1f %.1fh%.1f" stroke="#FFE9C4" stroke-width="1.2" opacity=".45"/>' % (tx - 18 + k * .3, 160 + k * 6.2, 36 - k * .6)
+    o += '<path d="M%d 150L%d 372" stroke="#FFF3D6" stroke-width="2" opacity=".5"/>' % (tx - 8, tx - 15)
+    return o
+
+def hc_roof():
+    """Chi tiết nhà cao: bồn nước mái, ăng-ten, máy lạnh, biển quảng cáo trống chữ, cửa sổ sáng nắng, đồ phơi."""
+    o = ''
+    for i, (x, w_, h_) in enumerate(HC_SKY):
+        y_ = 372 - h_
+        if i % 2 == 0:
+            o += '<rect x="%d" y="%d" width="16" height="12" rx="3" fill="#6E7C86" stroke="%s" stroke-width="1"/><path d="M%d %dl8 -7l8 7Z" fill="#8A5A44" stroke="%s" stroke-width="1"/><path d="M%d %dv8M%d %dv8" stroke="%s"/>' % (x + 8, y_ - 12, INK, x + 8, y_ - 12, INK, x + 12, y_, x + 20, y_, INK)
+        else:
+            o += '<path d="M%d %dV%d" stroke="#5A4A44" stroke-width="2"/><path d="M%d %dh16M%d %dh10" stroke="#5A4A44" stroke-width="1.6"/><circle cx="%d" cy="%d" r="2.4" fill="#E2483E" class="hc-glint" style="--d:-%.1fs"/>' % (x + w_ // 2, y_, y_ - 26, x + w_ // 2 - 8, y_ - 20, x + w_ // 2 - 5, y_ - 12, x + w_ // 2, y_ - 27, HR.uniform(0, 4))
+        if i % 3 == 1:
+            o += '<rect x="%d" y="%d" width="14" height="%d" fill="%s" stroke="%s" stroke-width="1"/><path d="M%d %dh8M%d %dh8M%d %dh8" stroke="#fff" stroke-width="2" opacity=".75"/>' % (x + w_ - 20, y_ + 24, min(70, h_ // 3), HR.choice(['#2F7EA8', '#E2483E', '#2FA860', '#F2B53C']), INK, x + w_ - 17, y_ + 34, x + w_ - 17, y_ + 44, x + w_ - 17, y_ + 54)
+        for _ in range(int(h_ / 24)):
+            wx = x + 12 + HR.randint(0, max(0, int(w_ / 14) - 1)) * 14; wy = y_ + 8 + HR.randint(0, max(0, int(h_ / 16) - 2)) * 16
+            if HR.random() < .5:
+                o += '<rect x="%d" y="%d" width="10" height="6" rx="1" fill="#D8D4C8" stroke="#6E6A60" stroke-width=".8"/><circle cx="%d" cy="%d" r="2" fill="#6E6A60"/>' % (wx - 1, wy + 8, wx + 4, wy + 11)
+            else:
+                o += '<rect x="%d" y="%d" width="7" height="8" fill="#FFE9A8" opacity=".85"/>' % (wx, wy)
+        if i % 2 == 0 and w_ > 62:
+            lx = x + 10; ly = y_ + int(h_ * .5)
+            o += '<path d="M%d %dh%d" stroke="#5A4A44" stroke-width="1"/>' % (lx, ly, w_ - 22) + ''.join('<rect x="%d" y="%d" width="6" height="%d" fill="%s"/>' % (lx + 3 + k * 9, ly, HR.randint(7, 12), HR.choice(['#F268A6', '#F4F0E4', '#2FB8C6', '#F2C25A'])) for k in range(int((w_ - 22) / 9)))
+    return o
+
+def hc_umbrella(x, y, w_, c1, c2, pole=44):
+    """Dù che nắng hình nón thấp, múi sọc, viền răng cưa."""
+    o = '<path d="M%d %dV%d" stroke="#5A3A24" stroke-width="2.4"/>' % (x, y + pole, y - 6)
+    n = 6; ax, ay = x, y - w_ * .42
+    for k in range(n):
+        a0 = x - w_ + 2 * w_ * k / n; a1 = x - w_ + 2 * w_ * (k + 1) / n
+        o += '<path d="M%.1f %.1fL%.1f %.1fL%.1f %.1fQ%.1f %.1f %.1f %.1fZ" fill="%s" stroke="%s" stroke-width="1"/>' % (a0, y, ax, ay, a1, y, (a0 + a1) / 2, y + 7, a0, y, c1 if k % 2 == 0 else c2, INK)
+    return o + '<circle cx="%d" cy="%.1f" r="2.2" fill="#5A3A24"/>' % (ax, ay - 1)
+
+def hc_cart(x, y, kind, s=1):
+    o = '<g transform="translate(%d %d) scale(%.2f)"><ellipse cy="1" rx="38" ry="4" fill="#120A08" opacity=".4"/>' % (x, y, s)
+    if kind == 'banhmi':
+        o += '<rect x="-28" y="-26" width="50" height="15" fill="#C7322E" stroke="%s" stroke-width="1.2"/><rect x="-28" y="-56" width="50" height="30" rx="2" fill="#CFEAEC" opacity=".75" stroke="%s" stroke-width="1.2"/>' % (INK, INK)
+        for k in range(5): o += '<ellipse cx="%d" cy="%d" rx="8" ry="3.4" fill="#E2B060" stroke="#8A5A24" stroke-width=".8" transform="rotate(%d %d %d)"/>' % (-18 + k * 9, -34 - (k % 2) * 9, -12 + k * 6, -18 + k * 9, -34)
+        o += '<path d="M-24 -52L-16 -30" stroke="#fff" stroke-width="4" opacity=".5"/>' + hc_umbrella(-3, -98, 34, '#F4F0E4', '#E2483E')
+    elif kind == 'fruit':
+        o += '<rect x="-30" y="-24" width="62" height="8" fill="#8F5A2E" stroke="%s"/><path d="M-26 -16v12M26 -16v12" stroke="#4E2A16" stroke-width="3"/>' % INK
+        for k, c_ in enumerate(['#F2B53C', '#E2483E', '#7FD45A', '#F2884A', '#E86AA8', '#3CA45C']):
+            bx = -24 + k * 10
+            o += '<path d="M%d -24a6 4 0 0 1 12 0Z" fill="#B88A52" stroke="#6B4322" stroke-width=".8"/>' % bx + ''.join('<circle cx="%d" cy="%d" r="3.6" fill="%s" stroke="#4A2A12" stroke-width=".5"/>' % (bx + 2 + j * 4, -27 - (j % 2) * 3, c_) for j in range(3))
+        o += hc_umbrella(0, -92, 36, '#F2C25A', '#2FA860', 70)
+    else:
+        o += '<rect x="-26" y="-30" width="48" height="19" rx="2" fill="#2E7AB0" stroke="%s" stroke-width="1.2"/><path d="M-26 -22H22" stroke="#fff" stroke-width="1.6" opacity=".6"/>' % INK
+        for k in range(6): o += '<circle cx="%d" cy="%d" r="5.6" fill="%s" stroke="#1F4A2A" stroke-width=".8"/>' % (-18 + k * 8, -35 - (k % 2) * 3, ['#5FB04A', '#8FCB54'][k % 2])
+        o += '<circle cx="14" cy="-38" r="3.2" fill="#E8604C"/><circle cx="19" cy="-36" r="2.8" fill="#fff" stroke="#8A8272" stroke-width=".6"/>' + hc_umbrella(-2, -94, 38, '#2FB8C6', '#F4F0E4', 66)
+    for wx in (-18, 14): o += '<circle cx="%d" cy="-7" r="7" fill="#1E1A1E"/><circle cx="%d" cy="-7" r="3" fill="#B9B4AA"/>' % (wx, wx)
+    return o + '</g>'
+
+def hc_steam(x, y, n=3):
+    return ''.join('<circle class="hc-steam" style="--d:-%.1fs;--t:%.1fs" cx="%d" cy="%d" r="5" fill="#fff" opacity=".5"/>' % (k * 1.2, 3.6 + k * .4, x + (k - 1) * 5, y) for k in range(n))
+
+def hc_stools(x, y, s=1):
+    o = '<g transform="translate(%d %d) scale(%.2f)"><ellipse cy="1" rx="34" ry="4" fill="#120A08" opacity=".3"/>' % (x, y, s)
+    o += '<path d="M0 -4V-22" stroke="#4E4A52" stroke-width="3"/><ellipse cx="0" cy="-23" rx="16" ry="4.6" fill="#E8DDC0" stroke="%s" stroke-width="1"/>' % INK
+    o += '<ellipse cx="-6" cy="-26" rx="3.6" ry="1.8" fill="#6B3E1E"/><rect x="-7" y="-29" width="3" height="3" fill="#fff"/><rect x="5" y="-31" width="2.6" height="7" fill="#F4F0E4" stroke="#8A8272" stroke-width=".5"/>'
+    for sx, c_ in ((-26, '#2E5AA8'), (26, '#E2483E'), (0, '#2FA860')):
+        yy = 0 if sx else 6
+        o += '<path d="M%d %dh12l-2 -12h-8Z" fill="%s" stroke="%s" stroke-width="1"/><ellipse cx="%d" cy="%d" rx="6.4" ry="2" fill="%s" stroke="%s" stroke-width=".8"/>' % (sx - 6, yy - 2, c_, INK, sx, yy - 14, c_, INK)
+    return o + '</g>'
+
+def hc_pigeon(x, y, flip=False, peck=False, d=0):
+    o = '<g transform="translate(%d %d) scale(%d 1)">' % (x, y, -1 if flip else 1)
+    o += '<ellipse cy="1" rx="8" ry="1.6" fill="#120A08" opacity=".3"/><path d="M-1 -4V0M3 -4V0" stroke="#C86A6A" stroke-width="1.1"/>'
+    body = '<ellipse cx="0" cy="-8" rx="9" ry="5.4" fill="#9AA0AE" stroke="#3E4250" stroke-width=".8"/><path d="M-9 -9L-15 -5L-8 -5Z" fill="#7A8090"/><path d="M-4 -9q5 -3 9 1q-4 4 -9 -1Z" fill="#7C8294"/><ellipse cx="3.4" cy="-10.6" rx="3.6" ry="2.6" fill="#7FB0A8"/>'
+    head = '<circle cx="8" cy="-12.6" r="3.4" fill="#A6ACBA" stroke="#3E4250" stroke-width=".7"/><circle cx="9" cy="-13" r=".9" fill="#E8742C"/><path d="M11 -12.4l3 .8l-3 .6Z" fill="#E8B060"/>'
+    o += body + ('<g class="hc-peck" style="--d:-%.1fs">%s</g>' % (d, head) if peck else head)
+    return o + '</g>'
+
+def hc_flag(x, y, h=30, s=1):
+    d_ = HR.uniform(0, 2.4)
+    o = '<path d="M%d %dV%d" stroke="#C9C4BA" stroke-width="2" stroke-linecap="round"/>' % (x, y, y - h * s)
+    fw, fh = 28 * s, 19 * s; fy = y - h * s
+    o += '<g class="hc-flag" style="--d:-%.1fs"><rect x="%d" y="%.1f" width="%.1f" height="%.1f" fill="#D9261C" stroke="#7A1410" stroke-width=".8"/><path d="M%.1f %.1fL%.1f %.1fL%.1f %.1fL%.1f %.1fL%.1f %.1fL%.1f %.1fL%.1f %.1fL%.1f %.1fL%.1f %.1fL%.1f %.1fZ" fill="#F7D21A"/></g>' % (d_, x, fy, fw, fh, *star(x + fw / 2, fy + fh / 2, 6.2 * s))
+    return o
+
+def star(cx, cy, r):
+    pts = []
+    for k in range(10):
+        a = -math.pi / 2 + k * math.pi / 5; rr = r if k % 2 == 0 else r * .42
+        pts += [cx + math.cos(a) * rr, cy + math.sin(a) * rr]
+    return pts
+
+def hc_bunting(x0, y0, x1, y1, sag=24, n=16, cols=('#E2483E', '#F7D21A', '#2FA860', '#2E7AB0', '#F268A6')):
+    """Dây cờ tam giác treo võng giữa hai cột."""
+    mx, my = (x0 + x1) / 2, (y0 + y1) / 2 + sag * 2
+    o = '<path d="M%d %dQ%.0f %.0f %d %d" stroke="#3A2A20" stroke-width="1.3" fill="none"/>' % (x0, y0, mx, my, x1, y1)
+    for k in range(n):
+        t = (k + .5) / n
+        px = (1 - t) ** 2 * x0 + 2 * (1 - t) * t * mx + t * t * x1; py = (1 - t) ** 2 * y0 + 2 * (1 - t) * t * my + t * t * y1
+        o += '<path d="M%.1f %.1fh10l-5 13Z" fill="%s" stroke="#4A2A12" stroke-width=".6" class="hc-bunt" style="--d:-%.1fs;--t:%.1fs"/>' % (px - 5, py, cols[k % len(cols)], HR.uniform(0, 3), HR.uniform(2.8, 4))
+    return o
+
+def hc_banyan(x, b, s=1, lamps=False):
+    """Cây đa phố: thân to rễ bạnh, tán rộng, rễ phụ rủ xuống, tuỳ chọn dây đèn."""
+    o = '<ellipse cx="%d" cy="%d" rx="%d" ry="6" fill="#120A08" opacity=".28"/>' % (x + 10 * s, b + 1, 48 * s)
+    o += '<path d="M%.0f %dQ%.0f %.0f %.0f %.0fL%.0f %.0fQ%.0f %.0f %.0f %dQ%.0f %.0f %.0f %dQ%.0f %.0f %.0f %dZ" fill="#8A6C4E" stroke="%s" stroke-width="1.5"/>' % (x - 32 * s, b, x - 14 * s, b - 14 * s, x - 11 * s, b - 56 * s, x + 11 * s, b - 56 * s, x + 14 * s, b - 14 * s, x + 34 * s, b, x + 8 * s, b - 8 * s, x, b - 3, x - 8 * s, b - 8 * s, x - 32 * s, b, INK)
+    o += '<path d="M%.0f %dQ%.0f %.0f %.0f %.0fL%.0f %.0fQ%.0f %.0f %.0f %dZ" fill="#6B5038" opacity=".55"/>' % (x + 4 * s, b - 2, x + 8 * s, b - 20 * s, x + 6 * s, b - 56 * s, x + 11 * s, b - 56 * s, x + 14 * s, b - 14 * s, x + 34 * s, b)
+    for k in range(9):
+        yy = b - 8 * s - k * 6 * s
+        o += '<path d="M%.0f %.0fq%.1f %.1f %.1f %.1f" stroke="#4E3A28" stroke-width="1" fill="none" opacity=".7"/>' % (x - 9 * s + (k * 5 % 14) * s, yy, 2 * s, -4 * s, 1.5 * s, -9 * s)
+    cy0 = b - 92 * s
+    can = ''
+    pal = ['#17563A', '#1F6A42', '#2C8A50', '#3CA45C', '#5DB85A']
+    for _ in range(int(110 * s ** .6)):
+        a, r_ = HR.uniform(0, 6.28), HR.uniform(0, 1) ** .6
+        px, py = x + math.cos(a) * r_ * 78 * s, cy0 + math.sin(a) * r_ * 40 * s
+        can += '<circle cx="%.0f" cy="%.0f" r="%.1f" fill="%s"/>' % (px, py, HR.uniform(8, 15) * s, pal[min(4, max(0, int(2.2 - (py - cy0) / (20 * s) + HR.uniform(-1, 1.2))))])
+    for _ in range(40):
+        a, r_ = HR.uniform(0, 6.28), HR.uniform(.1, 1)
+        can += '<ellipse cx="%.0f" cy="%.0f" rx="5" ry="2.4" fill="#9BE070" opacity=".8" transform="rotate(%d %.0f %.0f)"/>' % (x + math.cos(a) * r_ * 78 * s - 4, cy0 - 12 * s + math.sin(a) * r_ * 28 * s, HR.randint(-40, 40), x, cy0)
+    o += V.sway(can, x, int(cy0 + 20 * s), 6, x % 4)
+    for k in range(11):
+        rx = x + (-70 + k * 14) * s + HR.uniform(-3, 3); y0 = cy0 + 14 * s + 10 * s * math.sin(k * .9)
+        L = HR.choice((22, 30, 40, 52)) * s if k not in (3, 7) else (b - 4 - y0)
+        st = '<path d="M%.0f %.0fq%.1f %.1f %.1f %.1f" stroke="#6B4A32" stroke-width="%.1f" fill="none" stroke-linecap="round"/>' % (rx, y0, HR.uniform(-4, 4), L * .5, HR.uniform(-3, 3), L, 1.3 if L < b - y0 - 5 else 2.4)
+        o += V.sway(st, int(rx), int(y0), 3.4 + (k % 4) * .5, k * .7)
+    if lamps:
+        for lx0, lx1, ly in ((-66, -8, 8), (6, 70, 4)):
+            ax, ay, bx, by = x + lx0 * s, cy0 + ly * s + 4, x + lx1 * s, cy0 + (ly + 4) * s + 4
+            o += '<path d="M%.0f %.0fQ%.0f %.0f %.0f %.0f" stroke="#3A2A20" stroke-width="1.1" fill="none"/>' % (ax, ay, (ax + bx) / 2, max(ay, by) + 22 * s, bx, by)
+            for j in range(1, 8):
+                t = j / 8; px = (1 - t) ** 2 * ax + 2 * (1 - t) * t * (ax + bx) / 2 + t * t * bx; py = (1 - t) ** 2 * ay + 2 * (1 - t) * t * (max(ay, by) + 22 * s) + t * t * by
+                o += '<circle cx="%.0f" cy="%.0f" r="9" fill="url(#hg)" opacity=".7"/><circle class="hc-glint" style="--d:-%.1fs;--t:%.1fs" cx="%.0f" cy="%.0f" r="2.6" fill="#FFE9A0" stroke="#7A5A1E" stroke-width=".6"/>' % (px, py + 2, HR.uniform(0, 4), HR.uniform(3, 6), px, py + 3)
+    return o
+
+def hc_pole(x, top, base):
+    """Cột điện bê tông, xà ngang, sứ cách điện, biến thế, hộp công tơ."""
+    o = '<path d="M%d %dL%.1f %dL%.1f %dL%d %dZ" fill="#A8A296" stroke="%s" stroke-width="1.2"/><path d="M%d %dL%d %d" stroke="#7A7468" stroke-width="2"/>' % (x - 4, base, x - 2.5, top, x + 2.5, top, x + 4, base, INK, x + 1, base, x + 1, top)
+    for dy, w_ in ((0, 24), (14, 18)):
+        o += '<rect x="%.1f" y="%d" width="%d" height="3.4" fill="#6A5A48" stroke="%s" stroke-width=".8"/>' % (x - w_ / 2, top + dy, w_, INK)
+        for ix in (-w_ / 2 + 2, 0, w_ / 2 - 2): o += '<rect x="%.1f" y="%d" width="3" height="4" rx="1" fill="#E8E2D2" stroke="#6A6258" stroke-width=".6"/>' % (x + ix - 1.5, top + dy - 4)
+    o += '<rect x="%d" y="%d" width="13" height="19" rx="3" fill="#7C8890" stroke="%s" stroke-width="1"/><rect x="%d" y="%d" width="15" height="3" fill="#5A646C"/>' % (x + 4, top + 22, INK, x + 3, top + 22)
+    o += '<rect x="%d" y="%d" width="10" height="14" fill="#2E7AB0" stroke="%s" stroke-width=".8"/><path d="M%d %dh6M%d %dh6" stroke="#fff" stroke-width="1.6"/>' % (x - 14, top + 46, INK, x - 12, top + 52, x - 12, top + 57)
+    return o
+
+def hc_wire(x0, y0, x1, y1, sag=16, w_=1.3, op=.85):
+    return '<path d="M%.0f %.0fQ%.0f %.0f %.0f %.0f" stroke="#24181C" stroke-width="%.1f" fill="none" opacity="%.2f"/>' % (x0, y0, (x0 + x1) / 2, (y0 + y1) / 2 + sag * 2, x1, y1, w_, op)
+
+def hc_tangle(x, y, n=7):
+    o = ''
+    for _ in range(n):
+        o += '<ellipse cx="%.0f" cy="%.0f" rx="%.1f" ry="%.1f" fill="none" stroke="#24181C" stroke-width="1.1" opacity=".8" transform="rotate(%d %.0f %.0f)"/>' % (x + HR.uniform(-9, 9), y + HR.uniform(-4, 6), HR.uniform(8, 20), HR.uniform(3, 7), HR.randint(-40, 40), x, y)
+    return o
+
+def hc_wires():
+    """Dây điện chằng chịt, hai cột bê tông, giày vắt dây, cáp thòng."""
+    o = ''
+    for ax, ay in ((205, 262), (1005, 250)): o += hc_pole(ax, ay, 504)
+    for k, (dy, sg) in enumerate(((4, 14), (10, 18), (16, 22), (22, 26))):
+        o += hc_wire(205, 262 + dy, -12, 292 + k * 10, sg) + hc_wire(205, 262 + dy, 394, 336 + k * 2, 18 + k * 3)
+        o += hc_wire(1005, 250 + dy, 1292, 286 + k * 10, sg) + hc_wire(1005, 250 + dy, 892, 336 + k * 2, 18 + k * 3)
+    o += hc_wire(205, 264, 70, 226, 12, 1) + hc_wire(70, 226, -12, 240, 8, 1)
+    o += hc_tangle(205, 292) + hc_tangle(1005, 280) + hc_tangle(110, 276, 4) + hc_tangle(1140, 276, 4)
+    o += '<path d="M150 290q-4 20 -10 30q6 6 12 0q4 -12 -2 -30" fill="none" stroke="#24181C" stroke-width="1.2"/>'
+    o += '<g class="hc-dangle"><path d="M1102 281v22" stroke="#24181C" stroke-width="1"/><path d="M1096 302q6 -3 12 0l3 8h-18Z" fill="#E8E2D2" stroke="%s" stroke-width=".9"/><path d="M1111 302q6 -3 12 0l3 8h-18Z" fill="#E8604C" stroke="%s" stroke-width=".9"/></g>' % (INK, INK)
+    return o
+
+def hc_market_detail():
+    """Chi tiết dãy chợ hai cánh: biển cửa hàng chung chung, hàng treo trong vòm, cờ, dây cờ, đèn lồng, chim."""
+    o = ''
+    words = ['ÁO DÀI', 'CÀ PHÊ', 'NÓN LÁ', 'PHỞ', 'QUÀ', 'TRÁI CÂY', 'TRÀ', 'BÁNH MÌ']
+    cols = ['#2A1A14', '#7A2A1A', '#1F4A3A', '#2E3A5A']
+    for x0, off in ((-20, 0), (856, 3)):
+        for k in range(int(444 / 74)):
+            ax = x0 + 18 + k * 74
+            if ax < 0 or ax + 60 > 1280: continue
+            o += '<rect x="%d" y="380" width="56" height="16" rx="2" fill="%s" stroke="#D1A24A" stroke-width="1.2"/><text x="%d" y="392" text-anchor="middle" font-family="Be Vietnam Pro" font-weight="700" font-size="9.5" fill="#F7D96A">%s</text>' % (ax + 2, cols[(k + off) % 4], ax + 30, words[(k + off) % 8])
+            for j in range(3):
+                o += '<path d="M%d 438v%d" stroke="#3A2A20" stroke-width=".9"/><path d="M%d %dh8l-2 12h-4Z" fill="%s" stroke="%s" stroke-width=".6"/>' % (ax + 10 + j * 15, 4 + j % 2 * 3, ax + 6 + j * 15, 442 + j % 2 * 3, HR.choice(['#E2483E', '#2FB8C6', '#F268A6', '#F7D21A']), INK)
+            o += '<path d="M%d 404v8" stroke="#3A2413"/><ellipse cx="%d" cy="418" rx="5" ry="6.4" fill="#E2483E" stroke="#5A2A10" stroke-width=".9"/><path d="M%d 424v5" stroke="#E9B44C" stroke-width="1.4"/>' % (ax + 30, ax + 30, ax + 30)
+    for x in (30, 150, 270, 1010, 1130, 1250):
+        o += '<path d="M%d 366h14l-2 9h-10Z" fill="#B9694C" stroke="%s" stroke-width=".9"/>' % (x, INK) + ''.join('<circle cx="%d" cy="%d" r="2.6" fill="%s"/>' % (x + HR.randint(-2, 16), 364 - HR.randint(0, 8), HR.choice(['#E8418F', '#F268A6', '#F7D21A', '#2FA860'])) for _ in range(9))
+    for x in (36, 192, 300, 940, 1110, 1240): o += hc_flag(x, 348, 30)
+    o += hc_bunting(392, 322, -6, 334, 26, 17) + hc_bunting(892, 322, 1286, 334, 26, 17)
+    for x, y, f in ((570, 171, False), (600, 171, True), (700, 171, False), (560, 130, False)):
+        o += hc_pigeon(x, y, f, peck=(x == 570), d=HR.uniform(0, 4))
+    return o
+
+def hc_cargo(x, y, s, flip, kind, shirt, helmet, body='#C7322E', pants='#3E5A8A', back=None):
+    """Xe máy chở hàng: thùng giao hàng, chậu hoa, chồng thùng carton hoặc rổ."""
+    o = '<g transform="translate(%d %d) scale(%.2f %.2f)">' % (x, y, -s if flip else s, s)
+    if kind == 'box':
+        o += '<rect x="-72" y="-96" width="36" height="34" rx="3" fill="#2FA860" stroke="%s" stroke-width="1.4"/><path d="M-72 -86h36" stroke="#1F7A44" stroke-width="2"/><rect x="-68" y="-62" width="28" height="3" fill="#3A3A3A"/>' % INK
+    elif kind == 'flower':
+        for k in range(4):
+            bx = -70 + k * 9
+            o += '<path d="M%d -64h8l-1 12h-6Z" fill="#6A8AB0" stroke="%s" stroke-width=".8"/>' % (bx, INK) + ''.join('<circle cx="%.1f" cy="%.1f" r="4.4" fill="%s"/>' % (bx + 4 + HR.uniform(-4, 4), -70 - j * 5 - HR.uniform(0, 4), HR.choice(['#E8418F', '#F7D21A', '#E2483E', '#fff', '#F268A6'])) for j in range(5)) + '<path d="M%d -66v-18" stroke="#2F7A3A" stroke-width="1.6"/>' % (bx + 4)
+    elif kind == 'cartons':
+        for j, (yy, ww) in enumerate(((-60, 38), (-80, 34), (-98, 28))):
+            o += '<rect x="%d" y="%d" width="%d" height="18" fill="%s" stroke="%s" stroke-width="1.1"/><path d="M-55 %dv18" stroke="#8A6A3A" stroke-width="1.2"/>' % (-74 + (38 - ww) // 2, yy, ww, ['#C9A464', '#D9B474', '#B88A52'][j], INK, yy)
+        o += '<path d="M-76 -58L-34 -100" stroke="#E2483E" stroke-width="1.6"/>'
+    else:
+        for j in range(3):
+            o += '<ellipse cx="-56" cy="%d" rx="15" ry="6" fill="#D9B060" stroke="#6B4322" stroke-width="1"/>' % (-62 - j * 9)
+    o += moto(0, 0, 1, False, shirt, helmet, body, pants, back) + '</g>'
+    return o
+
+def hc_cyclo(x, y, s=1, flip=False):
+    """Xích lô: khách ngồi trước dưới mui, người đạp phía sau."""
+    o = '<g transform="translate(%d %d) scale(%.2f %.2f)"><ellipse cy="2" rx="62" ry="4.4" fill="#120A08" opacity=".35"/>' % (x, y, -s if flip else s, s)
+    o += '<circle cx="62" cy="-17" r="17" fill="none" stroke="#1E1A1E" stroke-width="3"/><circle cx="62" cy="-17" r="2.6" fill="#2A2428"/><circle cx="-34" cy="-14" r="14" fill="none" stroke="#1E1A1E" stroke-width="3"/><circle cx="-34" cy="-14" r="2.4" fill="#2A2428"/>'
+    for k in range(6): o += '<path d="M62 -17l%.1f %.1f" stroke="#7A7A80" stroke-width=".8"/>' % (17 * math.cos(k * 1.05), 17 * math.sin(k * 1.05))
+    o += '<path d="M-44 -22Q-48 -46 -30 -46H-6V-22Q-24 -16 -44 -22Z" fill="#E2483E" stroke="%s" stroke-width="1.4"/><path d="M-44 -46Q-36 -70 -14 -62L-6 -46Z" fill="#F2C25A" stroke="%s" stroke-width="1.2"/>' % (INK, INK)
+    o += '<path d="M-32 -48a8 8 0 1 1 16 0Z" fill="#E8B98E" stroke="%s" stroke-width=".8"/><circle cx="-24" cy="-60" r="6" fill="#E8B98E" stroke="%s" stroke-width=".8"/><path d="M-32 -64h16l-8 -8Z" fill="#E8DDB0" stroke="#8A7A4A" stroke-width=".8"/>' % (INK, INK)
+    o += '<path d="M-6 -20H44L62 -17M44 -20L50 -52M50 -52H66" stroke="#3A3A44" stroke-width="3" fill="none" stroke-linejoin="round"/>'
+    o += '<path d="M38 -50Q48 -64 40 -78Q34 -84 28 -78Q24 -64 34 -50Z" fill="#F7F2E4" stroke="%s" stroke-width="1"/><circle cx="34" cy="-90" r="6.4" fill="#E8B98E" stroke="%s" stroke-width=".8"/><path d="M26 -88h16l-8 -12Z" fill="#E8DDB0" stroke="#8A7A4A" stroke-width=".8"/>' % (INK, INK)
+    return o + '</g>'
+
+def hc_fx_road():
+    """Nắng chói trên mặt đường, vệt lốp, nắp cống."""
+    o = '<ellipse cx="350" cy="560" rx="260" ry="26" fill="#FFE9B0" opacity=".16"/><ellipse cx="1000" cy="610" rx="300" ry="30" fill="#FFE9B0" opacity=".12"/><ellipse cx="660" cy="530" rx="180" ry="8" fill="#FFF3D0" opacity=".18"/>'
+    for x, y, w_ in ((60, 610, 120), (400, 586, 160), (860, 598, 140), (1150, 560, 120)):
+        o += '<ellipse cx="%d" cy="%d" rx="%d" ry="3" fill="#2E2A28" opacity=".22"/>' % (x, y, w_)
+    for x, y in ((220, 540), (860, 526)):
+        o += '<ellipse cx="%d" cy="%d" rx="16" ry="4.4" fill="#4A4440" stroke="#2A2420"/><path d="M%d %dh28M%d %dh24" stroke="#2A2420" stroke-width="1"/>' % (x, y, x - 14, y - 1, x - 12, y + 1)
+    return o
+
+def hc_sun_rays():
+    """Tia nắng chiều xiên từ mặt trời, rất nhạt; hạt bụi lấp lánh."""
+    o = ''
+    for a0, a1, op in ((.10, .26, .09), (.34, .44, .07), (.52, .70, .08), (.78, .88, .06)):
+        o += '<path d="M180 210L%.0f %.0fL%.0f %.0fZ" fill="url(#hcray)" opacity="%.2f"/>' % (180 + 1400 * math.cos(a0), 210 + 1400 * math.sin(a0), 180 + 1400 * math.cos(a1), 210 + 1400 * math.sin(a1), op * 5)
+    for _ in range(26):
+        o += '<circle class="tw" style="--t:%.1fs;--d:-%.1fs" cx="%d" cy="%d" r="%.1f" fill="#FFF3C8"/>' % (HR.uniform(3, 7), HR.uniform(0, 5), HR.randint(160, 1100), HR.randint(150, 500), HR.uniform(1, 2.2))
+    return o
+
+def hc_sidewalk_back():
+    """Vỉa hè trước chợ: xe đẩy, quán ghế nhựa, xe đậu, khách mua, người bán rong."""
+    o = ''
+    for x in (38, 60): o += moto(x, 503, .4, False, '#F4F0E4', '#E2483E', ['#2E5AA8', '#C7322E'][x % 2])
+    o += hc_cart(540, 502, 'banhmi', .84) + hc_steam(550, 458)
+    o += hc_cart(732, 502, 'fruit', .84) + hc_cart(1206, 502, 'drink', .8) + V.non(1252, 500, '#2FB8C6', True)
+    o += hc_stools(292, 500, .78) + hc_steam(300, 470, 2)
+    o += G.walker(560, 500, '#E2483E', s=.78) + G.walker(772, 500, '#F2C25A', '#7A4A2A', s=.8)
+    for x in (676, 700, 724): o += moto(x, 504, .36, True, '#F4F0E4', '#2E5AA8', ['#C7322E', '#2E5AA8', '#E8E2D2'][x % 3])
+    return o
+
+def hc_foreground():
+    """Vỉa hè gần: ô lưới gốc cây, lá/cánh hoa rụng, xe đẩy có khói, chim bồ câu, chậu cây, bóng cây dài."""
+    o = ''
+    for x, y in ((70, 694), (1212, 702)):
+        o += '<ellipse cx="%d" cy="%d" rx="32" ry="8" fill="#5A4A3A" stroke="%s" stroke-width="1.2"/><ellipse cx="%d" cy="%d" rx="20" ry="4.6" fill="#2E2620"/>' % (x, y + 2, INK, x, y + 2) + ''.join('<path d="M%d %dL%d %d" stroke="#8A7A66" stroke-width="1"/>' % (x - 28 + k * 7, y - 4, x - 24 + k * 7, y + 8) for k in range(9))
+    o += '<path d="M90 698L250 688L330 712L112 716Z" fill="#7A5A44" opacity=".28"/><path d="M1190 706L1280 690V716L1200 716Z" fill="#7A5A44" opacity=".28"/>'
+    for x, y, c_ in ((190, 668, '#E8604C'), (330, 704, '#F7D21A'), (780, 676, '#8A5A2E'), (900, 706, '#E8604C'), (1020, 668, '#F268A6'), (460, 712, '#E88A4C')):
+        o += '<ellipse cx="%d" cy="%d" rx="4.4" ry="1.8" fill="%s" opacity=".85" transform="rotate(%d %d %d)"/>' % (x, y, c_, HR.randint(-50, 50), x, y)
+    o += hc_cart(420, 708, 'banhmi', 1.0) + hc_steam(430, 658, 3)
+    o += hc_pigeon(780, 692, False, True, 1) + hc_pigeon(808, 700, True) + hc_pigeon(520, 690, True, True, 2.4) + hc_pigeon(548, 702, False)
+    o += hc_cart(960, 712, 'fruit', 1.0)
+    for x in (1140, 150):
+        o += '<path d="M%d 690h26l-4 22h-18Z" fill="#B9694C" stroke="%s" stroke-width="1.2"/>' % (x - 13, INK) + G.palm(x, 692, .6)
+    return o
+
+def hc_traffic_extra():
+    """Làn giữa tĩnh, xe giao hàng, nhóm xe chạy làn gần (đi sang phải) và xích lô."""
+    o = '<g class="ride" style="--t:36s;--dx:1760px;--d:-14s">'
+    items = [('m', '#F4F0E4', '#2E5AA8', '#C7322E'), ('cargo', 'box'), ('m', '#F268A6', '#F4F0E4', '#2E5AA8'), ('cyclo',), ('m', '#2FB8C6', '#1E1A1E', '#E8E2D2'), ('cargo', 'flower'), ('m', '#7A4FA8', '#F2C25A', '#C7322E'), ('cargo', 'cartons'), ('m', '#F2C25A', '#2FA860', '#2E5AA8'), ('m', '#F4F0E4', '#E2483E', '#E8A23C')]
+    x_ = -2000
+    for i, it in enumerate(items):
+        if it[0] == 'm': o += moto(x_, 612, .8, False, it[1], it[2], it[3], '#3E5A8A', ('#F268A6', '#F4F0E4') if i % 3 == 0 else None)
+        elif it[0] == 'cyclo': o += hc_cyclo(x_, 612, .8)
+        else: o += hc_cargo(x_, 612, .82, False, it[1], '#2FA860' if it[1] == 'box' else '#F4F0E4', '#2FA860' if it[1] == 'box' else '#2E5AA8', '#C7322E')
+        x_ += 150
+    o += '</g>'
+    o += moto(120, 604, .76, True, '#2FB8C6', '#F4F0E4', '#C7322E') + hc_cargo(250, 606, .76, True, 'box', '#2FA860', '#2FA860', '#E8E2D2') + moto(520, 604, .76, True, '#F268A6', '#2E5AA8', '#E8E2D2', back=('#F2C25A', '#E2483E'))
+    o += hc_cargo(980, 604, .76, True, 'flower', '#F4F0E4', '#E2483E', '#2E5AA8') + moto(1130, 606, .76, True, '#F2C25A', '#1E1A1E', '#C7322E') + hc_cyclo(860, 604, .74, True)
+    return o
+
 def phcmc():
-    d = lin('skS', [('0', '#3E7CC4'), ('.4', '#8FB8DC'), ('.72', '#FFD9A8'), ('1', '#FFC27A')])
+    d = lin('skS', [('0', '#3E7CC4'), ('.4', '#8FB8DC'), ('.72', '#FFD9A8'), ('1', '#FFC27A')]) + '<linearGradient id="hcray" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFF0B8" stop-opacity=".8"/><stop offset="1" stop-color="#FFF0B8" stop-opacity="0"/></linearGradient>'
     o = '<rect width="1280" height="500" fill="url(#skS)"/>'
     o += '<circle cx="180" cy="210" r="150" fill="url(#hg)"/><circle cx="180" cy="210" r="40" fill="#FFF3C8"/>'
     for x, y, w_ in ((340, 110, 330), (930, 90, 380), (1190, 200, 240), (70, 90, 240), (800, 200, 180)): o += cloud(x, y, w_, '#FFF4E2', '#F7BC94')
-    o += V.flock(40, 60, 12, .4) + skyline()
+    o += V.flock(40, 60, 12, .4) + hc_far() + skyline() + hc_roof()
     # cây phố xa
     for x, y, s_ in ((470, 356, .8), (820, 352, .8), (30, 400, .9), (1248, 400, .9)): o += '<g style="filter:brightness(.8)">' + V.tree(x, y, s_) + '</g>'
-    o += benthanh()
+    o += benthanh() + hc_market_detail() + hc_banyan(312, 486, .85) + hc_banyan(1150, 486, .8, True)
     # vỉa hè trước chợ, bồn cây, người đi lại
     o += '<rect y="476" width="1280" height="26" fill="#C9B69A"/>'
     for k in range(40): o += '<path d="M%d 476l-14 26" stroke="#9A8A72" stroke-width="1"/>' % (k * 34)
@@ -262,12 +565,14 @@ def phcmc():
         o += '<rect x="%d" y="470" width="44" height="22" fill="#A8704C" stroke="%s"/>' % (x - 22, INK) + G.palm(x, 470, s_)
     o += G.walker(330, 498, '#F268A6', s=.86) + G.walker(360, 496, '#F7F2E4', '#2E3A5A', s=.86) + V.non(476, 496, '#2F8F5B', True) + G.walker(808, 498, '#2FB8C6', s=.88) + G.walker(836, 494, '#F2C25A', '#7A4A2A', s=.84)
     o += G.bike(948, 498, '#E2483E') + G.stall(120, 466, '#2FB8C6') + V.non(96, 498, '#D9543C')
+    o += hc_sidewalk_back() + hc_wires()
     # đường nhựa, nắng chiều, bóng đổ dài
     o += lin('road_', [('0', '#7E7670'), ('1', '#5E5854')]).join(['<defs>', '</defs>']) + '<rect y="505" width="1280" height="140" fill="url(#road_)"/>'
     for x in range(-30, 1290, 150): o += '<path d="M%d 574h76" stroke="#F4F0E4" stroke-width="4"/>' % x
     for k in range(11): o += '<path d="M%d 508L%d 642" stroke="#F4F0E4" stroke-width="13" opacity=".92"/>' % (560 + k * 18, 524 + k * 26)
     o += '<path d="M0 505H1280" stroke="#3A3430" stroke-width="2"/>'
     for k in range(120): o += '<circle cx="%d" cy="%d" r="%.1f" fill="#4A4440" opacity=".4"/>' % (R.randint(0, 1280), R.randint(508, 642), R.uniform(.6, 1.6))
+    o += hc_fx_road()
     # dòng xe: hai làn, chạy liên tục
     far = moto(0, 0, .58, False, '#F4F0E4', '#E2483E', '#2E5AA8')
     o += '<g class="ride" style="--t:30s;--dx:-1660px">'
@@ -279,11 +584,13 @@ def phcmc():
     o += moto(760, 570, .62, True, '#F2C25A', '#2FA860', '#2E5AA8') + moto(860, 566, .62, True, '#F4F0E4', '#2E5AA8', '#C7322E', back=('#E86AA8', '#F7F2E4'))
     o += moto(690, 566, .6, True, '#E86AA8', '#F4F0E4', '#E8E2D2') + moto(330, 568, .62, True, '#2FB8C6', '#E2483E', '#C7322E')
     o += moto(420, 570, .62, True, '#F4F0E4', '#1E1A1E', '#2E5AA8', back=('#7FD45A', '#F2C25A')) + moto(250, 566, .6, True, '#F2C25A', '#2E5AA8', '#E8E2D2')
+    o += hc_traffic_extra()
     # làn gần (đi sang phải), lớn hơn
     o += taxi(120, 632) + moto(330, 638, .92, False, '#F4F0E4', '#1E5AA8', '#C7322E', '#3E5A8A', ('#F268A6', '#F4F0E4')) + moto(470, 636, .94, False, '#E8E2D2', '#E2483E', '#E8A23C') + moto(620, 640, .96, False, '#2FB8C6', '#F7F2E4', '#2E5AA8', '#2A2A3A') + moto(760, 636, .92, False, '#F268A6', '#1E1A1E', '#C7322E')
     o += moto(900, 640, .96, False, '#F4F0E4', '#F2C25A', '#E8E2D2', '#3E5A8A', ('#2FB8C6', '#E2483E')) + moto(1040, 636, .94, False, '#7A4FA8', '#2E5AA8', '#C7322E')
     # vỉa hè gần: gạch hoa, thú cưng đứng trên vỉa hè
     o += pavers(644, 720) + '<path d="M0 644H1280" stroke="%s" stroke-width="2"/><rect y="640" width="1280" height="5" fill="#E8E2D2"/>' % INK
+    o += hc_foreground() + hc_sun_rays()
     # cây sao hai bên khung: thân thẳng, tán cao
     o += sao(70, 692, 470, 1.1) + sao(1212, 700, 500, 1.2)
     for x, y, dx, dy, t, d_ in ((300, 90, 80, 400, 11, 0), (420, 40, 120, 500, 14, 5), (980, 70, -60, 460, 12, 3), (1090, 150, -90, 380, 10, 7), (240, 180, 60, 330, 9, 4), (1040, 30, 40, 520, 15, 9)):
@@ -291,7 +598,7 @@ def phcmc():
     o += G.walker(250, 700, '#F2C25A', '#2E3A5A', s=1.34) + G.walker(1090, 706, '#2FA860', '#3A2A20', s=1.34) + V.kitsu(620, 712, 104, 'ehappy', 'walk')
     for t_, x, y, dn in [('Tháp đồng hồ', 642, 18, True), ('Chợ Bến Thành', 456, 300, True), ('Cây sao', 120, 320, False), ('Xe buýt', 1046, 410, False), ('Xe máy', 640, 520, False)]:
         o += G.bubble(x, y, t_, dn)
-    page('PHcmc', 'Kids World, TP. Hồ Chí Minh chiều nắng', 'Chợ Bến Thành chiều nắng vàng: tháp đồng hồ, dòng xe máy, xe buýt, hàng cây sao', d, o, 'TP. Hồ Chí Minh')
+    page('PHcmc', 'Kids World, TP. Hồ Chí Minh chiều nắng', 'Chợ Bến Thành chiều nắng vàng: tháp đồng hồ, dòng xe máy, xe buýt, hàng cây sao', d, o, 'TP. Hồ Chí Minh', HC_CSS)
 
 
 # ---------- PCantho: chợ nổi lúc bình minh, nhìn từ kè Ninh Kiều ----------

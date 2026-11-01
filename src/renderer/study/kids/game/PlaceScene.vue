@@ -17,14 +17,21 @@ const props = defineProps<{
   width: number
   height: number
 }>()
-const emit = defineEmits<{ learn: [] }>()
+const emit = defineEmits<{ learn: [step: number] }>()
 
 const { t } = useI18n()
 const { speak } = useTts()
 const petStore = usePetStore()
 
 const SPOTS = 5
+/** Thú cưng trong cảnh, đơn vị sân khấu 1600×900 */
+const PET_SIZE = 90
+/** Chỗ đứng chỉnh tay khi bảng đặt thú cưng lên bậc thang (toạ độ tranh) */
+const PET_SPOT: Readonly<Record<string, { x: number; y: number }>> = {
+  hoian: { x: 1130, y: 462 }
+}
 const art = computed(() => PLACE_ART[props.place.id])
+const petAt = computed(() => PET_SPOT[props.place.id] ?? art.value?.pet ?? { x: 0, y: 0 })
 const sx = computed(() => props.width / 1280)
 const sy = computed(() => props.height / 720)
 /** Số biển đã xong theo tỉ lệ từ đã học của nơi này */
@@ -51,7 +58,7 @@ function tap(i: number): void {
   busy.value = true
   playSfx('tap')
   speak(t(key(i), {}, { locale: 'en' }), 'us', 0.85)
-  window.setTimeout(() => emit('learn'), 500)
+  window.setTimeout(() => emit('learn', i), 500)
 }
 </script>
 
@@ -61,13 +68,13 @@ function tap(i: number): void {
     <div
       v-if="art && petStore.pet"
       class="pet"
-      :style="{ left: `${art.pet.x * sx}px`, top: `${art.pet.y * sy}px` }"
+      :style="{ left: `${petAt.x * sx}px`, top: `${petAt.y * sy}px` }"
     >
       <PetSprite
         :character="normalizeCharacterId(petStore.pet.characterId)"
         :stage="petStore.pet.stage"
         :accessories="petStore.pet.equipped"
-        :size="Math.round(art.pet.w * sx * 1.3)"
+        :size="PET_SIZE"
         animate
       />
     </div>

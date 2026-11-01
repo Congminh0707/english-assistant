@@ -279,6 +279,7 @@ export async function mountGlobe(host: HTMLElement, opts: GlobeOptions): Promise
         const img = t.image as HTMLImageElement
         const w = s.size ?? 0.27
         m.scale.set(w, (w * img.height) / img.width, 1)
+        dirty = true
       })
     )
     tex.colorSpace = THREE.SRGBColorSpace

@@ -1,6 +1,7 @@
 import type { KidsWorldView } from '@shared/schemas/kidsWorld'
 import {
   bezier,
+  PLACE_BOX,
   STAGE_H,
   STAGE_W,
   seeded,
@@ -21,7 +22,6 @@ import {
   VN_SEA_LABEL,
   type LonLat
 } from '@shared/vnMap'
-import { landmarkBitmap } from './landmarkBitmap'
 import type { MapQuality } from './mapQuality'
 import { padImage } from './padImages'
 import {
@@ -44,7 +44,7 @@ export type ScenePlace = KidsWorldView['tiers'][number]['places'][number]
 
 const INK = BOARD_INK
 /** Rộng của bệ công trình trên bản đồ (đơn vị sân khấu) */
-const PAD_W = 300
+const PAD_W = PLACE_BOX.left + PLACE_BOX.right + 16
 /** Lớp nền vẽ sẵn: số px cho một đơn vị sân khấu */
 const BASE_SCALE = { high: 0.72, low: 0.45 }
 
@@ -446,14 +446,6 @@ function drawPlace(
     ctx.imageSmoothingEnabled = true
     ctx.imageSmoothingQuality = 'high'
     ctx.drawImage(pad, p.x - PAD_W / 2, p.y + 46 - h, PAD_W, h)
-  } else {
-    const bmp = landmarkBitmap(place.landmark)
-    if (bmp) {
-      const k = Math.min(190 / bmp.width, 175 / bmp.height)
-      const w = bmp.width * k
-      const h = bmp.height * k
-      ctx.drawImage(bmp, p.x - w / 2, p.y + 12 - h, w, h)
-    }
   }
 
   const n = place.words.length

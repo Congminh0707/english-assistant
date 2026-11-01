@@ -5,6 +5,10 @@ const urls = import.meta.glob<string>('./pads/*.webp', {
   import: 'default'
 })
 const cache = new Map<string, HTMLImageElement>()
+let loaded = 0
+
+/** Số ảnh đã nạp xong: tăng lên nghĩa là cần vẽ lại, kể cả khi bản đồ đang đứng yên */
+export const padsLoaded = (): number => loaded
 
 /** Ảnh bệ của công trình, null khi chưa nạp xong hoặc không có */
 export function padImage(landmark: string): HTMLImageElement | null {
@@ -13,6 +17,7 @@ export function padImage(landmark: string): HTMLImageElement | null {
     const url = urls[`./pads/${landmark}.webp`]
     if (!url) return null
     img = new Image()
+    img.onload = () => loaded++
     img.src = url
     cache.set(landmark, img)
   }

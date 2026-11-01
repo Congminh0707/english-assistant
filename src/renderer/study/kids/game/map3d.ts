@@ -772,12 +772,12 @@ export async function mountVnMap3D(host: HTMLElement, opts: Map3DOptions): Promi
     scene.add(model)
     // Bệ tròn dưới công trình trên đất, như bảng R5World
     if (landed && !WATER_LANDMARKS.has(p.landmark)) {
-      const r = LANDMARK_SPAN * 0.62
+      const r = LANDMARK_SPAN * 0.76
       const rim = new THREE.Mesh(
         own(new THREE.CylinderGeometry(r, r * 0.93, 0.5, 48)),
         own(new THREE.MeshLambertMaterial({ color: 0x8a5a2e }))
       )
-      rim.position.set(spot.x, gy + lift - 0.26, spot.z)
+      rim.position.set(spot.x, gy + lift - 0.28, spot.z)
       const top = new THREE.Mesh(
         own(new THREE.CircleGeometry(r * 0.985, 48)),
         own(new THREE.MeshLambertMaterial({ color: 0xa6ec72 }))

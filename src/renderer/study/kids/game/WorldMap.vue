@@ -24,6 +24,7 @@ import { usePetStore } from '@renderer/shared/stores/pet'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { fpsGuard, savedQuality } from './mapQuality'
+import { padsLoaded } from './padImages'
 import { buildScene, drawFrame, type Particle, type ScenePlace } from './scene'
 import { playSfx } from './sfx'
 import HexLabel from './HexLabel.vue'
@@ -215,6 +216,7 @@ let raf = 0
 let lastDraw = 0
 let lastNow = 0
 let dirty = true
+let padsSeen = 0
 let lastPuff = 0
 
 function applyDom(): void {
@@ -262,6 +264,10 @@ function draw(now: number): void {
 function frame(now: number): void {
   raf = requestAnimationFrame(frame)
   watchFps(now)
+  if (padsLoaded() !== padsSeen) {
+    padsSeen = padsLoaded()
+    dirty = true
+  }
   const dt = Math.min(0.05, (now - (lastNow || now)) / 1000)
   lastNow = now
   let moving = false

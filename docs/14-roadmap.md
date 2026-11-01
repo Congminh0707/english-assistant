@@ -23,6 +23,7 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
+- [x] (2026-11-01) Thiết kế v2, phần H, thế giới của bé: bản đồ Việt Nam 2D/3D, 12 cảnh địa điểm, tầng 2 Các nước, tầng 3 quả địa cầu với 9 kỳ quan ([19](19-kids-world.md)). Còn: cảnh chi tiết cho 6 nước, nhảy thẳng tới một bước của bài học, đo fps trên máy yếu.
 - 🚧 Đang làm (2026-10-31): **áp dụng thiết kế v2 vào app** ([23](23-design-v2-spec.md)). Xong: global (font, token, `ui.css`, `pnpm ui:shot`), khung làng + địa điểm (`VillageMap`, `PlaceShell`, `ArtScene`, `export-art.py`). Bước tiếp: các màn song song theo mục "Áp dụng thiết kế v2", mỗi màn một commit. Kiểm tra: `pnpm lint && pnpm test && pnpm ui:audit`.
 
 - [x] 2026-10-30: **thiết kế lại UI v2 trên Claude Design** (chưa đụng code) — nhật ký đầy đủ ở [21](21-redesign-v2.md): prompt [20](20-claude-design-prompt.md), bỏ pixel ([decisions #39](decisions.md)), Kitsu + Robo đã duyệt, Bi/Draco/Webby v4 chờ duyệt, bản đồ VN 34 tỉnh + châu Á + Trái Đất + cảnh Hội An + thời tiết + di chuyển + hoạt ảnh bài học + khu phụ huynh (script `scripts/design-data/`). 🚧 Tiếp theo: duyệt nhân vật, hoạt ảnh 6 trạng thái cho cả 5 con, cảnh địa danh còn lại, các màn Study còn lại — xem checklist 21 §6.

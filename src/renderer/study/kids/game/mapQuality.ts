@@ -4,6 +4,7 @@ export type MapQuality = 'high' | 'low'
 const KEY = 'kids.mapQuality'
 const MIN_FPS = 24
 const WINDOW_MS = 5000
+const MAX_GAP_MS = 500
 
 export function savedQuality(): MapQuality {
   try {
@@ -25,10 +26,16 @@ function saveLow(): void {
 export function fpsGuard(onLow: () => void): (now: number) => void {
   let start = 0
   let frames = 0
+  let prev = 0
   let done = savedQuality() === 'low'
   return (now) => {
     if (done) return
-    if (!start) start = now
+    // Cửa sổ bị ẩn hoặc tab đứng: đo lại từ đầu, không tính là máy yếu
+    if (!start || now - prev > MAX_GAP_MS) {
+      start = now
+      frames = 0
+    }
+    prev = now
     frames++
     if (now - start < WINDOW_MS) return
     done = true

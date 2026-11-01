@@ -15,6 +15,8 @@ import ParentGate from './ParentGate.vue'
 import type { KidsTile } from './kidsText'
 import { useKidsUsage } from './useKidsUsage'
 import './kids.css'
+import ArtScene from '@renderer/shared/components/ArtScene.vue'
+import { isDark } from '@renderer/shared/theme'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Giao diện cho hồ sơ trẻ em: không thanh bên chữ, vài ô lớn có hình và âm thanh; có đồng hồ giới hạn thời gian của phụ huynh
@@ -78,6 +80,8 @@ onMounted(loadHome)
 
 <template>
   <div class="kids">
+    <!-- Nền cảnh (S5KidsHome); tối thì đổi sang cảnh đêm -->
+    <ArtScene class="bg" :name="isDark ? 'kids-bg-night' : 'kids-bg'" />
     <header class="bar">
       <button
         v-if="view !== 'home'"
@@ -127,6 +131,7 @@ onMounted(loadHome)
 
     <!-- Hết giờ: bé nghỉ ngơi, phụ huynh nhập PIN để cho dùng thêm -->
     <div v-if="locked" class="rest">
+      <ArtScene class="bg" name="kids-bg-night" />
       <UiIcon name="moon" :size="120" />
       <h1>Time to rest!</h1>
       <p class="sub">{{ t('kids.rest.text') }}</p>
@@ -148,9 +153,18 @@ onMounted(loadHome)
   display: flex;
   flex-direction: column;
   height: 100vh;
-  background: linear-gradient(var(--c-xp-soft) 0, var(--c-bg) 70%, var(--c-success-soft) 100%);
+  background: var(--c-bg);
   color: var(--c-ink);
   font-family: var(--font-kids);
+}
+.bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.bar,
+.body {
+  position: relative;
 }
 .bar {
   display: flex;
@@ -208,11 +222,24 @@ onMounted(loadHome)
   gap: var(--sp-3);
   place-content: center;
   justify-items: center;
-  background: var(--c-bg);
-  color: var(--c-ink);
+  background: var(--c-ink);
+  color: var(--c-on-primary);
   text-align: center;
 }
+.rest > :not(.bg) {
+  position: relative;
+}
+.rest svg {
+  color: var(--c-coin);
+  fill: currentcolor;
+}
+.rest .ask {
+  border-color: var(--c-on-primary);
+  background: transparent;
+  color: var(--c-on-primary);
+}
 .rest h1 {
+  color: var(--c-on-primary);
   margin: 0;
   font-size: 48px;
   font-weight: 800;
@@ -221,7 +248,7 @@ onMounted(loadHome)
   margin: 0;
   max-width: 420px;
   font-family: var(--font-ui);
-  color: var(--c-ink-soft);
+  color: inherit;
 }
 @media (prefers-reduced-motion: reduce) {
   .spin {

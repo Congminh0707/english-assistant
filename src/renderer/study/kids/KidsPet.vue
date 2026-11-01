@@ -6,6 +6,8 @@ import { invoke } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import { useTts } from '@renderer/shared/composables/useTts'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
+import PetSprite from '@renderer/shared/pet/PetSprite.vue'
+import { normalizeCharacterId } from '@shared/characters'
 import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
 import { FOOD_NAME, FOOD_PICTURE } from './kidsText'
 
@@ -55,9 +57,16 @@ onMounted(load)
   <section class="pet-screen">
     <div class="who">
       <span class="k-bubble name">{{ petStore.pet?.name ?? t('kids.loading') }}</span>
-      <!-- Chỗ đặt hình thú cưng (agent F thay bằng hình chibi) -->
       <div class="pet" :class="{ happy }">
-        <PixelPicture id="cat" :size="200" />
+        <PetSprite
+          v-if="petStore.pet"
+          :character="normalizeCharacterId(petStore.pet.characterId)"
+          :stage="petStore.pet.stage"
+          :accessories="petStore.pet.equipped"
+          :pose="happy ? 'happy' : 'idle'"
+          :size="240"
+          animate
+        />
       </div>
     </div>
     <div class="side">

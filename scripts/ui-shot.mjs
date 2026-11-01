@@ -126,6 +126,14 @@ try {
     if (r.result?.exceptionDetails) throw new Error(r.result.exceptionDetails.exception?.description ?? 'Lỗi --js')
     if (r.result?.result?.value !== undefined) console.log(JSON.stringify(r.result.result.value))
   }
+  // --js2: chạy sau js khi js làm trang nạp lại (ví dụ đổi hồ sơ); --wait2 là thời gian chờ giữa hai bước
+  const js2 = opt('js2', '')
+  if (js2) {
+    await sleep(+opt('wait2', 3000))
+    const r2 = await c.send('Runtime.evaluate', { expression: `(async()=>{${HELPERS}\n${js2}\n})()`, awaitPromise: true, returnByValue: true })
+    if (r2.result?.exceptionDetails) throw new Error(r2.result.exceptionDetails.exception?.description ?? 'Lỗi --js2')
+    if (r2.result?.result?.value !== undefined) console.log(JSON.stringify(r2.result.result.value))
+  }
   await sleep(600)
   const shot = await c.send('Page.captureScreenshot', { format: 'png' })
   writeFileSync(resolve(out), Buffer.from(shot.result.data, 'base64'))

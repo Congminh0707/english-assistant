@@ -77,6 +77,13 @@ if '--kids' in sys.argv:
     i = body.index('<svg', body.index('class="t kids"')); j = body.index('</svg>', i)
     css = ''.join(re.findall(r'<style>.*?</style>', h, re.S)).replace('body{margin:0}', '')
     put('kids-visitbg', re.sub(r'^<svg [^>]*>', '<svg viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice">', body[i:j + 6]), css)
+    # Nền màn chính của bé (S5KidsHome ngày, S5KidsHomeDark đêm; màn nghỉ dùng bản đêm)
+    for src, name in (('S5KidsHome', 'kids-bg'), ('S5KidsHomeDark', 'kids-bg-night')):
+        h = open(os.path.join(PROJ, src + '.dc.html'), encoding='utf-8').read()
+        body = h[h.index('</helmet>'):]
+        i = body.index('<svg class="bgscene"'); j = body.index('</svg>', i)
+        css = ''.join(re.findall(r'<style>.*?</style>', h, re.S)).replace('body{margin:0}', '')
+        put(name, re.sub(r'^<svg [^>]*>', '<svg viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice">', body[i:j + 6]), css)
     # Toạ độ điểm chạm: sinh tự động, không chép tay. Tranh viewBox 1280×720, sân khấu 16:9 nên chỉ cần nhân tỉ lệ.
     L = ['// Sinh bởi scripts/design-data/export-art.py --kids, không sửa tay. Toạ độ theo tranh 1280×720.',
          'export interface PlaceArt {', '  art: string', '  pet: { x: number; y: number; w: number }', '  /** Chỗ đặt biển chạm, theo thứ tự trên bảng */', '  spots: ReadonlyArray<{ x: number; y: number }>', '}', '',

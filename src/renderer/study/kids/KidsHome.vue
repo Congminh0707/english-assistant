@@ -3,6 +3,9 @@ import { useI18n } from 'vue-i18n'
 import type { KidsHome } from '@shared/schemas/kids'
 import { useTts } from '@renderer/shared/composables/useTts'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
+import { usePetStore } from '@renderer/shared/stores/pet'
+import PetSprite from '@renderer/shared/pet/PetSprite.vue'
+import { normalizeCharacterId } from '@shared/characters'
 import PixelPicture from '@renderer/shared/components/PixelPicture.vue'
 import { TILES, type KidsTile } from './kidsText'
 
@@ -12,6 +15,7 @@ const emit = defineEmits<{ open: [id: KidsTile['id']] }>()
 
 const { t } = useI18n()
 const { speak } = useTts()
+const petStore = usePetStore()
 
 function tap(tile: KidsTile): void {
   speak(tile.say, 'us', 0.85)
@@ -23,8 +27,15 @@ function tap(tile: KidsTile): void {
   <section class="home">
     <div class="pet">
       <span class="k-bubble hello">{{ home ? `Hello, ${home.petName}!` : 'Hello!' }}</span>
-      <!-- Chỗ đặt hình thú cưng (agent F thay bằng hình chibi) -->
-      <PixelPicture id="cat" :size="200" class="pet-pic" />
+      <PetSprite
+        v-if="petStore.pet"
+        :character="normalizeCharacterId(petStore.pet.characterId)"
+        :stage="petStore.pet.stage"
+        :accessories="petStore.pet.equipped"
+        pose="hello"
+        :size="220"
+        animate
+      />
     </div>
     <div class="grid">
       <button

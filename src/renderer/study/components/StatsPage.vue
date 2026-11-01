@@ -4,12 +4,16 @@ import { useI18n } from 'vue-i18n'
 import type { Stats, StatsDay } from '@shared/schemas/stats'
 import { ACHIEVEMENT_GROUPS } from '@shared/achievements'
 import { activityLevel, activityScore, weekdayIndex } from '@shared/stats'
+import type { MissionsState } from '@shared/schemas/study'
 import { invoke } from '@renderer/shared/ipc'
+import { useSettingsStore } from '@renderer/shared/stores/settings'
+import MissionList from './MissionList.vue'
 import PixelBadge from '@renderer/shared/components/PixelBadge.vue'
 import PxBar from '@renderer/shared/components/PxBar.vue'
 import {
   Award,
   CalendarDays,
+  ChevronUp,
   CircleCheck,
   Flame,
   Sprout,
@@ -21,12 +25,28 @@ import {
 // Thống kê: streak, lịch hoạt động 16 tuần, 14 ngày gần nhất, thẻ theo trạng thái, từ theo level.
 const emit = defineEmits<{ checkpoint: [] }>()
 const { t } = useI18n()
+const settingsStore = useSettingsStore()
 const stats = ref<Stats | null>(null)
+type Tab = 'overview' | 'levels' | 'time' | 'achievements'
+const TABS: Tab[] = ['overview', 'levels', 'time', 'achievements']
+const tab = ref<Tab>('overview')
+const missions = ref<MissionsState | null>(null)
+const achGroup = ref<string>('')
+const shownAch = computed(
+  () => achievementGroups.value.find((g) => g.group === achGroup.value) ?? achievementGroups.value[0]
+)
+async function setGoal(value: number): Promise<void> {
+  await settingsStore.set('learning.dailyGoal', value as 5 | 10 | 20 | 30)
+  missions.value = await invoke('study:missions')
+}
 const loadFailed = ref(false)
 async function load(): Promise<void> {
   loadFailed.value = false
   try {
-    stats.value = await invoke('study:stats')
+    ;[stats.value, missions.value] = await Promise.all([
+      invoke('study:stats'),
+      invoke('study:missions')
+    ])
   } catch {
     loadFailed.value = true
   }
@@ -102,7 +122,23 @@ onMounted(load)
 
 <template>
   <section class="stats">
-    <h1 class="page-title">{{ t('study.stats.title') }}</h1>
+    <header class="head">
+      <h1 class="page-title">{{ t('study.stats.title') }}</h1>
+      <nav v-if="stats" class="tabs" role="tablist">
+        <button
+          v-for="k in TABS"
+          :key="k"
+          type="button"
+          role="tab"
+          class="tab"
+          :class="{ on: tab === k }"
+          :aria-selected="tab === k"
+          @click="tab = k"
+        >
+          {{ t(`study.stats.tab.${k}`) }}
+        </button>
+      </nav>
+    </header>
 
     <div v-if="loadFailed" class="card state state--error" role="alert">
       <p>{{ t('study.state.error') }}</p>
@@ -110,7 +146,7 @@ onMounted(load)
     </div>
     <div v-else-if="!stats" class="card skeleton" aria-busy="true" :aria-label="t('study.state.loading')" />
 
-    <template v-if="stats">
+    <template v-if="stats && tab === 'overview'">
       <div class="cards">
         <div class="card kpi">
           <span class="kpi-icon warm"><Flame :size="18" :stroke-width="2.2" /></span>
@@ -170,181 +206,245 @@ onMounted(load)
         </div>
       </div>
 
-      <section class="card block">
-        <h2>{{ t('study.stats.week') }}</h2>
-        <div class="week">
-          <div>
-            <strong>{{ stats.week.reviews }}</strong> {{ t('study.stats.reviewsUnit') }}
-            <span class="delta">{{ delta(stats.week.reviews, stats.week.prevReviews) }}</span>
-          </div>
-          <div>
-            <strong>{{ stats.week.saved }}</strong> {{ t('study.stats.savedUnit') }}
-            <span class="delta">{{ delta(stats.week.saved, stats.week.prevSaved) }}</span>
-          </div>
-          <div>
-            <strong>{{ stats.week.xp }}</strong> XP
-            <span class="delta">{{ delta(stats.week.xp, stats.week.prevXp) }}</span>
-          </div>
-        </div>
-        <p class="muted small">{{ t('study.stats.vsLastWeek') }}</p>
-      </section>
+      <div class="cols">
+        <div class="col">
+          <section class="card block">
+            <div class="block-head">
+              <h2>{{ t('study.stats.calendar') }}</h2>
+              <div class="legend">
+                {{ t('study.stats.less') }}
+                <span v-for="l in 5" :key="l" class="cell lg" :class="`l${l - 1}`" />
+                {{ t('study.stats.more') }}
+              </div>
+            </div>
+            <div class="calendar">
+              <div class="weekdays" aria-hidden="true">
+                <span v-for="w in WEEKDAYS" :key="w">{{
+                  w % 2 === 0 ? t(`study.stats.weekday.${w}`) : ''
+                }}</span>
+              </div>
+              <div
+                class="grid"
+                :style="{ gridTemplateColumns: `repeat(${weekCount}, minmax(0, 1fr))` }"
+              >
+                <template v-for="(cell, i) in cells" :key="i">
+                  <span v-if="cell === null" class="cell empty" />
+                  <span v-else class="cell" :class="`l${cell.level}`" :title="cellTitle(cell)" />
+                </template>
+              </div>
+            </div>
+          </section>
 
-      <section class="card block">
-        <h2>{{ t('study.stats.calendar') }}</h2>
-        <div class="calendar">
-          <div class="weekdays" aria-hidden="true">
-            <span v-for="w in WEEKDAYS" :key="w">{{
-              w % 2 === 0 ? t(`study.stats.weekday.${w}`) : ''
-            }}</span>
-          </div>
-          <div
-            class="grid"
-            :style="{ gridTemplateColumns: `repeat(${weekCount}, minmax(0, 1fr))` }"
-          >
-            <template v-for="(cell, i) in cells" :key="i">
-              <span v-if="cell === null" class="cell empty" />
-              <span v-else class="cell" :class="`l${cell.level}`" :title="cellTitle(cell)" />
-            </template>
-          </div>
+          <section class="card block">
+            <h2>{{ t('study.stats.last14') }}</h2>
+            <div class="bars">
+              <div v-for="d in last14" :key="d.day" class="bar-col" :title="cellTitle(d)">
+                <div class="bar-value">{{ d.reviews || '' }}</div>
+                <div
+                  class="bar"
+                  :style="{ height: `${Math.max(2, (d.reviews / maxReviews) * 120)}px` }"
+                />
+                <div class="bar-day">{{ d.day.slice(8) }}</div>
+              </div>
+            </div>
+          </section>
         </div>
-        <div class="legend">
-          {{ t('study.stats.less') }}
-          <span v-for="l in 5" :key="l" class="cell lg" :class="`l${l - 1}`" />
-          {{ t('study.stats.more') }}
-        </div>
-      </section>
 
-      <section class="card block">
-        <h2>{{ t('study.stats.last14') }}</h2>
-        <div class="bars">
-          <div v-for="d in last14" :key="d.day" class="bar-col" :title="cellTitle(d)">
-            <div class="bar-value">{{ d.reviews || '' }}</div>
+        <div class="col">
+          <section class="card block">
+            <h2>{{ t('study.stats.week') }}</h2>
+            <div class="week">
+              <div>
+                <strong>{{ stats.week.reviews }}</strong> {{ t('study.stats.reviewsUnit') }}
+                <span class="delta">{{ delta(stats.week.reviews, stats.week.prevReviews) }}</span>
+              </div>
+              <div>
+                <strong>{{ stats.week.saved }}</strong> {{ t('study.stats.savedUnit') }}
+                <span class="delta">{{ delta(stats.week.saved, stats.week.prevSaved) }}</span>
+              </div>
+              <div>
+                <strong>{{ stats.week.xp }}</strong> XP
+                <span class="delta">{{ delta(stats.week.xp, stats.week.prevXp) }}</span>
+              </div>
+            </div>
+            <p class="muted small">{{ t('study.stats.vsLastWeek') }}</p>
+          </section>
+          <MissionList v-if="missions" :state="missions" @goal="setGoal" />
+        </div>
+      </div>
+    </template>
+
+    <template v-else-if="stats && tab === 'levels'">
+      <div class="cols">
+        <div class="col">
+          <section class="card block">
+            <h2>{{ t('study.stats.skills') }}</h2>
+            <ul class="skill-levels">
+              <li v-for="s in stats.skills" :key="s.skill" class="skill">
+                <strong class="skill-name">{{ t(`study.stats.skill.${s.skill}`) }}</strong>
+                <span class="chip chip--primary">{{ s.level.replace('_', '.') }}</span>
+                <span class="muted small grow"
+                  >{{ s.rating }} · {{ t('study.stats.games', { n: s.games }) }}</span
+                >
+                <button
+                  v-if="s.reliable && s.ahead >= 1"
+                  type="button"
+                  class="btn btn--sm btn--primary"
+                  :title="t('study.stats.readyHint')"
+                  @click="emit('checkpoint')"
+                >
+                  <ChevronUp :size="15" :stroke-width="2.4" />{{ t('study.stats.ready') }}
+                </button>
+              </li>
+            </ul>
+            <p class="muted small">{{ t('study.stats.skillsHint') }}</p>
+          </section>
+
+          <section class="card block">
+            <h2>{{ t('study.stats.accuracy') }}</h2>
+            <p v-if="!stats.accuracy.length" class="muted">{{ t('study.stats.noAccuracy') }}</p>
             <div
-              class="bar"
-              :style="{ height: `${Math.max(2, (d.reviews / maxReviews) * 90)}px` }"
-            />
-            <div class="bar-day">{{ d.day.slice(8) }}</div>
+              v-for="a in stats.accuracy"
+              :key="`${a.group}-${a.kind}-${a.skill}`"
+              class="acc-row"
+            >
+              <span class="acc-name">{{ kindLabel(a.group, a.kind) }}</span>
+              <span class="acc-bar"
+                ><span
+                  :style="{ width: `${pct(a)}%` }"
+                  :class="{ low: pct(a) < 60, mid: pct(a) >= 60 && pct(a) < 80 }"
+              /></span>
+              <span class="acc-num"
+                >{{ pct(a) }}% <small class="muted">({{ a.correct }}/{{ a.total }})</small></span
+              >
+            </div>
+            <p class="muted small">{{ t('study.stats.accuracyHint') }}</p>
+          </section>
+        </div>
+
+        <div class="col">
+          <section class="card block">
+            <h2>{{ t('study.stats.cardStates') }}</h2>
+            <div v-if="stateBars.some((s) => s.count)" class="stack">
+              <span
+                v-for="s in stateBars"
+                :key="s.key"
+                class="seg"
+                :class="s.key"
+                :style="{ width: `${s.width}%` }"
+                :title="`${t(`study.stats.state.${s.key}`)}: ${s.count}`"
+              />
+            </div>
+            <ul class="legend-list">
+              <li v-for="s in stateBars" :key="s.key">
+                <span class="dot" :class="s.key" /> {{ t(`study.stats.state.${s.key}`) }}:
+                <strong>{{ s.count }}</strong>
+              </li>
+            </ul>
+          </section>
+
+          <section class="card block">
+            <h2>{{ t('study.stats.levels') }}</h2>
+            <p v-if="!stats.levels.length" class="muted">{{ t('study.stats.noWords') }}</p>
+            <div v-for="l in stats.levels" :key="l.level" class="level-row">
+              <span class="level-name">{{ l.level.replace('_', '.') }}</span>
+              <span class="level-track"
+                ><span class="level-bar" :style="{ width: `${(l.count / maxLevelCount) * 100}%` }"
+              /></span>
+              <span class="level-count">{{ l.count }}</span>
+            </div>
+          </section>
+        </div>
+      </div>
+    </template>
+
+    <template v-else-if="stats && tab === 'time'">
+      <div class="cards three">
+        <div class="card kpi">
+          <div>
+            <div class="num">{{ stats.time.todayMinutes }}</div>
+            <div class="label">{{ t('study.stats.minToday') }}</div>
           </div>
         </div>
-      </section>
-
-      <div class="two">
-        <section class="card block">
-          <h2>{{ t('study.stats.cardStates') }}</h2>
-          <div v-if="stateBars.some((s) => s.count)" class="stack">
-            <span
-              v-for="s in stateBars"
-              :key="s.key"
-              class="seg"
-              :class="s.key"
-              :style="{ width: `${s.width}%` }"
-              :title="`${t(`study.stats.state.${s.key}`)}: ${s.count}`"
-            />
+        <div class="card kpi">
+          <div>
+            <div class="num">{{ stats.time.weekMinutes }}</div>
+            <div class="label">{{ t('study.stats.minWeek') }}</div>
           </div>
-          <ul class="legend-list">
-            <li v-for="s in stateBars" :key="s.key">
-              <span class="dot" :class="s.key" /> {{ t(`study.stats.state.${s.key}`) }}:
-              <strong>{{ s.count }}</strong>
-            </li>
-          </ul>
+        </div>
+        <div class="card kpi">
+          <div>
+            <div class="num">{{ hours(stats.time.totalMinutes) }}</div>
+            <div class="label">{{ t('study.stats.hoursTotal') }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="cols time-cols">
+        <section class="card block">
+          <h2>{{ t('study.stats.time') }}</h2>
+          <div class="bars tall">
+            <div
+              v-for="d in last14"
+              :key="d.day"
+              class="bar-col"
+              :title="`${d.day}: ${d.minutes} ${t('study.stats.min')}`"
+            >
+              <div class="bar-value">{{ d.minutes || '' }}</div>
+              <div
+                class="bar time"
+                :style="{ height: `${Math.max(2, (d.minutes / maxMinutes) * 200)}px` }"
+              />
+              <div class="bar-day">{{ d.day.slice(8) }}</div>
+            </div>
+          </div>
+          <p class="muted small">{{ t('study.stats.timeHint') }}</p>
         </section>
-
         <section class="card block">
-          <h2>{{ t('study.stats.levels') }}</h2>
-          <p v-if="!stats.levels.length" class="muted">{{ t('study.stats.noWords') }}</p>
-          <div v-for="l in stats.levels" :key="l.level" class="level-row">
-            <span class="level-name">{{ l.level.replace('_', '.') }}</span>
-            <span class="level-bar" :style="{ width: `${(l.count / maxLevelCount) * 100}%` }" />
-            <span class="level-count">{{ l.count }}</span>
-          </div>
+          <h2>{{ t('study.stats.hardest') }}</h2>
+          <p v-if="!stats.hardest.length" class="muted">{{ t('study.stats.noHardest') }}</p>
+          <ol v-else class="hardest">
+            <li v-for="w in stats.hardest" :key="w.contentId">
+              <strong>{{ w.text }}</strong>
+              <span class="muted small">{{
+                t('study.stats.lapses', { n: w.lapses, reps: w.reps })
+              }}</span>
+            </li>
+          </ol>
         </section>
       </div>
+    </template>
 
-      <section class="card block">
-        <h2>{{ t('study.stats.skills') }}</h2>
-        <ul class="skill-levels">
-          <li v-for="s in stats.skills" :key="s.skill" class="skill">
-            <strong>{{ t(`study.stats.skill.${s.skill}`) }}</strong>
-            <span class="chip chip--primary">{{ s.level.replace('_', '.') }}</span>
-            <span class="muted small"
-              >{{ s.rating }} · {{ t('study.stats.games', { n: s.games }) }}</span
-            >
-            <button
-              v-if="s.reliable && s.ahead >= 1"
-              type="button"
-              class="btn btn--sm up"
-              :title="t('study.stats.readyHint')"
-              @click="emit('checkpoint')"
-            >
-              ▲ {{ t('study.stats.ready') }}
-            </button>
-          </li>
-        </ul>
-        <p class="muted small">{{ t('study.stats.skillsHint') }}</p>
+    <template v-else-if="stats && tab === 'achievements'">
+      <section class="card ach-sum">
+        <Award :size="18" :stroke-width="2.2" />
+        <strong>{{
+          t('study.stats.achProgress', { done: unlockedCount, total: stats.achievements.length })
+        }}</strong>
+        <progress :value="unlockedCount" :max="Math.max(1, stats.achievements.length)" />
       </section>
-
-      <section class="card block">
-        <h2>{{ t('study.stats.accuracy') }}</h2>
-        <p v-if="!stats.accuracy.length" class="muted">{{ t('study.stats.noAccuracy') }}</p>
-        <div v-for="a in stats.accuracy" :key="`${a.group}-${a.kind}-${a.skill}`" class="acc-row">
-          <span class="acc-name">{{ kindLabel(a.group, a.kind) }}</span>
-          <span class="acc-bar"
-            ><span
-              :style="{ width: `${pct(a)}%` }"
-              :class="{ low: pct(a) < 60, mid: pct(a) >= 60 && pct(a) < 80 }"
-          /></span>
-          <span class="acc-num"
-            >{{ pct(a) }}% <small class="muted">({{ a.correct }}/{{ a.total }})</small></span
+      <div class="ach-layout">
+        <nav class="card ach-side">
+          <button
+            v-for="g in achievementGroups"
+            :key="g.group"
+            type="button"
+            class="ach-tab"
+            :class="{ on: shownAch?.group === g.group }"
+            @click="achGroup = g.group"
           >
-        </div>
-        <p class="muted small">{{ t('study.stats.accuracyHint') }}</p>
-      </section>
-
-      <section class="card block">
-        <h2>{{ t('study.stats.time') }}</h2>
-        <div class="week">
-          <div>
-            <strong>{{ stats.time.todayMinutes }}</strong> {{ t('study.stats.minToday') }}
-          </div>
-          <div>
-            <strong>{{ stats.time.weekMinutes }}</strong> {{ t('study.stats.minWeek') }}
-          </div>
-          <div>
-            <strong>{{ hours(stats.time.totalMinutes) }}</strong> {{ t('study.stats.hoursTotal') }}
-          </div>
-        </div>
-        <div class="bars">
-          <div
-            v-for="d in last14"
-            :key="d.day"
-            class="bar-col"
-            :title="`${d.day}: ${d.minutes} ${t('study.stats.min')}`"
-          >
-            <div class="bar-value">{{ d.minutes || '' }}</div>
-            <div
-              class="bar time"
-              :style="{ height: `${Math.max(2, (d.minutes / maxMinutes) * 90)}px` }"
-            />
-            <div class="bar-day">{{ d.day.slice(8) }}</div>
-          </div>
-        </div>
-        <p class="muted small">{{ t('study.stats.timeHint') }}</p>
-      </section>
-
-      <section class="card block">
-        <h2>{{ t('study.stats.achievements') }}</h2>
-        <p class="muted small">
-          {{
-            t('study.stats.achProgress', { done: unlockedCount, total: stats.achievements.length })
-          }}
-        </p>
-        <section v-for="g in achievementGroups" :key="g.group" class="ach-group">
-          <h3>{{ t(`study.stats.achGroup.${g.group}`) }}</h3>
+            <span>{{ t(`study.stats.achGroup.${g.group}`) }}</span>
+            <span class="ach-count"
+              >{{ g.items.filter((a) => a.unlocked).length }}/{{ g.items.length }}</span
+            >
+          </button>
+        </nav>
+        <section v-if="shownAch" class="ach-main">
+          <h2>{{ t(`study.stats.achGroup.${shownAch.group}`) }}</h2>
           <div class="ach-grid">
             <div
-              v-for="a in g.items"
+              v-for="a in shownAch.items"
               :key="a.id"
-              class="ach"
+              class="card ach"
               :class="{ locked: !a.unlocked }"
               :title="t(`study.stats.achDesc.${a.group}`, { n: a.target })"
             >
@@ -354,30 +454,16 @@ onMounted(load)
                 t(`study.stats.achDesc.${a.group}`, { n: a.target })
               }}</span>
               <PxBar
-                v-if="!a.unlocked"
                 class="ach-bar"
                 :value="a.current"
                 :max="a.target"
-                color="var(--c-primary)"
+                :color="a.unlocked ? 'var(--c-success)' : 'var(--c-primary)'"
               />
               <span class="muted small">{{ a.current }}/{{ a.target }}</span>
             </div>
           </div>
         </section>
-      </section>
-
-      <section class="card block">
-        <h2>{{ t('study.stats.hardest') }}</h2>
-        <p v-if="!stats.hardest.length" class="muted">{{ t('study.stats.noHardest') }}</p>
-        <ol v-else class="hardest">
-          <li v-for="w in stats.hardest" :key="w.contentId">
-            <strong>{{ w.text }}</strong>
-            <span class="muted small">{{
-              t('study.stats.lapses', { n: w.lapses, reps: w.reps })
-            }}</span>
-          </li>
-        </ol>
-      </section>
+      </div>
     </template>
   </section>
 </template>
@@ -386,7 +472,7 @@ onMounted(load)
 .stats {
   display: grid;
   gap: var(--sp-3);
-  max-width: 880px;
+  max-width: 100%;
 }
 .stats .page-title {
   margin-bottom: var(--sp-1);
@@ -409,7 +495,7 @@ h2 {
 /* ---- KPI ---- */
 .cards {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: var(--sp-3);
 }
 .kpi {
@@ -453,13 +539,18 @@ h2 {
   color: var(--c-ink-soft);
 }
 .week {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-2) 32px;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-4);
   margin-bottom: var(--sp-2);
+}
+.week > div {
+  white-space: nowrap;
 }
 .week strong {
   font-size: var(--fs-xl);
+  font-variant-numeric: tabular-nums;
 }
 .delta {
   margin-left: 6px;
@@ -543,7 +634,7 @@ h2 {
   display: flex;
   align-items: flex-end;
   gap: 6px;
-  height: 150px;
+  height: 180px;
   padding-bottom: 1px;
   border-bottom: 1px solid var(--c-line);
 }
@@ -703,8 +794,8 @@ h2 {
 }
 .ach-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: var(--sp-2);
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: var(--sp-3);
 }
 .ach {
   display: flex;
@@ -774,6 +865,154 @@ h2 {
 @media (prefers-reduced-motion: reduce) {
   .skeleton {
     animation: none;
+  }
+}
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+}
+.head .page-title {
+  margin: 0;
+}
+.tabs {
+  display: inline-flex;
+  gap: var(--sp-1);
+  padding: var(--sp-1);
+  border-radius: var(--r-md);
+  background: var(--c-surface-2);
+}
+.tab {
+  min-height: var(--btn-h-sm);
+  padding: 0 var(--sp-3);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-ink-soft);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.tab.on {
+  background: var(--c-surface);
+  color: var(--c-ink);
+  box-shadow: var(--shadow-sm);
+}
+.cols {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: var(--sp-3);
+  align-items: start;
+}
+.col {
+  display: grid;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+.time-cols {
+  grid-template-columns: 1.6fr 1fr;
+}
+.cards.three {
+  grid-template-columns: repeat(3, 1fr);
+}
+.block-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.block-head h2,
+.block-head .legend {
+  margin: 0 0 var(--sp-3);
+}
+.bars.tall {
+  height: 240px;
+}
+.skill-levels {
+  display: grid;
+  gap: 0;
+}
+.skill {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2) 0;
+  border-bottom: 1px solid var(--c-line);
+}
+.skill-name {
+  min-width: 84px;
+}
+.grow {
+  flex: 1;
+  min-width: 0;
+}
+.level-track {
+  height: 10px;
+  overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+}
+.level-track .level-bar {
+  display: block;
+  height: 100%;
+}
+.ach-sum {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-4);
+}
+.ach-sum progress {
+  flex: 1;
+  accent-color: var(--c-xp);
+}
+.ach-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: var(--sp-3);
+  align-items: start;
+}
+.ach-side {
+  display: grid;
+  gap: var(--sp-1);
+  padding: var(--sp-2);
+}
+.ach-tab {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  min-height: 40px;
+  padding: 0 var(--sp-3);
+  border: 0;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--c-ink-soft);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.ach-tab.on {
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.ach-count {
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+}
+.ach-main h2 {
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-xl);
+}
+@media (max-width: 900px) {
+  .cols,
+  .time-cols,
+  .ach-layout {
+    grid-template-columns: 1fr;
   }
 }
 </style>

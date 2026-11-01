@@ -741,7 +741,9 @@
         "listening": "Listening"
       },
       "dontKnow": "I don’t know",
-      "correct": "Correct! ✓",
+      "correct": "Correct!",
+      "eta": "About {n} min",
+      "keys": "1–4: pick an answer · 0: I do not know · Enter: next question",
       "wrong": "Not quite — answer: {answer}",
       "resultTitle": "Your level: {cefr}",
       "resultBody": "You answered {correct}/{total} correctly. %PET% will pick words that suit you.",
@@ -749,7 +751,7 @@
       "done": "Start learning",
       "checkpointTitle": "Level-up check",
       "checkpointIntro": "10 questions at the next level (vocabulary, grammar, reading, listening). 80% or more moves you up a level — the first pass of each level earns a reward. If you miss it, you can try again later.",
-      "checkpointPassed": "Congratulations! You reached level {level} 🎉",
+      "checkpointPassed": "Congratulations! You reached level {level}",
       "checkpointFailed": "Not yet ({n}% needed). Review a bit and try again!"
     },
     "settings": {
@@ -882,6 +884,12 @@
       "reviewsUnit": "reviews",
       "savedUnit": "new words",
       "vsLastWeek": "Arrows compare with the previous 7 days.",
+      "tab": {
+        "overview": "Overview",
+        "levels": "Levels",
+        "time": "Time",
+        "achievements": "Achievements"
+      },
       "calendar": "Activity calendar (16 weeks)",
       "less": "Less",
       "more": "More",
@@ -1309,6 +1317,9 @@
       "sayHint": "Listen, say it, then tap the star (speech is not graded yet)"
     },
     "game": {
+      "countryDetail": "{name}, {total} words",
+      "goTo": "Go to {name}",
+      "continents": {"asia": "Asia", "europe": "Europe", "africa": "Africa", "northAmerica": "North America", "southAmerica": "South America", "oceania": "Oceania", "antarctica": "Antarctica"},
       "spots": {"cantho": ["Sign pole", "Watermelons", "Floating market", "Pineapples", "Ninh Kieu Wharf"], "dalat": ["Da Lat Station", "Steam train", "Pine hill", "Xuan Huong Lake", "Flowers"], "danang": ["Dragon Bridge", "Dragon fire", "Han River", "Tall buildings", "Swing bridge"], "halong": ["Rock islands", "Sailboat", "Cave", "Fishing village", "Fish cages"], "hanoi": ["Turtle Tower", "Ngoc Son Temple", "The Huc Bridge", "Old Quarter", "Cyclo"], "hcmc": ["Clock tower", "Ben Thanh Market", "Sao tree", "Bus", "Motorbikes"], "hue": ["Noon Gate", "Perfume River", "Dragon boat", "Trang Tien Bridge", "Ao dai"], "nhatrang": ["Ponagar Towers", "Island", "Sea", "Basket boat", "Sandy beach"], "ninhbinh": ["Limestone hills", "Cave", "Rice field", "Foot rowing", "Buffalo"], "phuquoc": ["Sunset", "Fishing village", "Stilt house", "Basket boat", "Fishing net"], "sapa": ["Misty mountain", "Rice terraces", "Hill village", "Buffalo", "Paddy field"], "hoian": ["Bridge Pagoda", "Lanterns", "Floating lanterns", "Boat", "Old house"]},
       "map": "Back to map",
       "village": "Back to village",

@@ -741,7 +741,9 @@
         "listening": "Nghe"
       },
       "dontKnow": "Tôi không biết",
-      "correct": "Đúng rồi! ✓",
+      "correct": "Đúng rồi!",
+      "eta": "Khoảng {n} phút",
+      "keys": "1–4: chọn đáp án · 0: tôi không biết · Enter: sang câu tiếp",
       "wrong": "Chưa đúng — đáp án: {answer}",
       "resultTitle": "Trình độ của bạn: {cefr}",
       "resultBody": "Bạn trả lời đúng {correct}/{total} câu. %PET% đã chọn từ vừa sức với bạn.",
@@ -749,7 +751,7 @@
       "done": "Bắt đầu học",
       "checkpointTitle": "Kiểm tra lên cấp",
       "checkpointIntro": "10 câu ở bậc kế tiếp (từ vựng, ngữ pháp, đọc, nghe). Đúng từ 80% là lên một bậc — lần đầu qua mỗi bậc có thưởng. Không đạt cũng không sao, bạn có thể thử lại sau.",
-      "checkpointPassed": "Chúc mừng! Bạn đã lên level {level} 🎉",
+      "checkpointPassed": "Chúc mừng! Bạn đã lên level {level}",
       "checkpointFailed": "Chưa đạt ({n}% mới qua). Ôn thêm rồi thử lại nhé!"
     },
     "settings": {
@@ -882,6 +884,12 @@
       "reviewsUnit": "lượt ôn",
       "savedUnit": "từ mới",
       "vsLastWeek": "Mũi tên so với 7 ngày trước đó.",
+      "tab": {
+        "overview": "Tổng quan",
+        "levels": "Trình độ",
+        "time": "Thời gian",
+        "achievements": "Thành tựu"
+      },
       "calendar": "Lịch hoạt động (16 tuần)",
       "less": "Ít",
       "more": "Nhiều",
@@ -1309,6 +1317,9 @@
       "sayHint": "Nghe rồi nói theo, nói xong chạm ngôi sao (chưa chấm giọng nói)"
     },
     "game": {
+      "countryDetail": "{name}, {total} từ",
+      "goTo": "Đến {name}",
+      "continents": {"asia": "Châu Á", "europe": "Châu Âu", "africa": "Châu Phi", "northAmerica": "Bắc Mỹ", "southAmerica": "Nam Mỹ", "oceania": "Châu Đại Dương", "antarctica": "Châu Nam Cực"},
       "spots": {"cantho": ["Cây bẹo", "Dưa hấu", "Chợ nổi", "Trái thơm", "Bến Ninh Kiều"], "dalat": ["Ga Đà Lạt", "Tàu hơi nước", "Đồi thông", "Hồ Xuân Hương", "Hoa"], "danang": ["Cầu Rồng", "Lửa rồng", "Sông Hàn", "Cao ốc", "Cầu quay"], "halong": ["Đảo đá", "Thuyền buồm", "Hang đá", "Làng chài", "Lồng cá"], "hanoi": ["Tháp Rùa", "Đền Ngọc Sơn", "Cầu Thê Húc", "Phố cổ", "Xích lô"], "hcmc": ["Tháp đồng hồ", "Chợ Bến Thành", "Cây sao", "Xe buýt", "Xe máy"], "hue": ["Ngọ Môn", "Sông Hương", "Thuyền rồng", "Cầu Tràng Tiền", "Áo dài"], "nhatrang": ["Tháp Bà", "Hòn đảo", "Biển", "Thuyền thúng", "Bãi cát"], "ninhbinh": ["Núi đá", "Hang", "Ruộng lúa", "Chèo chân", "Trâu"], "phuquoc": ["Hoàng hôn", "Làng chài", "Nhà sàn", "Thuyền thúng", "Lưới cá"], "sapa": ["Núi mây", "Ruộng bậc thang", "Bản làng", "Trâu", "Ruộng nước"], "hoian": ["Chùa Cầu", "Đèn lồng", "Hoa đăng", "Thuyền", "Nhà cổ"]},
       "map": "Về bản đồ",
       "village": "Về làng",

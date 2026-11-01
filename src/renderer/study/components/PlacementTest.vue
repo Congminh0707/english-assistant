@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { Award, Check, X } from 'lucide-vue-next'
 import { CHECKPOINT_PASS_RATIO } from '@shared/placement'
 import type { PlacementQuestion, PlacementResult } from '@shared/schemas/placement'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
-import PxBar from '@renderer/shared/components/PxBar.vue'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Bài kiểm tra đầu vào: 20 câu xen kẽ từ vựng / ngữ pháp / đọc hiểu, độ khó thích nghi; chấm ở main.
@@ -32,6 +31,11 @@ const PASS_PERCENT = CHECKPOINT_PASS_RATIO * 100
 const levelName = (level: string | null): string => (level ? level.replace('_', '.') : '')
 
 const progress = computed(() => (question.value ? question.value.index - 1 : 0))
+const percentDone = computed(() =>
+  question.value ? (progress.value / Math.max(question.value.total, 1)) * 100 : 0
+)
+/** Ước lượng thời gian: khoảng 30 giây mỗi câu (20 câu đầu vào, 10 câu lên cấp) */
+const etaMin = computed(() => (checkpoint.value ? 5 : 10))
 
 async function start(): Promise<void> {
   busy.value = true
@@ -110,6 +114,8 @@ function choiceClass(i: number): Record<string, boolean> {
 }
 
 function onKeyDown(e: KeyboardEvent): void {
+  if (e.ctrlKey || e.metaKey || e.altKey) return
+  if (phase.value === 'intro' && e.key === 'Enter' && !busy.value) return void start()
   if (phase.value === 'feedback' && (e.key === ' ' || e.key === 'Enter')) return advance()
   if (phase.value !== 'question' || !question.value) return
   const n = Number(e.key)
@@ -131,28 +137,35 @@ onUnmounted(() => {
   <section class="placement">
     <h1>{{ checkpoint ? t('study.placement.checkpointTitle') : t('study.placement.title') }}</h1>
 
-    <PxPanel v-if="phase === 'intro'" class="box">
+    <div v-if="phase === 'intro'" class="card box center">
+      <span class="badge"><Award :size="28" :stroke-width="2.2" /></span>
       <p>{{ checkpoint ? t('study.placement.checkpointIntro') : t('study.placement.intro') }}</p>
+      <p class="muted">{{ t('study.placement.eta', { n: etaMin }) }}</p>
       <button type="button" class="btn btn--primary" :disabled="busy" @click="start">
-        {{ t('study.placement.start') }}
+        {{ t('study.placement.start') }} <kbd>Enter</kbd>
       </button>
-    </PxPanel>
+    </div>
 
-    <PxPanel v-else-if="phase === 'nopack'" class="box">
+    <div v-else-if="phase === 'nopack'" class="card box center">
+      <span class="badge"><Award :size="28" :stroke-width="2.2" /></span>
       <p>{{ t('study.placement.noPack') }}</p>
-    </PxPanel>
+    </div>
 
     <template v-else-if="(phase === 'question' || phase === 'feedback') && question">
-      <PxBar :value="progress" :max="question.total" label="progress" />
-      <p class="muted">
-        {{
-          t(`study.placement.question.${question.kind}`, {
-            index: question.index,
-            total: question.total
-          })
-        }}
-      </p>
-      <PxPanel class="box">
+      <div class="progress">
+        <div class="bar" role="progressbar" aria-label="progress" :aria-valuenow="progress">
+          <div class="fill" :style="{ width: `${percentDone}%` }" />
+        </div>
+        <span class="muted">
+          {{
+            t(`study.placement.question.${question.kind}`, {
+              index: question.index,
+              total: question.total
+            })
+          }}
+        </span>
+      </div>
+      <div class="card box">
         <div v-if="question.kind === 'listening'" class="listen">
           <button type="button" class="btn btn--sm" @click="speak(question.say ?? '', 'us', 0.9)">
             <UiIcon name="volume" /> {{ t('study.lessons.play') }}
@@ -184,6 +197,8 @@ onUnmounted(() => {
             @click="answer(i)"
           >
             <span class="num">{{ i + 1 }}</span> {{ choice }}
+            <Check v-if="feedback && i === feedback.correctIndex" :size="16" class="mark" />
+            <X v-else-if="feedback && i === chosen && !feedback.correct" :size="16" class="mark" />
           </button>
           <button
             type="button"
@@ -195,26 +210,30 @@ onUnmounted(() => {
           </button>
         </div>
         <p v-if="feedback" class="feedback" :class="{ ok: feedback.correct }">
+          <Check v-if="feedback.correct" :size="16" />
+          <X v-else :size="16" />
           {{
             feedback.correct
               ? t('study.placement.correct')
               : t('study.placement.wrong', { answer: feedback.correctText })
           }}
         </p>
-      </PxPanel>
+      </div>
+      <p class="muted keys">{{ t('study.placement.keys') }}</p>
     </template>
 
-    <PxPanel v-else-if="phase === 'result' && result" class="box result">
+    <div v-else-if="phase === 'result' && result" class="card box result">
       <h2>{{ t('study.placement.resultTitle', { cefr: result.cefr }) }}</h2>
       <p>
         {{ t('study.placement.resultBody', { correct: result.correct, total: result.total }) }}
       </p>
       <p v-if="result.checkpoint" class="checkpoint" :class="{ ok: result.checkpoint.passed }">
-        {{
+        <Award :size="18" />
+        <span class="cp-text">{{
           result.checkpoint.passed
             ? t('study.placement.checkpointPassed', { level: levelName(result.checkpoint.to) })
             : t('study.placement.checkpointFailed', { n: Math.round(PASS_PERCENT) })
-        }}
+        }}</span>
         <span v-if="result.checkpoint.xp" class="reward">
           {{
             t('study.missions.reward', { xp: result.checkpoint.xp, coins: result.checkpoint.coins })
@@ -224,7 +243,13 @@ onUnmounted(() => {
       <ul class="skills">
         <li v-for="s in result.skills" :key="s.skill">
           <strong>{{ t(`study.placement.skill.${s.skill}`) }}</strong>
-          <span class="tag">{{ s.cefr }}</span>
+          <span class="chip chip--xp">{{ s.cefr }}</span>
+          <div class="bar sk" role="progressbar">
+            <div
+              class="fill ok"
+              :style="{ width: `${(s.correct / Math.max(s.total, 1)) * 100}%` }"
+            />
+          </div>
           <span class="muted">{{ s.correct }}/{{ s.total }}</span>
         </li>
       </ul>
@@ -236,15 +261,15 @@ onUnmounted(() => {
           {{ t('study.placement.retry') }}
         </button>
       </div>
-    </PxPanel>
+    </div>
   </section>
 </template>
 
 <style scoped>
 .placement {
   display: grid;
-  gap: 12px;
-  max-width: 640px;
+  gap: var(--sp-3);
+  max-width: 720px;
   margin: 0 auto;
 }
 h1 {
@@ -254,33 +279,86 @@ h1 {
 .muted {
   margin: 0;
   color: var(--c-ink-soft);
-  font-size: 13px;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.keys {
+  text-align: center;
+  font-weight: 500;
+}
+kbd {
+  font: inherit;
+  font-size: var(--fs-xs);
+  opacity: 0.75;
+}
+.progress {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.bar {
+  flex: 1;
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+}
+.fill {
+  height: 100%;
+  border-radius: var(--r-pill);
+  background: var(--c-primary);
+  transition: width 0.3s ease;
+}
+.fill.ok {
+  background: var(--c-success);
 }
 .box {
   display: grid;
-  gap: 14px;
-  padding: 20px 22px;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+}
+.center {
+  justify-items: center;
+  text-align: center;
+}
+.center p {
+  max-width: 440px;
+  margin: 0;
+}
+.badge {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--r-pill);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
 }
 .word {
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: var(--sp-3);
   flex-wrap: wrap;
 }
 .word strong {
-  font-size: 34px;
+  font-size: var(--fs-3xl);
 }
 .choices {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 8px;
+  gap: var(--sp-2);
 }
 .choice {
-  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
   border: 1px solid var(--c-line);
-  background: var(--c-bg);
+  background: var(--c-surface);
+  color: var(--c-ink);
   font: inherit;
+  font-weight: 600;
   text-align: left;
   cursor: pointer;
   border-radius: var(--r-md);
@@ -288,30 +366,48 @@ h1 {
 .choice:hover:not(:disabled) {
   background: var(--c-primary-soft);
 }
+.choice:disabled {
+  cursor: default;
+}
 .choice.unknown {
-  grid-column: 1 / -1;
   color: var(--c-ink-soft);
 }
 .choice.right {
-  background: var(--c-success);
-  color: #fff;
+  background: var(--c-success-soft);
+  border-color: var(--c-success);
+  color: var(--c-success);
 }
 .choice.wrong {
-  background: var(--c-danger);
-  color: #fff;
+  background: var(--c-danger-soft);
+  border-color: var(--c-danger);
+  color: var(--c-danger);
+}
+.mark {
+  margin-left: auto;
 }
 .num {
-  display: inline-block;
-  width: 18px;
+  display: inline-grid;
+  place-items: center;
+  min-width: 22px;
+  height: 22px;
+  border-radius: var(--r-sm);
+  background: var(--c-surface-2);
+  font-size: var(--fs-xs);
   font-weight: 700;
-  opacity: 0.6;
 }
 .feedback {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
   margin: 0;
-  font-weight: 600;
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-danger-soft);
+  font-weight: 700;
   color: var(--c-danger);
 }
 .feedback.ok {
+  background: var(--c-success-soft);
   color: var(--c-success);
 }
 .result {
@@ -320,15 +416,18 @@ h1 {
 .result h2 {
   margin: 0;
 }
+.result p {
+  margin: 0;
+}
 .row {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: var(--sp-4);
 }
 .passage {
   margin: 0;
-  padding: 8px 12px;
+  padding: var(--sp-3);
   background: var(--c-warning-soft);
   border-left: 3px solid var(--c-primary);
   line-height: 1.6;
@@ -336,53 +435,55 @@ h1 {
 }
 .prompt {
   margin: 0;
-  font-size: 20px;
+  font-size: var(--fs-xl);
   font-weight: 700;
 }
 .skills {
   display: grid;
-  gap: 4px;
-  margin: 8px 0;
+  gap: var(--sp-2);
+  margin: 0;
   padding: 0;
   list-style: none;
+  text-align: left;
 }
 .skills li {
-  display: flex;
+  display: grid;
+  grid-template-columns: 110px 48px 1fr 40px;
   align-items: center;
-  gap: 10px;
-}
-.tag {
-  padding: 0 6px;
-  font-size: 12px;
-  font-weight: 700;
-  color: #fff;
-  background: var(--c-xp);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-pill);
+  gap: var(--sp-3);
 }
 .listen {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
+  gap: var(--sp-3);
 }
 .listen .prompt {
   flex-basis: 100%;
 }
 .checkpoint {
-  margin: 8px 0;
-  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
   font-weight: 700;
-  background: #fde3e3;
-  border-left: 4px solid var(--c-danger);
+  text-align: left;
+  color: var(--c-danger);
+  background: var(--c-danger-soft);
   border-radius: var(--r-md);
 }
 .checkpoint.ok {
-  background: #e3f6e6;
-  border-left-color: var(--c-success);
+  color: var(--c-success);
+  background: var(--c-success-soft);
+}
+.cp-text {
+  flex: 1;
 }
 .reward {
-  margin-left: 8px;
-  color: var(--c-ink-soft);
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-pill);
+  background: var(--c-xp-soft);
+  color: var(--c-xp);
+  font-size: var(--fs-sm);
 }
 </style>

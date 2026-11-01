@@ -7,7 +7,7 @@ import { splitSentences } from '@shared/sentences'
 import { invoke } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useTts } from '@renderer/shared/composables/useTts'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import { Languages } from 'lucide-vue-next'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { tokenizeWords } from '@shared/properNouns'
 
@@ -156,109 +156,111 @@ onMounted(async () => {
 </script>
 
 <template>
-  <PxPanel class="passage">
-    <header class="head">
-      <h2 v-if="title">{{ title }}</h2>
-      <div class="tools">
-        <button
-          type="button"
-          class="btn btn--sm"
-          @click="speak(paragraphs.map((p) => p.en).join(' '), undefined, 0.85)"
-        >
-          <UiIcon name="volume" /> {{ t('study.reading.listenAll') }}
-        </button>
-        <button
-          v-if="hardWords.length"
-          type="button"
-          class="btn btn--sm"
-          :title="t('study.reading.saveHardHint')"
-          @click="saveHard"
-        >
-          <UiIcon name="save" /> {{ t('study.reading.saveHard', { n: hardWords.length }) }}
-        </button>
-        <button v-if="anyVi" type="button" class="btn btn--sm" @click="toggleAllVi">
-          🇻🇳 {{ t('study.reading.toggleVi') }}
-        </button>
-      </div>
-    </header>
-    <p class="hint">{{ t('study.reading.hint') }}</p>
-
-    <div v-for="(p, i) in parsed" :key="i" class="para">
-      <p class="en">
-        <span v-for="(s, si) in p.sentences" :key="si" class="sentence">
+  <div class="reader">
+    <div class="card passage">
+      <header class="head">
+        <h2 v-if="title">{{ title }}</h2>
+        <div class="tools">
           <button
             type="button"
-            class="btn btn--sm btn--icon"
-            :title="t('study.reading.listenSentence')"
-            @click="speak(s.text, undefined, 0.85)"
+            class="btn btn--sm"
+            @click="speak(paragraphs.map((p) => p.en).join(' '), undefined, 0.85)"
           >
-            <UiIcon name="volume" />
+            <UiIcon name="volume" /> {{ t('study.reading.listenAll') }}
           </button>
-          <template v-for="(piece, pi) in s.pieces" :key="pi">
-            <button
-              v-if="piece.word"
-              type="button"
-              class="word"
-              :class="{ hard: isHard(piece.text), active: looked === piece.text && !!entry }"
-              @click="lookup(piece.text, s.text)"
-            >
-              {{ piece.text }}
-            </button>
-            <template v-else>{{ piece.text }}</template>
-          </template>
-        </span>
-      </p>
-      <template v-if="p.vi">
-        <button type="button" class="vi-toggle" @click="toggleVi(i)">
-          {{ showVi[i] ? t('study.reading.hideVi') : t('study.reading.showVi') }}
-        </button>
-        <p v-if="showVi[i]" class="vi">{{ p.vi }}</p>
-      </template>
-    </div>
-
-    <p class="legend"><span class="word hard">abc</span> {{ t('study.reading.hardLegend') }}</p>
-    <p v-if="toast && !entry && !notFound" class="toast">{{ toast }}</p>
-
-    <div v-if="entry || notFound" class="lookup">
-      <template v-if="entry">
-        <div class="line">
-          <strong class="lemma">{{ entry.lemma }}</strong>
-          <span class="level">{{ entry.level.replace('_', '.') }}</span>
-          <span class="pos">{{ entry.pos.join(', ') }}</span>
-          <span v-if="entry.ipaUs" class="ipa">{{ entry.ipaUs }}</span>
-          <button
-            type="button"
-            class="btn btn--sm btn--icon"
-            @click="speak(entry.lemma, undefined, 0.9)"
-          >
-            <UiIcon name="volume" />
+          <button v-if="anyVi" type="button" class="btn btn--sm" @click="toggleAllVi">
+            <Languages :size="16" :stroke-width="2.2" /> {{ t('study.reading.toggleVi') }}
           </button>
         </div>
-        <p class="meaning">
-          {{ entry.vi.join('; ') || t('study.reading.noMeaning') }}
-          <span v-if="entry.viGenerated" class="ai">AI</span>
+      </header>
+      <p class="hint">{{ t('study.reading.hint') }}</p>
+
+      <div v-for="(p, i) in parsed" :key="i" class="para">
+        <p class="en">
+          <span v-for="(s, si) in p.sentences" :key="si" class="sentence">
+            <button
+              type="button"
+              class="btn btn--sm btn--icon"
+              :title="t('study.reading.listenSentence')"
+              @click="speak(s.text, undefined, 0.85)"
+            >
+              <UiIcon name="volume" />
+            </button>
+            <template v-for="(piece, pi) in s.pieces" :key="pi">
+              <button
+                v-if="piece.word"
+                type="button"
+                class="word"
+                :class="{ hard: isHard(piece.text), active: looked === piece.text && !!entry }"
+                @click="lookup(piece.text, s.text)"
+              >
+                {{ piece.text }}
+              </button>
+              <template v-else>{{ piece.text }}</template>
+            </template>
+          </span>
         </p>
-        <button
-          type="button"
-          class="btn btn--primary btn--sm"
-          :disabled="entry.saved"
-          @click="save"
-        >
-          <UiIcon :name="entry.saved ? 'saved' : 'save'" />
-          {{ entry.saved ? t('study.reading.savedShort') : t('study.reading.save') }}
-        </button>
-      </template>
-      <p v-else class="meaning">{{ t('study.reading.notFound', { word: looked }) }}</p>
-      <span v-if="toast" class="toast">{{ toast }}</span>
+        <template v-if="p.vi">
+          <button type="button" class="btn btn--xs vi-toggle" @click="toggleVi(i)">
+            {{ showVi[i] ? t('study.reading.hideVi') : t('study.reading.showVi') }}
+          </button>
+          <p v-if="showVi[i]" class="vi">{{ p.vi }}</p>
+        </template>
+      </div>
+
+      <p class="legend"><span class="word hard">abc</span> {{ t('study.reading.hardLegend') }}</p>
     </div>
-  </PxPanel>
+    <aside class="side">
+      <div v-if="entry || notFound" class="lookup">
+        <template v-if="entry">
+          <div class="line">
+            <strong class="lemma">{{ entry.lemma }}</strong>
+            <span class="chip chip--xp">{{ entry.level.replace('_', '.') }}</span>
+            <span class="pos">{{ entry.pos.join(', ') }}</span>
+            <span v-if="entry.ipaUs" class="ipa">{{ entry.ipaUs }}</span>
+            <button
+              type="button"
+              class="btn btn--sm btn--icon"
+              @click="speak(entry.lemma, undefined, 0.9)"
+            >
+              <UiIcon name="volume" />
+            </button>
+          </div>
+          <p class="meaning">
+            {{ entry.vi.join('; ') || t('study.reading.noMeaning') }}
+            <span v-if="entry.viGenerated" class="ai">AI</span>
+          </p>
+          <button
+            type="button"
+            class="btn btn--primary btn--sm"
+            :disabled="entry.saved"
+            @click="save"
+          >
+            <UiIcon :name="entry.saved ? 'saved' : 'save'" />
+            {{ entry.saved ? t('study.reading.savedShort') : t('study.reading.save') }}
+          </button>
+        </template>
+        <p v-else class="meaning">{{ t('study.reading.notFound', { word: looked }) }}</p>
+        <span v-if="toast" class="toast">{{ toast }}</span>
+      </div>
+      <button
+        v-if="hardWords.length"
+        type="button"
+        class="btn btn--block"
+        :title="t('study.reading.saveHardHint')"
+        @click="saveHard"
+      >
+        <UiIcon name="save" /> {{ t('study.reading.saveHard', { n: hardWords.length }) }}
+      </button>
+    </aside>
+  </div>
 </template>
 
 <style scoped>
 .passage {
   display: grid;
-  gap: 10px;
-  padding: 16px 18px;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
 }
 .head {
   display: flex;
@@ -273,17 +275,8 @@ h2 {
 }
 .tools {
   display: flex;
-  gap: 6px;
-}
-.tool,
-.vi-toggle {
-  padding: 3px 10px;
-  border: 1px solid var(--c-line);
-  background: var(--c-surface);
-  font: inherit;
-  font-size: 12px;
-  cursor: pointer;
-  border-radius: var(--r-md);
+  flex-wrap: wrap;
+  gap: var(--sp-2);
 }
 .hint,
 .legend {
@@ -302,6 +295,14 @@ h2 {
 }
 .sentence {
   margin-right: 4px;
+}
+.sentence .btn--icon {
+  width: 24px;
+  min-height: 24px;
+  height: 24px;
+  margin-right: var(--sp-1);
+  padding: 0;
+  vertical-align: middle;
 }
 .word {
   padding: 0;
@@ -330,18 +331,32 @@ h2 {
   padding: 6px 10px;
   color: var(--c-ink-soft);
   background: var(--c-warning-soft);
-  border-left: 3px solid var(--c-primary);
+  border-left: 3px solid var(--c-coin);
   border-radius: var(--r-sm);
 }
-.lookup {
+.reader {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+  gap: var(--sp-4);
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .reader {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.side {
   position: sticky;
-  bottom: 8px;
+  top: 0;
+  display: grid;
+  gap: var(--sp-3);
+}
+.lookup {
   display: grid;
   gap: 4px;
-  padding: 10px 12px;
+  padding: var(--sp-4);
   background: var(--c-surface);
-  border: 1px solid var(--c-line);
-  box-shadow: var(--shadow-sm);
+  border: 2px solid var(--c-line);
   border-radius: var(--r-md);
 }
 .line {
@@ -352,15 +367,6 @@ h2 {
 }
 .lemma {
   font-size: 18px;
-}
-.level {
-  padding: 0 4px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #fff;
-  background: var(--c-xp);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-pill);
 }
 .pos,
 .ipa {
@@ -374,10 +380,10 @@ h2 {
 }
 .ai {
   margin-left: 6px;
-  padding: 0 4px;
-  font-size: 10px;
-  background: var(--c-warning);
-  border: 1px solid var(--c-line);
+  padding: 0 6px;
+  font-size: var(--fs-xs);
+  color: var(--c-warning);
+  background: var(--c-warning-soft);
   border-radius: var(--r-pill);
 }
 .toast {

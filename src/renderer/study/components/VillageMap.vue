@@ -37,7 +37,7 @@ const PINS: Array<{ id: Place; x: number; y: number }> = [
   { id: 'library', x: 760, y: 120 },
   { id: 'hall', x: 490, y: 150 },
   { id: 'well', x: 226, y: 500 },
-  { id: 'tower', x: 990, y: 66 },
+  { id: 'tower', x: 990, y: 130 },
   { id: 'pier', x: 548, y: 590 },
   { id: 'market', x: 888, y: 690 },
   { id: 'home', x: 150, y: 680 }
@@ -80,7 +80,7 @@ onUnmounted(() => {
       class="pin"
       :class="{ hot: p.id === 'well' && due > 0 }"
       :data-nav="p.id"
-      :style="{ left: `${(p.x / 1100) * 100}%`, top: `${(p.y / 720) * 100}%` }"
+      :style="{ left: `${(p.x / 1100) * 100}%`, top: `max(84px, ${(p.y / 720) * 100}%)` }"
       @click="emit('go', p.id)"
     >
       {{ t(`study.place.${p.id}`) }}
@@ -92,14 +92,14 @@ onUnmounted(() => {
       <span class="pill"><TrendingUp :size="15" />{{ t('stats.level', { level }) }}</span>
     </div>
     <div class="hud right">
-      <button type="button" class="pill" data-nav="today" @click="drawer = !drawer">
-        <ClipboardList :size="15" />{{ t('study.home.todayPanel') }}
+      <button type="button" class="pill" data-nav="today" :aria-label="t('study.home.todayPanel')" @click="drawer = !drawer">
+        <ClipboardList :size="15" /><span class="lbl">{{ t('study.home.todayPanel') }}</span>
       </button>
-      <button type="button" class="pill" data-nav="search" @click="emit('search')">
-        <Search :size="15" />{{ t('study.home.search') }} <kbd>Ctrl K</kbd>
+      <button type="button" class="pill" data-nav="search" :aria-label="t('study.home.search')" @click="emit('search')">
+        <Search :size="15" /><span class="lbl">{{ t('study.home.search') }}</span> <kbd>Ctrl K</kbd>
       </button>
-      <button type="button" class="pill" data-nav="settings" @click="emit('settings')">
-        <Settings :size="15" />{{ t('study.nav.settings') }}
+      <button type="button" class="pill" data-nav="settings" :aria-label="t('study.nav.settings')" @click="emit('settings')">
+        <Settings :size="15" /><span class="lbl">{{ t('study.nav.settings') }}</span>
       </button>
     </div>
     <div
@@ -155,6 +155,7 @@ onUnmounted(() => {
   color: var(--c-ink);
   font: inherit;
   font-weight: 800;
+  white-space: nowrap;
   cursor: pointer;
   transition: transform 120ms ease;
 }
@@ -223,5 +224,18 @@ kbd {
   border-radius: 4px;
   background: rgb(255 255 255 / 22%);
   color: inherit;
+}
+/* Cửa sổ hẹp: thanh phải chỉ còn icon, khỏi đè thanh trái */
+@media (max-width: 780px) {
+  .hud.right .lbl,
+  .hud.right kbd {
+    display: none;
+  }
+  .hud.right .pill {
+    padding: 0 var(--sp-2);
+  }
+  .hud.left .pill {
+    padding: 0 var(--sp-2);
+  }
 }
 </style>

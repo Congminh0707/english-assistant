@@ -144,12 +144,12 @@ h2 {
   padding: var(--sp-2) var(--sp-3);
   border-radius: var(--r-md);
   background: var(--c-xp-soft);
-  color: #5b36b8;
+  color: var(--c-xp);
   font-size: var(--fs-sm);
   font-weight: 600;
 }
 .bonus.done {
   background: var(--c-success-soft);
-  color: #25693a;
+  color: var(--c-success);
 }
 </style>

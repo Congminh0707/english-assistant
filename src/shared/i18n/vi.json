@@ -1212,6 +1212,13 @@
     "tooExpensive": "Thiếu {n} xu",
     "earnHint": "Kiếm xu bằng nhiệm vụ ngày và luyện tập nhé!",
     "bought": "Đã mua {item}!",
+    "slot": {
+      "head": "Đầu",
+      "face": "Mặt",
+      "neck": "Cổ",
+      "back": "Lưng",
+      "empty": "Trống"
+    },
     "characterTitle": "Thú cưng mới"
   },
   "credits": {
@@ -1351,6 +1358,8 @@
     "loopClear": "Bỏ lặp",
     "loopOn": "Đang lặp từ câu {a} đến câu {b}",
     "loopPick": "Bấm “Đặt A” rồi “Đặt B” để lặp một đoạn",
+    "loopTitle": "Lặp đoạn A-B",
+    "lines": "Lời thoại",
     "showText": "Hiện lời thoại",
     "hideText": "Ẩn lời thoại",
     "showVi": "Hiện bản dịch",

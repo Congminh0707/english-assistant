@@ -1212,6 +1212,13 @@
     "tooExpensive": "{n} coins short",
     "earnHint": "Earn coins from daily missions and practice!",
     "bought": "Bought {item}!",
+    "slot": {
+      "head": "Head",
+      "face": "Face",
+      "neck": "Neck",
+      "back": "Back",
+      "empty": "Empty"
+    },
     "characterTitle": "New pets"
   },
   "credits": {
@@ -1351,6 +1358,8 @@
     "loopClear": "Clear loop",
     "loopOn": "Looping line {a} to line {b}",
     "loopPick": "Tap “Set A” then “Set B” to loop a section",
+    "loopTitle": "Loop section A-B",
+    "lines": "Dialogue",
     "showText": "Show transcript",
     "hideText": "Hide transcript",
     "showVi": "Show translation",

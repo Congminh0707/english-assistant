@@ -95,18 +95,21 @@ onMounted(load)
 
 <template>
   <section class="k-screen">
-    <p v-if="loading" class="k-sub">…</p>
+    <p v-if="loading" class="k-sub">{{ t('kids.loading') }}</p>
 
     <template v-else-if="card">
-      <button
-        type="button"
-        class="k-round big-speaker"
-        :title="card.word"
-        @click="speak(card.word, 'us', 0.8)"
-      >
-        <UiIcon name="volume" />
-      </button>
-      <p class="k-sub">{{ t('kids.review.hint') }}</p>
+      <div class="k-row ask">
+        <button
+          type="button"
+          class="k-round big-speaker"
+          :title="card.word"
+          :aria-label="card.word"
+          @click="speak(card.word, 'us', 0.8)"
+        >
+          <UiIcon name="volume" :size="48" />
+        </button>
+        <p class="k-sub">{{ t('kids.review.hint') }}</p>
+      </div>
       <div class="k-row choices">
         <button
           v-for="id in card.choices"
@@ -120,63 +123,81 @@ onMounted(load)
           :disabled="solved || wrong.includes(id)"
           @click="choose(id)"
         >
-          <PixelPicture :id="id" :size="160" />
+          <PixelPicture :id="id" :size="150" />
         </button>
       </div>
-      <p v-if="solved" class="answer">{{ card.word }}</p>
+      <p v-if="solved" class="k-bubble answer">{{ card.word }}</p>
 
-      <div v-if="newSticker" class="pop">
+      <div v-if="newSticker" class="k-big soft pop">
         <PixelPicture :id="newSticker" :size="110" />
         <strong>{{ t('kids.review.newSticker') }}</strong>
       </div>
-      <div v-if="prize" class="pop">
+      <div v-if="prize" class="k-big soft pop">
         <PixelPicture :id="FOOD_PICTURE[prize] ?? 'cake'" :size="110" />
         <strong>{{ t('kids.review.present') }}</strong>
       </div>
     </template>
 
     <template v-else>
-      <PixelPicture :id="played ? 'star' : 'moon'" :size="170" />
+      <UiIcon
+        :name="played ? 'star' : 'moon'"
+        :size="140"
+        class="end-icon"
+        :class="{ fill: played }"
+      />
       <h1 class="k-title">{{ played ? 'All done!' : 'See you later!' }}</h1>
       <p class="k-sub">{{ played ? t('kids.review.allDone') : t('kids.review.nothingNow') }}</p>
-      <button type="button" class="k-primary" @click="emit('done')"><UiIcon name="home" /></button>
+      <button type="button" class="k-primary" :aria-label="t('kids.home')" @click="emit('done')">
+        <UiIcon name="home" :size="36" />
+      </button>
     </template>
   </section>
 </template>
 
 <style scoped>
+.ask {
+  gap: var(--sp-4);
+}
 .big-speaker {
-  width: 96px;
-  height: 96px;
-  font-size: 46px;
-  background: #fff3a0;
+  width: 112px;
+  height: 112px;
+  background: var(--c-warning-soft);
+  color: var(--c-warning);
 }
 .choices {
-  gap: 24px;
+  gap: var(--sp-6);
 }
 .choice {
-  padding: 14px;
+  min-width: 260px;
+  min-height: 260px;
+  padding: var(--sp-5);
 }
 .answer {
   margin: 0;
-  font-size: 38px;
-  font-weight: 800;
+  font-size: 40px;
   color: var(--c-primary);
+}
+.end-icon {
+  color: var(--c-warning);
+}
+.end-icon.fill {
+  color: var(--c-coin);
+  fill: currentcolor;
 }
 .pop {
   position: fixed;
-  inset: auto 0 36px;
-  display: grid;
-  gap: 6px;
-  justify-items: center;
+  inset: auto 0 var(--sp-6);
+  z-index: 5;
   margin: 0 auto;
   width: fit-content;
-  padding: 14px 28px;
-  border: 2px solid var(--c-line);
-  border-radius: 18px;
-  background: var(--c-warning-soft);
-  box-shadow: 0 8px 0 0 #d3d9e8;
+  min-width: 0;
+  padding: var(--sp-3) var(--sp-6);
   font-size: 24px;
   animation: k-pop 420ms ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pop {
+    animation: none;
+  }
 }
 </style>

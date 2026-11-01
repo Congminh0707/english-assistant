@@ -188,6 +188,7 @@ onMounted(() => {
   justify-self: start;
   padding: 0;
   border: 0;
+  border-radius: var(--r-sm);
   background: transparent;
   color: var(--c-ink-soft);
   font: inherit;

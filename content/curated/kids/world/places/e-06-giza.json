@@ -17,6 +17,32 @@
     "topicVi": "Kim tự tháp lớn",
     "landmark": "wonder-giza",
     "landmarkVi": "Ai Cập, châu Phi",
+    "about": {
+      "intro": {
+        "en": "The Pyramids of Giza are giant stone pyramids in the desert of Egypt.",
+        "vi": "Kim tự tháp Giza là những kim tự tháp đá khổng lồ trên sa mạc Ai Cập.",
+        "more": {
+          "en": "The Great Pyramid of Giza is more than four thousand five hundred years old. It was the tallest building in the world for almost four thousand years. It is made of millions of huge stone blocks.",
+          "vi": "Đại Kim tự tháp Giza đã hơn bốn nghìn năm trăm năm tuổi. Nó từng là công trình cao nhất thế giới gần bốn nghìn năm. Nó được xây bằng hàng triệu khối đá khổng lồ."
+        }
+      },
+      "culture": {
+        "en": "Ancient Egyptians built them for their kings. Next to them sits the Sphinx.",
+        "vi": "Người Ai Cập cổ xây chúng cho các vị vua. Bên cạnh là tượng Nhân sư.",
+        "more": {
+          "en": "The pharaohs were the kings of Egypt. The pyramids were built as their tombs. The Sphinx has a lion's body and a human head. The Nile River gave Egypt water, food and a way to travel. Ancient Egyptians wrote with pictures called hieroglyphs.",
+          "vi": "Pharaoh là các vua Ai Cập. Kim tự tháp được xây làm lăng mộ cho họ. Tượng Nhân sư có thân sư tử và đầu người. Sông Nile mang đến nước, thức ăn và đường đi cho Ai Cập. Người Ai Cập cổ viết bằng hình gọi là chữ tượng hình."
+        }
+      },
+      "food": {
+        "en": "Try flat bread and warm bean dishes.",
+        "vi": "Hãy thử bánh mì dẹt và món đậu nóng.",
+        "more": {
+          "en": "Bread, beans and vegetables are common. Falafel is a fried bean ball. Koshari mixes rice, lentils and pasta with tomato sauce. Hibiscus tea is a cold red drink on hot days.",
+          "vi": "Bánh mì, đậu và rau rất phổ biến. Falafel là viên đậu chiên. Koshari trộn cơm, đậu lăng và mì với sốt cà chua. Trà hibiscus là thức uống đỏ mát lạnh ngày nóng."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

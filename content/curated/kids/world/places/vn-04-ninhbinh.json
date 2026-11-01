@@ -13,6 +13,32 @@
     "topicVi": "Số đếm 1–10",
     "landmark": "ninhbinh-trang-an",
     "landmarkVi": "Thuyền qua hang Tràng An",
+    "about": {
+      "intro": {
+        "en": "Ninh Binh has tall rocky hills, green rice fields and quiet rivers.",
+        "vi": "Ninh Bình có núi đá cao, ruộng lúa xanh và những dòng sông yên tĩnh.",
+        "more": {
+          "en": "Ninh Binh was once the capital of Viet Nam, more than one thousand years ago. Today people call it Ha Long Bay on land because tall rocks rise from rice fields. Trang An is a World Heritage Site.",
+          "vi": "Ninh Bình từng là kinh đô của Việt Nam hơn một nghìn năm trước. Ngày nay người ta gọi đây là Hạ Long trên cạn vì núi đá cao mọc lên giữa ruộng lúa. Quần thể Tràng An là Di sản Thế giới."
+        }
+      },
+      "culture": {
+        "en": "Boat rowers sit and row with their feet through the caves.",
+        "vi": "Người chèo đò ngồi chèo bằng chân qua các hang động.",
+        "more": {
+          "en": "Boats glide through long dark caves and under cool rocks. The rowers are often farmers, and many row with their feet to rest their hands. In spring, many people visit Bai Dinh Pagoda.",
+          "vi": "Thuyền lướt qua những hang dài tối và dưới vách đá mát. Người chèo đò thường là nông dân, nhiều người chèo bằng chân để tay được nghỉ. Mùa xuân, nhiều người đến thăm chùa Bái Đính."
+        }
+      },
+      "food": {
+        "en": "Try goat meat and crispy rice, a famous local snack.",
+        "vi": "Hãy thử thịt dê và cơm cháy, món đặc sản của vùng.",
+        "more": {
+          "en": "Crispy rice is fried until golden and eaten with a sauce. Goat meat is a local special. Fresh river snails and rice fields give the region its simple, tasty food.",
+          "vi": "Cơm cháy được rán vàng giòn và ăn với sốt. Thịt dê là đặc sản. Ốc sông tươi và gạo từ đồng ruộng tạo nên món ăn giản dị mà ngon."
+        }
+      }
+    },
     "pos": {
       "x": 36,
       "y": 27

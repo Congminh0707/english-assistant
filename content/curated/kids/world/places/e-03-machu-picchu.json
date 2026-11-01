@@ -17,6 +17,32 @@
     "topicVi": "Thành phố trên núi",
     "landmark": "wonder-machu",
     "landmarkVi": "Peru, Nam Mỹ",
+    "about": {
+      "intro": {
+        "en": "Machu Picchu is a stone city high in the mountains of Peru.",
+        "vi": "Machu Picchu là thành phố đá trên núi cao ở Peru.",
+        "more": {
+          "en": "Machu Picchu sits about two thousand four hundred meters high in the Andes. Clouds often hide the stone walls in the morning. It was built around the year fourteen fifty and is one of the New Seven Wonders of the World.",
+          "vi": "Machu Picchu nằm ở độ cao khoảng hai nghìn bốn trăm mét trên dãy Andes. Buổi sáng mây thường phủ các bức tường đá. Thành phố được xây khoảng năm một nghìn bốn trăm năm mươi và là một trong bảy kỳ quan mới của thế giới."
+        }
+      },
+      "culture": {
+        "en": "The Inca people built it long ago. Llamas still walk on the green terraces.",
+        "vi": "Người Inca xây thành phố từ rất lâu. Lạc đà llama vẫn đi dạo trên các bậc thang xanh.",
+        "more": {
+          "en": "The Inca cut stones so well that they fit together without glue. They farmed on terraces and walked on mountain roads. Many people hike the Inca Trail for days to arrive. Llamas and alpacas live nearby.",
+          "vi": "Người Inca cắt đá khít đến mức không cần keo. Họ trồng trọt trên các bậc thang và đi trên đường núi. Nhiều người đi bộ nhiều ngày trên Con đường Inca để đến đây. Lạc đà llama và alpaca sống gần đó."
+        }
+      },
+      "food": {
+        "en": "Try potatoes and corn. Peru has hundreds of kinds of potatoes!",
+        "vi": "Hãy thử khoai tây và ngô. Peru có hàng trăm loại khoai tây!",
+        "more": {
+          "en": "Peru has thousands of kinds of potatoes in many colors. Quinoa is a tiny healthy grain. Ceviche is fresh fish with lime. Guinea pig and corn beer are traditional foods in the Andes.",
+          "vi": "Peru có hàng nghìn loại khoai tây nhiều màu. Quinoa là loại hạt nhỏ tốt cho sức khoẻ. Ceviche là cá tươi trộn chanh. Chuột lang và bia ngô là món truyền thống ở dãy Andes."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

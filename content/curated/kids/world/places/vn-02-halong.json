@@ -13,6 +13,32 @@
     "topicVi": "Biển",
     "landmark": "halong-trong-mai",
     "landmarkVi": "Hòn Trống Mái – vịnh Hạ Long",
+    "about": {
+      "intro": {
+        "en": "Ha Long Bay has thousands of rocky islands standing in green water.",
+        "vi": "Vịnh Hạ Long có hàng nghìn hòn đảo đá nằm giữa làn nước xanh.",
+        "more": {
+          "en": "Ha Long means the Dragon Descends. A story says a dragon family spat jewels that became the islands. There are about two thousand islands and rocks. Ha Long Bay is a World Heritage Site.",
+          "vi": "Hạ Long nghĩa là rồng xuống. Chuyện kể rằng gia đình rồng nhả ngọc thành các hòn đảo. Vịnh có khoảng hai nghìn đảo và đá. Vịnh Hạ Long là Di sản Thế giới."
+        }
+      },
+      "culture": {
+        "en": "Fishing families live in floating villages on the bay.",
+        "vi": "Nhiều gia đình ngư dân sống trong làng nổi trên vịnh.",
+        "more": {
+          "en": "Some families live on boats and in floating houses. They fish, raise fish in nets and row to a floating school. Visitors paddle kayaks into quiet caves and lagoons.",
+          "vi": "Một số gia đình sống trên thuyền và nhà nổi. Họ đánh bắt cá, nuôi cá trong lồng lưới và chèo thuyền đến trường nổi. Khách du lịch chèo thuyền kayak vào hang và hồ yên tĩnh."
+        }
+      },
+      "food": {
+        "en": "Fresh fish, squid and crab come straight from the sea.",
+        "vi": "Cá, mực và cua tươi được đưa lên từ biển.",
+        "more": {
+          "en": "Seafood is the star here. People grill squid, steam crab and cook fish in a clay pot. A popular snack is fish cake, made from fresh fish and fried until golden.",
+          "vi": "Hải sản là món chính ở đây. Người ta nướng mực, hấp cua và kho cá trong nồi đất. Món ăn vặt nổi tiếng là chả mực hoặc chả cá, làm từ cá tươi rồi chiên vàng."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 10

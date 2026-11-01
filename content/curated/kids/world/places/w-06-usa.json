@@ -13,6 +13,32 @@
     "topicVi": "Đồ ăn nhanh & vui chơi",
     "landmark": "usa-liberty",
     "landmarkVi": "Tượng Nữ thần Tự do",
+    "about": {
+      "intro": {
+        "en": "The USA is a very big country in North America. New York has the Statue of Liberty.",
+        "vi": "Hoa Kỳ là đất nước rất rộng ở Bắc Mỹ. New York có Tượng Nữ thần Tự do.",
+        "more": {
+          "en": "The United States has fifty states. It stretches from the Atlantic Ocean to the Pacific Ocean. It has tall cities, big forests, deserts and Great Lakes. Alaska and Hawaii are two of its states.",
+          "vi": "Hoa Kỳ có năm mươi bang. Nước này trải dài từ Đại Tây Dương đến Thái Bình Dương. Có thành phố cao tầng, rừng lớn, sa mạc và các Hồ Lớn. Alaska và Hawaii là hai bang của nước này."
+        }
+      },
+      "culture": {
+        "en": "Families play baseball and watch fireworks on the Fourth of July.",
+        "vi": "Các gia đình chơi bóng chày và xem pháo hoa ngày 4 tháng 7.",
+        "more": {
+          "en": "People from many countries live here. On the Fourth of July they celebrate their independence. At Thanksgiving, families share a big meal. Baseball, basketball and American football are popular sports.",
+          "vi": "Người từ nhiều nước sống ở đây. Ngày 4 tháng 7 họ mừng ngày độc lập. Lễ Tạ ơn, các gia đình cùng ăn bữa lớn. Bóng chày, bóng rổ và bóng bầu dục Mỹ là các môn thể thao phổ biến."
+        }
+      },
+      "food": {
+        "en": "Try pancakes, burgers and apple pie.",
+        "vi": "Hãy thử bánh kếp, bánh mì kẹp thịt và bánh táo.",
+        "more": {
+          "en": "Burgers and fries are famous fast food. Pancakes with syrup are a popular breakfast. Apple pie is a classic dessert. Turkey is the star of Thanksgiving dinner.",
+          "vi": "Bánh mì kẹp thịt và khoai tây chiên là đồ ăn nhanh nổi tiếng. Bánh kếp với siro là bữa sáng quen thuộc. Bánh táo là món tráng miệng kinh điển. Gà tây là món chính bữa tối Lễ Tạ ơn."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

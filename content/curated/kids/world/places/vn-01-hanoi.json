@@ -13,6 +13,32 @@
     "topicVi": "Gia đình & ở nhà",
     "landmark": "hanoi-turtle-tower",
     "landmarkVi": "Tháp Rùa – Hồ Gươm",
+    "about": {
+      "intro": {
+        "en": "Ha Noi is the capital of Viet Nam. It has a calm lake with a small Turtle Tower.",
+        "vi": "Hà Nội là thủ đô của Việt Nam. Ở đây có hồ Gươm yên ả với Tháp Rùa nhỏ xinh.",
+        "more": {
+          "en": "Hanoi is more than one thousand years old. Long ago it was called Thang Long, the Rising Dragon. Today it is full of lakes, trees and old gates. Hoan Kiem Lake means Lake of the Returned Sword. On its small island stands the Turtle Tower.",
+          "vi": "Hà Nội đã hơn một nghìn năm tuổi. Ngày xưa nơi này tên là Thăng Long, nghĩa là rồng bay lên. Ngày nay thành phố có nhiều hồ, cây xanh và cổng cổ. Hồ Hoàn Kiếm nghĩa là hồ Gươm trả lại. Trên đảo nhỏ giữa hồ có Tháp Rùa."
+        }
+      },
+      "culture": {
+        "en": "The Old Quarter has narrow streets. Each street once sold one kind of thing.",
+        "vi": "Khu phố cổ có những con phố nhỏ. Ngày xưa mỗi phố bán một loại hàng riêng.",
+        "more": {
+          "en": "Families walk around the lake in the early morning and in the evening. Water puppet shows tell old stories with wooden puppets that dance on the water. At Mid-Autumn Festival, children carry star lanterns through the Old Quarter.",
+          "vi": "Các gia đình đi dạo quanh hồ vào sáng sớm và buổi tối. Múa rối nước kể chuyện xưa bằng những con rối gỗ nhảy múa trên mặt nước. Dịp Tết Trung thu, trẻ em rước đèn ông sao qua khu phố cổ."
+        }
+      },
+      "food": {
+        "en": "Try pho, a warm noodle soup, and egg coffee.",
+        "vi": "Hãy thử phở, món bún nước nóng hổi, và cà phê trứng.",
+        "more": {
+          "en": "Pho is made with rice noodles, clear broth and herbs. Bun cha is grilled pork with cold noodles. Egg coffee is a sweet drink made for grown-ups. Kids often like a cool coconut ice cream by the lake.",
+          "vi": "Phở có bánh phở, nước dùng trong và rau thơm. Bún chả là thịt nướng ăn với bún lạnh. Cà phê trứng là thức uống ngọt dành cho người lớn. Trẻ em hay thích que kem dừa mát lạnh bên hồ."
+        }
+      }
+    },
     "pos": {
       "x": 30,
       "y": 16

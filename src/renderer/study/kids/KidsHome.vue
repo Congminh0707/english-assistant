@@ -73,12 +73,16 @@ function tap(tile: KidsTile): void {
 }
 .pet {
   display: grid;
+  min-width: 0;
   gap: var(--sp-4);
   justify-items: center;
 }
 .hello {
+  max-width: 100%;
   font-size: 28px;
-  white-space: nowrap;
+  line-height: 1.2;
+  text-align: center;
+  overflow-wrap: anywhere;
 }
 .grid {
   display: grid;

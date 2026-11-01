@@ -13,6 +13,32 @@
     "topicVi": "Giờ ăn nhẹ",
     "landmark": "paris-eiffel",
     "landmarkVi": "Tháp Eiffel",
+    "about": {
+      "intro": {
+        "en": "France is a country in Europe. Its capital, Paris, has the Eiffel Tower.",
+        "vi": "Pháp là đất nước ở châu Âu. Thủ đô Paris có tháp Eiffel.",
+        "more": {
+          "en": "France is in western Europe. Paris is the capital and the Seine River flows through it. The Eiffel Tower was built in the year eighteen eighty-nine and is made of iron. At night it sparkles.",
+          "vi": "Pháp nằm ở Tây Âu. Paris là thủ đô và sông Seine chảy qua. Tháp Eiffel được xây năm một nghìn tám trăm tám mươi chín bằng sắt. Ban đêm tháp lấp lánh."
+        }
+      },
+      "culture": {
+        "en": "People say bonjour to say hello. Painters and music fill the streets.",
+        "vi": "Người Pháp nói bonjour để chào. Tranh vẽ và âm nhạc có khắp phố.",
+        "more": {
+          "en": "The Louvre is a huge museum where the Mona Lisa hangs. People enjoy art, music, fashion and books. Many French people take long lunches with family and friends.",
+          "vi": "Bảo tàng Louvre rất lớn, nơi treo bức Mona Lisa. Người Pháp thích nghệ thuật, âm nhạc, thời trang và sách. Nhiều người ăn trưa thật lâu cùng gia đình và bạn bè."
+        }
+      },
+      "food": {
+        "en": "Try fresh bread, a croissant and a little cheese.",
+        "vi": "Hãy thử bánh mì tươi, bánh sừng bò và chút phô mai.",
+        "more": {
+          "en": "A baguette is long, crispy bread. A croissant is buttery and flaky. France has hundreds of cheeses. Crepes are thin pancakes with sweet fillings.",
+          "vi": "Baguette là bánh mì dài giòn. Croissant béo bơ và nhiều lớp. Nước Pháp có hàng trăm loại phô mai. Crepe là bánh kếp mỏng với nhân ngọt."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

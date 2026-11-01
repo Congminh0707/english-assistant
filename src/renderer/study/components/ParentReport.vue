@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { KIDS_DAILY_MINUTES } from '@shared/kids'
+import { KIDS_DAILY_MINUTES, KIDS_NEW_WORD_LIMITS } from '@shared/kids'
 import type { ParentReport } from '@shared/schemas/kids'
 import { invoke } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
@@ -35,6 +35,10 @@ const maxMinutes = computed(() =>
   Math.max(10, ...(report.value?.days ?? []).map((d) => minutes(d.seconds)))
 )
 const todayMinutes = computed(() => minutes(report.value?.days.at(-1)?.seconds ?? 0))
+
+async function setNewLimit(value: number): Promise<void> {
+  await settingsStore.set('kids.newPerDay', value as never)
+}
 
 async function setLimit(value: number): Promise<void> {
   await settingsStore.set('kids.dailyMinutes', value as never)
@@ -143,6 +147,17 @@ onMounted(load)
             >
               <option v-for="m in KIDS_DAILY_MINUTES" :key="m" :value="m">
                 {{ m ? t('kids.report.limitMinutes', { n: m }) : t('kids.report.limitOff') }}
+              </option>
+            </select>
+          </label>
+          <label class="row">
+            {{ t('kids.report.newPerDay') }}
+            <select
+              :value="settingsStore.settings['kids.newPerDay']"
+              @change="setNewLimit(Number(($event.target as HTMLSelectElement).value))"
+            >
+              <option v-for="n in KIDS_NEW_WORD_LIMITS" :key="n" :value="n">
+                {{ n ? t('kids.report.newWords', { n }) : t('kids.report.limitOff') }}
               </option>
             </select>
           </label>

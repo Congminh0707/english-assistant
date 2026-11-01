@@ -17,6 +17,32 @@
     "topicVi": "Nhà hát",
     "landmark": "wonder-sydney",
     "landmarkVi": "Úc, châu Đại Dương",
+    "about": {
+      "intro": {
+        "en": "The Sydney Opera House stands by the harbour in Australia. Its roof looks like sails.",
+        "vi": "Nhà hát Sydney đứng bên bến cảng ở Úc. Mái nhà trông như cánh buồm.",
+        "more": {
+          "en": "The Sydney Opera House opened in the year nineteen seventy-three. Its white roofs look like sails or shells, and they are covered with more than one million tiles. It stands on Bennelong Point beside the Sydney Harbour Bridge.",
+          "vi": "Nhà hát Sydney khai trương năm một nghìn chín trăm bảy mươi ba. Mái trắng của nó trông như cánh buồm hoặc vỏ sò, phủ hơn một triệu viên gạch. Nhà hát nằm trên mũi Bennelong cạnh cầu cảng Sydney."
+        }
+      },
+      "culture": {
+        "en": "Singers, dancers and bands perform inside. At night, colorful lights shine on it.",
+        "vi": "Ca sĩ, vũ công và ban nhạc biểu diễn bên trong. Ban đêm đèn màu chiếu lên mái.",
+        "more": {
+          "en": "Plays, concerts, ballets and operas are held inside. Each year, Vivid Sydney paints the roof with lights and pictures. Many Australians love the outdoors, and families go to the beach, parks and harbor ferries.",
+          "vi": "Bên trong có kịch, hòa nhạc, ba lê và opera. Mỗi năm, lễ hội Vivid Sydney chiếu ánh sáng và hình lên mái nhà. Nhiều người Úc yêu hoạt động ngoài trời, các gia đình đi biển, công viên và phà."
+        }
+      },
+      "food": {
+        "en": "Try fish and chips and sweet lamingtons by the water.",
+        "vi": "Hãy thử cá chiên khoai tây và bánh lamington ngọt bên bến nước.",
+        "more": {
+          "en": "Fish and chips are eaten with a view of the water. Lamingtons are sponge cake with chocolate and coconut. Barramundi is a tasty local fish. Meat pies and fresh fruit are sold at markets.",
+          "vi": "Cá và khoai tây chiên được ăn khi ngắm nước. Lamington là bánh bông lan phủ sô-cô-la và dừa. Cá barramundi là loại cá ngon địa phương. Bánh nhân thịt và trái cây tươi được bán ở chợ."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

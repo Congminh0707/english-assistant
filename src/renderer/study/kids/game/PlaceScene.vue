@@ -8,6 +8,8 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 import { PLACE_ART } from './placeArt.generated'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
+import PlaceProgress from './PlaceProgress.vue'
 import { playSfx } from './sfx'
 
 // Cảnh trong một địa điểm (docs/23-design-v2-spec.md §3): tranh 1280×720 phủ sân khấu, 5 biển chạm là nút HTML đặt theo
@@ -17,7 +19,7 @@ const props = defineProps<{
   width: number
   height: number
 }>()
-const emit = defineEmits<{ learn: [step: number] }>()
+const emit = defineEmits<{ learn: [step: number]; about: [] }>()
 
 const { t } = useI18n()
 const { speak } = useTts()
@@ -40,6 +42,8 @@ const doneSpots = computed(() => {
   return Math.floor((words.filter((w) => w.done).length / Math.max(1, words.length)) * SPOTS)
 })
 const busy = ref(false)
+const showProgress = ref(false)
+const learned = computed(() => props.place.words.filter((w) => w.done).length)
 
 /** Đổi toạ độ tranh sang sân khấu, giữ biển trong khung và tránh hàng nút trên cùng */
 const SIDE = 120
@@ -92,6 +96,33 @@ function tap(i: number): void {
         <span class="dot" />
       </button>
     </template>
+    <div class="dock">
+      <div v-if="showProgress" class="panel">
+        <PlaceProgress :place="place" />
+      </div>
+      <div class="dock-row">
+        <button v-if="place.about" type="button" class="dock-btn" @click="emit('about')">
+          <UiIcon name="hint" :size="28" />{{ t('kids.game.about.title') }}
+        </button>
+        <button
+          type="button"
+          class="dock-btn"
+          :aria-expanded="showProgress"
+          @click="showProgress = !showProgress"
+        >
+          <span class="stars">
+            <UiIcon
+              v-for="n in 3"
+              :key="n"
+              name="star"
+              :size="20"
+              :class="{ lit: n <= place.stars }"
+            />
+          </span>
+          {{ learned }}/{{ place.words.length }}
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -105,6 +136,53 @@ function tap(i: number): void {
 .art {
   position: absolute;
   inset: 0;
+}
+.dock {
+  position: absolute;
+  bottom: 44px;
+  left: 24px;
+  z-index: 4;
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+}
+.dock-row {
+  display: flex;
+  gap: 10px;
+}
+.panel {
+  width: 440px;
+  padding: 16px 20px;
+  border: 4px solid #f7b91a;
+  border-radius: 26px;
+  background: #fff9ea;
+}
+.dock-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 58px;
+  padding: 0 22px;
+  border: 3px solid #f7b91a;
+  border-radius: 29px;
+  background: #fff9ea;
+  color: #6b3e1e;
+  font-family: var(--font-kids);
+  font-size: 22px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.stars {
+  display: inline-flex;
+  color: #d9c9a6;
+}
+.stars .lit {
+  color: #f7b91a;
+  fill: currentcolor;
+}
+.dock-btn:focus-visible {
+  outline: 4px solid #16bfc8;
+  outline-offset: 3px;
 }
 .pet {
   position: absolute;

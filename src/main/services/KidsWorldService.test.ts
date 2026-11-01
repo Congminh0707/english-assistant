@@ -18,6 +18,7 @@ beforeEach(() => {
   conn = openUserDb(':memory:', MIGRATIONS)
   clock = new FakeClock()
   c = createContainer(conn, clock, OPTIONS)
+  c.settings.set('kids.newPerDay', 6) // mặc định không giới hạn; các test dưới kiểm tra hạn mức 6 từ/ngày
 })
 
 afterEach(() => conn.close())
@@ -72,7 +73,7 @@ describe('KidsWorldService', () => {
     expect(c.kids.home()).toMatchObject({ worldPlacesDone: 0, worldPlacesTotal: 27 })
   })
 
-  it('lượt chơi: tối đa 4 từ, tạo thẻ cho từ mới, đặt chỗ thú cưng, trừ hạn mức', () => {
+  it('lượt chơi: tối đa 4 từ, tạo thẻ cho từ mới, đặt chỗ thú cưng, chưa học xong thì chưa trừ hạn mức', () => {
     const visit = c.kidsWorld.visit('halong')
     expect(visit.reviewOnly).toBe(false)
     expect(visit.batch.map((b) => b.pictureId)).toEqual(['boat', 'fish', 'crab', 'octopus'])
@@ -83,12 +84,12 @@ describe('KidsWorldService', () => {
     }
     const world = c.kidsWorld.world()
     expect(world.currentPlaceId).toBe('halong')
-    expect(world.newLeftToday).toBe(2)
+    expect(world.newLeftToday).toBe(6)
     expect(world.todayPlaceId).toBe('halong') // nơi đang học dở được gợi ý trước
     // Gọi lại khi chưa xong: dùng lại thẻ cũ, không tốn thêm hạn mức
     const again = c.kidsWorld.visit('halong')
     expect(again.batch.map((b) => b.cardId)).toEqual(visit.batch.map((b) => b.cardId))
-    expect(c.kidsWorld.world().newLeftToday).toBe(2)
+    expect(c.kidsWorld.world().newLeftToday).toBe(6)
   })
 
   it('xong lượt ghi từ đã qua 5 bước; thiếu bước nói hoặc không ra thì chưa xong', () => {
@@ -136,6 +137,24 @@ describe('KidsWorldService', () => {
     expect(third).toMatchObject({ reviewOnly: true, batch: [] })
     clock.advance(DAY)
     expect(c.kidsWorld.visit('hoian').reviewOnly).toBe(false)
+  })
+
+  it('vào học nơi này rồi bỏ đó sang nơi khác: từ chưa học xong không tốn hạn mức', () => {
+    c.kidsWorld.visit('halong') // mở 4 thẻ nhưng chưa chơi
+    c.kidsWorld.visit('sapa')
+    const next = c.kidsWorld.visit('hue')
+    expect(next.reviewOnly).toBe(false)
+    expect(c.kidsWorld.world().newLeftToday).toBe(6)
+  })
+
+  it('đặt không giới hạn: học bao nhiêu từ mới cũng được trong ngày', () => {
+    c.settings.set('kids.newPerDay', 0)
+    for (const id of ['sapa', 'hue', 'hoian']) {
+      const visit = c.kidsWorld.visit(id)
+      expect(visit.reviewOnly).toBe(false)
+      playVisit(visit)
+    }
+    expect(c.kidsWorld.world().newLeftToday).toBeGreaterThan(0)
   })
 
   it('mở tầng 2 khi xong 9/12 nơi và đủ từ ≥ mầm; nơi tầng khoá không vào được', () => {

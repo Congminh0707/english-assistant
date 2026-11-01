@@ -17,6 +17,32 @@
     "topicVi": "Lăng trắng",
     "landmark": "wonder-taj",
     "landmarkVi": "Ấn Độ, châu Á",
+    "about": {
+      "intro": {
+        "en": "The Taj Mahal is a white marble palace in India with a pretty garden pool.",
+        "vi": "Taj Mahal là cung điện đá cẩm thạch trắng ở Ấn Độ, có hồ nước trong vườn.",
+        "more": {
+          "en": "The Taj Mahal is in the city of Agra, India. It was built in the seventeenth century by Emperor Shah Jahan. It took about twenty years and thousands of workers. Four tall towers stand around the white dome.",
+          "vi": "Taj Mahal nằm ở thành phố Agra, Ấn Độ. Nó được hoàng đế Shah Jahan xây vào thế kỷ mười bảy. Việc xây mất khoảng hai mươi năm với hàng nghìn công nhân. Bốn tháp cao đứng quanh mái vòm trắng."
+        }
+      },
+      "culture": {
+        "en": "A king built it to remember someone he loved. It looks pink and gold at sunrise.",
+        "vi": "Một vị vua xây nó để nhớ người thương. Lúc bình minh nó ánh hồng và vàng.",
+        "more": {
+          "en": "The emperor built it for his wife Mumtaz Mahal. Its walls are carved with flowers and verses. India has many languages, colorful clothes and festivals. Holi is the festival of colors, and Diwali is the festival of lights.",
+          "vi": "Hoàng đế xây nó cho vợ là Mumtaz Mahal. Tường được khắc hoa và câu thơ. Ấn Độ có nhiều ngôn ngữ, trang phục rực rỡ và lễ hội. Holi là lễ hội màu sắc, còn Diwali là lễ hội ánh sáng."
+        }
+      },
+      "food": {
+        "en": "Try soft flat bread, rice and sweet milk treats.",
+        "vi": "Hãy thử bánh mì dẹt mềm, cơm và các món ngọt làm từ sữa.",
+        "more": {
+          "en": "Naan is soft bread baked in an oven. Curry is a sauce with many spices. Rice with lentils is a simple daily meal. Lassi is a sweet yogurt drink. Many families in India are vegetarian.",
+          "vi": "Naan là bánh mì mềm nướng trong lò. Cà ri là món sốt nhiều gia vị. Cơm với đậu lăng là bữa ăn hằng ngày đơn giản. Lassi là thức uống sữa chua ngọt. Nhiều gia đình ở Ấn Độ ăn chay."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

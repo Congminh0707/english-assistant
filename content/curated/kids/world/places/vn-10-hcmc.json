@@ -13,6 +13,32 @@
     "topicVi": "Phố & xe",
     "landmark": "hcmc-ben-thanh",
     "landmarkVi": "Chợ Bến Thành",
+    "about": {
+      "intro": {
+        "en": "Ho Chi Minh City is the biggest city in Viet Nam, busy day and night.",
+        "vi": "TP. Hồ Chí Minh là thành phố lớn nhất Việt Nam, nhộn nhịp cả ngày lẫn đêm.",
+        "more": {
+          "en": "Ho Chi Minh City is the largest city in Viet Nam. Millions of people live here. Motorbikes fill the streets, and tall buildings stand next to old French houses.",
+          "vi": "TP. Hồ Chí Minh là thành phố lớn nhất Việt Nam. Hàng triệu người sống ở đây. Xe máy đầy đường, nhà cao tầng đứng cạnh những ngôi nhà kiểu Pháp cũ."
+        }
+      },
+      "culture": {
+        "en": "Ben Thanh Market is full of colors, sounds and friendly sellers.",
+        "vi": "Chợ Bến Thành đầy màu sắc, âm thanh và những người bán hàng thân thiện.",
+        "more": {
+          "en": "The city never seems to sleep. Parks fill with people exercising in the morning. Ben Thanh Market sells clothes, flowers, snacks and gifts. At Tet, flower streets are filled with bright blossoms.",
+          "vi": "Thành phố dường như không bao giờ ngủ. Công viên đầy người tập thể dục buổi sáng. Chợ Bến Thành bán quần áo, hoa, đồ ăn vặt và quà. Dịp Tết, đường hoa rực rỡ sắc màu."
+        }
+      },
+      "food": {
+        "en": "Try broken rice with grilled pork and a banh mi sandwich.",
+        "vi": "Hãy thử cơm tấm sườn nướng và ổ bánh mì.",
+        "more": {
+          "en": "Broken rice, pork chop and a fried egg is a classic lunch. Banh mi has crispy bread with meat, pickles and herbs. Sugarcane juice is a cold drink on hot days.",
+          "vi": "Cơm tấm sườn trứng là bữa trưa quen thuộc. Bánh mì có vỏ giòn với thịt, đồ chua và rau thơm. Nước mía là thức uống mát lạnh ngày nóng."
+        }
+      }
+    },
     "pos": {
       "x": 44,
       "y": 79

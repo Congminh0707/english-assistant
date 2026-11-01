@@ -13,6 +13,32 @@
     "topicVi": "Quần áo & đồ mang theo",
     "landmark": "nhatrang-tram-huong",
     "landmarkVi": "Tháp Trầm Hương – biển Nha Trang",
+    "about": {
+      "intro": {
+        "en": "Nha Trang has a long sandy beach and clear blue water.",
+        "vi": "Nha Trang có bãi cát dài và nước biển xanh trong.",
+        "more": {
+          "en": "Nha Trang is a sunny seaside city with a long curved beach. Offshore islands are great for swimming and snorkeling. The sea is warm almost all year.",
+          "vi": "Nha Trang là thành phố biển nhiều nắng với bãi biển dài cong cong. Các đảo ngoài khơi rất hợp để bơi và lặn ngắm san hô. Nước biển ấm gần như quanh năm."
+        }
+      },
+      "culture": {
+        "en": "The Cham people built the Ponagar towers here more than a thousand years ago.",
+        "vi": "Người Chăm đã xây tháp Bà Ponagar ở đây từ hơn một nghìn năm trước.",
+        "more": {
+          "en": "Po Nagar Towers were built by the Cham people. They are made of red bricks and are still used for worship today. Fishermen bring in the morning catch in round basket boats.",
+          "vi": "Tháp Bà Ponagar do người Chăm xây bằng gạch đỏ và đến nay vẫn được dùng để cúng bái. Ngư dân mang mẻ cá buổi sáng về bằng thuyền thúng."
+        }
+      },
+      "food": {
+        "en": "Try fresh seafood and rice noodles with fish.",
+        "vi": "Hãy thử hải sản tươi và bún cá.",
+        "more": {
+          "en": "Rice noodles with fish cake are a local favorite. Grilled seafood and fresh spring rolls taste best by the sea. Tropical fruits like mango and pineapple are sweet here.",
+          "vi": "Bún sứa và bún chả cá là món được yêu thích. Hải sản nướng và gỏi cuốn tươi ngon nhất bên bờ biển. Trái cây nhiệt đới như xoài và thơm rất ngọt ở đây."
+        }
+      }
+    },
     "pos": {
       "x": 75,
       "y": 63

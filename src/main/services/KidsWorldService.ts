@@ -1,5 +1,4 @@
 import {
-  KIDS_NEW_PER_DAY,
   pickChoices,
   pictureIdOf,
   isPictureContentId,
@@ -31,6 +30,7 @@ import type { SrsCardRow, VocabRepository } from '../db/repositories/VocabReposi
 import type { XpRepository } from '../db/repositories/XpRepository'
 import type { KidsService } from './KidsService'
 import type { ProfileService } from './ProfileService'
+import type { SettingsService } from './SettingsService'
 import type { SrsService } from './SrsService'
 import type { Transaction } from './types'
 import type { XpService } from './XpService'
@@ -42,6 +42,8 @@ const PLACE_REASON = 'kids.place'
 /** Nơi thú cưng đang đứng: settings theo hồ sơ */
 const PLACE_KEY = 'kids.worldPlace'
 const profileScope = (profileId: string): string => `profile:${profileId}`
+/** newLeftToday khi không giới hạn (số lớn, giao diện chỉ kiểm tra > 0) */
+const KIDS_NEW_UNLIMITED = 9999
 const XP_PLACE = 20
 const COINS_PLACE = 10
 
@@ -68,6 +70,7 @@ export class KidsWorldService {
       lessonRepo: LessonRepository
       xpRepo: XpRepository
       settingsRepo: SettingsRepository
+      settings: SettingsService
       srs: SrsService
       xp: XpService
       kids: KidsService
@@ -255,13 +258,21 @@ export class KidsWorldService {
     return (this.deps.random ?? Math.random)()
   }
 
+  /**
+   * Hạn mức từ mới còn lại hôm nay. Chỉ từ bé đã học xong (qua đủ 5 bước) hôm nay mới tính; từ đã mở thẻ
+   * mà chưa học xong thì không. Cài đặt 0 = không giới hạn.
+   */
   private newLeftToday(profileId: string, now: number): number {
-    const used = this.deps.vocab.countCardsCreatedSince(
-      profileId,
-      'audio_picture',
-      startOfLocalDay(now)
-    )
-    return Math.max(0, KIDS_NEW_PER_DAY - used)
+    const { lessonRepo, settings } = this.deps
+    const limit = settings.get('kids.newPerDay')
+    if (limit === 0) return KIDS_NEW_UNLIMITED
+    const since = startOfLocalDay(now)
+    const used = lessonRepo
+      .list(profileId)
+      .filter(
+        (r) => r.lessonId.startsWith(WORD_PREFIX) && r.completedAt !== null && r.completedAt >= since
+      ).length
+    return Math.max(0, limit - used)
   }
 
   private currentPlaceId(profileId: string): string | null {

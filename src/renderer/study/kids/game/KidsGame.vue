@@ -13,6 +13,7 @@ import KidsVisit from '../KidsVisit.vue'
 import AsiaMap from './AsiaMap.vue'
 import GlobeMap from './GlobeMap.vue'
 import { PLACE_ART } from './placeArt.generated'
+import PlaceAbout from './PlaceAbout.vue'
 import PlaceScene from './PlaceScene.vue'
 import WorldMap from './WorldMap.vue'
 import WorldMap3D from './WorldMap3D.vue'
@@ -32,6 +33,9 @@ const view = ref<View>('map')
 const world = ref<KidsWorldView | null>(null)
 const tierId = ref<string | null>(null)
 const placeId = ref<string | null>(null)
+/** Nơi đang xem giới thiệu trước khi vào (bản đồ → giới thiệu → vào) và biển giới thiệu trong cảnh */
+const overviewId = ref<string | null>(null)
+const aboutOpen = ref(false)
 const scale = ref(1)
 /** Bản đồ 3D (chỉ tầng có bản đồ địa lý); nhớ lựa chọn, tự về 2D nếu máy không dựng được WebGL */
 const prefs3d = ((): boolean => {
@@ -48,6 +52,9 @@ const globeFailed = ref(false)
 const tier = computed(() => world.value?.tiers.find((x) => x.id === tierId.value) ?? null)
 const currentPlace = computed(
   () => world.value?.tiers.flatMap((x) => x.places).find((p) => p.id === placeId.value) ?? null
+)
+const overviewPlace = computed(
+  () => world.value?.tiers.flatMap((x) => x.places).find((p) => p.id === overviewId.value) ?? null
 )
 const can3d = computed(() => tier.value?.scene === 'vn' && !webglFailed.value)
 const show3d = computed(() => can3d.value && want3d.value)
@@ -91,8 +98,14 @@ async function load(): Promise<void> {
   }
 }
 
-/** Nơi có cảnh chi tiết thì vào cảnh trước, nơi khác vào thẳng bài học */
+/** Bấm vào một nơi trên bản đồ: xem giới thiệu (học gì, văn hoá, ẩm thực) rồi mới vào */
 function start(id: string): void {
+  overviewId.value = id
+}
+
+/** Nơi có cảnh chi tiết thì vào cảnh trước, nơi khác vào thẳng bài học */
+function enter(id: string): void {
+  overviewId.value = null
   placeId.value = id
   startStep.value = 0
   view.value = PLACE_ART[id] ? 'place' : 'visit'
@@ -141,6 +154,11 @@ function exit(): void {
 function onKey(e: KeyboardEvent): void {
   if (e.key !== 'Escape') return
   e.preventDefault()
+  if (overviewId.value || aboutOpen.value) {
+    overviewId.value = null
+    aboutOpen.value = false
+    return
+  }
   // Esc lùi một bậc: đang trong màn con thì về bản đồ, đang ở bản đồ thì thoát game
   if (view.value === 'map') exit()
   else if (view.value === 'visit') void afterVisit()
@@ -218,6 +236,7 @@ onUnmounted(() => {
             :width="STAGE_W"
             :height="STAGE_H"
             @learn="learn"
+            @about="aboutOpen = true"
           />
         </Transition>
         <div v-else class="panel">
@@ -238,7 +257,8 @@ onUnmounted(() => {
 
       <!-- HUD -->
       <div class="hud left">
-        <button type="button" class="pill-btn" @click="exit">
+        <!-- Đang học tại một nơi thì chỉ có nút quay lại nơi đó; về làng/bản đồ làm từ trong cảnh -->
+        <button v-if="view !== 'visit'" type="button" class="pill-btn" @click="exit">
           <UiIcon name="home" :size="26" />{{ t('kids.game.village') }}
         </button>
         <template v-if="world && view === 'map'">
@@ -264,11 +284,18 @@ onUnmounted(() => {
             <UiIcon name="flower" :size="24" class="flower" />{{ totals.flowers }}
           </span>
         </template>
+        <button v-else-if="view === 'visit'" type="button" class="pill-btn" @click="afterVisit">
+          <UiIcon name="back" :size="26" />{{
+            t('kids.game.about.backToPlace', {
+              name: currentPlace ? (locale === 'vi' ? currentPlace.vi : currentPlace.title) : ''
+            })
+          }}
+        </button>
         <template v-else>
           <button type="button" class="pill-btn" @click="backToMap">
             <UiIcon name="map" :size="26" />{{ t('kids.game.map') }}
           </button>
-          <span v-if="view === 'visit' && currentPlace" class="pill-btn stat">
+          <span v-if="view === 'place' && currentPlace" class="pill-btn stat">
             {{ locale === 'vi' ? currentPlace.vi : currentPlace.title }}
           </span>
         </template>
@@ -306,6 +333,20 @@ onUnmounted(() => {
           </button>
         </template>
       </div>
+
+      <PlaceAbout
+        v-if="overviewPlace && view === 'map'"
+        :place="overviewPlace"
+        mode="overview"
+        @enter="enter(overviewPlace.id)"
+        @close="overviewId = null"
+      />
+      <PlaceAbout
+        v-else-if="aboutOpen && view === 'place' && currentPlace"
+        :place="currentPlace"
+        mode="about"
+        @close="aboutOpen = false"
+      />
 
       <p v-if="world && view === 'map' && tier?.scene === 'vn' && !show3d" class="hint">
         {{ world.newLeftToday > 0 ? t('kids.world.hint') : t('kids.world.tomorrow') }}
@@ -368,6 +409,7 @@ onUnmounted(() => {
   width: 1320px;
   max-height: 800px;
   margin-top: 70px;
+  padding-bottom: 16px;
   overflow-y: auto;
 }
 .hud {

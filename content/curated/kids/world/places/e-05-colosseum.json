@@ -17,6 +17,32 @@
     "topicVi": "Toà nhà tròn cổ",
     "landmark": "wonder-colosseum",
     "landmarkVi": "Ý, châu Âu",
+    "about": {
+      "intro": {
+        "en": "The Colosseum is a huge round building in Rome, in Italy.",
+        "vi": "Đấu trường La Mã là toà nhà tròn khổng lồ ở Rome, nước Ý.",
+        "more": {
+          "en": "The Colosseum is in the middle of Rome. It was finished almost two thousand years ago, around the year eighty. It could hold about fifty thousand people. The outside has many arches in rows.",
+          "vi": "Đấu trường La Mã nằm giữa thành phố Rome. Nó hoàn thành cách đây gần hai nghìn năm, khoảng năm tám mươi. Nơi này chứa được khoảng năm mươi nghìn người. Mặt ngoài có nhiều vòm cuốn xếp thành hàng."
+        }
+      },
+      "culture": {
+        "en": "People built it almost two thousand years ago to watch big shows.",
+        "vi": "Người ta xây nó cách đây gần hai nghìn năm để xem các buổi biểu diễn lớn.",
+        "more": {
+          "en": "Romans came here to watch shows. Roman engineers built roads, bridges and water pipes that last until today. Italians are proud of art, opera and football. Families like to eat together on Sundays.",
+          "vi": "Người La Mã đến đây xem biểu diễn. Kỹ sư La Mã xây đường, cầu và ống nước còn dùng đến ngày nay. Người Ý tự hào về nghệ thuật, opera và bóng đá. Các gia đình thích ăn cùng nhau vào Chủ nhật."
+        }
+      },
+      "food": {
+        "en": "Try pasta, pizza and cold ice cream called gelato.",
+        "vi": "Hãy thử mì ống, pizza và kem lạnh gelato.",
+        "more": {
+          "en": "Pizza began in Naples. Pasta comes in many shapes, such as spaghetti and penne. Gelato is creamy Italian ice cream. Tomatoes, cheese and basil make a simple, fresh dish.",
+          "vi": "Pizza bắt đầu ở Naples. Mì ống có nhiều hình dạng như spaghetti và penne. Gelato là kem Ý béo mịn. Cà chua, phô mai và húng quế làm nên món ăn đơn giản và tươi ngon."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

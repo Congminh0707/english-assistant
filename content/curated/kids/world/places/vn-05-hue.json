@@ -13,6 +13,32 @@
     "topicVi": "Màu sắc & hoa",
     "landmark": "hue-ngo-mon",
     "landmarkVi": "Ngọ Môn – Đại Nội Huế",
+    "about": {
+      "intro": {
+        "en": "Hue was the home of Viet Nam's kings long ago. It has an old royal city.",
+        "vi": "Huế từng là kinh đô của các vua Việt Nam ngày xưa. Ở đây có Đại Nội cổ kính.",
+        "more": {
+          "en": "Hue was the capital of Viet Nam for almost one hundred and fifty years. The Imperial City has walls, gates and palaces. The Perfume River flows slowly through the city.",
+          "vi": "Huế là kinh đô của Việt Nam gần một trăm năm mươi năm. Đại Nội có tường thành, cổng và cung điện. Sông Hương chảy chậm qua thành phố."
+        }
+      },
+      "culture": {
+        "en": "People here love music on the Perfume River and wear the long ao dai.",
+        "vi": "Người Huế yêu âm nhạc trên sông Hương và mặc áo dài.",
+        "more": {
+          "en": "Hue is gentle and quiet. Women wear purple or white ao dai and a conical hat made of palm leaves. Royal court music, called nha nhac, is a World Heritage art.",
+          "vi": "Huế dịu dàng và yên tĩnh. Phụ nữ mặc áo dài tím hoặc trắng và đội nón lá. Nhã nhạc cung đình là loại hình nghệ thuật được UNESCO ghi danh."
+        }
+      },
+      "food": {
+        "en": "Try bun bo Hue, a spicy beef noodle soup, and small steamed cakes.",
+        "vi": "Hãy thử bún bò Huế cay cay và những chiếc bánh hấp nhỏ xinh.",
+        "more": {
+          "en": "Cooks in Hue make small, pretty dishes, like the kings once ate. Steamed rice cakes come in little dishes. Bun bo Hue has lemongrass and a little chili. Sweet lotus seed soup cools the day.",
+          "vi": "Người Huế làm món nhỏ xinh như vua chúa ngày xưa. Bánh bèo bày trong đĩa nhỏ. Bún bò Huế thơm sả và hơi cay. Chè hạt sen làm dịu ngày nóng."
+        }
+      }
+    },
     "pos": {
       "x": 54,
       "y": 37

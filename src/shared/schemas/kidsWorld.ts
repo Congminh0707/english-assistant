@@ -49,6 +49,21 @@ export const KidsWorldWordSchema = z.object({
 })
 export type KidsWorldWord = z.infer<typeof KidsWorldWordSchema>
 
+/** `more`: đoạn dài hơn, chỉ hiện trong biển giới thiệu bên trong cảnh */
+const AboutLine = z.object({
+  en: Text,
+  vi: Text,
+  more: z.object({ en: Text, vi: Text }).optional()
+})
+
+/** Giới thiệu nơi (xem trước khi vào và ở biển giới thiệu trong cảnh): vài câu ngắn bé nghe được */
+export const KidsPlaceAboutSchema = z.object({
+  intro: AboutLine,
+  culture: AboutLine,
+  food: AboutLine
+})
+export type KidsPlaceAbout = z.infer<typeof KidsPlaceAboutSchema>
+
 export const KidsPlaceSchema = z.object({
   id: Id,
   tier: Id,
@@ -64,6 +79,8 @@ export const KidsPlaceSchema = z.object({
   /** Id công trình nổi bật (mô hình voxel, src/shared/voxels/landmarks) */
   landmark: Id,
   landmarkVi: Text,
+  /** Giới thiệu nơi: nét chính, văn hoá, ẩm thực */
+  about: KidsPlaceAboutSchema.optional(),
   /** Vị trí trên cảnh 2D 16:9, tính theo % */
   pos: z.object({ x: z.number().min(0).max(100), y: z.number().min(0).max(100) }),
   /** Vị trí thật (vĩ độ, kinh độ) — tầng có bản đồ địa lý (Việt Nam) đặt nơi theo toạ độ này */

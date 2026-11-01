@@ -13,6 +13,32 @@
     "topicVi": "Trái cây",
     "landmark": "cantho-floating-market",
     "landmarkVi": "Chợ nổi Cái Răng",
+    "about": {
+      "intro": {
+        "en": "Can Tho sits in the Mekong Delta, where rivers and canals are everywhere.",
+        "vi": "Cần Thơ nằm ở đồng bằng sông Cửu Long, nơi sông và kênh rạch chằng chịt.",
+        "more": {
+          "en": "Can Tho is the biggest city of the Mekong Delta. Rivers, canals and green fields spread in every direction. Rice and fruit from here feed many people in Viet Nam.",
+          "vi": "Cần Thơ là thành phố lớn nhất đồng bằng sông Cửu Long. Sông, kênh và đồng xanh trải dài mọi hướng. Lúa gạo và trái cây ở đây nuôi sống nhiều người Việt Nam."
+        }
+      },
+      "culture": {
+        "en": "At the floating market, boats sell fruit. A pole with fruit shows what is for sale.",
+        "vi": "Ở chợ nổi, thuyền bán trái cây. Cây bẹo treo hàng cho biết thuyền bán gì.",
+        "more": {
+          "en": "Cai Rang Floating Market starts very early in the morning. Sellers hang fruit on a tall pole so buyers can see what the boat sells. People in the delta are friendly and love folk singing called don ca tai tu.",
+          "vi": "Chợ nổi Cái Răng họp từ rất sớm. Người bán treo trái cây trên cây bẹo cao để khách thấy thuyền bán gì. Người miền Tây thân thiện và yêu đờn ca tài tử."
+        }
+      },
+      "food": {
+        "en": "Try tropical fruit like mango and pineapple, and rice noodle soup.",
+        "vi": "Hãy thử trái cây nhiệt đới như xoài, thơm và món hủ tiếu.",
+        "more": {
+          "en": "Fruit orchards give mangoes, rambutans, longans and pomelos. Hu tieu noodles come in a clear, sweet soup. Banh xeo here is big and golden, and you wrap it with fresh leaves.",
+          "vi": "Vườn trái cây cho xoài, chôm chôm, nhãn và bưởi. Hủ tiếu có nước dùng trong và ngọt. Bánh xèo ở đây to và vàng, cuốn với rau tươi."
+        }
+      }
+    },
     "pos": {
       "x": 28,
       "y": 87

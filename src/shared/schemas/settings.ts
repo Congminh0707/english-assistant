@@ -78,6 +78,10 @@ export const settingDefinitions = {
       z.literal(60)
     ])
     .default(15),
+  /** Chế độ trẻ em: số từ mới tối đa học xong mỗi ngày trên bản đồ (0 = không giới hạn) */
+  'kids.newPerDay': z
+    .union([z.literal(0), z.literal(3), z.literal(6), z.literal(10), z.literal(20)])
+    .default(0),
   /** Chế độ trẻ em: tiếng động của màn game (chạm, đi, rương…); giọng đọc từ vẫn luôn bật */
   'kids.gameSound': z.boolean().default(true),
   /** Giọng đọc: 'system' = giọng Windows có sẵn; 'kokoro' = giọng tự nhiên offline (cần tải model) */

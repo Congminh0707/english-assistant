@@ -17,6 +17,32 @@
     "topicVi": "Bức tường dài",
     "landmark": "wonder-wall",
     "landmarkVi": "Trung Quốc, châu Á",
+    "about": {
+      "intro": {
+        "en": "The Great Wall of China is a very long wall across hills and mountains.",
+        "vi": "Vạn Lý Trường Thành là bức tường rất dài chạy qua đồi núi Trung Quốc.",
+        "more": {
+          "en": "The Great Wall of China is more than twenty thousand kilometers long if all the parts are counted. It was built and rebuilt over many centuries. Watchtowers stand along the wall. Some parts are made of stone and brick, and some of earth.",
+          "vi": "Vạn Lý Trường Thành dài hơn hai mươi nghìn ki-lô-mét nếu tính hết các đoạn. Nó được xây và sửa qua nhiều thế kỷ. Dọc tường có các tháp canh. Có đoạn xây bằng đá và gạch, có đoạn bằng đất."
+        }
+      },
+      "culture": {
+        "en": "People built it over many years to protect the land. Walking on it feels like walking on a dragon.",
+        "vi": "Người ta xây nó qua nhiều năm để bảo vệ đất nước. Đi trên tường như đi trên lưng rồng.",
+        "more": {
+          "en": "Soldiers lived and watched in the towers. They sent smoke signals when danger came. Today families visit and walk the steps. Climbing the wall is a Chinese dream for many. A famous saying says that you are not a hero until you have climbed it.",
+          "vi": "Lính sống và canh gác trong các tháp. Họ báo hiệu bằng khói khi có nguy hiểm. Ngày nay các gia đình đến thăm và leo các bậc thang. Leo Vạn Lý Trường Thành là ước mơ của nhiều người. Có câu nói rằng chưa lên tường thì chưa phải anh hùng."
+        }
+      },
+      "food": {
+        "en": "Try dumplings and warm tea after the walk.",
+        "vi": "Hãy thử bánh chẻo và trà nóng sau chuyến đi bộ.",
+        "more": {
+          "en": "Near the wall, visitors eat noodles, dumplings and roasted chestnuts. Beijing duck is a famous dish with thin pancakes. Tanghulu is a candied fruit on a stick that kids love.",
+          "vi": "Gần bức tường, khách ăn mì, bánh chẻo và hạt dẻ rang. Vịt quay Bắc Kinh là món nổi tiếng ăn với bánh mỏng. Hồ lô đường là trái cây tẩm đường trên que mà trẻ em thích."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

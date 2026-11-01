@@ -17,6 +17,32 @@
     "topicVi": "Đền đá",
     "landmark": "wonder-chichen",
     "landmarkVi": "Mexico, Bắc Mỹ",
+    "about": {
+      "intro": {
+        "en": "Chichen Itza is a big stone pyramid in Mexico, built by the Maya.",
+        "vi": "Chichén Itzá là kim tự tháp đá lớn ở Mexico do người Maya xây.",
+        "more": {
+          "en": "Chichen Itza is in the Yucatan, in Mexico. The main pyramid is called El Castillo, which means the Castle. It has four sets of stairs, each with ninety-one steps. A temple sits on top.",
+          "vi": "Chichén Itzá nằm ở Yucatán, Mexico. Kim tự tháp chính tên là El Castillo, nghĩa là Lâu đài. Có bốn dãy cầu thang, mỗi dãy chín mươi mốt bậc. Trên đỉnh có một ngôi đền."
+        }
+      },
+      "culture": {
+        "en": "The Maya studied the sun and stars. On special days a snake shadow appears on the steps.",
+        "vi": "Người Maya nghiên cứu mặt trời và các vì sao. Vào ngày đặc biệt, bóng con rắn hiện trên bậc thang.",
+        "more": {
+          "en": "At the spring and autumn equinox, the sun makes a shadow that looks like a snake climbing the stairs. The Maya also played a ball game here with a rubber ball. Today Maya families still live in the area and speak the Maya language.",
+          "vi": "Vào ngày xuân phân và thu phân, ánh mặt trời tạo bóng giống con rắn bò lên cầu thang. Người Maya cũng chơi trò bóng ở đây bằng quả bóng cao su. Ngày nay các gia đình Maya vẫn sống quanh vùng và nói tiếng Maya."
+        }
+      },
+      "food": {
+        "en": "Try tortillas, corn and beans, and sweet chocolate.",
+        "vi": "Hãy thử bánh ngô tortilla, ngô, đậu và sô-cô-la ngọt.",
+        "more": {
+          "en": "Corn was very important to the Maya. Today people eat tacos with corn tortillas, beans and salsa. Cacao was a precious drink, and Mexico still makes warm chocolate.",
+          "vi": "Ngô rất quan trọng với người Maya. Ngày nay người ta ăn taco với bánh ngô, đậu và sốt salsa. Cacao từng là thức uống quý, và Mexico vẫn làm sô-cô-la nóng."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

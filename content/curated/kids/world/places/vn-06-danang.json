@@ -13,6 +13,32 @@
     "topicVi": "Bầu trời & thời tiết",
     "landmark": "danang-dragon-bridge",
     "landmarkVi": "Cầu Rồng – sông Hàn",
+    "about": {
+      "intro": {
+        "en": "Da Nang is a bright city by the sea with many bridges over the Han River.",
+        "vi": "Đà Nẵng là thành phố sáng rực bên biển với nhiều cây cầu bắc qua sông Hàn.",
+        "more": {
+          "en": "Da Nang is a modern city between the mountains and the sea. It has a long clean beach and many bridges. The Han River flows through the middle of the city.",
+          "vi": "Đà Nẵng là thành phố hiện đại nằm giữa núi và biển. Nơi đây có bãi biển dài sạch và nhiều cây cầu. Sông Hàn chảy giữa lòng thành phố."
+        }
+      },
+      "culture": {
+        "en": "The Dragon Bridge shines at night and blows fire on weekends.",
+        "vi": "Cầu Rồng sáng lung linh về đêm và phun lửa vào cuối tuần.",
+        "more": {
+          "en": "The Dragon Bridge is a steel dragon that crosses the river. At night it glows in many colors. Nearby, the Marble Mountains hold caves, temples and quiet gardens. Each year, people watch fireworks over the river.",
+          "vi": "Cầu Rồng là con rồng thép bắc qua sông. Ban đêm cầu sáng nhiều màu. Gần đó, núi Ngũ Hành Sơn có hang, chùa và vườn yên tĩnh. Hằng năm, mọi người xem pháo hoa trên sông."
+        }
+      },
+      "food": {
+        "en": "Try mi Quang, yellow noodles with shrimp and peanuts.",
+        "vi": "Hãy thử mì Quảng, sợi mì vàng ăn cùng tôm và đậu phộng.",
+        "more": {
+          "en": "Mi Quang noodles come with a little broth, herbs and crunchy rice crackers. Fresh seafood is cheap and tasty near the beach. Banh xeo is a crispy pancake you roll in leaves.",
+          "vi": "Mì Quảng có ít nước dùng, rau thơm và bánh tráng giòn. Hải sản tươi vừa rẻ vừa ngon gần bãi biển. Bánh xèo là chiếc bánh giòn cuốn với rau."
+        }
+      }
+    },
     "pos": {
       "x": 68,
       "y": 45

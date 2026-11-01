@@ -17,6 +17,32 @@
     "topicVi": "Bức tượng cao",
     "landmark": "wonder-liberty",
     "landmarkVi": "Hoa Kỳ, Bắc Mỹ",
+    "about": {
+      "intro": {
+        "en": "The Statue of Liberty stands on an island in New York, in the USA.",
+        "vi": "Tượng Nữ thần Tự do đứng trên một hòn đảo ở New York, Hoa Kỳ.",
+        "more": {
+          "en": "The Statue of Liberty stands on Liberty Island in New York Harbor. It is about ninety-three meters tall with its base. She holds a torch in one hand and a tablet in the other. Her skin is copper, which turned green over time.",
+          "vi": "Tượng Nữ thần Tự do đứng trên đảo Liberty ở cảng New York. Cả bệ cao khoảng chín mươi ba mét. Bà cầm ngọn đuốc ở một tay và bảng đá ở tay kia. Lớp đồng của tượng ngả màu xanh theo thời gian."
+        }
+      },
+      "culture": {
+        "en": "It was a gift from France. Her torch shows welcome to people from many lands.",
+        "vi": "Tượng là món quà từ nước Pháp. Ngọn đuốc chào đón người từ nhiều vùng đất.",
+        "more": {
+          "en": "France gave the statue to the United States in the year eighteen eighty-six. It was a sign of friendship. For many families who came by ship, it was the first thing they saw in their new country.",
+          "vi": "Nước Pháp tặng bức tượng cho Hoa Kỳ vào năm một nghìn tám trăm tám mươi sáu. Đó là dấu hiệu của tình bạn. Với nhiều gia đình đi tàu đến, đó là thứ đầu tiên họ thấy ở quê hương mới."
+        }
+      },
+      "food": {
+        "en": "New York kids love pretzels and pizza slices.",
+        "vi": "Trẻ em New York thích bánh quy xoắn và bánh pizza.",
+        "more": {
+          "en": "New York has many foods from around the world. Kids like soft pretzels from street carts and big slices of pizza. A hot dog with a drink is a quick treat in the park.",
+          "vi": "New York có món ăn từ khắp thế giới. Trẻ em thích bánh quy xoắn mềm ở xe đẩy và miếng pizza to. Xúc xích kẹp bánh và nước uống là món ăn nhanh trong công viên."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

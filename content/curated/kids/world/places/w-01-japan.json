@@ -13,6 +13,32 @@
     "topicVi": "Món ngon & trái cây",
     "landmark": "japan-fuji",
     "landmarkVi": "Núi Phú Sĩ & cổng torii",
+    "about": {
+      "intro": {
+        "en": "Japan is a country of islands in Asia. Mount Fuji is its tallest mountain.",
+        "vi": "Nhật Bản là quốc đảo ở châu Á. Núi Phú Sĩ là ngọn núi cao nhất.",
+        "more": {
+          "en": "Japan has four main islands and thousands of small ones. Mount Fuji is a quiet volcano that people love to draw. Tokyo is one of the biggest cities in the world, and fast trains connect cities.",
+          "vi": "Nhật Bản có bốn đảo chính và hàng nghìn đảo nhỏ. Núi Phú Sĩ là ngọn núi lửa yên tĩnh mà người ta hay vẽ. Tokyo là một trong những thành phố lớn nhất thế giới và tàu nhanh nối các thành phố."
+        }
+      },
+      "culture": {
+        "en": "People bow to say hello. In spring, families sit under pink cherry blossoms.",
+        "vi": "Người Nhật cúi chào khi gặp nhau. Mùa xuân, các gia đình ngồi dưới hoa anh đào hồng.",
+        "more": {
+          "en": "People take off their shoes before going into a home. Kids wear school uniforms and clean their classrooms. A red torii gate marks the entrance to a shrine.",
+          "vi": "Người Nhật cởi giày trước khi vào nhà. Học sinh mặc đồng phục và tự dọn lớp học. Cổng torii đỏ đánh dấu lối vào đền."
+        }
+      },
+      "food": {
+        "en": "Try sushi, rice balls and warm noodles.",
+        "vi": "Hãy thử sushi, cơm nắm và mì nóng.",
+        "more": {
+          "en": "A bento box holds rice, fish and small vegetables in neat little spaces. Miso soup is warm and salty. Mochi is a soft sweet rice cake that kids love.",
+          "vi": "Hộp bento đựng cơm, cá và rau nhỏ trong từng ngăn gọn gàng. Súp miso ấm và hơi mặn. Mochi là bánh gạo dẻo ngọt mà trẻ em thích."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

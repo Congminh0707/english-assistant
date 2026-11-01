@@ -325,6 +325,7 @@ export function createContainer(
     lessonRepo: repos.lessons,
     xpRepo: repos.xp,
     settingsRepo: repos.settings,
+    settings,
     srs,
     xp,
     kids,

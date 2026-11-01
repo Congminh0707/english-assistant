@@ -13,6 +13,32 @@
     "topicVi": "Nông trại",
     "landmark": "sapa-terraces",
     "landmarkVi": "Ruộng bậc thang Sa Pa",
+    "about": {
+      "intro": {
+        "en": "Sa Pa is a cool town in the mountains of northern Viet Nam.",
+        "vi": "Sa Pa là thị trấn mát mẻ trên núi miền Bắc Việt Nam.",
+        "more": {
+          "en": "Sa Pa sits high in the mountains near Fansipan, the tallest mountain in Viet Nam. The air is cool and clouds float through the valley. In winter it can be very cold and sometimes even snows.",
+          "vi": "Sa Pa nằm cao trên núi, gần đỉnh Fansipan, ngọn núi cao nhất Việt Nam. Không khí mát lạnh và mây bay qua thung lũng. Mùa đông rất lạnh, đôi khi còn có tuyết."
+        }
+      },
+      "culture": {
+        "en": "Many ethnic groups live here. They wear bright clothes and grow rice on terraces.",
+        "vi": "Nhiều dân tộc sống ở đây. Họ mặc áo màu rực rỡ và trồng lúa trên ruộng bậc thang.",
+        "more": {
+          "en": "The Hmong, Dao and other groups have their own languages, songs and clothes. They sew bright patterns by hand. On market days, families walk down from the hills to sell, buy and meet friends.",
+          "vi": "Người H'Mông, Dao và các dân tộc khác có tiếng nói, bài hát và trang phục riêng. Họ thêu hoa văn rực rỡ bằng tay. Ngày chợ phiên, các gia đình đi từ đồi xuống để bán, mua và gặp bạn bè."
+        }
+      },
+      "food": {
+        "en": "Try sticky rice cooked in bamboo and warm vegetable soup.",
+        "vi": "Hãy thử cơm lam nấu trong ống tre và canh rau nóng.",
+        "more": {
+          "en": "Farmers grow rice on steps cut into the hills. Many families eat sticky rice, corn and sweet potatoes. A warm hot pot with vegetables is perfect for cold evenings.",
+          "vi": "Nông dân trồng lúa trên những bậc thang cắt vào sườn đồi. Nhiều nhà ăn xôi, ngô và khoai lang. Nồi lẩu rau nóng rất hợp với buổi tối lạnh."
+        }
+      }
+    },
     "pos": {
       "x": 12,
       "y": 9

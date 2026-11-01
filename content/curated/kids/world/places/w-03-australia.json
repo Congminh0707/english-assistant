@@ -13,6 +13,32 @@
     "topicVi": "Thú xứ Úc",
     "landmark": "sydney-opera",
     "landmarkVi": "Nhà hát Con Sò (Sydney)",
+    "about": {
+      "intro": {
+        "en": "Australia is a big country and an island. It has kangaroos and koalas.",
+        "vi": "Úc vừa là một nước rộng vừa là một hòn đảo. Ở đây có chuột túi và gấu koala.",
+        "more": {
+          "en": "Australia is both a country and a continent. It is far south of Asia. It has red desert in the middle and beautiful beaches around the coast. The Great Barrier Reef is the biggest coral reef in the world.",
+          "vi": "Úc vừa là một quốc gia vừa là một lục địa. Nước này nằm xa về phía nam châu Á. Giữa nước là sa mạc đỏ và quanh bờ biển có nhiều bãi biển đẹp. Rạn san hô Great Barrier là rạn san hô lớn nhất thế giới."
+        }
+      },
+      "culture": {
+        "en": "The Sydney Opera House looks like white sails by the harbour.",
+        "vi": "Nhà hát Sydney trông như những cánh buồm trắng bên bến cảng.",
+        "more": {
+          "en": "Aboriginal people have lived here for more than fifty thousand years. They tell Dreaming stories and paint with dots. Many Australians love the beach, barbecues and sports like cricket.",
+          "vi": "Người bản địa đã sống ở đây hơn năm mươi nghìn năm. Họ kể chuyện Dreaming và vẽ bằng những chấm. Nhiều người Úc thích biển, tiệc nướng và các môn như cricket."
+        }
+      },
+      "food": {
+        "en": "Try meat pies and sweet cookies called Anzac biscuits.",
+        "vi": "Hãy thử bánh nhân thịt và bánh quy ngọt Anzac.",
+        "more": {
+          "en": "Meat pies and sausage rolls are popular snacks. Vegemite is a salty spread on toast. Pavlova is a light sweet cake with cream and fruit.",
+          "vi": "Bánh nhân thịt và bánh cuộn xúc xích là món ăn vặt phổ biến. Vegemite là món phết mặn ăn với bánh mì nướng. Pavlova là bánh nhẹ ngọt với kem và trái cây."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

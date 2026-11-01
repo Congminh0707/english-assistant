@@ -88,7 +88,8 @@ Trang chính (4 ô: Chơi / ABC / Sticker / Thú cưng)
 
 - **ABC** (7 nhóm hoạt động chữ cái/âm/ghép vần/sight words/sách/tô chữ/nói) giữ nguyên ô riêng ở giai đoạn A; sau có thể thành nơi "Trường học" trên bản đồ (💡).
 - **Sticker**: giữ nguyên — từ trả lời đúng lần đầu thì được dán; thêm trang sticker công trình (xong nơi → dán hình công trình).
-- Hôm nay đã hết 6 từ mới: bé vẫn vào nơi được nhưng lượt chơi chỉ ôn từ đã gặp của nơi đó; mascot nói "Mai mình học thêm nhé!".
+- Hạn mức từ mới là cài đặt của phụ huynh `kids.newPerDay` (0 = **không giới hạn**, mặc định; 3/6/10/20). Chỉ từ bé **đã học xong** (qua đủ 5 bước) trong ngày mới tính; từ đã mở thẻ mà chưa xong (bé vào rồi sang nơi khác) không tốn hạn mức. Hết hạn mức: bé vẫn vào nơi được nhưng lượt chơi chỉ ôn từ đã gặp; mascot nói "Mai mình học thêm nhé!". (Bản cũ đếm thẻ vừa tạo nên chỉ vào xem cũng hết 6 từ.)
+- **Giới thiệu nơi** (`place.about` = nét chính / văn hoá / ẩm thực, vi + en, trong file nơi): bấm nơi trên bản đồ → thẻ nơi → bấm Vào → màn giới thiệu `PlaceAbout` (mode `overview`: học gì, 5 bước, từ đã xong, nghe đọc từng đoạn) → Vào cảnh. Trong cảnh có nút "Giới thiệu" mở lại (mode `about`) với đoạn dài chi tiết (`about.<mục>.more`) và nút sao/tiến độ mở `PlaceProgress` (số sao, thanh từ đã học, từng từ đã học / đang học / chưa học); `PlaceProgress` cũng nằm trong màn giới thiệu ngoài bản đồ. Đang học (view `visit`) chỉ còn nút "Về <nơi>" quay lại cảnh; Về làng/Về bản đồ chỉ có ở bản đồ và trong cảnh.
 
 ### 3.2 Lượt chơi tại một nơi (5 bước) — đã chốt
 

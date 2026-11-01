@@ -13,6 +13,32 @@
     "topicVi": "Thảo nguyên hoang dã",
     "landmark": "kenya-savanna",
     "landmarkVi": "Cây keo thảo nguyên",
+    "about": {
+      "intro": {
+        "en": "Kenya is in Africa. Lions, zebras and elephants live on the wide grassland.",
+        "vi": "Kê-ni-a ở châu Phi. Sư tử, ngựa vằn và voi sống trên đồng cỏ rộng.",
+        "more": {
+          "en": "Kenya lies on the equator in East Africa. It has savannas, mountains and a long warm coast. Mount Kenya is the second tallest mountain in Africa. Many animals live in its national parks.",
+          "vi": "Kê-ni-a nằm trên đường xích đạo ở Đông Phi. Nước này có đồng cỏ, núi và bờ biển dài ấm áp. Núi Kenya là ngọn núi cao thứ hai châu Phi. Nhiều loài thú sống trong các vườn quốc gia."
+        }
+      },
+      "culture": {
+        "en": "The Maasai people wear bright red cloth and sing and jump in their dances.",
+        "vi": "Người Maasai mặc vải đỏ rực và vừa hát vừa nhảy trong điệu múa.",
+        "more": {
+          "en": "Every year many zebras and wildebeest cross rivers in the Great Migration. The Maasai are known for their red cloth, beaded jewelry and high jumping dances. Kenyan runners are famous around the world.",
+          "vi": "Mỗi năm, nhiều ngựa vằn và linh dương đầu bò vượt sông trong cuộc đại di cư. Người Maasai nổi tiếng với vải đỏ, trang sức hạt cườm và điệu nhảy cao. Vận động viên chạy bộ Kê-ni-a nổi tiếng thế giới."
+        }
+      },
+      "food": {
+        "en": "Try ugali, a soft corn dish, with vegetables.",
+        "vi": "Hãy thử ugali, món bột ngô mềm, ăn cùng rau.",
+        "more": {
+          "en": "Ugali is a thick corn porridge you eat with your hands. Sukuma wiki is green leaf stew. Chapati is a soft flat bread. Chai is sweet milk tea.",
+          "vi": "Ugali là cháo ngô đặc ăn bằng tay. Sukuma wiki là món rau lá hầm. Chapati là bánh dẹt mềm. Chai là trà sữa ngọt."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

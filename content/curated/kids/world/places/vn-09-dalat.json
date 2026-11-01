@@ -13,6 +13,32 @@
     "topicVi": "Vườn rau",
     "landmark": "dalat-station",
     "landmarkVi": "Ga Đà Lạt – hồ Xuân Hương",
+    "about": {
+      "intro": {
+        "en": "Da Lat is a cool city on a high hill, full of pine trees and flowers.",
+        "vi": "Đà Lạt là thành phố mát mẻ trên cao nguyên, đầy thông và hoa.",
+        "more": {
+          "en": "Da Lat is about one thousand five hundred meters above the sea, so it is cool all year. French visitors built villas and gardens here long ago. Pine forests and lakes make it feel like a different country.",
+          "vi": "Đà Lạt cao khoảng một nghìn năm trăm mét so với mặt biển nên mát quanh năm. Người Pháp ngày xưa xây biệt thự và vườn ở đây. Rừng thông và hồ làm nơi này như một xứ khác."
+        }
+      },
+      "culture": {
+        "en": "People call it the city of flowers. Many families grow flowers and vegetables.",
+        "vi": "Người ta gọi đây là thành phố ngàn hoa. Nhiều gia đình trồng hoa và rau.",
+        "more": {
+          "en": "Farms around the city grow roses, hydrangeas and strawberries. Xuan Huong Lake is a place to ride a swan boat. Visitors take a small steam train from the old station to the next village.",
+          "vi": "Các trang trại quanh thành phố trồng hồng, cẩm tú cầu và dâu tây. Hồ Xuân Hương là nơi đạp thuyền thiên nga. Du khách đi tàu nhỏ từ ga cổ đến làng bên cạnh."
+        }
+      },
+      "food": {
+        "en": "Try warm grilled rice paper and sweet strawberries.",
+        "vi": "Hãy thử bánh tráng nướng nóng và dâu tây ngọt.",
+        "more": {
+          "en": "Grilled rice paper with egg and cheese is a night snack. Hot soy milk keeps you warm in the cool evening. Strawberries, avocados and vegetables grown here are very fresh.",
+          "vi": "Bánh tráng nướng trứng và phô mai là món ăn đêm. Sữa đậu nành nóng giữ ấm buổi tối mát. Dâu tây, bơ và rau trồng ở đây rất tươi."
+        }
+      }
+    },
     "pos": {
       "x": 60,
       "y": 71

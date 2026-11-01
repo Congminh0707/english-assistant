@@ -89,6 +89,8 @@ export function starsFor(score: number | null): number {
 }
 
 /** Phụ huynh chọn tối đa bấy nhiêu phút mỗi ngày (0 = không giới hạn) */
+/** Lựa chọn số từ mới học xong mỗi ngày trên bản đồ (0 = không giới hạn) */
+export const KIDS_NEW_WORD_LIMITS = [0, 3, 6, 10, 20] as const
 export const KIDS_DAILY_MINUTES = [0, 10, 15, 20, 30, 45, 60] as const
 
 /** Mỗi lần kiểm tra thời gian cách nhau tối đa bấy nhiêu giây (chặn gửi số giây phóng đại) */

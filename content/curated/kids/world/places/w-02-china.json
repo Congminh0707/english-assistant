@@ -13,6 +13,32 @@
     "topicVi": "Bạn thú rừng núi",
     "landmark": "china-great-wall",
     "landmarkVi": "Vạn Lý Trường Thành",
+    "about": {
+      "intro": {
+        "en": "China is a very big country in Asia. It is home to the giant panda.",
+        "vi": "Trung Quốc là đất nước rất rộng ở châu Á. Đây là quê hương của gấu trúc.",
+        "more": {
+          "en": "China is one of the biggest countries in the world and has more than one billion people. It has high mountains, long rivers and wide plains. Giant pandas live in the bamboo forests of Sichuan.",
+          "vi": "Trung Quốc là một trong những nước lớn nhất thế giới và có hơn một tỉ người. Nước này có núi cao, sông dài và đồng bằng rộng. Gấu trúc khổng lồ sống trong rừng tre ở Tứ Xuyên."
+        }
+      },
+      "culture": {
+        "en": "The Great Wall is very long. Families celebrate the Lunar New Year with red lanterns.",
+        "vi": "Vạn Lý Trường Thành rất dài. Các gia đình đón Tết với đèn lồng đỏ.",
+        "more": {
+          "en": "Lunar New Year is the biggest holiday. Families clean the house, wear red and give children red envelopes. Lion and dragon dances bring good luck. Kids also learn kung fu and tai chi.",
+          "vi": "Tết Nguyên Đán là lễ lớn nhất. Các gia đình dọn nhà, mặc đồ đỏ và mừng tuổi trẻ em bằng phong bao đỏ. Múa lân và múa rồng mang lại may mắn. Trẻ em cũng học kung fu và thái cực quyền."
+        }
+      },
+      "food": {
+        "en": "Try dumplings, noodles and rice with vegetables.",
+        "vi": "Hãy thử bánh chẻo, mì và cơm với rau.",
+        "more": {
+          "en": "People eat with chopsticks. Dumplings are shared at New Year. Rice and noodles are everyday food. Tea is poured for guests as a sign of respect.",
+          "vi": "Người ta ăn bằng đũa. Bánh chẻo được ăn chung dịp Tết. Cơm và mì là món ăn hằng ngày. Trà được rót mời khách để tỏ lòng kính trọng."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

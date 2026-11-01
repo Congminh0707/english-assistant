@@ -13,6 +13,32 @@
     "topicVi": "Bữa ăn",
     "landmark": "phuquoc-fishing-village",
     "landmarkVi": "Làng chài Phú Quốc",
+    "about": {
+      "intro": {
+        "en": "Phu Quoc is Viet Nam's biggest island, with soft sand and warm sunsets.",
+        "vi": "Phú Quốc là hòn đảo lớn nhất Việt Nam với cát mịn và hoàng hôn ấm áp.",
+        "more": {
+          "en": "Phu Quoc is the biggest island in Viet Nam. Forests, white sand beaches and clear sea cover the island. In the evening, the sun sets into the water in orange and pink.",
+          "vi": "Phú Quốc là đảo lớn nhất Việt Nam. Rừng, bãi cát trắng và biển trong phủ khắp đảo. Buổi chiều mặt trời lặn xuống biển trong sắc cam và hồng."
+        }
+      },
+      "culture": {
+        "en": "Many families fish in small round boats and live in little fishing villages.",
+        "vi": "Nhiều gia đình đánh cá bằng thuyền thúng và sống trong các làng chài nhỏ.",
+        "more": {
+          "en": "Fishing villages like Ham Ninh have wooden piers. Fishermen go out at night with bright lamps to catch squid. Pepper farms and pearl farms show how people make a living from the land and sea.",
+          "vi": "Các làng chài như Hàm Ninh có cầu tàu gỗ. Ngư dân ra khơi ban đêm với đèn sáng để bắt mực. Vườn tiêu và trại ngọc trai cho thấy người dân kiếm sống từ đất và biển."
+        }
+      },
+      "food": {
+        "en": "Try fish sauce, fresh squid and sea snails.",
+        "vi": "Hãy thử nước mắm, mực tươi và ốc biển.",
+        "more": {
+          "en": "Phu Quoc fish sauce is famous in Viet Nam. Fresh sea urchin, grilled squid and crab are common. Fresh herring salad is a dish you roll up with herbs.",
+          "vi": "Nước mắm Phú Quốc nổi tiếng khắp Việt Nam. Nhím biển tươi, mực nướng và ghẹ rất phổ biến. Gỏi cá trích cuốn với rau là món đặc sản."
+        }
+      }
+    },
     "pos": {
       "x": 12,
       "y": 80

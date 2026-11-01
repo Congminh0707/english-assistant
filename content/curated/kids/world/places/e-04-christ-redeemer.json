@@ -17,6 +17,32 @@
     "topicVi": "Tượng trên đồi",
     "landmark": "wonder-christ",
     "landmarkVi": "Brazil, Nam Mỹ",
+    "about": {
+      "intro": {
+        "en": "Christ the Redeemer is a big statue with open arms on a hill in Brazil.",
+        "vi": "Tượng Chúa Cứu Thế dang rộng tay trên đồi ở Brazil.",
+        "more": {
+          "en": "Christ the Redeemer stands on Corcovado Mountain above Rio de Janeiro in Brazil. The statue is about thirty meters tall and its arms spread about twenty-eight meters. It was finished in the year nineteen thirty-one.",
+          "vi": "Tượng Chúa Cứu Thế đứng trên núi Corcovado phía trên Rio de Janeiro ở Brazil. Tượng cao khoảng ba mươi mét và sải tay dài khoảng hai mươi tám mét. Tượng hoàn thành năm một nghìn chín trăm ba mươi mốt."
+        }
+      },
+      "culture": {
+        "en": "Brazil loves football and samba music. Everyone dances at carnival time.",
+        "vi": "Brazil yêu bóng đá và nhạc samba. Mùa lễ hội, mọi người cùng nhảy múa.",
+        "more": {
+          "en": "Brazil is the biggest country in South America. People speak Portuguese. The Amazon rainforest is here. Carnival in Rio has parades with colorful costumes and samba music. Football is loved by almost everyone.",
+          "vi": "Brazil là nước lớn nhất Nam Mỹ. Người dân nói tiếng Bồ Đào Nha. Rừng Amazon nằm ở đây. Lễ hội Carnival ở Rio có diễu hành với trang phục sặc sỡ và nhạc samba. Hầu như ai cũng yêu bóng đá."
+        }
+      },
+      "food": {
+        "en": "Try rice with beans and sweet tropical fruit.",
+        "vi": "Hãy thử cơm với đậu và trái cây nhiệt đới ngọt.",
+        "more": {
+          "en": "Rice and black beans are served at many meals. Pao de queijo is a small cheese bread. Tropical fruits like papaya and passion fruit are common. Brigadeiro is a chocolate candy at birthday parties.",
+          "vi": "Cơm và đậu đen có trong nhiều bữa ăn. Pão de queijo là bánh mì phô mai nhỏ. Trái cây nhiệt đới như đu đủ và chanh dây rất phổ biến. Brigadeiro là kẹo sô-cô-la trong tiệc sinh nhật."
+        }
+      }
+    },
     "pos": {
       "x": 50,
       "y": 50

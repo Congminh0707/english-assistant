@@ -13,6 +13,32 @@
     "topicVi": "Lễ hội & đồ chơi",
     "landmark": "hoian-bridge-pagoda",
     "landmarkVi": "Chùa Cầu – Hội An",
+    "about": {
+      "intro": {
+        "en": "Hoi An is an old town with yellow houses and a little covered bridge.",
+        "vi": "Hội An là phố cổ với những ngôi nhà vàng và chiếc cầu có mái che nhỏ.",
+        "more": {
+          "en": "Hoi An was a busy trading port long ago. Ships from many countries came here. The old town is a World Heritage Site, and cars cannot enter its small streets.",
+          "vi": "Hội An ngày xưa là cảng buôn bán nhộn nhịp. Tàu từ nhiều nước đến đây. Phố cổ là Di sản Thế giới và xe ô tô không được vào những con phố nhỏ."
+        }
+      },
+      "culture": {
+        "en": "On full-moon nights, people light lanterns and float flower lights on the river.",
+        "vi": "Vào đêm rằm, mọi người thắp đèn lồng và thả hoa đăng trên sông.",
+        "more": {
+          "en": "The Japanese Covered Bridge is the town's symbol. On the fourteenth night of the lunar month, houses turn off the lights and light lanterns. Children float paper flower lamps on the river and make a wish.",
+          "vi": "Chùa Cầu là biểu tượng của phố cổ. Vào đêm mười bốn âm lịch, nhà nhà tắt đèn điện và thắp đèn lồng. Trẻ em thả hoa đăng giấy trên sông và ước điều tốt lành."
+        }
+      },
+      "food": {
+        "en": "Try cao lau noodles and sweet rice-flour cakes.",
+        "vi": "Hãy thử mì cao lầu và các loại bánh ngọt làm từ bột gạo.",
+        "more": {
+          "en": "Cao lau noodles are thick and chewy and are said to need water from an old well. White rose dumplings look like flowers. Banh mi in Hoi An is famous around the world.",
+          "vi": "Mì cao lầu dày và dai, người ta nói phải dùng nước giếng cổ. Bánh bao bánh vạc trông như bông hồng trắng. Bánh mì Hội An nổi tiếng khắp thế giới."
+        }
+      }
+    },
     "pos": {
       "x": 58,
       "y": 53

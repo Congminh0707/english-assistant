@@ -1014,8 +1014,24 @@ def s_trophy():
     o += F(d, '#FFD04A') + F('M246 44H300C310 158 276 244 200 248C260 200 268 110 246 44Z', '#E8A92E') + P(d) + P('M180 244H220V290H180Z', '#E8A92E') + R(112, 288, 176, 64, '#6B4A32', 10) + R(146, 306, 108, 26, '#FFD04A', 4, 5)
     return o + P('M200 90L213 124H250L220 146L232 182L200 160L168 182L180 146L150 124H187Z', '#FFF3B0', 5) + HL('M124 76Q126 136 148 186', '#FFF3B0', 11)
 
+# ---------- từ của tầng Trái Đất (9 kỳ quan) ----------
+def wonder_shadow(): return '<ellipse cx="200" cy="352" rx="150" ry="13" fill="#3A2413" opacity=".16"/>'
+def s_torch():
+    return wonder_shadow() + ('<path d="M170 170H230L214 340Q200 352 186 340Z" fill="#B5793F" %s/><path d="M208 170H230L214 340Q206 348 198 346Z" fill="#8A5A30"/><rect x="146" y="142" width="108" height="40" rx="16" fill="#F2B632" %s/><path d="M200 34C232 84 280 100 266 150H134C122 104 168 96 200 34Z" fill="#F0702E" %s/><path d="M200 92C216 114 236 124 228 148H172C164 124 188 118 200 92Z" fill="#FFD34D"/>' % (INK, INK, INK))
+def s_pyramid():
+    return wonder_shadow() + ('<path d="M200 56L356 330H44Z" fill="#F2D48E" %s/><path d="M200 56L356 330H216Z" fill="#C99C55" %s/><path d="M146 148H204M108 214H208M72 278H212" stroke="#A8824A" stroke-width="6" fill="none"/><path d="M204 148H254M208 214H294M212 278H326" stroke="#8F6A34" stroke-width="6" fill="none"/>' % (INK, INK))
+def s_sand():
+    return wonder_shadow() + ('<path d="M36 334C88 214 148 150 200 150C258 150 312 226 364 334Z" fill="#F2D48E" %s/><path d="M200 150C258 150 312 226 364 334H272C270 250 236 190 200 150Z" fill="#D9B060"/><path d="M92 288Q136 272 176 288M196 238Q230 226 262 240" stroke="#C99C55" stroke-width="7" fill="none" stroke-linecap="round"/><circle cx="130" cy="244" r="5" fill="#C99C55"/><circle cx="214" cy="290" r="5" fill="#C99C55"/><circle cx="168" cy="204" r="5" fill="#C99C55"/>' % INK)
+def s_llama():
+    return wonder_shadow() + ('<path d="M108 344V246Q82 180 150 172H238C252 138 244 112 248 84L232 34L262 62H286L306 34L304 92Q350 112 318 132L298 134C298 190 294 226 282 252V344H246V270H144V344Z" fill="#FBF4E4" %s/><path d="M150 184H240V246H150Z" fill="#D32F2F" %s/><path d="M162 204H228M162 226H228" stroke="#F7B91A" stroke-width="7"/><circle cx="282" cy="96" r="8" fill="#2A1A14"/>' % (INK, INK))
+def s_dome():
+    return wonder_shadow() + ('<rect x="66" y="222" width="268" height="122" rx="10" fill="#F2F0EA" %s/><path d="M200 66C226 92 296 124 296 184C296 208 282 224 262 226H138C118 224 104 208 104 184C104 124 174 92 200 66Z" fill="#F8F6F0" %s/><path d="M200 66C226 92 296 124 296 184C296 208 282 224 262 226H226C264 180 236 112 200 66Z" fill="#CFD8DC"/><path d="M200 66V30" %s/><circle cx="200" cy="28" r="11" fill="#F2B632" %s/><path d="M168 344V284Q200 240 232 284V344Z" fill="#8AA6B0" %s/>' % (INK, INK, INK, INK, INK))
+def s_brick():
+    return wonder_shadow() + ('<path d="M42 174L250 130L358 182L150 232Z" fill="#E8765A" %s/><path d="M150 232L358 182V270L150 322Z" fill="#C9503C" %s/><path d="M42 174L150 232V322L42 262Z" fill="#A83E30" %s/><ellipse cx="176" cy="178" rx="26" ry="11" fill="#A83E30"/><ellipse cx="248" cy="164" rx="26" ry="11" fill="#A83E30"/>' % (INK, INK, INK))
+
 # ---------- danh mục ----------
 DRAW = {
+    'torch': s_torch, 'pyramid': s_pyramid, 'sand': s_sand, 'llama': s_llama, 'dome': s_dome, 'brick': s_brick,
     'one': lambda: number(1, '#E2483E', ''), 'two': lambda: number(2, '#F7913A', ''), 'three': lambda: number(3, '#F7D24A', ''), 'four': lambda: number(4, '#4CC768', ''), 'five': lambda: number(5, '#3C8FD6', ''),
     'six': lambda: number(6, '#8E5AA8', ''), 'seven': lambda: number(7, '#F268A6', ''), 'eight': lambda: number(8, '#2FA6A0', ''), 'nine': lambda: number(9, '#E8913A', ''), 'ten': lambda: number(10, '#E2384E', ''),
     'red': lambda: splash('#E2382E', '#AE1E1A'), 'blue': lambda: splash('#2F7FD6', '#1C5AA8'), 'yellow': lambda: splash('#FFD93A', '#E8AE1A'), 'green': lambda: splash('#3CB85A', '#22863E'), 'pink': lambda: splash('#F77AB0', '#D04A88'),

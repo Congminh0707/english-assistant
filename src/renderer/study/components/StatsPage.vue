@@ -545,8 +545,8 @@ h2 {
   color: var(--c-ink-soft);
 }
 .week {
-  display: grid;
-  grid-template-columns: repeat(3, auto);
+  display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--sp-2) var(--sp-4);
   margin-bottom: var(--sp-2);
@@ -914,7 +914,7 @@ h2 {
 }
 .cols {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: var(--sp-3);
   align-items: start;
 }
@@ -924,7 +924,7 @@ h2 {
   min-width: 0;
 }
 .time-cols {
-  grid-template-columns: 1.6fr 1fr;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
 }
 .cards.three {
   grid-template-columns: repeat(3, 1fr);

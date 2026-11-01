@@ -68,7 +68,7 @@ Generator ở `scripts/design-data/`, cách dùng ở [22 §1, §12](22-redesign
 
 ## 7. Điểm còn yếu của thiết kế
 
-- `PHcmc`, `PPhuquoc`, phần nào `PCantho` thưa hơn `R5Arrive`.
+- ✅ (2026-11-01) `PHcmc`, `PPhuquoc`, `PCantho` đã vẽ dày thêm (lớp nền, người, xe, thuyền, nhà sàn, hoạt ảnh nhẹ); xem lại bằng mắt trong app.
 - Nhà sàn, cây bẹo, cây sao, mặt tiền nhà ống, nhà người Mông vẽ theo hiểu biết chung vì thiếu ảnh. Ngọ Môn, tháp Bà, ga Đà Lạt ghép gần cảnh khác, không đúng địa lý.
 - Mô hình 3D Hội An và Đà Nẵng chưa dựng lại riêng cho bệ tròn.
 - Biến thể thời tiết đã có (2026-11-01): `SceneWeather.vue` phủ mưa / nắng / đêm lên cảnh địa điểm (đêm theo giờ máy 19h–6h, ban ngày chọn theo ngày + nơi, `sceneWeather.ts`), tắt hoạt ảnh khi `prefers-reduced-motion`; chưa thử tay.

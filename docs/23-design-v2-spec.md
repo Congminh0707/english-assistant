@@ -75,4 +75,4 @@ Generator ở `scripts/design-data/`, cách dùng ở [22 §1, §12](22-redesign
 - Cửa sổ nhỏ 900×640 (2026-11-01): `KidsGame.vue` đặt `--hz` = clamp(0.8 / tỉ lệ co, 1, 1.5) trên sân khấu; `.hud > *`, `HexLabel`, `.face`/`.panel`/`.dock-btn` của `PlaceScene` dùng `zoom: var(--hz)` để nút và chữ không nhỏ hơn ~0.8 cỡ thật; chưa thử tay.
 - Chưa có: 20 phụ kiện, 18 đồ ăn, Kiểm tra tương phản đã có (2026-11-01): `pnpm ui:contrast` đo các cặp chữ/nền trong `tokens.css` (sáng + tối), 0 cặp trượt; để đạt, nền `primary-soft` #FBE0DA→#FFF2EF và `xp-soft` #D4F3F2→#EDFAF9 (đã sửa cả `design-data/sync/tokens.json`). Viền `--c-line` là đường kẻ trang trí nên không tính.
 - Hoạt ảnh chưa xem chạy liên tục trên canvas; `prefers-reduced-motion` chưa thử.
-- Thẻ xoài còn gần giống đào và cam. Tay của Kitsu, Draco, Lupo là phần vẽ thêm.
+- ✅ (2026-11-01) Thẻ xoài đã vẽ lại khác đào và cam. Tay của Kitsu, Draco, Lupo là phần vẽ thêm.

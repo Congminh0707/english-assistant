@@ -14,6 +14,7 @@ const { t } = useI18n()
 const settingsStore = useSettingsStore()
 
 const report = ref<ParentReport | null>(null)
+const who = ref('')
 const gate = ref<'set' | 'extend' | null>(null)
 const message = ref('')
 
@@ -22,6 +23,8 @@ async function load(): Promise<void> {
   loadFailed.value = false
   try {
     report.value = await invoke('parent:report')
+    const me = (await invoke('profile:list')).find((p) => p.active)
+    who.value = me ? `${me.name} · ${t(`study.tracks.${me.track}`)}` : ''
   } catch {
     loadFailed.value = true
   }
@@ -50,97 +53,111 @@ onMounted(load)
 
 <template>
   <section class="report">
-    <h1 class="page-title">{{ t('kids.report.title') }}</h1>
+    <header class="head">
+      <h1 class="page-title">{{ t('kids.report.title') }}</h1>
+      <span v-if="who" class="chip chip--primary">{{ who }}</span>
+    </header>
 
     <div v-if="loadFailed" class="card state state--error" role="alert">
       <p>{{ t('study.state.error') }}</p>
       <button type="button" class="btn btn--sm" @click="load">{{ t('study.state.retry') }}</button>
     </div>
-    <div v-else-if="!report" class="card skeleton" aria-busy="true" :aria-label="t('study.state.loading')" />
+    <div
+      v-else-if="!report"
+      class="card skeleton"
+      aria-busy="true"
+      :aria-label="t('study.state.loading')"
+    />
 
-    <template v-if="report">
-      <section class="card block">
-        <h2>{{ t('kids.report.usage') }}</h2>
-        <p class="muted">
-          {{ t('kids.report.today', { n: todayMinutes }) }}
-          <template v-if="report.dailyLimitMinutes">
-            · {{ t('kids.report.limit', { n: report.dailyLimitMinutes }) }}
-          </template>
-        </p>
-        <div class="bars">
-          <div
-            v-for="d in report.days"
-            :key="d.day"
-            class="bar-col"
-            :title="`${d.day}: ${minutes(d.seconds)} / ${d.reviews}`"
-          >
-            <div class="bar-value">{{ minutes(d.seconds) || '' }}</div>
-            <div
-              class="bar"
-              :style="{ height: `${Math.max(2, (minutes(d.seconds) / maxMinutes) * 90)}px` }"
-            />
-            <div class="bar-day">{{ d.day.slice(8) }}</div>
+    <div v-if="report" class="cols">
+      <div class="col">
+        <section class="card block">
+          <div class="block-head">
+            <h2>{{ t('kids.report.usage') }}</h2>
+            <span class="muted">
+              {{ t('kids.report.today', { n: todayMinutes }) }}
+              <template v-if="report.dailyLimitMinutes">
+                · {{ t('kids.report.limit', { n: report.dailyLimitMinutes }) }}
+              </template>
+            </span>
           </div>
-        </div>
-        <p class="muted small">{{ t('kids.report.usageHint') }}</p>
-      </section>
+          <div class="bars">
+            <div
+              v-for="d in report.days"
+              :key="d.day"
+              class="bar-col"
+              :title="`${d.day}: ${minutes(d.seconds)} / ${d.reviews}`"
+            >
+              <div class="bar-value">{{ minutes(d.seconds) || '' }}</div>
+              <div
+                class="bar"
+                :style="{ height: `${Math.max(2, (minutes(d.seconds) / maxMinutes) * 180)}px` }"
+              />
+              <div class="bar-day">{{ d.day.slice(8) }}</div>
+            </div>
+          </div>
+          <p class="muted small">{{ t('kids.report.usageHint') }}</p>
+        </section>
 
-      <div class="two">
-        <section class="card block">
-          <h2>{{ t('kids.report.stickers') }}</h2>
-          <PxBar
-            :value="report.stickersEarned"
-            :max="Math.max(1, report.stickersTotal)"
-            label="stickers"
-          />
-          <p class="muted">{{ report.stickersEarned }} / {{ report.stickersTotal }}</p>
-        </section>
-        <section class="card block">
-          <h2>{{ t('kids.report.activities') }}</h2>
-          <PxBar
-            :value="report.activitiesDone"
-            :max="Math.max(1, report.activitiesTotal)"
-            label="activities"
-          />
-          <p class="muted">{{ report.activitiesDone }} / {{ report.activitiesTotal }}</p>
-        </section>
+        <div class="two">
+          <section class="card block">
+            <h2>{{ t('kids.report.stickers') }}</h2>
+            <PxBar
+              :value="report.stickersEarned"
+              :max="Math.max(1, report.stickersTotal)"
+              label="stickers"
+            />
+            <p class="muted">{{ report.stickersEarned }} / {{ report.stickersTotal }}</p>
+          </section>
+          <section class="card block">
+            <h2>{{ t('kids.report.activities') }}</h2>
+            <PxBar
+              :value="report.activitiesDone"
+              :max="Math.max(1, report.activitiesTotal)"
+              label="activities"
+            />
+            <p class="muted">{{ report.activitiesDone }} / {{ report.activitiesTotal }}</p>
+          </section>
+        </div>
       </div>
 
-      <section class="card block">
-        <h2>{{ t('kids.report.hardest') }}</h2>
-        <p v-if="!report.hardest.length" class="muted">{{ t('kids.report.noHardest') }}</p>
-        <ul v-else class="hard">
-          <li v-for="h in report.hardest" :key="h.word">
-            <strong>{{ h.word }}</strong> <span class="muted">{{ h.vi }}</span>
-            <span class="muted small">{{ t('kids.report.forgot', { n: h.lapses }) }}</span>
-          </li>
-        </ul>
-      </section>
+      <div class="col">
+        <section class="card block">
+          <h2>{{ t('kids.report.hardest') }}</h2>
+          <p v-if="!report.hardest.length" class="muted">{{ t('kids.report.noHardest') }}</p>
+          <ul v-else class="hard">
+            <li v-for="h in report.hardest" :key="h.word">
+              <strong>{{ h.word }}</strong> <span class="muted">{{ h.vi }}</span>
+              <span class="muted small">{{ t('kids.report.forgot', { n: h.lapses }) }}</span>
+            </li>
+          </ul>
+        </section>
 
-      <section class="card block">
-        <h2>{{ t('kids.report.controls') }}</h2>
-        <label class="row">
-          {{ t('kids.report.dailyLimit') }}
-          <select
-            :value="settingsStore.settings['kids.dailyMinutes']"
-            @change="setLimit(Number(($event.target as HTMLSelectElement).value))"
-          >
-            <option v-for="m in KIDS_DAILY_MINUTES" :key="m" :value="m">
-              {{ m ? t('kids.report.limitMinutes', { n: m }) : t('kids.report.limitOff') }}
-            </option>
-          </select>
-        </label>
-        <div class="row">
-          <button type="button" class="btn btn--sm" @click="gate = 'extend'">
-            {{ t('kids.report.extend') }}
-          </button>
-          <button type="button" class="btn btn--sm" @click="gate = 'set'">
-            {{ t('kids.report.changePin') }}
-          </button>
-        </div>
-        <p v-if="message" class="ok">{{ message }}</p>
-      </section>
-    </template>
+        <section class="card block">
+          <h2>{{ t('kids.report.controls') }}</h2>
+          <label class="row">
+            {{ t('kids.report.dailyLimit') }}
+            <select
+              :value="settingsStore.settings['kids.dailyMinutes']"
+              @change="setLimit(Number(($event.target as HTMLSelectElement).value))"
+            >
+              <option v-for="m in KIDS_DAILY_MINUTES" :key="m" :value="m">
+                {{ m ? t('kids.report.limitMinutes', { n: m }) : t('kids.report.limitOff') }}
+              </option>
+            </select>
+          </label>
+          <div class="stack-btns">
+            <button type="button" class="btn btn--primary btn--block" @click="gate = 'extend'">
+              {{ t('kids.report.extend') }}
+            </button>
+            <button type="button" class="btn btn--block" @click="gate = 'set'">
+              {{ t('kids.report.changePin') }}
+            </button>
+          </div>
+          <p v-if="message" class="ok">{{ message }}</p>
+        </section>
+      </div>
+    </div>
 
     <ParentGate
       v-if="gate"
@@ -156,7 +173,56 @@ onMounted(load)
 .report {
   display: grid;
   gap: var(--sp-4);
-  max-width: 760px;
+  max-width: 100%;
+}
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: var(--sp-4);
+  align-items: start;
+}
+.col {
+  display: grid;
+  gap: var(--sp-4);
+  min-width: 0;
+}
+.block-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+.block-head h2 {
+  margin: 0 0 var(--sp-2);
+}
+.stack-btns {
+  display: grid;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+.hard {
+  list-style: none;
+  padding-left: 0;
+}
+.hard li {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-2);
+  padding: var(--sp-2) 0;
+  border-top: 1px solid var(--c-line);
+}
+.hard li .small {
+  margin-left: auto;
+}
+@media (max-width: 900px) {
+  .cols {
+    grid-template-columns: 1fr;
+  }
 }
 .report .page-title {
   margin: 0;
@@ -185,7 +251,7 @@ h2 {
   display: flex;
   align-items: flex-end;
   gap: var(--sp-2);
-  height: 130px;
+  height: 230px;
   border-bottom: 1px solid var(--c-line);
 }
 .bar-col {

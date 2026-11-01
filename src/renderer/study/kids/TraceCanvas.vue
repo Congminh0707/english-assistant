@@ -17,6 +17,10 @@ const tries = ref(0)
 const message = ref('')
 const finished = ref(false)
 
+/** Màu canvas lấy từ token để theo giao diện sáng/tối */
+const tok = (name: string): string =>
+  getComputedStyle(document.documentElement).getPropertyValue(name).trim() || '#888'
+
 let ctx: CanvasRenderingContext2D | null = null
 let mask: Uint8Array = new Uint8Array(TRACE_GRID * TRACE_GRID)
 let drawn: Uint8Array = new Uint8Array(TRACE_GRID * TRACE_GRID)
@@ -28,8 +32,8 @@ const FONT = `800 ${Math.round(SIZE * 0.78)}px 'Segoe UI', Arial, sans-serif`
 function drawGuide(): void {
   if (!ctx) return
   ctx.clearRect(0, 0, SIZE, SIZE)
-  ctx.fillStyle = '#e4ebf7'
-  ctx.strokeStyle = '#9aa9c9'
+  ctx.fillStyle = tok('--c-xp-soft')
+  ctx.strokeStyle = tok('--c-xp')
   ctx.lineWidth = 3
   ctx.setLineDash([10, 8])
   ctx.font = FONT
@@ -94,7 +98,7 @@ function up(): void {
 
 function stroke(a: { x: number; y: number }, b: { x: number; y: number }): void {
   if (!ctx) return
-  ctx.strokeStyle = '#e8432e'
+  ctx.strokeStyle = tok('--c-primary')
   ctx.lineWidth = 22
   ctx.lineCap = 'round'
   ctx.beginPath()
@@ -134,7 +138,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="trace">
+  <div class="trace-box">
     <canvas
       ref="canvas"
       class="pad"
@@ -146,40 +150,57 @@ onMounted(() => {
       @pointercancel="up"
       @pointerleave="up"
     />
-    <p class="msg">{{ message || ' ' }}</p>
-    <div class="k-row">
-      <button type="button" class="k-round" :disabled="finished" @click="reset">↺</button>
+    <p class="k-bubble msg" :class="{ hide: !message }">{{ message }}</p>
+    <div class="tools">
+      <button type="button" class="k-round" :disabled="finished" @click="reset">
+        <UiIcon name="reset" :size="28" />
+      </button>
       <button type="button" class="k-round" :disabled="finished" @click="speak(say, 'us', 0.8)">
-        <UiIcon name="volume" />
+        <UiIcon name="volume" :size="32" />
       </button>
       <button type="button" class="k-primary" :disabled="finished" @click="check">
-        <UiIcon name="check" />
+        <UiIcon name="check" :size="40" />
       </button>
     </div>
   </div>
 </template>
 
 <style scoped>
-.trace {
+.trace-box {
   display: grid;
-  gap: 12px;
+  grid-template-columns: auto auto;
+  gap: var(--sp-4) var(--sp-6);
+  align-items: center;
+  justify-content: center;
+}
+.tools {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  gap: var(--sp-4);
   justify-items: center;
 }
+.msg {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  justify-self: center;
+}
 .pad {
-  width: min(320px, 80vw);
+  width: min(320px, 60vw);
   aspect-ratio: 1;
   touch-action: none;
   cursor: crosshair;
-  background: #fff;
-  border: 2px solid var(--c-line);
-  border-radius: 14px;
-  box-shadow: 0 6px 0 0 #d3d9e8;
+  background: var(--c-surface);
+  border: 4px solid var(--c-ink);
+  border-radius: var(--r-lg);
+  box-shadow: 0 8px 0 var(--c-ink);
 }
 .msg {
   min-height: 1.6em;
   margin: 0;
-  font-size: 24px;
-  font-weight: 800;
   color: var(--c-primary);
+}
+.msg.hide {
+  visibility: hidden;
 }
 </style>

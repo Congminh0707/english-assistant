@@ -6,7 +6,7 @@ import type { SpeechScore } from '@shared/speech'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PicText from '@renderer/shared/components/PicText.vue'
 import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
-import { ArrowLeft } from 'lucide-vue-next'
+import { ChevronLeft } from 'lucide-vue-next'
 import AudioPrompt from '../exercises/AudioPrompt.vue'
 import ChoiceList from '../exercises/ChoiceList.vue'
 import MatchBoard from '../exercises/MatchBoard.vue'
@@ -197,13 +197,15 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 
 <template>
   <section class="exercises">
-    <button type="button" class="btn btn--ghost btn--sm" @click="$emit('back')">
-      <ArrowLeft :size="16" :stroke-width="2.4" /> {{ t('study.lessons.backToLesson') }}
-    </button>
+    <div class="top">
+      <button type="button" class="back" @click="$emit('back')">
+        <ChevronLeft :size="16" :stroke-width="2.4" /> {{ t('study.lessons.backToLesson') }}
+      </button>
+      <span class="muted">
+        {{ t('study.lessons.counter', { index: idx + 1, total }) }} · {{ lesson.title }}
+      </span>
+    </div>
     <progress class="bar" :value="idx" :max="total" />
-    <p class="muted">
-      {{ t('study.lessons.counter', { index: idx + 1, total }) }} · {{ lesson.title }}
-    </p>
 
     <div class="card box">
       <p v-if="ex.type === 'tf'" class="instruction">
@@ -300,30 +302,32 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       </div>
     </div>
 
-    <div class="actions">
-      <button
-        v-if="ex.type === 'speak' && !checked"
-        type="button"
-        class="btn btn--ghost btn--sm"
-        @click="skipSpeak"
-      >
-        {{ t('study.lessons.skipSpeak') }}
-      </button>
-      <button
-        v-if="!checked"
-        type="button"
-        class="btn btn--primary"
-        :disabled="!canCheck"
-        @click="check"
-      >
-        {{ t('study.lessons.check') }}
-      </button>
-      <button v-else type="button" class="btn btn--primary" @click="next">
-        {{ idx + 1 >= total ? t('study.lessons.finish') : t('study.lessons.next') }}
-        <UiIcon name="next" />
-      </button>
+    <div class="foot">
+      <p class="keys">{{ t('study.lessons.keysHint') }}</p>
+      <div class="actions">
+        <button
+          v-if="ex.type === 'speak' && !checked"
+          type="button"
+          class="btn btn--ghost btn--sm"
+          @click="skipSpeak"
+        >
+          {{ t('study.lessons.skipSpeak') }}
+        </button>
+        <button
+          v-if="!checked"
+          type="button"
+          class="btn btn--primary"
+          :disabled="!canCheck"
+          @click="check"
+        >
+          {{ t('study.lessons.check') }}
+        </button>
+        <button v-else type="button" class="btn btn--primary" @click="next">
+          {{ idx + 1 >= total ? t('study.lessons.finish') : t('study.lessons.next') }}
+          <UiIcon name="next" />
+        </button>
+      </div>
     </div>
-    <p class="keys">{{ t('study.lessons.keysHint') }}</p>
   </section>
 </template>
 
@@ -331,10 +335,37 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 .exercises {
   display: grid;
   gap: var(--sp-3);
+  width: 100%;
   max-width: 720px;
+  margin: 0 auto;
 }
-.exercises > .btn--ghost {
-  justify-self: start;
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-ink-soft);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-top: var(--sp-2);
 }
 .muted {
   margin: 0;
@@ -427,6 +458,5 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   margin: 0;
   color: var(--c-ink-soft);
   font-size: var(--fs-xs);
-  text-align: right;
 }
 </style>

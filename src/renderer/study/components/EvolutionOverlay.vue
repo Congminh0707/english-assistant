@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
+import { PET_STAGES } from '@shared/pet'
 
 // Màn hình tiến hoá: giai đoạn cũ nhấp nháy rồi biến thành giai đoạn mới.
 const props = defineProps<{
@@ -26,7 +27,8 @@ onMounted(() => {
 
 <template>
   <div class="overlay" role="dialog" aria-modal="true" @keydown.esc="emit('close')">
-    <div class="card" aria-live="polite" :class="{ flash: phase === 1 }">
+    <div class="rays" aria-hidden="true" :class="{ flash: phase === 1 }" />
+    <div class="body" aria-live="polite">
       <h2>
         {{
           phase < 2
@@ -58,10 +60,20 @@ onMounted(() => {
           animate
         />
       </div>
+      <ul class="stages">
+        <li
+          v-for="s in PET_STAGES"
+          :key="s.stage"
+          class="pill"
+          :class="{ on: s.stage === (phase < 2 && from ? from : to) }"
+        >
+          {{ t(`pet.stage.${s.stage}`) }}
+        </li>
+      </ul>
       <button
         v-if="phase === 2"
         type="button"
-        class="btn btn--success btn--lg"
+        class="btn btn--primary btn--lg"
         autofocus
         @click="emit('close')"
       >
@@ -78,39 +90,74 @@ onMounted(() => {
   z-index: 50;
   display: grid;
   place-items: center;
-  background: color-mix(in srgb, var(--c-bg) 25%, black 75%);
-  backdrop-filter: blur(2px);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--c-ink) 88%, var(--c-primary));
+  color: var(--c-bg);
 }
-.card {
+.rays {
+  border-radius: var(--r-pill);
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(
+      circle at 50% 46%,
+      color-mix(in srgb, var(--c-coin) 45%, transparent),
+      transparent 38%
+    ),
+    repeating-conic-gradient(
+      from 0deg at 50% 46%,
+      color-mix(in srgb, var(--c-bg) 4%, transparent) 0deg 9deg,
+      transparent 9deg 18deg
+    );
+}
+.rays.flash {
+  animation: pulse 0.5s ease-in-out infinite;
+}
+.body {
+  position: relative;
   display: grid;
   gap: var(--sp-4);
   justify-items: center;
-  padding: var(--sp-5) var(--sp-7);
   text-align: center;
-  background: var(--c-surface);
-  border: 2px solid var(--c-coin);
-  box-shadow: var(--shadow-md);
-  border-radius: var(--r-lg);
-}
-.card.flash {
-  animation: flash 0.5s ease-in-out infinite;
 }
 h2 {
   margin: 0;
-  font-size: var(--fs-xl);
+  color: var(--c-bg);
+  font-size: var(--fs-3xl);
   font-weight: 800;
 }
 .stage {
-  padding: 8px;
+  padding: var(--sp-2);
 }
-@keyframes flash {
+.stages {
+  display: flex;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-pill);
+  background: color-mix(in srgb, var(--c-bg) 14%, transparent);
+  color: color-mix(in srgb, var(--c-bg) 80%, transparent);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+}
+.pill.on {
+  background: var(--c-coin);
+  color: var(--c-ink);
+}
+@keyframes pulse {
   50% {
-    background: var(--c-warning-soft);
-    filter: brightness(1.3);
+    filter: brightness(1.8);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .card.flash {
+  .rays.flash {
     animation: none;
   }
 }

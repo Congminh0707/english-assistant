@@ -185,6 +185,7 @@ onUnmounted(() => {
       :place="place"
       :page="page"
       :dark="dark"
+      :parent-tab="!!activeProfile?.isChild"
       @home="go('home')"
       @go="go"
     >

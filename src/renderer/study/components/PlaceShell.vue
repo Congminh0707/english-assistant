@@ -6,12 +6,14 @@ import ArtScene from '@renderer/shared/components/ArtScene.vue'
 import { PLACE_PAGES, PLACE_SCENE, type Place, type StudyPage } from '../places'
 
 // Khung màn trong v2: cảnh địa điểm bên trái, nội dung trên nền giấy bên phải (docs/23 §1).
-const props = defineProps<{ place: Place; page: StudyPage; dark: boolean }>()
+const props = defineProps<{ place: Place; page: StudyPage; dark: boolean; parentTab: boolean }>()
 const emit = defineEmits<{ home: []; go: [page: StudyPage] }>()
 const { t } = useI18n()
 
 const scene = computed(() => `place-${PLACE_SCENE[props.place]}${props.dark ? '-dark' : ''}`)
-const tabs = computed(() => PLACE_PAGES[props.place])
+const tabs = computed(() =>
+  PLACE_PAGES[props.place].filter((p) => p !== 'parent' || props.parentTab)
+)
 
 function onKey(e: KeyboardEvent): void {
   if (e.key !== 'Escape' || e.defaultPrevented) return

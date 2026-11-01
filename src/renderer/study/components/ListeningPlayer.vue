@@ -3,7 +3,7 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { DICTATION_PASS, dictationAccuracy } from '@shared/practice'
 import { useTts, type Accent } from '@renderer/shared/composables/useTts'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
+import { SkipBack, SkipForward } from 'lucide-vue-next'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Trình nghe (docs/07-learning-modules.md#6): phát lần lượt từng câu bằng TTS (người nói A/B dùng hai giọng Mỹ/Anh khác
@@ -136,198 +136,303 @@ onUnmounted(pause)
 </script>
 
 <template>
-  <PxPanel class="player">
-    <header class="head">
-      <h2 v-if="title"><UiIcon name="headphones" /> {{ title }}</h2>
-      <span class="muted">{{ t('player.line', { n: index + 1, total }) }}</span>
-    </header>
-
-    <div class="controls">
-      <button type="button" class="ctl" :title="t('player.prev')" @click="goto(index - 1, playing)">
-        ⏮
-      </button>
-      <button
-        type="button"
-        class="ctl main"
-        :title="playing ? t('player.pause') : t('player.play')"
-        @click="toggle"
-      >
-        <UiIcon :name="playing ? 'pause' : 'play'" :size="20" />
-      </button>
-      <button type="button" class="ctl" :title="t('player.next')" @click="goto(index + 1, playing)">
-        ⏭
-      </button>
-      <button type="button" class="ctl" :title="t('player.again')" @click="again">
-        <UiIcon name="repeat" />
-      </button>
-      <span class="speed" :aria-label="t('player.speed')">
+  <div class="player">
+    <div class="card top">
+      <div class="controls">
         <button
-          v-for="s in SPEEDS"
-          :key="s"
           type="button"
-          class="btn btn--sm btn--pill"
-          :class="{ 'btn--primary': speed === s }"
-          @click="setSpeed(s)"
+          class="ctl"
+          :title="t('player.prev')"
+          @click="goto(index - 1, playing)"
         >
-          {{ s }}×
+          <SkipBack :size="16" :stroke-width="2.2" />
         </button>
-      </span>
-    </div>
-
-    <div class="loop">
-      <button
-        type="button"
-        class="btn btn--sm btn--pill"
-        :class="{ 'btn--primary': loopA === index }"
-        @click="setLoopA"
-      >
-        {{ t('player.loopA') }}
-      </button>
-      <button
-        type="button"
-        class="btn btn--sm btn--pill"
-        :class="{ 'btn--primary': loopB === index }"
-        @click="setLoopB"
-      >
-        {{ t('player.loopB') }}
-      </button>
-      <button v-if="loopA !== null" type="button" class="btn btn--sm btn--pill" @click="clearLoop">
-        <UiIcon name="close" /> {{ t('player.loopClear') }}
-      </button>
-      <span class="muted small">
-        {{
-          loopActive
-            ? t('player.loopOn', { a: (loopA ?? 0) + 1, b: (loopB ?? 0) + 1 })
-            : t('player.loopPick')
-        }}
-      </span>
-    </div>
-
-    <div class="toggles">
-      <button type="button" class="btn btn--sm btn--pill" @click="showText = !showText">
-        {{ showText ? t('player.hideText') : t('player.showText') }}
-      </button>
-      <button v-if="hasVi" type="button" class="btn btn--sm btn--pill" @click="showVi = !showVi">
-        {{ showVi ? t('player.hideVi') : t('player.showVi') }}
-      </button>
-    </div>
-
-    <p v-if="!showText" class="hidden-note">{{ t('player.hidden') }}</p>
-
-    <ol class="lines">
-      <li
-        v-for="(line, i) in lines"
-        :key="i"
-        class="line"
-        :class="{
-          current: i === index,
-          inLoop: loopActive && i >= (loopA ?? 0) && i <= (loopB ?? -1)
-        }"
-      >
-        <button type="button" class="num" :title="t('player.again')" @click="goto(i, true)">
-          {{ i + 1 }}
+        <button
+          type="button"
+          class="ctl main"
+          :title="playing ? t('player.pause') : t('player.play')"
+          @click="toggle"
+        >
+          <UiIcon :name="playing ? 'pause' : 'play'" :size="20" />
         </button>
-        <span v-if="line.speaker" class="speaker" :class="line.speaker">{{ line.speaker }}</span>
-        <span class="text">
-          <template v-if="showText || (i === index && result)">
-            {{ line.en }}
-            <small v-if="showVi && line.vi" class="vi">{{ line.vi }}</small>
-          </template>
-          <span v-else class="mask">••• ••• •••</span>
+        <button
+          type="button"
+          class="ctl"
+          :title="t('player.next')"
+          @click="goto(index + 1, playing)"
+        >
+          <SkipForward :size="16" :stroke-width="2.2" />
+        </button>
+        <button type="button" class="ctl" :title="t('player.again')" @click="again">
+          <UiIcon name="repeat" />
+        </button>
+      </div>
+      <div class="now">
+        <strong v-if="title" class="now-title"><UiIcon name="headphones" /> {{ title }}</strong>
+        <span class="muted">{{ t('player.line', { n: index + 1, total }) }}</span>
+      </div>
+      <div class="speed" role="group" :aria-label="t('player.speed')">
+        <span class="muted">{{ t('player.speed') }}</span>
+        <span class="seg">
+          <button
+            v-for="s in SPEEDS"
+            :key="s"
+            type="button"
+            class="seg-btn"
+            :class="{ on: speed === s }"
+            @click="setSpeed(s)"
+          >
+            {{ s }}×
+          </button>
         </span>
-      </li>
-    </ol>
-
-    <div class="dictation">
-      <h3><UiIcon name="write" /> {{ t('player.dictation') }}</h3>
-      <form @submit.prevent="check">
-        <input
-          v-model="typed"
-          type="text"
-          spellcheck="false"
-          autocomplete="off"
-          :placeholder="t('player.dictationHint')"
-        />
-        <button type="submit" class="btn btn--sm btn--pill" :disabled="!typed.trim()">
-          {{ t('player.check') }}
-        </button>
-      </form>
-      <p v-if="result" class="result" :class="{ ok: result.pass }">
-        {{ result.pass ? t('player.correct') : t('player.wrong') }}
-        <strong v-if="!result.pass">{{ lines[index].en }}</strong>
-        <span class="muted small">({{ Math.round(result.accuracy * 100) }}%)</span>
-      </p>
+      </div>
     </div>
-  </PxPanel>
+
+    <div class="cols">
+      <div class="card talk">
+        <header class="talk-head">
+          <h2>{{ t('player.lines') }}</h2>
+          <div class="toggles">
+            <button type="button" class="btn btn--sm" @click="showText = !showText">
+              {{ showText ? t('player.hideText') : t('player.showText') }}
+            </button>
+            <button v-if="hasVi" type="button" class="btn btn--sm" @click="showVi = !showVi">
+              {{ showVi ? t('player.hideVi') : t('player.showVi') }}
+            </button>
+          </div>
+        </header>
+
+        <p v-if="!showText" class="hidden-note">{{ t('player.hidden') }}</p>
+
+        <ol class="lines">
+          <li
+            v-for="(line, i) in lines"
+            :key="i"
+            class="line"
+            :class="{
+              current: i === index,
+              inLoop: loopActive && i >= (loopA ?? 0) && i <= (loopB ?? -1)
+            }"
+          >
+            <button type="button" class="num" :title="t('player.again')" @click="goto(i, true)">
+              {{ i + 1 }}
+            </button>
+            <span v-if="line.speaker" class="speaker" :class="line.speaker">{{
+              line.speaker
+            }}</span>
+            <span class="text">
+              <template v-if="showText || (i === index && result)">
+                {{ line.en }}
+                <small v-if="showVi && line.vi" class="vi">{{ line.vi }}</small>
+              </template>
+              <span v-else class="mask">••• ••• •••</span>
+            </span>
+          </li>
+        </ol>
+      </div>
+
+      <aside class="side">
+        <div class="card loop">
+          <h3>{{ t('player.loopTitle') }}</h3>
+          <div class="loop-btns">
+            <button
+              type="button"
+              class="btn btn--sm"
+              :class="{ 'btn--primary': loopA === index }"
+              @click="setLoopA"
+            >
+              {{ t('player.loopA') }}
+            </button>
+            <button
+              type="button"
+              class="btn btn--sm"
+              :class="{ 'btn--primary': loopB === index }"
+              @click="setLoopB"
+            >
+              {{ t('player.loopB') }}
+            </button>
+            <button
+              v-if="loopA !== null"
+              type="button"
+              class="btn btn--sm btn--ghost"
+              @click="clearLoop"
+            >
+              <UiIcon name="close" /> {{ t('player.loopClear') }}
+            </button>
+          </div>
+          <p class="muted small">
+            {{
+              loopActive
+                ? t('player.loopOn', { a: (loopA ?? 0) + 1, b: (loopB ?? 0) + 1 })
+                : t('player.loopPick')
+            }}
+          </p>
+        </div>
+
+        <div class="card dictation">
+          <h3><UiIcon name="write" /> {{ t('player.dictation') }}</h3>
+          <form @submit.prevent="check">
+            <input
+              v-model="typed"
+              type="text"
+              spellcheck="false"
+              autocomplete="off"
+              :placeholder="t('player.dictationHint')"
+            />
+            <button type="submit" class="btn btn--sm" :disabled="!typed.trim()">
+              {{ t('player.check') }}
+            </button>
+          </form>
+          <p v-if="result" class="result" :class="{ ok: result.pass }">
+            <strong>{{ result.pass ? t('player.correct') : t('player.wrong') }}</strong>
+            <span v-if="!result.pass" class="answer">{{ lines[index].en }}</span>
+            <span class="muted small">({{ Math.round(result.accuracy * 100) }}%)</span>
+          </p>
+        </div>
+      </aside>
+    </div>
+  </div>
 </template>
 
 <style scoped>
 .player {
   display: grid;
-  gap: 10px;
-  padding: 14px 16px;
+  gap: var(--sp-4);
 }
-.head {
+.top {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4);
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.now {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
   align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
+  justify-content: center;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+.now-title :deep(.ui-icon) {
+  color: var(--c-primary);
 }
 h2 {
   margin: 0;
-  font-size: var(--fs-lg);
+  font-size: var(--fs-md);
+  font-weight: 800;
 }
 h3 {
-  margin: 4px 0;
-  font-size: 14px;
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-md);
+  font-weight: 800;
+}
+.dictation h3 {
   color: var(--c-xp);
 }
 .muted {
   color: var(--c-ink-soft);
+  font-size: var(--fs-sm);
 }
 .small {
-  font-size: 12px;
-}
-.controls,
-.loop,
-.toggles {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
-.ctl {
-  width: 38px;
-  height: 38px;
-  border: 1px solid var(--c-line);
-  background: var(--c-surface);
-  font-size: 16px;
-  cursor: pointer;
-  border-radius: var(--r-md);
-}
-.ctl.main {
-  width: 54px;
-  height: 46px;
-  background: var(--c-primary);
-  color: #fff;
-  font-size: 20px;
+  font-size: var(--fs-xs);
 }
 .speed {
   display: flex;
-  gap: 4px;
-  margin-left: auto;
+  align-items: center;
+  gap: var(--sp-3);
+}
+.seg {
+  display: inline-flex;
+  gap: var(--sp-1);
+  padding: var(--sp-1);
+  border-radius: var(--r-md);
+  background: var(--c-surface-2);
+}
+.seg-btn {
+  min-height: 28px;
+  padding: 0 var(--sp-3);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-ink-soft);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  cursor: pointer;
+}
+.seg-btn.on {
+  background: var(--c-surface);
+  color: var(--c-ink);
+  box-shadow: var(--shadow-sm);
+}
+.cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+  gap: var(--sp-4);
+  align-items: start;
+}
+@media (max-width: 900px) {
+  .cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.side {
+  display: grid;
+  gap: var(--sp-3);
+}
+.talk-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
+}
+.toggles,
+.loop-btns {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.ctl {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--c-line);
+  background: var(--c-surface);
+  color: var(--c-ink);
+  cursor: pointer;
+  border-radius: var(--r-pill);
+}
+.ctl:hover {
+  background: var(--c-surface-2);
+}
+.ctl.main {
+  width: 56px;
+  height: 44px;
+  border-color: var(--c-coin);
+  background: var(--c-primary);
+  color: var(--c-on-primary);
 }
 .hidden-note {
-  margin: 0;
-  padding: 6px 10px;
-  font-size: 13px;
+  margin: 0 0 var(--sp-2);
+  padding: var(--sp-2) var(--sp-3);
+  font-size: var(--fs-sm);
   background: var(--c-warning-soft);
-  border-left: 3px solid var(--c-warning);
+  border: 2px solid var(--c-coin);
   border-radius: var(--r-md);
 }
 .lines {
   display: grid;
-  gap: 4px;
+  gap: var(--sp-1);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -335,48 +440,51 @@ h3 {
 .line {
   display: flex;
   align-items: baseline;
-  gap: 8px;
-  padding: 4px 8px;
-  border-left: 3px solid transparent;
+  gap: var(--sp-3);
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--r-md);
 }
 .line.inLoop {
-  background: #eef6ff;
+  background: var(--c-xp-soft);
 }
 .line.current {
   background: var(--c-warning-soft);
-  border-left-color: var(--c-primary);
   font-weight: 600;
 }
 .num {
-  min-width: 24px;
-  border: 1px solid var(--c-line);
+  min-width: 26px;
+  height: 26px;
+  border: 2px solid var(--c-line);
   background: var(--c-surface);
+  color: var(--c-ink);
   font: inherit;
-  font-size: 11px;
+  font-size: var(--fs-xs);
+  font-weight: 700;
   cursor: pointer;
   border-radius: var(--r-pill);
 }
 .speaker {
-  padding: 0 6px;
-  font-size: 11px;
+  padding: 0 var(--sp-2);
+  font-size: var(--fs-xs);
   font-weight: 700;
-  color: #fff;
-  border: 1px solid var(--c-line);
   border-radius: var(--r-pill);
 }
 .speaker.A {
-  background: var(--c-xp);
+  background: var(--c-xp-soft);
+  color: var(--c-xp);
 }
 .speaker.B {
-  background: var(--c-success);
+  background: var(--c-success-soft);
+  color: var(--c-success);
 }
 .text {
   flex: 1;
-  font-size: 16px;
-  line-height: 1.5;
+  font-size: var(--fs-lg);
+  line-height: 1.45;
 }
 .vi {
   display: block;
+  font-size: var(--fs-sm);
   font-weight: 400;
   color: var(--c-ink-soft);
 }
@@ -385,24 +493,36 @@ h3 {
   letter-spacing: 2px;
 }
 .dictation form {
-  display: flex;
-  gap: 8px;
+  display: grid;
+  gap: var(--sp-2);
+  justify-items: start;
 }
 .dictation input {
   box-sizing: border-box;
-  flex: 1;
-  padding: 6px 10px;
-  border: 1px solid var(--c-line);
+  width: 100%;
+  padding: var(--sp-2) var(--sp-3);
+  border: 2px solid var(--c-line);
   background: var(--c-surface);
+  color: var(--c-ink);
   font: inherit;
   outline: none;
   border-radius: var(--r-md);
 }
 .result {
-  margin: 6px 0 0;
+  display: grid;
+  gap: var(--sp-1);
+  margin: var(--sp-3) 0 0;
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--c-danger-soft);
   color: var(--c-danger);
 }
 .result.ok {
+  background: var(--c-success-soft);
   color: var(--c-success);
+}
+.answer {
+  color: var(--c-ink);
+  font-weight: 700;
 }
 </style>

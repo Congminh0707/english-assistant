@@ -755,6 +755,15 @@
       "checkpointFailed": "Not yet ({n}% needed). Review a bit and try again!"
     },
     "settings": {
+      "sect": {
+        "profile": "Profile and learning",
+        "review": "Review",
+        "voice": "Voice and speech",
+        "translate": "Translate",
+        "mascot": "Mascot and quiet mode",
+        "update": "Updates and packs",
+        "credits": "Licenses"
+      },
       "title": "Settings",
       "profiles": "Learner profiles",
       "active": "in use",

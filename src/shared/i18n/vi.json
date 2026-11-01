@@ -755,6 +755,15 @@
       "checkpointFailed": "Chưa đạt ({n}% mới qua). Ôn thêm rồi thử lại nhé!"
     },
     "settings": {
+      "sect": {
+        "profile": "Hồ sơ và học tập",
+        "review": "Ôn thẻ",
+        "voice": "Giọng đọc và nói",
+        "translate": "Dịch",
+        "mascot": "Mascot và yên lặng",
+        "update": "Cập nhật và gói tải",
+        "credits": "Giấy phép"
+      },
       "title": "Cài đặt",
       "profiles": "Hồ sơ người học",
       "active": "đang dùng",

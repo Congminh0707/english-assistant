@@ -952,8 +952,11 @@ onMounted(async () => {
   }
   .snav {
     position: static;
-    grid-auto-flow: column;
-    overflow-x: auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .snav-item {
+    white-space: nowrap;
   }
 }
 h2 {

@@ -74,7 +74,7 @@ Các bản trước (1.0.0 → 1.2.0) ghi ở [09 §10.3](09-content-pipeline.md
 | wav2vec2 phoneme int8      | ~355 MB                                                             | chấm âm vị, tuỳ chọn                                                                            |
 | Gói audio bài nghe         | 22,3 MB (1050 đoạn, đủ giọng Anh + Mỹ cho mọi câu)                  | release `listening-audio-1.2.0`                                                                 |
 | Gói bản đồ bé `kids-world` | 📋 chưa build — đo khi build ([19 §6](19-kids-world.md))            | mục tiêu ≤ 50 MB                                                                                |
-| Bản đồ bé: fps đo trong app thật (2026-11-01, 1600×900, máy dev, hồ sơ trẻ em mới) | 2D cao 56, 2D thấp 56, 3D cao 57, 3D thấp 56, quả cầu cao 56 | đếm `requestAnimationFrame` trong 5 giây; chưa đo trên máy yếu thật. Tự hạ khi dưới 24 fps ([19](19-kids-world.md)) |
+| Bản đồ bé: fps đo trong app thật (2026-11-01, 1600×900, máy dev, hồ sơ trẻ em mới) | 2D cao 56, 2D thấp 56, 3D cao 56, 3D thấp 56, quả cầu cao 56 | đếm `requestAnimationFrame` trong 5 giây; chưa đo trên máy yếu thật. Tự hạ khi dưới 24 fps ([19](19-kids-world.md)) |
 | Gói sprite thú cưng 288px  | đã bỏ 2026-11-01 (decisions #45); bộ cài không còn sprite pixel, thú cưng vector `art/pets` ≈ 260 KB | `pnpm stats` | 2026-11-01 |
 
 > Các kích thước model lấy từ `modelFiles.ts` / manifest; đổi model → đo lại và sửa bảng.

@@ -3,6 +3,7 @@ import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { STAGE_H, STAGE_W } from '@shared/kidsWorldLayout'
 import type { KidsWorldView } from '@shared/schemas/kidsWorld'
+import ArtScene from '@renderer/shared/components/ArtScene.vue'
 import { invoke } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
@@ -93,7 +94,15 @@ async function load(): Promise<void> {
 /** Nơi có cảnh chi tiết thì vào cảnh trước, nơi khác vào thẳng bài học */
 function start(id: string): void {
   placeId.value = id
+  startStep.value = 0
   view.value = PLACE_ART[id] ? 'place' : 'visit'
+}
+
+/** Chạm biển trong cảnh: vào đúng bước tương ứng của bài học */
+const startStep = ref(0)
+function learn(step: number): void {
+  startStep.value = step
+  view.value = 'visit'
 }
 
 /** Xong hoặc thoát bài học: quay về cảnh của nơi đó nếu có */
@@ -208,15 +217,17 @@ onUnmounted(() => {
             :place="currentPlace"
             :width="STAGE_W"
             :height="STAGE_H"
-            @learn="view = 'visit'"
+            @learn="learn"
           />
         </Transition>
         <div v-else class="panel">
+          <ArtScene class="panel-art" name="kids-visitbg" />
           <div class="panel-body">
             <KidsVisit
               v-if="view === 'visit' && placeId"
               :key="placeId"
               :place-id="placeId"
+              :start-step="startStep"
               @back="afterVisit"
               @changed="changed"
             />
@@ -253,9 +264,14 @@ onUnmounted(() => {
             <UiIcon name="flower" :size="24" class="flower" />{{ totals.flowers }}
           </span>
         </template>
-        <button v-else type="button" class="pill-btn" @click="backToMap">
-          <UiIcon name="map" :size="26" />{{ t('kids.game.map') }}
-        </button>
+        <template v-else>
+          <button type="button" class="pill-btn" @click="backToMap">
+            <UiIcon name="map" :size="26" />{{ t('kids.game.map') }}
+          </button>
+          <span v-if="view === 'visit' && currentPlace" class="pill-btn stat">
+            {{ locale === 'vi' ? currentPlace.vi : currentPlace.title }}
+          </span>
+        </template>
       </div>
 
       <div class="hud right">
@@ -339,21 +355,20 @@ onUnmounted(() => {
   inset: 0;
   display: grid;
   place-items: center;
-  background:
-    radial-gradient(circle at 20% 10%, rgb(255 255 255 / 55%) 0 80px, transparent 81px),
-    radial-gradient(circle at 85% 18%, rgb(255 255 255 / 45%) 0 60px, transparent 61px),
-    linear-gradient(#bfe6ff, #fff4d6);
+  overflow: hidden;
+  background: #6fd3e8;
+}
+.panel-art {
+  position: absolute;
+  inset: 0;
 }
 .panel-body {
-  --c-surface: #fff;
-  width: 1240px;
-  max-height: 780px;
-  padding: 40px 30px;
+  --c-surface: #fff9ea;
+  position: relative;
+  width: 1320px;
+  max-height: 800px;
+  margin-top: 70px;
   overflow-y: auto;
-  border: 5px solid #3b2a3a;
-  border-radius: 40px;
-  background: rgb(255 255 255 / 82%);
-  box-shadow: 0 10px 0 0 #9cc3dd;
 }
 .hud {
   position: absolute;

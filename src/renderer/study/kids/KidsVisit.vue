@@ -12,7 +12,8 @@ import { playSfx } from './game/sfx'
 // Lượt chơi tại một nơi trên bản đồ (docs/19-kids-world.md §3.2): một đợt ≤ 4 từ đi qua 5 bước
 // 1 làm quen → 2 chạm hình (chấm FSRS qua kids:rate) → 3 lật thẻ ghép cặp → 4 nói theo (không chấm, không ghi âm)
 // → 5 nghe câu rồi chạm hình. Xong lượt gửi kids:visit-done; lần đầu xong nơi được mở rương.
-const props = defineProps<{ placeId: string }>()
+// `startStep` (0–4): chạm biển trong cảnh thì vào đúng bước đó, các bước còn lại nối tiếp vòng lại
+const props = defineProps<{ placeId: string; startStep?: number }>()
 const emit = defineEmits<{ back: []; changed: [] }>()
 
 const { t } = useI18n()
@@ -48,6 +49,20 @@ const STEP_ICON = {
   empty: 'check'
 } as const
 const stepNo = computed(() => STEPS.indexOf(step.value) + 1)
+/** Thứ tự đi của lượt này: bắt đầu từ bước được chọn; không có từ mới thì bỏ bước làm quen */
+const order = ref<Step[]>(STEPS)
+
+function planSteps(hasNew: boolean): Step[] {
+  const from = props.startStep ?? 0
+  const turned = [...STEPS.slice(from), ...STEPS.slice(0, from)]
+  return hasNew ? turned : turned.filter((s) => s !== 'intro')
+}
+
+function advance(): void {
+  const next = order.value[order.value.indexOf(step.value) + 1]
+  if (next) begin(next)
+  else void finish()
+}
 
 async function load(): Promise<void> {
   const v = await invoke('kids:visit', { placeId: props.placeId })
@@ -64,8 +79,8 @@ async function load(): Promise<void> {
       { tapTries: 0, sentenceTries: 0, played: false, spoke: false }
     ])
   )
-  // Từ đã học trước (không mới) thì bỏ bước làm quen
-  begin(v.batch.some((b) => b.isNew) ? 'intro' : 'tap')
+  order.value = planSteps(v.batch.some((b) => b.isNew))
+  begin(order.value[0])
 }
 
 function begin(s: Step): void {
@@ -97,11 +112,7 @@ function nextItem(): void {
   index.value++
   if (step.value === 'intro') skipKnown()
   if (item.value) present()
-  else {
-    const at = STEPS.indexOf(step.value)
-    if (at + 1 < STEPS.length) begin(STEPS[at + 1])
-    else void finish()
-  }
+  else advance()
 }
 
 async function choose(pictureId: string): Promise<void> {
@@ -179,7 +190,7 @@ function flip(card: Card): void {
     tracks.value[card.pictureId].played = true
     if (cards.value.every((c) => c.matched)) {
       speak(pick(PRAISE), 'us', 0.9)
-      window.setTimeout(() => begin('speak'), 1200)
+      window.setTimeout(advance, 1200)
     }
   } else {
     busy = true

@@ -71,6 +71,12 @@ if '--kids' in sys.argv:
         i = body.index('<svg class="abs"'); j = body.index('</svg>', body.rindex('filter="url(#grain)"'))
         svg = re.sub(r'^<svg class="abs" style="[^"]*" width="(\d+)" height="(\d+)"', r'<svg viewBox="0 0 \1 \2" preserveAspectRatio="xMidYMid slice"', body[i:j + 6])
         put('kids-' + n.lower(), strip_scene(n, svg), css)
+    # Nền màn học của bé (bảng S5KidsVisit): khung sau thẻ từ, không có nhân vật
+    h = open(os.path.join(PROJ, 'S5KidsVisit.dc.html'), encoding='utf-8').read()
+    body = h[h.index('</helmet>'):]
+    i = body.index('<svg', body.index('class="t kids"')); j = body.index('</svg>', i)
+    css = ''.join(re.findall(r'<style>.*?</style>', h, re.S)).replace('body{margin:0}', '')
+    put('kids-visitbg', re.sub(r'^<svg [^>]*>', '<svg viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice">', body[i:j + 6]), css)
     # Toạ độ điểm chạm: sinh tự động, không chép tay. Tranh viewBox 1280×720, sân khấu 16:9 nên chỉ cần nhân tỉ lệ.
     L = ['// Sinh bởi scripts/design-data/export-art.py --kids, không sửa tay. Toạ độ theo tranh 1280×720.',
          'export interface PlaceArt {', '  art: string', '  pet: { x: number; y: number; w: number }', '  /** Chỗ đặt biển chạm, theo thứ tự trên bảng */', '  spots: ReadonlyArray<{ x: number; y: number }>', '}', '',

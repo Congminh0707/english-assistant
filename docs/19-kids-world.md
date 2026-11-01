@@ -14,6 +14,8 @@
 
 > Soát từ theo kỳ quan (2026-11-01): đổi chỗ 8 từ giữa tầng 2 và 3 cho hợp nơi (camel về Giza, trophy về Colosseum, tea về Taj Mahal, rocket về Hoa Kỳ, ant về Úc, lightbulb về Sydney, toothbrush về Nhật Bản, scissors về Chichén Itzá). Còn scissors và toothbrush chưa thật khớp vì mọi hình đều đã có chủ. Thẻ và tiến độ theo id hình nên không mất, nhưng nơi đã xong ở tầng 2 có thể về trạng thái chưa xong nếu từ mới đổi vào chưa học.
 
+> Soát lại (2026-11-01): bản 3D thu công trình gọn vào bệ tròn có viền kem (cả nơi trên nước), cây thưa 1/4 theo màu Làng chữ, nhà mái hai dốc thưa 1/3. Bản 2D đỗ thú cưng và xe bên lề đường, ngoài bệ và biển tên. Thú cưng trong cảnh 90 đơn vị sân khấu. Chạm biển mở đúng bước (`KidsVisit` prop `startStep`, các bước còn lại nối vòng). Màn học dùng nền `kids-visitbg` từ bảng S5KidsVisit, có tên nơi ở hàng trên.
+
 > Thiết kế chi tiết cho [14 — Phase 2b](14-roadmap.md#phase-2b--mở-rộng-từ-vựng-trẻ-em-đề-xuất-2026-10-29) giai đoạn A, [decisions #35](decisions.md) và [#36](decisions.md) (bản đồ 3D + gói tải thêm). Viết 2026-10-29, sửa lần 1 cùng ngày theo góp ý chủ dự án (mỗi nơi có công trình nổi bật, tăng số nơi, bản đồ 3D chi tiết, tài nguyên tải thêm). **Chờ duyệt.** Khi code xong từng phần, đổi 📋 → ✅ ở đây và ở [07 §9](07-learning-modules.md#9-phonics--mầm-non-p1), [10](10-data-model.md), [03](03-architecture.md), [15](15-packaging-and-release.md), [17](17-metrics.md).
 
 ## 1. Mục tiêu & phạm vi

@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { Search, SearchX } from 'lucide-vue-next'
 import { cefrLabel } from '@shared/placement'
 import type { Phrasebook } from '@shared/schemas/phrasebook'
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
-import PxPanel from '@renderer/shared/components/PxPanel.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Mẫu câu giao tiếp theo tình huống: tìm kiếm, nghe (TTS), bấm để sao chép.
@@ -16,6 +16,7 @@ const book = ref<Phrasebook | null>(null)
 const category = ref<string>('all')
 const query = ref('')
 const toast = ref('')
+const searchInput = ref<HTMLInputElement>()
 /** Id các mẫu câu đã có trong sổ thẻ */
 const savedIds = ref<Set<string>>(new Set())
 let toastTimer = 0
@@ -58,7 +59,22 @@ async function savePhrase(id: string): Promise<void> {
   }
 }
 
+/** Phím "/" nhảy tới ô tìm, Esc trong ô tìm thì xoá chữ đang gõ */
+function onKey(e: KeyboardEvent): void {
+  if (e.ctrlKey || e.metaKey || e.altKey) return
+  const inField = ['INPUT', 'SELECT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)
+  if (e.key === '/' && !inField) {
+    e.preventDefault()
+    searchInput.value?.focus()
+  } else if (e.key === 'Escape' && e.target === searchInput.value && query.value) {
+    e.preventDefault()
+    query.value = ''
+  }
+}
+onUnmounted(() => window.removeEventListener('keydown', onKey))
+
 onMounted(async () => {
+  window.addEventListener('keydown', onKey)
   book.value = await invoke('phrasebook:list')
   try {
     const words = await invoke('vocab:list')
@@ -75,17 +91,22 @@ onMounted(async () => {
     <p class="muted">{{ t('study.phrasebook.intro') }}</p>
 
     <div class="filters">
-      <input
-        v-model="query"
-        type="search"
-        spellcheck="false"
-        :placeholder="t('study.phrasebook.search')"
-      />
+      <label class="search">
+        <Search :size="16" :stroke-width="2.2" />
+        <input
+          ref="searchInput"
+          v-model="query"
+          type="text"
+          spellcheck="false"
+          :placeholder="t('study.phrasebook.search')"
+        />
+        <kbd>/</kbd>
+      </label>
       <div class="chips">
         <button
           type="button"
-          class="btn btn--sm btn--pill"
-          :class="{ 'btn--primary': category === 'all' }"
+          class="fchip"
+          :class="{ on: category === 'all' }"
           @click="category = 'all'"
         >
           {{ t('study.phrasebook.all') }}
@@ -94,19 +115,25 @@ onMounted(async () => {
           v-for="c in book?.categories ?? []"
           :key="c.id"
           type="button"
-          class="btn btn--sm btn--pill"
-          :class="{ 'btn--primary': category === c.id }"
+          class="fchip"
+          :class="{ on: category === c.id }"
           @click="category = c.id"
         >
-          {{ c.icon }} {{ c.title }}
+          {{ c.title }}
         </button>
       </div>
     </div>
 
-    <p v-if="book && !visible.length" class="muted">{{ t('study.phrasebook.empty') }}</p>
+    <div v-if="book && !visible.length" class="empty">
+      <span class="empty-icon"><SearchX :size="28" :stroke-width="2.2" /></span>
+      <strong>{{ t('study.phrasebook.empty') }}</strong>
+      <button type="button" class="btn btn--sm" @click=";((query = ''), (category = 'all'))">
+        {{ t('study.words.clearFilters') }}
+      </button>
+    </div>
 
-    <PxPanel v-for="c in visible" :key="c.id" class="cat">
-      <h2>{{ c.icon }} {{ c.title }}</h2>
+    <div v-for="c in visible" :key="c.id" class="card cat">
+      <h2>{{ c.title }}</h2>
       <ul class="phrases">
         <li v-for="(p, i) in c.phrases" :key="i">
           <button
@@ -127,7 +154,7 @@ onMounted(async () => {
             <span class="vi">{{ p.vi }}</span>
             <span v-if="p.note" class="note">{{ p.note }}</span>
           </button>
-          <span v-if="p.level" class="tag">{{ cefrLabel(p.level) }}</span>
+          <span v-if="p.level" class="chip chip--xp">{{ cefrLabel(p.level) }}</span>
           <button
             type="button"
             class="btn btn--sm btn--icon"
@@ -139,7 +166,7 @@ onMounted(async () => {
           </button>
         </li>
       </ul>
-    </PxPanel>
+    </div>
 
     <div v-if="toast" class="toast">{{ toast }}</div>
   </section>
@@ -148,18 +175,16 @@ onMounted(async () => {
 <style scoped>
 .book {
   display: grid;
-  gap: 12px;
-  max-width: 760px;
-  margin: 0 auto;
+  gap: var(--sp-3);
+  max-width: 880px;
 }
 h1 {
   margin: 0;
   font-size: var(--fs-2xl);
 }
 h2 {
-  margin: 0 0 8px;
-  font-size: var(--fs-lg);
-  color: var(--c-xp);
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-xl);
 }
 .muted {
   margin: 0;
@@ -167,45 +192,103 @@ h2 {
 }
 .filters {
   display: grid;
-  gap: 8px;
+  gap: var(--sp-3);
 }
-input[type='search'] {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 8px 10px;
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--btn-h);
+  padding: 0 var(--sp-3);
   border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
   background: var(--c-surface);
-  font: inherit;
+  color: var(--c-ink-soft);
+}
+.search:focus-within {
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 3px var(--c-primary-soft);
+}
+.search input {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
   outline: none;
-  border-radius: var(--r-md);
+}
+kbd {
+  font: inherit;
+  font-size: var(--fs-xs);
+  font-weight: 600;
 }
 .chips {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px;
+  gap: var(--sp-2);
+}
+.fchip {
+  min-height: 28px;
+  padding: 0 var(--sp-3);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--c-surface-2);
+  color: var(--c-ink);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+.fchip:hover {
+  background: var(--c-line);
+}
+.fchip.on {
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.empty {
+  display: grid;
+  justify-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-7) var(--sp-4);
+  text-align: center;
+}
+.empty strong {
+  font-size: var(--fs-lg);
+}
+.empty-icon {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--r-pill);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
 }
 .cat {
-  padding: 14px 16px;
+  padding: var(--sp-4);
 }
 .phrases {
   display: grid;
-  gap: 4px;
+  gap: var(--sp-2);
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .phrases li {
   display: flex;
-  align-items: flex-start;
-  gap: 8px;
+  align-items: center;
+  gap: var(--sp-3);
 }
 .text {
   display: grid;
   flex: 1;
   gap: 1px;
-  padding: 2px 4px;
+  padding: var(--sp-1) var(--sp-2);
   border: none;
   background: transparent;
+  color: inherit;
   font: inherit;
   text-align: left;
   cursor: pointer;
@@ -219,30 +302,25 @@ input[type='search'] {
 }
 .vi {
   color: var(--c-ink-soft);
-  font-size: 14px;
+  font-size: var(--fs-sm);
 }
 .note {
-  font-size: 12px;
+  font-size: var(--fs-xs);
   color: var(--c-ink-soft);
   font-style: italic;
 }
-.tag {
-  padding: 0 4px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #fff;
-  background: var(--c-xp);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-pill);
-}
 .toast {
   position: fixed;
-  right: 20px;
-  bottom: 20px;
-  padding: 6px 12px;
+  right: var(--sp-5);
+  bottom: var(--sp-5);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) var(--sp-4);
   background: var(--c-ink);
-  color: #fff;
-  font-size: 13px;
+  color: var(--c-surface);
+  font-size: var(--fs-sm);
+  font-weight: 700;
   border-radius: var(--r-pill);
 }
 </style>

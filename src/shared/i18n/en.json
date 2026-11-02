@@ -838,6 +838,7 @@
     },
     "practice": {
       "title": "Practice",
+      "backToMenu": "Practice types",
       "intro": "Each session has 10 exercises built from real sentences (Tatoeba) and vocabulary at your level. Finish a session to earn XP.",
       "empty": "Not enough data to build exercises (the dictionary pack is needed).",
       "mixed": "Mixed",

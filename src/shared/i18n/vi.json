@@ -838,6 +838,7 @@
     },
     "practice": {
       "title": "Luyện tập",
+      "backToMenu": "Các dạng luyện tập",
       "intro": "Mỗi phiên 10 bài, lấy từ câu thật (Tatoeba) và từ vựng đúng trình độ của bạn. Xong phiên được thưởng XP.",
       "empty": "Chưa đủ dữ liệu để tạo bài (cần gói từ điển).",
       "mixed": "Trộn các dạng",

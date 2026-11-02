@@ -175,6 +175,12 @@ const percent = computed(() =>
 
 function onKeyDown(e: KeyboardEvent): void {
   if (e.ctrlKey || e.metaKey || e.altKey) return
+  // Esc lùi một bậc: đang làm bài thì về danh sách dạng bài; ở danh sách thì để vỏ trang đưa về làng
+  if (e.key === 'Escape' && phase.value !== 'menu') {
+    e.preventDefault()
+    phase.value = 'menu'
+    return
+  }
   const ex0 = exercise.value
   if (
     e.key.toLowerCase() === 'r' &&
@@ -212,6 +218,9 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 
 <template>
   <section class="practice">
+    <button v-if="phase !== 'menu'" type="button" class="back" @click="phase = 'menu'">
+      <UiIcon name="back" :size="16" /> {{ t('study.practice.backToMenu') }}
+    </button>
     <h1>{{ t('study.practice.title') }}</h1>
 
     <template v-if="phase === 'menu' || phase === 'empty'">
@@ -370,6 +379,24 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 h1 {
   margin: 0;
   font-size: var(--fs-2xl);
+}
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  justify-self: start;
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--c-ink-soft);
+  font: inherit;
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  cursor: pointer;
+}
+.back:hover {
+  color: var(--c-ink);
 }
 .muted {
   margin: 0;

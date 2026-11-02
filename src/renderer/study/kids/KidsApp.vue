@@ -10,6 +10,7 @@ import KidsAlbum from './KidsAlbum.vue'
 import KidsHome from './KidsHome.vue'
 import KidsPet from './KidsPet.vue'
 import KidsUnits from './KidsUnits.vue'
+import { confirmLeave } from '../leaveGuard'
 import KidsGame from './game/KidsGame.vue'
 import ParentGate from './ParentGate.vue'
 import type { KidsTile } from './kidsText'
@@ -50,7 +51,9 @@ function openActivity(a: KidsActivity): void {
   view.value = 'activity'
 }
 
-function goHome(): void {
+async function goHome(): Promise<void> {
+  // Đang làm dở một hoạt động thì hỏi trước khi về nhà
+  if (!(await confirmLeave())) return
   view.value = 'home'
   void loadHome()
 }

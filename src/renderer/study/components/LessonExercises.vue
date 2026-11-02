@@ -7,6 +7,7 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import PicText from '@renderer/shared/components/PicText.vue'
 import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
 import { ChevronLeft } from 'lucide-vue-next'
+import { confirmLeave, useLeaveGuard } from '../leaveGuard'
 import AudioPrompt from '../exercises/AudioPrompt.vue'
 import ChoiceList from '../exercises/ChoiceList.vue'
 import MatchBoard from '../exercises/MatchBoard.vue'
@@ -37,6 +38,12 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 const { speak, prefetch } = useTts()
+
+// Đang làm bài tập thì thoát (về bài đọc, danh sách, làng) phải hỏi; xong bài thì trang cha tháo màn này
+useLeaveGuard(() => true)
+async function goBack(): Promise<void> {
+  if (await confirmLeave()) emit('back')
+}
 
 function shuffle<T>(items: T[]): T[] {
   const out = [...items]
@@ -198,7 +205,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 <template>
   <section class="exercises">
     <div class="top">
-      <button type="button" class="back" @click="$emit('back')">
+      <button type="button" class="back" @click="goBack">
         <ChevronLeft :size="16" :stroke-width="2.4" /> {{ t('study.lessons.backToLesson') }}
       </button>
       <span class="muted">

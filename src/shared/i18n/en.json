@@ -836,6 +836,12 @@
       "devLevelUp": "Add 10 levels",
       "devLeveled": "Added 10 levels"
     },
+    "leave": {
+      "title": "Leave now?",
+      "body": "Your unfinished work will not be saved.",
+      "stay": "Stay",
+      "leave": "Leave"
+    },
     "practice": {
       "title": "Practice",
       "backToMenu": "Practice types",

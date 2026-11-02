@@ -836,6 +836,12 @@
       "devLevelUp": "Tăng 10 level",
       "devLeveled": "Đã tăng 10 level"
     },
+    "leave": {
+      "title": "Thoát giữa chừng?",
+      "body": "Bài đang làm dở sẽ không được lưu.",
+      "stay": "Ở lại",
+      "leave": "Thoát"
+    },
     "practice": {
       "title": "Luyện tập",
       "backToMenu": "Các dạng luyện tập",

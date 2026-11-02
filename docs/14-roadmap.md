@@ -23,6 +23,9 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
+- [x] (2026-11-02) Hỏi xác nhận khi thoát giữa chừng một phiên học, cả giao diện người lớn lẫn bé: `study/leaveGuard.ts` (phiên đang làm dở đăng ký `useLeaveGuard`, nơi thoát gọi `confirmLeave()`) + hộp `LeaveConfirm.vue` (mặc định chọn Ở lại, Esc = ở lại). Có guard: Luyện tập (đang làm bài), bài tập trong bài học, bài kiểm tra đầu vào/lên cấp, hoạt động chữ cái của bé, lượt học tại một nơi của bé. Chặn ở: chuyển trang/về làng (`App.go`), nút quay lại trong Luyện tập, bài tập → bài đọc, về nhà và về cảnh của bé. Không guard Ôn tập (thẻ lưu từng lá ngay). Phiên Luyện tập có thêm nút quay lại danh sách dạng bài + Esc lùi một bậc. Chưa thử tay.
+
+
 - [x] (2026-11-02) Sửa treo app khi vào Luyện tập ở hồ sơ trẻ em: lọc câu nhạy cảm dùng `NOT EXISTS` tương quan theo `sentence_id`, mà `sentence_words` chỉ có khoá `(word_id, sentence_id)` nên mỗi câu quét cả bảng (>300 s trên pack 1.6.0, 77k câu). Đổi thành truy vấn con không tương quan `UNSAFE_SENTENCES` trong `DictionaryService.ts` (0,25 s), áp cho `randomSentences` và `safeSentences`. Chưa thử tay trên app thật.
 
 

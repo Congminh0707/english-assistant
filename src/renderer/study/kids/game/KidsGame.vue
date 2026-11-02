@@ -18,6 +18,7 @@ import PlaceScene from './PlaceScene.vue'
 import WorldMap from './WorldMap.vue'
 import WorldMap3D from './WorldMap3D.vue'
 import { playSfx, setSfxEnabled } from './sfx'
+import { confirmLeave } from '../../leaveGuard'
 
 // Màn game toàn màn hình của bé (docs/19-kids-world.md §5.4): bấm ô Chơi → cửa sổ Học tập toàn màn hình (kênh
 // study:fullscreen, chỉ khi bé bấm), sân khấu 16:9 co giãn vừa màn hình (viền màu trời), HUD kiểu game phủ trên.
@@ -125,6 +126,8 @@ function learn(step: number): void {
 
 /** Xong hoặc thoát bài học: quay về cảnh của nơi đó nếu có */
 async function afterVisit(): Promise<void> {
+  // Đang học dở một bước thì hỏi trước; xong bài (màn kết quả) thì không có gì dở nên đi luôn
+  if (!(await confirmLeave())) return
   if (placeId.value && PLACE_ART[placeId.value]) {
     await load()
     view.value = 'place'

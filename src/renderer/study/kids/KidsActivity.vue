@@ -10,6 +10,7 @@ import { useStt } from '@renderer/shared/composables/useStt'
 import TraceCanvas from './TraceCanvas.vue'
 import { FOOD_NAME, FOOD_PICTURE, PRAISE, pick, TRY_AGAIN } from './kidsText'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
+import { useLeaveGuard } from '../leaveGuard'
 
 // Một hoạt động của bé: học (chạm để nghe từng chữ/âm/từ) rồi chơi (nghe → chạm đúng). Không cần biết đọc:
 // chữ cái và từ chỉ cần nhận mặt, câu hỏi luôn được đọc to.
@@ -35,6 +36,7 @@ const canPractice = computed(
 
 type Phase = 'teach' | 'quiz' | 'trace' | 'say' | 'result'
 const phase = ref<Phase>('teach')
+useLeaveGuard(() => phase.value === 'quiz' || phase.value === 'trace' || phase.value === 'say')
 const index = ref(0)
 const items = computed(() => props.activity.items)
 const item = computed(() => items.value[index.value])

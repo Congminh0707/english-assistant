@@ -28,6 +28,8 @@ import EvolutionOverlay from './components/EvolutionOverlay.vue'
 import { useEvolution } from './useEvolution'
 import { isDark } from '@renderer/shared/theme'
 import QuickSearch from './components/QuickSearch.vue'
+import LeaveConfirm from './components/LeaveConfirm.vue'
+import { confirmLeave, isLeaveGuarded, leavePrompt } from './leaveGuard'
 
 // Cửa sổ Học tập v2 (docs/23): bản đồ làng, vào địa điểm thì có cảnh + nội dung trên giấy.
 const { t, locale } = useI18n()
@@ -82,10 +84,25 @@ function goPlace(p: Place): void {
 }
 
 function go(next: StudyPage): void {
+  // Đang làm dở một phiên thì hỏi trước; không có gì dở thì đi ngay (không await) để thứ tự gọi cũ không đổi
+  if (isLeaveGuarded()) {
+    void confirmLeave().then((ok) => {
+      if (ok) goNow(next)
+    })
+    return
+  }
+  goNow(next)
+}
+
+function goNow(next: StudyPage): void {
   autostartTest.value = false
   checkpointMode.value = false
   page.value = next
   void refresh()
+}
+
+async function backToKid(): Promise<void> {
+  if (await confirmLeave()) parentMode.value = false
 }
 
 /** Xong màn hình chào: vào bài kiểm tra (tự bắt đầu) hoặc trang chủ */
@@ -191,7 +208,7 @@ onUnmounted(() => {
     >
       <p v-if="parentMode" class="parent-banner">
         {{ t('study.parent.banner') }}
-        <button type="button" class="btn btn--sm" @click="parentMode = false">
+        <button type="button" class="btn btn--sm" @click="backToKid">
           {{ t('study.parent.backToKid') }}
         </button>
       </p>
@@ -219,6 +236,7 @@ onUnmounted(() => {
 
     <QuickSearch v-if="searching && !kidsMode" @close="searching = false" @words="openWords" />
     <TtsIndicator />
+    <LeaveConfirm v-if="leavePrompt" />
 
     <EvolutionOverlay
       v-if="loaded && evolution"

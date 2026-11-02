@@ -8,6 +8,7 @@ import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { FOOD_PICTURE, PRAISE, pick, TRY_AGAIN } from './kidsText'
 import { playSfx } from './game/sfx'
+import { useLeaveGuard } from '../leaveGuard'
 
 // Lượt chơi tại một nơi trên bản đồ (docs/19-kids-world.md §3.2): một đợt ≤ 4 từ đi qua 5 bước
 // 1 làm quen → 2 chạm hình (chấm FSRS qua kids:rate) → 3 lật thẻ ghép cặp → 4 nói theo (không chấm, không ghi âm)
@@ -22,6 +23,7 @@ const { speak } = useTts()
 type Step = 'intro' | 'tap' | 'play' | 'speak' | 'sentence' | 'done' | 'empty'
 const visit = ref<KidsVisit | null>(null)
 const step = ref<Step>('intro')
+useLeaveGuard(() => step.value !== 'done' && step.value !== 'empty')
 const index = ref(0)
 const wrong = ref<string[]>([])
 const solved = ref(false)

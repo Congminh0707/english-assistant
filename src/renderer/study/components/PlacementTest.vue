@@ -7,6 +7,7 @@ import type { PlacementQuestion, PlacementResult } from '@shared/schemas/placeme
 import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
+import { useLeaveGuard } from '../leaveGuard'
 
 // Bài kiểm tra đầu vào: 20 câu xen kẽ từ vựng / ngữ pháp / đọc hiểu, độ khó thích nghi; chấm ở main.
 const props = defineProps<{ autostart?: boolean; mode?: 'placement' | 'checkpoint' }>()
@@ -18,6 +19,7 @@ const checkpoint = computed(() => props.mode === 'checkpoint')
 
 type Phase = 'intro' | 'question' | 'feedback' | 'result' | 'nopack'
 const phase = ref<Phase>('intro')
+useLeaveGuard(() => phase.value === 'question' || phase.value === 'feedback')
 const question = ref<PlacementQuestion | null>(null)
 const result = ref<PlacementResult | null>(null)
 const busy = ref(false)

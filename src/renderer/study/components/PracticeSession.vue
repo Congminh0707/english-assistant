@@ -12,6 +12,7 @@ import {
   type PracticeSummary
 } from '@shared/schemas/practice'
 import { invoke } from '@renderer/shared/ipc'
+import { confirmLeave, useLeaveGuard } from '../leaveGuard'
 import { useTts } from '@renderer/shared/composables/useTts'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import AudioPrompt from '../exercises/AudioPrompt.vue'
@@ -31,6 +32,12 @@ const exercise = ref<Exercise | null>(null)
 const result = ref<PracticeAnswerResult | null>(null)
 const summary = ref<PracticeSummary | null>(null)
 const busy = ref(false)
+
+// Đang làm bài (chưa tới màn tổng kết) thì thoát phải hỏi
+useLeaveGuard(() => phase.value === 'question' || phase.value === 'feedback')
+async function toMenu(): Promise<void> {
+  if (await confirmLeave()) phase.value = 'menu'
+}
 
 // Trạng thái nhập liệu theo dạng bài
 const chosen = ref<number | null>(null) // cloze, listen_choice
@@ -178,7 +185,7 @@ function onKeyDown(e: KeyboardEvent): void {
   // Esc lùi một bậc: đang làm bài thì về danh sách dạng bài; ở danh sách thì để vỏ trang đưa về làng
   if (e.key === 'Escape' && phase.value !== 'menu') {
     e.preventDefault()
-    phase.value = 'menu'
+    void toMenu()
     return
   }
   const ex0 = exercise.value
@@ -218,7 +225,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 
 <template>
   <section class="practice">
-    <button v-if="phase !== 'menu'" type="button" class="back" @click="phase = 'menu'">
+    <button v-if="phase !== 'menu'" type="button" class="back" @click="toMenu">
       <UiIcon name="back" :size="16" /> {{ t('study.practice.backToMenu') }}
     </button>
     <h1>{{ t('study.practice.title') }}</h1>

@@ -129,7 +129,7 @@ Theo [23](23-design-v2-spec.md), làm từng phần, mỗi phần qua `pnpm lint
 - [x] Lượt soát cuối (2026-11-01): nhãn Tháp Bút dời xuống dưới thanh trên (`max(84px, …)`), thanh phải của làng chỉ còn icon khi cửa sổ ≤ 780px; `PlaceShell` ẩn tab khi đang học một bài (`SHELL_FOCUS`, `LessonsPage` báo qua provide/inject); 680×520 và 900×640 không còn thanh cuộn ngang (tab địa điểm ngắt dòng, KPI thống kê 2 cột, cột thống kê co lại, tab Cài đặt ngắt dòng, nút Về làng giấu `Esc`); bé: nền cảnh `kids-bg`/`kids-bg-night` (sinh từ `export-art.py --kids`), trang chính và Thú cưng dùng `PetSprite` của thú cưng thật, màn nghỉ ban đêm. `pnpm ui:audit` 0 lỗi, còn 9 cảnh báo màu cứng, đều trong `kids/game/*` và `KidsWorld.vue` (đã xử lý 2026-11-01: đổi sang token `--g-*` trong `tokens.css`, cùng giá trị nên giao diện không đổi; `ui:audit` 0 lỗi, 0 cảnh báo). Còn: chưa chụp đối chiếu `KidsReview` (nằm trong game), `PixelPicture`/`PixelBadge` đã đổi tên 2026-11-01 thành `PictureImage`/`BadgeImage`; `ui-shot --js2` đã có từ trước, nay ghi vào dòng dùng của script.
 - [x] Kids World: bản đồ, bệ 3D, cảnh 12 nơi, máy bay tầng 2
 - [x] Kids World tầng 3: quả cầu three.js, nội dung 9 kỳ quan (chờ chủ dự án duyệt `reviewed`)
-- [ ] Việc thiết kế còn thiếu ở [23 §7](23-design-v2-spec.md) — 2026-11-01: xong kiểm tra tương phản (`pnpm ui:contrast`)
+- [x] Việc thiết kế còn thiếu ở [23 §7](23-design-v2-spec.md) — 2026-11-02: xong cả gói (tương phản, thời tiết, 6 cảnh nước, cảnh dày hơn, cửa sổ nhỏ, 3D Hội An/Đà Nẵng, icon vật phẩm, thẻ xoài). Còn lại ở §7 là mục không code được: vài công trình vẽ theo hiểu biết chung vì thiếu ảnh, hoạt ảnh chưa xem chạy liên tục, `prefers-reduced-motion` chưa thử.
 
 ## Phase 0 — Spike: cửa sổ mascot (≈ 2 tuần)
 

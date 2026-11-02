@@ -64,6 +64,13 @@ const INFLECTION_TAGS = new Set([
  * Thứ tự: 1) khớp từ gốc  2) khớp dạng đã chia (went → go)  3) FTS: tiền tố tiếng Anh / tra ngược tiếng Việt.
  * Cùng thuật toán với `pnpm content:lookup` (scripts/content/lookup.ts).
  */
+/**
+ * Câu có từ nhạy cảm. Truy vấn con KHÔNG tương quan: SQLite tính một lần qua khoá chính (word_id, sentence_id).
+ * Không dùng NOT EXISTS theo sentence_id — bảng không có chỉ mục đó nên mỗi câu quét cả bảng, hồ sơ trẻ em treo app.
+ */
+const UNSAFE_SENTENCES = `SELECT sentence_id FROM sentence_words
+  WHERE word_id IN (SELECT id FROM words WHERE sensitive = 1)`
+
 export class DictionaryService {
   private statements: {
     db: Database.Database
@@ -148,8 +155,7 @@ export class DictionaryService {
     if (!stmts || !levels.length) return []
     const safe =
       options.childSafe && stmts.hasSensitive
-        ? ` AND NOT EXISTS (SELECT 1 FROM sentence_words sw JOIN words w ON w.id = sw.word_id
-              WHERE sw.sentence_id = s.id AND w.sensitive = 1)`
+        ? ` AND s.id NOT IN (${UNSAFE_SENTENCES})`
         : ''
     const rows = stmts.db
       .prepare(
@@ -338,9 +344,7 @@ export class DictionaryService {
       safeSentences: db.prepare(
         hasSensitive
           ? `SELECT s.en, s.vi FROM sentence_words sw JOIN sentences s ON s.id = sw.sentence_id
-             WHERE sw.word_id = ? AND NOT EXISTS (
-               SELECT 1 FROM sentence_words x JOIN words w ON w.id = x.word_id
-               WHERE x.sentence_id = s.id AND w.sensitive = 1)
+             WHERE sw.word_id = ? AND s.id NOT IN (${UNSAFE_SENTENCES})
              ORDER BY s.vi IS NULL, length(s.en) LIMIT 3`
           : 'SELECT 1 WHERE 0'
       )

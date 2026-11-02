@@ -23,6 +23,9 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
+- [x] (2026-11-02) Sửa treo app khi vào Luyện tập ở hồ sơ trẻ em: lọc câu nhạy cảm dùng `NOT EXISTS` tương quan theo `sentence_id`, mà `sentence_words` chỉ có khoá `(word_id, sentence_id)` nên mỗi câu quét cả bảng (>300 s trên pack 1.6.0, 77k câu). Đổi thành truy vấn con không tương quan `UNSAFE_SENTENCES` trong `DictionaryService.ts` (0,25 s), áp cho `randomSentences` và `safeSentences`. Chưa thử tay trên app thật.
+
+
 - [x] (2026-11-01) Gói việc thiết kế còn thiếu [23 §7](23-design-v2-spec.md) theo thứ tự T1→T7 (T1 thời tiết cảnh, T2 cảnh 6 nước, T3 độ thưa HCMC/Phú Quốc/Cần Thơ, T4 bản đồ 900×640, T5 mô hình 3D Hội An + Đà Nẵng, T6 phụ kiện/đồ ăn đối chiếu spec, T7 thẻ xoài). Kiểm tra tương phản xong. T1 xong (lớp thời tiết CSS, `SceneWeather.vue`). T2 xong (6 cảnh nước: `gen_places_{japan,china,australia,kenya,france,usa}.py`, xuất qua `export-art.py --kids`, nhãn 5 biển trong i18n `kids.game.spots`; chưa thử tay). T3 xong (PHcmc, PPhuquoc, PCantho vẽ dày hơn trong `gen_places_south.py`, vị trí 5 biển + thú cưng giữ nguyên; chưa thử tay). T4 xong (cửa sổ nhỏ: HUD, biển tên, biển chạm và nút dock phóng thêm bằng `--hz` tới 1.5× khi sân khấu co dưới 0.8; chưa thử tay ở 900×640). T5 xong (`hoianChuaCau` và `dragonBridge` dựng lại trên đĩa tròn bán kính ~4.9, lòng sông chạy dọc z, `PLATES` đổi theo; chưa thử trên bản đồ thật, hoạt ảnh/lửa chưa xem chạy). T7 xong (thẻ xoài vẽ lại dài, nghiêng, vai xanh + má đỏ, `gen_cards.py` `s_mango`; 188 thẻ còn lại giữ nguyên). T6 xong: 38 icon vật phẩm vẽ riêng (18 đồ ăn + 20 phụ kiện) ở `src/renderer/shared/art/items/<id có ':' → '-'>.svg`, sinh bởi `scripts/design-data/review/gen_items_{food_a,food_b,acc_a,acc_b}.py`; `ItemEmoji` nhận `id` và ưu tiên hình vẽ, thiếu thì dùng Twemoji. Chưa thử tay trong app. Xong cả T1–T7.
 
 

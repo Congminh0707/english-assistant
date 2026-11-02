@@ -318,3 +318,9 @@ Mẫu:
 **Bối cảnh:** thiết kế v2 bỏ pixel ([#41](#41--chốt-thiết-kế-v2-làng-chữ-2026-10-31--đã-quyết-định)); cửa sổ mascot đã chuyển sang `PetSprite` vector nên gói 288px không còn người dùng.
 **Quyết định:** xoá sprite sheet (`mascot/assets/characters`, ~24 MB), `SpriteAnimator`, `hires.ts`, `SpritePackManager/Service`, `packSpec`, kênh `sprites:*`, `SpritePackPanel`, i18n `spritePack`, script sinh sprite (giữ `scripts/sprites/make-icon.mjs` cho icon app). `MascotBrain` giữ nguyên, chỉ đổi cơ thể thành `PoseAnimator` (trạng thái → dáng vector). Người đã tải gói: khi khởi động app xoá thư mục `userData/sprite-packs/`, không cần migration vì không có dữ liệu trong DB; cài đặt `mascot.scale` giữ nguyên ý nghĩa (khung = 48 × scale × 1,5 px).
 **Hệ quả:** mất hoạt ảnh `quirk_*`/`click_*` riêng từng nhân vật; vùng bấm của mascot là elip xấp xỉ. Release GitHub `pet-sprites-hires-*` không còn dùng.
+
+## #46 — Cảnh 6 nước tầng 2 dùng tranh ChatGPT Image (2026-11-02) — Đã quyết định
+
+**Bối cảnh:** tranh SVG vẽ tay của 6 nước (Nhật, Trung Quốc, Úc, Kê-ni-a, Pháp, Hoa Kỳ) bị chê lỗi công trình, thú xấu, cảnh vật sai thực tế.
+**Quyết định:** dùng 6 tranh 16:9 do chủ dự án tạo bằng ChatGPT Image (WebP q80, nhúng base64 trong `src/renderer/shared/art/scenes/kids-p<nước>.art.html`, ~0,45–0,63 MB mỗi tranh). Toạ độ biển chạm ở `game/placeArtPhoto.ts`, ghi đè `placeArt.generated.ts`. Ngoại lệ của quy tắc "tranh là vector" ([18](18-ui-rules.md)) chỉ cho 6 cảnh này. Bước sau: nền trống + sprite 4 khung để làm động.
+**Hệ quả:** `export-art.py` / `gen_places_<nước>.py` không còn sinh 6 tranh này (chạy lại sẽ ghi đè mất). Nguồn gốc ảnh: ChatGPT Image, chủ dự án tự kiểm điều khoản dùng thương mại trước khi phát hành. Từ học Trung Quốc (tiger, deer, fox, wolf, bear) chưa khớp tranh.

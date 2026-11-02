@@ -23,6 +23,8 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
+- [x] (2026-11-02) Cảnh 6 nước tầng 2 đổi sang tranh vẽ sẵn (nhờ ChatGPT Image, WebP nhúng trong `kids-p<nước>.art.html`), toạ độ biển ở `game/placeArtPhoto.ts`. Nhãn biển Trung Quốc đổi (Núi, Gấu trúc, Múa lân, Thuyền rồng, Đèn lồng). 🚧 Còn: tranh động (nền trống + sprite 4 khung, đã thử Trung Quốc), từ học Trung Quốc (tiger, deer, fox, wolf, bear) chưa khớp tranh, chưa thử tay, đo dung lượng.
+
 - [x] (2026-11-02) Hỏi xác nhận khi thoát giữa chừng một phiên học, cả giao diện người lớn lẫn bé: `study/leaveGuard.ts` (phiên đang làm dở đăng ký `useLeaveGuard`, nơi thoát gọi `confirmLeave()`) + hộp `LeaveConfirm.vue` (mặc định chọn Ở lại, Esc = ở lại). Chủ dự án đã thử tay, ổn (2026-11-02). Có guard: Luyện tập (đang làm bài), bài tập trong bài học, bài kiểm tra đầu vào/lên cấp, hoạt động chữ cái của bé, lượt học tại một nơi của bé. Chặn ở: chuyển trang/về làng (`App.go`), nút quay lại trong Luyện tập, bài tập → bài đọc, về nhà và về cảnh của bé. Không guard Ôn tập (thẻ lưu từng lá ngay). Phiên Luyện tập có thêm nút quay lại danh sách dạng bài + Esc lùi một bậc. Chưa thử tay.
 
 

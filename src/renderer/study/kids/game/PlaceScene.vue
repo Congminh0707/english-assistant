@@ -8,6 +8,7 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 import { PLACE_ART } from './placeArt.generated'
+import { PLACE_ART_PHOTO } from './placeArtPhoto'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import PlaceProgress from './PlaceProgress.vue'
 import SceneWeather from './SceneWeather.vue'
@@ -34,7 +35,7 @@ const PET_SIZE = 90
 const PET_SPOT: Readonly<Record<string, { x: number; y: number }>> = {
   hoian: { x: 1130, y: 462 }
 }
-const art = computed(() => PLACE_ART[props.place.id])
+const art = computed(() => PLACE_ART_PHOTO[props.place.id] ?? PLACE_ART[props.place.id])
 const weather = computed(() => pickWeather(props.place.id))
 const petAt = computed(() => PET_SPOT[props.place.id] ?? art.value?.pet ?? { x: 0, y: 0 })
 const sx = computed(() => props.width / 1280)

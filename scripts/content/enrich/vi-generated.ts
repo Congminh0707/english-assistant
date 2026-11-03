@@ -83,11 +83,18 @@ export async function saveViGenerated(
     .map(([id, entry]) => `    ${JSON.stringify(id)}: ${JSON.stringify(entry)}`)
   const body = lines.length ? `{\n${lines.join(',\n')}\n  }` : '{}'
   await ensureDir(dirname(path))
-  await writeFile(
-    path,
-    `{\n  "$comment": ${JSON.stringify(COMMENT)},\n  "entries": ${body}\n}\n`,
-    'utf8'
-  )
+  const text = `{\n  "$comment": ${JSON.stringify(COMMENT)},\n  "entries": ${body}\n}\n`
+  // Windows: Defender/indexer/editor đôi khi giữ file một lúc → open lỗi UNKNOWN/EBUSY/EPERM; thử lại thay vì dừng cả lượt sinh
+  for (let attempt = 1; ; attempt++) {
+    try {
+      await writeFile(path, text, 'utf8')
+      return
+    } catch (e) {
+      const code = (e as NodeJS.ErrnoException).code
+      if (attempt >= 5 || !['UNKNOWN', 'EBUSY', 'EPERM'].includes(code ?? '')) throw e
+      await new Promise((r) => setTimeout(r, 300 * attempt))
+    }
+  }
 }
 
 /** Mục được đưa vào pack: chỉ nghĩa đã `approved` (draft/ai_checked chưa duyệt và rejected không bao giờ vào pack) */

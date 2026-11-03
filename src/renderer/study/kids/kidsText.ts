@@ -8,7 +8,7 @@ export const pick = <T>(items: readonly T[]): T => items[Math.floor(Math.random(
 
 /** Ô trên màn hình chính của bé */
 export interface KidsTile {
-  id: 'play' | 'abc' | 'stickers' | 'pet'
+  id: 'play' | 'abc' | 'games' | 'stickers' | 'pet'
   /** Id hình thẻ từ */
   picture: string
   /** Câu đọc to và nhãn hiện to */
@@ -20,6 +20,7 @@ export interface KidsTile {
 export const TILES: readonly KidsTile[] = [
   { id: 'play', picture: 'ball', say: "Let's play!", viKey: 'kids.tile.play' },
   { id: 'abc', picture: 'apple', say: 'ABC', viKey: 'kids.tile.abc' },
+  { id: 'games', picture: 'fish', say: 'Games', viKey: 'kids.tile.games' },
   { id: 'stickers', picture: 'star', say: 'My stickers', viKey: 'kids.tile.stickers' },
   { id: 'pet', picture: 'cat', say: 'My pet', viKey: 'kids.tile.pet' }
 ]

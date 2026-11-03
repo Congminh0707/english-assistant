@@ -1258,7 +1258,15 @@
       "play": "Bản đồ: đi chơi, học từ mới",
       "abc": "Học chữ cái, âm, từ",
       "stickers": "Album sticker",
-      "pet": "Cho thú cưng ăn"
+      "pet": "Cho thú cưng ăn",
+      "games": "Trò chơi"
+    },
+    "games": {
+      "title": "Trò chơi",
+      "memory": "Lật thẻ ghép cặp",
+      "balloon": "Bắn bóng bay",
+      "pet": "Cho thú cưng ăn đúng món",
+      "fishing": "Câu cá"
     },
     "review": {
       "hint": "Nghe từ rồi chạm vào hình đúng",

@@ -1258,7 +1258,15 @@
       "play": "World map: explore and learn words",
       "abc": "Learn letters, sounds, words",
       "stickers": "Sticker album",
-      "pet": "Feed the pet"
+      "pet": "Feed the pet",
+      "games": "Games"
+    },
+    "games": {
+      "title": "Games",
+      "memory": "Memory match",
+      "balloon": "Pop the balloon",
+      "pet": "Feed the pet",
+      "fishing": "Go fishing"
     },
     "review": {
       "hint": "Listen to the word, then tap the right picture",

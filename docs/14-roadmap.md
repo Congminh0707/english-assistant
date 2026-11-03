@@ -276,11 +276,12 @@ Hiện trạng: bé chỉ có một dạng thẻ (`audio_picture`: nghe từ →
     3. Sinh 189 file `art/cards/<id>.svg` (sửa `gen_cards.py` hoặc `export-cards.py`), giữ nguyên id hình, chạy `art/cards.test.ts`.
     4. Đo dung lượng, cập nhật [17-metrics](17-metrics.md) và [decisions](decisions.md).
   - **Trước khi đưa vào app** (áp dụng nếu dùng lại hướng tạo ảnh bằng AI): chủ dự án tự tạo API key (đặt biến môi trường, không đưa key cho AI nhập); kiểm tra điều khoản thương mại của công cụ; ghi nguồn vào [docs/08-content-sources.md](08-content-sources.md); duyệt thử 5 con (hươu cao cổ, voi, lạc đà, ngựa, kangaroo) rồi mới làm cả bộ; `PixelPicture.vue` đã nhận ảnh thường nên sửa code ít.
-- [ ] Địa lý/văn hoá: bản đồ cách điệu, **không vẽ đường biên giới/chủ quyền**, tránh chủ đề tranh chấp; món ăn/địa danh/cờ phải đúng, cần người Việt duyệt trước khi phát hành (nội dung hiện do AI soạn).
+- [x] (2026-11-03, chủ dự án duyệt: 9 nơi tầng "e-" đặt `reviewed: true`; 17 nơi còn lại đã duyệt từ trước; `pnpm content:validate` OK) Địa lý/văn hoá: bản đồ cách điệu, **không vẽ đường biên giới/chủ quyền**, tránh chủ đề tranh chấp; món ăn/địa danh/cờ phải đúng, cần người Việt duyệt trước khi phát hành (nội dung hiện do AI soạn).
 
 **Giai đoạn B — Mini-game (làm sau A)**
 
-- [ ] Lật thẻ ghép cặp (memory) · bắn bóng bay đúng từ nghe được · Simon says (TPR) · phân loại (con vật/đồ ăn).
+- [x] (2026-11-03, code xong, chưa thử tay) Ô **Games** ở màn chính của bé (`study/kids/games/`): lật thẻ ghép cặp · bắn bóng bay · thú cưng đói (đòi món, bé chạm đúng hình) · câu cá. Dùng từ bé đã dán sticker (thiếu thì bù từ đầu album), không thêm kênh IPC; ≥ 2 sao nhận quà qua `kids:reward` (có hạn mức ngày). Logic thuần ở `gameLogic.ts` (+ test).
+- [ ] Còn lại: Simon says (TPR) · phân loại (con vật/đồ ăn) — cần nhãn nhóm từ / hoạt ảnh động từ.
 - [ ] Mỗi game dùng chung bộ từ chủ đề, có sao thưởng/sticker như hoạt động hiện tại.
 
 **Giai đoạn C — Động từ/tính từ qua mascot + thú cưng "học trò"**

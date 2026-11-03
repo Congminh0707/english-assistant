@@ -12,6 +12,7 @@ import KidsPet from './KidsPet.vue'
 import KidsUnits from './KidsUnits.vue'
 import { confirmLeave } from '../leaveGuard'
 import KidsGame from './game/KidsGame.vue'
+import KidsGames from './games/KidsGames.vue'
 import ParentGate from './ParentGate.vue'
 import type { KidsTile } from './kidsText'
 import { useKidsUsage } from './useKidsUsage'
@@ -27,7 +28,7 @@ const emit = defineEmits<{ parent: []; changed: [] }>()
 const { t } = useI18n()
 const petStore = usePetStore()
 
-type View = 'home' | 'play' | 'abc' | 'activity' | 'stickers' | 'pet'
+type View = 'home' | 'play' | 'abc' | 'games' | 'activity' | 'stickers' | 'pet'
 const view = ref<View>('home')
 const activity = ref<KidsActivity | null>(null)
 const home = ref<KidsHomeData | null>(null)
@@ -125,6 +126,7 @@ onMounted(loadHome)
         @back="backToList"
         @changed="changed"
       />
+      <KidsGames v-else-if="view === 'games'" @changed="changed" />
       <KidsAlbum v-else-if="view === 'stickers'" />
       <KidsPet v-else-if="view === 'pet'" @changed="changed" />
     </main>

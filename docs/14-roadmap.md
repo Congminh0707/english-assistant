@@ -23,7 +23,7 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
-- [x] (2026-11-03) Chốt phong cách vẽ lại thẻ từ: chibi giống mascot, mặt "a", nhìn thẳng. Đã có 6 con mẫu ở `scripts/design-data/review/cards-chibi/`. Chưa đụng `art/cards/`. Chi tiết và việc còn lại ở mục **Vẽ lại bộ thẻ từ** (Giai đoạn A, thế giới của bé).
+- [x] (2026-11-03) Chốt phong cách vẽ lại thẻ từ: chibi giống mascot, mặt "b" (mắt chấm, lông mày, không má hồng), nhìn thẳng. Đã có 6 con mẫu ở `scripts/design-data/review/cards-chibi/`. Chưa đụng `art/cards/`. Chi tiết và việc còn lại ở mục **Vẽ lại bộ thẻ từ** (Giai đoạn A, thế giới của bé).
 
 - [x] (2026-11-02) Cảnh 6 nước tầng 2 đổi sang tranh vẽ sẵn (nhờ ChatGPT Image, WebP nhúng trong `kids-p<nước>.art.html`), toạ độ biển ở `game/placeArtPhoto.ts`. Nhãn biển Trung Quốc đổi (Núi, Gấu trúc, Múa lân, Thuyền rồng, Đèn lồng). 🚧 Còn: tranh động (nền trống + sprite 4 khung, đã thử Trung Quốc), từ học Trung Quốc (tiger, deer, fox, wolf, bear) chưa khớp tranh, chưa thử tay, đo dung lượng.
 
@@ -258,21 +258,21 @@ Hiện trạng: bé chỉ có một dạng thẻ (`audio_picture`: nghe từ →
   - **Cập nhật 2026-11-03: đã chốt phong cách, thay hướng trên** (thử nhiều vòng trên canvas Claude Design https://claude.ai/artifact/4rCvcRmMNNsR3fL3WYFb2F, bảng `Zoo.dc.html`). Bỏ hướng "nét viền nâu, đứng ngang" ở trên. Phong cách chốt là **chibi giống mascot**, theo công thức của `art/pets/*.pet.json`:
     - **Tỉ lệ:** đầu rộng khoảng 2 lần thân, ngồi, nhìn thẳng, mặt đối xứng hai bên. Chủ dự án chọn giữ nhìn thẳng cho mọi con, kể cả ngựa vằn và hươu.
     - **Nét và màu:** không viền, màu phẳng.
-    - **Mặt "a"** (dùng chung cho mọi con, symbol `z-eyes`): mắt elip đen 12.5×16 tại (112,140) và (188,140) trong viewBox 300×340, một đốm sáng to, một đốm nhỏ. Không dùng lớp tím ở đáy mắt. Má hồng nhoè bằng `feGaussianBlur`, đặt dưới mắt.
+    - **Mặt "b"** (dùng chung cho mọi con, symbol `z-eyes`; ngày 2026-11-03 chủ dự án chọn lại mặt này thay cho mặt "a"): mắt chấm elip đen 8×10.5 tại (114,142) và (186,142) trong viewBox 300×340, một đốm sáng r=3. Lông mày là cung `#3A2430` opacity 0.45, hợp với mọi màu lông. Không có má hồng.
     - **Chi tiết theo con:** mõm hoặc bụng màu kem, mảng bóng dưới cằm, vệt sáng trên đầu, móng và ngón chân, đốm hoặc sọc cắt theo `clipPath`, đạo cụ nhỏ (kangaroo con trong túi, lá bạch đàn).
     - **Khung thẻ:** kiểu "A · Tranh truyện" (thẻ giấy kem `#FFF9EE`, mảng nền vẽ tay theo nhóm từ, chữ Baloo 2).
   - **Đã loại ngày 2026-11-03** (không thử lại):
     - các kiểu khác: sticker viền trắng, đất nặn 3D, hình học phẳng, giấy cắt dán, in Riso, chibi "kawaii kẹo dẻo" (mắt chấm, má vạch, viền màu), roundimals;
     - các cách vẽ: tỉ lệ thật với mắt chấm, mặt nghiêng 3/4 (mắt to nhỏ không đều, má lệch).
   - **Bản mẫu đã duyệt (SVG trong repo):** `scripts/design-data/review/cards-chibi/`.
-    - `animals-face-a.svg`: voi, hươu cao cổ, koala, ngựa vằn, sư tử, kangaroo.
+    - `animals-face-b.svg`: voi, hươu cao cổ, koala, ngựa vằn, sư tử, kangaroo.
     - `card-layout.dc.html`: bố cục thẻ cùng ô album 84px.
     - `kangaroo-faces.svg`: 4 kiểu mặt đã so.
     - `zebra-side.svg`: bản nhìn nghiêng, chưa dùng.
     - `preview.py`: chụp xem trước bằng Edge headless ở 270px và 84px. Luôn xem ảnh trước khi đưa cho chủ dự án duyệt.
   - **Việc còn lại:**
     1. Vẽ nốt các con vật còn lại theo công thức trên.
-    2. Thêm nhóm không phải con vật (đồ ăn, đồ vật, phương tiện): cần chốt cách áp dụng mặt "a" hay không vẽ mặt.
+    2. Thêm nhóm không phải con vật (đồ ăn, đồ vật, phương tiện): cần chốt cách áp dụng mặt "b" hay không vẽ mặt.
     3. Sinh 189 file `art/cards/<id>.svg` (sửa `gen_cards.py` hoặc `export-cards.py`), giữ nguyên id hình, chạy `art/cards.test.ts`.
     4. Đo dung lượng, cập nhật [17-metrics](17-metrics.md) và [decisions](decisions.md).
   - **Trước khi đưa vào app** (áp dụng nếu dùng lại hướng tạo ảnh bằng AI): chủ dự án tự tạo API key (đặt biến môi trường, không đưa key cho AI nhập); kiểm tra điều khoản thương mại của công cụ; ghi nguồn vào [docs/08-content-sources.md](08-content-sources.md); duyệt thử 5 con (hươu cao cổ, voi, lạc đà, ngựa, kangaroo) rồi mới làm cả bộ; `PixelPicture.vue` đã nhận ảnh thường nên sửa code ít.

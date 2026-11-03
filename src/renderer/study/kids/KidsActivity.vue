@@ -18,7 +18,7 @@ const props = defineProps<{ activity: KidsActivity }>()
 const emit = defineEmits<{ back: []; changed: [] }>()
 
 const { t } = useI18n()
-const { speak } = useTts()
+const { speak, speakAsync } = useTts()
 const stt = useStt()
 
 // Chấm phát âm theo âm vị (model tuỳ chọn, phụ huynh tải trong Cài đặt): có thì bé nói thật và được chấm, chưa có thì như cũ
@@ -44,10 +44,30 @@ const item = computed(() => items.value[index.value])
 // --- Học ---
 const sayItem = (i: KidsItem): void => speak(i.say ?? i.text, 'us', 0.8)
 
+/** Phần đang đọc ở thẻ chữ cái: sáng chữ hoặc hình/từ để bé theo dõi từng bước */
+const spoken = ref<'letter' | 'word' | null>(null)
+let teachRun = 0
+
+/** Thẻ chữ cái: đọc tách từng bước (tên chữ → nghỉ → từ) thay vì một câu dài khó nhận biết */
+async function teachLetter(i: KidsItem): Promise<void> {
+  const run = ++teachRun
+  spoken.value = 'letter'
+  if (!(await speakAsync(i.say ?? i.text, 'us', 0.7)) || run !== teachRun) return finishTeach(run)
+  await new Promise((r) => setTimeout(r, 450))
+  if (run !== teachRun || !i.word) return finishTeach(run)
+  spoken.value = 'word'
+  await speakAsync(i.word, 'us', 0.8)
+  finishTeach(run)
+}
+
+function finishTeach(run: number): void {
+  if (run === teachRun) spoken.value = null
+}
+
 function teachSpeak(): void {
   const i = item.value
-  if (props.activity.kind === 'letters' || props.activity.kind === 'trace')
-    speak(`${i.say}. ${i.text.toLowerCase()}. ${i.word ?? ''}`, 'us', 0.8)
+  teachRun++
+  if (props.activity.kind === 'letters' || props.activity.kind === 'trace') void teachLetter(i)
   else sayItem(i)
 }
 
@@ -229,11 +249,18 @@ onMounted(teachSpeak)
         </button>
         <button type="button" class="k-big face" @click="teachSpeak">
           <template v-if="activity.kind === 'letters' || activity.kind === 'trace'">
-            <span class="letter"
+            <span class="letter" :class="{ lit: spoken === 'letter' }"
               >{{ item.text }}<small>{{ item.text.toLowerCase() }}</small></span
             >
-            <PictureImage v-if="item.picture" :id="item.picture" :size="150" />
-            <span v-if="item.word" class="word">{{ item.word }}</span>
+            <PictureImage
+              v-if="item.picture"
+              :id="item.picture"
+              :size="150"
+              :class="{ lit: spoken === 'word' }"
+            />
+            <span v-if="item.word" class="word" :class="{ lit: spoken === 'word' }">{{
+              item.word
+            }}</span>
           </template>
           <template v-else-if="activity.kind === 'sounds'">
             <span class="letter">{{ item.text }}</span>
@@ -435,6 +462,14 @@ onMounted(teachSpeak)
 .letter {
   font-size: 112px;
   line-height: 1;
+}
+.face .letter,
+.face .word,
+.face :deep(.lit) {
+  transition: transform 0.2s ease;
+}
+.face .lit {
+  transform: scale(1.12);
 }
 .letter small {
   margin-left: var(--sp-4);

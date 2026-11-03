@@ -2,6 +2,7 @@
 // Chạy: node scripts/audio/build-listening-audio.mjs [phiên bản=1.0.0]
 // Cần: model Kokoro đã tải trong %APPDATA%/english-assistant/models (bật "Giọng tự nhiên" trong app một lần),
 //      devDependency @breezystack/lamejs (bộ mã hoá MP3, LGPL — chỉ dùng lúc build, không đóng vào app).
+// Gói gồm cả bài nghe lẫn từ/câu của chế độ trẻ em (giọng Mỹ, các tốc độ bé nghe). `--list` chỉ đếm, không tạo âm thanh.
 // Đầu ra: content/.build/audio/listening-audio-<ver>.zip (+ .sha256) → đưa lên GitHub Release (docs/15 §7).
 import { createHash } from 'node:crypto'
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -20,7 +21,8 @@ import {
   normalizePackText
 } from '../../src/shared/audioPack.ts'
 
-const version = process.argv[2] ?? '1.0.0'
+const listOnly = process.argv.includes('--list')
+const version = process.argv.find((a, i) => i >= 2 && /^\d+\.\d+\.\d+$/.test(a)) ?? '1.0.0'
 const MODELS = join(process.env.APPDATA ?? '', 'english-assistant', 'models')
 const DIR = resolve('content/curated/listening')
 const OUT_DIR = resolve('content/.build/audio')
@@ -48,7 +50,40 @@ for (const file of readdirSync(DIR).filter((f) => f.endsWith('.json'))) {
     }
   }
 }
+// --- Chế độ trẻ em: từ, chữ, câu bé nghe (chỉ giọng Mỹ; tốc độ theo useTts của giao diện bé: 0,7 âm / 0,8 học / 0,85 ô / 0,9 khen) ---
+const KIDS_RATES = [0.7, 0.8, 0.85, 0.9]
+const KIDS_PHRASES = [
+  'Yes!', 'Great!', 'Well done!', 'Super!', 'Good job!', 'Wow!', 'Try again!', 'Oops! Try again!',
+  'Not quite!', 'Yum!', 'No thanks!', 'Perfect!', 'Great job!', 'Good try!', "Let's play!", 'ABC',
+  'My stickers', 'My pet', 'Games', 'Match!', 'Pop!', 'Feed me!', 'Fishing!', 'Spell it!', 'A present!'
+]
+const KIDS_TEXT_KEYS = new Set(['en', 'say', 'text', 'word', 'title'])
+const kidsTexts = new Set(KIDS_PHRASES)
+const collect = (node) => {
+  if (Array.isArray(node)) return node.forEach(collect)
+  if (!node || typeof node !== 'object') return
+  for (const [k, v] of Object.entries(node)) {
+    // Chỉ lấy chuỗi tiếng Anh ngắn; bỏ chuỗi có dấu tiếng Việt
+    if (KIDS_TEXT_KEYS.has(k) && typeof v === 'string') {
+      if (v.length <= 120 && !/[^\u0000-ɏ]|[ăâđêôơư]/i.test(v)) kidsTexts.add(v)
+    } else collect(v)
+  }
+}
+const readJson = (file) => JSON.parse(readFileSync(file, 'utf8').replace(/^\p{Cf}/u, ''))
+const KIDS_DIR = resolve('content/curated/kids')
+for (const f of readdirSync(KIDS_DIR).filter((f) => f.endsWith('.json'))) collect(readJson(join(KIDS_DIR, f)))
+const PLACES = join(KIDS_DIR, 'world', 'places')
+for (const f of readdirSync(PLACES).filter((f) => f.endsWith('.json'))) collect(readJson(join(PLACES, f)))
+// Từ của hình (PICTURE_WORDS): đọc thẳng nguồn vì pictures.ts import không đuôi file nên Node không nạp được
+for (const f of ['pictures.ts', 'picturesMore.ts', 'pictureExtras.ts']) {
+  const src = readFileSync(resolve('src/shared', f), 'utf8')
+  for (const m of src.matchAll(/\ben:\s*'([^']+)'/g)) kidsTexts.add(m[1])
+}
+for (const text of kidsTexts) for (const rate of KIDS_RATES) add(text, 'us', rate)
+console.log(`Chế độ trẻ em: ${kidsTexts.size} từ/câu × ${KIDS_RATES.length} tốc độ`)
 console.log(`Cần tạo ${wanted.size} đoạn âm thanh (${[...PACK_RATES].join(', ')} tốc độ)`)
+
+if (listOnly) process.exit(0)
 
 env.allowRemoteModels = false
 env.allowLocalModels = true

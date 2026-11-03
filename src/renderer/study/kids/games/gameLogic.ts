@@ -1,4 +1,5 @@
 // Logic thuần của các mini-game của bé (không đụng Vue/IPC để test bằng Vitest trong Node).
+import type { KidsAgeBand } from '@shared/kids'
 import type { KidsStickers } from '@shared/schemas/kids'
 
 export interface GameWord {
@@ -90,4 +91,64 @@ export function buildRounds(
 export function starsFor(correct: number, total: number): 1 | 2 | 3 {
   const ratio = total > 0 ? correct / total : 1
   return ratio >= 0.8 ? 3 : ratio >= 0.5 ? 2 : 1
+}
+
+/** Độ khó và cách chơi theo nhóm tuổi: cùng bộ từ, khác số lượng và có/không hiện chữ */
+export interface GameConfig {
+  /** Số cặp bài ở game ghép cặp */
+  pairs: number
+  /** Số vòng ở các game nghe-chọn */
+  rounds: number
+  /** Số lựa chọn mỗi vòng */
+  choices: number
+  /** Hiện chữ dưới hình (3–4 tuổi chỉ có hình và âm thanh) */
+  showText: boolean
+  /** Có game điền chữ thiếu (7–8 tuổi) */
+  spelling: boolean
+}
+
+export const GAME_CONFIG: Record<KidsAgeBand, GameConfig> = {
+  '3-4': { pairs: 3, rounds: 3, choices: 2, showText: false, spelling: false },
+  '5-6': { pairs: 4, rounds: 5, choices: 3, showText: true, spelling: false },
+  '7-8': { pairs: 6, rounds: 6, choices: 4, showText: true, spelling: true }
+}
+
+export interface SpellRound {
+  target: GameWord
+  /** Từ với một chữ bị thiếu; chỗ thiếu là '_' */
+  pattern: string
+  missing: string
+  choices: string[]
+}
+
+const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'
+
+/** Từ dùng được cho điền chữ: một từ, toàn chữ cái, 3–8 chữ */
+export const isSpellable = (w: GameWord): boolean => /^[a-z]{3,8}$/i.test(w.word)
+
+export function buildSpellRound(target: GameWord, count: number, rand = Math.random): SpellRound {
+  const word = target.word.toLowerCase()
+  const at = Math.floor(rand() * word.length)
+  const missing = word[at]
+  const others = shuffle(
+    [...ALPHABET].filter((c) => c !== missing),
+    rand
+  ).slice(0, count - 1)
+  return {
+    target,
+    pattern: `${word.slice(0, at)}_${word.slice(at + 1)}`,
+    missing,
+    choices: shuffle([missing, ...others], rand)
+  }
+}
+
+export function buildSpellRounds(
+  pool: readonly GameWord[],
+  rounds: number,
+  count: number,
+  rand = Math.random
+): SpellRound[] {
+  return pickWords(pool.filter(isSpellable), rounds, rand).map((w) =>
+    buildSpellRound(w, count, rand)
+  )
 }

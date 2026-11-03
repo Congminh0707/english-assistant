@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, nextTick, onBeforeUnmount, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { KIDS_DAILY_MINUTES, KIDS_NEW_WORD_LIMITS } from '@shared/kids'
+import { KIDS_AGE_BANDS, KIDS_DAILY_MINUTES, KIDS_NEW_WORD_LIMITS } from '@shared/kids'
 import type { ParentReport } from '@shared/schemas/kids'
 import { invoke } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
+import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import PxBar from '@renderer/shared/components/PxBar.vue'
 import ParentGate from '../kids/ParentGate.vue'
 
@@ -18,11 +19,16 @@ const who = ref('')
 const gate = ref<'set' | 'extend' | null>(null)
 const message = ref('')
 
+/** Từ bé đã biết (đã dán sticker): dùng cho số "bé đã biết N từ" và thẻ từ in được */
+const known = ref<Array<{ pictureId: string; word: string; vi: string }>>([])
+const printing = ref(false)
+
 const loadFailed = ref(false)
 async function load(): Promise<void> {
   loadFailed.value = false
   try {
     report.value = await invoke('parent:report')
+    known.value = (await invoke('kids:stickers')).stickers.filter((s) => s.earned)
     const me = (await invoke('profile:list')).find((p) => p.active)
     who.value = me ? `${me.name} · ${t(`study.tracks.${me.track}`)}` : ''
   } catch {
@@ -40,6 +46,10 @@ async function setNewLimit(value: number): Promise<void> {
   await settingsStore.set('kids.newPerDay', value as never)
 }
 
+async function setAgeBand(value: string): Promise<void> {
+  await settingsStore.set('kids.ageBand', value as never)
+}
+
 async function setLimit(value: number): Promise<void> {
   await settingsStore.set('kids.dailyMinutes', value as never)
   await load()
@@ -52,7 +62,27 @@ function gateDone(): void {
   void load()
 }
 
-onMounted(load)
+async function printCards(): Promise<void> {
+  if (!known.value.length) return
+  printing.value = true
+  document.body.classList.add('printing-cards')
+  await nextTick()
+  window.print()
+}
+
+function afterPrint(): void {
+  printing.value = false
+  document.body.classList.remove('printing-cards')
+}
+
+onMounted(() => {
+  window.addEventListener('afterprint', afterPrint)
+  void load()
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('afterprint', afterPrint)
+  afterPrint()
+})
 </script>
 
 <template>
@@ -75,6 +105,21 @@ onMounted(load)
 
     <div v-if="report" class="cols">
       <div class="col">
+        <section class="card block known">
+          <div>
+            <h2>{{ t('kids.report.known', { n: known.length }) }}</h2>
+            <p class="muted small">{{ t('kids.report.knownHint') }}</p>
+          </div>
+          <div class="print-box">
+            <button type="button" class="btn btn--sm" :disabled="!known.length" @click="printCards">
+              {{ t('kids.report.print') }}
+            </button>
+            <p class="muted small">
+              {{ known.length ? t('kids.report.printHint') : t('kids.report.printEmpty') }}
+            </p>
+          </div>
+        </section>
+
         <section class="card block">
           <div class="block-head">
             <h2>{{ t('kids.report.usage') }}</h2>
@@ -127,6 +172,23 @@ onMounted(load)
 
       <div class="col">
         <section class="card block">
+          <h2>{{ t('kids.report.weekWord') }}</h2>
+          <p class="week">
+            <PictureImage :id="report.weekWord.pictureId" :size="72" />
+            <span>
+              <strong>{{ report.weekWord.word }}</strong>
+              <span class="muted"> · {{ report.weekWord.vi }}</span>
+            </span>
+          </p>
+          <h3 class="ask-title">{{ t('kids.report.askTitle') }}</h3>
+          <ul class="ask">
+            <li v-for="k in 3" :key="k">
+              {{ t(`kids.report.ask${k}`, { word: report.weekWord.word, vi: report.weekWord.vi }) }}
+            </li>
+          </ul>
+        </section>
+
+        <section class="card block">
           <h2>{{ t('kids.report.hardest') }}</h2>
           <p v-if="!report.hardest.length" class="muted">{{ t('kids.report.noHardest') }}</p>
           <ul v-else class="hard">
@@ -151,6 +213,20 @@ onMounted(load)
             </select>
           </label>
           <label class="row">
+            {{ t('kids.report.ageBand') }}
+            <select
+              :value="settingsStore.settings['kids.ageBand']"
+              @change="setAgeBand(($event.target as HTMLSelectElement).value)"
+            >
+              <option v-for="b in KIDS_AGE_BANDS" :key="b" :value="b">
+                {{ t('kids.report.age', { range: b }) }}
+              </option>
+            </select>
+          </label>
+          <p class="muted small">
+            {{ t(`kids.report.ageHint.${settingsStore.settings['kids.ageBand']}`) }}
+          </p>
+          <label class="row">
             {{ t('kids.report.newPerDay') }}
             <select
               :value="settingsStore.settings['kids.newPerDay']"
@@ -173,6 +249,16 @@ onMounted(load)
         </section>
       </div>
     </div>
+
+    <Teleport to="body">
+      <div v-if="printing" class="print-sheet">
+        <div v-for="w in known" :key="w.pictureId" class="print-card">
+          <PictureImage :id="w.pictureId" :size="160" />
+          <strong>{{ w.word }}</strong>
+          <span>{{ w.vi }}</span>
+        </div>
+      </div>
+    </Teleport>
 
     <ParentGate
       v-if="gate"
@@ -335,6 +421,67 @@ h2 {
 @media (prefers-reduced-motion: reduce) {
   .skeleton {
     animation: none;
+  }
+}
+.known {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+}
+.print-box {
+  display: grid;
+  gap: var(--sp-1);
+  justify-items: end;
+  text-align: right;
+}
+.week {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin: 0 0 var(--sp-3);
+  font-size: var(--fs-lg);
+}
+.ask-title {
+  margin: 0 0 var(--sp-1);
+  font-size: var(--fs-md);
+}
+.ask {
+  display: grid;
+  gap: var(--sp-1);
+  margin: 0;
+  padding-left: var(--sp-5);
+}
+</style>
+
+<!-- Thẻ in: chỉ hiện khi in; ẩn toàn bộ giao diện app -->
+<style>
+.print-sheet {
+  display: none;
+}
+@media print {
+  body.printing-cards #app {
+    display: none;
+  }
+  body.printing-cards .print-sheet {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    padding: 12px;
+  }
+  .print-card {
+    display: grid;
+    gap: 4px;
+    justify-items: center;
+    padding: 16px;
+    border: 2px dashed gray;
+    border-radius: 12px;
+    color: black;
+    text-align: center;
+    break-inside: avoid;
+  }
+  .print-card strong {
+    font-size: 28px;
   }
 }
 </style>

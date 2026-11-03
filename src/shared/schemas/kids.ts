@@ -215,6 +215,8 @@ export const ParentReportSchema = z.object({
   activitiesDone: z.number().int(),
   activitiesTotal: z.number().int(),
   /** Các từ bé hay chưa nhớ (nhiều lần quên nhất) */
-  hardest: z.array(z.object({ word: z.string(), vi: z.string(), lapses: z.number().int() }))
+  hardest: z.array(z.object({ word: z.string(), vi: z.string(), lapses: z.number().int() })),
+  /** Từ của tuần: phụ huynh hỏi bé ở nhà */
+  weekWord: z.object({ pictureId: z.string(), word: z.string(), vi: z.string() })
 })
 export type ParentReport = z.infer<typeof ParentReportSchema>

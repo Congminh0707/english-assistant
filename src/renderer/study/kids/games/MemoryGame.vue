@@ -4,14 +4,14 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { PRAISE, pick } from '../kidsText'
-import { buildMemoryDeck, type GameWord } from './gameLogic'
+import { buildMemoryDeck, type GameConfig, type GameWord } from './gameLogic'
 
 // Lật thẻ ghép cặp: lật hai lá, trùng hình thì giữ lại. Nghe tên từ mỗi khi lật; không tính giờ, lật nhầm không bị phạt.
-const props = defineProps<{ pool: GameWord[] }>()
+const props = defineProps<{ pool: GameWord[]; cfg: GameConfig }>()
 const emit = defineEmits<{ done: [correct: number, total: number] }>()
 
 const { speak } = useTts()
-const PAIRS = 4
+const PAIRS = props.cfg.pairs
 const deck = ref(buildMemoryDeck(props.pool, PAIRS))
 const open = ref<string[]>([])
 const matched = ref<string[]>([])
@@ -63,7 +63,10 @@ function flip(key: string): void {
       :aria-label="isUp(c.key) ? c.word : '?'"
       @click="flip(c.key)"
     >
-      <PictureImage v-if="isUp(c.key)" :id="c.pictureId" :size="120" />
+      <template v-if="isUp(c.key)">
+        <PictureImage :id="c.pictureId" :size="100" />
+        <span v-if="cfg.showText" class="label">{{ c.word }}</span>
+      </template>
       <UiIcon v-else name="star" :size="64" class="back" />
     </button>
   </div>
@@ -83,6 +86,9 @@ function flip(key: string): void {
 .card .back {
   color: var(--c-coin);
   fill: currentcolor;
+}
+.label {
+  font-size: var(--fs-lg);
 }
 .card.up {
   background: var(--c-warning-soft);

@@ -6,7 +6,8 @@ import {
   pickChoices,
   pictureContentId,
   pictureIdOf,
-  ratingFromTries
+  ratingFromTries,
+  weekWordFor
 } from './kids'
 import { ALL_PICTURE_IDS } from './pictures'
 
@@ -40,5 +41,20 @@ describe('kids', () => {
     const fresh = pickChoices('dog', [], 3)
     expect(new Set(fresh).size).toBe(3)
     expect(fresh).toContain('dog')
+  })
+})
+
+describe('weekWordFor', () => {
+  const [a, b, c] = KIDS_PICTURE_ORDER
+  it('ưu tiên từ bé hay quên nhất', () => {
+    expect(weekWordFor([c, b], [a, b, c], 5)).toBe(c)
+  })
+  it('xoay vòng trong từ đã biết theo tuần', () => {
+    expect(weekWordFor([], [a, b], 0)).toBe(a)
+    expect(weekWordFor([], [a, b], 1)).toBe(b)
+    expect(weekWordFor([], [a, b], 2)).toBe(a)
+  })
+  it('chưa biết từ nào thì bắt đầu từ đầu album', () => {
+    expect(KIDS_PICTURE_ORDER.slice(0, 6)).toContain(weekWordFor([], [], 3))
   })
 })

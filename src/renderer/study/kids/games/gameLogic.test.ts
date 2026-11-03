@@ -3,6 +3,10 @@ import {
   buildMemoryDeck,
   buildRound,
   buildRounds,
+  buildSpellRound,
+  buildSpellRounds,
+  GAME_CONFIG,
+  isSpellable,
   gamePool,
   shuffle,
   starsFor,
@@ -57,5 +61,29 @@ describe('gameLogic', () => {
     expect(starsFor(5, 5)).toBe(3)
     expect(starsFor(3, 5)).toBe(2)
     expect(starsFor(0, 5)).toBe(1)
+  })
+
+  it('điền chữ thiếu: đúng một chỗ trống, đáp án nằm trong lựa chọn', () => {
+    const r = buildSpellRound(word('cat'), 4)
+    expect(r.pattern.split('_')).toHaveLength(2)
+    expect(r.pattern.replace('_', r.missing)).toBe('cat')
+    expect(r.choices).toHaveLength(4)
+    expect(r.choices).toContain(r.missing)
+    expect(new Set(r.choices).size).toBe(4)
+  })
+
+  it('chỉ ghép chữ với từ đơn 3–8 chữ cái', () => {
+    expect(isSpellable(word('cat'))).toBe(true)
+    expect(isSpellable(word('ice cream'))).toBe(false)
+    expect(isSpellable(word('to'))).toBe(false)
+    const rs = buildSpellRounds([word('ice cream'), word('dog')], 3, 3)
+    expect(rs).toHaveLength(1)
+  })
+
+  it('cấu hình theo tuổi: 3–4 không chữ, chỉ 7–8 có điền chữ', () => {
+    expect(GAME_CONFIG['3-4'].showText).toBe(false)
+    expect(GAME_CONFIG['5-6'].showText).toBe(true)
+    expect(Object.values(GAME_CONFIG).filter((c) => c.spelling)).toHaveLength(1)
+    expect(GAME_CONFIG['7-8'].spelling).toBe(true)
   })
 })

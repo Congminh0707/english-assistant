@@ -1,5 +1,5 @@
 import { createHash, randomBytes, timingSafeEqual } from 'node:crypto'
-import { PARENT_REPORT_DAYS, pictureIdOf } from '@shared/kids'
+import { PARENT_REPORT_DAYS, pictureIdOf, weekWordFor } from '@shared/kids'
 import { PICTURE_WORDS } from '@shared/pictures'
 import { dayRange } from '@shared/stats'
 import type { ParentReport } from '@shared/schemas/kids'
@@ -158,6 +158,12 @@ export class ParentService {
     )
     const stickers = kids.stickers()
     const progress = kids.activityProgress()
+    const hardest = vocab.hardestByDirection(profileId, 'audio_picture', 5)
+    const weekId = weekWordFor(
+      hardest.map((h) => pictureIdOf(h.contentId)),
+      stickers.stickers.filter((s) => s.earned).map((s) => s.pictureId),
+      Math.floor(now / (7 * DAY_MS))
+    )
     return {
       dailyLimitMinutes: settings.get('kids.dailyMinutes'),
       days: days.map((day) => ({
@@ -169,10 +175,15 @@ export class ParentService {
       stickersTotal: stickers.total,
       activitiesDone: progress.done,
       activitiesTotal: progress.total,
-      hardest: vocab.hardestByDirection(profileId, 'audio_picture', 5).map((h) => {
+      hardest: hardest.map((h) => {
         const word = PICTURE_WORDS[pictureIdOf(h.contentId)]
         return { word: word?.en ?? h.contentId, vi: word?.vi ?? '', lapses: h.lapses }
-      })
+      }),
+      weekWord: {
+        pictureId: weekId,
+        word: PICTURE_WORDS[weekId]?.en ?? weekId,
+        vi: PICTURE_WORDS[weekId]?.vi ?? ''
+      }
     }
   }
 }

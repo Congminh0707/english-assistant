@@ -1266,7 +1266,8 @@
       "memory": "Lật thẻ ghép cặp",
       "balloon": "Bắn bóng bay",
       "pet": "Cho thú cưng ăn đúng món",
-      "fishing": "Câu cá"
+      "fishing": "Câu cá",
+      "spell": "Điền chữ thiếu"
     },
     "review": {
       "hint": "Nghe từ rồi chạm vào hình đúng",
@@ -1317,6 +1318,23 @@
     },
     "report": {
       "title": "Báo cáo cho phụ huynh",
+      "ageBand": "Độ tuổi của bé",
+      "age": "{range} tuổi",
+      "ageHint": {
+        "3-4": "Chỉ hình và âm thanh, không hiện chữ; mỗi game ngắn (3 vòng), ít lựa chọn.",
+        "5-6": "Hiện chữ dưới hình, nhận mặt chữ; 4–5 vòng, 3 lựa chọn.",
+        "7-8": "Thêm game điền chữ thiếu; nhiều vòng hơn, 4 lựa chọn."
+      },
+      "known": "Bé đã biết {n} từ",
+      "knownHint": "Từ bé đã dán sticker (trả lời đúng ít nhất một lần).",
+      "weekWord": "Từ của tuần",
+      "askTitle": "Gợi ý hỏi bé ở nhà",
+      "ask1": "Chỉ cho mẹ/ba xem \"{word}\" ở đâu nào?",
+      "ask2": "\"{word}\" là gì trong tiếng Việt? ({vi})",
+      "ask3": "Con thấy \"{word}\" ở đâu trong nhà mình?",
+      "print": "In thẻ từ (PDF)",
+      "printHint": "Mở hộp thoại in; chọn \"Lưu thành PDF\" nếu chỉ muốn lưu file.",
+      "printEmpty": "Chưa có từ nào để in.",
       "usage": "Thời gian bé dùng app (phút/ngày)",
       "today": "Hôm nay: {n} phút",
       "limit": "giới hạn {n} phút",

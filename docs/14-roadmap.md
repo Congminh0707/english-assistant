@@ -292,12 +292,12 @@ Hiện trạng: bé chỉ có một dạng thẻ (`audio_picture`: nghe từ →
 
 **Giai đoạn D — Phân tầng tuổi + audio**
 
-- [ ] 3–4 tuổi: chỉ hình/âm, không chữ, phiên 3–5 phút · 5–6: hiện chữ, nhận mặt chữ · 7–8: ghép chữ, điền chữ thiếu, câu ngắn (cùng bộ từ, khác cách chơi).
-- [ ] Gói audio MP3 tạo sẵn cho từ/câu của bé (như gói bài nghe 1.2.0); đánh dấu `reviewed` theo chủ đề khi có người duyệt.
+- [x] (2026-11-03, code xong, chưa thử tay) Phân tầng tuổi cho **mini-game**: cài đặt `kids.ageBand` (`3-4` / `5-6` mặc định / `7-8`, phụ huynh chọn trong Khu phụ huynh → Cài đặt cho bé). 3–4: chỉ hình + âm, 3 vòng/3 cặp, 2 lựa chọn · 5–6: hiện chữ dưới hình, 5 vòng/4 cặp, 3 lựa chọn · 7–8: thêm game **Điền chữ thiếu** (`SpellGame`), 6 vòng/6 cặp, 4 lựa chọn. Cấu hình ở `games/gameLogic.ts` (`GAME_CONFIG`). **Còn**: áp tầng tuổi cho bản đồ/lượt 5 bước/hoạt động ABC; câu ngắn cho 7–8; phiên 3–5 phút cho 3–4 (hiện chỉ có giới hạn phút/ngày chung).
+- [ ] Gói audio MP3 tạo sẵn cho từ/câu của bé. 🚧 Đã xong phần build (2026-11-03): `scripts/audio/build-listening-audio.mjs` nay gom thêm 668 từ/câu của chế độ trẻ em × 4 tốc độ (0,7/0,8/0,85/0,9, giọng Mỹ) vào chung gói `listening-audio` (3722 đoạn; `--list` chỉ đếm). **Chưa chạy build đủ, chưa phát hành, chưa đổi `packSpec.ts`** — bước tiếp theo: `node scripts/audio/build-listening-audio.mjs 1.4.0` (cần model Kokoro), đo dung lượng (ước tính thêm vài chục MB), đăng release `listening-audio-1.4.0`, điền `size`/`sha256` vào `src/main/audio/packSpec.ts`, cập nhật [17-metrics](17-metrics.md). Lưu ý: câu ghép "khen + từ" trong mini-game (vd "Great! cat") chưa có trong gói nên vẫn rơi về giọng hệ thống. Còn: đánh dấu `reviewed` theo chủ đề khi có người duyệt.
 
 **Giai đoạn E — Gói phụ huynh**
 
-- [ ] "Từ của tuần" + gợi ý câu hỏi hỏi bé ở nhà · báo cáo "bé đã biết N từ" · thẻ từ in được (PDF).
+- [x] (2026-11-03, code xong, chưa thử tay) Báo cáo phụ huynh: "Bé đã biết N từ" (= số sticker đã dán), **Từ của tuần** (từ bé hay quên nhất, chưa có thì xoay vòng trong từ đã biết; `weekWordFor` ở `shared/kids.ts`) + 3 câu gợi ý hỏi bé ở nhà, nút **In thẻ từ (PDF)** (hộp thoại in của hệ thống, chọn "Lưu thành PDF"; bố cục chỉ hiện khi in).
 
 **DoD:** Bé 3–6 tuổi có lộ trình từ vựng ≥ 4 tuần không hết từ mới, mỗi từ gặp ≥ 3 cách chơi khác nhau; phụ huynh thấy số từ bé đã biết.
 

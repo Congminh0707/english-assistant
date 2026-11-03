@@ -1399,6 +1399,7 @@ describe('chế độ trẻ em', () => {
     expect(report.activitiesTotal).toBeGreaterThanOrEqual(10)
     expect(report.hardest).toEqual([{ word: 'cat', vi: 'con mèo', lapses: 1 }])
     expect(report.dailyLimitMinutes).toBe(15)
+    expect(report.weekWord.word).toBe('cat') // từ bé hay quên nhất
   })
 
   it('trang chủ của bé tổng hợp số liệu', () => {

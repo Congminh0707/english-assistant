@@ -4,20 +4,20 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { PRAISE, TRY_AGAIN, pick } from '../kidsText'
-import { buildRounds, type GameWord } from './gameLogic'
+import { buildRounds, type GameConfig, type GameWord } from './gameLogic'
 
 // Câu cá: nghe một từ, chạm con cá đang mang hình đúng. Cá bơi chậm qua lại, không biến mất, không tính giờ.
-const props = defineProps<{ pool: GameWord[] }>()
+const props = defineProps<{ pool: GameWord[]; cfg: GameConfig }>()
 const emit = defineEmits<{ done: [correct: number, total: number] }>()
 
 const { speak } = useTts()
-const ROUNDS = 5
-const rounds = ref(buildRounds(props.pool, ROUNDS, 3))
+const ROUNDS = props.cfg.rounds
+const rounds = ref(buildRounds(props.pool, ROUNDS, props.cfg.choices))
 const q = ref(0)
 const wrong = ref<string[]>([])
 const caught = ref<string | null>(null)
 const firstTry = ref(0)
-const LANES = ['10%', '40%', '70%']
+const LANES = ['2%', '27%', '52%', '77%']
 
 const ask = (): void => speak(rounds.value[q.value].target.word, 'us', 0.8)
 
@@ -62,7 +62,10 @@ onMounted(ask)
         :disabled="!!caught"
         @click="tap(w)"
       >
-        <span class="body"><PictureImage :id="w.pictureId" :size="84" /></span>
+        <span class="body">
+          <PictureImage :id="w.pictureId" :size="64" />
+          <span v-if="cfg.showText" class="label">{{ w.word }}</span>
+        </span>
         <span class="tail" />
       </button>
     </div>
@@ -84,7 +87,7 @@ onMounted(ask)
 .pond {
   position: relative;
   width: min(760px, 100%);
-  height: 340px;
+  height: 420px;
   overflow: hidden;
   border: 4px solid var(--c-ink);
   border-radius: var(--r-lg);
@@ -106,10 +109,14 @@ onMounted(ask)
   display: grid;
   place-items: center;
   width: 130px;
-  height: 100px;
+  height: 110px;
   border: 4px solid var(--c-ink);
   border-radius: 60% 40% 40% 60%;
   background: var(--c-surface);
+}
+.label {
+  font-size: var(--fs-sm);
+  font-weight: 800;
 }
 .tail {
   width: 0;
@@ -139,7 +146,7 @@ onMounted(ask)
 }
 @keyframes up {
   to {
-    transform: translateY(-340px);
+    transform: translateY(-420px);
     opacity: 0;
   }
 }

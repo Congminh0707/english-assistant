@@ -82,6 +82,8 @@ export const settingDefinitions = {
   'kids.newPerDay': z
     .union([z.literal(0), z.literal(3), z.literal(6), z.literal(10), z.literal(20)])
     .default(0),
+  /** Chế độ trẻ em: độ tuổi của bé, đổi độ khó và cách chơi của mini-game (docs/14 giai đoạn D) */
+  'kids.ageBand': z.enum(['3-4', '5-6', '7-8']).default('5-6'),
   /** Chế độ trẻ em: tiếng động của màn game (chạm, đi, rương…); giọng đọc từ vẫn luôn bật */
   'kids.gameSound': z.boolean().default(true),
   /** Giọng đọc: 'system' = giọng Windows có sẵn; 'kokoro' = giọng tự nhiên offline (cần tải model) */

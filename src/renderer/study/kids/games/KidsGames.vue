@@ -6,12 +6,14 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { useLeaveGuard } from '../../leaveGuard'
+import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { FOOD_NAME, FOOD_PICTURE } from '../kidsText'
 import BalloonGame from './BalloonGame.vue'
 import FishingGame from './FishingGame.vue'
 import MemoryGame from './MemoryGame.vue'
 import PetFeedGame from './PetFeedGame.vue'
-import { gamePool, starsFor, type GameWord } from './gameLogic'
+import SpellGame from './SpellGame.vue'
+import { GAME_CONFIG, gamePool, starsFor, type GameWord } from './gameLogic'
 
 // Mini-game của bé: dùng chính các từ bé đã dán sticker (thiếu thì bù từ đầu album). Mỗi game ~1–2 phút, không tính giờ.
 const emit = defineEmits<{ changed: [] }>()
@@ -19,13 +21,19 @@ const emit = defineEmits<{ changed: [] }>()
 const { t } = useI18n()
 const { speak } = useTts()
 
-type GameId = 'memory' | 'balloon' | 'pet' | 'fishing'
-const GAMES: ReadonlyArray<{ id: GameId; picture: string; say: string; viKey: string }> = [
+type GameId = 'memory' | 'balloon' | 'pet' | 'fishing' | 'spell'
+const ALL_GAMES: ReadonlyArray<{ id: GameId; picture: string; say: string; viKey: string }> = [
   { id: 'memory', picture: 'star', say: 'Match!', viKey: 'kids.games.memory' },
   { id: 'balloon', picture: 'ball', say: 'Pop!', viKey: 'kids.games.balloon' },
   { id: 'pet', picture: 'cat', say: 'Feed me!', viKey: 'kids.games.pet' },
-  { id: 'fishing', picture: 'fish', say: 'Fishing!', viKey: 'kids.games.fishing' }
+  { id: 'fishing', picture: 'fish', say: 'Fishing!', viKey: 'kids.games.fishing' },
+  { id: 'spell', picture: 'apple', say: 'Spell it!', viKey: 'kids.games.spell' }
 ]
+
+// Độ khó và game có sẵn theo nhóm tuổi phụ huynh chọn (Khu phụ huynh → Cài đặt cho bé)
+const settingsStore = useSettingsStore()
+const cfg = computed(() => GAME_CONFIG[settingsStore.settings['kids.ageBand']])
+const GAMES = computed(() => ALL_GAMES.filter((g) => g.id !== 'spell' || cfg.value.spelling))
 
 const pool = ref<GameWord[]>([])
 const loaded = ref(false)
@@ -38,7 +46,7 @@ const playing = computed(() => current.value !== null && !finished.value)
 useLeaveGuard(() => playing.value)
 
 async function start(id: GameId): Promise<void> {
-  speak(GAMES.find((g) => g.id === id)?.say ?? '', 'us', 0.85)
+  speak(ALL_GAMES.find((g) => g.id === id)?.say ?? '', 'us', 0.85)
   finished.value = false
   foodId.value = null
   current.value = id
@@ -89,10 +97,11 @@ onMounted(async () => {
 
     <!-- Đang chơi -->
     <template v-else-if="!finished">
-      <MemoryGame v-if="current === 'memory'" :pool="pool" @done="onDone" />
-      <BalloonGame v-else-if="current === 'balloon'" :pool="pool" @done="onDone" />
-      <PetFeedGame v-else-if="current === 'pet'" :pool="pool" @done="onDone" />
-      <FishingGame v-else :pool="pool" @done="onDone" />
+      <MemoryGame v-if="current === 'memory'" :pool="pool" :cfg="cfg" @done="onDone" />
+      <BalloonGame v-else-if="current === 'balloon'" :pool="pool" :cfg="cfg" @done="onDone" />
+      <PetFeedGame v-else-if="current === 'pet'" :pool="pool" :cfg="cfg" @done="onDone" />
+      <SpellGame v-else-if="current === 'spell'" :pool="pool" :cfg="cfg" @done="onDone" />
+      <FishingGame v-else :pool="pool" :cfg="cfg" @done="onDone" />
     </template>
 
     <!-- Kết quả -->

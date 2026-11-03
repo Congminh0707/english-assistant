@@ -4,15 +4,15 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { PRAISE, TRY_AGAIN, pick } from '../kidsText'
-import { buildRounds, type GameWord } from './gameLogic'
+import { buildRounds, type GameConfig, type GameWord } from './gameLogic'
 
 // Bắn bóng bay: nghe một từ, chạm quả bóng có hình đúng. Bóng chỉ đung đưa tại chỗ (không bay mất, không tính giờ).
-const props = defineProps<{ pool: GameWord[] }>()
+const props = defineProps<{ pool: GameWord[]; cfg: GameConfig }>()
 const emit = defineEmits<{ done: [correct: number, total: number] }>()
 
 const { speak } = useTts()
-const ROUNDS = 5
-const rounds = ref(buildRounds(props.pool, ROUNDS, 3))
+const ROUNDS = props.cfg.rounds
+const rounds = ref(buildRounds(props.pool, ROUNDS, props.cfg.choices))
 const q = ref(0)
 const wrong = ref<string[]>([])
 const popped = ref<string | null>(null)
@@ -62,7 +62,10 @@ onMounted(ask)
         :disabled="!!popped"
         @click="tap(w)"
       >
-        <span class="bubble"><PictureImage :id="w.pictureId" :size="110" /></span>
+        <span class="bubble">
+          <PictureImage :id="w.pictureId" :size="110" />
+          <span v-if="cfg.showText" class="label">{{ w.word }}</span>
+        </span>
         <span class="string" />
       </button>
     </div>
@@ -95,6 +98,10 @@ onMounted(ask)
   background: none;
   cursor: pointer;
   animation: bob 2400ms ease-in-out var(--delay) infinite;
+}
+.label {
+  font-size: var(--fs-lg);
+  font-weight: 800;
 }
 .bubble {
   display: grid;

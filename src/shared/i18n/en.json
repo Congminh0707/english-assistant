@@ -1266,7 +1266,8 @@
       "memory": "Memory match",
       "balloon": "Pop the balloon",
       "pet": "Feed the pet",
-      "fishing": "Go fishing"
+      "fishing": "Go fishing",
+      "spell": "Spell the word"
     },
     "review": {
       "hint": "Listen to the word, then tap the right picture",
@@ -1317,6 +1318,23 @@
     },
     "report": {
       "title": "Parent report",
+      "ageBand": "Child's age",
+      "age": "Ages {range}",
+      "ageHint": {
+        "3-4": "Pictures and sound only, no text; short games (3 rounds), fewer choices.",
+        "5-6": "Words shown under pictures; 4-5 rounds, 3 choices.",
+        "7-8": "Adds a fill-in-the-missing-letter game; more rounds, 4 choices."
+      },
+      "known": "Your child knows {n} words",
+      "knownHint": "Words with a sticker (answered correctly at least once).",
+      "weekWord": "Word of the week",
+      "askTitle": "Questions to ask at home",
+      "ask1": "Can you show me where \"{word}\" is?",
+      "ask2": "What is \"{word}\" in Vietnamese? ({vi})",
+      "ask3": "Where do you see \"{word}\" in our home?",
+      "print": "Print word cards (PDF)",
+      "printHint": "Opens the print dialog; choose \"Save as PDF\" to keep a file.",
+      "printEmpty": "No words to print yet.",
       "usage": "Time on the app (minutes per day)",
       "today": "Today: {n} min",
       "limit": "limit {n} min",

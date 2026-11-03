@@ -7,16 +7,16 @@ import PictureImage from '@renderer/shared/components/PictureImage.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { normalizeCharacterId } from '@shared/characters'
 import { TRY_AGAIN, pick } from '../kidsText'
-import { buildRounds, type GameWord } from './gameLogic'
+import { buildRounds, type GameConfig, type GameWord } from './gameLogic'
 
 // Thú cưng đói: thú cưng đòi một món ("I want an apple!"), bé chạm đúng hình để cho ăn. Sai thì thú cưng nói nhẹ nhàng.
-const props = defineProps<{ pool: GameWord[] }>()
+const props = defineProps<{ pool: GameWord[]; cfg: GameConfig }>()
 const emit = defineEmits<{ done: [correct: number, total: number] }>()
 
 const { speak } = useTts()
 const petStore = usePetStore()
-const ROUNDS = 5
-const rounds = ref(buildRounds(props.pool, ROUNDS, 3))
+const ROUNDS = props.cfg.rounds
+const rounds = ref(buildRounds(props.pool, ROUNDS, props.cfg.choices))
 const q = ref(0)
 const wrong = ref<string[]>([])
 const happy = ref(false)
@@ -58,7 +58,7 @@ onMounted(async () => {
     <div class="who">
       <button type="button" class="k-bubble want" @click="ask">
         <UiIcon name="volume" :size="28" />
-        {{ line(rounds[q].target) }}
+        <template v-if="cfg.showText">{{ line(rounds[q].target) }}</template>
       </button>
       <PetSprite
         v-if="petStore.pet"
@@ -81,6 +81,7 @@ onMounted(async () => {
         @click="feed(w)"
       >
         <PictureImage :id="w.pictureId" :size="130" />
+        <span v-if="cfg.showText">{{ w.word }}</span>
       </button>
     </div>
   </div>

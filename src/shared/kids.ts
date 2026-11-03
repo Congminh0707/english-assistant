@@ -96,5 +96,24 @@ export const KIDS_DAILY_MINUTES = [0, 10, 15, 20, 30, 45, 60] as const
 /** Mỗi lần kiểm tra thời gian cách nhau tối đa bấy nhiêu giây (chặn gửi số giây phóng đại) */
 export const KIDS_TICK_MAX_SECONDS = 60
 
+/** Nhóm tuổi của bé (phụ huynh chọn): 3–4 chỉ hình/âm, 5–6 có chữ, 7–8 ghép chữ/điền chữ thiếu */
+export const KIDS_AGE_BANDS = ['3-4', '5-6', '7-8'] as const
+export type KidsAgeBand = (typeof KIDS_AGE_BANDS)[number]
+
 /** Số ngày trong báo cáo phụ huynh */
 export const PARENT_REPORT_DAYS = 7
+
+/**
+ * "Từ của tuần" cho phụ huynh hỏi bé ở nhà: ưu tiên từ bé hay quên nhất; chưa có thì xoay vòng
+ * trong các từ bé đã biết (theo thứ tự album), chưa biết từ nào thì bắt đầu từ đầu album.
+ */
+export function weekWordFor(
+  hardest: readonly string[],
+  earned: readonly string[],
+  weekNumber: number
+): string {
+  if (hardest.length) return hardest[0]
+  const known = KIDS_PICTURE_ORDER.filter((id) => earned.includes(id))
+  const pool = known.length ? known : KIDS_PICTURE_ORDER.slice(0, 6)
+  return pool[Math.abs(weekNumber) % pool.length]
+}

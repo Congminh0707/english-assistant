@@ -269,9 +269,12 @@ function cancelInstall(): void {
 
       <!-- Kết quả theo âm vị -->
       <div v-else-if="phonemeScore && score" class="result" :class="score.verdict">
-        <div class="verdict">
-          {{ t(`speech.verdict.${score.verdict}`) }} ·
-          {{ t('speech.accuracy', { n: score.accuracy }) }}
+        <div class="verdict-row">
+          <span class="verdict">{{ t(`speech.verdict.${score.verdict}`) }}</span>
+          <span class="muted">· {{ t('speech.accuracy', { n: score.accuracy }) }}</span>
+          <button type="button" class="btn btn--sm retry" @click="retry">
+            <UiIcon name="repeat" /> {{ t('speech.retry') }}
+          </button>
         </div>
         <p class="phonemes">
           <span v-for="(p, i) in phonemeScore.phonemes" :key="i" class="ph" :class="p.status">
@@ -289,26 +292,28 @@ function cancelInstall(): void {
           </li>
         </ul>
         <p class="muted small">{{ t('speech.disclaimer') }}</p>
-        <button type="button" class="btn" @click="retry">{{ t('speech.retry') }}</button>
       </div>
 
       <!-- Kết quả theo từ -->
       <div v-else-if="score" class="result" :class="score.verdict">
-        <div class="verdict">
-          {{ t(`speech.verdict.${score.verdict}`) }} ·
-          {{ t('speech.accuracy', { n: score.accuracy }) }}
+        <div class="verdict-row">
+          <span class="verdict">{{ t(`speech.verdict.${score.verdict}`) }}</span>
+          <span class="muted">· {{ t('speech.accuracy', { n: score.accuracy }) }}</span>
+          <button type="button" class="btn btn--sm retry" @click="retry">
+            <UiIcon name="repeat" /> {{ t('speech.retry') }}
+          </button>
         </div>
         <p class="words">
           <span v-for="(w, i) in score.words" :key="i" class="w" :class="w.status">
             {{ w.word }}<small v-if="w.heard"> ({{ w.heard }})</small>
           </span>
         </p>
-        <p class="muted heard">{{ t('speech.heard') }} “{{ heard }}”</p>
-        <p v-if="pace" class="muted">
-          {{ t('speech.pace', { wpm: pace.wpm, n: pace.longPauses }) }}
+        <p class="muted heard">
+          {{ t('speech.heard') }} “{{ heard }}”<template v-if="pace">
+            · {{ t('speech.pace', { wpm: pace.wpm, n: pace.longPauses }) }}</template
+          >
         </p>
         <p class="muted small">{{ t('speech.disclaimer') }}</p>
-        <button type="button" class="btn" @click="retry">{{ t('speech.retry') }}</button>
       </div>
 
       <p v-if="suggestPron && !downloading" class="suggest">
@@ -443,41 +448,61 @@ function cancelInstall(): void {
   display: flex;
   flex-wrap: wrap;
   gap: var(--sp-1) var(--sp-2);
-  justify-content: center;
-  font-size: var(--fs-lg);
+  justify-content: flex-start;
+  width: 100%;
 }
+.verdict-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  width: 100%;
+  text-align: left;
+}
+.verdict-row .retry {
+  margin-left: auto;
+}
+.heard {
+  width: 100%;
+  text-align: left;
+}
+.w,
 .ph {
-  padding: 0 var(--sp-2);
-  border-radius: var(--r-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  height: 36px;
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-md);
+  font-size: var(--fs-lg);
+  font-weight: 600;
 }
-.ph.ok {
-  background: var(--c-success-soft);
-}
-.ph.wrong,
-.ph.missing {
-  background: var(--c-danger-soft);
+.w small,
+.ph small {
+  font-size: var(--fs-sm);
 }
 .w.ok,
 .ph.ok {
+  background: var(--c-success-soft);
   color: var(--c-success);
-  font-weight: 700;
 }
 .w.wrong,
 .ph.wrong {
+  background: var(--c-danger-soft);
   color: var(--c-danger);
-  font-weight: 700;
 }
 .ph.wrong.near {
+  background: var(--c-warning-soft);
   color: var(--c-warning);
 }
 .w.missing,
 .ph.missing {
-  color: var(--c-ink-soft);
-  text-decoration: line-through;
+  background: var(--c-warning-soft);
+  color: var(--c-warning);
 }
 .w.extra,
 .ph.extra {
-  color: var(--c-warning);
+  background: var(--c-surface-2);
+  color: var(--c-ink-soft);
   font-style: italic;
 }
 .tips {

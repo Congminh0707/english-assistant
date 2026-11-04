@@ -2,22 +2,26 @@
 import { onMounted, ref } from 'vue'
 import { useTts } from '@renderer/shared/composables/useTts'
 import PictureImage from '@renderer/shared/components/PictureImage.vue'
-import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { PRAISE, TRY_AGAIN, pick } from '../kidsText'
+import GameStage from './GameStage.vue'
+import SpriteLoop from './SpriteLoop.vue'
+import GameHud from './GameHud.vue'
 import { buildRounds, type GameConfig, type GameWord } from './gameLogic'
+import { useStageScale } from './useStageScale'
 
 // Bắn bóng bay: nghe một từ, chạm quả bóng có hình đúng. Bóng chỉ đung đưa tại chỗ (không bay mất, không tính giờ).
 const props = defineProps<{ pool: GameWord[]; cfg: GameConfig }>()
 const emit = defineEmits<{ done: [correct: number, total: number] }>()
 
 const { speak } = useTts()
+const { px } = useStageScale()
 const ROUNDS = props.cfg.rounds
 const rounds = ref(buildRounds(props.pool, ROUNDS, props.cfg.choices))
 const q = ref(0)
 const wrong = ref<string[]>([])
 const popped = ref<string | null>(null)
 const firstTry = ref(0)
-const COLORS = ['var(--c-danger)', 'var(--c-coin)', 'var(--c-primary)']
+const COLORS = ['red', 'yellow', 'blue']
 
 const ask = (): void => speak(rounds.value[q.value].target.word, 'us', 0.8)
 
@@ -46,11 +50,8 @@ onMounted(ask)
 </script>
 
 <template>
-  <div v-if="rounds[q]" class="balloons">
-    <p class="k-sub">{{ q + 1 }} / {{ ROUNDS }}</p>
-    <button type="button" class="k-round speaker" @click="ask">
-      <UiIcon name="volume" :size="44" />
-    </button>
+  <GameStage v-if="rounds[q]" game="balloon">
+    <GameHud :step="`${q + 1} / ${ROUNDS}`" speaker @speak="ask" />
     <div class="sky">
       <button
         v-for="(w, i) in rounds[q].choices"
@@ -58,87 +59,91 @@ onMounted(ask)
         type="button"
         class="balloon"
         :class="{ pop: popped === w.pictureId, shake: wrong.includes(w.pictureId) }"
-        :style="{ '--tint': COLORS[i % COLORS.length], '--delay': `${i * 300}ms` }"
+        :style="{ '--delay': `${i * 300}ms`, '--drop': `${(i % 2) * 40}px` }"
         :disabled="!!popped"
         @click="tap(w)"
       >
-        <span class="bubble">
-          <PictureImage :id="w.pictureId" :size="110" />
-          <span v-if="cfg.showText" class="label">{{ w.word }}</span>
-        </span>
-        <span class="string" />
+        <template v-if="popped === w.pictureId">
+          <SpriteLoop
+            game="balloon"
+            :name="`pop-${COLORS[i % COLORS.length]}`"
+            fill
+            mode="once"
+            :fps="10"
+          />
+        </template>
+        <template v-else>
+          <SpriteLoop
+            game="balloon"
+            :name="`balloon-${COLORS[i % COLORS.length]}`"
+            fill
+            mode="pingpong"
+            :fps="3"
+          />
+          <span class="pic">
+            <PictureImage :id="w.pictureId" :size="px(112)" />
+            <span v-if="cfg.showText" class="label">{{ w.word }}</span>
+          </span>
+        </template>
       </button>
     </div>
-  </div>
+  </GameStage>
 </template>
 
 <style scoped>
-.balloons {
-  display: grid;
-  gap: var(--sp-4);
-  justify-items: center;
-}
-.speaker {
-  width: 96px;
-  height: 96px;
-  background: var(--c-warning-soft);
-  color: var(--c-warning);
-}
 .sky {
+  --bw: min(calc(270px * var(--s)), calc((100vw - 260px) / 4.3));
+  position: relative;
   display: flex;
-  gap: var(--sp-7);
+  gap: calc(var(--bw) * 0.1);
   justify-content: center;
-  min-height: 330px;
+  align-items: flex-start;
+  padding: calc(20px * var(--s)) 0 0 100px;
 }
 .balloon {
+  position: relative;
   display: grid;
-  justify-items: center;
+  place-items: start center;
+  width: var(--bw);
+  margin-top: var(--drop);
   padding: 0;
   border: 0;
   background: none;
   cursor: pointer;
   animation: bob 2400ms ease-in-out var(--delay) infinite;
 }
-.label {
-  font-size: var(--fs-lg);
-  font-weight: 800;
-}
-.bubble {
+.pic {
+  position: absolute;
+  top: calc(var(--bw) * 0.17);
+  left: 50%;
   display: grid;
-  place-items: center;
-  width: 180px;
-  height: 220px;
-  border: 4px solid var(--c-ink);
-  border-radius: 50% 50% 48% 48%;
-  background: color-mix(in srgb, var(--tint) 30%, var(--c-surface));
-  box-shadow: 0 8px 0 var(--c-ink);
+  width: calc(var(--bw) * 0.5);
+  justify-items: center;
+  transform: translateX(-50%);
 }
-.string {
-  width: 4px;
-  height: 70px;
-  background: var(--c-ink);
+.pic :deep(img),
+.pic :deep(svg) {
+  width: 100%;
+  height: auto;
+}
+.label {
+  font-family: var(--font-kids);
+  font-size: calc(var(--bw) * 0.1);
+  font-weight: 800;
+  color: var(--c-ink);
 }
 .balloon.pop {
-  animation: pop 400ms ease forwards;
+  animation: none;
 }
 .balloon.shake {
   animation: shake 400ms ease;
 }
 .balloon:disabled:not(.pop) {
-  opacity: 0.5;
+  opacity: 0.55;
 }
 @keyframes bob {
   50% {
     transform: translateY(-14px);
-  }
-}
-@keyframes pop {
-  60% {
-    transform: scale(1.25);
-  }
-  100% {
-    transform: scale(0);
-    opacity: 0;
   }
 }
 @keyframes shake {

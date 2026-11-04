@@ -23,6 +23,8 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
+- [x] (2026-11-04) Vẽ lại 5 game của bé (Memory, Balloon, Pet, Fishing, Spell) bằng ChatGPT Image cùng style cảnh Hà Nội: nền + sprite 6 khung, `GameStage`/`SpriteLoop`/`gameArt`, [27](27-kids-game-art-prompts.md), [decisions #49](decisions.md). Đã chụp thử cả 5 bằng `pnpm ui:shot`; `pnpm lint` (chỉ còn lỗi cũ ở file khác), typecheck, test 466, ui:audit 0 lỗi. Chưa thử tay: tiếng nói, chạm sai/đúng từng game, giảm chuyển động.
+
 - [x] (2026-11-03) Chốt phong cách vẽ lại thẻ từ: chibi giống mascot, mặt "b" (mắt chấm, lông mày, không má hồng), nhìn thẳng. Đã có 6 con mẫu ở `scripts/design-data/review/cards-chibi/`. Chưa đụng `art/cards/`. Chi tiết và việc còn lại ở mục **Vẽ lại bộ thẻ từ** (Giai đoạn A, thế giới của bé). **(Đã thay cùng ngày bằng ảnh ChatGPT Image: [24](24-card-art-prompts.md), [decisions #47](decisions.md).)**
 
 - [x] (2026-11-02) Cảnh 6 nước tầng 2 đổi sang tranh vẽ sẵn (nhờ ChatGPT Image, WebP nhúng trong `kids-p<nước>.art.html`), toạ độ biển ở `game/placeArtPhoto.ts`. Nhãn biển Trung Quốc đổi (Núi, Gấu trúc, Múa lân, Thuyền rồng, Đèn lồng). 🚧 Còn: tranh động (nền trống + sprite 4 khung, đã thử Trung Quốc), từ học Trung Quốc (tiger, deer, fox, wolf, bear) chưa khớp tranh, chưa thử tay, đo dung lượng.

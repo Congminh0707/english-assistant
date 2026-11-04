@@ -13,6 +13,7 @@ import FishingGame from './FishingGame.vue'
 import MemoryGame from './MemoryGame.vue'
 import PetFeedGame from './PetFeedGame.vue'
 import SpellGame from './SpellGame.vue'
+import { artUrl } from './gameArt'
 import { GAME_CONFIG, gamePool, starsFor, type GameWord } from './gameLogic'
 
 // Mini-game của bé: dùng chính các từ bé đã dán sticker (thiếu thì bù từ đầu album). Mỗi game ~1–2 phút, không tính giờ.
@@ -22,12 +23,13 @@ const { t } = useI18n()
 const { speak } = useTts()
 
 type GameId = 'memory' | 'balloon' | 'pet' | 'fishing' | 'spell'
-const ALL_GAMES: ReadonlyArray<{ id: GameId; picture: string; say: string; viKey: string }> = [
-  { id: 'memory', picture: 'star', say: 'Match!', viKey: 'kids.games.memory' },
-  { id: 'balloon', picture: 'ball', say: 'Pop!', viKey: 'kids.games.balloon' },
-  { id: 'pet', picture: 'cat', say: 'Feed me!', viKey: 'kids.games.pet' },
-  { id: 'fishing', picture: 'fish', say: 'Fishing!', viKey: 'kids.games.fishing' },
-  { id: 'spell', picture: 'apple', say: 'Spell it!', viKey: 'kids.games.spell' }
+// sprite = khung 0 của hình đại diện (games/art/<id>/<sprite>.webp)
+const ALL_GAMES: ReadonlyArray<{ id: GameId; sprite: string; say: string; viKey: string }> = [
+  { id: 'memory', sprite: 'card-back-0', say: 'Match!', viKey: 'kids.games.memory' },
+  { id: 'balloon', sprite: 'balloon-red-0', say: 'Pop!', viKey: 'kids.games.balloon' },
+  { id: 'pet', sprite: 'plate-0', say: 'Feed me!', viKey: 'kids.games.pet' },
+  { id: 'fishing', sprite: 'fish-orange-0', say: 'Fishing!', viKey: 'kids.games.fishing' },
+  { id: 'spell', sprite: 'tile-0', say: 'Spell it!', viKey: 'kids.games.spell' }
 ]
 
 // Độ khó và game có sẵn theo nhóm tuổi phụ huynh chọn (Khu phụ huynh → Cài đặt cho bé)
@@ -88,7 +90,7 @@ onMounted(async () => {
           class="k-big game"
           @click="start(g.id)"
         >
-          <PictureImage :id="g.picture" :size="96" />
+          <img class="thumb" :src="artUrl(g.id, g.sprite)" alt="" draggable="false" />
           <span>{{ g.say }}</span>
           <span class="vi">{{ t(g.viKey) }}</span>
         </button>
@@ -138,6 +140,11 @@ onMounted(async () => {
 .game {
   min-height: 200px;
   font-size: 30px;
+}
+.thumb {
+  width: auto;
+  height: 96px;
+  object-fit: contain;
 }
 .vi {
   font-family: var(--font-ui);

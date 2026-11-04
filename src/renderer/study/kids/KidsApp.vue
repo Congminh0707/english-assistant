@@ -171,6 +171,10 @@ onMounted(loadHome)
 .body {
   position: relative;
 }
+/* nằm trên màn game toàn màn hình (GameStage, z-index 1) */
+.bar {
+  z-index: 5;
+}
 .bar {
   display: flex;
   align-items: center;

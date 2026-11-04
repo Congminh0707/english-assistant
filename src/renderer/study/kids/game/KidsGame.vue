@@ -19,6 +19,7 @@ import WorldMap from './WorldMap.vue'
 import WorldMap3D from './WorldMap3D.vue'
 import { playSfx, setSfxEnabled } from './sfx'
 import { confirmLeave } from '../../leaveGuard'
+import { pickWeather, type Weather } from './sceneWeather'
 
 // Màn game toàn màn hình của bé (docs/19-kids-world.md §5.4): bấm ô Chơi → cửa sổ Học tập toàn màn hình (kênh
 // study:fullscreen, chỉ khi bé bấm), sân khấu 16:9 co giãn vừa màn hình (viền màu trời), HUD kiểu game phủ trên.
@@ -109,10 +110,17 @@ function start(id: string): void {
   overviewId.value = id
 }
 
+/**
+ * Thời tiết của cảnh: chọn một lần khi vào nơi đó từ bản đồ, giữ nguyên khi vào bài học rồi quay lại cảnh;
+ * thoát ra bản đồ rồi vào lại mới chọn lại
+ */
+const sceneWeather = ref<Weather>('clear')
+
 /** Nơi có cảnh chi tiết thì vào cảnh trước, nơi khác vào thẳng bài học */
 function enter(id: string): void {
   overviewId.value = null
   placeId.value = id
+  sceneWeather.value = pickWeather()
   startStep.value = 0
   view.value = PLACE_ART[id] ? 'place' : 'visit'
 }
@@ -244,6 +252,7 @@ onUnmounted(() => {
             :place="currentPlace"
             :width="STAGE_W"
             :height="STAGE_H"
+            :weather="sceneWeather"
             @learn="learn"
             @about="aboutOpen = true"
           />

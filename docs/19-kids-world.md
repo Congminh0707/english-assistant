@@ -7,6 +7,8 @@
 
 > ✅ Cảnh địa điểm (2026-11-01): 12 nơi tầng 1 có cảnh `game/PlaceScene.vue` dùng `ArtScene`. `export-art.py --kids --only-kids` gỡ biển tên, chấm chạm và thú cưng vẽ sẵn khỏi tranh, ghi toạ độ vào `game/placeArt.generated.ts`; 5 biển là nút HTML, nhãn ở `kids.game.spots.<nơi>`. Biển dịch vào trong khung để không đè hàng nút trên. Chạm biển: đọc tên tiếng Anh rồi mở lượt 5 bước `KidsVisit` từ đầu (chưa nhảy thẳng tới một bước, xem báo cáo phần H). `Esc`: bài học về cảnh, cảnh về bản đồ, bản đồ thoát game.
 
+> 🚧 Cảnh tầng 1 làm lại (2026-11-04, [26](26-scene-art-prompts.md), decisions #48): tranh ChatGPT Image nền trống + vật động 6 khung chạy ngẫu nhiên (`game/SceneAnim.vue`, `game/sceneAnim/<nơi>`), lá rơi. Xong Hà Nội; 11 nơi còn lại vẫn dùng tranh SVG cũ.
+
 > ✅ Tầng 2 (2026-11-01): `game/AsiaMap.vue` dùng tranh `kids-pasia`, biển tên là nút HTML, thú cưng đi máy bay theo đường cong tới nước vừa chọn rồi hiện thẻ. **6 nước (`w-*.json`) chưa có cảnh chi tiết:** nút trên thẻ vào thẳng bài học, bản đồ PAsia là cảnh của tầng này. Biển Việt Nam quay về tầng 1.
 
 > ✅ Tầng 3 (2026-11-01): `game/GlobeMap.vue` + `game/globe3d.ts`: quả cầu three.js thật, kéo xoay, tự quay chậm, dừng khi chọn, nhãn HTML chỉ hiện nơi gần tâm và không đè nhau. Bản đồ vẽ lên canvas rồi dán lên khối cầu; đất gộp theo 7 châu lục, không biên giới (`game/earthLand.json`, 72 KB, Nga tách ở kinh tuyến 60°E, sinh bằng `scripts/design-data/export-earth.py`; ảnh sinh bằng `export-kids-images.py`). Có sao, Mặt Trăng, vệ tinh, tên lửa, Mặt Trời, hành tinh có vành. 9 kỳ quan: `src/shared/earthWonders.ts`, ảnh `game/wonders/` (158 KB) xuất từ bảng thiết kế. Không có WebGL thì dùng bản đồ `WorldMap` dự phòng. Giảm chuyển động: không tự quay, vật thể đứng yên.

@@ -3,14 +3,13 @@ import { pickWeather } from './sceneWeather'
 
 describe('pickWeather', () => {
   it('đêm theo giờ máy', () => {
-    expect(pickWeather('hue', new Date(2026, 10, 1, 21))).toBe('night')
-    expect(pickWeather('hue', new Date(2026, 10, 1, 3))).toBe('night')
+    expect(pickWeather(new Date(2026, 10, 1, 21), () => 0.9)).toBe('night')
+    expect(pickWeather(new Date(2026, 10, 1, 3), () => 0.1)).toBe('night')
   })
-  it('ban ngày cố định trong cùng ngày và có đủ mưa / nắng / quang qua các nơi', () => {
+  it('ban ngày chọn ngẫu nhiên mưa / nắng / quang', () => {
     const day = new Date(2026, 10, 1, 10)
-    const ids = Array.from({ length: 60 }, (_, i) => `p${i}`)
-    const got = new Set(ids.map((id) => pickWeather(id, day)))
-    expect(got).toEqual(new Set(['rain', 'sun', 'clear']))
-    expect(pickWeather('p1', day)).toBe(pickWeather('p1', new Date(2026, 10, 1, 15)))
+    expect(pickWeather(day, () => 0.1)).toBe('rain')
+    expect(pickWeather(day, () => 0.4)).toBe('sun')
+    expect(pickWeather(day, () => 0.8)).toBe('clear')
   })
 })

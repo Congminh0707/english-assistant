@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Xem trước cảnh</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #222; overflow: hidden; }
+  #stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+  #stage img { position: absolute; pointer-events: none; user-select: none; }
+  #log { position: fixed; right: 8px; bottom: 8px; font: 12px monospace; color: #fff;
+         background: rgba(0,0,0,.55); padding: 6px 8px; border-radius: 6px; white-space: pre; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="log"></div>
+<script>
+// ?place=hanoi → đọc preview-hanoi/manifest.js
+const place = new URLSearchParams(location.search).get('place') || 'hanoi'
+const dir = `preview-${place}/`
+const s = document.createElement('script')
+s.src = dir + 'manifest.js'
+s.onload = () => start(window.MANIFEST)
+document.head.appendChild(s)
+
+// ---- nhịp (giống app sẽ dùng) ----
+const GAP_MIN = 5000, GAP_MAX = 10000   // mỗi vật nghỉ 5–10 s giữa hai lượt
+const START_GAP_MIN = 2000, START_GAP_MAX = 4000  // hai lượt (của hai vật bất kỳ) bắt đầu cách nhau 2–4 s
+const MAX_PLAYING = 2                   // tối đa 2 vật cử động cùng lúc
+const rand = (a, b) => a + Math.random() * (b - a)
+
+function start(m) {
+  const [W, H] = m.size
+  const stage = document.getElementById('stage')
+  const log = document.getElementById('log')
+  stage.style.width = W + 'px'; stage.style.height = H + 'px'
+  const fit = () => { stage.style.transform = `scale(${Math.min(innerWidth / W, innerHeight / H)})` }
+  addEventListener('resize', fit); fit()
+  const bg = new Image(); bg.src = dir + 'bg.webp'; bg.style.left = '0'; bg.style.top = '0'; bg.width = W
+  stage.appendChild(bg)
+
+  let lastStart = -1e9, lastName = '', startGap = 0
+  const now = () => performance.now()
+
+  // ---- vật động: đứng yên ở khung 0, thỉnh thoảng làm một lượt ----
+  const actors = m.actors.map(a => {
+    a.frames.forEach(f => { new Image().src = dir + f })   // nạp trước
+    const el = new Image()
+    el.src = dir + a.frames[0]
+    el.style.left = (a.x - a.w / 2) + 'px'
+    el.style.top = (a.y - a.h) + 'px'
+    stage.appendChild(el)
+    const seq = a.kind === 'pingpong'
+      ? [0, 1, 2, 3, 4, 5, 4, 3, 2, 1, 0]
+      : [0, 1, 2, 3, 4, 5, 0]
+    return { ...a, el, seq, playing: false, next: now() + rand(800, 9000), count: 0 }
+  })
+
+  function play(a) {
+    a.playing = true
+    a.count++
+    lastStart = now(); lastName = a.name; startGap = rand(START_GAP_MIN, START_GAP_MAX)
+    let i = 0
+    // nhịp mỗi khung dao động ±15 % để không đều như máy
+    const tick = () => {
+      a.el.src = dir + a.frames[a.seq[i]]
+      i++
+      if (i < a.seq.length) setTimeout(tick, a.frameMs * rand(0.85, 1.15))
+      else { a.playing = false; a.next = now() + rand(GAP_MIN, GAP_MAX) }
+    }
+    tick()
+  }
+
+  setInterval(() => {
+    const t = now()
+    // vật đến lượt, chưa chạy; không bắt đầu sát vật khác; không chọn lại vật vừa chạy nếu còn vật khác chờ
+    const due = actors.filter(a => !a.playing && a.next <= t)
+    if (!due.length) return
+    if (t - lastStart < startGap) return
+    if (actors.filter(a => a.playing).length >= MAX_PLAYING) return
+    const pool = due.length > 1 ? due.filter(a => a.name !== lastName) : due
+    // ưu tiên vật chờ lâu nhất (chọn ngẫu nhiên trong 2 vật chờ lâu nhất) để không vật nào bị bỏ quên
+    pool.sort((a, b) => a.next - b.next)
+    play(pool[Math.floor(Math.random() * Math.min(2, pool.length))])
+  }, 100)
+
+  // ---- lá rơi: liên tục, chạm đất thì mọc lại ở tán cây với nhịp mới ----
+  const LEAF_COUNT = 7
+  const leaves = []
+  function spawn(l, first) {
+    l.x0 = rand(40, 820)
+    l.y = first ? rand(-40, 880) : rand(-60, 40)
+    l.vy = rand(18, 34)                    // px/s, rơi chậm
+    l.size = rand(40, 60)
+    l.a1 = rand(20, 45); l.f1 = rand(0.15, 0.35); l.p1 = rand(0, 6.28)
+    l.a2 = rand(6, 18);  l.f2 = rand(0.6, 1.1);   l.p2 = rand(0, 6.28)
+    l.fv = rand(0.2, 0.5); l.pv = rand(0, 6.28)   // tốc độ rơi lúc nhanh lúc chậm
+    l.rot = rand(0.6, 1.6) * (Math.random() < .5 ? -1 : 1)  // khung xoay/giây
+    l.drift = rand(0.1, 0.3)
+    l.el.style.width = l.size + 'px'
+  }
+  for (let k = 0; k < LEAF_COUNT; k++) {
+    const el = new Image(); el.src = dir + m.leaf[0]; stage.appendChild(el)
+    const l = { el, t: rand(0, 50) }; spawn(l, true); leaves.push(l)
+  }
+  m.leaf.forEach(f => { new Image().src = dir + f })
+  let prev = now()
+  function frame() {
+    const t = now(), dt = Math.min(0.1, (t - prev) / 1000); prev = t
+    for (const l of leaves) {
+      l.t += dt
+      l.y += l.vy * dt * (1 + 0.6 * Math.sin(l.t * l.fv * 6.28 + l.pv))
+      const x = l.x0 + l.a1 * Math.sin(l.t * l.f1 * 6.28 + l.p1) + l.a2 * Math.sin(l.t * l.f2 * 6.28 + l.p2) + l.y * l.drift
+      const fi = ((Math.floor(l.t * Math.abs(l.rot) * 6) % 6) + 6) % 6
+      const idx = l.rot < 0 ? 5 - fi : fi
+      l.el.src = dir + m.leaf[idx]
+      l.el.style.left = (x - l.size / 2) + 'px'
+      l.el.style.top = l.y + 'px'
+      if (l.y > 930) spawn(l, false)
+    }
+    log.textContent = actors.map(a => `${a.name.padEnd(7)} ${a.playing ? '▶' : Math.max(0, (a.next - t) / 1000).toFixed(1) + 's'} ×${a.count}`).join('\n')
+    requestAnimationFrame(frame)
+  }
+  requestAnimationFrame(frame)
+}
+</script>
+</body>
+</html>

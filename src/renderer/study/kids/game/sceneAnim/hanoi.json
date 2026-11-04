@@ -1,0 +1,132 @@
+{
+  "size": [
+    1672,
+    941
+  ],
+  "actors": [
+    {
+      "name": "koi",
+      "x": 720,
+      "y": 640,
+      "w": 175,
+      "h": 170,
+      "kind": "burst",
+      "frameMs": 200,
+      "frames": [
+        "koi-0",
+        "koi-1",
+        "koi-2",
+        "koi-3",
+        "koi-4",
+        "koi-5"
+      ]
+    },
+    {
+      "name": "cyclo",
+      "x": 950,
+      "y": 905,
+      "w": 232,
+      "h": 225,
+      "kind": "pingpong",
+      "frameMs": 600,
+      "frames": [
+        "cyclo-0",
+        "cyclo-1",
+        "cyclo-2",
+        "cyclo-3",
+        "cyclo-4",
+        "cyclo-5"
+      ]
+    },
+    {
+      "name": "bike",
+      "x": 1570,
+      "y": 915,
+      "w": 176,
+      "h": 150,
+      "kind": "pingpong",
+      "frameMs": 600,
+      "frames": [
+        "bike-0",
+        "bike-1",
+        "bike-2",
+        "bike-3",
+        "bike-4",
+        "bike-5"
+      ]
+    },
+    {
+      "name": "child",
+      "x": 640,
+      "y": 915,
+      "w": 152,
+      "h": 190,
+      "kind": "pingpong",
+      "frameMs": 400,
+      "frames": [
+        "child-0",
+        "child-1",
+        "child-2",
+        "child-3",
+        "child-4",
+        "child-5"
+      ]
+    },
+    {
+      "name": "vendor",
+      "x": 370,
+      "y": 915,
+      "w": 214,
+      "h": 190,
+      "kind": "pingpong",
+      "frameMs": 400,
+      "frames": [
+        "vendor-0",
+        "vendor-1",
+        "vendor-2",
+        "vendor-3",
+        "vendor-4",
+        "vendor-5"
+      ]
+    },
+    {
+      "name": "chess",
+      "x": 1310,
+      "y": 925,
+      "w": 250,
+      "h": 185,
+      "kind": "pingpong",
+      "frameMs": 600,
+      "frames": [
+        "chess-0",
+        "chess-1",
+        "chess-2",
+        "chess-3",
+        "chess-4",
+        "chess-5"
+      ]
+    }
+  ],
+  "leaf": [
+    "leaf-0",
+    "leaf-1",
+    "leaf-2",
+    "leaf-3",
+    "leaf-4",
+    "leaf-5"
+  ],
+  "sky": {
+    "x": [
+      820,
+      1672
+    ],
+    "y": [
+      10,
+      70
+    ],
+    "sun": [
+      1290,
+      95
+    ]
+  }
+}

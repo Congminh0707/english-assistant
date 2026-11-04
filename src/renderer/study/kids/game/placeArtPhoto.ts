@@ -1,13 +1,24 @@
 import type { PlaceArt } from './placeArt.generated'
 
-// Cảnh 6 nước tầng 2 dùng tranh vẽ sẵn (ảnh WebP nhúng trong kids-p<nước>.art.html), không sinh từ export-art.py.
-// Toạ độ viết theo ảnh gốc 1672×941, đổi sang hệ 1280×720 của PlaceScene bằng `at`.
-const at = (x: number, y: number): { x: number; y: number } => ({
+// Cảnh 6 nước tầng 2 và các nơi tầng 1 đã làm lại (docs/26) dùng tranh vẽ sẵn (ảnh WebP nhúng trong
+// kids-p<nơi>.art.html), không sinh từ export-art.py. Vật động của cảnh ở sceneAnim/<nơi>.json (SceneAnim.vue).
+// Toạ độ viết theo ảnh gốc 1672×941, đổi sang hệ 1280×720 của PlaceScene bằng `at`. `w` chỉ để khớp kiểu
+// `PlaceArt.pet` (PlaceScene vẽ thú cưng theo PET_SIZE, không dùng `w`).
+const at = (x: number, y: number): { x: number; y: number; w: number } => ({
   x: Math.round((x * 1280) / 1672),
-  y: Math.round((y * 720) / 941)
+  y: Math.round((y * 720) / 941),
+  w: 90
 })
 
 export const PLACE_ART_PHOTO: Readonly<Record<string, PlaceArt>> = {
+  // Hồ Gươm mùa thu (2026-11-04, docs/26). Biển: Tháp Rùa, Đền Ngọc Sơn, Cầu Thê Húc, Phố cổ, Xích lô. Toạ độ là tâm
+  // biển = đỉnh công trình − 24 (chấm tròn nằm dưới chữ nên rơi đúng đỉnh công trình). Xích lô là sprite trong
+  // sceneAnim/hanoi.json (chân x 950, y 905, cao 225).
+  hanoi: {
+    art: 'kids-phanoi',
+    pet: at(770, 935),
+    spots: [at(1025, 238), at(610, 258), at(430, 394), at(1450, 201), at(950, 654)]
+  },
   china: {
     art: 'kids-pchina',
     pet: at(700, 905),

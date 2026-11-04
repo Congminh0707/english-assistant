@@ -12,7 +12,8 @@ import { PLACE_ART_PHOTO } from './placeArtPhoto'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import PlaceProgress from './PlaceProgress.vue'
 import SceneWeather from './SceneWeather.vue'
-import { pickWeather } from './sceneWeather'
+import SceneAnim from './SceneAnim.vue'
+import type { Weather } from './sceneWeather'
 import { playSfx } from './sfx'
 
 // Cảnh trong một địa điểm (docs/23-design-v2-spec.md §3): tranh 1280×720 phủ sân khấu, 5 biển chạm là nút HTML đặt theo
@@ -21,6 +22,8 @@ const props = defineProps<{
   place: KidsWorldView['tiers'][number]['places'][number]
   width: number
   height: number
+  /** Chọn ở KidsGame khi vào nơi này từ bản đồ; không đổi trong lúc ở cảnh */
+  weather: Weather
 }>()
 const emit = defineEmits<{ learn: [step: number]; about: [] }>()
 
@@ -36,10 +39,15 @@ const PET_SPOT: Readonly<Record<string, { x: number; y: number }>> = {
   hoian: { x: 1130, y: 462 }
 }
 const art = computed(() => PLACE_ART_PHOTO[props.place.id] ?? PLACE_ART[props.place.id])
-const weather = computed(() => pickWeather(props.place.id))
+const weather = computed(() => props.weather)
 const petAt = computed(() => PET_SPOT[props.place.id] ?? art.value?.pet ?? { x: 0, y: 0 })
-const sx = computed(() => props.width / 1280)
-const sy = computed(() => props.height / 720)
+// Tranh phủ khung kiểu `xMidYMid slice` (giữ tỉ lệ, cắt mép) nên biển/thú cưng cũng đổi toạ độ y như vậy,
+// không co giãn x, y riêng (khung khác 16:9 thì chấm lệch khỏi công trình)
+const scale = computed(() => Math.max(props.width / 1280, props.height / 720))
+const ox = computed(() => (props.width - 1280 * scale.value) / 2)
+const oy = computed(() => (props.height - 720 * scale.value) / 2)
+const toX = (x: number): number => ox.value + x * scale.value
+const toY = (y: number): number => oy.value + y * scale.value
 /** Số biển đã xong theo tỉ lệ từ đã học của nơi này */
 const doneSpots = computed(() => {
   const words = props.place.words
@@ -53,8 +61,8 @@ const learned = computed(() => props.place.words.filter((w) => w.done).length)
 const SIDE = 120
 const TOP_BAR = 138
 function spotStyle(s: { x: number; y: number }): { left: string; top: string } {
-  const x = Math.min(props.width - SIDE, Math.max(SIDE, s.x * sx.value))
-  let y = Math.min(props.height - 56, Math.max(36, s.y * sy.value))
+  const x = Math.min(props.width - SIDE, Math.max(SIDE, toX(s.x)))
+  let y = Math.min(props.height - 56, Math.max(36, toY(s.y)))
   if (y < TOP_BAR && (x < 480 || x > props.width - 200)) y = TOP_BAR
   return { left: `${x}px`, top: `${y}px` }
 }
@@ -73,11 +81,12 @@ function tap(i: number): void {
 <template>
   <div class="place-scene">
     <ArtScene v-if="art" class="art" :name="art.art" />
+    <SceneAnim v-if="art" :place-id="place.id" :width="width" :height="height" :weather="weather" />
     <SceneWeather v-if="art" :place-id="place.id" :weather="weather" />
     <div
       v-if="art && petStore.pet"
       class="pet"
-      :style="{ left: `${petAt.x * sx}px`, top: `${petAt.y * sy}px` }"
+      :style="{ left: `${toX(petAt.x)}px`, top: `${toY(petAt.y)}px` }"
     >
       <PetSprite
         :character="normalizeCharacterId(petStore.pet.characterId)"

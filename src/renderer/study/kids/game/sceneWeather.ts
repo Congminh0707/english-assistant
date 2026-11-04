@@ -4,14 +4,14 @@ export type Weather = 'clear' | 'sun' | 'rain' | 'night'
 const NIGHT_FROM = 19
 const NIGHT_TO = 6
 
-/** Thời tiết của một cảnh: đêm theo giờ máy, ban ngày chọn mưa / nắng / quang theo (ngày, nơi) để cả ngày không đổi */
-export function pickWeather(placeId: string, now: Date = new Date()): Weather {
+/**
+ * Thời tiết khi bé vào một cảnh: đêm theo giờ máy, ban ngày chọn ngẫu nhiên mưa 20 % / nắng 35 % / quang 45 %.
+ * Gọi một lần lúc vào cảnh: đang ở trong cảnh thì không đổi, thoát ra rồi vào lại mới chọn lại (chủ dự án 2026-11-04).
+ */
+export function pickWeather(now: Date = new Date(), rnd: () => number = Math.random): Weather {
   const h = now.getHours()
   if (h >= NIGHT_FROM || h < NIGHT_TO) return 'night'
-  const s = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}:${placeId}`
-  let x = 2166136261
-  for (let i = 0; i < s.length; i++) x = Math.imul(x ^ s.charCodeAt(i), 16777619)
-  const r = ((x >>> 0) % 100) / 100
+  const r = rnd()
   if (r < 0.2) return 'rain'
   if (r < 0.55) return 'sun'
   return 'clear'

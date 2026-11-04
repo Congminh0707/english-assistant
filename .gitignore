@@ -23,3 +23,10 @@ __pycache__/
 
 # Ảnh và dữ liệu tạm của scripts/ui-shot.mjs
 .ui-shot/
+
+# Ảnh nháp/ghép thử khi vẽ cảnh và thẻ bằng ChatGPT Image (docs/24, docs/26) — ảnh gốc đã duyệt giữ ngoài git
+scripts/design-data/review/cards-ink/
+scripts/design-data/review/vn-scenes/*.png
+scripts/design-data/review/vn-scenes/*.gif
+scripts/design-data/review/vn-scenes/compose*.py
+scripts/design-data/review/vn-scenes/preview-*/

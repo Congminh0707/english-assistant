@@ -163,6 +163,18 @@ Dữ liệu chỉ vào repo/app sau khi mục này được duyệt (quy trình 
 
 Công trình nổi tiếng **không** dùng kit có sẵn: vẫn tự dựng, `proprietary-own`. Mỗi nguồn mới phải kiểm tra giấy phép ở trang của tác giả (Quaternius khác nhau theo từng gói).
 
+### 8e. Ảnh do AI tạo: ChatGPT Image (OpenAI), thẻ từ và cảnh 6 nước (2026-11-03)
+
+| Nguồn | License / điều khoản | Trạng thái | Dùng cho |
+| --- | --- | --- | --- |
+| ChatGPT Image (OpenAI), tài khoản của chủ dự án | Ảnh AI sinh theo điều khoản dịch vụ OpenAI. Chủ dự án tự kiểm trước khi phát hành (xem dưới). Ghi `source.id = "generated"` (model + ngày), license `proprietary-own` | ⏳ **đang dùng, chờ chủ dự án xác nhận điều khoản thương mại** | 188 thẻ từ Kids World (`src/renderer/shared/art/cards/*.svg`, 13 batch, [24](24-card-art-prompts.md), [25](25-card-batch-prompts.md), [decisions #47](decisions.md)) và 6 cảnh nước tầng 2 (`art/scenes/kids-p<nước>.art.html`, [decisions #46](decisions.md)) |
+
+- **Đầu vào:** prompt tự soạn (lưu trong docs 25) và ảnh tham chiếu là thẻ/cảnh vector tự vẽ của dự án (`proprietary-own`) cùng sheet đã duyệt của chính batch 4. Không đưa ảnh có bản quyền của bên thứ ba vào làm tham chiếu (ảnh pngtree dùng để định hướng ở roadmap chỉ để xem, không tải lên).
+- **Đầu ra trong repo:** WebP nhúng trong SVG/HTML; ảnh gốc PNG giữ ngoài repo (`Downloads\EnglishCard`).
+- **Trước khi phát hành, chủ dự án kiểm lại** trang điều khoản/chính sách sử dụng của OpenAI: quyền dùng thương mại và phân phối đầu ra, và lưu ý rằng ở một số nước tác phẩm do AI sinh không được bảo hộ bản quyền (người khác có thể sao chép). Ghi ngày kiểm và kết quả vào đây.
+- **Ghi công:** không bắt buộc theo điều khoản; vẫn thêm dòng "Thẻ từ và cảnh minh hoạ: tạo bằng ChatGPT Image (OpenAI)" ở **Cài đặt → Giấy phép & ghi công** khi phát hành.
+- **Quy trình thẻ mới:** cùng quy trình ở [24](24-card-art-prompts.md); mỗi batch mới ghi thêm vào bảng ở docs 25.
+
 ## 9. Model AI & thư viện có license cần chú ý
 
 | Thành phần                                                                | License                                                                                                                                                                                           | Trạng thái | Ghi chú                                                                                                                                                                                                                  |

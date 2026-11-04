@@ -32,8 +32,10 @@ Nhúng (ghi đè 3 chỗ đầu): `python scripts/design-data/embed-scene.py <n�
 
 ## Cách chạy một nơi
 
-1. Mở chat mới ở ChatGPT, **đính kèm ảnh tham chiếu phong cách**: ảnh chụp bản đồ Làng chữ (màn chính).
-2. Dán [GLOBAL STYLE](#global-style) + [prompt cảnh](#mẫu-prompt-cảnh) của nơi đó. Tải ảnh, đặt `<nơi>-bg.png`.
+1. **Phong cách chuẩn = cảnh Hà Nội đã duyệt** (`hanoi-v6-bg.png`, chủ dự án chốt 2026-11-04; không đính kèm ảnh Làng chữ nữa). Hai cách:
+   - **Mặc định (AI tự làm):** vẽ tiếp trong chat Hà Nội `https://chatgpt.com/c/6aea8b1e-ff74-83ec-96c9-c932902a4c2a` (đã có ảnh Làng chữ + nền Hà Nội + mọi bảng sprite). Mở đầu prompt bằng [dòng tham chiếu Hà Nội](#global-style) và câu **"Create a BRAND-NEW image, do not edit any previous image"**, vì trong chat có sẵn ảnh, ChatGPT hay sửa đè ảnh cũ. AI **không tự đính kèm ảnh được** (đã thử 2026-11-04: ô file, dán/kéo thả giả, clipboard + Ctrl+V; ChatGPT chỉ nhận thao tác thật, Claude Browser không có công cụ tải file).
+   - **Chủ dự án tự đính kèm** `hanoi-v6-bg.png` vào chat mới: dùng dòng "The attached image…" của GLOBAL STYLE.
+2. Dán [GLOBAL STYLE](#global-style) + [prompt cảnh](#mẫu-prompt-cảnh) của nơi đó. Tải ảnh, đặt `<nơi>-bg.png`. So nét với Hà Nội trước khi làm sprite.
 3. Cùng chat: dán [prompt sprite](#mẫu-prompt-sprite) (mỗi bảng tối đa 3 vật × 6 khung). Đặt `<nơi>-sprites-N.png`.
 4. Ghép thử bằng `compose*.py`, xem ảnh, chỉnh vị trí/cỡ trước khi nhúng vào app.
 5. Tạo lại khi gặp lỗi ở bảng dưới; **chỉ sửa phần cảnh/sprite, không sửa GLOBAL STYLE** trừ khi chủ dự án đổi phong cách.
@@ -54,12 +56,15 @@ Nhúng (ghi đè 3 chỗ đầu): `python scripts/design-data/embed-scene.py <n�
 
 ## GLOBAL STYLE
 
-Dán nguyên văn đầu mọi prompt (cảnh và sprite).
+Dán nguyên văn đầu mọi prompt (cảnh và sprite). Dòng tham chiếu đầu tiên chọn theo cách làm ở bước 1:
+
+- Vẽ tiếp trong chat Hà Nội (mặc định): `Create a BRAND-NEW image, do not edit any previous image. Use the Hoan Kiem Lake (Hanoi) background I approved earlier in this chat as the exact art style reference: same hand-inked wobbly outlines, same warm earthy matte palette, same chunky shapes, same level of detail.`
+- Chủ dự án đính kèm `hanoi-v6-bg.png` vào chat mới: `The attached image (Hoan Kiem Lake, Hanoi) is the exact art style reference: same hand-inked wobbly outlines, same warm earthy matte palette, same chunky shapes, same level of detail.`
 
 ```markdown
 # GLOBAL STYLE — "LANG CHU" KIDS GAME SCENES
 
-The attached image is the art style reference (my game's village map). Match its shapes, proportions, level of detail, colour mood and friendliness.
+<dòng tham chiếu ở trên>. Match its shapes, proportions, level of detail, colour mood and friendliness.
 
 STYLE
 - Cosy, rustic, hand-drawn children's-book illustration of Vietnam, made into a game background.
@@ -188,4 +193,4 @@ Biển chạm giữ nhãn hiện có (`kids.game.spots.<nơi>`); chấm đặt �
 3. `emitter` tổng quát (sương, khói, hoa đăng): Sa Pa, Đà Lạt, Hội An.
 4. `wave`: Nha Trang, Phú Quốc. 5. `burst` phát sáng + đổi màu đêm: Đà Nẵng.
 
-Mỗi nơi: chat ChatGPT mới + ảnh Làng chữ → nền → sprite (đứng yên, và sprite cho nét liên tục: xe/thuyền 4–6 khung lặp vòng, mặt quay sang phải) → ghép thử (`anim6.py`, `preview.html`) → chủ dự án duyệt → `embed-scene.py` → biển/thú cưng ở `placeArtPhoto.ts` → `pnpm lint && pnpm test && pnpm ui:audit` → cập nhật docs/17, roadmap, commit.
+Mỗi nơi: chat Hà Nội (hoặc chat mới có `hanoi-v6-bg.png` do chủ dự án đính kèm) → nền → sprite (đứng yên, và sprite cho nét liên tục: xe/thuyền 4–6 khung lặp vòng, mặt quay sang phải) → ghép thử (`anim6.py`, `preview.html`) → chủ dự án duyệt → `embed-scene.py` → biển/thú cưng ở `placeArtPhoto.ts` → `pnpm lint && pnpm test && pnpm ui:audit` → cập nhật docs/17, roadmap, commit.

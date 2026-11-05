@@ -1267,7 +1267,9 @@
       "balloon": "Bắn bóng bay",
       "pet": "Cho thú cưng ăn đúng món",
       "fishing": "Câu cá",
-      "spell": "Điền chữ thiếu"
+      "spell": "Điền chữ thiếu",
+      "count": "Đếm số",
+      "sort": "Phân loại"
     },
     "review": {
       "hint": "Nghe từ rồi chạm vào hình đúng",

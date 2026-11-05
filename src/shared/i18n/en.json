@@ -1267,7 +1267,9 @@
       "balloon": "Pop the balloon",
       "pet": "Feed the pet",
       "fishing": "Go fishing",
-      "spell": "Spell the word"
+      "spell": "Spell the word",
+      "count": "Count them",
+      "sort": "Sort into groups"
     },
     "review": {
       "hint": "Listen to the word, then tap the right picture",

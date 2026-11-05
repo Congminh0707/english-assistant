@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
+  buildCountRound,
   buildMemoryDeck,
+  buildSortRounds,
   buildRound,
   buildRounds,
   buildSpellRound,
@@ -85,5 +87,43 @@ describe('gameLogic', () => {
     expect(GAME_CONFIG['5-6'].showText).toBe(true)
     expect(Object.values(GAME_CONFIG).filter((c) => c.spelling)).toHaveLength(1)
     expect(GAME_CONFIG['7-8'].spelling).toBe(true)
+  })
+
+  it('buildCountRound: đáp án nằm trong lựa chọn, không trùng, trong 1..max', () => {
+    for (let i = 0; i < 50; i++) {
+      const r = buildCountRound(word('cat'), 5, 3)
+      expect(r.n).toBeGreaterThanOrEqual(1)
+      expect(r.n).toBeLessThanOrEqual(5)
+      expect(r.choices).toContain(r.n)
+      expect(new Set(r.choices).size).toBe(r.choices.length)
+      expect(r.choices).toHaveLength(3)
+    }
+  })
+
+  it('buildSortRounds: đủ vòng, mỗi hình đúng nhóm, bù từ album khi pool thiếu', () => {
+    const all = [
+      'dog',
+      'cat',
+      'cow',
+      'pig',
+      'apple',
+      'pizza',
+      'bread',
+      'rice',
+      'car',
+      'bus',
+      'train',
+      'boat'
+    ].map(word)
+    const { groups, rounds } = buildSortRounds([word('dog')], all, 2, 4)
+    expect(groups).toHaveLength(2)
+    expect(rounds).toHaveLength(4)
+    for (const r of rounds) expect(groups).toContain(r.group)
+    expect(new Set(rounds.map((r) => r.word.pictureId)).size).toBe(4)
+  })
+
+  it('GAME_CONFIG: countMax và sortGroups tăng theo tuổi', () => {
+    expect(GAME_CONFIG['3-4'].countMax).toBeLessThan(GAME_CONFIG['7-8'].countMax)
+    expect(GAME_CONFIG['3-4'].sortGroups).toBeLessThanOrEqual(GAME_CONFIG['7-8'].sortGroups)
   })
 })

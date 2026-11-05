@@ -23,6 +23,8 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
+- 🚧 Đang làm: **Phase 4 bước 1 — TOEIC** ([29](29-phase4-plan.md)) — bước tiếp theo: schema `shared/schemas/toeic.ts` + `exam_attempts` + `ToeicService` + IPC `toeic:*` + trang `ToeicPage.vue`; song song sinh ngân hàng câu `content/curated/toeic/*.json`. Kiểm tra: `pnpm lint && pnpm test`.
+
 - [x] (2026-11-05) Mở rộng thẻ từ + chương trình trẻ em ([28](28-kids-expansion.md)): 148 thẻ mới (batch 14–23) vào bài học qua tầng `town` + `basics` (10 nơi, 148 từ; dữ liệu `tw-*`/`bs-*`). 🚧 Còn: cảnh/bản đồ riêng cho 10 nơi (UI, tạm dừng theo chủ dự án), người Việt duyệt nội dung, âm thanh Kokoro (`node scripts/audio/build-listening-audio.mjs`). (Docs 19/07 đã cập nhật số 37 nơi / 337 từ, 2026-11-05.)
 
 - [x] (2026-11-04) 11 cảnh tầng 1 (hcmc, halong, hoian, ninhbinh, sapa, danang, hue, nhatrang, dalat, cantho, phuquoc) làm lại bằng ChatGPT Image: nền trống + sprite 6 khung, engine mới (`lane`, `loop`, sương riêng, đồng hồ, vầng sáng đèn lồng, lửa rồng ban đêm), dựng bằng `scripts/design-data/scene_build.py`, đã nhúng vào app và đặt biển chạm ở `placeArtPhoto.ts`; chi tiết [26](26-scene-art-prompts.md). `pnpm test` 480 qua, ui:audit 0 lỗi, typecheck sạch, lint chỉ còn lỗi cũ. Chưa thử tay trong Electron; vị trí biển chạm đặt theo ước lượng từ ảnh, cần chỉnh khi thử tay.
@@ -265,14 +267,14 @@ Hiện trạng: bé chỉ có một dạng thẻ (`audio_picture`: nghe từ →
 **Giai đoạn B — Mini-game (làm sau A)**
 
 - [x] (2026-11-03, code xong, chưa thử tay) Ô **Games** ở màn chính của bé (`study/kids/games/`): lật thẻ ghép cặp · bắn bóng bay · thú cưng đói (đòi món, bé chạm đúng hình) · câu cá. Dùng từ bé đã dán sticker (thiếu thì bù từ đầu album), không thêm kênh IPC; ≥ 2 sao nhận quà qua `kids:reward` (có hạn mức ngày). Logic thuần ở `gameLogic.ts` (+ test).
-- [ ] Còn lại: Simon says (TPR) · phân loại (con vật/đồ ăn) — cần nhãn nhóm từ / hoạt ảnh động từ.
+- [x] (2026-11-05, code xong, chưa thử tay) **Phân loại** (`SortGame.vue`, nhóm từ ở `src/shared/pictureGroups.ts`: con vật/đồ ăn/xe cộ/quần áo/cơ thể; 2–3 ô nhóm theo tuổi) và **Đếm số** (`CountGame.vue`, đếm 1–5/8/10 theo tuổi). 🚧 Còn: tranh nền + sprite riêng cho 2 game (tạm mượn của balloon/pet, `BORROW` trong `gameArt.ts`; cần batch ChatGPT, [27](27-kids-game-art-prompts.md)) · Simon says (cần hoạt ảnh động từ).
 - [ ] Mỗi game dùng chung bộ từ chủ đề, có sao thưởng/sticker như hoạt động hiện tại.
 
 **Giai đoạn C — Động từ/tính từ qua mascot + thú cưng "học trò"**
 
 - [ ] Dạy động từ/tính từ bằng hoạt ảnh sẵn có của mascot (chạy, ngủ, ăn, vui, buồn…) thay vì vẽ hình mới.
 - [ ] Bé "dạy" thú cưng từ mới (học bằng cách dạy người khác).
-- [ ] Thêm game: tô màu theo lệnh, kéo đồ vào cảnh, tìm đồ trong cảnh (I-spy), đếm số.
+- [ ] Thêm game: tô màu theo lệnh, kéo đồ vào cảnh, tìm đồ trong cảnh (I-spy). (Đếm số: xong 2026-11-05.)
 
 **Giai đoạn D — Phân tầng tuổi + audio**
 
@@ -300,6 +302,8 @@ Hiện trạng: bé chỉ có một dạng thẻ (`audio_picture`: nghe từ →
 **DoD:** Luyện nói/viết được hoàn toàn offline ở mức cơ bản; có AI thì nhận feedback chi tiết theo rubric.
 
 ## Phase 4 — Luyện thi + Backend Laravel (≈ 10 tuần)
+
+> Kế hoạch chi tiết: [29-phase4-plan.md](29-phase4-plan.md). Chốt 2026-11-05: làm TOEIC → Video → B2–C2 trước; IELTS, Laravel, Đồng bộ hoãn.
 
 - [ ] TOEIC: 7 Part, mini test, full test, ước lượng điểm
 - [ ] IELTS: Reading/Listening dạng bài đầy đủ, Writing Task 1/2, Speaking Part 1–3 chấm AI

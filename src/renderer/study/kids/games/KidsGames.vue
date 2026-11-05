@@ -8,10 +8,12 @@ import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { useLeaveGuard } from '../../leaveGuard'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { FOOD_NAME, FOOD_PICTURE } from '../kidsText'
+import CountGame from './CountGame.vue'
 import BalloonGame from './BalloonGame.vue'
 import FishingGame from './FishingGame.vue'
 import MemoryGame from './MemoryGame.vue'
 import PetFeedGame from './PetFeedGame.vue'
+import SortGame from './SortGame.vue'
 import SpellGame from './SpellGame.vue'
 import { artUrl } from './gameArt'
 import { GAME_CONFIG, gamePool, starsFor, type GameWord } from './gameLogic'
@@ -22,14 +24,16 @@ const emit = defineEmits<{ changed: [] }>()
 const { t } = useI18n()
 const { speak } = useTts()
 
-type GameId = 'memory' | 'balloon' | 'pet' | 'fishing' | 'spell'
+type GameId = 'memory' | 'balloon' | 'pet' | 'fishing' | 'spell' | 'count' | 'sort'
 // sprite = khung 0 của hình đại diện (games/art/<id>/<sprite>.webp)
 const ALL_GAMES: ReadonlyArray<{ id: GameId; sprite: string; say: string; viKey: string }> = [
   { id: 'memory', sprite: 'card-back-0', say: 'Match!', viKey: 'kids.games.memory' },
   { id: 'balloon', sprite: 'balloon-red-0', say: 'Pop!', viKey: 'kids.games.balloon' },
   { id: 'pet', sprite: 'plate-0', say: 'Feed me!', viKey: 'kids.games.pet' },
   { id: 'fishing', sprite: 'fish-orange-0', say: 'Fishing!', viKey: 'kids.games.fishing' },
-  { id: 'spell', sprite: 'tile-0', say: 'Spell it!', viKey: 'kids.games.spell' }
+  { id: 'spell', sprite: 'tile-0', say: 'Spell it!', viKey: 'kids.games.spell' },
+  { id: 'count', sprite: 'balloon-blue-0', say: 'Count!', viKey: 'kids.games.count' },
+  { id: 'sort', sprite: 'plate-0', say: 'Sort it!', viKey: 'kids.games.sort' }
 ]
 
 // Độ khó và game có sẵn theo nhóm tuổi phụ huynh chọn (Khu phụ huynh → Cài đặt cho bé)
@@ -38,6 +42,8 @@ const cfg = computed(() => GAME_CONFIG[settingsStore.settings['kids.ageBand']])
 const GAMES = computed(() => ALL_GAMES.filter((g) => g.id !== 'spell' || cfg.value.spelling))
 
 const pool = ref<GameWord[]>([])
+// Cả album (kể cả hình chưa dán) để game Phân loại bù khi thiếu từ trong nhóm
+const all = ref<GameWord[]>([])
 const loaded = ref(false)
 const current = ref<GameId | null>(null)
 const stars = ref(0)
@@ -71,7 +77,9 @@ function again(): void {
 }
 
 onMounted(async () => {
-  pool.value = gamePool((await invoke('kids:stickers')).stickers)
+  const { stickers } = await invoke('kids:stickers')
+  pool.value = gamePool(stickers)
+  all.value = stickers.map((s) => ({ pictureId: s.pictureId, word: s.word, vi: s.vi }))
   loaded.value = true
 })
 </script>
@@ -103,6 +111,8 @@ onMounted(async () => {
       <BalloonGame v-else-if="current === 'balloon'" :pool="pool" :cfg="cfg" @done="onDone" />
       <PetFeedGame v-else-if="current === 'pet'" :pool="pool" :cfg="cfg" @done="onDone" />
       <SpellGame v-else-if="current === 'spell'" :pool="pool" :cfg="cfg" @done="onDone" />
+      <CountGame v-else-if="current === 'count'" :pool="pool" :cfg="cfg" @done="onDone" />
+      <SortGame v-else-if="current === 'sort'" :pool="pool" :all="all" :cfg="cfg" @done="onDone" />
       <FishingGame v-else :pool="pool" :cfg="cfg" @done="onDone" />
     </template>
 

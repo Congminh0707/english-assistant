@@ -1,6 +1,7 @@
 // Logic thuần của các mini-game của bé (không đụng Vue/IPC để test bằng Vitest trong Node).
 import type { KidsAgeBand } from '@shared/kids'
 import type { KidsStickers } from '@shared/schemas/kids'
+import { PICTURE_GROUPS, groupOf, type PictureGroupId } from '@shared/pictureGroups'
 
 export interface GameWord {
   pictureId: string
@@ -105,12 +106,40 @@ export interface GameConfig {
   showText: boolean
   /** Có game điền chữ thiếu (7–8 tuổi) */
   spelling: boolean
+  /** Số đếm lớn nhất ở game Đếm số */
+  countMax: number
+  /** Số ô nhóm ở game Phân loại */
+  sortGroups: number
 }
 
 export const GAME_CONFIG: Record<KidsAgeBand, GameConfig> = {
-  '3-4': { pairs: 3, rounds: 3, choices: 2, showText: false, spelling: false },
-  '5-6': { pairs: 4, rounds: 5, choices: 3, showText: true, spelling: false },
-  '7-8': { pairs: 6, rounds: 6, choices: 4, showText: true, spelling: true }
+  '3-4': {
+    pairs: 3,
+    rounds: 3,
+    choices: 2,
+    showText: false,
+    spelling: false,
+    countMax: 5,
+    sortGroups: 2
+  },
+  '5-6': {
+    pairs: 4,
+    rounds: 5,
+    choices: 3,
+    showText: true,
+    spelling: false,
+    countMax: 8,
+    sortGroups: 2
+  },
+  '7-8': {
+    pairs: 6,
+    rounds: 6,
+    choices: 4,
+    showText: true,
+    spelling: true,
+    countMax: 10,
+    sortGroups: 3
+  }
 }
 
 export interface SpellRound {
@@ -151,4 +180,84 @@ export function buildSpellRounds(
   return pickWords(pool.filter(isSpellable), rounds, rand).map((w) =>
     buildSpellRound(w, count, rand)
   )
+}
+
+export interface CountRound {
+  /** Hình lặp lại `n` lần */
+  target: GameWord
+  n: number
+  /** Gồm cả đáp án đúng, đã xáo */
+  choices: number[]
+}
+
+export const NUMBER_WORDS = [
+  'zero',
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+  'seven',
+  'eight',
+  'nine',
+  'ten'
+]
+
+export function buildCountRound(
+  target: GameWord,
+  max: number,
+  count: number,
+  rand = Math.random
+): CountRound {
+  const n = 1 + Math.floor(rand() * max)
+  const others = shuffle(
+    Array.from({ length: max }, (_, i) => i + 1).filter((v) => v !== n),
+    rand
+  ).slice(0, Math.min(count, max) - 1)
+  return { target, n, choices: shuffle([n, ...others], rand) }
+}
+
+export function buildCountRounds(
+  pool: readonly GameWord[],
+  rounds: number,
+  max: number,
+  count: number,
+  rand = Math.random
+): CountRound[] {
+  return pickWords(pool, rounds, rand).map((w) => buildCountRound(w, max, count, rand))
+}
+
+export interface SortRound {
+  word: GameWord
+  group: PictureGroupId
+}
+
+/**
+ * Game Phân loại: chọn `groups` nhóm, mỗi vòng một hình thuộc một trong các nhóm đó. Ưu tiên từ bé đã biết (`pool`),
+ * thiếu thì bù từ cả album (`all`) để luôn đủ vòng.
+ */
+export function buildSortRounds(
+  pool: readonly GameWord[],
+  all: readonly GameWord[],
+  groups: number,
+  rounds: number,
+  rand = Math.random
+): { groups: PictureGroupId[]; rounds: SortRound[] } {
+  const perGroup = Math.ceil(rounds / groups)
+  const inGroup = (list: readonly GameWord[], g: PictureGroupId): GameWord[] =>
+    list.filter((w) => groupOf(w.pictureId) === g)
+  const usable = PICTURE_GROUPS.filter((g) => inGroup(all, g.id).length >= perGroup).map(
+    (g) => g.id
+  )
+  const chosen = shuffle(usable, rand).slice(0, groups)
+  const out: SortRound[] = chosen.flatMap((g) => {
+    const known = shuffle(inGroup(pool, g), rand)
+    const rest = shuffle(
+      inGroup(all, g).filter((w) => !known.some((k) => k.pictureId === w.pictureId)),
+      rand
+    )
+    return [...known, ...rest].slice(0, perGroup).map((word) => ({ word, group: g }))
+  })
+  return { groups: chosen, rounds: shuffle(out, rand).slice(0, rounds) }
 }

@@ -157,7 +157,8 @@ Chi tiết kỹ thuật: [11-ai-and-speech.md](11-ai-and-speech.md#4-nhận-dạ
 
 ## 9. Phonics & Mầm non (P1)
 
-> ✅ 2026-11-01: thế giới của bé theo thiết kế v2: 27 nơi, 189 từ. Tầng 3 là 9 kỳ quan, 3 từ mỗi nơi. 12 nơi tầng 1 có cảnh riêng với 5 điểm chạm. Chi tiết ở [19](19-kids-world.md).
+> ✅ 2026-11-01: thế giới của bé theo thiết kế v2: tầng 1 VN, 6 nước, 9 kỳ quan (27 nơi, 189 từ lúc đó). Tầng 3 là 9 kỳ quan, 3 từ mỗi nơi. 12 nơi tầng 1 có cảnh riêng với 5 điểm chạm. Chi tiết ở [19](19-kids-world.md).
+> ✅ 2026-11-05: thêm tầng `town` (Làng của bé, 7 nơi × 16 từ) và `basics` (Màu-số-hình, 3 nơi × 12 từ): tổng **37 nơi, 337 từ**. Hai tầng mới `reviewed: false`, chưa có cảnh riêng. Chi tiết ở [28](28-kids-expansion.md).
 
 > 🚧 **Mở rộng từ vựng (Phase 2b)**: bản đồ thế giới (tỉnh/thành Việt Nam → các nước → Trái Đất), mỗi nơi một chủ điểm có công trình voxel, lượt học 5 bước — thiết kế ở [19](19-kids-world.md). 2026-10-30: đã có tầng 1 (12 nơi, 120 từ), service + IPC, bản đồ 2D và lượt chơi; ô **Chơi** của bé giờ mở bản đồ, từ mới chỉ vào qua các nơi (bình tưới để ôn). Chưa thử tay; bản 3D chưa làm.
 

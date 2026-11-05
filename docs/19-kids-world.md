@@ -1,5 +1,7 @@
 # 19 — Bản đồ thế giới của bé (Phase 2b, giai đoạn A) — 🚧 đang làm (bước 1–4 xong, đang làm 4b; xem §8)
 
+> **Cập nhật 2026-11-05:** số trong tài liệu này (27 nơi, 189 từ) là của lúc viết. Hiện có **37 nơi, 337 từ**: thêm tầng `town` (7 nơi × 16 từ) và `basics` (3 nơi × 12 từ), xem [28](28-kids-expansion.md) và [17](17-metrics.md). Cảnh/bản đồ riêng cho 10 nơi mới: chưa làm (phần UI tạm dừng).
+>
 > **Thiết kế v2 "Làng chữ" đã duyệt ([23](23-design-v2-spec.md)).** Đổi lớn: bản đồ 2D kiểu Làng chữ có công trình 3D trên bệ tròn, cảnh chi tiết cho từng nơi, máy bay ở tầng 2, quả địa cầu với kỳ quan thế giới ở tầng 3. Code hiện tại vẫn theo tài liệu này cho tới khi được áp dụng.
 
 

@@ -19,6 +19,63 @@ export const PLACE_ART_PHOTO: Readonly<Record<string, PlaceArt>> = {
     pet: at(770, 935),
     spots: [at(1025, 238), at(610, 258), at(430, 394), at(1450, 201), at(950, 654)]
   },
+  // 11 nơi tầng 1 làm lại bằng ChatGPT Image (2026-11-04, docs/26). Toạ độ biển = đỉnh vật − 24; thứ tự theo
+  // `kids.game.spots.<nơi>` (i18n). Vật động ở sceneAnim/<nơi>.json (dựng bởi scripts/design-data/scene_build.py).
+  hcmc: {
+    art: 'kids-phcmc',
+    pet: at(760, 925),
+    spots: [at(883, 40), at(1150, 415), at(260, 60), at(1460, 476), at(1210, 515)]
+  },
+  halong: {
+    art: 'kids-phalong',
+    pet: at(760, 905),
+    spots: [at(1125, 368), at(1000, 520), at(730, 360), at(140, 355), at(400, 505)]
+  },
+  hoian: {
+    art: 'kids-phoian',
+    pet: at(960, 905),
+    spots: [at(970, 262), at(222, 180), at(560, 593), at(940, 626), at(400, 160)]
+  },
+  ninhbinh: {
+    art: 'kids-pninhbinh',
+    pet: at(900, 905),
+    spots: [at(1090, 22), at(1100, 358), at(300, 480), at(1135, 523), at(300, 606)]
+  },
+  sapa: {
+    art: 'kids-psapa',
+    pet: at(900, 885),
+    spots: [at(1180, 58), at(850, 330), at(200, 192), at(1130, 626), at(1420, 540)]
+  },
+  danang: {
+    art: 'kids-pdanang',
+    pet: at(600, 905),
+    spots: [at(930, 350), at(1300, 300), at(900, 600), at(255, 333), at(1600, 476)]
+  },
+  hue: {
+    art: 'kids-phue',
+    pet: at(800, 905),
+    spots: [at(1005, 200), at(180, 620), at(200, 640), at(130, 480), at(640, 556)]
+  },
+  nhatrang: {
+    art: 'kids-pnhatrang',
+    pet: at(950, 905),
+    spots: [at(225, 100), at(885, 410), at(800, 600), at(1000, 560), at(700, 820)]
+  },
+  dalat: {
+    art: 'kids-pdalat',
+    pet: at(900, 905),
+    spots: [at(885, 210), at(900, 660), at(640, 200), at(1560, 540), at(80, 745)]
+  },
+  cantho: {
+    art: 'kids-pcantho',
+    pet: at(900, 905),
+    spots: [at(1240, 381), at(1263, 472), at(700, 570), at(1080, 503), at(1465, 262)]
+  },
+  phuquoc: {
+    art: 'kids-pphuquoc',
+    pet: at(1100, 905),
+    spots: [at(835, 200), at(260, 305), at(1450, 240), at(120, 665), at(130, 447)]
+  },
   china: {
     art: 'kids-pchina',
     pet: at(700, 905),

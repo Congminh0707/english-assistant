@@ -31,3 +31,6 @@ scripts/design-data/review/vn-scenes/*.gif
 scripts/design-data/review/vn-scenes/compose*.py
 scripts/design-data/review/vn-scenes/preview-*/
 scripts/design-data/review/kids-games/*.png
+scripts/design-data/review/kids-games/out/
+scripts/design-data/review/scene-preview/sa.js
+scripts/design-data/review/scene-preview/sky/

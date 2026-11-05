@@ -343,3 +343,9 @@ Mẫu:
 **Quyết định:** mỗi game = một tranh nền ChatGPT Image (style Hà Nội) + sprite 6 khung (thẻ, bóng + nổ, đĩa/bát/bướm, cá + bong bóng/gợn/bắn nước, ô chữ/bút chì). Logic chơi giữ nguyên; chỉ đổi lớp hình (`GameStage.vue`, `SpriteLoop.vue`, `gameArt.ts`). Hình từ vựng bên trong vẫn là thẻ ChatGPT. Câu cá: cảnh bờ nén 28 % trên cùng, nước mặt cắt chiếm 72 % để cá bơi trong lòng ao.
 **Hệ quả:** ảnh tải tay (trang ChatGPT chặn gửi ảnh sang máy), nhúng bằng `scripts/design-data/embed-kids-games.py` (bảng có nền caro giả được xoá bằng lan từ mép ô). WebP nền q80 + sprite q88, ~2 MB. Giảm chuyển động: sprite đứng khung 0.
 **Cập nhật cùng ngày:** màn game phủ toàn cửa sổ (không khung viền), hình/thẻ to theo cỡ cửa sổ (`useStageScale`); chi tiết ở [27](27-kids-game-art-prompts.md#màn-game-toàn-màn-hình-2026-11-04-chủ-dự-án-yêu-cầu).
+
+## #50 — 11 cảnh còn lại của tầng 1 dựng bằng pipeline cấu hình (2026-11-05) — Đã quyết định
+
+**Bối cảnh:** làm tay từng cảnh như Hà Nội ([#48](#48--cảnh-12-nơi-tầng-1-làm-lại-bằng-chatgpt-image--vật-động-ngẫu-nhiên-2026-11-04--đã-quyết-định)) tốn thời gian và dễ lệch giữa các nơi.
+**Quyết định:** mỗi nơi cấu hình ở `scripts/design-data/scene_cfg/<nơi>.py` (đăng ký trong `scene_config.py`), `scene_build.py <nơi>` tách nền sprite sheet và ghi bản duyệt vào `review/kids-games/out/<nơi>/`; `--embed` (chỉ sau khi chủ dự án duyệt) ghi vào app. Thêm động cơ `lane` (vật chạy ngang theo làn), sương (`gen_mist.py`, `sceneAnim/mist/`), lửa/nước rồng chỉ hiện ban đêm. Trên Windows chạy với `PYTHONIOENCODING=utf-8` (in tiếng Việt lỗi cp1252 sau khi đã ghi file).
+**Hệ quả:** 11 cảnh nhúng cùng một lúc (2026-11-05), chưa chủ dự án duyệt/thử tay.

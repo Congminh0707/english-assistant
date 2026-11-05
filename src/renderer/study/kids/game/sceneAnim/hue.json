@@ -1,0 +1,154 @@
+{
+  "size": [
+    1672,
+    941
+  ],
+  "actors": [
+    {
+      "name": "kite",
+      "x": 720,
+      "y": 165,
+      "w": 177,
+      "h": 150,
+      "kind": "loop",
+      "frameMs": 350,
+      "frames": [
+        "kite-0",
+        "kite-1",
+        "kite-2",
+        "kite-3",
+        "kite-4",
+        "kite-5"
+      ],
+      "ax": 0.5,
+      "ay": 0.5
+    },
+    {
+      "name": "aodai",
+      "x": 640,
+      "y": 770,
+      "w": 114,
+      "h": 190,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "aodai-0",
+        "aodai-1",
+        "aodai-2",
+        "aodai-3",
+        "aodai-4",
+        "aodai-5"
+      ]
+    },
+    {
+      "name": "che",
+      "x": 1230,
+      "y": 775,
+      "w": 191,
+      "h": 160,
+      "kind": "pingpong",
+      "frameMs": 600,
+      "frames": [
+        "che-0",
+        "che-1",
+        "che-2",
+        "che-3",
+        "che-4",
+        "che-5"
+      ]
+    },
+    {
+      "name": "child",
+      "x": 950,
+      "y": 880,
+      "w": 149,
+      "h": 170,
+      "kind": "pingpong",
+      "frameMs": 400,
+      "frames": [
+        "child-0",
+        "child-1",
+        "child-2",
+        "child-3",
+        "child-4",
+        "child-5"
+      ]
+    }
+  ],
+  "leaf": [],
+  "sky": {
+    "x": [
+      450,
+      1250
+    ],
+    "y": [
+      10,
+      110
+    ],
+    "sun": [
+      1050,
+      110
+    ]
+  },
+  "lanes": [
+    {
+      "name": "river",
+      "y": 670,
+      "dir": 0,
+      "x": [
+        -120,
+        240
+      ],
+      "gap": [
+        5000,
+        10000
+      ],
+      "fade": [
+        100,
+        130
+      ],
+      "frameMs": 250,
+      "maxActive": 1,
+      "bob": 2,
+      "exclusive": true,
+      "variants": [
+        {
+          "name": "dragon",
+          "frames": [
+            "dragonB0-0",
+            "dragonB0-1",
+            "dragonB0-2",
+            "dragonB0-3",
+            "dragonB0-4",
+            "dragonB0-5"
+          ],
+          "w": 228,
+          "h": 120,
+          "speed": [
+            18,
+            30
+          ],
+          "weight": 1
+        },
+        {
+          "name": "sampan",
+          "frames": [
+            "sampanB1-0",
+            "sampanB1-1",
+            "sampanB1-2",
+            "sampanB1-3",
+            "sampanB1-4",
+            "sampanB1-5"
+          ],
+          "w": 113,
+          "h": 90,
+          "speed": [
+            18,
+            30
+          ],
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

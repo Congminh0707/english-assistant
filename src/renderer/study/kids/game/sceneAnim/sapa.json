@@ -1,0 +1,147 @@
+{
+  "size": [
+    1672,
+    941
+  ],
+  "actors": [
+    {
+      "name": "smoke",
+      "x": 478,
+      "y": 304,
+      "w": 78,
+      "h": 120,
+      "kind": "loop",
+      "frameMs": 350,
+      "frames": [
+        "smoke-0",
+        "smoke-1",
+        "smoke-2",
+        "smoke-3",
+        "smoke-4",
+        "smoke-5"
+      ],
+      "ax": 0.392,
+      "ay": 1.0
+    },
+    {
+      "name": "duck",
+      "x": 1440,
+      "y": 628,
+      "w": 85,
+      "h": 62,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "duck-0",
+        "duck-1",
+        "duck-2",
+        "duck-3",
+        "duck-4",
+        "duck-5"
+      ]
+    },
+    {
+      "name": "horse",
+      "x": 560,
+      "y": 775,
+      "w": 189,
+      "h": 140,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "horse-0",
+        "horse-1",
+        "horse-2",
+        "horse-3",
+        "horse-4",
+        "horse-5"
+      ]
+    },
+    {
+      "name": "buffalo",
+      "x": 1130,
+      "y": 800,
+      "w": 197,
+      "h": 150,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "buffalo-0",
+        "buffalo-1",
+        "buffalo-2",
+        "buffalo-3",
+        "buffalo-4",
+        "buffalo-5"
+      ]
+    },
+    {
+      "name": "hmong",
+      "x": 330,
+      "y": 800,
+      "w": 125,
+      "h": 165,
+      "kind": "pingpong",
+      "frameMs": 450,
+      "frames": [
+        "hmong-0",
+        "hmong-1",
+        "hmong-2",
+        "hmong-3",
+        "hmong-4",
+        "hmong-5"
+      ]
+    },
+    {
+      "name": "hen",
+      "x": 800,
+      "y": 815,
+      "w": 111,
+      "h": 75,
+      "kind": "pingpong",
+      "frameMs": 450,
+      "frames": [
+        "hen-0",
+        "hen-1",
+        "hen-2",
+        "hen-3",
+        "hen-4",
+        "hen-5"
+      ]
+    }
+  ],
+  "leaf": [],
+  "sky": {
+    "x": [
+      300,
+      1100
+    ],
+    "y": [
+      10,
+      70
+    ],
+    "sun": [
+      820,
+      70
+    ]
+  },
+  "mist": {
+    "x": [
+      480,
+      1500
+    ],
+    "y": [
+      230,
+      400
+    ],
+    "count": 4,
+    "alpha": 0.6,
+    "w": [
+      380,
+      560
+    ],
+    "speed": [
+      4,
+      8
+    ]
+  }
+}

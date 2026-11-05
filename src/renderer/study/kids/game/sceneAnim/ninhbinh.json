@@ -1,0 +1,171 @@
+{
+  "size": [
+    1672,
+    941
+  ],
+  "actors": [
+    {
+      "name": "egret",
+      "x": 1290,
+      "y": 660,
+      "w": 113,
+      "h": 120,
+      "kind": "pingpong",
+      "frameMs": 450,
+      "frames": [
+        "egret-0",
+        "egret-1",
+        "egret-2",
+        "egret-3",
+        "egret-4",
+        "egret-5"
+      ]
+    },
+    {
+      "name": "moored",
+      "x": 1135,
+      "y": 660,
+      "w": 129,
+      "h": 95,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "moored-0",
+        "moored-1",
+        "moored-2",
+        "moored-3",
+        "moored-4",
+        "moored-5"
+      ]
+    },
+    {
+      "name": "rest",
+      "x": 980,
+      "y": 685,
+      "w": 164,
+      "h": 130,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "rest-0",
+        "rest-1",
+        "rest-2",
+        "rest-3",
+        "rest-4",
+        "rest-5"
+      ]
+    },
+    {
+      "name": "buffalo",
+      "x": 300,
+      "y": 780,
+      "w": 192,
+      "h": 150,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "buffalo-0",
+        "buffalo-1",
+        "buffalo-2",
+        "buffalo-3",
+        "buffalo-4",
+        "buffalo-5"
+      ]
+    }
+  ],
+  "leaf": [],
+  "sky": {
+    "x": [
+      450,
+      1250
+    ],
+    "y": [
+      10,
+      70
+    ],
+    "sun": [
+      640,
+      80
+    ]
+  },
+  "lanes": [
+    {
+      "name": "cave",
+      "y": 730,
+      "dir": 0,
+      "x": [
+        520,
+        1090
+      ],
+      "gap": [
+        8000,
+        16000
+      ],
+      "fade": [
+        150,
+        150
+      ],
+      "frameMs": 200,
+      "maxActive": 3,
+      "y1": 480,
+      "s1": 0.3,
+      "exclusive": true,
+      "variants": [
+        {
+          "name": "boat",
+          "frames": [
+            "boatB0-0",
+            "boatB0-1",
+            "boatB0-2",
+            "boatB0-3",
+            "boatB0-4",
+            "boatB0-5"
+          ],
+          "w": 197,
+          "h": 145,
+          "speed": [
+            35,
+            55
+          ],
+          "weight": 3
+        },
+        {
+          "name": "boat",
+          "frames": [
+            "boatB1-0",
+            "boatB1-1",
+            "boatB1-2",
+            "boatB1-3",
+            "boatB1-4",
+            "boatB1-5"
+          ],
+          "w": 209,
+          "h": 145,
+          "speed": [
+            35,
+            55
+          ],
+          "weight": 3
+        },
+        {
+          "name": "boat",
+          "frames": [
+            "boatB2-0",
+            "boatB2-1",
+            "boatB2-2",
+            "boatB2-3",
+            "boatB2-4",
+            "boatB2-5"
+          ],
+          "w": 168,
+          "h": 145,
+          "speed": [
+            40,
+            60
+          ],
+          "weight": 2
+        }
+      ]
+    }
+  ]
+}

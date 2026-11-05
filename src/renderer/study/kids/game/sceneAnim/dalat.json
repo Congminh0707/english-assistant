@@ -1,0 +1,189 @@
+{
+  "size": [
+    1672,
+    941
+  ],
+  "actors": [
+    {
+      "name": "carrot",
+      "x": 105,
+      "y": 512,
+      "w": 87,
+      "h": 82,
+      "kind": "pingpong",
+      "frameMs": 450,
+      "frames": [
+        "carrot-0",
+        "carrot-1",
+        "carrot-2",
+        "carrot-3",
+        "carrot-4",
+        "carrot-5"
+      ]
+    },
+    {
+      "name": "swan",
+      "x": 1560,
+      "y": 555,
+      "w": 83,
+      "h": 75,
+      "kind": "pingpong",
+      "frameMs": 550,
+      "frames": [
+        "swan-0",
+        "swan-1",
+        "swan-2",
+        "swan-3",
+        "swan-4",
+        "swan-5"
+      ]
+    },
+    {
+      "name": "strawberry",
+      "x": 140,
+      "y": 668,
+      "w": 124,
+      "h": 130,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "strawberry-0",
+        "strawberry-1",
+        "strawberry-2",
+        "strawberry-3",
+        "strawberry-4",
+        "strawberry-5"
+      ]
+    }
+  ],
+  "leaf": [],
+  "sky": {
+    "x": [
+      520,
+      1330
+    ],
+    "y": [
+      10,
+      60
+    ],
+    "sun": [
+      950,
+      80
+    ]
+  },
+  "mist": {
+    "x": [
+      200,
+      1500
+    ],
+    "y": [
+      150,
+      230
+    ],
+    "count": 3,
+    "alpha": 0.5,
+    "w": [
+      380,
+      520
+    ],
+    "speed": [
+      4,
+      8
+    ]
+  },
+  "lanes": [
+    {
+      "name": "rail",
+      "y": 728,
+      "dir": 1,
+      "x": [
+        -500,
+        2200
+      ],
+      "gap": [
+        15000,
+        30000
+      ],
+      "fade": [
+        0,
+        0
+      ],
+      "frameMs": 110,
+      "maxActive": 1,
+      "variants": [
+        {
+          "name": "steam",
+          "frames": [
+            "steamB0-0",
+            "steamB0-1",
+            "steamB0-2",
+            "steamB0-3",
+            "steamB0-4",
+            "steamB0-5"
+          ],
+          "w": 330,
+          "h": 150,
+          "speed": [
+            90,
+            120
+          ],
+          "weight": 1,
+          "attach": {
+            "frames": [
+              "rail-steam-fx-0",
+              "rail-steam-fx-1",
+              "rail-steam-fx-2",
+              "rail-steam-fx-3",
+              "rail-steam-fx-4",
+              "rail-steam-fx-5"
+            ],
+            "dx": 157,
+            "dy": -115,
+            "w": 128,
+            "h": 125,
+            "frameMs": 160
+          }
+        }
+      ]
+    },
+    {
+      "name": "road",
+      "y": 800,
+      "dir": -1,
+      "x": [
+        250,
+        1400
+      ],
+      "gap": [
+        12000,
+        25000
+      ],
+      "fade": [
+        120,
+        120
+      ],
+      "frameMs": 120,
+      "maxActive": 1,
+      "variants": [
+        {
+          "name": "cart",
+          "frames": [
+            "cartB2-0",
+            "cartB2-1",
+            "cartB2-2",
+            "cartB2-3",
+            "cartB2-4",
+            "cartB2-5"
+          ],
+          "w": 195,
+          "h": 115,
+          "speed": [
+            55,
+            80
+          ],
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

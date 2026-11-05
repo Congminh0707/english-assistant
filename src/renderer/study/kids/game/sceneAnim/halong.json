@@ -1,0 +1,175 @@
+{
+  "size": [
+    1672,
+    941
+  ],
+  "actors": [
+    {
+      "name": "kidhouse",
+      "x": 1250,
+      "y": 650,
+      "w": 138,
+      "h": 120,
+      "kind": "pingpong",
+      "frameMs": 450,
+      "frames": [
+        "kidhouse-0",
+        "kidhouse-1",
+        "kidhouse-2",
+        "kidhouse-3",
+        "kidhouse-4",
+        "kidhouse-5"
+      ]
+    },
+    {
+      "name": "dolphin",
+      "x": 1030,
+      "y": 655,
+      "w": 125,
+      "h": 115,
+      "kind": "burst",
+      "frameMs": 200,
+      "frames": [
+        "dolphin-0",
+        "dolphin-1",
+        "dolphin-2",
+        "dolphin-3",
+        "dolphin-4",
+        "dolphin-5"
+      ],
+      "hideIdle": true
+    },
+    {
+      "name": "cage",
+      "x": 930,
+      "y": 705,
+      "w": 131,
+      "h": 95,
+      "kind": "burst",
+      "frameMs": 200,
+      "frames": [
+        "cage-0",
+        "cage-1",
+        "cage-2",
+        "cage-3",
+        "cage-4",
+        "cage-5"
+      ]
+    },
+    {
+      "name": "fisher",
+      "x": 690,
+      "y": 725,
+      "w": 147,
+      "h": 135,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "fisher-0",
+        "fisher-1",
+        "fisher-2",
+        "fisher-3",
+        "fisher-4",
+        "fisher-5"
+      ]
+    }
+  ],
+  "leaf": [],
+  "sky": {
+    "x": [
+      280,
+      1480
+    ],
+    "y": [
+      10,
+      70
+    ],
+    "sun": [
+      1130,
+      85
+    ]
+  },
+  "birds": "none",
+  "lanes": [
+    {
+      "name": "far",
+      "y": 548,
+      "dir": 1,
+      "x": [
+        560,
+        2020
+      ],
+      "gap": [
+        8000,
+        20000
+      ],
+      "fade": [
+        200,
+        0
+      ],
+      "frameMs": 250,
+      "maxActive": 2,
+      "bob": 3,
+      "variants": [
+        {
+          "name": "junk",
+          "frames": [
+            "junkB0-0",
+            "junkB0-1",
+            "junkB0-2",
+            "junkB0-3",
+            "junkB0-4",
+            "junkB0-5"
+          ],
+          "w": 125,
+          "h": 110,
+          "speed": [
+            20,
+            32
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "near",
+      "y": 615,
+      "dir": -1,
+      "x": [
+        200,
+        2020
+      ],
+      "gap": [
+        8000,
+        20000
+      ],
+      "fade": [
+        0,
+        150
+      ],
+      "frameMs": 250,
+      "maxActive": 2,
+      "bob": 3,
+      "variants": [
+        {
+          "name": "sailboat",
+          "frames": [
+            "sailboatB1-0",
+            "sailboatB1-1",
+            "sailboatB1-2",
+            "sailboatB1-3",
+            "sailboatB1-4",
+            "sailboatB1-5"
+          ],
+          "w": 130,
+          "h": 120,
+          "speed": [
+            28,
+            45
+          ],
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

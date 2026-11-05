@@ -152,7 +152,7 @@ Xem trước có hẹn giờ ngẫu nhiên như app (không cần mở app): `py
 
 `anim6.py`: cắt theo ô lưới, bỏ điểm alpha ≤ 40, căn mọi khung theo đáy + tâm ngang để không rung. Nhịp (chủ dự án duyệt tốc độ 2026-11-04): tick 200 ms, GIF 120 tick (24 s); vật đứng yên chạy **ping-pong** 1→6→2 (400–600 ms/khung), cá chép chạy một lượt rồi nghỉ (chu kỳ 8 s), mỗi lá rơi 1 lượt/24 s, tốc độ rơi dao động, lắc ngang là tổng 2 sin khác tần số, số vòng xoay riêng từng lá (bất quy tắc) → mọi tần số nguyên lần trong 24 s nên lặp không giật. Vị trí ở `PLACE`, lá ở `LEAVES`. Trong app dùng cùng nhịp này.
 
-## Kế hoạch 11 cảnh còn lại (viết 2026-11-04, CHƯA làm)
+## Kế hoạch 11 cảnh còn lại (viết 2026-11-04; ĐÃ làm và nhúng cùng ngày, xem mục Công cụ dựng bên dưới)
 
 Luật giống Hà Nội (GLOBAL STYLE, nền trống, vật đứng yên chạy ngẫu nhiên 5–10 s, trời/thời tiết là lớp riêng, prompt chuẩn ở trên). **Thêm luật: mỗi cảnh có ít nhất một hoạt ảnh LIÊN TỤC làm nét riêng của nơi đó** (Hà Nội: lá thu rơi). Nét riêng nào khó vẽ/khó tìm tài liệu thì bỏ, không bắt buộc. Trước khi soạn prompt mỗi nơi: **tìm ảnh/tư liệu thật** (công trình, trang phục, xe, mùa) và ghi 1–2 dòng "Tham khảo" như mục Hà Nội.
 
@@ -194,3 +194,83 @@ Biển chạm giữ nhãn hiện có (`kids.game.spots.<nơi>`); chấm đặt �
 4. `wave`: Nha Trang, Phú Quốc. 5. `burst` phát sáng + đổi màu đêm: Đà Nẵng.
 
 Mỗi nơi: chat Hà Nội (hoặc chat mới có `hanoi-v6-bg.png` do chủ dự án đính kèm) → nền → sprite (đứng yên, và sprite cho nét liên tục: xe/thuyền 4–6 khung lặp vòng, mặt quay sang phải) → ghép thử (`anim6.py`, `preview.html`) → chủ dự án duyệt → `embed-scene.py` → biển/thú cưng ở `placeArtPhoto.ts` → `pnpm lint && pnpm test && pnpm ui:audit` → cập nhật docs/17, roadmap, commit.
+
+## Tiến độ 11 cảnh (2026-11-04, tối)
+
+Đã vẽ trong chat Hà Nội (ChatGPT Image), **chưa nhúng vào app**. Lưu ở `scripts/design-data/review/kids-games/` (đã gitignore `*.png`); `*-WRONG.png` là bản tải nhầm, bỏ qua; dùng `sapa-sprites-B-fixed`, `phuquoc-sprites-A-fixed`.
+
+- Nền: `hcm-bg`, `halong-bg`, `hoian-bg` (không đèn lồng, đèn lồng là sprite riêng), `ninhbinh-bg`, `sapa-bg`, `danang-bg`, `hue-bg`, `nhatrang-bg`, `dalat-bg`, `cantho-bg`, `phuquoc-bg`.
+- Sprite (6×3): `<nơi>-sprites-A` (vật đứng yên) và `-B` (xe/thuyền/sóng/khói); riêng `hcm-sprites-A/B`, `hoian-lanterns` (đèn lồng lắc, glow bằng code), `danang-fx` (lửa, nước phun từ miệng rồng, hướng phun cần lật theo đầu rồng), `cantho-sprites-C` (xuồng chèo 2 mái hai bên, thay hàng 3 của B), `phuquoc-sprites-A` (dùng bản `-fixed`).
+- Còn làm: động cơ `lane`/`emitter`/`wave`/`clock`, glow đèn lồng Hội An, ghép thử (`anim6.py`), chủ dự án duyệt, `embed-scene.py`.
+- Đà Nẵng: `danang-bg` và `danang-bg-v2` sai (cầu đứt đoạn, đầu rồng rời thân). Tham khảo ảnh thật (Wikimedia Commons `Cầu Rồng.jpg`): sàn cầu xám đen liền một dải trên các trụ bê tông, thân rồng là ống vàng liền thành chuỗi vòm nhỏ dần về bên trái bám vào sàn bằng dây cáp, đầu ngóc lên ở đầu cầu. Dùng `danang-bg-v3` (đầu rồng ~70 % chiều ngang, quay phải, miệng mở trống, bên phải để trống cho lửa/nước) với `danang-fx` không cần lật ngang.
+
+### Công cụ dựng 11 cảnh (2026-11-04)
+
+- Cấu hình mỗi nơi: `scripts/design-data/scene_cfg/<nơi>.py` (`CFG`: vật đứng/loop `actors`, dòng vật `lanes`, `sky`, `mist`, `clock`, `birds`); id nơi: hcmc, halong, hoian, ninhbinh, sapa, danang, hue, nhatrang, dalat, cantho, phuquoc.
+- Dựng: `python scripts/design-data/scene_build.py <nơi> [--composite] [--embed]` → `review/kids-games/out/<nơi>/` (spec.json, webp, `composite.png` ghép tĩnh theo y chân). `--embed` ghi vào app, **chỉ chạy sau khi chủ dự án duyệt** (và sửa `placeArtPhoto.ts`).
+- Tách nền sheet RGB/RGBA nền trắng: loang từ viền ô (`matte_cell`); cờ `deholes: True` ở actor/variant xoá thêm nền kín giữa nét vẽ, chỉ bật cho hàng không có màu trắng thật.
+- Xem trước chạy bằng đúng logic app: `node_modules/.pnpm/esbuild@0.25.12/node_modules/esbuild/bin/esbuild src/renderer/study/kids/game/sceneAnim.ts --bundle --format=iife --global-name=SA --outfile=scripts/design-data/review/scene-preview/sa.js`, chạy server `scene-preview-all` (`.claude/launch.json`, cổng 8767), mở `http://localhost:8767/scene-preview/preview.html?place=<nơi>`.
+- Engine mới trong `sceneAnim.ts`: `loop` (sóng, khói, đèn lồng, diều), `LaneRunner` (dòng vật, y1/s1 đường chéo, fade, trong một làn vật không vượt nhau nên tách làn nhanh/chậm), mist, clock, glow; `SceneAnim.vue` hỗ trợ tất cả, `.scene-anim` có `isolation: isolate` (z-index vật/lá không thoát ra ngoài lớp cảnh). Test: `sceneAnim.test.ts` (17).
+- QA Opus 2026-11-04 và các việc còn lại: mảng nền kín còn lẻ tẻ; vệt gợn nước ông câu cá Đà Nẵng nằm trên gạch; HCMC chỉ có một sprite xe máy; mỗi frame render lại cả component, lane dùng left/top (nên chuyển sang transform nếu giật); chưa chạy thử trong Electron.
+- Vòng sửa theo chủ dự án + QA Opus vòng 2 (2026-11-04): Hội An lane chéo theo lòng kênh (`s0`/`s1`), Ninh Bình một lane `dir 0 + exclusive`, Sa Pa/Đà Lạt sương riêng (`gen_mist.py` → `sceneAnim/mist/`), Đà Nẵng lửa/nước chỉ ban đêm (`night`, bộ lập lịch bỏ qua vật night ban ngày, `lalign` căn mép trái để gốc lửa ở miệng rồng, `flip` cho nước, `erase` vệt nước ông câu cá), HCM thêm 6 loại xe (sheet C, D), Huế sửa halo + làn sông, Cần Thơ/Phú Quốc tránh cọc tre và nhà sàn. Công cụ thêm: `erase`, `crop`, `lalign`, `deholes` mạnh hơn (gỡ halo). Còn lại: chưa xem lại động trong trình duyệt sau đợt này, bé thả hoa đăng Hội An có thể còn vệt gờ đá nhỏ.
+- Đã nhúng 11 cảnh vào app (2026-11-04): `scene_build.py <nơi> --embed`, biển chạm ở `placeArtPhoto.ts` (toạ độ ước từ ảnh, chỉnh khi thử tay). Đà Nẵng: lửa lật ngang như nước; thuyền chỉ chạy trong x 300–1800 để không vào gốc cây trái.
+
+## Làm lại nền 5 nơi sau khi chủ dự án thử tay (2026-11-05) — CHƯA làm, chờ chủ dự án tạo ảnh
+
+Phản hồi: biển chạm đè nhau / đặt trên vật di chuyển. **Luật mới:** biển chạm chỉ đặt trên vật CỐ ĐỊNH vẽ sẵn trong nền (công trình, cây, đảo, thuyền neo); không đặt trên vật có sprite chạy (`lane`) như thuyền thúng, thuyền rồng, ghe. Hai biển cách nhau ≥ 200 px ngang (nhãn rộng ~170 px) hoặc ≥ 90 px dọc (ảnh gốc 1672×941).
+
+| Nơi | Vấn đề | Việc làm |
+|---|---|---|
+| Đà Nẵng | điểm không hợp, thiếu Cầu quay sông Hàn | nền mới (prompt dưới); Cầu Rồng ở giữa-trái, cầu quay xa phía sau bên phải; biển: Cầu Rồng, Lửa rồng, Sông Hàn, Cao ốc, Cầu quay |
+| Nha Trang | "Thuyền thúng" đặt trên vật chạy | nền mới có vài thuyền thúng ÚP/NEO trên cát (cố định); sprite thuyền thúng ngoài khơi vẫn chạy nhưng biển chạm đặt ở thuyền neo trên cát |
+| Huế | biển đè nhau; sông Hương/thuyền rồng nhỏ, bị chặn | nền mới: sông Hương rộng bên trái + Cầu Tràng Tiền rõ; thuyền rồng NEO ở bến (cố định, vẽ trong nền); `lane` sông bỏ hoặc chỉ cho thuyền nhỏ |
+| Sa Pa | ruộng nước | nền mới ruộng bậc thang (prompt dưới); bỏ sprite vịt ở ruộng nước (`duck`) |
+| Cần Thơ | cây bẹo/chợ nổi/trái thơm đè lên | ĐÃ sửa toạ độ trong `placeArtPhoto.ts` (đặt trên cọc bẹo cố định); nền giữ nguyên |
+| TP.HCM | đồng hồ thiếu vạch/số | ĐÃ thêm 12 vạch giờ + số 12-3-6-9 trong `SceneAnim.vue` (chưa xem bản chạy) |
+
+Sau khi có nền: đặt `<nơi>-bg.png` vào `scripts/design-data/review/kids-games/`, chỉnh `scene_cfg/<nơi>.py` (toạ độ vật), `scene_build.py <nơi>`, duyệt, rồi `--embed` và cập nhật `spots` ở `placeArtPhoto.ts`.
+
+Prompt cảnh (dán sau GLOBAL STYLE, theo [mẫu](#mẫu-prompt-cảnh)):
+
+```markdown
+# SCENE — DA NANG, VIETNAM
+SEASON / TIME: summer afternoon, warm light.
+LEFT: a few modern high-rise towers and green hills across the river.
+CENTRE: the golden Dragon Bridge (Cau Rong) arching over the Han River, dragon head at its right end (mouth closed, no fire).
+RIGHT-BACKGROUND: the Han River Swing Bridge (Cau quay song Han), a long white steel bridge with a rotating middle span and tall lattice towers, clearly visible in the distance, slightly smaller than the Dragon Bridge.
+FOREGROUND: pink bougainvillea bush at the left edge.
+GROUND (bottom third, empty): river promenade of stone tiles with a low carved balustrade.
+CHARACTERISTIC DETAILS: lamp posts on the bridge; calm teal river with white wavy strokes, empty of boats.
+SKY: plain empty light blue sky only.
+```
+
+```markdown
+# SCENE — NHA TRANG, VIETNAM
+SEASON / TIME: summer, bright sun.
+LEFT: Po Nagar Cham towers (Thap Ba) on a green hill, dignified and clearly drawn.
+CENTRE: calm turquoise bay with ONE green island on the horizon.
+RIGHT: coconut palms and a thatched beach hut at the edge.
+FOREGROUND ON SAND (fixed, parked): two round basket boats (thuyen thung) turned upside down / moored on the sand in the middle of the beach, well apart from each other.
+GROUND (bottom third, empty): open golden sand.
+SKY: plain empty light blue sky only.
+```
+
+```markdown
+# SCENE — HUE, VIETNAM
+SEASON / TIME: spring, soft light.
+LEFT: a wide Perfume River (Song Huong) filling the left third, with the long arched Truong Tien Bridge clearly visible across it; a decorated dragon boat MOORED at a stone landing on the bank (docked, still).
+CENTRE: Ngo Mon Gate, dignified, stone base and golden-roof pavilion.
+RIGHT: apricot blossom branch at the top corner, a red lantern post.
+GROUND (bottom third, empty): stone paved courtyard.
+KEEP landmarks well apart so labels do not overlap.
+SKY: plain empty light blue sky only.
+```
+
+```markdown
+# SCENE — SA PA, VIETNAM
+SEASON / TIME: autumn, ripe golden rice.
+CENTRE / RIGHT: steep hillsides carved into many curved TERRACED RICE FIELDS stepping down in layers (ruong bac thang), golden-yellow ripe rice, NOT flat flooded paddies; Fansipan peak far behind.
+LEFT: a few stilt houses of a hill village on the slope.
+GROUND (bottom third, empty): dirt path with dotted edges and grass.
+SKY: plain empty pale blue sky only.
+```

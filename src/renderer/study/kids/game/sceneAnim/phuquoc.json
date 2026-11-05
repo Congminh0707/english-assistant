@@ -1,0 +1,145 @@
+{
+  "size": [
+    1672,
+    941
+  ],
+  "actors": [
+    {
+      "name": "family",
+      "x": 1440,
+      "y": 648,
+      "w": 210,
+      "h": 150,
+      "kind": "pingpong",
+      "frameMs": 600,
+      "frames": [
+        "family-0",
+        "family-1",
+        "family-2",
+        "family-3",
+        "family-4",
+        "family-5"
+      ]
+    },
+    {
+      "name": "netman",
+      "x": 440,
+      "y": 805,
+      "w": 162,
+      "h": 140,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "netman-0",
+        "netman-1",
+        "netman-2",
+        "netman-3",
+        "netman-4",
+        "netman-5"
+      ]
+    },
+    {
+      "name": "dog",
+      "x": 900,
+      "y": 850,
+      "w": 96,
+      "h": 100,
+      "kind": "pingpong",
+      "frameMs": 400,
+      "frames": [
+        "dog-0",
+        "dog-1",
+        "dog-2",
+        "dog-3",
+        "dog-4",
+        "dog-5"
+      ]
+    }
+  ],
+  "leaf": [],
+  "birds": "none",
+  "lanes": [
+    {
+      "name": "squid",
+      "y": 600,
+      "dir": 1,
+      "x": [
+        770,
+        1180
+      ],
+      "gap": [
+        14000,
+        26000
+      ],
+      "fade": [
+        120,
+        150
+      ],
+      "frameMs": 250,
+      "maxActive": 1,
+      "bob": 3,
+      "y1": 510,
+      "s1": 0.4,
+      "variants": [
+        {
+          "name": "squidboat",
+          "frames": [
+            "squidboatB0-0",
+            "squidboatB0-1",
+            "squidboatB0-2",
+            "squidboatB0-3",
+            "squidboatB0-4",
+            "squidboatB0-5"
+          ],
+          "w": 136,
+          "h": 115,
+          "speed": [
+            14,
+            24
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "basket",
+      "y": 640,
+      "dir": -1,
+      "x": [
+        820,
+        1220
+      ],
+      "gap": [
+        12000,
+        22000
+      ],
+      "fade": [
+        150,
+        150
+      ],
+      "frameMs": 250,
+      "maxActive": 1,
+      "bob": 3,
+      "variants": [
+        {
+          "name": "basketboat",
+          "frames": [
+            "basketboatB1-0",
+            "basketboatB1-1",
+            "basketboatB1-2",
+            "basketboatB1-3",
+            "basketboatB1-4",
+            "basketboatB1-5"
+          ],
+          "w": 96,
+          "h": 85,
+          "speed": [
+            22,
+            32
+          ],
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

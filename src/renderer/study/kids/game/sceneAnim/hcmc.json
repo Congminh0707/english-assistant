@@ -1,0 +1,472 @@
+{
+  "size": [
+    1672,
+    941
+  ],
+  "actors": [
+    {
+      "name": "child",
+      "x": 1465,
+      "y": 700,
+      "w": 95,
+      "h": 150,
+      "kind": "pingpong",
+      "frameMs": 400,
+      "frames": [
+        "child-0",
+        "child-1",
+        "child-2",
+        "child-3",
+        "child-4",
+        "child-5"
+      ]
+    },
+    {
+      "name": "banhmi",
+      "x": 330,
+      "y": 702,
+      "w": 165,
+      "h": 175,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "banhmi-0",
+        "banhmi-1",
+        "banhmi-2",
+        "banhmi-3",
+        "banhmi-4",
+        "banhmi-5"
+      ]
+    },
+    {
+      "name": "xeom",
+      "x": 1210,
+      "y": 704,
+      "w": 145,
+      "h": 165,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "xeom-0",
+        "xeom-1",
+        "xeom-2",
+        "xeom-3",
+        "xeom-4",
+        "xeom-5"
+      ]
+    }
+  ],
+  "leaf": [],
+  "sky": {
+    "x": [
+      1050,
+      1450
+    ],
+    "y": [
+      10,
+      40
+    ],
+    "sun": [
+      1250,
+      90
+    ]
+  },
+  "clock": {
+    "x": 883,
+    "y": 287,
+    "r": 36
+  },
+  "birds": "none",
+  "lanes": [
+    {
+      "name": "l1",
+      "y": 768,
+      "dir": -1,
+      "x": [
+        -300,
+        1972
+      ],
+      "gap": [
+        700,
+        1900
+      ],
+      "fade": [
+        0,
+        0
+      ],
+      "frameMs": 110,
+      "maxActive": 7,
+      "variants": [
+        {
+          "name": "bike",
+          "frames": [
+            "bikeB0-0",
+            "bikeB0-1",
+            "bikeB0-2",
+            "bikeB0-3",
+            "bikeB0-4",
+            "bikeB0-5"
+          ],
+          "w": 104,
+          "h": 115,
+          "speed": [
+            250,
+            320
+          ],
+          "weight": 5
+        },
+        {
+          "name": "family",
+          "frames": [
+            "familyC1-0",
+            "familyC1-1",
+            "familyC1-2",
+            "familyC1-3",
+            "familyC1-4",
+            "familyC1-5"
+          ],
+          "w": 131,
+          "h": 125,
+          "speed": [
+            240,
+            300
+          ],
+          "weight": 2
+        },
+        {
+          "name": "delivery",
+          "frames": [
+            "deliveryC2-0",
+            "deliveryC2-1",
+            "deliveryC2-2",
+            "deliveryC2-3",
+            "deliveryC2-4",
+            "deliveryC2-5"
+          ],
+          "w": 138,
+          "h": 125,
+          "speed": [
+            240,
+            310
+          ],
+          "weight": 2
+        },
+        {
+          "name": "vespa",
+          "frames": [
+            "vespaD2-0",
+            "vespaD2-1",
+            "vespaD2-2",
+            "vespaD2-3",
+            "vespaD2-4",
+            "vespaD2-5"
+          ],
+          "w": 116,
+          "h": 118,
+          "speed": [
+            250,
+            320
+          ],
+          "weight": 2
+        },
+        {
+          "name": "taxi",
+          "frames": [
+            "taxiC0-0",
+            "taxiC0-1",
+            "taxiC0-2",
+            "taxiC0-3",
+            "taxiC0-4",
+            "taxiC0-5"
+          ],
+          "w": 162,
+          "h": 105,
+          "speed": [
+            250,
+            310
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "l2",
+      "y": 806,
+      "dir": -1,
+      "x": [
+        -300,
+        1972
+      ],
+      "gap": [
+        2500,
+        6500
+      ],
+      "fade": [
+        0,
+        0
+      ],
+      "frameMs": 110,
+      "maxActive": 4,
+      "variants": [
+        {
+          "name": "bus",
+          "frames": [
+            "busB1-0",
+            "busB1-1",
+            "busB1-2",
+            "busB1-3",
+            "busB1-4",
+            "busB1-5"
+          ],
+          "w": 233,
+          "h": 165,
+          "speed": [
+            120,
+            150
+          ],
+          "weight": 2
+        },
+        {
+          "name": "pickup",
+          "frames": [
+            "pickupD0-0",
+            "pickupD0-1",
+            "pickupD0-2",
+            "pickupD0-3",
+            "pickupD0-4",
+            "pickupD0-5"
+          ],
+          "w": 195,
+          "h": 140,
+          "speed": [
+            120,
+            150
+          ],
+          "weight": 2
+        },
+        {
+          "name": "cyclo",
+          "frames": [
+            "cycloB2-0",
+            "cycloB2-1",
+            "cycloB2-2",
+            "cycloB2-3",
+            "cycloB2-4",
+            "cycloB2-5"
+          ],
+          "w": 173,
+          "h": 150,
+          "speed": [
+            105,
+            130
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "l3",
+      "y": 848,
+      "dir": 1,
+      "x": [
+        -300,
+        1972
+      ],
+      "gap": [
+        800,
+        2200
+      ],
+      "fade": [
+        0,
+        0
+      ],
+      "frameMs": 110,
+      "maxActive": 7,
+      "variants": [
+        {
+          "name": "bike",
+          "frames": [
+            "bikeB0-0",
+            "bikeB0-1",
+            "bikeB0-2",
+            "bikeB0-3",
+            "bikeB0-4",
+            "bikeB0-5"
+          ],
+          "w": 126,
+          "h": 140,
+          "speed": [
+            260,
+            330
+          ],
+          "weight": 5
+        },
+        {
+          "name": "family",
+          "frames": [
+            "familyC1-0",
+            "familyC1-1",
+            "familyC1-2",
+            "familyC1-3",
+            "familyC1-4",
+            "familyC1-5"
+          ],
+          "w": 157,
+          "h": 150,
+          "speed": [
+            250,
+            310
+          ],
+          "weight": 2
+        },
+        {
+          "name": "delivery",
+          "frames": [
+            "deliveryC2-0",
+            "deliveryC2-1",
+            "deliveryC2-2",
+            "deliveryC2-3",
+            "deliveryC2-4",
+            "deliveryC2-5"
+          ],
+          "w": 166,
+          "h": 150,
+          "speed": [
+            250,
+            320
+          ],
+          "weight": 2
+        },
+        {
+          "name": "vespa",
+          "frames": [
+            "vespaD2-0",
+            "vespaD2-1",
+            "vespaD2-2",
+            "vespaD2-3",
+            "vespaD2-4",
+            "vespaD2-5"
+          ],
+          "w": 140,
+          "h": 142,
+          "speed": [
+            260,
+            330
+          ],
+          "weight": 2
+        },
+        {
+          "name": "taxi",
+          "frames": [
+            "taxiC0-0",
+            "taxiC0-1",
+            "taxiC0-2",
+            "taxiC0-3",
+            "taxiC0-4",
+            "taxiC0-5"
+          ],
+          "w": 198,
+          "h": 128,
+          "speed": [
+            260,
+            320
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "l4",
+      "y": 878,
+      "dir": 1,
+      "x": [
+        -300,
+        1972
+      ],
+      "gap": [
+        3000,
+        7500
+      ],
+      "fade": [
+        0,
+        0
+      ],
+      "frameMs": 110,
+      "maxActive": 4,
+      "variants": [
+        {
+          "name": "bus",
+          "frames": [
+            "busB1-0",
+            "busB1-1",
+            "busB1-2",
+            "busB1-3",
+            "busB1-4",
+            "busB1-5"
+          ],
+          "w": 283,
+          "h": 200,
+          "speed": [
+            125,
+            155
+          ],
+          "weight": 2
+        },
+        {
+          "name": "pickup",
+          "frames": [
+            "pickupD0-0",
+            "pickupD0-1",
+            "pickupD0-2",
+            "pickupD0-3",
+            "pickupD0-4",
+            "pickupD0-5"
+          ],
+          "w": 230,
+          "h": 165,
+          "speed": [
+            125,
+            155
+          ],
+          "weight": 2
+        },
+        {
+          "name": "bicycle",
+          "frames": [
+            "bicycleD1-0",
+            "bicycleD1-1",
+            "bicycleD1-2",
+            "bicycleD1-3",
+            "bicycleD1-4",
+            "bicycleD1-5"
+          ],
+          "w": 142,
+          "h": 145,
+          "speed": [
+            105,
+            130
+          ],
+          "weight": 2
+        },
+        {
+          "name": "cyclo",
+          "frames": [
+            "cycloB2-0",
+            "cycloB2-1",
+            "cycloB2-2",
+            "cycloB2-3",
+            "cycloB2-4",
+            "cycloB2-5"
+          ],
+          "w": 196,
+          "h": 170,
+          "speed": [
+            105,
+            130
+          ],
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,270 @@
+{
+  "size": [
+    1672,
+    941
+  ],
+  "actors": [
+    {
+      "name": "beo1",
+      "x": 1215,
+      "y": 612,
+      "w": 101,
+      "h": 210,
+      "kind": "loop",
+      "frameMs": 300,
+      "frames": [
+        "beo-0",
+        "beo-1",
+        "beo-2",
+        "beo-3",
+        "beo-4",
+        "beo-5"
+      ],
+      "ax": 0.113,
+      "ay": 1.0
+    },
+    {
+      "name": "banthom",
+      "x": 840,
+      "y": 640,
+      "w": 145,
+      "h": 130,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "banthom-0",
+        "banthom-1",
+        "banthom-2",
+        "banthom-3",
+        "banthom-4",
+        "banthom-5"
+      ]
+    },
+    {
+      "name": "beanthom",
+      "x": 440,
+      "y": 748,
+      "w": 109,
+      "h": 100,
+      "kind": "pingpong",
+      "frameMs": 450,
+      "frames": [
+        "beanthom-0",
+        "beanthom-1",
+        "beanthom-2",
+        "beanthom-3",
+        "beanthom-4",
+        "beanthom-5"
+      ]
+    },
+    {
+      "name": "beo0",
+      "x": 985,
+      "y": 752,
+      "w": 144,
+      "h": 300,
+      "kind": "loop",
+      "frameMs": 300,
+      "frames": [
+        "beo-0",
+        "beo-1",
+        "beo-2",
+        "beo-3",
+        "beo-4",
+        "beo-5"
+      ],
+      "ax": 0.113,
+      "ay": 1.0
+    },
+    {
+      "name": "ghedua",
+      "x": 1070,
+      "y": 755,
+      "w": 179,
+      "h": 130,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "ghedua-0",
+        "ghedua-1",
+        "ghedua-2",
+        "ghedua-3",
+        "ghedua-4",
+        "ghedua-5"
+      ]
+    }
+  ],
+  "leaf": [],
+  "sky": {
+    "x": [
+      650,
+      1330
+    ],
+    "y": [
+      10,
+      90
+    ],
+    "sun": [
+      1000,
+      90
+    ]
+  },
+  "lanes": [
+    {
+      "name": "l1",
+      "y": 590,
+      "dir": -1,
+      "x": [
+        520,
+        1250
+      ],
+      "gap": [
+        6000,
+        14000
+      ],
+      "fade": [
+        180,
+        180
+      ],
+      "frameMs": 220,
+      "maxActive": 2,
+      "bob": 3,
+      "variants": [
+        {
+          "name": "ghe",
+          "frames": [
+            "gheB1-0",
+            "gheB1-1",
+            "gheB1-2",
+            "gheB1-3",
+            "gheB1-4",
+            "gheB1-5"
+          ],
+          "w": 176,
+          "h": 110,
+          "speed": [
+            25,
+            40
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "l2",
+      "y": 665,
+      "dir": 1,
+      "x": [
+        520,
+        1250
+      ],
+      "gap": [
+        6000,
+        14000
+      ],
+      "fade": [
+        180,
+        180
+      ],
+      "frameMs": 200,
+      "maxActive": 3,
+      "bob": 3,
+      "variants": [
+        {
+          "name": "xuong",
+          "frames": [
+            "xuongC0-0",
+            "xuongC0-1",
+            "xuongC0-2",
+            "xuongC0-3",
+            "xuongC0-4",
+            "xuongC0-5"
+          ],
+          "w": 154,
+          "h": 125,
+          "speed": [
+            40,
+            60
+          ],
+          "weight": 1
+        },
+        {
+          "name": "xuong",
+          "frames": [
+            "xuongC1-0",
+            "xuongC1-1",
+            "xuongC1-2",
+            "xuongC1-3",
+            "xuongC1-4",
+            "xuongC1-5"
+          ],
+          "w": 153,
+          "h": 125,
+          "speed": [
+            40,
+            60
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "l3",
+      "y": 735,
+      "dir": -1,
+      "x": [
+        520,
+        1250
+      ],
+      "gap": [
+        6000,
+        14000
+      ],
+      "fade": [
+        180,
+        180
+      ],
+      "frameMs": 180,
+      "maxActive": 2,
+      "bob": 3,
+      "variants": [
+        {
+          "name": "xuong",
+          "frames": [
+            "xuongC2-0",
+            "xuongC2-1",
+            "xuongC2-2",
+            "xuongC2-3",
+            "xuongC2-4",
+            "xuongC2-5"
+          ],
+          "w": 178,
+          "h": 145,
+          "speed": [
+            40,
+            65
+          ],
+          "weight": 1
+        },
+        {
+          "name": "ghe",
+          "frames": [
+            "gheB1-0",
+            "gheB1-1",
+            "gheB1-2",
+            "gheB1-3",
+            "gheB1-4",
+            "gheB1-5"
+          ],
+          "w": 232,
+          "h": 145,
+          "speed": [
+            40,
+            65
+          ],
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

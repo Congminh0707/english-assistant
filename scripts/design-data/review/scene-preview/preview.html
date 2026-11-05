@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Xem trước cảnh tầng 1</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #222; overflow: hidden; }
+  #stage { position: absolute; left: 0; top: 0; transform-origin: 0 0; overflow: hidden; }
+  #stage img, #stage svg, #stage .glow { position: absolute; pointer-events: none; user-select: none; }
+  .glow { border-radius: 50%; mix-blend-mode: screen;
+          background: radial-gradient(circle, rgba(255,190,90,.85) 0%, rgba(255,150,60,.35) 38%, rgba(255,120,40,0) 70%); }
+  #bar { position: fixed; right: 8px; top: 8px; display: flex; gap: 4px; z-index: 9; }
+  #bar button { font: 12px sans-serif; padding: 4px 8px; }
+  #bar button.on { background: #ffd24a; }
+  #log { position: fixed; right: 8px; bottom: 8px; font: 12px monospace; color: #fff;
+         background: rgba(0,0,0,.55); padding: 6px 8px; border-radius: 6px; white-space: pre; z-index: 9; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<div id="bar"></div>
+<div id="log"></div>
+<script src="sa.js"></script>
+<script>
+// Xem trước cảnh tầng 1 bằng chính logic của app (sceneAnim.ts đóng gói thành sa.js bằng esbuild):
+//   ?place=hcmc → ../kids-games/out/<nơi>/manifest.js (scene_build.py <nơi>)
+// Trời: mây/mặt trời/mặt trăng theo nút thời tiết (không có lớp tối/mưa của SceneWeather).
+const place = new URLSearchParams(location.search).get('place') || 'hcmc'
+const dir = `../kids-games/out/${place}/`
+const s = document.createElement('script')
+s.src = dir + 'manifest.js'
+s.onload = () => start(window.MANIFEST)
+document.head.appendChild(s)
+
+function start(M) {
+  const stage = document.getElementById('stage')
+  const log = document.getElementById('log')
+  stage.style.width = M.size[0] + 'px'
+  stage.style.height = M.size[1] + 'px'
+  const fit = () => { stage.style.transform = `scale(${Math.min(innerWidth / M.size[0], innerHeight / M.size[1])})` }
+  addEventListener('resize', fit); fit()
+
+  const add = (src, css) => {
+    const im = document.createElement('img'); im.src = src; im.draggable = false
+    Object.assign(im.style, css); stage.appendChild(im); return im
+  }
+  add(dir + 'bg.webp', { left: 0, top: 0, width: M.size[0] + 'px', height: M.size[1] + 'px' })
+  const img = (n) => dir + n + '.webp'
+  const sky = (n) => 'sky/' + n + '.webp'
+  const now0 = performance.now()
+
+  // ---- trời ----
+  let weather = 'clear'
+  const bar = document.getElementById('bar')
+  ;['clear', 'sun', 'rain', 'night'].forEach((w) => {
+    const b = document.createElement('button'); b.textContent = w
+    b.onclick = () => { weather = w; resetSky(); sched = new SA.ActorScheduler(M.actors, performance.now(), Math.random, (a) => !!(M.actors.find((x) => x.name === a.name) || {}).night && weather !== 'night'); [...bar.children].forEach((x) => x.classList.toggle('on', x === b)) }
+    if (w === weather) b.classList.add('on')
+    bar.appendChild(b)
+  })
+  const CLOUDS = { clear: 3, sun: 2, rain: 4, night: 2 }
+  let clouds = [], cloudEls = [], orb = null, cranes = [], craneEls = [], nextFlock = now0 + 4000
+  function resetSky() {
+    cloudEls.forEach((e) => e.remove()); cloudEls = []; if (orb) orb.remove(); orb = null
+    if (!M.sky) return
+    clouds = Array.from({ length: CLOUDS[weather] }, () => SA.spawnCloud(M.sky, weather === 'rain', Math.random, true))
+    cloudEls = clouds.map((c) => add(sky(['cloud-0', 'cloud-1', 'cloud-2', 'raincloud'][c.kind]), { width: c.w + 'px' }))
+    if (weather !== 'rain') {
+      orb = add(sky(weather === 'night' ? 'moon' : 'sun'), { width: (weather === 'night' ? 110 : 150) + 'px' })
+      orb.style.left = (M.sky.sun[0] - (weather === 'night' ? 55 : 75)) + 'px'
+      orb.style.top = (M.sky.sun[1] - (weather === 'night' ? 55 : 75)) + 'px'
+    }
+  }
+  resetSky()
+
+  // ---- sương (mây thấp, độ đậm thấp) ----
+  let mist = [], mistEls = []
+  if (M.mist) {
+    mist = Array.from({ length: M.mist.count }, () => SA.spawnMist(M.mist, Math.random, true))
+    mistEls = mist.map((p) => add(sky('mist-' + p.kind), { width: p.w + 'px' }))
+  }
+
+  // ---- dòng vật (xe, thuyền) vẽ trước vật đứng cùng hàng y: sắp theo y chung ----
+  const laneRunners = (M.lanes || []).map((l) => ({ l, r: new SA.LaneRunner(l, now0), els: new Map() }))
+
+  // ---- vật đứng / loop ----
+  let sched = new SA.ActorScheduler(M.actors, now0, Math.random, (a) => !!(M.actors.find((x) => x.name === a.name) || {}).night && weather !== 'night')
+  const actEls = M.actors.map((a, i) => {
+    const ax = a.ax ?? 0.5, ay = a.ay ?? 1
+    let g = null
+    if (a.glow) {
+      g = document.createElement('div'); g.className = 'glow'
+      Object.assign(g.style, { width: a.glow + 'px', height: a.glow + 'px',
+        left: (a.x - a.glow / 2) + 'px', top: (a.y + a.h * 0.45 - a.glow / 2) + 'px' })
+      stage.appendChild(g)
+    }
+    const im = add(img(a.frames[0]), { left: (a.x - a.w * ax) + 'px', top: (a.y - a.h * ay) + 'px', width: a.w + 'px', height: a.h + 'px' })
+    im.style.zIndex = Math.round(a.y)
+    if (g) g.style.zIndex = Math.round(a.y) - 1
+    if (a.flip) im.style.transform = 'scaleX(-1)'
+    if (a.hideIdle) im.style.opacity = 0
+    return { a, im, g, phase: (i * 937) % 4000 }
+  })
+  // nạp trước mọi khung
+  M.actors.forEach((a) => a.frames.forEach((f) => (new Image().src = img(f))))
+  M.lanes && M.lanes.forEach((l) => l.variants.forEach((v) => { v.frames.forEach((f) => (new Image().src = img(f))); v.attach && v.attach.frames.forEach((f) => (new Image().src = img(f))) }))
+
+  // ---- đồng hồ ----
+  let hands = null
+  if (M.clock) {
+    const c = M.clock
+    const NS = 'http://www.w3.org/2000/svg'
+    const svg = document.createElementNS(NS, 'svg')
+    svg.setAttribute('width', 2 * c.r + 20); svg.setAttribute('height', 2 * c.r + 20)
+    svg.style.left = (c.x - c.r - 10) + 'px'; svg.style.top = (c.y - c.r - 10) + 'px'
+    const mk = (w, len) => { const l = document.createElementNS(NS, 'line'); l.setAttribute('x1', c.r + 10); l.setAttribute('y1', c.r + 10)
+      l.setAttribute('x2', c.r + 10); l.setAttribute('y2', c.r + 10 - len); l.setAttribute('stroke', '#3b2a1d'); l.setAttribute('stroke-width', w); l.setAttribute('stroke-linecap', 'round'); svg.appendChild(l); return l }
+    const hl = mk(5, c.r * 0.6), ml = mk(3.5, c.r * 0.9)
+    const dot = document.createElementNS(NS, 'circle'); dot.setAttribute('cx', c.r + 10); dot.setAttribute('cy', c.r + 10); dot.setAttribute('r', 4.5); dot.setAttribute('fill', '#3b2a1d'); svg.appendChild(dot)
+    svg.style.zIndex = 1
+    stage.appendChild(svg); hands = { hl, ml, o: c.r + 10 }
+  }
+
+  let prev = now0
+  function frame(now) {
+    const dt = Math.min(0.1, (now - prev) / 1000); prev = now
+    const f = sched.tick(now)
+    actEls.forEach((e, i) => {
+      const a = e.a
+      const fi = a.kind === 'loop' ? SA.loopFrame(now, a.frameMs, a.frames.length, e.phase) : f[i]
+      e.im.src = img(a.frames[fi])
+      if (a.hideIdle || a.night) e.im.style.opacity = (!a.hideIdle || sched.active(i)) && (!a.night || weather === 'night') ? 1 : 0
+      if (e.g) e.g.style.opacity = SA.glowPulse(now, e.phase) * (weather === 'night' ? 1 : 0.55)
+    })
+    // lanes
+    laneRunners.forEach(({ l, r, els }) => {
+      const views = r.tick(now)
+      const live = new Set()
+      views.forEach((v) => {
+        live.add(v.id)
+        const vr = l.variants[v.variant]
+        let e = els.get(v.id)
+        if (!e) {
+          e = { im: add(img(vr.frames[0]), { width: vr.w + 'px', height: vr.h + 'px' }), fx: null }
+          if (vr.attach) e.fx = add(img(vr.attach.frames[0]), { width: vr.attach.w + 'px', height: vr.attach.h + 'px' })
+          els.set(v.id, e)
+        }
+        e.im.src = img(vr.frames[v.frame])
+        const sw = vr.w * v.scale, sh = vr.h * v.scale
+        e.im.style.width = sw + 'px'; e.im.style.height = sh + 'px'
+        e.im.style.left = (v.x - sw / 2) + 'px'; e.im.style.top = (v.y - sh) + 'px'
+        e.im.style.opacity = v.alpha
+        e.im.style.transform = v.dir === -1 ? 'scaleX(-1)' : ''
+        e.im.style.zIndex = Math.round(v.y)
+        if (e.fx) {
+          const at = vr.attach
+          const dx = (v.dir === 1 ? at.dx : vr.w - at.dx - at.w) * v.scale
+          e.fx.src = img(at.frames[SA.loopFrame(now, at.frameMs, at.frames.length)])
+          e.fx.style.width = at.w * v.scale + 'px'; e.fx.style.height = at.h * v.scale + 'px'
+          e.fx.style.left = (v.x - sw / 2 + dx) + 'px'; e.fx.style.top = (v.y - sh + at.dy * v.scale) + 'px'
+          e.fx.style.opacity = v.alpha; e.fx.style.zIndex = Math.round(v.y) + 1
+        }
+      })
+      for (const [id, e] of els) if (!live.has(id)) { e.im.remove(); e.fx && e.fx.remove(); els.delete(id) }
+    })
+    // đồng hồ
+    if (hands) {
+      const a = SA.clockAngles(new Date())
+      hands.hl.setAttribute('transform', `rotate(${a.hour} ${hands.o} ${hands.o})`)
+      hands.ml.setAttribute('transform', `rotate(${a.minute} ${hands.o} ${hands.o})`)
+    }
+    // mây, hạc
+    if (M.sky) {
+      clouds = clouds.map((c, i) => {
+        c.x -= c.speed * dt
+        if (c.x < M.sky.x[0] - c.w / 2) { c = SA.spawnCloud(M.sky, weather === 'rain'); cloudEls[i].src = sky(['cloud-0', 'cloud-1', 'cloud-2', 'raincloud'][c.kind]); cloudEls[i].style.width = c.w + 'px' }
+        cloudEls[i].style.left = (c.x - c.w / 2) + 'px'; cloudEls[i].style.top = c.y + 'px'; cloudEls[i].style.opacity = SA.cloudAlpha(c, M.sky)
+        return c
+      })
+      if (M.birds !== 'none' && (weather === 'clear' || weather === 'sun') && !cranes.length && now >= nextFlock) {
+        cranes = SA.spawnFlock(M.size[0]); craneEls = cranes.map((c) => add(sky('crane-0'), { width: c.size + 'px' }))
+      }
+      if (cranes.length) {
+        cranes.forEach((c, i) => { const p = SA.stepCrane(c, dt, 6); craneEls[i].src = sky('crane-' + p.frame); craneEls[i].style.left = (p.x - c.size / 2) + 'px'; craneEls[i].style.top = p.y + 'px' })
+        if (cranes.every((c) => c.x < -200)) { craneEls.forEach((e) => e.remove()); cranes = []; craneEls = []; nextFlock = now + 12000 + Math.random() * 18000 }
+      }
+    }
+    // sương
+    if (M.mist) {
+      mist = mist.map((p, i) => {
+        p.x -= p.speed * dt
+        if (p.x < M.mist.x[0] - p.w / 2) { p = SA.spawnMist(M.mist); mistEls[i].src = sky('mist-' + p.kind); mistEls[i].style.width = p.w + 'px' }
+        mistEls[i].style.left = (p.x - p.w / 2) + 'px'; mistEls[i].style.top = p.y + 'px'; mistEls[i].style.opacity = SA.mistAlpha(p, M.mist)
+        return p
+      })
+    }
+    log.textContent = `${place}  lanes ${laneRunners.map((x) => x.r.count()).join('/')}  thời tiết ${weather}`
+    requestAnimationFrame(frame)
+  }
+  requestAnimationFrame(frame)
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+{
+  "size": [
+    1672,
+    941
+  ],
+  "actors": [
+    {
+      "name": "coco",
+      "x": 1050,
+      "y": 780,
+      "w": 173,
+      "h": 170,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "coco-0",
+        "coco-1",
+        "coco-2",
+        "coco-3",
+        "coco-4",
+        "coco-5"
+      ]
+    },
+    {
+      "name": "castle",
+      "x": 700,
+      "y": 830,
+      "w": 128,
+      "h": 120,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "castle-0",
+        "castle-1",
+        "castle-2",
+        "castle-3",
+        "castle-4",
+        "castle-5"
+      ]
+    },
+    {
+      "name": "crab",
+      "x": 420,
+      "y": 870,
+      "w": 89,
+      "h": 55,
+      "kind": "pingpong",
+      "frameMs": 450,
+      "frames": [
+        "crab-0",
+        "crab-1",
+        "crab-2",
+        "crab-3",
+        "crab-4",
+        "crab-5"
+      ]
+    }
+  ],
+  "leaf": [],
+  "sky": {
+    "x": [
+      450,
+      1250
+    ],
+    "y": [
+      10,
+      100
+    ],
+    "sun": [
+      900,
+      110
+    ]
+  },
+  "lanes": [
+    {
+      "name": "thung1",
+      "y": 595,
+      "dir": 1,
+      "x": [
+        -300,
+        1350
+      ],
+      "gap": [
+        8000,
+        20000
+      ],
+      "fade": [
+        0,
+        150
+      ],
+      "frameMs": 220,
+      "maxActive": 1,
+      "bob": 3,
+      "variants": [
+        {
+          "name": "thung",
+          "frames": [
+            "thungB1-0",
+            "thungB1-1",
+            "thungB1-2",
+            "thungB1-3",
+            "thungB1-4",
+            "thungB1-5"
+          ],
+          "w": 97,
+          "h": 90,
+          "speed": [
+            35,
+            55
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "thung2",
+      "y": 612,
+      "dir": -1,
+      "x": [
+        -300,
+        1350
+      ],
+      "gap": [
+        8000,
+        20000
+      ],
+      "fade": [
+        150,
+        0
+      ],
+      "frameMs": 220,
+      "maxActive": 1,
+      "bob": 3,
+      "variants": [
+        {
+          "name": "thung",
+          "frames": [
+            "thungB1-0",
+            "thungB1-1",
+            "thungB1-2",
+            "thungB1-3",
+            "thungB1-4",
+            "thungB1-5"
+          ],
+          "w": 97,
+          "h": 90,
+          "speed": [
+            35,
+            55
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "cano",
+      "y": 640,
+      "dir": 1,
+      "x": [
+        -300,
+        1350
+      ],
+      "gap": [
+        9000,
+        20000
+      ],
+      "fade": [
+        0,
+        150
+      ],
+      "frameMs": 220,
+      "maxActive": 1,
+      "bob": 3,
+      "variants": [
+        {
+          "name": "cano",
+          "frames": [
+            "canoB2-0",
+            "canoB2-1",
+            "canoB2-2",
+            "canoB2-3",
+            "canoB2-4",
+            "canoB2-5"
+          ],
+          "w": 142,
+          "h": 80,
+          "speed": [
+            110,
+            150
+          ],
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

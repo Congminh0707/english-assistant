@@ -1,0 +1,502 @@
+{
+  "size": [
+    1672,
+    941
+  ],
+  "actors": [
+    {
+      "name": "lantern_cluster0",
+      "x": 74,
+      "y": 172,
+      "w": 96,
+      "h": 120,
+      "kind": "loop",
+      "frameMs": 380,
+      "frames": [
+        "lantern_cluster-0",
+        "lantern_cluster-1",
+        "lantern_cluster-2",
+        "lantern_cluster-3",
+        "lantern_cluster-4",
+        "lantern_cluster-5"
+      ],
+      "ax": 0.451,
+      "ay": 0.0,
+      "glow": 264
+    },
+    {
+      "name": "lantern_red0",
+      "x": 222,
+      "y": 206,
+      "w": 51,
+      "h": 90,
+      "kind": "loop",
+      "frameMs": 400,
+      "frames": [
+        "lantern_red-0",
+        "lantern_red-1",
+        "lantern_red-2",
+        "lantern_red-3",
+        "lantern_red-4",
+        "lantern_red-5"
+      ],
+      "ax": 0.479,
+      "ay": 0.0,
+      "glow": 198
+    },
+    {
+      "name": "lantern_yellow0",
+      "x": 393,
+      "y": 284,
+      "w": 57,
+      "h": 95,
+      "kind": "loop",
+      "frameMs": 440,
+      "frames": [
+        "lantern_yellow-0",
+        "lantern_yellow-1",
+        "lantern_yellow-2",
+        "lantern_yellow-3",
+        "lantern_yellow-4",
+        "lantern_yellow-5"
+      ],
+      "ax": 0.486,
+      "ay": 0.0,
+      "glow": 209
+    },
+    {
+      "name": "lantern_red1",
+      "x": 502,
+      "y": 303,
+      "w": 46,
+      "h": 81,
+      "kind": "loop",
+      "frameMs": 400,
+      "frames": [
+        "lantern_red-0",
+        "lantern_red-1",
+        "lantern_red-2",
+        "lantern_red-3",
+        "lantern_red-4",
+        "lantern_red-5"
+      ],
+      "ax": 0.479,
+      "ay": 0.0,
+      "glow": 178
+    },
+    {
+      "name": "lantern_cluster1",
+      "x": 1502,
+      "y": 368,
+      "w": 80,
+      "h": 100,
+      "kind": "loop",
+      "frameMs": 380,
+      "frames": [
+        "lantern_cluster-0",
+        "lantern_cluster-1",
+        "lantern_cluster-2",
+        "lantern_cluster-3",
+        "lantern_cluster-4",
+        "lantern_cluster-5"
+      ],
+      "ax": 0.451,
+      "ay": 0.0,
+      "glow": 220
+    },
+    {
+      "name": "lantern_red2",
+      "x": 269,
+      "y": 425,
+      "w": 43,
+      "h": 76,
+      "kind": "loop",
+      "frameMs": 400,
+      "frames": [
+        "lantern_red-0",
+        "lantern_red-1",
+        "lantern_red-2",
+        "lantern_red-3",
+        "lantern_red-4",
+        "lantern_red-5"
+      ],
+      "ax": 0.479,
+      "ay": 0.0,
+      "glow": 168
+    },
+    {
+      "name": "lantern_yellow1",
+      "x": 202,
+      "y": 428,
+      "w": 63,
+      "h": 105,
+      "kind": "loop",
+      "frameMs": 440,
+      "frames": [
+        "lantern_yellow-0",
+        "lantern_yellow-1",
+        "lantern_yellow-2",
+        "lantern_yellow-3",
+        "lantern_yellow-4",
+        "lantern_yellow-5"
+      ],
+      "ax": 0.486,
+      "ay": 0.0,
+      "glow": 230
+    },
+    {
+      "name": "lantern_red3",
+      "x": 1415,
+      "y": 452,
+      "w": 51,
+      "h": 90,
+      "kind": "loop",
+      "frameMs": 400,
+      "frames": [
+        "lantern_red-0",
+        "lantern_red-1",
+        "lantern_red-2",
+        "lantern_red-3",
+        "lantern_red-4",
+        "lantern_red-5"
+      ],
+      "ax": 0.479,
+      "ay": 0.0,
+      "glow": 198
+    },
+    {
+      "name": "lantern_yellow3",
+      "x": 1385,
+      "y": 452,
+      "w": 51,
+      "h": 86,
+      "kind": "loop",
+      "frameMs": 440,
+      "frames": [
+        "lantern_yellow-0",
+        "lantern_yellow-1",
+        "lantern_yellow-2",
+        "lantern_yellow-3",
+        "lantern_yellow-4",
+        "lantern_yellow-5"
+      ],
+      "ax": 0.486,
+      "ay": 0.0,
+      "glow": 188
+    },
+    {
+      "name": "lantern_yellow2",
+      "x": 531,
+      "y": 478,
+      "w": 54,
+      "h": 90,
+      "kind": "loop",
+      "frameMs": 440,
+      "frames": [
+        "lantern_yellow-0",
+        "lantern_yellow-1",
+        "lantern_yellow-2",
+        "lantern_yellow-3",
+        "lantern_yellow-4",
+        "lantern_yellow-5"
+      ],
+      "ax": 0.486,
+      "ay": 0.0,
+      "glow": 199
+    },
+    {
+      "name": "granny",
+      "x": 250,
+      "y": 645,
+      "w": 133,
+      "h": 140,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "granny-0",
+        "granny-1",
+        "granny-2",
+        "granny-3",
+        "granny-4",
+        "granny-5"
+      ]
+    },
+    {
+      "name": "girl",
+      "x": 560,
+      "y": 692,
+      "w": 96,
+      "h": 80,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "girl-0",
+        "girl-1",
+        "girl-2",
+        "girl-3",
+        "girl-4",
+        "girl-5"
+      ]
+    },
+    {
+      "name": "moored",
+      "x": 940,
+      "y": 770,
+      "w": 167,
+      "h": 120,
+      "kind": "pingpong",
+      "frameMs": 500,
+      "frames": [
+        "moored-0",
+        "moored-1",
+        "moored-2",
+        "moored-3",
+        "moored-4",
+        "moored-5"
+      ]
+    },
+    {
+      "name": "kite",
+      "x": 1330,
+      "y": 895,
+      "w": 123,
+      "h": 150,
+      "kind": "pingpong",
+      "frameMs": 400,
+      "frames": [
+        "kite-0",
+        "kite-1",
+        "kite-2",
+        "kite-3",
+        "kite-4",
+        "kite-5"
+      ]
+    }
+  ],
+  "leaf": [],
+  "sky": {
+    "x": [
+      600,
+      1000
+    ],
+    "y": [
+      10,
+      110
+    ],
+    "sun": [
+      800,
+      85
+    ]
+  },
+  "birds": "none",
+  "lanes": [
+    {
+      "name": "boatOut",
+      "y": 662,
+      "dir": 1,
+      "x": [
+        1000,
+        1440
+      ],
+      "gap": [
+        9000,
+        18000
+      ],
+      "fade": [
+        130,
+        60
+      ],
+      "frameMs": 160,
+      "maxActive": 1,
+      "bob": 3,
+      "y1": 810,
+      "s0": 0.55,
+      "s1": 1.0,
+      "variants": [
+        {
+          "name": "rower",
+          "frames": [
+            "rowerB0-0",
+            "rowerB0-1",
+            "rowerB0-2",
+            "rowerB0-3",
+            "rowerB0-4",
+            "rowerB0-5"
+          ],
+          "w": 168,
+          "h": 130,
+          "speed": [
+            35,
+            50
+          ],
+          "weight": 1
+        },
+        {
+          "name": "tourist",
+          "frames": [
+            "touristB1-0",
+            "touristB1-1",
+            "touristB1-2",
+            "touristB1-3",
+            "touristB1-4",
+            "touristB1-5"
+          ],
+          "w": 195,
+          "h": 140,
+          "speed": [
+            32,
+            45
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "flowerR",
+      "y": 690,
+      "dir": 1,
+      "x": [
+        1020,
+        1460
+      ],
+      "gap": [
+        3500,
+        7000
+      ],
+      "fade": [
+        120,
+        60
+      ],
+      "frameMs": 250,
+      "maxActive": 2,
+      "bob": 2,
+      "y1": 822,
+      "s0": 0.5,
+      "s1": 1.0,
+      "variants": [
+        {
+          "name": "lotus",
+          "frames": [
+            "lotusA2-0",
+            "lotusA2-1",
+            "lotusA2-2",
+            "lotusA2-3",
+            "lotusA2-4",
+            "lotusA2-5"
+          ],
+          "w": 84,
+          "h": 60,
+          "speed": [
+            14,
+            22
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "boatIn",
+      "y": 810,
+      "dir": 1,
+      "x": [
+        320,
+        900
+      ],
+      "gap": [
+        9000,
+        18000
+      ],
+      "fade": [
+        60,
+        130
+      ],
+      "frameMs": 160,
+      "maxActive": 1,
+      "bob": 3,
+      "y1": 662,
+      "s0": 1.0,
+      "s1": 0.55,
+      "variants": [
+        {
+          "name": "rower",
+          "frames": [
+            "rowerB0-0",
+            "rowerB0-1",
+            "rowerB0-2",
+            "rowerB0-3",
+            "rowerB0-4",
+            "rowerB0-5"
+          ],
+          "w": 168,
+          "h": 130,
+          "speed": [
+            35,
+            50
+          ],
+          "weight": 1
+        },
+        {
+          "name": "tourist",
+          "frames": [
+            "touristB1-0",
+            "touristB1-1",
+            "touristB1-2",
+            "touristB1-3",
+            "touristB1-4",
+            "touristB1-5"
+          ],
+          "w": 195,
+          "h": 140,
+          "speed": [
+            32,
+            45
+          ],
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "name": "flowerL",
+      "y": 828,
+      "dir": -1,
+      "x": [
+        360,
+        900
+      ],
+      "gap": [
+        3500,
+        7000
+      ],
+      "fade": [
+        60,
+        120
+      ],
+      "frameMs": 250,
+      "maxActive": 2,
+      "bob": 2,
+      "y1": 690,
+      "s0": 1.0,
+      "s1": 0.5,
+      "variants": [
+        {
+          "name": "lotus",
+          "frames": [
+            "lotusA2-0",
+            "lotusA2-1",
+            "lotusA2-2",
+            "lotusA2-3",
+            "lotusA2-4",
+            "lotusA2-5"
+          ],
+          "w": 84,
+          "h": 60,
+          "speed": [
+            14,
+            22
+          ],
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

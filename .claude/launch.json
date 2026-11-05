@@ -4,8 +4,30 @@
     {
       "name": "scene-preview",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8766", "--bind", "127.0.0.1", "--directory", "scripts/design-data/review/vn-scenes"],
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8766",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "scripts/design-data/review/vn-scenes"
+      ],
       "port": 8766
+    },
+    {
+      "name": "scene-preview-all",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8767",
+        "--bind",
+        "127.0.0.1",
+        "--directory",
+        "scripts/design-data/review"
+      ],
+      "port": 8767
     }
   ]
 }

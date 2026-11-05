@@ -9,7 +9,6 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 import HexLabel from './HexLabel.vue'
-import PlaceCard from './PlaceCard.vue'
 import { ASIA_ART } from './placeArt.generated'
 import { playSfx } from './sfx'
 
@@ -20,7 +19,7 @@ type Place = KidsWorldView['tiers'][number]['places'][number]
 const props = defineProps<{ world: KidsWorldView; tierId: string; width: number; height: number }>()
 const emit = defineEmits<{ start: [placeId: string]; tier: [id: string] }>()
 
-const { t, locale } = useI18n()
+const { locale } = useI18n()
 const { speak } = useTts()
 const petStore = usePetStore()
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -54,7 +53,6 @@ const at = ref<string>(
 const pet = ref(petHome(at.value))
 const flying = ref(false)
 const left = ref(false)
-const card = ref<Place | null>(null)
 let raf = 0
 
 function land(p: Place): void {
@@ -63,14 +61,14 @@ function land(p: Place): void {
   pet.value = petHome(p.id)
   void invoke('kids:arrive', { placeId: p.id }).catch(() => undefined)
   playSfx('whoosh')
-  card.value = p
+  // Tới nơi thì tự mở giới thiệu (KidsGame); đóng lại rồi bấm lại nơi đó để mở tiếp
+  emit('start', p.id)
 }
 
 function go(p: Place): void {
   if (flying.value) return
   playSfx('tap')
   speak(p.title, 'us', 0.85)
-  card.value = null
   if (p.id === at.value || reduced) {
     land(p)
     return
@@ -92,12 +90,6 @@ function go(p: Place): void {
     else land(p)
   }
   raf = requestAnimationFrame(step)
-}
-
-function play(): void {
-  if (!card.value) return
-  playSfx('tap')
-  emit('start', card.value.id)
 }
 
 onBeforeUnmount(() => cancelAnimationFrame(raf))
@@ -152,15 +144,6 @@ onBeforeUnmount(() => cancelAnimationFrame(raf))
         :flip="left"
       />
     </div>
-
-    <PlaceCard
-      v-if="card"
-      :title="nameOf(card)"
-      :detail="t('kids.game.countryDetail', { name: card.landmarkVi, total: card.words.length })"
-      :action="t('kids.game.enter', { name: nameOf(card) })"
-      @go="play"
-      @close="card = null"
-    />
   </div>
 </template>
 

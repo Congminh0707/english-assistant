@@ -15,7 +15,6 @@ import { invoke } from '@renderer/shared/ipc'
 import { useTts } from '@renderer/shared/composables/useTts'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
-import PlaceCard from './PlaceCard.vue'
 import { savedQuality } from './mapQuality'
 import { mountVnMap3D, type Map3DHandle } from './map3d'
 import { playSfx } from './sfx'
@@ -28,7 +27,7 @@ import type { VehicleKind } from './map3dVehicles'
 const props = defineProps<{ world: KidsWorldView; tierId: string; scale: number }>()
 const emit = defineEmits<{ start: [placeId: string]; fail: [] }>()
 
-const { t, locale } = useI18n()
+const { t } = useI18n()
 const { speak } = useTts()
 const petStore = usePetStore()
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -51,7 +50,6 @@ const REST_LIFT = 0.12
 const host = ref<HTMLDivElement | null>(null)
 const petEl = ref<HTMLDivElement | null>(null)
 const ready = ref(false)
-const card = ref<KidsWorldView['tiers'][number]['places'][number] | null>(null)
 const petAt = ref<string | null>(props.world.currentPlaceId)
 const vehicle = ref<VehicleKind | null>(null)
 const facingLeft = ref(false)
@@ -191,7 +189,6 @@ function go(id: string): void {
   }
   playSfx('tap')
   speak(`${place.title}! ${place.topic}.`, 'us', 0.85)
-  card.value = null
   const from = layout.points.findIndex((q) => q.id === petAt.value)
   const to = layout.points.findIndex((q) => q.id === id)
   if (to < 0) return
@@ -244,12 +241,8 @@ function arrive(id: string, now: number): void {
   applyPet()
   handle?.focus(id)
   window.clearTimeout(cardTimer)
-  cardTimer = window.setTimeout(
-    () => {
-      card.value = byId.value.get(id) ?? null
-    },
-    reduced ? 0 : 650
-  )
+  // Tới nơi thì tự mở giới thiệu (KidsGame); đóng lại rồi bấm lại nơi đó để mở tiếp
+  cardTimer = window.setTimeout(() => emit('start', id), reduced ? 0 : 650)
   startLoop()
 }
 
@@ -321,7 +314,6 @@ onMounted(async () => {
       }),
       onSelect: (id) => {
         if (id) go(id)
-        else if (card.value) closeCard()
       },
       onPet: (s) => {
         screen = s
@@ -352,19 +344,6 @@ onBeforeUnmount(() => {
   window.clearTimeout(cardTimer)
   handle?.dispose()
 })
-
-function closeCard(): void {
-  card.value = null
-  // zoom ra nhưng vẫn giữ thú cưng làm tâm (không bay về giữa bản đồ)
-  const r = restPos(petAt.value)
-  handle?.follow(r.x, r.y, 62)
-}
-
-function play(): void {
-  if (!card.value) return
-  playSfx('tap')
-  emit('start', card.value.id)
-}
 </script>
 
 <template>
@@ -384,22 +363,7 @@ function play(): void {
       </div>
     </div>
 
-    <p v-if="ready && !card && !traveling" class="help">{{ t('kids.game.help3d') }}</p>
-    <PlaceCard
-      v-if="card"
-      :title="locale === 'vi' ? card.vi : card.title"
-      :detail="
-        t('kids.game.cardDetail', {
-          topic: locale === 'vi' ? card.topicVi : card.topic,
-          total: card.words.length,
-          done: card.words.filter((w) => w.done).length
-        })
-      "
-      :action="t('kids.game.enter', { name: locale === 'vi' ? card.vi : card.title })"
-      @pointerdown.stop
-      @go="play"
-      @close="closeCard"
-    />
+    <p v-if="ready && !traveling" class="help">{{ t('kids.game.help3d') }}</p>
   </div>
 </template>
 

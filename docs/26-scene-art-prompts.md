@@ -215,7 +215,9 @@ Mỗi nơi: chat Hà Nội (hoặc chat mới có `hanoi-v6-bg.png` do chủ d�
 - Vòng sửa theo chủ dự án + QA Opus vòng 2 (2026-11-04): Hội An lane chéo theo lòng kênh (`s0`/`s1`), Ninh Bình một lane `dir 0 + exclusive`, Sa Pa/Đà Lạt sương riêng (`gen_mist.py` → `sceneAnim/mist/`), Đà Nẵng lửa/nước chỉ ban đêm (`night`, bộ lập lịch bỏ qua vật night ban ngày, `lalign` căn mép trái để gốc lửa ở miệng rồng, `flip` cho nước, `erase` vệt nước ông câu cá), HCM thêm 6 loại xe (sheet C, D), Huế sửa halo + làn sông, Cần Thơ/Phú Quốc tránh cọc tre và nhà sàn. Công cụ thêm: `erase`, `crop`, `lalign`, `deholes` mạnh hơn (gỡ halo). Còn lại: chưa xem lại động trong trình duyệt sau đợt này, bé thả hoa đăng Hội An có thể còn vệt gờ đá nhỏ.
 - Đã nhúng 11 cảnh vào app (2026-11-04): `scene_build.py <nơi> --embed`, biển chạm ở `placeArtPhoto.ts` (toạ độ ước từ ảnh, chỉnh khi thử tay). Đà Nẵng: lửa lật ngang như nước; thuyền chỉ chạy trong x 300–1800 để không vào gốc cây trái.
 
-## Làm lại nền 5 nơi sau khi chủ dự án thử tay (2026-11-05) — CHƯA làm, chờ chủ dự án tạo ảnh
+## Làm lại nền 5 nơi sau khi chủ dự án thử tay (2026-11-05)
+
+**Tiến độ 2026-11-05:** Sa Pa, Huế, Nha Trang ĐÃ áp dụng nền `-v2` (cfg + `--embed` + `spots` ở `placeArtPhoto.ts`, chờ chủ dự án duyệt). Sa Pa: nền mới không còn ruộng nước/ống khói nên bỏ vịt + khói, biển thứ 5 đổi "Ruộng nước" → "Hoa cẩm tú cầu". Huế: thuyền rồng neo cố định trong nền, bỏ `lane` sông. Nha Trang: hai thuyền thúng úp trên cát là biển "Thuyền thúng"; thuyền chạy ở biển lùi xuống y 625–665. Còn lại: Đà Nẵng (chờ nền mới).
 
 Phản hồi: biển chạm đè nhau / đặt trên vật di chuyển. **Luật mới:** biển chạm chỉ đặt trên vật CỐ ĐỊNH vẽ sẵn trong nền (công trình, cây, đảo, thuyền neo); không đặt trên vật có sprite chạy (`lane`) như thuyền thúng, thuyền rồng, ghe. Hai biển cách nhau ≥ 200 px ngang (nhãn rộng ~170 px) hoặc ≥ 90 px dọc (ảnh gốc 1672×941).
 
@@ -234,6 +236,12 @@ Prompt cảnh (dán sau GLOBAL STYLE, theo [mẫu](#mẫu-prompt-cảnh)):
 
 ```markdown
 # SCENE — DA NANG, VIETNAM
+CAMERA (chủ dự án chốt 2026-11-05, bản eye-level bị cắt cầu): HIGH ELEVATED VIEWPOINT looking slightly down at the river; the WHOLE Dragon Bridge fully visible end to end, not cropped by the image edges, empty river above and below it; horizon high; small sky area.
+BỐ CỤC CHỐT (ảnh mẫu `review/kids-games/danang-bg-ref.webp`, chủ dự án đưa 2026-11-05): giống ảnh mẫu (cầu ngang giữa ảnh, sông rộng, cầu quay nhỏ xa phía sau, lan can + bụi hoa giấy ở dưới) NHƯNG dời cầu sang TRÁI để đầu rồng ở ~65 % chiều ngang, thêm khoảng sông/trời trống rộng bên phải đầu rồng (≥ 30 % chiều ngang) cho lửa/nước phun.
+LỖI HAY GẶP "cầu đứt đoạn": ChatGPT vẽ mỗi vòm là một khúc rời. Phải ghi rõ: thân rồng là MỘT ống vàng liền từ đuôi tới đầu, uốn sóng — vòm lên trên mặt cầu, chui XUỐNG DƯỚI mặt cầu giữa các vòm rồi trồi lên lại; mặt cầu một dải liền từ bờ trái sang bờ phải. Cách hiệu quả: tạo nền trước, rồi gửi tin "EDIT the image you just made… change ONLY the Dragon Bridge" với các ý trên.
+Chat cũ có nhiều bản Đà Nẵng làm ChatGPT bám bố cục cũ → 2026-11-05 chuyển sang **chat mới** (`https://chatgpt.com/c/6aebfc49-b08c-83ec-b5d9-437a055b83a2`, chỉ prompt chữ, không ảnh tham chiếu). Bố cục mới: nhìn từ trên cao ~45°, sông chéo từ dưới-trái lên trên-phải, cầu chạy chéo theo phối cảnh từ bờ gần lên bờ xa, đầu rồng ~55 % ngang / 35 % dọc, nửa trên bên phải là sông + trời trống cho lửa/nước.
+Bố cục theo ảnh mẫu thứ 2 của chủ dự án (2026-11-05, chat `https://chatgpt.com/c/6aec037a-17ec-83ec-b0fc-a9247169cbc9`): nhìn cao từ bờ gần, sông chảy NGANG, cầu từ bờ xa bên trái băng ngang sông tới bờ gần bên phải nối đường ven sông; đầu rồng ~60 % ngang quay phải; trước đầu rồng là sông + bờ xa + cầu quay nhỏ; dưới-trái là quảng trường lát đá trống (chỗ đứng nhân vật), dưới-phải cổng đình mái cam + hoa giấy. Prompt nhấn "2D GAME BACKGROUND… characters and effects added later as sprites".
+**Bản chốt ứng viên (2026-11-05, chat `https://chatgpt.com/c/6aec0641-afd4-83ec-945b-bd67b8e92a69`):** chủ dự án đính kèm ảnh thật (sông Hàn nhìn từ trên cao, cầu ngang) + ảnh cầu sông Hàn. Prompt ngắn, chỉ nói luật cần thiết. Mẹo giải mâu thuẫn "cầu liền hai bờ" vs "chỗ trống trước miệng rồng": **mặt cầu giữ dài hết sông, chỉ thu con rồng về 60 % bên trái**, 40 % mặt cầu bên phải là đường trơn có cột đèn, trên đó là trời/sông trống cho lửa/nước. Cầu sông Hàn ở xa: trụ xanh chữ A, cáp hình quạt, mặt cầu trắng.
 SEASON / TIME: summer afternoon, warm light.
 LEFT: a few modern high-rise towers and green hills across the river.
 CENTRE: the golden Dragon Bridge (Cau Rong) arching over the Han River, dragon head at its right end (mouth closed, no fire).

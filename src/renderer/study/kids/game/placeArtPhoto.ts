@@ -43,8 +43,8 @@ export const PLACE_ART_PHOTO: Readonly<Record<string, PlaceArt>> = {
   },
   sapa: {
     art: 'kids-psapa',
-    pet: at(900, 885),
-    spots: [at(1180, 58), at(850, 330), at(200, 192), at(1130, 626), at(1420, 540)]
+    pet: at(950, 900),
+    spots: [at(1400, 106), at(1300, 430), at(270, 310), at(1180, 656), at(80, 596)]
   },
   danang: {
     art: 'kids-pdanang',
@@ -54,12 +54,12 @@ export const PLACE_ART_PHOTO: Readonly<Record<string, PlaceArt>> = {
   hue: {
     art: 'kids-phue',
     pet: at(800, 905),
-    spots: [at(1005, 200), at(180, 620), at(200, 640), at(130, 480), at(640, 556)]
+    spots: [at(1120, 190), at(80, 790), at(330, 526), at(560, 380), at(1000, 646)]
   },
   nhatrang: {
     art: 'kids-pnhatrang',
-    pet: at(950, 905),
-    spots: [at(225, 100), at(885, 410), at(800, 600), at(1000, 560), at(700, 820)]
+    pet: at(1180, 905),
+    spots: [at(200, 96), at(1000, 395), at(800, 545), at(380, 611), at(830, 800)]
   },
   dalat: {
     art: 'kids-pdalat',

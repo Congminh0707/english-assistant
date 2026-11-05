@@ -28,7 +28,6 @@ import { padsLoaded } from './padImages'
 import { buildScene, drawFrame, type Particle, type ScenePlace } from './scene'
 import { playSfx } from './sfx'
 import HexLabel from './HexLabel.vue'
-import PlaceCard from './PlaceCard.vue'
 import TripVehicle, { type VehicleKind } from './TripVehicle.vue'
 
 // Bản đồ trên sân khấu toàn màn hình (docs/19-kids-world.md §5.4): tầng Việt Nam vẽ hình chữ S, các nơi đặt theo
@@ -127,7 +126,6 @@ let cheerAt = 0
 let cardTimer = 0
 const traveling = ref(false)
 const vehicle = ref<VehicleKind | null>(null)
-const card = ref<ScenePlace | null>(null)
 const particles: Particle[] = []
 
 const t0 = performance.now()
@@ -455,20 +453,11 @@ function arrive(id: string, now: number): void {
   playSfx('whoosh')
   setTarget(p.x, p.y - 30, FOCUS_ZOOM)
   window.clearTimeout(cardTimer)
-  cardTimer = window.setTimeout(() => (card.value = byId.value.get(id) ?? null), reduced ? 0 : 650)
+  // Tới nơi thì tự mở giới thiệu (KidsGame); đóng lại rồi bấm lại nơi đó để mở tiếp
+  cardTimer = window.setTimeout(() => {
+    if (byId.value.get(id)?.state !== 'locked') emit('start', id)
+  }, reduced ? 0 : 650)
   dirty = true
-}
-
-function closeCard(): void {
-  card.value = null
-  setTarget(target.x, target.y, MAP_ZOOM)
-}
-
-function play(): void {
-  const c = card.value
-  if (!c) return
-  playSfx('tap')
-  emit('start', c.id)
 }
 
 const doneCount = (p: ScenePlace): number => p.words.filter((w) => w.done).length
@@ -483,7 +472,6 @@ let suppressClick = false
 let down: { x: number; y: number; camX: number; camY: number } | null = null
 
 function onPointerDown(e: PointerEvent): void {
-  if (card.value) return
   down = { x: e.clientX, y: e.clientY, camX: target.x, camY: target.y }
   suppressClick = false
 }
@@ -510,7 +498,6 @@ function onPointerUp(): void {
   down = null
 }
 function onWheel(e: WheelEvent): void {
-  if (card.value) return
   follow = false
   setTarget(target.x + e.deltaX, target.y + e.deltaY * 1.2, target.zoom)
 }
@@ -627,22 +614,6 @@ onUnmounted(() => {
       </div>
     </div>
 
-    <PlaceCard
-      v-if="card"
-      :title="locale === 'vi' ? card.vi : card.title"
-      :detail="
-        t('kids.game.cardDetail', {
-          topic: locale === 'vi' ? card.topicVi : card.topic,
-          total: card.words.length,
-          done: doneCount(card)
-        })
-      "
-      :action="t('kids.game.enter', { name: locale === 'vi' ? card.vi : card.title })"
-      :note="world.newLeftToday === 0 && card.state !== 'done' ? t('kids.world.tomorrow') : ''"
-      @pointerdown.stop
-      @go="play"
-      @close="closeCard"
-    />
   </div>
 </template>
 

@@ -12,7 +12,6 @@ import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 import { mountGlobe, type GlobeHandle } from './globe3d'
 import HexLabel from './HexLabel.vue'
 import { savedQuality } from './mapQuality'
-import PlaceCard from './PlaceCard.vue'
 import { playSfx } from './sfx'
 
 // Tầng 3 Trái Đất (docs/23-design-v2-spec.md §3): quả cầu three.js + lớp nhãn HTML. Chỉ hiện nhãn nơi gần tâm mặt cầu, để bé
@@ -106,17 +105,13 @@ function go(landmark: string): void {
   card.value = p
   handle?.focus(landmark)
   void invoke('kids:arrive', { placeId: p.id }).catch(() => undefined)
+  // Tới nơi thì tự mở giới thiệu (KidsGame); đóng lại rồi bấm lại nơi đó để mở tiếp
+  emit('start', p.id)
 }
 
 function close(): void {
   card.value = null
   handle?.resume()
-}
-
-function play(): void {
-  if (!card.value) return
-  playSfx('tap')
-  emit('start', card.value.id)
 }
 
 onMounted(async () => {
@@ -202,15 +197,6 @@ onBeforeUnmount(() => {
         animate
       />
     </div>
-
-    <PlaceCard
-      v-if="card"
-      :title="nameOf(card)"
-      :detail="card.landmarkVi"
-      :action="t('kids.game.goTo', { name: nameOf(card) })"
-      @go="play"
-      @close="close"
-    />
   </div>
 </template>
 

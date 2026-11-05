@@ -23,6 +23,8 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
+- [x] (2026-11-05) Mở rộng thẻ từ + chương trình trẻ em ([28](28-kids-expansion.md)): 148 thẻ mới (batch 14–23) vào bài học qua tầng `town` + `basics` (10 nơi, 148 từ; dữ liệu `tw-*`/`bs-*`). 🚧 Còn: cảnh/bản đồ riêng cho 10 nơi (UI, tạm dừng theo chủ dự án), người Việt duyệt nội dung, âm thanh Kokoro (`node scripts/audio/build-listening-audio.mjs`), cập nhật docs 19/07 (nói "27 nơi").
+
 - [x] (2026-11-04) 11 cảnh tầng 1 (hcmc, halong, hoian, ninhbinh, sapa, danang, hue, nhatrang, dalat, cantho, phuquoc) làm lại bằng ChatGPT Image: nền trống + sprite 6 khung, engine mới (`lane`, `loop`, sương riêng, đồng hồ, vầng sáng đèn lồng, lửa rồng ban đêm), dựng bằng `scripts/design-data/scene_build.py`, đã nhúng vào app và đặt biển chạm ở `placeArtPhoto.ts`; chi tiết [26](26-scene-art-prompts.md). `pnpm test` 480 qua, ui:audit 0 lỗi, typecheck sạch, lint chỉ còn lỗi cũ. Chưa thử tay trong Electron; vị trí biển chạm đặt theo ước lượng từ ảnh, cần chỉnh khi thử tay.
 
 - [x] (2026-11-04) Vẽ lại 5 game của bé (Memory, Balloon, Pet, Fishing, Spell) bằng ChatGPT Image cùng style cảnh Hà Nội: nền + sprite 6 khung, `GameStage`/`SpriteLoop`/`gameArt`, [27](27-kids-game-art-prompts.md), [decisions #49](decisions.md). Đã chụp thử cả 5 bằng `pnpm ui:shot`; `pnpm lint` (chỉ còn lỗi cũ ở file khác), typecheck, test 466, ui:audit 0 lỗi. Chưa thử tay: tiếng nói, chạm sai/đúng từng game, giảm chuyển động.

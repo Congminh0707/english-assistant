@@ -1,0 +1,135 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "wild",
+    "tier": "town",
+    "order": 6,
+    "suggestOrder": 6,
+    "title": "Wild Friends",
+    "vi": "Bạn thú hoang dã",
+    "topic": "More animals",
+    "topicVi": "Thêm nhiều con vật",
+    "landmark": "wild",
+    "landmarkVi": "Bạn thú",
+    "pos": {
+      "x": 84,
+      "y": 60
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "bat",
+      "sentence": {
+        "en": "I see a bat.",
+        "vi": "Bé thấy một con dơi."
+      }
+    },
+    {
+      "picture": "squirrel",
+      "sentence": {
+        "en": "I see a squirrel.",
+        "vi": "Bé thấy một con sóc."
+      }
+    },
+    {
+      "picture": "hedgehog",
+      "sentence": {
+        "en": "It's a hedgehog.",
+        "vi": "Đó là một con nhím."
+      }
+    },
+    {
+      "picture": "parrot",
+      "sentence": {
+        "en": "It's a parrot.",
+        "vi": "Đó là một con vẹt."
+      }
+    },
+    {
+      "picture": "eagle",
+      "sentence": {
+        "en": "It's an eagle.",
+        "vi": "Đó là một con đại bàng."
+      }
+    },
+    {
+      "picture": "flamingo",
+      "sentence": {
+        "en": "It's a flamingo.",
+        "vi": "Đó là một con hồng hạc."
+      }
+    },
+    {
+      "picture": "seal",
+      "sentence": {
+        "en": "I see a seal.",
+        "vi": "Bé thấy một con hải cẩu."
+      }
+    },
+    {
+      "picture": "jellyfish",
+      "sentence": {
+        "en": "It's a jellyfish.",
+        "vi": "Đó là một con sứa."
+      }
+    },
+    {
+      "picture": "starfish",
+      "sentence": {
+        "en": "I see a starfish.",
+        "vi": "Bé thấy một con sao biển."
+      }
+    },
+    {
+      "picture": "seahorse",
+      "sentence": {
+        "en": "It's a seahorse.",
+        "vi": "Đó là một con cá ngựa."
+      }
+    },
+    {
+      "picture": "ladybug",
+      "sentence": {
+        "en": "I see a ladybug.",
+        "vi": "Bé thấy một con bọ rùa."
+      }
+    },
+    {
+      "picture": "spider",
+      "sentence": {
+        "en": "I see a spider.",
+        "vi": "Bé thấy một con nhện."
+      }
+    },
+    {
+      "picture": "worm",
+      "sentence": {
+        "en": "It's a worm.",
+        "vi": "Đó là một con giun."
+      }
+    },
+    {
+      "picture": "hippo",
+      "sentence": {
+        "en": "I see a hippo.",
+        "vi": "Bé thấy một con hà mã."
+      }
+    },
+    {
+      "picture": "rhino",
+      "sentence": {
+        "en": "It's a rhino.",
+        "vi": "Đó là một con tê giác."
+      }
+    },
+    {
+      "picture": "crocodile",
+      "sentence": {
+        "en": "I see a crocodile.",
+        "vi": "Bé thấy một con cá sấu."
+      }
+    }
+  ]
+}

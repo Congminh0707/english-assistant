@@ -1,0 +1,107 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "numbers",
+    "tier": "basics",
+    "order": 2,
+    "suggestOrder": 2,
+    "title": "Big Numbers",
+    "vi": "Những số lớn",
+    "topic": "Numbers up to one hundred",
+    "topicVi": "Các số tới một trăm",
+    "landmark": "numbers",
+    "landmarkVi": "Số lớn",
+    "pos": {
+      "x": 50,
+      "y": 50
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "zero",
+      "sentence": {
+        "en": "I have zero pens.",
+        "vi": "Bé có không cái bút."
+      }
+    },
+    {
+      "picture": "eleven",
+      "sentence": {
+        "en": "I have eleven pens.",
+        "vi": "Bé có mười một cái bút."
+      }
+    },
+    {
+      "picture": "twelve",
+      "sentence": {
+        "en": "I see twelve cups.",
+        "vi": "Bé thấy mười hai cái cốc."
+      }
+    },
+    {
+      "picture": "thirteen",
+      "sentence": {
+        "en": "I see thirteen bats.",
+        "vi": "Bé thấy mười ba con dơi."
+      }
+    },
+    {
+      "picture": "fourteen",
+      "sentence": {
+        "en": "I have fourteen bowls.",
+        "vi": "Bé có mười bốn cái bát."
+      }
+    },
+    {
+      "picture": "fifteen",
+      "sentence": {
+        "en": "I have fifteen towels.",
+        "vi": "Bé có mười lăm cái khăn."
+      }
+    },
+    {
+      "picture": "sixteen",
+      "sentence": {
+        "en": "I see sixteen spiders.",
+        "vi": "Bé thấy mười sáu con nhện."
+      }
+    },
+    {
+      "picture": "seventeen",
+      "sentence": {
+        "en": "I have seventeen lamps.",
+        "vi": "Bé có mười bảy cái đèn."
+      }
+    },
+    {
+      "picture": "eighteen",
+      "sentence": {
+        "en": "I see eighteen jackets.",
+        "vi": "Bé thấy mười tám cái áo khoác."
+      }
+    },
+    {
+      "picture": "nineteen",
+      "sentence": {
+        "en": "I have nineteen rulers.",
+        "vi": "Bé có mười chín cái thước."
+      }
+    },
+    {
+      "picture": "twenty",
+      "sentence": {
+        "en": "I have twenty fingers.",
+        "vi": "Bé có hai mươi ngón tay."
+      }
+    },
+    {
+      "picture": "hundred",
+      "sentence": {
+        "en": "I have a hundred pens.",
+        "vi": "Bé có một trăm cái bút."
+      }
+    }
+  ]
+}

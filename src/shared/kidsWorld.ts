@@ -222,7 +222,7 @@ export function validateWorld(
     if (placeIds.has(p.id)) error(p.id, 'nơi trùng id')
     placeIds.add(p.id)
     if (!tiers.has(p.tier)) error(p.id, `tầng không tồn tại: ${p.tier}`)
-    if (options.landmarks && !options.landmarks.has(p.landmark)) {
+    if (tiers.get(p.tier)?.landmarks !== false && options.landmarks && !options.landmarks.has(p.landmark)) {
       error(p.id, `chưa có mô hình công trình: ${p.landmark}`)
     }
     if (options.release && !file.reviewed) warn(p.id, 'chưa có người duyệt (reviewed: false)')

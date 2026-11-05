@@ -1,0 +1,135 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "school",
+    "tier": "town",
+    "order": 1,
+    "suggestOrder": 1,
+    "title": "School",
+    "vi": "Trường học",
+    "topic": "School things",
+    "topicVi": "Đồ dùng ở trường",
+    "landmark": "school",
+    "landmarkVi": "Trường học",
+    "pos": {
+      "x": 20,
+      "y": 30
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "pen",
+      "sentence": {
+        "en": "This is my pen.",
+        "vi": "Đây là cái bút của bé."
+      }
+    },
+    {
+      "picture": "ruler",
+      "sentence": {
+        "en": "I have a ruler.",
+        "vi": "Bé có một cái thước."
+      }
+    },
+    {
+      "picture": "eraser",
+      "sentence": {
+        "en": "I see an eraser.",
+        "vi": "Bé thấy một cục tẩy."
+      }
+    },
+    {
+      "picture": "notebook",
+      "sentence": {
+        "en": "This is my notebook.",
+        "vi": "Đây là quyển vở của bé."
+      }
+    },
+    {
+      "picture": "crayon",
+      "sentence": {
+        "en": "I like this crayon.",
+        "vi": "Bé thích cây bút sáp này."
+      }
+    },
+    {
+      "picture": "paintbrush",
+      "sentence": {
+        "en": "I have a paintbrush.",
+        "vi": "Bé có một cây cọ vẽ."
+      }
+    },
+    {
+      "picture": "glue",
+      "sentence": {
+        "en": "I see the glue.",
+        "vi": "Bé thấy lọ keo dán."
+      }
+    },
+    {
+      "picture": "desk",
+      "sentence": {
+        "en": "This is my desk.",
+        "vi": "Đây là bàn học của bé."
+      }
+    },
+    {
+      "picture": "blackboard",
+      "sentence": {
+        "en": "I see a blackboard.",
+        "vi": "Bé thấy một tấm bảng đen."
+      }
+    },
+    {
+      "picture": "globe",
+      "sentence": {
+        "en": "I see a globe.",
+        "vi": "Bé thấy một quả địa cầu."
+      }
+    },
+    {
+      "picture": "map",
+      "sentence": {
+        "en": "This is a map.",
+        "vi": "Đây là một tấm bản đồ."
+      }
+    },
+    {
+      "picture": "paper",
+      "sentence": {
+        "en": "I see the paper.",
+        "vi": "Bé thấy tờ giấy."
+      }
+    },
+    {
+      "picture": "tape",
+      "sentence": {
+        "en": "I have the tape.",
+        "vi": "Bé có cuộn băng dính."
+      }
+    },
+    {
+      "picture": "calculator",
+      "sentence": {
+        "en": "It's a calculator.",
+        "vi": "Đó là một cái máy tính bỏ túi."
+      }
+    },
+    {
+      "picture": "school",
+      "sentence": {
+        "en": "This is my school.",
+        "vi": "Đây là trường của bé."
+      }
+    },
+    {
+      "picture": "lunchbox",
+      "sentence": {
+        "en": "I have a lunchbox.",
+        "vi": "Bé có một hộp cơm."
+      }
+    }
+  ]
+}

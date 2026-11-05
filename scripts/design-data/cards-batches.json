@@ -225,5 +225,198 @@
    "penguin",
    "lightbulb"
   ]
+ },
+ "14": [
+  "pen",
+  "ruler",
+  "eraser",
+  "notebook",
+  "crayon",
+  "paintbrush",
+  "glue",
+  "desk",
+  "blackboard",
+  "globe",
+  "map",
+  "paper",
+  "tape",
+  "calculator",
+  "school",
+  "lunchbox"
+ ],
+ "15": [
+  "head",
+  "eye",
+  "ear",
+  "nose",
+  "mouth",
+  "hand",
+  "foot",
+  "leg",
+  "arm",
+  "hair",
+  "tooth",
+  "finger",
+  "face",
+  "tongue",
+  "knee",
+  "belly"
+ ],
+ "16": [
+  "jacket",
+  "pants",
+  "skirt",
+  "boots",
+  "scarf",
+  "gloves",
+  "pajamas",
+  "raincoat",
+  "sofa",
+  "lamp",
+  "table",
+  "mirror",
+  "towel",
+  "soap",
+  "cup",
+  "bowl"
+ ],
+ "17": [
+  "doctor",
+  "teacher",
+  "farmer",
+  "chef",
+  "police",
+  "firefighter",
+  "nurse",
+  "driver",
+  "pilot",
+  "artist",
+  "singer",
+  "dancer",
+  "builder",
+  "astronaut",
+  "fisherman",
+  "postman"
+ ],
+ "18": [
+  "truck",
+  "taxi",
+  "ship",
+  "helicopter",
+  "ambulance",
+  "firetruck",
+  "tractor",
+  "road",
+  "hospital",
+  "park",
+  "shop",
+  "farm",
+  "beach",
+  "zoo",
+  "library",
+  "bridge"
+ ],
+ "19": {
+  "grid": [
+   4,
+   4
+  ],
+  "s": 1,
+  "ids": [
+   "bat",
+   "squirrel",
+   "hedgehog",
+   "parrot",
+   "eagle",
+   "flamingo",
+   "seal",
+   "jellyfish",
+   "starfish",
+   "seahorse",
+   "ladybug",
+   "spider",
+   "worm",
+   "hippo",
+   "rhino",
+   "crocodile"
+  ]
+ },
+ "20": [
+  "dragonfruit",
+  "lychee",
+  "papaya",
+  "durian",
+  "pho",
+  "springroll",
+  "juice",
+  "water",
+  "pasta",
+  "sausage",
+  "lollipop",
+  "yogurt",
+  "peanut",
+  "pumpkin",
+  "cabbage",
+  "bean"
+ ],
+ "21": {
+  "grid": [
+   4,
+   3
+  ],
+  "ids": [
+   "orangecolor",
+   "purple",
+   "brown",
+   "black",
+   "white",
+   "gray",
+   "gold",
+   "silver",
+   "lightblue",
+   "beige",
+   "turquoise",
+   "lime"
+  ]
+ },
+ "22": {
+  "grid": [
+   4,
+   3
+  ],
+  "ids": [
+   "zero",
+   "eleven",
+   "twelve",
+   "thirteen",
+   "fourteen",
+   "fifteen",
+   "sixteen",
+   "seventeen",
+   "eighteen",
+   "nineteen",
+   "twenty",
+   "hundred"
+  ]
+ },
+ "23": {
+  "grid": [
+   4,
+   3
+  ],
+  "ids": [
+   "circle",
+   "square",
+   "triangle",
+   "rectangle",
+   "oval",
+   "diamond",
+   "hexagon",
+   "cross",
+   "crescent",
+   "cube",
+   "sphere",
+   "cone"
+  ]
  }
 }

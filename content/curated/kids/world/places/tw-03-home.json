@@ -1,0 +1,135 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "home",
+    "tier": "town",
+    "order": 3,
+    "suggestOrder": 3,
+    "title": "Clothes and Home",
+    "vi": "Quần áo & đồ trong nhà",
+    "topic": "Clothes and things at home",
+    "topicVi": "Quần áo và đồ dùng trong nhà",
+    "landmark": "home",
+    "landmarkVi": "Ngôi nhà",
+    "pos": {
+      "x": 80,
+      "y": 34
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "jacket",
+      "sentence": {
+        "en": "I have a jacket.",
+        "vi": "Bé có một cái áo khoác."
+      }
+    },
+    {
+      "picture": "pants",
+      "sentence": {
+        "en": "I like my pants.",
+        "vi": "Bé thích quần dài của mình."
+      }
+    },
+    {
+      "picture": "skirt",
+      "sentence": {
+        "en": "This is my skirt.",
+        "vi": "Đây là chân váy của bé."
+      }
+    },
+    {
+      "picture": "boots",
+      "sentence": {
+        "en": "I have my boots.",
+        "vi": "Bé có đôi ủng của mình."
+      }
+    },
+    {
+      "picture": "scarf",
+      "sentence": {
+        "en": "This is my scarf.",
+        "vi": "Đây là khăn quàng của bé."
+      }
+    },
+    {
+      "picture": "gloves",
+      "sentence": {
+        "en": "I have two gloves.",
+        "vi": "Bé có hai chiếc găng tay."
+      }
+    },
+    {
+      "picture": "pajamas",
+      "sentence": {
+        "en": "I like my pajamas.",
+        "vi": "Bé thích bộ đồ ngủ của mình."
+      }
+    },
+    {
+      "picture": "raincoat",
+      "sentence": {
+        "en": "It's my raincoat.",
+        "vi": "Đó là áo mưa của bé."
+      }
+    },
+    {
+      "picture": "sofa",
+      "sentence": {
+        "en": "I see a sofa.",
+        "vi": "Bé thấy một chiếc ghế sofa."
+      }
+    },
+    {
+      "picture": "lamp",
+      "sentence": {
+        "en": "I see a lamp.",
+        "vi": "Bé thấy một cái đèn."
+      }
+    },
+    {
+      "picture": "table",
+      "sentence": {
+        "en": "This is a table.",
+        "vi": "Đây là một cái bàn."
+      }
+    },
+    {
+      "picture": "mirror",
+      "sentence": {
+        "en": "I see a mirror.",
+        "vi": "Bé thấy một cái gương."
+      }
+    },
+    {
+      "picture": "towel",
+      "sentence": {
+        "en": "This is my towel.",
+        "vi": "Đây là khăn tắm của bé."
+      }
+    },
+    {
+      "picture": "soap",
+      "sentence": {
+        "en": "I have the soap.",
+        "vi": "Bé có cục xà phòng."
+      }
+    },
+    {
+      "picture": "cup",
+      "sentence": {
+        "en": "I have a cup.",
+        "vi": "Bé có một cái cốc."
+      }
+    },
+    {
+      "picture": "bowl",
+      "sentence": {
+        "en": "I see a bowl.",
+        "vi": "Bé thấy một cái bát."
+      }
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "body",
+    "tier": "town",
+    "order": 2,
+    "suggestOrder": 2,
+    "title": "My Body",
+    "vi": "Cơ thể bé",
+    "topic": "Body parts",
+    "topicVi": "Các bộ phận cơ thể",
+    "landmark": "body",
+    "landmarkVi": "Cơ thể",
+    "pos": {
+      "x": 50,
+      "y": 22
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "head",
+      "sentence": {
+        "en": "This is my head.",
+        "vi": "Đây là cái đầu của bé."
+      }
+    },
+    {
+      "picture": "eye",
+      "sentence": {
+        "en": "I have two eyes.",
+        "vi": "Bé có hai con mắt."
+      }
+    },
+    {
+      "picture": "ear",
+      "sentence": {
+        "en": "I have two ears.",
+        "vi": "Bé có hai cái tai."
+      }
+    },
+    {
+      "picture": "nose",
+      "sentence": {
+        "en": "I have a nose.",
+        "vi": "Bé có một cái mũi."
+      }
+    },
+    {
+      "picture": "mouth",
+      "sentence": {
+        "en": "This is my mouth.",
+        "vi": "Đây là cái miệng của bé."
+      }
+    },
+    {
+      "picture": "hand",
+      "sentence": {
+        "en": "I have two hands.",
+        "vi": "Bé có hai bàn tay."
+      }
+    },
+    {
+      "picture": "foot",
+      "sentence": {
+        "en": "This is my foot.",
+        "vi": "Đây là bàn chân của bé."
+      }
+    },
+    {
+      "picture": "leg",
+      "sentence": {
+        "en": "I have two legs.",
+        "vi": "Bé có hai cái chân."
+      }
+    },
+    {
+      "picture": "arm",
+      "sentence": {
+        "en": "I have two arms.",
+        "vi": "Bé có hai cánh tay."
+      }
+    },
+    {
+      "picture": "hair",
+      "sentence": {
+        "en": "I like my hair.",
+        "vi": "Bé thích mái tóc của mình."
+      }
+    },
+    {
+      "picture": "tooth",
+      "sentence": {
+        "en": "I have a tooth.",
+        "vi": "Bé có một cái răng."
+      }
+    },
+    {
+      "picture": "finger",
+      "sentence": {
+        "en": "This is my finger.",
+        "vi": "Đây là ngón tay của bé."
+      }
+    },
+    {
+      "picture": "face",
+      "sentence": {
+        "en": "This is my face.",
+        "vi": "Đây là khuôn mặt của bé."
+      }
+    },
+    {
+      "picture": "tongue",
+      "sentence": {
+        "en": "I see my tongue.",
+        "vi": "Bé thấy cái lưỡi của mình."
+      }
+    },
+    {
+      "picture": "knee",
+      "sentence": {
+        "en": "This is my knee.",
+        "vi": "Đây là đầu gối của bé."
+      }
+    },
+    {
+      "picture": "belly",
+      "sentence": {
+        "en": "I see my belly.",
+        "vi": "Bé thấy cái bụng của mình."
+      }
+    }
+  ]
+}

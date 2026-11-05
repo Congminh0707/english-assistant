@@ -1,0 +1,135 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "jobs",
+    "tier": "town",
+    "order": 4,
+    "suggestOrder": 4,
+    "title": "Jobs",
+    "vi": "Nghề nghiệp",
+    "topic": "People at work",
+    "topicVi": "Những người làm việc",
+    "landmark": "jobs",
+    "landmarkVi": "Nghề nghiệp",
+    "pos": {
+      "x": 30,
+      "y": 62
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "doctor",
+      "sentence": {
+        "en": "She is a doctor.",
+        "vi": "Cô ấy là bác sĩ."
+      }
+    },
+    {
+      "picture": "teacher",
+      "sentence": {
+        "en": "He is a teacher.",
+        "vi": "Chú ấy là giáo viên."
+      }
+    },
+    {
+      "picture": "farmer",
+      "sentence": {
+        "en": "He is a farmer.",
+        "vi": "Chú ấy là nông dân."
+      }
+    },
+    {
+      "picture": "chef",
+      "sentence": {
+        "en": "She is a chef.",
+        "vi": "Cô ấy là đầu bếp."
+      }
+    },
+    {
+      "picture": "police",
+      "sentence": {
+        "en": "I see the police.",
+        "vi": "Bé thấy chú cảnh sát."
+      }
+    },
+    {
+      "picture": "firefighter",
+      "sentence": {
+        "en": "He is a firefighter.",
+        "vi": "Chú ấy là lính cứu hỏa."
+      }
+    },
+    {
+      "picture": "nurse",
+      "sentence": {
+        "en": "She is a nurse.",
+        "vi": "Cô ấy là y tá."
+      }
+    },
+    {
+      "picture": "driver",
+      "sentence": {
+        "en": "He is a driver.",
+        "vi": "Chú ấy là tài xế."
+      }
+    },
+    {
+      "picture": "pilot",
+      "sentence": {
+        "en": "She is a pilot.",
+        "vi": "Cô ấy là phi công."
+      }
+    },
+    {
+      "picture": "artist",
+      "sentence": {
+        "en": "She is an artist.",
+        "vi": "Cô ấy là họa sĩ."
+      }
+    },
+    {
+      "picture": "singer",
+      "sentence": {
+        "en": "She is a singer.",
+        "vi": "Cô ấy là ca sĩ."
+      }
+    },
+    {
+      "picture": "dancer",
+      "sentence": {
+        "en": "She is a dancer.",
+        "vi": "Cô ấy là diễn viên múa."
+      }
+    },
+    {
+      "picture": "builder",
+      "sentence": {
+        "en": "He is a builder.",
+        "vi": "Chú ấy là thợ xây."
+      }
+    },
+    {
+      "picture": "astronaut",
+      "sentence": {
+        "en": "He is an astronaut.",
+        "vi": "Chú ấy là phi hành gia."
+      }
+    },
+    {
+      "picture": "fisherman",
+      "sentence": {
+        "en": "He is a fisherman.",
+        "vi": "Chú ấy là ngư dân."
+      }
+    },
+    {
+      "picture": "postman",
+      "sentence": {
+        "en": "He is a postman.",
+        "vi": "Chú ấy là người đưa thư."
+      }
+    }
+  ]
+}

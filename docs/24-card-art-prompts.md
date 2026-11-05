@@ -17,12 +17,13 @@ Từ 2026-11-03 thẻ từ vựng (Kids World, 189 từ) được tạo bằng C
 5. `pnpm vitest run src/renderer/shared/art/cards.test.ts`; đo dung lượng, cập nhật [17-metrics](17-metrics.md).
 6. **Không chạy `export-cards.py`** sau đó (nó ghi đè lại thẻ vector cũ cùng id).
 
-Tiến độ: batch 1–13 (188 từ) đã cắt 2026-11-03, ≈ 4,1 MB (`art/cards` 4,5 MB). `umbrella` chưa có trong batch nào (giữ thẻ vector cũ).
+Tiến độ: batch 1–13 (188 từ) đã cắt 2026-11-03; batch 14–23 (148 từ, [28](28-kids-expansion.md)) đã cắt 2026-11-05; `art/cards` 7,6 MB / 337 file. `umbrella` chưa có trong batch nào (giữ thẻ vector cũ).
 
 ### Tool cắt (`cut-cards.py`)
 
 - Không chia theo ô lưới (ChatGPT hay đặt vật lệch ô, hai vật sát nhau). Mỗi bước: tách vật theo cụm điểm ảnh liên thông trên cả sheet → lấy N cụm lớn nhất làm vật chính → cụm nhỏ (chấm đếm, tia nắng, râu, chiếc tất thứ hai) gắn vào vật có phần gần nhất, mảnh vụn xa bị bỏ → sắp theo thứ tự đọc (chia theo tâm y thành `hàng` nhóm, mỗi nhóm sắp theo tâm x).
 - Mỗi thẻ: crop khít, căn giữa khung vuông 256 (vật tối đa 92%), WebP q86 nhúng base64 trong `art/cards/<id>.svg` nên `PictureImage.vue` và `cards.test.ts` không đổi. ≈ 22 KB/thẻ.
+- Hai vật cách nhau < 4 px bị dính ở độ phân giải mặc định (batch 19: cánh dơi/đuôi sóc) → khai `{ "grid": [4, 4], "s": 1, "ids": [...] }` trong `cards-batches.json` để tách ở độ phân giải đầy đủ.
 - Cảnh báo khi tách được ít cụm hơn số id: batch bị bỏ qua, xem ảnh gốc, tạo lại hoặc chỉnh tay. Thẻ ra thiếu/dư mảnh thì chỉnh `MIN_PART`, `MAX_GAP` đầu file.
 - Cần Python 3 với `Pillow`, `numpy` (chạy `python`, không dùng `-I`).
 

@@ -1,0 +1,107 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "shapes",
+    "tier": "basics",
+    "order": 3,
+    "suggestOrder": 3,
+    "title": "Shapes",
+    "vi": "Hình khối",
+    "topic": "Shapes",
+    "topicVi": "Các hình khối",
+    "landmark": "shapes",
+    "landmarkVi": "Hình khối",
+    "pos": {
+      "x": 76,
+      "y": 50
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "circle",
+      "sentence": {
+        "en": "It's a circle.",
+        "vi": "Đó là hình tròn."
+      }
+    },
+    {
+      "picture": "square",
+      "sentence": {
+        "en": "This is a square.",
+        "vi": "Đây là hình vuông."
+      }
+    },
+    {
+      "picture": "triangle",
+      "sentence": {
+        "en": "It's a triangle.",
+        "vi": "Đó là hình tam giác."
+      }
+    },
+    {
+      "picture": "rectangle",
+      "sentence": {
+        "en": "This is a rectangle.",
+        "vi": "Đây là hình chữ nhật."
+      }
+    },
+    {
+      "picture": "oval",
+      "sentence": {
+        "en": "It's an oval.",
+        "vi": "Đó là hình bầu dục."
+      }
+    },
+    {
+      "picture": "diamond",
+      "sentence": {
+        "en": "It's a diamond.",
+        "vi": "Đó là hình thoi."
+      }
+    },
+    {
+      "picture": "hexagon",
+      "sentence": {
+        "en": "It's a hexagon.",
+        "vi": "Đó là hình lục giác."
+      }
+    },
+    {
+      "picture": "cross",
+      "sentence": {
+        "en": "It's a cross.",
+        "vi": "Đó là dấu cộng."
+      }
+    },
+    {
+      "picture": "crescent",
+      "sentence": {
+        "en": "It's a crescent.",
+        "vi": "Đó là hình trăng lưỡi liềm."
+      }
+    },
+    {
+      "picture": "cube",
+      "sentence": {
+        "en": "It's a cube.",
+        "vi": "Đó là hình lập phương."
+      }
+    },
+    {
+      "picture": "sphere",
+      "sentence": {
+        "en": "It's a sphere.",
+        "vi": "Đó là hình cầu."
+      }
+    },
+    {
+      "picture": "cone",
+      "sentence": {
+        "en": "It's a cone.",
+        "vi": "Đó là hình nón."
+      }
+    }
+  ]
+}

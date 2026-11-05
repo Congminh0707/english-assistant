@@ -9,6 +9,7 @@
 #   2. lấy N cụm lớn nhất làm vật chính (N = số id của batch); cụm nhỏ còn lại (chấm đếm, tia nắng, râu, chiếc tất thứ hai)
 #      gắn vào vật chính gần nhất, mảnh vụn xa thì bỏ;
 #   3. sắp N vật theo thứ tự đọc: chia theo tâm y thành `hàng` nhóm, mỗi nhóm sắp theo tâm x.
+# Hai vật gần nhau < 4 px bị dính ở S=4: khai { "grid": [4, 4], "s": 1, "ids": [...] } để tách ở độ phân giải đầy đủ (chậm hơn).
 # Số cụm lớn ít hơn N → in cảnh báo và bỏ qua batch (xem ảnh gốc rồi sửa tay).
 # Mỗi thẻ: crop khít, đặt giữa khung vuông 256 (chừa lề), WebP q86, nhúng base64 trong <svg viewBox="0 0 256 256">
 # → PictureImage.vue (glob art/cards/*.svg) dùng nguyên, không đổi code. Chạy lại sẽ ghi đè thẻ cùng id.
@@ -27,8 +28,8 @@ SIZE = 256        # cạnh khung thẻ (px)
 FILL = 0.92       # vật chiếm tối đa 92% khung
 ALPHA_MIN = 24    # ngưỡng alpha coi là có hình (bỏ viền mờ)
 S = 4             # tỉ lệ thu nhỏ khi tách cụm
-MIN_PART = 12     # cụm phụ nhỏ hơn (ô thu nhỏ) coi là mảnh vụn
-MAX_GAP = 45      # cụm phụ xa vật chính hơn (ô thu nhỏ) bị bỏ
+MIN_PART = 12     # cụm phụ nhỏ hơn (ô thu nhỏ) coi là mảnh vụn (tính ở S=4, tự nhân theo S khác)
+MAX_GAP = 45      # cụm phụ xa vật chính hơn (ô thu nhỏ) bị bỏ (tính ở S=4)
 
 
 def label(im):
@@ -71,14 +72,15 @@ def split_objects(im, n_expect):
     if len(order) < n_expect:
         print('  chỉ tách được %d cụm, cần %d' % (len(order), n_expect)); return None
     mains = order[:n_expect]
-    boxes = {k: bbox_of(lab, k) for k in order if areas[k] >= MIN_PART or k in mains}
+    min_part, max_gap = MIN_PART * (4 // S) ** 2, MAX_GAP * (4 // S)
+    boxes = {k: bbox_of(lab, k) for k in order if areas[k] >= min_part or k in mains}
     groups = {k: [k] for k in mains}
     # Gắn dần: lấy cặp (mảnh phụ, vật) có khoảng cách nhỏ nhất tới BẤT KỲ phần nào đã thuộc vật (kể cả chấm đã gắn),
     # để hàng chấm thứ hai bám theo hàng chấm thứ nhất thay vì nhảy sang vật kế bên.
-    rest = [k for k in order[n_expect:] if areas[k] >= MIN_PART]
+    rest = [k for k in order[n_expect:] if areas[k] >= min_part]
     while rest:
         d, k, m = min(((min(gap(boxes[k], boxes[x]) for x in groups[m]), k, m) for k in rest for m in mains))
-        if d > MAX_GAP: break
+        if d > max_gap: break
         groups[m].append(k); rest.remove(k)
     labfull = np.array(Image.fromarray(lab.astype('int32')).resize(a.size, Image.NEAREST))
     out = []
@@ -117,6 +119,7 @@ def to_svg(card):
 
 
 def main():
+    global S
     args = sys.argv[1:]
     src = os.path.join(os.path.expanduser('~'), 'Downloads', 'EnglishCard')
     preview = False
@@ -133,6 +136,7 @@ def main():
     for batch, spec in manifest.items():
         if only and batch not in only: continue
         cols, rows = (4, 4) if isinstance(spec, list) else spec['grid']
+        S = 4 if isinstance(spec, list) else spec.get('s', 4)  # vật sát nhau (cánh dơi/đuôi sóc) → khai "s": 1
         ids = spec if isinstance(spec, list) else spec['ids']
         if len(ids) != cols * rows:
             print('batch %s: lưới %dx%d cần %d id, có %d — bỏ qua' % (batch, cols, rows, cols * rows, len(ids))); continue

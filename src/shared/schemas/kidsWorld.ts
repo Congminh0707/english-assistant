@@ -25,6 +25,8 @@ export const KidsTierSchema = z.object({
   vi: Text,
   /** Id cảnh bản đồ (2D/3D) của tầng */
   scene: Id,
+  /** false = nơi của tầng chưa có mô hình công trình (tầng Làng của bé); mặc định có */
+  landmarks: z.boolean().default(true),
   wordsPerPlace: z.number().int().min(2).max(20),
   maxSentenceWords: z.number().int().min(2).max(12),
   /** Tổng số từ mới của tầng phải nằm trong khoảng bậc (docs/06) */

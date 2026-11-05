@@ -1,0 +1,135 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "tasty",
+    "tier": "town",
+    "order": 7,
+    "suggestOrder": 7,
+    "title": "Tasty Table",
+    "vi": "Bàn ăn ngon",
+    "topic": "Yummy food and drinks",
+    "topicVi": "Món ngon và đồ uống",
+    "landmark": "tasty",
+    "landmarkVi": "Bàn ăn",
+    "pos": {
+      "x": 50,
+      "y": 84
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "dragonfruit",
+      "sentence": {
+        "en": "I like dragon fruit.",
+        "vi": "Bé thích thanh long."
+      }
+    },
+    {
+      "picture": "lychee",
+      "sentence": {
+        "en": "I like lychee.",
+        "vi": "Bé thích quả vải."
+      }
+    },
+    {
+      "picture": "papaya",
+      "sentence": {
+        "en": "I see a papaya.",
+        "vi": "Bé thấy một quả đu đủ."
+      }
+    },
+    {
+      "picture": "durian",
+      "sentence": {
+        "en": "I see a durian.",
+        "vi": "Bé thấy một quả sầu riêng."
+      }
+    },
+    {
+      "picture": "pho",
+      "sentence": {
+        "en": "I like pho.",
+        "vi": "Bé thích phở."
+      }
+    },
+    {
+      "picture": "springroll",
+      "sentence": {
+        "en": "I like spring rolls.",
+        "vi": "Bé thích gỏi cuốn."
+      }
+    },
+    {
+      "picture": "juice",
+      "sentence": {
+        "en": "I like juice.",
+        "vi": "Bé thích nước ép."
+      }
+    },
+    {
+      "picture": "water",
+      "sentence": {
+        "en": "I like water.",
+        "vi": "Bé thích nước lọc."
+      }
+    },
+    {
+      "picture": "pasta",
+      "sentence": {
+        "en": "I like pasta.",
+        "vi": "Bé thích mì Ý."
+      }
+    },
+    {
+      "picture": "sausage",
+      "sentence": {
+        "en": "I see a sausage.",
+        "vi": "Bé thấy một cái xúc xích."
+      }
+    },
+    {
+      "picture": "lollipop",
+      "sentence": {
+        "en": "I have a lollipop.",
+        "vi": "Bé có một cây kẹo mút."
+      }
+    },
+    {
+      "picture": "yogurt",
+      "sentence": {
+        "en": "I like yogurt.",
+        "vi": "Bé thích sữa chua."
+      }
+    },
+    {
+      "picture": "peanut",
+      "sentence": {
+        "en": "I see a peanut.",
+        "vi": "Bé thấy một củ lạc."
+      }
+    },
+    {
+      "picture": "pumpkin",
+      "sentence": {
+        "en": "I see a pumpkin.",
+        "vi": "Bé thấy một quả bí ngô."
+      }
+    },
+    {
+      "picture": "cabbage",
+      "sentence": {
+        "en": "I see a cabbage.",
+        "vi": "Bé thấy một cây bắp cải."
+      }
+    },
+    {
+      "picture": "bean",
+      "sentence": {
+        "en": "I see a bean.",
+        "vi": "Bé thấy một hạt đậu."
+      }
+    }
+  ]
+}

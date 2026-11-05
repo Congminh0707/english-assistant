@@ -1,0 +1,107 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "colors",
+    "tier": "basics",
+    "order": 1,
+    "suggestOrder": 1,
+    "title": "More Colors",
+    "vi": "Thêm màu sắc",
+    "topic": "Colors",
+    "topicVi": "Màu sắc",
+    "landmark": "colors",
+    "landmarkVi": "Màu sắc",
+    "pos": {
+      "x": 24,
+      "y": 50
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "orangecolor",
+      "sentence": {
+        "en": "I see an orange cup.",
+        "vi": "Bé thấy một cái cốc màu cam."
+      }
+    },
+    {
+      "picture": "purple",
+      "sentence": {
+        "en": "I see a purple jacket.",
+        "vi": "Bé thấy một cái áo khoác màu tím."
+      }
+    },
+    {
+      "picture": "brown",
+      "sentence": {
+        "en": "I see a brown table.",
+        "vi": "Bé thấy một cái bàn màu nâu."
+      }
+    },
+    {
+      "picture": "black",
+      "sentence": {
+        "en": "I see a black bat.",
+        "vi": "Bé thấy một con dơi đen."
+      }
+    },
+    {
+      "picture": "white",
+      "sentence": {
+        "en": "I see a white sofa.",
+        "vi": "Bé thấy một chiếc sofa trắng."
+      }
+    },
+    {
+      "picture": "gray",
+      "sentence": {
+        "en": "I see a gray seal.",
+        "vi": "Bé thấy một con hải cẩu xám."
+      }
+    },
+    {
+      "picture": "gold",
+      "sentence": {
+        "en": "I see a gold lamp.",
+        "vi": "Bé thấy một cái đèn vàng kim."
+      }
+    },
+    {
+      "picture": "silver",
+      "sentence": {
+        "en": "I see a silver ruler.",
+        "vi": "Bé thấy một cái thước bạc."
+      }
+    },
+    {
+      "picture": "lightblue",
+      "sentence": {
+        "en": "I see a light blue towel.",
+        "vi": "Bé thấy một cái khăn xanh nhạt."
+      }
+    },
+    {
+      "picture": "beige",
+      "sentence": {
+        "en": "I see a beige bowl.",
+        "vi": "Bé thấy một cái bát màu be."
+      }
+    },
+    {
+      "picture": "turquoise",
+      "sentence": {
+        "en": "I see a turquoise scarf.",
+        "vi": "Bé thấy một cái khăn xanh ngọc."
+      }
+    },
+    {
+      "picture": "lime",
+      "sentence": {
+        "en": "I see a lime bean.",
+        "vi": "Bé thấy một hạt đậu xanh chanh."
+      }
+    }
+  ]
+}

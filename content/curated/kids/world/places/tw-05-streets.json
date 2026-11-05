@@ -1,0 +1,135 @@
+{
+  "license": "proprietary-own",
+  "reviewed": false,
+  "place": {
+    "id": "streets",
+    "tier": "town",
+    "order": 5,
+    "suggestOrder": 5,
+    "title": "Town",
+    "vi": "Phố phường",
+    "topic": "Vehicles and places",
+    "topicVi": "Phương tiện và nơi chốn",
+    "landmark": "streets",
+    "landmarkVi": "Phố phường",
+    "pos": {
+      "x": 60,
+      "y": 64
+    },
+    "decor": []
+  },
+  "words": [
+    {
+      "picture": "truck",
+      "sentence": {
+        "en": "I see a truck.",
+        "vi": "Bé thấy một chiếc xe tải."
+      }
+    },
+    {
+      "picture": "taxi",
+      "sentence": {
+        "en": "I see a taxi.",
+        "vi": "Bé thấy một chiếc taxi."
+      }
+    },
+    {
+      "picture": "ship",
+      "sentence": {
+        "en": "I see a ship.",
+        "vi": "Bé thấy một con tàu."
+      }
+    },
+    {
+      "picture": "helicopter",
+      "sentence": {
+        "en": "I see a helicopter.",
+        "vi": "Bé thấy một chiếc trực thăng."
+      }
+    },
+    {
+      "picture": "ambulance",
+      "sentence": {
+        "en": "It's an ambulance.",
+        "vi": "Đó là xe cứu thương."
+      }
+    },
+    {
+      "picture": "firetruck",
+      "sentence": {
+        "en": "I see a fire truck.",
+        "vi": "Bé thấy một xe cứu hỏa."
+      }
+    },
+    {
+      "picture": "tractor",
+      "sentence": {
+        "en": "It's a tractor.",
+        "vi": "Đó là một chiếc máy kéo."
+      }
+    },
+    {
+      "picture": "road",
+      "sentence": {
+        "en": "I see the road.",
+        "vi": "Bé thấy con đường."
+      }
+    },
+    {
+      "picture": "hospital",
+      "sentence": {
+        "en": "This is the hospital.",
+        "vi": "Đây là bệnh viện."
+      }
+    },
+    {
+      "picture": "park",
+      "sentence": {
+        "en": "I like the park.",
+        "vi": "Bé thích công viên."
+      }
+    },
+    {
+      "picture": "shop",
+      "sentence": {
+        "en": "I see a shop.",
+        "vi": "Bé thấy một cửa hàng."
+      }
+    },
+    {
+      "picture": "farm",
+      "sentence": {
+        "en": "I see a farm.",
+        "vi": "Bé thấy một nông trại."
+      }
+    },
+    {
+      "picture": "beach",
+      "sentence": {
+        "en": "I like the beach.",
+        "vi": "Bé thích bãi biển."
+      }
+    },
+    {
+      "picture": "zoo",
+      "sentence": {
+        "en": "I see the zoo.",
+        "vi": "Bé thấy sở thú."
+      }
+    },
+    {
+      "picture": "library",
+      "sentence": {
+        "en": "This is a library.",
+        "vi": "Đây là một thư viện."
+      }
+    },
+    {
+      "picture": "bridge",
+      "sentence": {
+        "en": "I see a bridge.",
+        "vi": "Bé thấy một cây cầu."
+      }
+    }
+  ]
+}

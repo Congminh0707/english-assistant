@@ -75,7 +75,7 @@ for (const f of readdirSync(KIDS_DIR).filter((f) => f.endsWith('.json'))) collec
 const PLACES = join(KIDS_DIR, 'world', 'places')
 for (const f of readdirSync(PLACES).filter((f) => f.endsWith('.json'))) collect(readJson(join(PLACES, f)))
 // Từ của hình (PICTURE_WORDS): đọc thẳng nguồn vì pictures.ts import không đuôi file nên Node không nạp được
-for (const f of ['pictures.ts', 'picturesMore.ts', 'pictureExtras.ts']) {
+for (const f of ['pictures.ts', 'picturesMore.ts', 'picturesKids2.ts', 'pictureExtras.ts']) {
   const src = readFileSync(resolve('src/shared', f), 'utf8')
   for (const m of src.matchAll(/\ben:\s*'([^']+)'/g)) kidsTexts.add(m[1])
 }

@@ -2,8 +2,76 @@
   "license": "proprietary-own",
   "tiers": [
     {
-      "id": "vn",
+      "id": "town",
       "order": 1,
+      "title": "My Town",
+      "vi": "Làng của bé",
+      "scene": "town",
+      "landmarks": false,
+      "wordsPerPlace": 16,
+      "maxSentenceWords": 6,
+      "wordRange": [
+        100,
+        130
+      ],
+      "frameWords": [
+        "i",
+        "see",
+        "a",
+        "an",
+        "it's",
+        "this",
+        "is",
+        "my",
+        "the",
+        "and",
+        "have",
+        "like",
+        "he",
+        "she",
+        "two"
+      ],
+      "unlock": null
+    },
+    {
+      "id": "basics",
+      "order": 2,
+      "title": "Colors, Numbers, Shapes",
+      "vi": "Màu, số, hình",
+      "scene": "town",
+      "landmarks": false,
+      "wordsPerPlace": 12,
+      "maxSentenceWords": 6,
+      "wordRange": [
+        30,
+        40
+      ],
+      "frameWords": [
+        "i",
+        "see",
+        "a",
+        "an",
+        "it's",
+        "this",
+        "is",
+        "my",
+        "the",
+        "and",
+        "have",
+        "like",
+        "he",
+        "she",
+        "two"
+      ],
+      "unlock": {
+        "tier": "town",
+        "placesDoneShare": 0.75,
+        "sproutShare": 0.6
+      }
+    },
+    {
+      "id": "vn",
+      "order": 3,
       "title": "Viet Nam",
       "vi": "Việt Nam",
       "scene": "vn",
@@ -24,11 +92,15 @@
         "my",
         "the"
       ],
-      "unlock": null
+      "unlock": {
+        "tier": "basics",
+        "placesDoneShare": 0.75,
+        "sproutShare": 0.6
+      }
     },
     {
       "id": "world",
-      "order": 2,
+      "order": 4,
       "title": "The World",
       "vi": "Các nước",
       "scene": "islands",
@@ -65,7 +137,7 @@
     },
     {
       "id": "earth",
-      "order": 3,
+      "order": 5,
       "title": "The Earth",
       "vi": "Trái Đất",
       "scene": "globe",

@@ -5,6 +5,7 @@ import { mergeRuns, type BadgePixel, type BadgeRect } from './badgeArt'
 import { PICTURE_EXTRAS, PICTURE_EXTRA_IDS } from './pictureExtras'
 import { darken, Grid, lighten } from './pixelGrid'
 import { MORE_PAINTERS, MORE_WORDS } from './picturesMore'
+import { KIDS2_IDS, KIDS2_WORDS } from './picturesKids2'
 
 /** Bản vẽ theo toạ độ 32×32 nhưng dựng trên lưới 64×64 ô (gấp đôi chi tiết) để phóng to vẫn mịn */
 export const PICTURE_SCALE = 2
@@ -1408,7 +1409,7 @@ const stripVariation = (s: string): string => s.replace(/️/g, '')
 /** Id hình tương ứng với một emoji (hoặc chính id hình); undefined nếu không có */
 export function pictureFor(emojiOrId: string): string | undefined {
   const key = stripVariation(emojiOrId.trim())
-  if (key in PAINTERS || key in PICTURE_EXTRAS) return key
+  if (key in PAINTERS || key in PICTURE_EXTRAS || key in KIDS2_WORDS) return key
   return EMOJI_TO_PICTURE[key]
 }
 
@@ -1553,6 +1554,7 @@ export const PICTURE_WORDS: Record<string, { en: string; vi: string }> = {
   heart: { en: 'heart', vi: 'trái tim' },
   cloud: { en: 'cloud', vi: 'đám mây' },
   ...MORE_WORDS,
+  ...KIDS2_WORDS,
   // Hình bổ sung từ Twemoji (pictureExtras.ts): có từ + nghĩa như hình vẽ, nhưng không có bản vẽ pixel
   ...Object.fromEntries(
     Object.entries(PICTURE_EXTRAS).map(([id, e]) => [id, { en: e.en, vi: e.vi }])
@@ -1560,11 +1562,17 @@ export const PICTURE_WORDS: Record<string, { en: string; vi: string }> = {
 }
 
 /** Mọi hình có thể hiển thị: hình vẽ (PICTURE_IDS) + hình Twemoji bổ sung — dùng cho bộ thẻ/sticker trẻ em */
-export const ALL_PICTURE_IDS: readonly string[] = [...Object.keys(PAINTERS), ...PICTURE_EXTRA_IDS]
+export const ALL_PICTURE_IDS: readonly string[] = [
+  ...Object.keys(PAINTERS),
+  ...PICTURE_EXTRA_IDS,
+  ...KIDS2_IDS
+]
 
-const WORD_TO_PICTURE = new Map(
-  Object.entries(PICTURE_WORDS).map(([id, word]) => [word.en.toLowerCase(), id])
-)
+// Từ trùng nhau (quả cam `orange` vs màu cam `orangecolor`): id đứng trước thắng
+const WORD_TO_PICTURE = new Map<string, string>()
+for (const [id, word] of Object.entries(PICTURE_WORDS)) {
+  if (!WORD_TO_PICTURE.has(word.en.toLowerCase())) WORD_TO_PICTURE.set(word.en.toLowerCase(), id)
+}
 
 /** Id hình minh hoạ cho một từ tiếng Anh (vd 'dog' → 'dog'); undefined nếu chưa có hình */
 export function pictureForWord(word: string): string | undefined {

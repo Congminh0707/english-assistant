@@ -1,15 +1,15 @@
 {
   "license": "proprietary-own",
-  "reviewed": false,
+  "reviewed": true,
   "place": {
     "id": "tasty",
     "tier": "town",
     "order": 7,
     "suggestOrder": 7,
-    "title": "Tasty Table",
-    "vi": "Bàn ăn ngon",
+    "title": "Yummy Food",
+    "vi": "Món ngon",
     "topic": "Yummy food and drinks",
-    "topicVi": "Món ngon và đồ uống",
+    "topicVi": "Đồ ăn và đồ uống",
     "landmark": "tasty",
     "landmarkVi": "Bàn ăn",
     "pos": {
@@ -72,7 +72,7 @@
       "picture": "water",
       "sentence": {
         "en": "I like water.",
-        "vi": "Bé thích nước lọc."
+        "vi": "Bé thích uống nước."
       }
     },
     {
@@ -86,7 +86,7 @@
       "picture": "sausage",
       "sentence": {
         "en": "I see a sausage.",
-        "vi": "Bé thấy một cái xúc xích."
+        "vi": "Bé thấy một cây xúc xích."
       }
     },
     {
@@ -107,14 +107,14 @@
       "picture": "peanut",
       "sentence": {
         "en": "I see a peanut.",
-        "vi": "Bé thấy một củ lạc."
+        "vi": "Bé thấy một hạt lạc."
       }
     },
     {
       "picture": "pumpkin",
       "sentence": {
         "en": "I see a pumpkin.",
-        "vi": "Bé thấy một quả bí ngô."
+        "vi": "Bé thấy một quả bí đỏ."
       }
     },
     {

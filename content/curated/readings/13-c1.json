@@ -1,0 +1,772 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readc1",
+    "title": "Đọc C1",
+    "summary": "Kinh tế học hành vi, thiên kiến xác nhận, kinh tế chú ý, hiệu ứng giả dược, thành phố 15 phút, thuật toán công bằng, ngôn ngữ và tư duy, ý niệm tiến bộ.",
+    "icon": "📙",
+    "order": 13
+  },
+  "lessons": [
+    {
+      "id": "readc1.nudges",
+      "title": "Cú hích hành vi",
+      "summary": "Kinh tế học hành vi và thiết kế lựa chọn.",
+      "level": "C1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "The Economics of the Nudge",
+          "paragraphs": [
+            {
+              "en": "Classical economic theory rests on the assumption that people are rational: they weigh costs against benefits and choose whatever maximizes their well-being. Behavioral economics challenges this picture, drawing on psychology to show that human decisions are systematically shaped by habit, emotion and the way options are presented.",
+              "vi": "Lý thuyết kinh tế cổ điển dựa trên giả định con người duy lý: họ cân nhắc chi phí và lợi ích rồi chọn điều tối đa hoá phúc lợi của mình. Kinh tế học hành vi thách thức bức tranh đó, dựa vào tâm lý học để cho thấy quyết định của con người bị chi phối một cách có hệ thống bởi thói quen, cảm xúc và cách các lựa chọn được trình bày."
+            },
+            {
+              "en": "One of the field's most influential ideas is the \"nudge\": a small change in the design of a choice that steers behavior without forbidding any option or significantly altering incentives. Placing fruit at eye level in a school cafeteria, for instance, tends to increase how much fruit students take, even though the chocolate remains available.",
+              "vi": "Một trong những ý tưởng có ảnh hưởng nhất của lĩnh vực này là \"cú hích\": một thay đổi nhỏ trong thiết kế lựa chọn giúp định hướng hành vi mà không cấm phương án nào hay làm thay đổi đáng kể các động cơ khuyến khích. Chẳng hạn đặt trái cây ngang tầm mắt trong căng tin trường học thường làm học sinh lấy nhiều trái cây hơn, dù sô-cô-la vẫn có sẵn."
+            },
+            {
+              "en": "Default options are particularly powerful. When employees are automatically enrolled in a retirement savings plan and must actively opt out, participation rates are typically far higher than when they must actively sign up. The choice is identical in both cases; only the starting point differs.",
+              "vi": "Lựa chọn mặc định đặc biệt mạnh. Khi nhân viên được tự động đăng ký vào chương trình tiết kiệm hưu trí và phải chủ động rút ra, tỷ lệ tham gia thường cao hơn nhiều so với khi họ phải chủ động đăng ký. Lựa chọn trong hai trường hợp là như nhau; chỉ điểm xuất phát khác nhau."
+            },
+            {
+              "en": "Critics, however, question whether governments and companies should be engineering choices at all. If nudges work precisely because people do not notice them, they may sit uneasily with the ideal of autonomous citizens. Defenders reply that there is no neutral design: every menu and every form presents options in some order, so the real question is not whether to influence choices, but how transparently and in whose interest.",
+              "vi": "Tuy nhiên, người phê phán đặt câu hỏi liệu chính phủ và doanh nghiệp có nên thiết kế lựa chọn của người khác hay không. Nếu cú hích hiệu quả chính vì người ta không nhận ra nó, nó có thể khó dung hoà với lý tưởng về công dân tự chủ. Người bảo vệ đáp rằng không có thiết kế nào trung lập: thực đơn hay biểu mẫu nào cũng trình bày lựa chọn theo một thứ tự nào đó, nên câu hỏi thật sự không phải là có nên tác động đến lựa chọn hay không, mà là tác động minh bạch đến đâu và vì lợi ích của ai."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Which of the following best defines a \"nudge\" as described in the text?",
+          "choices": [
+            "A financial reward for making healthy choices",
+            "A rule that forbids harmful options",
+            "A small design change that steers behavior without removing options",
+            "A campaign that explains the benefits of saving"
+          ],
+          "answer": 2,
+          "explain": "Đoạn 2: thay đổi nhỏ trong thiết kế lựa chọn, không cấm phương án nào, không đổi đáng kể động cơ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What point does the retirement savings example illustrate?",
+          "choices": [
+            "The starting point of a choice can strongly affect outcomes.",
+            "Employees dislike saving money.",
+            "Opting out should be made illegal.",
+            "Higher salaries increase participation."
+          ],
+          "answer": 0,
+          "explain": "Đoạn 3: lựa chọn như nhau, chỉ điểm xuất phát khác — nhưng tỷ lệ tham gia chênh lệch lớn."
+        },
+        {
+          "type": "tf",
+          "statement": "In the cafeteria example, chocolate is removed to encourage students to eat fruit.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 2: sô-cô-la vẫn có sẵn (remains available)."
+        },
+        {
+          "type": "tf",
+          "statement": "Defenders of nudges argue that no choice design is truly neutral.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 4: \"there is no neutral design\"."
+        },
+        {
+          "type": "tf",
+          "statement": "Nudges have been shown to work better in schools than in workplaces.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không so sánh hiệu quả giữa trường học và nơi làm việc."
+        },
+        {
+          "type": "gap",
+          "prompt": "Classical economic theory assumes that people are ___.",
+          "answers": [
+            "rational"
+          ],
+          "choices": [
+            "rational",
+            "emotional",
+            "generous"
+          ],
+          "explain": "Đoạn 1: \"rests on the assumption that people are rational\"."
+        }
+      ]
+    },
+    {
+      "id": "readc1.confirmation-bias",
+      "title": "Thiên kiến xác nhận",
+      "summary": "Vì sao ta chỉ thấy điều mình muốn tin.",
+      "level": "C1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Seeing What We Expect to See",
+          "paragraphs": [
+            {
+              "en": "Of all the mental shortcuts that distort human judgment, confirmation bias is perhaps the most pervasive. It refers to the tendency to seek out, interpret and remember information in ways that support what we already believe, while giving less weight to evidence that contradicts it.",
+              "vi": "Trong mọi lối tắt tư duy làm méo mó phán đoán của con người, thiên kiến xác nhận có lẽ phổ biến nhất. Nó chỉ xu hướng tìm kiếm, diễn giải và ghi nhớ thông tin theo cách ủng hộ điều ta vốn tin, trong khi xem nhẹ bằng chứng trái ngược."
+            },
+            {
+              "en": "The bias operates at several stages. When choosing what to read, we gravitate toward sources that share our views. When faced with ambiguous data, we interpret it charitably if it suits us and skeptically if it does not. Even memory is selective: experiments suggest that people recall the arguments that favored their position more accurately than those that opposed it.",
+              "vi": "Thiên kiến này vận hành ở nhiều giai đoạn. Khi chọn đọc gì, ta bị hút về những nguồn cùng quan điểm. Khi gặp dữ liệu mơ hồ, ta diễn giải rộng lượng nếu nó hợp ý và hoài nghi nếu không. Ngay cả trí nhớ cũng có chọn lọc: thí nghiệm cho thấy người ta nhớ chính xác các lập luận ủng hộ mình hơn các lập luận phản đối."
+            },
+            {
+              "en": "Crucially, intelligence offers little protection. Some studies indicate that people with strong reasoning skills are simply better at constructing justifications for conclusions they reached for other reasons. Expertise can therefore make the bias harder, not easier, to detect.",
+              "vi": "Điều then chốt là trí thông minh không bảo vệ được bao nhiêu. Một số nghiên cứu cho thấy người có kỹ năng lập luận tốt chỉ giỏi hơn trong việc dựng lý lẽ biện minh cho kết luận mà họ đã đi đến vì lý do khác. Vì thế chuyên môn có thể khiến thiên kiến khó phát hiện hơn chứ không dễ hơn."
+            },
+            {
+              "en": "Since the bias cannot be switched off, the most effective remedies are procedural rather than personal. Scientists pre-register their hypotheses before collecting data; well-run organizations appoint someone to argue deliberately against a proposed plan. At an individual level, one useful habit is to ask not \"Is there evidence for my view?\" but \"What would convince me that I am wrong?\"",
+              "vi": "Vì không thể tắt thiên kiến, biện pháp hiệu quả nhất mang tính quy trình hơn là cá nhân. Nhà khoa học đăng ký trước giả thuyết trước khi thu thập dữ liệu; tổ chức vận hành tốt cử một người cố ý phản biện kế hoạch được đề xuất. Ở cấp cá nhân, một thói quen hữu ích là đừng hỏi \"Có bằng chứng cho quan điểm của mình không?\" mà hỏi \"Điều gì sẽ thuyết phục mình rằng mình sai?\""
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "According to the text, how does intelligence relate to confirmation bias?",
+          "choices": [
+            "It largely eliminates the bias.",
+            "It has no connection to reasoning at all.",
+            "It makes people more open to opposing views.",
+            "It helps people justify conclusions reached for other reasons."
+          ],
+          "answer": 3,
+          "explain": "Đoạn 3: người lập luận giỏi chỉ giỏi hơn trong việc biện minh cho kết luận đã có."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer describe the best remedies as \"procedural rather than personal\"?",
+          "choices": [
+            "Because individuals are not responsible for their beliefs",
+            "Because the bias cannot simply be switched off by an individual",
+            "Because organizations are always more rational than people",
+            "Because procedures are cheaper than training"
+          ],
+          "answer": 1,
+          "explain": "Đoạn 4 mở đầu: \"Since the bias cannot be switched off\" — nên cần quy trình bên ngoài."
+        },
+        {
+          "type": "tf",
+          "statement": "People tend to remember arguments that support their position more accurately.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 2: thí nghiệm cho thấy điều này."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer believes experts are immune to confirmation bias.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 3: chuyên môn có thể khiến thiên kiến khó phát hiện hơn."
+        },
+        {
+          "type": "tf",
+          "statement": "Confirmation bias is stronger in older people than in younger people.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không đề cập tuổi tác."
+        },
+        {
+          "type": "gap",
+          "prompt": "Scientists ___ their hypotheses before collecting data.",
+          "answers": [
+            "pre-register"
+          ],
+          "choices": [
+            "pre-register",
+            "publish",
+            "abandon"
+          ],
+          "explain": "Đoạn 4: \"Scientists pre-register their hypotheses before collecting data\"."
+        }
+      ]
+    },
+    {
+      "id": "readc1.attention-economy",
+      "title": "Kinh tế của sự chú ý",
+      "summary": "Khi sự chú ý của bạn là món hàng.",
+      "level": "C1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "The Attention Economy",
+          "paragraphs": [
+            {
+              "en": "In an age of information abundance, the scarce resource is no longer information itself but the human attention required to process it. Many digital platforms are offered free of charge precisely because their real product is the attention of their users, which is sold to advertisers in the form of carefully targeted audiences.",
+              "vi": "Trong thời đại thông tin dư thừa, nguồn lực khan hiếm không còn là bản thân thông tin mà là sự chú ý của con người cần để xử lý nó. Nhiều nền tảng số được cung cấp miễn phí chính vì sản phẩm thật của họ là sự chú ý của người dùng, được bán cho nhà quảng cáo dưới dạng nhóm khán giả nhắm mục tiêu kỹ lưỡng."
+            },
+            {
+              "en": "This business model creates powerful incentives. The longer users stay, the more advertisements they see, so platforms invest heavily in features that maximize engagement: endless feeds that never reach a natural stopping point, notifications timed to draw people back, and recommendation systems that learn which content is hardest to ignore.",
+              "vi": "Mô hình kinh doanh này tạo ra động cơ mạnh. Người dùng ở lại càng lâu thì càng xem nhiều quảng cáo, nên nền tảng đầu tư mạnh vào tính năng tối đa hoá mức độ tương tác: bảng tin vô tận không bao giờ có điểm dừng tự nhiên, thông báo canh thời điểm để kéo người dùng quay lại, và hệ thống gợi ý học được nội dung nào khó bỏ qua nhất."
+            },
+            {
+              "en": "The difficulty is that content which captures attention is not necessarily content that serves users well. Material that provokes outrage or anxiety often spreads faster than calm, careful reporting. Over time, critics argue, an environment optimized for engagement may erode the capacity for sustained concentration on which learning and democratic debate depend.",
+              "vi": "Vấn đề là nội dung thu hút sự chú ý không nhất thiết là nội dung phục vụ tốt người dùng. Nội dung gây phẫn nộ hay lo âu thường lan nhanh hơn tin tức điềm tĩnh, cẩn trọng. Về lâu dài, người phê phán cho rằng một môi trường được tối ưu cho tương tác có thể bào mòn khả năng tập trung bền bỉ mà việc học và tranh luận dân chủ phụ thuộc vào."
+            },
+            {
+              "en": "Proposed responses range from design regulations, such as banning certain manipulative features for minors, to alternative business models based on subscriptions. Individual strategies, like disabling notifications, help, but they place the burden on users to resist systems engineered by teams of specialists to be irresistible.",
+              "vi": "Các giải pháp được đề xuất trải từ quy định về thiết kế, như cấm một số tính năng thao túng với trẻ vị thành niên, đến mô hình kinh doanh thay thế dựa trên thuê bao. Chiến lược cá nhân như tắt thông báo có ích, nhưng chúng đặt gánh nặng lên người dùng phải cưỡng lại những hệ thống được đội ngũ chuyên gia thiết kế để khó cưỡng lại."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why are many digital platforms offered free of charge?",
+          "choices": [
+            "They are funded by governments.",
+            "Their real product is users' attention sold to advertisers.",
+            "They want to reduce information overload.",
+            "Users pay through subscriptions later."
+          ],
+          "answer": 1,
+          "explain": "Đoạn 1: sản phẩm thật là sự chú ý của người dùng, bán cho nhà quảng cáo."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the writer's view of individual strategies such as disabling notifications?",
+          "choices": [
+            "They are useless.",
+            "They solve the problem completely.",
+            "They should be required by law.",
+            "They help but unfairly place the burden on users."
+          ],
+          "answer": 3,
+          "explain": "Đoạn 4: có ích nhưng đặt gánh nặng lên người dùng."
+        },
+        {
+          "type": "tf",
+          "statement": "Content that provokes outrage often spreads faster than careful reporting.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 3 nói vậy."
+        },
+        {
+          "type": "tf",
+          "statement": "According to the text, attention is now more abundant than information.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 1: thông tin dư thừa, sự chú ý mới là nguồn lực khan hiếm."
+        },
+        {
+          "type": "tf",
+          "statement": "Subscription-based platforms have already replaced most advertising-based ones.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài chỉ nêu thuê bao là mô hình thay thế được đề xuất, không nói đã thay thế."
+        },
+        {
+          "type": "gap",
+          "prompt": "Endless feeds never reach a natural stopping ___.",
+          "answers": [
+            "point"
+          ],
+          "choices": [
+            "point",
+            "price",
+            "place"
+          ],
+          "explain": "Đoạn 2: \"endless feeds that never reach a natural stopping point\"."
+        }
+      ]
+    },
+    {
+      "id": "readc1.placebo-effect",
+      "title": "Hiệu ứng giả dược",
+      "summary": "Niềm tin có thể chữa bệnh đến đâu.",
+      "level": "C1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "The Puzzle of the Placebo",
+          "paragraphs": [
+            {
+              "en": "A placebo is a treatment with no active ingredient, such as a sugar pill, given in place of real medicine. Yet patients who receive placebos frequently report genuine improvements, particularly in conditions involving pain, nausea or fatigue. This phenomenon, known as the placebo effect, has fascinated and frustrated researchers for decades.",
+              "vi": "Giả dược là phương pháp điều trị không có hoạt chất, như viên thuốc đường, được đưa thay cho thuốc thật. Thế nhưng bệnh nhân dùng giả dược thường cho biết có cải thiện thật, nhất là với các tình trạng liên quan đến đau, buồn nôn hay mệt mỏi. Hiện tượng này, gọi là hiệu ứng giả dược, đã khiến giới nghiên cứu vừa say mê vừa bực bội suốt nhiều thập kỷ."
+            },
+            {
+              "en": "The effect is not simply imaginary. Brain imaging has shown that expecting relief can trigger the release of the body's own pain-reducing chemicals. Context matters too: an injection often produces a stronger placebo response than a pill, and an expensive-looking tablet can outperform an identical one that appears cheap.",
+              "vi": "Hiệu ứng này không đơn thuần là tưởng tượng. Chụp ảnh não cho thấy kỳ vọng được giảm đau có thể kích hoạt cơ thể tiết ra chất giảm đau tự nhiên. Bối cảnh cũng quan trọng: tiêm thường tạo phản ứng giả dược mạnh hơn uống thuốc, và viên thuốc trông đắt tiền có thể hiệu quả hơn viên giống hệt nhưng trông rẻ."
+            },
+            {
+              "en": "Perhaps most surprisingly, some trials have found that placebos can help even when patients are told openly that they are taking an inactive pill. Researchers suspect that the ritual of treatment, including attention from a caring practitioner, contributes to the benefit.",
+              "vi": "Có lẽ bất ngờ nhất, một số thử nghiệm phát hiện giả dược vẫn có thể giúp ích ngay cả khi bệnh nhân được nói thẳng rằng họ đang uống viên không có hoạt chất. Các nhà nghiên cứu ngờ rằng nghi thức điều trị, bao gồm sự quan tâm của người chữa bệnh tận tâm, góp phần vào lợi ích đó."
+            },
+            {
+              "en": "For medical science, however, the placebo effect is also an obstacle. To prove that a new drug works, researchers must show that it performs better than a placebo in carefully controlled trials. It is important, too, to recognize the limits: placebos may ease symptoms, but there is no evidence that they shrink tumors or cure infections.",
+              "vi": "Tuy nhiên với y học, hiệu ứng giả dược cũng là trở ngại. Để chứng minh một loại thuốc mới có tác dụng, nhà nghiên cứu phải cho thấy nó hiệu quả hơn giả dược trong các thử nghiệm được kiểm soát chặt chẽ. Cũng cần nhận ra giới hạn: giả dược có thể làm dịu triệu chứng, nhưng không có bằng chứng nó làm teo khối u hay chữa nhiễm trùng."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What does brain imaging suggest about the placebo effect?",
+          "choices": [
+            "Expectation can trigger the release of natural pain-reducing chemicals.",
+            "It is entirely imaginary.",
+            "It only works on people who are not ill.",
+            "It damages certain areas of the brain."
+          ],
+          "answer": 0,
+          "explain": "Đoạn 2: kỳ vọng có thể kích hoạt cơ thể tiết chất giảm đau tự nhiên."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why is the placebo effect described as an obstacle for medical science?",
+          "choices": [
+            "It makes drugs more expensive.",
+            "Patients refuse real medicine.",
+            "New drugs must be shown to outperform a placebo.",
+            "Doctors cannot legally prescribe placebos."
+          ],
+          "answer": 2,
+          "explain": "Đoạn 4: để chứng minh thuốc mới có tác dụng, phải cho thấy nó tốt hơn giả dược."
+        },
+        {
+          "type": "tf",
+          "statement": "Placebos can sometimes help even when patients know they are inactive.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 3: một số thử nghiệm cho thấy điều này."
+        },
+        {
+          "type": "tf",
+          "statement": "There is evidence that placebos can cure infections.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 4: không có bằng chứng giả dược chữa nhiễm trùng."
+        },
+        {
+          "type": "tf",
+          "statement": "Women respond more strongly to placebos than men.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không đề cập giới tính."
+        },
+        {
+          "type": "gap",
+          "prompt": "An expensive-looking tablet can outperform an identical one that appears ___.",
+          "answers": [
+            "cheap"
+          ],
+          "choices": [
+            "cheap",
+            "large",
+            "bitter"
+          ],
+          "explain": "Đoạn 2: \"an identical one that appears cheap\"."
+        }
+      ]
+    },
+    {
+      "id": "readc1.fifteen-minute-city",
+      "title": "Thành phố 15 phút",
+      "summary": "Quy hoạch để mọi thứ trong tầm đi bộ.",
+      "level": "C1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "The Fifteen-Minute City",
+          "paragraphs": [
+            {
+              "en": "For much of the twentieth century, urban planning in many countries was organized around the private car. Residential suburbs, office districts and shopping centers were deliberately separated, linked by wide roads that made driving convenient and walking impractical.",
+              "vi": "Trong phần lớn thế kỷ hai mươi, quy hoạch đô thị ở nhiều nước được tổ chức xoay quanh ô tô cá nhân. Khu dân cư ngoại ô, khu văn phòng và trung tâm mua sắm bị cố ý tách biệt, nối với nhau bằng những con đường rộng khiến lái xe tiện lợi và đi bộ bất tiện."
+            },
+            {
+              "en": "The \"fifteen-minute city\" proposes a different logic. Its central idea is that residents should be able to reach most daily necessities, such as groceries, schools, clinics, parks and workplaces, within a short walk or bicycle ride from home. Rather than building a single dominant center, planners aim for a network of complete, mixed-use neighborhoods.",
+              "vi": "\"Thành phố 15 phút\" đề xuất một logic khác. Ý tưởng trung tâm là cư dân có thể đến được hầu hết nhu cầu thiết yếu hằng ngày, như cửa hàng thực phẩm, trường học, phòng khám, công viên và nơi làm việc, chỉ bằng một quãng đi bộ hay đạp xe ngắn từ nhà. Thay vì xây một trung tâm duy nhất áp đảo, nhà quy hoạch hướng tới một mạng lưới các khu phố đầy đủ, đa chức năng."
+            },
+            {
+              "en": "Supporters point to a range of benefits: less traffic and pollution, more physical activity, and stronger local communities as people spend more time in their own neighborhoods. The concept also has an equity dimension, since households without cars are often the most disadvantaged by car-centered design.",
+              "vi": "Người ủng hộ chỉ ra nhiều lợi ích: ít giao thông và ô nhiễm hơn, vận động nhiều hơn, cộng đồng địa phương gắn kết hơn khi người dân dành nhiều thời gian hơn ở khu phố mình. Khái niệm này còn có khía cạnh công bằng, vì những hộ không có xe thường chịu thiệt nhiều nhất từ thiết kế lấy ô tô làm trung tâm."
+            },
+            {
+              "en": "Implementation, though, raises difficult questions. Improving a neighborhood can push up property prices and displace the very residents it was meant to serve. Moreover, specialized jobs and services cannot exist in every district, so good public transport between neighborhoods remains essential. The model, in other words, complements city-wide planning rather than replacing it.",
+              "vi": "Tuy nhiên, triển khai đặt ra những câu hỏi khó. Cải thiện một khu phố có thể đẩy giá bất động sản lên và khiến chính những cư dân mà nó định phục vụ phải dời đi. Hơn nữa, việc làm và dịch vụ chuyên biệt không thể có ở mọi quận, nên giao thông công cộng tốt giữa các khu vẫn là thiết yếu. Nói cách khác, mô hình này bổ sung chứ không thay thế quy hoạch toàn thành phố."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How did twentieth-century planning in many countries shape cities?",
+          "choices": [
+            "It mixed homes, offices and shops in each neighborhood.",
+            "It concentrated all housing in the center.",
+            "It prioritized public transport over roads.",
+            "It separated different functions and favored driving."
+          ],
+          "answer": 3,
+          "explain": "Đoạn 1: các khu chức năng bị tách biệt, nối bằng đường rộng thuận tiện cho lái xe."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the writer conclude about the fifteen-minute model?",
+          "choices": [
+            "It makes public transport unnecessary.",
+            "It complements city-wide planning rather than replacing it.",
+            "It should replace city-wide planning.",
+            "It only works in small towns."
+          ],
+          "answer": 1,
+          "explain": "Câu cuối đoạn 4."
+        },
+        {
+          "type": "tf",
+          "statement": "The concept is said to benefit households without cars.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 3: hộ không có xe chịu thiệt nhất từ thiết kế lấy ô tô làm trung tâm."
+        },
+        {
+          "type": "tf",
+          "statement": "According to the text, every specialized service can be provided in every district.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 4: việc làm và dịch vụ chuyên biệt không thể có ở mọi quận."
+        },
+        {
+          "type": "tf",
+          "statement": "The fifteen-minute city was first tested in a European capital.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không nói mô hình được thử nghiệm ở đâu đầu tiên."
+        },
+        {
+          "type": "gap",
+          "prompt": "Improving a neighborhood can push up property prices and ___ existing residents.",
+          "answers": [
+            "displace"
+          ],
+          "choices": [
+            "displace",
+            "attract",
+            "employ"
+          ],
+          "explain": "Đoạn 4: \"displace the very residents it was meant to serve\"."
+        }
+      ]
+    },
+    {
+      "id": "readc1.algorithmic-fairness",
+      "title": "Thuật toán có công bằng?",
+      "summary": "Đạo đức của máy ra quyết định.",
+      "level": "C1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Can an Algorithm Be Fair?",
+          "paragraphs": [
+            {
+              "en": "Automated systems now help decide who is offered a loan, which job applicants are interviewed and how resources are allocated in public services. Their appeal is easy to understand: unlike human officials, algorithms do not get tired, and they apply the same rules to everyone.",
+              "vi": "Hệ thống tự động nay giúp quyết định ai được vay vốn, ứng viên nào được phỏng vấn và nguồn lực được phân bổ thế nào trong dịch vụ công. Sức hút của chúng dễ hiểu: khác với cán bộ là con người, thuật toán không mệt mỏi và áp dụng cùng một quy tắc cho mọi người."
+            },
+            {
+              "en": "Consistency, however, is not the same as fairness. Many systems learn by detecting patterns in historical data, and if past decisions were shaped by prejudice, the system may faithfully reproduce it. A hiring tool trained on the profiles of previous successful employees, for example, may learn to favor candidates who resemble them, regardless of ability.",
+              "vi": "Tuy nhiên, nhất quán không đồng nghĩa với công bằng. Nhiều hệ thống học bằng cách phát hiện quy luật trong dữ liệu quá khứ, và nếu quyết định trước đây bị định kiến chi phối thì hệ thống có thể tái tạo nguyên vẹn định kiến đó. Ví dụ, một công cụ tuyển dụng được huấn luyện bằng hồ sơ của các nhân viên thành công trước đây có thể học cách ưu ái ứng viên giống họ, bất kể năng lực."
+            },
+            {
+              "en": "Removing sensitive information is rarely a complete solution. Even if a system is not told an applicant's gender or ethnicity, other variables, such as postal code or the clubs someone belongs to, can act as indirect substitutes. Furthermore, researchers have demonstrated that several reasonable mathematical definitions of fairness cannot all be satisfied at once, which means that designers must make value judgments, not merely technical ones.",
+              "vi": "Xoá thông tin nhạy cảm hiếm khi là giải pháp trọn vẹn. Ngay cả khi hệ thống không được biết giới tính hay sắc tộc của ứng viên, các biến khác như mã bưu chính hay câu lạc bộ người đó tham gia có thể đóng vai trò thay thế gián tiếp. Hơn nữa, các nhà nghiên cứu đã chứng minh một số định nghĩa toán học hợp lý về công bằng không thể cùng lúc được thoả mãn, nghĩa là người thiết kế phải đưa ra phán đoán giá trị chứ không chỉ phán đoán kỹ thuật."
+            },
+            {
+              "en": "For this reason, many experts call for transparency about how such systems work, regular independent audits, and a meaningful right for individuals to challenge automated decisions that affect them.",
+              "vi": "Vì lý do đó, nhiều chuyên gia kêu gọi minh bạch về cách các hệ thống này vận hành, kiểm định độc lập định kỳ, và quyền thực chất cho cá nhân được khiếu nại các quyết định tự động ảnh hưởng đến họ."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why might a hiring tool trained on past employees be unfair?",
+          "choices": [
+            "It may favor candidates who resemble previous employees, regardless of ability.",
+            "It works too slowly.",
+            "It ignores all historical data.",
+            "It is too expensive for small companies."
+          ],
+          "answer": 0,
+          "explain": "Đoạn 2: có thể ưu ái ứng viên giống nhân viên cũ bất kể năng lực."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the existence of conflicting definitions of fairness imply, according to the text?",
+          "choices": [
+            "Fairness is impossible to discuss.",
+            "Algorithms should not be used at all.",
+            "Designers must make value judgments, not only technical ones.",
+            "Only mathematicians should design algorithms."
+          ],
+          "answer": 2,
+          "explain": "Đoạn 3: người thiết kế phải đưa ra phán đoán giá trị."
+        },
+        {
+          "type": "tf",
+          "statement": "A postal code can act as an indirect substitute for sensitive information.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 3 nêu mã bưu chính là biến thay thế gián tiếp."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer argues that consistency guarantees fairness.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 2: \"Consistency, however, is not the same as fairness.\""
+        },
+        {
+          "type": "tf",
+          "statement": "Most banks have stopped using automated systems for loans.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không nói ngân hàng ngừng dùng hệ thống tự động."
+        },
+        {
+          "type": "gap",
+          "prompt": "Experts call for regular independent ___ of automated systems.",
+          "answers": [
+            "audits"
+          ],
+          "choices": [
+            "audits",
+            "upgrades",
+            "advertisements"
+          ],
+          "explain": "Đoạn 4: \"regular independent audits\"."
+        }
+      ]
+    },
+    {
+      "id": "readc1.language-and-thought",
+      "title": "Ngôn ngữ và tư duy",
+      "summary": "Ngôn ngữ có định hình cách ta nghĩ?",
+      "level": "C1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Does Language Shape Thought?",
+          "paragraphs": [
+            {
+              "en": "The idea that the language we speak influences the way we think, often called linguistic relativity, has had a turbulent history. In its strongest form, it claimed that language determines thought, so that speakers of different languages inhabit fundamentally different mental worlds. This version has been largely abandoned, not least because people clearly can think about things for which their language has no word.",
+              "vi": "Ý tưởng rằng ngôn ngữ ta nói ảnh hưởng đến cách ta nghĩ, thường gọi là thuyết tương đối ngôn ngữ, có một lịch sử đầy sóng gió. Ở dạng mạnh nhất, nó cho rằng ngôn ngữ quyết định tư duy, khiến người nói các ngôn ngữ khác nhau sống trong những thế giới tinh thần khác biệt căn bản. Phiên bản này phần lớn đã bị từ bỏ, không chỉ vì con người rõ ràng có thể nghĩ về những thứ mà ngôn ngữ của họ không có từ để gọi."
+            },
+            {
+              "en": "A weaker version, however, has found considerable experimental support. Some languages describe location using fixed directions, such as north and south, rather than terms like left and right. Speakers of such languages tend to keep track of compass directions with remarkable accuracy, even indoors, presumably because their everyday speech requires it.",
+              "vi": "Tuy nhiên, một phiên bản yếu hơn đã nhận được sự ủng hộ đáng kể từ thực nghiệm. Một số ngôn ngữ mô tả vị trí bằng phương hướng cố định như bắc và nam thay vì trái và phải. Người nói những ngôn ngữ này có xu hướng định hướng la bàn chính xác đáng kinh ngạc, ngay cả trong nhà, có lẽ vì lời nói hằng ngày của họ đòi hỏi điều đó."
+            },
+            {
+              "en": "Similar findings have emerged for color. Languages divide the spectrum differently, and when a language has separate basic words for two shades, its speakers are often slightly faster at distinguishing them. The differences are measurable but modest: no one is unable to perceive a color simply because they lack a word for it.",
+              "vi": "Phát hiện tương tự cũng xuất hiện với màu sắc. Các ngôn ngữ chia quang phổ khác nhau, và khi một ngôn ngữ có từ cơ bản riêng cho hai sắc độ, người nói thường phân biệt chúng nhanh hơn một chút. Khác biệt đo được nhưng khiêm tốn: không ai mất khả năng nhìn thấy một màu chỉ vì thiếu từ gọi tên nó."
+            },
+            {
+              "en": "The current consensus, then, is nuanced. Language does not imprison thought, but it acts as a set of habits, directing attention toward some distinctions and away from others.",
+              "vi": "Vậy đồng thuận hiện nay khá tinh tế. Ngôn ngữ không giam cầm tư duy, nhưng hoạt động như một tập hợp thói quen, hướng sự chú ý tới một số phân biệt và rời khỏi những phân biệt khác."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why has the strong version of linguistic relativity been largely abandoned?",
+          "choices": [
+            "It was never tested experimentally.",
+            "It applied only to color.",
+            "People can think about things their language has no word for.",
+            "Most languages have the same words."
+          ],
+          "answer": 2,
+          "explain": "Đoạn 1: con người rõ ràng có thể nghĩ về điều mà ngôn ngữ không có từ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which statement best summarizes the current consensus?",
+          "choices": [
+            "Language directs attention through habits but does not imprison thought.",
+            "Language has no effect on thought.",
+            "Language completely determines thought.",
+            "Only bilingual people are influenced by language."
+          ],
+          "answer": 0,
+          "explain": "Đoạn 4: ngôn ngữ không giam cầm tư duy mà như tập thói quen hướng sự chú ý."
+        },
+        {
+          "type": "tf",
+          "statement": "Speakers of languages that use fixed directions often track compass directions accurately indoors.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 2: \"even indoors\"."
+        },
+        {
+          "type": "tf",
+          "statement": "People cannot perceive a color if their language has no word for it.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 3: không ai mất khả năng nhìn màu chỉ vì thiếu từ."
+        },
+        {
+          "type": "tf",
+          "statement": "Languages with more color words are easier for children to learn.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không bàn chuyện trẻ em học ngôn ngữ."
+        },
+        {
+          "type": "gap",
+          "prompt": "The color differences are measurable but ___.",
+          "answers": [
+            "modest"
+          ],
+          "choices": [
+            "modest",
+            "enormous",
+            "permanent"
+          ],
+          "explain": "Đoạn 3: \"The differences are measurable but modest\"."
+        }
+      ]
+    },
+    {
+      "id": "readc1.idea-of-progress",
+      "title": "Ý niệm về tiến bộ",
+      "summary": "Lịch sử của niềm tin rằng tương lai sẽ tốt hơn.",
+      "level": "C1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "The Idea of Progress",
+          "paragraphs": [
+            {
+              "en": "To many people today, it seems natural to assume that the future will be better than the past: that knowledge will grow, technology will improve and living standards will rise. Historically, however, this expectation is relatively unusual. Many earlier societies understood time as cyclical, with ages of prosperity and decline repeating endlessly, or believed that humanity had fallen from an earlier golden age.",
+              "vi": "Với nhiều người ngày nay, việc cho rằng tương lai sẽ tốt hơn quá khứ có vẻ hiển nhiên: tri thức sẽ tăng, công nghệ sẽ cải tiến và mức sống sẽ nâng cao. Tuy nhiên, xét về lịch sử, kỳ vọng này tương đối khác thường. Nhiều xã hội trước đây hiểu thời gian theo vòng tuần hoàn, các thời kỳ thịnh vượng và suy tàn lặp lại mãi, hoặc tin rằng nhân loại đã sa sút từ một thời hoàng kim xưa."
+            },
+            {
+              "en": "The modern idea of progress took shape gradually, gaining momentum as the natural sciences produced cumulative results. If each generation of researchers could build on the discoveries of the last, it seemed reasonable to hope that moral and political life might advance in a similar way, through reason and education.",
+              "vi": "Ý niệm hiện đại về tiến bộ hình thành dần dần, có đà khi khoa học tự nhiên tạo ra kết quả tích luỹ. Nếu mỗi thế hệ nhà nghiên cứu có thể xây dựng trên phát hiện của thế hệ trước, thì có vẻ hợp lý khi hy vọng đời sống đạo đức và chính trị cũng có thể tiến lên tương tự, nhờ lý trí và giáo dục."
+            },
+            {
+              "en": "The twentieth century severely tested this optimism. Technological sophistication proved entirely compatible with devastating wars, and industrial growth brought environmental damage that earlier thinkers had barely imagined. Some philosophers concluded that the belief in progress had been naive, or even dangerous, since it could be used to justify sacrificing present lives for a promised future.",
+              "vi": "Thế kỷ hai mươi đã thử thách nặng nề sự lạc quan này. Trình độ công nghệ tinh vi tỏ ra hoàn toàn có thể song hành với những cuộc chiến tàn khốc, và tăng trưởng công nghiệp đem lại tổn hại môi trường mà các nhà tư tưởng trước đó khó hình dung. Một số triết gia kết luận niềm tin vào tiến bộ là ngây thơ, thậm chí nguy hiểm, vì nó có thể bị dùng để biện minh cho việc hy sinh những sinh mạng hiện tại vì một tương lai được hứa hẹn."
+            },
+            {
+              "en": "Today, many thinkers adopt a more cautious position. Measurable improvements in areas such as life expectancy and literacy are real, they argue, but they are neither inevitable nor irreversible. Progress, on this view, is not a law of history but an achievement that each generation must work to sustain.",
+              "vi": "Ngày nay nhiều nhà tư tưởng chọn lập trường thận trọng hơn. Họ cho rằng những cải thiện đo lường được trong các lĩnh vực như tuổi thọ và tỷ lệ biết chữ là có thật, nhưng chúng không tất yếu cũng không phải không thể đảo ngược. Theo quan điểm này, tiến bộ không phải quy luật của lịch sử mà là thành tựu mà mỗi thế hệ phải nỗ lực duy trì."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How did many earlier societies understand time, according to the text?",
+          "choices": [
+            "As a straight line toward improvement",
+            "As unimportant to daily life",
+            "As controlled entirely by science",
+            "As cyclical, or as a decline from a golden age"
+          ],
+          "answer": 3,
+          "explain": "Đoạn 1: thời gian theo vòng tuần hoàn hoặc sa sút từ thời hoàng kim."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What encouraged the hope that moral and political life might also advance?",
+          "choices": [
+            "The end of all wars",
+            "The cumulative results of the natural sciences",
+            "The spread of cyclical thinking",
+            "A decline in education"
+          ],
+          "answer": 1,
+          "explain": "Đoạn 2: khoa học tự nhiên tạo kết quả tích luỹ khiến người ta hy vọng điều tương tự."
+        },
+        {
+          "type": "tf",
+          "statement": "Some philosophers considered the belief in progress potentially dangerous.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 3: niềm tin có thể bị dùng để biện minh cho việc hy sinh sinh mạng hiện tại."
+        },
+        {
+          "type": "tf",
+          "statement": "The cautious view holds that improvements in life expectancy are inevitable.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 4: chúng không tất yếu (neither inevitable nor irreversible)."
+        },
+        {
+          "type": "tf",
+          "statement": "Literacy rates have doubled over the last fifty years.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài chỉ nói tỷ lệ biết chữ có cải thiện, không đưa số liệu hay mốc thời gian."
+        },
+        {
+          "type": "gap",
+          "prompt": "On the cautious view, progress is an achievement that each generation must work to ___.",
+          "answers": [
+            "sustain"
+          ],
+          "choices": [
+            "sustain",
+            "predict",
+            "reject"
+          ],
+          "explain": "Câu cuối: \"an achievement that each generation must work to sustain\"."
+        }
+      ]
+    }
+  ]
+}

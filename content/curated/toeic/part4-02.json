@@ -1,0 +1,181 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t4-g007",
+      "part": 4,
+      "level": "B2_1",
+      "script": "Good evening, everyone. It's my pleasure to present this year's Employee of the Year award to Priscilla Okafor from our logistics department. When Priscilla joined Carrow Foods six years ago, our warehouse was struggling to keep up with growing orders. She designed a new inventory tracking system that cut shipping errors by almost half, and last year she trained staff at our two new distribution centers to use it. What many of you may not know is that she did most of that training on weekends so that daily operations wouldn't be affected. In recognition of her work, Priscilla will receive an extra week of paid vacation and a trip to our annual industry conference in Lisbon. Priscilla, please come up to the stage.",
+      "questions": [
+        {
+          "id": "t4-q019",
+          "prompt": "What is the purpose of the talk?",
+          "choices": ["To introduce a new manager", "To present an award", "To announce a conference", "To open a distribution center"],
+          "answer": 1,
+          "explain": "Người nói trao giải Nhân viên của năm cho Priscilla Okafor (\"present this year's Employee of the Year award\")."
+        },
+        {
+          "id": "t4-q020",
+          "prompt": "What did Priscilla do last year?",
+          "choices": ["She hired new warehouse staff.", "She opened a distribution center.", "She spoke at a conference.", "She trained employees at new sites."],
+          "answer": 3,
+          "explain": "Năm ngoái cô ấy đào tạo nhân viên tại hai trung tâm phân phối mới cách dùng hệ thống (\"trained staff at our two new distribution centers\")."
+        },
+        {
+          "id": "t4-q021",
+          "prompt": "Why does the speaker mention that Priscilla trained staff on weekends?",
+          "choices": ["To highlight her commitment", "To explain a scheduling problem", "To announce a new policy", "To apologize for delays"],
+          "answer": 0,
+          "explain": "Người nói nêu chi tiết cô đào tạo vào cuối tuần để công việc hằng ngày không bị ảnh hưởng — nhằm nhấn mạnh sự tận tâm của cô."
+        }
+      ]
+    },
+    {
+      "id": "t4-g008",
+      "part": 4,
+      "level": "B1_2",
+      "script": "Good afternoon, shoppers, and thank you for choosing Fairway Market. We'd like to remind you that our store will be closing early today, at six p.m., for our annual inventory count. We'll reopen at our regular time of seven a.m. tomorrow. If you're picking up an online order today, please make sure to collect it from the service counter before five thirty. Also, don't miss today's special in our bakery section: all bread and pastries are thirty percent off after three p.m. And if you haven't joined our rewards club yet, you can sign up at any checkout counter and get five dollars off your next purchase of twenty-five dollars or more. Thank you for shopping with us, and have a great afternoon.",
+      "questions": [
+        {
+          "id": "t4-q022",
+          "prompt": "Why will the store close early today?",
+          "choices": ["For a staff meeting", "Because of a holiday", "To count inventory", "For repairs"],
+          "answer": 2,
+          "explain": "Cửa hàng đóng cửa sớm lúc 6 giờ chiều để kiểm kê hàng năm (\"for our annual inventory count\")."
+        },
+        {
+          "id": "t4-q023",
+          "prompt": "What should customers picking up online orders do?",
+          "choices": ["Show a printed receipt", "Pick them up before 5:30 p.m.", "Go to the bakery section", "Call the store in advance"],
+          "answer": 1,
+          "explain": "Khách nhận đơn trực tuyến phải lấy hàng ở quầy dịch vụ trước 5 giờ 30 (\"before five thirty\")."
+        },
+        {
+          "id": "t4-q024",
+          "prompt": "How can listeners get five dollars off?",
+          "choices": ["By buying bread after 3 p.m.", "By spending fifty dollars today", "By placing an online order", "By joining a rewards club"],
+          "answer": 3,
+          "explain": "Đăng ký câu lạc bộ khách hàng thân thiết ở quầy thanh toán sẽ được giảm năm đô cho lần mua từ 25 đô trở lên."
+        }
+      ]
+    },
+    {
+      "id": "t4-g009",
+      "part": 4,
+      "level": "C1",
+      "script": "Welcome to the second day of our leadership seminar. Yesterday we focused on giving feedback; this morning, we're turning to negotiation. Now, many people walk into a negotiation thinking it's a contest—someone wins, someone loses. In my twenty years of advising companies, I've found that approach rarely produces lasting agreements. The deals that hold up are the ones where both sides understand what the other really needs. So, for the first exercise, you'll work in pairs. One of you will play a supplier, and the other a buyer. You'll each get a sheet describing your goals, but here's the twist: some of your goals overlap with your partner's, and you won't be told which. Your job is to find them. You'll have twenty minutes, and then we'll discuss what you discovered.",
+      "questions": [
+        {
+          "id": "t4-q025",
+          "prompt": "What is the topic of this morning's session?",
+          "choices": ["Negotiation", "Giving feedback", "Time management", "Choosing suppliers"],
+          "answer": 0,
+          "explain": "Người nói cho biết hôm qua học về góp ý, còn sáng nay chuyển sang đàm phán (\"this morning, we're turning to negotiation\")."
+        },
+        {
+          "id": "t4-q026",
+          "prompt": "What does the speaker suggest about treating negotiation as a contest?",
+          "choices": ["It is the most effective strategy.", "It seldom leads to lasting agreements.", "It is common among suppliers.", "It was discussed in yesterday's session."],
+          "answer": 1,
+          "explain": "Theo kinh nghiệm hai mươi năm, người nói thấy cách coi đàm phán là cuộc thi \"rarely produces lasting agreements\" — hiếm khi tạo thỏa thuận bền vững."
+        },
+        {
+          "id": "t4-q027",
+          "prompt": "What will the listeners do first?",
+          "choices": ["Read a case study", "Watch a video", "Hold a group discussion", "Do a role-play in pairs"],
+          "answer": 3,
+          "explain": "Bài tập đầu tiên là làm theo cặp, một người đóng vai nhà cung cấp, người kia đóng vai người mua; thảo luận chung chỉ diễn ra sau hai mươi phút."
+        }
+      ]
+    },
+    {
+      "id": "t4-g010",
+      "part": 4,
+      "level": "B2_2",
+      "script": "Hello, Dr. Lindqvist. This is Omar Haddad, the coordinator for the Northern Renewable Energy Forum. I'm calling to confirm a few details about your presentation on October ninth. You're scheduled to speak in Hall B at two fifteen, right after the lunch break. Unfortunately, the projector in Hall B has been having problems, so we've moved your session to Hall D, which is on the same floor and actually holds more people. The time hasn't changed. Also, we'd appreciate it if you could send us your slides by this Thursday, so our technical team can test them in advance. Finally, a taxi will pick you up at your hotel at one thirty. If any of this is a problem, please call me back at 555-0147.",
+      "questions": [
+        {
+          "id": "t4-q028",
+          "prompt": "Who most likely is the listener?",
+          "choices": ["A hotel manager", "A technician", "A conference speaker", "A taxi driver"],
+          "answer": 2,
+          "explain": "Người gọi xác nhận chi tiết bài thuyết trình của Dr. Lindqvist tại diễn đàn, nên người nghe là diễn giả hội nghị."
+        },
+        {
+          "id": "t4-q029",
+          "prompt": "What has changed about the listener's session?",
+          "choices": ["The room", "The time", "The date", "The topic"],
+          "answer": 0,
+          "explain": "Máy chiếu ở Hall B có vấn đề nên buổi nói được chuyển sang Hall D; người gọi nói rõ giờ không đổi (\"The time hasn't changed\")."
+        },
+        {
+          "id": "t4-q030",
+          "prompt": "What is the listener asked to do by Thursday?",
+          "choices": ["Book a taxi", "Send presentation slides", "Confirm a hotel reservation", "Test a projector"],
+          "answer": 1,
+          "explain": "Người nghe được nhờ gửi slide trước thứ Năm để đội kỹ thuật kiểm tra trước (\"send us your slides by this Thursday\")."
+        }
+      ]
+    },
+    {
+      "id": "t4-g011",
+      "part": 4,
+      "level": "B1_2",
+      "script": "Good morning, and welcome to your first day at Brennan Insurance. I'm Sophie Clarke from Human Resources. This morning's orientation will run until noon. First, I'll explain our company policies, and then our IT team will help you set up your e-mail accounts and laptops. After that, each of you will meet your team leader, who will give you a tour of your department. Lunch will be served at twelve in the cafeteria on the second floor, and it's free for all new employees today. Please note that your employee ID cards aren't ready yet. You'll receive them tomorrow morning at the security desk. Until then, please use the temporary passes in your welcome folders. Now, let's get started.",
+      "questions": [
+        {
+          "id": "t4-q031",
+          "prompt": "Who most likely are the listeners?",
+          "choices": ["Insurance customers", "IT technicians", "Team leaders", "New staff members"],
+          "answer": 3,
+          "explain": "Người nói chào mừng họ đến ngày làm việc đầu tiên (\"your first day\") và nói bữa trưa miễn phí cho nhân viên mới."
+        },
+        {
+          "id": "t4-q032",
+          "prompt": "What will happen after the IT team helps the listeners?",
+          "choices": ["The listeners will meet their team leaders.", "Lunch will be served.", "ID cards will be handed out.", "A policy test will be given."],
+          "answer": 0,
+          "explain": "Thứ tự là: giới thiệu chính sách, IT hỗ trợ cài đặt, \"After that\" mỗi người gặp trưởng nhóm của mình."
+        },
+        {
+          "id": "t4-q033",
+          "prompt": "What does the speaker say about the employee ID cards?",
+          "choices": ["They must be renewed every year.", "They are in the welcome folders.", "They will be available tomorrow.", "They require a new photo."],
+          "answer": 2,
+          "explain": "Thẻ nhân viên chưa xong, sẽ được nhận sáng mai tại bàn bảo vệ; trong túi hồ sơ chỉ có thẻ tạm."
+        }
+      ]
+    },
+    {
+      "id": "t4-g012",
+      "part": 4,
+      "level": "B2_1",
+      "script": "This is Kenji Watanabe with your Business Minute. Tessaro Electronics announced today that it will open a new research center in Osaka next spring. The center will focus on developing longer-lasting batteries for electric scooters and bicycles, a market that has grown rapidly in Asian cities over the past five years. The company plans to hire around three hundred engineers and technicians, many of them recent university graduates. Tessaro's chief executive, Amelia Ruiz, said the location was chosen because of the region's strong engineering schools and its existing network of parts suppliers. Shares in Tessaro rose four percent following the announcement. Analysts say the move could help the company compete with larger rivals in the region. Stay tuned for more business news after this short break.",
+      "questions": [
+        {
+          "id": "t4-q034",
+          "prompt": "What did Tessaro Electronics announce?",
+          "choices": ["A merger with a rival", "A new electric scooter model", "The opening of a research center", "Lower prices for batteries"],
+          "answer": 2,
+          "explain": "Tessaro công bố sẽ mở trung tâm nghiên cứu mới ở Osaka vào mùa xuân tới."
+        },
+        {
+          "id": "t4-q035",
+          "prompt": "According to Amelia Ruiz, why was Osaka chosen?",
+          "choices": ["Its low operating costs", "Government tax incentives", "Its large population", "Its engineering schools and suppliers"],
+          "answer": 3,
+          "explain": "Bà Ruiz nói địa điểm được chọn vì vùng này có các trường kỹ thuật mạnh và mạng lưới nhà cung cấp linh kiện sẵn có."
+        },
+        {
+          "id": "t4-q036",
+          "prompt": "What happened to Tessaro's shares after the announcement?",
+          "choices": ["They fell slightly.", "They increased in value.", "They stayed the same.", "They stopped trading."],
+          "answer": 1,
+          "explain": "Bản tin nói cổ phiếu Tessaro tăng bốn phần trăm sau thông báo (\"rose four percent\")."
+        }
+      ]
+    }
+  ]
+}

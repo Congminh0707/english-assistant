@@ -1,0 +1,292 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t5-g001",
+      "part": 5,
+      "level": "B1_1",
+      "questions": [
+        {
+          "id": "t5-q001",
+          "prompt": "The new software allows employees to submit expense reports more ___.",
+          "choices": [
+            "efficient",
+            "efficiency",
+            "efficiencies",
+            "efficiently"
+          ],
+          "answer": 3,
+          "explain": "Sau \"more\" bổ nghĩa cho động từ \"submit\" cần trạng từ \"efficiently\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g002",
+      "part": 5,
+      "level": "B1_1",
+      "questions": [
+        {
+          "id": "t5-q002",
+          "prompt": "Ms. Patel usually ___ the quarterly sales figures to the board.",
+          "choices": [
+            "present",
+            "presenting",
+            "presents",
+            "to present"
+          ],
+          "answer": 2,
+          "explain": "Chủ ngữ số ít \"Ms. Patel\" + \"usually\" (thói quen) nên dùng hiện tại đơn ngôi thứ ba: \"presents\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g003",
+      "part": 5,
+      "level": "B1_2",
+      "questions": [
+        {
+          "id": "t5-q003",
+          "prompt": "Please ___ the attached form and return it to Human Resources by Friday.",
+          "choices": [
+            "perform",
+            "complete",
+            "achieve",
+            "conduct"
+          ],
+          "answer": 1,
+          "explain": "Cụm cố định \"complete a form\" = điền đầy đủ biểu mẫu; các động từ khác không đi với \"form\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g004",
+      "part": 5,
+      "level": "B1_1",
+      "questions": [
+        {
+          "id": "t5-q004",
+          "prompt": "The conference room is reserved ___ 2:00 P.M. to 4:00 P.M.",
+          "choices": [
+            "from",
+            "since",
+            "between",
+            "at"
+          ],
+          "answer": 0,
+          "explain": "Cặp \"from ... to ...\" chỉ khoảng thời gian; \"between\" phải đi với \"and\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g005",
+      "part": 5,
+      "level": "B1_2",
+      "questions": [
+        {
+          "id": "t5-q005",
+          "prompt": "Customers have expressed great ___ with the redesigned checkout page.",
+          "choices": [
+            "satisfied",
+            "satisfying",
+            "satisfaction",
+            "satisfy"
+          ],
+          "answer": 2,
+          "explain": "Sau tính từ \"great\" và làm tân ngữ của \"expressed\" cần danh từ \"satisfaction\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g006",
+      "part": 5,
+      "level": "B1_2",
+      "questions": [
+        {
+          "id": "t5-q006",
+          "prompt": "All visitors must sign in at the front desk ___ entering the laboratory.",
+          "choices": [
+            "prior",
+            "before",
+            "although",
+            "because"
+          ],
+          "answer": 1,
+          "explain": "\"Before + V-ing\" chỉ việc làm trước; \"prior\" phải là \"prior to\", còn \"although/because\" cần mệnh đề."
+        }
+      ]
+    },
+    {
+      "id": "t5-g007",
+      "part": 5,
+      "level": "B2_1",
+      "questions": [
+        {
+          "id": "t5-q007",
+          "prompt": "The marketing team will ___ a survey to measure brand awareness among young adults.",
+          "choices": [
+            "attend",
+            "appoint",
+            "behave",
+            "conduct"
+          ],
+          "answer": 3,
+          "explain": "Cụm \"conduct a survey\" = tiến hành khảo sát; các động từ còn lại không hợp nghĩa."
+        }
+      ]
+    },
+    {
+      "id": "t5-g008",
+      "part": 5,
+      "level": "B2_1",
+      "questions": [
+        {
+          "id": "t5-q008",
+          "prompt": "If the shipment had arrived on time, we ___ the order last week.",
+          "choices": [
+            "would have filled",
+            "would fill",
+            "will fill",
+            "had filled"
+          ],
+          "answer": 0,
+          "explain": "Câu điều kiện loại 3 (If + had V3) thì mệnh đề chính dùng \"would have + V3\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g009",
+      "part": 5,
+      "level": "B2_1",
+      "questions": [
+        {
+          "id": "t5-q009",
+          "prompt": "The board approved the merger after a ___ review of the financial risks.",
+          "choices": [
+            "thoroughly",
+            "thoroughness",
+            "thorough",
+            "throughout"
+          ],
+          "answer": 2,
+          "explain": "Giữa mạo từ \"a\" và danh từ \"review\" cần tính từ \"thorough\" (kỹ lưỡng)."
+        }
+      ]
+    },
+    {
+      "id": "t5-g010",
+      "part": 5,
+      "level": "B1_2",
+      "questions": [
+        {
+          "id": "t5-q010",
+          "prompt": "The candidate ___ we interviewed yesterday has ten years of sales experience.",
+          "choices": [
+            "whose",
+            "whom",
+            "which",
+            "what"
+          ],
+          "answer": 1,
+          "explain": "Đại từ quan hệ chỉ người làm tân ngữ của \"interviewed\" là \"whom\"; \"which\" chỉ vật, \"whose\" cần danh từ theo sau."
+        }
+      ]
+    },
+    {
+      "id": "t5-g011",
+      "part": 5,
+      "level": "B2_1",
+      "questions": [
+        {
+          "id": "t5-q011",
+          "prompt": "Due to rising fuel costs, the airline has decided to ___ its ticket prices by five percent.",
+          "choices": [
+            "rise",
+            "arise",
+            "grow",
+            "raise"
+          ],
+          "answer": 3,
+          "explain": "\"Raise\" là ngoại động từ (tăng cái gì), cần tân ngữ \"its ticket prices\"; \"rise/arise\" là nội động từ."
+        }
+      ]
+    },
+    {
+      "id": "t5-g012",
+      "part": 5,
+      "level": "B2_1",
+      "questions": [
+        {
+          "id": "t5-q012",
+          "prompt": "Neither the manager nor her assistants ___ available for the meeting on Thursday.",
+          "choices": [
+            "are",
+            "is",
+            "was",
+            "has been"
+          ],
+          "answer": 0,
+          "explain": "Với \"neither ... nor\", động từ chia theo chủ ngữ gần nhất \"her assistants\" (số nhiều) nên dùng \"are\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g013",
+      "part": 5,
+      "level": "B1_2",
+      "questions": [
+        {
+          "id": "t5-q013",
+          "prompt": "The company offers ___ pricing for orders of more than 500 units.",
+          "choices": [
+            "competition",
+            "compete",
+            "competitive",
+            "competitively"
+          ],
+          "answer": 2,
+          "explain": "Trước danh từ \"pricing\" cần tính từ \"competitive\" (cạnh tranh)."
+        }
+      ]
+    },
+    {
+      "id": "t5-g014",
+      "part": 5,
+      "level": "B2_2",
+      "questions": [
+        {
+          "id": "t5-q014",
+          "prompt": "The new policy, ___ takes effect on July 1, requires all staff to complete safety training.",
+          "choices": [
+            "that",
+            "which",
+            "who",
+            "whose"
+          ],
+          "answer": 1,
+          "explain": "Mệnh đề quan hệ không xác định (giữa hai dấu phẩy) chỉ vật dùng \"which\"; \"that\" không dùng sau dấu phẩy."
+        }
+      ]
+    },
+    {
+      "id": "t5-g015",
+      "part": 5,
+      "level": "B2_2",
+      "questions": [
+        {
+          "id": "t5-q015",
+          "prompt": "The contract will be ___ automatically unless either party gives written notice.",
+          "choices": [
+            "renewed",
+            "restored",
+            "revived",
+            "refreshed"
+          ],
+          "answer": 0,
+          "explain": "\"Renew a contract\" = gia hạn hợp đồng; các từ còn lại không đi với \"contract\"."
+        }
+      ]
+    }
+  ]
+}

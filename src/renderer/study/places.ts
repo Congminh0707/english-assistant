@@ -17,6 +17,8 @@ export type StudyPage =
   | 'shop'
   | 'stats'
   | 'placement'
+  | 'toeic'
+  | 'videos'
   | 'settings'
 
 export type Place =
@@ -31,7 +33,7 @@ export type Place =
   | 'office'
 
 export const PLACE_PAGES: Record<Place, StudyPage[]> = {
-  school: ['courses', 'lessons', 'reading', 'listening', 'grammar', 'placement'],
+  school: ['courses', 'lessons', 'reading', 'listening', 'grammar', 'placement', 'toeic', 'videos'],
   library: ['words'],
   hall: ['practice'],
   well: ['review'],

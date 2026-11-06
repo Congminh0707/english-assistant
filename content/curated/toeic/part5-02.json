@@ -1,0 +1,292 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t5-g016",
+      "part": 5,
+      "level": "B2_1",
+      "questions": [
+        {
+          "id": "t5-q016",
+          "prompt": "By the time the CEO arrives, the technicians ___ the projector.",
+          "choices": [
+            "had installed",
+            "installs",
+            "installation",
+            "will have installed"
+          ],
+          "answer": 3,
+          "explain": "\"By the time + hiện tại đơn\" chỉ mốc tương lai, việc xong trước mốc đó dùng tương lai hoàn thành \"will have installed\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g017",
+      "part": 5,
+      "level": "B2_1",
+      "questions": [
+        {
+          "id": "t5-q017",
+          "prompt": "Employees are reminded to keep confidential documents ___ locked in the cabinet.",
+          "choices": [
+            "secure",
+            "securely",
+            "security",
+            "securing"
+          ],
+          "answer": 1,
+          "explain": "Bổ nghĩa cho tính từ/phân từ \"locked\" cần trạng từ \"securely\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g018",
+      "part": 5,
+      "level": "B2_1",
+      "questions": [
+        {
+          "id": "t5-q018",
+          "prompt": "The supplier was unable to ___ the high demand during the holiday season.",
+          "choices": [
+            "meet",
+            "reach",
+            "attain",
+            "arrive"
+          ],
+          "answer": 0,
+          "explain": "Cụm cố định \"meet (the) demand\" = đáp ứng nhu cầu."
+        }
+      ]
+    },
+    {
+      "id": "t5-g019",
+      "part": 5,
+      "level": "B1_2",
+      "questions": [
+        {
+          "id": "t5-q019",
+          "prompt": "The hotel ___ guests a complimentary breakfast during their stay.",
+          "choices": [
+            "suggests",
+            "recommends",
+            "proposes",
+            "offers"
+          ],
+          "answer": 3,
+          "explain": "Chỉ \"offer\" dùng cấu trúc hai tân ngữ \"offer somebody something\"; \"suggest/recommend/propose\" không dùng như vậy."
+        }
+      ]
+    },
+    {
+      "id": "t5-g020",
+      "part": 5,
+      "level": "B1_2",
+      "questions": [
+        {
+          "id": "t5-q020",
+          "prompt": "The annual report must ___ by the accounting department before it is published.",
+          "choices": [
+            "review",
+            "reviewing",
+            "be reviewed",
+            "have reviewed"
+          ],
+          "answer": 2,
+          "explain": "Báo cáo được người khác xem xét nên dùng bị động sau động từ khuyết thiếu: \"must be reviewed\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g021",
+      "part": 5,
+      "level": "B2_2",
+      "questions": [
+        {
+          "id": "t5-q021",
+          "prompt": "The consultant's recommendations proved highly ___ in reducing operating costs.",
+          "choices": [
+            "effect",
+            "effectively",
+            "effective",
+            "effectiveness"
+          ],
+          "answer": 2,
+          "explain": "Sau \"proved\" (+ trạng từ chỉ mức độ \"highly\") cần tính từ \"effective\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g022",
+      "part": 5,
+      "level": "B2_2",
+      "questions": [
+        {
+          "id": "t5-q022",
+          "prompt": "Applicants must ___ strictly to the submission deadline.",
+          "choices": [
+            "adhere",
+            "comply",
+            "follow",
+            "obey"
+          ],
+          "answer": 0,
+          "explain": "\"Adhere to\" = tuân thủ; \"comply\" đi với \"with\", còn \"follow/obey\" không cần \"to\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g023",
+      "part": 5,
+      "level": "B1_1",
+      "questions": [
+        {
+          "id": "t5-q023",
+          "prompt": "Ms. Rivera has worked at the firm ___ 2015.",
+          "choices": [
+            "for",
+            "from",
+            "during",
+            "since"
+          ],
+          "answer": 3,
+          "explain": "Hiện tại hoàn thành + mốc thời gian (2015) dùng \"since\"; \"for\" đi với khoảng thời gian."
+        }
+      ]
+    },
+    {
+      "id": "t5-g024",
+      "part": 5,
+      "level": "B1_1",
+      "questions": [
+        {
+          "id": "t5-q024",
+          "prompt": "The ___ of the new branch office is scheduled for next spring.",
+          "choices": [
+            "open",
+            "opening",
+            "opened",
+            "opens"
+          ],
+          "answer": 1,
+          "explain": "Sau \"The\" và trước \"of\" cần danh từ \"opening\" (lễ/việc khai trương)."
+        }
+      ]
+    },
+    {
+      "id": "t5-g025",
+      "part": 5,
+      "level": "B2_1",
+      "questions": [
+        {
+          "id": "t5-q025",
+          "prompt": "The finance director asked for a detailed ___ of the project's costs.",
+          "choices": [
+            "breakthrough",
+            "setback",
+            "outbreak",
+            "breakdown"
+          ],
+          "answer": 3,
+          "explain": "\"Breakdown of costs\" = bảng phân tích chi tiết chi phí; các từ còn lại sai nghĩa."
+        }
+      ]
+    },
+    {
+      "id": "t5-g026",
+      "part": 5,
+      "level": "B2_2",
+      "questions": [
+        {
+          "id": "t5-q026",
+          "prompt": "___ the budget was approved, the renovation could not begin until the permits were issued.",
+          "choices": [
+            "Because",
+            "Despite",
+            "Although",
+            "Unless"
+          ],
+          "answer": 2,
+          "explain": "Hai vế tương phản (ngân sách đã duyệt nhưng chưa thể bắt đầu) nên dùng liên từ \"Although\"; \"Despite\" không đi với mệnh đề."
+        }
+      ]
+    },
+    {
+      "id": "t5-g027",
+      "part": 5,
+      "level": "B2_2",
+      "questions": [
+        {
+          "id": "t5-q027",
+          "prompt": "The report contains several ___ that need to be corrected before distribution.",
+          "choices": [
+            "inaccuracies",
+            "inaccurate",
+            "inaccurately",
+            "accurate"
+          ],
+          "answer": 0,
+          "explain": "Sau \"several\" cần danh từ số nhiều \"inaccuracies\" (những chỗ sai)."
+        }
+      ]
+    },
+    {
+      "id": "t5-g028",
+      "part": 5,
+      "level": "C1",
+      "questions": [
+        {
+          "id": "t5-q028",
+          "prompt": "Board members were asked to ___ from voting on matters in which they have a personal interest.",
+          "choices": [
+            "deter",
+            "abstain",
+            "withhold",
+            "decline"
+          ],
+          "answer": 1,
+          "explain": "\"Abstain from voting\" = không bỏ phiếu; \"decline\" không đi với \"from\", \"deter/withhold\" cần tân ngữ."
+        }
+      ]
+    },
+    {
+      "id": "t5-g029",
+      "part": 5,
+      "level": "C1",
+      "questions": [
+        {
+          "id": "t5-q029",
+          "prompt": "Only after the audit was completed ___ the discrepancies in the inventory records.",
+          "choices": [
+            "the managers noticed",
+            "the managers did notice",
+            "did the managers notice",
+            "had noticed the managers"
+          ],
+          "answer": 2,
+          "explain": "\"Only after ...\" đứng đầu câu thì mệnh đề chính phải đảo ngữ: trợ động từ \"did\" + chủ ngữ + động từ."
+        }
+      ]
+    },
+    {
+      "id": "t5-g030",
+      "part": 5,
+      "level": "C1",
+      "questions": [
+        {
+          "id": "t5-q030",
+          "prompt": "The proposal was rejected because the projected revenue figures were ___ optimistic.",
+          "choices": [
+            "unrealistic",
+            "unrealistically",
+            "unreal",
+            "realism"
+          ],
+          "answer": 1,
+          "explain": "Bổ nghĩa cho tính từ \"optimistic\" cần trạng từ \"unrealistically\"."
+        }
+      ]
+    }
+  ]
+}

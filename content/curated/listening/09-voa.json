@@ -1,0 +1,1565 @@
+{
+  "license": "public-domain",
+  "source": {
+    "id": "voa",
+    "license": "public-domain",
+    "credit": "VOA Learning English — Words and Their Stories (learningenglish.voanews.com)"
+  },
+  "unit": {
+    "id": "listenvoa",
+    "title": "Nghe VOA (bản thu thật)",
+    "summary": "Giọng người thật từ VOA Learning English, có lời thoại và bản dịch.",
+    "icon": "🎙️",
+    "order": 9
+  },
+  "lessons": [
+    {
+      "id": "listenvoa.dish-up",
+      "title": "VOA: “Dish” — nói chuyện về món ăn và lời nói",
+      "summary": "Words and Their Stories: nghĩa của dish, signature dish và dish out.",
+      "level": "B1_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là **bản thu thật** của VOA Learning English (giọng Mỹ, tốc độ chậm). Nghe một lần **chưa xem lời thoại**, trả lời câu hỏi, rồi bấm “Hiện lời thoại” để đối chiếu. Cần tải gói âm thanh bài nghe để có tiếng."
+        },
+        {
+          "type": "audio",
+          "title": "Words and Their Stories: How to “Dish Up” Something Good",
+          "lines": [
+            {
+              "en": "And now, Words and Their Stories, from VOA Learning English.",
+              "vi": "Và bây giờ là Words and Their Stories của VOA Learning English."
+            },
+            {
+              "en": "Food is a popular subject with many people around the world. It is fun to talk about our favorite dishes. It is even more fun to share a favorite dish with others.",
+              "vi": "Đồ ăn là chủ đề được nhiều người trên thế giới yêu thích. Nói về những món ưa thích thật vui, và chia sẻ một món ưa thích với người khác còn vui hơn."
+            },
+            {
+              "en": "Today we talk about the word “dish.” A dish can be the object on which you serve food. But, a dish can also mean a specially prepared food.",
+              "vi": "Hôm nay ta nói về từ “dish”. Dish có thể là vật dùng để đựng thức ăn, nhưng cũng có thể là một món ăn được chế biến đặc biệt."
+            },
+            {
+              "en": "Do you have a signature dish? Our signature is how we sign our names. So, a signature dish is a dish we are known for making well. In a way, it identifies us.",
+              "vi": "Bạn có món tủ (signature dish) không? Signature là cách ta ký tên. Vậy món tủ là món ta nổi tiếng nấu ngon, theo một cách nào đó nó thể hiện con người ta."
+            },
+            {
+              "en": "My signature dish is sweet potato rosemary dinner rolls. I am often asked to make them, especially for holiday parties. In my circle of friends, I am known for this dish. When the rolls are on the table, people know that I made them.",
+              "vi": "Món tủ của tôi là bánh mì cuộn khoai lang và hương thảo. Tôi hay được nhờ làm, nhất là cho tiệc ngày lễ. Trong nhóm bạn, tôi nổi tiếng nhờ món này. Khi bánh có trên bàn, mọi người biết là tôi làm."
+            },
+            {
+              "en": "A tasty dish is something that makes a table look good and inviting. Sometimes the same can be said about a person. Someone who is good-looking can be called a dish. While this usage might be a bit dated, it is still used.",
+              "vi": "Một món ngon làm bàn ăn trông đẹp và hấp dẫn. Đôi khi người ta cũng nói vậy về một người: người ưa nhìn có thể được gọi là “a dish”. Cách dùng này hơi cũ nhưng vẫn còn được dùng."
+            },
+            {
+              "en": "Now, let’s talk about the verb “dish.”",
+              "vi": "Bây giờ ta nói về động từ “dish”."
+            },
+            {
+              "en": "“To dish” can mean to talk about private or personal information. It might be gossip. But I can also dish about myself. For example, a friend may ask me to dish about my new job.",
+              "vi": "“To dish” có thể nghĩa là kể chuyện riêng tư hay cá nhân, có thể là buôn chuyện. Nhưng tôi cũng có thể kể về chính mình, ví dụ một người bạn nhờ tôi kể về công việc mới."
+            },
+            {
+              "en": "I could also use a phrasal verb form and say my friend want me to dish out all the interesting details.",
+              "vi": "Tôi cũng có thể dùng cụm động từ và nói bạn tôi muốn tôi “dish out” mọi chi tiết thú vị."
+            },
+            {
+              "en": "Now, to dish up something means to put food on a dish for someone to eat. However, it can also mean sharing personal details, our own and others.",
+              "vi": "“Dish up” nghĩa là múc thức ăn ra đĩa cho ai đó ăn. Nhưng nó cũng có thể nghĩa là chia sẻ chi tiết cá nhân, của mình lẫn của người khác."
+            },
+            {
+              "en": "We can also dish out things, like jokes or even insults.",
+              "vi": "Ta cũng có thể “dish out” những thứ khác, như câu đùa hay thậm chí lời lăng mạ."
+            },
+            {
+              "en": "Some people like to tease or insult. They can dish out jokes and insults all day long. But sometimes these same people do not like it if you do the same to them.",
+              "vi": "Có người thích trêu chọc hay xúc phạm. Họ có thể tuôn câu đùa và lời lăng mạ cả ngày, nhưng đôi khi chính những người này lại không thích bị đối xử như vậy."
+            },
+            {
+              "en": "We have a saying for just such people. We say, “They can dish it out, but they can’t take it.” They are able and willing to share harsh thoughts, criticisms, or insults about others, but they do not think they, themselves, deserve such treatment.",
+              "vi": "Có một câu nói dành cho họ: “They can dish it out, but they can’t take it” (họ nói được nhưng không chịu nổi khi bị nói). Họ sẵn sàng nói những lời gay gắt, chỉ trích hay xúc phạm người khác, nhưng không nghĩ mình đáng bị đối xử như thế."
+            },
+            {
+              "en": "And that’s Words and Their Stories.",
+              "vi": "Và đó là Words and Their Stories."
+            },
+            {
+              "en": "Until next time, I’m Anna Matteo.",
+              "vi": "Hẹn lần sau, tôi là Anna Matteo."
+            }
+          ],
+          "hideText": true,
+          "recording": {
+            "id": "voa-wts-dish-up",
+            "sourceUrl": "https://learningenglish.voanews.com/a/how-to-dish-up-something-good/7980848.html",
+            "credit": "VOA Learning English — Anna Matteo, “How to ‘Dish Up’ Something Good” (public domain)",
+            "seconds": 221
+          }
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is a “signature dish”?",
+          "choices": [
+            "A dish with a name written on it",
+            "A dish we are known for making well",
+            "A dish served only at parties",
+            "A very expensive dish"
+          ],
+          "answer": 1,
+          "explain": "Người nói giải thích: signature dish là món ta nổi tiếng nấu ngon, thể hiện con người ta."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the speaker’s signature dish?",
+          "choices": [
+            "Chocolate cake",
+            "Tomato soup",
+            "Sweet potato rosemary dinner rolls",
+            "Apple pie"
+          ],
+          "answer": 2,
+          "explain": "Món tủ của người nói là bánh mì cuộn khoai lang và hương thảo."
+        },
+        {
+          "type": "tf",
+          "statement": "“To dish” can mean to talk about private or personal information.",
+          "answer": "true",
+          "explain": "Đúng: “To dish” có thể là kể chuyện riêng tư, kể cả buôn chuyện."
+        },
+        {
+          "type": "tf",
+          "statement": "Calling someone “a dish” is a very new expression.",
+          "answer": "false",
+          "explain": "Sai: người nói bảo cách dùng này hơi cũ (a bit dated) nhưng vẫn còn được dùng."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does “They can dish it out, but they can’t take it” describe?",
+          "choices": [
+            "People who cook well but eat little",
+            "People who share harsh words but do not accept them from others",
+            "People who give gifts but never receive any",
+            "People who talk a lot at parties"
+          ],
+          "answer": 1,
+          "explain": "Câu nói chỉ người sẵn sàng nói lời gay gắt về người khác nhưng không chịu khi bị nói lại."
+        },
+        {
+          "type": "gap",
+          "prompt": "Someone who likes to ___ others may dish out jokes and insults all day.",
+          "answers": [
+            "tease"
+          ],
+          "choices": [
+            "tease",
+            "thank",
+            "teach"
+          ],
+          "explain": "Bài nói: “Some people like to tease or insult” — tease = trêu chọc."
+        }
+      ]
+    },
+    {
+      "id": "listenvoa.grass",
+      "title": "VOA: “Watching grass grow” — chuyện nhàm chán",
+      "summary": "Words and Their Stories: thành ngữ watching grass grow và let the grass grow under your feet.",
+      "level": "B1_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là **bản thu thật** của VOA Learning English (giọng Mỹ, tốc độ chậm). Nghe một lần **chưa xem lời thoại**, trả lời câu hỏi, rồi bấm “Hiện lời thoại” để đối chiếu. Cần tải gói âm thanh bài nghe để có tiếng."
+        },
+        {
+          "type": "audio",
+          "title": "Words and Their Stories: ‘Watching the Grass Grow’ Is Not Fun",
+          "lines": [
+            {
+              "en": "And now, Words and Their Stories, from VOA Learning English.",
+              "vi": "Và bây giờ là Words and Their Stories của VOA Learning English."
+            },
+            {
+              "en": "Springtime is a time of renewal and growth. Many plants end their long winter sleep and form new buds and shoots. Beautiful flowers will soon be showing their bright colors. And the grass will grow thicker and greener again.",
+              "vi": "Mùa xuân là mùa đổi mới và sinh trưởng. Nhiều loài cây kết thúc giấc ngủ đông dài và đâm chồi nảy lộc. Hoa đẹp sắp khoe sắc, và cỏ sẽ mọc dày và xanh hơn."
+            },
+            {
+              "en": "Some flowers bloom in a very noticeable way but that is not the case with grass. Imagine you are sitting in a grassy field. And you have only one job – to watch the grass grow. That does not sound very interesting. In fact, it sounds really boring.",
+              "vi": "Có hoa nở rất dễ thấy, nhưng cỏ thì không vậy. Hãy tưởng tượng bạn ngồi trên bãi cỏ và chỉ có một việc: nhìn cỏ mọc. Nghe chẳng thú vị chút nào, thật ra rất chán."
+            },
+            {
+              "en": "That idea is what gives us the expression “like watching grass grow.” We use this expression to describe an experience that is uninteresting. Another good word to describe it is tedious.",
+              "vi": "Ý tưởng đó tạo ra thành ngữ “like watching grass grow” (chán như nhìn cỏ mọc), dùng để tả trải nghiệm không thú vị. Một từ khác để tả là “tedious” (tẻ nhạt)."
+            },
+            {
+              "en": "We use this expression in many situations. Let’s hear a few examples: After the politician won his campaign, he gave a two-hour long acceptance speech. Two hours! It was as much fun as watching grass grow.",
+              "vi": "Ta dùng thành ngữ này trong nhiều tình huống. Ví dụ: Sau khi thắng cử, chính trị gia đọc bài phát biểu dài hai tiếng. Hai tiếng! Vui như nhìn cỏ mọc."
+            },
+            {
+              "en": "I really don’t like watching long sports games. It’s like watching grass grow.",
+              "vi": "Tôi thật sự không thích xem những trận thể thao dài. Nó giống như nhìn cỏ mọc."
+            },
+            {
+              "en": "Now, grass grows on the ground all the time. And usually, we don’t give it much thought. If you stand in one place for a long time, the grass will continue to grow under your feet.",
+              "vi": "Cỏ lúc nào cũng mọc trên mặt đất và thường ta không nghĩ nhiều về nó. Nếu bạn đứng một chỗ lâu, cỏ vẫn tiếp tục mọc dưới chân bạn."
+            },
+            {
+              "en": "For people who are always active, always moving, always on-the-go, we can say they don't let grass grow under their feet. We can also say beneath their feet. And sometimes we use this expression as a command.",
+              "vi": "Với người lúc nào cũng hoạt động, di chuyển, bận rộn, ta nói họ “don’t let grass grow under their feet” (không để cỏ mọc dưới chân, tức không chịu đứng yên). Cũng có thể nói “beneath their feet”, và đôi khi dùng như một mệnh lệnh."
+            },
+            {
+              "en": "Let’s hear some examples: Don’t let the grass grow beneath your feet. Get back to work. She certainly doesn’t let the grass grow under her feet. She’s been traveling non-stop for over a year.",
+              "vi": "Ví dụ: Đừng ngồi không nữa, quay lại làm việc đi. Cô ấy chắc chắn không chịu đứng yên: cô ấy đã đi liên tục hơn một năm."
+            },
+            {
+              "en": "And that’s all the time we have for this Words and Their Stories. Until next time, I’m Anna Matteo.",
+              "vi": "Hết thời gian cho Words and Their Stories hôm nay. Hẹn lần sau, tôi là Anna Matteo."
+            }
+          ],
+          "hideText": true,
+          "recording": {
+            "id": "voa-wts-grass",
+            "sourceUrl": "https://learningenglish.voanews.com/a/watching-the-grass-grow-is-not-fun/8003108.html",
+            "credit": "VOA Learning English — Anna Matteo, “‘Watching the Grass Grow’ Is Not Fun” (public domain)",
+            "seconds": 199
+          }
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What does “like watching grass grow” describe?",
+          "choices": [
+            "Something exciting",
+            "Something very uninteresting",
+            "Something expensive",
+            "Something dangerous"
+          ],
+          "answer": 1,
+          "explain": "Thành ngữ chỉ trải nghiệm chán, tẻ nhạt (tedious)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which word does the speaker give for “uninteresting”?",
+          "choices": [
+            "Tedious",
+            "Noticeable",
+            "Thick",
+            "Active"
+          ],
+          "answer": 0,
+          "explain": "Người nói nêu từ “tedious” để mô tả điều nhàm chán."
+        },
+        {
+          "type": "tf",
+          "statement": "A person who “doesn’t let grass grow under their feet” is always active.",
+          "answer": "true",
+          "explain": "Đúng: nghĩa là người luôn hoạt động, không chịu đứng yên."
+        },
+        {
+          "type": "tf",
+          "statement": "The speaker says watching long sports games is exciting.",
+          "answer": "false",
+          "explain": "Sai: người nói bảo xem các trận thể thao dài “like watching grass grow”, tức chán."
+        },
+        {
+          "type": "gap",
+          "prompt": "She is always on the move. She doesn’t let the ___ grow under her feet.",
+          "answers": [
+            "grass"
+          ],
+          "choices": [
+            "grass",
+            "flower",
+            "water"
+          ],
+          "explain": "“Don’t let the grass grow under your feet” = đừng chần chừ, hãy hành động."
+        }
+      ]
+    },
+    {
+      "id": "listenvoa.dialed-in",
+      "title": "VOA: “Dialed in”, “flip a switch”, “move the needle”",
+      "summary": "Words and Their Stories: thành ngữ lấy từ thiết bị cũ như núm vặn, công tắc, kim đồng hồ.",
+      "level": "B2_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là **bản thu thật** của VOA Learning English (giọng Mỹ, tốc độ chậm). Nghe một lần **chưa xem lời thoại**, trả lời câu hỏi, rồi bấm “Hiện lời thoại” để đối chiếu. Cần tải gói âm thanh bài nghe để có tiếng."
+        },
+        {
+          "type": "audio",
+          "title": "Words and Their Stories: The Importance of Being ‘Dialed In’",
+          "lines": [
+            {
+              "en": "And now, Words and Their Stories, from VOA Learning English.",
+              "vi": "Và bây giờ là Words and Their Stories của VOA Learning English."
+            },
+            {
+              "en": "Technology is always progressing. Today, many modern devices can be controlled by touch or voice. This has led to some traditional electronic controls – such as dials and switches – being replaced with new technologies.",
+              "vi": "Công nghệ luôn tiến bộ. Ngày nay nhiều thiết bị hiện đại điều khiển bằng chạm hoặc giọng nói, khiến một số bộ điều khiển điện tử truyền thống như núm vặn và công tắc bị thay thế."
+            },
+            {
+              "en": "Digital displays have also become increasingly common. For example, digital number readouts have long replaced the hands on many clocks.",
+              "vi": "Màn hình kỹ thuật số cũng ngày càng phổ biến. Chẳng hạn, số hiển thị điện tử từ lâu đã thay kim trên nhiều đồng hồ."
+            },
+            {
+              "en": "Many other devices also now operate purely with digital tools instead of mechanical systems. But some expressions and idioms used by English speakers still describe older technologies.",
+              "vi": "Nhiều thiết bị khác giờ chỉ chạy bằng công cụ số thay vì cơ khí. Nhưng một số thành ngữ của người nói tiếng Anh vẫn mô tả công nghệ cũ."
+            },
+            {
+              "en": "First, let’s talk about dials. These controls are used for changing settings on a piece of equipment, like a radio or old television. We use the dial to tune in to a specific channel.",
+              "vi": "Trước hết là núm vặn (dial). Đây là bộ điều khiển để đổi cài đặt trên thiết bị như radio hay tivi cũ. Ta vặn để dò đúng một kênh."
+            },
+            {
+              "en": "That’s where the expressions dialed in and tuned in come from. If we are dialed in or tuned in to a radio or television program, we can hear it clearly. There is no noise or static.",
+              "vi": "Từ đó có các cách nói “dialed in” và “tuned in”. Nếu ta dò đúng chương trình radio hay tivi thì nghe rõ, không có nhiễu."
+            },
+            {
+              "en": "The same can be said when using these terms in personal conversations. For example, if you are dialed in to a project or problem, you know exactly what needs to be done. You are thinking clearly about it and remain very focused. And when you are tuned in, you understand clearly what is going on around you.",
+              "vi": "Trong giao tiếp cũng vậy: nếu bạn “dialed in” với một dự án hay vấn đề, bạn biết chính xác cần làm gì, suy nghĩ rõ ràng và rất tập trung. Còn “tuned in” là hiểu rõ điều đang diễn ra quanh mình."
+            },
+            {
+              "en": "“Don’t touch that dial” and “stay tuned” are two ways to tell someone to keep watching or listening to a program.",
+              "vi": "“Don’t touch that dial” và “stay tuned” là hai cách bảo ai đó tiếp tục xem hoặc nghe chương trình."
+            },
+            {
+              "en": "Now, let’s talk about switches. These are built to either be off or on. There are no in-between settings like with a dial. So, when we flip the switch, we make something happen quickly and easily. It can also mean that we suddenly change something.",
+              "vi": "Giờ nói về công tắc (switch). Công tắc chỉ có tắt hoặc bật, không có mức trung gian như núm vặn. Khi ta “flip the switch”, ta làm điều gì đó xảy ra nhanh và dễ, hoặc đột ngột thay đổi điều gì."
+            },
+            {
+              "en": "Let’s listen to an example. The restaurant’s change to all organic food happened slowly over time. It wasn’t a matter of flipping a switch.",
+              "vi": "Ví dụ: Nhà hàng chuyển sang toàn đồ hữu cơ từ từ theo thời gian, không phải chuyện bật công tắc là xong."
+            },
+            {
+              "en": "Now, for our last expression -- to move the needle. Needles on measuring devices like a scale move to show a desired level has been reached. So, when something moves the needle, it causes a noticeable change in something, usually for the good.",
+              "vi": "Cách nói cuối là “move the needle”. Kim trên thiết bị đo như cái cân nhích để cho thấy đã đạt mức mong muốn. Vì vậy khi điều gì “moves the needle”, nó tạo ra thay đổi rõ rệt, thường là tốt."
+            },
+            {
+              "en": "And that’s all the time we have for this Words and Their Stories. Don't forget to tune in again for another story about American English expressions. Until next time, I’m Anna Matteo.",
+              "vi": "Hết thời gian cho Words and Their Stories hôm nay. Đừng quên theo dõi tiếp một câu chuyện khác về các cách nói của tiếng Anh Mỹ. Hẹn lần sau, tôi là Anna Matteo."
+            }
+          ],
+          "hideText": true,
+          "recording": {
+            "id": "voa-wts-dialed-in",
+            "sourceUrl": "https://learningenglish.voanews.com/a/the-importance-of-being-dialed-in-/7979814.html",
+            "credit": "VOA Learning English — Anna Matteo, “The Importance of Being ‘Dialed In’” (public domain)",
+            "seconds": 241
+          }
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What does it mean to be “dialed in” to a project?",
+          "choices": [
+            "You are bored with it",
+            "You know exactly what to do and stay focused",
+            "You are late for it",
+            "You made a phone call about it"
+          ],
+          "answer": 1,
+          "explain": "Dialed in = hiểu rõ việc cần làm và rất tập trung."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does “flip the switch” suggest?",
+          "choices": [
+            "Make a slow, gradual change",
+            "Make something happen quickly and easily",
+            "Turn off a television",
+            "Repair a machine"
+          ],
+          "answer": 1,
+          "explain": "Công tắc chỉ bật/tắt nên “flip the switch” là làm việc gì xảy ra nhanh, dễ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does it mean when something “moves the needle”?",
+          "choices": [
+            "It causes a noticeable change, usually good",
+            "It breaks a measuring device",
+            "It makes a loud noise",
+            "It costs a lot"
+          ],
+          "answer": 0,
+          "explain": "Move the needle = tạo thay đổi đáng kể, thường theo hướng tốt."
+        },
+        {
+          "type": "tf",
+          "statement": "Dials have in-between settings, but switches are only on or off.",
+          "answer": "true",
+          "explain": "Đúng: núm vặn có nhiều mức, còn công tắc chỉ bật hoặc tắt."
+        },
+        {
+          "type": "gap",
+          "prompt": "“Stay ___” tells people to keep watching or listening.",
+          "answers": [
+            "tuned"
+          ],
+          "choices": [
+            "tuned",
+            "switched",
+            "measured"
+          ],
+          "explain": "“Stay tuned” = hãy tiếp tục theo dõi chương trình."
+        }
+      ]
+    },
+    {
+      "id": "listenvoa.eagle-eyes",
+      "title": "VOA: “Eagle eyes” — không bỏ sót chi tiết nào",
+      "summary": "Words and Their Stories: bird’s eye view, eagle eye, hawk-eyed.",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là **bản thu thật** của VOA Learning English (giọng Mỹ, tốc độ chậm). Nghe một lần **chưa xem lời thoại**, trả lời câu hỏi, rồi bấm “Hiện lời thoại” để đối chiếu. Cần tải gói âm thanh bài nghe để có tiếng."
+        },
+        {
+          "type": "audio",
+          "title": "Words and Their Stories: Don't Miss a Thing With 'Eagle Eyes'",
+          "lines": [
+            {
+              "en": "And now, Words and Their Stories, from VOA Learning English.",
+              "vi": "Và bây giờ là Words and Their Stories của VOA Learning English."
+            },
+            {
+              "en": "From above, birds must have a wonderful view of the world below. Flying over everything at such a height gives them a rare ability to see many things.",
+              "vi": "Từ trên cao, loài chim hẳn có tầm nhìn tuyệt vời xuống thế giới bên dưới. Bay cao như vậy cho chúng khả năng hiếm có là thấy được nhiều thứ."
+            },
+            {
+              "en": "In English, we use the term “bird’s eye view” to describe a view from above as if seen by a bird in flight. It is also described as an “overall view” or “big picture view.”",
+              "vi": "Tiếng Anh dùng “bird’s eye view” (cái nhìn từ trên cao) để tả khung cảnh nhìn từ trên xuống như chim đang bay. Nó cũng được gọi là “overall view” hay “big picture view” (cái nhìn tổng thể)."
+            },
+            {
+              "en": "For example, when I start a project, I first like to get a bird’s eye view. I ask myself several important questions: What is the overall goal? Who is the main focus? What resources do I have available to me? Answers to these “big picture” questions can help me understand the scope of the project.",
+              "vi": "Ví dụ, khi bắt đầu một dự án, tôi thích có cái nhìn tổng thể trước. Tôi tự hỏi: Mục tiêu chung là gì? Ai là trọng tâm? Tôi có nguồn lực nào? Câu trả lời giúp tôi hiểu phạm vi dự án."
+            },
+            {
+              "en": "Now, let's talk about noticing the smaller details. Some birds, called raptors, are known for their extremely sharp vision. Eagles, hawks, and owls can see their prey from very far away.",
+              "vi": "Giờ nói về việc để ý chi tiết nhỏ. Một số loài chim gọi là chim săn mồi nổi tiếng nhờ thị lực cực sắc. Đại bàng, diều hâu và cú nhìn thấy con mồi từ rất xa."
+            },
+            {
+              "en": "The Raptor Center is part of the University of Minnesota’s College of Veterinary Medicine. Its website explains why eagles, hawks, and owls see so well: “Raptors have powerful binocular vision, where both their left and right eyes can see and focus on a single object.”",
+              "vi": "Raptor Center thuộc Trường Thú y của Đại học Minnesota. Trang web giải thích vì sao chúng nhìn tốt: “Chim săn mồi có thị giác hai mắt mạnh, cả mắt trái và phải cùng nhìn và tập trung vào một vật.”"
+            },
+            {
+              "en": "Eagles and hawks also have a special bone structure around their eyes that protects them from bright sunlight. Their ability to focus on faraway details in addition to other factors make them extremely effective hunters.",
+              "vi": "Đại bàng và diều hâu còn có cấu trúc xương đặc biệt quanh mắt để chắn ánh nắng gắt. Khả năng tập trung vào chi tiết ở xa cùng các yếu tố khác khiến chúng là thợ săn rất hiệu quả."
+            },
+            {
+              "en": "In English, the keen vision of eagles and hawks describes a certain type of person. If you have an eagle eye, you have the ability to see or notice distant objects. Also, you observe everything, even very small details which others might miss. On the same note, someone who is hawk-eyed watches and notices everything that happens.",
+              "vi": "Trong tiếng Anh, thị lực sắc bén của đại bàng và diều hâu dùng để tả một kiểu người. Người có “eagle eye” nhìn thấy vật ở xa, quan sát mọi thứ, kể cả chi tiết nhỏ mà người khác bỏ sót. Tương tự, người “hawk-eyed” để ý mọi điều xảy ra."
+            },
+            {
+              "en": "These types of people may even perceive things that are not clear to others. Both eagle-eyed and hawk-eyed people are observant or perceptive. A person does not have to have this ability all the time. They might use their keen vision and powers of observation only at certain times, especially times when they need to keep a close watch.",
+              "vi": "Những người này thậm chí nhận ra điều người khác chưa rõ. Cả “eagle-eyed” và “hawk-eyed” đều chỉ người tinh ý. Người ta không cần lúc nào cũng có khả năng này; có thể chỉ dùng vào lúc cần canh chừng kỹ."
+            },
+            {
+              "en": "For example, during Christmastime, hawk-eyed children might search the sky looking for Santa Claus. These children may not be very observant during the rest of the year, but during Christmastime, they are looking for gifts.",
+              "vi": "Ví dụ vào dịp Giáng sinh, lũ trẻ “mắt diều hâu” có thể săn tìm ông già Noel trên trời. Cả năm chúng không tinh ý lắm, nhưng dịp này chúng đang tìm quà."
+            },
+            {
+              "en": "Let’s hear these terms used between two friends. A: This is a great party. Thanks for inviting me. B: The more the merrier! This yearly neighborhood party always draws a huge number of people.",
+              "vi": "Nghe hai người bạn dùng các từ này. A: Bữa tiệc tuyệt quá, cảm ơn đã mời tôi. B: Càng đông càng vui! Tiệc khu phố hằng năm này lúc nào cũng thu hút rất nhiều người."
+            },
+            {
+              "en": "A: I’d say so! There must be over a hundred people here! Hey, wait a minute. I think I see our old co-worker. Isn’t that Samantha way over there by the food and drinks? B: I don’t know. I can’t see that far.",
+              "vi": "A: Đúng thế! Chắc phải hơn một trăm người! Khoan, tôi thấy đồng nghiệp cũ rồi. Có phải Samantha ở tận chỗ đồ ăn thức uống không? B: Tôi không biết, tôi không nhìn xa vậy được."
+            },
+            {
+              "en": "A: It’s her. My eagle eyes don’t miss a thing. I’m going to go say hi and grab the last hamburger while I’m there. Oh, and you should let the hosts know that they’re low on drinks.",
+              "vi": "A: Đúng cô ấy. Mắt đại bàng của tôi không bỏ sót gì. Tôi sẽ qua chào và lấy chiếc hamburger cuối cùng. À, bạn nên báo chủ nhà là sắp hết đồ uống."
+            },
+            {
+              "en": "B: Wow! You’re right. I didn’t realize you were so hawk-eyed. A: Only at parties. I start off with a bird’s eye view and then focus in on the food, drinks, and people I want to see more closely. See you in a few…",
+              "vi": "B: Ồ! Bạn nói đúng. Tôi không biết bạn tinh mắt thế. A: Chỉ ở các bữa tiệc thôi. Tôi bắt đầu bằng cái nhìn tổng thể rồi tập trung vào đồ ăn, đồ uống và những người muốn gặp. Lát gặp nhé…"
+            },
+            {
+              "en": "The term “eagle eye” has been used for hundreds of years. Word experts say it was first used in writing in the mid-1500s. The Oxford English Dictionary website says the “earliest evidence for ‘eagle eye’ is from 1567, in the writing of Thomas Stapleton, a Roman Catholic theologian.” A theologian is an expert in religious thought.",
+              "vi": "“Eagle eye” đã được dùng hàng trăm năm. Các chuyên gia từ ngữ nói nó xuất hiện trong văn bản từ giữa thế kỷ 16. Trang Oxford English Dictionary cho biết bằng chứng sớm nhất là năm 1567, trong tác phẩm của Thomas Stapleton, một nhà thần học Công giáo. Nhà thần học là chuyên gia về tư tưởng tôn giáo."
+            },
+            {
+              "en": "And that’s all the time we have for this Words and Their Stories. Until next time, I’m Anna Matteo.",
+              "vi": "Hết thời gian cho Words and Their Stories hôm nay. Hẹn lần sau, tôi là Anna Matteo."
+            }
+          ],
+          "hideText": true,
+          "recording": {
+            "id": "voa-wts-eagle-eyes",
+            "sourceUrl": "https://learningenglish.voanews.com/a/don-t-miss-a-thing-with-eagle-eyes-/7963085.html",
+            "credit": "VOA Learning English — Anna Matteo, “Don't Miss a Thing With 'Eagle Eyes'” (public domain)",
+            "seconds": 350
+          }
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is a “bird’s eye view”?",
+          "choices": [
+            "A view from above, like a bird in flight",
+            "A very small view",
+            "A photograph of a bird",
+            "A view at night"
+          ],
+          "answer": 0,
+          "explain": "Bird’s eye view = cái nhìn từ trên cao, tức bức tranh tổng thể."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does someone with “an eagle eye” do?",
+          "choices": [
+            "Sleeps very little",
+            "Notices even very small details others might miss",
+            "Eats a lot",
+            "Talks loudly"
+          ],
+          "answer": 1,
+          "explain": "Eagle eye = quan sát rất tinh, thấy cả chi tiết người khác bỏ sót."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why can raptors see so well, according to the Raptor Center?",
+          "choices": [
+            "They have powerful binocular vision",
+            "They fly at night",
+            "They have very large wings",
+            "They live near water"
+          ],
+          "answer": 0,
+          "explain": "Trang web nêu: thị giác hai mắt mạnh, cả hai mắt cùng tập trung vào một vật."
+        },
+        {
+          "type": "tf",
+          "statement": "The term “eagle eye” is a new expression.",
+          "answer": "false",
+          "explain": "Sai: nó được dùng hàng trăm năm, bằng chứng sớm nhất là năm 1567."
+        },
+        {
+          "type": "gap",
+          "prompt": "An observant person who notices everything can be described as hawk-___.",
+          "answers": [
+            "eyed"
+          ],
+          "choices": [
+            "eyed",
+            "eared",
+            "handed"
+          ],
+          "explain": "“Hawk-eyed” = tinh mắt, để ý mọi thứ."
+        }
+      ]
+    },
+    {
+      "id": "listenvoa.power-couple",
+      "title": "VOA: “Power couple” và các cách nói về hai người thân thiết",
+      "summary": "Words and Their Stories: joined at the hip, thick as thieves, two peas in a pod, kindred spirits, power couple.",
+      "level": "B2_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là **bản thu thật** của VOA Learning English (giọng Mỹ, tốc độ chậm). Nghe một lần **chưa xem lời thoại**, trả lời câu hỏi, rồi bấm “Hiện lời thoại” để đối chiếu. Cần tải gói âm thanh bài nghe để có tiếng."
+        },
+        {
+          "type": "audio",
+          "title": "Words and Their Stories: What Does It Take to Be a 'Power Couple'?",
+          "lines": [
+            {
+              "en": "And now, Words and Their Stories, from VOA Learning English.",
+              "vi": "Và bây giờ là Words and Their Stories của VOA Learning English."
+            },
+            {
+              "en": "In American English, we use many expressions to describe when two people have a lot of similarities or are very close. Here are some examples.",
+              "vi": "Tiếng Anh Mỹ có nhiều cách nói để tả hai người giống nhau nhiều điều hoặc rất thân. Sau đây là vài ví dụ."
+            },
+            {
+              "en": "If we say two people are joined at the hip, they are nearly always together. If we describe individuals as thick as thieves, it means they are very close. People considered two peas in a pod have many things in common. And we use the term kindred spirits to describe people who often share the same opinions and interests.",
+              "vi": "Nếu hai người “joined at the hip” thì họ gần như lúc nào cũng bên nhau. “Thick as thieves” nghĩa là rất thân. “Two peas in a pod” là có nhiều điểm chung. Còn “kindred spirits” chỉ những người thường có cùng quan điểm và sở thích."
+            },
+            {
+              "en": "These expressions can represent people who grew closer for different reasons. Maybe they complemented each other well in certain ways. Or maybe their situations brought them together for the purpose of completing something important or meaningful.",
+              "vi": "Những cách nói này có thể chỉ những người trở nên gần gũi vì nhiều lý do khác nhau. Có thể họ bổ sung tốt cho nhau, hoặc hoàn cảnh đưa họ lại gần để hoàn thành một việc quan trọng, có ý nghĩa."
+            },
+            {
+              "en": "But today we are going to discuss a very special kind of relationship – one that involves two people who are romantically involved and very successful. People in such relationships can be described as power couples.",
+              "vi": "Nhưng hôm nay ta bàn một kiểu quan hệ rất đặc biệt: hai người đang yêu nhau và đều rất thành công. Những cặp như vậy được gọi là “power couples”."
+            },
+            {
+              "en": "There are many examples of famous power couples, including successful movie stars, musicians and others in the performing arts. But power couples can exist in many other industries and communities, as well. And, the two people do not have to work in the same industry.",
+              "vi": "Có nhiều ví dụ về các cặp quyền lực nổi tiếng, như ngôi sao điện ảnh, nhạc sĩ và nghệ sĩ biểu diễn khác. Nhưng cặp đôi quyền lực có ở nhiều ngành và cộng đồng khác, và hai người không cần làm cùng ngành."
+            },
+            {
+              "en": "If they do, however, that can make them even more powerful. For example, a well-known architect who builds homes could be partnered with a famous designer who decorates them. Or, one person in a power couple may be a music producer, while the other is a famous singer.",
+              "vi": "Nhưng nếu cùng ngành thì họ có thể còn mạnh hơn. Ví dụ, một kiến trúc sư nổi tiếng thiết kế nhà có thể kết đôi với một nhà thiết kế nổi tiếng trang trí nội thất. Hoặc một người là nhà sản xuất âm nhạc, người kia là ca sĩ nổi tiếng."
+            },
+            {
+              "en": "Even though power couples involve highly successful people, one person could describe their partner as their better half. This is a way to compliment their “other half” in the relationship. For example, one might say during a meeting with a friend, “Hello! How are you? And more importantly, how is your better half?”",
+              "vi": "Dù cặp đôi quyền lực gồm những người rất thành công, một người vẫn có thể gọi bạn đời là “better half” (một nửa tốt hơn của mình). Đó là cách khen “nửa kia” trong mối quan hệ. Ví dụ khi gặp bạn: “Chào! Bạn khỏe không? Và quan trọng hơn, một nửa của bạn thế nào?”"
+            },
+            {
+              "en": "Now, let’s hear two friends use some of these expressions. A: Hey, I’m not used to seeing you alone. Where’s your sidekick? B: Huh? Who are you talking about? A: Ben. You guys have been joined at the hip for weeks. Looks like you’re thick as thieves.",
+              "vi": "Nghe hai người bạn dùng các cách nói này. A: Này, tôi không quen thấy bạn đi một mình. Bạn đồng hành của bạn đâu? B: Hả? Bạn nói ai? A: Ben. Hai người dính nhau như sam mấy tuần rồi. Có vẻ thân như anh em."
+            },
+            {
+              "en": "B: Well, the project is pretty important for the company. So, we’re putting in a lot of hours. A: Are you becoming kindred spirits from working so much together? B: No. It’s just keeping us both very busy.",
+              "vi": "B: Dự án khá quan trọng với công ty nên bọn tôi làm nhiều giờ. A: Làm việc nhiều bên nhau nên thành tri kỷ rồi à? B: Không. Chỉ là cả hai đều rất bận."
+            },
+            {
+              "en": "A: Busy trying to become the new power couple in the office? B: What are you talking about?? We’re not thick as thieves or kindred spirits, and we’re definitely not a power couple. We are just working hard on the same project!",
+              "vi": "A: Bận để thành cặp đôi quyền lực mới của văn phòng à? B: Bạn nói gì vậy?? Bọn tôi không thân như anh em hay tri kỷ, và chắc chắn không phải cặp đôi quyền lực. Chỉ là cùng làm một dự án thôi!"
+            },
+            {
+              "en": "And that’s all the time we have for this Words and Their Stories. Until next time, I’m Anna Matteo.",
+              "vi": "Hết thời gian cho Words and Their Stories hôm nay. Hẹn lần sau, tôi là Anna Matteo."
+            }
+          ],
+          "hideText": true,
+          "recording": {
+            "id": "voa-wts-power-couple",
+            "sourceUrl": "https://learningenglish.voanews.com/a/what-does-it-take-to-be-a-power-couple-/7963076.html",
+            "credit": "VOA Learning English — Anna Matteo, “What Does It Take to Be a 'Power Couple'?” (public domain)",
+            "seconds": 274
+          }
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is a “power couple”?",
+          "choices": [
+            "Two very successful people in a romantic relationship",
+            "Two people who share an apartment",
+            "Two coworkers who dislike each other",
+            "Two friends who play sports"
+          ],
+          "answer": 0,
+          "explain": "Power couple = hai người đang yêu nhau và đều rất thành công."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does “joined at the hip” mean?",
+          "choices": [
+            "Nearly always together",
+            "Injured together",
+            "Working in a hospital",
+            "Dancing together"
+          ],
+          "answer": 0,
+          "explain": "Joined at the hip = gần như lúc nào cũng bên nhau."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does “better half” mean?",
+          "choices": [
+            "A doctor",
+            "A person’s romantic partner",
+            "A best friend at work",
+            "A smaller portion"
+          ],
+          "answer": 1,
+          "explain": "Better half = cách khen nói về bạn đời của ai đó."
+        },
+        {
+          "type": "tf",
+          "statement": "In the conversation, the two coworkers say they are a power couple.",
+          "answer": "false",
+          "explain": "Sai: B phủ nhận, nói chỉ đang cùng làm một dự án quan trọng."
+        },
+        {
+          "type": "gap",
+          "prompt": "People who share the same opinions and interests are called kindred ___.",
+          "answers": [
+            "spirits"
+          ],
+          "choices": [
+            "spirits",
+            "friends",
+            "minds"
+          ],
+          "explain": "“Kindred spirits” = những người cùng quan điểm, sở thích (tri kỷ)."
+        }
+      ]
+    },
+    {
+      "id": "listenvoa.spread-thin",
+      "title": "VOA: “Spread yourself too thin” — ôm đồm quá nhiều",
+      "summary": "Words and Their Stories: spread too thin, bite off more than you can chew, overwhelmed, overcommitted.",
+      "level": "B1_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là **bản thu thật** của VOA Learning English (giọng Mỹ, tốc độ chậm). Nghe một lần **chưa xem lời thoại**, trả lời câu hỏi, rồi bấm “Hiện lời thoại” để đối chiếu. Cần tải gói âm thanh bài nghe để có tiếng."
+        },
+        {
+          "type": "audio",
+          "title": "Words and Their Stories: Sometimes We 'Spread Ourself Too Thin'",
+          "lines": [
+            {
+              "en": "And now, Words and Their Stories, from VOA Learning English.",
+              "vi": "Và bây giờ là Words and Their Stories của VOA Learning English."
+            },
+            {
+              "en": "Today we talk about our busy lives. Many people have family and work responsibilities. We might have religious or community activities. Taking care of our health is also important. And let’s not forget about our personal projects, our interests, and our friendships.",
+              "vi": "Hôm nay ta nói về cuộc sống bận rộn. Nhiều người có trách nhiệm gia đình và công việc, có thể có hoạt động tôn giáo hay cộng đồng. Chăm sóc sức khỏe cũng quan trọng. Đừng quên các dự án cá nhân, sở thích và tình bạn."
+            },
+            {
+              "en": "With everything on our plate, it is easy to feel overwhelmed, overextended, and overcommitted.",
+              "vi": "Với bao nhiêu thứ phải lo, ta dễ thấy choáng ngợp, gánh quá sức và nhận quá nhiều cam kết."
+            },
+            {
+              "en": "However, if we try to do too much, we may spread ourselves too thin. This expression means we have taken on too much. We are pushed to the limit.",
+              "vi": "Nhưng nếu cố làm quá nhiều, ta có thể “spread ourselves too thin” (dàn mỏng bản thân). Cách nói này nghĩa là ta nhận quá nhiều việc và bị đẩy đến giới hạn."
+            },
+            {
+              "en": "People who are spread too thin, take on too many jobs, projects, or goals. The heavy load requires more energy or attention than they possess.",
+              "vi": "Người bị dàn mỏng nhận quá nhiều công việc, dự án hay mục tiêu. Khối lượng nặng đòi hỏi nhiều năng lượng và sự chú ý hơn họ có."
+            },
+            {
+              "en": "If we work on many projects simultaneously, or at the same time, it is possible that none will get done well, if they get done at all. And it is possible such multitasking could stress us out.",
+              "vi": "Nếu làm nhiều dự án cùng một lúc, có thể không dự án nào được làm tốt, hoặc thậm chí không xong. Việc làm nhiều thứ cùng lúc như vậy cũng có thể khiến ta căng thẳng."
+            },
+            {
+              "en": "Being spread too thin can also be described as biting off more than we can chew. When we bite off more than we can chew, we attempt to do more than is possible.",
+              "vi": "Bị dàn mỏng cũng có thể gọi là “biting off more than we can chew” (cắn miếng to hơn mình nhai nổi). Khi đó ta cố làm nhiều hơn khả năng."
+            },
+            {
+              "en": "Here is a VOA Learning English English in a Minute video explaining the idiom “to bite off more than you can chew.” Now, let’s hear these some of these terms and expressions used in a conversation.",
+              "vi": "Đây là một video English in a Minute của VOA Learning English giải thích thành ngữ “to bite off more than you can chew”. Giờ nghe một số cách nói này trong hội thoại."
+            },
+            {
+              "en": "A: So, how are your classes going? B: Not great. Many of my best students are failing my course. They all missed an important deadline for a project. A: That's strange. What else do they have going on?",
+              "vi": "A: Lớp của bạn thế nào? B: Không tốt. Nhiều học sinh giỏi nhất của tôi đang trượt môn. Tất cả đều trễ hạn một dự án quan trọng. A: Lạ nhỉ. Họ còn đang bận gì nữa?"
+            },
+            {
+              "en": "B: A lot! They are all performing in the same play. So, they have had rehearsals every night for the past month. And many have part-time jobs as well. A: Sounds like they’ve spread themselves too thin. They’ve got too much going on. B: I think you’re right.",
+              "vi": "B: Nhiều lắm! Tất cả đều diễn chung một vở kịch nên tháng qua đêm nào cũng tập. Nhiều người còn đi làm thêm. A: Nghe như họ ôm đồm quá, quá nhiều việc cùng lúc. B: Tôi nghĩ bạn nói đúng."
+            },
+            {
+              "en": "A: So, what are you going to do? B: Well, first I’ll extend the deadline. And then I’m going to warn them about biting off more than they can chew.",
+              "vi": "A: Vậy bạn định làm gì? B: Trước hết tôi sẽ gia hạn. Sau đó tôi sẽ nhắc họ đừng ôm quá sức."
+            },
+            {
+              "en": "And that’s all the time we have for this Words and Their Stories. Until next time, I’m Anna Matteo.",
+              "vi": "Hết thời gian cho Words and Their Stories hôm nay. Hẹn lần sau, tôi là Anna Matteo."
+            }
+          ],
+          "hideText": true,
+          "recording": {
+            "id": "voa-wts-spread-thin",
+            "sourceUrl": "https://learningenglish.voanews.com/a/sometimes-we-spread-ourself-too-thin-/7940837.html",
+            "credit": "VOA Learning English — Anna Matteo, “Sometimes We 'Spread Ourself Too Thin'” (public domain)",
+            "seconds": 209
+          }
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What does “spread ourselves too thin” mean?",
+          "choices": [
+            "We take on too much and are pushed to the limit",
+            "We lose weight",
+            "We become very friendly",
+            "We travel too far"
+          ],
+          "answer": 0,
+          "explain": "Spread too thin = nhận quá nhiều việc, bị đẩy đến giới hạn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which expression has a similar meaning?",
+          "choices": [
+            "Bite off more than you can chew",
+            "Break the ice",
+            "Piece of cake",
+            "On the ball"
+          ],
+          "answer": 0,
+          "explain": "Hai thành ngữ cùng nghĩa: cố làm nhiều hơn khả năng."
+        },
+        {
+          "type": "tf",
+          "statement": "According to the story, doing many projects at once guarantees all of them will be done well.",
+          "answer": "false",
+          "explain": "Sai: có thể không dự án nào được làm tốt, thậm chí không xong."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why were the students failing the course?",
+          "choices": [
+            "They were too busy with a play and part-time jobs",
+            "They disliked the teacher",
+            "They were sick",
+            "They lost their books"
+          ],
+          "answer": 0,
+          "explain": "Họ tập kịch mỗi đêm và còn đi làm thêm nên trễ hạn dự án."
+        },
+        {
+          "type": "gap",
+          "prompt": "The teacher will ___ the deadline for the students.",
+          "answers": [
+            "extend"
+          ],
+          "choices": [
+            "extend",
+            "remove",
+            "forget"
+          ],
+          "explain": "Người giáo viên nói: “I’ll extend the deadline” (gia hạn)."
+        }
+      ]
+    },
+    {
+      "id": "listenvoa.knee-jerk",
+      "title": "VOA: “Knee-jerk” và “gut reaction”",
+      "summary": "Words and Their Stories: phản ứng tự động và linh cảm — knee-jerk reaction, gut reaction, gut instinct.",
+      "level": "B2_1",
+      "minutes": 5,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là **bản thu thật** của VOA Learning English (giọng Mỹ, tốc độ chậm). Nghe một lần **chưa xem lời thoại**, trả lời câu hỏi, rồi bấm “Hiện lời thoại” để đối chiếu. Cần tải gói âm thanh bài nghe để có tiếng."
+        },
+        {
+          "type": "audio",
+          "title": "Words and Their Stories: Knee Jerk and Gut Reactions: When We Are Not in Control",
+          "lines": [
+            {
+              "en": "And now, Words and Their Stories, from VOA Learning English.",
+              "vi": "Và bây giờ là Words and Their Stories của VOA Learning English."
+            },
+            {
+              "en": "In life, some of our decisions and actions are well thought out. They involve research, examination, and time for thought. And other decisions and actions are not well thought out. We make them quickly, without thinking, almost like a pure physical reaction.",
+              "vi": "Trong cuộc sống, có quyết định và hành động được suy nghĩ kỹ, có nghiên cứu, xem xét và thời gian cân nhắc. Có cái thì không: ta làm nhanh, không suy nghĩ, gần như phản xạ cơ thể thuần túy."
+            },
+            {
+              "en": "We can call these decisions, actions or reactions knee-jerk. This term comes from a medical process. Meriam Webster defines the noun “knee jerk” as “an involuntary forward kick produced by a light blow on the tendon below the kneecap.” It is an involuntary action. It's automatic.",
+              "vi": "Ta gọi các quyết định, hành động hay phản ứng này là “knee-jerk”. Thuật ngữ bắt nguồn từ y học. Từ điển Merriam-Webster định nghĩa “knee jerk” là cú đá chân về phía trước không chủ ý khi gõ nhẹ vào gân dưới xương bánh chè. Đó là hành động không tự nguyện, tự động."
+            },
+            {
+              "en": "The words “involuntary” and “automatic” are important when understanding the term “knee jerk” and when to use it. Knee-jerk reactions seem to happen automatically without a decision-making process. We often use “knee jerk” as an adjective.",
+              "vi": "Các từ “involuntary” và “automatic” quan trọng để hiểu và dùng “knee jerk”. Phản ứng knee-jerk dường như xảy ra tự động, không qua quá trình quyết định. Ta thường dùng “knee jerk” như tính từ."
+            },
+            {
+              "en": "Like hitting your kneecap to move your leg, knee-jerk reactions or statements also seem like an involuntary reflex. “Knee jerk” also describes predictable behavior. Again, hit the knee, the leg will kick every time. So “knee jerk” describes someone who always reacts quickly and without enough thought.",
+              "vi": "Giống gõ vào đầu gối làm chân giật, phản ứng hay lời nói knee-jerk cũng như phản xạ không tự chủ. “Knee jerk” còn tả hành vi dễ đoán: gõ đầu gối là chân lần nào cũng đá. Vì thế nó tả người luôn phản ứng nhanh mà không nghĩ đủ."
+            },
+            {
+              "en": "For example, let’s say you are on a team with someone who never faces responsibility for their mistakes in the game. If brought to account, the player always blames the dropped ball on other teammates. You can say that player is having a knee-jerk reaction to criticism. They have a go-to response. It’s like a reflex they can’t control.",
+              "vi": "Ví dụ, trong đội có người không bao giờ nhận trách nhiệm cho lỗi của mình. Khi bị hỏi, người chơi đó luôn đổ lỗi làm rơi bóng cho đồng đội. Có thể nói họ có phản ứng knee-jerk với lời phê bình, một đáp trả quen thuộc như phản xạ không kiểm soát được."
+            },
+            {
+              "en": "We often use knee-jerk in a criticizing or negative way.",
+              "vi": "Ta thường dùng knee-jerk theo nghĩa chê hoặc tiêu cực."
+            },
+            {
+              "en": "Now, a gut reaction also happens without thinking. But it is a bit different than a knee-jerk response. A gut reaction is a feeling. When we have a gut reaction, our instincts are telling us that something may not be right. Gut reactions are instinctual warnings.",
+              "vi": "“Gut reaction” cũng xảy ra mà không suy nghĩ, nhưng hơi khác knee-jerk. Nó là một cảm giác: bản năng báo rằng có điều gì không ổn. Gut reaction là lời cảnh báo theo bản năng."
+            },
+            {
+              "en": "So, we also use this expression a bit differently than “knee jerk.” We usually talk about our own gut reactions or impulses, not others.",
+              "vi": "Vì vậy ta dùng cách nói này hơi khác “knee jerk”: thường nói về gut reaction hay linh cảm của chính mình, không phải của người khác."
+            },
+            {
+              "en": "Here is an example: One day, I was hiking on a mountain in California. I had hiked for about two hours and was near the top. The view, I was told, was truly beautiful. I couldn’t wait to see it!",
+              "vi": "Ví dụ: Một hôm tôi đi bộ đường dài trên một ngọn núi ở California. Tôi đã đi khoảng hai tiếng và gần tới đỉnh. Nghe nói cảnh ở đó rất đẹp. Tôi nóng lòng muốn thấy!"
+            },
+            {
+              "en": "Then, suddenly, I had a strange feeling. Something just didn’t feel right. I can’t explain why, but my gut instinct was to turn around and head back down the mountain. I later found out that a dangerous bear had been sighted in the same area that I had fled. I am so thankful I listened to my gut instinct.",
+              "vi": "Rồi bỗng tôi có cảm giác lạ, có gì đó không ổn. Tôi không giải thích được, nhưng linh cảm bảo tôi quay lại và xuống núi. Sau này tôi biết có người thấy một con gấu nguy hiểm ở chính khu vực tôi vừa rời đi. Tôi rất biết ơn vì đã nghe theo linh cảm."
+            },
+            {
+              "en": "And that’s Words and Their Stories. Until next time, I’m Anna Matteo.",
+              "vi": "Và đó là Words and Their Stories. Hẹn lần sau, tôi là Anna Matteo."
+            }
+          ],
+          "hideText": true,
+          "recording": {
+            "id": "voa-wts-knee-jerk",
+            "sourceUrl": "https://learningenglish.voanews.com/a/knee-jerk-when-you-are-not-in-control-/7937763.html",
+            "credit": "VOA Learning English — Anna Matteo, “Knee Jerk and Gut Reactions: When We Are Not in Control” (public domain)",
+            "seconds": 291
+          }
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Where does the term “knee jerk” come from?",
+          "choices": [
+            "A medical process",
+            "A sport",
+            "A song",
+            "A cooking method"
+          ],
+          "answer": 0,
+          "explain": "Thuật ngữ bắt nguồn từ phản xạ y học khi gõ nhẹ vào gân dưới xương bánh chè."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does a “knee-jerk reaction” describe?",
+          "choices": [
+            "A reaction made quickly without enough thought",
+            "A carefully planned decision",
+            "A slow response",
+            "A happy feeling"
+          ],
+          "answer": 0,
+          "explain": "Knee-jerk = phản ứng nhanh, tự động, thiếu suy nghĩ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "How is a “gut reaction” different from a knee-jerk response?",
+          "choices": [
+            "It is a feeling, an instinctual warning",
+            "It is always slow",
+            "It is about other people only",
+            "It is never correct"
+          ],
+          "answer": 0,
+          "explain": "Gut reaction là cảm giác, linh cảm cảnh báo của chính mình."
+        },
+        {
+          "type": "tf",
+          "statement": "The speaker ignored her gut instinct on the mountain.",
+          "answer": "false",
+          "explain": "Sai: cô nghe theo linh cảm, quay xuống núi, và sau đó biết có gấu nguy hiểm."
+        },
+        {
+          "type": "gap",
+          "prompt": "Someone who always reacts quickly without enough thought has a ___-jerk reaction.",
+          "answers": [
+            "knee"
+          ],
+          "choices": [
+            "knee",
+            "hand",
+            "head"
+          ],
+          "explain": "“Knee-jerk reaction” = phản ứng giật mình, thiếu suy nghĩ."
+        }
+      ]
+    },
+    {
+      "id": "listenvoa.lle-hello",
+      "title": "VOA Let’s Learn English 2: Hello, I’m Anna!",
+      "summary": "Chào hỏi và giới thiệu: tên, nơi ở, số căn hộ.",
+      "level": "A1_1",
+      "minutes": 2,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là **bản thu thật** của VOA Learning English (Let’s Learn English, giọng Mỹ, nói chậm). Nghe một lần **chưa xem lời thoại**, trả lời câu hỏi, rồi bấm “Hiện lời thoại” để đối chiếu. Cần tải gói âm thanh bài nghe để có tiếng."
+        },
+        {
+          "type": "audio",
+          "title": "Let’s Learn English: Lesson 2: Hello, I’m Anna!",
+          "lines": [
+            {
+              "en": "Jonathan: Hey, Pete! Who’s your friend? Pete: She is Anna. She is new to D.C.",
+              "vi": "Jonathan: Này Pete! Bạn của anh là ai vậy? Pete: Cô ấy là Anna. Cô ấy mới đến Washington, D.C."
+            },
+            {
+              "en": "Jonathan: Where are you from? Anna: I am from a small town. Jonathan: Well, welcome to D.C. Anna: Thank you.",
+              "vi": "Jonathan: Bạn đến từ đâu? Anna: Tôi đến từ một thị trấn nhỏ. Jonathan: Chào mừng đến D.C. Anna: Cảm ơn."
+            },
+            {
+              "en": "Jonathan: I am Jonathan. I am in apartment B4. Anna: I am in apartment C2. Marsha is my roommate.",
+              "vi": "Jonathan: Tôi là Jonathan, ở căn hộ B4. Anna: Tôi ở căn hộ C2. Marsha là bạn cùng phòng của tôi."
+            },
+            {
+              "en": "Jonathan: I know Marsha. She is nice. Pete: And I am in Apartment D7. I have to go now. Anna: Oh!",
+              "vi": "Jonathan: Tôi biết Marsha, cô ấy dễ mến. Pete: Còn tôi ở căn hộ D7. Giờ tôi phải đi. Anna: Ồ!"
+            },
+            {
+              "en": "Pete: Remember to call Marsha at work. Tell her you’re here. Anna: Right, thanks, Pete. Nice to meet you!",
+              "vi": "Pete: Nhớ gọi Marsha ở chỗ làm, báo là bạn đã đến. Anna: Vâng, cảm ơn Pete. Rất vui được gặp anh!"
+            },
+            {
+              "en": "Jonathan: You too, Bye. Anna: Apartment C2, here I come!",
+              "vi": "Jonathan: Tôi cũng vậy, tạm biệt. Anna: Căn hộ C2, tôi đến đây!"
+            }
+          ],
+          "hideText": true,
+          "recording": {
+            "id": "voa-lle-02-hello",
+            "sourceUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-2-hello/3113733.html",
+            "credit": "VOA Learning English — Let’s Learn English, “Lesson 2: Hello, I’m Anna!” (public domain)",
+            "seconds": 48
+          }
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Where is Anna from?",
+          "choices": [
+            "A big city",
+            "A small town",
+            "Washington, D.C.",
+            "China"
+          ],
+          "answer": 1,
+          "explain": "Anna nói: “I am from a small town.”"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which apartment is Anna in?",
+          "choices": [
+            "B4",
+            "D7",
+            "C2",
+            "A1"
+          ],
+          "answer": 2,
+          "explain": "Anna: “I am in apartment C2.”"
+        },
+        {
+          "type": "tf",
+          "statement": "Marsha is Anna’s roommate.",
+          "answer": "true",
+          "explain": "Đúng: “Marsha is my roommate.”"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What should Anna do at work?",
+          "choices": [
+            "Call Marsha",
+            "Visit Jonathan",
+            "Cook dinner",
+            "Write a letter"
+          ],
+          "answer": 0,
+          "explain": "Pete dặn: “Remember to call Marsha at work.”"
+        },
+        {
+          "type": "gap",
+          "prompt": "Nice to ___ you!",
+          "answers": [
+            "meet"
+          ],
+          "choices": [
+            "meet",
+            "see",
+            "find"
+          ],
+          "explain": "“Nice to meet you!” dùng khi gặp ai lần đầu."
+        }
+      ]
+    },
+    {
+      "id": "listenvoa.lle-family",
+      "title": "VOA Let’s Learn English 12: Meet my family",
+      "summary": "Nói về gia đình: mẹ, bố, cô, chú, anh chị em họ.",
+      "level": "A1_2",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là **bản thu thật** của VOA Learning English (Let’s Learn English, giọng Mỹ, nói chậm). Nghe một lần **chưa xem lời thoại**, trả lời câu hỏi, rồi bấm “Hiện lời thoại” để đối chiếu. Cần tải gói âm thanh bài nghe để có tiếng."
+        },
+        {
+          "type": "audio",
+          "title": "Let’s Learn English: Lesson 12: Meet My Family",
+          "lines": [
+            {
+              "en": "Anna: Hello! Washington, D.C. has many beautiful parks. In fact, this park reminds me of my home very far away.",
+              "vi": "Anna: Xin chào! Washington, D.C. có nhiều công viên đẹp. Thật ra công viên này làm tôi nhớ nhà rất xa."
+            },
+            {
+              "en": "Marsha: Anna, here's your coffee. Anna: Thanks, Marsha. Marsha: What's wrong? Anna: I'm thinking about my family. I'm feeling homesick.",
+              "vi": "Marsha: Anna, cà phê của bạn đây. Anna: Cảm ơn Marsha. Marsha: Có chuyện gì vậy? Anna: Tôi đang nghĩ về gia đình. Tôi thấy nhớ nhà."
+            },
+            {
+              "en": "Marsha: Do you want to talk about it? Anna: Sure! I have some photos. Marsha: Yes. Yes, you do! Anna: Photos really help.",
+              "vi": "Marsha: Bạn muốn nói về chuyện đó không? Anna: Có chứ! Tôi có vài tấm ảnh. Marsha: Ừ, đúng là bạn có! Anna: Ảnh giúp ích nhiều lắm."
+            },
+            {
+              "en": "Anna: This is my mother and this is my father. They are rodeo clowns. Marsha: What do rodeo clowns do? Anna: They make jokes at a rodeo. They make people laugh.",
+              "vi": "Anna: Đây là mẹ và bố tôi. Họ là hề rodeo. Marsha: Hề rodeo làm gì? Anna: Họ pha trò ở đấu trường rodeo, làm mọi người cười."
+            },
+            {
+              "en": "Marsha: That’s very different. Who is that woman in the picture? Anna: That is my Aunt Lavender. She is my mom's sister. She loves gardening and makes spoons.",
+              "vi": "Marsha: Khác lạ thật. Người phụ nữ trong ảnh là ai? Anna: Đó là dì Lavender, em gái của mẹ tôi. Dì thích làm vườn và làm thìa."
+            },
+            {
+              "en": "Marsha: She makes spoons? Anna: Of course. Marsha: That, too, is very different. Anna: Oh! This is my Uncle John. He is my father's brother.",
+              "vi": "Marsha: Dì làm thìa á? Anna: Dĩ nhiên. Marsha: Cũng khác lạ nốt. Anna: Ồ! Đây là chú John, em trai của bố tôi."
+            },
+            {
+              "en": "Marsha: What does Uncle John do? Anna: He's a chicken farmer. And makes guitars. He's awesome, and I'm his favorite niece.",
+              "vi": "Marsha: Chú John làm nghề gì? Anna: Chú nuôi gà và làm đàn guitar. Chú tuyệt lắm, và tôi là cô cháu gái cưng của chú."
+            },
+            {
+              "en": "Marsha: Who are they? Anna: They are my cousins. They are my Uncle John's daughter and son. Marsha: What do they do? Anna: They raise sheep and make sweaters.",
+              "vi": "Marsha: Họ là ai? Anna: Họ là anh chị em họ của tôi, con gái và con trai của chú John. Marsha: Họ làm gì? Anna: Họ nuôi cừu và làm áo len."
+            },
+            {
+              "en": "Marsha: Yeah, that's not a surprise. Thanks for showing me your family photos. Your family is very different.",
+              "vi": "Marsha: Ừ, cũng không bất ngờ. Cảm ơn bạn đã cho tôi xem ảnh gia đình. Gia đình bạn thật khác lạ."
+            },
+            {
+              "en": "Anna: I do feel better. Thanks for listening. I have many more photos! Marsha: Yeah. Yeah, you do. Anna: Washington, DC is my new home. But I like remembering my old home, too.",
+              "vi": "Anna: Tôi thấy khá hơn rồi. Cảm ơn đã lắng nghe. Tôi còn nhiều ảnh nữa! Marsha: Ừ, đúng là bạn có. Anna: Washington, DC là nhà mới của tôi, nhưng tôi cũng thích nhớ về nhà cũ."
+            }
+          ],
+          "hideText": true,
+          "recording": {
+            "id": "voa-lle-12-family",
+            "sourceUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-12-meet-my-family/3301733.html",
+            "credit": "VOA Learning English — Let’s Learn English, “Lesson 12: Meet My Family” (public domain)",
+            "seconds": 189
+          }
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How does Anna feel at the beginning?",
+          "choices": [
+            "Homesick",
+            "Angry",
+            "Tired",
+            "Hungry"
+          ],
+          "answer": 0,
+          "explain": "Anna nói: “I’m feeling homesick” (nhớ nhà)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What do Anna’s parents do?",
+          "choices": [
+            "They are teachers",
+            "They are rodeo clowns",
+            "They are chefs",
+            "They are farmers"
+          ],
+          "answer": 1,
+          "explain": "Bố mẹ Anna là hề rodeo, pha trò cho mọi người cười."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Who is Aunt Lavender?",
+          "choices": [
+            "Anna’s mom’s sister",
+            "Anna’s dad’s sister",
+            "Anna’s cousin",
+            "Anna’s friend"
+          ],
+          "answer": 0,
+          "explain": "Anna: “She is my mom’s sister.”"
+        },
+        {
+          "type": "tf",
+          "statement": "Uncle John is a teacher.",
+          "answer": "false",
+          "explain": "Sai: chú John là người nuôi gà (chicken farmer) và làm đàn guitar."
+        },
+        {
+          "type": "gap",
+          "prompt": "Uncle John is my father’s ___.",
+          "answers": [
+            "brother"
+          ],
+          "choices": [
+            "brother",
+            "sister",
+            "mother"
+          ],
+          "explain": "“My father’s brother” = chú/bác (em/anh trai của bố)."
+        }
+      ]
+    },
+    {
+      "id": "listenvoa.lle-where-from",
+      "title": "VOA Let’s Learn English 16: Where are you from?",
+      "summary": "Phỏng vấn du khách ở Washington: tên, quốc gia, quốc tịch, ngôn ngữ, điều thích.",
+      "level": "A1_2",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là **bản thu thật** của VOA Learning English (Let’s Learn English, giọng Mỹ, nói chậm). Nghe một lần **chưa xem lời thoại**, trả lời câu hỏi, rồi bấm “Hiện lời thoại” để đối chiếu. Cần tải gói âm thanh bài nghe để có tiếng."
+        },
+        {
+          "type": "audio",
+          "title": "Let’s Learn English: Lesson 16: Where Are You From?",
+          "lines": [
+            {
+              "en": "Anna: Hello! Washington, D.C. has many tourists! People from different countries come here. Today, my job is to interview tourists. I have to learn why they come here. This is very exciting!",
+              "vi": "Anna: Xin chào! Washington, D.C. có rất nhiều du khách! Người từ nhiều nước đến đây. Hôm nay việc của tôi là phỏng vấn du khách để biết vì sao họ đến. Thật thú vị!"
+            },
+            {
+              "en": "Anna: Excuse me. I’m Anna Matteo from The News. Do you have time for an interview? Sabrina: Sure, I have time. Anna: What is your name? Sabrina: My name is Sabrina.",
+              "vi": "Anna: Xin lỗi, tôi là Anna Matteo của The News. Bạn có thời gian cho một cuộc phỏng vấn không? Sabrina: Có chứ. Anna: Bạn tên gì? Sabrina: Tôi tên Sabrina."
+            },
+            {
+              "en": "Anna: What country are you from? Sabrina: I’m from Bangladesh. Anna: So, you are Bangladeshi. Sabrina: That’s right! My nationality is Bangladeshi.",
+              "vi": "Anna: Bạn đến từ nước nào? Sabrina: Tôi đến từ Bangladesh. Anna: Vậy bạn là người Bangladesh. Sabrina: Đúng rồi! Quốc tịch của tôi là Bangladesh."
+            },
+            {
+              "en": "Anna: Do you like Washington, D.C.? Sabrina: Yes! The city is very beautiful! Anna: What do you like to do in Washington D.C.? Sabrina: I like history. So, I like walking around and looking at all the monuments and memorials. They make history come alive!",
+              "vi": "Anna: Bạn có thích Washington, D.C. không? Sabrina: Có! Thành phố rất đẹp! Anna: Bạn thích làm gì ở đây? Sabrina: Tôi thích lịch sử nên thích đi dạo ngắm các đài tưởng niệm. Chúng làm lịch sử sống động!"
+            },
+            {
+              "en": "Anna: Washington has many monuments and memorials. The Washington Monument is behind us! Which is your favorite? Sabrina: I really like Lincoln Memorial. It is very beautiful. And it feels like Abraham Lincoln is still alive.",
+              "vi": "Anna: Washington có nhiều đài tưởng niệm. Đài Washington ở ngay sau lưng chúng ta! Bạn thích cái nào nhất? Sabrina: Tôi rất thích Đài tưởng niệm Lincoln. Rất đẹp, và cảm giác như Abraham Lincoln vẫn còn sống."
+            },
+            {
+              "en": "Anna: Awesome. Thank you for your time, Sabrina! Sabrina: You’re welcome. Anna: Let’s find another tourist.",
+              "vi": "Anna: Tuyệt vời. Cảm ơn bạn đã dành thời gian, Sabrina! Sabrina: Không có gì. Anna: Ta tìm thêm một du khách nữa."
+            },
+            {
+              "en": "Anna: Oh! Excuse me. I am Anna Matteo from The News. Do you have time for a couple of questions? Louis: Sure! Anna: Are you from Washington, D.C.? Louis: No, I’m not.",
+              "vi": "Anna: Ồ! Xin lỗi, tôi là Anna Matteo của The News. Bạn có thời gian cho vài câu hỏi không? Louis: Có! Anna: Bạn là người Washington, D.C. à? Louis: Không phải."
+            },
+            {
+              "en": "Anna: What is your name and where are you from? Louis: My name is Louis. And I’m from China. Anna: What languages do you speak? Louis: I speak Chinese and English.",
+              "vi": "Anna: Bạn tên gì và đến từ đâu? Louis: Tôi tên Louis, đến từ Trung Quốc. Anna: Bạn nói những ngôn ngữ nào? Louis: Tôi nói tiếng Trung và tiếng Anh."
+            },
+            {
+              "en": "Anna: What do you like about Washington DC? Louis: I like the museums. I really like the art museums. Anna: Many of the museums are free. Louis: I like that too! Anna: Awesome! Thanks for your time, Louis. Louis: You’re very welcome. Bye!",
+              "vi": "Anna: Bạn thích điều gì ở Washington DC? Louis: Tôi thích các bảo tàng, nhất là bảo tàng nghệ thuật. Anna: Nhiều bảo tàng miễn phí đấy. Louis: Tôi cũng thích điều đó! Anna: Tuyệt! Cảm ơn bạn, Louis. Louis: Không có gì. Tạm biệt!"
+            },
+            {
+              "en": "Anna: Now, let’s find another tourist! Hello! I am Anna Matteo from The News. Do you have time to answer a couple of questions? Mehrnoush: Sure! Anna: What is your name and where’re you from? Mehrnoush: My name is Mehrnoush. I am from Iran. I’m Iranian.",
+              "vi": "Anna: Giờ ta tìm thêm một du khách! Xin chào, tôi là Anna Matteo của The News. Bạn có thể trả lời vài câu hỏi không? Mehrnoush: Được! Anna: Bạn tên gì và đến từ đâu? Mehrnoush: Tôi tên Mehrnoush, đến từ Iran. Tôi là người Iran."
+            },
+            {
+              "en": "Anna: What language do they speak in Iran? Is it Persian? Mehrnoush: They speak Farsi. Anna: What do you like to do in Washington DC? Mehrnoush: Well, I like learning about government and politics.",
+              "vi": "Anna: Ở Iran người ta nói tiếng gì? Có phải tiếng Ba Tư không? Mehrnoush: Họ nói tiếng Farsi. Anna: Bạn thích làm gì ở Washington DC? Mehrnoush: Tôi thích tìm hiểu về chính phủ và chính trị."
+            },
+            {
+              "en": "Anna: Washington has many politicians! Mehrnoush: It does! I want to see the U.S. Capitol. Anna: Look, you are very near. Mehrnoush: I am! Anna: Have fun! Mehrnoush: Thanks!",
+              "vi": "Anna: Washington có nhiều chính trị gia! Mehrnoush: Đúng vậy! Tôi muốn xem Điện Capitol. Anna: Nhìn kìa, bạn đang ở rất gần. Mehrnoush: Đúng thật! Anna: Chúc vui! Mehrnoush: Cảm ơn!"
+            },
+            {
+              "en": "Anna: There you have it. Tourists from all over the world come to Washington, D.C. They all like doing and seeing different things in the city. This is Anna Matteo reporting for The News. Until next time!",
+              "vi": "Anna: Đó là tất cả. Du khách từ khắp thế giới đến Washington, D.C. và ai cũng thích làm, xem những điều khác nhau trong thành phố. Anna Matteo đưa tin cho The News. Hẹn lần sau!"
+            }
+          ],
+          "hideText": true,
+          "recording": {
+            "id": "voa-lle-16-where-from",
+            "sourceUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-16-where-are-you-from/3355849.html",
+            "credit": "VOA Learning English — Let’s Learn English, “Lesson 16: Where Are You From?” (public domain)",
+            "seconds": 206
+          }
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is Anna’s job in this lesson?",
+          "choices": [
+            "She interviews tourists",
+            "She sells tickets",
+            "She teaches history",
+            "She drives a bus"
+          ],
+          "answer": 0,
+          "explain": "Anna: “my job is to interview tourists.”"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Where is Sabrina from?",
+          "choices": [
+            "Iran",
+            "China",
+            "Bangladesh",
+            "Egypt"
+          ],
+          "answer": 2,
+          "explain": "Sabrina: “I’m from Bangladesh.”"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which language does Mehrnoush say they speak in Iran?",
+          "choices": [
+            "Persian only",
+            "Farsi",
+            "Chinese",
+            "English"
+          ],
+          "answer": 1,
+          "explain": "Mehrnoush nói: “They speak Farsi.”"
+        },
+        {
+          "type": "tf",
+          "statement": "Louis likes the art museums.",
+          "answer": "true",
+          "explain": "Đúng: “I really like the art museums.”"
+        },
+        {
+          "type": "gap",
+          "prompt": "What is your ___? — I’m Bangladeshi.",
+          "answers": [
+            "nationality"
+          ],
+          "choices": [
+            "nationality",
+            "language",
+            "city"
+          ],
+          "explain": "Quốc tịch (nationality) của Sabrina là Bangladeshi."
+        }
+      ]
+    },
+    {
+      "id": "listenvoa.lle-what-can-you-do",
+      "title": "VOA Let’s Learn English 20: What can you do?",
+      "summary": "Hỏi và nói về khả năng với can / can’t, nghề nghiệp.",
+      "level": "A2_1",
+      "minutes": 4,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là **bản thu thật** của VOA Learning English (Let’s Learn English, giọng Mỹ, nói chậm). Nghe một lần **chưa xem lời thoại**, trả lời câu hỏi, rồi bấm “Hiện lời thoại” để đối chiếu. Cần tải gói âm thanh bài nghe để có tiếng."
+        },
+        {
+          "type": "audio",
+          "title": "Let’s Learn English: Lesson 20: What Can You Do?",
+          "lines": [
+            {
+              "en": "Anna: Hi, there! Washington, D.C. is a great place to work. Many people here work in government and politics. But there are many other jobs. You can work at a hospital; a university. You can work in a coffee shop.",
+              "vi": "Anna: Chào! Washington, D.C. là nơi tuyệt để làm việc. Nhiều người ở đây làm trong chính phủ và chính trị. Nhưng còn nhiều nghề khác: ở bệnh viện, đại học hay quán cà phê."
+            },
+            {
+              "en": "Anna: Wait a minute, I think I see a friend of mine. Pete? Is that you? Pete: Hi, Anna. Anna: You look different. Your beard … is really big. Pete: You don’t like it, do you?",
+              "vi": "Anna: Khoan, hình như tôi thấy bạn mình. Pete? Có phải anh không? Pete: Chào Anna. Anna: Trông anh khác quá. Bộ râu… rất to. Pete: Cô không thích nó, đúng không?"
+            },
+            {
+              "en": "Anna: No, no. You just look … different. So, what’s wrong? You look sad. Pete: I don’t have a job. Anna: Sorry, I can’t hear you. Pete: I do not have a job!",
+              "vi": "Anna: Không, không. Chỉ là trông anh… khác. Mà có chuyện gì vậy? Trông anh buồn. Pete: Tôi không có việc làm. Anna: Xin lỗi, tôi không nghe rõ. Pete: Tôi không có việc làm!"
+            },
+            {
+              "en": "Anna: Oh. I’m sorry to hear that, Pete. Pete: I don’t have a skill. Anna: Everyone has a skill. You need to find yours. Pete: I don’t know, Anna.",
+              "vi": "Anna: Ồ, tôi rất tiếc, Pete. Pete: Tôi không có kỹ năng nào. Anna: Ai cũng có kỹ năng, anh cần tìm ra kỹ năng của mình. Pete: Tôi không biết nữa, Anna."
+            },
+            {
+              "en": "Anna: Pete, I am good at asking questions. Let me ask you some. Pete: Really, Anna? Can you help me? Anna: Yes, I can. Let me help. Pete: Sure, Anna. Maybe you can help.",
+              "vi": "Anna: Pete, tôi giỏi đặt câu hỏi. Để tôi hỏi anh vài câu. Pete: Thật sao Anna? Cô giúp tôi được không? Anna: Được, để tôi giúp. Pete: Được thôi, có lẽ cô giúp được."
+            },
+            {
+              "en": "Anna: Can you write code? Pete: Sure, c-o-l-d. How is this going to help? Anna: No, not “cold.” Code; you know, for making phone apps, or websites. You can make tons of money writing code. Pete: Tons of money? But I can’t code.",
+              "vi": "Anna: Anh viết được code không? Pete: Được chứ, c-o-l-d. Cái này giúp gì? Anna: Không phải “cold” (lạnh). Code, để làm ứng dụng điện thoại hay website. Viết code kiếm được rất nhiều tiền. Pete: Rất nhiều tiền á? Nhưng tôi không viết code được."
+            },
+            {
+              "en": "Anna: Next question. Can you drive? Pete: Do you mean drive a race car? It’s really hard to be a race car driver. First, you need a race car ... Anna: No, I mean drive a taxi or drive a bus. Pete: No, I always fall asleep when I drive.",
+              "vi": "Anna: Câu tiếp theo. Anh lái xe được không? Pete: Ý cô là lái xe đua à? Làm tay đua rất khó, trước hết phải có xe đua… Anna: Không, ý tôi là lái taxi hay xe buýt. Pete: Không, tôi luôn ngủ gật khi lái xe."
+            },
+            {
+              "en": "Anna: Oh, that’s not good. Next question. Can you teach? You can be a teacher in a school. Pete: No, I cannot teach. Anna: Can you cook? You can be a chef in a restaurant.",
+              "vi": "Anna: Ồ, không ổn. Câu tiếp. Anh dạy học được không? Có thể làm giáo viên ở trường. Pete: Không, tôi không dạy được. Anna: Anh nấu ăn được không? Có thể làm đầu bếp ở nhà hàng."
+            },
+            {
+              "en": "Pete: No, I can’t code! I can’t teach! I can’t cook! Anna, I can’t do anything. This is sad. I’m gonna write about my feelings in my blog. Anna: You write a blog? Pete: Yeah, I write a blog.",
+              "vi": "Pete: Không, tôi không viết code được! Không dạy được! Không nấu ăn được! Anna, tôi chẳng làm được gì cả. Buồn thật. Tôi sẽ viết cảm xúc lên blog. Anna: Anh viết blog à? Pete: Ừ, tôi viết blog."
+            },
+            {
+              "en": "Anna: How many followers do you have? Pete: I don’t know … 59,538. Anna: Pete, that's a lot of followers! You can make money writing! Pete: Writing is easy. Everyone can write. Anna: Not everyone can write well. You can be a writer!",
+              "vi": "Anna: Anh có bao nhiêu người theo dõi? Pete: Không biết… 59.538. Anna: Pete, nhiều người theo dõi đấy! Anh có thể kiếm tiền bằng viết lách! Pete: Viết dễ mà, ai cũng viết được. Anna: Không phải ai cũng viết hay. Anh có thể làm nhà văn!"
+            },
+            {
+              "en": "Pete: I can be a writer. I can be a writer! I can be a writer! Thanks, Anna. Marsha: Hi, Pete. Hi, Anna. Pete: Hi, Marsha. Excuse me, I have to go. Marsha: Where are you going? Pete: I’m going to be a writer! Marsha: Good luck, Pete!",
+              "vi": "Pete: Tôi có thể làm nhà văn. Tôi có thể làm nhà văn! Cảm ơn Anna. Marsha: Chào Pete, chào Anna. Pete: Chào Marsha. Xin lỗi, tôi phải đi. Marsha: Anh đi đâu? Pete: Tôi đi làm nhà văn! Marsha: Chúc may mắn, Pete!"
+            },
+            {
+              "en": "Marsha: (To Anna) He does know that it’s not easy to be a writer, doesn’t he? Anna: There are many different jobs you can have in Washington, D.C. Pete wants to be a writer. I wish him luck. Lots of luck. Until next time!",
+              "vi": "Marsha: (nói với Anna) Anh ấy biết làm nhà văn không dễ chứ nhỉ? Anna: Có rất nhiều nghề khác nhau ở Washington, D.C. Pete muốn làm nhà văn. Tôi chúc anh ấy may mắn, thật nhiều may mắn. Hẹn lần sau!"
+            }
+          ],
+          "hideText": true,
+          "recording": {
+            "id": "voa-lle-20-what-can-you-do",
+            "sourceUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-20-what-can-you-do/3384429.html",
+            "credit": "VOA Learning English — Let’s Learn English, “Lesson 20: What Can You Do?” (public domain)",
+            "seconds": 219
+          }
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why is Pete sad?",
+          "choices": [
+            "He doesn’t have a job",
+            "He lost his phone",
+            "He is sick",
+            "He is late"
+          ],
+          "answer": 0,
+          "explain": "Pete: “I don’t have a job.”"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does Pete say about driving?",
+          "choices": [
+            "He drives well",
+            "He always falls asleep when he drives",
+            "He drives a bus",
+            "He loves race cars"
+          ],
+          "answer": 1,
+          "explain": "Pete: “I always fall asleep when I drive.”"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What job does Anna suggest at the end?",
+          "choices": [
+            "Writer",
+            "Chef",
+            "Teacher",
+            "Bus driver"
+          ],
+          "answer": 0,
+          "explain": "Vì Pete có blog 59.538 người theo dõi, Anna gợi ý anh làm nhà văn."
+        },
+        {
+          "type": "tf",
+          "statement": "Pete can write code.",
+          "answer": "false",
+          "explain": "Sai: Pete nói “But I can’t code.”"
+        },
+        {
+          "type": "gap",
+          "prompt": "Pete: “I ___ be a writer!”",
+          "answers": [
+            "can"
+          ],
+          "choices": [
+            "can",
+            "can’t",
+            "don’t"
+          ],
+          "explain": "“I can be a writer!” — Pete tin mình làm được."
+        }
+      ]
+    },
+    {
+      "id": "listenvoa.lle-yesterday",
+      "title": "VOA Let’s Learn English 24: Yesterday was amazing!",
+      "summary": "Kể chuyện hôm qua bằng thì quá khứ: lễ hội Basque, nhảy, nấu ăn, trò chơi.",
+      "level": "A2_1",
+      "minutes": 3,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đây là **bản thu thật** của VOA Learning English (Let’s Learn English, giọng Mỹ, nói chậm). Nghe một lần **chưa xem lời thoại**, trả lời câu hỏi, rồi bấm “Hiện lời thoại” để đối chiếu. Cần tải gói âm thanh bài nghe để có tiếng."
+        },
+        {
+          "type": "audio",
+          "title": "Let’s Learn English: Lesson 24: Yesterday Was Amazing!",
+          "lines": [
+            {
+              "en": "Anna: Yesterday was the most amazing day. I want to tell my friend back home about it. So, I am writing her a letter! Dear Penelope, Life in Washington, D.C. is interesting. I see something new every day -- like yesterday. Yesterday started like a usual work day.",
+              "vi": "Anna: Hôm qua là một ngày tuyệt vời nhất. Tôi muốn kể cho bạn ở quê nghe nên đang viết thư! Penelope thân mến, cuộc sống ở Washington, D.C. thật thú vị. Ngày nào tôi cũng thấy điều mới, như hôm qua. Hôm qua bắt đầu như một ngày làm việc bình thường."
+            },
+            {
+              "en": "Anna’s voice: I was at work. And I wanted a break. So, I walked and walked … and walked. Then, I saw something! It was a festival -- a big festival!",
+              "vi": "Giọng Anna: Tôi ở chỗ làm và muốn nghỉ một lát. Tôi đi bộ, đi mãi… đi mãi. Rồi tôi thấy một thứ! Đó là một lễ hội, một lễ hội lớn!"
+            },
+            {
+              "en": "Anna: It is the Smithsonian Folklife Festival. Anna’s voice: Yes. It was the Smithsonian Folklife Festival. Every year the festival shows different cultures. This year one of the cultures was the Basque culture. There was dancing and food and games!",
+              "vi": "Anna: Đó là Lễ hội dân gian Smithsonian. Giọng Anna: Đúng, đó là Lễ hội dân gian Smithsonian. Mỗi năm lễ hội giới thiệu các nền văn hóa khác nhau. Năm nay có văn hóa Basque, có múa, đồ ăn và trò chơi!"
+            },
+            {
+              "en": "Anna: I am dancing a traditional Basque dance. Anna’s voice: At the festival, I danced a traditional Basque dance!",
+              "vi": "Anna: Tôi đang nhảy một điệu múa truyền thống Basque. Giọng Anna: Ở lễ hội, tôi đã nhảy một điệu múa truyền thống Basque!"
+            },
+            {
+              "en": "Anna: They are cooking traditional Basque food. Anna’s voice: They cooked a lot of traditional Basque food.",
+              "vi": "Anna: Họ đang nấu món ăn truyền thống Basque. Giọng Anna: Họ đã nấu rất nhiều món truyền thống Basque."
+            },
+            {
+              "en": "Anna: They are playing a game. It’s a kind of handball. What do they call it? They call it pilota! Anna’s voice: They played a game with their hands and a small ball. It’s a kind of handball. But this game is called pilota.",
+              "vi": "Anna: Họ đang chơi một trò chơi, giống bóng ném. Họ gọi là gì nhỉ? Gọi là pilota! Giọng Anna: Họ chơi một trò bằng tay với quả bóng nhỏ, giống bóng ném, nhưng trò này tên là pilota."
+            },
+            {
+              "en": "Anna: This is beautiful! This is traditional Basque art. They are making a traditional Basque ship. This festival is a lot of fun! Anna’s voice: The whole day was a lot of fun!",
+              "vi": "Anna: Đẹp quá! Đây là nghệ thuật truyền thống Basque. Họ đang làm một con tàu truyền thống Basque. Lễ hội này vui lắm! Giọng Anna: Cả ngày thật vui!"
+            },
+            {
+              "en": "Anna: Who said that? I want to write my friends and tell them about my day! … So, I wanted to tell you about my day! Please, my friend, come visit Washington, D.C. soon. There is a lot to do! Until next time … Anna.",
+              "vi": "Anna: Ai nói vậy? Tôi muốn viết thư cho bạn bè kể về ngày của tôi! … Nên tôi muốn kể bạn nghe ngày hôm qua của mình! Bạn ơi, hãy sớm đến thăm Washington, D.C. nhé. Ở đây có nhiều thứ để làm! Hẹn lần sau… Anna."
+            }
+          ],
+          "hideText": true,
+          "recording": {
+            "id": "voa-lle-24-yesterday",
+            "sourceUrl": "https://learningenglish.voanews.com/a/lets-learn-english-lesson-24-yesterday-was-amazing/3439164.html",
+            "credit": "VOA Learning English — Let’s Learn English, “Lesson 24: Yesterday Was Amazing!” (public domain)",
+            "seconds": 158
+          }
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Who is Anna writing to?",
+          "choices": [
+            "Penelope",
+            "Marsha",
+            "Pete",
+            "Her boss"
+          ],
+          "answer": 0,
+          "explain": "Anna viết thư: “Dear Penelope.”"
+        },
+        {
+          "type": "mcq",
+          "prompt": "What did Anna see when she walked?",
+          "choices": [
+            "A festival",
+            "A museum",
+            "A concert",
+            "A school"
+          ],
+          "answer": 0,
+          "explain": "Cô thấy một lễ hội lớn: Smithsonian Folklife Festival."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which culture was at the festival this year?",
+          "choices": [
+            "Basque",
+            "Italian",
+            "Chinese",
+            "Mexican"
+          ],
+          "answer": 0,
+          "explain": "“This year one of the cultures was the Basque culture.”"
+        },
+        {
+          "type": "tf",
+          "statement": "The game pilota is played with a small ball and hands.",
+          "answer": "true",
+          "explain": "Đúng: “a game with their hands and a small ball.”"
+        },
+        {
+          "type": "gap",
+          "prompt": "At the festival, I ___ a traditional dance.",
+          "answers": [
+            "danced"
+          ],
+          "choices": [
+            "danced",
+            "dance",
+            "dancing"
+          ],
+          "explain": "Kể chuyện hôm qua dùng quá khứ: “I danced.”"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t3-g009",
+      "part": 3,
+      "level": "B2_1",
+      "script": "Woman: Hello, Mr. Kowalski? This is Rachel Tan from Brightwater Engineering. I'm calling about your application for the project coordinator position.\nMan: Oh, hello. Thanks for calling.\nWoman: Our hiring team was impressed with your résumé, and we'd like to invite you for an interview next Tuesday at two.\nMan: I'd be glad to come in, but I'm traveling for work on Tuesday. Would Wednesday be possible?\nWoman: Wednesday afternoon is fully booked, but we could do ten a.m.\nMan: That's perfect. Should I bring anything?\nWoman: Please bring a portfolio of projects you've managed. I'll email you directions to our office as well.",
+      "questions": [
+        {
+          "id": "t3-q025",
+          "prompt": "Why is the woman calling?",
+          "choices": ["To offer the man a job", "To schedule an interview", "To request references", "To confirm a delivery"],
+          "answer": 1,
+          "explain": "Cô ấy gọi về đơn ứng tuyển và mời anh đến phỏng vấn (\"invite you for an interview\"), rồi hai bên chốt lịch."
+        },
+        {
+          "id": "t3-q026",
+          "prompt": "Why is the man unavailable on Tuesday?",
+          "choices": ["He has another interview.", "He is on vacation.", "He will be on a business trip.", "He has a medical appointment."],
+          "answer": 2,
+          "explain": "Anh ấy nói \"I'm traveling for work on Tuesday\" — thứ Ba đi công tác."
+        },
+        {
+          "id": "t3-q027",
+          "prompt": "What does the woman ask the man to bring?",
+          "choices": ["Examples of his past work", "A copy of his ID", "A letter of reference", "A completed application form"],
+          "answer": 0,
+          "explain": "Cô ấy dặn mang theo hồ sơ các dự án anh từng quản lý (\"a portfolio of projects you've managed\"), tức là ví dụ công việc trước đây."
+        }
+      ]
+    },
+    {
+      "id": "t3-g010",
+      "part": 3,
+      "level": "B2_2",
+      "context": "Halston Tower — Directory\nFloor 2: Customer Service\nFloor 3: Accounting\nFloor 4: Human Resources\nFloor 5: Legal Department",
+      "script": "Man: Hi, I'm here to drop off some signed contracts for Ms. Delgado. I was told she's on the third floor.\nWoman: She used to be, but the legal team moved upstairs last month after the renovation.\nMan: Oh, I see. Is it all right if I go up directly?\nWoman: You'll need a visitor badge first. Can I see some identification, please?\nMan: Sure, here's my driver's license. I'm from Fenwick Couriers.\nWoman: Thank you. Here's your badge. Please return it to this desk when you leave.",
+      "questions": [
+        {
+          "id": "t3-q028",
+          "prompt": "Who most likely is the man?",
+          "choices": ["A lawyer", "A building inspector", "An accountant", "A delivery person"],
+          "answer": 3,
+          "explain": "Anh ấy đến giao hợp đồng đã ký và nói mình làm ở Fenwick Couriers (công ty chuyển phát) — tức là người giao hàng."
+        },
+        {
+          "id": "t3-q029",
+          "prompt": "Look at the graphic. Which floor will the man go to?",
+          "choices": ["Floor 5", "Floor 4", "Floor 3", "Floor 2"],
+          "answer": 0,
+          "explain": "Bà Delgado thuộc nhóm pháp lý, đã chuyển lên trên; theo bảng chỉ dẫn, phòng Pháp lý (Legal Department) ở tầng 5."
+        },
+        {
+          "id": "t3-q030",
+          "prompt": "What does the woman ask the man for before giving him a badge?",
+          "choices": ["His signature", "Some identification", "The contracts", "Ms. Delgado's phone number"],
+          "answer": 1,
+          "explain": "Trước khi đưa thẻ khách, cô ấy hỏi \"Can I see some identification, please?\" — yêu cầu giấy tờ tùy thân."
+        }
+      ]
+    },
+    {
+      "id": "t3-g011",
+      "part": 3,
+      "level": "C1",
+      "script": "Woman: Jonas, have you seen the figures from the spring campaign? Website traffic is up nearly forty percent.\nMan: I have. Mind you, online sales have barely moved.\nWoman: Right, so people are visiting the site but not buying. I wonder if the checkout process is putting them off.\nMan: Could be. Customer feedback mentions that shipping costs only show up at the very last step.\nWoman: That would explain it. Let's propose displaying shipping costs on the product pages instead.\nMan: I'll pull together the feedback data so we can present it at Monday's meeting.",
+      "questions": [
+        {
+          "id": "t3-q031",
+          "prompt": "What does the man mean when he says, \"Mind you, online sales have barely moved\"?",
+          "choices": ["He thinks the traffic figures are wrong.", "He wants to end the campaign early.", "The campaign results are not entirely positive.", "The sales staff need more training."],
+          "answer": 2,
+          "explain": "\"Mind you\" dùng để nêu một điểm trái ngược: lượt truy cập tăng nhưng doanh số gần như không đổi, nên kết quả không hoàn toàn tốt."
+        },
+        {
+          "id": "t3-q032",
+          "prompt": "According to the man, what do customers complain about?",
+          "choices": ["Slow delivery", "A limited choice of products", "Confusing website menus", "Shipping costs appearing only at the end"],
+          "answer": 3,
+          "explain": "Anh ấy nói phản hồi khách hàng cho biết phí vận chuyển chỉ hiện ở bước cuối cùng (\"only show up at the very last step\")."
+        },
+        {
+          "id": "t3-q033",
+          "prompt": "What will the man do before the meeting?",
+          "choices": ["Gather customer feedback data", "Contact a shipping company", "Redesign the product pages", "Revise the campaign budget"],
+          "answer": 0,
+          "explain": "Anh ấy nói sẽ tổng hợp dữ liệu phản hồi (\"pull together the feedback data\") để trình bày trong cuộc họp thứ Hai."
+        }
+      ]
+    },
+    {
+      "id": "t3-g012",
+      "part": 3,
+      "level": "B1_2",
+      "script": "Woman: Good evening. I have a reservation under the name Ines Moreau.\nMan: Welcome, Ms. Moreau. I see you're staying with us for two nights. Here is your key card. Your room is 512.\nWoman: Thank you. My flight home isn't until Sunday evening. Is it possible to check out late?\nMan: Our standard checkout time is eleven, but we can extend it to two o'clock for a fee of twenty euros.\nWoman: That's fine. Also, what time is breakfast served?\nMan: From six thirty to ten in the restaurant on the ground floor.",
+      "questions": [
+        {
+          "id": "t3-q034",
+          "prompt": "Where does the conversation most likely take place?",
+          "choices": ["At an airport", "At a hotel", "At a restaurant", "At a travel agency"],
+          "answer": 1,
+          "explain": "Người phụ nữ nhận phòng, được đưa thẻ khóa phòng 512 và hỏi giờ trả phòng — đây là quầy lễ tân khách sạn."
+        },
+        {
+          "id": "t3-q035",
+          "prompt": "What does the woman request?",
+          "choices": ["An airport shuttle", "A room upgrade", "A late checkout", "A restaurant reservation"],
+          "answer": 2,
+          "explain": "Vì chuyến bay tối Chủ nhật, cô xin trả phòng muộn (\"Is it possible to check out late?\")."
+        },
+        {
+          "id": "t3-q036",
+          "prompt": "What time does breakfast end?",
+          "choices": ["6:30", "10:00", "11:00", "2:00"],
+          "answer": 1,
+          "explain": "Bữa sáng phục vụ từ 6 giờ 30 đến 10 giờ (\"From six thirty to ten\"); 11 giờ và 2 giờ là giờ trả phòng."
+        }
+      ]
+    },
+    {
+      "id": "t3-g013",
+      "part": 3,
+      "level": "B2_1",
+      "script": "Woman 1: Before we finish, Hiroshi, can you update us on the new accounting software?\nMan: Sure. Installation on all computers will be done by Thursday. Starting next week, everyone should use the new system for expense reports.\nWoman 2: Will there be any training? Some of my team members are worried about learning it quickly.\nMan: Yes, the vendor is running two online sessions on Monday, one at nine and one at three. Each takes about an hour.\nWoman 1: Great. Could you send everyone the links for both sessions today?\nMan: I'll do that right after this meeting.",
+      "questions": [
+        {
+          "id": "t3-q037",
+          "prompt": "What is the main topic of the conversation?",
+          "choices": ["A budget increase", "A team reorganization", "A dispute with a vendor", "A change in software"],
+          "answer": 3,
+          "explain": "Cuộc trao đổi nói về việc cài đặt và chuyển sang phần mềm kế toán mới cho báo cáo chi phí."
+        },
+        {
+          "id": "t3-q038",
+          "prompt": "What concern does the second woman mention?",
+          "choices": ["Her team may struggle to learn the system quickly.", "The installation costs are too high.", "Expense reports are often late.", "The vendor is unreliable."],
+          "answer": 0,
+          "explain": "Woman 2 nói một số thành viên nhóm lo không học kịp hệ thống mới (\"worried about learning it quickly\")."
+        },
+        {
+          "id": "t3-q039",
+          "prompt": "What will the man do after the meeting?",
+          "choices": ["Install the software", "Send links to training sessions", "Call the vendor", "Review expense reports"],
+          "answer": 1,
+          "explain": "Được nhờ gửi đường link hai buổi đào tạo, anh ấy đáp \"I'll do that right after this meeting\"."
+        }
+      ]
+    },
+    {
+      "id": "t3-g014",
+      "part": 3,
+      "level": "B2_2",
+      "context": "Greenleaf Catering — Lunch Packages (per person)\nBasic: $14\nClassic: $18\nPremium: $24\nDeluxe: $30",
+      "script": "Woman: Hi, it's Mei from Orbis Design. We'd like to order lunch for our board meeting on the twelfth.\nMan: Certainly. How many guests, and which package are you interested in?\nWoman: Twenty-two people. I was looking at the Premium package, but my manager said to keep it under twenty dollars a person.\nMan: Then I'd suggest the package just below Premium. It includes sandwiches, a salad, fruit, and drinks.\nWoman: That sounds good. Several guests are vegetarian, though.\nMan: Not a problem. Just let me know the exact number of vegetarians by Friday, and we'll prepare special sandwiches for them.",
+      "questions": [
+        {
+          "id": "t3-q040",
+          "prompt": "Why is the woman calling?",
+          "choices": ["To complain about a delivery", "To book a meeting room", "To order food for a meeting", "To ask about job openings"],
+          "answer": 2,
+          "explain": "Cô ấy gọi để đặt bữa trưa cho cuộc họp hội đồng quản trị ngày 12 (\"order lunch for our board meeting\")."
+        },
+        {
+          "id": "t3-q041",
+          "prompt": "Look at the graphic. How much will the woman's company most likely pay per person?",
+          "choices": ["$14", "$18", "$24", "$30"],
+          "answer": 1,
+          "explain": "Người bán gợi ý gói ngay dưới Premium, theo bảng là Classic giá 18 đô — đúng yêu cầu dưới 20 đô một người."
+        },
+        {
+          "id": "t3-q042",
+          "prompt": "What does the man ask the woman to do by Friday?",
+          "choices": ["Pay a deposit", "Choose a delivery time", "Send the meeting agenda", "Give the number of vegetarian guests"],
+          "answer": 3,
+          "explain": "Anh ấy dặn báo số khách ăn chay chính xác trước thứ Sáu (\"let me know the exact number of vegetarians by Friday\")."
+        }
+      ]
+    },
+    {
+      "id": "t3-g015",
+      "part": 3,
+      "level": "C1",
+      "script": "Man: Have you read the memo about the hybrid work policy? Starting in March, we'll only need to be in the office three days a week.\nWoman: I did. I'm all for it, but I'm not sure how we'll manage the client workshops. Those really need everyone in the same room.\nMan: The memo says each team can choose its own office days, so we could just schedule the workshops on those days.\nWoman: Fair enough. But with fewer people coming in, I heard management is thinking about giving up the fourth floor.\nMan: That's still under discussion. Apparently, they'll survey staff before making any decision.\nWoman: Well, I'll definitely be filling that out.",
+      "questions": [
+        {
+          "id": "t3-q043",
+          "prompt": "What change does the memo announce?",
+          "choices": ["Longer working hours", "A move to a new building", "Fewer required days in the office", "New fees for client workshops"],
+          "answer": 2,
+          "explain": "Theo bản ghi nhớ, từ tháng Ba nhân viên chỉ cần lên văn phòng ba ngày một tuần — tức là ít ngày bắt buộc hơn."
+        },
+        {
+          "id": "t3-q044",
+          "prompt": "What concern does the woman raise first?",
+          "choices": ["How to hold client workshops", "The cost of commuting", "A lack of meeting rooms", "Losing her personal desk"],
+          "answer": 0,
+          "explain": "Cô ấy lo không biết tổ chức các buổi workshop với khách hàng thế nào vì cần mọi người có mặt cùng phòng."
+        },
+        {
+          "id": "t3-q045",
+          "prompt": "What does the woman imply when she says, \"I'll definitely be filling that out\"?",
+          "choices": ["She has already sent a complaint.", "She wants to apply for a transfer.", "She disagrees with the hybrid policy.", "She intends to respond to the staff survey."],
+          "answer": 3,
+          "explain": "\"That\" chỉ cuộc khảo sát nhân viên vừa được nhắc; cô ấy ngụ ý chắc chắn sẽ điền khảo sát để nêu ý kiến về việc bỏ tầng bốn."
+        }
+      ]
+    }
+  ]
+}

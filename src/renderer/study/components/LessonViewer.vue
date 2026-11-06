@@ -9,6 +9,7 @@ import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
 import MdText from './MdText.vue'
 import PicText from '@renderer/shared/components/PicText.vue'
 import ListeningPlayer from './ListeningPlayer.vue'
+import RealAudioPlayer from './RealAudioPlayer.vue'
 import ReadingPassage from './ReadingPassage.vue'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
@@ -127,6 +128,14 @@ onMounted(() => {
               />
             </div>
           </div>
+
+          <RealAudioPlayer
+            v-else-if="block.type === 'audio' && block.recording"
+            :title="block.title"
+            :lines="block.lines"
+            :hide-text="block.hideText"
+            :recording="block.recording"
+          />
 
           <ListeningPlayer
             v-else-if="block.type === 'audio'"
@@ -264,6 +273,10 @@ h2 {
 .examples li {
   display: flex;
   gap: 8px;
+  align-items: flex-start;
+}
+.examples li > .btn {
+  flex: none;
 }
 .en {
   font-weight: 700;

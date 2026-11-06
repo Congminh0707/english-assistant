@@ -1,0 +1,958 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readb2more",
+    "title": "Đọc B2 (mở rộng)",
+    "summary": "Vườn trên mái nhà, học ngoại ngữ khi trưởng thành, thời trang nhanh, thói quen, khoa học công dân, tuần làm bốn ngày, vi nhựa, trì hoãn, du lịch quá tải, rác vũ trụ.",
+    "icon": "📘",
+    "order": 12
+  },
+  "lessons": [
+    {
+      "id": "readb2more.rooftop-gardens",
+      "title": "Vườn trên mái nhà",
+      "summary": "Trồng rau giữa lòng thành phố.",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Gardens on the Rooftops",
+          "paragraphs": [
+            {
+              "en": "In many crowded cities, flat rooftops were once used for little more than air-conditioning units and water tanks. Today, a growing number of them are being turned into vegetable gardens, run by residents, schools and even restaurants.",
+              "vi": "Ở nhiều thành phố đông đúc, mái nhà bằng từng chỉ dùng để đặt máy điều hoà và bồn nước. Ngày nay, ngày càng nhiều mái được biến thành vườn rau do cư dân, trường học, thậm chí nhà hàng vận hành."
+            },
+            {
+              "en": "The advantages go beyond fresh tomatoes. Plants absorb heat, so a green roof can keep the floors below noticeably cooler in summer and reduce electricity bills. Gardens also slow down rainwater, which helps prevent streets from flooding during heavy storms.",
+              "vi": "Lợi ích không chỉ là cà chua tươi. Cây hấp thụ nhiệt nên mái xanh có thể giữ các tầng bên dưới mát hơn rõ rệt vào mùa hè và giảm tiền điện. Vườn cũng làm chậm dòng nước mưa, giúp đường phố đỡ ngập khi mưa lớn."
+            },
+            {
+              "en": "However, rooftop gardening is not as simple as it looks. Soil and water are heavy, so engineers must first check that a building can carry the extra weight. Strong winds and intense sunlight also make some crops difficult to grow.",
+              "vi": "Tuy vậy, làm vườn trên mái không đơn giản như vẻ ngoài. Đất và nước rất nặng nên kỹ sư phải kiểm tra trước xem toà nhà có chịu được trọng lượng thêm không. Gió mạnh và nắng gắt cũng khiến một số loại cây khó trồng."
+            },
+            {
+              "en": "Even so, many participants say the biggest reward is social: neighbors who had never spoken now meet every weekend to water, weed and share the harvest.",
+              "vi": "Dù vậy, nhiều người tham gia nói phần thưởng lớn nhất là về mặt xã hội: hàng xóm chưa từng nói chuyện nay gặp nhau mỗi cuối tuần để tưới cây, nhổ cỏ và chia nhau thu hoạch."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How can a green roof reduce electricity bills?",
+          "choices": [
+            "By producing solar power",
+            "By storing rainwater for washing",
+            "By keeping the floors below cooler",
+            "By replacing air-conditioning units"
+          ],
+          "answer": 2,
+          "explain": "Đoạn 2: cây hấp thụ nhiệt nên các tầng dưới mát hơn, giảm tiền điện."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What must engineers check before a rooftop garden is built?",
+          "choices": [
+            "Whether the building can carry the extra weight",
+            "Whether residents want to join",
+            "How much sunlight the roof receives",
+            "Which crops sell best"
+          ],
+          "answer": 0,
+          "explain": "Đoạn 3: đất và nước nặng nên kỹ sư phải kiểm tra sức chịu tải của toà nhà."
+        },
+        {
+          "type": "tf",
+          "statement": "Rooftop gardens can help reduce flooding in the streets.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 2: vườn làm chậm nước mưa, giúp đường phố đỡ ngập."
+        },
+        {
+          "type": "tf",
+          "statement": "Strong winds make every crop easy to grow on rooftops.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 3 nói gió mạnh và nắng gắt khiến một số cây khó trồng."
+        },
+        {
+          "type": "tf",
+          "statement": "Rooftop gardens produce more vegetables than farms of the same size.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không so sánh sản lượng với trang trại."
+        },
+        {
+          "type": "gap",
+          "prompt": "Many participants say the biggest reward is ___.",
+          "answers": [
+            "social"
+          ],
+          "choices": [
+            "social",
+            "financial",
+            "medical"
+          ],
+          "explain": "Câu cuối: \"the biggest reward is social\" — hàng xóm gặp gỡ, chia nhau thu hoạch."
+        }
+      ]
+    },
+    {
+      "id": "readb2more.learning-as-an-adult",
+      "title": "Học ngoại ngữ khi đã lớn",
+      "summary": "Người lớn có thật sự học ngoại ngữ kém hơn trẻ em?",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Learning a Language as an Adult",
+          "paragraphs": [
+            {
+              "en": "It is often said that children learn languages effortlessly while adults struggle. There is some truth in this: young children who grow up hearing a language usually develop a native-like accent, something most adult learners never fully achieve.",
+              "vi": "Người ta thường nói trẻ em học ngôn ngữ dễ dàng còn người lớn thì chật vật. Điều này có phần đúng: trẻ nhỏ lớn lên khi nghe một ngôn ngữ thường có giọng như người bản xứ, điều mà hầu hết người học trưởng thành không bao giờ đạt được trọn vẹn."
+            },
+            {
+              "en": "However, adults have advantages of their own. They can understand grammar rules when these are explained, use strategies such as making flashcards, and connect new words to knowledge they already have. In the first months of study, adults often make faster progress than children.",
+              "vi": "Tuy nhiên, người lớn có lợi thế riêng. Họ hiểu được quy tắc ngữ pháp khi được giải thích, dùng các chiến lược như làm thẻ ghi nhớ và liên kết từ mới với kiến thức sẵn có. Trong vài tháng đầu, người lớn thường tiến bộ nhanh hơn trẻ em."
+            },
+            {
+              "en": "The real difference may be time and exposure. A child hears the language for many hours every day, whereas an adult might study for two hours a week after work. When adults are surrounded by a language, for example after moving abroad, they can reach a very high level.",
+              "vi": "Khác biệt thật sự có lẽ là thời gian và mức độ tiếp xúc. Trẻ nghe ngôn ngữ nhiều giờ mỗi ngày, còn người lớn có thể chỉ học hai giờ mỗi tuần sau giờ làm. Khi người lớn được bao quanh bởi ngôn ngữ, chẳng hạn sau khi ra nước ngoài sống, họ có thể đạt trình độ rất cao."
+            },
+            {
+              "en": "So if you are starting later in life, the message is encouraging: regular practice matters far more than your age.",
+              "vi": "Vậy nếu bạn bắt đầu muộn, thông điệp rất đáng khích lệ: luyện tập đều đặn quan trọng hơn nhiều so với tuổi tác."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What do young children usually achieve that most adults do not?",
+          "choices": [
+            "A larger vocabulary",
+            "Better spelling",
+            "Faster progress in the first months",
+            "A native-like accent"
+          ],
+          "answer": 3,
+          "explain": "Đoạn 1: trẻ thường có giọng như người bản xứ, điều hầu hết người lớn không đạt trọn vẹn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "According to the writer, what may be the real difference between children and adults?",
+          "choices": [
+            "Intelligence",
+            "Time and exposure",
+            "Motivation",
+            "The quality of teachers"
+          ],
+          "answer": 1,
+          "explain": "Đoạn 3: \"The real difference may be time and exposure.\""
+        },
+        {
+          "type": "tf",
+          "statement": "Adults often progress faster than children at the beginning.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 2: trong vài tháng đầu người lớn thường tiến bộ nhanh hơn."
+        },
+        {
+          "type": "tf",
+          "statement": "Adults cannot reach a high level in a foreign language.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 3: khi sống trong môi trường ngôn ngữ, người lớn có thể đạt trình độ rất cao."
+        },
+        {
+          "type": "tf",
+          "statement": "Flashcards are the most effective learning strategy.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài chỉ nêu flashcards là một chiến lược, không nói nó hiệu quả nhất."
+        },
+        {
+          "type": "gap",
+          "prompt": "Regular practice matters far more than your ___.",
+          "answers": [
+            "age"
+          ],
+          "choices": [
+            "age",
+            "accent",
+            "teacher"
+          ],
+          "explain": "Câu cuối: \"regular practice matters far more than your age\"."
+        }
+      ]
+    },
+    {
+      "id": "readb2more.fast-fashion",
+      "title": "Thời trang nhanh",
+      "summary": "Quần áo rẻ và cái giá ẩn phía sau.",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "The Hidden Cost of Fast Fashion",
+          "paragraphs": [
+            {
+              "en": "Fast fashion refers to clothing that is designed, produced and sold very quickly, so that shops can offer new styles almost every week. Prices are low, and shoppers are encouraged to buy often and replace items before they wear out.",
+              "vi": "Thời trang nhanh chỉ quần áo được thiết kế, sản xuất và bán rất nhanh để cửa hàng có mẫu mới gần như mỗi tuần. Giá rẻ và người mua được khuyến khích mua thường xuyên, thay đồ trước khi chúng cũ."
+            },
+            {
+              "en": "This business model has a significant environmental cost. Making clothes requires huge amounts of water and energy, and many cheap garments are made from synthetic fibers that do not break down easily. A large share of these clothes ends up in landfills after being worn only a few times.",
+              "vi": "Mô hình kinh doanh này gây tổn hại môi trường đáng kể. Làm quần áo cần lượng nước và năng lượng khổng lồ, và nhiều quần áo rẻ làm từ sợi tổng hợp khó phân huỷ. Phần lớn số quần áo này bị đưa ra bãi rác sau khi chỉ mặc vài lần."
+            },
+            {
+              "en": "There are also concerns about working conditions. To keep prices down, some factories pay very low wages and require long hours, and workers may have little protection if they are injured.",
+              "vi": "Cũng có lo ngại về điều kiện làm việc. Để giữ giá thấp, một số nhà máy trả lương rất thấp, bắt làm nhiều giờ và công nhân có thể ít được bảo vệ nếu bị thương."
+            },
+            {
+              "en": "Consumers can make a difference. Buying fewer but better-made items, choosing second-hand clothes and repairing what we already own all reduce demand for disposable fashion.",
+              "vi": "Người tiêu dùng có thể tạo ra thay đổi. Mua ít hơn nhưng chất lượng hơn, chọn đồ cũ và sửa đồ mình đã có đều làm giảm nhu cầu với thời trang dùng một lần."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why are many cheap garments a problem for the environment?",
+          "choices": [
+            "They are too heavy to transport.",
+            "They are made from fibers that do not break down easily.",
+            "They contain dangerous colors.",
+            "They cannot be sold second-hand."
+          ],
+          "answer": 1,
+          "explain": "Đoạn 2: nhiều quần áo rẻ làm từ sợi tổng hợp khó phân huỷ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which action does the writer NOT suggest?",
+          "choices": [
+            "Buying second-hand clothes",
+            "Repairing clothes",
+            "Buying better-made items",
+            "Avoiding all clothing shops"
+          ],
+          "answer": 3,
+          "explain": "Đoạn 4 nêu mua đồ chất lượng, mua đồ cũ, sửa đồ — không khuyên tránh mọi cửa hàng."
+        },
+        {
+          "type": "tf",
+          "statement": "Fast-fashion shops may offer new styles almost every week.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 1: cửa hàng có mẫu mới gần như mỗi tuần."
+        },
+        {
+          "type": "tf",
+          "statement": "Fast-fashion clothes are usually worn for many years.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 2: nhiều đồ bị vứt sau khi chỉ mặc vài lần."
+        },
+        {
+          "type": "tf",
+          "statement": "Most fast-fashion factories are located in one country.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không nói nhà máy đặt ở đâu."
+        },
+        {
+          "type": "gap",
+          "prompt": "Some factories pay very low ___ and require long hours.",
+          "answers": [
+            "wages"
+          ],
+          "choices": [
+            "wages",
+            "taxes",
+            "prices"
+          ],
+          "explain": "Đoạn 3: \"pay very low wages and require long hours\"."
+        }
+      ]
+    },
+    {
+      "id": "readb2more.how-habits-work",
+      "title": "Thói quen hình thành thế nào",
+      "summary": "Vòng lặp tín hiệu – hành động – phần thưởng.",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "How Habits Work",
+          "paragraphs": [
+            {
+              "en": "Much of what we do every day happens without conscious thought. We brush our teeth, check our phones and take the same route to work almost automatically. These behaviors are habits, and psychologists believe they follow a simple pattern.",
+              "vi": "Phần lớn việc ta làm hằng ngày diễn ra mà không cần suy nghĩ có ý thức. Ta đánh răng, xem điện thoại và đi cùng một tuyến đường đi làm gần như tự động. Những hành vi này là thói quen và các nhà tâm lý học tin rằng chúng theo một mô hình đơn giản."
+            },
+            {
+              "en": "First, there is a cue, such as a time of day, a place or a feeling. The cue triggers a routine, which is the behavior itself. Finally, there is a reward, something pleasant that makes the brain want to repeat the routine the next time the cue appears.",
+              "vi": "Đầu tiên là tín hiệu, như một thời điểm trong ngày, một nơi chốn hay một cảm xúc. Tín hiệu kích hoạt hành động lặp lại, tức chính hành vi đó. Cuối cùng là phần thưởng, điều dễ chịu khiến não muốn lặp lại hành động khi tín hiệu xuất hiện lần sau."
+            },
+            {
+              "en": "Understanding this loop can help people change. Instead of relying on willpower alone, it is often more effective to keep the same cue and reward but replace the routine. Someone who snacks when bored, for instance, might go for a short walk instead.",
+              "vi": "Hiểu vòng lặp này giúp con người thay đổi. Thay vì chỉ dựa vào ý chí, cách hiệu quả hơn thường là giữ nguyên tín hiệu và phần thưởng nhưng thay hành động. Chẳng hạn người hay ăn vặt khi chán có thể đi bộ một chút thay vào đó."
+            },
+            {
+              "en": "New habits take time to form, so small, consistent steps usually work better than dramatic changes.",
+              "vi": "Thói quen mới cần thời gian để hình thành nên những bước nhỏ, đều đặn thường hiệu quả hơn thay đổi đột ngột."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is the correct order of the habit loop?",
+          "choices": [
+            "Cue, routine, reward",
+            "Routine, reward, cue",
+            "Reward, cue, routine",
+            "Cue, reward, routine"
+          ],
+          "answer": 0,
+          "explain": "Đoạn 2: tín hiệu (cue) → hành động (routine) → phần thưởng (reward)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the writer recommend for changing a habit?",
+          "choices": [
+            "Relying only on willpower",
+            "Removing all rewards",
+            "Keeping the cue and reward but replacing the routine",
+            "Changing many habits at once"
+          ],
+          "answer": 2,
+          "explain": "Đoạn 3: giữ tín hiệu và phần thưởng, thay hành động."
+        },
+        {
+          "type": "tf",
+          "statement": "A feeling can act as a cue.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 2: tín hiệu có thể là thời điểm, nơi chốn hay cảm xúc."
+        },
+        {
+          "type": "tf",
+          "statement": "Dramatic changes are usually better than small steps.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Câu cuối: bước nhỏ, đều đặn thường hiệu quả hơn thay đổi đột ngột."
+        },
+        {
+          "type": "tf",
+          "statement": "It takes exactly 21 days to form a new habit.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài chỉ nói cần thời gian, không nêu con số cụ thể."
+        },
+        {
+          "type": "gap",
+          "prompt": "Someone who snacks when bored might go for a short ___ instead.",
+          "answers": [
+            "walk"
+          ],
+          "choices": [
+            "walk",
+            "nap",
+            "drive"
+          ],
+          "explain": "Đoạn 3: \"might go for a short walk instead\"."
+        }
+      ]
+    },
+    {
+      "id": "readb2more.citizen-science",
+      "title": "Khoa học công dân",
+      "summary": "Người bình thường góp dữ liệu cho nghiên cứu.",
+      "level": "B2_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Citizen Science",
+          "paragraphs": [
+            {
+              "en": "Not all scientific research is carried out by professionals in laboratories. In citizen science projects, ordinary volunteers help collect or analyze data, often using nothing more than a smartphone and a few minutes of their free time.",
+              "vi": "Không phải mọi nghiên cứu khoa học đều do chuyên gia thực hiện trong phòng thí nghiệm. Trong các dự án khoa học công dân, tình nguyện viên bình thường giúp thu thập hoặc phân tích dữ liệu, thường chỉ cần một chiếc điện thoại và vài phút rảnh."
+            },
+            {
+              "en": "The range of projects is remarkably wide. Volunteers count birds in their gardens, photograph insects, record the dates when local trees blossom, or classify images of distant galaxies online. Because thousands of people take part, researchers can gather information across areas far larger than any small team could cover.",
+              "vi": "Phạm vi dự án rộng đáng kinh ngạc. Tình nguyện viên đếm chim trong vườn, chụp ảnh côn trùng, ghi lại ngày cây ở địa phương ra hoa hay phân loại ảnh các thiên hà xa xôi trên mạng. Vì hàng nghìn người tham gia, nhà nghiên cứu thu thập được thông tin trên những vùng rộng hơn nhiều so với một nhóm nhỏ có thể bao quát."
+            },
+            {
+              "en": "Of course, data collected by non-experts can contain mistakes. To deal with this, projects typically provide training materials, ask several volunteers to check the same item, and use statistical methods to identify unusual results.",
+              "vi": "Dĩ nhiên dữ liệu do người không chuyên thu thập có thể có sai sót. Để xử lý, các dự án thường cung cấp tài liệu hướng dẫn, nhờ nhiều tình nguyện viên kiểm tra cùng một mục và dùng phương pháp thống kê để phát hiện kết quả bất thường."
+            },
+            {
+              "en": "Participants benefit too. Many say they notice nature more closely and feel a sense of purpose in contributing to real discoveries. In this way, citizen science not only produces knowledge but also brings science closer to the public.",
+              "vi": "Người tham gia cũng được lợi. Nhiều người nói họ quan sát thiên nhiên kỹ hơn và thấy có mục đích khi góp phần vào những khám phá thật. Như vậy, khoa học công dân không chỉ tạo ra tri thức mà còn đưa khoa học đến gần công chúng hơn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is the main advantage of having thousands of volunteers?",
+          "choices": [
+            "Research becomes free.",
+            "Mistakes disappear completely.",
+            "Professional scientists are no longer needed.",
+            "Data can be gathered across very large areas."
+          ],
+          "answer": 3,
+          "explain": "Đoạn 2: nhờ hàng nghìn người, dữ liệu thu được trên vùng rộng hơn nhiều so với nhóm nhỏ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "How do projects reduce errors in volunteer data?",
+          "choices": [
+            "They only accept data from scientists.",
+            "They ask several volunteers to check the same item.",
+            "They pay volunteers for accuracy.",
+            "They limit each project to one country."
+          ],
+          "answer": 1,
+          "explain": "Đoạn 3: cung cấp tài liệu, nhờ nhiều người kiểm tra cùng mục, dùng thống kê."
+        },
+        {
+          "type": "tf",
+          "statement": "Some volunteers classify images of galaxies online.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 2 nêu ví dụ phân loại ảnh thiên hà trên mạng."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer claims volunteer data is always perfectly accurate.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 3: dữ liệu của người không chuyên có thể có sai sót."
+        },
+        {
+          "type": "tf",
+          "statement": "Most citizen science volunteers are retired people.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không nói về độ tuổi tình nguyện viên."
+        },
+        {
+          "type": "gap",
+          "prompt": "Citizen science brings science closer to the ___.",
+          "answers": [
+            "public"
+          ],
+          "choices": [
+            "public",
+            "laboratory",
+            "government"
+          ],
+          "explain": "Câu cuối: \"brings science closer to the public\"."
+        }
+      ]
+    },
+    {
+      "id": "readb2more.four-day-week",
+      "title": "Tuần làm việc bốn ngày",
+      "summary": "Làm ít ngày hơn có giảm năng suất?",
+      "level": "B2_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "The Four-Day Work Week",
+          "paragraphs": [
+            {
+              "en": "For most of the last century, a five-day, forty-hour week has been the standard for office workers. Recently, however, a number of companies have experimented with a four-day week, in which employees work fewer hours for the same salary.",
+              "vi": "Trong phần lớn thế kỷ trước, tuần làm năm ngày, bốn mươi giờ là chuẩn mực của nhân viên văn phòng. Tuy nhiên gần đây, một số công ty đã thử nghiệm tuần làm bốn ngày, nhân viên làm ít giờ hơn với cùng mức lương."
+            },
+            {
+              "en": "The results of these trials have often been surprising. Many firms report that productivity stayed the same or even improved, because staff wasted less time in unnecessary meetings and returned to work feeling rested. Employees also reported lower stress and found it easier to balance work with family responsibilities.",
+              "vi": "Kết quả các cuộc thử nghiệm thường gây bất ngờ. Nhiều công ty cho biết năng suất giữ nguyên hoặc thậm chí tăng vì nhân viên ít lãng phí thời gian vào các cuộc họp không cần thiết và quay lại làm việc khi đã được nghỉ ngơi. Nhân viên cũng cho biết ít căng thẳng hơn và dễ cân bằng công việc với trách nhiệm gia đình hơn."
+            },
+            {
+              "en": "Nevertheless, the model does not suit every industry. Hospitals, shops and public transport must operate every day, so a shorter week for each worker may require hiring additional staff. Some employees also find that squeezing their work into four days makes those days more intense.",
+              "vi": "Tuy vậy, mô hình này không phù hợp với mọi ngành. Bệnh viện, cửa hàng và giao thông công cộng phải hoạt động hằng ngày, nên tuần ngắn hơn cho mỗi người có thể đòi hỏi tuyển thêm nhân sự. Một số nhân viên cũng thấy dồn việc vào bốn ngày khiến những ngày đó căng thẳng hơn."
+            },
+            {
+              "en": "The debate is therefore less about whether a four-day week is good or bad and more about how work can be organized more intelligently, whatever the number of days.",
+              "vi": "Vì thế cuộc tranh luận không hẳn là tuần bốn ngày tốt hay xấu, mà là làm sao tổ chức công việc thông minh hơn, bất kể số ngày là bao nhiêu."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why did productivity often stay the same during the trials?",
+          "choices": [
+            "Staff wasted less time in meetings and felt rested.",
+            "Employees worked longer each day.",
+            "Companies hired more managers.",
+            "Salaries were increased."
+          ],
+          "answer": 0,
+          "explain": "Đoạn 2: ít lãng phí thời gian họp và quay lại làm việc khi đã nghỉ ngơi."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What problem might hospitals face with a four-day week?",
+          "choices": [
+            "They would need to close one day a week.",
+            "Patients would refuse treatment.",
+            "They may need to hire additional staff.",
+            "Doctors would earn less."
+          ],
+          "answer": 2,
+          "explain": "Đoạn 3: các ngành hoạt động hằng ngày có thể phải tuyển thêm nhân sự."
+        },
+        {
+          "type": "tf",
+          "statement": "In the trials described, employees kept the same salary.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 1: làm ít giờ hơn với cùng mức lương."
+        },
+        {
+          "type": "tf",
+          "statement": "Every employee finds the four-day week less intense.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 3: một số người thấy những ngày làm căng thẳng hơn."
+        },
+        {
+          "type": "tf",
+          "statement": "The four-day week is now required by law in some countries.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không đề cập luật pháp."
+        },
+        {
+          "type": "gap",
+          "prompt": "The debate is really about how work can be organized more ___.",
+          "answers": [
+            "intelligently"
+          ],
+          "choices": [
+            "intelligently",
+            "cheaply",
+            "quickly"
+          ],
+          "explain": "Câu cuối: \"how work can be organized more intelligently\"."
+        }
+      ]
+    },
+    {
+      "id": "readb2more.microplastics",
+      "title": "Vi nhựa",
+      "summary": "Những mảnh nhựa nhỏ có mặt khắp nơi.",
+      "level": "B2_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "The Problem of Microplastics",
+          "paragraphs": [
+            {
+              "en": "Microplastics are pieces of plastic smaller than five millimeters. Some are manufactured at that size, such as the tiny beads once common in face scrubs, but most are created when larger items like bottles and bags slowly break apart under sunlight and waves.",
+              "vi": "Vi nhựa là mảnh nhựa nhỏ hơn năm milimét. Một số được sản xuất sẵn ở kích cỡ đó, như hạt li ti từng phổ biến trong sữa rửa mặt tẩy da chết, nhưng phần lớn hình thành khi đồ lớn như chai, túi dần vỡ ra dưới ánh nắng và sóng biển."
+            },
+            {
+              "en": "Because they are so small and light, microplastics travel easily. Researchers have found them in deep ocean trenches, on remote mountain tops and in drinking water. Washing synthetic clothes is another source, as each wash can release thousands of fibers into wastewater.",
+              "vi": "Vì rất nhỏ và nhẹ nên vi nhựa di chuyển dễ dàng. Các nhà nghiên cứu đã tìm thấy chúng ở rãnh đại dương sâu, trên đỉnh núi hẻo lánh và trong nước uống. Giặt quần áo sợi tổng hợp là một nguồn khác, vì mỗi lần giặt có thể thải hàng nghìn sợi vào nước thải."
+            },
+            {
+              "en": "Marine animals frequently mistake these particles for food. Once swallowed, plastic can fill their stomachs without providing any nutrition. Scientists are still investigating the effects on human health, and so far the evidence is limited.",
+              "vi": "Động vật biển thường nhầm các hạt này là thức ăn. Khi bị nuốt, nhựa có thể lấp đầy dạ dày mà không cung cấp dinh dưỡng. Các nhà khoa học vẫn đang nghiên cứu ảnh hưởng đến sức khoẻ con người và đến nay bằng chứng còn hạn chế."
+            },
+            {
+              "en": "Removing microplastics from the environment is almost impossible, so most experts agree that the priority is prevention: using less single-use plastic, improving waste collection and developing filters for washing machines.",
+              "vi": "Loại bỏ vi nhựa khỏi môi trường gần như không thể, nên hầu hết chuyên gia đồng ý ưu tiên là phòng ngừa: dùng ít nhựa dùng một lần, cải thiện thu gom rác và phát triển bộ lọc cho máy giặt."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How are most microplastics created?",
+          "choices": [
+            "They are made for face scrubs.",
+            "They form in drinking water.",
+            "Larger plastic items break apart.",
+            "Animals produce them."
+          ],
+          "answer": 2,
+          "explain": "Đoạn 1: phần lớn hình thành khi đồ nhựa lớn dần vỡ ra."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What do most experts see as the priority?",
+          "choices": [
+            "Prevention",
+            "Studying deep trenches",
+            "Cleaning the oceans",
+            "Banning washing machines"
+          ],
+          "answer": 0,
+          "explain": "Đoạn 4: loại bỏ gần như không thể nên ưu tiên là phòng ngừa."
+        },
+        {
+          "type": "tf",
+          "statement": "Microplastics have been found on remote mountain tops.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 2 nêu đỉnh núi hẻo lánh."
+        },
+        {
+          "type": "tf",
+          "statement": "Scientists have proved that microplastics seriously damage human health.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 3: bằng chứng về sức khoẻ con người còn hạn chế."
+        },
+        {
+          "type": "tf",
+          "statement": "Plastic bottles break apart faster than plastic bags.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không so sánh tốc độ phân rã của chai và túi."
+        },
+        {
+          "type": "gap",
+          "prompt": "Each wash of synthetic clothes can release thousands of ___.",
+          "answers": [
+            "fibers"
+          ],
+          "choices": [
+            "fibers",
+            "beads",
+            "bottles"
+          ],
+          "explain": "Đoạn 2: \"each wash can release thousands of fibers\"."
+        }
+      ]
+    },
+    {
+      "id": "readb2more.why-we-procrastinate",
+      "title": "Vì sao ta trì hoãn",
+      "summary": "Trì hoãn là chuyện cảm xúc hơn là lười biếng.",
+      "level": "B2_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Why We Procrastinate",
+          "paragraphs": [
+            {
+              "en": "Almost everyone has delayed an important task while doing something less useful, such as tidying a desk or scrolling through social media. This is procrastination, and it is commonly blamed on laziness or poor time management.",
+              "vi": "Hầu như ai cũng từng hoãn một việc quan trọng để làm việc kém hữu ích hơn, như dọn bàn hay lướt mạng xã hội. Đó là trì hoãn và người ta thường đổ lỗi cho sự lười biếng hay quản lý thời gian kém."
+            },
+            {
+              "en": "Many psychologists, however, see it differently. They argue that procrastination is mainly a way of avoiding unpleasant emotions. When a task makes us feel anxious, bored or afraid of failing, putting it off brings immediate relief. Unfortunately, the relief is short-lived, and the task usually becomes more stressful as the deadline approaches.",
+              "vi": "Tuy nhiên, nhiều nhà tâm lý học nhìn nhận khác. Họ cho rằng trì hoãn chủ yếu là cách né tránh cảm xúc khó chịu. Khi một việc khiến ta lo lắng, chán hay sợ thất bại, hoãn lại đem đến cảm giác nhẹ nhõm tức thì. Tiếc là sự nhẹ nhõm ngắn ngủi và việc thường càng căng thẳng hơn khi hạn chót đến gần."
+            },
+            {
+              "en": "If this view is correct, strict schedules alone will not solve the problem. More helpful strategies include breaking a large task into small, clear steps, starting with just five minutes of work, and treating oneself kindly rather than harshly after falling behind. Research suggests that people who forgive themselves for procrastinating are less likely to do it again.",
+              "vi": "Nếu quan điểm này đúng, chỉ lịch trình nghiêm ngặt sẽ không giải quyết được vấn đề. Chiến lược hữu ích hơn gồm chia việc lớn thành bước nhỏ rõ ràng, bắt đầu chỉ với năm phút làm việc và đối xử tử tế thay vì khắt khe với bản thân khi bị chậm. Nghiên cứu gợi ý người tha thứ cho mình vì đã trì hoãn ít có khả năng tái phạm hơn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "According to many psychologists, what is procrastination mainly about?",
+          "choices": [
+            "Laziness",
+            "Lack of intelligence",
+            "Poor time management",
+            "Avoiding unpleasant emotions"
+          ],
+          "answer": 3,
+          "explain": "Đoạn 2: chủ yếu là cách né tránh cảm xúc khó chịu."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which strategy is mentioned in the text?",
+          "choices": [
+            "Working all night before a deadline",
+            "Starting with just five minutes of work",
+            "Punishing yourself after falling behind",
+            "Removing all deadlines"
+          ],
+          "answer": 1,
+          "explain": "Đoạn 3 nêu bắt đầu chỉ với năm phút làm việc."
+        },
+        {
+          "type": "tf",
+          "statement": "The relief from putting off a task lasts a long time.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 2: sự nhẹ nhõm ngắn ngủi (short-lived)."
+        },
+        {
+          "type": "tf",
+          "statement": "People who forgive themselves are less likely to procrastinate again.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Câu cuối đoạn 3 nói vậy."
+        },
+        {
+          "type": "tf",
+          "statement": "Students procrastinate more than office workers.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không so sánh các nhóm người."
+        },
+        {
+          "type": "gap",
+          "prompt": "Breaking a large task into small, clear ___ can help.",
+          "answers": [
+            "steps"
+          ],
+          "choices": [
+            "steps",
+            "days",
+            "rules"
+          ],
+          "explain": "Đoạn 3: \"breaking a large task into small, clear steps\"."
+        }
+      ]
+    },
+    {
+      "id": "readb2more.overtourism",
+      "title": "Du lịch quá tải",
+      "summary": "Khi điểm đến bị khách du lịch nhấn chìm.",
+      "level": "B2_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "When Tourism Becomes Too Much",
+          "paragraphs": [
+            {
+              "en": "Tourism brings money and jobs to many places, but in some popular destinations it has become a source of tension. The term \"overtourism\" describes situations in which the number of visitors is so high that it damages the environment or the quality of life of local residents.",
+              "vi": "Du lịch mang tiền và việc làm đến nhiều nơi, nhưng ở một số điểm đến nổi tiếng nó trở thành nguồn căng thẳng. Từ \"overtourism\" mô tả tình trạng lượng khách quá đông đến mức gây hại cho môi trường hoặc chất lượng sống của cư dân địa phương."
+            },
+            {
+              "en": "The effects are easy to see in small historic towns. Narrow streets become crowded, rents rise as apartments are converted into short-term holiday rentals, and traditional shops are replaced by souvenir stores. Some residents feel that they are being pushed out of their own neighborhoods.",
+              "vi": "Hậu quả dễ thấy ở các thị trấn cổ nhỏ. Phố hẹp trở nên chật chội, tiền thuê nhà tăng khi căn hộ chuyển thành chỗ cho thuê ngắn hạn, và cửa hàng truyền thống bị thay bằng quầy đồ lưu niệm. Một số cư dân cảm thấy họ đang bị đẩy ra khỏi chính khu phố của mình."
+            },
+            {
+              "en": "Local authorities have tried several solutions. These include daily limits on visitor numbers, tourist taxes, and campaigns that encourage travelers to visit lesser-known areas or come outside the peak season. Results have been mixed, as reducing crowds can also reduce income for businesses that depend on tourists.",
+              "vi": "Chính quyền địa phương đã thử nhiều giải pháp, gồm giới hạn số khách mỗi ngày, thuế du lịch và chiến dịch khuyến khích du khách đến nơi ít tên tuổi hơn hoặc đi ngoài mùa cao điểm. Kết quả lẫn lộn, vì giảm đám đông cũng có thể giảm thu nhập của các doanh nghiệp sống nhờ khách du lịch."
+            },
+            {
+              "en": "Travelers themselves can help by staying longer in one place, spending money in locally owned businesses and respecting the customs of the communities they visit.",
+              "vi": "Bản thân du khách có thể giúp bằng cách ở lâu hơn tại một nơi, chi tiêu ở cơ sở do người địa phương làm chủ và tôn trọng phong tục của cộng đồng nơi họ đến."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why do rents rise in some historic towns?",
+          "choices": [
+            "Hotels are closing.",
+            "Apartments become short-term holiday rentals.",
+            "Tourist taxes are added to rents.",
+            "Residents buy souvenir stores."
+          ],
+          "answer": 1,
+          "explain": "Đoạn 2: tiền thuê tăng khi căn hộ chuyển thành chỗ cho thuê ngắn hạn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why have the results of local solutions been mixed?",
+          "choices": [
+            "Tourists ignore the limits.",
+            "The campaigns were never launched.",
+            "Taxes are too low.",
+            "Reducing crowds can also reduce business income."
+          ],
+          "answer": 3,
+          "explain": "Đoạn 3: giảm đám đông cũng có thể giảm thu nhập doanh nghiệp."
+        },
+        {
+          "type": "tf",
+          "statement": "Some destinations have introduced daily limits on visitor numbers.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 3 nêu giới hạn số khách mỗi ngày."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer advises travelers to visit as many places as possible in a short time.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 4 khuyên ở lâu hơn tại một nơi."
+        },
+        {
+          "type": "tf",
+          "statement": "Overtourism first became a problem in the 1990s.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không nói vấn đề bắt đầu khi nào."
+        },
+        {
+          "type": "gap",
+          "prompt": "Travelers should respect the ___ of the communities they visit.",
+          "answers": [
+            "customs"
+          ],
+          "choices": [
+            "customs",
+            "prices",
+            "borders"
+          ],
+          "explain": "Câu cuối: \"respecting the customs of the communities\"."
+        }
+      ]
+    },
+    {
+      "id": "readb2more.space-debris",
+      "title": "Rác vũ trụ",
+      "summary": "Quỹ đạo quanh Trái Đất đang đông đúc.",
+      "level": "B2_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Traffic Jams in Space",
+          "paragraphs": [
+            {
+              "en": "Since the first satellite was launched in the 1950s, humans have sent thousands of objects into orbit around the Earth. Many are still working, providing services such as weather forecasts, navigation and communications. Many others, however, are no longer useful and simply remain in space as debris.",
+              "vi": "Kể từ khi vệ tinh đầu tiên được phóng vào thập niên 1950, con người đã đưa hàng nghìn vật thể lên quỹ đạo quanh Trái Đất. Nhiều vật thể vẫn hoạt động, cung cấp dịch vụ như dự báo thời tiết, định vị và liên lạc. Nhưng nhiều vật thể khác không còn tác dụng và chỉ nằm lại trong không gian như rác."
+            },
+            {
+              "en": "Space debris includes old satellites, used rocket parts and tiny fragments created when objects collide. Because these pieces travel at extremely high speeds, even a fragment the size of a coin can seriously damage a working satellite or a spacecraft carrying astronauts.",
+              "vi": "Rác vũ trụ gồm vệ tinh cũ, bộ phận tên lửa đã dùng và mảnh vụn li ti tạo ra khi các vật thể va chạm. Vì chúng bay với tốc độ cực cao, ngay cả một mảnh cỡ đồng xu cũng có thể làm hỏng nặng vệ tinh đang hoạt động hay tàu vũ trụ chở phi hành gia."
+            },
+            {
+              "en": "Experts worry about a chain reaction: each collision produces more fragments, which then increase the chance of further collisions. If this happened on a large scale, some orbits could become too dangerous to use.",
+              "vi": "Các chuyên gia lo ngại một phản ứng dây chuyền: mỗi va chạm tạo thêm mảnh vụn, làm tăng khả năng va chạm tiếp theo. Nếu điều này xảy ra trên diện rộng, một số quỹ đạo có thể trở nên quá nguy hiểm để sử dụng."
+            },
+            {
+              "en": "Engineers are now designing satellites that can lower themselves into the atmosphere and burn up at the end of their lives, and testing methods to capture larger pieces of debris. International cooperation will be essential, since no single country owns space.",
+              "vi": "Kỹ sư hiện đang thiết kế vệ tinh có thể tự hạ xuống bầu khí quyển và cháy rụi khi hết tuổi thọ, đồng thời thử nghiệm cách thu gom các mảnh rác lớn. Hợp tác quốc tế sẽ là thiết yếu vì không quốc gia nào sở hữu không gian."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why can a coin-sized fragment be dangerous?",
+          "choices": [
+            "It travels at extremely high speeds.",
+            "It is radioactive.",
+            "It is very heavy.",
+            "It blocks radio signals."
+          ],
+          "answer": 0,
+          "explain": "Đoạn 2: mảnh vụn bay với tốc độ cực cao."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the \"chain reaction\" experts worry about?",
+          "choices": [
+            "Satellites stop working one after another.",
+            "Rockets become more expensive.",
+            "Collisions create fragments that cause more collisions.",
+            "Countries compete to launch more satellites."
+          ],
+          "answer": 2,
+          "explain": "Đoạn 3: mỗi va chạm tạo thêm mảnh vụn, làm tăng khả năng va chạm tiếp."
+        },
+        {
+          "type": "tf",
+          "statement": "Some satellites provide navigation services.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 1 nêu định vị (navigation)."
+        },
+        {
+          "type": "tf",
+          "statement": "All objects sent into orbit are still working.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 1: nhiều vật thể không còn tác dụng."
+        },
+        {
+          "type": "tf",
+          "statement": "Cleaning up space debris will be paid for by private companies.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không nói ai sẽ chi trả."
+        },
+        {
+          "type": "gap",
+          "prompt": "International ___ will be essential, since no single country owns space.",
+          "answers": [
+            "cooperation"
+          ],
+          "choices": [
+            "cooperation",
+            "competition",
+            "tourism"
+          ],
+          "explain": "Câu cuối: \"International cooperation will be essential\"."
+        }
+      ]
+    }
+  ]
+}

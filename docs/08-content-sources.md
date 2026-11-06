@@ -104,11 +104,20 @@ Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được n
 | ------------------------------------------- | ------------------------------------------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------- |
 | **VOA Learning English** (MP3 + transcript) | Public domain (trừ nội dung hãng tin)                                                       | ✅              | Nguồn bài nghe chính A1–B2. Chuẩn hoá audio + căn câu (xem [09](09-content-pipeline.md#5-xử-lý-audio)). |
 | **LibriVox**                                | Public domain (theo luật Mỹ)                                                                | ✅              | Sách nói văn học — B2–C2, luyện nghe dài. Không bắt buộc ghi công (nên dẫn link).                       |
-| Tatoeba audio                               | Theo từng người đóng góp                                                                    | ⚠️              | Lọc license như mục 4                                                                                   |
+| Tatoeba audio                               | **Mỗi người đọc tự chọn**: CC BY, CC BY-SA, CC BY-NC, hoặc không license (audio không thể là CC0). Mặc định mới CC BY 4.0, trước đây phổ biến CC BY-NC 4.0 | ⚠️ | Chỉ lấy file có license cho phép thương mại + ghi công người đọc; bỏ NC và file không license. Lọc theo từng file trên trang "audio files" của người đóng góp. Chưa kiểm được cách tải hàng loạt hiện hành (2026-11-06). |
 | Mozilla Common Voice                        | CC0 (dữ liệu), nhưng điều khoản tải về cấm re-host/chia sẻ lại (ít nhất với bộ Spontaneous) | ❌ cho đóng gói | Chỉ phù hợp nghiên cứu/huấn luyện; dung lượng ~87 GB                                                    |
+| **NASA audio (Artemis Audio, thư viện âm thanh)** | Tài liệu của chính phủ Mỹ, NASA ghi không cần xin phép nếu theo media guidelines và không ngụ ý NASA bảo trợ | ✅ ⚠️ | Bài nghe khoa học/du hành B2–C2 | Có thể lẫn tư liệu bên thứ ba; media guidelines hạn chế dùng thương mại có hình/giọng nhân viên NASA — chưa đọc guidelines gốc (2026-11-06) |
+| Podcast cơ quan chính phủ Mỹ (NPS "A Sense of Place", USGS CoreCast...) | Tác phẩm liên bang thường là public domain (17 U.S.C. §105) | ⚠️ | Có transcript, giọng Mỹ tự nhiên, B1–C1 | Chưa xác nhận chính sách tái sử dụng từng cơ quan; bỏ phần có nhạc/clip bên thứ ba |
+| Wikimedia Commons (tệp audio giọng đọc / VOA) | Theo từng tệp (PD, CC BY, CC BY-SA) | ⚠️ | Bổ sung lẻ | Chỉ lấy tệp ghi rõ PD/CC BY; CC BY-SA cần cân nhắc điều khoản share-alike |
 | **Audio TTS tự sinh**                       | Theo license engine/giọng                                                                   | ✅ ⚠️           | Xem mục 9 về giọng Piper                                                                                |
 
+> **2026-11-06 — rà bổ sung (nguồn thứ cấp, chưa đọc điều khoản gốc):** VOA Learning English: văn bản, MP3, ảnh, video là public domain, cho in lại cho mục đích giáo dục/thương mại, ghi công `learningenglish.voanews.com`; tin AP/AFP không phải PD. LibriVox: tình nguyện viên dành bản thu cho public domain, dùng thương mại không cần ghi công, nhưng chỉ chắc chắn PD theo luật Mỹ — người dùng ngoài Mỹ nên kiểm luật địa phương (chủ dự án ở Việt Nam → rà). Không lấy audio từ các trang luyện nghe thương mại (ESL Lab, ESLPod, BBC Learning English...) — chỉ link-out.
+
+> ✅ **2026-11-06**: bài nghe VOA bản thu thật đầu tiên — `content/curated/listening/09-voa.json` (`listenvoa.dish-up`, "How to 'Dish Up' Something Good", Words and Their Stories, tác giả Anna Matteo, 3:41, 1,77 MB). MP3 gốc ở `content/curated/listening-audio/voa-wts-dish-up.mp3` (64 kbps, giữ nguyên). Trang gốc không có dòng AP/Reuters/AFP. Lời thoại tiếng Anh chép từ trang VOA, tiếng Việt do mình dịch, 6 bài tập tự soạn. Chưa đọc điều khoản gốc của VOA — chủ dự án rà. **Đợt 2 (2026-11-06)**: thêm 6 bài Words and Their Stories (Anna Matteo, VOA tự viết): grass, dialed-in, eagle-eyes, power-couple, spread-thin, knee-jerk — tổng 7 bài (khoảng 14 MB MP3, 64 kbps). Chú thích ảnh AP trong trang ("AP Photo") đã loại khỏi lời thoại; văn bản bài là của VOA. **Đợt 3 (2026-11-06)**: thêm 5 bài **Let’s Learn English** (Level 1, bài 2, 12, 16, 20, 24; A1–A2) — tổng 12 bài VOA. Lời thoại chép từ phần transcript của trang bài, giữ tên người nói trong câu. Độ dài file khớp với lượng chữ (khoảng 100–115 từ/phút) nhưng **chưa nghe đối chiếu bằng tai** — chủ dự án nghe thử trước khi phát hành. **Đã đọc điều khoản gốc** (https://learningenglish.voanews.com/p/6861.html, 2026-11-06): "Learning English texts, MP3s, photos and videos are in the public domain… reprint for educational and commercial purposes, with credit to learningenglish.voanews.com"; tin/ảnh/video của AP, Reuters, AFP có bản quyền, không được đăng lại. Quy trình thêm bài: chọn bài VOA tự viết (Words and Their Stories, Let's Learn English, Everyday Grammar...), kiểm dòng ghi công, tải MP3 từ nút "download" của trang, thêm vào `listening-audio/`, soạn JSON, chạy `pnpm test`.
+
 ## 7. Video
+
+> ✅ **2026-11-05**: 12 video VOA Learning English đã đưa vào `content/curated/videos/videos-01.json` (8 video ngắn + 4 đoạn podcast cắt bằng `startSec`/`endSec`). `videoId` đã kiểm bằng oEmbed; câu hỏi tự soạn từ transcript trong mô tả video/bài VOA. Chỉ nhúng bằng IFrame Player, không tải. Video có tin AP/AFP đặt `license: youtube-embed` (không coi là public domain). Chưa đọc lại điều khoản VOA hiện hành — cần chủ dự án rà.
 
 | Nguồn                                                                     | Cách dùng                                                          | Trạng thái | Ghi chú                                                                                 |
 | ------------------------------------------------------------------------- | ------------------------------------------------------------------ | ---------- | --------------------------------------------------------------------------------------- |
@@ -117,6 +126,21 @@ Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được n
 | **TED Talks**                                                             | CC BY-NC-ND 4.0; nhúng chỉ dành cho blog/báo/tổ chức phi lợi nhuận | ❌ / 🔗    | **Không** đóng gói, không cắt clip, không dịch lại. Tối đa: dẫn link.                   |
 | StoryWeaver video/readalong                                               | CC BY-NC-ND 4.0                                                    | ❌         |                                                                                         |
 | BBC Learning English, British Council LearnEnglish (Kids)                 | Bản quyền                                                          | 🔗         | Chỉ link-out / embed YouTube chính thức của họ                                          |
+
+### 7b. Ảnh TOEIC Part 1 (Pexels)
+
+> ✅ **2026-11-06**: 12 ảnh Part 1 (`src/renderer/study/art/toeic/t1-g001…g012.webp`, 800×500, cắt 8:5) lấy từ **Pexels** theo [Pexels License](https://www.pexels.com/license/): dùng thương mại, không bắt buộc ghi công, **cấm** bán/phát lại ảnh như kho ảnh — chỉ nhúng trong app, không đưa file gốc lên repo công khai dưới dạng bộ ảnh. Chưa đọc lại điều khoản hiện hành — cần chủ dự án rà. Tên file = id nhóm trong `content/curated/toeic/part1-01.json`. Ảnh t1-g006 (đám đông ở sảnh), t1-g012 (kỹ thuật viên, máy không rõ là photocopier) lệch nhẹ so với `scene` — nên thay khi có ảnh tốt hơn.
+
+| Nhóm | Pexels ID | Nhóm | Pexels ID |
+| ---- | --------- | ---- | --------- |
+| t1-g001 | 806835 | t1-g007 | 8961134 |
+| t1-g002 | 30678898 | t1-g008 | 28972004 |
+| t1-g003 | 29145759 | t1-g009 | 5862404 |
+| t1-g004 | 13532504 | t1-g010 | 7976794 |
+| t1-g005 | 6816379 | t1-g011 | 32860622 |
+| t1-g006 | 32223420 | t1-g012 | 37492296 |
+
+Ảnh gốc: `https://www.pexels.com/photo/<ID>/`.
 
 ## 8. Hình ảnh, âm thanh, font cho giao diện
 
@@ -207,7 +231,9 @@ Phần lớn bài học có cấu trúc (lesson, bài tập ngữ pháp, hội t
 - Được dùng dữ liệu mở ở trên làm **nguyên liệu** (danh sách từ, câu ví dụ), nhưng nếu nguyên liệu là CC BY-SA thì phần phái sinh trực tiếp phải theo CC BY-SA.
 - **Không** đưa văn bản có bản quyền vào prompt để "viết lại" (sách giáo khoa, đề thi thật, bài báo có bản quyền).
 - Định nghĩa tiếng Anh từ Wiktionary (CC BY-SA) được đưa vào prompt sinh nghĩa Việt **chỉ làm ngữ cảnh phân biệt nghĩa** (dịch từ, không dịch câu định nghĩa). Nghĩa sinh ra hiện nằm trong pack CC BY-SA nên không phát sinh vấn đề; ⚠️ nếu tách ra pack khác license, rà lại.
+- **Track B2–C2 (2026-11-05)**: 12 bài học, 16 điểm ngữ pháp, 24 bài đọc, 16 bài nghe và 2 khoá mới do `claude-opus-5-5` sinh, tự soạn hoàn toàn, `license: proprietary-own`, AI tự duyệt (chưa có người thật duyệt).
 - Mô phỏng **format** đề TOEIC/IELTS là được; sao chép câu hỏi thật là không.
+- **Ngân hàng TOEIC (2026-11-05)**: `content/curated/toeic/*.json`, 267 câu / 7 Part, do `claude-opus-5-5` sinh và tự duyệt (chủ dự án chốt: AI tự sinh, tự duyệt), `license: proprietary-own`, `generator` + `reviewed` ghi ở đầu mỗi file. Part 1 chưa có ảnh (dùng `scene` làm chú thích).
 
 ## 11. Quy trình thêm một nguồn mới
 

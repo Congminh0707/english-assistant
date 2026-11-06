@@ -1,0 +1,232 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t2-g016",
+      "part": 2,
+      "level": "B1_1",
+      "script": "What time does the pharmacy close on Saturdays?",
+      "questions": [
+        {
+          "id": "t2-q016",
+          "prompt": "",
+          "choices": ["At six o'clock, I believe.", "It's close to the bank.", "A prescription refill."],
+          "answer": 0,
+          "explain": "\"What time\" hỏi giờ, nên A đúng. B dùng \"close\" với nghĩa \"gần\" để gây nhiễu, C chỉ liên tưởng tới hiệu thuốc."
+        }
+      ]
+    },
+    {
+      "id": "t2-g017",
+      "part": 2,
+      "level": "B2_1",
+      "script": "Shall I book a taxi for you, or will you drive yourself?",
+      "questions": [
+        {
+          "id": "t2-q017",
+          "prompt": "",
+          "choices": ["Yes, it's booked.", "My colleague is giving me a ride.", "The drive took an hour."],
+          "answer": 1,
+          "explain": "Câu hỏi lựa chọn; B đưa ra phương án thứ ba (đồng nghiệp chở) nên không cần cả hai, là câu đúng. A trả lời Yes cho câu hỏi lựa chọn, C lặp \"drive\" ở thì quá khứ."
+        }
+      ]
+    },
+    {
+      "id": "t2-g018",
+      "part": 2,
+      "level": "B2_2",
+      "script": "I can't find the key to the storage room.",
+      "questions": [
+        {
+          "id": "t2-q018",
+          "prompt": "",
+          "choices": ["The room is quite small.", "That's the key point.", "Ms. Ortiz borrowed it this morning."],
+          "answer": 2,
+          "explain": "C giải thích chìa khoá đang ở đâu nên phản hồi đúng vấn đề. B dùng \"key\" theo nghĩa \"quan trọng\", A lặp từ \"room\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g019",
+      "part": 2,
+      "level": "B1_2",
+      "script": "Whose turn is it to lead the team meeting?",
+      "questions": [
+        {
+          "id": "t2-q019",
+          "prompt": "",
+          "choices": ["Turn left at the corner.", "I think it's Daniel's.", "It lasted an hour."],
+          "answer": 1,
+          "explain": "\"Whose turn\" hỏi đến lượt ai, nên B đúng. A lặp \"turn\" với nghĩa \"rẽ\", C nói về thời lượng cuộc họp."
+        }
+      ]
+    },
+    {
+      "id": "t2-g020",
+      "part": 2,
+      "level": "B1_2",
+      "script": "Did you remember to reserve the conference room?",
+      "questions": [
+        {
+          "id": "t2-q020",
+          "prompt": "",
+          "choices": ["Oh no, I'll do it right now.", "I remember him well.", "The conference was in May."],
+          "answer": 0,
+          "explain": "A ngầm thừa nhận đã quên và sẽ đặt ngay nên đúng. B lặp \"remember\" nhưng nói về một người, C lặp \"conference\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g021",
+      "part": 2,
+      "level": "B1_1",
+      "script": "Where can I get my parking permit validated?",
+      "questions": [
+        {
+          "id": "t2-q021",
+          "prompt": "",
+          "choices": ["Park it over there.", "It's valid for a year.", "At the front desk in the lobby."],
+          "answer": 2,
+          "explain": "\"Where\" hỏi nơi chốn, nên C đúng. B dùng \"valid\" gần âm \"validated\", A lặp \"park\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g022",
+      "part": 2,
+      "level": "C1",
+      "script": "Are you going to the trade show in Frankfurt next month?",
+      "questions": [
+        {
+          "id": "t2-q022",
+          "prompt": "",
+          "choices": ["It hasn't been approved yet.", "He showed me the photos.", "Yes, trade is increasing."],
+          "answer": 0,
+          "explain": "A là câu trả lời gián tiếp: chưa chắc đi vì chuyến đi chưa được duyệt. C có \"Yes\" nhưng nói về thương mại tăng, không trả lời việc có đi hay không."
+        }
+      ]
+    },
+    {
+      "id": "t2-g023",
+      "part": 2,
+      "level": "B1_1",
+      "script": "How long have you worked in the accounting department?",
+      "questions": [
+        {
+          "id": "t2-q023",
+          "prompt": "",
+          "choices": ["Almost five years now.", "On the fifth floor.", "Yes, the account is open."],
+          "answer": 0,
+          "explain": "\"How long\" hỏi khoảng thời gian, nên A đúng. B trả lời nơi chốn, C gần âm \"account\" và trả lời Yes cho câu hỏi Wh-."
+        }
+      ]
+    },
+    {
+      "id": "t2-g024",
+      "part": 2,
+      "level": "B2_1",
+      "script": "Why haven't the new laptops been delivered?",
+      "questions": [
+        {
+          "id": "t2-q024",
+          "prompt": "",
+          "choices": ["The laptops are lightweight.", "There was a mix-up with the shipping address.", "To the IT department."],
+          "answer": 1,
+          "explain": "\"Why\" hỏi lý do, nên B đúng. C trả lời giao tới đâu, A lặp từ \"laptops\" nhưng chỉ mô tả máy."
+        }
+      ]
+    },
+    {
+      "id": "t2-g025",
+      "part": 2,
+      "level": "B2_1",
+      "script": "Would you mind closing the door behind you?",
+      "questions": [
+        {
+          "id": "t2-q025",
+          "prompt": "",
+          "choices": ["Not at all.", "It's close to here.", "Behind the cabinet."],
+          "answer": 0,
+          "explain": "\"Would you mind...?\" trả lời \"Not at all\" nghĩa là đồng ý làm, nên A đúng. B dùng \"close\" nghĩa \"gần\", C lặp \"behind\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g026",
+      "part": 2,
+      "level": "B2_2",
+      "script": "The client wants to move the deadline up by a week.",
+      "questions": [
+        {
+          "id": "t2-q026",
+          "prompt": "",
+          "choices": ["It's on the top shelf.", "Then we'll need extra staff.", "She moved last week."],
+          "answer": 1,
+          "explain": "Hạn chót bị đẩy sớm lên, B phản hồi hợp lý là cần thêm người. C lặp \"move\" và \"week\" nhưng nói về việc chuyển nhà."
+        }
+      ]
+    },
+    {
+      "id": "t2-g027",
+      "part": 2,
+      "level": "B2_1",
+      "script": "Should we print the brochures in color or black and white?",
+      "questions": [
+        {
+          "id": "t2-q027",
+          "prompt": "",
+          "choices": ["Yes, we should.", "Color would make a better impression.", "They were printed last week."],
+          "answer": 1,
+          "explain": "Câu hỏi lựa chọn; B chọn bản màu và nêu lý do nên đúng. A trả lời Yes cho câu hỏi lựa chọn, C mâu thuẫn vì tờ rơi chưa được in."
+        }
+      ]
+    },
+    {
+      "id": "t2-g028",
+      "part": 2,
+      "level": "B1_2",
+      "script": "When will the renovation of the lobby be complete?",
+      "questions": [
+        {
+          "id": "t2-q028",
+          "prompt": "",
+          "choices": ["In the lobby.", "It's quite complicated.", "The contractor says by the end of the month."],
+          "answer": 2,
+          "explain": "\"When\" hỏi thời gian, nên C đúng. A lặp \"lobby\" và trả lời nơi chốn, B gần âm \"complete\" – \"complicated\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g029",
+      "part": 2,
+      "level": "C1",
+      "script": "Don't you think we should hire another receptionist?",
+      "questions": [
+        {
+          "id": "t2-q029",
+          "prompt": "",
+          "choices": ["Higher than last year.", "She received it yesterday.", "Let's see how busy it gets first."],
+          "answer": 2,
+          "explain": "C là câu trả lời gián tiếp: chưa quyết, chờ xem mức độ bận rộn. A dùng \"higher\" đồng âm với \"hire\", B gần âm \"receptionist\" – \"received\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g030",
+      "part": 2,
+      "level": "B2_2",
+      "script": "Who left this umbrella in the reception area?",
+      "questions": [
+        {
+          "id": "t2-q030",
+          "prompt": "",
+          "choices": ["It's going to rain later.", "On the right side.", "It might be Mr. Kim's."],
+          "answer": 2,
+          "explain": "\"Who\" hỏi người, C đoán chủ chiếc ô nên đúng. A chỉ liên tưởng tới ô và mưa, B dùng \"right\" đối lập với \"left\" để gây nhiễu."
+        }
+      ]
+    }
+  ]
+}

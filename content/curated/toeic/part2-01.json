@@ -1,0 +1,232 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t2-g001",
+      "part": 2,
+      "level": "B1_1",
+      "script": "Where should I put these boxes of printer paper?",
+      "questions": [
+        {
+          "id": "t2-q001",
+          "prompt": "",
+          "choices": ["In the supply closet, please.", "Yes, I printed the report.", "About twenty boxes."],
+          "answer": 0,
+          "explain": "Câu hỏi \"Where\" cần một nơi chốn, nên A đúng. B lặp âm \"print\" và trả lời Yes cho câu hỏi Wh-, C trả lời số lượng chứ không phải vị trí."
+        }
+      ]
+    },
+    {
+      "id": "t2-g002",
+      "part": 2,
+      "level": "B1_1",
+      "script": "When does the quarterly meeting start?",
+      "questions": [
+        {
+          "id": "t2-q002",
+          "prompt": "",
+          "choices": ["In the main conference room.", "It was very productive.", "Not until two thirty."],
+          "answer": 2,
+          "explain": "Câu hỏi \"When\" cần thời gian, nên C đúng. A là bẫy trả lời nơi chốn (Where), B nói về cuộc họp đã diễn ra rồi."
+        }
+      ]
+    },
+    {
+      "id": "t2-g003",
+      "part": 2,
+      "level": "B1_2",
+      "script": "Who's in charge of ordering office supplies?",
+      "questions": [
+        {
+          "id": "t2-q003",
+          "prompt": "",
+          "choices": ["Yes, they're in order.", "Maria handles that now.", "Some pens and folders."],
+          "answer": 1,
+          "explain": "Câu hỏi \"Who\" cần một người, nên B đúng. A lặp âm \"order\" với nghĩa khác (ngăn nắp), C nói đồ được đặt chứ không phải người phụ trách."
+        }
+      ]
+    },
+    {
+      "id": "t2-g004",
+      "part": 2,
+      "level": "B1_2",
+      "script": "Would you like to join us for lunch at noon?",
+      "questions": [
+        {
+          "id": "t2-q004",
+          "prompt": "",
+          "choices": ["A table for four.", "Thanks, but I already have plans.", "Yes, he joined last month."],
+          "answer": 1,
+          "explain": "Đây là lời mời; B từ chối lịch sự nên đúng. C lặp từ \"join\" nhưng nói về người khác (\"he\") gia nhập công ty, không liên quan tới lời mời."
+        }
+      ]
+    },
+    {
+      "id": "t2-g005",
+      "part": 2,
+      "level": "B1_2",
+      "script": "Why was the flight to Chicago delayed?",
+      "questions": [
+        {
+          "id": "t2-q005",
+          "prompt": "",
+          "choices": ["Because of a storm over the Midwest.", "Gate twelve, I think.", "It's about a two-hour flight."],
+          "answer": 0,
+          "explain": "Câu hỏi \"Why\" cần lý do, nên A đúng. C lặp từ \"flight\" nhưng nói về thời lượng chuyến bay, B nói về cửa ra máy bay."
+        }
+      ]
+    },
+    {
+      "id": "t2-g006",
+      "part": 2,
+      "level": "B2_1",
+      "script": "Have you finished reviewing the contract?",
+      "questions": [
+        {
+          "id": "t2-q006",
+          "prompt": "",
+          "choices": ["The contractor arrived early.", "A two-year agreement.", "I'm still on the last page."],
+          "answer": 2,
+          "explain": "C ngầm trả lời \"chưa xong, đang đọc trang cuối\", nên đúng. A dùng từ gần âm \"contractor\" (nhà thầu) để gây nhiễu, B chỉ mô tả hợp đồng."
+        }
+      ]
+    },
+    {
+      "id": "t2-g007",
+      "part": 2,
+      "level": "B2_1",
+      "script": "Do you prefer the window seat or the aisle seat?",
+      "questions": [
+        {
+          "id": "t2-q007",
+          "prompt": "",
+          "choices": ["Yes, I'd prefer that.", "The view was wonderful.", "Whichever is available."],
+          "answer": 2,
+          "explain": "Câu hỏi lựa chọn \"A or B\"; C trả lời \"chỗ nào còn trống cũng được\" nên đúng. A sai vì câu hỏi lựa chọn không trả lời bằng Yes, B liên tưởng tới cửa sổ nhưng không chọn chỗ."
+        }
+      ]
+    },
+    {
+      "id": "t2-g008",
+      "part": 2,
+      "level": "B1_2",
+      "script": "The printer on the third floor is out of toner again.",
+      "questions": [
+        {
+          "id": "t2-q008",
+          "prompt": "",
+          "choices": ["Print twenty copies, please.", "I'll call the supplier right away.", "On the third floor."],
+          "answer": 1,
+          "explain": "Câu trần thuật báo vấn đề; B đưa ra cách xử lý nên đúng. C lặp lại \"third floor\" mà không phản hồi gì về việc hết mực."
+        }
+      ]
+    },
+    {
+      "id": "t2-g009",
+      "part": 2,
+      "level": "B1_1",
+      "script": "How often do you visit the Seoul branch?",
+      "questions": [
+        {
+          "id": "t2-q009",
+          "prompt": "",
+          "choices": ["About twice a year.", "By train, usually.", "The branch manager is new."],
+          "answer": 0,
+          "explain": "\"How often\" hỏi tần suất, nên A đúng. B trả lời cho \"How\" (phương tiện), C lặp từ \"branch\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g010",
+      "part": 2,
+      "level": "B2_2",
+      "script": "Isn't Mr. Patel coming to the training session?",
+      "questions": [
+        {
+          "id": "t2-q010",
+          "prompt": "",
+          "choices": ["He's out sick today.", "Yes, the train was late.", "At the training center."],
+          "answer": 0,
+          "explain": "Câu hỏi phủ định; A giải thích vì sao ông Patel không đến nên đúng. B dùng âm giống \"train\" để gây nhiễu, C trả lời nơi chốn."
+        }
+      ]
+    },
+    {
+      "id": "t2-g011",
+      "part": 2,
+      "level": "B1_2",
+      "script": "Could you send me the updated sales figures?",
+      "questions": [
+        {
+          "id": "t2-q011",
+          "prompt": "",
+          "choices": ["The sale ends on Friday.", "Sure, I'll email them this afternoon.", "I sent it by express mail."],
+          "answer": 1,
+          "explain": "Lời đề nghị; B đồng ý và nói khi nào gửi nên đúng. A lặp âm \"sale\", C dùng thì quá khứ và \"it\" không khớp với \"figures\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g012",
+      "part": 2,
+      "level": "B1_1",
+      "script": "Which hotel are you staying at in Lisbon?",
+      "questions": [
+        {
+          "id": "t2-q012",
+          "prompt": "",
+          "choices": ["For three nights.", "Yes, I've stayed there before.", "The one near the convention center."],
+          "answer": 2,
+          "explain": "\"Which hotel\" hỏi khách sạn nào, nên C đúng. A trả lời thời gian lưu trú (How long), B trả lời Yes cho câu hỏi Wh-."
+        }
+      ]
+    },
+    {
+      "id": "t2-g013",
+      "part": 2,
+      "level": "B2_1",
+      "script": "You've met our new marketing director, haven't you?",
+      "questions": [
+        {
+          "id": "t2-q013",
+          "prompt": "",
+          "choices": ["The market opens at nine.", "Yes, at last week's reception.", "We'll meet in the lobby."],
+          "answer": 1,
+          "explain": "Câu hỏi đuôi xác nhận đã gặp chưa; B trả lời Yes kèm thời điểm nên đúng. A gần âm \"market\", C lặp \"meet\" nhưng nói về kế hoạch khác."
+        }
+      ]
+    },
+    {
+      "id": "t2-g014",
+      "part": 2,
+      "level": "B1_2",
+      "script": "Why don't we take a short break before the next presentation?",
+      "questions": [
+        {
+          "id": "t2-q014",
+          "prompt": "",
+          "choices": ["That's a good idea.", "It broke yesterday.", "Next on the agenda."],
+          "answer": 0,
+          "explain": "\"Why don't we...\" là lời gợi ý chứ không hỏi lý do; A đồng ý nên đúng. B dùng \"broke\" gần âm \"break\" để gây nhiễu."
+        }
+      ]
+    },
+    {
+      "id": "t2-g015",
+      "part": 2,
+      "level": "C1",
+      "script": "How much will it cost to repair the copier?",
+      "questions": [
+        {
+          "id": "t2-q015",
+          "prompt": "",
+          "choices": ["Two copies, please.", "Since this morning.", "The technician hasn't given us an estimate yet."],
+          "answer": 2,
+          "explain": "C là câu trả lời gián tiếp: chưa biết giá vì thợ chưa báo giá, nên đúng. A lặp âm \"copy\", B trả lời \"since when\"."
+        }
+      ]
+    }
+  ]
+}

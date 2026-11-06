@@ -1,0 +1,262 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t7-g012",
+      "part": 7,
+      "level": "B1_2",
+      "passage": "Riverton Community Center — Course Registration Confirmation\n\nParticipant: Elena Sokolova\nMembership no.: RC-44817\nCourse: Beginner Watercolor Painting\nInstructor: Martin Doyle\nDates: Wednesdays, 8 January – 26 February (8 sessions)\nTime: 6:30 P.M. – 8:00 P.M.\nLocation: Studio B, second floor\nCourse fee: $96 (members' rate; non-members pay $120)\nPayment received: $96 by credit card\n\nMaterials: Participants should bring their own brushes and paper. Paints will be provided.\n\nCancellations made at least seven days before the first session will receive a full refund. After that date, no refunds will be given, but you may transfer your place to another member.",
+      "questions": [
+        {
+          "id": "t7-q041",
+          "prompt": "What is the purpose of the form?",
+          "choices": [
+            "To advertise a new art studio",
+            "To request payment for a course",
+            "To announce a change of instructor",
+            "To confirm a person's enrollment"
+          ],
+          "answer": 3,
+          "explain": "Tiêu đề là \"Course Registration Confirmation\" — xác nhận đăng ký khóa học; tiền đã được thanh toán (\"Payment received\")."
+        },
+        {
+          "id": "t7-q042",
+          "prompt": "What is suggested about Ms. Sokolova?",
+          "choices": [
+            "She teaches at the community center.",
+            "She is a member of the community center.",
+            "She has taken the course before.",
+            "She paid in cash."
+          ],
+          "answer": 1,
+          "explain": "Bà có số hội viên RC-44817 và trả $96, đúng giá dành cho hội viên (người ngoài trả $120). Bà trả bằng thẻ tín dụng."
+        },
+        {
+          "id": "t7-q043",
+          "prompt": "What will be provided to participants?",
+          "choices": ["Brushes", "Paper", "Paints", "A refund"],
+          "answer": 2,
+          "explain": "Phiếu ghi học viên tự mang cọ và giấy, còn \"Paints will be provided\"."
+        }
+      ]
+    },
+    {
+      "id": "t7-g013",
+      "part": 7,
+      "level": "C1",
+      "passage": "Urban Rooftops Turn Green\n\nAcross the city of Marlowe, a growing number of commercial buildings are covering their rooftops with vegetation. [1] Since the city council introduced a property-tax reduction for green roofs three years ago, the number of such installations has more than tripled, according to the municipal planning office.\n\nSupporters point to several advantages. Plant cover absorbs rainwater that would otherwise overwhelm the city's aging drainage system, and it insulates buildings, lowering heating and cooling costs. [2] Some owners have gone further, leasing rooftop space to urban farmers who grow vegetables for nearby restaurants.\n\nCritics, however, caution that the benefits are not automatic. [3] A poorly designed green roof can leak or place excessive weight on older structures, and maintenance costs can be considerable. “Owners need a structural survey before they plant anything,” said engineer Tobias Lindgren. [4] The council has responded by publishing a free design guide and by requiring inspections before green roofs are installed on any building constructed before 1960.",
+      "questions": [
+        {
+          "id": "t7-q044",
+          "prompt": "In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n“One office tower on Fenwick Street reported a 15 percent drop in its annual energy bill.”",
+          "choices": ["[1]", "[2]", "[3]", "[4]"],
+          "answer": 1,
+          "explain": "Câu chèn là ví dụ minh họa cho ý mái xanh cách nhiệt và \"lowering heating and cooling costs\", nên đứng ngay sau câu đó, tức vị trí [2]."
+        },
+        {
+          "id": "t7-q045",
+          "prompt": "What is one requirement introduced by the city council?",
+          "choices": [
+            "All new buildings must have green roofs.",
+            "Urban farmers must register with the city.",
+            "Owners must write their own design guides.",
+            "Older buildings must be inspected before a green roof is added."
+          ],
+          "answer": 3,
+          "explain": "Hội đồng yêu cầu kiểm tra trước khi lắp mái xanh trên mọi tòa nhà xây trước năm 1960 (\"requiring inspections before green roofs are installed\"). Hướng dẫn thiết kế do hội đồng phát hành miễn phí."
+        }
+      ]
+    },
+    {
+      "id": "t7-g014",
+      "part": 7,
+      "level": "B2_1",
+      "passage": "Text 1: Notice\nAttention, Tenants of Mercer Point Apartments\n\nThe building's water supply will be shut off on Tuesday, 11 March, from 9:00 A.M. to 3:00 P.M. while plumbers replace the main valve in the basement. We recommend that residents store drinking water in advance. The laundry room and the fitness center on the ground floor will also be closed during these hours.\n\nIf the work cannot be finished on Tuesday, it will continue on Wednesday, 12 March, during the same hours. Updates will be posted in the lobby and sent by text message to all residents registered for alerts with the management office.\n\n— Mercer Point Management Office\n-----\nText 2: Email\nTo: office@mercerpoint.com\nFrom: Rahul Iyer, Apartment 6C\nDate: 7 March\nSubject: Water shut-off\n\nHello,\nI saw the notice in the lobby about next week's water shut-off. I run a small baking business from my apartment, and I have a large order to prepare on Wednesday morning, so I would like to know as soon as possible if the work is extended. However, I moved in only last month and do not think I have signed up for your text alerts. Could you add my number, 555-0148, to the list?\n\nAlso, will the parking garage be affected?\n\nThank you,\nRahul Iyer",
+      "questions": [
+        {
+          "id": "t7-q046",
+          "prompt": "Why will the water be shut off?",
+          "choices": [
+            "A part of the plumbing system will be replaced.",
+            "The water pipes will be cleaned.",
+            "The basement has flooded.",
+            "The water quality will be tested."
+          ],
+          "answer": 0,
+          "explain": "Thông báo nói thợ ống nước sẽ \"replace the main valve in the basement\" — thay van chính."
+        },
+        {
+          "id": "t7-q047",
+          "prompt": "According to the notice, what will be closed during the work?",
+          "choices": [
+            "The lobby",
+            "The management office",
+            "The fitness center",
+            "The parking garage"
+          ],
+          "answer": 2,
+          "explain": "\"The laundry room and the fitness center on the ground floor will also be closed during these hours.\" Gara đỗ xe không được nhắc tới."
+        },
+        {
+          "id": "t7-q048",
+          "prompt": "Why does Mr. Iyer want to receive updates?",
+          "choices": [
+            "He needs water for his work on Wednesday.",
+            "He is planning to move out.",
+            "He will be traveling abroad.",
+            "He is in charge of the building."
+          ],
+          "answer": 0,
+          "explain": "Ông làm bánh tại nhà và có đơn hàng lớn phải chuẩn bị sáng thứ Tư, đúng ngày công việc có thể kéo dài nếu chưa xong."
+        },
+        {
+          "id": "t7-q049",
+          "prompt": "What is most likely true about Mr. Iyer?",
+          "choices": [
+            "He wrote the notice in the lobby.",
+            "He would not currently receive the text message updates.",
+            "He lives on the ground floor.",
+            "He will be away on 11 March."
+          ],
+          "answer": 1,
+          "explain": "Tin nhắn chỉ gửi cho cư dân đã đăng ký nhận thông báo (thông báo), mà ông nói mình chưa đăng ký nhận text alerts (email)."
+        },
+        {
+          "id": "t7-q050",
+          "prompt": "What does Mr. Iyer ask about that the notice does not mention?",
+          "choices": [
+            "The time of the shut-off",
+            "The laundry room",
+            "The date of the work",
+            "The parking garage"
+          ],
+          "answer": 3,
+          "explain": "Ông hỏi \"will the parking garage be affected?\"; thông báo chỉ nói về phòng giặt và phòng gym, không nhắc gara."
+        }
+      ]
+    },
+    {
+      "id": "t7-g015",
+      "part": 7,
+      "level": "B2_2",
+      "passage": "Text 1: Web page\nPinecrest Language Academy — Business English Courses (Autumn Term)\n\nCourse | Format | Length | Fee\nBusiness Writing | In person, Mondays | 10 weeks | $380\nPresentation Skills | In person, Thursdays | 8 weeks | $340\nNegotiation English | Online, live sessions on Tuesdays | 8 weeks | $310\nEmail Essentials | Online, self-paced | 6 weeks | $150\n\nStudents who enroll in two or more courses receive 15% off the total fee. All in-person classes take place at our Garland Avenue campus. Companies registering five or more employees should contact our corporate team for group rates.\n-----\nText 2: Email\nTo: enroll@pinecrestlang.com\nFrom: Sofia Marangoni\nDate: 28 August\nSubject: Course registration\n\nHello,\nI would like to register for two of your autumn business courses. My new position involves regular meetings with suppliers in Asia, so I want a course that will help me reach agreements more effectively. I also need to improve my ability to give talks to large groups, which is something I find quite stressful.\n\nSince I travel for work most Tuesdays, could you tell me whether the live online sessions are recorded? If they are not, I may have to choose a different course.\n\nKind regards,\nSofia Marangoni",
+      "questions": [
+        {
+          "id": "t7-q051",
+          "prompt": "What is the purpose of the email?",
+          "choices": [
+            "To complain about a course",
+            "To ask about group rates",
+            "To enroll and ask about a course format",
+            "To request a refund"
+          ],
+          "answer": 2,
+          "explain": "Bà Marangoni muốn đăng ký hai khóa và hỏi các buổi học trực tuyến trực tiếp có được ghi lại không."
+        },
+        {
+          "id": "t7-q052",
+          "prompt": "Which course would most help Ms. Marangoni in her dealings with suppliers?",
+          "choices": [
+            "Negotiation English",
+            "Business Writing",
+            "Email Essentials",
+            "Presentation Skills"
+          ],
+          "answer": 0,
+          "explain": "Bà cần khóa giúp \"reach agreements more effectively\" với nhà cung cấp — tức đàm phán, ứng với khóa Negotiation English."
+        },
+        {
+          "id": "t7-q053",
+          "prompt": "If Ms. Marangoni enrolls in Negotiation English and Presentation Skills, how much will she pay in total?",
+          "choices": ["$650.00", "$310.00", "$580.00", "$552.50"],
+          "answer": 3,
+          "explain": "$310 + $340 = $650; đăng ký từ hai khóa được giảm 15%, nên còn $650 × 0.85 = $552.50."
+        },
+        {
+          "id": "t7-q054",
+          "prompt": "Why might Ms. Marangoni have difficulty attending one of the courses?",
+          "choices": [
+            "It meets on a day when she usually travels.",
+            "It is held at the Garland Avenue campus.",
+            "It lasts ten weeks.",
+            "It is available only to groups."
+          ],
+          "answer": 0,
+          "explain": "Khóa Negotiation English học trực tuyến vào thứ Ba (trang web), mà bà đi công tác hầu hết các ngày thứ Ba (email)."
+        },
+        {
+          "id": "t7-q055",
+          "prompt": "In the email, the word “reach” in paragraph 1 is closest in meaning to",
+          "choices": ["extend", "contact", "achieve", "arrive at a place"],
+          "answer": 2,
+          "explain": "\"reach agreements\" nghĩa là đạt được thỏa thuận, nên \"reach\" gần nghĩa nhất với achieve."
+        }
+      ]
+    },
+    {
+      "id": "t7-g016",
+      "part": 7,
+      "level": "C1",
+      "passage": "Text 1: Memo\nTo: All staff, Brennan & Vos Architects\nFrom: Charlotte Vos, Managing Partner\nDate: 2 May\nSubject: Office move\n\nAs announced last month, we will relocate from our Kingsley Road office to Halden Tower on Quay Street. Departments will pack and move on different days during the week of 26 May so that client work is not interrupted, and the new office will open on Monday, 2 June. Please consult the attached schedule. Before your department's packing deadline, place your personal items in the labeled crates supplied by Torvik Movers. Large models and drawings should not be packed by staff; the movers will handle them with specialist equipment.\n-----\nText 2: Moving schedule\nDepartment | Packing deadline | Moving day\nAccounts | Friday, 23 May, 5 P.M. | Monday, 26 May\nDesign | Monday, 26 May, 5 P.M. | Tuesday, 27 May\nEngineering | Tuesday, 27 May, 5 P.M. | Wednesday, 28 May\nClient Services | Wednesday, 28 May, 5 P.M. | Thursday, 29 May\nIT equipment for all departments will be moved on Friday, 30 May.\n-----\nText 3: Email\nTo: Charlotte Vos\nFrom: Ibrahim Haddad, Engineering\nDate: 20 May\nSubject: Moving day\n\nHi Charlotte,\nI have just learned that the Leighton Bridge client will be visiting our current office on the morning of our department's moving day to review the structural plans. Since the visit was arranged months ago and the client is traveling from abroad, I would prefer not to postpone it. Would it be possible for Engineering to swap days with Client Services? I have already spoken to Mei Tanaka, who leads that team, and she has no objection. I can also confirm that our three bridge models are ready to be collected by the movers.\n\nBest,\nIbrahim",
+      "questions": [
+        {
+          "id": "t7-q056",
+          "prompt": "What is the main purpose of the memo?",
+          "choices": [
+            "To announce a new client",
+            "To give instructions about a relocation",
+            "To introduce a moving company",
+            "To ask for volunteers to help with packing"
+          ],
+          "answer": 1,
+          "explain": "Bản ghi nhớ thông báo chuyển văn phòng sang Halden Tower và hướng dẫn nhân viên xem lịch, đóng đồ cá nhân vào thùng."
+        },
+        {
+          "id": "t7-q057",
+          "prompt": "On what date is the Leighton Bridge client scheduled to visit?",
+          "choices": ["26 May", "27 May", "29 May", "28 May"],
+          "answer": 3,
+          "explain": "Khách đến vào sáng ngày chuyển của phòng Engineering (email), và lịch ghi Engineering chuyển vào thứ Tư, 28/5."
+        },
+        {
+          "id": "t7-q058",
+          "prompt": "If Mr. Haddad's request is approved, when will Engineering's packing deadline be?",
+          "choices": [
+            "Tuesday, 27 May",
+            "Wednesday, 28 May",
+            "Thursday, 29 May",
+            "Friday, 30 May"
+          ],
+          "answer": 1,
+          "explain": "Ông xin đổi ngày với Client Services; theo lịch, hạn đóng gói của Client Services là thứ Tư, 28/5, lúc 5 giờ chiều."
+        },
+        {
+          "id": "t7-q059",
+          "prompt": "What is implied about the bridge models?",
+          "choices": [
+            "Mr. Haddad has packed them in crates.",
+            "They will be displayed to the client at Halden Tower.",
+            "They will be moved by specialists rather than by staff.",
+            "They have already been sent to the client."
+          ],
+          "answer": 2,
+          "explain": "Bản ghi nhớ nói mô hình lớn không do nhân viên đóng gói mà công ty chuyển nhà xử lý; email cho biết các mô hình cầu \"ready to be collected by the movers\"."
+        },
+        {
+          "id": "t7-q060",
+          "prompt": "Who most likely is Ms. Tanaka?",
+          "choices": [
+            "The head of the Client Services department",
+            "A representative of Torvik Movers",
+            "A member of the Leighton Bridge client team",
+            "A managing partner of the firm"
+          ],
+          "answer": 0,
+          "explain": "Ông Haddad xin đổi ngày với Client Services và nói đã trao đổi với Mei Tanaka, \"who leads that team\" — bà là trưởng nhóm Client Services."
+        }
+      ]
+    }
+  ]
+}

@@ -21,6 +21,7 @@ import { createTray, type AppTray } from './system/tray'
 import { showMascotMenu } from './system/mascotMenu'
 import { DEFAULT_SHORTCUTS, registerShortcuts, shortcutLabel } from './system/shortcuts'
 import { applyPermissionPolicy, applySecurityDefaults } from './system/security'
+import { installVideoPlayer, registerVideoScheme } from './system/videoPlayer'
 import { UpdateManager } from './system/UpdateManager'
 import { applyLaunchAtLogin } from './system/autostart'
 import { readClipboardForLookup } from './system/clipboard'
@@ -78,12 +79,14 @@ if (!app.requestSingleInstanceLock()) {
   app.quit()
 } else {
   applySecurityDefaults()
+  registerVideoScheme() // phải trước app ready
 
   app.on('second-instance', () => mascot?.show())
 
   app.whenReady().then(() => {
     electronApp.setAppUserModelId(APP_ID)
     applyPermissionPolicy()
+    installVideoPlayer()
 
     // Dữ liệu: mở user.db (tự migrate) và dựng các service
     conn = openUserDb(paths.userDb(), paths.migrations())

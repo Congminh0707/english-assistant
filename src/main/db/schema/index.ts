@@ -254,3 +254,32 @@ export const skillRatings = sqliteTable(
   },
   (t) => [uniqueIndex('skill_ratings_profile_skill').on(t.profileId, t.skill)]
 )
+
+/** Lần làm đề luyện thi (TOEIC...): lưu kết quả tổng hợp để xem lịch sử và tiến bộ */
+export const examAttempts = sqliteTable(
+  'exam_attempts',
+  {
+    id: text('id').primaryKey(), // UUID v7
+    profileId: text('profile_id')
+      .notNull()
+      .references(() => profiles.id),
+    /** toeic (IELTS thêm sau) */
+    exam: text('exam').notNull(),
+    /** part | mini | full */
+    mode: text('mode').notNull(),
+    /** Part được luyện (chế độ part), ngược lại null */
+    part: integer('part'),
+    correct: integer('correct').notNull(),
+    total: integer('total').notNull(),
+    /** Điểm ước lượng từng phần (null nếu không làm phần đó) và tổng */
+    estListening: integer('est_listening'),
+    estReading: integer('est_reading'),
+    estTotal: integer('est_total').notNull(),
+    /** Kết quả từng Part: mảng JSON [{part, correct, total}] */
+    partResults: text('part_results').notNull(),
+    elapsedSec: integer('elapsed_sec').notNull(),
+    finishedAt: integer('finished_at').notNull(),
+    ...timestamps
+  },
+  (t) => [index('exam_attempts_profile_finished').on(t.profileId, t.finishedAt)]
+)

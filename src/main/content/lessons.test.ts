@@ -1,5 +1,5 @@
-import { readdirSync, readFileSync } from 'node:fs'
-import { resolve } from 'node:path'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { join, resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
   GrammarUnitFileSchema,
@@ -148,7 +148,7 @@ function loadDir(name: string): Array<{ file: string; raw: unknown }> {
 
 function lessonKindSuite(
   name: string,
-  schema: z.ZodType<z.infer<typeof LessonUnitFileSchema>>,
+  schema: z.ZodType<Pick<z.infer<typeof LessonUnitFileSchema>, 'unit' | 'lessons'>>,
   extra: (lesson: z.infer<typeof LessonUnitFileSchema>['lessons'][number]) => string[]
 ): void {
   describe(`nội dung ${name}`, () => {
@@ -222,6 +222,28 @@ lessonKindSuite('listening', ListeningUnitFileSchema, (lesson) => {
     out.push(`${lesson.id}: bài nghe không dùng sắp xếp câu`)
   return out
 })
+describe('bài nghe bản thu thật (VOA)', () => {
+  const files = loadDir('listening')
+    .map(({ file, raw }) => ({ file, data: ListeningUnitFileSchema.parse(raw) }))
+    .filter(({ data }) => data.license === 'public-domain')
+  const MP3_DIR = join(process.cwd(), 'content/curated/listening-audio')
+  for (const { file, data } of files) {
+    it(`${file}: có MP3, nguồn VOA, không lẫn tin hãng`, () => {
+      for (const lesson of data.lessons) {
+        const audio = lesson.blocks.find((b) => b.type === 'audio')
+        const rec = audio?.type === 'audio' ? audio.recording : undefined
+        expect(rec, `${lesson.id}: thiếu recording`).toBeTruthy()
+        expect(rec?.sourceUrl).toMatch(/^https:\/\/learningenglish\.voanews\.com\//)
+        expect(existsSync(join(MP3_DIR, `${rec?.id}.mp3`)), `${lesson.id}: thiếu MP3`).toBe(true)
+        const text = JSON.stringify(lesson) + (rec?.credit ?? '')
+        expect(/\b(AP|Reuters|AFP)\b|Associated Press/.test(text), `${lesson.id}: lẫn tin hãng`).toBe(
+          false
+        )
+      }
+    })
+  }
+})
+
 it('có đủ 30 bài nghe trải từ Pre-A1 đến B1', () => {
   const lessons = loadDir('listening').flatMap(
     ({ raw }) => ListeningUnitFileSchema.parse(raw).lessons

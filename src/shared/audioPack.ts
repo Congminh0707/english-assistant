@@ -30,6 +30,12 @@ export function packClipKey(accent: PackAccent, rate: number, text: string): str
   return fnv1a64(`${accent}|${r}|${normalizePackText(text)}`)
 }
 
+/**
+ * Bản thu thật (VOA...) nằm chung gói với clip TTS: khoá = `packClipKey('us', 1, realAudioText(id))`, nên lấy bằng kênh
+ * `audio:clip` sẵn có (text = `realAudioText(id)`) mà không cần kênh IPC mới.
+ */
+export const realAudioText = (id: string): string => `real:${id}`
+
 export interface PackManifest {
   id: string
   version: string

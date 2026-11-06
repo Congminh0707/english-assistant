@@ -1,0 +1,232 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t2-g031",
+      "part": 2,
+      "level": "B1_2",
+      "script": "Could you show me how to use the new scheduling software?",
+      "questions": [
+        {
+          "id": "t2-q031",
+          "prompt": "",
+          "choices": ["Sure, do you have a few minutes now?", "It was a great show.", "Every Monday morning."],
+          "answer": 0,
+          "explain": "Lời nhờ giúp; A đồng ý và hỏi lại thời gian nên đúng. B lặp \"show\" với nghĩa \"buổi biểu diễn\", C chỉ liên tưởng tới lịch."
+        }
+      ]
+    },
+    {
+      "id": "t2-g032",
+      "part": 2,
+      "level": "B1_1",
+      "script": "What's the best way to get to the convention center?",
+      "questions": [
+        {
+          "id": "t2-q032",
+          "prompt": "",
+          "choices": ["It's the biggest one in town.", "Take the subway to Central Station.", "The convention starts tomorrow."],
+          "answer": 1,
+          "explain": "Hỏi cách đi tới trung tâm hội nghị, B chỉ đường nên đúng. C lặp \"convention\" nhưng nói về thời gian bắt đầu."
+        }
+      ]
+    },
+    {
+      "id": "t2-g033",
+      "part": 2,
+      "level": "B2_2",
+      "script": "Haven't you submitted your expense report yet?",
+      "questions": [
+        {
+          "id": "t2-q033",
+          "prompt": "",
+          "choices": ["I'm waiting for one more receipt.", "It's expensive.", "The report was very detailed."],
+          "answer": 0,
+          "explain": "A giải thích vì sao chưa nộp (còn chờ một hoá đơn) nên đúng. B gần âm \"expense\" – \"expensive\", C lặp \"report\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g034",
+      "part": 2,
+      "level": "B1_2",
+      "script": "We're running low on coffee in the break room.",
+      "questions": [
+        {
+          "id": "t2-q034",
+          "prompt": "",
+          "choices": ["He's running late.", "It's at the end of the hall.", "I'll add it to the shopping list."],
+          "answer": 2,
+          "explain": "Câu báo sắp hết cà phê; C đưa ra cách xử lý nên đúng. A lặp \"running\", B trả lời vị trí phòng nghỉ."
+        }
+      ]
+    },
+    {
+      "id": "t2-g035",
+      "part": 2,
+      "level": "C1",
+      "script": "Is the marketing presentation today or tomorrow?",
+      "questions": [
+        {
+          "id": "t2-q035",
+          "prompt": "",
+          "choices": ["It was postponed until next week.", "Yes, it's a great presentation.", "The marketing team."],
+          "answer": 0,
+          "explain": "Câu hỏi lựa chọn; A cho biết không phải cả hai vì đã hoãn sang tuần sau nên đúng. B trả lời Yes cho câu hỏi lựa chọn, C lặp \"marketing\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g036",
+      "part": 2,
+      "level": "B1_1",
+      "script": "How many people have registered for the workshop?",
+      "questions": [
+        {
+          "id": "t2-q036",
+          "prompt": "",
+          "choices": ["At the registration desk.", "Over sixty so far.", "Work starts at nine."],
+          "answer": 1,
+          "explain": "\"How many\" hỏi số lượng, nên B đúng. A gần âm \"registered\" – \"registration\" và trả lời nơi chốn, C gần âm \"workshop\" – \"work\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g037",
+      "part": 2,
+      "level": "B1_2",
+      "script": "Why did Ms. Chen leave the meeting early?",
+      "questions": [
+        {
+          "id": "t2-q037",
+          "prompt": "",
+          "choices": ["She had a flight to catch.", "The leaves are falling.", "Early next week."],
+          "answer": 0,
+          "explain": "\"Why\" hỏi lý do, nên A đúng. B gần âm \"leave\" – \"leaves\", C lặp \"early\" và trả lời thời gian."
+        }
+      ]
+    },
+    {
+      "id": "t2-g038",
+      "part": 2,
+      "level": "B2_1",
+      "script": "Let's ask the IT department to fix the projector.",
+      "questions": [
+        {
+          "id": "t2-q038",
+          "prompt": "",
+          "choices": ["I've already submitted a request.", "It's a fixed price.", "A new project."],
+          "answer": 0,
+          "explain": "Lời gợi ý; A cho biết đã gửi yêu cầu rồi nên phản hồi hợp lý. B lặp \"fix\" dạng \"fixed\", C gần âm \"projector\" – \"project\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g039",
+      "part": 2,
+      "level": "B1_1",
+      "script": "Where did you buy that desk lamp?",
+      "questions": [
+        {
+          "id": "t2-q039",
+          "prompt": "",
+          "choices": ["Yes, it's very bright.", "Last weekend.", "At the furniture store on Elm Street."],
+          "answer": 2,
+          "explain": "\"Where\" hỏi nơi mua, nên C đúng. B trả lời thời gian (When), A trả lời Yes cho câu hỏi Wh-."
+        }
+      ]
+    },
+    {
+      "id": "t2-g040",
+      "part": 2,
+      "level": "B2_1",
+      "script": "Can I pay by credit card?",
+      "questions": [
+        {
+          "id": "t2-q040",
+          "prompt": "",
+          "choices": ["The card was signed by everyone.", "I'm sorry, our card reader isn't working today.", "Ninety dollars, including tax."],
+          "answer": 1,
+          "explain": "B trả lời gián tiếp là không được vì máy quẹt thẻ hỏng, nên đúng. A lặp \"card\" với nghĩa thiệp, C trả lời giá tiền chứ không phải cách thanh toán."
+        }
+      ]
+    },
+    {
+      "id": "t2-g041",
+      "part": 2,
+      "level": "B2_2",
+      "script": "The quarterly report needs to be revised before Friday.",
+      "questions": [
+        {
+          "id": "t2-q041",
+          "prompt": "",
+          "choices": ["It's a quarter past four.", "Who's going to make the changes?", "Yes, I visited on Friday."],
+          "answer": 1,
+          "explain": "B hỏi lại ai sẽ sửa, là phản hồi tự nhiên cho yêu cầu chỉnh báo cáo. A gần âm \"quarterly\" – \"quarter\", C lặp \"Friday\" ở thì quá khứ."
+        }
+      ]
+    },
+    {
+      "id": "t2-g042",
+      "part": 2,
+      "level": "B2_1",
+      "script": "Which of these candidates has the most experience?",
+      "questions": [
+        {
+          "id": "t2-q042",
+          "prompt": "",
+          "choices": ["We interviewed them yesterday.", "Ms. Novak worked in sales for ten years.", "It was a great experience."],
+          "answer": 1,
+          "explain": "\"Which\" hỏi ứng viên nào, B chỉ ra người cụ thể nên đúng. C lặp \"experience\" với nghĩa \"trải nghiệm\", A chỉ nói đã phỏng vấn."
+        }
+      ]
+    },
+    {
+      "id": "t2-g043",
+      "part": 2,
+      "level": "B2_2",
+      "script": "You'll be at the client dinner tonight, won't you?",
+      "questions": [
+        {
+          "id": "t2-q043",
+          "prompt": "",
+          "choices": ["I had pasta for dinner.", "The clients are from Osaka.", "I wouldn't miss it."],
+          "answer": 2,
+          "explain": "\"I wouldn't miss it\" nghĩa là chắc chắn sẽ đến, nên C đúng. A lặp \"dinner\" ở thì quá khứ, B lặp \"client\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g044",
+      "part": 2,
+      "level": "B1_2",
+      "script": "Who should I contact about the broken air conditioner?",
+      "questions": [
+        {
+          "id": "t2-q044",
+          "prompt": "",
+          "choices": ["It's broken into three parts.", "The air is fresh today.", "Call building maintenance at extension 214."],
+          "answer": 2,
+          "explain": "\"Who\" hỏi cần liên hệ ai, C chỉ bộ phận bảo trì nên đúng. A lặp \"broken\", B lặp \"air\"."
+        }
+      ]
+    },
+    {
+      "id": "t2-g045",
+      "part": 2,
+      "level": "C1",
+      "script": "Would you rather meet in person or have a video call?",
+      "questions": [
+        {
+          "id": "t2-q045",
+          "prompt": "",
+          "choices": ["Yes, I'd rather not.", "I saw the video.", "A video call would save us time."],
+          "answer": 2,
+          "explain": "Câu hỏi lựa chọn; C chọn gọi video kèm lý do nên đúng. A trả lời Yes cho câu hỏi lựa chọn, B lặp \"video\" nhưng không chọn."
+        }
+      ]
+    }
+  ]
+}

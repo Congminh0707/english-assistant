@@ -1,6 +1,6 @@
 {
   "license": "proprietary-own",
-  "reviewed": false,
+  "reviewed": true,
   "place": {
     "id": "home",
     "tier": "town",
@@ -37,14 +37,14 @@
       "picture": "skirt",
       "sentence": {
         "en": "This is my skirt.",
-        "vi": "Đây là chân váy của bé."
+        "vi": "Đây là váy của bé."
       }
     },
     {
       "picture": "boots",
       "sentence": {
-        "en": "I have my boots.",
-        "vi": "Bé có đôi ủng của mình."
+        "en": "I like my boots.",
+        "vi": "Bé thích đôi ủng của mình."
       }
     },
     {
@@ -71,8 +71,8 @@
     {
       "picture": "raincoat",
       "sentence": {
-        "en": "It's my raincoat.",
-        "vi": "Đó là áo mưa của bé."
+        "en": "This is my raincoat.",
+        "vi": "Đây là áo mưa của bé."
       }
     },
     {
@@ -113,8 +113,8 @@
     {
       "picture": "soap",
       "sentence": {
-        "en": "I have the soap.",
-        "vi": "Bé có cục xà phòng."
+        "en": "This is soap.",
+        "vi": "Đây là xà phòng."
       }
     },
     {

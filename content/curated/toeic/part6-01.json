@@ -1,0 +1,343 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t6-g001",
+      "part": 6,
+      "level": "B1_2",
+      "passage": "To: All Staff\nFrom: Facilities Department\nSubject: Parking Lot Repairs\n\nPlease be aware that the north parking lot will be closed from Monday, May 6, [1] Friday, May 10. During this time, workers will repave the surface and repaint the lines. [2] Employees who normally park in the north lot may use the visitor spaces in the south lot instead. We apologize for any [3] this may cause. [4] questions about the project should be directed to Tom Hale at extension 214.",
+      "questions": [
+        {
+          "id": "t6-q001",
+          "prompt": "[1]",
+          "choices": [
+            "since",
+            "by",
+            "through",
+            "within"
+          ],
+          "answer": 2,
+          "explain": "\"From ... through ...\" chỉ khoảng thời gian tính cả ngày cuối."
+        },
+        {
+          "id": "t6-q002",
+          "prompt": "[2]",
+          "choices": [
+            "Thank you for attending the safety training.",
+            "The work is expected to take the full five days.",
+            "Our cafeteria menu has been updated.",
+            "The new lot will open next year."
+          ],
+          "answer": 1,
+          "explain": "Câu nói về thời gian thi công nối tiếp ý sửa bãi xe; các câu khác lạc đề."
+        },
+        {
+          "id": "t6-q003",
+          "prompt": "[3]",
+          "choices": [
+            "inconvenient",
+            "inconveniently",
+            "convenient",
+            "inconvenience"
+          ],
+          "answer": 3,
+          "explain": "Sau \"any\" làm tân ngữ của \"apologize for\" cần danh từ \"inconvenience\"."
+        },
+        {
+          "id": "t6-q004",
+          "prompt": "[4]",
+          "choices": [
+            "Any",
+            "Each",
+            "Much",
+            "Another"
+          ],
+          "answer": 0,
+          "explain": "\"Any + danh từ số nhiều\" = bất kỳ; \"each/another\" cần danh từ số ít, \"much\" cần danh từ không đếm được."
+        }
+      ]
+    },
+    {
+      "id": "t6-g002",
+      "part": 6,
+      "level": "B2_1",
+      "passage": "Brightway Office Supplies is celebrating its tenth anniversary! For one week only, all printer paper and ink cartridges [1] at 20 percent off. Customers who spend more than $100 will also receive a free desk organizer. [2] To take advantage of these offers, simply visit any of our three locations or shop online at brightwayoffice.com. Online orders placed before 3 P.M. are [3] shipped the same day. Don't miss this chance to stock up on [4] at unbeatable prices.",
+      "questions": [
+        {
+          "id": "t6-q005",
+          "prompt": "[1]",
+          "choices": [
+            "will be offered",
+            "will offer",
+            "offering",
+            "have offered"
+          ],
+          "answer": 0,
+          "explain": "Hàng hoá được giảm giá nên dùng bị động, và chương trình sắp diễn ra nên dùng \"will be offered\"."
+        },
+        {
+          "id": "t6-q006",
+          "prompt": "[2]",
+          "choices": [
+            "Unfortunately, the event has been postponed.",
+            "This gift is available while supplies last.",
+            "Please return the form to the front desk.",
+            "We are currently hiring delivery drivers."
+          ],
+          "answer": 1,
+          "explain": "\"This gift\" chỉ món quà tặng (desk organizer) vừa nhắc; các câu khác không liên quan hoặc mâu thuẫn."
+        },
+        {
+          "id": "t6-q007",
+          "prompt": "[3]",
+          "choices": [
+            "typical",
+            "typify",
+            "type",
+            "typically"
+          ],
+          "answer": 3,
+          "explain": "Đứng giữa \"are\" và phân từ \"shipped\" cần trạng từ \"typically\"."
+        },
+        {
+          "id": "t6-q008",
+          "prompt": "[4]",
+          "choices": [
+            "essential",
+            "essentially",
+            "essentials",
+            "essence"
+          ],
+          "answer": 2,
+          "explain": "Sau giới từ \"on\" cần danh từ; \"essentials\" = đồ dùng thiết yếu."
+        }
+      ]
+    },
+    {
+      "id": "t6-g003",
+      "part": 6,
+      "level": "B2_2",
+      "passage": "MEMO\nTo: Department Heads\nRe: Revised Travel Policy\n\nEffective September 1, all business travel must be approved by a division director at least two weeks in advance. This change is intended to help us [1] costs and plan more effectively. Requests submitted after the deadline will be considered only in cases of genuine urgency. [2] In addition, employees are now required to book flights through our designated agency, [3] negotiated discounted fares on our behalf. Receipts for all expenses must be submitted within ten days of [4] return. Thank you for your cooperation.",
+      "questions": [
+        {
+          "id": "t6-q009",
+          "prompt": "[1]",
+          "choices": [
+            "compel",
+            "control",
+            "conduct",
+            "convince"
+          ],
+          "answer": 1,
+          "explain": "\"Control costs\" = kiểm soát chi phí."
+        },
+        {
+          "id": "t6-q010",
+          "prompt": "[2]",
+          "choices": [
+            "The flight to Chicago was delayed by two hours.",
+            "Our sales figures rose sharply last quarter.",
+            "Applicants should include two references.",
+            "Such cases must be explained in writing by the employee's supervisor."
+          ],
+          "answer": 3,
+          "explain": "\"Such cases\" nối với \"cases of genuine urgency\" ở câu trước."
+        },
+        {
+          "id": "t6-q011",
+          "prompt": "[3]",
+          "choices": [
+            "which has",
+            "it has",
+            "what has",
+            "whose has"
+          ],
+          "answer": 0,
+          "explain": "Mệnh đề quan hệ không xác định bổ nghĩa cho \"agency\" dùng \"which\"; \"it has\" tạo lỗi nối câu bằng dấu phẩy."
+        },
+        {
+          "id": "t6-q012",
+          "prompt": "[4]",
+          "choices": [
+            "its",
+            "them",
+            "their",
+            "whose"
+          ],
+          "answer": 2,
+          "explain": "Tính từ sở hữu thay cho \"employees\" (số nhiều) là \"their\"."
+        }
+      ]
+    },
+    {
+      "id": "t6-g004",
+      "part": 6,
+      "level": "B1_2",
+      "passage": "Notice to Library Patrons\n\nThe Westfield Public Library will introduce a new self-checkout system next month. With the new machines, patrons will be able to borrow books [1] waiting in line at the front desk. Staff members will be available to show patrons how to use the system [2] the first two weeks. [3] Patrons who prefer to check out materials with a librarian may continue to do so. We hope this improvement will make your visits more [4].",
+      "questions": [
+        {
+          "id": "t6-q013",
+          "prompt": "[1]",
+          "choices": [
+            "despite",
+            "unless",
+            "instead",
+            "without"
+          ],
+          "answer": 3,
+          "explain": "\"Without + V-ing\" = mà không phải xếp hàng; hợp nghĩa với máy tự mượn sách."
+        },
+        {
+          "id": "t6-q014",
+          "prompt": "[2]",
+          "choices": [
+            "while",
+            "during",
+            "among",
+            "along"
+          ],
+          "answer": 1,
+          "explain": "\"During + cụm danh từ\" (the first two weeks); \"while\" cần mệnh đề."
+        },
+        {
+          "id": "t6-q015",
+          "prompt": "[3]",
+          "choices": [
+            "The library will be closed permanently next year.",
+            "Overdue fines have been increased.",
+            "Simply scan your library card and then the barcode on each item.",
+            "Please return all borrowed umbrellas."
+          ],
+          "answer": 2,
+          "explain": "Câu hướng dẫn cách dùng máy nối tiếp ý nhân viên hướng dẫn sử dụng hệ thống."
+        },
+        {
+          "id": "t6-q016",
+          "prompt": "[4]",
+          "choices": [
+            "enjoyable",
+            "enjoy",
+            "enjoyment",
+            "enjoyably"
+          ],
+          "answer": 0,
+          "explain": "Cấu trúc \"make something + tính từ\" nên cần tính từ \"enjoyable\"."
+        }
+      ]
+    },
+    {
+      "id": "t6-g005",
+      "part": 6,
+      "level": "C1",
+      "passage": "Remote work has reshaped how many firms recruit talent. Rather than limiting their searches to candidates within commuting distance, companies can now [1] applicants from across the country. However, managers report that building team cohesion has become more [2]. Without casual conversations in hallways, new hires often take longer to feel connected to colleagues. [3] Some organizations have responded by holding quarterly in-person retreats, [4] others rely on structured virtual mentoring programs.",
+      "questions": [
+        {
+          "id": "t6-q017",
+          "prompt": "[1]",
+          "choices": [
+            "attend",
+            "attach",
+            "attain",
+            "attract"
+          ],
+          "answer": 3,
+          "explain": "\"Attract applicants\" = thu hút ứng viên."
+        },
+        {
+          "id": "t6-q018",
+          "prompt": "[2]",
+          "choices": [
+            "challenge",
+            "challenges",
+            "challenging",
+            "challengingly"
+          ],
+          "answer": 2,
+          "explain": "Sau \"become more\" cần tính từ \"challenging\" (khó khăn hơn)."
+        },
+        {
+          "id": "t6-q019",
+          "prompt": "[3]",
+          "choices": [
+            "As a result, employee turnover in the first year tends to be higher.",
+            "Office rents in major cities have reached record levels.",
+            "Hallways should be kept clear at all times.",
+            "The survey was conducted by a private university."
+          ],
+          "answer": 0,
+          "explain": "\"As a result\" nêu hệ quả của việc nhân viên mới khó gắn kết, dẫn tới câu sau về cách các công ty đối phó."
+        },
+        {
+          "id": "t6-q020",
+          "prompt": "[4]",
+          "choices": [
+            "despite",
+            "whereas",
+            "therefore",
+            "so that"
+          ],
+          "answer": 1,
+          "explain": "\"Whereas\" nối hai mệnh đề đối lập (một số công ty... trong khi số khác...)."
+        }
+      ]
+    },
+    {
+      "id": "t6-g006",
+      "part": 6,
+      "level": "B2_1",
+      "passage": "Dear Mr. Alvarez,\n\nThank you for your recent order from Greenleaf Furniture. Unfortunately, the oak dining table you selected is [1] out of stock. Our supplier has informed us that new stock will arrive by June 15. [2] If you would prefer not to wait, we would be happy to issue a full refund or help you [3] a similar model. Please let us know how you would like to proceed by replying to this e-mail. We [4] your patience and look forward to serving you.\n\nSincerely,\nDana Kim, Customer Service",
+      "questions": [
+        {
+          "id": "t6-q021",
+          "prompt": "[1]",
+          "choices": [
+            "temporarily",
+            "temporary",
+            "temporariness",
+            "temporaries"
+          ],
+          "answer": 0,
+          "explain": "Bổ nghĩa cho cụm tính từ \"out of stock\" cần trạng từ \"temporarily\"."
+        },
+        {
+          "id": "t6-q022",
+          "prompt": "[2]",
+          "choices": [
+            "Your table was delivered yesterday afternoon.",
+            "We will ship your table as soon as it arrives.",
+            "Our showroom is located on Elm Street.",
+            "Thank you for applying for the position."
+          ],
+          "answer": 1,
+          "explain": "Câu hứa giao bàn khi hàng về nối tiếp ý hàng mới sẽ về ngày 15/6; \"was delivered\" mâu thuẫn."
+        },
+        {
+          "id": "t6-q023",
+          "prompt": "[3]",
+          "choices": [
+            "decide",
+            "prefer",
+            "elect",
+            "choose"
+          ],
+          "answer": 3,
+          "explain": "\"Help somebody choose something\" = giúp chọn; \"decide\" không có tân ngữ trực tiếp kiểu này."
+        },
+        {
+          "id": "t6-q024",
+          "prompt": "[4]",
+          "choices": [
+            "thank",
+            "apologize",
+            "appreciate",
+            "grateful"
+          ],
+          "answer": 2,
+          "explain": "\"Appreciate your patience\" = cảm ơn sự kiên nhẫn; \"thank\" cần người làm tân ngữ."
+        }
+      ]
+    }
+  ]
+}

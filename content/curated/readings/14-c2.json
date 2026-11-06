@@ -1,0 +1,582 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "readc2",
+    "title": "Đọc C2",
+    "summary": "Tiểu luận, xã luận, tóm tắt học thuật, truyện ngắn văn chương, châm biếm và văn phong rào đón: đọc giữa các dòng.",
+    "icon": "📓",
+    "order": 14
+  },
+  "lessons": [
+    {
+      "id": "readc2.in-praise-of-boredom",
+      "title": "Ca ngợi sự buồn chán",
+      "summary": "Tiểu luận: vì sao ta nên để mình buồn chán.",
+      "level": "C2",
+      "minutes": 9,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "In Praise of Boredom",
+          "paragraphs": [
+            {
+              "en": "Few states of mind enjoy a worse reputation than boredom. We treat it as a minor ailment, a gap to be filled as swiftly as possible, and the devices in our pockets have made filling it almost effortless. Rarely, now, does anyone wait for a bus or stand in a queue without reaching, half-consciously, for a screen.",
+              "vi": "Ít trạng thái tinh thần nào mang tiếng xấu hơn sự buồn chán. Ta xem nó như một chứng bệnh vặt, một khoảng trống cần lấp càng nhanh càng tốt, và những thiết bị trong túi đã khiến việc lấp đầy gần như chẳng tốn sức. Giờ đây hiếm ai chờ xe buýt hay xếp hàng mà không nửa vô thức với tay lấy màn hình."
+            },
+            {
+              "en": "I want to suggest that this efficiency comes at a cost we have scarcely begun to reckon with. Boredom, uncomfortable as it is, functions less as an absence than as a signal: an indication that our present activity no longer engages us and that something else is wanted. Silence the signal often enough, and we may lose the capacity to hear what it was trying to tell us.",
+              "vi": "Tôi muốn gợi ý rằng sự hiệu quả này phải trả một cái giá mà ta hầu như chưa bắt đầu tính đến. Buồn chán, dù khó chịu, vận hành không hẳn như một sự vắng mặt mà như một tín hiệu: dấu hiệu cho thấy việc ta đang làm không còn cuốn hút và ta cần điều gì khác. Dập tắt tín hiệu ấy đủ nhiều lần, ta có thể mất khả năng nghe điều nó muốn nói."
+            },
+            {
+              "en": "There is, moreover, a long tradition linking idle, unstructured time with creativity. The mind left to wander tends to recombine fragments of experience in unexpected ways; many people report that their best ideas arrive not at the desk but in the shower or on a long walk. Whether boredom causes such insights or merely clears space for them is difficult to establish, and I would not want to overstate the case.",
+              "vi": "Hơn nữa, có một truyền thống lâu đời gắn thời gian rảnh rỗi, không cấu trúc với sự sáng tạo. Tâm trí được thả trôi thường kết hợp lại những mảnh trải nghiệm theo cách bất ngờ; nhiều người kể ý tưởng hay nhất đến với họ không phải ở bàn làm việc mà khi tắm hay trong một cuộc đi bộ dài. Buồn chán gây ra những khoảnh khắc loé sáng đó hay chỉ dọn chỗ cho chúng thì khó xác định, và tôi không muốn phóng đại lập luận."
+            },
+            {
+              "en": "Nor am I arguing that all boredom is productive. The monotony of exhausting, repetitive labor is not a creative opportunity but a burden, and it would be glib to romanticize it. My claim is narrower: that the brief, low-stakes boredom of an empty afternoon deserves to be tolerated rather than instantly cured. We might find, if we let it linger, that it was leading somewhere.",
+              "vi": "Tôi cũng không cho rằng mọi sự buồn chán đều hữu ích. Sự đơn điệu của lao động lặp lại kiệt sức không phải cơ hội sáng tạo mà là gánh nặng, và lãng mạn hoá nó thì thật hời hợt. Lập luận của tôi hẹp hơn: sự buồn chán ngắn ngủi, chẳng hệ trọng của một buổi chiều trống trải đáng được chịu đựng thay vì lập tức chữa trị. Nếu để nó nán lại, có khi ta nhận ra nó đang dẫn ta tới đâu đó."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How does the writer reinterpret boredom in the second paragraph?",
+          "choices": [
+            "As a sign of laziness",
+            "As a medical condition requiring treatment",
+            "As a signal that something else is wanted",
+            "As the natural result of using smartphones"
+          ],
+          "answer": 2,
+          "explain": "Đoạn 2: buồn chán là tín hiệu cho thấy việc đang làm không còn cuốn hút và cần điều khác."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which statement most accurately reflects the writer's claim in the final paragraph?",
+          "choices": [
+            "Brief, low-stakes boredom should be tolerated rather than instantly cured.",
+            "Repetitive labor is a hidden source of creativity.",
+            "All boredom should be encouraged.",
+            "Boredom has been proved to cause creative insights."
+          ],
+          "answer": 0,
+          "explain": "Đoạn 4: \"My claim is narrower\" — chỉ sự buồn chán ngắn, ít hệ trọng nên được chịu đựng."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer states that boredom has been proven to cause creative insights.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 3: việc buồn chán gây ra hay chỉ dọn chỗ cho ý tưởng \"khó xác định\" và tác giả không muốn phóng đại."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer considers it glib to romanticize exhausting, repetitive work.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 4: \"it would be glib to romanticize it\"."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer has given up using a smartphone.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không nói về thói quen dùng điện thoại của chính tác giả."
+        },
+        {
+          "type": "gap",
+          "prompt": "Many people report that their best ideas arrive in the shower or on a long ___.",
+          "answers": [
+            "walk"
+          ],
+          "choices": [
+            "walk",
+            "flight",
+            "call"
+          ],
+          "explain": "Đoạn 3: \"in the shower or on a long walk\"."
+        }
+      ]
+    },
+    {
+      "id": "readc2.tyranny-of-metrics",
+      "title": "Khi con số thành ông chủ",
+      "summary": "Xã luận: chỉ số đo lường bóp méo điều nó đo.",
+      "level": "C2",
+      "minutes": 9,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "When the Measure Becomes the Target",
+          "paragraphs": [
+            {
+              "en": "There is an old observation among economists, so frequently confirmed that it has acquired the status of a law: once a measure becomes a target, it ceases to be a good measure. Nowhere is this more evident than in the modern enthusiasm for performance indicators, which have spread from factories into hospitals, schools, universities and public administration.",
+              "vi": "Có một nhận xét cũ trong giới kinh tế, được xác nhận thường xuyên đến mức gần như thành định luật: khi một thước đo trở thành mục tiêu, nó không còn là thước đo tốt. Không đâu điều này rõ hơn trong cơn hăng hái hiện đại với các chỉ số hiệu suất, vốn đã lan từ nhà máy sang bệnh viện, trường học, đại học và bộ máy hành chính công."
+            },
+            {
+              "en": "The logic of such indicators is superficially compelling. Public money should be spent responsibly; responsibility requires accountability; accountability requires numbers. Who could object? The trouble begins when the numbers, rather than the purposes they were meant to reflect, become the object of everyone's effort.",
+              "vi": "Logic của những chỉ số này thoạt nghe rất thuyết phục. Tiền công phải được chi có trách nhiệm; trách nhiệm đòi hỏi giải trình; giải trình đòi hỏi con số. Ai có thể phản đối? Rắc rối bắt đầu khi chính con số, thay vì mục đích mà chúng được tạo ra để phản ánh, trở thành đối tượng của mọi nỗ lực."
+            },
+            {
+              "en": "Consider a hospital rewarded for reducing waiting times in its emergency department. Staff may genuinely work faster, but they may also discover that the clock stops when a patient is formally admitted, and so admit patients to a corridor. A school judged on examination pass rates may quietly discourage weaker students from sitting the exam at all. In each case the figure improves while the underlying reality stays the same, or deteriorates.",
+              "vi": "Hãy xem một bệnh viện được thưởng vì giảm thời gian chờ ở khoa cấp cứu. Nhân viên có thể thực sự làm nhanh hơn, nhưng họ cũng có thể phát hiện đồng hồ dừng khi bệnh nhân được nhập viện chính thức, và thế là nhập bệnh nhân ra hành lang. Một trường học bị đánh giá theo tỷ lệ đỗ có thể lặng lẽ khuyên học sinh yếu đừng dự thi. Trong mỗi trường hợp, con số đẹp lên trong khi thực tế bên dưới giữ nguyên, hoặc tệ đi."
+            },
+            {
+              "en": "None of this is an argument against measurement as such. Numbers can reveal problems that anecdote conceals, and abandoning them would merely return us to rule by impression. The point, rather, is that indicators should inform professional judgment, not replace it. Measure, by all means, but measure several things, change the measures before they are mastered, and never mistake the map for the territory.",
+              "vi": "Không điều gì ở trên là lập luận chống lại việc đo lường nói chung. Con số có thể phơi bày vấn đề mà giai thoại che giấu, và từ bỏ chúng chỉ đưa ta về lối cai quản bằng cảm tính. Ý chính là chỉ số nên cung cấp thông tin cho phán đoán chuyên môn, chứ không thay thế nó. Cứ đo lường, nhưng hãy đo nhiều thứ, thay đổi thước đo trước khi người ta thành thạo việc lách nó, và đừng bao giờ nhầm bản đồ với lãnh thổ."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What does the hospital example illustrate?",
+          "choices": [
+            "Hospitals are generally inefficient.",
+            "Staff always work faster when rewarded.",
+            "Waiting times cannot be measured accurately.",
+            "A figure can improve while the underlying reality does not."
+          ],
+          "answer": 3,
+          "explain": "Đoạn 3: con số đẹp lên trong khi thực tế giữ nguyên hoặc tệ đi."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the writer's position on measurement?",
+          "choices": [
+            "It should be abandoned in public services.",
+            "It should inform, not replace, professional judgment.",
+            "It should replace professional judgment.",
+            "It is only useful in factories."
+          ],
+          "answer": 1,
+          "explain": "Đoạn 4: \"indicators should inform professional judgment, not replace it\"."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer argues against all forms of measurement.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 4: \"None of this is an argument against measurement as such.\""
+        },
+        {
+          "type": "tf",
+          "statement": "The writer recommends measuring several things and changing measures over time.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 4: \"measure several things, change the measures before they are mastered\"."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer works in a hospital emergency department.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài dùng bệnh viện làm ví dụ, không nói nghề của tác giả."
+        },
+        {
+          "type": "gap",
+          "prompt": "A school judged on pass rates may discourage weaker students from ___ the exam.",
+          "answers": [
+            "sitting"
+          ],
+          "choices": [
+            "sitting",
+            "grading",
+            "setting"
+          ],
+          "explain": "Đoạn 3: \"discourage weaker students from sitting the exam\" (sit an exam = dự thi)."
+        }
+      ]
+    },
+    {
+      "id": "readc2.abstract-code-switching",
+      "title": "Tóm tắt nghiên cứu: chuyển mã ngôn ngữ",
+      "summary": "Đọc văn phong tóm tắt học thuật (abstract).",
+      "level": "C2",
+      "minutes": 9,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Abstract: Code-Switching and Identity Among Bilingual Adolescents",
+          "paragraphs": [
+            {
+              "en": "Background. Code-switching, the alternation between two or more languages within a single conversation, has traditionally been interpreted either as evidence of incomplete proficiency or as a purely pragmatic strategy for filling lexical gaps. A growing body of sociolinguistic research suggests, however, that it may also serve as a resource for constructing and negotiating social identity.",
+              "vi": "Bối cảnh. Chuyển mã, tức việc luân phiên giữa hai hay nhiều ngôn ngữ trong cùng một cuộc hội thoại, theo truyền thống được diễn giải hoặc là bằng chứng của năng lực chưa hoàn thiện, hoặc là chiến lược thuần thực dụng để lấp khoảng trống từ vựng. Tuy nhiên, ngày càng nhiều nghiên cứu ngôn ngữ học xã hội gợi ý rằng nó cũng có thể là nguồn lực để kiến tạo và thương lượng bản sắc xã hội."
+            },
+            {
+              "en": "Method. The present study examined naturally occurring conversations among 48 bilingual adolescents, aged 14 to 17, recorded over six months in school and leisure settings. Switches were coded according to their apparent function, and participants subsequently took part in semi-structured interviews in which they commented on selected extracts of their own speech.",
+              "vi": "Phương pháp. Nghiên cứu này khảo sát các cuộc hội thoại tự nhiên của 48 thiếu niên song ngữ từ 14 đến 17 tuổi, được ghi âm trong sáu tháng ở môi trường trường học và giải trí. Các lần chuyển mã được mã hoá theo chức năng biểu hiện, sau đó người tham gia dự phỏng vấn bán cấu trúc, bình luận về những trích đoạn chọn lọc từ chính lời nói của mình."
+            },
+            {
+              "en": "Results. Contrary to the deficit hypothesis, the majority of switches occurred at points where an equivalent expression was readily available in the language being spoken. Switches clustered around jokes, expressions of solidarity and moments of disagreement. In interviews, participants frequently described switching as a way of signaling closeness to peers or distance from adult authority, although several also reported doing so without conscious intention.",
+              "vi": "Kết quả. Trái với giả thuyết thiếu hụt, phần lớn lần chuyển mã xảy ra ở chỗ mà ngôn ngữ đang nói sẵn có cách diễn đạt tương đương. Chuyển mã tập trung quanh lời đùa, biểu hiện đoàn kết và lúc bất đồng. Trong phỏng vấn, người tham gia thường mô tả chuyển mã như cách báo hiệu sự thân thiết với bạn bè hoặc giữ khoảng cách với quyền uy người lớn, dù một số cũng cho biết họ làm vậy mà không có chủ ý."
+            },
+            {
+              "en": "Conclusions. These findings indicate that, for this population, code-switching functions predominantly as a social rather than a compensatory resource. Given the modest sample and its restriction to a single urban community, generalization should be undertaken with caution; further research across different age groups and language pairings is warranted.",
+              "vi": "Kết luận. Các phát hiện này cho thấy, với nhóm đối tượng này, chuyển mã chủ yếu đóng vai trò nguồn lực xã hội hơn là bù đắp. Do mẫu nhỏ và chỉ giới hạn trong một cộng đồng đô thị, cần thận trọng khi khái quát hoá; cần thêm nghiên cứu ở các nhóm tuổi và cặp ngôn ngữ khác."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Which finding contradicts the \"deficit hypothesis\"?",
+          "choices": [
+            "Participants were aged 14 to 17.",
+            "Most switches occurred where an equivalent expression was available.",
+            "Conversations were recorded for six months.",
+            "Some participants switched without conscious intention."
+          ],
+          "answer": 1,
+          "explain": "Đoạn Results: \"Contrary to the deficit hypothesis\" — phần lớn chuyển mã xảy ra khi đã có cách diễn đạt tương đương, nên không phải do thiếu từ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why do the authors advise caution about generalizing their results?",
+          "choices": [
+            "The interviews were not recorded.",
+            "The coding method was rejected by reviewers.",
+            "The participants were not truly bilingual.",
+            "The sample was modest and limited to one urban community."
+          ],
+          "answer": 3,
+          "explain": "Đoạn Conclusions: \"Given the modest sample and its restriction to a single urban community\"."
+        },
+        {
+          "type": "tf",
+          "statement": "All participants said they switched languages deliberately.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn Results: một số cho biết họ chuyển mã mà không có chủ ý."
+        },
+        {
+          "type": "tf",
+          "statement": "Switches were often found around jokes and moments of disagreement.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn Results: \"Switches clustered around jokes, expressions of solidarity and moments of disagreement.\""
+        },
+        {
+          "type": "tf",
+          "statement": "Girls in the study switched languages more often than boys.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Tóm tắt không phân tích theo giới tính."
+        },
+        {
+          "type": "gap",
+          "prompt": "The study concludes that code-switching functions mainly as a social rather than a ___ resource.",
+          "answers": [
+            "compensatory"
+          ],
+          "choices": [
+            "compensatory",
+            "linguistic",
+            "academic"
+          ],
+          "explain": "Đoạn Conclusions: \"a social rather than a compensatory resource\"."
+        }
+      ]
+    },
+    {
+      "id": "readc2.the-cartographers-daughter",
+      "title": "Con gái người vẽ bản đồ",
+      "summary": "Truyện ngắn: đọc ẩn ý và hình ảnh.",
+      "level": "C2",
+      "minutes": 9,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "The Cartographer's Daughter",
+          "paragraphs": [
+            {
+              "en": "My father drew maps for a living, though by the time I was old enough to understand what that meant, the work had largely passed to satellites and software. He kept at it anyway, in a narrow room at the top of the house, bent over sheets of paper so large that they curled at the edges like something trying to escape.",
+              "vi": "Cha tôi vẽ bản đồ để kiếm sống, dù lúc tôi đủ lớn để hiểu điều đó nghĩa là gì thì công việc phần lớn đã chuyển sang vệ tinh và phần mềm. Ông vẫn miệt mài, trong căn phòng hẹp trên tầng cao nhất của ngôi nhà, cúi xuống những tờ giấy lớn đến mức mép giấy cong lên như thứ gì đó đang muốn trốn thoát."
+            },
+            {
+              "en": "He was not, I think, unaware of his own obsolescence. When clients stopped calling, he began mapping places no one had asked for: the creek behind the school, our street as it had looked before the new houses, the route my mother used to walk to the station. He labeled everything in a small, upright hand, as if precision might compensate for the fact that nobody would ever consult these maps to find their way.",
+              "vi": "Tôi nghĩ ông không phải không biết mình đã lỗi thời. Khi khách hàng thôi gọi, ông bắt đầu vẽ những nơi chẳng ai yêu cầu: con lạch sau trường học, con phố nhà tôi như nó từng trông trước khi có những ngôi nhà mới, lộ trình mẹ tôi từng đi bộ ra ga. Ông ghi chú mọi thứ bằng nét chữ nhỏ, thẳng đứng, như thể sự chính xác có thể bù lại việc sẽ chẳng ai tra những tấm bản đồ này để tìm đường."
+            },
+            {
+              "en": "It was only after he died that I understood they had never been meant for finding anything. Spread across the floor of his room, the sheets fitted together into a single, enormous plan of the town, but a town that no longer existed: the cinema that had become a parking lot, the bakery where my mother had worked, the bench where, according to a tiny note in the margin, he had first spoken to her.",
+              "vi": "Chỉ sau khi ông mất tôi mới hiểu chúng chưa bao giờ được làm ra để tìm thứ gì. Trải khắp sàn phòng ông, những tờ giấy ghép lại thành một bản đồ khổng lồ duy nhất của thị trấn, nhưng là một thị trấn không còn tồn tại: rạp chiếu phim nay thành bãi đỗ xe, tiệm bánh nơi mẹ tôi từng làm, chiếc ghế dài nơi, theo một dòng ghi chú nhỏ bên lề, ông lần đầu nói chuyện với bà."
+            },
+            {
+              "en": "I have them still, rolled in a cupboard. Occasionally I take one out and trace a road with my finger, and it occurs to me that he was the most accurate cartographer I have ever known, if accuracy is measured not by distance but by what was lost.",
+              "vi": "Tôi vẫn giữ chúng, cuộn lại trong tủ. Thỉnh thoảng tôi lấy một tờ ra, lấy ngón tay dò theo một con đường, và chợt nghĩ ông là người vẽ bản đồ chính xác nhất tôi từng biết, nếu sự chính xác được đo không phải bằng khoảng cách mà bằng những gì đã mất."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What did the narrator realize about the father's later maps after his death?",
+          "choices": [
+            "They were meant to record a town that no longer existed.",
+            "They were commissioned by the town council.",
+            "They contained serious errors.",
+            "They were copies of satellite images."
+          ],
+          "answer": 0,
+          "explain": "Đoạn 3: các tờ ghép thành bản đồ một thị trấn không còn tồn tại — chúng không dùng để tìm đường."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the final sentence suggest?",
+          "choices": [
+            "The father measured distances more carefully than anyone.",
+            "The narrator wants to become a cartographer.",
+            "The maps' true value lay in preserving memory and loss.",
+            "The narrator plans to sell the maps."
+          ],
+          "answer": 2,
+          "explain": "Câu cuối: chính xác đo bằng \"những gì đã mất\" — giá trị của bản đồ là lưu giữ ký ức."
+        },
+        {
+          "type": "tf",
+          "statement": "By the time the narrator was older, much mapmaking work had moved to satellites and software.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 1 nói rõ điều này."
+        },
+        {
+          "type": "tf",
+          "statement": "The father's clients continued to call him regularly until his death.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 2: \"When clients stopped calling\"."
+        },
+        {
+          "type": "tf",
+          "statement": "The narrator's mother was born in the same town as the father.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Truyện không nói mẹ sinh ra ở đâu."
+        },
+        {
+          "type": "gap",
+          "prompt": "The cinema in the town had become a parking ___.",
+          "answers": [
+            "lot"
+          ],
+          "choices": [
+            "lot",
+            "garden",
+            "school"
+          ],
+          "explain": "Đoạn 3: \"the cinema that had become a parking lot\"."
+        }
+      ]
+    },
+    {
+      "id": "readc2.a-modest-productivity-guide",
+      "title": "Cẩm nang năng suất \"khiêm tốn\"",
+      "summary": "Châm biếm: nhận ra giọng mỉa mai.",
+      "level": "C2",
+      "minutes": 9,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "A Modest Guide to Total Productivity",
+          "paragraphs": [
+            {
+              "en": "Congratulations on deciding to become maximally productive. You have doubtless noticed that ordinary people waste vast quantities of time on unprofitable activities such as sleeping, eating slowly and talking to friends without a clearly defined agenda. This guide will help you eliminate such inefficiencies once and for all.",
+              "vi": "Chúc mừng bạn đã quyết định trở nên năng suất tối đa. Hẳn bạn đã nhận thấy người bình thường phí phạm vô số thời gian vào những hoạt động không sinh lời như ngủ, ăn chậm và trò chuyện với bạn bè mà không có chương trình nghị sự rõ ràng. Cẩm nang này sẽ giúp bạn loại bỏ những sự kém hiệu quả ấy một lần cho mãi mãi."
+            },
+            {
+              "en": "Begin each morning at four o'clock, a time favored by the highly successful, or at least by those who write books about the highly successful. Before your feet touch the floor, review your goals for the day, the year and the decade. Should you feel tired, remind yourself that fatigue is merely a lack of discipline that has not yet been optimized.",
+              "vi": "Hãy bắt đầu mỗi sáng lúc bốn giờ, giờ được những người cực kỳ thành công ưa chuộng, hoặc ít nhất là được những người viết sách về người cực kỳ thành công ưa chuộng. Trước khi chân chạm sàn, hãy rà lại mục tiêu của ngày, của năm và của cả thập kỷ. Nếu thấy mệt, hãy tự nhắc rằng mệt mỏi chỉ là sự thiếu kỷ luật chưa được tối ưu hoá."
+            },
+            {
+              "en": "Leisure, of course, need not be abandoned entirely; it must simply be made useful. Listen to instructional recordings at double speed while exercising. Read only books that can be summarized in a single slide. If you must see your family, schedule the meeting in advance and circulate minutes afterward so that action points are not forgotten.",
+              "vi": "Dĩ nhiên không cần bỏ hẳn thời gian rảnh; chỉ cần biến nó thành hữu ích. Nghe bản ghi hướng dẫn ở tốc độ gấp đôi khi tập thể dục. Chỉ đọc những cuốn sách có thể tóm tắt trong một trang trình chiếu. Nếu buộc phải gặp gia đình, hãy lên lịch trước và gửi biên bản sau đó để không quên các đầu việc."
+            },
+            {
+              "en": "Follow these principles faithfully and you will soon achieve a state of perfect efficiency, in which every minute is accounted for and none of them is enjoyed. At that point you may at last pause and ask what all the time you saved was for, though we recommend scheduling that question for a later quarter.",
+              "vi": "Tuân thủ trung thành các nguyên tắc này và bạn sẽ sớm đạt trạng thái hiệu quả hoàn hảo, trong đó mỗi phút đều được tính toán và chẳng phút nào được tận hưởng. Lúc ấy cuối cùng bạn có thể dừng lại và tự hỏi tất cả thời gian tiết kiệm được để làm gì, dù chúng tôi khuyên nên xếp câu hỏi đó vào một quý sau."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is the writer's real attitude toward the advice given?",
+          "choices": [
+            "Enthusiastic support",
+            "Neutral description",
+            "Scientific evaluation",
+            "Ironic criticism of an obsessive productivity culture"
+          ],
+          "answer": 3,
+          "explain": "Giọng châm biếm xuyên suốt (vd \"none of them is enjoyed\", lên lịch họp gia đình) cho thấy tác giả mỉa mai văn hoá năng suất cực đoan."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is implied by the phrase \"or at least by those who write books about the highly successful\"?",
+          "choices": [
+            "Successful people never write books.",
+            "The claim about four o'clock may come more from productivity authors than from successful people themselves.",
+            "Writing books is the best way to become successful.",
+            "All successful people wake up at four o'clock."
+          ],
+          "answer": 1,
+          "explain": "Đoạn 2: câu chêm mỉa mai ý rằng giờ dậy bốn giờ có thể chỉ là chuyện của người viết sách năng suất."
+        },
+        {
+          "type": "tf",
+          "statement": "The guide literally recommends sending meeting minutes after seeing one's family.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 3: \"circulate minutes afterward\" — đúng theo câu chữ (dù là châm biếm)."
+        },
+        {
+          "type": "tf",
+          "statement": "According to the final paragraph, the state of perfect efficiency is described as deeply enjoyable.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 4: mỗi phút được tính toán nhưng \"none of them is enjoyed\"."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer has published several other productivity guides.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không nói gì về các tác phẩm khác của tác giả."
+        },
+        {
+          "type": "gap",
+          "prompt": "Fatigue is described as a lack of discipline that has not yet been ___.",
+          "answers": [
+            "optimized"
+          ],
+          "choices": [
+            "optimized",
+            "measured",
+            "forgiven"
+          ],
+          "explain": "Đoạn 2: \"a lack of discipline that has not yet been optimized\"."
+        }
+      ]
+    },
+    {
+      "id": "readc2.memory-as-reconstruction",
+      "title": "Trí nhớ là sự tái dựng",
+      "summary": "Văn khoa học rào đón: đọc mức độ chắc chắn.",
+      "level": "C2",
+      "minutes": 9,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Đọc một lượt lấy ý chính, bấm vào từ lạ để tra, rồi mới làm câu hỏi. Từ nào khó hơn trình độ của bạn sẽ được gạch chấm."
+        },
+        {
+          "type": "passage",
+          "title": "Memory as Reconstruction",
+          "paragraphs": [
+            {
+              "en": "It is tempting to imagine memory as a kind of archive, in which experiences are stored intact and later retrieved, much as one might replay a recording. The weight of experimental evidence, however, points toward a rather different model. Remembering appears to be less an act of retrieval than one of reconstruction, in which the brain reassembles an event from scattered fragments and fills the gaps with plausible inference.",
+              "vi": "Thật dễ hình dung trí nhớ như một kho lưu trữ, nơi trải nghiệm được cất giữ nguyên vẹn rồi được lấy ra sau, giống như phát lại một bản ghi. Tuy nhiên, phần lớn bằng chứng thực nghiệm chỉ về một mô hình khá khác. Hồi tưởng dường như không hẳn là hành động truy xuất mà là tái dựng, trong đó não lắp ghép lại sự kiện từ những mảnh rời rạc và lấp khoảng trống bằng suy luận hợp lý."
+            },
+            {
+              "en": "One consequence is that memories may be altered by information encountered after the event. In a number of studies, participants who were exposed to subtly misleading questions later reported details that had not in fact occurred, often with considerable confidence. Confidence, it seems, is at best a loose guide to accuracy.",
+              "vi": "Một hệ quả là ký ức có thể bị thay đổi bởi thông tin tiếp nhận sau sự kiện. Trong một số nghiên cứu, người tham gia bị hỏi những câu gây hiểu lầm tinh vi về sau kể lại những chi tiết thực ra không xảy ra, thường với sự tự tin đáng kể. Có vẻ như sự tự tin, cùng lắm, chỉ là chỉ dấu lỏng lẻo về độ chính xác."
+            },
+            {
+              "en": "It would be a mistake, though, to conclude that memory is generally untrustworthy. The core of most everyday memories is probably reasonably accurate; distortions tend to affect peripheral details more than the central gist. Moreover, some researchers argue that a flexible, reconstructive system may be adaptive, allowing past experience to be recombined in order to imagine and plan for the future.",
+              "vi": "Tuy nhiên, sẽ là sai lầm nếu kết luận rằng trí nhớ nói chung không đáng tin. Phần cốt lõi của hầu hết ký ức thường ngày có lẽ khá chính xác; sự méo mó thường ảnh hưởng đến chi tiết ngoại vi hơn là ý chính. Hơn nữa, một số nhà nghiên cứu cho rằng một hệ thống linh hoạt, mang tính tái dựng có thể có lợi cho thích nghi, cho phép kết hợp lại trải nghiệm quá khứ để hình dung và lập kế hoạch cho tương lai."
+            },
+            {
+              "en": "The practical implications are nonetheless significant, particularly where single recollections carry great weight, as in eyewitness testimony. Here, the evidence would seem to favor procedures that minimize suggestion, such as recording an account as early as possible and avoiding leading questions.",
+              "vi": "Dù vậy, hệ quả thực tiễn vẫn đáng kể, nhất là khi một hồi ức đơn lẻ có sức nặng lớn, như lời khai nhân chứng. Ở đây bằng chứng dường như ủng hộ các quy trình giảm thiểu sự gợi ý, như ghi lại lời kể càng sớm càng tốt và tránh câu hỏi dẫn dắt."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "According to the text, what is the relationship between confidence and accuracy in memory?",
+          "choices": [
+            "Confidence is at best a loose guide to accuracy.",
+            "Confidence reliably indicates accuracy.",
+            "Confident memories are always false.",
+            "Accuracy increases confidence over time."
+          ],
+          "answer": 0,
+          "explain": "Đoạn 2: \"Confidence, it seems, is at best a loose guide to accuracy.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which statement best reflects the writer's degree of certainty about everyday memories?",
+          "choices": [
+            "They are completely reliable.",
+            "They are generally untrustworthy.",
+            "Their core is probably reasonably accurate, while peripheral details are more easily distorted.",
+            "Nothing can be said about them."
+          ],
+          "answer": 2,
+          "explain": "Đoạn 3: từ rào đón \"probably reasonably accurate\"; méo mó ảnh hưởng chi tiết ngoại vi hơn ý chính."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer concludes that memory is generally untrustworthy.",
+          "ng": true,
+          "answer": "false",
+          "explain": "Đoạn 3: \"It would be a mistake... to conclude that memory is generally untrustworthy.\""
+        },
+        {
+          "type": "tf",
+          "statement": "Some researchers suggest a reconstructive memory may help people plan for the future.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Đoạn 3: hệ thống tái dựng có thể giúp hình dung và lập kế hoạch tương lai."
+        },
+        {
+          "type": "tf",
+          "statement": "Memory distortions are more common in older adults.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bài không đề cập tuổi tác."
+        },
+        {
+          "type": "gap",
+          "prompt": "The evidence would seem to favor avoiding ___ questions with eyewitnesses.",
+          "answers": [
+            "leading"
+          ],
+          "choices": [
+            "leading",
+            "short",
+            "written"
+          ],
+          "explain": "Đoạn 4: \"avoiding leading questions\" (câu hỏi dẫn dắt)."
+        }
+      ]
+    }
+  ]
+}

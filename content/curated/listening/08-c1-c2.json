@@ -1,0 +1,1294 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "listenadv",
+    "title": "Nghe nâng cao C1–C2",
+    "summary": "Bài giảng học thuật, tranh luận, phỏng vấn nhiều hàm ý, phát biểu.",
+    "icon": "🏛️",
+    "order": 8
+  },
+  "lessons": [
+    {
+      "id": "listenadv.default-effect",
+      "title": "Bài giảng: hiệu ứng mặc định",
+      "summary": "Kinh tế học hành vi: vì sao lựa chọn có sẵn lại mạnh đến vậy.",
+      "level": "C1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Lecture: the default effect",
+          "lines": [
+            {
+              "en": "Let's start with a puzzle. Two neighboring countries, broadly similar in culture and wealth, have dramatically different rates of organ donor registration. In one, barely fifteen percent of people are registered. In the other, the figure is well over ninety.",
+              "vi": "Hãy bắt đầu bằng một câu đố. Hai nước láng giềng, khá giống nhau về văn hoá và mức giàu có, lại có tỉ lệ đăng ký hiến tạng khác nhau một trời một vực. Ở nước thứ nhất, chỉ vỏn vẹn mười lăm phần trăm người dân đăng ký. Ở nước kia, con số là hơn chín mươi."
+            },
+            {
+              "en": "You might assume the difference reflects deep-seated attitudes toward death, or religion, or trust in doctors. It doesn't, or at least not primarily.",
+              "vi": "Có thể bạn cho rằng khác biệt đó phản ánh quan niệm ăn sâu về cái chết, tôn giáo, hay lòng tin vào bác sĩ. Không phải vậy, hoặc ít nhất không chủ yếu là vậy."
+            },
+            {
+              "en": "The explanation turns out to be almost embarrassingly mundane. In the first country, you have to tick a box to opt in. In the second, you are registered automatically unless you tick a box to opt out.",
+              "vi": "Lời giải thích hoá ra tầm thường đến mức gần như ngượng ngùng. Ở nước thứ nhất, bạn phải đánh dấu vào ô để tham gia. Ở nước thứ hai, bạn tự động được đăng ký, trừ khi đánh dấu vào ô để rút ra."
+            },
+            {
+              "en": "This is what behavioral economists call the default effect: the tendency of people to stick with whatever option is preselected for them.",
+              "vi": "Đây là điều các nhà kinh tế học hành vi gọi là hiệu ứng mặc định: xu hướng con người giữ nguyên bất kỳ lựa chọn nào đã được chọn sẵn cho họ."
+            },
+            {
+              "en": "Now, why should something so trivial carry so much weight? There are at least three competing explanations, and they are not mutually exclusive.",
+              "vi": "Vậy tại sao một thứ vặt vãnh như thế lại có sức nặng đến vậy? Có ít nhất ba cách giải thích cạnh tranh nhau, và chúng không loại trừ lẫn nhau."
+            },
+            {
+              "en": "The first is simple inertia. Changing a default requires effort, however minimal, and people are remarkably good at putting off small tasks indefinitely.",
+              "vi": "Thứ nhất đơn giản là sức ỳ. Thay đổi mặc định đòi hỏi công sức, dù rất nhỏ, và con người cực kỳ giỏi trì hoãn những việc nhỏ mãi mãi."
+            },
+            {
+              "en": "The second is that defaults are read as implicit recommendations. If the government has set things up this way, the reasoning goes, presumably it's the sensible choice.",
+              "vi": "Thứ hai là mặc định được hiểu như một lời khuyên ngầm. Người ta lập luận rằng nếu chính phủ đã sắp đặt như vậy, hẳn đó là lựa chọn hợp lý."
+            },
+            {
+              "en": "The third has to do with how we perceive loss. Once an option is framed as the starting point, giving it up feels like losing something, rather than simply choosing differently.",
+              "vi": "Thứ ba liên quan đến cách ta cảm nhận mất mát. Khi một lựa chọn được đặt làm điểm xuất phát, từ bỏ nó có cảm giác như mất đi thứ gì đó, chứ không đơn thuần là chọn khác đi."
+            },
+            {
+              "en": "Policy makers have, unsurprisingly, seized on this. Automatic enrollment in retirement savings plans, for instance, has raised participation substantially in a number of countries.",
+              "vi": "Không có gì lạ khi các nhà hoạch định chính sách đã chộp lấy điều này. Chẳng hạn, việc tự động ghi danh vào các chương trình tiết kiệm hưu trí đã nâng tỉ lệ tham gia lên đáng kể ở một số nước."
+            },
+            {
+              "en": "But I want to sound a note of caution. A default is never neutral. Someone has to decide what it is, and that decision embeds a judgment about what people ought to want.",
+              "vi": "Nhưng tôi muốn lưu ý một điều. Mặc định không bao giờ trung lập. Ai đó phải quyết định nó là gì, và quyết định ấy hàm chứa một phán xét về điều người ta nên muốn."
+            },
+            {
+              "en": "Critics argue that this is paternalism dressed up as freedom of choice. Supporters reply that there is no way to avoid setting some default, so we may as well choose a good one.",
+              "vi": "Người phê phán cho rằng đây là chủ nghĩa gia trưởng đội lốt tự do lựa chọn. Người ủng hộ đáp lại rằng không thể tránh việc đặt một mặc định nào đó, vậy thì cứ chọn một cái tốt."
+            },
+            {
+              "en": "For your seminar next week, I'd like you to come prepared to defend one of those two positions, and, crucially, to explain who should get to decide what counts as good.",
+              "vi": "Cho buổi thảo luận tuần sau, tôi muốn các bạn chuẩn bị để bảo vệ một trong hai quan điểm đó, và quan trọng nhất là giải thích ai nên được quyền quyết định thế nào là tốt."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What mainly explains the difference between the two countries?",
+          "choices": [
+            "Religious beliefs",
+            "Trust in doctors",
+            "Whether people must opt in or opt out",
+            "Differences in wealth"
+          ],
+          "answer": 2,
+          "explain": "Giảng viên bác bỏ tôn giáo, lòng tin vào bác sĩ; hai nước lại giống nhau về giàu có. Nguyên nhân là phải \"opt in\" hay \"opt out\"."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which of these is NOT one of the three explanations given?",
+          "choices": [
+            "Inertia",
+            "Defaults being read as recommendations",
+            "The way we perceive loss",
+            "A lack of information about donation"
+          ],
+          "answer": 3,
+          "explain": "Ba cách giải thích: sức ỳ (inertia), mặc định như lời khuyên ngầm, và cảm nhận mất mát. Thiếu thông tin không được nhắc."
+        },
+        {
+          "type": "tf",
+          "statement": "The lecturer describes the explanation as surprisingly ordinary.",
+          "answer": "true",
+          "explain": "\"Almost embarrassingly mundane\" = tầm thường đến mức gần như ngượng ngùng."
+        },
+        {
+          "type": "tf",
+          "statement": "The lecturer believes a well-designed default can be completely neutral.",
+          "answer": "false",
+          "explain": "\"A default is never neutral\" — luôn có người quyết định và hàm chứa phán xét."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which policy example does the lecturer mention?",
+          "choices": [
+            "Automatic enrollment in retirement savings",
+            "Higher taxes on sugar",
+            "Free public transport",
+            "Compulsory voting"
+          ],
+          "answer": 0,
+          "explain": "\"Automatic enrollment in retirement savings plans... has raised participation substantially.\""
+        },
+        {
+          "type": "tf",
+          "statement": "Automatic enrollment was first introduced in the lecturer's own country.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Giảng viên chỉ nói \"in a number of countries\", không nói nơi nào áp dụng đầu tiên."
+        },
+        {
+          "type": "gap",
+          "prompt": "Critics argue that this is paternalism dressed up as freedom of ___.",
+          "answers": [
+            "choice"
+          ],
+          "choices": [
+            "choice",
+            "speech",
+            "movement"
+          ],
+          "explain": "\"Paternalism dressed up as freedom of choice\" = gia trưởng đội lốt tự do lựa chọn."
+        },
+        {
+          "type": "listen",
+          "say": "Someone has to decide what it is, and that decision embeds a judgment about what people ought to want.",
+          "choices": [
+            "Someone has to decide what it is, and that decision ignores what people really want.",
+            "Someone has to decide what it is, and that decision embeds a judgment about what people ought to want.",
+            "No one has to decide what it is, because people know what they ought to want."
+          ],
+          "answer": 1,
+          "explain": "\"Embed a judgment\" = hàm chứa một phán xét. \"Ought to\" = nên."
+        }
+      ]
+    },
+    {
+      "id": "listenadv.green-gentrification",
+      "title": "Tranh luận: cây xanh và giá nhà",
+      "summary": "Nhà kinh tế và uỷ viên hội đồng thành phố tranh luận về \"green gentrification\".",
+      "level": "C1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Debate: who are the trees for?",
+          "lines": [
+            {
+              "en": "Councilor Reyes, your city has planted forty thousand trees in five years, and I don't doubt the intentions. My concern is what happens to the people who live under them.",
+              "vi": "Thưa uỷ viên Reyes, thành phố của bà đã trồng bốn mươi nghìn cây trong năm năm, và tôi không nghi ngờ thiện ý. Mối lo của tôi là chuyện gì xảy ra với những người sống dưới tán cây đó.",
+              "speaker": "A"
+            },
+            {
+              "en": "I assume you're referring to rents.",
+              "vi": "Tôi đoán ông đang nói đến giá thuê nhà.",
+              "speaker": "B"
+            },
+            {
+              "en": "I am. The research on this is fairly consistent. When a neglected neighborhood gets a major new park, property values tend to rise, and within a decade many of the original residents have been priced out. Some researchers call it green gentrification.",
+              "vi": "Đúng vậy. Các nghiên cứu về việc này khá nhất quán. Khi một khu bị bỏ bê có công viên lớn mới, giá bất động sản có xu hướng tăng, và trong vòng mười năm nhiều cư dân gốc bị giá cả đẩy đi. Một số nhà nghiên cứu gọi đó là \"trưởng giả hoá xanh\".",
+              "speaker": "A"
+            },
+            {
+              "en": "I'm familiar with the term, and I won't pretend the risk isn't real. But the alternative, leaving poor neighborhoods hot, polluted and treeless because improving them might raise rents, strikes me as a rather perverse conclusion.",
+              "vi": "Tôi biết thuật ngữ đó, và tôi sẽ không giả vờ rằng rủi ro ấy không có thật. Nhưng phương án ngược lại, để các khu nghèo nóng bức, ô nhiễm và trơ trụi chỉ vì cải thiện chúng có thể đẩy giá thuê lên, theo tôi là một kết luận khá ngược đời.",
+              "speaker": "B"
+            },
+            {
+              "en": "Nobody is suggesting that. What I'm suggesting is that the order matters. If you plant first and protect tenants later, you've already lost.",
+              "vi": "Không ai đề xuất như vậy. Điều tôi muốn nói là thứ tự rất quan trọng. Nếu trồng cây trước rồi mới bảo vệ người thuê nhà sau, thì bà đã thua rồi.",
+              "speaker": "A"
+            },
+            {
+              "en": "On that, we actually agree more than you might think. That's precisely why, in the last two years, we've tied every major greening project to housing measures: rent stabilization in the surrounding blocks, and a requirement that a share of new units be affordable.",
+              "vi": "Về điểm đó, thật ra chúng ta đồng ý nhiều hơn ông nghĩ. Chính vì vậy mà hai năm qua, chúng tôi gắn mọi dự án phủ xanh lớn với các biện pháp nhà ở: bình ổn giá thuê ở các khu lân cận, và yêu cầu một phần căn hộ mới phải có giá phải chăng.",
+              "speaker": "B"
+            },
+            {
+              "en": "With respect, a share of new units doesn't help the family whose lease isn't renewed next spring.",
+              "vi": "Xin phép nói thẳng, một phần căn hộ mới chẳng giúp được gia đình bị từ chối gia hạn hợp đồng thuê vào mùa xuân tới.",
+              "speaker": "A"
+            },
+            {
+              "en": "Which is why rent stabilization comes first, and it applies to existing tenants. I'd also point out that most of our planting isn't flagship parks. It's street trees, small and scattered, which the evidence suggests have a far weaker effect on prices.",
+              "vi": "Vì thế bình ổn giá thuê được làm trước, và áp dụng cho người đang thuê. Tôi cũng xin lưu ý rằng phần lớn cây chúng tôi trồng không phải công viên lớn tiêu biểu. Đó là cây đường phố, nhỏ và rải rác, mà bằng chứng cho thấy tác động lên giá yếu hơn nhiều.",
+              "speaker": "B"
+            },
+            {
+              "en": "That's a fair distinction, and frankly a more sensible strategy. I'd still want to see independent data on displacement, not just the city's own figures.",
+              "vi": "Đó là sự phân biệt hợp lý, và thật lòng là một chiến lược khôn ngoan hơn. Nhưng tôi vẫn muốn thấy số liệu độc lập về việc cư dân bị đẩy đi, không chỉ số liệu của chính thành phố.",
+              "speaker": "A"
+            },
+            {
+              "en": "That's reasonable. We've commissioned a university study, and we've agreed to publish the results whatever they show.",
+              "vi": "Hợp lý. Chúng tôi đã đặt một trường đại học nghiên cứu, và cam kết công bố kết quả dù chúng cho thấy điều gì.",
+              "speaker": "B"
+            },
+            {
+              "en": "Whatever they show? I'll hold you to that.",
+              "vi": "Dù cho thấy điều gì ư? Tôi sẽ bắt bà giữ lời đấy.",
+              "speaker": "A"
+            },
+            {
+              "en": "Please do.",
+              "vi": "Xin cứ việc.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is the economist's main concern?",
+          "choices": [
+            "Trees are too expensive to maintain",
+            "Original residents may be forced out by rising rents",
+            "New parks attract crime",
+            "Tree roots damage roads"
+          ],
+          "answer": 1,
+          "explain": "Ông lo cư dân gốc \"have been priced out\" khi giá nhà tăng sau khi có công viên."
+        },
+        {
+          "type": "mcq",
+          "prompt": "According to the economist, what typically happens after a neglected area gets a major new park?",
+          "choices": [
+            "Property values rise",
+            "Pollution increases",
+            "Rents fall",
+            "Residents plant more trees"
+          ],
+          "answer": 0,
+          "explain": "\"Property values tend to rise, and within a decade many of the original residents have been priced out.\""
+        },
+        {
+          "type": "tf",
+          "statement": "The councilor denies that green gentrification is a real risk.",
+          "answer": "false",
+          "explain": "Bà nói \"I won't pretend the risk isn't real\" — tức thừa nhận rủi ro có thật."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the councilor emphasize street trees?",
+          "choices": [
+            "They are cheaper to maintain",
+            "They grow faster than park trees",
+            "Residents prefer them to parks",
+            "They seem to have a much weaker effect on prices"
+          ],
+          "answer": 3,
+          "explain": "Cây đường phố \"small and scattered... have a far weaker effect on prices\"."
+        },
+        {
+          "type": "tf",
+          "statement": "The economist accepts that the street tree approach is sensible.",
+          "answer": "true",
+          "explain": "\"That's a fair distinction, and frankly a more sensible strategy.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the economist mean by \"I'll hold you to that\"?",
+          "choices": [
+            "He will make sure she keeps her promise",
+            "He will give her a hug",
+            "He does not believe the study exists",
+            "He will pay for the study himself"
+          ],
+          "answer": 0,
+          "explain": "\"Hold someone to something\" = buộc ai đó giữ lời hứa (ở đây: công bố kết quả dù thế nào)."
+        },
+        {
+          "type": "gap",
+          "prompt": "If you plant first and protect tenants later, you've already ___.",
+          "answers": [
+            "lost"
+          ],
+          "choices": [
+            "lost",
+            "won",
+            "started"
+          ],
+          "explain": "Ý ông: thứ tự quan trọng, phải bảo vệ người thuê trước, nếu không là \"already lost\"."
+        },
+        {
+          "type": "listen",
+          "say": "With respect, a share of new units doesn't help the family whose lease isn't renewed next spring.",
+          "choices": [
+            "With respect, a share of new units does help the family whose lease is renewed next spring.",
+            "With respect, a few new units won't help the family who leaves next spring.",
+            "With respect, a share of new units doesn't help the family whose lease isn't renewed next spring."
+          ],
+          "answer": 2,
+          "explain": "\"With respect\" mở đầu một lời phản bác lịch sự. \"Lease isn't renewed\" = hợp đồng thuê không được gia hạn."
+        }
+      ]
+    },
+    {
+      "id": "listenadv.translator-interview",
+      "title": "Phỏng vấn dịch giả văn học",
+      "summary": "Dịch giả nói về đại từ tiếng Việt và cái giá của sự \"vô hình\".",
+      "level": "C1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "In conversation with a literary translator",
+          "lines": [
+            {
+              "en": "You've translated more than twenty novels from Vietnamese into English. Is there a sentence that still keeps you up at night?",
+              "vi": "Chị đã dịch hơn hai mươi cuốn tiểu thuyết từ tiếng Việt sang tiếng Anh. Có câu nào đến giờ vẫn khiến chị mất ngủ không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Dozens. But the ones that haunt me aren't usually the difficult sentences. They're the simple ones that carry a whole social world with them.",
+              "vi": "Hàng chục câu. Nhưng những câu ám ảnh tôi thường không phải câu khó. Đó là những câu đơn giản mà mang theo cả một thế giới xã hội.",
+              "speaker": "B"
+            },
+            {
+              "en": "Can you give an example?",
+              "vi": "Chị cho một ví dụ được không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Pronouns are the obvious one. In Vietnamese, the words a character uses for \"I\" and \"you\" tell you their age, their relationship, sometimes their mood. When a daughter suddenly changes the way she addresses her mother, a Vietnamese reader feels the temperature of the room drop. In English, I have \"I\" and \"you\", and that's it.",
+              "vi": "Đại từ là ví dụ rõ nhất. Trong tiếng Việt, cách một nhân vật xưng hô cho biết tuổi tác, mối quan hệ, đôi khi cả tâm trạng. Khi cô con gái đột nhiên đổi cách xưng hô với mẹ, độc giả Việt cảm thấy không khí trong phòng lạnh hẳn đi. Trong tiếng Anh, tôi chỉ có \"I\" và \"you\", thế thôi.",
+              "speaker": "B"
+            },
+            {
+              "en": "So how do you get that across?",
+              "vi": "Vậy chị truyền tải điều đó thế nào?",
+              "speaker": "A"
+            },
+            {
+              "en": "Mostly by borrowing from elsewhere. I might make her sentences shorter and more formal, or have her stop using her mother's nickname. It's a kind of compensation. You lose something in one place and try to repay the debt somewhere else in the paragraph.",
+              "vi": "Chủ yếu bằng cách vay mượn chỗ khác. Tôi có thể cho câu nói của cô ngắn và trang trọng hơn, hoặc để cô thôi gọi mẹ bằng tên thân mật. Đó là một kiểu bù trừ. Mất thứ gì ở chỗ này thì cố trả món nợ ấy ở chỗ khác trong đoạn văn.",
+              "speaker": "B"
+            },
+            {
+              "en": "Some critics say translators should be invisible, that readers shouldn't feel they're reading a translation at all.",
+              "vi": "Một số nhà phê bình cho rằng dịch giả nên vô hình, rằng độc giả không nên cảm thấy mình đang đọc bản dịch.",
+              "speaker": "A"
+            },
+            {
+              "en": "I understand the appeal, but I've grown suspicious of it. Total invisibility often means sanding off everything that's unfamiliar, until the book reads as if it were written in Ohio. I'd rather readers occasionally feel a little foreign. That friction is part of the point.",
+              "vi": "Tôi hiểu sức hấp dẫn của ý đó, nhưng tôi ngày càng nghi ngờ nó. Vô hình hoàn toàn thường có nghĩa là mài nhẵn mọi thứ xa lạ, đến khi cuốn sách đọc lên như được viết ở Ohio. Tôi thà để độc giả đôi lúc thấy hơi lạ lẫm. Sự cọ xát đó là một phần ý nghĩa.",
+              "speaker": "B"
+            },
+            {
+              "en": "Doesn't that risk putting readers off?",
+              "vi": "Như vậy không có nguy cơ làm độc giả nản sao?",
+              "speaker": "A"
+            },
+            {
+              "en": "It can, if it's overdone. It's a balance. I leave in what's strange and meaningful, and I smooth out what's merely awkward. Telling the two apart is, I suppose, the whole job.",
+              "vi": "Có thể, nếu làm quá tay. Đó là sự cân bằng. Tôi giữ lại những gì lạ mà có ý nghĩa, và làm mượt những gì chỉ đơn thuần là vụng về. Phân biệt được hai thứ đó, tôi nghĩ, chính là toàn bộ công việc.",
+              "speaker": "B"
+            },
+            {
+              "en": "And after all these years, do you feel you've mastered it?",
+              "vi": "Sau ngần ấy năm, chị có thấy mình đã thành thạo chưa?",
+              "speaker": "A"
+            },
+            {
+              "en": "Not remotely. If anything, I'm slower now than when I started, because I can see more of what I'm getting wrong.",
+              "vi": "Còn xa lắm. Nếu có thì giờ tôi còn chậm hơn lúc mới bắt đầu, vì tôi thấy được nhiều hơn những chỗ mình đang làm sai.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Which sentences trouble the translator most?",
+          "choices": [
+            "Simple sentences that carry a whole social world",
+            "Very long and complex sentences",
+            "Sentences full of technical vocabulary",
+            "Lines of poetry"
+          ],
+          "answer": 0,
+          "explain": "\"The ones that haunt me aren't usually the difficult sentences. They're the simple ones that carry a whole social world.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does a change in how a daughter addresses her mother signal to a Vietnamese reader?",
+          "choices": [
+            "The scene is set in the past",
+            "The relationship has suddenly become colder",
+            "The daughter is much younger than her mother",
+            "The mother has become ill"
+          ],
+          "answer": 1,
+          "explain": "\"Feels the temperature of the room drop\" = cảm thấy không khí lạnh đi, tức quan hệ trở nên căng thẳng, xa cách."
+        },
+        {
+          "type": "tf",
+          "statement": "She uses techniques such as shorter sentences to make up for lost meaning.",
+          "answer": "true",
+          "explain": "Chị cho câu ngắn, trang trọng hơn hoặc bỏ tên thân mật: \"a kind of compensation\" (bù trừ)."
+        },
+        {
+          "type": "tf",
+          "statement": "She believes translators should be completely invisible.",
+          "answer": "false",
+          "explain": "Chị nói \"I've grown suspicious of it\" và muốn độc giả đôi khi thấy \"a little foreign\"."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does she mean when she says a book might read \"as if it were written in Ohio\"?",
+          "choices": [
+            "It was translated in the United States",
+            "It is set in the American countryside",
+            "Everything unfamiliar has been removed, so it sounds American",
+            "It becomes easier to sell"
+          ],
+          "answer": 2,
+          "explain": "Ý chị: dịch \"vô hình\" quá mức sẽ \"sanding off everything that's unfamiliar\", cuốn sách mất hết chất Việt, nghe như sách Mỹ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why is she slower now than when she started?",
+          "choices": [
+            "She has less free time",
+            "The novels are longer",
+            "Her publisher is stricter",
+            "She notices more of her own mistakes"
+          ],
+          "answer": 3,
+          "explain": "\"I can see more of what I'm getting wrong.\""
+        },
+        {
+          "type": "gap",
+          "prompt": "I leave in what's strange and meaningful, and I smooth out what's merely ___.",
+          "answers": [
+            "awkward"
+          ],
+          "choices": [
+            "awkward",
+            "foreign",
+            "beautiful"
+          ],
+          "explain": "Giữ cái lạ có ý nghĩa, làm mượt cái chỉ \"merely awkward\" (đơn thuần vụng về)."
+        },
+        {
+          "type": "listen",
+          "say": "You lose something in one place and try to repay the debt somewhere else in the paragraph.",
+          "choices": [
+            "You lose something in one place and try to pay it back somewhere else in the chapter.",
+            "You use something in one place and try to repeat it somewhere else in the paragraph.",
+            "You lose something in one place and try to repay the debt somewhere else in the paragraph."
+          ],
+          "answer": 2,
+          "explain": "\"Repay the debt\" = trả món nợ — hình ảnh ẩn dụ cho việc bù lại phần nghĩa bị mất."
+        }
+      ]
+    },
+    {
+      "id": "listenadv.language-loss",
+      "title": "Bài giảng: ngôn ngữ biến mất",
+      "summary": "Ngôn ngữ chết đi như thế nào và vì sao điều đó quan trọng.",
+      "level": "C1",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Lecture: how languages fall silent",
+          "lines": [
+            {
+              "en": "Of the roughly seven thousand languages spoken today, linguists estimate that somewhere between a third and a half could fall silent by the end of this century.",
+              "vi": "Trong khoảng bảy nghìn ngôn ngữ đang được nói ngày nay, các nhà ngôn ngữ học ước tính từ một phần ba đến một nửa có thể lặng tiếng trước cuối thế kỷ này."
+            },
+            {
+              "en": "The numbers themselves are contested, partly because the line between a language and a dialect is as much political as linguistic. But the overall trend is not in serious dispute.",
+              "vi": "Bản thân các con số còn gây tranh cãi, một phần vì ranh giới giữa ngôn ngữ và phương ngữ mang tính chính trị không kém tính ngôn ngữ. Nhưng xu hướng chung thì không bị nghi ngờ nghiêm túc."
+            },
+            {
+              "en": "What's often misunderstood is how languages actually die. It's rarely a matter of a community being wiped out. Far more often, it happens quietly, over three generations.",
+              "vi": "Điều thường bị hiểu sai là ngôn ngữ thực sự chết đi thế nào. Hiếm khi là do cả một cộng đồng bị xoá sổ. Thường gặp hơn nhiều là nó diễn ra lặng lẽ, qua ba thế hệ."
+            },
+            {
+              "en": "The grandparents speak only the local language. Their children grow up bilingual but come to associate the dominant language with jobs, schooling and status. And the grandchildren understand their grandparents' language but no longer speak it.",
+              "vi": "Ông bà chỉ nói tiếng địa phương. Con cái lớn lên song ngữ nhưng dần gắn ngôn ngữ chiếm ưu thế với việc làm, học hành và địa vị. Còn các cháu hiểu tiếng của ông bà nhưng không còn nói nữa."
+            },
+            {
+              "en": "At that point, the language may still be heard every day, at the dinner table, but it has stopped being passed on, which is the measure that really counts.",
+              "vi": "Đến lúc đó, ngôn ngữ ấy có thể vẫn được nghe hằng ngày bên mâm cơm, nhưng nó đã ngừng được truyền lại, và đó mới là thước đo thực sự quan trọng."
+            },
+            {
+              "en": "Why does this matter beyond the communities themselves? One argument is scientific. Each language encodes a particular way of carving up experience: how to describe space, how to count, how to mark whether you witnessed something yourself or only heard about it.",
+              "vi": "Vì sao điều này quan trọng ngoài phạm vi các cộng đồng đó? Một lý lẽ mang tính khoa học. Mỗi ngôn ngữ mã hoá một cách riêng để chia cắt trải nghiệm: cách mô tả không gian, cách đếm, cách đánh dấu bạn tận mắt chứng kiến hay chỉ nghe kể lại."
+            },
+            {
+              "en": "Lose the language, and you lose the evidence for what human languages can do, which is precisely what linguists are trying to understand.",
+              "vi": "Mất ngôn ngữ là mất bằng chứng về những gì ngôn ngữ loài người có thể làm, mà đó chính là điều các nhà ngôn ngữ học đang cố tìm hiểu."
+            },
+            {
+              "en": "A second argument concerns knowledge. Speakers of small languages often hold detailed knowledge of local plants, animals and ecosystems that has never been written down in any other form.",
+              "vi": "Lý lẽ thứ hai liên quan đến tri thức. Người nói các ngôn ngữ nhỏ thường nắm hiểu biết chi tiết về cây cỏ, động vật và hệ sinh thái địa phương mà chưa từng được ghi lại dưới bất kỳ hình thức nào khác."
+            },
+            {
+              "en": "But I'd caution against making the case only in these terms, as if a language were valuable chiefly as a database for outsiders. For its speakers, a language is bound up with identity, humor, memory and belonging.",
+              "vi": "Nhưng tôi khuyên đừng chỉ lập luận theo kiểu đó, như thể giá trị chính của ngôn ngữ là làm cơ sở dữ liệu cho người ngoài. Với người nói, ngôn ngữ gắn chặt với bản sắc, sự hài hước, ký ức và cảm giác thuộc về."
+            },
+            {
+              "en": "The encouraging news is that decline is not always irreversible. Several communities have brought languages back from the brink, usually through immersion schools where young children are taught entirely in the heritage language.",
+              "vi": "Tin đáng mừng là sự suy tàn không phải lúc nào cũng không thể đảo ngược. Một số cộng đồng đã kéo ngôn ngữ của mình trở lại từ bờ vực, thường là qua các trường học hoà nhập, nơi trẻ nhỏ được dạy hoàn toàn bằng ngôn ngữ của cha ông."
+            },
+            {
+              "en": "The common thread in these successes is not funding, though it helps. It's that the drive came from within the community, rather than being imposed by well-meaning outsiders.",
+              "vi": "Điểm chung của những thành công này không phải là kinh phí, dù kinh phí có giúp ích. Mà là động lực đến từ chính cộng đồng, thay vì bị áp đặt bởi những người ngoài có thiện ý."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What proportion of languages could disappear by the end of the century?",
+          "choices": [
+            "Less than a tenth",
+            "Between a third and a half",
+            "About three quarters",
+            "Almost all of them"
+          ],
+          "answer": 1,
+          "explain": "\"Somewhere between a third and a half could fall silent by the end of this century.\""
+        },
+        {
+          "type": "tf",
+          "statement": "The lecturer says the exact numbers are disputed.",
+          "answer": "true",
+          "explain": "\"The numbers themselves are contested\" — vì ranh giới ngôn ngữ và phương ngữ mang tính chính trị."
+        },
+        {
+          "type": "mcq",
+          "prompt": "According to the lecturer, how do languages usually die?",
+          "choices": [
+            "Through war or natural disaster",
+            "Through official bans",
+            "Gradually, as they stop being passed on to children",
+            "Because they have no writing system"
+          ],
+          "answer": 2,
+          "explain": "\"Rarely a matter of a community being wiped out. Far more often, it happens quietly, over three generations.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "In the three-generation pattern, what is true of the grandchildren?",
+          "choices": [
+            "They speak both languages fluently",
+            "They understand the local language but do not speak it",
+            "They speak only the local language",
+            "They have never heard the local language"
+          ],
+          "answer": 1,
+          "explain": "\"The grandchildren understand their grandparents' language but no longer speak it.\""
+        },
+        {
+          "type": "tf",
+          "statement": "The lecturer thinks a small language is valuable mainly as a source of data for scientists.",
+          "answer": "false",
+          "explain": "Giảng viên cảnh báo \"as if a language were valuable chiefly as a database for outsiders\"; với người nói, nó gắn với bản sắc, ký ức, cảm giác thuộc về."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What do successful revival efforts have in common?",
+          "choices": [
+            "Motivation from within the community",
+            "Large amounts of funding",
+            "Leadership by foreign experts",
+            "Laws making the language compulsory"
+          ],
+          "answer": 0,
+          "explain": "\"The common thread... is not funding... It's that the drive came from within the community.\""
+        },
+        {
+          "type": "gap",
+          "prompt": "Several communities have brought languages back from the ___.",
+          "answers": [
+            "brink"
+          ],
+          "choices": [
+            "brink",
+            "border",
+            "bottom"
+          ],
+          "explain": "\"Bring back from the brink\" = kéo trở lại từ bờ vực."
+        },
+        {
+          "type": "listen",
+          "say": "It has stopped being passed on, which is the measure that really counts.",
+          "choices": [
+            "It has started being passed on, which is the measure that really counts.",
+            "It has stopped being passed on, which is the measure that really counts.",
+            "It has stopped being spoken at all, which is what really counts."
+          ],
+          "answer": 1,
+          "explain": "\"Pass on\" = truyền lại (cho thế hệ sau). \"The measure that really counts\" = thước đo thực sự quan trọng."
+        }
+      ]
+    },
+    {
+      "id": "listenadv.farewell-speech",
+      "title": "Bài phát biểu chia tay",
+      "summary": "Lời chia tay nghỉ hưu đầy hàm ý và châm biếm nhẹ nhàng.",
+      "level": "C2",
+      "minutes": 9,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "A retirement speech",
+          "lines": [
+            {
+              "en": "Thank you, thank you. Please, sit down, or at least those of you who are still awake.",
+              "vi": "Cảm ơn, cảm ơn mọi người. Xin mời ngồi, hoặc ít nhất là những ai còn đang thức."
+            },
+            {
+              "en": "When Helen asked me to say a few words, she was very specific about the word \"few\". She's known me for thirty-one years, so you'll appreciate that this was less a request than a prayer.",
+              "vi": "Khi Helen nhờ tôi nói vài lời, cô ấy nhấn rất rõ chữ \"vài\". Cô ấy biết tôi ba mươi mốt năm rồi, nên các bạn sẽ hiểu đó không hẳn là lời đề nghị mà là một lời cầu nguyện."
+            },
+            {
+              "en": "I joined this firm in the days when the most advanced piece of technology in the building was the coffee machine, and even that required a degree in engineering and a certain amount of faith.",
+              "vi": "Tôi vào công ty này hồi thứ công nghệ tiên tiến nhất trong toà nhà là cái máy pha cà phê, mà ngay cả nó cũng đòi hỏi bằng kỹ sư và một chút đức tin."
+            },
+            {
+              "en": "I was told on my first day that the job would be \"mostly routine\". I have since learned that this is what people say when they don't want to frighten you.",
+              "vi": "Ngày đầu tiên, người ta bảo tôi công việc \"phần lớn là thường lệ\". Từ đó tôi học được rằng đó là câu người ta nói khi không muốn làm bạn sợ."
+            },
+            {
+              "en": "Over the years, I have survived four reorganizations, three new logos and one particularly memorable team-building weekend, the details of which I am legally not permitted to discuss.",
+              "vi": "Qua bao năm, tôi đã sống sót qua bốn lần tái cơ cấu, ba lần đổi logo và một kỳ nghỉ cuối tuần gắn kết đội ngũ đặc biệt đáng nhớ, mà chi tiết thì về mặt pháp lý tôi không được phép kể."
+            },
+            {
+              "en": "I've also had the privilege of watching some of you arrive as nervous graduates who couldn't operate the photocopier, and leave as senior managers who, I'm reliably informed, still can't.",
+              "vi": "Tôi cũng có vinh dự chứng kiến vài người trong số các bạn đến đây là những cử nhân mới ra trường lóng ngóng không biết dùng máy photocopy, và rời đi khi đã là quản lý cấp cao mà, theo nguồn tin đáng tin cậy, vẫn chưa biết dùng."
+            },
+            {
+              "en": "Now, it's customary on these occasions to say that one will miss the meetings. I want to be honest with you tonight, because I've reached an age where honesty is cheaper than therapy. I will not miss the meetings.",
+              "vi": "Theo lệ, vào dịp này người ta hay nói mình sẽ nhớ các cuộc họp. Tối nay tôi muốn thành thật với các bạn, vì tôi đã đến tuổi mà thành thật rẻ hơn đi trị liệu tâm lý. Tôi sẽ không nhớ các cuộc họp."
+            },
+            {
+              "en": "I will, however, miss the people in them. I'll miss the way Raj could make a budget review sound like a thriller, and the way Mei, without ever raising her voice, could end a pointless argument with a single raised eyebrow.",
+              "vi": "Tuy vậy, tôi sẽ nhớ những con người trong đó. Tôi sẽ nhớ cách Raj biến buổi rà soát ngân sách thành một phim ly kỳ, và cách Mei, chẳng bao giờ phải lớn tiếng, có thể kết thúc một cuộc cãi vã vô bổ chỉ bằng một cái nhướng mày."
+            },
+            {
+              "en": "If I've learned anything worth passing on, it's this. Most of the problems I lost sleep over turned out not to matter, and most of the things that did matter, I barely noticed at the time. A kind word to a new colleague. Staying late to help someone who'd made a mistake. Those are the things people have mentioned tonight, not the quarterly figures.",
+              "vi": "Nếu tôi học được điều gì đáng truyền lại, thì là thế này. Phần lớn những vấn đề khiến tôi mất ngủ hoá ra chẳng quan trọng, còn phần lớn những điều thực sự quan trọng thì lúc đó tôi hầu như không để ý. Một lời tử tế với đồng nghiệp mới. Ở lại muộn giúp người vừa mắc lỗi. Đó là những điều mọi người nhắc đến tối nay, chứ không phải số liệu quý."
+            },
+            {
+              "en": "So, my advice, for what it's worth, which, judging by my pension, is not a great deal: be generous with your time, be suspicious of anything described as a quick fix, and never, under any circumstances, volunteer to organize the team-building weekend.",
+              "vi": "Vậy lời khuyên của tôi, đáng giá bao nhiêu thì tuỳ, mà nhìn lương hưu của tôi thì chẳng được bao nhiêu: hãy rộng rãi với thời gian của mình, hãy nghi ngờ bất cứ thứ gì được gọi là giải pháp nhanh, và đừng bao giờ, trong bất kỳ hoàn cảnh nào, xung phong tổ chức kỳ nghỉ gắn kết đội ngũ."
+            },
+            {
+              "en": "Thank you all. It's been an honor, most of the time.",
+              "vi": "Cảm ơn tất cả mọi người. Đó là một vinh dự, phần lớn thời gian."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What does the speaker imply about Helen asking him to say \"a few words\"?",
+          "choices": [
+            "She wanted a long, detailed speech",
+            "She doubted he would keep it short",
+            "She wanted him to describe his whole career",
+            "She forgot to ask him in time"
+          ],
+          "answer": 1,
+          "explain": "\"Less a request than a prayer\" — Helen biết ông hay nói dài nên chỉ còn biết \"cầu nguyện\" ông nói ngắn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "According to the speaker, what does \"mostly routine\" really mean?",
+          "choices": [
+            "The job is boring",
+            "The job has a fixed schedule",
+            "Nothing can be changed",
+            "It is said to avoid frightening new staff"
+          ],
+          "answer": 3,
+          "explain": "\"This is what people say when they don't want to frighten you\" — ngụ ý công việc chẳng hề \"thường lệ\"."
+        },
+        {
+          "type": "tf",
+          "statement": "The speaker suggests that some senior managers still cannot use the photocopier.",
+          "answer": "true",
+          "explain": "\"Senior managers who, I'm reliably informed, still can't\" — châm biếm nhẹ."
+        },
+        {
+          "type": "tf",
+          "statement": "The speaker says he will miss the meetings.",
+          "answer": "false",
+          "explain": "Ông nói thẳng: \"I will not miss the meetings\" — ông chỉ nhớ con người trong đó."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the speaker imply about Mei?",
+          "choices": [
+            "She could stop pointless arguments very quietly",
+            "She often shouted in meetings",
+            "She rarely came to meetings",
+            "She disagreed with Raj about the budget"
+          ],
+          "answer": 0,
+          "explain": "Mei \"without ever raising her voice, could end a pointless argument with a single raised eyebrow\"."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does his remark about his pension suggest?",
+          "choices": [
+            "His advice is priceless",
+            "He plans to keep working",
+            "His pension is not very large",
+            "He gave his pension away"
+          ],
+          "answer": 2,
+          "explain": "\"For what it's worth, which, judging by my pension, is not a great deal\" — tự giễu: lời khuyên không đáng mấy, vì lương hưu cũng chẳng nhiều."
+        },
+        {
+          "type": "gap",
+          "prompt": "Be suspicious of anything described as a quick ___.",
+          "answers": [
+            "fix"
+          ],
+          "choices": [
+            "fix",
+            "win",
+            "change"
+          ],
+          "explain": "\"Quick fix\" = giải pháp chữa cháy, nhanh mà không bền."
+        },
+        {
+          "type": "listen",
+          "say": "I've reached an age where honesty is cheaper than therapy.",
+          "choices": [
+            "I've reached a stage where honesty is deeper than therapy.",
+            "I've reached an age where honesty is cheaper than therapy.",
+            "I've reached an age where money is cheaper than therapy."
+          ],
+          "answer": 1,
+          "explain": "Câu đùa: ở tuổi này nói thật còn rẻ hơn đi trị liệu tâm lý."
+        }
+      ]
+    },
+    {
+      "id": "listenadv.ai-authorship",
+      "title": "Tranh luận: AI và quyền tác giả",
+      "summary": "Nhà văn và học giả tranh luận: máy viết văn có phải là \"tác giả\"?",
+      "level": "C2",
+      "minutes": 9,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Debate: can a machine be an author?",
+          "lines": [
+            {
+              "en": "I want to push back on the framing before we go any further. The question isn't whether a machine can produce a competent novel. It plainly can, or soon will. The question is whether anything worth calling authorship has taken place.",
+              "vi": "Tôi muốn phản bác cách đặt vấn đề trước khi đi xa hơn. Câu hỏi không phải là máy có viết được một cuốn tiểu thuyết tạm ổn hay không. Rõ ràng là được, hoặc sắp được. Câu hỏi là liệu có điều gì đáng gọi là sáng tác đã diễn ra hay không.",
+              "speaker": "A"
+            },
+            {
+              "en": "And I'd say that's a distinction readers have never much cared about. Nobody reads a thriller at an airport wondering about the author's inner life.",
+              "vi": "Còn tôi thì cho rằng đó là sự phân biệt mà độc giả chưa bao giờ bận tâm mấy. Chẳng ai đọc truyện ly kỳ ở sân bay mà thắc mắc về đời sống nội tâm của tác giả.",
+              "speaker": "B"
+            },
+            {
+              "en": "Perhaps not at the airport. But the moment you learn that a memoir about grief was generated by a system that has never lost anyone, something curdles. The words haven't changed, yet the book has.",
+              "vi": "Có lẽ không phải ở sân bay. Nhưng ngay khi bạn biết một cuốn hồi ký về nỗi đau mất mát được tạo ra bởi một hệ thống chưa từng mất ai, có gì đó trở nên chua chát. Câu chữ không đổi, nhưng cuốn sách thì đã khác.",
+              "speaker": "A"
+            },
+            {
+              "en": "That's an argument about disclosure, though, not about authorship. If a ghostwriter produced that memoir, readers might feel equally cheated, and we've tolerated ghostwriters for centuries.",
+              "vi": "Nhưng đó là lập luận về việc công khai, chứ không phải về quyền tác giả. Nếu một người viết thuê làm ra cuốn hồi ký đó, độc giả có thể cũng thấy bị lừa y như vậy, mà ta đã chấp nhận người viết thuê hàng thế kỷ nay.",
+              "speaker": "B"
+            },
+            {
+              "en": "A ghostwriter has at least sat across the table from the person and listened. There's a chain of human experience, however thin.",
+              "vi": "Người viết thuê ít ra cũng đã ngồi đối diện với nhân vật và lắng nghe. Vẫn có một sợi dây trải nghiệm con người, dù mỏng manh.",
+              "speaker": "A"
+            },
+            {
+              "en": "Fine, but I'd question how strong that chain really is. Much of what we call originality is recombination. Writers absorb thousands of books and rearrange what they've absorbed. The difference with these systems is one of scale, not of kind.",
+              "vi": "Được thôi, nhưng tôi nghi ngờ sợi dây đó chắc đến đâu. Phần lớn cái ta gọi là độc đáo thực ra là tổ hợp lại. Nhà văn hấp thụ hàng nghìn cuốn sách rồi sắp xếp lại những gì đã hấp thụ. Khác biệt với các hệ thống này là ở quy mô, không phải ở bản chất.",
+              "speaker": "B"
+            },
+            {
+              "en": "I'd resist that rather strongly. When I rearrange what I've read, I'm doing it in service of something I'm trying to say. The system isn't trying to say anything. It's predicting what a sentence like this one usually looks like.",
+              "vi": "Tôi phản đối điều đó khá mạnh. Khi tôi sắp xếp lại những gì đã đọc, tôi làm vậy để phục vụ điều tôi đang muốn nói. Hệ thống thì chẳng cố nói điều gì. Nó chỉ đoán xem một câu như thế này thường trông ra sao.",
+              "speaker": "A"
+            },
+            {
+              "en": "You say that with great confidence, but you can't actually observe intention in anyone, human or otherwise. You infer it from the text. And if the text supports the inference, I'm not sure on what grounds you'd deny it.",
+              "vi": "Anh nói điều đó rất tự tin, nhưng thật ra anh không thể quan sát được ý định ở bất kỳ ai, người hay không phải người. Anh suy ra nó từ văn bản. Và nếu văn bản ủng hộ suy luận đó, tôi không chắc anh dựa vào đâu để phủ nhận.",
+              "speaker": "B"
+            },
+            {
+              "en": "On the grounds that I know how the thing was built. That's not nothing.",
+              "vi": "Dựa vào việc tôi biết thứ đó được tạo ra thế nào. Đó không phải là chuyện nhỏ.",
+              "speaker": "A"
+            },
+            {
+              "en": "No, it's not nothing. But knowing how something was built hasn't always told us what it can do. I'd simply urge some humility before we declare the question settled.",
+              "vi": "Không, đó không phải chuyện nhỏ. Nhưng biết một thứ được tạo ra thế nào chưa bao giờ hẳn cho ta biết nó làm được gì. Tôi chỉ kêu gọi chút khiêm tốn trước khi ta tuyên bố câu hỏi đã ngã ngũ.",
+              "speaker": "B"
+            },
+            {
+              "en": "Humility I can manage. What I won't concede is that it makes no difference whether there's anyone home.",
+              "vi": "Khiêm tốn thì tôi làm được. Điều tôi sẽ không chịu nhượng bộ là chuyện có ai \"ở bên trong\" hay không chẳng tạo ra khác biệt gì.",
+              "speaker": "A"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "According to the novelist (speaker A), what is the real question?",
+          "choices": [
+            "Whether machines can write competent novels",
+            "Whether anything worth calling authorship has taken place",
+            "Whether readers will buy machine-written books",
+            "Whether ghostwriters should be paid more"
+          ],
+          "answer": 1,
+          "explain": "A nói máy rõ ràng viết được; câu hỏi thật là \"whether anything worth calling authorship has taken place\"."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What point does speaker B make about ghostwriters?",
+          "choices": [
+            "They should be banned",
+            "They are better writers than machines",
+            "They always disclose their role",
+            "Readers have tolerated them for centuries"
+          ],
+          "answer": 3,
+          "explain": "\"We've tolerated ghostwriters for centuries\" — để cho thấy vấn đề là công khai, không phải quyền tác giả."
+        },
+        {
+          "type": "mcq",
+          "prompt": "When A says \"something curdles\", what does he mean?",
+          "choices": [
+            "The reader's feelings about the book turn sour",
+            "The book becomes more popular",
+            "The words in the book are changed",
+            "The reader loses interest in grief"
+          ],
+          "answer": 0,
+          "explain": "\"Curdle\" (sữa vón, chua) dùng ẩn dụ: cảm xúc với cuốn sách trở nên chua chát, khó chịu, dù câu chữ không đổi."
+        },
+        {
+          "type": "tf",
+          "statement": "Speaker B believes the difference between human writers and these systems is one of scale rather than kind.",
+          "answer": "true",
+          "explain": "\"The difference with these systems is one of scale, not of kind.\""
+        },
+        {
+          "type": "tf",
+          "statement": "Speaker A argues that the system is trying to express something.",
+          "answer": "false",
+          "explain": "A nói ngược lại: \"The system isn't trying to say anything. It's predicting...\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does speaker B urge at the end?",
+          "choices": [
+            "A ban on machine-written books",
+            "Higher pay for human writers",
+            "Humility before declaring the question settled",
+            "Labels on every book"
+          ],
+          "answer": 2,
+          "explain": "\"I'd simply urge some humility before we declare the question settled.\""
+        },
+        {
+          "type": "gap",
+          "prompt": "What I won't concede is that it makes no difference whether there's anyone ___.",
+          "answers": [
+            "home"
+          ],
+          "choices": [
+            "home",
+            "right",
+            "wrong"
+          ],
+          "explain": "\"Is anyone home?\" (có ai ở nhà không) dùng ẩn dụ: có một ý thức, một chủ thể thực sự bên trong hay không."
+        },
+        {
+          "type": "listen",
+          "say": "The difference with these systems is one of scale, not of kind.",
+          "choices": [
+            "The difference with these systems is one of skill, not of kind.",
+            "The difference with these systems is one of kind, not of scale.",
+            "The difference with these systems is one of scale, not of kind."
+          ],
+          "answer": 2,
+          "explain": "\"Of scale, not of kind\" = khác về quy mô, không khác về bản chất. Chú ý thứ tự hai từ."
+        }
+      ]
+    },
+    {
+      "id": "listenadv.replication-crisis",
+      "title": "Bài giảng: khủng hoảng tái lập",
+      "summary": "Vì sao nhiều phát hiện khoa học nổi tiếng không lặp lại được.",
+      "level": "C2",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Lecture: the replication crisis",
+          "lines": [
+            {
+              "en": "About a decade and a half ago, psychology found itself in an uncomfortable position. A number of its most celebrated findings, results that had been cited thousands of times and had made their way into textbooks and best-selling books, began to fail when other researchers tried to repeat them.",
+              "vi": "Khoảng mười lăm năm trước, ngành tâm lý học rơi vào một tình thế khó xử. Một số phát hiện nổi tiếng nhất của ngành, những kết quả đã được trích dẫn hàng nghìn lần và đã đi vào sách giáo khoa lẫn sách bán chạy, bắt đầu thất bại khi các nhà nghiên cứu khác thử lặp lại."
+            },
+            {
+              "en": "This became known as the replication crisis, and, I should stress, it was never confined to psychology. Similar problems have surfaced in medicine, economics and parts of biology. Psychology simply had the misfortune, or perhaps the integrity, to look first.",
+              "vi": "Điều này được gọi là khủng hoảng tái lập, và tôi phải nhấn mạnh, nó chưa bao giờ chỉ giới hạn trong tâm lý học. Những vấn đề tương tự đã lộ ra trong y học, kinh tế học và một phần sinh học. Tâm lý học chỉ đơn giản là không may, hoặc có lẽ là đủ chính trực, để nhìn vào trước."
+            },
+            {
+              "en": "It's tempting to explain all this as fraud. There have been cases of outright fabrication, and they make for gripping stories, but they account for only a small fraction of the problem.",
+              "vi": "Rất dễ muốn giải thích tất cả bằng gian lận. Đã có những vụ bịa đặt trắng trợn, và chúng thành những câu chuyện hấp dẫn, nhưng chỉ chiếm một phần nhỏ của vấn đề."
+            },
+            {
+              "en": "The more troubling explanation is that perfectly honest researchers, following the accepted practices of their field, were producing unreliable results almost as a matter of routine.",
+              "vi": "Lời giải thích đáng lo hơn là những nhà nghiên cứu hoàn toàn trung thực, làm theo các thông lệ được chấp nhận trong ngành, lại tạo ra kết quả không đáng tin gần như một cách thường lệ."
+            },
+            {
+              "en": "How? Consider a researcher who collects data, runs the analysis and finds nothing. Rather than reporting a null result, which journals were notoriously reluctant to publish, she tries excluding a few unusual participants, or adds a few more, or looks at a different outcome measure.",
+              "vi": "Bằng cách nào? Hãy hình dung một nhà nghiên cứu thu thập dữ liệu, chạy phân tích và chẳng thấy gì. Thay vì báo cáo kết quả âm tính, thứ mà các tạp chí nổi tiếng là ngại đăng, cô ấy thử loại bỏ vài người tham gia bất thường, hoặc thêm vài người nữa, hoặc xem xét một thước đo kết quả khác."
+            },
+            {
+              "en": "None of these choices is unreasonable in isolation. But each one is another roll of the dice, and if you roll often enough, you will eventually get a result that looks statistically impressive purely by chance.",
+              "vi": "Xét riêng lẻ, không lựa chọn nào trong số đó là vô lý. Nhưng mỗi lựa chọn lại là một lần tung xúc xắc nữa, và nếu tung đủ nhiều, cuối cùng bạn sẽ có một kết quả trông ấn tượng về mặt thống kê hoàn toàn do ngẫu nhiên."
+            },
+            {
+              "en": "This practice, sometimes called p-hacking, is insidious precisely because it rarely feels like cheating to the person doing it. It feels like exploring the data.",
+              "vi": "Thói quen này, đôi khi gọi là \"p-hacking\", nguy hiểm một cách âm thầm chính vì người làm hiếm khi thấy đó là gian lận. Họ cảm thấy như đang khám phá dữ liệu."
+            },
+            {
+              "en": "Add to that small samples, which make chance findings more likely, and a publishing system that rewards novelty over confirmation, and you have, in effect, a machine for producing false positives.",
+              "vi": "Cộng thêm mẫu nhỏ, vốn khiến phát hiện ngẫu nhiên dễ xảy ra hơn, và một hệ thống xuất bản đề cao cái mới hơn là sự xác nhận, thì trên thực tế bạn có một cỗ máy sản xuất dương tính giả."
+            },
+            {
+              "en": "The response has been, on the whole, encouraging. Many journals now accept pre-registration, in which researchers publicly commit to their hypotheses and methods before collecting any data. Some will even agree to publish a study regardless of its outcome.",
+              "vi": "Nhìn chung, phản ứng của giới khoa học khá đáng mừng. Nhiều tạp chí nay chấp nhận đăng ký trước, theo đó nhà nghiên cứu công khai cam kết giả thuyết và phương pháp trước khi thu thập bất kỳ dữ liệu nào. Một số tạp chí còn đồng ý đăng nghiên cứu bất kể kết quả ra sao."
+            },
+            {
+              "en": "Large collaborative projects, in which dozens of labs attempt the same experiment, have also become far more common.",
+              "vi": "Các dự án hợp tác lớn, trong đó hàng chục phòng thí nghiệm cùng thực hiện một thí nghiệm, cũng đã trở nên phổ biến hơn nhiều."
+            },
+            {
+              "en": "I don't want to leave you with the impression that the matter has been resolved. Incentives in academia still favor striking results, and old habits have a way of persisting.",
+              "vi": "Tôi không muốn để lại cho các bạn ấn tượng rằng vấn đề đã được giải quyết. Cơ chế khuyến khích trong giới học thuật vẫn ưu ái những kết quả gây chú ý, và thói quen cũ thường dai dẳng."
+            },
+            {
+              "en": "But I'd argue that a field which openly examines its own failures is in considerably better health than one that never thinks to look. Science, after all, was never supposed to be a collection of certainties. It was supposed to be a method for catching our own mistakes.",
+              "vi": "Nhưng tôi cho rằng một ngành dám công khai xem xét thất bại của chính mình thì khoẻ mạnh hơn nhiều so với ngành chẳng bao giờ nghĩ tới việc nhìn lại. Suy cho cùng, khoa học chưa bao giờ được định là một tập hợp những điều chắc chắn. Nó được định là một phương pháp để bắt lỗi của chính chúng ta."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What was the replication crisis?",
+          "choices": [
+            "Famous findings failed when other researchers repeated the studies",
+            "Researchers refused to share their data",
+            "Journals stopped publishing psychology",
+            "Textbooks became too expensive for students"
+          ],
+          "answer": 0,
+          "explain": "Các phát hiện nổi tiếng \"began to fail when other researchers tried to repeat them\"."
+        },
+        {
+          "type": "tf",
+          "statement": "According to the lecturer, fraud explains most of the problem.",
+          "answer": "false",
+          "explain": "Các vụ bịa đặt \"account for only a small fraction of the problem\"."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the lecturer call p-hacking \"insidious\"?",
+          "choices": [
+            "It is illegal in most countries",
+            "It rarely feels like cheating to the person doing it",
+            "It requires expensive software",
+            "It is very easy to detect"
+          ],
+          "answer": 1,
+          "explain": "\"Insidious precisely because it rarely feels like cheating to the person doing it.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the lecturer suggest with \"the misfortune, or perhaps the integrity, to look first\"?",
+          "choices": [
+            "Psychology was the most dishonest field",
+            "Other fields refused to cooperate",
+            "Being the first to look was both unlucky and to its credit",
+            "Psychology studied the wrong problems"
+          ],
+          "answer": 2,
+          "explain": "Nhìn vào trước là \"không may\" (bị chú ý, mang tiếng) nhưng cũng là dấu hiệu \"chính trực\" — một cách nói hai mặt."
+        },
+        {
+          "type": "tf",
+          "statement": "The lecturer says small samples make chance findings more likely.",
+          "answer": "true",
+          "explain": "\"Small samples, which make chance findings more likely.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is pre-registration?",
+          "choices": [
+            "Signing up participants before a study begins",
+            "Paying a journal before submitting a paper",
+            "Repeating a study in many different labs",
+            "Publicly committing to hypotheses and methods before collecting data"
+          ],
+          "answer": 3,
+          "explain": "\"Researchers publicly commit to their hypotheses and methods before collecting any data.\""
+        },
+        {
+          "type": "gap",
+          "prompt": "Science was supposed to be a method for catching our own ___.",
+          "answers": [
+            "mistakes"
+          ],
+          "choices": [
+            "mistakes",
+            "results",
+            "students"
+          ],
+          "explain": "Câu kết: khoa học là \"a method for catching our own mistakes\" (bắt lỗi của chính mình)."
+        },
+        {
+          "type": "listen",
+          "say": "But each one is another roll of the dice, and if you roll often enough, you will eventually get a result that looks statistically impressive purely by chance.",
+          "choices": [
+            "But each one is another rule of the game, and if you play often enough, you will eventually get a result that looks impressive by design.",
+            "But each one is another roll of the dice, and if you roll often enough, you will eventually get a result that looks statistically impressive purely by chance.",
+            "But each one is another roll of the dice, and if you roll only once, you will rarely get a result that looks statistically impressive."
+          ],
+          "answer": 1,
+          "explain": "\"Another roll of the dice\" = thêm một lần tung xúc xắc, tức thêm một cơ hội ăn may."
+        }
+      ]
+    },
+    {
+      "id": "listenadv.diplomat-interview",
+      "title": "Phỏng vấn cựu đại sứ",
+      "summary": "Nghe ra hàm ý trong những câu trả lời né tránh khéo léo.",
+      "level": "C2",
+      "minutes": 9,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Interview with a former ambassador",
+          "lines": [
+            {
+              "en": "Ambassador, you spent four years negotiating the river agreement. Looking back, was it a success?",
+              "vi": "Thưa đại sứ, ông đã dành bốn năm đàm phán hiệp định về dòng sông. Nhìn lại, đó có phải là một thành công?",
+              "speaker": "A"
+            },
+            {
+              "en": "It was signed, which, given where we started, is not a small thing. Whether it's been a success is a question I'd rather leave to the people who live downstream.",
+              "vi": "Nó đã được ký, mà xét điểm xuất phát của chúng tôi thì đó không phải chuyện nhỏ. Còn có thành công hay không là câu hỏi tôi muốn để những người sống ở hạ nguồn trả lời.",
+              "speaker": "B"
+            },
+            {
+              "en": "That sounds like a no.",
+              "vi": "Nghe như là \"không\".",
+              "speaker": "A"
+            },
+            {
+              "en": "It sounds like a diplomat, which is a different thing entirely. The agreement did what agreements can do. It created a framework. What governments choose to build on a framework is another matter.",
+              "vi": "Nghe như một nhà ngoại giao, mà đó là chuyện hoàn toàn khác. Hiệp định đã làm được những gì một hiệp định có thể làm. Nó tạo ra một khuôn khổ. Còn các chính phủ chọn xây gì trên khuôn khổ đó lại là chuyện khác.",
+              "speaker": "B"
+            },
+            {
+              "en": "There were reports at the time that your own government nearly walked away in the final week. Is that true?",
+              "vi": "Hồi đó có tin rằng chính phủ của ông suýt bỏ bàn đàm phán vào tuần cuối. Có đúng không?",
+              "speaker": "A"
+            },
+            {
+              "en": "I've read those reports. Some of them were very well written.",
+              "vi": "Tôi đã đọc những bài đó. Có vài bài viết rất hay.",
+              "speaker": "B"
+            },
+            {
+              "en": "But were they accurate?",
+              "vi": "Nhưng chúng có chính xác không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Let's say that in any negotiation, there are moments when every side considers its alternatives, and that it would be strange, even negligent, if we hadn't. I don't think I'm giving away any secrets there.",
+              "vi": "Cứ cho là trong bất kỳ cuộc đàm phán nào cũng có những lúc mọi bên cân nhắc phương án khác, và sẽ thật lạ, thậm chí tắc trách, nếu chúng tôi không làm vậy. Tôi không nghĩ mình đang tiết lộ bí mật gì ở đây.",
+              "speaker": "B"
+            },
+            {
+              "en": "You're not giving away very much at all, if I may say so.",
+              "vi": "Xin phép nói thật, ông gần như chẳng tiết lộ gì cả.",
+              "speaker": "A"
+            },
+            {
+              "en": "You may. My former colleagues would be relieved to hear it.",
+              "vi": "Cô cứ nói. Các đồng nghiệp cũ của tôi nghe vậy chắc sẽ nhẹ cả người.",
+              "speaker": "B"
+            },
+            {
+              "en": "Let me try a different angle. What's the most important thing you learned about negotiating?",
+              "vi": "Để tôi thử hướng khác. Điều quan trọng nhất ông học được về đàm phán là gì?",
+              "speaker": "A"
+            },
+            {
+              "en": "That the official positions are almost never the real ones. Everyone arrives with a list of demands, but what they actually need is usually smaller and more specific, and very often it's something they can't say out loud, because it would look weak at home. Much of the job is working out what that unspoken thing is, and then finding a way to offer it without anyone having to admit they asked.",
+              "vi": "Rằng lập trường chính thức gần như không bao giờ là lập trường thật. Ai đến cũng mang theo một danh sách yêu cầu, nhưng thứ họ thực sự cần thường nhỏ hơn và cụ thể hơn, và rất hay là điều họ không thể nói ra, vì ở trong nước trông sẽ yếu thế. Phần lớn công việc là tìm ra điều không nói ra đó là gì, rồi tìm cách đưa nó ra mà không ai phải thừa nhận là mình đã đòi.",
+              "speaker": "B"
+            },
+            {
+              "en": "Did that happen in the river talks?",
+              "vi": "Điều đó có xảy ra trong đàm phán về dòng sông không?",
+              "speaker": "A"
+            },
+            {
+              "en": "It happened in every set of talks I've ever been part of. The river talks were no exception, and that's as specific as I'm prepared to be.",
+              "vi": "Nó xảy ra ở mọi cuộc đàm phán tôi từng tham gia. Đàm phán về dòng sông cũng không ngoại lệ, và tôi chỉ sẵn lòng nói cụ thể đến thế thôi.",
+              "speaker": "B"
+            },
+            {
+              "en": "Final question. Would you do it again?",
+              "vi": "Câu hỏi cuối. Ông có làm lại lần nữa không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Without hesitation. Although I'd ask for a slightly larger office, and considerably more coffee.",
+              "vi": "Không chút do dự. Dù tôi sẽ xin một văn phòng rộng hơn chút, và nhiều cà phê hơn đáng kể.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How does the ambassador answer whether the agreement was a success?",
+          "choices": [
+            "He says it was a complete success",
+            "He avoids judging and suggests others should decide",
+            "He admits it was a failure",
+            "He says it was never signed"
+          ],
+          "answer": 1,
+          "explain": "Ông chỉ nói nó đã được ký, còn thành công hay không thì \"leave to the people who live downstream\"."
+        },
+        {
+          "type": "tf",
+          "statement": "The interviewer interprets his first answer as negative.",
+          "answer": "true",
+          "explain": "Người phỏng vấn nói: \"That sounds like a no.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "When he says some reports were \"very well written\", what is he doing?",
+          "choices": [
+            "Confirming that they were accurate",
+            "Admitting that he wrote them",
+            "Praising the journalists for being correct",
+            "Avoiding saying whether they were accurate"
+          ],
+          "answer": 3,
+          "explain": "Khen văn hay là cách né câu hỏi về độ chính xác; người phỏng vấn phải hỏi lại \"But were they accurate?\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does \"My former colleagues would be relieved to hear it\" imply?",
+          "choices": [
+            "His colleagues are glad he is revealing so little",
+            "His colleagues miss working with him",
+            "His colleagues disagreed with the agreement",
+            "His colleagues want to be interviewed too"
+          ],
+          "answer": 0,
+          "explain": "Ý: đồng nghiệp cũ sẽ yên tâm vì ông không tiết lộ điều gì."
+        },
+        {
+          "type": "tf",
+          "statement": "The ambassador clearly confirms that his government almost walked away.",
+          "answer": "false",
+          "explain": "Ông chỉ nói chung chung rằng bên nào cũng cân nhắc phương án khác; ông không xác nhận rõ ràng."
+        },
+        {
+          "type": "mcq",
+          "prompt": "According to the ambassador, what do negotiators often really need?",
+          "choices": [
+            "Everything on their official list",
+            "More time to prepare",
+            "Something smaller that they cannot say publicly",
+            "Support from the media"
+          ],
+          "answer": 2,
+          "explain": "Thứ họ cần \"is usually smaller and more specific, and very often it's something they can't say out loud\"."
+        },
+        {
+          "type": "gap",
+          "prompt": "The agreement created a ___.",
+          "answers": [
+            "framework"
+          ],
+          "choices": [
+            "framework",
+            "problem",
+            "river"
+          ],
+          "explain": "\"It created a framework\" (khuôn khổ); việc xây gì trên đó là chuyện của các chính phủ."
+        },
+        {
+          "type": "listen",
+          "say": "It sounds like a diplomat, which is a different thing entirely.",
+          "choices": [
+            "It sounds like a diplomat, which is a different thing entirely.",
+            "It sounds like a diploma, which is a different thing entirely.",
+            "It sounds like a diplomat, which is the same thing entirely."
+          ],
+          "answer": 0,
+          "explain": "Câu đáp dí dỏm: câu trả lời nghe \"giống nhà ngoại giao\" (né tránh), chứ không có nghĩa là \"không\"."
+        }
+      ]
+    }
+  ]
+}

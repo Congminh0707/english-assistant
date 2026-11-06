@@ -1,0 +1,1213 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "b2skills",
+    "title": "Kỹ năng B2",
+    "summary": "Từ vựng học thuật, collocation, từ nối, diễn đạt lại, văn phong trang trọng và lập luận — nền tảng cho bài viết và bài nói B2.",
+    "icon": "🎓",
+    "order": 8
+  },
+  "lessons": [
+    {
+      "id": "b2skills.word-formation",
+      "title": "Họ từ & cấu tạo từ học thuật",
+      "summary": "Dùng tiền tố, hậu tố để đổi loại từ và nghĩa: decide → decision → decisive.",
+      "level": "B2_1",
+      "minutes": 14,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Ở trình độ B2, bạn cần biết **cả họ từ** chứ không chỉ một từ. Một gốc từ có thể thành danh từ, động từ, tính từ, trạng từ nhờ **hậu tố** (đuôi):\n\n- Danh từ thường có đuôi `-tion/-sion`, `-ment`, `-ity`, `-ness`, `-ance/-ence`: `decision`, `development`, `ability`, `awareness`.\n- Tính từ thường có đuôi `-ive`, `-al`, `-ous`, `-able/-ible`, `-ful`: `creative`, `economic`, `dangerous`, `reliable`.\n- Động từ thường có đuôi `-ize`, `-ify`, `-en`: `modernize`, `simplify`, `widen`.\n- Trạng từ thường có đuôi `-ly`: `significantly`.\n\n**Tiền tố** (đầu từ) đổi nghĩa nhưng thường giữ loại từ: `un-`, `in-` (không), `mis-` (sai), `re-` (lại), `over-` (quá mức), `under-` (chưa đủ), `dis-` (ngược lại, không)."
+        },
+        {
+          "type": "table",
+          "title": "Một số họ từ hay gặp",
+          "head": [
+            "Động từ",
+            "Danh từ",
+            "Tính từ",
+            "Trạng từ"
+          ],
+          "rows": [
+            [
+              "decide",
+              "decision",
+              "decisive",
+              "decisively"
+            ],
+            [
+              "succeed",
+              "success",
+              "successful",
+              "successfully"
+            ],
+            [
+              "analyze",
+              "analysis",
+              "analytical",
+              "analytically"
+            ],
+            [
+              "create",
+              "creation, creativity",
+              "creative",
+              "creatively"
+            ],
+            [
+              "rely",
+              "reliance",
+              "reliable",
+              "reliably"
+            ],
+            [
+              "signify",
+              "significance",
+              "significant",
+              "significantly"
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp của người Việt:\n\n- Dùng sai loại từ: `the economy growth` ✗ → `economic growth` ✓ (trước danh từ cần tính từ).\n- Nhầm `economic` (thuộc về kinh tế) với `economical` (tiết kiệm): `an economical car` = xe tiết kiệm nhiên liệu.\n- Tiền tố phủ định: trước `p/b/m` thường dùng `im-` (`impossible`), trước `l` dùng `il-` (`illegal`), trước `r` dùng `ir-` (`irregular`). Đây chỉ là xu hướng, có ngoại lệ (`unbelievable`, `unreliable`), nên hãy tra từ điển khi không chắc."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "Economic growth slowed down last year.",
+              "vi": "Năm ngoái tăng trưởng kinh tế chậm lại."
+            },
+            {
+              "en": "We need a quick decision on the budget.",
+              "vi": "Chúng ta cần quyết định nhanh về ngân sách."
+            },
+            {
+              "en": "Prices rose significantly after the storm.",
+              "vi": "Giá tăng đáng kể sau cơn bão."
+            },
+            {
+              "en": "Her analysis of the data was very clear.",
+              "vi": "Phân tích dữ liệu của cô ấy rất rõ ràng."
+            },
+            {
+              "en": "Parking here is illegal on weekdays.",
+              "vi": "Đỗ xe ở đây là bất hợp pháp vào ngày thường."
+            },
+            {
+              "en": "I think you misunderstood my question.",
+              "vi": "Tôi nghĩ bạn đã hiểu nhầm câu hỏi của tôi."
+            },
+            {
+              "en": "This small car is very economical.",
+              "vi": "Chiếc xe nhỏ này rất tiết kiệm nhiên liệu."
+            },
+            {
+              "en": "The old system was slow and unreliable.",
+              "vi": "Hệ thống cũ chậm và không đáng tin cậy."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "The ___ of the data took two weeks.",
+          "answers": [
+            "analysis"
+          ],
+          "choices": [
+            "analyze",
+            "analysis",
+            "analytical"
+          ],
+          "explain": "Sau \"The\" và trước \"of\" cần danh từ: analysis."
+        },
+        {
+          "type": "gap",
+          "prompt": "Prices rose ___ last year.",
+          "answers": [
+            "significantly"
+          ],
+          "choices": [
+            "significant",
+            "significance",
+            "significantly"
+          ],
+          "explain": "Bổ nghĩa cho động từ \"rose\" cần trạng từ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Tiền tố nào tạo nghĩa phủ định của \"legal\"?",
+          "choices": [
+            "un-",
+            "il-",
+            "ir-",
+            "dis-"
+          ],
+          "answer": 1,
+          "explain": "illegal = bất hợp pháp."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ trái nghĩa đúng của \"responsible\" là gì?",
+          "choices": [
+            "unresponsible",
+            "disresponsible",
+            "irresponsible",
+            "inresponsible"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép từ có tiền tố với nghĩa",
+          "pairs": [
+            {
+              "left": "misunderstand",
+              "right": "hiểu lầm"
+            },
+            {
+              "left": "rewrite",
+              "right": "viết lại"
+            },
+            {
+              "left": "overestimate",
+              "right": "đánh giá quá cao"
+            },
+            {
+              "left": "underpaid",
+              "right": "bị trả lương quá thấp"
+            },
+            {
+              "left": "disagree",
+              "right": "không đồng ý"
+            }
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "\"Economic\" và \"economical\" có nghĩa hoàn toàn giống nhau.",
+          "answer": "false",
+          "explain": "economic = thuộc về kinh tế; economical = tiết kiệm."
+        },
+        {
+          "type": "gap",
+          "prompt": "We need a quick ___ on the budget. (decide)",
+          "answers": [
+            "decision"
+          ],
+          "explain": "Sau \"a quick\" cần danh từ."
+        },
+        {
+          "type": "gap",
+          "prompt": "This method is not very ___. (rely)",
+          "answers": [
+            "reliable"
+          ],
+          "explain": "Sau \"very\" cần tính từ: reliable."
+        },
+        {
+          "type": "gap",
+          "prompt": "Many young people feel ___ about the future. (certain, nghĩa phủ định)",
+          "answers": [
+            "uncertain"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Tăng trưởng kinh tế phụ thuộc vào giáo dục.",
+          "answer": "Economic growth depends on education."
+        }
+      ]
+    },
+    {
+      "id": "b2skills.collocations-phrasal",
+      "title": "Collocation & cụm động từ trong ngữ cảnh",
+      "summary": "Kết hợp từ tự nhiên (make/do/take/pay) và cụm động từ thay cho từ trang trọng.",
+      "level": "B2_1",
+      "minutes": 14,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Collocation** là những từ người bản ngữ hay đi cùng nhau. Dịch từng chữ từ tiếng Việt thường cho ra kết hợp sai, dù ngữ pháp đúng.\n\n- `make`: `make a decision`, `make a mistake`, `make progress`, `make an effort`.\n- `do`: `do research`, `do homework`, `do business`, `do damage`.\n- `take`: `take responsibility`, `take action`, `take a risk`.\n- Khác: `pay attention`, `heavy traffic`, `a high price`.\n\n**Cụm động từ** (phrasal verb) rất phổ biến trong văn nói và văn viết trung tính. Trong văn viết trang trọng, người ta thường thay bằng một động từ đơn."
+        },
+        {
+          "type": "table",
+          "title": "Cụm động từ và từ trang trọng tương đương",
+          "head": [
+            "Cụm động từ",
+            "Nghĩa",
+            "Từ trang trọng"
+          ],
+          "rows": [
+            [
+              "carry out",
+              "tiến hành",
+              "conduct"
+            ],
+            [
+              "look into",
+              "xem xét, điều tra",
+              "investigate"
+            ],
+            [
+              "put off",
+              "hoãn lại",
+              "postpone"
+            ],
+            [
+              "turn down",
+              "từ chối",
+              "reject, decline"
+            ],
+            [
+              "come up with",
+              "nghĩ ra",
+              "devise, propose"
+            ],
+            [
+              "set up",
+              "thành lập",
+              "establish"
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp của người Việt:\n\n- “làm” không phải lúc nào cũng là `do`: `do a mistake` ✗ → `make a mistake` ✓.\n- `The price is expensive` ✗ → `The price is high` ✓ hoặc `It is expensive` ✓.\n- Với cụm động từ tách được, đại từ phải đứng giữa: `turn down it` ✗ → `turn it down` ✓."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "We made a lot of progress this week.",
+              "vi": "Tuần này chúng tôi đã tiến bộ nhiều."
+            },
+            {
+              "en": "She does research on climate change.",
+              "vi": "Cô ấy nghiên cứu về biến đổi khí hậu."
+            },
+            {
+              "en": "The manager took responsibility for the error.",
+              "vi": "Người quản lý đã nhận trách nhiệm về lỗi đó."
+            },
+            {
+              "en": "Please pay attention to the safety rules.",
+              "vi": "Vui lòng chú ý các quy định an toàn."
+            },
+            {
+              "en": "The meeting was put off until Monday.",
+              "vi": "Cuộc họp đã được hoãn tới thứ Hai."
+            },
+            {
+              "en": "They offered him the job, but he turned it down.",
+              "vi": "Họ mời anh ấy làm việc nhưng anh ấy từ chối."
+            },
+            {
+              "en": "The police are looking into the case.",
+              "vi": "Cảnh sát đang điều tra vụ việc."
+            },
+            {
+              "en": "We need to come up with a better plan.",
+              "vi": "Chúng ta cần nghĩ ra một kế hoạch tốt hơn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "Scientists ___ a lot of research on sleep.",
+          "answers": [
+            "do"
+          ],
+          "choices": [
+            "make",
+            "do",
+            "take"
+          ],
+          "explain": "do research là kết hợp cố định."
+        },
+        {
+          "type": "gap",
+          "prompt": "Please ___ attention to the safety rules.",
+          "answers": [
+            "pay"
+          ],
+          "choices": [
+            "put",
+            "pay",
+            "make"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "I did a mistake in the report.",
+            "I made a mistake in the report.",
+            "I took a mistake in the report."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Chọn từ đúng: \"The price of this phone is very ___.\"",
+          "choices": [
+            "high",
+            "expensive",
+            "tall"
+          ],
+          "answer": 0,
+          "explain": "price đi với high/low; expensive dùng cho món đồ."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép cụm động từ với từ trang trọng tương đương",
+          "pairs": [
+            {
+              "left": "carry out",
+              "right": "conduct"
+            },
+            {
+              "left": "put off",
+              "right": "postpone"
+            },
+            {
+              "left": "turn down",
+              "right": "reject"
+            },
+            {
+              "left": "look into",
+              "right": "investigate"
+            },
+            {
+              "left": "set up",
+              "right": "establish"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The meeting was put ___ until next Monday.",
+          "answers": [
+            "off"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "She offered me the job, but I ___.",
+          "choices": [
+            "turned down it",
+            "down turned it",
+            "turned it down"
+          ],
+          "answer": 2,
+          "explain": "Đại từ đứng giữa động từ và tiểu từ."
+        },
+        {
+          "type": "gap",
+          "prompt": "We have run ___ of printer paper.",
+          "answers": [
+            "out"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Chúng ta cần nghĩ ra một kế hoạch tốt hơn.",
+          "answer": "We need to come up with a better plan."
+        },
+        {
+          "type": "speak",
+          "say": "We will carry out the survey next month.",
+          "prompt": "Đọc to câu sau"
+        }
+      ]
+    },
+    {
+      "id": "b2skills.cohesion",
+      "title": "Từ nối & mạch lạc trong bài luận",
+      "summary": "Dùng đúng however, although, despite, therefore… và từ quy chiếu để bài viết liền mạch.",
+      "level": "B2_2",
+      "minutes": 15,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Bài luận B2 cần **mạch lạc**: các câu nối với nhau rõ ràng. Từ nối được chia theo chức năng, và mỗi nhóm có **cấu trúc riêng** đi sau:\n\n- `however`, `therefore`, `moreover` thường đứng đầu câu mới (hoặc sau dấu chấm phẩy), theo sau là dấu phẩy.\n- `although`, `because`, `whereas` + **mệnh đề** (chủ ngữ + động từ).\n- `despite`, `in spite of`, `because of`, `due to` + **danh từ / V-ing**.\n\nNgoài từ nối, hãy dùng **từ quy chiếu** để tránh lặp: `this`, `these`, `such`, `the former` / `the latter`."
+        },
+        {
+          "type": "table",
+          "title": "Từ nối theo chức năng",
+          "head": [
+            "Chức năng",
+            "Từ nối",
+            "Theo sau là"
+          ],
+          "rows": [
+            [
+              "Thêm ý",
+              "moreover, furthermore, in addition",
+              "dấu phẩy + mệnh đề"
+            ],
+            [
+              "Đối lập",
+              "however, nevertheless",
+              "dấu phẩy + mệnh đề"
+            ],
+            [
+              "Đối lập",
+              "although, whereas",
+              "mệnh đề"
+            ],
+            [
+              "Đối lập",
+              "despite, in spite of",
+              "danh từ / V-ing"
+            ],
+            [
+              "Kết quả",
+              "therefore, as a result, consequently",
+              "dấu phẩy + mệnh đề"
+            ],
+            [
+              "Nguyên nhân",
+              "because of, due to",
+              "danh từ"
+            ],
+            [
+              "Ví dụ",
+              "for instance, for example",
+              "dấu phẩy + mệnh đề"
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp của người Việt:\n\n- Dịch “Mặc dù… nhưng…”: `Although it rained, but we went out.` ✗ → bỏ `but`.\n- `Despite it was raining` ✗ → `Despite the rain` hoặc `Although it was raining` ✓.\n- Nối hai câu chỉ bằng dấu phẩy + `however`: `It was cheap, however it broke.` ✗ → `It was cheap; however, it broke.` ✓."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "Although it was raining, the match continued.",
+              "vi": "Mặc dù trời mưa, trận đấu vẫn tiếp tục."
+            },
+            {
+              "en": "Despite the heavy rain, the match continued.",
+              "vi": "Bất chấp mưa to, trận đấu vẫn tiếp tục."
+            },
+            {
+              "en": "Costs went up. As a result, prices rose.",
+              "vi": "Chi phí tăng. Kết quả là giá cả tăng theo."
+            },
+            {
+              "en": "The flight was delayed because of bad weather.",
+              "vi": "Chuyến bay bị hoãn vì thời tiết xấu."
+            },
+            {
+              "en": "Some people love cities, whereas others prefer villages.",
+              "vi": "Có người thích thành phố, trong khi người khác thích làng quê."
+            },
+            {
+              "en": "Moreover, the new law protects small businesses.",
+              "vi": "Hơn nữa, luật mới bảo vệ doanh nghiệp nhỏ."
+            },
+            {
+              "en": "This problem affects millions of people.",
+              "vi": "Vấn đề này ảnh hưởng tới hàng triệu người."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "___ it was raining, the match continued.",
+          "answers": [
+            "Although"
+          ],
+          "choices": [
+            "Despite",
+            "Although",
+            "However"
+          ],
+          "explain": "Sau chỗ trống là mệnh đề → although."
+        },
+        {
+          "type": "gap",
+          "prompt": "___ the heavy rain, the match continued.",
+          "answers": [
+            "Despite"
+          ],
+          "choices": [
+            "Although",
+            "Despite",
+            "Because"
+          ],
+          "explain": "Sau chỗ trống là cụm danh từ → despite."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "Although he was tired, but he kept working.",
+            "Despite he was tired, he kept working.",
+            "Although he was tired, he kept working."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "Costs went up. ___, the company raised its prices.",
+          "answers": [
+            "As a result",
+            "Therefore",
+            "Consequently"
+          ],
+          "choices": [
+            "However",
+            "As a result",
+            "Although"
+          ]
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép chức năng với từ nối",
+          "pairs": [
+            {
+              "left": "Thêm ý",
+              "right": "moreover"
+            },
+            {
+              "left": "Đối lập",
+              "right": "nevertheless"
+            },
+            {
+              "left": "Kết quả",
+              "right": "consequently"
+            },
+            {
+              "left": "Ví dụ",
+              "right": "for instance"
+            },
+            {
+              "left": "Kết luận",
+              "right": "in conclusion"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The flight was delayed ___ of bad weather.",
+          "answers": [
+            "because"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Some people prefer cities, ___ others prefer the countryside.",
+          "choices": [
+            "therefore",
+            "moreover",
+            "whereas"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "tf",
+          "statement": "Trong văn viết trang trọng, câu \"It was cheap, however it broke.\" là câu chuẩn.",
+          "answer": "false",
+          "explain": "Cần dấu chấm hoặc chấm phẩy trước however và dấu phẩy sau nó."
+        },
+        {
+          "type": "gap",
+          "prompt": "Air pollution is rising. ___ problem affects millions of people.",
+          "answers": [
+            "This"
+          ],
+          "choices": [
+            "This",
+            "These",
+            "Such"
+          ],
+          "explain": "\"problem\" số ít → This; \"such\" cần \"such a problem\"."
+        },
+        {
+          "type": "order",
+          "hint": "Vấn đề này ảnh hưởng tới hàng triệu người.",
+          "answer": "This problem affects millions of people."
+        }
+      ]
+    },
+    {
+      "id": "b2skills.paraphrase-summary",
+      "title": "Diễn đạt lại & tóm tắt",
+      "summary": "Đổi từ, đổi loại từ, đổi cấu trúc mà giữ nguyên nghĩa; tóm tắt ý chính bằng lời của mình.",
+      "level": "B2_2",
+      "minutes": 15,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Diễn đạt lại** (paraphrase) là nói cùng một ý bằng từ ngữ khác. Kỹ năng này cần cho bài viết, bài thi và khi trích ý từ tài liệu. Các cách thường dùng:\n\n- Dùng từ đồng nghĩa hợp ngữ cảnh: `show` → `demonstrate`.\n- Đổi loại từ: `grew rapidly` → `rapid growth`.\n- Đổi cấu trúc: chủ động ↔ bị động, đổi từ nối.\n\n**Tóm tắt** (summary) là rút gọn: giữ ý chính, bỏ ví dụ và chi tiết phụ, viết bằng lời của mình và không thêm ý kiến cá nhân."
+        },
+        {
+          "type": "table",
+          "title": "Các cách diễn đạt lại",
+          "head": [
+            "Câu gốc",
+            "Cách đổi",
+            "Câu diễn đạt lại"
+          ],
+          "rows": [
+            [
+              "The population grew rapidly.",
+              "đổi loại từ",
+              "There was rapid growth in the population."
+            ],
+            [
+              "People should reduce plastic use.",
+              "chủ động → bị động",
+              "Plastic use should be reduced."
+            ],
+            [
+              "Many students find math difficult.",
+              "từ đồng nghĩa",
+              "Many students struggle with math."
+            ],
+            [
+              "Because it rained, the event was canceled.",
+              "đổi từ nối",
+              "The event was canceled due to the rain."
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp của người Việt:\n\n- Lấy từ “đồng nghĩa” trong từ điển nhưng sai kết hợp: `big rain` ✗ → `heavy rain` ✓.\n- Vô tình **đổi nghĩa**: `some` ≠ `all`, `may` ≠ `will`, `often` ≠ `always`. Hãy giữ nguyên mức độ chắc chắn và số lượng của câu gốc.\n- Chỉ đổi vài từ rồi giữ nguyên cả câu: thường chưa được tính là diễn đạt lại."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "The company made a decision to close the factory.",
+              "vi": "Công ty đã quyết định đóng cửa nhà máy."
+            },
+            {
+              "en": "There was a sharp rise in unemployment.",
+              "vi": "Tỷ lệ thất nghiệp tăng mạnh."
+            },
+            {
+              "en": "A new bridge was built by the city.",
+              "vi": "Thành phố đã xây một cây cầu mới."
+            },
+            {
+              "en": "The game was canceled due to the storm.",
+              "vi": "Trận đấu bị hủy vì cơn bão."
+            },
+            {
+              "en": "According to some experts, the plan might fail.",
+              "vi": "Theo một số chuyên gia, kế hoạch có thể thất bại."
+            },
+            {
+              "en": "Social media has a strong effect on teenagers.",
+              "vi": "Mạng xã hội ảnh hưởng mạnh tới thanh thiếu niên."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Câu nào diễn đạt lại đúng \"The company decided to close the factory.\"?",
+          "choices": [
+            "The company decided to open the factory.",
+            "The company made a decision to close the factory.",
+            "The factory decided to close the company."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào giữ đúng nghĩa của \"Some experts believe the plan may fail.\"?",
+          "choices": [
+            "All experts know the plan will fail.",
+            "The plan will certainly fail, experts say.",
+            "According to some experts, the plan might not succeed."
+          ],
+          "answer": 2,
+          "explain": "Giữ \"some\" và mức độ \"may\"."
+        },
+        {
+          "type": "gap",
+          "prompt": "Unemployment rose sharply. → There was a sharp ___ in unemployment.",
+          "answers": [
+            "rise",
+            "increase"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The city built a new bridge. → A new bridge ___ built by the city.",
+          "answers": [
+            "was"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The game was canceled ___ the storm.",
+          "answers": [
+            "due to",
+            "because of"
+          ],
+          "choices": [
+            "because",
+            "due to",
+            "although"
+          ],
+          "explain": "Trước cụm danh từ \"the storm\" cần due to / because of."
+        },
+        {
+          "type": "tf",
+          "statement": "Một bản tóm tắt tốt thường giữ ý chính và bỏ bớt ví dụ, chi tiết phụ.",
+          "answer": "true"
+        },
+        {
+          "type": "tf",
+          "statement": "Khi diễn đạt lại, có thể đổi \"may\" thành \"will\" vì nghĩa gần giống nhau.",
+          "answer": "false",
+          "explain": "may (có thể) ≠ will (chắc chắn sẽ)."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép từ thông dụng với từ trang trọng hơn",
+          "pairs": [
+            {
+              "left": "show",
+              "right": "demonstrate"
+            },
+            {
+              "left": "help",
+              "right": "assist"
+            },
+            {
+              "left": "enough",
+              "right": "sufficient"
+            },
+            {
+              "left": "need",
+              "right": "require"
+            },
+            {
+              "left": "buy",
+              "right": "purchase"
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu tóm tắt nào tốt nhất cho: \"Cycling to work saves money, improves fitness, and reduces traffic. However, some cities lack safe bike lanes.\"",
+          "choices": [
+            "Cycling saves money.",
+            "Cycling has benefits, but safe bike lanes are not always available.",
+            "Cities should build more roads for cars."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Mạng xã hội ảnh hưởng mạnh tới thanh thiếu niên.",
+          "answer": "Social media has a strong effect on teenagers."
+        }
+      ]
+    },
+    {
+      "id": "b2skills.formal-register",
+      "title": "Email & báo cáo trang trọng",
+      "summary": "Mở đầu, kết thúc, câu đề nghị lịch sự và văn phong khách quan trong báo cáo.",
+      "level": "B2_1",
+      "minutes": 14,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Email công việc và báo cáo cần **văn phong trang trọng**. Các đặc điểm thường gặp:\n\n- Không viết tắt (`I am`, không `I'm`), không dùng tiếng lóng.\n- Câu đề nghị gián tiếp, lịch sự: `I would be grateful if you could…`, `Could you please…?`\n- Báo cáo hay dùng bị động và chủ ngữ khách quan: `It was found that…`, `The survey shows that…`\n- Mở đầu: `Dear Mr./Ms. + họ` hoặc `Dear Sir or Madam` khi không biết tên. Kết thúc (Mỹ): `Sincerely,` hoặc `Best regards,`.\n\nBố cục báo cáo ngắn thường gồm: mục đích, kết quả (findings), đề xuất (recommendations)."
+        },
+        {
+          "type": "table",
+          "title": "Thân mật → Trang trọng",
+          "head": [
+            "Thân mật",
+            "Trang trọng"
+          ],
+          "rows": [
+            [
+              "Hi Tom,",
+              "Dear Mr. Brown,"
+            ],
+            [
+              "I want to ask about…",
+              "I am writing to inquire about…"
+            ],
+            [
+              "Can you send me…?",
+              "I would be grateful if you could send me…"
+            ],
+            [
+              "Sorry for the delay.",
+              "I apologize for the delay."
+            ],
+            [
+              "Get back to me soon.",
+              "I look forward to hearing from you."
+            ],
+            [
+              "Thanks,",
+              "Sincerely, / Best regards,"
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp của người Việt:\n\n- `I look forward to hear from you` ✗ → `hearing` ✓ (`to` ở đây là giới từ, nên theo sau là V-ing).\n- `Dear Mr. Minh` khi tên đầy đủ là Nguyen Van Minh: theo thói quen Mỹ, `Mr./Ms.` đi với **họ** → `Dear Mr. Nguyen`.\n- Trộn văn phong: mở đầu `Dear Sir or Madam` nhưng kết thúc `Cheers!`."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I am writing to apply for the position of sales assistant.",
+              "vi": "Tôi viết thư này để ứng tuyển vị trí trợ lý bán hàng."
+            },
+            {
+              "en": "I would be grateful if you could send me the price list.",
+              "vi": "Tôi rất biết ơn nếu ông/bà gửi cho tôi bảng giá."
+            },
+            {
+              "en": "Please find attached the report for May.",
+              "vi": "Xin gửi kèm báo cáo tháng Năm."
+            },
+            {
+              "en": "I apologize for the delay in replying.",
+              "vi": "Tôi xin lỗi vì trả lời chậm."
+            },
+            {
+              "en": "It was found that many employees are dissatisfied.",
+              "vi": "Kết quả cho thấy nhiều nhân viên không hài lòng."
+            },
+            {
+              "en": "I look forward to hearing from you.",
+              "vi": "Tôi mong sớm nhận được hồi âm của ông/bà."
+            },
+            {
+              "en": "Please do not hesitate to contact me.",
+              "vi": "Xin đừng ngần ngại liên hệ với tôi."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Câu mở đầu nào phù hợp với thư xin việc?",
+          "choices": [
+            "Hey, what's up?",
+            "I am writing to apply for the position of sales assistant.",
+            "Just wanted to say I want the job."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "I look forward to ___ from you.",
+          "answers": [
+            "hearing"
+          ],
+          "choices": [
+            "hear",
+            "hearing",
+            "heard"
+          ],
+          "explain": "\"to\" là giới từ → V-ing."
+        },
+        {
+          "type": "gap",
+          "prompt": "I would be grateful if you ___ send me the price list.",
+          "answers": [
+            "could"
+          ],
+          "choices": [
+            "will",
+            "could",
+            "are"
+          ]
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép cách nói thông thường với cách nói trang trọng",
+          "pairs": [
+            {
+              "left": "ask about",
+              "right": "inquire about"
+            },
+            {
+              "left": "tell",
+              "right": "inform"
+            },
+            {
+              "left": "get",
+              "right": "receive"
+            },
+            {
+              "left": "say sorry",
+              "right": "apologize"
+            },
+            {
+              "left": "fix (a problem)",
+              "right": "resolve"
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào phù hợp với báo cáo trang trọng?",
+          "choices": [
+            "We found out that lots of staff are unhappy.",
+            "It was found that many employees are dissatisfied.",
+            "Loads of staff hate their jobs, we think."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "Trong email trang trọng, nên dùng dạng viết tắt như \"I'm\", \"don't\".",
+          "answer": "false"
+        },
+        {
+          "type": "gap",
+          "prompt": "Please find ___ the report for May.",
+          "answers": [
+            "attached"
+          ],
+          "choices": [
+            "attach",
+            "attaching",
+            "attached"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ kết thư nào phù hợp với thư trang trọng?",
+          "choices": [
+            "Love,",
+            "Cheers,",
+            "Sincerely,"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "order",
+          "hint": "Tôi xin lỗi vì sự chậm trễ này.",
+          "answer": "I apologize for this delay."
+        },
+        {
+          "type": "speak",
+          "say": "I would be grateful if you could call me back.",
+          "prompt": "Đọc to câu đề nghị lịch sự"
+        }
+      ]
+    },
+    {
+      "id": "b2skills.opinion-argument",
+      "title": "Nêu quan điểm & lập luận",
+      "summary": "Cụm từ nêu ý kiến, đồng ý/phản đối, nhượng bộ và phản bác trong bài luận, bài nói.",
+      "level": "B2_2",
+      "minutes": 14,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Bài luận và bài nói B2 thường yêu cầu bạn **nêu quan điểm và bảo vệ nó**. Một lập luận thuyết phục thường có:\n\n- Ý kiến rõ ràng: `In my view,…`, `I strongly believe that…`\n- Lý do và ví dụ: `This is because…`, `For example,…`\n- Nhắc tới ý kiến trái chiều: `Some people argue that…`\n- Nhượng bộ rồi phản bác: `Admittedly,… However,…` / `While it is true that…, …`\n- Kết luận cân nhắc: `On balance,…`\n\nThừa nhận phía bên kia trước khi phản bác giúp bài viết **khách quan và thuyết phục hơn**."
+        },
+        {
+          "type": "table",
+          "title": "Cụm từ theo mục đích",
+          "head": [
+            "Mục đích",
+            "Cụm từ"
+          ],
+          "rows": [
+            [
+              "Nêu ý kiến",
+              "In my view, / In my opinion, / It seems to me that…"
+            ],
+            [
+              "Đồng ý",
+              "I completely agree. / That is a fair point."
+            ],
+            [
+              "Đồng ý một phần",
+              "I partly agree. / I see your point, but…"
+            ],
+            [
+              "Phản đối",
+              "I am not convinced that… / I disagree with…"
+            ],
+            [
+              "Nhượng bộ",
+              "Admittedly,… / While it is true that…"
+            ],
+            [
+              "Kết luận",
+              "On balance,… / In conclusion,…"
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp của người Việt:\n\n- `I am agree` ✗ → `I agree` ✓ (`agree` là động từ).\n- `In my opinion, I think…` ✗ → lặp ý, chỉ dùng một trong hai.\n- `According to me,…` nghe không tự nhiên với người bản ngữ; thường dùng `In my view,…` hoặc `In my opinion,…`."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "In my view, homework should be optional.",
+              "vi": "Theo tôi, bài tập về nhà nên là tự chọn."
+            },
+            {
+              "en": "I see your point, but I still disagree.",
+              "vi": "Tôi hiểu ý bạn, nhưng tôi vẫn không đồng ý."
+            },
+            {
+              "en": "Some people argue that tests are useful.",
+              "vi": "Một số người cho rằng các bài kiểm tra là hữu ích."
+            },
+            {
+              "en": "Admittedly, cars are convenient.",
+              "vi": "Phải thừa nhận rằng ô tô rất tiện lợi."
+            },
+            {
+              "en": "While cars are convenient, they cause pollution.",
+              "vi": "Tuy ô tô tiện lợi, chúng gây ô nhiễm."
+            },
+            {
+              "en": "On balance, the benefits outweigh the drawbacks.",
+              "vi": "Cân nhắc mọi mặt, lợi ích lớn hơn bất lợi."
+            },
+            {
+              "en": "I am not convinced that this plan will work.",
+              "vi": "Tôi không tin là kế hoạch này sẽ hiệu quả."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "I am agree with you.",
+            "I agree with you.",
+            "I agreeing with you."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "___ my view, homework should be optional.",
+          "answers": [
+            "In"
+          ],
+          "choices": [
+            "On",
+            "In",
+            "At"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào tự nhiên nhất?",
+          "choices": [
+            "According to me, the plan is risky.",
+            "In my opinion, I think the plan is risky.",
+            "In my opinion, the plan is risky."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "I see your ___, but I still disagree.",
+          "answers": [
+            "point"
+          ]
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép mục đích với cụm từ",
+          "pairs": [
+            {
+              "left": "Nêu ý kiến",
+              "right": "In my view"
+            },
+            {
+              "left": "Đồng ý một phần",
+              "right": "I partly agree"
+            },
+            {
+              "left": "Nhượng bộ",
+              "right": "Admittedly"
+            },
+            {
+              "left": "Nhắc ý kiến trái chiều",
+              "right": "Some people argue that"
+            },
+            {
+              "left": "Kết luận",
+              "right": "On balance"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "___ it is true that cars are convenient, they cause pollution.",
+          "answers": [
+            "While"
+          ],
+          "choices": [
+            "Despite",
+            "Because",
+            "While"
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "\"Admittedly\" dùng để thừa nhận một điểm của phía bên kia trước khi phản bác.",
+          "answer": "true"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Some people argue that tests are useful. ___, they can cause a lot of stress.",
+          "choices": [
+            "Therefore",
+            "For example",
+            "However"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "order",
+          "hint": "Tôi không đồng ý với ý kiến này.",
+          "answer": "I do not agree with this idea."
+        },
+        {
+          "type": "speak",
+          "say": "In my view, public transport should be free.",
+          "prompt": "Nêu quan điểm"
+        }
+      ]
+    }
+  ]
+}

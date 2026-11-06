@@ -559,6 +559,8 @@
       "home": "Home",
       "review": "Review",
       "words": "Word list",
+      "videos": "Videos",
+      "toeic": "TOEIC practice",
       "placement": "Level test",
       "settings": "Settings",
       "practice": "Practice",
@@ -1061,6 +1063,65 @@
       "title": "Grammar",
       "intro": "Look up grammar points: short explanations, audio examples, tips and quick exercises."
     },
+    "toeic": {
+      "title": "TOEIC practice",
+      "intro": "Self-written tests in the TOEIC Listening & Reading format (7 Parts). Practice one Part at a time, or take a mini test (~30 min) or a full test (2 hours).",
+      "estimateNote": "The score is only an estimate from an approximate conversion table, not a real exam score.",
+      "notEnough": "The question bank does not have enough questions for this mode yet.",
+      "byPart": "Practice by Part",
+      "history": "History",
+      "mode": {
+        "part": "By Part",
+        "mini": "Mini test",
+        "full": "Full test"
+      },
+      "miniMeta": "44 questions · 30 min",
+      "fullMeta": "200 questions · 2 h",
+      "partN": "Part {n}",
+      "partName": {
+        "1": "Photographs",
+        "2": "Question–Response",
+        "3": "Conversations",
+        "4": "Talks",
+        "5": "Incomplete Sentences",
+        "6": "Text Completion",
+        "7": "Reading Comprehension"
+      },
+      "count": "{n} questions",
+      "progress": "Item {n}/{total} · answered {done}/{all}",
+      "play": "Listen",
+      "stop": "Stop",
+      "scene": "Picture:",
+      "prev": "Back",
+      "next": "Next",
+      "submit": "Submit",
+      "finishNow": "Submit early",
+      "resultTitle": "{correct}/{total} correct",
+      "sections": "Listening ≈ {l} · Reading ≈ {r}",
+      "back": "Back to list",
+      "review": "Review",
+      "listenQuestion": "(listening question)",
+      "cancel": "Cancel test",
+      "cancelAsk": "Cancel this test? Your results will not be saved.",
+      "cancelYes": "Cancel test",
+      "cancelNo": "Keep going"
+    },
+    "videos": {
+      "title": "Videos",
+      "intro": "Watch a short English video, then answer questions to check how much you understood. An internet connection is required.",
+      "empty": "There are no videos in the library yet.",
+      "questions": "{n} questions",
+      "failed": "The video could not be played (check your internet connection). You can still answer the questions with the button below.",
+      "loading": "Loading video…",
+      "vocab": "Key words:",
+      "skip": "Answer questions now",
+      "questionN": "Question {n}/{total}",
+      "continue": "Keep watching",
+      "finish": "See results",
+      "resultTitle": "{correct}/{total} correct",
+      "skipped": "(skipped)",
+      "back": "Back to library"
+    },
     "phrasebook": {
       "title": "Phrasebook",
       "intro": "Useful phrases by situation. Tap the speaker button to listen, tap a phrase to copy it.",
@@ -1373,8 +1434,143 @@
     "game": {
       "countryDetail": "{name}, {total} words",
       "goTo": "Go to {name}",
-      "continents": {"asia": "Asia", "europe": "Europe", "africa": "Africa", "northAmerica": "North America", "southAmerica": "South America", "oceania": "Oceania", "antarctica": "Antarctica"},
-      "spots": {"cantho": ["Sign pole", "Watermelons", "Floating market", "Pineapples", "Ninh Kieu Wharf"], "dalat": ["Da Lat Station", "Steam train", "Pine hill", "Xuan Huong Lake", "Flowers"], "danang": ["Dragon Bridge", "Dragon fire", "Han River", "Tall buildings", "Swing bridge"], "halong": ["Rock islands", "Sailboat", "Cave", "Fishing village", "Fish cages"], "hanoi": ["Turtle Tower", "Ngoc Son Temple", "The Huc Bridge", "Old Quarter", "Cyclo"], "hcmc": ["Clock tower", "Ben Thanh Market", "Sao tree", "Bus", "Motorbikes"], "hue": ["Noon Gate", "Perfume River", "Dragon boat", "Trang Tien Bridge", "Ao dai"], "nhatrang": ["Ponagar Towers", "Island", "Sea", "Basket boat", "Sandy beach"], "ninhbinh": ["Limestone hills", "Cave", "Rice field", "Foot rowing", "Buffalo"], "phuquoc": ["Sunset", "Fishing village", "Stilt house", "Basket boat", "Fishing net"], "sapa": ["Misty mountain", "Rice terraces", "Hill village", "Buffalo", "Hydrangeas"], "australia": ["Kangaroo", "Koala", "Ant", "Frog", "Black swan"], "china": ["Mountain", "Panda", "Lion dance", "Dragon boat", "Lantern"], "france": ["Coffee", "Cheese", "Jam", "Pancake", "Ice cream"], "japan": ["Sushi", "Cherry blossom", "Salad", "Pear", "Kiwi"], "kenya": ["Giraffe", "Monkey", "Zebra", "Lion", "Elephant"], "usa": ["Rocket", "Donut", "Hot dog", "Popcorn", "Pizza"], "hoian": ["Bridge Pagoda", "Lanterns", "Floating lanterns", "Boat", "Old house"]},
+      "continents": {
+        "asia": "Asia",
+        "europe": "Europe",
+        "africa": "Africa",
+        "northAmerica": "North America",
+        "southAmerica": "South America",
+        "oceania": "Oceania",
+        "antarctica": "Antarctica"
+      },
+      "spots": {
+        "cantho": [
+          "Sign pole",
+          "Watermelons",
+          "Floating market",
+          "Pineapples",
+          "Ninh Kieu Wharf"
+        ],
+        "dalat": [
+          "Da Lat Station",
+          "Steam train",
+          "Pine hill",
+          "Xuan Huong Lake",
+          "Flowers"
+        ],
+        "danang": [
+          "Dragon Bridge",
+          "Dragon fire",
+          "Han River",
+          "Tall buildings",
+          "Swing bridge"
+        ],
+        "halong": [
+          "Rock islands",
+          "Sailboat",
+          "Cave",
+          "Fishing village",
+          "Fish cages"
+        ],
+        "hanoi": [
+          "Turtle Tower",
+          "Ngoc Son Temple",
+          "The Huc Bridge",
+          "Old Quarter",
+          "Cyclo"
+        ],
+        "hcmc": [
+          "Clock tower",
+          "Ben Thanh Market",
+          "Sao tree",
+          "Bus",
+          "Motorbikes"
+        ],
+        "hue": [
+          "Noon Gate",
+          "Perfume River",
+          "Dragon boat",
+          "Trang Tien Bridge",
+          "Ao dai"
+        ],
+        "nhatrang": [
+          "Ponagar Towers",
+          "Island",
+          "Sea",
+          "Basket boat",
+          "Sandy beach"
+        ],
+        "ninhbinh": [
+          "Limestone hills",
+          "Cave",
+          "Rice field",
+          "Foot rowing",
+          "Buffalo"
+        ],
+        "phuquoc": [
+          "Sunset",
+          "Fishing village",
+          "Stilt house",
+          "Basket boat",
+          "Fishing net"
+        ],
+        "sapa": [
+          "Misty mountain",
+          "Rice terraces",
+          "Hill village",
+          "Buffalo",
+          "Hydrangeas"
+        ],
+        "australia": [
+          "Kangaroo",
+          "Koala",
+          "Ant",
+          "Frog",
+          "Black swan"
+        ],
+        "china": [
+          "Mountain",
+          "Panda",
+          "Lion dance",
+          "Dragon boat",
+          "Lantern"
+        ],
+        "france": [
+          "Coffee",
+          "Cheese",
+          "Jam",
+          "Pancake",
+          "Ice cream"
+        ],
+        "japan": [
+          "Sushi",
+          "Cherry blossom",
+          "Salad",
+          "Pear",
+          "Kiwi"
+        ],
+        "kenya": [
+          "Giraffe",
+          "Monkey",
+          "Zebra",
+          "Lion",
+          "Elephant"
+        ],
+        "usa": [
+          "Rocket",
+          "Donut",
+          "Hot dog",
+          "Popcorn",
+          "Pizza"
+        ],
+        "hoian": [
+          "Bridge Pagoda",
+          "Lanterns",
+          "Floating lanterns",
+          "Boat",
+          "Old house"
+        ]
+      },
       "map": "Back to map",
       "village": "Back to village",
       "starsCount": "{n} stars",
@@ -1397,7 +1593,13 @@
         "listen": "Listen",
         "learn": "You will learn",
         "progress": "{done}/{total} words done",
-        "steps": ["Meet", "Tap", "Flip", "Say", "Listen"],
+        "steps": [
+          "Meet",
+          "Tap",
+          "Flip",
+          "Say",
+          "Listen"
+        ],
         "backToPlace": "Back to {name}"
       },
       "cardDetail": "{topic}, {total} words, {done} done",
@@ -1416,6 +1618,7 @@
     }
   },
   "player": {
+    "real": { "needPack": "The real recording is in the listening audio pack. Download it to listen (the transcript is still readable below).", "source": "Source page" },
     "play": "Play",
     "pause": "Pause",
     "prev": "Previous line",

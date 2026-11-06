@@ -349,3 +349,18 @@ Mẫu:
 **Bối cảnh:** làm tay từng cảnh như Hà Nội ([#48](#48--cảnh-12-nơi-tầng-1-làm-lại-bằng-chatgpt-image--vật-động-ngẫu-nhiên-2026-11-04--đã-quyết-định)) tốn thời gian và dễ lệch giữa các nơi.
 **Quyết định:** mỗi nơi cấu hình ở `scripts/design-data/scene_cfg/<nơi>.py` (đăng ký trong `scene_config.py`), `scene_build.py <nơi>` tách nền sprite sheet và ghi bản duyệt vào `review/kids-games/out/<nơi>/`; `--embed` (chỉ sau khi chủ dự án duyệt) ghi vào app. Thêm động cơ `lane` (vật chạy ngang theo làn), sương (`gen_mist.py`, `sceneAnim/mist/`), lửa/nước rồng chỉ hiện ban đêm. Trên Windows chạy với `PYTHONIOENCODING=utf-8` (in tiếng Việt lỗi cp1252 sau khi đã ghi file).
 **Hệ quả:** 11 cảnh nhúng cùng một lúc (2026-11-05), chưa chủ dự án duyệt/thử tay.
+
+## #51 — Nhúng YouTube qua giao thức `eaplayer://` (2026-11-05) — Đã quyết định
+
+**Bối cảnh:** cửa sổ Học tập chạy từ `file://`, YouTube từ chối phát (lỗi 153, thiếu Referer hợp lệ). Roadmap 306 cần video library ([07 §10](07-learning-modules.md), [11 §8](11-ai-and-speech.md)).
+**Quyết định:** không đổi cách nạp renderer. Đăng ký giao thức `eaplayer://` (standard + secure), main phục vụ một trang máy phát nhỏ (`src/main/system/videoPlayerPage.ts`) có CSP riêng (`default-src 'none'`, script chỉ của nó + `youtube.com`, khung chỉ `youtube-nocookie.com`); cửa sổ Học tập nhúng trang này bằng iframe (`frame-src eaplayer:` trong CSP của `study/index.html`) và nói chuyện bằng `postMessage` (chỉ thời gian/trạng thái, kiểm `event.source`). Yêu cầu `…/embed/*` được gắn `Referer: https://english-assistant.app/` qua `webRequest.onBeforeSendHeaders`.
+**Giữ nguyên:** `contextIsolation`, `sandbox`, `nodeIntegration: false`, chặn mở cửa sổ/điều hướng ngoài.
+**Rủi ro:** **chưa thử phát thật** trong app (môi trường dev không chạy được YouTube). Nếu vẫn lỗi 153 thì thử đổi Referer hoặc `origin` trong `playerVars`.
+**Hệ quả:** mốc dừng theo giây cần transcript có thời gian thật; hiện mỗi video chỉ có 1 câu ở cuối (`at: "end"`). Kết quả lưu ở `exam_attempts` với `exam = 'video'`.
+
+## #52 — Bản thu thật VOA đi chung gói `listening-audio` (2026-11-06) — Đã quyết định
+
+- **Bối cảnh**: bài nghe chỉ có TTS; chủ dự án muốn giọng người thật. VOA Learning English là public domain (trừ tin AP/Reuters/AFP), nên đóng gói MP3 gốc được ([08 §6](08-content-sources.md)).
+- **Quyết định**: block `audio` thêm `recording` {id, sourceUrl, credit, seconds}; file bài nghe được `license: public-domain` + `source` (chỉ nguồn `voa`). MP3 nguyên bản (không chuẩn hoá, máy chưa có ffmpeg) để ở `content/curated/listening-audio/<id>.mp3`, `build-listening-audio.mjs` đưa vào cùng gói zip với khoá `packClipKey('us', 1, realAudioText(id))` → dùng lại kênh `audio:clip`, **không thêm kênh IPC**. Trình phát `RealAudioPlayer` phát cả file (không căn giờ từng câu), chỉnh tốc độ 0,6–1×, hiện lời thoại + dịch, ghi công dưới trình phát.
+- **Chưa có gói mới**: người học thấy lời thoại và nút tải gói; âm thanh chỉ có sau khi chủ dự án build + đăng gói mới (đổi `packSpec.ts`: version/size/sha256).
+- **Test**: mỗi bài VOA phải có MP3, `sourceUrl` thuộc `learningenglish.voanews.com`, không lẫn AP/Reuters/AFP.

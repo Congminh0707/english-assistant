@@ -55,7 +55,22 @@ export const LessonBlockSchema = z.discriminatedUnion('type', [
       .min(2)
       .max(24),
     /** Ẩn lời thoại lúc đầu để luyện nghe (người học bấm để hiện) */
-    hideText: z.boolean().optional()
+    hideText: z.boolean().optional(),
+    /**
+     * Bản thu thật (không phải TTS): file MP3 nằm trong gói `listening-audio` (khoá `realAudioText(id)`), `lines` là các
+     * đoạn lời thoại hiển thị bên cạnh (không căn giờ). Chưa có gói → lời thoại vẫn đọc được, nút nghe mời tải gói.
+     */
+    recording: z
+      .object({
+        /** Khớp tên file `content/curated/listening-audio/<id>.mp3` */
+        id: z.string().regex(/^[a-z0-9-]+$/),
+        /** Trang gốc của bản thu */
+        sourceUrl: z.string().url(),
+        /** Dòng ghi công hiện dưới trình phát */
+        credit: Text,
+        seconds: z.number().int().min(10).max(1800)
+      })
+      .optional()
   }),
   /** Bài đọc: đoạn văn có thể bấm từ để tra, nghe từng câu, bật/tắt bản dịch tiếng Việt từng đoạn */
   z.object({
@@ -199,8 +214,22 @@ export type LessonUnitFile = z.infer<typeof LessonUnitFileSchema>
 export const ListeningSchema = LessonSchema.extend({
   exercises: z.array(LessonExerciseSchema).min(3).max(8)
 })
+/** Bài nghe dùng bản thu thật của nguồn public domain (VOA): phải ghi nguồn; nguồn khác chưa được phép (docs/08 §6) */
+export const ListeningSourceSchema = z.object({
+  id: z.literal('voa'),
+  license: z.literal('public-domain'),
+  credit: Text
+})
 export const ListeningUnitFileSchema = LessonUnitFileSchema.extend({
+  license: z.enum(['proprietary-own', 'public-domain']),
+  source: ListeningSourceSchema.optional(),
   lessons: z.array(ListeningSchema).min(1)
+}).superRefine((f, ctx) => {
+  const real = f.lessons.some((l) => l.blocks.some((b) => b.type === 'audio' && b.recording))
+  if (f.license === 'public-domain' && !f.source)
+    ctx.addIssue({ code: 'custom', message: 'public-domain cần source' })
+  if (real && f.license !== 'public-domain')
+    ctx.addIssue({ code: 'custom', message: 'bản thu thật chỉ cho file public-domain có source' })
 })
 export const ReadingUnitFileSchema = LessonUnitFileSchema.extend({
   lessons: z.array(ReadingSchema).min(1)

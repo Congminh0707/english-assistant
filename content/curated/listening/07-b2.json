@@ -1,0 +1,1251 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "listenb2",
+    "title": "Nghe B2: thảo luận & tin tức",
+    "summary": "Podcast, gọi tổng đài, bản tin, phỏng vấn, trích bài giảng.",
+    "icon": "📻",
+    "order": 7
+  },
+  "lessons": [
+    {
+      "id": "listenb2.side-hustle",
+      "title": "Podcast: làm thêm ngoài giờ",
+      "summary": "Thảo luận về việc chạy giao hàng sau giờ làm.",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Money on Monday: the side hustle",
+          "lines": [
+            {
+              "en": "Welcome back to Money on Monday. Today I'm talking with Daniel, who spent two years driving for a delivery app while working full time as a teacher.",
+              "vi": "Chào mừng trở lại với Money on Monday. Hôm nay tôi trò chuyện với Daniel, người đã chạy giao hàng cho một ứng dụng suốt hai năm trong khi vẫn dạy học toàn thời gian.",
+              "speaker": "A"
+            },
+            {
+              "en": "Thanks for having me. I should say up front that I didn't do it for fun. My rent went up by almost a third, and I needed the extra cash.",
+              "vi": "Cảm ơn đã mời tôi. Phải nói trước là tôi không làm vì vui. Tiền thuê nhà của tôi tăng gần một phần ba, và tôi cần thêm tiền.",
+              "speaker": "B"
+            },
+            {
+              "en": "A lot of our listeners are in the same boat. So, was it worth it?",
+              "vi": "Rất nhiều thính giả của chúng tôi cũng cùng cảnh ngộ. Vậy có đáng không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Financially, yes, at least at first. I was making around four hundred dollars a month on top of my salary. But once I took fuel and repairs into account, the real figure was closer to two hundred and fifty.",
+              "vi": "Về tiền bạc thì có, ít nhất là lúc đầu. Tôi kiếm khoảng bốn trăm đô mỗi tháng ngoài lương. Nhưng khi tính cả xăng và sửa xe, con số thật gần với hai trăm năm mươi hơn.",
+              "speaker": "B"
+            },
+            {
+              "en": "That's a big difference. What surprised you most?",
+              "vi": "Chênh lệch lớn đấy. Điều gì làm anh bất ngờ nhất?",
+              "speaker": "A"
+            },
+            {
+              "en": "Honestly, how tired I got. I'd finish grading papers at nine and then drive until midnight. After about six months, my teaching started to suffer.",
+              "vi": "Thật lòng thì là tôi mệt đến mức nào. Chín giờ tôi chấm bài xong rồi chạy xe tới nửa đêm. Khoảng sáu tháng sau, việc dạy của tôi bắt đầu sa sút.",
+              "speaker": "B"
+            },
+            {
+              "en": "So what did you change?",
+              "vi": "Vậy anh đã thay đổi gì?",
+              "speaker": "A"
+            },
+            {
+              "en": "I cut back to weekends only, and I started tutoring online. It pays better per hour, and I don't have to worry about traffic or a broken car.",
+              "vi": "Tôi giảm xuống chỉ chạy cuối tuần, và bắt đầu dạy kèm trực tuyến. Việc đó trả theo giờ cao hơn, và tôi không phải lo kẹt xe hay hỏng xe.",
+              "speaker": "B"
+            },
+            {
+              "en": "Any advice for someone thinking about a side hustle?",
+              "vi": "Anh có lời khuyên nào cho ai đang tính làm thêm không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Work out what you actually earn after costs, and set a limit on your hours before you start, not after you're exhausted.",
+              "vi": "Hãy tính xem thực sự bạn kiếm được bao nhiêu sau khi trừ chi phí, và đặt giới hạn số giờ trước khi bắt đầu, chứ đừng đợi tới khi đã kiệt sức.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why did Daniel start driving for the app?",
+          "choices": [
+            "He wanted to meet new people",
+            "His rent went up",
+            "He lost his teaching job",
+            "He wanted to buy a car"
+          ],
+          "answer": 1,
+          "explain": "Daniel nói: \"My rent went up by almost a third, and I needed the extra cash.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "How much did he really earn per month after costs?",
+          "choices": [
+            "About four hundred dollars",
+            "About one hundred dollars",
+            "About two hundred and fifty dollars",
+            "About six hundred dollars"
+          ],
+          "answer": 2,
+          "explain": "Bốn trăm đô là trước chi phí; sau khi trừ xăng và sửa xe chỉ còn khoảng hai trăm năm mươi."
+        },
+        {
+          "type": "tf",
+          "statement": "Daniel drove late at night after grading papers.",
+          "answer": "true",
+          "explain": "Anh chấm bài xong lúc chín giờ rồi chạy xe tới nửa đêm."
+        },
+        {
+          "type": "tf",
+          "statement": "Daniel's teaching improved while he was driving.",
+          "answer": "false",
+          "explain": "Ngược lại: sau khoảng sáu tháng, việc dạy học của anh \"started to suffer\" (sa sút)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What new kind of work did he start?",
+          "choices": [
+            "He opened a café",
+            "He became a driving instructor",
+            "He started repairing cars",
+            "He started tutoring online"
+          ],
+          "answer": 3,
+          "explain": "Anh nói: \"I started tutoring online\", vì trả theo giờ cao hơn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does \"in the same boat\" mean here?",
+          "choices": [
+            "Traveling by boat",
+            "In the same situation",
+            "Working on a ship",
+            "Very lucky"
+          ],
+          "answer": 1,
+          "explain": "\"Be in the same boat\" = cùng hoàn cảnh (ở đây: cũng bị tăng tiền nhà, cần thêm tiền)."
+        },
+        {
+          "type": "gap",
+          "prompt": "Set a limit on your hours before you start, not after you're ___.",
+          "answers": [
+            "exhausted"
+          ],
+          "choices": [
+            "exhausted",
+            "finished",
+            "paid"
+          ],
+          "explain": "Lời khuyên cuối: đặt giới hạn giờ làm trước, đừng đợi đến khi \"exhausted\" (kiệt sức)."
+        },
+        {
+          "type": "listen",
+          "say": "Once I took fuel and repairs into account, the real figure was closer to two hundred and fifty.",
+          "choices": [
+            "Once I took fuel and repairs into account, the real figure was closer to two hundred and fifty.",
+            "Once I took fuel and rent into account, the real figure was closer to two hundred and fifteen.",
+            "When I put fuel and repairs on my account, the real figure was close to two hundred and fifty."
+          ],
+          "answer": 0,
+          "explain": "\"Take something into account\" = tính đến, cân nhắc điều gì."
+        }
+      ]
+    },
+    {
+      "id": "listenb2.billing-call",
+      "title": "Gọi tổng đài: tính tiền sai",
+      "summary": "Khách hàng khiếu nại một khoản phí không đăng ký.",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "A call about a bill",
+          "lines": [
+            {
+              "en": "Thank you for calling Brightline Internet, this is Sara. How can I help you today?",
+              "vi": "Cảm ơn quý khách đã gọi Brightline Internet, tôi là Sara. Hôm nay tôi có thể giúp gì ạ?",
+              "speaker": "A"
+            },
+            {
+              "en": "Hi, I'm calling about my latest bill. I've been charged for a premium sports package that I never signed up for.",
+              "vi": "Chào chị, tôi gọi về hoá đơn mới nhất. Tôi bị tính tiền một gói thể thao cao cấp mà tôi chưa bao giờ đăng ký.",
+              "speaker": "B"
+            },
+            {
+              "en": "I'm sorry about that. Could I have your account number, please?",
+              "vi": "Tôi rất tiếc về chuyện đó. Quý khách cho tôi xin số tài khoản được không ạ?",
+              "speaker": "A"
+            },
+            {
+              "en": "Sure, it's four seven two, nine one eight.",
+              "vi": "Được, là bốn bảy hai, chín một tám.",
+              "speaker": "B"
+            },
+            {
+              "en": "Thank you. I can see the package was added on the third of March. It looks like it came with a free trial that turned into a paid plan.",
+              "vi": "Cảm ơn quý khách. Tôi thấy gói này được thêm vào ngày mùng ba tháng Ba. Có vẻ nó đi kèm một đợt dùng thử miễn phí rồi chuyển thành gói trả phí.",
+              "speaker": "A"
+            },
+            {
+              "en": "But nobody told me it was a trial. I didn't even know I had it.",
+              "vi": "Nhưng không ai nói với tôi đó là dùng thử. Tôi thậm chí còn không biết mình có gói đó.",
+              "speaker": "B"
+            },
+            {
+              "en": "I understand. I've removed the package from your account, and I'll refund the full amount, which is twenty-four dollars and ninety-nine cents.",
+              "vi": "Tôi hiểu. Tôi đã gỡ gói này khỏi tài khoản và sẽ hoàn lại toàn bộ số tiền, là hai mươi bốn đô chín mươi chín xu.",
+              "speaker": "A"
+            },
+            {
+              "en": "Great. How long will the refund take?",
+              "vi": "Tốt quá. Bao lâu thì tiền được hoàn?",
+              "speaker": "B"
+            },
+            {
+              "en": "It should appear on your card within five to seven business days. I'll also send you a confirmation email.",
+              "vi": "Tiền sẽ về thẻ trong vòng năm đến bảy ngày làm việc. Tôi cũng sẽ gửi email xác nhận cho quý khách.",
+              "speaker": "A"
+            },
+            {
+              "en": "And can you make sure this doesn't happen again?",
+              "vi": "Chị có thể đảm bảo chuyện này không lặp lại không?",
+              "speaker": "B"
+            },
+            {
+              "en": "Absolutely. I've added a note so that no new services can be added without your written approval.",
+              "vi": "Chắc chắn rồi. Tôi đã thêm ghi chú để không dịch vụ mới nào được thêm vào nếu không có sự đồng ý bằng văn bản của quý khách.",
+              "speaker": "A"
+            },
+            {
+              "en": "That's exactly what I wanted. Thanks for sorting it out so quickly.",
+              "vi": "Đúng điều tôi muốn. Cảm ơn chị đã giải quyết nhanh như vậy.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Why is the customer calling?",
+          "choices": [
+            "To upgrade the plan",
+            "To report a slow connection",
+            "To complain about an unwanted charge",
+            "To cancel the contract"
+          ],
+          "answer": 2,
+          "explain": "Khách bị tính tiền \"a premium sports package that I never signed up for\"."
+        },
+        {
+          "type": "mcq",
+          "prompt": "When was the package added?",
+          "choices": [
+            "On the third of March",
+            "On the thirteenth of March",
+            "On the third of May",
+            "On the first of March"
+          ],
+          "answer": 0,
+          "explain": "Nhân viên nói: \"added on the third of March\"."
+        },
+        {
+          "type": "tf",
+          "statement": "The package started as a free trial.",
+          "answer": "true",
+          "explain": "\"It came with a free trial that turned into a paid plan.\""
+        },
+        {
+          "type": "tf",
+          "statement": "The customer will get only half of the money back.",
+          "answer": "false",
+          "explain": "Nhân viên hoàn \"the full amount\" (toàn bộ), hai mươi bốn đô chín mươi chín xu."
+        },
+        {
+          "type": "mcq",
+          "prompt": "How long will the refund take?",
+          "choices": [
+            "One to two days",
+            "Five to seven business days",
+            "Two weeks",
+            "A month"
+          ],
+          "answer": 1,
+          "explain": "\"Within five to seven business days\" = trong năm đến bảy ngày làm việc."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does \"sorting it out\" mean?",
+          "choices": [
+            "Putting things in order of size",
+            "Throwing it away",
+            "Checking it again later",
+            "Solving the problem"
+          ],
+          "answer": 3,
+          "explain": "\"Sort something out\" = giải quyết, xử lý xong vấn đề."
+        },
+        {
+          "type": "gap",
+          "prompt": "No new services can be added without your written ___.",
+          "answers": [
+            "approval"
+          ],
+          "choices": [
+            "approval",
+            "request",
+            "signature"
+          ],
+          "explain": "Câu gốc: \"without your written approval\" (sự đồng ý bằng văn bản)."
+        },
+        {
+          "type": "listen",
+          "say": "It looks like it came with a free trial that turned into a paid plan.",
+          "choices": [
+            "It looks like it came with a free trial that turned into a bad plan.",
+            "It looks like you came for a free trial and paid for the plan.",
+            "It looks like it came with a free trial that turned into a paid plan."
+          ],
+          "answer": 2,
+          "explain": "\"Turn into\" = biến thành. \"Paid plan\" = gói trả phí."
+        }
+      ]
+    },
+    {
+      "id": "listenb2.metro-news",
+      "title": "Bản tin: tuyến metro mới",
+      "summary": "Tin thời sự về tuyến tàu điện ngầm đầu tiên của thành phố.",
+      "level": "B2_1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Evening News: the new metro line",
+          "lines": [
+            {
+              "en": "Good evening. After nearly a decade of delays, the city's first metro line finally opened to passengers this morning.",
+              "vi": "Chào buổi tối. Sau gần mười năm chậm trễ, tuyến metro đầu tiên của thành phố cuối cùng đã đón khách sáng nay."
+            },
+            {
+              "en": "The line runs for about twenty kilometers, connecting the central market with the new suburbs in the east, and has fourteen stations along the way.",
+              "vi": "Tuyến dài khoảng hai mươi ki-lô-mét, nối chợ trung tâm với các khu ngoại ô mới ở phía đông, và có mười bốn ga dọc đường."
+            },
+            {
+              "en": "Officials say a journey that used to take over an hour by bus in rush-hour traffic should now take around thirty minutes.",
+              "vi": "Giới chức cho biết hành trình trước đây mất hơn một tiếng đi xe buýt vào giờ cao điểm nay chỉ còn khoảng ba mươi phút."
+            },
+            {
+              "en": "Tickets will be free for the first two weeks to encourage people to try the service. After that, a single trip will cost between eight and twenty thousand dong, depending on distance.",
+              "vi": "Vé sẽ miễn phí trong hai tuần đầu để khuyến khích người dân đi thử. Sau đó, mỗi lượt đi sẽ có giá từ tám đến hai mươi nghìn đồng, tuỳ quãng đường."
+            },
+            {
+              "en": "Not everyone is celebrating, however. Some shop owners near the stations complain that years of construction drove customers away, and they are asking the city for compensation.",
+              "vi": "Tuy nhiên, không phải ai cũng vui mừng. Một số chủ cửa hàng gần các ga phàn nàn rằng nhiều năm thi công đã làm khách bỏ đi, và họ đang yêu cầu thành phố bồi thường."
+            },
+            {
+              "en": "Transport experts welcome the opening but warn that the line will only reduce traffic if it is linked to good bus routes and safe places to park motorbikes.",
+              "vi": "Các chuyên gia giao thông hoan nghênh việc khai trương nhưng cảnh báo tuyến chỉ giảm được kẹt xe nếu được kết nối với các tuyến xe buýt tốt và chỗ gửi xe máy an toàn."
+            },
+            {
+              "en": "City leaders say a second line, running north to south, is already under construction and is expected to open within four years.",
+              "vi": "Lãnh đạo thành phố cho biết tuyến thứ hai, chạy theo hướng bắc nam, đang được xây dựng và dự kiến khai trương trong vòng bốn năm."
+            },
+            {
+              "en": "Reporting from the central station, this is Linh Tran for Evening News.",
+              "vi": "Tường thuật từ ga trung tâm, Linh Trần, bản tin Buổi tối."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How many stations does the line have?",
+          "choices": [
+            "Four",
+            "Ten",
+            "Fourteen",
+            "Forty"
+          ],
+          "answer": 2,
+          "explain": "\"Has fourteen stations along the way\" = mười bốn ga."
+        },
+        {
+          "type": "mcq",
+          "prompt": "How long should the journey take now?",
+          "choices": [
+            "About fifteen minutes",
+            "About thirty minutes",
+            "About an hour",
+            "Over an hour"
+          ],
+          "answer": 1,
+          "explain": "Trước đây hơn một tiếng, nay \"around thirty minutes\"."
+        },
+        {
+          "type": "tf",
+          "statement": "Tickets will be free for the first month.",
+          "answer": "false",
+          "explain": "Vé miễn phí trong \"the first two weeks\" (hai tuần đầu), không phải một tháng."
+        },
+        {
+          "type": "tf",
+          "statement": "Some shop owners want money from the city.",
+          "answer": "true",
+          "explain": "Họ \"are asking the city for compensation\" (đòi bồi thường)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What do experts say is necessary for the line to reduce traffic?",
+          "choices": [
+            "Higher ticket prices",
+            "More stations in the center",
+            "A ban on cars",
+            "Links to bus routes and safe motorbike parking"
+          ],
+          "answer": 3,
+          "explain": "Chuyên gia: tuyến chỉ giảm kẹt xe \"if it is linked to good bus routes and safe places to park motorbikes\"."
+        },
+        {
+          "type": "tf",
+          "statement": "The metro line cost much more than the city had planned.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bản tin không nhắc gì tới chi phí xây dựng."
+        },
+        {
+          "type": "gap",
+          "prompt": "The second line is expected to open within ___ years.",
+          "answers": [
+            "four",
+            "4"
+          ],
+          "choices": [
+            "two",
+            "four",
+            "ten"
+          ],
+          "explain": "Tuyến thứ hai \"is expected to open within four years\"."
+        },
+        {
+          "type": "listen",
+          "say": "Some shop owners near the stations complain that years of construction drove customers away.",
+          "choices": [
+            "Some shop owners near the stations say that years of construction brought customers in.",
+            "Some shop owners near the stations complain that years of construction drove customers away.",
+            "Some shop owners near the station complain that the construction drove cars away."
+          ],
+          "answer": 1,
+          "explain": "\"Drive customers away\" = làm khách bỏ đi."
+        }
+      ]
+    },
+    {
+      "id": "listenb2.chef-interview",
+      "title": "Phỏng vấn đầu bếp",
+      "summary": "Nhà hàng gần như không lãng phí thức ăn.",
+      "level": "B2_1",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "An interview with a zero-waste chef",
+          "lines": [
+            {
+              "en": "Your restaurant has become famous for wasting almost nothing. Where did that idea come from?",
+              "vi": "Nhà hàng của chị nổi tiếng vì gần như không lãng phí gì. Ý tưởng đó từ đâu ra?",
+              "speaker": "A"
+            },
+            {
+              "en": "It started with guilt, to be honest. When I first opened, I used to watch my staff throw away bags of vegetable peel and bread every night, and it really bothered me.",
+              "vi": "Thật ra là bắt đầu từ cảm giác áy náy. Hồi mới mở, tối nào tôi cũng thấy nhân viên vứt đi cả túi vỏ rau củ và bánh mì, và điều đó làm tôi rất khó chịu.",
+              "speaker": "B"
+            },
+            {
+              "en": "So what did you do about it?",
+              "vi": "Vậy chị đã làm gì?",
+              "speaker": "A"
+            },
+            {
+              "en": "First, we measured everything we threw away for a month. We found that around a quarter of the food we bought never reached a plate.",
+              "vi": "Đầu tiên, chúng tôi cân đo mọi thứ bị vứt đi trong một tháng. Chúng tôi phát hiện khoảng một phần tư thực phẩm mua về chẳng bao giờ lên tới đĩa.",
+              "speaker": "B"
+            },
+            {
+              "en": "That's a lot.",
+              "vi": "Nhiều thật.",
+              "speaker": "A"
+            },
+            {
+              "en": "It was shocking. So we redesigned the menu. Now, the stems and leaves we used to discard go into soups and sauces, and yesterday's bread becomes tomorrow's dessert.",
+              "vi": "Thật sốc. Nên chúng tôi thiết kế lại thực đơn. Giờ thì cuống và lá trước đây bị bỏ được cho vào súp và nước sốt, còn bánh mì hôm qua thành món tráng miệng ngày mai.",
+              "speaker": "B"
+            },
+            {
+              "en": "Didn't customers complain?",
+              "vi": "Khách không phàn nàn sao?",
+              "speaker": "A"
+            },
+            {
+              "en": "Some were suspicious at first. But we never hid what we were doing. We explained it on the menu, and most people found it interesting rather than off-putting.",
+              "vi": "Lúc đầu vài người nghi ngại. Nhưng chúng tôi chưa bao giờ giấu việc mình làm. Chúng tôi giải thích ngay trên thực đơn, và đa số thấy thú vị chứ không thấy khó chịu.",
+              "speaker": "B"
+            },
+            {
+              "en": "Has it saved you money?",
+              "vi": "Việc đó có giúp chị tiết kiệm tiền không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Quite a lot. Our food costs dropped by about fifteen percent in the first year, which, in this business, can be the difference between surviving and closing down.",
+              "vi": "Khá nhiều. Chi phí thực phẩm giảm khoảng mười lăm phần trăm trong năm đầu, mà trong ngành này, đó có thể là khác biệt giữa trụ được và phải đóng cửa.",
+              "speaker": "B"
+            },
+            {
+              "en": "What's next for you?",
+              "vi": "Sắp tới chị định làm gì?",
+              "speaker": "A"
+            },
+            {
+              "en": "We're running free workshops for home cooks, because most food waste actually happens in people's kitchens, not in restaurants.",
+              "vi": "Chúng tôi mở các buổi học miễn phí cho người nấu ăn ở nhà, vì phần lớn lãng phí thực phẩm thật ra xảy ra trong bếp gia đình, không phải ở nhà hàng.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What first made the chef want to change?",
+          "choices": [
+            "Customer complaints",
+            "Feeling guilty about waste",
+            "A government rule",
+            "High rent"
+          ],
+          "answer": 1,
+          "explain": "\"It started with guilt\" — chị áy náy khi thấy nhân viên vứt đồ ăn mỗi tối."
+        },
+        {
+          "type": "mcq",
+          "prompt": "How much of the food they bought was being wasted?",
+          "choices": [
+            "About a tenth",
+            "About half",
+            "About a quarter",
+            "About fifteen percent"
+          ],
+          "answer": 2,
+          "explain": "\"Around a quarter of the food we bought never reached a plate.\" Mười lăm phần trăm là mức giảm chi phí, không phải lượng lãng phí."
+        },
+        {
+          "type": "tf",
+          "statement": "Old bread is now used to make desserts.",
+          "answer": "true",
+          "explain": "\"Yesterday's bread becomes tomorrow's dessert.\""
+        },
+        {
+          "type": "tf",
+          "statement": "The restaurant kept its new methods secret from customers.",
+          "answer": "false",
+          "explain": "Chị nói \"we never hid what we were doing\" và giải thích ngay trên thực đơn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "By how much did food costs fall in the first year?",
+          "choices": [
+            "About fifty percent",
+            "About twenty-five percent",
+            "About five percent",
+            "About fifteen percent"
+          ],
+          "answer": 3,
+          "explain": "\"Our food costs dropped by about fifteen percent in the first year.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does she run workshops for home cooks?",
+          "choices": [
+            "Most food waste happens in homes",
+            "She wants to sell cookbooks",
+            "Restaurants are closing down",
+            "Customers asked for recipes"
+          ],
+          "answer": 0,
+          "explain": "\"Most food waste actually happens in people's kitchens, not in restaurants.\""
+        },
+        {
+          "type": "gap",
+          "prompt": "Most people found it interesting rather than ___.",
+          "answers": [
+            "off-putting",
+            "off putting"
+          ],
+          "choices": [
+            "off-putting",
+            "expensive",
+            "boring"
+          ],
+          "explain": "\"Off-putting\" = gây khó chịu, làm người ta mất hứng."
+        },
+        {
+          "type": "listen",
+          "say": "Yesterday's bread becomes tomorrow's dessert.",
+          "choices": [
+            "Yesterday's bread becomes today's dessert.",
+            "Yesterday's bread becomes tomorrow's dessert.",
+            "Yesterday's bread will be tomorrow's breakfast."
+          ],
+          "answer": 1,
+          "explain": "Chú ý \"tomorrow's\" (của ngày mai) và \"dessert\" (món tráng miệng)."
+        }
+      ]
+    },
+    {
+      "id": "listenb2.sleep-memory",
+      "title": "Bài giảng: giấc ngủ và trí nhớ",
+      "summary": "Trích bài giảng đại học về vai trò của giấc ngủ.",
+      "level": "B2_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Lecture: sleep and memory",
+          "lines": [
+            {
+              "en": "Good morning, everyone. Last week we looked at how memories are formed. Today I want to focus on what happens to those memories while we sleep.",
+              "vi": "Chào cả lớp. Tuần trước chúng ta đã tìm hiểu ký ức được hình thành thế nào. Hôm nay tôi muốn tập trung vào chuyện gì xảy ra với những ký ức đó khi ta ngủ."
+            },
+            {
+              "en": "For a long time, sleep was seen as a kind of switch-off, a period when the brain simply rested. We now know that's far from the truth.",
+              "vi": "Suốt một thời gian dài, giấc ngủ được xem như kiểu tắt máy, một khoảng thời gian não chỉ nghỉ ngơi. Giờ ta biết điều đó khác xa sự thật."
+            },
+            {
+              "en": "During deep sleep, the brain appears to replay the experiences of the day, moving important information from short-term storage into long-term memory.",
+              "vi": "Trong giấc ngủ sâu, não dường như phát lại những trải nghiệm trong ngày, chuyển thông tin quan trọng từ kho ngắn hạn sang trí nhớ dài hạn."
+            },
+            {
+              "en": "In one well-known type of study, volunteers learn a list of word pairs in the evening. Half of them then sleep normally, while the other half are kept awake.",
+              "vi": "Trong một kiểu nghiên cứu nổi tiếng, tình nguyện viên học một danh sách cặp từ vào buổi tối. Một nửa sau đó ngủ bình thường, nửa còn lại bị giữ thức."
+            },
+            {
+              "en": "When they're tested the next day, the group that slept typically remembers significantly more, even when both groups have had the chance to rest later.",
+              "vi": "Khi được kiểm tra hôm sau, nhóm được ngủ thường nhớ nhiều hơn đáng kể, kể cả khi cả hai nhóm đều đã có dịp nghỉ ngơi sau đó."
+            },
+            {
+              "en": "Interestingly, it isn't only facts that benefit. Skills such as playing a piece of music or typing a sequence also seem to improve overnight, without any extra practice.",
+              "vi": "Điều thú vị là không chỉ kiến thức được lợi. Những kỹ năng như chơi một bản nhạc hay gõ một chuỗi phím cũng dường như tiến bộ qua đêm mà không cần luyện thêm."
+            },
+            {
+              "en": "So what does this mean for you as students? Put simply, staying up all night before an exam is likely to backfire.",
+              "vi": "Vậy điều này có ý nghĩa gì với các bạn là sinh viên? Nói đơn giản, thức trắng đêm trước kỳ thi nhiều khả năng sẽ phản tác dụng."
+            },
+            {
+              "en": "You may cram in more information, but without sleep, much of it won't be stored properly, and you'll be slower and less focused in the exam itself.",
+              "vi": "Bạn có thể nhồi thêm thông tin, nhưng không ngủ thì phần lớn sẽ không được lưu đúng cách, và bạn sẽ chậm hơn, kém tập trung hơn ngay trong giờ thi."
+            },
+            {
+              "en": "A better strategy is to spread your study over several days and protect your sleep, especially the night after you learn something new.",
+              "vi": "Chiến lược tốt hơn là chia việc học ra nhiều ngày và giữ gìn giấc ngủ, nhất là đêm sau khi bạn học điều gì mới."
+            },
+            {
+              "en": "Next week, we'll look at the role of dreams, which, I'm afraid, remains much more controversial.",
+              "vi": "Tuần sau, chúng ta sẽ xem xét vai trò của giấc mơ, một chủ đề mà, tiếc là, vẫn còn gây tranh cãi hơn nhiều."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What was last week's lecture about?",
+          "choices": [
+            "Dreams",
+            "Exam strategies",
+            "How memories are formed",
+            "Music and the brain"
+          ],
+          "answer": 2,
+          "explain": "\"Last week we looked at how memories are formed.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "According to the lecture, what happens during deep sleep?",
+          "choices": [
+            "The brain switches off completely",
+            "The brain replays the day and moves important information into long-term memory",
+            "The brain deletes all short-term memories",
+            "The brain stops processing information"
+          ],
+          "answer": 1,
+          "explain": "Giảng viên bác bỏ ý \"switch-off\"; não \"replay the experiences of the day\" và chuyển thông tin quan trọng vào trí nhớ dài hạn."
+        },
+        {
+          "type": "tf",
+          "statement": "In the studies described, the group that slept usually remembered more.",
+          "answer": "true",
+          "explain": "\"The group that slept typically remembers significantly more.\""
+        },
+        {
+          "type": "tf",
+          "statement": "Only factual knowledge improves during sleep.",
+          "answer": "false",
+          "explain": "\"It isn't only facts that benefit\" — kỹ năng như chơi nhạc, gõ phím cũng tiến bộ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does \"backfire\" mean here?",
+          "choices": [
+            "Have the opposite result to what you want",
+            "Make you feel hot",
+            "Help you a lot",
+            "Be against the rules"
+          ],
+          "answer": 0,
+          "explain": "\"Backfire\" = phản tác dụng: thức đêm để học nhiều hơn nhưng lại nhớ kém hơn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "How does the lecturer describe the topic of dreams?",
+          "choices": [
+            "Simple and well understood",
+            "Not worth studying",
+            "Already covered last week",
+            "Much more controversial"
+          ],
+          "answer": 3,
+          "explain": "\"The role of dreams, which, I'm afraid, remains much more controversial.\""
+        },
+        {
+          "type": "gap",
+          "prompt": "A better strategy is to spread your study over several ___.",
+          "answers": [
+            "days"
+          ],
+          "choices": [
+            "days",
+            "subjects",
+            "hours"
+          ],
+          "explain": "\"Spread your study over several days\" = chia việc học ra nhiều ngày."
+        },
+        {
+          "type": "listen",
+          "say": "Put simply, staying up all night before an exam is likely to backfire.",
+          "choices": [
+            "Put simply, staying up late the night before an exam is likely to help.",
+            "Simply put, sleeping all night before an exam is likely to backfire.",
+            "Put simply, staying up all night before an exam is likely to backfire."
+          ],
+          "answer": 2,
+          "explain": "\"Stay up all night\" = thức trắng đêm. \"Put simply\" = nói đơn giản."
+        }
+      ]
+    },
+    {
+      "id": "listenb2.remote-work",
+      "title": "Podcast: làm việc từ xa",
+      "summary": "Một quản lý nhìn lại ba năm điều hành nhóm làm việc từ xa.",
+      "level": "B2_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Remote work: three years on",
+          "lines": [
+            {
+              "en": "So, Priya, you've managed a fully remote team for three years now. Would you ever go back to the office?",
+              "vi": "Priya, chị đã quản lý một nhóm làm việc từ xa hoàn toàn được ba năm. Chị có bao giờ quay lại văn phòng không?",
+              "speaker": "A"
+            },
+            {
+              "en": "Not full time, no. But I'll admit I've changed my mind about a few things.",
+              "vi": "Toàn thời gian thì không. Nhưng phải thừa nhận tôi đã đổi ý về vài chuyện.",
+              "speaker": "B"
+            },
+            {
+              "en": "Such as?",
+              "vi": "Ví dụ như?",
+              "speaker": "A"
+            },
+            {
+              "en": "Well, at the start I assumed productivity was the only thing that mattered, and on that measure remote work was a clear win. People got more done without the commute and the constant interruptions.",
+              "vi": "Lúc đầu tôi cho rằng năng suất là thứ duy nhất quan trọng, và xét theo thước đo đó thì làm từ xa thắng rõ ràng. Mọi người làm được nhiều hơn khi không phải đi lại và không bị ngắt quãng liên tục.",
+              "speaker": "B"
+            },
+            {
+              "en": "So what's the catch?",
+              "vi": "Vậy vướng mắc ở đâu?",
+              "speaker": "A"
+            },
+            {
+              "en": "The catch is everything that doesn't show up in the numbers. New hires, especially young ones, were learning much more slowly. They weren't overhearing how experienced colleagues handled difficult clients, and they were reluctant to ask what they thought were silly questions on a video call.",
+              "vi": "Vướng mắc là tất cả những gì không hiện lên trong số liệu. Nhân viên mới, nhất là người trẻ, học chậm hơn nhiều. Họ không được nghe lỏm cách đồng nghiệp giàu kinh nghiệm xử lý khách khó, và họ ngại hỏi những câu mà họ nghĩ là ngớ ngẩn qua cuộc gọi video.",
+              "speaker": "B"
+            },
+            {
+              "en": "That's interesting, because the usual argument against remote work is that people slack off.",
+              "vi": "Thú vị đấy, vì lý lẽ thường gặp để phản đối làm từ xa là người ta sẽ lười biếng.",
+              "speaker": "A"
+            },
+            {
+              "en": "In my experience, that's largely a myth. If anything, the opposite was true. People found it hard to switch off, and several of my team members came close to burning out.",
+              "vi": "Theo kinh nghiệm của tôi, đó phần lớn là ngộ nhận. Nếu có thì điều ngược lại mới đúng. Mọi người khó dứt ra khỏi công việc, và vài thành viên trong nhóm tôi suýt kiệt sức.",
+              "speaker": "B"
+            },
+            {
+              "en": "So what's your solution?",
+              "vi": "Vậy giải pháp của chị là gì?",
+              "speaker": "A"
+            },
+            {
+              "en": "We now meet in person two days a week, and those days are protected for collaboration and mentoring. Nobody comes into the office just to sit on video calls all day.",
+              "vi": "Giờ chúng tôi gặp trực tiếp hai ngày mỗi tuần, và những ngày đó được dành riêng cho cộng tác và kèm cặp. Không ai lên văn phòng chỉ để ngồi gọi video cả ngày.",
+              "speaker": "B"
+            },
+            {
+              "en": "And the other three days?",
+              "vi": "Còn ba ngày kia?",
+              "speaker": "A"
+            },
+            {
+              "en": "Those are for focused work at home. It's not perfect, but it's the best balance we've found so far.",
+              "vi": "Ba ngày đó để làm việc tập trung ở nhà. Chưa hoàn hảo, nhưng là sự cân bằng tốt nhất chúng tôi tìm được tới giờ.",
+              "speaker": "B"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "How long has Priya managed a remote team?",
+          "choices": [
+            "One year",
+            "Two years",
+            "Three years",
+            "Five years"
+          ],
+          "answer": 2,
+          "explain": "\"You've managed a fully remote team for three years now.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "What problem did she notice with new employees?",
+          "choices": [
+            "They often arrived late",
+            "They learned much more slowly",
+            "They asked too many questions",
+            "They wanted higher salaries"
+          ],
+          "answer": 1,
+          "explain": "\"New hires, especially young ones, were learning much more slowly.\" Họ còn ngại hỏi, chứ không hỏi quá nhiều."
+        },
+        {
+          "type": "tf",
+          "statement": "Priya believes remote workers usually avoid doing their work.",
+          "answer": "false",
+          "explain": "Chị cho rằng chuyện \"slack off\" phần lớn là \"a myth\"; thực tế người ta còn khó dứt khỏi công việc."
+        },
+        {
+          "type": "tf",
+          "statement": "Some of her team members nearly burned out.",
+          "answer": "true",
+          "explain": "\"Several of my team members came close to burning out.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "How many days a week does the team now meet in person?",
+          "choices": [
+            "Five",
+            "Three",
+            "One",
+            "Two"
+          ],
+          "answer": 3,
+          "explain": "\"We now meet in person two days a week\"; ba ngày còn lại làm ở nhà."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does \"What's the catch?\" mean?",
+          "choices": [
+            "What is the hidden problem?",
+            "Who won the game?",
+            "What time is it?",
+            "Where is the meeting?"
+          ],
+          "answer": 0,
+          "explain": "\"What's the catch?\" = vướng mắc, mặt trái ẩn sau điều có vẻ tốt là gì?"
+        },
+        {
+          "type": "gap",
+          "prompt": "The office days are protected for collaboration and ___.",
+          "answers": [
+            "mentoring"
+          ],
+          "choices": [
+            "mentoring",
+            "meetings",
+            "marketing"
+          ],
+          "explain": "\"Those days are protected for collaboration and mentoring\" (kèm cặp)."
+        },
+        {
+          "type": "listen",
+          "say": "They were reluctant to ask what they thought were silly questions on a video call.",
+          "choices": [
+            "They were happy to ask what they thought were simple questions on a video call.",
+            "They were reluctant to ask what they thought were silly questions on a video call.",
+            "They were reluctant to answer silly questions on a video call."
+          ],
+          "answer": 1,
+          "explain": "\"Be reluctant to do something\" = ngại, miễn cưỡng làm gì."
+        }
+      ]
+    },
+    {
+      "id": "listenb2.heatwave-news",
+      "title": "Bản tin: nắng nóng kỷ lục",
+      "summary": "Tin thời sự về đợt nắng nóng và nhu cầu điện.",
+      "level": "B2_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "News report: a record heat wave",
+          "lines": [
+            {
+              "en": "Authorities across the region have issued a red alert, as temperatures are forecast to reach forty-two degrees Celsius by the weekend, the highest in more than a decade.",
+              "vi": "Chính quyền khắp khu vực đã phát cảnh báo đỏ khi nhiệt độ được dự báo lên tới bốn mươi hai độ C vào cuối tuần, cao nhất trong hơn một thập kỷ."
+            },
+            {
+              "en": "The heat wave, which began on Monday, has already pushed electricity demand to record levels, as millions of households run air conditioners around the clock.",
+              "vi": "Đợt nắng nóng bắt đầu từ thứ Hai đã đẩy nhu cầu điện lên mức kỷ lục khi hàng triệu hộ gia đình chạy điều hoà suốt ngày đêm."
+            },
+            {
+              "en": "The national power company has asked factories to shift part of their production to the night, when demand is lower, in an effort to avoid widespread blackouts.",
+              "vi": "Công ty điện lực quốc gia đã đề nghị các nhà máy chuyển một phần sản xuất sang ban đêm, khi nhu cầu thấp hơn, nhằm tránh mất điện diện rộng."
+            },
+            {
+              "en": "So far, only short, planned power cuts have been reported, mostly in rural areas, but officials admit that the grid is under serious pressure.",
+              "vi": "Đến nay mới chỉ ghi nhận những đợt cắt điện ngắn có kế hoạch, chủ yếu ở nông thôn, nhưng giới chức thừa nhận lưới điện đang chịu áp lực nghiêm trọng."
+            },
+            {
+              "en": "Hospitals say they have seen a sharp rise in patients suffering from heat exhaustion, particularly elderly people and outdoor workers.",
+              "vi": "Các bệnh viện cho biết số bệnh nhân bị kiệt sức do nóng tăng mạnh, đặc biệt là người cao tuổi và người làm việc ngoài trời."
+            },
+            {
+              "en": "Doctors are urging people to stay indoors between eleven in the morning and four in the afternoon, to drink water regularly even if they are not thirsty, and to check on elderly neighbors.",
+              "vi": "Bác sĩ kêu gọi người dân ở trong nhà từ mười một giờ sáng đến bốn giờ chiều, uống nước đều đặn kể cả khi không khát, và hỏi thăm hàng xóm lớn tuổi."
+            },
+            {
+              "en": "Several cities have opened public buildings, including libraries and community centers, as cooling spaces for those without air conditioning.",
+              "vi": "Một số thành phố đã mở cửa các toà nhà công cộng, gồm thư viện và nhà văn hoá, làm nơi tránh nóng cho những ai không có điều hoà."
+            },
+            {
+              "en": "Meteorologists say a weak cold front could bring some relief early next week, although they warn that heat waves like this one are likely to become more frequent in the coming years.",
+              "vi": "Các nhà khí tượng cho biết một đợt không khí lạnh yếu có thể giúp dịu bớt vào đầu tuần sau, dù họ cảnh báo những đợt nắng nóng như thế này nhiều khả năng sẽ thường xuyên hơn trong những năm tới."
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What temperature is forecast for the weekend?",
+          "choices": [
+            "Thirty-two degrees",
+            "Forty degrees",
+            "Forty-two degrees",
+            "Forty-five degrees"
+          ],
+          "answer": 2,
+          "explain": "\"Forecast to reach forty-two degrees Celsius by the weekend.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why has the power company asked factories to work at night?",
+          "choices": [
+            "Workers prefer it",
+            "Demand is lower at night",
+            "Electricity is free at night",
+            "Machines work better when it is cool"
+          ],
+          "answer": 1,
+          "explain": "\"Shift part of their production to the night, when demand is lower.\""
+        },
+        {
+          "type": "tf",
+          "statement": "There have already been widespread blackouts across the region.",
+          "answer": "false",
+          "explain": "Mới chỉ có \"short, planned power cuts\", chủ yếu ở nông thôn; việc chuyển ca là để tránh mất điện diện rộng."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Who is particularly affected by heat exhaustion?",
+          "choices": [
+            "Children and students",
+            "Factory managers",
+            "Tourists",
+            "Elderly people and outdoor workers"
+          ],
+          "answer": 3,
+          "explain": "\"Particularly elderly people and outdoor workers.\""
+        },
+        {
+          "type": "tf",
+          "statement": "Some libraries are being used as cooling spaces.",
+          "answer": "true",
+          "explain": "Các thành phố mở \"libraries and community centers, as cooling spaces\"."
+        },
+        {
+          "type": "tf",
+          "statement": "Schools in the region have been closed because of the heat.",
+          "ng": true,
+          "answer": "ng",
+          "explain": "Bản tin không nhắc gì tới trường học."
+        },
+        {
+          "type": "gap",
+          "prompt": "People should drink water regularly, even if they are not ___.",
+          "answers": [
+            "thirsty"
+          ],
+          "choices": [
+            "thirsty",
+            "hungry",
+            "tired"
+          ],
+          "explain": "\"Drink water regularly even if they are not thirsty\" (kể cả khi không khát)."
+        },
+        {
+          "type": "listen",
+          "say": "Officials admit that the grid is under serious pressure.",
+          "choices": [
+            "Officials admit that the grid is under serious repair.",
+            "Officials admit that the grid is under serious pressure.",
+            "Officials deny that the grid is under serious pressure."
+          ],
+          "answer": 1,
+          "explain": "\"The grid\" = lưới điện. \"Admit\" (thừa nhận) khác \"deny\" (phủ nhận)."
+        }
+      ]
+    },
+    {
+      "id": "listenb2.project-delay",
+      "title": "Gọi khách hàng: dự án trễ hạn",
+      "summary": "Quản lý dự án báo tin xấu và thương lượng với khách hàng.",
+      "level": "B2_2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "tip",
+          "md": "Nghe cả đoạn một lần mà **chưa xem lời thoại**, thử trả lời câu hỏi, rồi mới bấm “Hiện lời thoại” để đối chiếu. Nghe lại chậm (0.6×) những câu khó, hoặc đặt A–B để lặp một đoạn."
+        },
+        {
+          "type": "audio",
+          "title": "Calling a client about a delay",
+          "lines": [
+            {
+              "en": "Hi Grace, thanks for making time. I'm afraid I'm calling with some news you won't love.",
+              "vi": "Chào Grace, cảm ơn chị đã dành thời gian. Tôi e là tôi gọi để báo một tin chị sẽ không thích.",
+              "speaker": "A"
+            },
+            {
+              "en": "That doesn't sound good. Go on.",
+              "vi": "Nghe không ổn rồi. Anh nói tiếp đi.",
+              "speaker": "B"
+            },
+            {
+              "en": "Our testing team found a serious problem with the payment system in the app. It works, but under heavy traffic it occasionally charges customers twice.",
+              "vi": "Nhóm kiểm thử của chúng tôi phát hiện một lỗi nghiêm trọng ở hệ thống thanh toán trong ứng dụng. Nó vẫn chạy, nhưng khi lượng truy cập lớn thì thỉnh thoảng trừ tiền khách hai lần.",
+              "speaker": "A"
+            },
+            {
+              "en": "Twice? We can't launch with that. Our customers would never forgive us.",
+              "vi": "Hai lần ư? Chúng ta không thể ra mắt như vậy được. Khách hàng sẽ không bao giờ tha thứ cho chúng tôi.",
+              "speaker": "B"
+            },
+            {
+              "en": "Exactly, which is why we're recommending we push the launch back by three weeks, from the first of June to the twenty-second.",
+              "vi": "Chính xác, vì vậy chúng tôi đề xuất lùi ngày ra mắt ba tuần, từ mùng một tháng Sáu sang ngày hai mươi hai.",
+              "speaker": "A"
+            },
+            {
+              "en": "Three weeks is a lot. We've already booked the advertising campaign for the first week of June.",
+              "vi": "Ba tuần là nhiều đấy. Chúng tôi đã đặt chiến dịch quảng cáo cho tuần đầu tháng Sáu rồi.",
+              "speaker": "B"
+            },
+            {
+              "en": "I understand, and I take full responsibility for not catching this earlier. Here's what I can offer. We can launch the rest of the app on time, with the payment feature switched off, so customers can browse and create accounts.",
+              "vi": "Tôi hiểu, và tôi hoàn toàn chịu trách nhiệm vì không phát hiện sớm hơn. Đây là điều tôi có thể đề xuất. Chúng tôi có thể ra mắt phần còn lại của ứng dụng đúng hạn, tạm tắt tính năng thanh toán, để khách vẫn xem hàng và tạo tài khoản được.",
+              "speaker": "A"
+            },
+            {
+              "en": "And the payment feature would follow later?",
+              "vi": "Còn tính năng thanh toán sẽ có sau?",
+              "speaker": "B"
+            },
+            {
+              "en": "Yes, within three weeks. And to make up for the inconvenience, we won't charge you for the extra testing hours.",
+              "vi": "Vâng, trong vòng ba tuần. Và để bù cho sự bất tiện, chúng tôi sẽ không tính phí số giờ kiểm thử thêm.",
+              "speaker": "A"
+            },
+            {
+              "en": "Okay, that's more reasonable. But I'll need a written plan with dates by Friday, so I can explain this to my director.",
+              "vi": "Được, vậy hợp lý hơn. Nhưng tôi cần một kế hoạch bằng văn bản có ngày cụ thể trước thứ Sáu, để tôi giải thích với giám đốc.",
+              "speaker": "B"
+            },
+            {
+              "en": "You'll have it by Thursday evening.",
+              "vi": "Chị sẽ có nó trước tối thứ Năm.",
+              "speaker": "A"
+            },
+            {
+              "en": "Fine. And Tom, next time, I'd rather hear about a risk as soon as you suspect it, not when it's already a problem.",
+              "vi": "Được. Và Tom này, lần sau tôi muốn được biết về rủi ro ngay khi anh nghi ngờ, chứ không phải lúc nó đã thành vấn đề.",
+              "speaker": "B"
+            },
+            {
+              "en": "That's fair. You have my word.",
+              "vi": "Chị nói đúng. Tôi hứa.",
+              "speaker": "A"
+            }
+          ],
+          "hideText": true
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "What is wrong with the app?",
+          "choices": [
+            "It is too slow",
+            "It does not allow new accounts",
+            "It sometimes charges customers twice",
+            "It crashes on old phones"
+          ],
+          "answer": 2,
+          "explain": "\"Under heavy traffic it occasionally charges customers twice.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "What new launch date does Tom first propose?",
+          "choices": [
+            "The twenty-second of June",
+            "The first of June",
+            "The twelfth of June",
+            "The second of July"
+          ],
+          "answer": 0,
+          "explain": "Lùi ba tuần \"from the first of June to the twenty-second\" (của tháng Sáu)."
+        },
+        {
+          "type": "tf",
+          "statement": "Grace has already booked advertising for early June.",
+          "answer": "true",
+          "explain": "\"We've already booked the advertising campaign for the first week of June.\""
+        },
+        {
+          "type": "tf",
+          "statement": "Tom suggests canceling the advertising campaign.",
+          "answer": "false",
+          "explain": "Tom đề xuất ra mắt phần còn lại đúng hạn, tạm tắt thanh toán; anh không đề nghị huỷ quảng cáo."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does Tom offer to make up for the inconvenience?",
+          "choices": [
+            "A discount on the next project",
+            "Not charging for the extra testing hours",
+            "A refund of the whole fee",
+            "A new designer for the project"
+          ],
+          "answer": 1,
+          "explain": "\"We won't charge you for the extra testing hours.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does Grace ask Tom to do in the future?",
+          "choices": [
+            "Call her only on Fridays",
+            "Test the app himself",
+            "Send fewer emails",
+            "Tell her about risks as soon as he suspects them"
+          ],
+          "answer": 3,
+          "explain": "\"I'd rather hear about a risk as soon as you suspect it, not when it's already a problem.\""
+        },
+        {
+          "type": "gap",
+          "prompt": "Grace says: I'll need a written plan with dates by ___.",
+          "answers": [
+            "Friday"
+          ],
+          "choices": [
+            "Monday",
+            "Thursday",
+            "Friday"
+          ],
+          "explain": "Grace yêu cầu trước thứ Sáu (Friday); Tom hứa gửi sớm hơn, trước tối thứ Năm (Thursday)."
+        },
+        {
+          "type": "listen",
+          "say": "I take full responsibility for not catching this earlier.",
+          "choices": [
+            "I take full responsibility for not catching this earlier.",
+            "I take no responsibility for not catching this earlier.",
+            "I'll take full responsibility for catching this early."
+          ],
+          "answer": 0,
+          "explain": "\"Take full responsibility for\" = hoàn toàn chịu trách nhiệm về. \"Catch\" ở đây = phát hiện (lỗi)."
+        }
+      ]
+    }
+  ]
+}

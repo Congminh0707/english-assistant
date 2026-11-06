@@ -1,15 +1,15 @@
 {
   "license": "proprietary-own",
-  "reviewed": false,
+  "reviewed": true,
   "place": {
     "id": "streets",
     "tier": "town",
     "order": 5,
     "suggestOrder": 5,
-    "title": "Town",
-    "vi": "Phố phường",
+    "title": "Around Us",
+    "vi": "Quanh bé",
     "topic": "Vehicles and places",
-    "topicVi": "Phương tiện và nơi chốn",
+    "topicVi": "Xe cộ và nơi chốn",
     "landmark": "streets",
     "landmarkVi": "Phố phường",
     "pos": {
@@ -58,7 +58,7 @@
       "picture": "firetruck",
       "sentence": {
         "en": "I see a fire truck.",
-        "vi": "Bé thấy một xe cứu hỏa."
+        "vi": "Bé thấy một chiếc xe cứu hỏa."
       }
     },
     {
@@ -71,8 +71,8 @@
     {
       "picture": "road",
       "sentence": {
-        "en": "I see the road.",
-        "vi": "Bé thấy con đường."
+        "en": "I see a road.",
+        "vi": "Bé thấy một con đường."
       }
     },
     {
@@ -100,7 +100,7 @@
       "picture": "farm",
       "sentence": {
         "en": "I see a farm.",
-        "vi": "Bé thấy một nông trại."
+        "vi": "Bé thấy một trang trại."
       }
     },
     {
@@ -113,8 +113,8 @@
     {
       "picture": "zoo",
       "sentence": {
-        "en": "I see the zoo.",
-        "vi": "Bé thấy sở thú."
+        "en": "I like the zoo.",
+        "vi": "Bé thích sở thú."
       }
     },
     {

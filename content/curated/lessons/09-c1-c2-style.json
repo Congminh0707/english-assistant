@@ -1,0 +1,1200 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "c1style",
+    "title": "Văn phong C1–C2",
+    "summary": "Thành ngữ, sắc thái từ, nói giảm, collocation nâng cao, biện pháp tu từ và chuyển đổi giọng điệu theo người nghe.",
+    "icon": "🖋️",
+    "order": 9
+  },
+  "lessons": [
+    {
+      "id": "c1style.idioms",
+      "title": "Thành ngữ & ngôn ngữ hình ảnh",
+      "summary": "Thành ngữ thông dụng, ẩn dụ và so sánh — khi nào nên dùng, khi nào nên tránh.",
+      "level": "C1",
+      "minutes": 14,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Thành ngữ** (idiom) là cụm từ mà nghĩa không suy ra được từ nghĩa từng chữ: `a piece of cake` không phải “một miếng bánh” mà là “rất dễ”.\n\n**Ngôn ngữ hình ảnh** gồm:\n\n- Ẩn dụ (metaphor): nói A **là** B — `Time is money.`\n- So sánh (simile): dùng `like` hoặc `as … as` — `as quiet as a mouse`.\n\nThành ngữ làm lời nói tự nhiên và sinh động, nhưng **thường hợp với văn nói, văn thân mật hoặc trung tính**. Trong bài luận học thuật, nên dùng ít hoặc tránh."
+        },
+        {
+          "type": "table",
+          "title": "Thành ngữ thông dụng",
+          "head": [
+            "Thành ngữ",
+            "Nghĩa"
+          ],
+          "rows": [
+            [
+              "break the ice",
+              "phá vỡ không khí ngượng ngùng"
+            ],
+            [
+              "cost an arm and a leg",
+              "rất đắt"
+            ],
+            [
+              "once in a blue moon",
+              "rất hiếm khi"
+            ],
+            [
+              "under the weather",
+              "hơi mệt, không khỏe"
+            ],
+            [
+              "on the fence",
+              "còn phân vân, chưa quyết"
+            ],
+            [
+              "get cold feet",
+              "chùn bước vào phút chót"
+            ],
+            [
+              "cut corners",
+              "làm ẩu, đi đường tắt để tiết kiệm"
+            ],
+            [
+              "hit the nail on the head",
+              "nói trúng vấn đề"
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp của người Việt:\n\n- Dịch thành ngữ tiếng Việt từng chữ sang tiếng Anh: người nghe thường không hiểu.\n- Đổi từ trong thành ngữ: `cost an arm and a foot` ✗ — thành ngữ là cụm **cố định**.\n- Lạm dụng thành ngữ cũ như `raining cats and dogs`: người bản ngữ ngày nay ít dùng, nghe gượng."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "Let's play a game to break the ice.",
+              "vi": "Chơi một trò chơi cho đỡ ngượng nhé."
+            },
+            {
+              "en": "That new phone cost an arm and a leg.",
+              "vi": "Chiếc điện thoại mới đó đắt cắt cổ."
+            },
+            {
+              "en": "I only eat fast food once in a blue moon.",
+              "vi": "Hiếm lắm tôi mới ăn đồ ăn nhanh."
+            },
+            {
+              "en": "I'm feeling a bit under the weather today.",
+              "vi": "Hôm nay tôi thấy hơi mệt."
+            },
+            {
+              "en": "He got cold feet the night before the wedding.",
+              "vi": "Anh ấy chùn bước vào đêm trước đám cưới."
+            },
+            {
+              "en": "The test was a piece of cake.",
+              "vi": "Bài kiểm tra dễ như ăn kẹo."
+            },
+            {
+              "en": "She was as quiet as a mouse.",
+              "vi": "Cô ấy im lặng như một con chuột nhỏ."
+            },
+            {
+              "en": "The ball is in your court now.",
+              "vi": "Giờ quyền quyết định là ở bạn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "\"I'm feeling a bit under the weather.\" nghĩa là gì?",
+          "choices": [
+            "Tôi đang ở ngoài trời.",
+            "Tôi thấy hơi mệt, không khỏe.",
+            "Tôi rất vui."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép thành ngữ với nghĩa",
+          "pairs": [
+            {
+              "left": "break the ice",
+              "right": "phá vỡ không khí ngượng ngùng"
+            },
+            {
+              "left": "cost an arm and a leg",
+              "right": "rất đắt"
+            },
+            {
+              "left": "once in a blue moon",
+              "right": "rất hiếm khi"
+            },
+            {
+              "left": "get cold feet",
+              "right": "chùn bước vào phút chót"
+            },
+            {
+              "left": "cut corners",
+              "right": "làm ẩu để tiết kiệm"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The ball is in your ___ now.",
+          "answers": [
+            "court"
+          ],
+          "choices": [
+            "field",
+            "court",
+            "hand"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I'm still on the ___ about which job to take.",
+          "answers": [
+            "fence"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào là phép so sánh (simile)?",
+          "choices": [
+            "Time is money.",
+            "He broke the ice.",
+            "She was as quiet as a mouse."
+          ],
+          "answer": 2,
+          "explain": "Simile dùng \"like\" hoặc \"as … as\"."
+        },
+        {
+          "type": "tf",
+          "statement": "Thành ngữ thường hợp với bài luận học thuật trang trọng hơn là hội thoại.",
+          "answer": "false"
+        },
+        {
+          "type": "gap",
+          "prompt": "Don't bite off more than you can ___.",
+          "answers": [
+            "chew"
+          ],
+          "choices": [
+            "eat",
+            "chew",
+            "swallow"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "\"You hit the nail on the head.\" nghĩa là gì?",
+          "choices": [
+            "Bạn làm hỏng việc.",
+            "Bạn làm việc quá sức.",
+            "Bạn nói trúng vấn đề."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "order",
+          "hint": "Bài kiểm tra dễ như ăn kẹo.",
+          "answer": "The test was a piece of cake."
+        },
+        {
+          "type": "speak",
+          "say": "Let's play a game to break the ice.",
+          "prompt": "Đọc to câu có thành ngữ"
+        }
+      ]
+    },
+    {
+      "id": "c1style.connotation",
+      "title": "Sắc thái nghĩa của từ gần nghĩa",
+      "summary": "Phân biệt từ tích cực, trung tính, tiêu cực: slim/thin/skinny, confident/arrogant, thrifty/stingy.",
+      "level": "C1",
+      "minutes": 14,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Nhiều từ có **nghĩa gốc** giống nhau nhưng **sắc thái** (connotation) khác nhau: tích cực, trung tính hoặc tiêu cực. Chọn sai sắc thái có thể biến lời khen thành lời chê.\n\n- `slim` (thon thả, khen) – `thin` (gầy, trung tính) – `skinny` (gầy nhom, thường hơi chê).\n- `confident` (tự tin) – `arrogant` (kiêu ngạo).\n- `thrifty` (biết tiết kiệm) – `stingy` (keo kiệt).\n\nTừ gần nghĩa còn khác nhau về **mức độ**: `annoyed` < `angry` < `furious`. Sắc thái có thể đổi theo ngữ cảnh, nên hãy xem cách từ được dùng trong câu thật."
+        },
+        {
+          "type": "table",
+          "title": "Sắc thái thường gặp",
+          "head": [
+            "Tích cực",
+            "Trung tính",
+            "Tiêu cực"
+          ],
+          "rows": [
+            [
+              "slim",
+              "thin",
+              "skinny"
+            ],
+            [
+              "confident",
+              "sure of oneself",
+              "arrogant"
+            ],
+            [
+              "thrifty",
+              "careful with money",
+              "stingy"
+            ],
+            [
+              "curious",
+              "interested",
+              "nosy"
+            ],
+            [
+              "determined",
+              "—",
+              "stubborn"
+            ],
+            [
+              "childlike",
+              "—",
+              "childish"
+            ],
+            [
+              "famous",
+              "well-known",
+              "notorious"
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp của người Việt:\n\n- Từ điển dịch cả `thin` và `skinny` là “gầy”; nói `You're so skinny!` có thể làm người nghe phật lòng.\n- `notorious` nghĩa là **khét tiếng** (vì điều xấu), không phải “nổi tiếng” nói chung.\n- `cheap` nói về người là “keo kiệt”; nói về hàng hóa có thể gợi ý **rẻ và kém chất lượng**. Muốn khen giá tốt, dùng `affordable` hoặc `inexpensive`."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "She looks slim and healthy.",
+              "vi": "Cô ấy trông thon thả và khỏe mạnh."
+            },
+            {
+              "en": "He is confident but not arrogant.",
+              "vi": "Anh ấy tự tin nhưng không kiêu ngạo."
+            },
+            {
+              "en": "My grandmother is very thrifty.",
+              "vi": "Bà tôi rất biết tiết kiệm."
+            },
+            {
+              "en": "He never pays for anything; he's so stingy.",
+              "vi": "Anh ta chẳng bao giờ trả tiền gì cả; keo kiệt thật."
+            },
+            {
+              "en": "Stop being so nosy about my life!",
+              "vi": "Đừng tọc mạch chuyện đời tôi nữa!"
+            },
+            {
+              "en": "The city is notorious for its traffic jams.",
+              "vi": "Thành phố này khét tiếng vì nạn kẹt xe."
+            },
+            {
+              "en": "The hotel was affordable and very clean.",
+              "vi": "Khách sạn giá phải chăng và rất sạch sẽ."
+            },
+            {
+              "en": "I wasn't just angry; I was furious.",
+              "vi": "Tôi không chỉ giận; tôi giận điên lên."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Từ nào là lời khen? \"She looks very ___.\"",
+          "choices": [
+            "skinny",
+            "slim",
+            "bony"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "\"notorious\" nghĩa là gì?",
+          "choices": [
+            "khét tiếng (vì điều xấu)",
+            "nổi tiếng vì điều tốt",
+            "không ai biết đến"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "gap",
+          "prompt": "He never pays for anything; he's so ___.",
+          "answers": [
+            "stingy"
+          ],
+          "choices": [
+            "thrifty",
+            "stingy",
+            "generous"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Stop being so ___ and act your age!",
+          "answers": [
+            "childish"
+          ],
+          "choices": [
+            "childlike",
+            "young",
+            "childish"
+          ],
+          "explain": "childish = trẻ con (chê); childlike = hồn nhiên như trẻ (khen)."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép từ với sắc thái nghĩa",
+          "pairs": [
+            {
+              "left": "arrogant",
+              "right": "kiêu ngạo (chê)"
+            },
+            {
+              "left": "confident",
+              "right": "tự tin (khen)"
+            },
+            {
+              "left": "nosy",
+              "right": "tọc mạch (chê)"
+            },
+            {
+              "left": "curious",
+              "right": "ham hiểu biết"
+            },
+            {
+              "left": "stubborn",
+              "right": "bướng bỉnh (chê)"
+            },
+            {
+              "left": "determined",
+              "right": "quyết tâm (khen)"
+            }
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "Khi nói về một người, \"cheap\" thường mang nghĩa \"keo kiệt\".",
+          "answer": "true"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào chê người được nói tới?",
+          "choices": [
+            "She's very determined.",
+            "She's very confident.",
+            "She's very stubborn."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "I wasn't just angry; I was ___.",
+          "answers": [
+            "furious"
+          ],
+          "choices": [
+            "annoyed",
+            "furious",
+            "upset"
+          ],
+          "explain": "Cần từ mạnh hơn angry."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Chọn từ khen giá cả mà không gợi ý chất lượng kém: \"The hotel was ___ and very clean.\"",
+          "choices": [
+            "cheap",
+            "affordable",
+            "stingy"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Anh ấy tự tin nhưng không kiêu ngạo.",
+          "answer": "He is confident but not arrogant."
+        }
+      ]
+    },
+    {
+      "id": "c1style.hedging",
+      "title": "Nói giảm & thể hiện lập trường",
+      "summary": "Làm mềm nhận định bằng may, tend to, suggest, likely; nhấn mạnh và bày tỏ thái độ đúng lúc.",
+      "level": "C1",
+      "minutes": 15,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Trong văn học thuật, người viết **thận trọng** với nhận định của mình. Kỹ thuật này gọi là **nói giảm** (hedging):\n\n- Động từ khuyết thiếu: `may`, `might`, `could`.\n- Động từ: `seem`, `appear`, `suggest`, `tend to`.\n- Trạng từ, tính từ: `possibly`, `probably`, `arguably`, `likely`.\n- Lượng từ: `some`, `many`, `most` thay cho `all`.\n- Cụm: `to some extent`, `There is some evidence that…`\n\nNgược lại, khi có bằng chứng mạnh, có thể **nhấn mạnh** (`clearly`, `undoubtedly`). Trạng từ thái độ như `surprisingly`, `unfortunately` cho biết cảm nhận của người viết."
+        },
+        {
+          "type": "table",
+          "title": "Khẳng định tuyệt đối → Nói giảm",
+          "head": [
+            "Tuyệt đối",
+            "Nói giảm"
+          ],
+          "rows": [
+            [
+              "Social media causes depression.",
+              "Social media may contribute to depression."
+            ],
+            [
+              "All students hate exams.",
+              "Many students tend to dislike exams."
+            ],
+            [
+              "This proves that the drug works.",
+              "This suggests that the drug works."
+            ],
+            [
+              "The plan will fail.",
+              "The plan is unlikely to succeed."
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp của người Việt:\n\n- Viết nhận định tuyệt đối trong bài luận: `Everyone knows…`, `always`, `prove`. Giám khảo thường đánh giá đây là lập luận yếu.\n- Nói giảm quá mức: `It might possibly perhaps be true` ✗ — một từ nói giảm là đủ.\n- `Maybe` thường hơi thân mật; trong văn học thuật hay dùng `perhaps`, `possibly` hoặc `may`."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "Coffee may increase the risk of heart disease.",
+              "vi": "Cà phê có thể làm tăng nguy cơ bệnh tim."
+            },
+            {
+              "en": "Young people tend to spend more time online.",
+              "vi": "Người trẻ có xu hướng dành nhiều thời gian trực tuyến hơn."
+            },
+            {
+              "en": "The results suggest that the method works.",
+              "vi": "Kết quả cho thấy phương pháp này có hiệu quả."
+            },
+            {
+              "en": "It is likely that prices will rise next year.",
+              "vi": "Nhiều khả năng giá sẽ tăng vào năm tới."
+            },
+            {
+              "en": "This is arguably the best solution.",
+              "vi": "Có thể nói đây là giải pháp tốt nhất."
+            },
+            {
+              "en": "I agree with this view to some extent.",
+              "vi": "Tôi đồng ý với quan điểm này ở một mức độ nào đó."
+            },
+            {
+              "en": "Surprisingly, the cheaper model performed better.",
+              "vi": "Thật bất ngờ, mẫu rẻ hơn lại hoạt động tốt hơn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đã được nói giảm?",
+          "choices": [
+            "Coffee causes heart disease.",
+            "Coffee may increase the risk of heart disease.",
+            "Coffee always damages your heart."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "(nói giảm) The results ___ that the new drug works.",
+          "answers": [
+            "suggest"
+          ],
+          "choices": [
+            "prove",
+            "guarantee",
+            "suggest"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Young people ___ to spend more time online. (có xu hướng)",
+          "answers": [
+            "tend"
+          ]
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép từ tuyệt đối với từ nói giảm tương ứng",
+          "pairs": [
+            {
+              "left": "always",
+              "right": "often"
+            },
+            {
+              "left": "all",
+              "right": "most"
+            },
+            {
+              "left": "prove",
+              "right": "suggest"
+            },
+            {
+              "left": "will",
+              "right": "may"
+            },
+            {
+              "left": "certainly",
+              "right": "probably"
+            }
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "\"Arguably\" cho thấy người viết đưa ra nhận định có thể gây tranh cãi nhưng họ cho là có cơ sở.",
+          "answer": "true"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ nào làm nhận định **mạnh hơn**?",
+          "choices": [
+            "arguably",
+            "perhaps",
+            "undoubtedly"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "It is ___ that prices will rise next year.",
+          "answers": [
+            "likely"
+          ],
+          "choices": [
+            "likely",
+            "probably",
+            "maybe"
+          ],
+          "explain": "Sau \"It is\" cần tính từ: likely."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Chọn từ thể hiện sự bất ngờ của người viết: \"___, the cheaper model performed better.\"",
+          "choices": [
+            "Consequently",
+            "Surprisingly",
+            "Similarly"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "I agree with this view to some ___.",
+          "answers": [
+            "extent",
+            "degree"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Kế hoạch này nhiều khả năng sẽ không thành công.",
+          "answer": "This plan is unlikely to succeed."
+        }
+      ]
+    },
+    {
+      "id": "c1style.fixed-expressions",
+      "title": "Collocation nâng cao & cụm cố định",
+      "summary": "highly unlikely, raise awareness, meet a deadline, pros and cons — kết hợp từ của người viết giỏi.",
+      "level": "C1",
+      "minutes": 14,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Ở trình độ C1, bài viết tự nhiên nhờ **collocation chính xác** chứ không nhờ từ khó.\n\n- Trạng từ + tính từ: `highly unlikely`, `deeply concerned`, `bitterly disappointed`, `fully aware`, `widely accepted`.\n- Động từ + danh từ: `raise awareness`, `pose a threat`, `meet a deadline`, `draw a conclusion`, `take precautions`.\n- Tính từ + danh từ: `a heated debate`, `a sharp decline`, `a narrow escape`.\n\n**Cặp từ cố định** (binomial) có **thứ tự không đổi**: `pros and cons`, `trial and error`, `sooner or later`, `by and large` (nhìn chung), `safe and sound`."
+        },
+        {
+          "type": "table",
+          "title": "Collocation nâng cao",
+          "head": [
+            "Collocation",
+            "Nghĩa"
+          ],
+          "rows": [
+            [
+              "highly unlikely",
+              "rất khó xảy ra"
+            ],
+            [
+              "bitterly disappointed",
+              "thất vọng cay đắng"
+            ],
+            [
+              "raise awareness",
+              "nâng cao nhận thức"
+            ],
+            [
+              "pose a threat",
+              "gây ra mối đe dọa"
+            ],
+            [
+              "meet a deadline",
+              "kịp hạn chót"
+            ],
+            [
+              "a sharp decline",
+              "sự sụt giảm mạnh"
+            ],
+            [
+              "trial and error",
+              "thử và sai"
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp của người Việt:\n\n- `make a conclusion` ✗ → `draw a conclusion` / `reach a conclusion` ✓.\n- `catch the deadline` ✗ → `meet the deadline` ✓.\n- `rise awareness` ✗ → `raise awareness` ✓ (`rise` không có tân ngữ).\n- Đảo thứ tự cặp từ cố định: `cons and pros` ✗ → `pros and cons` ✓."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "It is highly unlikely that he will win.",
+              "vi": "Rất khó có khả năng anh ấy thắng."
+            },
+            {
+              "en": "We are fully aware of the risks.",
+              "vi": "Chúng tôi hoàn toàn ý thức được rủi ro."
+            },
+            {
+              "en": "She was bitterly disappointed with the result.",
+              "vi": "Cô ấy thất vọng cay đắng với kết quả."
+            },
+            {
+              "en": "The campaign aims to raise awareness of mental health.",
+              "vi": "Chiến dịch nhằm nâng cao nhận thức về sức khỏe tâm thần."
+            },
+            {
+              "en": "Plastic waste poses a threat to marine life.",
+              "vi": "Rác thải nhựa đe dọa sinh vật biển."
+            },
+            {
+              "en": "We worked late to meet the deadline.",
+              "vi": "Chúng tôi làm muộn để kịp hạn chót."
+            },
+            {
+              "en": "Let's weigh the pros and cons first.",
+              "vi": "Hãy cân nhắc ưu và nhược điểm trước đã."
+            },
+            {
+              "en": "By and large, the plan was successful.",
+              "vi": "Nhìn chung, kế hoạch đã thành công."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "It is ___ unlikely that he will win.",
+          "answers": [
+            "highly"
+          ],
+          "choices": [
+            "highly",
+            "strongly",
+            "heavily"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "We need to ___ awareness of mental health.",
+          "answers": [
+            "raise"
+          ],
+          "choices": [
+            "rise",
+            "raise",
+            "lift"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Let's weigh the pros and ___ before deciding.",
+          "answers": [
+            "cons"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Kết hợp nào đúng?",
+          "choices": [
+            "make a conclusion",
+            "draw a conclusion",
+            "do a conclusion"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép động từ với danh từ đi kèm",
+          "pairs": [
+            {
+              "left": "meet",
+              "right": "a deadline"
+            },
+            {
+              "left": "pose",
+              "right": "a threat"
+            },
+            {
+              "left": "take",
+              "right": "precautions"
+            },
+            {
+              "left": "bear",
+              "right": "in mind"
+            },
+            {
+              "left": "raise",
+              "right": "awareness"
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "She was bitterly ___ with the result.",
+          "choices": [
+            "happy",
+            "interested",
+            "disappointed"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "There was a ___ decline in sales last quarter.",
+          "answers": [
+            "sharp",
+            "steep"
+          ],
+          "choices": [
+            "sharp",
+            "strong",
+            "tall"
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "\"Sooner or later\" có thể đảo thành \"later or sooner\" mà vẫn tự nhiên.",
+          "answer": "false",
+          "explain": "Cặp từ cố định giữ nguyên thứ tự."
+        },
+        {
+          "type": "order",
+          "hint": "Chúng ta cần nâng cao nhận thức về vấn đề này.",
+          "answer": "We need to raise awareness of this issue."
+        },
+        {
+          "type": "speak",
+          "say": "We are fully aware of the risks.",
+          "prompt": "Đọc to câu sau"
+        }
+      ]
+    },
+    {
+      "id": "c1style.rhetoric",
+      "title": "Biện pháp tu từ khi nói và viết",
+      "summary": "Bộ ba, câu hỏi tu từ, đối lập, đảo ngữ nhấn mạnh và câu chẻ (It was… that…).",
+      "level": "C2",
+      "minutes": 16,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Người nói và viết giỏi dùng **biện pháp tu từ** để gây ấn tượng và thuyết phục:\n\n- **Bộ ba** (rule of three): liệt kê ba ý — `fast, cheap, and reliable`.\n- **Câu hỏi tu từ**: hỏi để nhấn mạnh, không chờ câu trả lời.\n- **Đối lập** (antithesis): đặt hai ý trái ngược cạnh nhau — `Speak less, listen more.`\n- **Đảo ngữ nhấn mạnh**: khi `Never`, `Rarely`, `Little`, `Not only`, `Only then` đứng **đầu câu**, trợ động từ đứng trước chủ ngữ — `Never have I seen…`\n- **Câu chẻ** (cleft sentence): `It was Mai who…`, `What we need is…`\n\nCác biện pháp này mạnh trong bài phát biểu; trong bài luận học thuật nên dùng vừa phải."
+        },
+        {
+          "type": "table",
+          "title": "Đảo ngữ và câu chẻ",
+          "head": [
+            "Câu thường",
+            "Câu nhấn mạnh"
+          ],
+          "rows": [
+            [
+              "I have never seen such a view.",
+              "Never have I seen such a view."
+            ],
+            [
+              "We rarely get a second chance.",
+              "Rarely do we get a second chance."
+            ],
+            [
+              "He is smart and also kind.",
+              "Not only is he smart, but he is also kind."
+            ],
+            [
+              "Mai solved the problem.",
+              "It was Mai who solved the problem."
+            ],
+            [
+              "We need more time.",
+              "What we need is more time."
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp của người Việt:\n\n- Quên đảo trợ động từ: `Never I have seen…` ✗ → `Never have I seen…` ✓.\n- Đảo rồi vẫn chia động từ: `Not only does he speaks…` ✗ → `does he speak` ✓.\n- Thừa chủ ngữ trong câu chẻ: `What I need it is time.` ✗ → `What I need is time.` ✓.\n- Đảo ngữ chỉ xảy ra khi từ phủ định **đứng đầu câu**: `I rarely see him` không đảo."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "Never have I seen such a beautiful sunset.",
+              "vi": "Chưa bao giờ tôi thấy cảnh hoàng hôn đẹp như vậy."
+            },
+            {
+              "en": "Rarely do we get a second chance.",
+              "vi": "Hiếm khi chúng ta có cơ hội thứ hai."
+            },
+            {
+              "en": "Not only is he smart, but he is also kind.",
+              "vi": "Anh ấy không chỉ thông minh mà còn tốt bụng."
+            },
+            {
+              "en": "Only then did I realize my mistake.",
+              "vi": "Chỉ đến lúc đó tôi mới nhận ra lỗi của mình."
+            },
+            {
+              "en": "It was patience that helped her succeed.",
+              "vi": "Chính sự kiên nhẫn đã giúp cô ấy thành công."
+            },
+            {
+              "en": "What we need is more time.",
+              "vi": "Điều chúng ta cần là thêm thời gian."
+            },
+            {
+              "en": "Who doesn't want a better future?",
+              "vi": "Ai mà không muốn một tương lai tốt đẹp hơn?"
+            },
+            {
+              "en": "Speak less, listen more.",
+              "vi": "Nói ít đi, lắng nghe nhiều hơn."
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "Never ___ such a beautiful sunset.",
+          "answers": [
+            "have I seen"
+          ],
+          "choices": [
+            "I have seen",
+            "have I seen",
+            "I saw"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "Not only he speaks French, but he also speaks Japanese.",
+            "Not only does he speak French, but he also speaks Japanese.",
+            "Not only does he speaks French, but he also speaks Japanese."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "What we need ___ more time.",
+          "answers": [
+            "is"
+          ]
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép biện pháp tu từ với ví dụ",
+          "pairs": [
+            {
+              "left": "câu hỏi tu từ",
+              "right": "Who doesn't want a better future?"
+            },
+            {
+              "left": "bộ ba",
+              "right": "It is fast, cheap, and reliable."
+            },
+            {
+              "left": "đối lập",
+              "right": "Speak less, listen more."
+            },
+            {
+              "left": "đảo ngữ",
+              "right": "Rarely do we see such talent."
+            },
+            {
+              "left": "câu chẻ",
+              "right": "It was Mai who solved the problem."
+            }
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Mục đích chính của câu hỏi tu từ là gì?",
+          "choices": [
+            "Để hỏi thông tin mới.",
+            "Để nhận câu trả lời cụ thể từ người nghe.",
+            "Để nhấn mạnh và khiến người nghe suy nghĩ."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "Only then ___ the truth.",
+          "answers": [
+            "did I realize"
+          ],
+          "choices": [
+            "I realized",
+            "did I realize",
+            "I did realize"
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "Đảo ngữ sau \"rarely\" chỉ xảy ra khi \"rarely\" đứng đầu câu.",
+          "answer": "true"
+        },
+        {
+          "type": "gap",
+          "prompt": "Little ___ he know that his life was about to change.",
+          "answers": [
+            "did"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Chính sự kiên nhẫn đã giúp cô ấy thành công.",
+          "answer": "It was patience that helped her succeed."
+        },
+        {
+          "type": "speak",
+          "say": "Rarely do we get a second chance.",
+          "prompt": "Đọc to câu đảo ngữ"
+        }
+      ]
+    },
+    {
+      "id": "c1style.register-tone",
+      "title": "Chuyển đổi văn phong & giọng điệu",
+      "summary": "Cùng một ý, nói khác nhau với bạn bè, sếp và khách hàng: từ vựng, ngữ pháp, độ trực tiếp.",
+      "level": "C2",
+      "minutes": 15,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Người dùng tiếng Anh thành thạo **đổi văn phong** theo người nghe và hoàn cảnh. Văn phong thể hiện qua:\n\n- **Từ vựng**: thân mật dùng cụm động từ (`find out`), trang trọng dùng động từ đơn (`ascertain`, `obtain`).\n- **Ngữ pháp**: văn trang trọng hay dùng bị động và danh từ hóa — `The decision to close the branch…`\n- **Độ trực tiếp**: câu mệnh lệnh nghe gắt; câu gián tiếp nghe lịch sự — `I was wondering if you could…`. Thì quá khứ ở đây chỉ làm câu mềm hơn, không nói về quá khứ.\n- **Viết tắt, độ dài câu**: văn thân mật ngắn, có viết tắt; văn trang trọng dài hơn, đầy đủ.\n\nGiọng điệu (tone) có thể lịch sự, kiên quyết, thân thiện hay trung tính — hãy giữ **thống nhất** trong một văn bản."
+        },
+        {
+          "type": "table",
+          "title": "Một ý, ba văn phong",
+          "head": [
+            "Thân mật",
+            "Trung tính",
+            "Trang trọng"
+          ],
+          "rows": [
+            [
+              "Can you help me?",
+              "Could you help me?",
+              "I was wondering if you could assist me."
+            ],
+            [
+              "Lots of people",
+              "Many people",
+              "A significant number of people"
+            ],
+            [
+              "Sorry, my bad.",
+              "Sorry, that was my mistake.",
+              "Please accept my apologies for the error."
+            ],
+            [
+              "find out",
+              "learn",
+              "ascertain"
+            ],
+            [
+              "We're out of it.",
+              "We don't have it now.",
+              "The item is currently unavailable."
+            ]
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp của người Việt:\n\n- Trộn văn phong: `Dear Ms. Lee, I'm gonna send the contract tomorrow.` — `gonna` quá thân mật.\n- Quá trang trọng khi nhắn tin cho bạn bè: nghe xa cách hoặc như đang mỉa mai.\n- Ra lệnh trực tiếp với sếp/khách hàng (`Send me the file.`); thêm `please` thường chưa đủ lịch sự, nên dùng câu hỏi gián tiếp."
+        },
+        {
+          "type": "examples",
+          "title": "Ví dụ",
+          "items": [
+            {
+              "en": "I was wondering if you could help me with this report.",
+              "vi": "Không biết anh có thể giúp tôi bản báo cáo này không."
+            },
+            {
+              "en": "Would you mind closing the window?",
+              "vi": "Bạn có phiền đóng cửa sổ giúp không?"
+            },
+            {
+              "en": "Please accept my apologies for the inconvenience.",
+              "vi": "Mong quý khách thứ lỗi vì sự bất tiện này."
+            },
+            {
+              "en": "The item is currently unavailable.",
+              "vi": "Mặt hàng này hiện không có sẵn."
+            },
+            {
+              "en": "A significant number of people disagree.",
+              "vi": "Một số lượng đáng kể người không đồng ý."
+            },
+            {
+              "en": "The company's decision to close the branch shocked staff.",
+              "vi": "Quyết định đóng chi nhánh của công ty khiến nhân viên sốc."
+            },
+            {
+              "en": "Hey, got a minute?",
+              "vi": "Này, rảnh một phút không?"
+            }
+          ]
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Câu nào lịch sự nhất khi nói với sếp?",
+          "choices": [
+            "Send me the file now.",
+            "I was wondering if you could send me the file.",
+            "Gimme the file."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép cách nói thân mật với cách nói trang trọng",
+          "pairs": [
+            {
+              "left": "get",
+              "right": "obtain"
+            },
+            {
+              "left": "find out",
+              "right": "ascertain"
+            },
+            {
+              "left": "ask for",
+              "right": "request"
+            },
+            {
+              "left": "talk about",
+              "right": "discuss"
+            },
+            {
+              "left": "go up",
+              "right": "increase"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Please accept my ___ for the inconvenience.",
+          "answers": [
+            "apologies"
+          ],
+          "choices": [
+            "sorry",
+            "apologize",
+            "apologies"
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "Dùng câu rất trang trọng khi nhắn tin cho bạn thân có thể nghe xa cách hoặc mỉa mai.",
+          "answer": "true"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào phù hợp với văn bản trang trọng?",
+          "choices": [
+            "The company decided, like, to close it.",
+            "Staff were shocked cuz the branch closed.",
+            "The company's decision to close the branch shocked staff."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "I was ___ if you could help me with this report.",
+          "answers": [
+            "wondering"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Trong câu \"Dear Ms. Lee, I'm gonna send the contract tomorrow.\", từ nào quá thân mật?",
+          "choices": [
+            "Dear",
+            "gonna",
+            "contract",
+            "tomorrow"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "A significant ___ of people disagree.",
+          "answers": [
+            "number"
+          ],
+          "choices": [
+            "amount",
+            "number",
+            "lot"
+          ],
+          "explain": "Danh từ đếm được (people) đi với number."
+        },
+        {
+          "type": "order",
+          "hint": "Bạn có phiền đóng cửa sổ giúp không?",
+          "answer": "Would you mind closing the window?"
+        },
+        {
+          "type": "speak",
+          "say": "Please accept my apologies for the delay.",
+          "prompt": "Đọc to lời xin lỗi trang trọng"
+        }
+      ]
+    }
+  ]
+}

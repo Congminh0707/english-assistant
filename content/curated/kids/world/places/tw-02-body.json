@@ -1,6 +1,6 @@
 {
   "license": "proprietary-own",
-  "reviewed": false,
+  "reviewed": true,
   "place": {
     "id": "body",
     "tier": "town",
@@ -30,14 +30,14 @@
       "picture": "eye",
       "sentence": {
         "en": "I have two eyes.",
-        "vi": "Bé có hai con mắt."
+        "vi": "Bé có hai mắt."
       }
     },
     {
       "picture": "ear",
       "sentence": {
         "en": "I have two ears.",
-        "vi": "Bé có hai cái tai."
+        "vi": "Bé có hai tai."
       }
     },
     {
@@ -72,7 +72,7 @@
       "picture": "leg",
       "sentence": {
         "en": "I have two legs.",
-        "vi": "Bé có hai cái chân."
+        "vi": "Bé có hai chân."
       }
     },
     {
@@ -113,8 +113,8 @@
     {
       "picture": "tongue",
       "sentence": {
-        "en": "I see my tongue.",
-        "vi": "Bé thấy cái lưỡi của mình."
+        "en": "This is my tongue.",
+        "vi": "Đây là lưỡi của bé."
       }
     },
     {
@@ -127,8 +127,8 @@
     {
       "picture": "belly",
       "sentence": {
-        "en": "I see my belly.",
-        "vi": "Bé thấy cái bụng của mình."
+        "en": "This is my belly.",
+        "vi": "Đây là bụng của bé."
       }
     }
   ]

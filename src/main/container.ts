@@ -45,6 +45,8 @@ import {
   bundledKidsPlaceFiles,
   bundledKidsWorldFiles,
   bundledPlacementFiles,
+  bundledToeicFiles,
+  bundledVideoFiles,
   bundledReadingFiles
 } from './content/bundledLessons'
 import { PhrasebookLibrary } from './content/PhrasebookLibrary'
@@ -52,6 +54,11 @@ import { CourseLibrary } from './content/CourseLibrary'
 import { KidsLibrary } from './content/KidsLibrary'
 import { KidsWorldLibrary } from './content/KidsWorldLibrary'
 import { PlacementBank } from './content/PlacementBank'
+import { ToeicBank } from './content/ToeicBank'
+import { VideoBank } from './content/VideoBank'
+import { VideoService } from './services/VideoService'
+import { ToeicService } from './services/ToeicService'
+import { ExamRepository } from './db/repositories/ExamRepository'
 import {
   GrammarUnitFileSchema,
   ListeningUnitFileSchema,
@@ -78,6 +85,8 @@ export interface Container {
   missions: MissionService
   achievements: AchievementService
   placement: PlacementService
+  toeic: ToeicService
+  video: VideoService
   practice: PracticeService
   shop: ShopService
   stats: StatsService
@@ -119,6 +128,7 @@ export function createContainer(
     vocab: new VocabRepository(db),
     lessons: new LessonRepository(db),
     usage: new UsageRepository(db),
+    exam: new ExamRepository(db),
     progress: new ProgressRepository(db),
     packs: new InstalledPackRepository(db)
   }
@@ -221,6 +231,24 @@ export function createContainer(
     xp,
     xpRepo: repos.xp,
     clock
+  })
+
+  const toeic = new ToeicService({
+    bank: new ToeicBank(bundledToeicFiles),
+    repo: repos.exam,
+    profiles,
+    clock,
+    xp,
+    xpRepo: repos.xp
+  })
+
+  const video = new VideoService({
+    bank: new VideoBank(bundledVideoFiles),
+    repo: repos.exam,
+    profiles,
+    clock,
+    xp,
+    xpRepo: repos.xp
   })
 
   const practice = new PracticeService({
@@ -361,6 +389,8 @@ export function createContainer(
     study,
     missions,
     placement,
+    toeic,
+    video,
     practice,
     shop,
     stats,

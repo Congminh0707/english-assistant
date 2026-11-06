@@ -1,0 +1,767 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "gramc2",
+    "title": "Ngữ pháp C2",
+    "summary": "Fronting và đảo ngữ văn phong, nhượng bộ nâng cao, từ nối diễn ngôn, chuyển đổi văn phong.",
+    "icon": "🏆",
+    "order": 13
+  },
+  "lessons": [
+    {
+      "id": "gramc2.fronting",
+      "title": "Đưa thành phần lên đầu câu (fronting) và đảo ngữ văn phong",
+      "summary": "Into the room walked..., So loud was..., Gone are the days...",
+      "level": "C2",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Để nhấn mạnh hoặc nối ý cho mạch lạc, người viết có thể **đưa một thành phần lên đầu câu** (fronting). Một số trường hợp kéo theo đảo ngữ:\n\n- Trạng ngữ nơi chốn / hướng + động từ chỉ vị trí, chuyển động (`come, go, stand, lie, sit, hang`) + chủ ngữ: *Into the room walked a tall stranger.* Không dùng *do/does/did*.\n- `So + tính từ/trạng từ + trợ động từ + S + that ...`: *So loud was the music that we left.*\n- `Such + be + danh từ + that ...`: *Such was his anger that he couldn’t speak.*\n- Phân từ / tính từ lên đầu: *Gone are the days when ...*, *Attached is a copy of ...*\n- Đưa tân ngữ lên đầu (không đảo) để đối lập: *This I cannot accept.*\n\n**Ngoại lệ**: khi chủ ngữ là **đại từ**, không đảo sau trạng ngữ nơi chốn: *Down it came.*, *Here it comes.*"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Câu thường",
+            "Fronting"
+          ],
+          "rows": [
+            [
+              "A stranger walked into the room.",
+              "Into the room walked a stranger."
+            ],
+            [
+              "The music was so loud that we left.",
+              "So loud was the music that we left."
+            ],
+            [
+              "The days of cheap travel are gone.",
+              "Gone are the days of cheap travel."
+            ],
+            [
+              "I cannot accept this.",
+              "This I cannot accept."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "Into the room walked a tall man in a gray coat.",
+              "vi": "Bước vào phòng là một người đàn ông cao mặc áo khoác xám."
+            },
+            {
+              "en": "On top of the hill stands a ruined castle.",
+              "vi": "Trên đỉnh đồi là một lâu đài đổ nát."
+            },
+            {
+              "en": "So exhausting was the journey that we slept for twelve hours.",
+              "vi": "Chuyến đi mệt đến mức chúng tôi ngủ liền mười hai tiếng."
+            },
+            {
+              "en": "Such was her talent that she won every competition she entered.",
+              "vi": "Tài năng của cô lớn đến mức cô thắng mọi cuộc thi đã tham gia."
+            },
+            {
+              "en": "Gone are the days when phones were used only for calls.",
+              "vi": "Đã qua rồi cái thời điện thoại chỉ dùng để gọi."
+            },
+            {
+              "en": "Attached is a copy of the signed contract.",
+              "vi": "Đính kèm là bản sao hợp đồng đã ký."
+            },
+            {
+              "en": "Some mistakes we can forgive; this one we cannot.",
+              "vi": "Có những lỗi ta có thể tha thứ; lỗi này thì không."
+            },
+            {
+              "en": "Here comes the bus. Here it comes!",
+              "vi": "Xe buýt tới rồi. Nó tới kìa!",
+              "note": "Đại từ \"it\" không đảo."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp: ✗ *So tired she was that she fell asleep* (thiếu đảo) → ✓ *So tired was she that ...*. Đảo ngữ nơi chốn không dùng trợ động từ: ✗ *On the hill does stand a church*. Với đại từ thì giữ trật tự thường: ✓ *Here it comes* (✗ *Here comes it*)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "So difficult ___ the exam that half the class failed.",
+          "answers": [
+            "was"
+          ],
+          "choices": [
+            "it was",
+            "was",
+            "did"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Gone ___ the days when we could leave our doors unlocked.",
+          "answers": [
+            "are"
+          ],
+          "choices": [
+            "are",
+            "is",
+            "have"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Such ___ the demand that the tickets sold out in minutes.",
+          "answers": [
+            "was"
+          ],
+          "choices": [
+            "is being",
+            "did",
+            "was"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "Here comes it.",
+            "Here it comes.",
+            "Here does it come."
+          ],
+          "answer": 1,
+          "explain": "Chủ ngữ là đại từ → không đảo."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "Into the garden ran they.",
+            "Into the garden did the children run.",
+            "Into the garden ran the children."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "tf",
+          "statement": "Locative inversion works with pronoun subjects, as in \"Down came it.\"",
+          "answer": "false",
+          "explain": "Với đại từ: \"Down it came.\""
+        },
+        {
+          "type": "gap",
+          "prompt": "So quickly ___ she speak that nobody could follow her.",
+          "answers": [
+            "did"
+          ],
+          "explain": "Động từ thường → mượn did."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép câu thường với câu fronting",
+          "pairs": [
+            {
+              "left": "The days of cheap travel are gone.",
+              "right": "Gone are the days of cheap travel."
+            },
+            {
+              "left": "His anger was such that he left.",
+              "right": "Such was his anger that he left."
+            },
+            {
+              "left": "A copy of the report is attached.",
+              "right": "Attached is a copy of the report."
+            },
+            {
+              "left": "The rain came down.",
+              "right": "Down came the rain."
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "On the wall ___ a portrait of the founder. (hang)",
+          "answers": [
+            "hangs",
+            "hung"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is the best fronted version of \"I can’t forgive his lie\"?",
+          "choices": [
+            "His lie I cannot forgive.",
+            "His lie cannot I forgive.",
+            "His lie do I not forgive."
+          ],
+          "answer": 0,
+          "explain": "Đưa tân ngữ lên đầu không kéo theo đảo ngữ."
+        }
+      ]
+    },
+    {
+      "id": "gramc2.concessive",
+      "title": "Cấu trúc nhượng bộ nâng cao",
+      "summary": "Tired as she was, however hard, much as, be that as it may.",
+      "level": "C2",
+      "minutes": 8,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Ngoài *although / though / even though*, văn phong C2 có nhiều cách diễn đạt \"mặc dù\":\n\n- `tính từ/trạng từ + as/though + S + V`: *Tired as she was, she kept working.* (Tiếng Anh Mỹ cũng hay nói *As tired as she was, ...*)\n- `however + tính từ/trạng từ + S + V`: *However hard I try, I can’t remember.* Tương tự: `no matter how/what/who`, `whatever, whoever`.\n- `much as + S + V` (dù rất): *Much as I admire him, I disagree.*\n- Giới từ + danh từ / V-ing: `despite, in spite of, notwithstanding` (trang trọng).\n- `may ..., but ...`: *He may be young, but he is wise.*\n- Cụm cố định: `be that as it may` (dù vậy đi nữa), `that said`, `granted, ...`, `admittedly, ...`\n\n**Ngoại lệ**: cấu trúc `tính từ + as + S + V` đôi khi mang nghĩa **nguyên nhân** (*Tired as he was, he went to bed early* = vì mệt). Dựa vào ngữ cảnh để hiểu."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Cơ bản",
+            "Nâng cao"
+          ],
+          "rows": [
+            [
+              "Although she was tired, ...",
+              "Tired as she was, ..."
+            ],
+            [
+              "Although I try very hard, ...",
+              "However hard I try, ..."
+            ],
+            [
+              "Although I like him a lot, ...",
+              "Much as I like him, ..."
+            ],
+            [
+              "Even so, ...",
+              "Be that as it may, ..."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "Tired as she was, she finished the report before midnight.",
+              "vi": "Dù mệt, cô ấy vẫn làm xong báo cáo trước nửa đêm."
+            },
+            {
+              "en": "However hard I try, I can’t remember her name.",
+              "vi": "Dù cố đến mấy, tôi vẫn không nhớ ra tên cô ấy."
+            },
+            {
+              "en": "Much as I enjoy his company, I need some time alone.",
+              "vi": "Dù rất thích ở bên anh ấy, tôi cần chút thời gian một mình."
+            },
+            {
+              "en": "Strange though it may seem, I have never seen the ocean.",
+              "vi": "Nghe có vẻ lạ, nhưng tôi chưa bao giờ thấy biển."
+            },
+            {
+              "en": "The plan is risky. Be that as it may, we have no alternative.",
+              "vi": "Kế hoạch rủi ro. Dù vậy, chúng ta không có lựa chọn nào khác."
+            },
+            {
+              "en": "Despite having little experience, she was offered the job.",
+              "vi": "Dù ít kinh nghiệm, cô ấy vẫn được nhận việc."
+            },
+            {
+              "en": "Whatever you decide, I will support you.",
+              "vi": "Dù bạn quyết định thế nào, tôi cũng ủng hộ."
+            },
+            {
+              "en": "He may be rich, but he isn’t happy.",
+              "vi": "Anh ấy có thể giàu, nhưng không hạnh phúc."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt hay dịch \"Tuy ... nhưng\" thành ✗ *Although it was late, but we kept going.* Tiếng Anh chỉ dùng **một** liên từ. ✗ *Despite it was late* → ✓ *Despite the late hour* / *Although it was late*. ✗ *However I try hard* → ✓ *However hard I try* (tính từ/trạng từ đứng ngay sau *however*)."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "___ hard she worked, she could never satisfy her boss.",
+          "answers": [
+            "However",
+            "No matter how"
+          ],
+          "choices": [
+            "Although",
+            "However",
+            "Despite"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Small ___ it is, the apartment is very comfortable.",
+          "answers": [
+            "as",
+            "though"
+          ],
+          "choices": [
+            "so",
+            "as",
+            "such"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "___ having a cold, he ran the marathon.",
+          "answers": [
+            "Despite",
+            "In spite of",
+            "Notwithstanding"
+          ],
+          "choices": [
+            "Although",
+            "Despite",
+            "However"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "Although it rained, but we went out.",
+            "Despite it rained, we went out.",
+            "Although it rained, we went out.",
+            "However it rained, we went out."
+          ],
+          "answer": 2,
+          "explain": "Chỉ dùng một liên từ; despite + danh từ/V-ing."
+        },
+        {
+          "type": "mcq",
+          "prompt": "\"Be that as it may\" is closest in meaning to:",
+          "choices": [
+            "Therefore",
+            "Nevertheless",
+            "For example",
+            "In addition"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "___ as I respect your opinion, I cannot agree with you.",
+          "answers": [
+            "Much"
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "\"Tired as he was, he kept walking\" means \"Because he was tired, he kept walking.\"",
+          "answer": "false",
+          "explain": "Ở đây là nhượng bộ: dù mệt vẫn đi tiếp."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép cụm nhượng bộ với nghĩa",
+          "pairs": [
+            {
+              "left": "much as",
+              "right": "dù rất (thích, muốn...)"
+            },
+            {
+              "left": "be that as it may",
+              "right": "dù vậy đi nữa"
+            },
+            {
+              "left": "granted",
+              "right": "phải công nhận là"
+            },
+            {
+              "left": "notwithstanding",
+              "right": "bất chấp (trang trọng)"
+            },
+            {
+              "left": "whatever",
+              "right": "bất kể điều gì"
+            }
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Anh ấy có thể còn trẻ nhưng anh ấy rất khôn ngoan.",
+          "answer": "He may be young but he is very wise"
+        }
+      ]
+    },
+    {
+      "id": "gramc2.discourse-markers",
+      "title": "Từ nối diễn ngôn nâng cao",
+      "summary": "That said, by the same token, on the contrary, insofar as, hence.",
+      "level": "C2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Ở C2, từ nối giúp lập luận **tinh tế và chính xác**:\n\n- Bổ sung: `moreover, furthermore, what is more, not to mention`\n- Hạn chế / nhượng bộ: `that said, having said that, even so, nonetheless`\n- Tương đồng: `by the same token, likewise, similarly`\n- Đối lập: `conversely, on the other hand`\n- Phản bác: `on the contrary` (bác bỏ ý vừa nói)\n- Diễn giải: `in other words, to put it another way, that is to say`\n- Phạm vi: `insofar as, to the extent that`\n- Hệ quả: `consequently, thus, hence` (*hence* có thể đứng trước cụm danh từ: *hence the delay*)\n\nĐứng đầu câu thì thường có dấu phẩy theo sau."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Từ nối",
+            "Chức năng",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "on the other hand",
+              "nêu mặt khác",
+              "Cities are exciting. On the other hand, they are noisy."
+            ],
+            [
+              "on the contrary",
+              "bác bỏ ý trước",
+              "It isn’t boring. On the contrary, it’s fascinating."
+            ],
+            [
+              "that said",
+              "hạn chế ý trước",
+              "It’s expensive. That said, it’s worth it."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "The hotel was expensive. That said, the service was excellent.",
+              "vi": "Khách sạn đắt. Dù vậy, dịch vụ rất tuyệt."
+            },
+            {
+              "en": "Exercise improves mood. By the same token, inactivity can worsen it.",
+              "vi": "Tập thể dục cải thiện tâm trạng. Tương tự, lười vận động có thể làm nó tệ đi."
+            },
+            {
+              "en": "He isn’t lazy. On the contrary, he works harder than anyone.",
+              "vi": "Anh ấy không lười. Ngược lại, anh ấy làm việc chăm hơn ai hết."
+            },
+            {
+              "en": "The roads were icy; hence the delay.",
+              "vi": "Đường đóng băng; vì thế mà chậm trễ."
+            },
+            {
+              "en": "The policy succeeded insofar as it reduced costs.",
+              "vi": "Chính sách thành công ở chỗ nó giảm được chi phí."
+            },
+            {
+              "en": "She is brilliant, not to mention incredibly kind.",
+              "vi": "Cô ấy rất giỏi, chưa kể còn cực kỳ tốt bụng."
+            },
+            {
+              "en": "In light of this evidence, we must revise our conclusions.",
+              "vi": "Trước bằng chứng này, chúng ta phải xem lại kết luận."
+            },
+            {
+              "en": "To put it another way, we cannot afford to wait.",
+              "vi": "Nói cách khác, chúng ta không thể chờ được."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt hay dùng *on the contrary* với nghĩa \"mặt khác\": ✗ *Cities are exciting. On the contrary, they are noisy.* ✓ *On the other hand, ...* — *on the contrary* chỉ dùng để **phủ nhận** ý vừa nói. Cũng tránh chồng hai từ nối: ✗ *Besides, moreover, ...*"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I don’t dislike him. On the ___, I think he’s great.",
+          "answers": [
+            "contrary"
+          ],
+          "choices": [
+            "other hand",
+            "contrary",
+            "opposite"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The flight was canceled; ___ the long wait at the airport.",
+          "answers": [
+            "hence"
+          ],
+          "choices": [
+            "so",
+            "therefore",
+            "hence"
+          ],
+          "explain": "Chỉ hence đứng được trước cụm danh từ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Cities offer many jobs. ___, they can be expensive and stressful.",
+          "choices": [
+            "On the contrary",
+            "On the other hand",
+            "By the same token",
+            "In other words"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which marker means \"for the same reason\"?",
+          "choices": [
+            "That said",
+            "Even so",
+            "Conversely",
+            "By the same token"
+          ],
+          "answer": 3
+        },
+        {
+          "type": "gap",
+          "prompt": "The plan worked ___ as it reduced costs, but it hurt morale.",
+          "answers": [
+            "insofar"
+          ],
+          "choices": [
+            "as far",
+            "so much",
+            "insofar"
+          ]
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép từ nối với chức năng",
+          "pairs": [
+            {
+              "left": "that said",
+              "right": "hạn chế ý vừa nêu"
+            },
+            {
+              "left": "in other words",
+              "right": "diễn giải lại"
+            },
+            {
+              "left": "by the same token",
+              "right": "lập luận tương tự"
+            },
+            {
+              "left": "consequently",
+              "right": "nêu hệ quả"
+            },
+            {
+              "left": "not to mention",
+              "right": "bổ sung thêm một điểm"
+            }
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "\"On the contrary\" is used to reject or contradict the previous statement.",
+          "answer": "true"
+        },
+        {
+          "type": "gap",
+          "prompt": "The movie was too long. That ___, the acting was superb.",
+          "answers": [
+            "said"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "To put it another ___, the project has failed.",
+          "answers": [
+            "way"
+          ],
+          "choices": [
+            "way",
+            "word",
+            "mean"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gramc2.register",
+      "title": "Chuyển đổi văn phong (trang trọng – thân mật)",
+      "summary": "Chọn từ và cấu trúc hợp với email công việc, bài luận, tin nhắn.",
+      "level": "C2",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Người học C2 cần **chọn văn phong** (register) hợp hoàn cảnh và giữ nhất quán trong cả bài.\n\n- Từ vựng: cụm động từ (thân mật) ↔ động từ gốc Latin (trang trọng): `find out` ↔ `discover`, `put off` ↔ `postpone`, `get` ↔ `receive`, `ask for` ↔ `request`, `need` ↔ `require`.\n- Ngữ pháp trang trọng: bị động, danh từ hóa, đảo ngữ điều kiện (*Should you require ...*), giới từ trước *whom/which*, không viết tắt.\n- Thân mật: viết tắt (*I’m, can’t*), lược chủ ngữ (*Sounds good!*), từ như *kind of, stuff, gonna* (chỉ trong văn nói, tin nhắn).\n- Lịch sự gián tiếp: `Could you possibly ...?`, `I was wondering if ...`, `I would be grateful if you could ...`"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Thân mật",
+            "Trang trọng"
+          ],
+          "rows": [
+            [
+              "Thanks for getting back to me so fast.",
+              "Thank you for your prompt reply."
+            ],
+            [
+              "We need to put off the meeting.",
+              "The meeting has been postponed."
+            ],
+            [
+              "Can you send me the file?",
+              "I would be grateful if you could send me the file."
+            ],
+            [
+              "If you need more help, just ask.",
+              "Should you require further assistance, please let us know."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "Thanks for getting back to me so fast.",
+              "vi": "Cảm ơn bạn đã trả lời nhanh thế.",
+              "note": "thân mật"
+            },
+            {
+              "en": "Thank you for your prompt reply.",
+              "vi": "Cảm ơn quý vị đã phản hồi nhanh chóng.",
+              "note": "trang trọng"
+            },
+            {
+              "en": "We need to put off the meeting till Friday.",
+              "vi": "Mình phải dời cuộc họp sang thứ Sáu.",
+              "note": "thân mật"
+            },
+            {
+              "en": "The meeting has been postponed until Friday.",
+              "vi": "Cuộc họp đã được dời đến thứ Sáu.",
+              "note": "trang trọng"
+            },
+            {
+              "en": "I would be grateful if you could send me the file.",
+              "vi": "Tôi rất biết ơn nếu anh/chị có thể gửi tôi tệp đó.",
+              "note": "trang trọng"
+            },
+            {
+              "en": "Should you require further assistance, please do not hesitate to contact us.",
+              "vi": "Nếu quý vị cần hỗ trợ thêm, xin đừng ngần ngại liên hệ.",
+              "note": "trang trọng"
+            },
+            {
+              "en": "Sounds good, see you then!",
+              "vi": "Nghe được đấy, hẹn gặp nhé!",
+              "note": "thân mật"
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp là **trộn văn phong** trong một email: ✗ *Dear Sir, I wanna ask about the job.* Thư trang trọng: không viết tắt, không *wanna/gonna*, mở đầu *Dear Mr. Lee,* (tiếng Anh Mỹ có dấu chấm sau *Mr.*), kết thúc *Sincerely,*. Ngược lại, nhắn tin bạn bè bằng câu quá trang trọng sẽ nghe lạnh lùng, xa cách."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Which is the formal equivalent of \"find out\"?",
+          "choices": [
+            "figure",
+            "get",
+            "discover",
+            "look out"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "The concert has been ___ due to bad weather. (formal for \"put off\")",
+          "answers": [
+            "postponed"
+          ],
+          "choices": [
+            "delayed off",
+            "postponed",
+            "canceled out"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I would be ___ if you could reply by Monday.",
+          "answers": [
+            "grateful",
+            "thankful"
+          ],
+          "choices": [
+            "thankful to",
+            "grateful",
+            "great"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is most appropriate in a job application email?",
+          "choices": [
+            "Hey, I wanna apply for the job.",
+            "I am writing to apply for the position of sales assistant.",
+            "So, like, I’m kinda interested in the job."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép từ thân mật với từ trang trọng",
+          "pairs": [
+            {
+              "left": "ask for",
+              "right": "request"
+            },
+            {
+              "left": "need",
+              "right": "require"
+            },
+            {
+              "left": "get",
+              "right": "receive"
+            },
+            {
+              "left": "help",
+              "right": "assist"
+            },
+            {
+              "left": "start",
+              "right": "commence"
+            }
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "Contractions like \"can’t\" and \"I’m\" are generally avoided in formal academic essays.",
+          "answer": "true"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Choose the formal version of \"If you need more help, just ask.\"",
+          "choices": [
+            "Should you require further assistance, please let us know.",
+            "If you need help, just shout.",
+            "Need help? Ask away!"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "gap",
+          "prompt": "To ___ it may concern,",
+          "answers": [
+            "whom"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Tôi đang băn khoăn liệu bạn có thể giúp tôi không.",
+          "answer": "I was wondering if you could help me"
+        }
+      ]
+    }
+  ]
+}

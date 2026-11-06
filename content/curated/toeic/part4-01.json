@@ -1,0 +1,181 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t4-g001",
+      "part": 4,
+      "level": "B1_2",
+      "script": "Attention, passengers on Northline Airways flight 237 to Vancouver. Due to a mechanical issue with the aircraft originally assigned to this flight, we have arranged a replacement plane. As a result, the flight will now depart from Gate 18 instead of Gate 12, and the new departure time is 4:45 p.m. Boarding will begin at approximately 4:10. We understand this is an inconvenience, so all passengers on this flight are invited to collect a meal voucher worth fifteen dollars at the customer service desk next to Gate 14. Please have your boarding pass ready when you collect your voucher. We will make further announcements if there are any additional changes. Thank you for your patience, and we apologize for the delay.",
+      "questions": [
+        {
+          "id": "t4-q001",
+          "prompt": "What is the reason for the change?",
+          "choices": ["Bad weather", "A mechanical problem", "A shortage of crew members", "Construction at the airport"],
+          "answer": 1,
+          "explain": "Thông báo nói máy bay ban đầu gặp sự cố kỹ thuật (\"a mechanical issue\") nên phải đổi máy bay khác."
+        },
+        {
+          "id": "t4-q002",
+          "prompt": "Where can passengers get a meal voucher?",
+          "choices": ["At Gate 12", "At Gate 18", "At the check-in counter", "Near Gate 14"],
+          "answer": 3,
+          "explain": "Phiếu ăn được nhận tại quầy dịch vụ khách hàng cạnh cổng 14 (\"next to Gate 14\")."
+        },
+        {
+          "id": "t4-q003",
+          "prompt": "What should passengers have ready when they collect the voucher?",
+          "choices": ["A boarding pass", "A passport", "A receipt", "A luggage tag"],
+          "answer": 0,
+          "explain": "Hành khách được dặn chuẩn bị sẵn thẻ lên máy bay (\"have your boarding pass ready\")."
+        }
+      ]
+    },
+    {
+      "id": "t4-g002",
+      "part": 4,
+      "level": "B2_1",
+      "script": "Hi, Ms. Abernathy, this is Gareth Lowe from Summit Office Interiors, returning your call about the furniture order for your new branch office. I checked with our warehouse, and the twelve desks and twelve chairs are in stock and can be delivered next Wednesday. However, the conference table you selected is out of stock until the end of the month. We do have a similar model in a darker wood finish that's available right away, and it's actually about two hundred dollars cheaper. I've just emailed you a photo of it so you can compare. If you'd like to switch, please let me know by Friday so I can include it in Wednesday's delivery. You can reach me directly at 555-0182. Thanks.",
+      "questions": [
+        {
+          "id": "t4-q004",
+          "prompt": "Why is the speaker calling?",
+          "choices": ["To schedule a job interview", "To request a payment", "To follow up on a furniture order", "To advertise a seasonal sale"],
+          "answer": 2,
+          "explain": "Người nói gọi lại về đơn đặt đồ nội thất cho văn phòng chi nhánh mới (\"about the furniture order\")."
+        },
+        {
+          "id": "t4-q005",
+          "prompt": "What problem does the speaker mention?",
+          "choices": ["A delivery truck broke down.", "An item is currently unavailable.", "Some chairs were damaged.", "A price has increased."],
+          "answer": 1,
+          "explain": "Chiếc bàn họp khách chọn đã hết hàng đến cuối tháng (\"out of stock until the end of the month\")."
+        },
+        {
+          "id": "t4-q006",
+          "prompt": "Why did the speaker send an e-mail?",
+          "choices": ["To confirm a payment", "To give directions to the warehouse", "To provide a contract", "To show the listener an alternative product"],
+          "answer": 3,
+          "explain": "Anh ấy gửi ảnh mẫu bàn tương tự màu gỗ tối để khách so sánh (\"emailed you a photo of it so you can compare\")."
+        }
+      ]
+    },
+    {
+      "id": "t4-g003",
+      "part": 4,
+      "level": "B2_2",
+      "script": "Good morning, everyone, and welcome to the Halvorsen Chocolate factory. My name is Elena, and I'll be your guide this morning. Our tour lasts about seventy-five minutes. We'll start in the roasting room, where cocoa beans are prepared, then move on to the molding area, and we'll finish in the tasting room, where you can sample our newest flavors. Before we begin, please put on the hairnets you received at the entrance. This is required in all production areas for hygiene reasons. Also, photography isn't permitted inside the molding area, because some of our equipment uses processes we keep confidential. You're welcome to take pictures everywhere else. And at the end of the tour, everyone will receive a coupon for ten percent off at our gift shop. All right, please follow me.",
+      "questions": [
+        {
+          "id": "t4-q007",
+          "prompt": "Where is the talk most likely taking place?",
+          "choices": ["At a chocolate factory", "At a restaurant kitchen", "At a gift shop", "At a cocoa farm"],
+          "answer": 0,
+          "explain": "Người hướng dẫn chào mừng khách đến nhà máy sô-cô-la Halvorsen (\"welcome to the Halvorsen Chocolate factory\")."
+        },
+        {
+          "id": "t4-q008",
+          "prompt": "What are the listeners asked to do before the tour begins?",
+          "choices": ["Sign a safety form", "Leave their bags at the entrance", "Put on hairnets", "Purchase tickets"],
+          "answer": 2,
+          "explain": "Trước khi bắt đầu, khách được yêu cầu đội lưới trùm tóc đã nhận ở cửa (\"put on the hairnets\") vì lý do vệ sinh."
+        },
+        {
+          "id": "t4-q009",
+          "prompt": "Why is photography not allowed in the molding area?",
+          "choices": ["The lighting is too dark.", "Some processes are confidential.", "Workers have asked for privacy.", "Cameras could damage the machines."],
+          "answer": 1,
+          "explain": "Không được chụp ảnh ở khu đổ khuôn vì một số thiết bị dùng quy trình được giữ bí mật (\"processes we keep confidential\")."
+        }
+      ]
+    },
+    {
+      "id": "t4-g004",
+      "part": 4,
+      "level": "B1_2",
+      "script": "Is your old smartphone sitting in a drawer? Bring it to any Volt Mobile store this month and turn it into savings! Through our trade-in program, you'll receive up to three hundred dollars toward the purchase of a new phone, depending on the model and condition of your device. Even phones with cracked screens are accepted. And here's something extra: customers who sign up for any monthly plan during the promotion will get a free wireless charger. Our trained staff will transfer all your contacts and photos to your new phone in under thirty minutes, so you won't lose anything important. The offer ends on August thirty-first, so don't wait. Visit volt-mobile.com to find the store nearest you.",
+      "questions": [
+        {
+          "id": "t4-q010",
+          "prompt": "What is being advertised?",
+          "choices": ["A screen repair service", "A new store opening", "A photo-editing app", "A phone trade-in program"],
+          "answer": 3,
+          "explain": "Quảng cáo nói về chương trình đổi điện thoại cũ lấy tiền giảm giá khi mua máy mới (\"our trade-in program\")."
+        },
+        {
+          "id": "t4-q011",
+          "prompt": "What will customers receive if they sign up for a monthly plan?",
+          "choices": ["A free wireless charger", "A discount on accessories", "A protective phone case", "Free screen repairs"],
+          "answer": 0,
+          "explain": "Khách đăng ký gói cước tháng trong đợt khuyến mãi được tặng sạc không dây miễn phí (\"a free wireless charger\")."
+        },
+        {
+          "id": "t4-q012",
+          "prompt": "According to the speaker, what can staff do in under thirty minutes?",
+          "choices": ["Repair a cracked screen", "Activate a new plan", "Transfer data to a new phone", "Check the value of a device"],
+          "answer": 2,
+          "explain": "Nhân viên sẽ chuyển danh bạ và ảnh sang máy mới trong chưa đầy ba mươi phút (\"in under thirty minutes\")."
+        }
+      ]
+    },
+    {
+      "id": "t4-g005",
+      "part": 4,
+      "level": "C1",
+      "script": "Thanks, everyone. Before we move on, I want to address the customer satisfaction survey results for the third quarter. Overall scores went up slightly, which is good news, but one area concerns me: response time on our support line. The average wait has crept up to nearly eleven minutes, compared with six minutes last year. Now, I know what you're thinking—we've had two people on leave. That's true, but it doesn't account for the whole increase. Call volume has risen by about a quarter since we launched the new billing system, and many of those calls are about the same few issues. So, rather than simply hiring more staff, I'd like us to create a clear online guide that answers those common billing questions. Farah, I'd like your team to draft it by the end of the month.",
+      "questions": [
+        {
+          "id": "t4-q013",
+          "prompt": "What is the speaker mainly discussing?",
+          "choices": ["Hiring plans for next year", "The results of a customer survey", "The launch of a billing system", "Staff vacation schedules"],
+          "answer": 1,
+          "explain": "Người nói tập trung vào kết quả khảo sát mức độ hài lòng của khách hàng quý ba, đặc biệt là thời gian chờ tổng đài."
+        },
+        {
+          "id": "t4-q014",
+          "prompt": "Why does the speaker say, \"Now, I know what you're thinking—we've had two people on leave\"?",
+          "choices": ["To approve some leave requests", "To introduce two new employees", "To acknowledge a likely explanation before responding to it", "To criticize the support team"],
+          "answer": 2,
+          "explain": "Người nói đoán trước lý do mà người nghe nghĩ tới (hai người nghỉ phép), thừa nhận nó rồi giải thích rằng lý do đó không đủ giải thích toàn bộ mức tăng."
+        },
+        {
+          "id": "t4-q015",
+          "prompt": "What does the speaker ask Farah's team to do?",
+          "choices": ["Hire more support staff", "Fix the billing system", "Conduct another survey", "Write an online guide"],
+          "answer": 3,
+          "explain": "Người nói muốn nhóm của Farah soạn bản hướng dẫn trực tuyến cho các câu hỏi thanh toán thường gặp trước cuối tháng."
+        }
+      ]
+    },
+    {
+      "id": "t4-g006",
+      "part": 4,
+      "level": "B2_1",
+      "script": "In local news, the city council has approved a plan to widen Harbor Road between Fifth Avenue and the Eastgate Bridge. The project, which will add a bicycle lane in both directions, is expected to begin on June third and take about four months. During construction, Harbor Road will be reduced to one lane in each direction, and drivers should expect delays, especially during rush hour. City officials are encouraging commuters to use the Riverside Line, which will run additional trains in the mornings and evenings while the work continues. Council member Joanne Pryce said the bicycle lanes are a response to a sharp rise in the number of residents cycling to work. Details about the construction schedule are available on the city's website. Up next, we'll have the weekend weather forecast.",
+      "questions": [
+        {
+          "id": "t4-q016",
+          "prompt": "What is the news report mainly about?",
+          "choices": ["A road improvement project", "The opening of a new bridge", "An increase in train fares", "A local cycling race"],
+          "answer": 0,
+          "explain": "Bản tin nói về kế hoạch mở rộng đường Harbor Road và thêm làn xe đạp — một dự án cải tạo đường."
+        },
+        {
+          "id": "t4-q017",
+          "prompt": "What are commuters encouraged to do?",
+          "choices": ["Work from home", "Use the Eastgate Bridge", "Ride the Riverside Line", "Drive before rush hour"],
+          "answer": 2,
+          "explain": "Chính quyền khuyến khích người đi làm dùng tuyến tàu Riverside Line, tuyến này sẽ tăng chuyến sáng và tối."
+        },
+        {
+          "id": "t4-q018",
+          "prompt": "What will the listeners probably hear next?",
+          "choices": ["A traffic update", "A weather forecast", "An interview with Joanne Pryce", "Sports news"],
+          "answer": 1,
+          "explain": "Cuối bản tin có câu \"Up next, we'll have the weekend weather forecast\" — tiếp theo là dự báo thời tiết."
+        }
+      ]
+    }
+  ]
+}

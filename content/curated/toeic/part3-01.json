@@ -1,0 +1,241 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t3-g001",
+      "part": 3,
+      "level": "B1_2",
+      "script": "Woman: Hi, Marcus. The color printer on the third floor is jamming again. I've got forty brochures to print for this afternoon's client visit.\nMan: Not again. The technician came on Monday, but it seems the problem wasn't fixed.\nWoman: Is there another printer that can handle glossy paper?\nMan: The one in the design department can. Let me call Priya over there and ask if you can use it for an hour.\nWoman: That would be great. And could you contact the repair company too?\nMan: Sure, I'll ask them to send someone back tomorrow morning.",
+      "questions": [
+        {
+          "id": "t3-q001",
+          "prompt": "What problem does the woman mention?",
+          "choices": ["A printer is not working properly.", "A client visit has been canceled.", "Some brochures contain errors.", "She has run out of paper."],
+          "answer": 0,
+          "explain": "Người phụ nữ nói máy in màu ở tầng ba lại bị kẹt giấy (\"is jamming again\"), tức là máy in không hoạt động bình thường."
+        },
+        {
+          "id": "t3-q002",
+          "prompt": "What does the man say about the technician?",
+          "choices": ["He is coming this afternoon.", "He works in the design department.", "He visited earlier in the week.", "He recommended a new printer."],
+          "answer": 2,
+          "explain": "Người đàn ông nói kỹ thuật viên đã đến vào thứ Hai (\"came on Monday\"), tức là đã ghé từ đầu tuần."
+        },
+        {
+          "id": "t3-q003",
+          "prompt": "What will the man probably do next?",
+          "choices": ["Order more glossy paper", "Call a colleague in another department", "Meet with a client", "Move the printer to another floor"],
+          "answer": 1,
+          "explain": "Anh ấy nói \"Let me call Priya over there\" — gọi cho đồng nghiệp ở phòng thiết kế để mượn máy in."
+        }
+      ]
+    },
+    {
+      "id": "t3-g002",
+      "part": 3,
+      "level": "B1_1",
+      "script": "Man: Hello, this is Daniel Ortiz. I booked a table for six at seven o'clock this Friday, but I need to make a change.\nWoman: Of course, Mr. Ortiz. What would you like to change?\nMan: Two more colleagues are joining us, so we'll be eight people. Is that possible?\nWoman: Let me check... Our main room is full at seven, but we have a private room upstairs available at seven thirty.\nMan: Seven thirty works. Is there an extra charge for the private room?\nWoman: Not for groups of eight or more. I'll update your booking now and send you a confirmation by text message.",
+      "questions": [
+        {
+          "id": "t3-q004",
+          "prompt": "Why is the man calling?",
+          "choices": ["To cancel a dinner", "To ask about the menu", "To complain about the service", "To change a reservation"],
+          "answer": 3,
+          "explain": "Anh ấy đã đặt bàn cho sáu người và nói \"I need to make a change\" vì thêm hai đồng nghiệp — tức là gọi để thay đổi đặt chỗ."
+        },
+        {
+          "id": "t3-q005",
+          "prompt": "What does the woman offer?",
+          "choices": ["A discount on drinks", "A private room", "A table outside", "An earlier time"],
+          "answer": 1,
+          "explain": "Phòng chính đã kín lúc bảy giờ nên cô ấy đề nghị phòng riêng trên lầu (\"a private room upstairs\") lúc bảy giờ rưỡi."
+        },
+        {
+          "id": "t3-q006",
+          "prompt": "What will the woman send the man?",
+          "choices": ["A text message", "A copy of the menu", "An invoice", "A map to the restaurant"],
+          "answer": 0,
+          "explain": "Cô ấy nói sẽ gửi xác nhận bằng tin nhắn (\"send you a confirmation by text message\")."
+        }
+      ]
+    },
+    {
+      "id": "t3-g003",
+      "part": 3,
+      "level": "B2_1",
+      "context": "Riverside Business Center — Meeting Room Rates (per half day)\nOak Room (up to 6 people): $90\nMaple Room (up to 12 people): $150\nCedar Room (up to 20 people): $220\nPine Hall (up to 40 people): $380",
+      "script": "Woman: Good morning, Riverside Business Center. How can I help you?\nMan: Hi, I'm organizing a training session for our sales staff next Thursday morning. I'd like to rent one of your meeting rooms.\nWoman: Certainly. How many people will be attending?\nMan: We were expecting ten, but our regional manager just told me that five more people from the Leeds office will join us.\nWoman: In that case, you'll need a larger room than you planned. Will you need a projector?\nMan: Yes, and could you also arrange coffee for the group? We'll have a break at around ten thirty.\nWoman: No problem. I'll email you a booking form with our catering options.",
+      "questions": [
+        {
+          "id": "t3-q007",
+          "prompt": "What is the man planning?",
+          "choices": ["A sales conference abroad", "A training session", "A job interview", "A product launch"],
+          "answer": 1,
+          "explain": "Người đàn ông nói đang tổ chức buổi đào tạo cho nhân viên kinh doanh (\"a training session for our sales staff\")."
+        },
+        {
+          "id": "t3-q008",
+          "prompt": "Look at the graphic. Which room will the man most likely rent?",
+          "choices": ["Oak Room", "Maple Room", "Cedar Room", "Pine Hall"],
+          "answer": 2,
+          "explain": "Dự kiến 10 người nhưng thêm 5 người nữa, tổng 15 người; theo bảng, phòng nhỏ nhất chứa được 15 người là Cedar Room (tối đa 20)."
+        },
+        {
+          "id": "t3-q009",
+          "prompt": "What does the man ask for?",
+          "choices": ["A parking permit", "A group discount", "Extra chairs", "Refreshments for a break"],
+          "answer": 3,
+          "explain": "Anh ấy nhờ chuẩn bị cà phê cho cả nhóm vào giờ nghỉ khoảng 10 giờ 30 — tức là đồ uống cho giờ giải lao."
+        }
+      ]
+    },
+    {
+      "id": "t3-g004",
+      "part": 3,
+      "level": "B2_1",
+      "script": "Man 1: Sandra, Kevin, thanks for joining. I've just heard from the factory in Busan. The packaging for our new blender won't be ready until the twentieth.\nWoman: The twentieth? Our launch event is on the eighteenth. The invitations have already gone out to retailers.\nMan 2: We could still hold the event and show prototypes. Retailers mostly want to see the product working anyway.\nWoman: That's true. We'd just need to tell them shipping will start a week later.\nMan 1: OK. Kevin, can you prepare a few demonstration units?\nMan 2: Sure. I'll get the lab team to set aside five of them today.",
+      "questions": [
+        {
+          "id": "t3-q010",
+          "prompt": "What problem are the speakers discussing?",
+          "choices": ["Retailers have canceled orders.", "Some packaging will be delayed.", "A prototype is broken.", "An event venue is unavailable."],
+          "answer": 1,
+          "explain": "Nhà máy báo bao bì máy xay sinh tố mới phải đến ngày 20 mới xong, trễ hơn sự kiện ra mắt ngày 18."
+        },
+        {
+          "id": "t3-q011",
+          "prompt": "What does Kevin suggest?",
+          "choices": ["Changing the product design", "Postponing the launch event", "Finding a new factory", "Displaying prototypes at the event"],
+          "answer": 3,
+          "explain": "Kevin (Man 2) đề xuất vẫn tổ chức sự kiện và trưng bày mẫu thử (\"show prototypes\")."
+        },
+        {
+          "id": "t3-q012",
+          "prompt": "What will Kevin do today?",
+          "choices": ["Have some demonstration units set aside", "Send invitations to retailers", "Call the factory in Busan", "Revise a shipping schedule"],
+          "answer": 0,
+          "explain": "Kevin nói sẽ nhờ nhóm phòng thí nghiệm để riêng năm máy trình diễn ngay hôm nay (\"set aside five of them today\")."
+        }
+      ]
+    },
+    {
+      "id": "t3-g005",
+      "part": 3,
+      "level": "B1_2",
+      "script": "Woman: Hello, I live in apartment 4B on Linden Street. The heating in my bedroom stopped working last night.\nMan: I'm sorry to hear that. Is the heating in the other rooms working?\nWoman: Yes, it's just the bedroom. The radiator is completely cold.\nMan: It might just be air in the system. Our maintenance worker, Tom, can take a look. Will you be home tomorrow between nine and noon?\nWoman: Unfortunately, I work in the mornings. Could he come after four?\nMan: Let me see... Yes, he can come at four thirty. I'll put you on his schedule.",
+      "questions": [
+        {
+          "id": "t3-q013",
+          "prompt": "Where does the man most likely work?",
+          "choices": ["At a hardware store", "At a property management office", "At a hotel", "At a furniture store"],
+          "answer": 1,
+          "explain": "Người phụ nữ là cư dân căn hộ gọi báo hỏng sưởi, và anh ấy cử nhân viên bảo trì của mình (\"Our maintenance worker\") — nên anh làm ở văn phòng quản lý tòa nhà."
+        },
+        {
+          "id": "t3-q014",
+          "prompt": "What does the woman say about the heating?",
+          "choices": ["It makes a strange noise.", "It was recently replaced.", "It is not working in one room.", "It is too expensive to run."],
+          "answer": 2,
+          "explain": "Cô ấy nói sưởi chỉ hỏng ở phòng ngủ (\"it's just the bedroom\"), các phòng khác vẫn chạy."
+        },
+        {
+          "id": "t3-q015",
+          "prompt": "Why does the woman request a later time?",
+          "choices": ["She works in the mornings.", "Her landlord is away.", "She has a doctor's appointment.", "She is waiting for a delivery."],
+          "answer": 0,
+          "explain": "Cô ấy nói \"I work in the mornings\" nên không ở nhà từ 9 giờ đến trưa, vì vậy xin hẹn sau 4 giờ."
+        }
+      ]
+    },
+    {
+      "id": "t3-g006",
+      "part": 3,
+      "level": "B2_2",
+      "context": "Departures — Trains to Hartford\nTrain 412 — 9:05 — Platform 2\nTrain 518 — 9:40 — Platform 5\nTrain 220 — 10:15 — Platform 3\nTrain 634 — 10:50 — Platform 1",
+      "script": "Man: Excuse me, I was supposed to take the nine-oh-five to Hartford, but the board says it's been canceled.\nWoman: Yes, I'm sorry. There's a signal problem further up the line. Your ticket is valid on any later train today.\nMan: I have a meeting in Hartford at eleven thirty, and the trip takes about an hour. Which train should I take?\nWoman: The next one is still on time, so you'll be fine with that. Just be aware it's leaving from a different platform than usual.\nMan: Thanks. Do I have time to grab a coffee first?\nWoman: Yes, there's a café right by the stairs, but don't take too long.",
+      "questions": [
+        {
+          "id": "t3-q016",
+          "prompt": "Why was the man's train canceled?",
+          "choices": ["A signal problem", "A staff shortage", "Bad weather", "Scheduled track repairs"],
+          "answer": 0,
+          "explain": "Nhân viên nói có sự cố tín hiệu phía trước tuyến (\"a signal problem further up the line\")."
+        },
+        {
+          "id": "t3-q017",
+          "prompt": "What does the woman say about the man's ticket?",
+          "choices": ["It must be exchanged at the counter.", "It can be used on a later train.", "It will be fully refunded.", "It is valid only in first class."],
+          "answer": 1,
+          "explain": "Cô ấy nói vé vẫn dùng được cho bất kỳ chuyến muộn hơn trong ngày (\"valid on any later train today\")."
+        },
+        {
+          "id": "t3-q018",
+          "prompt": "Look at the graphic. Which platform will the man most likely go to?",
+          "choices": ["Platform 1", "Platform 2", "Platform 3", "Platform 5"],
+          "answer": 3,
+          "explain": "Chuyến 9:05 bị hủy, nhân viên khuyên đi chuyến kế tiếp, theo bảng là chuyến 518 lúc 9:40 ở sân ga 5."
+        }
+      ]
+    },
+    {
+      "id": "t3-g007",
+      "part": 3,
+      "level": "C1",
+      "script": "Woman: Ahmed, I've gone over the new proposal from Castellan Logistics. Their rates are about eight percent lower than what we pay now.\nMan: That's a significant saving. What's the catch?\nWoman: They want a three-year commitment, and their delivery window is forty-eight hours rather than twenty-four.\nMan: Hmm. Our customers in the hospitality sector count on next-day delivery. Losing that could cost us more than we'd save.\nWoman: Agreed. But I'm wondering whether we could use them just for our non-urgent bulk orders and keep our current carrier for the rest.\nMan: That's worth exploring. Why don't you ask Castellan whether they'd accept a smaller contract on those terms?",
+      "questions": [
+        {
+          "id": "t3-q019",
+          "prompt": "What are the speakers mainly discussing?",
+          "choices": ["Hiring additional drivers", "Opening a new warehouse", "A proposal from a logistics company", "Complaints from hospitality clients"],
+          "answer": 2,
+          "explain": "Cả cuộc hội thoại xoay quanh đề xuất mới của công ty vận chuyển Castellan Logistics (giá, thời hạn hợp đồng, thời gian giao hàng)."
+        },
+        {
+          "id": "t3-q020",
+          "prompt": "What does the man imply when he says, \"What's the catch?\"",
+          "choices": ["He suspects the offer has drawbacks.", "He thinks the rates are too high.", "He has not read the proposal.", "He wants to sign the contract immediately."],
+          "answer": 0,
+          "explain": "\"What's the catch?\" nghĩa là \"vướng mắc ở đâu?\" — anh ấy nghi đề nghị rẻ như vậy có điểm bất lợi; người phụ nữ liền nêu các điều kiện kèm theo."
+        },
+        {
+          "id": "t3-q021",
+          "prompt": "What will the woman most likely do next?",
+          "choices": ["End the contract with the current carrier", "Visit a hospitality client", "Prepare a budget report", "Ask the supplier about a limited contract"],
+          "answer": 3,
+          "explain": "Người đàn ông bảo cô hỏi Castellan xem họ có nhận hợp đồng nhỏ hơn với các điều kiện đó không (\"a smaller contract on those terms\")."
+        }
+      ]
+    },
+    {
+      "id": "t3-g008",
+      "part": 3,
+      "level": "B1_1",
+      "script": "Man: Lucia, have you tried the new sandwich shop across from the bank?\nWoman: Not yet. Is it any good?\nMan: It's great, and they have a lunch special: a sandwich, soup, and a drink for nine dollars.\nWoman: That sounds like a good deal. Do they deliver? I have a lot of work today.\nMan: They do, but only for orders over twenty dollars. Why don't we order together? I'll get something for Ben too.\nWoman: Good idea. I'll have the chicken sandwich with tomato soup.",
+      "questions": [
+        {
+          "id": "t3-q022",
+          "prompt": "What are the speakers discussing?",
+          "choices": ["A bank's new opening hours", "A new sandwich shop", "A cooking class", "A company party"],
+          "answer": 1,
+          "explain": "Người đàn ông hỏi Lucia đã thử tiệm bánh mì kẹp mới đối diện ngân hàng chưa, và họ bàn về tiệm này."
+        },
+        {
+          "id": "t3-q023",
+          "prompt": "How much does the lunch special cost?",
+          "choices": ["$6", "$7", "$9", "$20"],
+          "answer": 2,
+          "explain": "Suất trưa gồm bánh mì, súp và đồ uống giá chín đô (\"for nine dollars\"); 20 đô là mức tối thiểu để giao hàng."
+        },
+        {
+          "id": "t3-q024",
+          "prompt": "Why does the man suggest ordering together?",
+          "choices": ["To try more dishes", "To save time waiting in line", "To celebrate Ben's birthday", "To reach the minimum for delivery"],
+          "answer": 3,
+          "explain": "Tiệm chỉ giao cho đơn trên 20 đô, nên anh ấy rủ đặt chung (và đặt thêm cho Ben) để đủ mức giao hàng."
+        }
+      ]
+    }
+  ]
+}

@@ -80,6 +80,15 @@ export function registerAppIpc(
   })
   handle('placement:start', () => ({ question: c.placement.start() }))
   handle('placement:checkpoint-start', () => ({ question: c.placement.startCheckpoint() }))
+  handle('toeic:bank', () => c.toeic.bank())
+  handle('toeic:start', ({ mode, part }) => ({ session: c.toeic.start(mode, part) }))
+  handle('toeic:submit', ({ sessionId, answers, elapsedSec }) =>
+    c.toeic.submit(sessionId, answers, elapsedSec)
+  )
+  handle('toeic:history', () => c.toeic.history())
+  handle('video:list', () => c.video.list())
+  handle('video:play', ({ id }) => c.video.play(id))
+  handle('video:submit', ({ playId, answers }) => c.video.submit(playId, answers))
   handle('placement:answer', ({ sessionId, questionId, choiceIndex }) =>
     c.placement.answer(sessionId, questionId, choiceIndex)
   )

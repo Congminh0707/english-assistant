@@ -1,6 +1,6 @@
 {
   "license": "proprietary-own",
-  "reviewed": false,
+  "reviewed": true,
   "place": {
     "id": "colors",
     "tier": "basics",
@@ -44,42 +44,42 @@
       "picture": "black",
       "sentence": {
         "en": "I see a black bat.",
-        "vi": "Bé thấy một con dơi đen."
+        "vi": "Bé thấy một con dơi màu đen."
       }
     },
     {
       "picture": "white",
       "sentence": {
         "en": "I see a white sofa.",
-        "vi": "Bé thấy một chiếc sofa trắng."
+        "vi": "Bé thấy một chiếc ghế sofa màu trắng."
       }
     },
     {
       "picture": "gray",
       "sentence": {
         "en": "I see a gray seal.",
-        "vi": "Bé thấy một con hải cẩu xám."
+        "vi": "Bé thấy một con hải cẩu màu xám."
       }
     },
     {
       "picture": "gold",
       "sentence": {
         "en": "I see a gold lamp.",
-        "vi": "Bé thấy một cái đèn vàng kim."
+        "vi": "Bé thấy một cái đèn màu vàng kim."
       }
     },
     {
       "picture": "silver",
       "sentence": {
         "en": "I see a silver ruler.",
-        "vi": "Bé thấy một cái thước bạc."
+        "vi": "Bé thấy một cái thước màu bạc."
       }
     },
     {
       "picture": "lightblue",
       "sentence": {
         "en": "I see a light blue towel.",
-        "vi": "Bé thấy một cái khăn xanh nhạt."
+        "vi": "Bé thấy một chiếc khăn màu xanh da trời nhạt."
       }
     },
     {
@@ -93,14 +93,14 @@
       "picture": "turquoise",
       "sentence": {
         "en": "I see a turquoise scarf.",
-        "vi": "Bé thấy một cái khăn xanh ngọc."
+        "vi": "Bé thấy một chiếc khăn quàng cổ màu xanh ngọc."
       }
     },
     {
       "picture": "lime",
       "sentence": {
         "en": "I see a lime bean.",
-        "vi": "Bé thấy một hạt đậu xanh chanh."
+        "vi": "Bé thấy một hạt đậu màu xanh chanh."
       }
     }
   ]

@@ -57,6 +57,13 @@
       "when": 1793475269568,
       "tag": "0007_webby_to_lupo",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1793862441875,
+      "tag": "0008_little_terror",
+      "breakpoints": true
     }
   ]
 }

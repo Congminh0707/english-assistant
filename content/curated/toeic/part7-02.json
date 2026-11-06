@@ -1,0 +1,262 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t7-g007",
+      "part": 7,
+      "level": "B2_1",
+      "passage": "MEMO\nTo: All warehouse supervisors\nFrom: Gregor Malinowski, Operations Director\nDate: 9 September\nRe: New inventory scanning system\n\nBeginning on 1 October, Stellan Logistics will replace its handheld barcode scanners with a new wearable system that attaches to the wrist. In trials at our Dortmund facility, the devices reduced picking errors by 30 percent and allowed workers to keep both hands free while lifting.\n\nEach supervisor must attend a half-day training session before the launch. Sessions will be held on 18, 22, and 25 September in the main conference room. Please register for one date through the intranet by 15 September. After completing the training, you will be responsible for instructing the members of your own team.\n\nThe old scanners should be returned to the IT department no later than 3 October. Any questions about the transition may be directed to Ines Carvalho in IT.",
+      "questions": [
+        {
+          "id": "t7-q021",
+          "prompt": "What is the main purpose of the memo?",
+          "choices": [
+            "To report problems at the Dortmund facility",
+            "To announce the hiring of new staff",
+            "To explain the introduction of new equipment",
+            "To request feedback about a trial"
+          ],
+          "answer": 2,
+          "explain": "Bản ghi nhớ thông báo từ 1/10 công ty thay máy quét cầm tay bằng hệ thống đeo cổ tay mới, kèm hướng dẫn đào tạo và trả máy cũ."
+        },
+        {
+          "id": "t7-q022",
+          "prompt": "What are supervisors asked to do by 15 September?",
+          "choices": [
+            "Sign up for a training session",
+            "Return their old scanners",
+            "Train their team members",
+            "Contact Ms. Carvalho"
+          ],
+          "answer": 0,
+          "explain": "\"Please register for one date through the intranet by 15 September\" — đăng ký một buổi đào tạo trước 15/9. Máy cũ trả trước 3/10."
+        },
+        {
+          "id": "t7-q023",
+          "prompt": "What is suggested about the wearable devices?",
+          "choices": [
+            "They will be tested in Dortmund next year.",
+            "They are cheaper than the old scanners.",
+            "They require a full day of training for each worker.",
+            "They may help workers handle items more easily."
+          ],
+          "answer": 3,
+          "explain": "Thiết bị cho phép công nhân \"keep both hands free while lifting\", tức nâng hàng dễ hơn. Thử nghiệm ở Dortmund đã diễn ra rồi, và buổi đào tạo chỉ nửa ngày."
+        }
+      ]
+    },
+    {
+      "id": "t7-g008",
+      "part": 7,
+      "level": "B2_2",
+      "passage": "About Us — Fennimore & Daughters Bakery\n\nFennimore & Daughters began in 1987 as a single stall at the Ashbury farmers' market, where Ruth Fennimore sold sourdough loaves baked in her home kitchen. [1] Today, the business operates three shops across the county and supplies bread to more than forty local restaurants.\n\nAlthough we have grown, our methods have changed very little. [2] Every loaf is still shaped by hand, and our sourdough starter is the same one Ruth created more than thirty-five years ago. We buy our flour from two mills located within 50 miles of our main bakery.\n\n[3] In 2021, Ruth's daughters, Clara and June, took over daily management of the company. Clara oversees production, while June handles our wholesale accounts and community partnerships. [4] Each evening, unsold bread from all three shops is donated to the Ashbury Community Pantry.",
+      "questions": [
+        {
+          "id": "t7-q024",
+          "prompt": "In which of the positions marked [1], [2], [3], and [4] does the following sentence best belong?\n“Machines are used only for mixing the dough.”",
+          "choices": ["[1]", "[2]", "[3]", "[4]"],
+          "answer": 1,
+          "explain": "Câu chèn nói về phương pháp làm bánh, nối tiếp \"our methods have changed very little\" và dẫn vào \"Every loaf is still shaped by hand\", nên thuộc vị trí [2]."
+        },
+        {
+          "id": "t7-q025",
+          "prompt": "What is indicated about Fennimore & Daughters?",
+          "choices": [
+            "It was founded by two sisters.",
+            "It gives away leftover products.",
+            "It mills its own flour.",
+            "It opened its first shop in 2021."
+          ],
+          "answer": 1,
+          "explain": "Bánh mì không bán hết mỗi tối được tặng cho Ashbury Community Pantry (\"unsold bread ... is donated\"). Người sáng lập là Ruth, bột mua từ hai nhà máy."
+        }
+      ]
+    },
+    {
+      "id": "t7-g009",
+      "part": 7,
+      "level": "B2_2",
+      "passage": "Text 1: Article\nPORT ELLIS (21 January) — Orwin Ferries announced yesterday that it will add a second daily crossing between Hadley Island and Port Ellis beginning on 1 April. Currently, the company's single ferry leaves Hadley Island at 7:00 A.M. and makes its return trip from Port Ellis at 5:00 P.M. The new service will leave Hadley Island at 2:00 P.M. and return from Port Ellis at 9:30 P.M.\n\nChief executive Sunita Rao said demand had grown steadily since a new hotel opened on the island last year. To fund the expansion, adult one-way fares will rise from $12 to $15, while fares for children under twelve will remain at $6. Island residents holding a valid resident card will continue to travel at half the adult fare.\n-----\nText 2: Letter\nTo the Editor,\n\nI read with interest your 21 January article about the changes at Orwin Ferries. As someone who lives on Hadley Island and commutes to Port Ellis three days a week, I welcome the new crossing. It will finally allow me to attend evening classes at the community college in Port Ellis and still get home the same night.\n\nHowever, I am concerned about the fare increase. Even with my resident discount, my weekly travel costs will go up noticeably. I hope the company will consider a monthly pass for regular commuters, as many other ferry operators already offer.\n\nKofi Mensah, Hadley Island",
+      "questions": [
+        {
+          "id": "t7-q026",
+          "prompt": "What is the main topic of the article?",
+          "choices": [
+            "Changes to a ferry service",
+            "The opening of a hotel",
+            "A new community college",
+            "A merger between two ferry companies"
+          ],
+          "answer": 0,
+          "explain": "Bài báo nói Orwin Ferries thêm chuyến phà thứ hai mỗi ngày và tăng giá vé. Khách sạn chỉ được nhắc tới như lý do nhu cầu tăng."
+        },
+        {
+          "id": "t7-q027",
+          "prompt": "After 1 April, what time will the last ferry of the day leave Port Ellis?",
+          "choices": ["7:00 A.M.", "2:00 P.M.", "5:00 P.M.", "9:30 P.M."],
+          "answer": 3,
+          "explain": "Chuyến mới \"return from Port Ellis at 9:30 P.M.\", muộn hơn chuyến 5:00 P.M. hiện có, nên đó là chuyến cuối rời Port Ellis."
+        },
+        {
+          "id": "t7-q028",
+          "prompt": "How much will Mr. Mensah most likely pay for a one-way trip after the fare increase?",
+          "choices": ["$6.00", "$15.00", "$7.50", "$12.00"],
+          "answer": 2,
+          "explain": "Ông Mensah sống trên đảo và có giảm giá cư dân (thư); cư dân trả một nửa giá vé người lớn mới $15 (bài báo), tức $7.50."
+        },
+        {
+          "id": "t7-q029",
+          "prompt": "Why does Mr. Mensah welcome the new crossing?",
+          "choices": [
+            "It will let him take evening courses.",
+            "It will shorten his journey.",
+            "It will lower his travel costs.",
+            "It will allow him to work on weekends."
+          ],
+          "answer": 0,
+          "explain": "Ông viết chuyến mới \"will finally allow me to attend evening classes at the community college\" mà vẫn về nhà trong đêm."
+        },
+        {
+          "id": "t7-q030",
+          "prompt": "What does Mr. Mensah suggest Orwin Ferries do?",
+          "choices": [
+            "Cancel the fare increase for children",
+            "Add another morning crossing",
+            "Introduce a monthly ticket",
+            "Extend the resident discount to students"
+          ],
+          "answer": 2,
+          "explain": "Ông mong công ty \"consider a monthly pass for regular commuters\" — vé tháng cho người đi lại thường xuyên."
+        }
+      ]
+    },
+    {
+      "id": "t7-g010",
+      "part": 7,
+      "level": "B2_1",
+      "passage": "Text 1: Job advertisement\nTamsin Grove Hotel — Front Desk Supervisor (full-time)\n\nThe Tamsin Grove Hotel, a 140-room property in the historic district of Larchmont, seeks an experienced front desk supervisor. Responsibilities include scheduling a team of eight receptionists, resolving guest complaints, and preparing weekly occupancy reports.\n\nRequirements: at least three years of hotel reception experience, including one year in a supervisory role; familiarity with reservation software; and fluency in English. Knowledge of a second language is an advantage. Some weekend and night shifts are required.\n\nTo apply, send a résumé and cover letter to Priya Desai, Human Resources Manager, at careers@tamsingrove.com by 30 April.\n-----\nText 2: Email\nTo: careers@tamsingrove.com\nFrom: Lucas Ferreira-Holt\nDate: 22 April\nSubject: Front Desk Supervisor position\n\nDear Ms. Desai,\nI am writing to apply for the front desk supervisor position advertised on your Web site. For the past four years I have worked as a receptionist at the Coastline Inn in Dunmore, and for the last eighteen months I have led its evening shift team of five. I am comfortable with several reservation systems, and in addition to English, I speak Portuguese and Spanish fluently.\n\nI should mention that I am currently completing a part-time hospitality management course on Saturday mornings until the end of June. I would therefore appreciate it if my weekend shifts could begin after that date.\n\nMy résumé is attached. Thank you for your consideration.",
+      "questions": [
+        {
+          "id": "t7-q031",
+          "prompt": "What is NOT listed as a responsibility of the position?",
+          "choices": [
+            "Making staff schedules",
+            "Training new receptionists",
+            "Handling guest complaints",
+            "Writing reports"
+          ],
+          "answer": 1,
+          "explain": "Quảng cáo liệt kê xếp lịch cho tám lễ tân, giải quyết khiếu nại và làm báo cáo công suất phòng hằng tuần; không nhắc đến đào tạo lễ tân mới."
+        },
+        {
+          "id": "t7-q032",
+          "prompt": "What is indicated about Mr. Ferreira-Holt?",
+          "choices": [
+            "He has worked at the Tamsin Grove Hotel.",
+            "He lives in Larchmont.",
+            "He currently manages a team of eight.",
+            "He has more supervisory experience than the job requires."
+          ],
+          "answer": 3,
+          "explain": "Vị trí yêu cầu một năm làm quản lý (quảng cáo); ông đã dẫn dắt nhóm ca tối trong mười tám tháng (email), nhiều hơn yêu cầu. Nhóm của ông có năm người, không phải tám."
+        },
+        {
+          "id": "t7-q033",
+          "prompt": "Which qualification described as an advantage in the advertisement does Mr. Ferreira-Holt have?",
+          "choices": [
+            "Knowledge of a second language",
+            "A university degree in tourism",
+            "Experience at a 140-room hotel",
+            "Experience working night shifts"
+          ],
+          "answer": 0,
+          "explain": "Quảng cáo ghi \"Knowledge of a second language is an advantage\"; ông nói thông thạo tiếng Bồ Đào Nha và Tây Ban Nha ngoài tiếng Anh."
+        },
+        {
+          "id": "t7-q034",
+          "prompt": "Which requirement of the job might be a problem for Mr. Ferreira-Holt?",
+          "choices": [
+            "Fluency in English",
+            "Familiarity with reservation software",
+            "Working on weekends",
+            "Preparing occupancy reports"
+          ],
+          "answer": 2,
+          "explain": "Công việc yêu cầu làm một số ca cuối tuần, nhưng ông học vào sáng thứ Bảy đến cuối tháng 6 và xin bắt đầu ca cuối tuần sau thời điểm đó."
+        },
+        {
+          "id": "t7-q035",
+          "prompt": "In the email, the word “comfortable” in paragraph 1 is closest in meaning to",
+          "choices": ["relaxed", "wealthy", "pleased", "familiar"],
+          "answer": 3,
+          "explain": "\"I am comfortable with several reservation systems\" nghĩa là ông quen thuộc, sử dụng thành thạo các hệ thống đặt phòng (familiar)."
+        }
+      ]
+    },
+    {
+      "id": "t7-g011",
+      "part": 7,
+      "level": "C1",
+      "passage": "Text 1: Program\nNorthern Retail Innovation Forum — Day 2, Thursday 14 November, Halvorsen Center\n\n9:00–9:45  Keynote: “Checkout-Free Stores” — Dr. Elise Marchetti, Vantor Research (Main Hall)\n10:00–10:45  Panel: Sustainable Packaging (Room 2)\n11:00–11:45  Workshop: Pricing with Real-Time Data — Rashid Khoury, PriceLoop (Room 3)\n12:00–13:00  Lunch (Atrium)\n13:15–14:00  Talk: Loyalty Programs That Work — Hannah Brandt, Kellwick Stores (Room 2)\n\nWorkshop seats are limited to 30 and must be reserved at the registration desk.\n-----\nText 2: Email\nTo: All registered attendees\nFrom: Forum Organizing Committee\nDate: 12 November\nSubject: Program update\n\nPlease note two changes to Thursday's program. Because of a flight cancellation, Dr. Marchetti will now deliver her keynote by video link; the time and location are unchanged. In addition, Rashid Khoury has asked to swap time slots with Hannah Brandt, so his workshop will now take place from 13:15 to 14:00, and her talk will move to 11:00. Each session will remain in its originally scheduled room. We apologize for any inconvenience.\n-----\nText 3: Text-message chain\nJoanna Liu [10:48]: I'm outside Room 3 for the pricing workshop, but there's no one here.\nDaniel Osei [10:50]: Didn't you see the committee's email? It was moved to the afternoon.\nJoanna Liu [10:51]: Oh no. I booked a client call for 1:30.\nDaniel Osei [10:52]: Can the call be moved?\nJoanna Liu [10:54]: I'll try. If not, could you sit in on the workshop and take notes for me?\nDaniel Osei [10:55]: Leave it to me. I've already reserved a seat.",
+      "questions": [
+        {
+          "id": "t7-q036",
+          "prompt": "What is indicated about Dr. Marchetti?",
+          "choices": [
+            "She will speak in a different room.",
+            "She will not be present in person.",
+            "Her keynote will be shortened.",
+            "She will replace Ms. Brandt."
+          ],
+          "answer": 1,
+          "explain": "Email cho biết do chuyến bay bị hủy, bà Marchetti sẽ trình bày \"by video link\", thời gian và địa điểm giữ nguyên."
+        },
+        {
+          "id": "t7-q037",
+          "prompt": "Where will Ms. Brandt give her talk?",
+          "choices": ["In the Main Hall", "In Room 3", "In Room 2", "In the Atrium"],
+          "answer": 2,
+          "explain": "Chương trình xếp bài nói của bà Brandt ở Room 2; email nói chỉ đổi giờ, \"Each session will remain in its originally scheduled room\"."
+        },
+        {
+          "id": "t7-q038",
+          "prompt": "Why is Ms. Liu concerned?",
+          "choices": [
+            "Her call overlaps with the new time of a session.",
+            "She forgot to reserve a workshop seat.",
+            "The workshop has been canceled.",
+            "She cannot find Room 3."
+          ],
+          "answer": 0,
+          "explain": "Workshop của ông Khoury dời sang 13:15–14:00 (email), trùng với cuộc gọi khách hàng lúc 1:30 mà cô Liu đã hẹn (tin nhắn)."
+        },
+        {
+          "id": "t7-q039",
+          "prompt": "At 10:55, what does Mr. Osei most likely mean when he writes, “Leave it to me”?",
+          "choices": [
+            "He will reschedule Ms. Liu's call.",
+            "He will contact Mr. Khoury.",
+            "He wants Ms. Liu to leave the workshop.",
+            "He agrees to attend the session for her."
+          ],
+          "answer": 3,
+          "explain": "Ông trả lời ngay sau lời nhờ dự workshop và ghi chép giùm, rồi nói đã giữ chỗ — tức đồng ý tham dự thay cô."
+        },
+        {
+          "id": "t7-q040",
+          "prompt": "Which session can Ms. Liu attend at 11:00?",
+          "choices": [
+            "Pricing with Real-Time Data",
+            "Loyalty Programs That Work",
+            "Sustainable Packaging",
+            "Checkout-Free Stores"
+          ],
+          "answer": 1,
+          "explain": "Theo email, bài nói của bà Brandt \"Loyalty Programs That Work\" được dời sang 11:00, đổi chỗ với workshop định giá."
+        }
+      ]
+    }
+  ]
+}

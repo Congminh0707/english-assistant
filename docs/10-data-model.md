@@ -99,6 +99,21 @@ erDiagram
 | correct, total | số câu đúng / tổng, cộng dồn |
 | UNIQUE(profile_id, day, source, kind, skill) | |
 
+### exam_attempts (lịch sử làm đề luyện thi — migration 0008)
+
+| Cột | Ghi chú |
+|---|---|
+| id, profile_id | UUID v7, hồ sơ làm bài |
+| exam | `toeic` · `video` (kết quả xem video: `part_results` = `{videoId}`) · IELTS thêm sau |
+| mode, part | `part`/`mini`/`full`; `part` chỉ có khi mode = part |
+| correct, total | số câu đúng / tổng |
+| est_listening, est_reading, est_total | điểm TOEIC **ước lượng** (null nếu không làm phần đó) |
+| part_results | JSON `[{part, correct, total}]` |
+| elapsed_sec, finished_at | thời gian làm, lúc nộp (ms) |
+| created_at, updated_at, deleted_at | chung |
+
+Index `(profile_id, finished_at)`. Ngân hàng câu không nằm trong DB: đọc từ `content/curated/toeic/*.json`.
+
 ### usage_days (thời gian dùng app mỗi ngày — chế độ trẻ em)
 
 | Cột | Ghi chú |

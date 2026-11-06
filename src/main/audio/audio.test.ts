@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { zipSync } from 'fflate'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import { LISTENING_PACK_ID, packClipKey } from '@shared/audioPack'
+import { LISTENING_PACK_ID, packClipKey, realAudioText } from '@shared/audioPack'
 import { AudioPackService } from '../services/AudioPackService'
 import { AudioPackManager, type AudioPackSpec } from './AudioPackManager'
 
@@ -73,6 +73,21 @@ describe('AudioPackManager', () => {
     expect(new TextDecoder().decode(manager.clip('uk', 1, 'How are you?')!)).toBe('MP3-B')
     expect(manager.clip('us', 1, 'Hello there.')).toBeNull() // sai tốc độ
     expect(manager.clip('us', 0.8, 'Câu không có trong gói')).toBeNull()
+  })
+
+  it('bản thu thật tra được qua khoá realAudioText (giọng Mỹ, tốc độ 1)', async () => {
+    const key = packClipKey('us', 1, realAudioText('voa-test'))
+    const zip = zipSync({
+      'manifest.json': enc(
+        JSON.stringify({ id: LISTENING_PACK_ID, version: '1.0.0', clips: { [key]: `${key}.mp3` } })
+      ),
+      [`clips/${key}.mp3`]: enc('REAL')
+    })
+    const built = { zip, sha256: createHash('sha256').update(zip).digest('hex') }
+    const manager = new AudioPackManager({ packsDir: dir, spec: spec(built), fetch: fakeFetch(zip) })
+    await manager.install(() => undefined)
+    expect(new TextDecoder().decode(manager.clip('us', 1, realAudioText('voa-test'))!)).toBe('REAL')
+    expect(manager.clip('us', 1, realAudioText('voa-khac'))).toBeNull()
   })
 
   it('từ chối gói sai sha256 và không để lại gói dở dang', async () => {

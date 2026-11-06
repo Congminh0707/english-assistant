@@ -123,6 +123,8 @@ Lộ trình học từ đầu cho người Việt, **tự soạn** (`proprietary
 - **Luyện nghe theo câu**: bài dài được tách thành các câu có timestamp (căn chỉnh tự động bằng Whisper — xem [09](09-content-pipeline.md#5-xử-lý-audio)).
 - **Trẻ em**: bài hát, nghe từ → chọn hình.
 
+**Bản thu thật (VOA)**: block `audio` có `recording` thì dùng `RealAudioPlayer`: phát cả file MP3 trong gói âm thanh (không TTS, không căn giờ từng câu), chỉnh tốc độ 0,6–1×, lời thoại hiện theo đoạn kèm bản dịch, dòng ghi công + link trang gốc. Chưa cài gói → hiện lời thoại và nút tải gói. Xem [decisions #52](decisions.md).
+
 ## 7. Module Nói — Speaking (P2)
 
 Chi tiết kỹ thuật: [11-ai-and-speech.md](11-ai-and-speech.md#4-nhận-dạng-giọng-nói-stt--chấm-phát-âm).

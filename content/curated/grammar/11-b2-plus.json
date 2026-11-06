@@ -1,0 +1,722 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "gramb2p",
+    "title": "Ngữ pháp B2 nâng cao",
+    "summary": "Điều kiện hỗn hợp, suy đoán và tiếc nuối về quá khứ, quá khứ giả định.",
+    "icon": "📘",
+    "order": 11
+  },
+  "lessons": [
+    {
+      "id": "gramb2p.mixed-conditionals",
+      "title": "Câu điều kiện hỗn hợp",
+      "summary": "Trộn loại 2 và loại 3: quá khứ ảnh hưởng hiện tại và ngược lại.",
+      "level": "B2_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Câu điều kiện hỗn hợp** dùng khi hai vế nói về **hai thời điểm khác nhau**.\n\n- Quá khứ → hiện tại: `If + had + V3, would + V` — một việc đã không xảy ra trong quá khứ dẫn đến kết quả ở **hiện tại**.\n- Hiện tại → quá khứ: `If + quá khứ đơn, would have + V3` — một đặc điểm **lâu dài** (đúng cả bây giờ) giải thích một kết quả trong **quá khứ**.\n\nCả hai đều nói về điều **trái với thực tế**. Hãy nhìn mốc thời gian của từng vế (`now`, `today` hay `yesterday`, `last year`) để chọn thì."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Thực tế",
+            "Câu hỗn hợp"
+          ],
+          "rows": [
+            [
+              "I didn’t take the job, so I don’t live in Seattle now.",
+              "If I had taken the job, I would live in Seattle now."
+            ],
+            [
+              "I’m not brave, so I didn’t speak up yesterday.",
+              "If I were braver, I would have spoken up yesterday."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "If I had studied medicine, I would be a doctor now.",
+              "vi": "Nếu hồi đó tôi học y thì giờ tôi đã là bác sĩ."
+            },
+            {
+              "en": "If she hadn’t missed the flight, she would be here today.",
+              "vi": "Nếu cô ấy không lỡ chuyến bay thì hôm nay cô ấy đã ở đây."
+            },
+            {
+              "en": "If we had saved more, we wouldn’t be so worried now.",
+              "vi": "Nếu chúng tôi tiết kiệm nhiều hơn thì giờ đã không lo đến thế."
+            },
+            {
+              "en": "If he were more careful, he wouldn’t have lost his keys.",
+              "vi": "Nếu anh ấy cẩn thận hơn thì đã không làm mất chìa khóa."
+            },
+            {
+              "en": "If I spoke French, I would have understood the guide.",
+              "vi": "Nếu tôi biết tiếng Pháp thì tôi đã hiểu người hướng dẫn nói gì."
+            },
+            {
+              "en": "If you weren’t so stubborn, you would have apologized yesterday.",
+              "vi": "Nếu bạn không bướng như vậy thì hôm qua bạn đã xin lỗi rồi."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt hay \"đồng bộ\" thì một cách máy móc: thấy vế **If** dùng `had + V3` là vế sau cũng dùng `would have + V3`, kể cả khi có *now*: ✗ *If I had slept well, I would have felt better now.* ✓ *... I would feel better now.* Và như mọi câu điều kiện, không đặt *would* trong vế **If**."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "If I had taken that job, I ___ in Seattle now.",
+          "answers": [
+            "would live",
+            "would be living"
+          ],
+          "choices": [
+            "would have lived",
+            "would live",
+            "will live"
+          ],
+          "explain": "Kết quả ở hiện tại (now) → would + V."
+        },
+        {
+          "type": "gap",
+          "prompt": "If she ___ more organized, she wouldn’t have missed the deadline.",
+          "answers": [
+            "were",
+            "was"
+          ],
+          "choices": [
+            "had",
+            "is",
+            "were"
+          ],
+          "explain": "Đặc điểm lâu dài ở hiện tại → quá khứ đơn (were)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence means: \"I didn’t eat breakfast, so I’m hungry now\"?",
+          "choices": [
+            "If I ate breakfast, I wouldn’t be hungry.",
+            "If I had eaten breakfast, I wouldn’t have been hungry.",
+            "If I had eaten breakfast, I wouldn’t be hungry now."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "mcq",
+          "prompt": "If he weren’t afraid of flying, he ___ to Japan with us last month.",
+          "choices": [
+            "would come",
+            "would have come",
+            "had come",
+            "will come"
+          ],
+          "answer": 1,
+          "explain": "Kết quả ở quá khứ (last month) → would have + V3."
+        },
+        {
+          "type": "gap",
+          "prompt": "If we ___ the map, we wouldn’t be lost now. (bring)",
+          "answers": [
+            "had brought"
+          ],
+          "explain": "Việc trong quá khứ → had + V3."
+        },
+        {
+          "type": "tf",
+          "statement": "In \"If I were taller, I would have joined the team,\" the if-clause describes a permanent present situation.",
+          "answer": "true",
+          "explain": "Chiều cao là đặc điểm lâu dài, đúng cả hiện tại."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is NOT correct?",
+          "choices": [
+            "If I had slept well, I would feel better now.",
+            "If I would have slept well, I would feel better now.",
+            "If I were rich, I would have bought that house."
+          ],
+          "answer": 1,
+          "explain": "Không dùng would trong vế If."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép hai vế thành câu điều kiện hỗn hợp",
+          "pairs": [
+            {
+              "left": "If I had won the lottery,",
+              "right": "I would be rich now."
+            },
+            {
+              "left": "If she were more patient,",
+              "right": "she wouldn’t have shouted."
+            },
+            {
+              "left": "If they had left earlier,",
+              "right": "they would be here by now."
+            },
+            {
+              "left": "If he spoke Korean,",
+              "right": "he would have understood the movie."
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "If you hadn’t helped me, I ___ still be stuck on this problem.",
+          "answers": [
+            "would"
+          ],
+          "choices": [
+            "would",
+            "will",
+            "had"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "If I weren’t so busy, I ___ to your party last night. (go)",
+          "answers": [
+            "would have gone",
+            "would've gone",
+            "would’ve gone"
+          ],
+          "explain": "last night → would have + V3."
+        }
+      ]
+    },
+    {
+      "id": "gramb2p.past-deduction",
+      "title": "Must have / might have / can’t have: suy đoán về quá khứ",
+      "summary": "Modal + have + V3 để đoán điều đã xảy ra.",
+      "level": "B2_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Để **suy đoán về quá khứ** dựa trên bằng chứng, dùng `modal + have + V3`:\n\n- `must have + V3`: chắc hẳn đã (gần như chắc chắn)\n- `might / may / could have + V3`: có lẽ đã (không chắc)\n- `can’t / couldn’t have + V3`: không thể nào đã (gần như chắc chắn là không)\n\nSau modal luôn là `have` nguyên dạng, kể cả với *he/she/it*. Muốn nói việc đang diễn ra lúc đó thì dùng `have been + V-ing`: *She must have been sleeping.*"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Mức chắc chắn",
+            "Cấu trúc",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "Gần như chắc là có",
+              "must have + V3",
+              "It must have rained."
+            ],
+            [
+              "Có thể",
+              "might / may / could have + V3",
+              "He might have missed the bus."
+            ],
+            [
+              "Gần như chắc là không",
+              "can’t / couldn’t have + V3",
+              "She can’t have forgotten."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "The streets are wet. It must have rained last night.",
+              "vi": "Đường ướt. Chắc hẳn đêm qua trời mưa."
+            },
+            {
+              "en": "She isn’t answering. She might have gone to bed.",
+              "vi": "Cô ấy không trả lời. Có lẽ cô ấy đi ngủ rồi."
+            },
+            {
+              "en": "He can’t have finished already. He only started at noon.",
+              "vi": "Anh ấy không thể xong rồi được. Trưa anh ấy mới bắt đầu."
+            },
+            {
+              "en": "They could have taken the wrong bus.",
+              "vi": "Có thể họ đã đi nhầm xe buýt."
+            },
+            {
+              "en": "You must have been exhausted after the trip.",
+              "vi": "Chắc hẳn bạn đã kiệt sức sau chuyến đi."
+            },
+            {
+              "en": "I may have left my wallet at the restaurant.",
+              "vi": "Có lẽ tôi đã để quên ví ở nhà hàng."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp: ✗ *He must went home*, ✗ *She must had gone*. Đúng: `must have + V3` — *He must have gone home.* Phủ định \"chắc chắn là không\" dùng *can’t have / couldn’t have*. Trong tiếng Anh Mỹ cũng hay dùng *must not have* (viết đầy đủ) với nghĩa \"chắc là đã không\": *He must not have heard me.* Dạng viết tắt *mustn’t have* hiếm gặp trong tiếng Anh Mỹ."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "The lights are off. They ___ gone out.",
+          "answers": [
+            "must have"
+          ],
+          "choices": [
+            "must",
+            "must have",
+            "must had"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She ___ seen me. I was hiding behind the door.",
+          "answers": [
+            "can't have",
+            "can’t have",
+            "cannot have",
+            "couldn't have",
+            "couldn’t have",
+            "could not have"
+          ],
+          "choices": [
+            "must have",
+            "can't have",
+            "should have"
+          ],
+          "explain": "Bằng chứng cho thấy gần như chắc chắn là không."
+        },
+        {
+          "type": "mcq",
+          "prompt": "I’m not sure where Tom is. He ___ to the gym.",
+          "choices": [
+            "can’t have gone",
+            "must go",
+            "might have gone",
+            "had gone"
+          ],
+          "answer": 2,
+          "explain": "Không chắc → might have + V3."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "He must have forgot.",
+            "He must had forgotten.",
+            "He must forgotten.",
+            "He must have forgotten."
+          ],
+          "answer": 3
+        },
+        {
+          "type": "tf",
+          "statement": "\"Must have + V3\" expresses a strong guess about the past, not an obligation.",
+          "answer": "true"
+        },
+        {
+          "type": "gap",
+          "prompt": "Her eyes are red. She ___ been crying. (must)",
+          "answers": [
+            "must have"
+          ],
+          "explain": "Hành động đang diễn ra trước đó → must have been + V-ing."
+        },
+        {
+          "type": "mcq",
+          "prompt": "\"He can’t have stolen it\" means:",
+          "choices": [
+            "Anh ấy không được phép lấy cắp nó.",
+            "Chắc chắn anh ấy đã không lấy cắp nó.",
+            "Có lẽ anh ấy đã lấy cắp nó."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Chắc hẳn cô ấy đã quên cuộc hẹn của chúng ta.",
+          "answer": "She must have forgotten our appointment"
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép cụm với nghĩa",
+          "pairs": [
+            {
+              "left": "must have left",
+              "right": "chắc hẳn đã đi"
+            },
+            {
+              "left": "might have left",
+              "right": "có lẽ đã đi"
+            },
+            {
+              "left": "can’t have left",
+              "right": "không thể nào đã đi"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I ___ left my keys in the car, but I’m not sure.",
+          "answers": [
+            "may have",
+            "might have",
+            "could have"
+          ],
+          "choices": [
+            "must have",
+            "might have",
+            "can't have"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gramb2p.past-regret",
+      "title": "Should have / could have: tiếc nuối và trách móc",
+      "summary": "Lẽ ra nên, lẽ ra có thể, lẽ ra đã làm.",
+      "level": "B2_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Dùng `modal + have + V3` để nói về điều **đã không xảy ra như mong muốn** trong quá khứ:\n\n- `should have + V3`: lẽ ra nên làm (nhưng đã không làm) — tiếc nuối hoặc trách.\n- `shouldn’t have + V3`: lẽ ra không nên (nhưng đã làm).\n- `could have + V3`: lẽ ra đã có thể (có cơ hội nhưng không làm); cũng dùng để trách nhẹ: *You could have called!*\n- `would have + V3`: đã sẵn lòng làm, nhưng có điều gì đó ngăn lại: *I would have helped, but nobody asked.*"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Thực tế",
+            "Nhận xét"
+          ],
+          "rows": [
+            [
+              "I didn’t study.",
+              "I should have studied."
+            ],
+            [
+              "I ate too much.",
+              "I shouldn’t have eaten so much."
+            ],
+            [
+              "We had a car but walked.",
+              "We could have driven."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "You should have told me earlier.",
+              "vi": "Lẽ ra bạn nên nói với tôi sớm hơn."
+            },
+            {
+              "en": "I shouldn’t have eaten so much cake.",
+              "vi": "Lẽ ra tôi không nên ăn nhiều bánh như vậy."
+            },
+            {
+              "en": "We could have taken a taxi, but we walked.",
+              "vi": "Chúng tôi đã có thể đi taxi, nhưng lại đi bộ."
+            },
+            {
+              "en": "You could have warned me about the traffic!",
+              "vi": "Lẽ ra bạn có thể báo trước cho tôi về vụ kẹt xe chứ!"
+            },
+            {
+              "en": "I would have come, but I was sick.",
+              "vi": "Tôi đã định đến, nhưng tôi bị ốm."
+            },
+            {
+              "en": "She should have been more careful with her passport.",
+              "vi": "Lẽ ra cô ấy nên cẩn thận hơn với hộ chiếu."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt dịch \"lẽ ra\" hay viết ✗ *You should told me* hoặc ✗ *You had should tell me*. Đúng: `should have + V3`. Khi nói nhanh, người Mỹ đọc *should have* gần như \"should-uh\" /ˈʃʊdə/, nên nhiều người viết nhầm thành ✗ *should of* — đây là lỗi chính tả, kể cả với người bản xứ."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I failed the test. I ___ studied harder.",
+          "answers": [
+            "should have"
+          ],
+          "choices": [
+            "should",
+            "should have",
+            "must have"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "You ___ said that to her. She was really upset.",
+          "answers": [
+            "shouldn't have",
+            "shouldn’t have",
+            "should not have"
+          ],
+          "choices": [
+            "should",
+            "should not had",
+            "shouldn't have"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "\"We could have won\" means:",
+          "choices": [
+            "Chúng tôi đã thắng.",
+            "Chắc chắn chúng tôi đã thắng.",
+            "Chúng tôi bắt buộc phải thắng.",
+            "Chúng tôi đã có cơ hội thắng nhưng không thắng."
+          ],
+          "answer": 3
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is spelled correctly?",
+          "choices": [
+            "You should of called me.",
+            "You should have called me.",
+            "You should had called me."
+          ],
+          "answer": 1,
+          "explain": "\"should of\" là lỗi chính tả do nghe nhầm."
+        },
+        {
+          "type": "tf",
+          "statement": "\"I should have gone\" means that I went.",
+          "answer": "false",
+          "explain": "Nghĩa là lẽ ra tôi nên đi, nhưng tôi đã không đi."
+        },
+        {
+          "type": "gap",
+          "prompt": "I ___ helped you, but you didn’t ask me. (would)",
+          "answers": [
+            "would have",
+            "would've",
+            "would’ve"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Lẽ ra bạn nên mang theo áo khoác.",
+          "answer": "You should have brought a jacket"
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép tình huống với lời nhận xét",
+          "pairs": [
+            {
+              "left": "I didn’t bring an umbrella and got wet.",
+              "right": "I should have brought one."
+            },
+            {
+              "left": "He yelled at his boss and got fired.",
+              "right": "He shouldn’t have yelled."
+            },
+            {
+              "left": "We had free time but skipped the museum.",
+              "right": "We could have visited it."
+            },
+            {
+              "left": "Nobody invited me to the party.",
+              "right": "I would have gone gladly."
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The test was easy. I ___ worried so much. (not / should)",
+          "answers": [
+            "shouldn't have",
+            "shouldn’t have",
+            "should not have"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Your friend arrived two hours late and didn’t call. You say:",
+          "choices": [
+            "You can call me!",
+            "You must have called me!",
+            "You could have called me!"
+          ],
+          "answer": 2,
+          "explain": "could have + V3 dùng để trách nhẹ."
+        }
+      ]
+    },
+    {
+      "id": "gramb2p.unreal-past",
+      "title": "Would rather, it’s time, as if + quá khứ",
+      "summary": "Dùng thì quá khứ để nói điều không có thật ở hiện tại.",
+      "level": "B2_2",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Sau một số cụm, **thì quá khứ không chỉ thời gian quá khứ** mà chỉ điều **không có thật / mong muốn** ở hiện tại:\n\n- `would rather + người khác + quá khứ đơn`: muốn người khác làm gì — *I’d rather you stayed.* (Cùng chủ ngữ thì vẫn là `would rather + V`: *I’d rather stay.*)\n- `It’s (high / about) time + chủ ngữ + quá khứ đơn`: đã đến lúc (lẽ ra phải làm rồi) — *It’s time we left.* Cũng có thể nói `It’s time to + V`.\n- `as if / as though + quá khứ đơn`: như thể (điều không thật) — *He talks as if he knew everything.* Với *be* có thể dùng *were* cho mọi ngôi.\n\nNói về quá khứ thì lùi thêm một bậc: *I’d rather you hadn’t told him.*"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Cụm",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "would rather + S + V2",
+              "I’d rather you didn’t smoke here."
+            ],
+            [
+              "It’s time + S + V2",
+              "It’s high time you got a job."
+            ],
+            [
+              "as if + S + V2 / had V3",
+              "He looked as though he had seen a ghost."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "I’d rather you didn’t smoke in here.",
+              "vi": "Tôi mong bạn đừng hút thuốc ở đây."
+            },
+            {
+              "en": "It’s high time you got a job.",
+              "vi": "Đã đến lúc bạn phải đi làm rồi đấy."
+            },
+            {
+              "en": "She acts as if she owned the place.",
+              "vi": "Cô ấy cư xử như thể mình là chủ chỗ này."
+            },
+            {
+              "en": "It’s about time we went home.",
+              "vi": "Đã đến lúc chúng ta về nhà rồi."
+            },
+            {
+              "en": "He looked as though he had seen a ghost.",
+              "vi": "Trông anh ấy như vừa thấy ma."
+            },
+            {
+              "en": "I’d rather you hadn’t invited him.",
+              "vi": "Tôi ước gì bạn đã không mời anh ta."
+            },
+            {
+              "en": "It looks as if it’s going to snow.",
+              "vi": "Trông như sắp có tuyết rơi.",
+              "note": "Có thể xảy ra thật → giữ thì hiện tại."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt hay viết ✗ *It’s time we go* hoặc ✗ *I’d rather you will stay*. Chuẩn là thì quá khứ: *It’s time we went*, *I’d rather you stayed*. (Tiếng Anh Mỹ đôi khi nghe *I’d rather you stay*, nhưng dạng quá khứ là chuẩn và an toàn trong thi cử.) Với *as if*, nếu điều đó **có thể đúng** thì giữ hiện tại: *It looks as if it’s going to rain.*"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "It’s time we ___ home. It’s nearly midnight.",
+          "answers": [
+            "went"
+          ],
+          "choices": [
+            "went",
+            "go",
+            "going"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I’d rather you ___ tell anyone about this.",
+          "answers": [
+            "didn't",
+            "didn’t",
+            "did not"
+          ],
+          "choices": [
+            "don't",
+            "won't",
+            "didn't"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "He talks as if he ___ the boss, but he’s just an intern.",
+          "choices": [
+            "will be",
+            "has been",
+            "were",
+            "be"
+          ],
+          "answer": 2,
+          "explain": "Điều không thật → quá khứ (were)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which is correct?",
+          "choices": [
+            "I’d rather you stayed with us tonight.",
+            "I’d rather you will stay with us tonight.",
+            "I’d rather you staying with us tonight."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "tf",
+          "statement": "In \"It’s time we left,\" the past tense \"left\" refers to the past.",
+          "answer": "false",
+          "explain": "Nó nói về hiện tại: lẽ ra phải đi rồi."
+        },
+        {
+          "type": "gap",
+          "prompt": "It’s high time you ___ a decision. (make)",
+          "answers": [
+            "made"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Dark clouds are gathering. It looks ___ it’s going to rain.",
+          "choices": [
+            "as",
+            "as if",
+            "so that",
+            "like as"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "order",
+          "hint": "Đã đến lúc chúng ta bắt đầu.",
+          "answer": "It is time we started"
+        },
+        {
+          "type": "gap",
+          "prompt": "I’d rather you ___ told him the truth yesterday. (not)",
+          "answers": [
+            "hadn't",
+            "hadn’t",
+            "had not"
+          ],
+          "explain": "Về quá khứ → had (not) + V3."
+        }
+      ]
+    }
+  ]
+}

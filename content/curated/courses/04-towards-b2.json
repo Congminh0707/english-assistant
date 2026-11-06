@@ -1,0 +1,206 @@
+{
+  "license": "proprietary-own",
+  "course": {
+    "id": "towards-b2",
+    "title": "Tiến tới B2",
+    "summary": "Ngữ pháp B2, kỹ năng từ vựng–viết, bài đọc và bài nghe nâng cao hơn B1.",
+    "icon": "🧭",
+    "levelFrom": "B2_1",
+    "levelTo": "B2_2",
+    "order": 4
+  },
+  "units": [
+    {
+      "id": "b2-skills",
+      "title": "Kỹ năng B2",
+      "summary": "Cấu tạo từ, kết hợp từ, liên kết ý, diễn đạt lại, văn phong trang trọng.",
+      "steps": [
+        {
+          "kind": "lesson",
+          "id": "b2skills.word-formation"
+        },
+        {
+          "kind": "lesson",
+          "id": "b2skills.collocations-phrasal"
+        },
+        {
+          "kind": "lesson",
+          "id": "b2skills.formal-register"
+        },
+        {
+          "kind": "lesson",
+          "id": "b2skills.cohesion"
+        },
+        {
+          "kind": "lesson",
+          "id": "b2skills.paraphrase-summary"
+        },
+        {
+          "kind": "lesson",
+          "id": "b2skills.opinion-argument"
+        }
+      ]
+    },
+    {
+      "id": "b2-grammar",
+      "title": "Ngữ pháp B2",
+      "summary": "Điều kiện hỗn hợp, suy đoán quá khứ, tiếc nuối, câu giả định.",
+      "steps": [
+        {
+          "kind": "grammar",
+          "id": "gramadv.third-conditional"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramadv.wish-if-only"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramadv.causative"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramadv.participle-clauses"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramadv.inversion"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramadv.cleft-sentences"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramb2p.mixed-conditionals"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramb2p.past-deduction"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramb2p.past-regret"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramb2p.unreal-past"
+        }
+      ]
+    },
+    {
+      "id": "b2-reading",
+      "title": "Đọc hiểu B2",
+      "summary": "Bài đọc dài hơn về xã hội, khoa học, công việc.",
+      "steps": [
+        {
+          "kind": "reading",
+          "id": "readtech.remote-work"
+        },
+        {
+          "kind": "reading",
+          "id": "readtech.learning-with-apps"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2.why-we-dream"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2.the-gig-economy"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2.city-or-countryside"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2more.rooftop-gardens"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2more.learning-as-an-adult"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2more.fast-fashion"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2more.how-habits-work"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2.ai-at-work"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2.minimalism"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2more.citizen-science"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2more.four-day-week"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2more.microplastics"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2more.why-we-procrastinate"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2more.overtourism"
+        },
+        {
+          "kind": "reading",
+          "id": "readb2more.space-debris"
+        }
+      ]
+    },
+    {
+      "id": "b2-listening",
+      "title": "Nghe hiểu B2",
+      "summary": "Podcast, phỏng vấn, bản tin, cuộc gọi dịch vụ.",
+      "steps": [
+        {
+          "kind": "listening",
+          "id": "listenb2.side-hustle"
+        },
+        {
+          "kind": "listening",
+          "id": "listenb2.billing-call"
+        },
+        {
+          "kind": "listening",
+          "id": "listenb2.metro-news"
+        },
+        {
+          "kind": "listening",
+          "id": "listenb2.chef-interview"
+        },
+        {
+          "kind": "listening",
+          "id": "listenb2.sleep-memory"
+        },
+        {
+          "kind": "listening",
+          "id": "listenb2.remote-work"
+        },
+        {
+          "kind": "listening",
+          "id": "listenb2.heatwave-news"
+        },
+        {
+          "kind": "listening",
+          "id": "listenb2.project-delay"
+        }
+      ]
+    }
+  ]
+}

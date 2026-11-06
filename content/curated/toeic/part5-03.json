@@ -1,0 +1,292 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t5-g031",
+      "part": 5,
+      "level": "B1_1",
+      "questions": [
+        {
+          "id": "t5-q031",
+          "prompt": "Please remember to ___ off the lights when you leave the office.",
+          "choices": [
+            "turn",
+            "close",
+            "take",
+            "make"
+          ],
+          "answer": 0,
+          "explain": "Cụm động từ \"turn off the lights\" = tắt đèn."
+        }
+      ]
+    },
+    {
+      "id": "t5-g032",
+      "part": 5,
+      "level": "B1_1",
+      "questions": [
+        {
+          "id": "t5-q032",
+          "prompt": "There ___ several messages for you while you were at lunch.",
+          "choices": [
+            "was",
+            "is",
+            "has",
+            "were"
+          ],
+          "answer": 3,
+          "explain": "\"There + be\" chia theo danh từ số nhiều \"several messages\" và thời quá khứ (\"while you were\") nên dùng \"were\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g033",
+      "part": 5,
+      "level": "B1_1",
+      "questions": [
+        {
+          "id": "t5-q033",
+          "prompt": "Mr. Lee is the most ___ member of our design team.",
+          "choices": [
+            "creative",
+            "create",
+            "creatively",
+            "creativity"
+          ],
+          "answer": 0,
+          "explain": "So sánh nhất \"the most + tính từ\" đứng trước danh từ \"member\", nên cần tính từ \"creative\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g034",
+      "part": 5,
+      "level": "B2_2",
+      "questions": [
+        {
+          "id": "t5-q034",
+          "prompt": "Had we known about the road closure, we ___ an alternative route.",
+          "choices": [
+            "would take",
+            "will take",
+            "would have taken",
+            "had taken"
+          ],
+          "answer": 2,
+          "explain": "\"Had we known\" là đảo ngữ của điều kiện loại 3, mệnh đề chính dùng \"would have + V3\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g035",
+      "part": 5,
+      "level": "B2_2",
+      "questions": [
+        {
+          "id": "t5-q035",
+          "prompt": "Staff members who wish to take vacation in August must submit their requests well in ___.",
+          "choices": [
+            "advanced",
+            "ahead",
+            "before",
+            "advance"
+          ],
+          "answer": 3,
+          "explain": "Cụm cố định \"(well) in advance\" = trước (rất sớm)."
+        }
+      ]
+    },
+    {
+      "id": "t5-g036",
+      "part": 5,
+      "level": "B2_1",
+      "questions": [
+        {
+          "id": "t5-q036",
+          "prompt": "The new manager has made ___ improvements to the shipping process.",
+          "choices": [
+            "significance",
+            "significant",
+            "significantly",
+            "signify"
+          ],
+          "answer": 1,
+          "explain": "Trước danh từ \"improvements\" cần tính từ \"significant\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g037",
+      "part": 5,
+      "level": "B2_1",
+      "questions": [
+        {
+          "id": "t5-q037",
+          "prompt": "The client asked ___ the delivery could be rescheduled for Wednesday.",
+          "choices": [
+            "whether",
+            "that",
+            "what",
+            "which"
+          ],
+          "answer": 0,
+          "explain": "Câu hỏi gián tiếp dạng có/không sau \"asked\" dùng \"whether\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g038",
+      "part": 5,
+      "level": "B2_1",
+      "questions": [
+        {
+          "id": "t5-q038",
+          "prompt": "Ms. Okafor was ___ to regional sales director after only two years with the company.",
+          "choices": [
+            "raised",
+            "increased",
+            "promoted",
+            "lifted"
+          ],
+          "answer": 2,
+          "explain": "\"Be promoted to + chức vụ\" = được thăng chức."
+        }
+      ]
+    },
+    {
+      "id": "t5-g039",
+      "part": 5,
+      "level": "C1",
+      "questions": [
+        {
+          "id": "t5-q039",
+          "prompt": "The proposal, ___ merits were discussed at length, was eventually approved.",
+          "choices": [
+            "which",
+            "who",
+            "whom",
+            "whose"
+          ],
+          "answer": 3,
+          "explain": "Cần đại từ quan hệ chỉ sở hữu đứng trước danh từ \"merits\" (ưu điểm của đề xuất): \"whose\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g040",
+      "part": 5,
+      "level": "C1",
+      "questions": [
+        {
+          "id": "t5-q040",
+          "prompt": "The firm is known for its ___ attention to detail.",
+          "choices": [
+            "meticulously",
+            "meticulous",
+            "meticulousness",
+            "more meticulously"
+          ],
+          "answer": 1,
+          "explain": "Sau tính từ sở hữu \"its\" và trước danh từ \"attention\" cần tính từ \"meticulous\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g041",
+      "part": 5,
+      "level": "C1",
+      "questions": [
+        {
+          "id": "t5-q041",
+          "prompt": "The new regulations will ___ significant changes to how we handle customer data.",
+          "choices": [
+            "oblige",
+            "necessitate",
+            "insist",
+            "depend"
+          ],
+          "answer": 1,
+          "explain": "\"Necessitate something\" = đòi hỏi phải có; \"oblige\" cần người + to V, \"insist/depend\" cần giới từ."
+        }
+      ]
+    },
+    {
+      "id": "t5-g042",
+      "part": 5,
+      "level": "B1_2",
+      "questions": [
+        {
+          "id": "t5-q042",
+          "prompt": "The printer on the third floor ___ since last Tuesday.",
+          "choices": [
+            "did not work",
+            "does not work",
+            "has not worked",
+            "will not work"
+          ],
+          "answer": 2,
+          "explain": "Có \"since + mốc thời gian\" nên dùng hiện tại hoàn thành \"has not worked\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g043",
+      "part": 5,
+      "level": "B1_2",
+      "questions": [
+        {
+          "id": "t5-q043",
+          "prompt": "Please read the instructions ___ before assembling the furniture.",
+          "choices": [
+            "careful",
+            "care",
+            "caring",
+            "carefully"
+          ],
+          "answer": 3,
+          "explain": "Bổ nghĩa cho động từ \"read\" cần trạng từ \"carefully\"."
+        }
+      ]
+    },
+    {
+      "id": "t5-g044",
+      "part": 5,
+      "level": "B1_2",
+      "questions": [
+        {
+          "id": "t5-q044",
+          "prompt": "The seminar is ___ to all employees, but registration is required.",
+          "choices": [
+            "open",
+            "opened",
+            "wide",
+            "clear"
+          ],
+          "answer": 0,
+          "explain": "\"Be open to somebody\" = dành cho/ai cũng tham gia được."
+        }
+      ]
+    },
+    {
+      "id": "t5-g045",
+      "part": 5,
+      "level": "B2_2",
+      "questions": [
+        {
+          "id": "t5-q045",
+          "prompt": "Each of the regional offices ___ responsible for its own budget.",
+          "choices": [
+            "are",
+            "were",
+            "being",
+            "is"
+          ],
+          "answer": 3,
+          "explain": "Chủ ngữ \"Each of + danh từ số nhiều\" chia động từ số ít: \"is\"."
+        }
+      ]
+    }
+  ]
+}

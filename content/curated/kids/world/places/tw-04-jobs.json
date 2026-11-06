@@ -1,6 +1,6 @@
 {
   "license": "proprietary-own",
-  "reviewed": false,
+  "reviewed": true,
   "place": {
     "id": "jobs",
     "tier": "town",
@@ -86,7 +86,7 @@
       "picture": "artist",
       "sentence": {
         "en": "She is an artist.",
-        "vi": "Cô ấy là họa sĩ."
+        "vi": "Cô ấy là người vẽ tranh."
       }
     },
     {
@@ -114,14 +114,14 @@
       "picture": "astronaut",
       "sentence": {
         "en": "He is an astronaut.",
-        "vi": "Chú ấy là phi hành gia."
+        "vi": "Chú ấy là người bay vào vũ trụ."
       }
     },
     {
       "picture": "fisherman",
       "sentence": {
         "en": "He is a fisherman.",
-        "vi": "Chú ấy là ngư dân."
+        "vi": "Chú ấy là người đánh cá."
       }
     },
     {

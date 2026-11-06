@@ -559,6 +559,8 @@
       "home": "Trang chủ",
       "review": "Ôn từ",
       "words": "Sổ từ",
+      "videos": "Video",
+      "toeic": "Luyện thi TOEIC",
       "placement": "Kiểm tra trình độ",
       "settings": "Cài đặt",
       "practice": "Luyện tập",
@@ -1061,6 +1063,65 @@
       "title": "Ngữ pháp",
       "intro": "Tra từng điểm ngữ pháp: giải thích ngắn bằng tiếng Việt, ví dụ nghe được, mẹo cho người Việt và bài tập nhanh."
     },
+    "toeic": {
+      "title": "Luyện thi TOEIC",
+      "intro": "Đề tự soạn theo format TOEIC Listening & Reading (7 Part). Làm theo từng Part để luyện kỹ, hoặc thi thử mini (~30 phút) và full (2 giờ).",
+      "estimateNote": "Điểm chỉ là ước lượng từ bảng quy đổi xấp xỉ, không phải điểm thi thật.",
+      "notEnough": "Ngân hàng đề chưa đủ câu cho chế độ này.",
+      "byPart": "Luyện theo Part",
+      "history": "Lịch sử",
+      "mode": {
+        "part": "Theo Part",
+        "mini": "Mini test",
+        "full": "Full test"
+      },
+      "miniMeta": "44 câu · 30 phút",
+      "fullMeta": "200 câu · 2 giờ",
+      "partN": "Part {n}",
+      "partName": {
+        "1": "Mô tả tranh",
+        "2": "Hỏi – đáp",
+        "3": "Hội thoại ngắn",
+        "4": "Bài nói ngắn",
+        "5": "Hoàn thành câu",
+        "6": "Hoàn thành đoạn văn",
+        "7": "Đọc hiểu"
+      },
+      "count": "{n} câu",
+      "progress": "Mục {n}/{total} · đã trả lời {done}/{all} câu",
+      "play": "Nghe",
+      "stop": "Dừng",
+      "scene": "Tranh:",
+      "prev": "Trước",
+      "next": "Tiếp",
+      "submit": "Nộp bài",
+      "finishNow": "Nộp bài sớm",
+      "resultTitle": "Đúng {correct}/{total} câu",
+      "sections": "Nghe ≈ {l} · Đọc ≈ {r}",
+      "back": "Về danh sách",
+      "review": "Xem lại bài",
+      "listenQuestion": "(câu nghe)",
+      "cancel": "Huỷ bài",
+      "cancelAsk": "Huỷ bài làm này? Kết quả sẽ không được lưu.",
+      "cancelYes": "Huỷ bài",
+      "cancelNo": "Làm tiếp"
+    },
+    "videos": {
+      "title": "Video",
+      "intro": "Xem video tiếng Anh ngắn rồi trả lời câu hỏi để kiểm tra mình hiểu bao nhiêu. Cần có mạng để xem.",
+      "empty": "Chưa có video nào trong thư viện.",
+      "questions": "{n} câu hỏi",
+      "failed": "Không phát được video (kiểm tra kết nối mạng). Bạn vẫn có thể làm câu hỏi bằng nút bên dưới.",
+      "loading": "Đang tải video…",
+      "vocab": "Từ khoá:",
+      "skip": "Làm câu hỏi ngay",
+      "questionN": "Câu {n}/{total}",
+      "continue": "Tiếp tục xem",
+      "finish": "Xem kết quả",
+      "resultTitle": "Đúng {correct}/{total} câu",
+      "skipped": "(bỏ trống)",
+      "back": "Về thư viện"
+    },
     "phrasebook": {
       "title": "Mẫu câu giao tiếp",
       "intro": "Các câu thường dùng theo tình huống. Bấm nút loa để nghe, bấm vào câu để sao chép.",
@@ -1373,8 +1434,143 @@
     "game": {
       "countryDetail": "{name}, {total} từ",
       "goTo": "Đến {name}",
-      "continents": {"asia": "Châu Á", "europe": "Châu Âu", "africa": "Châu Phi", "northAmerica": "Bắc Mỹ", "southAmerica": "Nam Mỹ", "oceania": "Châu Đại Dương", "antarctica": "Châu Nam Cực"},
-      "spots": {"cantho": ["Cây bẹo", "Dưa hấu", "Chợ nổi", "Trái thơm", "Bến Ninh Kiều"], "dalat": ["Ga Đà Lạt", "Tàu hơi nước", "Đồi thông", "Hồ Xuân Hương", "Hoa"], "danang": ["Cầu Rồng", "Lửa rồng", "Sông Hàn", "Cao ốc", "Cầu quay"], "halong": ["Đảo đá", "Thuyền buồm", "Hang đá", "Làng chài", "Lồng cá"], "hanoi": ["Tháp Rùa", "Đền Ngọc Sơn", "Cầu Thê Húc", "Phố cổ", "Xích lô"], "hcmc": ["Tháp đồng hồ", "Chợ Bến Thành", "Cây sao", "Xe buýt", "Xe máy"], "hue": ["Ngọ Môn", "Sông Hương", "Thuyền rồng", "Cầu Tràng Tiền", "Áo dài"], "nhatrang": ["Tháp Bà", "Hòn đảo", "Biển", "Thuyền thúng", "Bãi cát"], "ninhbinh": ["Núi đá", "Hang", "Ruộng lúa", "Chèo chân", "Trâu"], "phuquoc": ["Hoàng hôn", "Làng chài", "Nhà sàn", "Thuyền thúng", "Lưới cá"], "sapa": ["Núi mây", "Ruộng bậc thang", "Bản làng", "Trâu", "Hoa cẩm tú cầu"], "australia": ["Chuột túi", "Gấu koala", "Con kiến", "Con ếch", "Thiên nga đen"], "china": ["Núi", "Gấu trúc", "Múa lân", "Thuyền rồng", "Đèn lồng"], "france": ["Cà phê", "Phô mai", "Mứt", "Bánh kếp", "Kem"], "japan": ["Sushi", "Hoa anh đào", "Salad", "Quả lê", "Kiwi"], "kenya": ["Hươu cao cổ", "Khỉ", "Ngựa vằn", "Sư tử", "Voi"], "usa": ["Tên lửa", "Bánh rán", "Xúc xích", "Bắp rang", "Pizza"], "hoian": ["Chùa Cầu", "Đèn lồng", "Hoa đăng", "Thuyền", "Nhà cổ"]},
+      "continents": {
+        "asia": "Châu Á",
+        "europe": "Châu Âu",
+        "africa": "Châu Phi",
+        "northAmerica": "Bắc Mỹ",
+        "southAmerica": "Nam Mỹ",
+        "oceania": "Châu Đại Dương",
+        "antarctica": "Châu Nam Cực"
+      },
+      "spots": {
+        "cantho": [
+          "Cây bẹo",
+          "Dưa hấu",
+          "Chợ nổi",
+          "Trái thơm",
+          "Bến Ninh Kiều"
+        ],
+        "dalat": [
+          "Ga Đà Lạt",
+          "Tàu hơi nước",
+          "Đồi thông",
+          "Hồ Xuân Hương",
+          "Hoa"
+        ],
+        "danang": [
+          "Cầu Rồng",
+          "Lửa rồng",
+          "Sông Hàn",
+          "Cao ốc",
+          "Cầu quay"
+        ],
+        "halong": [
+          "Đảo đá",
+          "Thuyền buồm",
+          "Hang đá",
+          "Làng chài",
+          "Lồng cá"
+        ],
+        "hanoi": [
+          "Tháp Rùa",
+          "Đền Ngọc Sơn",
+          "Cầu Thê Húc",
+          "Phố cổ",
+          "Xích lô"
+        ],
+        "hcmc": [
+          "Tháp đồng hồ",
+          "Chợ Bến Thành",
+          "Cây sao",
+          "Xe buýt",
+          "Xe máy"
+        ],
+        "hue": [
+          "Ngọ Môn",
+          "Sông Hương",
+          "Thuyền rồng",
+          "Cầu Tràng Tiền",
+          "Áo dài"
+        ],
+        "nhatrang": [
+          "Tháp Bà",
+          "Hòn đảo",
+          "Biển",
+          "Thuyền thúng",
+          "Bãi cát"
+        ],
+        "ninhbinh": [
+          "Núi đá",
+          "Hang",
+          "Ruộng lúa",
+          "Chèo chân",
+          "Trâu"
+        ],
+        "phuquoc": [
+          "Hoàng hôn",
+          "Làng chài",
+          "Nhà sàn",
+          "Thuyền thúng",
+          "Lưới cá"
+        ],
+        "sapa": [
+          "Núi mây",
+          "Ruộng bậc thang",
+          "Bản làng",
+          "Trâu",
+          "Hoa cẩm tú cầu"
+        ],
+        "australia": [
+          "Chuột túi",
+          "Gấu koala",
+          "Con kiến",
+          "Con ếch",
+          "Thiên nga đen"
+        ],
+        "china": [
+          "Núi",
+          "Gấu trúc",
+          "Múa lân",
+          "Thuyền rồng",
+          "Đèn lồng"
+        ],
+        "france": [
+          "Cà phê",
+          "Phô mai",
+          "Mứt",
+          "Bánh kếp",
+          "Kem"
+        ],
+        "japan": [
+          "Sushi",
+          "Hoa anh đào",
+          "Salad",
+          "Quả lê",
+          "Kiwi"
+        ],
+        "kenya": [
+          "Hươu cao cổ",
+          "Khỉ",
+          "Ngựa vằn",
+          "Sư tử",
+          "Voi"
+        ],
+        "usa": [
+          "Tên lửa",
+          "Bánh rán",
+          "Xúc xích",
+          "Bắp rang",
+          "Pizza"
+        ],
+        "hoian": [
+          "Chùa Cầu",
+          "Đèn lồng",
+          "Hoa đăng",
+          "Thuyền",
+          "Nhà cổ"
+        ]
+      },
       "map": "Về bản đồ",
       "village": "Về làng",
       "starsCount": "{n} sao",
@@ -1397,7 +1593,13 @@
         "listen": "Nghe",
         "learn": "Bé sẽ học",
         "progress": "đã xong {done}/{total} từ",
-        "steps": ["Làm quen", "Chạm hình", "Lật thẻ", "Nói theo", "Nghe câu"],
+        "steps": [
+          "Làm quen",
+          "Chạm hình",
+          "Lật thẻ",
+          "Nói theo",
+          "Nghe câu"
+        ],
         "backToPlace": "Về {name}"
       },
       "cardDetail": "{topic}, {total} từ, đã xong {done}",
@@ -1416,6 +1618,7 @@
     }
   },
   "player": {
+    "real": { "needPack": "Bản thu thật nằm trong gói âm thanh bài nghe. Tải gói để nghe (lời thoại vẫn đọc được bên dưới).", "source": "Trang gốc" },
     "play": "Nghe",
     "pause": "Dừng",
     "prev": "Câu trước",

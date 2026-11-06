@@ -3,6 +3,7 @@
 // Cần: model Kokoro đã tải trong %APPDATA%/english-assistant/models (bật "Giọng tự nhiên" trong app một lần),
 //      devDependency @breezystack/lamejs (bộ mã hoá MP3, LGPL — chỉ dùng lúc build, không đóng vào app).
 // Gói gồm cả bài nghe lẫn từ/câu của chế độ trẻ em (giọng Mỹ, các tốc độ bé nghe). `--list` chỉ đếm, không tạo âm thanh.
+// `--base <zip>`: dùng lại clip đã có trong gói cũ (cùng khoá), chỉ tạo phần còn thiếu — nhanh hơn nhiều khi chỉ thêm nội dung.
 // Đầu ra: content/.build/audio/listening-audio-<ver>.zip (+ .sha256) → đưa lên GitHub Release (docs/15 §7).
 import { createHash } from 'node:crypto'
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -10,7 +11,7 @@ import { join, resolve } from 'node:path'
 import { env } from '@huggingface/transformers'
 import { KokoroTTS } from 'kokoro-js'
 import { Mp3Encoder } from '@breezystack/lamejs'
-import { zipSync } from 'fflate'
+import { unzipSync, zipSync } from 'fflate'
 
 // Dùng chung quy ước khoá/giọng với app (Node 22.18+ chạy được file .ts thuần kiểu)
 import {
@@ -18,7 +19,8 @@ import {
   PACK_RATES,
   PACK_VOICES,
   packClipKey,
-  normalizePackText
+  normalizePackText,
+  realAudioText
 } from '../../src/shared/audioPack.ts'
 
 const listOnly = process.argv.includes('--list')
@@ -39,7 +41,7 @@ for (const file of readdirSync(DIR).filter((f) => f.endsWith('.json'))) {
   const data = JSON.parse(readFileSync(join(DIR, file), 'utf8').replace(/^\p{Cf}/u, ''))
   for (const lesson of data.lessons) {
     for (const block of lesson.blocks) {
-      if (block.type !== 'audio') continue
+      if (block.type !== 'audio' || block.recording) continue
       for (const line of block.lines) {
         // Mọi câu đều tạo cả hai giọng (bf_emma Anh + af_heart Mỹ) bất kể người nói, để giọng Anh mặc định luôn có
         for (const accent of ['uk', 'us']) for (const rate of [0.6, 0.8, 1]) add(line.en, accent, rate)
@@ -65,6 +67,7 @@ const collect = (node) => {
   for (const [k, v] of Object.entries(node)) {
     // Chỉ lấy chuỗi tiếng Anh ngắn; bỏ chuỗi có dấu tiếng Việt
     if (KIDS_TEXT_KEYS.has(k) && typeof v === 'string') {
+      // eslint-disable-next-line no-control-regex
       if (v.length <= 120 && !/[^\u0000-ɏ]|[ăâđêôơư]/i.test(v)) kidsTexts.add(v)
     } else collect(v)
   }
@@ -81,6 +84,16 @@ for (const f of ['pictures.ts', 'picturesMore.ts', 'picturesKids2.ts', 'pictureE
 }
 for (const text of kidsTexts) for (const rate of KIDS_RATES) add(text, 'us', rate)
 console.log(`Chế độ trẻ em: ${kidsTexts.size} từ/câu × ${KIDS_RATES.length} tốc độ`)
+// Bản thu thật (VOA, public domain): MP3 nguyên bản trong content/curated/listening-audio, đưa vào gói y nguyên
+const REAL_DIR = resolve('content/curated/listening-audio')
+const realRecordings = new Map() // id → đường dẫn file
+for (const file of readdirSync(DIR).filter((f) => f.endsWith('.json'))) {
+  const data = JSON.parse(readFileSync(join(DIR, file), 'utf8').replace(/^\p{Cf}/u, ''))
+  for (const lesson of data.lessons)
+    for (const block of lesson.blocks)
+      if (block.type === 'audio' && block.recording) realRecordings.set(block.recording.id, join(REAL_DIR, `${block.recording.id}.mp3`))
+}
+console.log(`Bản thu thật: ${realRecordings.size} file`)
 console.log(`Cần tạo ${wanted.size} đoạn âm thanh (${[...PACK_RATES].join(', ')} tốc độ)`)
 
 if (listOnly) process.exit(0)
@@ -114,10 +127,26 @@ function toMp3(samples, rate) {
 const kokoroSpeed = (rate) => Math.round(Math.min(1.3, Math.max(0.5, rate / 0.9)) * 100) / 100
 const files = {}
 const clips = {}
+// Dùng lại clip của gói cũ (`--base <zip>`): khoá = giọng + tốc độ + văn bản nên clip trùng khoá là cùng âm thanh
+const baseArg = process.argv.indexOf('--base')
+let reused = 0
+if (baseArg > 0) {
+  const base = unzipSync(new Uint8Array(readFileSync(resolve(process.argv[baseArg + 1]))))
+  const baseManifest = JSON.parse(new TextDecoder().decode(base['manifest.json']))
+  for (const key of wanted.keys()) {
+    const name = baseManifest.clips[key]
+    if (name && base[`clips/${name}`]) {
+      files[`clips/${name}`] = [base[`clips/${name}`], { level: 0 }]
+      clips[key] = name
+      reused++
+    }
+  }
+  console.log(`Dùng lại ${reused}/${wanted.size} clip từ gói cũ`)
+}
 let n = 0
 const t0 = Date.now()
 // Giọng Anh (bf_emma) tạo trước: nếu build bị ngắt thì phần dở dang vẫn là giọng Mỹ, không mất giọng mặc định
-const queue = [...wanted].sort(([, a], [, b]) => Number(b.accent === 'uk') - Number(a.accent === 'uk'))
+const queue = [...wanted].filter(([key]) => !clips[key]).sort(([, a], [, b]) => Number(b.accent === 'uk') - Number(a.accent === 'uk'))
 for (const [key, item] of queue) {
   const out = await tts.generate(item.text, {
     voice: PACK_VOICES[item.accent],
@@ -126,7 +155,13 @@ for (const [key, item] of queue) {
   const name = `${key}.mp3`
   files[`clips/${name}`] = [new Uint8Array(toMp3(out.audio, out.sampling_rate)), { level: 0 }]
   clips[key] = name
-  if (++n % 25 === 0) console.log(`${n}/${wanted.size} (${Math.round((Date.now() - t0) / 1000)}s)`)
+  if (++n % 25 === 0) console.log(`${n}/${queue.length} (${Math.round((Date.now() - t0) / 1000)}s)`)
+}
+for (const [id, path] of realRecordings) {
+  const key = packClipKey('us', 1, realAudioText(id))
+  const name = `${key}.mp3`
+  files[`clips/${name}`] = [new Uint8Array(readFileSync(path)), { level: 0 }]
+  clips[key] = name
 }
 files['manifest.json'] = [
   new TextEncoder().encode(JSON.stringify({ id: LISTENING_PACK_ID, version, clips })),

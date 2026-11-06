@@ -1,0 +1,1373 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "gramc1",
+    "title": "Ngữ pháp C1",
+    "summary": "Đảo ngữ điều kiện, thức giả định, bị động tường thuật, danh từ hóa, hedging, tỉnh lược, tương lai trong quá khứ, cụm danh từ phức.",
+    "icon": "🧠",
+    "order": 12
+  },
+  "lessons": [
+    {
+      "id": "gramc1.conditional-inversion",
+      "title": "Đảo ngữ câu điều kiện (Had I known, Should you need)",
+      "summary": "Bỏ if, đưa had / should / were lên đầu câu.",
+      "level": "C1",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Trong văn trang trọng (email công việc, bài luận), có thể **bỏ if** và đưa trợ động từ lên trước chủ ngữ:\n\n- Loại 1: `Should + S + V` — *Should you need help, call me.* (= If you need help)\n- Loại 2: `Were + S + to V` hoặc `Were + S + ...` — *Were I in your position, I would refuse.*\n- Loại 3: `Had + S + V3` — *Had I known, I would have come.*\n- `Were it not for + N` / `Had it not been for + N` = nếu không có (hiện tại / quá khứ).\n\nChỉ đảo được với **should, were, had**; không đảo với động từ thường (✗ *Did I know ...*)."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Câu với if",
+            "Đảo ngữ"
+          ],
+          "rows": [
+            [
+              "If you have any questions, ...",
+              "Should you have any questions, ..."
+            ],
+            [
+              "If I were you, ...",
+              "Were I you, ..."
+            ],
+            [
+              "If we had known, ...",
+              "Had we known, ..."
+            ],
+            [
+              "If it had not been for the rain, ...",
+              "Had it not been for the rain, ..."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "Had I known, I would have called you.",
+              "vi": "Nếu tôi biết thì tôi đã gọi cho bạn rồi."
+            },
+            {
+              "en": "Should you have any questions, please contact us.",
+              "vi": "Nếu quý vị có câu hỏi nào, xin liên hệ chúng tôi."
+            },
+            {
+              "en": "Were I you, I would accept the offer.",
+              "vi": "Nếu tôi là bạn, tôi sẽ nhận lời đề nghị."
+            },
+            {
+              "en": "Were it not for your help, we would fail.",
+              "vi": "Nếu không có sự giúp đỡ của bạn, chúng tôi sẽ thất bại."
+            },
+            {
+              "en": "Had it not been for the rain, we would have won.",
+              "vi": "Nếu không vì trời mưa thì chúng tôi đã thắng."
+            },
+            {
+              "en": "Were they to raise prices, customers would leave.",
+              "vi": "Nếu họ tăng giá, khách hàng sẽ bỏ đi."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Hai lỗi hay gặp: ✗ *If had I known* (vừa có *if* vừa đảo) và ✗ *Hadn’t she called* (viết tắt phủ định). Trong đảo ngữ điều kiện, *not* đứng **sau** chủ ngữ và không viết tắt: ✓ *Had she not called, ...*"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "___ I known about the meeting, I would have attended.",
+          "answers": [
+            "Had"
+          ],
+          "choices": [
+            "Had",
+            "If",
+            "Did"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "___ you need any further information, please let us know.",
+          "answers": [
+            "Should"
+          ],
+          "choices": [
+            "Would",
+            "Had",
+            "Should"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "___ it not been for her support, I would have quit.",
+          "answers": [
+            "Had"
+          ],
+          "choices": [
+            "Were",
+            "Had",
+            "Should",
+            "Did"
+          ],
+          "explain": "\"been\" → loại 3 → Had."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "Hadn’t I seen the sign, I would have crashed.",
+            "Had I not seen the sign, I would have crashed.",
+            "If had I not seen the sign, I would have crashed.",
+            "Did I not see the sign, I would have crashed."
+          ],
+          "answer": 1,
+          "explain": "Phủ định: Had + S + not + V3, không viết tắt."
+        },
+        {
+          "type": "mcq",
+          "prompt": "\"Were she to call, tell her I’m out\" means:",
+          "choices": [
+            "Vì cô ấy đã gọi, hãy nói tôi đi vắng.",
+            "Cô ấy đã gọi lúc tôi đi vắng.",
+            "Nếu cô ấy có gọi, hãy nói tôi đi vắng."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "tf",
+          "statement": "In conditional inversion, \"Hadn’t I known\" is an acceptable negative form.",
+          "answer": "false",
+          "explain": "Đúng là \"Had I not known\"."
+        },
+        {
+          "type": "gap",
+          "prompt": "___ I in your shoes, I would talk to a lawyer.",
+          "answers": [
+            "Were"
+          ]
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép câu đảo ngữ với câu dùng if",
+          "pairs": [
+            {
+              "left": "Had we left earlier",
+              "right": "If we had left earlier"
+            },
+            {
+              "left": "Should the train be late",
+              "right": "If the train is late"
+            },
+            {
+              "left": "Were he to apologize",
+              "right": "If he apologized"
+            },
+            {
+              "left": "Were it not for the map",
+              "right": "If we didn’t have the map"
+            }
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "Had she ___ the truth, she would have stayed. (know)",
+          "answers": [
+            "known"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gramc1.subjunctive",
+      "title": "Thức giả định (insist that he be)",
+      "summary": "Động từ nguyên mẫu sau suggest, demand, essential that...",
+      "level": "C1",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Sau các từ chỉ **đề nghị, yêu cầu, tầm quan trọng**, mệnh đề *that* dùng **động từ nguyên mẫu không chia** cho mọi ngôi (thức giả định). Cấu trúc này rất phổ biến trong tiếng Anh Mỹ.\n\n- Động từ: `suggest, recommend, insist, demand, request, propose, require, ask` + *that*\n- Tính từ: `essential, vital, important, necessary, crucial, imperative` + *that*\n- Phủ định: `that + S + not + V` — *We recommend that he not drive.*\n- Bị động: `that + S + be + V3` — *The rules require that all bags be checked.*\n\nTiếng Anh Anh hay dùng `should + V` (*I suggest that he should go*); dạng này cũng đúng nhưng ít gặp hơn trong tiếng Anh Mỹ."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Thường",
+            "Giả định"
+          ],
+          "rows": [
+            [
+              "He goes.",
+              "I suggest that he go."
+            ],
+            [
+              "She is on time.",
+              "It is vital that she be on time."
+            ],
+            [
+              "He doesn’t drive.",
+              "We recommend that he not drive."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "The doctor recommended that she rest for a week.",
+              "vi": "Bác sĩ khuyên cô ấy nghỉ ngơi một tuần."
+            },
+            {
+              "en": "It is essential that every guest be on time.",
+              "vi": "Điều thiết yếu là mọi khách mời phải đúng giờ."
+            },
+            {
+              "en": "They insisted that he pay for the damage.",
+              "vi": "Họ đòi anh ấy phải đền bù thiệt hại."
+            },
+            {
+              "en": "I suggest that we not wait any longer.",
+              "vi": "Tôi đề nghị chúng ta đừng chờ thêm nữa."
+            },
+            {
+              "en": "The rules require that all bags be checked.",
+              "vi": "Quy định yêu cầu mọi túi xách phải được kiểm tra."
+            },
+            {
+              "en": "It’s vital that she take her medicine daily.",
+              "vi": "Điều quan trọng là cô ấy phải uống thuốc hằng ngày."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt quen chia ngôi ba: ✗ *I suggest that he goes*, ✗ *that he doesn’t drive*. Đúng: *that he go*, *that he not drive* (không -s, không *does*). Lưu ý: *insist* chỉ cần giả định khi mang nghĩa **đòi hỏi**; khi nghĩa là **khẳng định một sự thật** thì chia bình thường: *He insisted that he was innocent.*"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "The manager insisted that she ___ the report by Friday.",
+          "answers": [
+            "finish"
+          ],
+          "choices": [
+            "finishes",
+            "will finish",
+            "finish"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "It is important that every student ___ present.",
+          "answers": [
+            "be"
+          ],
+          "choices": [
+            "is",
+            "be",
+            "are"
+          ],
+          "explain": "Giả định: be cho mọi ngôi."
+        },
+        {
+          "type": "gap",
+          "prompt": "We recommend that he ___ drive after taking this medicine.",
+          "answers": [
+            "not"
+          ],
+          "choices": [
+            "doesn't",
+            "not",
+            "won't"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence uses the subjunctive correctly?",
+          "choices": [
+            "She demanded that he leaves immediately.",
+            "She demanded that he leave immediately.",
+            "She demanded that he left immediately.",
+            "She demanded that he is leaving immediately."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "tf",
+          "statement": "In \"He insisted that he was innocent,\" \"was\" is correct because \"insist\" means \"claim\" here.",
+          "answer": "true"
+        },
+        {
+          "type": "mcq",
+          "prompt": "It is essential that the documents ___ before Monday.",
+          "choices": [
+            "are signing",
+            "signed",
+            "be signed",
+            "to be signed"
+          ],
+          "answer": 2,
+          "explain": "Bị động giả định: be + V3."
+        },
+        {
+          "type": "gap",
+          "prompt": "The judge ordered that the man ___ released. (be)",
+          "answers": [
+            "be"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Tôi đề nghị chúng ta nghỉ giải lao.",
+          "answer": "I suggest that we take a break"
+        },
+        {
+          "type": "gap",
+          "prompt": "It is vital that she ___ the truth. (know)",
+          "answers": [
+            "know"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gramc1.reporting-passive",
+      "title": "Bị động nâng cao: It is said that / is said to have",
+      "summary": "Bị động tường thuật, bị động với to V và V-ing.",
+      "level": "C1",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "**Bị động tường thuật** dùng với `say, believe, think, report, expect, know, consider` khi không cần nói ai là người nói/tin. Hay gặp trong tin tức và văn học thuật.\n\n- `It + is said + that + mệnh đề`: *It is said that he is rich.*\n- `S + is said + to V` (cùng thời điểm): *He is said to be rich.*\n- `S + is said + to have + V3` (xảy ra trước): *He is said to have made a fortune.*\n- `S + is said + to be + V-ing` (đang diễn ra): *She is thought to be living abroad.*\n\nBị động của *to V* và *V-ing*: `want to be + V3`, `hope to be + V3`, `enjoy / avoid / hate being + V3`."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Chủ động",
+            "It ... that",
+            "S ... to V"
+          ],
+          "rows": [
+            [
+              "People say he is rich.",
+              "It is said that he is rich.",
+              "He is said to be rich."
+            ],
+            [
+              "People think she left.",
+              "It is thought that she left.",
+              "She is thought to have left."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "It is believed that the painting is fake.",
+              "vi": "Người ta tin rằng bức tranh là đồ giả."
+            },
+            {
+              "en": "The painting is believed to be fake.",
+              "vi": "Bức tranh được cho là đồ giả."
+            },
+            {
+              "en": "The suspect is thought to have left the country.",
+              "vi": "Nghi phạm được cho là đã rời khỏi đất nước."
+            },
+            {
+              "en": "The company is expected to announce profits soon.",
+              "vi": "Công ty được dự đoán sẽ sớm công bố lợi nhuận."
+            },
+            {
+              "en": "He is reported to be recovering in the hospital.",
+              "vi": "Theo tin, anh ấy đang hồi phục trong bệnh viện."
+            },
+            {
+              "en": "Nobody likes being criticized in public.",
+              "vi": "Không ai thích bị chỉ trích trước đám đông."
+            },
+            {
+              "en": "She hopes to be promoted next year.",
+              "vi": "Cô ấy hy vọng được thăng chức vào năm sau."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt hay trộn hai cấu trúc: ✗ *He is said that he is rich.* Chọn một: *It is said that he is rich* hoặc *He is said to be rich*. Việc đã xảy ra trước dùng `to have + V3`: ✗ *He is said to was rich* → ✓ *He is said to have been rich.*"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "It ___ that the castle is haunted.",
+          "answers": [
+            "is said"
+          ],
+          "choices": [
+            "says",
+            "is said",
+            "is saying"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The thief is believed ___ through the window last night.",
+          "answers": [
+            "to have escaped"
+          ],
+          "choices": [
+            "to escape",
+            "escaping",
+            "to have escaped",
+            "escaped"
+          ],
+          "explain": "Việc đã xảy ra (last night) → to have + V3."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is correct?",
+          "choices": [
+            "She is said that she is a genius.",
+            "She is said to be a genius.",
+            "It is said her to be a genius.",
+            "She says to be a genius."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "The new bridge is expected ___ next year. (open)",
+          "answers": [
+            "to open",
+            "to be opened"
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "\"He is thought to have left\" means people think he left at an earlier time.",
+          "answer": "true"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Nobody enjoys ___ at.",
+          "choices": [
+            "laughing",
+            "to laugh",
+            "be laughed",
+            "being laughed"
+          ],
+          "answer": 3,
+          "explain": "enjoy + being + V3."
+        },
+        {
+          "type": "gap",
+          "prompt": "The singer is reported ___ working on a new album.",
+          "answers": [
+            "to be",
+            "to have been"
+          ],
+          "explain": "Đang diễn ra → to be + V-ing."
+        },
+        {
+          "type": "order",
+          "hint": "Người ta cho rằng ông ấy đã mất mọi thứ.",
+          "answer": "He is believed to have lost everything"
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép câu chủ động với câu bị động",
+          "pairs": [
+            {
+              "left": "People say he is rich.",
+              "right": "He is said to be rich."
+            },
+            {
+              "left": "People think she left.",
+              "right": "She is thought to have left."
+            },
+            {
+              "left": "They expect prices to rise.",
+              "right": "Prices are expected to rise."
+            },
+            {
+              "left": "People believe the story is true.",
+              "right": "The story is believed to be true."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gramc1.nominalization",
+      "title": "Danh từ hóa (nominalization)",
+      "summary": "Biến động từ, tính từ thành danh từ để văn trang trọng, cô đọng.",
+      "level": "C1",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Văn học thuật và văn công việc hay **biến động từ / tính từ thành danh từ** để câu cô đọng và khách quan hơn.\n\n- *The company expanded rapidly.* → *the company’s **rapid expansion***\n- *Prices increased sharply.* → *a **sharp increase** in prices*\n- *Because the train arrived late* → *because of the **late arrival** of the train*\n\nKhi danh từ hóa: **trạng từ → tính từ** (*rapidly → rapid*), chủ ngữ/tân ngữ cũ thường đi sau *of*, hoặc thành sở hữu cách. Hậu tố hay gặp: `-tion/-sion, -ment, -al, -ance/-ence, -ity, -ness, -ure`.\n\nĐừng lạm dụng: văn nói tự nhiên vẫn ưu tiên động từ."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Động từ / tính từ",
+            "Danh từ",
+            "Cụm thường gặp"
+          ],
+          "rows": [
+            [
+              "increase / rise",
+              "increase / rise",
+              "an increase in"
+            ],
+            [
+              "decide",
+              "decision",
+              "a decision to"
+            ],
+            [
+              "fail",
+              "failure",
+              "the failure of"
+            ],
+            [
+              "able",
+              "ability",
+              "the ability to"
+            ],
+            [
+              "affect",
+              "effect",
+              "an effect on"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "The rapid growth of cities causes traffic problems.",
+              "vi": "Sự phát triển nhanh của các thành phố gây ra vấn đề giao thông."
+            },
+            {
+              "en": "There has been a sharp rise in housing costs.",
+              "vi": "Chi phí nhà ở đã tăng mạnh."
+            },
+            {
+              "en": "The failure of the project surprised everyone.",
+              "vi": "Việc dự án thất bại khiến mọi người bất ngờ."
+            },
+            {
+              "en": "Her refusal to compromise ended the talks.",
+              "vi": "Việc cô ấy từ chối nhượng bộ đã chấm dứt cuộc đàm phán."
+            },
+            {
+              "en": "The introduction of new rules reduced accidents.",
+              "vi": "Việc áp dụng quy định mới đã giảm tai nạn."
+            },
+            {
+              "en": "Lack of sleep affects concentration.",
+              "vi": "Thiếu ngủ ảnh hưởng đến sự tập trung."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp khi danh từ hóa: giữ nguyên trạng từ — ✗ *a sharply increase* → ✓ *a sharp increase*. Chú ý giới từ đi kèm danh từ: *an increase/rise **in***, *demand **for***, *an effect **on***, *the reason **for***. Và *affect* là động từ, *effect* là danh từ."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "There was a dramatic ___ in sales last year.",
+          "answers": [
+            "increase",
+            "rise"
+          ],
+          "choices": [
+            "increased",
+            "increasingly",
+            "increase"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The government’s ___ to raise taxes was unpopular. (decide)",
+          "answers": [
+            "decision"
+          ],
+          "choices": [
+            "decide",
+            "decision",
+            "decisive"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Choose the best nominalized version of \"The company expanded rapidly.\"",
+          "choices": [
+            "The company’s rapidly expansion",
+            "The rapid expand of the company",
+            "The company’s rapid expansion",
+            "The company rapid expanding"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "There is a growing demand ___ renewable energy.",
+          "answers": [
+            "for"
+          ],
+          "choices": [
+            "for",
+            "of",
+            "in"
+          ]
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép từ với danh từ tương ứng",
+          "pairs": [
+            {
+              "left": "fail",
+              "right": "failure"
+            },
+            {
+              "left": "refuse",
+              "right": "refusal"
+            },
+            {
+              "left": "arrive",
+              "right": "arrival"
+            },
+            {
+              "left": "accurate",
+              "right": "accuracy"
+            },
+            {
+              "left": "able",
+              "right": "ability"
+            }
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "Nominalization usually makes writing more formal and compact.",
+          "answer": "true"
+        },
+        {
+          "type": "gap",
+          "prompt": "The ___ of the new law caused protests. (introduce)",
+          "answers": [
+            "introduction"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Stress has a negative effect ___ health.",
+          "choices": [
+            "on",
+            "to",
+            "at",
+            "for"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "order",
+          "hint": "Sự chậm trễ của chuyến bay khiến chúng tôi bực mình.",
+          "answer": "The delay of the flight annoyed us"
+        }
+      ]
+    },
+    {
+      "id": "gramc1.hedging",
+      "title": "Nói giảm và thể hiện quan điểm (hedging)",
+      "summary": "May, seem, tend to, arguably, admittedly... trong văn học thuật.",
+      "level": "C1",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Trong văn học thuật và công việc, người viết thường **tránh khẳng định tuyệt đối** (hedging) và **thể hiện thái độ** của mình (stance).\n\n- Hedging bằng modal: `may, might, could`\n- Động từ: `seem, appear, tend to, suggest, indicate`\n- Trạng từ: `possibly, arguably, presumably, apparently`\n- Cụm: `to some extent, it is likely that, in most cases`\n- Trạng từ thái độ: `clearly, undoubtedly, surprisingly, admittedly, frankly, unfortunately`\n\nMức độ mạnh yếu: *This proves* (rất mạnh) → *This shows* → *This suggests* → *This may indicate* (thận trọng)."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Tuyệt đối",
+            "Thận trọng"
+          ],
+          "rows": [
+            [
+              "This proves that X causes Y.",
+              "This suggests that X may cause Y."
+            ],
+            [
+              "Students hate exams.",
+              "Many students tend to dislike exams."
+            ],
+            [
+              "The plan will fail.",
+              "The plan is likely to face problems."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "The results suggest that diet may play a role.",
+              "vi": "Kết quả cho thấy chế độ ăn có thể đóng một vai trò."
+            },
+            {
+              "en": "It seems that the problem is more complex.",
+              "vi": "Có vẻ vấn đề phức tạp hơn."
+            },
+            {
+              "en": "Prices tend to rise in the summer.",
+              "vi": "Giá cả thường tăng vào mùa hè."
+            },
+            {
+              "en": "Arguably, this is his best novel.",
+              "vi": "Có thể cho rằng đây là tiểu thuyết hay nhất của ông."
+            },
+            {
+              "en": "Admittedly, the plan has some weaknesses.",
+              "vi": "Phải thừa nhận là kế hoạch có vài điểm yếu."
+            },
+            {
+              "en": "Surprisingly, few people attended the event.",
+              "vi": "Thật bất ngờ, ít người đến dự sự kiện."
+            },
+            {
+              "en": "It is likely that the meeting will be delayed.",
+              "vi": "Nhiều khả năng cuộc họp sẽ bị hoãn."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt hay viết tuyệt đối kiểu ✗ *This proves that all students hate exams.* Trong IELTS Writing, câu thận trọng được đánh giá cao hơn: *This suggests that many students dislike exams.* Chú ý lỗi ngữ pháp: ✗ *It is seem that* → ✓ *It seems that*; ✗ *tend to rising* → ✓ *tend to rise*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "The data ___ that the treatment may be effective.",
+          "answers": [
+            "suggest",
+            "suggests",
+            "indicate",
+            "indicates"
+          ],
+          "choices": [
+            "suggesting",
+            "suggest",
+            "seeming"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "People ___ to spend more when they are happy.",
+          "answers": [
+            "tend"
+          ],
+          "choices": [
+            "are tend",
+            "tending",
+            "tend"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence is the most cautious?",
+          "choices": [
+            "This proves that coffee causes cancer.",
+            "Coffee causes cancer.",
+            "This may indicate a link between coffee and cancer.",
+            "Clearly, coffee causes cancer."
+          ],
+          "answer": 2
+        },
+        {
+          "type": "mcq",
+          "prompt": "Choose the correct form.",
+          "choices": [
+            "It is seem that he is right.",
+            "It seems that he is right.",
+            "It seem that he is right."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép trạng từ với nghĩa",
+          "pairs": [
+            {
+              "left": "admittedly",
+              "right": "phải thừa nhận là"
+            },
+            {
+              "left": "arguably",
+              "right": "có thể cho rằng"
+            },
+            {
+              "left": "presumably",
+              "right": "có lẽ (đoán vậy)"
+            },
+            {
+              "left": "undoubtedly",
+              "right": "chắc chắn"
+            },
+            {
+              "left": "frankly",
+              "right": "thẳng thắn mà nói"
+            }
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "\"Apparently\" can mean \"according to what I have heard.\"",
+          "answer": "true"
+        },
+        {
+          "type": "gap",
+          "prompt": "It ___ that the train has been canceled. (appear)",
+          "answers": [
+            "appears"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "To some ___, the new policy has been successful.",
+          "answers": [
+            "extent",
+            "degree"
+          ],
+          "choices": [
+            "level",
+            "way",
+            "extent"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Kết quả dường như xác nhận lý thuyết của chúng tôi.",
+          "answer": "The results seem to confirm our theory"
+        }
+      ]
+    },
+    {
+      "id": "gramc1.ellipsis-substitution",
+      "title": "Tỉnh lược và thay thế (so, not, one, do)",
+      "summary": "Tránh lặp từ bằng so/not, one/ones, trợ động từ.",
+      "level": "C1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Người bản xứ rất ít lặp lại nguyên cụm. Họ **thay thế** hoặc **lược bỏ**:\n\n- Thay danh từ đếm được: `one / ones` — *I prefer the blue one.*\n- Thay cả mệnh đề: `so / not` sau *think, hope, expect, suppose, believe, be afraid* — *\"Will it rain?\" \"I hope not.\"*\n- Thay cụm động từ: `do / does / did` — *He promised to call, and he did.*\n- Lược sau trợ động từ: *\"Can you swim?\" \"Yes, I can.\"* / *He hasn’t finished, but I have.*\n- Lược sau `to`: *I wanted to help, but I wasn’t able to.*"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Câu hỏi",
+            "Đồng ý",
+            "Không đồng ý"
+          ],
+          "rows": [
+            [
+              "Is it true?",
+              "I think so.",
+              "I don’t think so."
+            ],
+            [
+              "Will it rain?",
+              "I’m afraid so.",
+              "I hope not."
+            ],
+            [
+              "Is she coming?",
+              "I believe so.",
+              "I’m afraid not."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "\"Will she come?\" \"I expect so.\"",
+              "vi": "\"Cô ấy có đến không?\" \"Chắc là có.\""
+            },
+            {
+              "en": "\"Is he angry?\" \"I’m afraid so.\"",
+              "vi": "\"Anh ấy giận à?\" \"E là vậy.\""
+            },
+            {
+              "en": "These shoes are too small. Do you have bigger ones?",
+              "vi": "Đôi giày này chật quá. Bạn có đôi lớn hơn không?"
+            },
+            {
+              "en": "I wanted to help, but I wasn’t able to.",
+              "vi": "Tôi muốn giúp nhưng không thể."
+            },
+            {
+              "en": "He promised to call, and he did.",
+              "vi": "Anh ấy hứa gọi điện và anh ấy đã gọi."
+            },
+            {
+              "en": "\"Are you coming?\" \"I’d love to.\"",
+              "vi": "\"Bạn đi không?\" \"Rất muốn chứ.\""
+            },
+            {
+              "en": "She hasn’t read the book, but I have.",
+              "vi": "Cô ấy chưa đọc cuốn sách, nhưng tôi thì đọc rồi."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt hay nói ✗ *I hope so not* hoặc ✗ *I don’t hope so*. Đúng: *I hope not*. Với *think, believe, expect*, phủ định tự nhiên là *I don’t think so* (*I think not* đúng nhưng rất trang trọng). Và đừng quên *to*: ✗ *I’d love.* → ✓ *I’d love to.*"
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "\"Is the store open on Sunday?\" \"I think ___.\"",
+          "answers": [
+            "so"
+          ],
+          "choices": [
+            "it",
+            "so",
+            "yes"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "\"Will it rain tomorrow?\" \"I hope ___.\"",
+          "answers": [
+            "not"
+          ],
+          "choices": [
+            "no",
+            "not",
+            "don't"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "\"Do you want to come with us?\" Which reply is natural?",
+          "choices": [
+            "I’d love.",
+            "I’d love to.",
+            "I’d love it to.",
+            "I love to it."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "My old phone broke, so I bought a new ___.",
+          "answers": [
+            "one"
+          ],
+          "choices": [
+            "it",
+            "ones",
+            "one"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I haven’t seen the movie, but my sister ___.",
+          "answers": [
+            "has"
+          ],
+          "choices": [
+            "has",
+            "does",
+            "is"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "\"Is she coming to the party?\" \"I’m afraid ___.\" (= Tôi e là không.)",
+          "choices": [
+            "no",
+            "so not",
+            "not",
+            "don't"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "tf",
+          "statement": "\"I don’t hope so\" is a natural way to say you hope something will not happen.",
+          "answer": "false",
+          "explain": "Nói \"I hope not\"."
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép câu hỏi với câu trả lời",
+          "pairs": [
+            {
+              "left": "Can you swim?",
+              "right": "Yes, I can."
+            },
+            {
+              "left": "Did she pass?",
+              "right": "Yes, she did."
+            },
+            {
+              "left": "Have they arrived?",
+              "right": "No, they haven’t."
+            },
+            {
+              "left": "Will he call?",
+              "right": "He said he would."
+            }
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Tôi thích cái màu xanh dương hơn.",
+          "answer": "I prefer the blue one"
+        }
+      ]
+    },
+    {
+      "id": "gramc1.future-in-the-past",
+      "title": "Tương lai trong quá khứ (would, was going to, was about to)",
+      "summary": "Nhìn về tương lai từ một thời điểm trong quá khứ.",
+      "level": "C1",
+      "minutes": 6,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Khi kể chuyện, ta thường nhìn về tương lai **từ một mốc trong quá khứ**:\n\n- `would + V`: dự đoán, lời hứa nhìn từ quá khứ — *I knew she would win.*\n- `was / were going to + V`: kế hoạch, thường **không thực hiện được** — *I was going to call you, but I forgot.*\n- `was / were about to + V`: sắp sửa ngay lúc đó — *We were about to leave when it started to rain.*\n- `was / were to + V` (trang trọng): khi kể về số phận, thường hàm ý việc đó **đã xảy ra** — *He was to become president.* Cũng dùng cho sự sắp xếp, chưa chắc đã thành — *We were to meet at six, but he never came.* Kế hoạch chắc chắn không thành: `was to have + V3`.\n- Quá khứ tiếp diễn cho lịch đã sắp xếp — *She was leaving the next day.*"
+        },
+        {
+          "type": "table",
+          "head": [
+            "Hiện tại",
+            "Nhìn từ quá khứ"
+          ],
+          "rows": [
+            [
+              "I think she will win.",
+              "I thought she would win."
+            ],
+            [
+              "I’m going to call you.",
+              "I was going to call you."
+            ],
+            [
+              "We’re about to leave.",
+              "We were about to leave."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "I thought you would like this book.",
+              "vi": "Tôi đã nghĩ bạn sẽ thích cuốn sách này."
+            },
+            {
+              "en": "We were going to travel, but the flight was canceled.",
+              "vi": "Chúng tôi định đi du lịch nhưng chuyến bay bị hủy."
+            },
+            {
+              "en": "I was about to call you.",
+              "vi": "Tôi vừa định gọi cho bạn."
+            },
+            {
+              "en": "She promised she would be careful.",
+              "vi": "Cô ấy đã hứa sẽ cẩn thận."
+            },
+            {
+              "en": "He didn’t know then that he was to become famous.",
+              "vi": "Hồi đó anh ấy không biết rằng mình sẽ trở nên nổi tiếng."
+            },
+            {
+              "en": "They were leaving for Paris the next morning.",
+              "vi": "Sáng hôm sau họ sẽ lên đường đi Paris."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt hay quên lùi thì: ✗ *I knew she will win.* Khi động từ chính ở quá khứ, thường *will → would*, *am going to → was going to*. (Ngoại lệ: nếu việc đó vẫn còn ở tương lai so với lúc nói, có thể giữ *will*: *She said she will call tomorrow.*) Lưu ý *was going to* thường hàm ý \"đã định nhưng không làm\"; nếu việc đã xảy ra thật thì dùng quá khứ đơn."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I knew you ___ understand.",
+          "answers": [
+            "would"
+          ],
+          "choices": [
+            "will",
+            "would",
+            "are going to"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I ___ going to call you, but my phone died.",
+          "answers": [
+            "was"
+          ],
+          "choices": [
+            "am",
+            "have",
+            "was"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "We were ___ to leave when the phone rang.",
+          "answers": [
+            "about"
+          ],
+          "choices": [
+            "near",
+            "about",
+            "around"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "\"I was going to email you\" usually means:",
+          "choices": [
+            "Tôi đã gửi email cho bạn.",
+            "Tôi đã định gửi email nhưng chưa gửi.",
+            "Tôi sẽ gửi email vào ngày mai.",
+            "Tôi luôn gửi email cho bạn."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Back then, I never imagined I ___ live abroad.",
+          "choices": [
+            "will",
+            "am going to",
+            "shall",
+            "would"
+          ],
+          "answer": 3
+        },
+        {
+          "type": "tf",
+          "statement": "\"He was to become a famous writer\" (formal) tells us that he did become a famous writer.",
+          "answer": "true"
+        },
+        {
+          "type": "gap",
+          "prompt": "They promised they ___ arrive on time, but they were late.",
+          "answers": [
+            "would"
+          ]
+        },
+        {
+          "type": "order",
+          "hint": "Chúng tôi đã định đi biển.",
+          "answer": "We were going to go to the beach"
+        },
+        {
+          "type": "match",
+          "prompt": "Ghép cấu trúc với nghĩa",
+          "pairs": [
+            {
+              "left": "would + V",
+              "right": "dự đoán / lời hứa nhìn từ quá khứ"
+            },
+            {
+              "left": "was going to + V",
+              "right": "kế hoạch, thường không thành"
+            },
+            {
+              "left": "was about to + V",
+              "right": "sắp sửa, ngay lúc đó"
+            },
+            {
+              "left": "was to + V",
+              "right": "điều đã định trước (trang trọng)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gramc1.complex-noun-phrases",
+      "title": "Cụm danh từ phức",
+      "summary": "Tính từ ghép, phân từ, to V, of whom/which bổ nghĩa danh từ.",
+      "level": "C1",
+      "minutes": 7,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Văn C1 gói nhiều thông tin vào **một cụm danh từ** thay vì nhiều câu ngắn.\n\n- Bổ ngữ đứng trước: tính từ ghép `a ten-year-old boy`, `a three-hour meeting`, `a well-known local artist`.\n- Bổ ngữ đứng sau:\n- cụm giới từ: `a house with a red roof`\n- phân từ: `the man sitting by the window`, `the issues raised in the report`\n- to V: `the first person to arrive`\n- mệnh đề quan hệ có giới từ: `the company for which she works`\n- lượng từ + of whom/which: `two brothers, both of whom are doctors`\n\nThứ tự tính từ thường là: ý kiến – kích cỡ – tuổi – hình dạng – màu – nguồn gốc – chất liệu + danh từ (`a beautiful old wooden table`)."
+        },
+        {
+          "type": "table",
+          "head": [
+            "Nhiều câu",
+            "Một cụm danh từ"
+          ],
+          "rows": [
+            [
+              "The meeting lasted three hours.",
+              "a three-hour meeting"
+            ],
+            [
+              "A man was sitting by the window.",
+              "the man sitting by the window"
+            ],
+            [
+              "She works for a company.",
+              "the company for which she works"
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "items": [
+            {
+              "en": "She lives in a small two-bedroom apartment.",
+              "vi": "Cô ấy sống trong một căn hộ nhỏ hai phòng ngủ."
+            },
+            {
+              "en": "It was a five-hour flight with no food.",
+              "vi": "Đó là chuyến bay năm tiếng không có đồ ăn."
+            },
+            {
+              "en": "The man sitting next to me snored loudly.",
+              "vi": "Người đàn ông ngồi cạnh tôi ngáy to."
+            },
+            {
+              "en": "The issues raised at the meeting remain unsolved.",
+              "vi": "Các vấn đề nêu ra trong cuộc họp vẫn chưa được giải quyết."
+            },
+            {
+              "en": "He was the first person to reach the summit.",
+              "vi": "Anh ấy là người đầu tiên lên tới đỉnh."
+            },
+            {
+              "en": "She has three brothers, all of whom are doctors.",
+              "vi": "Cô ấy có ba anh trai, tất cả đều là bác sĩ."
+            },
+            {
+              "en": "The town in which I grew up has changed.",
+              "vi": "Thị trấn nơi tôi lớn lên đã thay đổi."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt hay viết ✗ *a ten-years-old boy*, ✗ *a two-hours meeting*. Trong tính từ ghép có số, danh từ giữ **số ít** và có gạch nối. Sau giới từ dùng *whom / which*, không dùng ✗ *of who*, ✗ *in that*."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "We had a ___ meeting this morning.",
+          "answers": [
+            "three-hour"
+          ],
+          "choices": [
+            "three-hours",
+            "three-hour’s",
+            "three-hour"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "She has two sisters, both of ___ live abroad.",
+          "answers": [
+            "whom"
+          ],
+          "choices": [
+            "who",
+            "whom",
+            "them"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "The town in ___ I was born is very quiet now.",
+          "answers": [
+            "which"
+          ],
+          "choices": [
+            "which",
+            "that",
+            "where"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which noun phrase is correct?",
+          "choices": [
+            "a ten-years-old girl",
+            "a ten-year-old girl",
+            "a ten-year-olds girl",
+            "a girl ten-year-old"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Choose the correct adjective order.",
+          "choices": [
+            "a wooden old beautiful table",
+            "an old wooden beautiful table",
+            "a beautiful old wooden table"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "gap",
+          "prompt": "She was the last person ___ the building. (leave)",
+          "answers": [
+            "to leave"
+          ]
+        },
+        {
+          "type": "tf",
+          "statement": "In \"the problems discussed yesterday,\" the word \"discussed\" has a passive meaning.",
+          "answer": "true"
+        },
+        {
+          "type": "order",
+          "hint": "một chiếc ô tô Nhật màu đỏ mới",
+          "answer": "a new red Japanese car",
+          "explain": "Tuổi – màu – nguồn gốc."
+        },
+        {
+          "type": "gap",
+          "prompt": "The report ___ by the committee was published today. (write)",
+          "answers": [
+            "written"
+          ]
+        }
+      ]
+    }
+  ]
+}

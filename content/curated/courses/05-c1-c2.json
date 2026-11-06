@@ -1,0 +1,202 @@
+{
+  "license": "proprietary-own",
+  "course": {
+    "id": "c1-c2",
+    "title": "Nâng cao C1–C2",
+    "summary": "Văn phong, sắc thái, ngữ pháp trang trọng; bài đọc và bài nghe học thuật.",
+    "icon": "👑",
+    "levelFrom": "C1",
+    "levelTo": "C2",
+    "order": 5
+  },
+  "units": [
+    {
+      "id": "c1-style",
+      "title": "Văn phong C1–C2",
+      "summary": "Thành ngữ, sắc thái nghĩa, rào đón, tu từ, chuyển giọng.",
+      "steps": [
+        {
+          "kind": "lesson",
+          "id": "c1style.idioms"
+        },
+        {
+          "kind": "lesson",
+          "id": "c1style.connotation"
+        },
+        {
+          "kind": "lesson",
+          "id": "c1style.hedging"
+        },
+        {
+          "kind": "lesson",
+          "id": "c1style.fixed-expressions"
+        },
+        {
+          "kind": "lesson",
+          "id": "c1style.rhetoric"
+        },
+        {
+          "kind": "lesson",
+          "id": "c1style.register-tone"
+        }
+      ]
+    },
+    {
+      "id": "c1-grammar",
+      "title": "Ngữ pháp C1–C2",
+      "summary": "Đảo ngữ điều kiện, giả định, danh hoá, tỉnh lược, đảo ngữ văn phong.",
+      "steps": [
+        {
+          "kind": "grammar",
+          "id": "gramc1.conditional-inversion"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramc1.subjunctive"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramc1.reporting-passive"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramc1.nominalization"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramc1.hedging"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramc1.ellipsis-substitution"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramc1.future-in-the-past"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramc1.complex-noun-phrases"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramc2.fronting"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramc2.concessive"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramc2.discourse-markers"
+        },
+        {
+          "kind": "grammar",
+          "id": "gramc2.register"
+        }
+      ]
+    },
+    {
+      "id": "c1-reading",
+      "title": "Đọc hiểu C1–C2",
+      "summary": "Luận văn, bình luận, trừu tượng học thuật, văn kể.",
+      "steps": [
+        {
+          "kind": "reading",
+          "id": "readc1.nudges"
+        },
+        {
+          "kind": "reading",
+          "id": "readc1.confirmation-bias"
+        },
+        {
+          "kind": "reading",
+          "id": "readc1.attention-economy"
+        },
+        {
+          "kind": "reading",
+          "id": "readc1.placebo-effect"
+        },
+        {
+          "kind": "reading",
+          "id": "readc1.fifteen-minute-city"
+        },
+        {
+          "kind": "reading",
+          "id": "readc1.algorithmic-fairness"
+        },
+        {
+          "kind": "reading",
+          "id": "readc1.language-and-thought"
+        },
+        {
+          "kind": "reading",
+          "id": "readc1.idea-of-progress"
+        },
+        {
+          "kind": "reading",
+          "id": "readc2.in-praise-of-boredom"
+        },
+        {
+          "kind": "reading",
+          "id": "readc2.tyranny-of-metrics"
+        },
+        {
+          "kind": "reading",
+          "id": "readc2.abstract-code-switching"
+        },
+        {
+          "kind": "reading",
+          "id": "readc2.the-cartographers-daughter"
+        },
+        {
+          "kind": "reading",
+          "id": "readc2.a-modest-productivity-guide"
+        },
+        {
+          "kind": "reading",
+          "id": "readc2.memory-as-reconstruction"
+        }
+      ]
+    },
+    {
+      "id": "c1-listening",
+      "title": "Nghe hiểu C1–C2",
+      "summary": "Bài giảng, tranh luận, phỏng vấn, diễn văn có ẩn ý.",
+      "steps": [
+        {
+          "kind": "listening",
+          "id": "listenadv.default-effect"
+        },
+        {
+          "kind": "listening",
+          "id": "listenadv.green-gentrification"
+        },
+        {
+          "kind": "listening",
+          "id": "listenadv.translator-interview"
+        },
+        {
+          "kind": "listening",
+          "id": "listenadv.language-loss"
+        },
+        {
+          "kind": "listening",
+          "id": "listenadv.farewell-speech"
+        },
+        {
+          "kind": "listening",
+          "id": "listenadv.ai-authorship"
+        },
+        {
+          "kind": "listening",
+          "id": "listenadv.replication-crisis"
+        },
+        {
+          "kind": "listening",
+          "id": "listenadv.diplomat-interview"
+        }
+      ]
+    }
+  ]
+}

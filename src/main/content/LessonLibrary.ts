@@ -14,6 +14,9 @@ export interface LibraryUnit {
  * Thư viện bài học nền tảng đã nạp từ content/curated/lessons/*.json (tự soạn, bundle sẵn trong app).
  * File sai schema bị bỏ qua kèm cảnh báo — một chương lỗi không làm hỏng cả app (test nội dung sẽ bắt lỗi từ trước).
  */
+/** Phần LessonLibrary cần từ một file nội dung (file bài nghe có thêm license/source riêng) */
+type LibraryFile = Pick<LessonUnitFile, 'unit' | 'lessons'>
+
 export class LessonLibrary {
   private readonly unitList: LibraryUnit[]
   private readonly byId = new Map<string, Lesson>()
@@ -22,9 +25,9 @@ export class LessonLibrary {
   constructor(
     files: unknown[],
     warn: (message: string) => void = console.warn,
-    schema: z.ZodType<LessonUnitFile> = LessonUnitFileSchema
+    schema: z.ZodType<LibraryFile> = LessonUnitFileSchema
   ) {
-    const parsed: LessonUnitFile[] = []
+    const parsed: LibraryFile[] = []
     for (const file of files) {
       const result = schema.safeParse(file)
       if (result.success) parsed.push(result.data)

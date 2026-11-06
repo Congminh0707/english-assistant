@@ -1,0 +1,247 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "groups": [
+    {
+      "id": "t1-g001",
+      "part": 1,
+      "level": "B1_1",
+      "scene": "A woman sits at a desk typing on a laptop. A window is behind her, and several folders are stacked beside the computer.",
+      "questions": [
+        {
+          "id": "t1-q001",
+          "prompt": "",
+          "choices": [
+            "She's closing the window.",
+            "She's working at a computer.",
+            "She's putting on her glasses.",
+            "She's arranging some files on a shelf."
+          ],
+          "answer": 1,
+          "explain": "Người phụ nữ đang gõ máy tính xách tay nên B đúng. A sai vì cửa sổ chỉ ở phía sau, cô ấy không đóng nó; D sai vì tập hồ sơ nằm trên bàn chứ không được xếp lên kệ."
+        }
+      ]
+    },
+    {
+      "id": "t1-g002",
+      "part": 1,
+      "level": "B1_2",
+      "scene": "A row of bicycles is parked in a metal rack along a city sidewalk. No people are in the picture.",
+      "questions": [
+        {
+          "id": "t1-q002",
+          "prompt": "",
+          "choices": [
+            "A man is riding a bicycle down the street.",
+            "Some bicycles are being repaired.",
+            "The sidewalk is being swept.",
+            "Some bicycles have been parked in a row."
+          ],
+          "answer": 3,
+          "explain": "Xe đạp được dựng thành hàng ở giá để xe nên D đúng. A, B, C đều mô tả hành động của người, nhưng trong tranh không có ai."
+        }
+      ]
+    },
+    {
+      "id": "t1-g003",
+      "part": 1,
+      "level": "B1_1",
+      "scene": "In a restaurant kitchen, a chef in a white uniform is chopping carrots on a cutting board.",
+      "questions": [
+        {
+          "id": "t1-q003",
+          "prompt": "",
+          "choices": [
+            "A man is cutting some vegetables.",
+            "A man is washing a pan in the sink.",
+            "Some vegetables are being served on plates.",
+            "A man is opening an oven door."
+          ],
+          "answer": 0,
+          "explain": "Đầu bếp đang thái cà rốt trên thớt nên A đúng. C dùng lại từ \"vegetables\" để gây nhiễu, nhưng rau đang được thái chứ chưa được bày ra đĩa."
+        }
+      ]
+    },
+    {
+      "id": "t1-g004",
+      "part": 1,
+      "level": "B1_2",
+      "scene": "Inside a warehouse, a worker drives a forklift carrying a pallet of boxes down an aisle. Tall shelves on both sides are full of cartons.",
+      "questions": [
+        {
+          "id": "t1-q004",
+          "prompt": "",
+          "choices": [
+            "Some boxes are being loaded onto a truck.",
+            "A worker is climbing a ladder.",
+            "A worker is operating a forklift.",
+            "The shelves are completely empty."
+          ],
+          "answer": 2,
+          "explain": "Người công nhân đang lái xe nâng nên C đúng. A sai vì tranh ở trong kho, không có xe tải; D sai vì các kệ đầy thùng hàng."
+        }
+      ]
+    },
+    {
+      "id": "t1-g005",
+      "part": 1,
+      "level": "B2_1",
+      "scene": "In a restaurant, a waiter fills a customer's glass from a water pitcher. Two diners sit at the table reading menus.",
+      "questions": [
+        {
+          "id": "t1-q005",
+          "prompt": "",
+          "choices": [
+            "The diners are paying the bill.",
+            "Some chairs have been stacked on the tables.",
+            "A server is pouring water into a glass.",
+            "A server is clearing dishes from a table."
+          ],
+          "answer": 2,
+          "explain": "Người phục vụ đang rót nước vào ly nên C đúng. D sai vì người phục vụ không dọn bát đĩa; khách vẫn đang xem thực đơn, chưa thanh toán (A)."
+        }
+      ]
+    },
+    {
+      "id": "t1-g006",
+      "part": 1,
+      "level": "B1_2",
+      "scene": "At an airport check-in counter, several travelers stand in a line, each holding a rolling suitcase. An airline employee works behind the counter.",
+      "questions": [
+        {
+          "id": "t1-q006",
+          "prompt": "",
+          "choices": [
+            "Travelers are standing in line with their luggage.",
+            "A plane is taking off from the runway.",
+            "Some suitcases are being placed on a cart.",
+            "A woman is sitting in the waiting area."
+          ],
+          "answer": 0,
+          "explain": "Hành khách đang xếp hàng cùng vali nên A đúng. C sai vì vali vẫn ở trong tay hành khách, không ai đặt chúng lên xe đẩy; mọi người đều đứng nên D sai."
+        }
+      ]
+    },
+    {
+      "id": "t1-g007",
+      "part": 1,
+      "level": "B2_1",
+      "scene": "At a construction site, two workers in hard hats study a large blueprint spread out on a table. Unfinished concrete walls stand behind them.",
+      "questions": [
+        {
+          "id": "t1-q007",
+          "prompt": "",
+          "choices": [
+            "A crane is lifting some steel beams.",
+            "The workers are taking off their helmets.",
+            "A wall is being painted.",
+            "Some workers are looking at a drawing."
+          ],
+          "answer": 3,
+          "explain": "Hai công nhân đang xem bản vẽ thiết kế (blueprint = drawing) nên D đúng. B sai vì họ vẫn đội mũ bảo hộ, không phải đang tháo ra."
+        }
+      ]
+    },
+    {
+      "id": "t1-g008",
+      "part": 1,
+      "level": "B2_2",
+      "scene": "An empty wooden bench stands under a large tree in a park. Fallen leaves are scattered on the grass around it.",
+      "questions": [
+        {
+          "id": "t1-q008",
+          "prompt": "",
+          "choices": [
+            "People are sitting on a bench.",
+            "A bench is located beneath a tree.",
+            "Some leaves are being raked into a pile.",
+            "A tree is being planted in the park."
+          ],
+          "answer": 1,
+          "explain": "Chiếc ghế dài nằm dưới gốc cây nên B đúng. C sai vì lá rơi rải rác, không có ai cào lá thành đống; câu bị động tiếp diễn \"are being\" cần có người đang làm."
+        }
+      ]
+    },
+    {
+      "id": "t1-g009",
+      "part": 1,
+      "level": "B1_1",
+      "scene": "In a meeting room, a man stands beside a whiteboard and points to a bar chart. Several colleagues sit around a table facing him.",
+      "questions": [
+        {
+          "id": "t1-q009",
+          "prompt": "",
+          "choices": [
+            "A man is pointing at a chart.",
+            "The participants are leaving the room.",
+            "A man is erasing a whiteboard.",
+            "Some chairs are being moved into the room."
+          ],
+          "answer": 0,
+          "explain": "Người đàn ông đang chỉ vào biểu đồ nên A đúng. C nhắc tới bảng trắng nhưng anh ấy chỉ vào bảng, không xoá bảng."
+        }
+      ]
+    },
+    {
+      "id": "t1-g010",
+      "part": 1,
+      "level": "B2_1",
+      "scene": "In a grocery store aisle, a woman reaches toward a high shelf of cereal boxes. Her shopping cart is next to her.",
+      "questions": [
+        {
+          "id": "t1-q010",
+          "prompt": "",
+          "choices": [
+            "She's pushing a cart through the parking lot.",
+            "She's paying at the cash register.",
+            "She's reaching for an item on a shelf.",
+            "Some products are being stocked by a clerk."
+          ],
+          "answer": 2,
+          "explain": "Người phụ nữ đang với tay lấy hàng trên kệ nên C đúng. A sai vì cô ấy ở trong lối đi của cửa hàng và không đẩy xe; D sai vì trong tranh không có nhân viên xếp hàng."
+        }
+      ]
+    },
+    {
+      "id": "t1-g011",
+      "part": 1,
+      "level": "B2_2",
+      "scene": "Several small boats are tied to a wooden pier in a calm harbor. No people are visible.",
+      "questions": [
+        {
+          "id": "t1-q011",
+          "prompt": "",
+          "choices": [
+            "Some passengers are boarding a ferry.",
+            "Some boats are tied up at a dock.",
+            "A boat is sailing under a bridge.",
+            "Fishermen are pulling a net out of the water."
+          ],
+          "answer": 1,
+          "explain": "Các thuyền được buộc ở cầu tàu nên B đúng. A và D mô tả người đang làm việc, nhưng tranh không có ai; C sai vì thuyền đang neo, không di chuyển."
+        }
+      ]
+    },
+    {
+      "id": "t1-g012",
+      "part": 1,
+      "level": "C1",
+      "scene": "A technician kneels in front of an office photocopier with its front panel open. A toolbox sits on the floor beside him.",
+      "questions": [
+        {
+          "id": "t1-q012",
+          "prompt": "",
+          "choices": [
+            "A man is making copies of a document.",
+            "A toolbox is being carried up the stairs.",
+            "Some papers are scattered across a desk.",
+            "A technician is examining a machine."
+          ],
+          "answer": 3,
+          "explain": "Người thợ đang kiểm tra máy photocopy đã mở nắp nên D đúng. A là bẫy vì nhắc tới việc photo, nhưng máy đang được sửa chứ không ai đang dùng; B sai vì hộp dụng cụ nằm yên trên sàn."
+        }
+      ]
+    }
+  ]
+}

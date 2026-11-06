@@ -1,17 +1,17 @@
 {
   "license": "proprietary-own",
-  "reviewed": false,
+  "reviewed": true,
   "place": {
     "id": "numbers",
     "tier": "basics",
     "order": 2,
     "suggestOrder": 2,
-    "title": "Big Numbers",
-    "vi": "Những số lớn",
-    "topic": "Numbers up to one hundred",
-    "topicVi": "Các số tới một trăm",
+    "title": "Numbers",
+    "vi": "Các con số",
+    "topic": "Numbers up to 100",
+    "topicVi": "Các số đến 100",
     "landmark": "numbers",
-    "landmarkVi": "Số lớn",
+    "landmarkVi": "Các con số",
     "pos": {
       "x": 50,
       "y": 50
@@ -23,14 +23,14 @@
       "picture": "zero",
       "sentence": {
         "en": "I have zero pens.",
-        "vi": "Bé có không cái bút."
+        "vi": "Bé không có chiếc bút nào."
       }
     },
     {
       "picture": "eleven",
       "sentence": {
         "en": "I have eleven pens.",
-        "vi": "Bé có mười một cái bút."
+        "vi": "Bé có mười một cây bút."
       }
     },
     {
@@ -58,7 +58,7 @@
       "picture": "fifteen",
       "sentence": {
         "en": "I have fifteen towels.",
-        "vi": "Bé có mười lăm cái khăn."
+        "vi": "Bé có mười lăm chiếc khăn."
       }
     },
     {
@@ -92,15 +92,15 @@
     {
       "picture": "twenty",
       "sentence": {
-        "en": "I have twenty fingers.",
-        "vi": "Bé có hai mươi ngón tay."
+        "en": "I have twenty crayons.",
+        "vi": "Bé có hai mươi cây bút sáp màu."
       }
     },
     {
       "picture": "hundred",
       "sentence": {
         "en": "I have a hundred pens.",
-        "vi": "Bé có một trăm cái bút."
+        "vi": "Bé có một trăm cây bút."
       }
     }
   ]

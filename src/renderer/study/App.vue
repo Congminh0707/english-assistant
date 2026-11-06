@@ -12,6 +12,8 @@ import { PLACE_PAGES, placeOf, type Place, type StudyPage } from './places'
 import ReviewSession from './components/ReviewSession.vue'
 import WordList from './components/WordList.vue'
 import PlacementTest from './components/PlacementTest.vue'
+import ToeicPage from './components/ToeicPage.vue'
+import VideosPage from './components/VideosPage.vue'
 import PracticeSession from './components/PracticeSession.vue'
 import ShopPage from './components/ShopPage.vue'
 import StatsPage from './components/StatsPage.vue'
@@ -231,6 +233,8 @@ onUnmounted(() => {
         :mode="checkpointMode ? 'checkpoint' : 'placement'"
         @done="go('home')"
       />
+      <ToeicPage v-else-if="page === 'toeic'" />
+      <VideosPage v-else-if="page === 'videos'" />
       <SettingsPage v-else @retest="go('placement')" @changed="refresh" />
     </PlaceShell>
 

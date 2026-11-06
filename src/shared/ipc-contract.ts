@@ -82,6 +82,21 @@ import {
   PlacementStartSchema
 } from './schemas/placement'
 import {
+  VideoPlayInputSchema,
+  VideoPlaySchema,
+  VideoResultSchema,
+  VideoSubmitInputSchema,
+  VideoSummarySchema
+} from './schemas/video'
+import {
+  ToeicAttemptSchema,
+  ToeicBankInfoSchema,
+  ToeicResultSchema,
+  ToeicStartInputSchema,
+  ToeicStartResultSchema,
+  ToeicSubmitInputSchema
+} from './schemas/toeic'
+import {
   ProfileInfoSchema,
   ProfileSetupInputSchema,
   ProfileUpdateInputSchema
@@ -169,6 +184,13 @@ export const invokeContract = {
   'placement:start': { input: z.void(), output: PlacementStartSchema },
   'placement:checkpoint-start': { input: z.void(), output: PlacementStartSchema },
   'placement:answer': { input: PlacementAnswerInputSchema, output: PlacementAnswerResultSchema },
+  'toeic:bank': { input: z.void(), output: ToeicBankInfoSchema },
+  'toeic:start': { input: ToeicStartInputSchema, output: ToeicStartResultSchema },
+  'toeic:submit': { input: ToeicSubmitInputSchema, output: ToeicResultSchema },
+  'toeic:history': { input: z.void(), output: z.array(ToeicAttemptSchema) },
+  'video:list': { input: z.void(), output: z.array(VideoSummarySchema) },
+  'video:play': { input: VideoPlayInputSchema, output: VideoPlaySchema },
+  'video:submit': { input: VideoSubmitInputSchema, output: VideoResultSchema },
   'translate:status': { input: TranslateDirectionInputSchema, output: TranslateStatusSchema },
   'translate:install': { input: TranslateDirectionInputSchema, output: TranslateStatusSchema },
   'translate:cancel': { input: TranslateDirectionInputSchema, output: z.void() },

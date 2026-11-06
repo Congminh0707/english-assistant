@@ -1,6 +1,6 @@
 {
   "license": "proprietary-own",
-  "reviewed": false,
+  "reviewed": true,
   "place": {
     "id": "school",
     "tier": "town",
@@ -64,8 +64,8 @@
     {
       "picture": "glue",
       "sentence": {
-        "en": "I see the glue.",
-        "vi": "Bé thấy lọ keo dán."
+        "en": "I have glue.",
+        "vi": "Bé có keo dán."
       }
     },
     {
@@ -106,15 +106,15 @@
     {
       "picture": "tape",
       "sentence": {
-        "en": "I have the tape.",
-        "vi": "Bé có cuộn băng dính."
+        "en": "This is my tape.",
+        "vi": "Đây là cuộn băng dính của bé."
       }
     },
     {
       "picture": "calculator",
       "sentence": {
         "en": "It's a calculator.",
-        "vi": "Đó là một cái máy tính bỏ túi."
+        "vi": "Đó là máy tính bỏ túi."
       }
     },
     {

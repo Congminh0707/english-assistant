@@ -1,0 +1,487 @@
+{
+  "license": "proprietary-own",
+  "generator": "claude-opus-5-5",
+  "reviewed": true,
+  "videos": [
+    {
+      "id": "voa-eiam-on-the-ball",
+      "videoId": "DLi2txV9IVc",
+      "title": "English in a Minute: On the Ball",
+      "channel": "VOA Learning English",
+      "sourceUrl": "https://www.youtube.com/watch?v=DLi2txV9IVc",
+      "license": "public-domain",
+      "level": "A2_2",
+      "topics": [
+        "idioms",
+        "work",
+        "daily life"
+      ],
+      "summary": "Anna và Andrew giải thích thành ngữ \"on the ball\": người làm việc nhanh, xong trước hạn. Video cũng giới thiệu cách nói \"get on the ball\" khi ai đó cần làm tốt hơn hoặc nhanh hơn.",
+      "vocab": [
+        "on the ball",
+        "get on the ball",
+        "productive",
+        "report",
+        "ahead of time"
+      ],
+      "checkpoints": [
+        {
+          "at": "end",
+          "question": {
+            "prompt": "In the video, what does \"on the ball\" mean?",
+            "choices": [
+              "Finishing work quickly and ahead of time",
+              "Playing a ball game very well",
+              "Drinking a lot of coffee",
+              "Exercising with a large ball"
+            ],
+            "answer": 0,
+            "explain": "Video nói: người \"on the ball\" là người làm xong việc nhanh và trước thời hạn — như Anna đã xong ba bản báo cáo."
+          }
+        }
+      ]
+    },
+    {
+      "id": "voa-eiam-pie-in-the-sky",
+      "videoId": "gBYnewP1MmY",
+      "title": "English in a Minute: Pie in the Sky",
+      "channel": "VOA Learning English",
+      "sourceUrl": "https://www.youtube.com/watch?v=gBYnewP1MmY",
+      "license": "public-domain",
+      "level": "A2_2",
+      "topics": [
+        "idioms",
+        "dreams",
+        "daily life"
+      ],
+      "summary": "Thành ngữ \"pie in the sky\" chỉ những ước mơ, mục tiêu hay kế hoạch nghe thì hay nhưng khó thành hiện thực. Ví dụ là kế hoạch tới Hollywood làm diễn viên của Pedro.",
+      "vocab": [
+        "idiom",
+        "dessert",
+        "flavor",
+        "dream",
+        "goal",
+        "unlikely",
+        "reality"
+      ],
+      "checkpoints": [
+        {
+          "at": "end",
+          "question": {
+            "prompt": "Andrew says Pedro's plans are \"pie in the sky\". What does he mean?",
+            "choices": [
+              "The plans are about making desserts",
+              "The plans are unlikely to become reality",
+              "The plans are already finished",
+              "The plans are very cheap"
+            ],
+            "answer": 1,
+            "explain": "Theo video, \"pie in the sky\" mô tả ước mơ, mục tiêu hay kế hoạch có thể rất tuyệt nhưng nhiều khả năng sẽ không thành hiện thực."
+          }
+        }
+      ]
+    },
+    {
+      "id": "voa-newswords-illusion",
+      "videoId": "DJmnSXDGrBc",
+      "title": "News Words: Illusion",
+      "channel": "VOA Learning English",
+      "sourceUrl": "https://www.youtube.com/watch?v=DJmnSXDGrBc",
+      "license": "public-domain",
+      "level": "B1_1",
+      "topics": [
+        "vocabulary",
+        "art",
+        "science"
+      ],
+      "summary": "Bảo tàng Miami Paradox Museum có hơn 70 tác phẩm tạo ảo giác thị giác và giải thích toán học, khoa học đằng sau. Video giải nghĩa từ \"illusion\" và \"optical illusion\".",
+      "vocab": [
+        "illusion",
+        "optical illusion",
+        "paradox",
+        "display",
+        "imagination",
+        "trick"
+      ],
+      "checkpoints": [
+        {
+          "at": "end",
+          "question": {
+            "prompt": "According to the video, what is an optical illusion?",
+            "choices": [
+              "A photograph taken in a museum",
+              "A math lesson for children",
+              "Something that tricks your eyes so you see something that is not really there",
+              "A special kind of camera"
+            ],
+            "answer": 2,
+            "explain": "Video định nghĩa: optical illusion đánh lừa mắt, khiến bạn tưởng thấy thứ không có thật hoặc trông khác với thực tế."
+          }
+        }
+      ]
+    },
+    {
+      "id": "voa-newswords-rustic",
+      "videoId": "P1pEUQr_mZM",
+      "title": "News Words: Rustic",
+      "channel": "VOA Learning English",
+      "sourceUrl": "https://www.youtube.com/watch?v=P1pEUQr_mZM",
+      "license": "public-domain",
+      "level": "B1_1",
+      "topics": [
+        "vocabulary",
+        "travel",
+        "rural life"
+      ],
+      "summary": "Đảo nhỏ Pulau Ubin của Singapore giờ chỉ còn khoảng 30 người sống, trong khi 60 năm trước có gần 4.000 người. Video giải nghĩa từ \"rustic\": mộc mạc, đơn giản, thường thấy ở vùng nông thôn.",
+      "vocab": [
+        "rustic",
+        "rural",
+        "population",
+        "community",
+        "appearance",
+        "island"
+      ],
+      "checkpoints": [
+        {
+          "at": "end",
+          "question": {
+            "prompt": "How many people live on the island of Pulau Ubin now, according to the video?",
+            "choices": [
+              "Almost 4,000",
+              "17",
+              "60",
+              "About 30"
+            ],
+            "answer": 3,
+            "explain": "Ông Chu Yok Choon là một trong 30 người sống trên đảo, giảm từ gần 4.000 người cách đây 60 năm (17 là số km tới Singapore)."
+          }
+        }
+      ]
+    },
+    {
+      "id": "voa-grammar-goodbye-informal",
+      "videoId": "No49Qxer8pY",
+      "title": "Everyday Grammar Video: Goodbye In Informal Conversations",
+      "channel": "VOA Learning English",
+      "sourceUrl": "https://www.youtube.com/watch?v=No49Qxer8pY",
+      "license": "public-domain",
+      "level": "A2_2",
+      "topics": [
+        "grammar",
+        "conversation",
+        "daily life"
+      ],
+      "summary": "Các cách chào tạm biệt thân mật với bạn bè như \"See ya later\", \"Talk to you later\", \"Until tomorrow\". Video cũng dạy câu chúc khi người kia đi xa như \"Take care\" hay \"Have a safe trip!\".",
+      "vocab": [
+        "informal",
+        "formal",
+        "see you later",
+        "stay in touch",
+        "take care",
+        "safe trip"
+      ],
+      "checkpoints": [
+        {
+          "at": "end",
+          "question": {
+            "prompt": "Which expression does the video suggest for someone who is leaving on a trip?",
+            "choices": [
+              "Have a safe trip!",
+              "See ya later!",
+              "Talk to you later.",
+              "Until tomorrow."
+            ],
+            "answer": 0,
+            "explain": "Video nói: nếu ai đó sắp đi chuyến xa, bạn có thể chúc họ \"Have a safe trip!\" (hoặc \"Drive safely\")."
+          }
+        }
+      ]
+    },
+    {
+      "id": "voa-grammar-population",
+      "videoId": "uCKr2IZo-7s",
+      "title": "Everyday Grammar Video: Population",
+      "channel": "VOA Learning English",
+      "sourceUrl": "https://www.youtube.com/watch?v=uCKr2IZo-7s",
+      "license": "public-domain",
+      "level": "B1_1",
+      "topics": [
+        "grammar",
+        "nouns",
+        "society"
+      ],
+      "summary": "Từ \"population\" là danh từ đếm được, chỉ số người hoặc động vật sống ở một nơi. Video giải thích khi nào dùng số ít và khi nào dùng số nhiều \"populations\".",
+      "vocab": [
+        "population",
+        "count noun",
+        "noncount noun",
+        "plural",
+        "elderly",
+        "shrinking"
+      ],
+      "checkpoints": [
+        {
+          "at": "end",
+          "question": {
+            "prompt": "Why does the video use the plural \"populations\" in \"Overweight and elderly populations are at greater risk\"?",
+            "choices": [
+              "Because \"population\" is a noncount noun",
+              "Because the sentence talks about two different groups of people",
+              "Because the sentence talks about the whole world",
+              "Because the sentence talks only about animals"
+            ],
+            "answer": 1,
+            "explain": "Dùng số nhiều vì câu nói về thành viên của hai nhóm khác nhau: người thừa cân và người cao tuổi."
+          }
+        }
+      ]
+    },
+    {
+      "id": "voa-grammar-population-sentences",
+      "videoId": "vyPofYmxIJA",
+      "title": "Everyday Grammar Video: 'Population' in Sentences",
+      "channel": "VOA Learning English",
+      "sourceUrl": "https://www.youtube.com/watch?v=vyPofYmxIJA",
+      "license": "public-domain",
+      "level": "B1_1",
+      "topics": [
+        "grammar",
+        "collocations",
+        "society"
+      ],
+      "summary": "Video dùng Google Ngram Viewer để xem từ nào hay đứng trước và sau \"population\". Video cũng giới thiệu hai danh từ \"overpopulation\" và \"underpopulation\".",
+      "vocab": [
+        "determiner",
+        "article",
+        "decline",
+        "aging",
+        "overpopulation",
+        "underpopulation",
+        "birth rate"
+      ],
+      "checkpoints": [
+        {
+          "at": "end",
+          "question": {
+            "prompt": "According to Google's Ngram Viewer in the video, which word most often comes after \"population\"?",
+            "choices": [
+              "the",
+              "a",
+              "of",
+              "in"
+            ],
+            "answer": 2,
+            "explain": "Video nói \"the\" hay đứng trước \"population\", còn từ đứng sau phổ biến nhất là \"of\" — ví dụ \"The population of Japan is aging quickly.\""
+          }
+        }
+      ]
+    },
+    {
+      "id": "voa-pronounce-clapping-stress",
+      "videoId": "oSEhAg_ZBQ0",
+      "title": "How to Pronounce: Science and Technology: Clapping and Syllable Stress",
+      "channel": "VOA Learning English",
+      "sourceUrl": "https://www.youtube.com/watch?v=oSEhAg_ZBQ0",
+      "license": "public-domain",
+      "level": "B1_1",
+      "topics": [
+        "pronunciation",
+        "science",
+        "rhythm"
+      ],
+      "summary": "John Russell dùng cụm \"repeated meteorite strikes\" trong một bản tin khoa học để luyện trọng âm. Người học vỗ tay theo âm tiết được nhấn, từ chậm tới nhanh, để cảm nhận nhịp điệu tiếng Anh.",
+      "vocab": [
+        "syllable",
+        "stress",
+        "rhythm",
+        "meteorite",
+        "atmosphere",
+        "repeat"
+      ],
+      "checkpoints": [
+        {
+          "at": "end",
+          "question": {
+            "prompt": "In the clapping activity, when do you clap?",
+            "choices": [
+              "At the end of each sentence",
+              "Only on the first word",
+              "Every time you hear a new word",
+              "On the parts of words that are stressed (said louder)"
+            ],
+            "answer": 3,
+            "explain": "Video hướng dẫn vỗ tay vào phần của từ cần nói to hơn, tức là âm tiết được nhấn trọng âm, để tạo nhịp điệu."
+          }
+        }
+      ]
+    },
+    {
+      "id": "voa-rower-rescue",
+      "videoId": "63KXWNeRx9c",
+      "title": "James Madison, Rescued rower, Imagery, Guilty pleasure",
+      "channel": "VOA Learning English",
+      "sourceUrl": "https://learningenglish.voanews.com/a/australian-navy-rescues-rower-crossing-pacific-from-california/8002695.html",
+      "license": "youtube-embed",
+      "level": "B1_2",
+      "topics": [
+        "news",
+        "adventure",
+        "ocean"
+      ],
+      "summary": "Tay chèo thuyền người Litva Aurimas Mockus một mình vượt Thái Bình Dương từ California thì gặp bão nhiệt đới Alfred gần Úc. Tàu chiến Hải quân Úc đã cứu anh sau ba ngày mắc kẹt trên biển.",
+      "startSec": 362,
+      "endSec": 604,
+      "vocab": [
+        "row",
+        "adventurer",
+        "stranded",
+        "fatigued",
+        "cyclone",
+        "rescue",
+        "warship"
+      ],
+      "checkpoints": [
+        {
+          "at": "end",
+          "question": {
+            "prompt": "Why did Aurimas Mockus need to be rescued?",
+            "choices": [
+              "He ran into a tropical cyclone and his boat was mostly destroyed",
+              "He ran out of food near California",
+              "He became sick in the Cook Islands",
+              "His boat hit an Australian warship"
+            ],
+            "answer": 0,
+            "explain": "Anh gặp bão nhiệt đới cách đất liền Úc 740 km, bị mắc kẹt ba ngày và chiếc thuyền gần như bị sóng phá hỏng."
+          }
+        }
+      ]
+    },
+    {
+      "id": "voa-golden-gate-bridge",
+      "videoId": "oBM8y3A7AAg",
+      "title": "Golden Gate, Physical Therapy, Deep ocean, Help for spinal cord problems",
+      "channel": "VOA Learning English",
+      "sourceUrl": "https://learningenglish.voanews.com/a/the-golden-gate-bridge-san-francisco-s-historic-suspension-bridge/7995847.html",
+      "license": "public-domain",
+      "level": "B1_1",
+      "topics": [
+        "travel",
+        "history",
+        "engineering"
+      ],
+      "summary": "Cầu Cổng Vàng nối San Francisco với hạt Marin, mở cửa năm 1937 và từng có nhịp cầu treo dài nhất thế giới gần 30 năm. Bài kể về kỹ sư Joseph Strauss, màu cam đặc trưng và việc đi bộ qua cầu miễn phí.",
+      "startSec": 65,
+      "endSec": 297,
+      "vocab": [
+        "span",
+        "tower",
+        "suspension bridge",
+        "strait",
+        "engineer",
+        "fog",
+        "vehicle"
+      ],
+      "checkpoints": [
+        {
+          "at": "end",
+          "question": {
+            "prompt": "According to the report, why was the color \"international orange\" chosen for the bridge?",
+            "choices": [
+              "It was the cheapest paint at the time",
+              "It is easier to see through the heavy fog",
+              "It matches the color of the sunset",
+              "It was the engineer's favorite color"
+            ],
+            "answer": 1,
+            "explain": "Bài nói màu cam quốc tế được chọn một phần vì dễ nhìn thấy hơn trong lớp sương mù dày thường bao phủ San Francisco."
+          }
+        }
+      ]
+    },
+    {
+      "id": "voa-skyscrapers",
+      "videoId": "yfPivlhb3b4",
+      "title": "Skyscrapers, ADHD, Ornamentals, Catch up",
+      "channel": "VOA Learning English",
+      "sourceUrl": "https://learningenglish.voanews.com/a/skyscrapers-made-in-america-/7988815.html",
+      "license": "public-domain",
+      "level": "B1_2",
+      "topics": [
+        "history",
+        "cities",
+        "engineering"
+      ],
+      "summary": "Nhà chọc trời được phát minh ở Mỹ cuối thế kỷ 19 nhờ thang máy cơ khí và thép chất lượng tốt. Bài kể về tòa Home Insurance Building ở Chicago và các tòa nhà cao nhất thế giới qua các thời kỳ.",
+      "startSec": 61,
+      "endSec": 333,
+      "vocab": [
+        "skyscraper",
+        "elevator",
+        "steel",
+        "frame",
+        "structure",
+        "sustainable"
+      ],
+      "checkpoints": [
+        {
+          "at": "end",
+          "question": {
+            "prompt": "Which two developments made skyscrapers possible?",
+            "choices": [
+              "Thick stone walls and big windows",
+              "Electric lights and telephones",
+              "The mechanical elevator and good quality steel",
+              "Cars and railroads"
+            ],
+            "answer": 2,
+            "explain": "Hai phát triển công nghệ là thang máy cơ khí (không phải leo nhiều bậc) và thép tốt chịu được tải nặng của tòa nhà cao."
+          }
+        }
+      ]
+    },
+    {
+      "id": "voa-blue-ghost-moon",
+      "videoId": "x6Pl02UZqMU",
+      "title": "Bald Eagle, Blue Ghost, Knitting at Movies, Feedback",
+      "channel": "VOA Learning English",
+      "sourceUrl": "https://learningenglish.voanews.com/a/private-lander-carrying-nasa-experiments-lands-on-the-moon/7998600.html",
+      "license": "youtube-embed",
+      "level": "B2_1",
+      "topics": [
+        "science",
+        "space",
+        "news"
+      ],
+      "summary": "Tàu đổ bộ Blue Ghost của công ty tư nhân Firefly Aerospace hạ cánh thành công lên Mặt Trăng, mang 10 thí nghiệm cho NASA. Bài cũng nói về chương trình CLPS giao nhiệm vụ không gian cho công ty tư nhân để giảm chi phí.",
+      "startSec": 495,
+      "endSec": 822,
+      "vocab": [
+        "lander",
+        "spacecraft",
+        "mission",
+        "experiment",
+        "lunar",
+        "touch down",
+        "budget"
+      ],
+      "checkpoints": [
+        {
+          "at": "end",
+          "question": {
+            "prompt": "What makes the Blue Ghost landing special?",
+            "choices": [
+              "It carried the first astronauts in 50 years",
+              "It landed on the far side of the moon",
+              "It was Japan's first moon landing",
+              "Firefly became the first private company to land on the moon without crashing or a major problem"
+            ],
+            "answer": 3,
+            "explain": "Bài nói lần hạ cánh này giúp Firefly thành công ty tư nhân đầu tiên đưa tàu lên Mặt Trăng mà không bị rơi hay gặp sự cố lớn; tàu đáp ở mặt gần, hướng về Trái Đất."
+          }
+        }
+      ]
+    }
+  ]
+}

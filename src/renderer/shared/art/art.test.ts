@@ -59,7 +59,7 @@ describe('hình từ vector', () => {
 })
 
 describe('bản đồ của bé', () => {
-  it('mọi từ trên bản đồ đều có hình vector', () => {
+  it('mọi từ trên bản đồ đều có hình (vector hoặc thẻ SVG)', () => {
     const places = import.meta.glob<{ words: { picture: string }[] }>(
       '../../../../content/curated/kids/world/places/*.json',
       { eager: true, import: 'default' }
@@ -67,6 +67,12 @@ describe('bản đồ của bé', () => {
     const drawn = new Set(Object.values(modules).flatMap((m) => Object.keys(m.PICTURES)))
     const words = Object.values(places).flatMap((p) => p.words.map((w) => w.picture))
     expect(words.length).toBeGreaterThan(0)
-    expect(words.filter((id) => !drawn.has(id))).toEqual([])
+    // Từ mới của Kids World dùng thẻ SVG (cards/*.svg, kiểm đủ ở cards.test.ts); vector chỉ còn là hình dự phòng
+    const cards = new Set(
+      Object.keys(import.meta.glob('./cards/*.svg', { eager: true, query: '?url' })).map((p) =>
+        p.slice('./cards/'.length, -'.svg'.length)
+      )
+    )
+    expect(words.filter((id) => !drawn.has(id) && !cards.has(id))).toEqual([])
   })
 })

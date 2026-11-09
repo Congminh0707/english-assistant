@@ -99,7 +99,7 @@ english-assistant/
 │  ├─ raw/                      # dữ liệu thô tải về (gitignore nếu lớn)
 │  ├─ curated/                  # JSON/YAML đã chuẩn hoá & duyệt
 │  └─ packs/                    # file .db/.zip đã đóng gói
-├─ scripts/                     # script pipeline nội dung (tsx), build sprite...
+├─ scripts/                     # script pipeline nội dung (tsx); design-data/mascot/ sinh mascot v3, phụ kiện, huy hiệu (Python → SVG/JSON)
 ├─ src/
 │  ├─ main/                     # ===== MAIN PROCESS (~ Laravel app/) =====
 │  │  ├─ index.ts               # khởi động app (~ bootstrap/app.php)
@@ -156,7 +156,7 @@ english-assistant/
 │     ├─ constants.ts           # level, XP table, ...
 │     ├─ progress.ts            # kỹ năng, ánh xạ dạng bài → kỹ năng, công thức Elo
 │     ├─ placement.ts, kids.ts, trace.ts   # kế hoạch kiểm tra, quy tắc chế độ trẻ em, chấm nét tô chữ
-│     ├─ pixelGrid.ts, badgeArt.ts, pictures.ts   # pixel art vẽ bằng code (huy hiệu, 60 hình minh hoạ)
+│     ├─ pixelGrid.ts, badgeArt.ts, pictures.ts   # pixel art vẽ bằng code (hình minh hoạ; huy hiệu nay là SVG ở renderer/shared/assets/badges, docs/06)
 │     ├─ i18n/                  # vi.json, en.json (+ usedKeys.test.ts kiểm tra khoá thiếu)
 │     └─ types.ts
 └─ tests/

@@ -8,9 +8,9 @@ import { Coins } from 'lucide-vue-next'
 import ItemEmoji from '@renderer/shared/components/ItemEmoji.vue'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
 import { normalizeCharacterId } from '@shared/characters'
-import type { AccessorySlot } from '@shared/shop'
+import { isAccessoryId, toggleEquipped, type AccessorySlot } from '@shared/shop'
 
-// Cửa hàng: mua đồ ăn và phụ kiện bằng xu, đeo/tháo phụ kiện cho mascot.
+// Cửa hàng: mua đồ ăn và phụ kiện bằng xu, đeo/tháo phụ kiện cho mascot. Rê chuột/focus vào một phụ kiện để thử trên thú cưng.
 const emit = defineEmits<{ changed: [] }>()
 
 const { t } = useI18n()
@@ -20,7 +20,10 @@ const state = ref<ShopState | null>(null)
 type Tab = 'accessory' | 'character' | 'food'
 const TABS: Tab[] = ['accessory', 'character', 'food']
 const tab = ref<Tab>('accessory')
-const SLOTS: AccessorySlot[] = ['head', 'face', 'neck', 'back']
+const SLOTS: AccessorySlot[] = ['head', 'face', 'neck', 'hand', 'back']
+const slotFilter = ref<AccessorySlot | 'all'>('all')
+/** Phụ kiện đang thử (rê chuột/focus), hiện trên hình xem trước nhưng chưa đeo thật */
+const trying = ref<string | null>(null)
 /** Tên món đang đeo ở một vị trí, hoặc "Trống" */
 function wornIn(slot: AccessorySlot): string {
   const item = accessories.value.find((i) => i.slot === slot && i.equipped && i.owned > 0)
@@ -34,6 +37,17 @@ let messageTimer = 0
 
 const foods = computed(() => state.value?.items.filter((i) => i.kind === 'food') ?? [])
 const accessories = computed(() => state.value?.items.filter((i) => i.kind === 'accessory') ?? [])
+const shownAccessories = computed(() =>
+  slotFilter.value === 'all'
+    ? accessories.value
+    : accessories.value.filter((i) => i.slot === slotFilter.value)
+)
+const previewAccessories = computed(() => {
+  const worn = petStore.pet?.equipped ?? []
+  const id = trying.value
+  return id && isAccessoryId(id) ? toggleEquipped(worn, id, true) : worn
+})
+const tryingItem = computed(() => accessories.value.find((i) => i.id === trying.value) ?? null)
 const characters = computed(() => state.value?.items.filter((i) => i.kind === 'character') ?? [])
 
 const nameOf = (item: ShopItem): string =>
@@ -141,49 +155,68 @@ onMounted(load)
       </nav>
 
       <div class="body">
-        <div v-if="tab === 'accessory'" class="items">
-          <article
-            v-for="item in accessories"
-            :key="item.id"
-            class="card item"
-            :class="{ locked: item.locked && item.owned === 0 }"
-          >
-            <div class="top">
-              <span class="art"><ItemEmoji :id="item.id" :emoji="item.emoji" :size="36" /></span>
-              <div class="info">
-                <div class="name">{{ nameOf(item) }}</div>
-                <span class="chip price"
-                  ><Coins :size="13" :stroke-width="2.4" />{{ item.price }}</span
-                >
+        <div v-if="tab === 'accessory'" class="acc-col">
+          <div class="filters" role="group" :aria-label="t('shop.slot.filter')">
+            <button
+              v-for="k in ['all', ...SLOTS] as const"
+              :key="k"
+              type="button"
+              class="btn btn--sm btn--pill"
+              :class="slotFilter === k ? 'btn--primary' : 'btn--ghost'"
+              :aria-pressed="slotFilter === k"
+              @click="slotFilter = k"
+            >
+              {{ t(`shop.slot.${k}`) }}
+            </button>
+          </div>
+          <div class="items">
+            <article
+              v-for="item in shownAccessories"
+              :key="item.id"
+              class="card item"
+              :class="{ locked: item.locked && item.owned === 0, trying: trying === item.id }"
+              @mouseenter="trying = item.id"
+              @mouseleave="trying = null"
+              @focusin="trying = item.id"
+              @focusout="trying = null"
+            >
+              <div class="top">
+                <span class="art"><ItemEmoji :id="item.id" :emoji="item.emoji" :size="36" /></span>
+                <div class="info">
+                  <div class="name">{{ nameOf(item) }}</div>
+                  <span class="chip price"
+                    ><Coins :size="13" :stroke-width="2.4" />{{ item.price }}</span
+                  >
+                </div>
               </div>
-            </div>
-            <div class="foot">
-              <span v-if="item.owned > 0 && item.equipped" class="chip chip--success">
-                {{ t('shop.wearing') }}
-              </span>
-              <span v-else-if="item.owned === 0 && missing(item)" class="miss">{{
-                missing(item)
-              }}</span>
-              <button
-                v-if="item.owned > 0"
-                type="button"
-                class="btn btn--sm act"
-                :disabled="busy"
-                @click="wear(item)"
-              >
-                {{ item.equipped ? t('shop.unwear') : t('shop.wear') }}
-              </button>
-              <button
-                v-else
-                type="button"
-                class="btn btn--sm act"
-                :disabled="busy || !canBuy(item)"
-                @click="buy(item)"
-              >
-                {{ t('shop.buy') }}
-              </button>
-            </div>
-          </article>
+              <div class="foot">
+                <span v-if="item.owned > 0 && item.equipped" class="chip chip--success">
+                  {{ t('shop.wearing') }}
+                </span>
+                <span v-else-if="item.owned === 0 && missing(item)" class="miss">{{
+                  missing(item)
+                }}</span>
+                <button
+                  v-if="item.owned > 0"
+                  type="button"
+                  class="btn btn--sm act"
+                  :disabled="busy"
+                  @click="wear(item)"
+                >
+                  {{ item.equipped ? t('shop.unwear') : t('shop.wear') }}
+                </button>
+                <button
+                  v-else
+                  type="button"
+                  class="btn btn--sm act"
+                  :disabled="busy || !canBuy(item)"
+                  @click="buy(item)"
+                >
+                  {{ t('shop.buy') }}
+                </button>
+              </div>
+            </article>
+          </div>
         </div>
 
         <div v-else-if="tab === 'character'" class="items items--big">
@@ -246,7 +279,7 @@ onMounted(load)
           <PetSprite
             :character="normalizeCharacterId(petStore.pet.characterId)"
             :stage="petStore.pet.stage"
-            :accessories="petStore.pet.equipped"
+            :accessories="previewAccessories"
             :size="150"
             animate
           />
@@ -255,6 +288,9 @@ onMounted(load)
             {{ t(`characters.${normalizeCharacterId(petStore.pet.characterId)}.name`) }} ·
             {{ t('stats.level', { level: petStore.pet.level }) }}
           </div>
+          <p v-if="tryingItem && !tryingItem.equipped" class="muted small trying-note">
+            {{ t('shop.trying', { item: nameOf(tryingItem) }) }}
+          </p>
           <dl class="slots">
             <div v-for="s in SLOTS" :key="s" class="slot">
               <dt>{{ t(`shop.slot.${s}`) }}</dt>
@@ -408,6 +444,24 @@ onMounted(load)
 .pname {
   font-size: var(--fs-xl);
   font-weight: 800;
+}
+.acc-col {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+.item.trying {
+  border-color: var(--c-primary);
+}
+.trying-note {
+  margin: 0;
+  text-align: center;
 }
 .slots {
   display: grid;

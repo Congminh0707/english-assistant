@@ -364,3 +364,10 @@ Mẫu:
 - **Quyết định**: block `audio` thêm `recording` {id, sourceUrl, credit, seconds}; file bài nghe được `license: public-domain` + `source` (chỉ nguồn `voa`). MP3 nguyên bản (không chuẩn hoá, máy chưa có ffmpeg) để ở `content/curated/listening-audio/<id>.mp3`, `build-listening-audio.mjs` đưa vào cùng gói zip với khoá `packClipKey('us', 1, realAudioText(id))` → dùng lại kênh `audio:clip`, **không thêm kênh IPC**. Trình phát `RealAudioPlayer` phát cả file (không căn giờ từng câu), chỉnh tốc độ 0,6–1×, hiện lời thoại + dịch, ghi công dưới trình phát.
 - **Chưa có gói mới**: người học thấy lời thoại và nút tải gói; âm thanh chỉ có sau khi chủ dự án build + đăng gói mới (đổi `packSpec.ts`: version/size/sha256).
 - **Test**: mỗi bài VOA phải có MP3, `sourceUrl` thuộc `learningenglish.voanews.com`, không lẫn AP/Reuters/AFP.
+
+## #53 — Mascot v3: mỗi giai đoạn vẽ riêng, tay cố định, phụ kiện vẽ theo từng con, huy hiệu vector (2026-11-09) — Đã quyết định
+
+- **Bối cảnh**: chủ dự án chê mascot v2: tay bị kéo dài khi vẫy/giơ (hàm `arm()` vẽ đường cong tới toạ độ bàn tay), Huyền thoại chỉ đổi màu + phát sáng nên "chưa wow", phụ kiện là biểu tượng dán theo vị trí nên bị che/lẫn, huy hiệu pixel cũ.
+- **Quyết định**: vẽ lại bằng script Python sinh SVG (`scripts/design-data/mascot/`), duyệt qua nhiều vòng trên canvas thiết kế. Tay là khúc dài cố định chỉ xoay quanh vai. Mỗi giai đoạn có hình riêng; Huyền thoại đổi bóng dáng (thần thoại). Phụ kiện vẽ riêng cho từng con theo toạ độ neo, thêm vị trí `hand`; bỏ ba lô, bờm tai mèo và hoàn xu (`RETIRED_ACCESSORIES`). Huy hiệu thành tựu thành SVG vector theo từng thành tựu (thay PNG pixel 256px, xoá `scripts/badges/make-badges.ts`).
+- **Hệ quả**: `pet.json` to hơn (≈ 0,5–0,7 MB mỗi con, tải lười theo nhân vật) vì 19 dáng × 4 giai đoạn đều là SVG đầy đủ. Không đổi DB (id phụ kiện/giá giữ nguyên, `equipped` lọc id lạ). `gen_mascot.py`/`Char*.dc.html` (v2) chỉ còn để tra cứu; `export-mascot.py` cũ đã xoá. Lupo giữ mặt nạ husky (chủ dự án chọn phương án A, bỏ bản sói xám mõm dài).
+

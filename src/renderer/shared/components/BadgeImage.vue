@@ -3,43 +3,39 @@ import { computed } from 'vue'
 import type { BadgeTier } from '@shared/badgeArt'
 import UiIcon from './UiIcon.vue'
 
-// Huy hiệu thành tựu: ảnh PNG 256×256 đóng gói sẵn (pnpm badges).
-// Thiếu ảnh thì hiện vòng tròn có icon (không vẽ pixel).
+// Huy hiệu thành tựu v3: SVG vector theo từng thành tựu (pnpm badges → assets/badges/<id>.svg).
+// Chưa mở khoá: cùng hình, chuyển xám + biểu tượng khoá. Thiếu ảnh thì hiện vòng tròn có icon.
 const props = withDefaults(
-  defineProps<{ glyph: string; tier: BadgeTier; locked?: boolean; size?: number }>(),
-  { locked: false, size: 96 }
+  defineProps<{ id?: string; glyph: string; tier: BadgeTier; locked?: boolean; size?: number }>(),
+  { id: undefined, locked: false, size: 96 }
 )
 
-const images = import.meta.glob('../assets/badges/*.png', {
+const images = import.meta.glob('../assets/badges/*.svg', {
   eager: true,
   query: '?url',
   import: 'default'
 }) as Record<string, string>
 
-const src = computed(
-  () =>
-    images[`../assets/badges/${props.locked ? 'locked' : `${props.glyph}-${props.tier}`}.png`] as
-      string | undefined
+const src = computed(() =>
+  props.id ? (images[`../assets/badges/${props.id}.svg`] as string | undefined) : undefined
 )
-const shiny = computed(() => !props.locked && props.tier === 'diamond')
 </script>
 
 <template>
-  <img
+  <span
     v-if="src"
-    class="badge-img"
-    :class="[`tier-${tier}`, { locked, shiny }]"
-    :src="src"
-    :width="size"
-    :height="size"
-    alt=""
+    class="badge"
+    :class="[`tier-${tier}`, { locked }]"
+    :style="{ width: `${size}px`, height: `${size}px` }"
     aria-hidden="true"
-    draggable="false"
-  />
+  >
+    <img class="badge-img" :src="src" :width="size" :height="size" alt="" draggable="false" />
+    <span v-if="locked" class="lock"><UiIcon name="lock" :size="Math.round(size / 5)" /></span>
+  </span>
   <span
     v-else
     class="badge-fallback"
-    :class="[`tier-${tier}`, { locked, shiny }]"
+    :class="[`tier-${tier}`, { locked }]"
     :style="{ width: `${size}px`, height: `${size}px` }"
     aria-hidden="true"
   >
@@ -48,9 +44,27 @@ const shiny = computed(() => !props.locked && props.tier === 'diamond')
 </template>
 
 <style scoped>
+.badge {
+  position: relative;
+  display: inline-block;
+  flex: none;
+}
 .badge-img {
   display: block;
-  image-rendering: auto;
+}
+.locked .badge-img {
+  filter: grayscale(1);
+  opacity: 0.4;
+}
+.lock {
+  position: absolute;
+  right: 12%;
+  bottom: 18%;
+  display: inline-flex;
+  padding: 4px;
+  border-radius: var(--r-pill);
+  background: var(--c-ink);
+  color: var(--c-surface);
 }
 .badge-fallback {
   display: inline-flex;
@@ -65,18 +79,5 @@ const shiny = computed(() => !props.locked && props.tier === 'diamond')
   border-color: var(--c-line);
   background: var(--c-surface-2);
   color: var(--c-ink-soft);
-}
-.shiny {
-  animation: shine 2.4s ease-in-out infinite;
-}
-@keyframes shine {
-  50% {
-    filter: brightness(1.25);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  .shiny {
-    animation: none;
-  }
 }
 </style>

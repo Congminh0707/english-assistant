@@ -4,8 +4,8 @@
 import { CHARACTERS, characterItemId, CHARACTER_IDS, isCharacterItem } from './characters'
 import { FOODS, isFoodId } from './pet'
 
-/** Vị trí đeo: mỗi vị trí chỉ đeo được một món */
-export type AccessorySlot = 'head' | 'face' | 'neck' | 'back'
+/** Vị trí đeo: mỗi vị trí chỉ đeo được một món. `hand` = cầm ở tay phải (mascot v3) */
+export type AccessorySlot = 'head' | 'face' | 'neck' | 'hand' | 'back'
 
 export interface AccessoryDef {
   price: number
@@ -15,56 +15,44 @@ export interface AccessoryDef {
   minLevel: number
 }
 
+// Hình vẽ riêng cho từng nhân vật: scripts/design-data/mascot/acc2.py → pets/<id>.pet.json (acc)
 export const ACCESSORIES = {
   'acc:bow': { price: 30, emoji: '🎀', slot: 'head', minLevel: 0 },
-  'acc:glasses': { price: 60, emoji: '👓', slot: 'face', minLevel: 0 },
-  'acc:scarf': { price: 80, emoji: '🧣', slot: 'neck', minLevel: 0 },
-  'acc:hat': { price: 120, emoji: '🎩', slot: 'head', minLevel: 5 },
-  'acc:crown': { price: 300, emoji: '👑', slot: 'head', minLevel: 10 },
   'acc:flower': { price: 40, emoji: '🌸', slot: 'head', minLevel: 0 },
   'acc:party-hat': { price: 70, emoji: '🥳', slot: 'head', minLevel: 0 },
-  'acc:headphones': { price: 150, emoji: '🎧', slot: 'head', minLevel: 5 },
-  'acc:sunglasses': { price: 90, emoji: '🕶️', slot: 'face', minLevel: 3 },
-  'acc:cape': { price: 200, emoji: '🦸', slot: 'back', minLevel: 8 },
-  'acc:wings': { price: 450, emoji: '🪽', slot: 'back', minLevel: 15 },
-  'acc:bowtie': { price: 70, emoji: '🎀', slot: 'neck', minLevel: 0 },
   'acc:cap': { price: 60, emoji: '🧢', slot: 'head', minLevel: 2 },
-  'acc:cat-ears': { price: 90, emoji: '🐱', slot: 'head', minLevel: 2 },
-  'acc:backpack': { price: 180, emoji: '🎒', slot: 'back', minLevel: 3 },
+  'acc:beanie': { price: 90, emoji: '🧶', slot: 'head', minLevel: 2 },
+  'acc:hat': { price: 120, emoji: '🎩', slot: 'head', minLevel: 5 },
+  'acc:headphones': { price: 150, emoji: '🎧', slot: 'head', minLevel: 5 },
+  'acc:witch-hat': { price: 160, emoji: '🧙', slot: 'head', minLevel: 6 },
+  'acc:crown': { price: 300, emoji: '👑', slot: 'head', minLevel: 10 },
+  'acc:halo': { price: 350, emoji: '😇', slot: 'head', minLevel: 12 },
+  'acc:glasses': { price: 60, emoji: '👓', slot: 'face', minLevel: 0 },
+  'acc:sunglasses': { price: 90, emoji: '😍', slot: 'face', minLevel: 3 },
   'acc:eyepatch': { price: 100, emoji: '🏴‍☠️', slot: 'face', minLevel: 4 },
   'acc:mask': { price: 130, emoji: '🥷', slot: 'face', minLevel: 6 },
-  'acc:witch-hat': { price: 160, emoji: '🧙', slot: 'head', minLevel: 6 },
+  'acc:scarf': { price: 80, emoji: '🧣', slot: 'neck', minLevel: 0 },
+  'acc:bowtie': { price: 70, emoji: '🎀', slot: 'neck', minLevel: 0 },
   'acc:medal': { price: 220, emoji: '🏅', slot: 'neck', minLevel: 10 },
-  'acc:halo': { price: 350, emoji: '😇', slot: 'head', minLevel: 12 }
+  'acc:balloon': { price: 50, emoji: '🎈', slot: 'hand', minLevel: 0 },
+  'acc:lollipop': { price: 40, emoji: '🍭', slot: 'hand', minLevel: 0 },
+  'acc:sword': { price: 110, emoji: '🗡️', slot: 'hand', minLevel: 4 },
+  'acc:leaf-umbrella': { price: 140, emoji: '☂️', slot: 'hand', minLevel: 5 },
+  'acc:wand': { price: 240, emoji: '🪄', slot: 'hand', minLevel: 9 },
+  'acc:cape': { price: 200, emoji: '🦸', slot: 'back', minLevel: 8 },
+  'acc:fairy-wings': { price: 260, emoji: '🧚', slot: 'back', minLevel: 8 },
+  'acc:wings': { price: 450, emoji: '🪽', slot: 'back', minLevel: 15 }
 } as const satisfies Record<string, AccessoryDef>
 
 export type AccessoryId = keyof typeof ACCESSORIES
 
 export const isAccessoryId = (id: string): id is AccessoryId => id in ACCESSORIES
 
-/** Thứ tự vẽ các lớp phụ kiện (lớp sau đè lên lớp trước) */
-export const ACCESSORY_DRAW_ORDER: AccessoryId[] = [
-  'acc:wings',
-  'acc:cape',
-  'acc:backpack',
-  'acc:scarf',
-  'acc:bowtie',
-  'acc:medal',
-  'acc:glasses',
-  'acc:sunglasses',
-  'acc:eyepatch',
-  'acc:mask',
-  'acc:bow',
-  'acc:flower',
-  'acc:cat-ears',
-  'acc:party-hat',
-  'acc:cap',
-  'acc:hat',
-  'acc:witch-hat',
-  'acc:headphones',
-  'acc:halo',
-  'acc:crown'
-]
+/** Món đã bỏ ở mascot v3 (bị thân che): ai đã mua được hoàn lại đúng giá cũ (ShopService.refundRetired) */
+export const RETIRED_ACCESSORIES: Readonly<Record<string, number>> = {
+  'acc:backpack': 180,
+  'acc:cat-ears': 90
+}
 
 /** Số đồ ăn tối đa trong túi mỗi loại */
 export const MAX_FOOD_STACK = 99

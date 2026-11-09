@@ -10,6 +10,7 @@ import {
   isAccessoryId,
   MAX_FOOD_STACK,
   parseEquipped,
+  RETIRED_ACCESSORIES,
   shopCatalog,
   toggleEquipped,
   type ShopEntry
@@ -26,6 +27,7 @@ import type { Transaction } from './types'
 import type { XpService } from './XpService'
 
 export const PURCHASE_REASON = 'shop.purchase'
+export const REFUND_REASON = 'shop.refund'
 
 /**
  * Cửa hàng: mua đồ ăn và phụ kiện bằng xu, đeo/tháo phụ kiện cho mascot.
@@ -46,6 +48,7 @@ export class ShopService {
   ) {}
 
   state(): ShopState {
+    this.refundRetired()
     const { inventory, profiles, petService } = this.deps
     const pet = petService.get()
     const profileId = profiles.activeId()
@@ -109,6 +112,26 @@ export class ShopService {
     pets.update(row.id, { characterId, ...rename }, clock.now())
     bus.emit('pet.updated', petService.get())
     return this.state()
+  }
+
+  /**
+   * Hoàn xu cho phụ kiện đã bỏ (RETIRED_ACCESSORIES) mà hồ sơ đang dùng còn giữ: xoá khỏi túi, cộng lại đúng giá.
+   * Gọi lúc mở cửa hàng và khi khởi động; chạy lại không cộng hai lần vì túi đã về 0.
+   */
+  refundRetired(): number {
+    const { inventory, profiles, xp, clock, transaction } = this.deps
+    const profileId = profiles.activeId()
+    let refunded = 0
+    for (const [id, price] of Object.entries(RETIRED_ACCESSORIES)) {
+      const owned = inventory.quantity(profileId, id)
+      if (owned < 1) continue
+      transaction(() => {
+        inventory.adjust(profileId, id, -owned, clock.now())
+        xp.grant({ amount: 0, coins: price * owned, reason: REFUND_REASON, refId: id })
+      })
+      refunded += price * owned
+    }
+    return refunded
   }
 
   private toItem(

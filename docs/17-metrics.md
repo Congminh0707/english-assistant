@@ -19,13 +19,13 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 
 | Hạng mục                                       | Giá trị                                                                                     | Đo bằng      | Đo ngày    |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
-| Phiên bản app                                  | 2.0.0                                                                                       | `pnpm stats` | 2026-10-30 |
-| Test (Vitest)                                  | 523 test / 56 file                                                                          | `pnpm test`  | 2026-11-06 |
+| Phiên bản app                                  | 2.1.0                                                                                       | `pnpm stats` | 2026-11-09 |
+| Test (Vitest)                                  | 525 test / 56 file                                                                          | `pnpm test`  | 2026-11-09 |
 | Kênh IPC                                       | 105 invoke · 4 send · 13 event                                                              | `pnpm stats` | 2026-11-05 |
 | Migration DB (Drizzle)                         | 9 (`0000`–`0008`)                                                                           | `pnpm stats` | 2026-11-05 |
 | Nhân vật thú cưng                              | 5 (Bi, Lupo, Draco, Robo, Kitsu)                                                           | `pnpm stats` | 2026-10-22 |
-| Dáng vector mỗi nhân vật | 20 dáng vector mỗi con (19 trạng thái + trứng; xem 05)                                      | `pnpm stats` | 2026-11-01 |
-| Vật phẩm cửa hàng                              | 41 = 17 đồ ăn + 20 phụ kiện + 4 nhân vật bán bằng xu (Bi có sẵn)                            | `pnpm stats` | 2026-10-22 |
+| Dáng vector mỗi nhân vật | 19 dáng × 4 giai đoạn vẽ riêng + trứng = 77 hình mỗi con (mascot v3, xem 05)                | `pnpm stats` | 2026-11-09 |
+| Vật phẩm cửa hàng                              | 46 = 17 đồ ăn + 25 phụ kiện (5 vị trí, vẽ riêng cho từng con) + 4 nhân vật                  | `pnpm stats` | 2026-11-09 |
 
 ## 2. Nội dung tự soạn (`content/curated/`)
 

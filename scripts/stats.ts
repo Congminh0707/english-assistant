@@ -40,8 +40,10 @@ function countLessonExercises(): number {
 function countPoses(id: string): string {
   const art = JSON.parse(
     readFileSync(join(ROOT, 'src/renderer/shared/art/pets', `${id}.pet.json`), 'utf8')
-  ) as { states: Record<string, unknown> }
-  return String(Object.keys(art.states).length)
+  ) as { stages: Record<string, { states: Record<string, unknown> }> }
+  // mascot v3: mỗi giai đoạn (baby/teen/adult/legend) vẽ riêng cùng một bộ dáng, cộng thêm hình trứng
+  const stages = Object.values(art.stages)
+  return `${Object.keys(stages[0]?.states ?? {}).length} × ${stages.length} giai đoạn + trứng`
 }
 
 /** Số hình từ vector (src/renderer/shared/art/pictures/*.ts, mỗi file xuất PICTURES) */

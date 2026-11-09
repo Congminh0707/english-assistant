@@ -6,7 +6,7 @@ export const ShopItemSchema = z.object({
   price: z.number().int(),
   emoji: z.string(),
   minLevel: z.number().int(),
-  slot: z.enum(['head', 'face', 'neck', 'back']).nullable(),
+  slot: z.enum(['head', 'face', 'neck', 'hand', 'back']).nullable(),
   /** Số lượng đang có (phụ kiện, nhân vật: 0 hoặc 1) */
   owned: z.number().int(),
   /** Phụ kiện đang đeo / nhân vật đang chọn */

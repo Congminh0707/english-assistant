@@ -454,7 +454,7 @@ onMounted(load)
               :class="{ locked: !a.unlocked }"
               :title="t(`study.stats.achDesc.${a.group}`, { n: a.target })"
             >
-              <BadgeImage :glyph="a.glyph" :tier="a.tier" :locked="!a.unlocked" />
+              <BadgeImage :id="a.id" :glyph="a.glyph" :tier="a.tier" :locked="!a.unlocked" />
               <strong>{{ a.unlocked ? t(`study.stats.ach.${a.id}`) : '???' }}</strong>
               <span class="ach-desc muted small">{{
                 t(`study.stats.achDesc.${a.group}`, { n: a.target })

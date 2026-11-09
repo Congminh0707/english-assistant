@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { shopCatalog, toggleEquipped } from './shop'
+import { ACCESSORIES, RETIRED_ACCESSORIES, shopCatalog, toggleEquipped } from './shop'
 
 describe('shopCatalog', () => {
   it('có đồ ăn có giá và phụ kiện; đồ chỉ có qua thưởng không bán', () => {
@@ -12,6 +12,13 @@ describe('shopCatalog', () => {
     expect(ids).not.toContain('food:birthday-cake')
     expect(shopCatalog().every((e) => e.price > 0)).toBe(true)
   })
+
+  it('mascot v3: có vị trí cầm tay; món đã bỏ không còn bán', () => {
+    const ids = shopCatalog().map((e) => e.id)
+    expect(ACCESSORIES['acc:balloon'].slot).toBe('hand')
+    expect(ids).toContain('acc:fairy-wings')
+    for (const id of Object.keys(RETIRED_ACCESSORIES)) expect(ids).not.toContain(id)
+  })
 })
 
 describe('toggleEquipped', () => {
@@ -23,6 +30,10 @@ describe('toggleEquipped', () => {
     expect(toggleEquipped(['acc:bow'], 'acc:hat', true)).toEqual(['acc:hat'])
     expect(toggleEquipped(['acc:hat'], 'acc:crown', true)).toEqual(['acc:crown'])
     expect(toggleEquipped(['acc:cape'], 'acc:wings', true)).toEqual(['acc:wings'])
+    expect(toggleEquipped(['acc:balloon', 'acc:bow'], 'acc:wand', true)).toEqual([
+      'acc:bow',
+      'acc:wand'
+    ])
   })
 
   it('tháo một món, bỏ qua id lạ', () => {

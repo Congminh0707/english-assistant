@@ -1,6 +1,6 @@
 {
   "name": "english-assistant",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "An Electron application with Vue and TypeScript",
   "main": "./out/main/index.js",
   "author": "Minh Ngo",
@@ -38,7 +38,8 @@
     "ui:audit": "node scripts/ui-audit.mjs",
     "ui:contrast": "node scripts/ui-contrast.mjs",
     "ui:shot": "node scripts/ui-shot.mjs",
-    "badges": "tsx scripts/badges/make-badges.ts",
+    "badges": "python scripts/design-data/mascot/export_badges.py",
+    "mascot": "python scripts/design-data/mascot/export.py && python scripts/design-data/mascot/export_items.py",
     "pictures": "tsx scripts/pictures/make-pictures.ts",
     "pictures:sheet": "node scripts/pictures/vector-sheet.mjs",
     "landmarks:sheet": "node scripts/pictures/landmark-sheet.mjs",

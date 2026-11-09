@@ -233,6 +233,20 @@ describe('ShopService', () => {
     expect(c.pet.get().name).toBe('Bi')
   })
 
+  it('hoàn xu cho phụ kiện đã bỏ (ba lô, bờm tai mèo) một lần, xoá khỏi túi và khỏi đồ đang đeo', () => {
+    c.profiles.active()
+    c.inventory.add('acc:backpack')
+    c.inventory.add('acc:cat-ears')
+    const before = c.pet.get().coins
+    const state = c.shop.state()
+    expect(state.coins).toBe(before + 180 + 90)
+    expect(c.inventory.list().some((i) => i.itemId === 'acc:backpack' && i.quantity > 0)).toBe(
+      false
+    )
+    expect(state.items.some((i) => i.id === 'acc:backpack')).toBe(false)
+    expect(c.shop.state().coins).toBe(before + 270) // không hoàn lần hai
+  })
+
   it('hồ sơ khác có túi đồ và phụ kiện riêng', () => {
     const first = c.profiles.active()
     c.xp.grant({ amount: 0, coins: 100, reason: 'test' })

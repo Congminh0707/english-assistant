@@ -9,6 +9,7 @@ import {
   isCharacterItem,
   normalizeCharacterId
 } from './characters'
+import { ACCESSORIES } from './shop'
 import {
   applyFood,
   decayStats,
@@ -116,9 +117,22 @@ describe('tiến hoá', () => {
     for (const char of CHARACTER_IDS) {
       const art = JSON.parse(
         readFileSync(resolve('src/renderer/shared/art/pets', `${char}.pet.json`), 'utf8')
-      ) as { css: string; defs: string; states: Record<string, string> }
-      for (const p of poses) expect(art.states[p], `${char}/${p}`).toContain('<svg')
-      for (const st of ['baby', 'teen', 'adult', 'legend']) expect(art.css).toContain(`.st-${st}`)
+      ) as {
+        egg: { svg: string }
+        stages: Record<string, { scale: number; states: Record<string, string> }>
+        acc: Record<string, { slot: string; b: string; f: string }>
+      }
+      expect(art.egg.svg, `${char}/egg`).toContain('<path')
+      for (const st of ['baby', 'teen', 'adult', 'legend']) {
+        expect(art.stages[st]?.scale, `${char}/${st}`).toBeGreaterThan(0)
+        for (const p of poses.filter((x) => x !== 'egg'))
+          expect(art.stages[st].states[p], `${char}/${st}/${p}`).toMatch(/<(g|path|rect)/)
+      }
+      // Mỗi phụ kiện trong cửa hàng có hình vẽ riêng cho nhân vật này, đúng vị trí đeo
+      for (const [id, def] of Object.entries(ACCESSORIES)) {
+        expect(art.acc[id]?.slot, `${char}/${id}`).toBe(def.slot)
+        expect(art.acc[id].b + art.acc[id].f, `${char}/${id}`).not.toBe('')
+      }
     }
   })
 

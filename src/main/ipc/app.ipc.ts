@@ -100,6 +100,10 @@ export function registerAppIpc(
   handle('translate:online-status', () => translation.onlineStatus())
   handle('translate:set-key', ({ key }) => translation.setOnlineKey(key))
   handle('translate:clear-key', () => translation.clearOnlineKey())
+  handle('translate:set-cloud-key', ({ provider, key, region }) =>
+    translation.setCloudKey(provider, key, region || undefined)
+  )
+  handle('translate:clear-cloud-key', ({ provider }) => translation.clearCloudKey(provider))
   handle('practice:start', ({ mode }) => ({ exercise: c.practice.start(mode) }))
   handle('practice:answer', ({ sessionId, exerciseId, answer }) =>
     c.practice.answer(sessionId, exerciseId, answer)

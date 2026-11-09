@@ -1278,6 +1278,20 @@
     "keyCannotStore": "Máy này không mã hoá được key nên không lưu được.",
     "onlineBadge": "Claude",
     "onlineHintPopup": "Bản dịch của Claude (online).",
+    "cloudBadge": {
+      "google": "Google",
+      "azure": "Microsoft"
+    },
+    "cloudHintPopup": "Bản dịch online (Google/Microsoft).",
+    "cloudTitle": "Dịch online (Google / Microsoft)",
+    "cloudHint": "Tuỳ chọn. Dùng key Google Cloud Translation hoặc Azure Translator của chính bạn (tính phí theo mức dùng của bạn; Azure có gói miễn phí 2 triệu ký tự/tháng). Bật thì văn bản bạn bôi đen được gửi tới Google hoặc Microsoft để dịch nhanh, chuẩn hơn và không tốn RAM. Có cả hai key thì dùng Google trước. Mất mạng, key sai hoặc hết hạn mức thì app tự dịch bằng model offline.",
+    "cloudToggle": "Dịch bằng Google / Microsoft",
+    "cloudKeyPlaceholder": {
+      "google": "AIza…",
+      "azure": "Key của resource Translator"
+    },
+    "cloudRegionPlaceholder": "Vùng (vd southeastasia, bỏ trống nếu global)",
+    "cloudKeyInvalid": "Key hoặc vùng không đúng dạng.",
     "truncated": "Văn bản dài hơn {max} ký tự nên chỉ dịch phần đầu. Hãy chia nhỏ đoạn văn để dịch phần còn lại."
   },
   "shop": {
@@ -1627,7 +1641,10 @@
     }
   },
   "player": {
-    "real": { "needPack": "Bản thu thật nằm trong gói âm thanh bài nghe. Tải gói để nghe (lời thoại vẫn đọc được bên dưới).", "source": "Trang gốc" },
+    "real": {
+      "needPack": "Bản thu thật nằm trong gói âm thanh bài nghe. Tải gói để nghe (lời thoại vẫn đọc được bên dưới).",
+      "source": "Trang gốc"
+    },
     "play": "Nghe",
     "pause": "Dừng",
     "prev": "Câu trước",

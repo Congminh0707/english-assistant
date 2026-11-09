@@ -39,6 +39,8 @@ export const settingDefinitions = {
   'translate.highQuality': z.boolean().default(true),
   /** Dịch online bằng Claude (cần API key của người dùng; văn bản được gửi tới Anthropic). Mặc định tắt */
   'translate.online': z.boolean().default(false),
+  /** Dịch online bằng Google/Azure khi người dùng đã nhập key (văn bản được gửi tới Google/Microsoft). Mặc định bật */
+  'translate.cloud': z.boolean().default(true),
   /** Ôn thẻ: số từ mới đưa vào ôn mỗi ngày (0 = không giới hạn) */
   'review.newPerDay': z
     .union([z.literal(0), z.literal(5), z.literal(10), z.literal(20), z.literal(50)])

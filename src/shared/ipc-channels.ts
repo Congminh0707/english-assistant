@@ -57,6 +57,8 @@ export const INVOKE_CHANNELS = [
   'translate:online-status',
   'translate:set-key',
   'translate:clear-key',
+  'translate:set-cloud-key',
+  'translate:clear-cloud-key',
   'practice:start',
   'practice:answer',
   'shop:state',

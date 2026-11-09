@@ -32,11 +32,17 @@ export class WorkerProcess {
   private nextId = 1
   private readonly pending = new Map<number, Pending>()
   private idleTimer: NodeJS.Timeout | null = null
+  /** Thời gian rảnh trước khi tắt của tiến trình hiện tại: ngắn nhất trong các lần gọi kể từ lúc khởi động */
+  private idleMs: number
 
-  constructor(private readonly opts: WorkerOptions) {}
+  constructor(private readonly opts: WorkerOptions) {
+    this.idleMs = opts.idleMs
+  }
 
-  async call<T>(payload: Record<string, unknown>): Promise<T> {
+  /** `idleMs`: rút ngắn thời gian rảnh cho tới khi tiến trình tắt (vd đã nạp model lớn → nhả RAM sớm hơn) */
+  async call<T>(payload: Record<string, unknown>, options: { idleMs?: number } = {}): Promise<T> {
     await this.start()
+    if (options.idleMs !== undefined) this.idleMs = Math.min(this.idleMs, options.idleMs)
     this.touch()
     const result = await this.request<T>(payload)
     this.touch()
@@ -54,6 +60,7 @@ export class WorkerProcess {
 
   private start(): Promise<void> {
     this.ready ??= (async (): Promise<void> => {
+      this.idleMs = this.opts.idleMs
       const child = utilityProcess.fork(this.opts.script, [], {
         serviceName: this.opts.name,
         stdio: 'ignore'
@@ -98,7 +105,7 @@ export class WorkerProcess {
 
   private touch(): void {
     if (this.idleTimer) clearTimeout(this.idleTimer)
-    this.idleTimer = setTimeout(() => this.dispose(), this.opts.idleMs)
+    this.idleTimer = setTimeout(() => this.dispose(), this.idleMs)
   }
 
   private failAll(): void {

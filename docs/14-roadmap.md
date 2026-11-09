@@ -23,6 +23,8 @@ gantt
 
 ## Nhật ký tiến độ (cập nhật liên tục)
 
+- [x] (2026-11-09) Giảm RAM worker dịch + dịch online Google/Azure ([decisions #54](decisions.md), [11](11-ai-and-speech.md)): bỏ nạp sẵn NLLB lúc khởi động (lúc rảnh 3,7 GB → ~335 MB), idle 10 phút / 3 phút khi đã nạp NLLB, tắt arena ORT cho NLLB, `CloudTranslator` dùng key Google/Azure người dùng tự nhập (mã hoá bằng `SecretStore`, kênh `translate:set-cloud-key` / `translate:clear-cloud-key`). Phát hành v2.2.0. `pnpm test` 539 qua, typecheck sạch, lint 0 lỗi, ui:audit 0 lỗi. 🚧 Còn: thử tay với key thật; đo lại NLLB (arena tắt) trong Electron sau khi tải lại model.
+
 - [x] (2026-11-09) Mascot v3 + phụ kiện v2 + huy hiệu vector ([decisions #53](decisions.md), [05](05-mascot-system.md), [06](06-levels-and-progression.md)): 5 con vẽ lại chibi mềm, tay cố định độ dài, 4 giai đoạn vẽ riêng × 19 dáng, Huyền thoại thần thoại; 25 phụ kiện vẽ theo từng con (vị trí mới `hand`, bỏ ba lô/bờm tai mèo + hoàn xu), cửa hàng có lọc vị trí và thử đồ; 32 huy hiệu SVG. Phát hành v2.1.0. 🚧 Còn: thử tay đủ các trang (đã chụp mascot desktop, trang chính bé, màn tiến hoá); vùng bấm mascot chưa chỉnh theo bóng dáng Huyền thoại rộng hơn.
 
 - [x] (2026-11-06) Bài nghe VOA bản thu thật (12 bài: 7 Words and Their Stories + 5 Let’s Learn English A1–A2): `audio.recording` + license `public-domain` + `RealAudioPlayer`, MP3 trong gói `listening-audio` ([decisions #52](decisions.md), [08 §6](08-content-sources.md)). 🚧 Còn: build + đăng gói mới (packSpec version/size/sha256) để có tiếng; nghe đối chiếu tai lời thoại với MP3 của 5 bài Let’s Learn English; chưa thử tay trong app; chuẩn hoá âm lượng (cần ffmpeg).

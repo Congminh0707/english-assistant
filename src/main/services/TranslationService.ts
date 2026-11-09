@@ -1,6 +1,7 @@
 import { looksVietnamese } from '@shared/sentences'
 import {
   TRANSLATE_MAX_CHARS,
+  type TranslateCloudProvider,
   type TranslateDirection,
   type TranslateModelKey,
   type TranslateOnlineStatus,
@@ -14,15 +15,18 @@ import { ModelInstaller } from './ModelInstaller'
 
 const CACHE_SIZE = 200
 
+type Engine = TranslateResult['engine']
+
 /**
  * Dịch câu offline: opus-mt (nhanh, mỗi chiều một model) hoặc NLLB-200 'high' (chất lượng cao, một model cho cả hai chiều,
- * được ưu tiên khi đã tải và bật trong cài đặt). Quản lý trạng thái/tải/xoá model (qua ModelInstaller),
+ * được ưu tiên khi đã tải và bật trong cài đặt). Có mạng thì dịch online trước: Claude → Google → Azure
+ * (key người dùng nhập, lưu mã hoá). Quản lý trạng thái/tải/xoá model (qua ModelInstaller),
  * tự nhận chiều dịch theo văn bản, dịch qua engine, nhớ kết quả gần đây.
  * Không bao giờ ghi nội dung dịch ra log. docs/11-ai-and-speech.md#2-dịch--tra-từ
  */
 export class TranslationService {
   private readonly installers: Record<TranslateModelKey, ModelInstaller>
-  private readonly cache = new Map<string, string>()
+  private readonly cache = new Map<string, { text: string; engine: Engine }>()
 
   constructor(
     private readonly deps: {
@@ -35,8 +39,29 @@ export class TranslationService {
         enabled: () => boolean
         translate: (text: string, direction: TranslateDirection) => Promise<string>
       }
+      /** Dịch online Google/Azure (key người dùng nhập), tuỳ chọn: bật trong cài đặt + có key; lỗi thì rơi xuống offline */
+      cloud?: {
+        enabled: () => boolean
+        available: () => boolean
+        translate: (
+          text: string,
+          direction: TranslateDirection
+        ) => Promise<{ text: string; engine: TranslateCloudProvider }>
+        /** Lưu key đã mã hoá (không bao giờ trả key về renderer) */
+        keys?: {
+          canStore: () => boolean
+          has: (provider: TranslateCloudProvider) => boolean
+          set: (provider: TranslateCloudProvider, key: string, region?: string) => void
+          clear: (provider: TranslateCloudProvider) => void
+        }
+      }
       /** Lưu API key đã mã hoá (không bao giờ trả key về renderer) */
-      keys?: { canStore: () => boolean; has: () => boolean; set: (key: string) => void; clear: () => void }
+      keys?: {
+        canStore: () => boolean
+        has: () => boolean
+        set: (key: string) => void
+        clear: () => void
+      }
       /** Gọi mỗi khi trạng thái đổi (đẩy xuống renderer) */
       onStatus?: (model: TranslateModelKey, status: TranslateStatus) => void
       now?: () => number
@@ -80,12 +105,35 @@ export class TranslationService {
   onlineStatus(): TranslateOnlineStatus {
     return {
       hasKey: this.deps.keys?.has() ?? false,
-      canStore: this.deps.keys?.canStore() ?? false
+      canStore: this.deps.keys?.canStore() ?? false,
+      cloud: this.deps.cloud?.available() ?? false,
+      cloudKeys: {
+        google: this.deps.cloud?.keys?.has('google') ?? false,
+        azure: this.deps.cloud?.keys?.has('azure') ?? false
+      }
     }
   }
 
+  setCloudKey(
+    provider: TranslateCloudProvider,
+    key: string,
+    region?: string
+  ): TranslateOnlineStatus {
+    const keys = this.deps.cloud?.keys
+    if (!keys?.canStore()) throw new AppError('TRANSLATE_FAILED', 'errors.translateKeyStore')
+    keys.set(provider, key, region)
+    return this.onlineStatus()
+  }
+
+  clearCloudKey(provider: TranslateCloudProvider): TranslateOnlineStatus {
+    this.deps.cloud?.keys?.clear(provider)
+    for (const k of this.cache.keys()) if (k.startsWith('cloud:')) this.cache.delete(k)
+    return this.onlineStatus()
+  }
+
   setOnlineKey(key: string): TranslateOnlineStatus {
-    if (!this.deps.keys?.canStore()) throw new AppError('TRANSLATE_FAILED', 'errors.translateKeyStore')
+    if (!this.deps.keys?.canStore())
+      throw new AppError('TRANSLATE_FAILED', 'errors.translateKeyStore')
     this.deps.keys.set(key)
     return this.onlineStatus()
   }
@@ -100,6 +148,10 @@ export class TranslationService {
     return !!this.deps.online?.enabled() && (this.deps.keys?.has() ?? false)
   }
 
+  private cloudReady(): boolean {
+    return !!this.deps.cloud?.enabled() && this.deps.cloud.available()
+  }
+
   /** Chọn chiều dịch + engine cho văn bản; null nếu chưa có model nào dùng được */
   private plan(input: string): { direction: TranslateDirection; high: boolean } | null {
     const direction: TranslateDirection = looksVietnamese(input) ? 'vi-en' : 'en-vi'
@@ -112,7 +164,7 @@ export class TranslationService {
   /** Nạp sẵn model cho văn bản sắp dịch (gọi khi popup mở). Lỗi bị bỏ qua: lần dịch thật sẽ báo. */
   warmup(text: string): void {
     const input = text.replace(/\s+/g, ' ').trim()
-    const plan = input && !this.onlineReady() ? this.plan(input) : null
+    const plan = input && !this.onlineReady() && !this.cloudReady() ? this.plan(input) : null
     if (!plan || !this.deps.engine.warmup) return
     void this.deps.engine.warmup(plan.direction, plan.high ? 'high' : 'fast').catch(() => undefined)
   }
@@ -122,16 +174,29 @@ export class TranslationService {
     if (!input) throw new AppError('VALIDATION', 'errors.validation')
     const direction: TranslateDirection = looksVietnamese(input) ? 'vi-en' : 'en-vi'
 
-    // Dịch online (nếu bật + có key): chuẩn nhất; mọi lỗi → rơi về model offline bên dưới
+    // Dịch online (nếu bật + có key): chuẩn nhất; Claude lỗi → Google/Azure → model offline bên dưới
     const online = this.onlineReady() ? this.deps.online : undefined
     if (online) {
       const key = `claude:${direction}:${input}`
       const cached = this.cache.get(key)
-      if (cached !== undefined) return { text: cached, engine: 'claude', cached: true, direction }
+      if (cached !== undefined) return { ...cached, cached: true, direction }
       try {
         const out = await online.translate(input, direction)
-        this.remember(key, out)
+        this.remember(key, { text: out, engine: 'claude' })
         return { text: out, engine: 'claude', cached: false, direction }
+      } catch {
+        // không log nội dung/key; thử tiếp
+      }
+    }
+    const cloud = this.cloudReady() ? this.deps.cloud : undefined
+    if (cloud) {
+      const key = `cloud:${direction}:${input}`
+      const cached = this.cache.get(key)
+      if (cached !== undefined) return { ...cached, cached: true, direction }
+      try {
+        const out = await cloud.translate(input, direction)
+        this.remember(key, out)
+        return { ...out, cached: false, direction }
       } catch {
         // không log nội dung/key; xuống offline
       }
@@ -140,7 +205,7 @@ export class TranslationService {
     const plan = this.plan(input)
     if (!plan) {
       // Online lỗi (mạng/key/hạn mức) mà chưa có model offline → báo lỗi dịch, không đòi tải model
-      throw online
+      throw online || cloud
         ? new AppError('TRANSLATE_FAILED', 'errors.translateFailed')
         : new AppError('TRANSLATE_NOT_READY', 'errors.translateNotReady')
     }
@@ -153,16 +218,16 @@ export class TranslationService {
       // Dùng gần nhất → đưa xuống cuối Map (LRU)
       this.cache.delete(key)
       this.cache.set(key, cached)
-      return { text: cached, engine, cached: true, direction }
+      return { ...cached, cached: true, direction }
     }
 
     const out = await this.deps.engine.translate(input, direction, high ? 'high' : 'fast')
     if (!out) throw new AppError('TRANSLATE_FAILED', 'errors.translateFailed')
-    this.remember(key, out)
+    this.remember(key, { text: out, engine })
     return { text: out, engine, cached: false, direction }
   }
 
-  private remember(key: string, value: string): void {
+  private remember(key: string, value: { text: string; engine: Engine }): void {
     this.cache.set(key, value)
     if (this.cache.size > CACHE_SIZE) this.cache.delete(this.cache.keys().next().value as string)
   }

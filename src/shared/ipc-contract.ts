@@ -106,6 +106,8 @@ import {
   TranslateInputSchema,
   TranslateOnlineStatusSchema,
   TranslateSetKeyInputSchema,
+  TranslateSetCloudKeyInputSchema,
+  TranslateClearCloudKeyInputSchema,
   TranslateResultSchema,
   TranslateStatusEventSchema,
   TranslateStatusSchema
@@ -199,6 +201,14 @@ export const invokeContract = {
   'translate:online-status': { input: z.void(), output: TranslateOnlineStatusSchema },
   'translate:set-key': { input: TranslateSetKeyInputSchema, output: TranslateOnlineStatusSchema },
   'translate:clear-key': { input: z.void(), output: TranslateOnlineStatusSchema },
+  'translate:set-cloud-key': {
+    input: TranslateSetCloudKeyInputSchema,
+    output: TranslateOnlineStatusSchema
+  },
+  'translate:clear-cloud-key': {
+    input: TranslateClearCloudKeyInputSchema,
+    output: TranslateOnlineStatusSchema
+  },
   'practice:start': { input: PracticeStartInputSchema, output: PracticeStartResultSchema },
   'practice:answer': { input: PracticeAnswerInputSchema, output: PracticeAnswerResultSchema },
   'shop:state': { input: z.void(), output: ShopStateSchema },

@@ -279,15 +279,134 @@ describe('TranslationService', () => {
 
     it('trạng thái key không lộ key; xoá key bỏ cache Claude', async () => {
       const { service, stored } = online({ key: null })
-      expect(service.onlineStatus()).toEqual({ hasKey: false, canStore: true })
+      const noCloud = { cloud: false, cloudKeys: { google: false, azure: false } }
+      expect(service.onlineStatus()).toEqual({ hasKey: false, canStore: true, ...noCloud })
       expect(service.setOnlineKey('sk-ant-abcdefghijklmnopqrst')).toEqual({
         hasKey: true,
-        canStore: true
+        canStore: true,
+        ...noCloud
       })
       expect(stored.key).toBe('sk-ant-abcdefghijklmnopqrst')
       await service.translate('Hello')
       expect(service.clearOnlineKey().hasKey).toBe(false)
       expect(stored.key).toBeNull()
+    })
+  })
+
+  describe('dịch online (Google/Azure, key người dùng)', () => {
+    let stored: Record<string, string> = {}
+    function cloud(
+      opts: {
+        enabled?: boolean
+        available?: boolean
+        fail?: boolean
+        claude?: 'ok' | 'fail'
+        canStore?: boolean
+      } = {}
+    ): {
+      service: TranslationService
+      engine: TranslationEngine & { calls: string[] }
+      cloudCalls: string[]
+      claudeCalls: string[]
+    } {
+      const { engine, models } = setup()
+      const cloudCalls: string[] = []
+      const claudeCalls: string[] = []
+      stored = {}
+      const service = new TranslationService({
+        models,
+        engine,
+        online: opts.claude
+          ? {
+              enabled: () => true,
+              translate: async (text) => {
+                claudeCalls.push(text)
+                if (opts.claude === 'fail') throw new Error('boom')
+                return `CL(${text})`
+              }
+            }
+          : undefined,
+        keys: opts.claude
+          ? { canStore: () => true, has: () => true, set: () => undefined, clear: () => undefined }
+          : undefined,
+        cloud: {
+          enabled: () => opts.enabled ?? true,
+          available: () => opts.available ?? true,
+          keys: {
+            canStore: () => opts.canStore ?? true,
+            has: (p) => !!stored[p],
+            set: (p, key, region) => (stored[p] = `${key}|${region ?? ''}`),
+            clear: (p) => delete stored[p]
+          },
+          translate: async (text, direction) => {
+            cloudCalls.push(`${direction}:${text}`)
+            if (opts.fail) throw new Error('boom')
+            return { text: `GG(${text})`, engine: 'google' }
+          }
+        },
+        now: () => 0
+      })
+      return { service, engine, cloudCalls, claudeCalls }
+    }
+
+    it('có key + bật → dịch online, không cần model, có cache; không nạp sẵn model', async () => {
+      const { service, engine, cloudCalls } = cloud()
+      expect(service.onlineStatus().cloud).toBe(true)
+      service.warmup('Hello')
+      expect(await service.translate('Hello')).toEqual({
+        text: 'GG(Hello)',
+        engine: 'google',
+        cached: false,
+        direction: 'en-vi'
+      })
+      expect(await service.translate('Hello')).toMatchObject({ engine: 'google', cached: true })
+      expect(cloudCalls).toEqual(['en-vi:Hello'])
+      expect(engine.calls).toEqual([])
+    })
+
+    it('tắt trong cài đặt hoặc không có key → không gọi online', async () => {
+      for (const o of [{ enabled: false }, { available: false }]) {
+        const { service, cloudCalls } = cloud(o)
+        expect(service.onlineStatus().cloud).toBe(o.available ?? true)
+        await expect(service.translate('Hello')).rejects.toThrow(/TRANSLATE_NOT_READY/)
+        expect(cloudCalls).toEqual([])
+      }
+    })
+
+    it('lỗi → rơi về model offline', async () => {
+      const { service, engine } = cloud({ fail: true })
+      await service.install('en-vi')
+      expect(await service.translate('Hello')).toMatchObject({ engine: 'opus-mt' })
+      expect(engine.calls).toEqual(['fast:en-vi:Hello'])
+    })
+
+    it('lưu/xoá key: trạng thái không lộ key; xoá key bỏ cache online', async () => {
+      const { service, cloudCalls } = cloud()
+      expect(service.onlineStatus().cloudKeys).toEqual({ google: false, azure: false })
+      expect(
+        service.setCloudKey('azure', 'az-key-0000000000000000', 'southeastasia').cloudKeys
+      ).toEqual({ google: false, azure: true })
+      expect(stored.azure).toBe('az-key-0000000000000000|southeastasia')
+      await service.translate('Hello')
+      expect(service.clearCloudKey('azure').cloudKeys.azure).toBe(false)
+      await service.translate('Hello')
+      expect(cloudCalls).toHaveLength(2)
+    })
+
+    it('máy không mã hoá được → không lưu key', () => {
+      const { service } = cloud({ canStore: false })
+      expect(() => service.setCloudKey('google', 'AIza0000000000000000')).toThrow(
+        /translateKeyStore/
+      )
+    })
+
+    it('Claude (key người dùng) được ưu tiên; Claude lỗi → Google/Azure', async () => {
+      const a = cloud({ claude: 'ok' })
+      expect((await a.service.translate('Hello')).engine).toBe('claude')
+      expect(a.cloudCalls).toEqual([])
+      const b = cloud({ claude: 'fail' })
+      expect((await b.service.translate('Hello')).engine).toBe('google')
+      expect(b.claudeCalls).toEqual(['Hello'])
     })
   })
 

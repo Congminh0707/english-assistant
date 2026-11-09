@@ -5,6 +5,7 @@ import { join } from 'path'
 import { electronApp } from '@electron-toolkit/utils'
 import { systemClock } from './core/Clock'
 import { paths } from './core/paths'
+import { CloudTranslator } from './translate/CloudTranslator'
 import { OnlineTranslator } from './translate/OnlineTranslator'
 import { SafeStorageSecretStore } from './system/SecretStore'
 import { openUserDb, type UserDbConnection } from './db/client'
@@ -58,7 +59,10 @@ if (!app.isPackaged && process.env['REMOTE_DEBUG_PORT']) {
 
 // Cố định thư mục dữ liệu là %APPDATA%\english-assistant (productName khi đóng gói có dấu cách sẽ đổi đường dẫn mặc định)
 // EA_USER_DATA: scripts/ui-shot.mjs chạy trên dữ liệu riêng, không đụng dữ liệu thật
-app.setPath('userData', process.env['EA_USER_DATA'] ?? join(app.getPath('appData'), 'english-assistant'))
+app.setPath(
+  'userData',
+  process.env['EA_USER_DATA'] ?? join(app.getPath('appData'), 'english-assistant')
+)
 
 // Giữ tham chiếu ở cấp module để không bị garbage collect
 let conn: UserDbConnection | null = null
@@ -111,6 +115,15 @@ if (!app.requestSingleInstanceLock()) {
     // Dịch câu offline: model tải về userData/models khi người dùng đồng ý, chạy trong utilityProcess
     const secrets = new SafeStorageSecretStore(paths.secrets())
     const onlineTranslator = new OnlineTranslator({ getKey: () => secrets.get('anthropic') })
+    // Google/Azure: key người dùng nhập trong Cài đặt (mã hoá bằng safeStorage); không có key thì không bao giờ gọi mạng
+    const CLOUD_SECRET = { google: 'google-translate', azure: 'azure-translator' } as const
+    const cloudTranslator = new CloudTranslator({
+      getKeys: () => ({
+        google: secrets.get(CLOUD_SECRET.google),
+        azureKey: secrets.get(CLOUD_SECRET.azure),
+        azureRegion: secrets.get('azure-translator-region')
+      })
+    })
     const translationService = new TranslationService({
       models: {
         'en-vi': new ModelManager({ modelsDir: paths.models(), spec: OPUS_MT_EN_VI }),
@@ -122,6 +135,26 @@ if (!app.requestSingleInstanceLock()) {
       online: {
         enabled: () => c.settings.get('translate.online'),
         translate: (text, direction) => onlineTranslator.translate(text, direction)
+      },
+      cloud: {
+        enabled: () => c.settings.get('translate.cloud'),
+        available: () => cloudTranslator.available(),
+        translate: (text, direction) => cloudTranslator.translate(text, direction),
+        keys: {
+          canStore: () => secrets.canStore(),
+          has: (provider) => !!secrets.get(CLOUD_SECRET[provider]),
+          set: (provider, key, region) => {
+            secrets.set(CLOUD_SECRET[provider], key)
+            if (provider === 'azure') {
+              if (region) secrets.set('azure-translator-region', region)
+              else secrets.delete('azure-translator-region')
+            }
+          },
+          clear: (provider) => {
+            secrets.delete(CLOUD_SECRET[provider])
+            if (provider === 'azure') secrets.delete('azure-translator-region')
+          }
+        }
       },
       keys: {
         canStore: () => secrets.canStore(),
@@ -135,8 +168,8 @@ if (!app.requestSingleInstanceLock()) {
     // mBART-50 (~890 MB) đã được thay bằng NLLB-200 (docs/decisions.md #34): xoá bản cũ còn sót trên đĩa
     const oldMbart = join(paths.models(), 'Xenova', 'mbart-large-50-many-to-many-mmt')
     if (existsSync(oldMbart)) rmSync(oldMbart, { recursive: true, force: true })
-    // Nạp sẵn model dịch (nếu đã tải) sau khi app khởi động xong: lần tra đầu tiên không phải chờ ~3 giây nạp model
-    setTimeout(() => translationService.warmup('Hello'), 8_000)
+    // Không nạp sẵn model dịch lúc khởi động (NLLB-200 giữ ~1,7–3,7 GB RAM dù không dùng — docs/decisions.md #54):
+    // chỉ nạp khi mở popup tra (quickTranslate bên dưới)
     // Giọng đọc tự nhiên offline (Kokoro): model tải khi người dùng đồng ý, chạy trong utilityProcess riêng
     const ttsService = new TtsService({
       models: new ModelManager({ modelsDir: paths.models(), spec: KOKORO }),

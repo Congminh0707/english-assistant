@@ -35,7 +35,7 @@ const translation = ref<{
   text: string
   errorKey: string
   /** Engine đã dịch (để gợi ý nâng cấp khi dùng bản nhanh) */
-  engine: 'opus-mt' | 'nllb-200' | 'claude' | null
+  engine: 'opus-mt' | 'nllb-200' | 'claude' | 'google' | 'azure' | null
 }>({ phase: 'idle', text: '', errorKey: '', engine: null })
 const models = useTranslateModels()
 /** Chiều dịch của văn bản đang tra (tự nhận: có dấu tiếng Việt → Việt→Anh) */
@@ -47,15 +47,20 @@ const highReady = computed(
   () =>
     models.statuses.high.value?.state === 'ready' && settingsStore.settings['translate.highQuality']
 )
-/** Dịch online (Claude) đã bật trong cài đặt và đã có key */
+/** Dịch online đã bật trong cài đặt và có key: Claude hoặc Google/Azure (key người dùng nhập) */
 const onlineHasKey = ref(false)
+const cloudAvailable = ref(false)
 const onlineReady = computed(
-  () => onlineHasKey.value && !!settingsStore.settings['translate.online']
+  () =>
+    (onlineHasKey.value && !!settingsStore.settings['translate.online']) ||
+    (cloudAvailable.value && !!settingsStore.settings['translate.cloud'])
 )
 /** Dịch được ngay: dịch online, model chất lượng cao, hoặc opus-mt của chiều này */
 const canTranslate = computed(
   () =>
-    onlineReady.value || highReady.value || models.statuses[direction.value].value?.state === 'ready'
+    onlineReady.value ||
+    highReady.value ||
+    models.statuses[direction.value].value?.state === 'ready'
 )
 /** Model đang hiển thị trạng thái tải: bản chất lượng cao nếu đang tải, ngược lại opus-mt của chiều này */
 const downloadKey = computed<'high' | TranslateDirection>(() =>
@@ -110,7 +115,10 @@ async function translate(text: string): Promise<void> {
   await Promise.all([
     models.refresh(),
     invoke('translate:online-status')
-      .then((st) => (onlineHasKey.value = st.hasKey))
+      .then((st) => {
+        onlineHasKey.value = st.hasKey
+        cloudAvailable.value = st.cloud
+      })
       .catch(() => undefined)
   ])
   if (seq !== translateSeq) return
@@ -301,6 +309,12 @@ onUnmounted(() => {
               :title="t('translate.onlineHintPopup')"
               >{{ t('translate.onlineBadge') }}</span
             >
+            <span
+              v-else-if="translation.engine === 'google' || translation.engine === 'azure'"
+              class="chip chip--primary ai"
+              :title="t('translate.cloudHintPopup')"
+              >{{ t(`translate.cloudBadge.${translation.engine}`) }}</span
+            >
             <span v-else class="chip chip--warning ai" :title="t('translate.machineHint')">{{
               t('translate.machineBadge')
             }}</span>
@@ -376,6 +390,12 @@ onUnmounted(() => {
               class="chip chip--primary ai"
               :title="t('translate.onlineHintPopup')"
               >{{ t('translate.onlineBadge') }}</span
+            >
+            <span
+              v-else-if="translation.engine === 'google' || translation.engine === 'azure'"
+              class="chip chip--primary ai"
+              :title="t('translate.cloudHintPopup')"
+              >{{ t(`translate.cloudBadge.${translation.engine}`) }}</span
             >
             <span v-else class="chip chip--warning ai" :title="t('translate.machineHint')">{{
               t('translate.machineBadge')

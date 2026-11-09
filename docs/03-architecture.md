@@ -248,7 +248,7 @@ flowchart LR
 | CPU khi mascot idle        | < 1–2% (animation 12 fps cho pixel art là đủ, dừng hẳn khi ẩn)                         |
 | Mở popup dịch              | < 300 ms (cửa sổ tạo sẵn, ẩn/hiện)                                                     |
 | Khởi động app              | < 3 giây tới khi mascot xuất hiện                                                      |
-| Model AI local             | Chỉ tải khi dùng lần đầu, chạy trong utilityProcess, giải phóng khi không dùng 10 phút |
+| Model AI local             | Chỉ tải khi dùng lần đầu, chạy trong utilityProcess, giải phóng khi không dùng 10 phút (worker dịch đã nạp NLLB: 3 phút; không nạp sẵn lúc khởi động — decisions #54) |
 
 Mẹo: cửa sổ Study chỉ tạo khi mở và có thể huỷ khi đóng (giải phóng RAM); cửa sổ Mascot và Popup luôn tồn tại.
 

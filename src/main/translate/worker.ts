@@ -1,5 +1,5 @@
 // Tiến trình nền (Electron utilityProcess) chạy model dịch opus-mt bằng transformers.js + onnxruntime-node.
-// Tách riêng khỏi main để suy luận (~0,3–0,5 giây/câu, ~400 MB RAM) không làm đơ mascot.
+// Tách riêng khỏi main để suy luận (~0,3–0,5 giây/câu; opus-mt ~400 MB RAM, NLLB-200 ~1,7 GB) không làm đơ mascot.
 // Giao thức (src/main/system/WorkerProcess.ts): main → worker {id, type:'init', payload:{modelsDir}} | {id, type:'translate', text, direction};
 // worker → main {id, ok, result | error}.
 import { ensureTerminalPunctuation, groupSentences, splitSentences } from '@shared/sentences'
@@ -37,7 +37,12 @@ function loadTranslator(direction: ModelKey): Promise<Translator> {
       modelsDir.endsWith('/') || modelsDir.endsWith('\\') ? modelsDir : `${modelsDir}/`
     const translator = await pipeline('translation', MODEL_IDS[direction], {
       dtype: 'q8',
-      session_options: { intraOpNumThreads: direction === 'high' ? 4 : 2 }
+      session_options:
+        direction === 'high'
+          ? // Arena CPU của onnxruntime giữ thêm ~1,1 GB sau lần dịch đầu và không trả lại: tắt cho NLLB
+            // (chậm ~2 lần, đổi lấy RAM — docs/decisions.md #54)
+            { intraOpNumThreads: 4, enableCpuMemArena: false, enableMemPattern: false }
+          : { intraOpNumThreads: 2 }
     })
     return translator as unknown as Translator
   })())

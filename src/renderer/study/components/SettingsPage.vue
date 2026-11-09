@@ -30,7 +30,12 @@ const stt = useStt()
 const TR_DIRECTIONS = ['high', 'en-vi', 'vi-en'] as const
 
 // Dịch online (Claude): chỉ biết đã có key chưa — key nhập xong là gửi thẳng sang main, không giữ lại ở renderer
-const onlineStatus = ref<TranslateOnlineStatus>({ hasKey: false, canStore: true })
+const onlineStatus = ref<TranslateOnlineStatus>({
+  hasKey: false,
+  canStore: true,
+  cloud: false,
+  cloudKeys: { google: false, azure: false }
+})
 const apiKeyInput = ref('')
 const keyMessage = ref('')
 
@@ -50,6 +55,36 @@ async function saveKey(): Promise<void> {
 async function clearKey(): Promise<void> {
   onlineStatus.value = await invoke('translate:clear-key')
   keyMessage.value = ''
+}
+
+// Dịch online Google/Azure: key người dùng tự tạo, gửi thẳng sang main (mã hoá ở đó), renderer không giữ lại
+const CLOUD_PROVIDERS = ['google', 'azure'] as const
+type CloudProvider = (typeof CLOUD_PROVIDERS)[number]
+const cloudKeyInput = ref<Record<CloudProvider, string>>({ google: '', azure: '' })
+const azureRegionInput = ref('')
+const cloudKeyMessage = ref<Record<CloudProvider, string>>({ google: '', azure: '' })
+
+async function saveCloudKey(provider: CloudProvider): Promise<void> {
+  cloudKeyMessage.value[provider] = ''
+  try {
+    onlineStatus.value = await invoke('translate:set-cloud-key', {
+      provider,
+      key: cloudKeyInput.value[provider],
+      region: provider === 'azure' ? azureRegionInput.value : undefined
+    })
+    cloudKeyInput.value[provider] = ''
+    if (provider === 'azure') azureRegionInput.value = ''
+    cloudKeyMessage.value[provider] = t('translate.keySaved')
+  } catch {
+    cloudKeyMessage.value[provider] = onlineStatus.value.canStore
+      ? t('translate.cloudKeyInvalid')
+      : t('translate.keyCannotStore')
+  }
+}
+
+async function clearCloudKey(provider: CloudProvider): Promise<void> {
+  onlineStatus.value = await invoke('translate:clear-cloud-key', { provider })
+  cloudKeyMessage.value[provider] = ''
 }
 const MB = 1024 * 1024
 const toMb = (bytes: number | undefined): number => Math.round((bytes ?? 0) / MB)
@@ -454,6 +489,65 @@ onMounted(async () => {
               </span>
             </template>
           </div>
+        </section>
+
+        <section v-show="sect === 'translate'" class="card block">
+          <h2>{{ t('translate.cloudTitle') }}</h2>
+          <p class="muted">{{ t('translate.cloudHint') }}</p>
+          <label class="row">
+            {{ t('translate.cloudToggle') }}
+            <input
+              type="checkbox"
+              :checked="settingsStore.settings['translate.cloud']"
+              @change="setSetting('translate.cloud', ($event.target as HTMLInputElement).checked)"
+            />
+          </label>
+          <template v-for="provider in CLOUD_PROVIDERS" :key="provider">
+            <h3>{{ t(`translate.cloudBadge.${provider}`) }}</h3>
+            <div class="model">
+              <input
+                v-model="cloudKeyInput[provider]"
+                type="password"
+                autocomplete="off"
+                spellcheck="false"
+                :placeholder="t(`translate.cloudKeyPlaceholder.${provider}`)"
+                @keydown.enter="saveCloudKey(provider)"
+              />
+              <input
+                v-if="provider === 'azure'"
+                v-model="azureRegionInput"
+                type="text"
+                autocomplete="off"
+                spellcheck="false"
+                :placeholder="t('translate.cloudRegionPlaceholder')"
+                @keydown.enter="saveCloudKey(provider)"
+              />
+              <button
+                type="button"
+                class="btn btn--sm"
+                :disabled="!cloudKeyInput[provider]"
+                @click="saveCloudKey(provider)"
+              >
+                {{ t('translate.keySave') }}
+              </button>
+              <button
+                v-if="onlineStatus.cloudKeys[provider]"
+                type="button"
+                class="btn btn--sm"
+                @click="clearCloudKey(provider)"
+              >
+                {{ t('translate.keyClear') }}
+              </button>
+            </div>
+            <p class="muted">
+              {{
+                cloudKeyMessage[provider] ||
+                (onlineStatus.cloudKeys[provider]
+                  ? t('translate.keySaved')
+                  : t('translate.keyNone'))
+              }}
+            </p>
+          </template>
         </section>
 
         <section v-show="sect === 'translate'" class="card block">

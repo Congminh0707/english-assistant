@@ -1278,6 +1278,20 @@
     "keyCannotStore": "This computer cannot encrypt the key, so it cannot be saved.",
     "onlineBadge": "Claude",
     "onlineHintPopup": "Translated by Claude (online).",
+    "cloudBadge": {
+      "google": "Google",
+      "azure": "Microsoft"
+    },
+    "cloudHintPopup": "Translated online (Google/Microsoft).",
+    "cloudTitle": "Online translation (Google / Microsoft)",
+    "cloudHint": "Optional. Uses your own Google Cloud Translation or Azure Translator key (billed to you by usage; Azure has a free tier of 2 million characters a month). When on, the text you select is sent to Google or Microsoft for faster, better translation that uses no extra RAM. With both keys, Google is tried first. Offline, on a wrong key or when out of quota, the app falls back to the offline model.",
+    "cloudToggle": "Translate with Google / Microsoft",
+    "cloudKeyPlaceholder": {
+      "google": "AIza…",
+      "azure": "Translator resource key"
+    },
+    "cloudRegionPlaceholder": "Region (e.g. southeastasia, blank if global)",
+    "cloudKeyInvalid": "The key or region is not in the right format.",
     "truncated": "The text is longer than {max} characters, so only the first part was translated. Split it up to translate the rest."
   },
   "shop": {
@@ -1627,7 +1641,10 @@
     }
   },
   "player": {
-    "real": { "needPack": "The real recording is in the listening audio pack. Download it to listen (the transcript is still readable below).", "source": "Source page" },
+    "real": {
+      "needPack": "The real recording is in the listening audio pack. Download it to listen (the transcript is still readable below).",
+      "source": "Source page"
+    },
     "play": "Play",
     "pause": "Pause",
     "prev": "Previous line",

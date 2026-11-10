@@ -19,6 +19,11 @@ const busy = ref(false)
 const saved = ref(false)
 let shownAt = 0
 let closeTimer = 0
+let idleTimer = 0
+let lastArm = 0
+let idleArmed = false
+const idleRun = ref(0)
+const IDLE_CLOSE_MS = 30_000
 
 const nextReview = computed(() => {
   const days = result.value?.intervalDays ?? 0
@@ -64,7 +69,20 @@ async function save(): Promise<void> {
 
 function closeLater(ms: number): void {
   window.clearTimeout(closeTimer)
+  window.clearTimeout(idleTimer)
   closeTimer = window.setTimeout(() => emit('done'), ms)
+}
+
+/** Không tương tác trong IDLE_CLOSE_MS thì tự tắt; từ chưa trả lời sẽ được main xếp lại cuối hàng */
+function armIdle(): void {
+  if (result.value || saved.value) return
+  const now = performance.now()
+  if (idleArmed && now - lastArm < 250) return // pointermove bắn dày: chỉ làm mới mỗi 250ms
+  lastArm = now
+  idleArmed = true
+  idleRun.value++ // khởi động lại animation thanh tiến trình
+  window.clearTimeout(idleTimer)
+  idleTimer = window.setTimeout(() => emit('done'), IDLE_CLOSE_MS)
 }
 
 function choiceClass(index: number): Record<string, boolean> {
@@ -77,12 +95,24 @@ function choiceClass(index: number): Record<string, boolean> {
 
 onMounted(() => {
   shownAt = performance.now()
+  armIdle()
 })
-onUnmounted(() => window.clearTimeout(closeTimer))
+onUnmounted(() => {
+  window.clearTimeout(closeTimer)
+  window.clearTimeout(idleTimer)
+})
 </script>
 
 <template>
-  <div class="quiz">
+  <div class="quiz" @pointermove="armIdle" @pointerdown="armIdle" @keydown="armIdle">
+    <div class="idle" aria-hidden="true">
+      <span
+        v-if="!result && !saved"
+        :key="idleRun"
+        class="idle-bar"
+        :style="{ animationDuration: `${IDLE_CLOSE_MS}ms` }"
+      />
+    </div>
     <div class="head">
       <span class="title">{{
         quiz.kind === 'review' ? t('quiz.reviewTitle') : t('quiz.newTitle')
@@ -164,6 +194,32 @@ onUnmounted(() => window.clearTimeout(closeTimer))
   gap: 6px;
   width: 100%;
   min-width: 0;
+}
+/* Dính mép trên khung giấy (.px-panel relative + overflow hidden ở SpeechBubble) */
+.idle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  pointer-events: none;
+}
+.idle-bar {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--c-xp);
+  opacity: 0.8;
+  transform-origin: left;
+  animation: idle-run linear forwards;
+}
+@keyframes idle-run {
+  from {
+    transform: scaleX(1);
+  }
+  to {
+    transform: scaleX(0);
+  }
 }
 .head {
   display: flex;

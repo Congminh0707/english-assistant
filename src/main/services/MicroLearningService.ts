@@ -28,6 +28,8 @@ interface PendingReview {
  */
 export class MicroLearningService {
   private readonly pending = new Map<string, PendingReview>()
+  /** cardId → lúc bị bỏ qua; chỉ trong phiên chạy, mất khi tắt app */
+  private readonly deferred = new Map<string, number>()
   private seq = 0
 
   constructor(
@@ -44,6 +46,11 @@ export class MicroLearningService {
 
   /** Câu hỏi tiếp theo cho mascot, hoặc null nếu chưa có gói từ điển / không chọn được từ */
   next(): Quiz | null {
+    // Câu ôn còn pending = bị bỏ qua / hết giờ không trả lời → xếp thẻ đó xuống cuối hàng
+    for (const [id, q] of this.pending) {
+      this.deferred.set(q.cardId, this.deps.clock.now())
+      this.pending.delete(id)
+    }
     this.cleanup()
     return this.nextReview() ?? this.nextNewWord()
   }
@@ -52,6 +59,7 @@ export class MicroLearningService {
     const quiz = this.pending.get(quizId)
     if (!quiz) throw new AppError('NOT_FOUND', 'errors.notFound')
     this.pending.delete(quizId)
+    this.deferred.delete(quiz.cardId)
     const correct = choiceIndex === quiz.correctIndex
     const rating: SrsRating = !correct ? 1 : elapsedMs <= FAST_ANSWER_MS ? 3 : 2
     const { intervalDays } = this.deps.srs.review(quiz.cardId, rating, {
@@ -69,6 +77,9 @@ export class MicroLearningService {
   private nextReview(): ReviewQuiz | null {
     // Mascot chỉ hỏi dạng nhận diện (trắc nghiệm nghĩa) nên chỉ lấy thẻ en_vi
     const due = this.deps.srs.dueCards(10, ['en_vi'])
+    // Thẻ chưa bị bỏ qua lên trước; thẻ đã bỏ qua xếp theo thời điểm bỏ (cũ nhất trước)
+    const rank = (id: string): number => this.deferred.get(id) ?? -1
+    due.sort((a, b) => rank(a.id) - rank(b.id))
     for (const card of due) {
       const data = this.deps.dictionary.quizData(card.contentId, this.dictionaryOptions())
       if (!data || data.distractors.length < 1) continue

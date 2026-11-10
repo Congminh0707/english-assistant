@@ -102,6 +102,10 @@ watch(() => props.bubble.id, keepOnScreen, { immediate: true })
 .bubble :deep(.px-panel) {
   padding: var(--sp-3);
 }
+/* Cắt thanh đếm giờ của thẻ ôn theo góc bo */
+.bubble.interactive :deep(.px-panel) {
+  overflow: hidden;
+}
 .text {
   margin: 0;
   font-size: var(--fs-md);

@@ -107,19 +107,19 @@
       "id": "t1-g006",
       "part": 1,
       "level": "B1_2",
-      "scene": "At an airport check-in counter, several travelers stand in a line, each holding a rolling suitcase. An airline employee works behind the counter.",
+      "scene": "Inside a busy terminal at night, a crowd of travelers stands in front of a row of service counters. Staff members work behind the glass windows.",
       "questions": [
         {
           "id": "t1-q006",
           "prompt": "",
           "choices": [
-            "Travelers are standing in line with their luggage.",
+            "People are waiting in front of some counters.",
             "A plane is taking off from the runway.",
-            "Some suitcases are being placed on a cart.",
+            "The counters have been closed for the night.",
             "A woman is sitting in the waiting area."
           ],
           "answer": 0,
-          "explain": "Hành khách đang xếp hàng cùng vali nên A đúng. C sai vì vali vẫn ở trong tay hành khách, không ai đặt chúng lên xe đẩy; mọi người đều đứng nên D sai."
+          "explain": "Đám đông đang đứng chờ trước dãy quầy nên A đúng. B sai vì không có máy bay trong tranh; C sai vì quầy vẫn sáng đèn và có nhân viên làm việc; D sai vì mọi người đều đang đứng."
         }
       ]
     },

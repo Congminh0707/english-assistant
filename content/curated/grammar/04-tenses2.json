@@ -13,7 +13,7 @@
       "title": "Hiện tại hoàn thành tiếp diễn",
       "summary": "Have been + V-ing: việc kéo dài đến bây giờ.",
       "level": "B1_2",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "text",
@@ -58,8 +58,24 @@
             {
               "en": "We haven't been sleeping well lately.",
               "vi": "Dạo này chúng tôi ngủ không ngon."
+            },
+            {
+              "en": "I'm tired because I've been running.",
+              "vi": "Tôi mệt vì vừa chạy xong."
+            },
+            {
+              "en": "Have you been crying?",
+              "vi": "Bạn vừa khóc à?"
+            },
+            {
+              "en": "It has been raining all day.",
+              "vi": "Trời mưa suốt cả ngày nay."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: `I've been` /aɪv bɪn/, `she's been` /ʃiz bɪn/ — giọng Mỹ đọc `been` như `bin`.\n\n**Mở rộng:**\n\n- Giải thích **dấu vết còn thấy** ở hiện tại: `Your eyes are red. Have you been crying?` · `I'm tired because I've been running.`\n- Có **số lần / số lượng** thì dùng hoàn thành đơn: `I've read three books.` (không nói `I've been reading three books`).\n- Câu hỏi rất hay dùng: `How long have you been waiting?`"
         },
         {
           "type": "tip",
@@ -123,6 +139,28 @@
           "statement": "“Have been knowing” is a natural form.",
           "answer": "false",
           "explain": "Động từ trạng thái như know không dùng tiếp diễn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "I've been reading three books this week.",
+            "I've read three books this week."
+          ],
+          "answer": 1,
+          "explain": "Có số lượng → hiện tại hoàn thành đơn."
+        },
+        {
+          "type": "gap",
+          "prompt": "Your eyes are red. Have you been ___?",
+          "answers": [
+            "crying"
+          ],
+          "choices": [
+            "cry",
+            "cried",
+            "crying"
+          ]
         }
       ]
     },
@@ -131,7 +169,7 @@
       "title": "Quá khứ hoàn thành",
       "summary": "Had + V3: việc xảy ra trước một việc khác trong quá khứ.",
       "level": "B1_2",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "text",
@@ -172,8 +210,24 @@
             {
               "en": "After she had cooked dinner, she called us.",
               "vi": "Sau khi nấu xong bữa tối, cô ấy gọi chúng tôi."
+            },
+            {
+              "en": "I'd never seen snow before that day.",
+              "vi": "Trước hôm đó tôi chưa từng thấy tuyết."
+            },
+            {
+              "en": "The train had left when we got there.",
+              "vi": "Lúc chúng tôi tới thì tàu đã đi rồi."
+            },
+            {
+              "en": "I had had lunch before he came.",
+              "vi": "Tôi đã ăn trưa trước khi anh ấy đến."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: `had` rút gọn thành `'d`: `I'd finished.` Nhưng `'d` cũng là `would` — nhìn từ đứng sau: `I'd finished` (had + V3), `I'd like` (would + V).\n\n**Một chữ `had` đổi cả câu chuyện:**\n\n- `When I arrived, the film started.` — tôi đến rồi phim mới chiếu.\n- `When I arrived, the film had started.` — phim đã chiếu trước khi tôi đến.\n\n`had had` là đúng ngữ pháp: `I had had lunch before he came.`"
         },
         {
           "type": "tip",
@@ -241,6 +295,26 @@
             "After he leaved, I went to bed."
           ],
           "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "`When I arrived, the film had started.` — tôi có xem được đoạn mở đầu không?",
+          "choices": [
+            "Có",
+            "Không"
+          ],
+          "answer": 1,
+          "explain": "Phim đã bắt đầu trước khi tôi đến."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Trong `I'd finished`, `'d` là viết tắt của gì?",
+          "choices": [
+            "would",
+            "had"
+          ],
+          "answer": 1,
+          "explain": "'d + V3 = had; 'd + V nguyên mẫu = would."
         }
       ]
     },
@@ -249,7 +323,7 @@
       "title": "Các cách nói về tương lai",
       "summary": "Will, be going to, hiện tại tiếp diễn, hiện tại đơn.",
       "level": "A2_2",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "text",
@@ -299,8 +373,24 @@
             {
               "en": "The film starts at seven thirty.",
               "vi": "Phim bắt đầu lúc bảy giờ rưỡi."
+            },
+            {
+              "en": "The movie is about to start.",
+              "vi": "Phim sắp chiếu rồi."
+            },
+            {
+              "en": "I'll probably be late.",
+              "vi": "Chắc tôi sẽ đến muộn."
+            },
+            {
+              "en": "I won't tell anyone.",
+              "vi": "Tôi sẽ không nói với ai đâu."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: `going to` → `gonna`, `I will` → `I'll`, `will not` → `won't` /woʊnt/.\n\n**Vài cách nói khác về tương lai:**\n\n- `be about to + V` = sắp sửa, ngay bây giờ: `The movie is about to start.`\n- Rủ, đề nghị: `Shall we go?` (người Mỹ hay nói `Should we go?`)\n- Hứa: `I won't tell anyone.`\n- `probably` đứng **sau** `will` nhưng **trước** `won't`: `I'll probably be late.` · `I probably won't come.`"
         },
         {
           "type": "tip",
@@ -369,6 +459,28 @@
             "I have soup every day."
           ],
           "answer": 0
+        },
+        {
+          "type": "gap",
+          "prompt": "Hurry up! The movie is ___ to start.",
+          "answers": [
+            "about"
+          ],
+          "choices": [
+            "about",
+            "soon",
+            "will"
+          ],
+          "explain": "be about to = sắp sửa."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "I won't probably come.",
+            "I probably won't come."
+          ],
+          "answer": 1
         }
       ]
     }

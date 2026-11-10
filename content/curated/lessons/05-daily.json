@@ -13,7 +13,7 @@
       "title": "Chào hỏi và giới thiệu bản thân",
       "summary": "Chào theo thời gian trong ngày, hỏi thăm, nói tên, quê, tuổi và đánh vần tên.",
       "level": "PA1_1",
-      "minutes": 10,
+      "minutes": 12,
       "blocks": [
         {
           "type": "text",
@@ -109,6 +109,51 @@
               "note": "Tom"
             }
           ]
+        },
+        {
+          "type": "table",
+          "title": "Chào kiểu Mỹ ngoài sách vở",
+          "head": [
+            "Câu chào",
+            "Nghĩa",
+            "Cách đáp"
+          ],
+          "rows": [
+            [
+              "What's up?",
+              "Có gì mới không?",
+              "Not much. You?"
+            ],
+            [
+              "How's it going?",
+              "Dạo này sao rồi?",
+              "Pretty good. / Not bad."
+            ],
+            [
+              "How are you doing?",
+              "Bạn khoẻ không?",
+              "Good, thanks. And you?"
+            ],
+            [
+              "Long time no see!",
+              "Lâu quá không gặp!",
+              "Yeah, how have you been?"
+            ],
+            [
+              "Have a good one!",
+              "Chúc một ngày tốt lành! (khi chia tay)",
+              "You too!"
+            ],
+            [
+              "Take care.",
+              "Giữ gìn sức khoẻ nhé.",
+              "You too. Bye!"
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Tên và cách xưng hô:** người Mỹ nói **tên trước, họ sau**: `Lan Nguyen`. `first name` = tên, `last name` = họ.\n\n`Mr.` (ông), `Ms.` /mɪz/ (bà, cô) đi với **họ**: `Mr. Smith`, `Ms. Tran`. Không nói `Mr. Tom`. Với bạn bè và đồng nghiệp, người Mỹ thường gọi thẳng tên."
         },
         {
           "type": "tip",
@@ -229,6 +274,21 @@
           "type": "order",
           "hint": "Tên bạn đánh vần thế nào?",
           "answer": "How do you spell your name"
+        },
+        {
+          "type": "mcq",
+          "prompt": "A: What's up?\nB: ___",
+          "choices": [
+            "I'm up.",
+            "Not much. You?",
+            "Yes, it is."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "speak",
+          "say": "Nice to meet you, too.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -237,7 +297,7 @@
       "title": "Số đếm và số thứ tự",
       "summary": "Đếm từ 0 đến 1,000, đọc năm, phân biệt -teen/-ty, số thứ tự và số điện thoại.",
       "level": "PA1_1",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "table",
@@ -327,31 +387,31 @@
           "items": [
             {
               "text": "13 thirteen",
-              "ipa": "/θɝːˈtiːn/",
+              "ipa": "/θɜrˈtin/",
               "note": "đuôi -teen dài, có /n/",
               "say": "thirteen"
             },
             {
               "text": "30 thirty",
-              "ipa": "/ˈθɝːti/",
+              "ipa": "/ˈθɜrti/",
               "note": "nhấn âm đầu, đuôi ngắn",
               "say": "thirty"
             },
             {
               "text": "14 fourteen",
-              "ipa": "/ˌfɔːrˈtiːn/",
+              "ipa": "/ˌfɔrˈtin/",
               "note": "đuôi -teen dài, có /n/",
               "say": "fourteen"
             },
             {
               "text": "40 forty",
-              "ipa": "/ˈfɔːrti/",
+              "ipa": "/ˈfɔrti/",
               "note": "nhấn âm đầu, đuôi ngắn",
               "say": "forty"
             },
             {
               "text": "15 fifteen",
-              "ipa": "/fɪfˈtiːn/",
+              "ipa": "/fɪfˈtin/",
               "note": "đuôi -teen dài, có /n/",
               "say": "fifteen"
             },
@@ -369,7 +429,7 @@
           "items": [
             {
               "text": "1st first",
-              "ipa": "/fɝːst/",
+              "ipa": "/fɜrst/",
               "say": "first"
             },
             {
@@ -379,12 +439,12 @@
             },
             {
               "text": "3rd third",
-              "ipa": "/θɝːd/",
+              "ipa": "/θɜrd/",
               "say": "third"
             },
             {
               "text": "4th fourth",
-              "ipa": "/fɔːrθ/",
+              "ipa": "/fɔrθ/",
               "say": "fourth"
             },
             {
@@ -454,6 +514,10 @@
               "vi": "Số của tôi là 555-0134."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Con số trong đời thực:**\n\n- Số 0: `zero` trong toán; `oh` trong số điện thoại, số phòng: Room 305 = `three oh five`.\n- Số phòng, số chuyến bay ba chữ số thường đọc tách: 412 = `four twelve`.\n- `a couple` = hai, `a few` = vài, `a dozen` = mười hai (một tá): `a dozen eggs`.\n- Phân số: 1/2 `a half`, 1/4 `a quarter`.\n- Ở Mỹ, `the first floor` là **tầng trệt** (ngang mặt đất); tầng ngay phía trên là `the second floor`."
         },
         {
           "type": "tip",
@@ -588,6 +652,20 @@
             "555-0134"
           ],
           "answer": 2
+        },
+        {
+          "type": "mcq",
+          "prompt": "Ở Mỹ, `the first floor` là tầng nào?",
+          "choices": [
+            "Tầng trệt, ngang mặt đất",
+            "Tầng ngay phía trên tầng trệt"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "I live on the third floor.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -596,7 +674,7 @@
       "title": "Giờ, thứ, ngày, tháng",
       "summary": "Hỏi và nói giờ, các thứ trong tuần, 12 tháng, nói ngày và dùng in/on/at.",
       "level": "PA1_2",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "text",
@@ -730,6 +808,46 @@
           ]
         },
         {
+          "type": "sounds",
+          "title": "Tên thứ và tháng hay đọc sai",
+          "items": [
+            {
+              "text": "Tuesday",
+              "ipa": "/ˈtuzdeɪ/",
+              "note": "“tiu” hay “tu” đều được"
+            },
+            {
+              "text": "Wednesday",
+              "ipa": "/ˈwɛnzdeɪ/",
+              "note": "d câm — chỉ 2 âm tiết"
+            },
+            {
+              "text": "Thursday",
+              "ipa": "/ˈθɜrzdeɪ/",
+              "note": "lưỡi giữa hai răng cho /θ/"
+            },
+            {
+              "text": "January",
+              "ipa": "/ˈdʒænjuˌɛri/",
+              "note": "4 âm tiết"
+            },
+            {
+              "text": "February",
+              "ipa": "/ˈfɛbjuˌɛri/",
+              "note": "r đầu thường không đọc"
+            },
+            {
+              "text": "August",
+              "ipa": "/ˈɔgəst/",
+              "note": "nhấn âm đầu"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Mẹo nói ngày:**\n\n- `this Friday` = thứ Sáu tuần này; `next Friday` = thứ Sáu tuần sau.\n- `the day after tomorrow` = ngày kia; `the day before yesterday` = hôm kia.\n- Viết tắt: `Mon`, `Tue`, `Wed`, `Thu`, `Fri`, `Sat`, `Sun`; `Jan`, `Feb`, `Mar`…\n- Trên lịch Mỹ, tuần thường bắt đầu từ **Chủ nhật**.\n- `Sunday` là “ngày Mặt trời” (sun), `Monday` là “ngày Mặt trăng” (moon)."
+        },
+        {
           "type": "tip",
           "md": "Lỗi người Việt hay mắc:\n\n- Viết thường thứ và tháng. Tiếng Anh luôn **viết hoa**: `Monday`, `May`.\n- Đọc ngày bằng số đếm: `May five` → phải đọc `May fifth`.\n- Nhầm cách viết ngày kiểu Mỹ: người Mỹ viết **tháng/ngày**, nên 5/3 là ngày 3 tháng 5 (May 3rd).\n- Nhầm giới từ: nói `on Monday` (không phải in Monday), `at 7 o'clock` (không phải on 7 o'clock).\n- `a quarter to four` là **3:45** (4 giờ kém 15), không phải 4:15."
         }
@@ -857,6 +975,21 @@
           "type": "order",
           "hint": "Phim bắt đầu lúc mấy giờ?",
           "answer": "What time does the movie start"
+        },
+        {
+          "type": "mcq",
+          "prompt": "`the day after tomorrow` là:",
+          "choices": [
+            "hôm kia",
+            "ngày kia",
+            "ngày mai"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "speak",
+          "say": "We have a test on Monday.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -865,7 +998,7 @@
       "title": "Lịch sự: please, thank you, sorry, excuse me",
       "summary": "Nhờ, cảm ơn, xin lỗi và cách đáp lại; mời và từ chối một cách lịch sự.",
       "level": "A1_1",
-      "minutes": 10,
+      "minutes": 12,
       "blocks": [
         {
           "type": "text",
@@ -947,6 +1080,44 @@
               "vi": "Thôi, cảm ơn. Tôi không cần đâu."
             }
           ]
+        },
+        {
+          "type": "sounds",
+          "title": "Nói lịch sự cho đúng âm",
+          "items": [
+            {
+              "text": "Thank you",
+              "ipa": "/ˈθæŋk ju/",
+              "note": "lưỡi giữa hai răng; không nói “sen kiu”, “tanh kiu”"
+            },
+            {
+              "text": "Excuse me",
+              "ipa": "/ɪkˈskjuz mi/",
+              "note": "nhấn -SKJUZ-"
+            },
+            {
+              "text": "You're welcome",
+              "note": "đáp lời cảm ơn"
+            },
+            {
+              "text": "Could you",
+              "ipa": "/ˈkʊdʒu/",
+              "note": "l câm; nối thành “cu-ju”"
+            },
+            {
+              "text": "Would you",
+              "ipa": "/ˈwʊdʒu/",
+              "note": "l câm; nối thành “wu-ju”"
+            },
+            {
+              "text": "No worries",
+              "note": "không sao đâu"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Mức độ cảm ơn**: `Thanks.` → `Thank you.` → `Thank you so much.` → `I really appreciate it.`\n\n**Vài câu lịch sự người Việt ít biết:**\n\n- `Bless you!` — nói khi ai đó hắt hơi. Người kia đáp `Thank you.`\n- `After you.` — mời người khác đi trước.\n- `Sorry to bother you, but…` — mở đầu khi cần làm phiền.\n- `Sorry?` lên giọng ở cuối = “Bạn nói gì ạ?”; xuống giọng = lời xin lỗi."
         },
         {
           "type": "tip",
@@ -1071,6 +1242,21 @@
           "type": "order",
           "hint": "Bạn muốn uống gì?",
           "answer": "What would you like to drink"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Ai đó hắt hơi. Bạn nói gì?",
+          "choices": [
+            "Excuse me.",
+            "Bless you!",
+            "You're welcome."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "speak",
+          "say": "Could you open the window, please?",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -1079,7 +1265,7 @@
       "title": "Hỏi và chỉ đường",
       "summary": "Hỏi địa điểm ở đâu, chỉ đường rẽ trái/phải, mô tả vị trí và hỏi đi bộ mất bao lâu.",
       "level": "A1_2",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "text",
@@ -1147,32 +1333,32 @@
             },
             {
               "text": "hospital",
-              "ipa": "/ˈhɑːspɪtəl/",
+              "ipa": "/ˈhɑspɪtəl/",
               "note": "bệnh viện"
             },
             {
               "text": "supermarket",
-              "ipa": "/ˈsuːpɚˌmɑːrkɪt/",
+              "ipa": "/ˈsupərˌmɑrkɪt/",
               "note": "siêu thị"
             },
             {
               "text": "post office",
-              "ipa": "/ˈpoʊst ˌɑːfɪs/",
+              "ipa": "/ˈpoʊst ˌɑfɪs/",
               "note": "bưu điện"
             },
             {
               "text": "park",
-              "ipa": "/pɑːrk/",
+              "ipa": "/pɑrk/",
               "note": "công viên"
             },
             {
               "text": "pharmacy",
-              "ipa": "/ˈfɑːrməsi/",
+              "ipa": "/ˈfɑrməsi/",
               "note": "hiệu thuốc"
             },
             {
               "text": "bus stop",
-              "ipa": "/ˈbʌs stɑːp/",
+              "ipa": "/ˈbʌs stɑp/",
               "note": "trạm xe buýt"
             }
           ]
@@ -1218,6 +1404,10 @@
               "vi": "Cảm ơn bạn nhiều!"
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Chỉ đường kiểu Mỹ:**\n\n- `block` = một dãy phố (từ ngã tư này tới ngã tư kế): `It's two blocks from here.`\n- `intersection` = ngã tư; `crosswalk` = vạch qua đường.\n- `You can't miss it.` = Dễ thấy lắm, không lạc được đâu.\n- Người Mỹ đo bằng `mile` (1 mile ≈ 1,6 km) và `foot / feet`.\n- Lên / xuống xe buýt: `get on the bus`, `get off the bus`."
         },
         {
           "type": "tip",
@@ -1342,6 +1532,21 @@
           "type": "order",
           "hint": "Đi bộ mất bao lâu?",
           "answer": "How long does it take to walk"
+        },
+        {
+          "type": "mcq",
+          "prompt": "`It's two blocks from here.` nghĩa là:",
+          "choices": [
+            "Cách đây hai dãy phố",
+            "Cách đây hai toà nhà cao tầng",
+            "Cách đây hai phút"
+          ],
+          "answer": 0
+        },
+        {
+          "type": "speak",
+          "say": "How do I get to the station?",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -1350,7 +1555,7 @@
       "title": "Mua sắm và tiền",
       "summary": "Hỏi giá, đọc giá tiền, thử đồ, mua theo đơn vị (chai, cân), thanh toán và gọi món.",
       "level": "A1_2",
-      "minutes": 14,
+      "minutes": 16,
       "blocks": [
         {
           "type": "text",
@@ -1447,6 +1652,10 @@
               "vi": "Thêm một chai nước nữa."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Tiền và mua sắm ở Mỹ:**\n\n- Tiền xu: `penny` (1 cent), `nickel` (5), `dime` (10), `quarter` (25).\n- `bucks` = dollars (thân mật): `ten bucks`.\n- Giá niêm yết thường **chưa gồm thuế**, nên lúc trả tiền sẽ cao hơn một chút. Ở nhà hàng, khách thường để lại `tip` 15–20%.\n- `on sale` = đang giảm giá; `for sale` = để bán. Hai cụm khác hẳn nhau.\n- Người bán hỏi `Can I help you?` mà bạn chỉ muốn xem: `I'm just looking, thanks.`\n- Đưa tiền hay đưa đồ: `Here you go.`"
         },
         {
           "type": "tip",
@@ -1562,6 +1771,22 @@
           "type": "order",
           "hint": "Cho tôi một bánh mì kẹp gà.",
           "answer": "I'll have a chicken sandwich"
+        },
+        {
+          "type": "mcq",
+          "prompt": "`on sale` nghĩa là gì?",
+          "choices": [
+            "đang giảm giá",
+            "để bán",
+            "hết hàng"
+          ],
+          "answer": 0,
+          "explain": "for sale mới là “để bán”."
+        },
+        {
+          "type": "speak",
+          "say": "Can I try it on?",
+          "prompt": "Đọc to câu này"
         }
       ]
     }

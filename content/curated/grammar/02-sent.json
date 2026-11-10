@@ -13,7 +13,7 @@
       "title": "Câu điều kiện loại 0 và 1",
       "summary": "If + hiện tại, ... will + V.",
       "level": "A2_2",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "text",
@@ -56,8 +56,24 @@
             {
               "en": "If you heat water to 100 degrees, it boils.",
               "vi": "Nếu đun nước đến 100 độ, nó sôi."
+            },
+            {
+              "en": "Unless you hurry, you'll miss the bus.",
+              "vi": "Nếu không nhanh lên, bạn sẽ lỡ xe buýt."
+            },
+            {
+              "en": "If you're tired, go to bed.",
+              "vi": "Nếu mệt thì đi ngủ đi."
+            },
+            {
+              "en": "I'll call you when I get home.",
+              "vi": "Về tới nhà tôi sẽ gọi cho bạn."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Mở rộng:**\n\n- `unless` = `if … not`: `Unless you hurry, you'll miss the bus.`\n- Việc chắc chắn xảy ra thì dùng `when`: `I'll call you when I get home.`\n- Mệnh đề chính có thể là câu mệnh lệnh hoặc `can / should`: `If you're tired, go to bed.`\n- Dấu phẩy: `if` đứng **đầu câu** thì có dấu phẩy; đứng giữa câu thì không.\n\n**Khi nói**: `will` rút gọn thành `'ll`: `If it rains, we'll stay home.`"
         },
         {
           "type": "tip",
@@ -121,6 +137,27 @@
           "type": "tf",
           "statement": "In a first conditional sentence, we use will in the if-clause.",
           "answer": "false"
+        },
+        {
+          "type": "gap",
+          "prompt": "___ you hurry, you'll miss the bus.",
+          "answers": [
+            "Unless"
+          ],
+          "choices": [
+            "If",
+            "Unless"
+          ],
+          "explain": "unless = if … not."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đặt dấu phẩy đúng?",
+          "choices": [
+            "If it rains we will, stay home.",
+            "If it rains, we will stay home."
+          ],
+          "answer": 1
         }
       ]
     },
@@ -129,7 +166,7 @@
       "title": "Câu điều kiện loại 2",
       "summary": "If + quá khứ, would + V: giả định không có thật.",
       "level": "B1_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "text",
@@ -149,8 +186,24 @@
             {
               "en": "What would you do if you won the lottery?",
               "vi": "Bạn sẽ làm gì nếu trúng xổ số?"
+            },
+            {
+              "en": "If I were you, I'd say sorry.",
+              "vi": "Nếu tôi là bạn, tôi sẽ xin lỗi."
+            },
+            {
+              "en": "If I had more time, I could help you.",
+              "vi": "Nếu có thêm thời gian, tôi có thể giúp bạn."
+            },
+            {
+              "en": "I wouldn't do that if I were you.",
+              "vi": "Nếu là bạn, tôi sẽ không làm thế."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: `I would` → `I'd` /aɪd/; `wouldn't` /ˈwʊdənt/ — chữ l câm.\n\n**Mở rộng:**\n\n- `If I were you, I'd…` là cách đưa lời khuyên rất tự nhiên.\n- **Loại 1 hay loại 2?** Tuỳ người nói thấy việc đó có khả thi không: `If I win, I'll buy a car.` (thấy có cơ hội) — `If I won the lottery, I'd buy a car.` (chỉ là mơ).\n- `could`, `might` có thể thay `would`: `If I had time, I could help you.`"
         },
         {
           "type": "tip",
@@ -212,6 +265,28 @@
           "type": "tf",
           "statement": "“If I were you” is used to give advice.",
           "answer": "true"
+        },
+        {
+          "type": "gap",
+          "prompt": "If I were you, I ___ see a doctor.",
+          "answers": [
+            "would",
+            "'d"
+          ],
+          "choices": [
+            "will",
+            "would"
+          ],
+          "explain": "Lời khuyên: If I were you, I would…"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào nói về một giấc mơ khó thành?",
+          "choices": [
+            "If I win, I'll buy a car.",
+            "If I won the lottery, I'd buy a car."
+          ],
+          "answer": 1
         }
       ]
     },
@@ -220,7 +295,7 @@
       "title": "Mệnh đề quan hệ: who, which, that",
       "summary": "Nối thêm thông tin cho danh từ.",
       "level": "B1_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "text",
@@ -275,8 +350,24 @@
             {
               "en": "This is the school where I studied.",
               "vi": "Đây là ngôi trường nơi tôi từng học."
+            },
+            {
+              "en": "The book I bought is interesting.",
+              "vi": "Cuốn sách tôi mua rất hay."
+            },
+            {
+              "en": "She's the person I talked to.",
+              "vi": "Cô ấy là người tôi đã nói chuyện."
+            },
+            {
+              "en": "My mother, who is sixty, still works.",
+              "vi": "Mẹ tôi, năm nay sáu mươi, vẫn đi làm."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Bỏ được đại từ quan hệ** khi nó là **tân ngữ**: `The book (that) I bought is interesting.` — trong hội thoại người bản ngữ thường bỏ. Không bỏ được khi nó là chủ ngữ: `The man who lives here…`\n\n**Dấu phẩy đổi nghĩa:**\n\n- `My brother who lives in Hue is a doctor.` — tôi có nhiều anh em; đang nói người ở Huế.\n- `My brother, who lives in Hue, is a doctor.` — tôi chỉ có một anh; thêm thông tin phụ.\n\nSau dấu phẩy **không** dùng `that`. Giới từ thường để cuối: `the person I talked to`."
         },
         {
           "type": "tip",
@@ -348,6 +439,28 @@
           "type": "order",
           "hint": "Đây là cuốn sách tôi đã nói với bạn.",
           "answer": "This is the book that I told you about"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào bỏ đại từ quan hệ **đúng**?",
+          "choices": [
+            "The man lives next door is a doctor.",
+            "The film we watched was funny."
+          ],
+          "answer": 1,
+          "explain": "Chỉ bỏ được khi đại từ quan hệ là tân ngữ."
+        },
+        {
+          "type": "gap",
+          "prompt": "My mother, ___ is sixty, still works.",
+          "answers": [
+            "who"
+          ],
+          "choices": [
+            "that",
+            "who"
+          ],
+          "explain": "Sau dấu phẩy không dùng that."
         }
       ]
     },
@@ -356,7 +469,7 @@
       "title": "Câu tường thuật",
       "summary": "Kể lại lời người khác: lùi thì và đổi đại từ.",
       "level": "B1_2",
-      "minutes": 7,
+      "minutes": 9,
       "blocks": [
         {
           "type": "text",
@@ -401,8 +514,24 @@
             {
               "en": "They asked if we wanted some coffee.",
               "vi": "Họ hỏi chúng tôi có muốn cà phê không."
+            },
+            {
+              "en": "He told me to sit down.",
+              "vi": "Anh ấy bảo tôi ngồi xuống."
+            },
+            {
+              "en": "She asked me not to go.",
+              "vi": "Cô ấy xin tôi đừng đi."
+            },
+            {
+              "en": "He says he is tired.",
+              "vi": "Anh ấy nói anh ấy mệt."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Không phải lúc nào cũng lùi thì:**\n\n- Điều vẫn còn đúng: `She said she lives in Hanoi.` cũng được.\n- Động từ tường thuật ở hiện tại: `He says he is tired.`\n\n**Đổi từ chỉ thời gian, nơi chốn**: `now → then`, `today → that day`, `tomorrow → the next day`, `yesterday → the day before`, `here → there`.\n\n**Tường thuật mệnh lệnh**: `told / asked + người + to V` — `“Sit down.” → He told me to sit down.` · `“Don't go.” → She asked me not to go.`\n\nTrong hội thoại thường bỏ `that`: `She said she was busy.`"
         },
         {
           "type": "tip",
@@ -473,6 +602,30 @@
           "type": "order",
           "hint": "Cô ấy nói rằng cô ấy đang bận.",
           "answer": "She said that she was busy"
+        },
+        {
+          "type": "gap",
+          "prompt": "“Sit down,” he said. → He told me ___ down.",
+          "answers": [
+            "to sit"
+          ],
+          "choices": [
+            "sit",
+            "to sit",
+            "sitting"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "“I will come tomorrow.” → She said she would come the ___ day.",
+          "answers": [
+            "next"
+          ],
+          "choices": [
+            "last",
+            "next"
+          ],
+          "explain": "tomorrow → the next day."
         }
       ]
     },
@@ -481,7 +634,7 @@
       "title": "Câu hỏi đuôi",
       "summary": "Isn't it? Don't you? — xác nhận điều mình nghĩ.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -501,8 +654,24 @@
             {
               "en": "Let's go, shall we?",
               "vi": "Đi thôi nhé?"
+            },
+            {
+              "en": "He never smokes, does he?",
+              "vi": "Anh ấy không bao giờ hút thuốc, phải không?"
+            },
+            {
+              "en": "Let's go, shall we?",
+              "vi": "Mình đi nhé?"
+            },
+            {
+              "en": "You're from Vietnam, right?",
+              "vi": "Bạn đến từ Việt Nam, đúng không?"
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Trường hợp đặc biệt:**\n\n- Câu mệnh lệnh: `Open the door, will you?`\n- `There is a bank here, isn't there?`\n- `everyone / nobody` → đuôi dùng `they`: `Everyone is here, aren't they?`\n- Câu có `never`, `hardly`, `nobody` đã là phủ định → đuôi **khẳng định**: `He never smokes, does he?`\n\n**Trả lời theo sự thật**, không theo câu hỏi: `You don't like fish, do you?` — không thích thì đáp `No, I don't.` (tiếng Việt hay nói “Vâng, tôi không thích”).\n\nTrong hội thoại Mỹ, đuôi `, right?` dùng được cho mọi câu: `You're from Vietnam, right?`"
         },
         {
           "type": "tip",
@@ -573,6 +742,27 @@
           "type": "order",
           "hint": "Hôm nay đẹp trời nhỉ?",
           "answer": "It is a nice day isn't it"
+        },
+        {
+          "type": "gap",
+          "prompt": "He never eats meat, ___ he?",
+          "answers": [
+            "does"
+          ],
+          "choices": [
+            "doesn't",
+            "does"
+          ],
+          "explain": "never đã là phủ định → đuôi khẳng định."
+        },
+        {
+          "type": "mcq",
+          "prompt": "A: You don't like fish, do you?\nBạn không thích cá. Trả lời:",
+          "choices": [
+            "Yes, I don't.",
+            "No, I don't."
+          ],
+          "answer": 1
         }
       ]
     }

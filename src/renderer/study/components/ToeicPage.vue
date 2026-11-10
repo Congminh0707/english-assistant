@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Check, ClipboardList, X } from 'lucide-vue-next'
 import type {
@@ -12,8 +12,9 @@ import type {
   ToeicSession
 } from '@shared/schemas/toeic'
 import { isListeningPart, TOEIC_PARTS } from '@shared/toeic'
+import { TOEIC_TTS_RATE, toeicAudioLines } from '@shared/toeicAudio'
 import { invoke } from '@renderer/shared/ipc'
-import { useTts } from '@renderer/shared/composables/useTts'
+import { useAudioPack, useTts } from '@renderer/shared/composables/useTts'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import { useLeaveGuard } from '../leaveGuard'
 
@@ -27,7 +28,8 @@ const sceneUrl = (id: string): string | undefined => sceneArt[`../art/toeic/${id
 
 // Luyện thi TOEIC (docs/29): theo Part / mini test / full test. Đáp án nằm ở main, nộp cả bài một lần.
 const { t } = useI18n()
-const { speakAsync, stop } = useTts()
+const { speakAsync, stop, available, naturalVoice } = useTts()
+const { status: audioPack } = useAudioPack()
 
 type Phase = 'menu' | 'test' | 'result'
 const phase = ref<Phase>('menu')
@@ -48,6 +50,9 @@ const playing = ref(false)
 let startedAt = 0
 let tick = 0
 let playToken = 0
+let autoTimer = 0
+/** Chờ một nhịp ngắn rồi tự phát khi vào mục nghe */
+const AUTO_PLAY_DELAY_MS = 400
 
 const LETTERS = ['A', 'B', 'C', 'D']
 const group = computed<ToeicGroupView | null>(() => session.value?.groups[current.value] ?? null)
@@ -56,6 +61,19 @@ const answered = computed(
 )
 /** Part 1–2: lựa chọn chỉ nghe, không hiện chữ */
 const hiddenChoices = computed(() => !!group.value && group.value.part <= 2)
+const listening = computed(() => !!group.value && isListeningPart(group.value.part))
+/** Chromium nạp danh sách giọng sau một nhịp (`voiceschanged`): đợi hết ân hạn mới kết luận "không có giọng" để khỏi nháy cảnh báo */
+const voiceGrace = ref(true)
+const VOICE_GRACE_MS = 1500
+/** Máy không có giọng tiếng Anh nào (và chưa bật giọng tự nhiên, chưa tải gói âm thanh): báo rõ thay vì im lặng */
+const noVoice = computed(
+  () =>
+    listening.value &&
+    !voiceGrace.value &&
+    !available.value &&
+    !naturalVoice.value &&
+    audioPack.value?.state !== 'ready'
+)
 const clock = computed(() => {
   const s = Math.max(remaining.value ?? 0, 0)
   return `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`
@@ -127,45 +145,46 @@ function go(delta: number): void {
 }
 
 function stopAudio(): void {
+  window.clearTimeout(autoTimer)
   playToken++
   playing.value = false
   stop()
 }
 
-/** Phát phần nghe của nhóm: Part 1 đọc từng lựa chọn; Part 2 đọc câu rồi các lựa chọn; Part 3–4 đọc theo lượt người nói */
+/** Phát phần nghe của nhóm: Part 1 đọc từng lựa chọn; Part 2 đọc câu rồi các lựa chọn; Part 3–4 đọc theo lượt người nói rồi đọc các câu hỏi (không đọc lựa chọn) */
 async function play(): Promise<void> {
   const g = group.value
   if (!g) return
   stopAudio()
   const token = playToken
   playing.value = true
-  const lines: Array<{ text: string; accent: 'us' | 'uk' }> = []
-  if (g.part === 1) {
-    const q = g.questions[0]
-    q.choices.forEach((c, i) => lines.push({ text: `${LETTERS[i]}. ${c}`, accent: 'us' }))
-  } else if (g.part === 2) {
-    lines.push({ text: g.script ?? '', accent: 'us' })
-    g.questions[0].choices.forEach((c, i) =>
-      lines.push({ text: `${LETTERS[i]}. ${c}`, accent: 'uk' })
-    )
-  } else {
-    const speakers = new Map<string, 'us' | 'uk'>()
-    for (const raw of (g.script ?? '').split('\n')) {
-      const m = /^([A-Za-z][A-Za-z ]{0,20}\d?):\s*(.+)$/.exec(raw.trim())
-      const who = m ? m[1] : ''
-      const text = m ? m[2] : raw.trim()
-      if (!text) continue
-      if (!speakers.has(who)) speakers.set(who, speakers.size % 2 === 0 ? 'us' : 'uk')
-      lines.push({ text, accent: speakers.get(who) ?? 'us' })
-    }
-  }
+  // Câu đọc dựng ở shared/toeicAudio.ts (script tạo gói âm thanh dùng chung để khoá clip khớp)
+  const lines = toeicAudioLines(g)
   for (const line of lines) {
     if (token !== playToken) return
-    const done = await speakAsync(line.text, line.accent, 0.95)
+    const done = await speakAsync(line.text, line.accent, TOEIC_TTS_RATE)
     if (!done) break
   }
   if (token === playToken) playing.value = false
 }
+
+/** Tự phát khi một mục nghe (Part 1–4) hiện ra: lúc bắt đầu bài và khi chuyển mục; không phát ở màn kết quả */
+function scheduleAutoPlay(): void {
+  window.clearTimeout(autoTimer)
+  if (phase.value !== 'test' || !listening.value) return
+  const token = playToken
+  autoTimer = window.setTimeout(() => {
+    if (token !== playToken || phase.value !== 'test' || !listening.value) return
+    void play()
+  }, AUTO_PLAY_DELAY_MS)
+}
+watch(
+  () =>
+    phase.value === 'test' && session.value ? `${session.value.sessionId}:${current.value}` : null,
+  (key) => {
+    if (key) scheduleAutoPlay()
+  }
+)
 
 function backToMenu(): void {
   confirmCancel.value = false
@@ -191,7 +210,10 @@ const modeLabel = (m: ToeicMode, part: number | null): string =>
   m === 'part' ? t('study.toeic.partN', { n: part ?? 0 }) : t(`study.toeic.mode.${m}`)
 const dateLabel = (ms: number): string => new Date(ms).toLocaleDateString()
 
-onMounted(() => void load())
+onMounted(() => {
+  void load()
+  window.setTimeout(() => (voiceGrace.value = false), VOICE_GRACE_MS)
+})
 onUnmounted(() => {
   stopAudio()
   window.clearInterval(tick)
@@ -274,15 +296,22 @@ onUnmounted(() => {
       <div class="card box">
         <div class="head">
           <span class="chip">{{ t('study.toeic.partN', { n: group.part }) }}</span>
-          <button
-            v-if="isListeningPart(group.part)"
-            type="button"
-            class="btn btn--sm"
-            @click="playing ? stopAudio() : play()"
-          >
-            <UiIcon name="volume" /> {{ playing ? t('study.toeic.stop') : t('study.toeic.play') }}
-          </button>
+          <span v-if="listening" class="player">
+            <span v-if="playing" class="muted" aria-live="polite">{{
+              t('study.toeic.playing')
+            }}</span>
+            <button
+              type="button"
+              class="btn btn--sm"
+              :class="{ 'btn--primary': playing }"
+              :aria-pressed="playing"
+              @click="playing ? stopAudio() : play()"
+            >
+              <UiIcon name="volume" /> {{ playing ? t('study.toeic.stop') : t('study.toeic.play') }}
+            </button>
+          </span>
         </div>
+        <p v-if="noVoice" class="warn">{{ t('study.toeic.noVoice') }}</p>
         <img
           v-if="group.scene && sceneUrl(group.id)"
           :src="sceneUrl(group.id)"
@@ -294,6 +323,7 @@ onUnmounted(() => {
         </p>
         <p v-if="group.context" class="passage">{{ group.context }}</p>
         <p v-if="group.passage" class="passage">{{ group.passage }}</p>
+        <p v-if="listening" class="hint">{{ t(`study.toeic.hint.${group.part}`) }}</p>
         <div v-for="q in group.questions" :key="q.id" class="question">
           <p v-if="q.prompt" class="prompt">{{ q.prompt }}</p>
           <div class="choices" :class="{ short: hiddenChoices }">
@@ -302,11 +332,12 @@ onUnmounted(() => {
               :key="i"
               type="button"
               class="choice"
-              :class="{ on: answers[q.id] === i }"
+              :class="{ on: answers[q.id] === i, audio: hiddenChoices }"
               @click="pick(q.id, i)"
             >
               <span class="num">{{ LETTERS[i] }}</span>
-              <span v-if="!hiddenChoices">{{ c }}</span>
+              <UiIcon v-if="hiddenChoices" name="volume" class="choice-icon" />
+              <span v-else>{{ c }}</span>
             </button>
           </div>
         </div>
@@ -526,6 +557,15 @@ h2 {
   align-items: center;
   justify-content: space-between;
 }
+.player {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.hint {
+  color: var(--c-ink-soft);
+  font-size: var(--fs-sm);
+}
 .passage {
   padding: var(--sp-3);
   background: var(--c-warning-soft);
@@ -577,6 +617,13 @@ h2 {
 }
 .choice:hover {
   background: var(--c-primary-soft);
+}
+.choice.audio {
+  justify-content: center;
+  min-height: 56px;
+}
+.choice-icon {
+  color: var(--c-ink-soft);
 }
 .choice.on {
   border-color: var(--c-primary);

@@ -13,7 +13,7 @@
       "title": "Thì hiện tại đơn",
       "summary": "Nói về thói quen và sự thật; thêm -s/-es cho he/she/it; dùng do/does.",
       "level": "A1_1",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "text",
@@ -130,6 +130,52 @@
           ]
         },
         {
+          "type": "sounds",
+          "title": "Đuôi -s của động từ: ba cách đọc và ba từ đổi âm",
+          "items": [
+            {
+              "text": "works",
+              "ipa": "/wɜrks/",
+              "note": "đuôi /s/"
+            },
+            {
+              "text": "plays",
+              "ipa": "/pleɪz/",
+              "note": "đuôi /z/"
+            },
+            {
+              "text": "watches",
+              "ipa": "/ˈwɑtʃɪz/",
+              "note": "đuôi /ɪz/ — thêm 1 âm tiết"
+            },
+            {
+              "text": "goes",
+              "ipa": "/goʊz/",
+              "note": "đuôi /z/"
+            },
+            {
+              "text": "does",
+              "ipa": "/dʌz/",
+              "note": "do /du/ → does: đổi nguyên âm"
+            },
+            {
+              "text": "says",
+              "ipa": "/sɛz/",
+              "note": "say /seɪ/ → says: không đọc “sây-z”"
+            },
+            {
+              "text": "doesn't",
+              "ipa": "/ˈdʌzənt/",
+              "note": "2 âm tiết"
+            },
+            {
+              "text": "don't",
+              "ipa": "/doʊnt/",
+              "note": "do /du/ → don't: đổi nguyên âm"
+            }
+          ]
+        },
+        {
           "type": "tip",
           "md": "**Lỗi người Việt hay mắc:**\n\n- `He go to school.` ✗ → `He goes to school.` ✓ — quên thêm -s cho he/she/it.\n- `Does he goes?` ✗ → `Does he go?` ✓ — `does` đã mang -s, nên động từ chính giữ **nguyên mẫu**.\n- `She don't like it.` ✗ → `She doesn't like it.` ✓\n- `I am go to school.` ✗ → `I go to school.` ✓ — không đặt `am/is/are` trước động từ thường."
         }
@@ -238,6 +284,21 @@
             "boils"
           ],
           "explain": "Sự thật luôn đúng → hiện tại đơn; water = it → boils."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`says` đọc là gì?",
+          "choices": [
+            "/seɪz/",
+            "/sɛz/"
+          ],
+          "answer": 1,
+          "explain": "say /seɪ/ nhưng says /sɛz/ — vần với yes."
+        },
+        {
+          "type": "speak",
+          "say": "He watches TV in the evening.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -246,7 +307,7 @@
       "title": "Thì hiện tại tiếp diễn",
       "summary": "Nói về việc đang xảy ra và kế hoạch gần với am/is/are + V-ing.",
       "level": "A1_2",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "text",
@@ -357,6 +418,44 @@
           ]
         },
         {
+          "type": "sounds",
+          "title": "Đuôi -ing",
+          "items": [
+            {
+              "text": "reading",
+              "ipa": "/ˈridɪŋ/",
+              "note": "kết thúc /ŋ/, không bật /g/"
+            },
+            {
+              "text": "running",
+              "ipa": "/ˈrʌnɪŋ/"
+            },
+            {
+              "text": "making",
+              "ipa": "/ˈmeɪkɪŋ/",
+              "note": "e câm đã bỏ"
+            },
+            {
+              "text": "studying",
+              "ipa": "/ˈstʌdiɪŋ/",
+              "note": "3 âm tiết: STUD-y-ing"
+            },
+            {
+              "text": "lying",
+              "ipa": "/ˈlaɪɪŋ/",
+              "note": "2 âm tiết"
+            },
+            {
+              "text": "What are you doing?",
+              "note": "nói nhanh nghe gần “Whatcha doin'?”"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Đọc -ing cho đúng**: /ɪŋ/ kết thúc bằng âm /ŋ/ — như “ng” cuối của tiếng Việt. Không bật thêm /g/ (“rí-đing-gờ”) và không đọc thành “in”.\n\n**`always` + tiếp diễn = phàn nàn.** `He always loses his keys.` chỉ là sự thật. `He's always losing his keys!` nghĩa là “Anh ta cứ làm mất chìa khoá hoài!” — người nói đang bực."
+        },
+        {
           "type": "tip",
           "md": "**Lỗi người Việt hay mắc:**\n\n- `I reading.` ✗ → `I'm reading.` ✓ — không được bỏ `am/is/are`.\n- `She is cook.` ✗ → `She is cooking.` ✓ — phải có -ing.\n- `makeing`, `runing` ✗ → `making`, `running` ✓\n- Không phải chữ “đang” nào cũng dịch sang tiếp diễn: “Tôi đang cần tiền” là `I need money.` (xem bài sau)."
         }
@@ -465,6 +564,21 @@
             "lying"
           ],
           "explain": "Tận cùng -ie → đổi thành y rồi thêm -ing."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`He's always losing his keys!` — người nói có ý gì?",
+          "choices": [
+            "Khen ngợi",
+            "Phàn nàn về việc cứ lặp lại",
+            "Nói về kế hoạch"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "speak",
+          "say": "Look! The bus is coming.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -473,7 +587,7 @@
       "title": "Hiện tại đơn hay tiếp diễn?",
       "summary": "Phân biệt thói quen với việc đang diễn ra; động từ trạng thái không dùng tiếp diễn.",
       "level": "A2_1",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "text",
@@ -550,6 +664,47 @@
               "en": "I'm having dinner with my family.",
               "vi": "Tôi đang ăn tối với gia đình."
             }
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Một động từ, hai nghĩa",
+          "head": [
+            "Động từ",
+            "Hiện tại đơn (trạng thái)",
+            "Tiếp diễn (hành động)"
+          ],
+          "rows": [
+            [
+              "have",
+              "I have a car. (có)",
+              "I'm having lunch. (đang ăn)"
+            ],
+            [
+              "think",
+              "I think it's good. (cho rằng)",
+              "I'm thinking about you. (đang nghĩ)"
+            ],
+            [
+              "see",
+              "I see. (tôi hiểu rồi)",
+              "I'm seeing the doctor tomorrow. (gặp)"
+            ],
+            [
+              "taste",
+              "The soup tastes good. (có vị)",
+              "I'm tasting the soup. (đang nếm)"
+            ],
+            [
+              "look",
+              "You look tired. (trông có vẻ)",
+              "I'm looking at you. (đang nhìn)"
+            ],
+            [
+              "be",
+              "He is rude. (tính cách)",
+              "He's being rude. (đang cư xử thô lỗ lúc này)"
+            ]
           ]
         },
         {
@@ -653,6 +808,23 @@
           "type": "order",
           "hint": "Bạn đang nghĩ gì vậy?",
           "answer": "What are you thinking about?"
+        },
+        {
+          "type": "gap",
+          "prompt": "Mmm! This soup ___ great.",
+          "answers": [
+            "tastes"
+          ],
+          "choices": [
+            "is tasting",
+            "tastes"
+          ],
+          "explain": "taste = “có vị” là trạng thái → hiện tại đơn."
+        },
+        {
+          "type": "speak",
+          "say": "I usually walk to work.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -661,7 +833,7 @@
       "title": "Thì quá khứ đơn",
       "summary": "Kể việc đã xảy ra: was/were, đuôi -ed, động từ bất quy tắc và did.",
       "level": "A1_2",
-      "minutes": 15,
+      "minutes": 17,
       "blocks": [
         {
           "type": "text",
@@ -872,6 +1044,56 @@
           ]
         },
         {
+          "type": "sounds",
+          "title": "Bất quy tắc: viết một kiểu, đọc một kiểu",
+          "items": [
+            {
+              "text": "said",
+              "ipa": "/sɛd/",
+              "note": "không đọc “sây-đ”; vần với bed"
+            },
+            {
+              "text": "read",
+              "ipa": "/rɛd/",
+              "note": "viết giống hiện tại, đọc như red"
+            },
+            {
+              "text": "bought",
+              "ipa": "/bɔt/",
+              "note": "gh câm"
+            },
+            {
+              "text": "thought",
+              "ipa": "/θɔt/",
+              "note": "gh câm"
+            },
+            {
+              "text": "ate",
+              "ipa": "/eɪt/",
+              "note": "đọc giống eight"
+            },
+            {
+              "text": "knew",
+              "ipa": "/nu/",
+              "note": "k câm; đọc giống new"
+            },
+            {
+              "text": "was",
+              "ipa": "/wʌz/",
+              "note": "trong câu đọc nhẹ /wəz/"
+            },
+            {
+              "text": "were",
+              "ipa": "/wɜr/",
+              "note": "không đọc “que”"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Học bất quy tắc theo nhóm cho dễ nhớ:**\n\n- **i → a**: `begin – began`, `drink – drank`, `sing – sang`, `swim – swam`\n- **-ought / -aught** (đều đọc /ɔt/): `buy – bought`, `think – thought`, `bring – brought`, `teach – taught`, `catch – caught`\n- **ee → e**: `meet – met`, `sleep – slept`, `keep – kept`, `feel – felt`\n- **Không đổi**: `put – put`, `cut – cut`, `hit – hit`, `let – let`, `cost – cost`"
+        },
+        {
           "type": "tip",
           "md": "**Lỗi người Việt hay mắc:**\n\n- `Did he went?` ✗ → `Did he go?` ✓ — `did` đã mang nghĩa quá khứ, động từ chính về **nguyên mẫu**.\n- `I didn't saw it.` ✗ → `I didn't see it.` ✓\n- `Yesterday I go to school.` ✗ → `Yesterday I went to school.` ✓ — có `yesterday` vẫn phải đổi động từ.\n- `I was go home.` ✗ → `I went home.` ✓ — không dùng `was/were` với động từ thường."
         }
@@ -989,6 +1211,22 @@
           "type": "order",
           "hint": "Cô ấy đã nói gì với bạn?",
           "answer": "What did she say to you?"
+        },
+        {
+          "type": "listen",
+          "say": "I walked home.",
+          "prompt": "Bạn nghe được câu nào?",
+          "choices": [
+            "I walk home.",
+            "I walked home."
+          ],
+          "answer": 1,
+          "explain": "walked /wɔkt/: nghe âm /t/ nhỏ ở cuối."
+        },
+        {
+          "type": "speak",
+          "say": "We watched a movie yesterday.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -997,7 +1235,7 @@
       "title": "Thì quá khứ tiếp diễn",
       "summary": "Nói việc đang diễn ra tại một lúc trong quá khứ; kết hợp với when và while.",
       "level": "A2_1",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "text",
@@ -1066,6 +1304,10 @@
               "vi": "Trời nắng đẹp, chim hót líu lo."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Phông nền và sự kiện.** Khi kể chuyện, quá khứ tiếp diễn vẽ **bối cảnh**, quá khứ đơn kể **sự việc**:\n\n- `It was raining. People were running for the bus.` (bối cảnh)\n- `Suddenly, a car stopped.` (sự việc)\n\n**Khi nói**: `was`, `were` trong câu khẳng định đọc nhẹ /wəz/, /wər/; phủ định `wasn't`, `weren't` thì đọc rõ.\n\n**Nói cho lịch sự**: `I was wondering if you could help me.` — dùng quá khứ tiếp diễn để lời nhờ nhẹ nhàng hơn, dù đang nói về hiện tại."
         },
         {
           "type": "tip",
@@ -1171,6 +1413,20 @@
           "type": "order",
           "hint": "Lúc đó bạn đang nói chuyện với ai?",
           "answer": "Who were you talking to?"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Trong một câu chuyện, câu nào tả **bối cảnh**?",
+          "choices": [
+            "A car stopped.",
+            "It was raining."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "speak",
+          "say": "What were you doing last night?",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -1179,7 +1435,7 @@
       "title": "Tương lai: will và be going to",
       "summary": "Nói về tương lai với will, be going to và hiện tại tiếp diễn cho lịch hẹn.",
       "level": "A2_1",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "text",
@@ -1253,6 +1509,48 @@
               "note": "lịch đã đặt"
             }
           ]
+        },
+        {
+          "type": "sounds",
+          "title": "Khi nói nhanh",
+          "items": [
+            {
+              "text": "I'll",
+              "ipa": "/aɪl/",
+              "note": "đọc gần giống aisle"
+            },
+            {
+              "text": "you'll",
+              "ipa": "/jul/"
+            },
+            {
+              "text": "he'll",
+              "ipa": "/hil/",
+              "note": "đọc giống heal"
+            },
+            {
+              "text": "we'll",
+              "ipa": "/wil/"
+            },
+            {
+              "text": "they'll",
+              "ipa": "/ðeɪl/"
+            },
+            {
+              "text": "won't",
+              "ipa": "/woʊnt/",
+              "note": "môi tròn dần; khác want /wɑnt/"
+            },
+            {
+              "text": "gonna",
+              "ipa": "/ˈgʌnə/",
+              "note": "= going to — chỉ khi nói thân mật, không viết trong bài thi"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**`won't` hay `want`?** `I won't go.` (tôi sẽ không đi) và `I want to go.` (tôi muốn đi) nghe gần nhau nhưng nghĩa ngược. `won't` có /oʊ/ tròn môi; `want` có /ɑ/ mở miệng.\n\n**Sau `when`, `if`, `before`, `after` không dùng will**, dù nói về tương lai: `When I get home, I'll call you.` — không nói `When I will get home`."
         },
         {
           "type": "tip",
@@ -1363,6 +1661,28 @@
           "type": "order",
           "hint": "Tôi sẽ không đến muộn nữa.",
           "answer": "I won't be late again."
+        },
+        {
+          "type": "listen",
+          "say": "I won't go.",
+          "prompt": "Bạn nghe được câu nào?",
+          "choices": [
+            "I want to go.",
+            "I won't go."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "When I ___ home, I'll call you.",
+          "answers": [
+            "get"
+          ],
+          "choices": [
+            "will get",
+            "get"
+          ],
+          "explain": "Sau when dùng hiện tại đơn, dù nói về tương lai."
         }
       ]
     },
@@ -1371,7 +1691,7 @@
       "title": "Thì hiện tại hoàn thành",
       "summary": "have/has + V3 để nói về kinh nghiệm, kết quả ở hiện tại, since và for.",
       "level": "A2_2",
-      "minutes": 15,
+      "minutes": 17,
       "blocks": [
         {
           "type": "text",
@@ -1555,6 +1875,48 @@
           ]
         },
         {
+          "type": "sounds",
+          "title": "V3 và dạng viết tắt khi nói",
+          "items": [
+            {
+              "text": "I've",
+              "ipa": "/aɪv/"
+            },
+            {
+              "text": "she's",
+              "ipa": "/ʃiz/",
+              "note": "= she is hoặc she has"
+            },
+            {
+              "text": "been",
+              "ipa": "/bɪn/",
+              "note": "giọng Mỹ đọc như bin"
+            },
+            {
+              "text": "gone",
+              "ipa": "/gɔn/"
+            },
+            {
+              "text": "done",
+              "ipa": "/dʌn/",
+              "note": "vần với sun"
+            },
+            {
+              "text": "eaten",
+              "ipa": "/ˈitən/"
+            },
+            {
+              "text": "written",
+              "ipa": "/ˈrɪtən/",
+              "note": "w câm"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**been hay gone?**\n\n- `She has been to Da Lat.` — đã từng đến, và **đã về**.\n- `She has gone to Da Lat.` — đã đi, **chưa về**.\n\n**`'s` là is hay has?** Nhìn từ đứng sau: `He's tired.` (is + tính từ) · `He's finished.` (has + V3).\n\n**Hỏi bao lâu**: `How long have you lived here?` — `For two years.` / `Since 2023.`"
+        },
+        {
           "type": "tip",
           "md": "**Lỗi người Việt hay mắc:**\n\n- `I have seen him yesterday.` ✗ → `I saw him yesterday.` ✓ — có thời điểm xác định thì dùng quá khứ đơn.\n- `I have went.` ✗ → `I have gone.` ✓ — sau have/has là **V3**, không phải V2.\n- `She have finished.` ✗ → `She has finished.` ✓\n- `since three years` ✗ → `for three years` ✓"
         }
@@ -1684,6 +2046,21 @@
           "type": "order",
           "hint": "Bạn đã từng đến Hà Nội chưa?",
           "answer": "Have you ever been to Hanoi?"
+        },
+        {
+          "type": "mcq",
+          "prompt": "`Lan has gone to the market.` — Lan đang ở đâu?",
+          "choices": [
+            "Ở nhà, đã đi về rồi",
+            "Chưa về: đang ở chợ hoặc trên đường"
+          ],
+          "answer": 1,
+          "explain": "has gone = đã đi và chưa về; has been = đã đi và đã về."
+        },
+        {
+          "type": "speak",
+          "say": "Have you ever tried pho?",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -1692,7 +2069,7 @@
       "title": "Ôn tập các thì",
       "summary": "Tổng hợp 7 cách diễn đạt thời gian và luyện chọn thì đúng trong ngữ cảnh.",
       "level": "A2_2",
-      "minutes": 15,
+      "minutes": 17,
       "blocks": [
         {
           "type": "text",
@@ -1831,6 +2208,10 @@
               "vi": "Hôm nay cô ấy đã đi bộ được năm cây số."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Nghe các thì khi người bản ngữ nói nhanh.** Trợ động từ thường bị đọc lướt, nên hãy quen tai với:\n\n- `Do you…?` → nghe gần “đờ-yờ”; `Did you…?` → “đi-chu”\n- `going to` → `gonna`; `want to` → `wanna` (chỉ khi nói)\n- `I have` → `I've`; `I will` → `I'll`; `she is / she has` → `she's`\n- Phủ định luôn đọc rõ: `don't`, `didn't`, `won't`, `haven't`\n\nKhi không nghe kịp trợ động từ, hãy dựa vào **dạng của động từ chính** (V-ing, V2, V3) và **từ chỉ thời gian**."
         },
         {
           "type": "tip",

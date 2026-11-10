@@ -195,7 +195,7 @@
       "blocks": [
         {
           "type": "text",
-          "md": "Một số âm tiếng Anh **không có** trong tiếng Việt nên rất dễ nói sai:\n\n- `/θ/` (*think*, *three*): đặt đầu lưỡi giữa hai hàm răng rồi thổi hơi, **không** nói thành \"t\" hay \"th\" kiểu Việt.\n- `/ð/` (*this*, *that*): như trên nhưng có rung dây thanh.\n- `/ʃ/` (*ship*, *she*): chu môi, hơi xì dài; khác *sheep* /iː/ dài hơn *ship* /ɪ/ ngắn.\n- `/r/` (*right*): cuộn lưỡi nhẹ, không chạm vòm; khác `/l/` (*light*)."
+          "md": "Một số âm tiếng Anh **không có** trong tiếng Việt nên rất dễ nói sai:\n\n- `/θ/` (*think*, *three*): đặt đầu lưỡi giữa hai hàm răng rồi thổi hơi, **không** nói thành \"t\" hay \"th\" kiểu Việt.\n- `/ð/` (*this*, *that*): như trên nhưng có rung dây thanh.\n- `/ʃ/` (*ship*, *she*): chu môi, hơi xì dài; khác *sheep* /i/ dài hơn *ship* /ɪ/ ngắn.\n- `/r/` (*right*): cuộn lưỡi nhẹ, không chạm vòm; khác `/l/` (*light*)."
         },
         {
           "type": "sounds",
@@ -218,7 +218,7 @@
             },
             {
               "text": "sheep",
-              "ipa": "/ʃiːp/",
+              "ipa": "/ʃip/",
               "note": "dài"
             },
             {
@@ -320,7 +320,7 @@
       "blocks": [
         {
           "type": "text",
-          "md": "Tiếng Việt ít khi kết thúc từ bằng phụ âm \"bật\" nên người Việt hay **nuốt âm cuối**. Hãy nói rõ:\n\n- Số nhiều: `dogs` /dɔːgz/, `cats` /kæts/.\n- Quá khứ có -ed: `walked` /wɔːkt/, `asked` /æskt/.\n- Từ kết thúc bằng cụm phụ âm: `next`, `months`.\n\nNói chậm hơn bình thường, **đóng âm cuối rõ ràng** — thà rõ còn hơn nhanh."
+          "md": "Tiếng Việt ít khi kết thúc từ bằng phụ âm \"bật\" nên người Việt hay **nuốt âm cuối**. Hãy nói rõ:\n\n- Số nhiều: `dogs` /dɔgz/, `cats` /kæts/.\n- Quá khứ có -ed: `walked` /wɔkt/, `asked` /æskt/.\n- Từ kết thúc bằng cụm phụ âm: `next`, `months`.\n\nNói chậm hơn bình thường, **đóng âm cuối rõ ràng** — thà rõ còn hơn nhanh."
         },
         {
           "type": "sounds",
@@ -332,11 +332,11 @@
             },
             {
               "text": "dogs",
-              "ipa": "/dɔːgz/"
+              "ipa": "/dɔgz/"
             },
             {
               "text": "walked",
-              "ipa": "/wɔːkt/"
+              "ipa": "/wɔkt/"
             },
             {
               "text": "asked",

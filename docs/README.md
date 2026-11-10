@@ -50,6 +50,7 @@ Người viết code chính có nền tảng **Laravel + Vue**, chưa có kinh n
 | 24 | [24-card-art-prompts.md](24-card-art-prompts.md) | Thẻ từ vẽ bằng ChatGPT Image (nét bút + màu bột): quy trình, GLOBAL INSTRUCTIONS, mẫu prompt batch, tool cắt → `art/cards` |
 | 25 | [25-card-batch-prompts.md](25-card-batch-prompts.md) | Prompt cuối cùng của 13 batch thẻ từ (id từng batch) |
 | 23 | [23-design-v2-spec.md](23-design-v2-spec.md) | **Thiết kế v2 "Làng chữ" đã chốt**: nguồn sự thật cho giao diện mới, chưa áp dụng vào code |
+| 30 | [30-product-review-2026-11.md](30-product-review-2026-11.md) | **Rà soát sản phẩm 2026-11-10**: giữ / bỏ / phát triển thêm, rủi ro nội dung, checklist theo dõi |
 | — | [glossary.md](glossary.md) | Thuật ngữ desktop/Electron giải thích cho dev web |
 | — | [decisions.md](decisions.md) | Nhật ký quyết định kiến trúc (ADR rút gọn) |
 

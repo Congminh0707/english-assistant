@@ -13,7 +13,7 @@
       "title": "Must, have to, should",
       "summary": "Nghĩa vụ, lời khuyên và điều cấm.",
       "level": "A2_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -76,8 +76,20 @@
             {
               "en": "Tomorrow is a holiday, so we don't have to go to school.",
               "vi": "Mai là ngày lễ nên chúng ta không cần đi học."
+            },
+            {
+              "en": "I had to get up early yesterday.",
+              "vi": "Hôm qua tôi phải dậy sớm."
+            },
+            {
+              "en": "You'd better take an umbrella.",
+              "vi": "Bạn nên mang ô đi thì hơn."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: `have to` đọc /ˈhæftə/ (“hép-tờ”), `has to` /ˈhæstə/; `mustn't` /ˈmʌsənt/ — chữ t đầu câm. Thân mật: `gotta` (= have got to).\n\n**Mở rộng:**\n\n- Người Mỹ ít dùng `must` cho việc hằng ngày, thường nói `have to`; `must` hay gặp trên biển báo, nội quy.\n- Quá khứ của cả `must` lẫn `have to` là **had to**: `I had to work yesterday.`\n- Lời khuyên mạnh hơn `should`: **had better** — `You'd better hurry.`"
         },
         {
           "type": "tip",
@@ -141,6 +153,28 @@
           "statement": "“You mustn't go” means “You don't need to go”.",
           "answer": "false",
           "explain": "mustn't = cấm; don't have to = không cần."
+        },
+        {
+          "type": "gap",
+          "prompt": "Yesterday I ___ work late.",
+          "answers": [
+            "had to"
+          ],
+          "choices": [
+            "must",
+            "had to",
+            "have to"
+          ],
+          "explain": "Quá khứ của must / have to là had to."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`mustn't` đọc thế nào?",
+          "choices": [
+            "/ˈmʌstənt/ — đọc cả hai chữ t",
+            "/ˈmʌsənt/ — chữ t đầu câm"
+          ],
+          "answer": 1
         }
       ]
     },
@@ -149,11 +183,11 @@
       "title": "Danh động từ và động từ nguyên mẫu",
       "summary": "Sau enjoy dùng V-ing, sau want dùng to V.",
       "level": "B1_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "text",
-          "md": "Một số động từ phải đi với **V-ing** (danh động từ), số khác đi với **to + V** (nguyên mẫu có to). Cần học thuộc theo nhóm.\n\n**+ V-ing:** enjoy, finish, avoid, mind, keep, suggest, practise\n\n**+ to V:** want, need, decide, hope, plan, learn, promise, would like\n\n**Cả hai (nghĩa gần như giống):** like, love, hate, start, begin"
+          "md": "Một số động từ phải đi với **V-ing** (danh động từ), số khác đi với **to + V** (nguyên mẫu có to). Cần học thuộc theo nhóm.\n\n**+ V-ing:** enjoy, finish, avoid, mind, keep, suggest, practice\n\n**+ to V:** want, need, decide, hope, plan, learn, promise, would like\n\n**Cả hai (nghĩa gần như giống):** like, love, hate, start, begin"
         },
         {
           "type": "examples",
@@ -177,8 +211,24 @@
             {
               "en": "Would you mind opening the window?",
               "vi": "Bạn có phiền mở cửa sổ không?"
+            },
+            {
+              "en": "I stopped to buy some water.",
+              "vi": "Tôi dừng lại để mua nước."
+            },
+            {
+              "en": "Remember to lock the door.",
+              "vi": "Nhớ khoá cửa nhé."
+            },
+            {
+              "en": "Swimming is good for you.",
+              "vi": "Bơi lội tốt cho bạn."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Đổi dạng là đổi nghĩa:**\n\n- `stop smoking` = bỏ thuốc · `stop to smoke` = dừng lại để hút thuốc.\n- `remember to lock` = nhớ phải khoá (việc chưa làm) · `remember locking` = nhớ là mình đã khoá.\n- `try to open` = cố mở · `try opening` = thử mở xem sao.\n\nV-ing còn làm **chủ ngữ**: `Swimming is fun.`\n\n**Khi nói**: `to` đọc nhẹ /tə/; `want to` thường thành `wanna` trong lời nói thân mật."
         },
         {
           "type": "tip",
@@ -268,6 +318,27 @@
           "type": "order",
           "hint": "Tôi hy vọng gặp lại bạn sớm.",
           "answer": "I hope to see you soon"
+        },
+        {
+          "type": "mcq",
+          "prompt": "`He stopped smoking.` nghĩa là gì?",
+          "choices": [
+            "Anh ấy dừng lại để hút thuốc.",
+            "Anh ấy đã bỏ thuốc."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "Remember ___ the door when you leave.",
+          "answers": [
+            "to lock"
+          ],
+          "choices": [
+            "locking",
+            "to lock"
+          ],
+          "explain": "Việc cần làm (chưa làm) → remember to V."
         }
       ]
     },
@@ -276,7 +347,7 @@
       "title": "Used to",
       "summary": "Thói quen và tình huống trong quá khứ.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -300,8 +371,20 @@
             {
               "en": "Did you use to walk to school?",
               "vi": "Trước đây bạn có đi bộ đến trường không?"
+            },
+            {
+              "en": "There used to be a park here.",
+              "vi": "Ngày trước ở đây có một công viên."
+            },
+            {
+              "en": "I'm getting used to my new job.",
+              "vi": "Tôi đang quen dần với công việc mới."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: `used to` đọc /ˈjustə/ — chữ s đọc /s/, chữ d gần như không nghe thấy; khác động từ `use` /juz/ (dùng).\n\n**Ba cấu trúc dễ nhầm:**\n\n- `used to + V` = đã từng (nay không còn)\n- `be used to + V-ing` = đã quen với\n- `get used to + V-ing` = dần quen với: `I'm getting used to the cold.`\n\n`used to` **không có dạng hiện tại**. Thói quen bây giờ dùng `usually`: `I usually walk to work.` (không nói `I use to walk`)."
         },
         {
           "type": "tip",
@@ -364,6 +447,27 @@
             "I don't used to like it."
           ],
           "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "Nói về thói quen **hiện tại**, câu nào đúng?",
+          "choices": [
+            "I use to get up early.",
+            "I usually get up early."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "I'm used to ___ up early.",
+          "answers": [
+            "getting"
+          ],
+          "choices": [
+            "get",
+            "getting"
+          ],
+          "explain": "be used to + V-ing = đã quen với."
         }
       ]
     },
@@ -372,7 +476,7 @@
       "title": "Câu bị động",
       "summary": "Be + quá khứ phân từ: nhấn mạnh việc được làm.",
       "level": "B1_2",
-      "minutes": 7,
+      "minutes": 9,
       "blocks": [
         {
           "type": "text",
@@ -422,8 +526,24 @@
             {
               "en": "The email will be sent tonight.",
               "vi": "Email sẽ được gửi tối nay."
+            },
+            {
+              "en": "My bike was stolen last night.",
+              "vi": "Xe đạp của tôi bị trộm tối qua."
+            },
+            {
+              "en": "I was born in Hue.",
+              "vi": "Tôi sinh ra ở Huế."
+            },
+            {
+              "en": "They got married in June.",
+              "vi": "Họ cưới vào tháng Sáu."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nào người bản ngữ dùng bị động?**\n\n- Không biết hoặc không cần nói ai làm: `My bike was stolen.`\n- Biển báo, nhãn hàng: `Made in Vietnam.` `Shoes must be removed.`\n- `I was born in 2000.` — “sinh ra” luôn ở bị động (không nói `I born`).\n- Thân mật: `get + V3` — `He got fired.` `They got married.`\n\n**Không phải chữ “bị / được” nào cũng là bị động**: “Tôi bị ốm” = `I am sick.`; “Tôi bị đau đầu” = `I have a headache.`; “Tôi được nghỉ” = `I have a day off.`"
         },
         {
           "type": "tip",
@@ -491,6 +611,26 @@
             "The thief is catch by the police."
           ],
           "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "“Tôi sinh năm 2000.”",
+          "choices": [
+            "I born in 2000.",
+            "I was born in 2000.",
+            "I am born in 2000."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "“Tôi bị ốm.” nói thế nào?",
+          "choices": [
+            "I was sicked.",
+            "I am sick."
+          ],
+          "answer": 1,
+          "explain": "Chữ “bị” ở đây không phải bị động."
         }
       ]
     },
@@ -499,7 +639,7 @@
       "title": "Cụm động từ thông dụng",
       "summary": "Verb + giới từ: nghĩa mới, không đoán từng từ.",
       "level": "A2_2",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "text",
@@ -554,8 +694,24 @@
             {
               "en": "Don't give up. You can do it!",
               "vi": "Đừng bỏ cuộc. Bạn làm được!"
+            },
+            {
+              "en": "The plane takes off at nine.",
+              "vi": "Máy bay cất cánh lúc chín giờ."
+            },
+            {
+              "en": "Take off your shoes, please.",
+              "vi": "Bạn cởi giày ra giúp nhé."
+            },
+            {
+              "en": "Don't give up!",
+              "vi": "Đừng bỏ cuộc!"
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: nhấn vào **từ thứ hai**, không nhấn động từ: get **UP**, turn **OFF**. Các từ nối liền: `turn it off` → “tur-ni-toff”, `pick it up` → “pi-ki-tup”.\n\n**Hai loại:**\n\n- **Tách được**: `turn off the TV` = `turn the TV off` = `turn it off`.\n- **Không tách được**: `look after him`, `look for it` — không nói `look him after`.\n\nMột cụm có thể có **nhiều nghĩa**: `take off` = cởi (áo, giày) hoặc cất cánh (máy bay)."
         },
         {
           "type": "tip",
@@ -634,6 +790,26 @@
             "Take off",
             "Give up"
           ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "`The plane took off.` nghĩa là gì?",
+          "choices": [
+            "Máy bay cất cánh.",
+            "Máy bay hạ cánh.",
+            "Máy bay bị hoãn."
+          ],
+          "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "I'm looking it for.",
+            "I'm looking for it."
+          ],
+          "answer": 1,
+          "explain": "look for không tách được."
         }
       ]
     }

@@ -13,7 +13,7 @@
       "title": "Danh từ đếm được và không đếm được",
       "summary": "Some, any, much, many, a lot of.",
       "level": "A1_2",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -63,8 +63,24 @@
             {
               "en": "I need some advice.",
               "vi": "Tôi cần một vài lời khuyên."
+            },
+            {
+              "en": "Two coffees, please.",
+              "vi": "Cho tôi hai ly cà phê."
+            },
+            {
+              "en": "I've been there three times.",
+              "vi": "Tôi đã đến đó ba lần."
+            },
+            {
+              "en": "Would you like some tea?",
+              "vi": "Bạn dùng chút trà nhé?"
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Một từ, hai kiểu.** Nhiều danh từ đổi nghĩa khi dùng như đếm được:\n\n- `chicken` (thịt gà) – `a chicken` (một con gà)\n- `coffee` (cà phê) – `a coffee` (một ly cà phê, khi gọi món)\n- `glass` (thuỷ tinh) – `a glass` (cái ly)\n- `time` (thời gian) – `three times` (ba lần)\n- `hair` (mái tóc) – `a hair` (một sợi tóc)\n\n**`some` trong câu hỏi**: lời mời và lời xin dùng `some`, không dùng `any`: `Would you like some tea?` `Can I have some water?`"
         },
         {
           "type": "tip",
@@ -139,6 +155,28 @@
             "much",
             "any"
           ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "`I'd like a chicken.` nghĩa là gì?",
+          "choices": [
+            "Tôi muốn một ít thịt gà.",
+            "Tôi muốn một con gà nguyên con."
+          ],
+          "answer": 1,
+          "explain": "Thịt gà nói chung: some chicken."
+        },
+        {
+          "type": "gap",
+          "prompt": "Would you like ___ tea?",
+          "answers": [
+            "some"
+          ],
+          "choices": [
+            "any",
+            "some"
+          ],
+          "explain": "Lời mời dùng some dù là câu hỏi."
         }
       ]
     },
@@ -147,7 +185,7 @@
       "title": "Trạng từ chỉ tần suất",
       "summary": "Always, usually, often, sometimes, never — đặt ở đâu trong câu.",
       "level": "A1_2",
-      "minutes": 4,
+      "minutes": 6,
       "blocks": [
         {
           "type": "text",
@@ -167,8 +205,24 @@
             {
               "en": "We don't often go to the cinema.",
               "vi": "Chúng tôi không hay đi xem phim."
+            },
+            {
+              "en": "I go to the gym twice a week.",
+              "vi": "Tôi đi tập hai lần một tuần."
+            },
+            {
+              "en": "I have never been to Japan.",
+              "vi": "Tôi chưa bao giờ đến Nhật."
+            },
+            {
+              "en": "I don't usually eat breakfast.",
+              "vi": "Tôi thường không ăn sáng."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Nói chính xác hơn**: `once a week`, `twice a month`, `three times a year`, `every other day` (cách ngày). Các cụm này đứng **cuối câu**. `hardly ever` = hầu như không bao giờ.\n\n**Khi có trợ động từ**, trạng từ đứng **giữa**: `I have never been there.` `She can always help.` Với phủ định: `I don't usually eat breakfast.`\n\n**Khi nói**: `usually` /ˈjuʒuəli/ có âm /ʒ/ (rung, như “gi” đọc nặng); `often` đọc có /t/ hay không đều đúng."
         },
         {
           "type": "tip",
@@ -232,6 +286,29 @@
             "never",
             "rarely"
           ]
+        },
+        {
+          "type": "gap",
+          "prompt": "I go swimming ___ a week.",
+          "answers": [
+            "twice"
+          ],
+          "choices": [
+            "two",
+            "twice",
+            "second"
+          ],
+          "explain": "twice = hai lần."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "I never have been there.",
+            "I have never been there."
+          ],
+          "answer": 1,
+          "explain": "Trạng từ đứng giữa have và V3."
         }
       ]
     },
@@ -240,7 +317,7 @@
       "title": "Sở hữu: my, mine, 's",
       "summary": "Tính từ sở hữu, đại từ sở hữu và dạng 's.",
       "level": "A1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -300,8 +377,24 @@
             {
               "en": "The teachers' room is on the second floor.",
               "vi": "Phòng giáo viên ở tầng hai."
+            },
+            {
+              "en": "Whose bag is this?",
+              "vi": "Cái túi này của ai?"
+            },
+            {
+              "en": "She is a friend of mine.",
+              "vi": "Cô ấy là một người bạn của tôi."
+            },
+            {
+              "en": "I'm at my grandma's.",
+              "vi": "Tôi đang ở nhà bà."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: `'s` đọc như đuôi số nhiều — /s/ (`Mike's`), /z/ (`Anna's`), /ɪz/ (`Alice's`). `whose` (của ai) đọc giống hệt `who's`.\n\n**`'s` không chỉ là “của”:**\n\n- Nơi chốn: `at the doctor's` (ở phòng khám), `at my grandma's` (ở nhà bà).\n- Thời gian: `today's news`, `a day's work`.\n\nVới đồ vật thường dùng `of` hoặc danh từ ghép: `the door of the car`, `the car door`.\n\n`a friend of mine` = một người bạn của tôi — không nói `a my friend`."
         },
         {
           "type": "tip",
@@ -388,6 +481,28 @@
               "right": "theirs"
             }
           ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "He is a my friend.",
+            "He is a friend of mine.",
+            "He is a friend of me."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "___ bag is this? — It's mine.",
+          "answers": [
+            "Whose"
+          ],
+          "choices": [
+            "Who's",
+            "Whose"
+          ],
+          "explain": "Who's = Who is; Whose = của ai."
         }
       ]
     },
@@ -396,7 +511,7 @@
       "title": "Too và enough",
       "summary": "Quá ... hay đủ ...?",
       "level": "A2_2",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -446,8 +561,24 @@
             {
               "en": "We don't have enough chairs.",
               "vi": "Chúng ta không đủ ghế."
+            },
+            {
+              "en": "There are too many people here.",
+              "vi": "Ở đây đông người quá."
+            },
+            {
+              "en": "It's too heavy for me to carry.",
+              "vi": "Nó nặng quá, tôi không mang nổi."
+            },
+            {
+              "en": "The food is very good.",
+              "vi": "Đồ ăn rất ngon."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**too ≠ very**: `very hot` = rất nóng (chỉ mô tả); `too hot` = nóng **quá mức**, có hậu quả xấu. Muốn khen thì dùng `very` hoặc `so`: `The food is very good.`\n\n**Mở rộng:**\n\n- `too much` + không đếm được, `too many` + đếm được: `too much sugar`, `too many people`.\n- Thêm `for + người`: `It's too heavy for me to carry.`\n- `me too` = tôi cũng vậy — `too` ở cuối câu mang nghĩa khác hẳn.\n\n**Khi nói**: `enough` /ɪˈnʌf/ — `gh` đọc /f/."
         },
         {
           "type": "tip",
@@ -510,6 +641,27 @@
           "type": "tf",
           "statement": "“Too” usually has a negative meaning (more than you want).",
           "answer": "true"
+        },
+        {
+          "type": "gap",
+          "prompt": "There is too ___ sugar in my coffee.",
+          "answers": [
+            "much"
+          ],
+          "choices": [
+            "many",
+            "much"
+          ],
+          "explain": "sugar không đếm được → too much."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Muốn **khen** món ăn ngon, bạn nói:",
+          "choices": [
+            "The food is too good.",
+            "The food is very good."
+          ],
+          "answer": 1
         }
       ]
     }

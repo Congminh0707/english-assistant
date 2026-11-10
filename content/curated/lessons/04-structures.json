@@ -13,7 +13,7 @@
       "title": "Have / has và have got",
       "summary": "Nói ai có cái gì: gia đình, đồ vật, đặc điểm.",
       "level": "A1_1",
-      "minutes": 10,
+      "minutes": 12,
       "blocks": [
         {
           "type": "text",
@@ -105,6 +105,46 @@
               "vi": "Ngôi nhà này có ba phòng ngủ."
             }
           ]
+        },
+        {
+          "type": "table",
+          "title": "have không chỉ là “có”",
+          "head": [
+            "Cụm",
+            "Nghĩa",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "have breakfast / lunch / dinner",
+              "ăn sáng / trưa / tối",
+              "I have breakfast at seven."
+            ],
+            [
+              "have a headache / a cold",
+              "bị đau đầu / bị cảm",
+              "She has a cold."
+            ],
+            [
+              "have a good time",
+              "vui vẻ",
+              "Have a good time!"
+            ],
+            [
+              "have a look",
+              "xem thử",
+              "Can I have a look?"
+            ],
+            [
+              "have a baby",
+              "sinh em bé",
+              "She had a baby last month."
+            ]
+          ]
+        },
+        {
+          "type": "text",
+          "md": "Với các nghĩa trong bảng trên (ăn, bị, trải qua), **không** thay bằng `have got`: nói `I have breakfast at seven.`, không nói `I've got breakfast at seven.`\n\nKhi nói: `have` /hæv/, `has` /hæz/ — nhớ âm cuối /v/ và /z/, đừng đọc thành “he” và “hét”."
         },
         {
           "type": "tip",
@@ -220,6 +260,20 @@
             "have not"
           ],
           "explain": "Phủ định của have got: haven't got / hasn't got, không dùng don't."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`I have a headache.` nghĩa là gì?",
+          "choices": [
+            "Tôi có một cái đầu.",
+            "Tôi bị đau đầu."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "speak",
+          "say": "We don't have a car.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -228,7 +282,7 @@
       "title": "Can / can't và câu mệnh lệnh",
       "summary": "Nói điều mình làm được, xin phép, nhờ vả; ra lệnh và rủ rê với Let's.",
       "level": "A1_1",
-      "minutes": 10,
+      "minutes": 12,
       "blocks": [
         {
           "type": "text",
@@ -310,6 +364,10 @@
               "vi": "Mình về nhà thôi."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Những chỗ `can` gây bất ngờ:**\n\n- Kỹ năng học được → tiếng Việt nói “biết”: `I can swim.` = Tôi **biết** bơi.\n- Giác quan: `I can see you.` `I can hear music.` — tiếng Việt chỉ nói “tôi thấy”, “tôi nghe thấy”.\n- Từ chối khéo: `Sorry, I can't.` Lịch sự hơn `Can you…?` là `Could you…?`\n\n**Câu mệnh lệnh không phải lúc nào cũng là ra lệnh.** Nhiều lời chúc và lời mời có dạng mệnh lệnh: `Have a nice day!` `Take care!` `Have a seat.` `Help yourself.`"
         },
         {
           "type": "tip",
@@ -438,6 +496,20 @@
           ],
           "answer": 1,
           "explain": "Don't + động từ nguyên mẫu (be)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`Have a nice day!` là gì?",
+          "choices": [
+            "Một mệnh lệnh",
+            "Một lời chúc"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "speak",
+          "say": "Can you help me, please?",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -446,7 +518,7 @@
       "title": "Câu hỏi Wh-: what, where, who, when, why, how",
       "summary": "Đặt câu hỏi lấy thông tin với đúng trật tự từ.",
       "level": "A1_2",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "table",
@@ -542,6 +614,44 @@
               "vi": "Bạn đá bóng bao lâu một lần?"
             }
           ]
+        },
+        {
+          "type": "sounds",
+          "title": "Từ để hỏi khi nói",
+          "items": [
+            {
+              "text": "who",
+              "ipa": "/hu/",
+              "note": "w câm"
+            },
+            {
+              "text": "what",
+              "ipa": "/wʌt/",
+              "note": "h câm"
+            },
+            {
+              "text": "What's",
+              "ipa": "/wʌts/",
+              "note": "= What is"
+            },
+            {
+              "text": "Who's",
+              "ipa": "/huz/",
+              "note": "= Who is; đọc giống whose"
+            },
+            {
+              "text": "What do you do?",
+              "note": "nói nhanh: “Whaddaya do?”"
+            },
+            {
+              "text": "Where are you from?",
+              "note": "xuống giọng ở cuối"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Ngữ điệu**: câu hỏi Wh- **xuống giọng** ở cuối (`Where do you live? ↘`); câu hỏi Yes/No mới **lên giọng** (`Do you live here? ↗`).\n\n**Ba câu dễ hiểu nhầm:**\n\n- `What do you do?` hỏi **nghề nghiệp**, không phải “bạn đang làm gì” (`What are you doing?`).\n- `What's the weather like?` = Thời tiết **thế nào**? Ở đây `like` không có nghĩa “thích”, và không nói `How is the weather like?`\n- `How come?` = Sao lại thế? (thân mật, giống `Why?`)"
         },
         {
           "type": "tip",
@@ -671,6 +781,20 @@
           ],
           "answer": 0,
           "explain": "Twice a week (hai lần một tuần) trả lời cho How often."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`What do you do?` hỏi về điều gì?",
+          "choices": [
+            "Việc bạn đang làm lúc này",
+            "Nghề nghiệp của bạn"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "speak",
+          "say": "Where do you live?",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -679,7 +803,7 @@
       "title": "Giới từ nơi chốn và thời gian: in / on / at",
       "summary": "Dùng đúng in, on, at và các giới từ chỉ vị trí thường gặp.",
       "level": "A1_2",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "text",
@@ -787,6 +911,48 @@
               "en": "There's a bus stop in front of my house.",
               "vi": "Trước nhà tôi có một trạm xe buýt."
             }
+          ]
+        },
+        {
+          "type": "table",
+          "title": "Những cụm hay sai",
+          "head": [
+            "Đúng",
+            "Ghi nhớ"
+          ],
+          "rows": [
+            [
+              "on the bus, on the train, on a plane",
+              "xe lớn, đứng và đi lại được bên trong → on"
+            ],
+            [
+              "in a car, in a taxi",
+              "xe nhỏ, chỉ ngồi → in"
+            ],
+            [
+              "on TV, on the phone, on the internet",
+              "phương tiện truyền tin → on"
+            ],
+            [
+              "on the second floor",
+              "tầng nhà → on"
+            ],
+            [
+              "at the bus stop, at the door",
+              "một điểm → at"
+            ],
+            [
+              "at the table / on the table",
+              "ngồi vào bàn / nằm trên mặt bàn"
+            ],
+            [
+              "in the sky, in the picture",
+              "trong bầu trời, trong tấm ảnh → in"
+            ],
+            [
+              "in ten minutes",
+              "mười phút **nữa**: I'll be back in ten minutes."
+            ]
           ]
         },
         {
@@ -912,6 +1078,24 @@
           ],
           "answer": 2,
           "explain": "Trước next / last / this / every không dùng in/on/at."
+        },
+        {
+          "type": "gap",
+          "prompt": "I'm ___ the bus now.",
+          "answers": [
+            "on"
+          ],
+          "choices": [
+            "in",
+            "on",
+            "at"
+          ],
+          "explain": "Xe buýt, tàu, máy bay dùng on."
+        },
+        {
+          "type": "speak",
+          "say": "Your phone is on the table.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -920,7 +1104,7 @@
       "title": "So sánh tính từ",
       "summary": "So sánh hơn, so sánh nhất, so sánh bằng as...as.",
       "level": "A2_1",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "text",
@@ -1009,6 +1193,42 @@
               "vi": "Xe buýt không nhanh bằng tàu hỏa."
             }
           ]
+        },
+        {
+          "type": "sounds",
+          "title": "So sánh khi nói",
+          "items": [
+            {
+              "text": "bigger",
+              "ipa": "/ˈbɪgər/"
+            },
+            {
+              "text": "better",
+              "ipa": "/ˈbɛtər/",
+              "note": "giọng Mỹ: t mềm, gần “be-đờ”"
+            },
+            {
+              "text": "worse",
+              "ipa": "/wɜrs/",
+              "note": "cuộn lưỡi; không đọc “uốt”"
+            },
+            {
+              "text": "the best",
+              "ipa": "/ðə bɛst/"
+            },
+            {
+              "text": "taller than me",
+              "note": "than đọc nhẹ /ðən/"
+            },
+            {
+              "text": "more expensive",
+              "note": "nhấn -PEN-"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Thêm vài điều hay:**\n\n- Bất quy tắc nữa: `far → farther`, `little → less`, `much / many → more`. Riêng `fun → more fun` (không nói `funner`).\n- Nhấn mạnh so sánh hơn bằng `much` hoặc `a lot`, **không** dùng `very`: `much bigger`, `a lot better`.\n- Giống / khác: `the same as`, `different from`.\n- Càng… càng…: `The sooner, the better.` (Càng sớm càng tốt.)"
         },
         {
           "type": "tip",
@@ -1129,6 +1349,22 @@
           "type": "order",
           "hint": "Đó là chiếc váy đắt nhất trong cửa hàng.",
           "answer": "It is the most expensive dress in the store."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "It's very bigger.",
+            "It's much bigger.",
+            "It's more bigger."
+          ],
+          "answer": 1,
+          "explain": "Nhấn mạnh so sánh hơn bằng much / a lot, không dùng very."
+        },
+        {
+          "type": "speak",
+          "say": "Your English is better than mine.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -1137,7 +1373,7 @@
       "title": "Từ nối: and, but, or, because, so, then",
       "summary": "Nối hai ý thành một câu dài hơn, đúng logic nguyên nhân – kết quả.",
       "level": "A1_2",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "table",
@@ -1225,6 +1461,10 @@
               "vi": "Trời mưa nên mình đi taxi nhé."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói, từ nối đọc rất nhẹ:**\n\n- `and` → /ən/, có khi chỉ còn /n/: `fish and chips`, `rock 'n' roll`.\n- `because` → `'cause` /kəz/ trong lời nói thân mật.\n- `or` → /ər/: `tea or coffee`.\n\n**Thứ tự cố định**: một số cặp luôn đi theo một thứ tự, đôi khi **ngược** tiếng Việt: `black and white` (trắng đen), `salt and pepper`, `bread and butter`, `ladies and gentlemen`.\n\n**`so` còn hai nghĩa khác**: “rất” (`It's so good!`) và từ mở đầu câu (`So, what's next?`)."
         },
         {
           "type": "tip",
@@ -1358,6 +1598,21 @@
           "type": "order",
           "hint": "Cái túi nặng nên tôi không mang được.",
           "answer": "The bag is heavy, so I can't carry it."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Cụm nào tự nhiên trong tiếng Anh?",
+          "choices": [
+            "white and black",
+            "black and white"
+          ],
+          "answer": 1,
+          "explain": "Thứ tự cố định, ngược với “trắng đen” của tiếng Việt."
+        },
+        {
+          "type": "speak",
+          "say": "It's small, but it's very cheap.",
+          "prompt": "Đọc to câu này"
         }
       ]
     }

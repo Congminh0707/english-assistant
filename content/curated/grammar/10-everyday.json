@@ -13,7 +13,7 @@
       "title": "Từ chỉ số lượng",
       "summary": "some, any, much, many, a lot of, a few, a little.",
       "level": "A2_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -54,8 +54,24 @@
             {
               "en": "Do you have any questions?",
               "vi": "Bạn có câu hỏi nào không?"
+            },
+            {
+              "en": "You can take any bus.",
+              "vi": "Bạn đi xe buýt nào cũng được."
+            },
+            {
+              "en": "There is no milk in the fridge.",
+              "vi": "Trong tủ lạnh không còn sữa."
+            },
+            {
+              "en": "I have a couple of questions.",
+              "vi": "Tôi có vài câu hỏi."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Một chữ `a` đổi nghĩa**: `a few friends` = có vài người bạn (đủ vui) · `few friends` = hầu như không có bạn (buồn). `a little money` – `little money` cũng vậy.\n\n**Mở rộng:**\n\n- Hội thoại: `lots of` = `a lot of`; `a bit of` = `a little`; `a couple of` = hai, vài; `plenty of` = dư dả.\n- `any` trong câu **khẳng định** = bất kỳ: `You can take any bus.`\n- `no` = `not any`: `There is no milk.`\n- Lời mời, lời xin dùng `some`: `Would you like some cake?`"
         },
         {
           "type": "tip",
@@ -114,6 +130,28 @@
           "type": "order",
           "hint": "Bạn có nhiều tiền không?",
           "answer": "Do you have much money"
+        },
+        {
+          "type": "mcq",
+          "prompt": "`You can take any bus.` nghĩa là:",
+          "choices": [
+            "Bạn không đi được xe buýt nào.",
+            "Bạn đi xe buýt nào cũng được."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "I have a ___ of questions.",
+          "answers": [
+            "couple"
+          ],
+          "choices": [
+            "few",
+            "couple",
+            "little"
+          ],
+          "explain": "a couple of; còn a few không có of."
         }
       ]
     },
@@ -122,7 +160,7 @@
       "title": "So sánh nhất",
       "summary": "the -est, the most ... và các dạng bất quy tắc.",
       "level": "A2_2",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -167,8 +205,24 @@
             {
               "en": "It was the worst day of my life.",
               "vi": "Đó là ngày tệ nhất đời tôi."
+            },
+            {
+              "en": "It's one of the best movies of the year.",
+              "vi": "Đó là một trong những phim hay nhất năm."
+            },
+            {
+              "en": "Most people like music.",
+              "vi": "Đa số mọi người thích âm nhạc."
+            },
+            {
+              "en": "This is the least expensive phone.",
+              "vi": "Đây là chiếc điện thoại rẻ nhất."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: `the` trước nguyên âm đọc /ði/: `the easiest`, `the oldest`; đuôi `-est` đọc /ɪst/.\n\n**Mẫu hay dùng:**\n\n- `one of the` + so sánh nhất + **danh từ số nhiều**: `one of the best movies`.\n- So sánh nhất + `I've ever` + V3: `the best pizza I've ever eaten`.\n- `the second largest`, `the third tallest`.\n- `the least expensive` = rẻ nhất.\n\n**Không có `the`**: sau tính từ sở hữu (`my best friend`); và `most` nghĩa là “đa số”: `Most people like music.`"
         },
         {
           "type": "tip",
@@ -226,6 +280,27 @@
           "type": "order",
           "hint": "Đó là bữa ăn ngon nhất của tôi.",
           "answer": "It was the best meal I have had"
+        },
+        {
+          "type": "gap",
+          "prompt": "It's one of the best ___ in town.",
+          "answers": [
+            "restaurants"
+          ],
+          "choices": [
+            "restaurant",
+            "restaurants"
+          ],
+          "explain": "one of the + danh từ số nhiều."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "She is my the best friend.",
+            "She is my best friend."
+          ],
+          "answer": 1
         }
       ]
     },
@@ -234,7 +309,7 @@
       "title": "Câu hỏi tường thuật",
       "summary": "asked if/whether, asked where ... — lùi thì, không đảo ngữ.",
       "level": "B1_2",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -271,8 +346,24 @@
             {
               "en": "They asked me how I knew.",
               "vi": "Họ hỏi tôi biết bằng cách nào."
+            },
+            {
+              "en": "He asked me where I lived.",
+              "vi": "Anh ấy hỏi tôi sống ở đâu."
+            },
+            {
+              "en": "She wanted to know why I was late.",
+              "vi": "Cô ấy muốn biết vì sao tôi đến muộn."
+            },
+            {
+              "en": "She asked me to help her.",
+              "vi": "Cô ấy nhờ tôi giúp."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Chuyển từng bước** câu `“Where do you live?”`:\n\n- Giữ từ để hỏi `where`.\n- Bỏ `do`, đưa chủ ngữ lên trước động từ.\n- Đổi đại từ và lùi thì → `He asked me where I lived.`\n\n**Mở rộng:**\n\n- Động từ mở đầu: `asked`, `wanted to know`, `wondered`. `asked` có thể kèm người nghe (`asked me`); `wanted to know` thì không.\n- Lời nhờ: `asked + người + to V` — `“Can you help me?” → She asked me to help her.`\n- Điều vẫn đúng lúc kể lại: trong hội thoại có thể không lùi thì — `He asked where I live.`"
         },
         {
           "type": "tip",
@@ -329,6 +420,30 @@
             "She asked that I spoke French."
           ],
           "answer": 0
+        },
+        {
+          "type": "gap",
+          "prompt": "“Why are you late?” → She wanted to know why I ___ late.",
+          "answers": [
+            "was"
+          ],
+          "choices": [
+            "am",
+            "was",
+            "were"
+          ]
+        },
+        {
+          "type": "gap",
+          "prompt": "“Can you help me?” → She asked me ___ her.",
+          "answers": [
+            "to help"
+          ],
+          "choices": [
+            "help",
+            "to help"
+          ],
+          "explain": "Lời nhờ: asked + người + to V."
         }
       ]
     },
@@ -337,7 +452,7 @@
       "title": "So và Such",
       "summary": "so + tính từ, such + (a) + danh từ, so ... that.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -374,8 +489,24 @@
             {
               "en": "The test was so hard that nobody finished.",
               "vi": "Bài kiểm tra khó đến mức không ai làm xong."
+            },
+            {
+              "en": "There were so many people at the party.",
+              "vi": "Bữa tiệc đông người quá."
+            },
+            {
+              "en": "I think so.",
+              "vi": "Tôi nghĩ vậy."
+            },
+            {
+              "en": "I was so tired I fell asleep.",
+              "vi": "Tôi mệt đến mức ngủ thiếp đi."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: `so` và `such` được **nhấn mạnh và kéo dài** để tỏ cảm xúc: `It's SO good!`\n\n**Mở rộng:**\n\n- `so much / so many` + danh từ: `so much work`, `so many people` — không nói `such many`.\n- Trong hội thoại thường bỏ `that`: `I was so tired I fell asleep.`\n- `so` thay cho cả một mệnh đề: `I think so.` `I hope so.` Phủ định: `I don't think so.` / `I hope not.`\n- `So do I.` = Tôi cũng vậy."
         },
         {
           "type": "tip",
@@ -433,6 +564,27 @@
           "type": "order",
           "hint": "Trời lạnh đến nỗi chúng tôi ở nhà.",
           "answer": "It was so cold that we stayed at home"
+        },
+        {
+          "type": "gap",
+          "prompt": "There were ___ many people at the party.",
+          "answers": [
+            "so"
+          ],
+          "choices": [
+            "such",
+            "so"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "A: Is it going to rain?\nBạn nghĩ là có. Đáp:",
+          "choices": [
+            "I think it.",
+            "I think so.",
+            "I think yes."
+          ],
+          "answer": 1
         }
       ]
     }

@@ -13,7 +13,7 @@
       "title": "Câu hỏi gián tiếp",
       "summary": "Could you tell me where ...? — không đảo trợ động từ.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -54,8 +54,24 @@
             {
               "en": "Do you know whether the shop is open?",
               "vi": "Bạn có biết cửa hàng có mở không?"
+            },
+            {
+              "en": "I don't know what he wants.",
+              "vi": "Tôi không biết anh ấy muốn gì."
+            },
+            {
+              "en": "I was wondering if you could help me.",
+              "vi": "Không biết bạn có thể giúp tôi không."
+            },
+            {
+              "en": "Do you know who lives here?",
+              "vi": "Bạn có biết ai sống ở đây không?"
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Thêm mẫu mở đầu**: `Can you tell me…?`, `Do you have any idea…?`, `I was wondering…`, `I'd like to know…`\n\n**Lỗi phổ biến nhất** là giữ trật tự câu hỏi: `Do you know where is the bank?` ✗ → `Do you know where the bank is?` ✓\n\n**Mở rộng:**\n\n- Khi `who / what` là chủ ngữ, trật tự không đổi: `Do you know who lives here?`\n- `I don't know…`, `I'm not sure…` cũng theo quy tắc này: `I don't know what he wants.`\n- **Ngữ điệu**: phần sau mẫu mở đầu đọc như câu kể, không lên giọng như câu hỏi trực tiếp."
         },
         {
           "type": "tip",
@@ -124,6 +140,26 @@
             "although"
           ],
           "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "I don't know what does he want.",
+            "I don't know what he wants."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "Can you tell me where the restroom ___?",
+          "answers": [
+            "is"
+          ],
+          "choices": [
+            "does",
+            "is"
+          ]
         }
       ]
     },
@@ -132,7 +168,7 @@
       "title": "Câu phủ định và câu trả lời ngắn",
       "summary": "Don't, doesn't, didn't, isn't + trả lời ngắn.",
       "level": "A1_2",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -182,8 +218,24 @@
             {
               "en": "Is it far? — No, it isn't.",
               "vi": "Có xa không? — Không."
+            },
+            {
+              "en": "I don't have anything to do.",
+              "vi": "Tôi không có việc gì để làm."
+            },
+            {
+              "en": "I don't think it's a good idea.",
+              "vi": "Tôi nghĩ đó không phải ý hay."
+            },
+            {
+              "en": "I don't like fish. — Me neither.",
+              "vi": "Tôi không thích cá. — Tôi cũng không."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: dạng phủ định **luôn đọc rõ** (dạng khẳng định thì hay bị đọc lướt): `don't` /doʊnt/, `doesn't` /ˈdʌzənt/, `didn't` /ˈdɪdənt/, `won't` /woʊnt/, `can't` /kænt/.\n\n**Mở rộng:**\n\n- **Một câu chỉ một phủ định**: `I don't have anything.` hoặc `I have nothing.` — không nói `I don't have nothing.`\n- **Trả lời câu hỏi phủ định theo sự thật**: `Don't you like tea?` — thích thì `Yes, I do.`; không thích thì `No, I don't.`\n- `I don't think it's good.` tự nhiên hơn `I think it's not good.`\n- `Me neither.` = Tôi cũng không."
         },
         {
           "type": "tip",
@@ -251,6 +303,25 @@
             "No, I don't like."
           ],
           "answer": 0
+        },
+        {
+          "type": "mcq",
+          "prompt": "A: Don't you like tea?\nBạn **thích** trà. Trả lời:",
+          "choices": [
+            "No, I do.",
+            "Yes, I do."
+          ],
+          "answer": 1,
+          "explain": "Trả lời theo sự thật: thích → Yes."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "I don't have nothing.",
+            "I don't have anything."
+          ],
+          "answer": 1
         }
       ]
     }

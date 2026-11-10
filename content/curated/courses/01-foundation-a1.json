@@ -37,6 +37,10 @@
         },
         {
           "kind": "lesson",
+          "id": "alphabet.r-vowels"
+        },
+        {
+          "kind": "lesson",
           "id": "alphabet.consonants"
         },
         {
@@ -45,7 +49,15 @@
         },
         {
           "kind": "lesson",
+          "id": "alphabet.silent-letters"
+        },
+        {
+          "kind": "lesson",
           "id": "alphabet.endings"
+        },
+        {
+          "kind": "lesson",
+          "id": "alphabet.linking"
         }
       ]
     },

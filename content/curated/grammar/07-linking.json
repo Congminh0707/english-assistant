@@ -13,11 +13,11 @@
       "title": "Giới từ chỉ thời gian và nơi chốn",
       "summary": "In, on, at.",
       "level": "A1_2",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "text",
-          "md": "**Thời gian**\n- **at**: giờ, thời điểm cụ thể — `at 7 o'clock, at night, at the weekend`\n- **on**: thứ, ngày — `on Monday, on 5 May, on my birthday`\n- **in**: tháng, năm, mùa, buổi — `in June, in 2024, in summer, in the morning`\n\n**Nơi chốn**\n- **at**: điểm — `at the bus stop, at school, at home`\n- **on**: bề mặt — `on the table, on the wall, on the second floor`\n- **in**: bên trong — `in the room, in Hanoi, in a car`"
+          "md": "**Thời gian**\n- **at**: giờ, thời điểm cụ thể — `at 7 o'clock, at night, on the weekend`\n- **on**: thứ, ngày — `on Monday, on May 5th, on my birthday`\n- **in**: tháng, năm, mùa, buổi — `in June, in 2024, in summer, in the morning`\n\n**Nơi chốn**\n- **at**: điểm — `at the bus stop, at school, at home`\n- **on**: bề mặt — `on the table, on the wall, on the second floor`\n- **in**: bên trong — `in the room, in Hanoi, in a car`"
         },
         {
           "type": "table",
@@ -58,8 +58,24 @@
             {
               "en": "The keys are on the table in the kitchen.",
               "vi": "Chìa khoá ở trên bàn trong bếp."
+            },
+            {
+              "en": "See you next week.",
+              "vi": "Hẹn gặp bạn tuần sau."
+            },
+            {
+              "en": "The train arrived on time.",
+              "vi": "Tàu đến đúng giờ."
+            },
+            {
+              "en": "We arrived in Hanoi at noon.",
+              "vi": "Chúng tôi đến Hà Nội lúc giữa trưa."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Anh – Mỹ**: người Mỹ nói `on the weekend`, `on Main Street`; người Anh nói `at the weekend`, `in Main Street`.\n\n**Mở rộng:**\n\n- **Không dùng giới từ** trước `this / last / next / every`, `today`, `tomorrow`: `See you next week.`\n- `in` + khoảng thời gian = … nữa: `in five minutes` (năm phút nữa).\n- `on time` = đúng giờ · `in time` = kịp lúc.\n- `arrive in` + thành phố, nước · `arrive at` + địa điểm — không nói `arrive to`.\n\n**Khi nói**: `at` đọc nhẹ /ət/; `in an hour` nối thành “i-nơ-nour”."
         },
         {
           "type": "tip",
@@ -136,6 +152,28 @@
             "at Monday morning"
           ],
           "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "We arrived ___ Hanoi at noon.",
+          "answers": [
+            "in"
+          ],
+          "choices": [
+            "to",
+            "in",
+            "at"
+          ],
+          "explain": "arrive in + thành phố."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "See you on next Monday.",
+            "See you next Monday."
+          ],
+          "answer": 1
         }
       ]
     },
@@ -144,7 +182,7 @@
       "title": "Từ nối: and, but, so, because, although",
       "summary": "Nối ý trong câu và giữa các câu.",
       "level": "A2_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "text",
@@ -194,8 +232,24 @@
             {
               "en": "Although it was expensive, I bought it.",
               "vi": "Dù đắt, tôi vẫn mua."
+            },
+            {
+              "en": "It's expensive. I like it, though.",
+              "vi": "Nó đắt. Nhưng mà tôi thích."
+            },
+            {
+              "en": "We stayed home because of the rain.",
+              "vi": "Chúng tôi ở nhà vì trời mưa."
+            },
+            {
+              "en": "Speak slowly so that I can understand.",
+              "vi": "Hãy nói chậm để tôi hiểu được."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Hội thoại và văn viết**: `but` – `however`; `so` – `therefore`; `and` – `in addition`. Cặp sau trang trọng hơn.\n\n**Mở rộng:**\n\n- `though` ở **cuối câu** (hội thoại) = “nhưng mà”: `It's expensive. I like it, though.`\n- `because` + mệnh đề · `because of` + danh từ: `because it rained` / `because of the rain`.\n- `although` + mệnh đề · `despite` / `in spite of` + danh từ.\n- `so that` = để mà: `Speak slowly so that I can understand.`\n\n**Khi nói**: `and` → /ən/; `because` → `'cause` /kəz/."
         },
         {
           "type": "tip",
@@ -264,6 +318,28 @@
             "although"
           ],
           "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "We stayed home because ___ the rain.",
+          "answers": [
+            "of"
+          ],
+          "choices": [
+            "of",
+            "for",
+            "that"
+          ],
+          "explain": "because of + danh từ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`I like it, though.` — `though` nghĩa là:",
+          "choices": [
+            "vì vậy",
+            "nhưng mà, tuy vậy"
+          ],
+          "answer": 1
         }
       ]
     },
@@ -272,7 +348,7 @@
       "title": "Giới từ chỉ chuyển động và vị trí",
       "summary": "To, from, into, across, between, next to.",
       "level": "A2_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -322,8 +398,24 @@
             {
               "en": "The hotel is next to the station.",
               "vi": "Khách sạn cạnh nhà ga."
+            },
+            {
+              "en": "She walked into the room.",
+              "vi": "Cô ấy bước vào phòng."
+            },
+            {
+              "en": "Get off the bus at the next stop.",
+              "vi": "Xuống xe buýt ở trạm kế nhé."
+            },
+            {
+              "en": "I'm going home.",
+              "vi": "Tôi về nhà đây."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Cặp dễ nhầm:**\n\n- `in` (ở trong) – `into` (đi vào trong): `She is in the room.` / `She walked into the room.`\n- `across` (băng ngang bề mặt: `across the street`) – `through` (xuyên qua bên trong: `through the tunnel`, `through the park`).\n- `get in / out of` a car, a taxi · `get on / off` a bus, a train, a plane, a bike.\n\n**`go home` không có `to`**: `I'm going home.` Tương tự: `go there`, `come here`, `go abroad`, `go downtown`."
         },
         {
           "type": "tip",
@@ -402,6 +494,27 @@
               "right": "giữa"
             }
           ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "I'm going to home.",
+            "I'm going home."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "Get ___ the bus at the next stop.",
+          "answers": [
+            "off"
+          ],
+          "choices": [
+            "out of",
+            "off"
+          ],
+          "explain": "Xe buýt, tàu, máy bay: get on / get off."
         }
       ]
     }

@@ -112,10 +112,11 @@ Release này là `--prerelease` và tag `content-pack-*` không bị `check-vers
 
 ## 6b. Gói âm thanh bài nghe (tải thêm)
 
-Không nằm trong bộ cài. Tạo và đăng khi nội dung bài nghe đổi (hoặc lần đầu):
+Không nằm trong bộ cài. Gói chứa mọi câu tĩnh app đọc to (bài nghe, bài học/ngữ pháp/bài đọc, TOEIC Part 1–4, câu nghe của bài kiểm tra trình độ, sổ tay mẫu câu, chế độ trẻ em, câu thử giọng — bảng nguồn ở [11 §3](11-ai-and-speech.md#3-đọc-to-tts)). Tạo và đăng khi một trong các nội dung đó đổi (hoặc lần đầu):
 
 1. Bật "Giọng tự nhiên" trong app một lần để có model Kokoro trong `%APPDATA%/english-assistant/models`.
-2. `node scripts/audio/build-listening-audio.mjs <ver>` (~30 phút) → `content/.build/audio/listening-audio-<ver>.zip` + `.sha256`.
+2. Xem trước số clip theo từng nguồn (không tạo âm thanh, vài giây): `node scripts/audio/build-listening-audio.mjs --list`.
+   Build: `node scripts/audio/build-listening-audio.mjs <ver> --base <zip gói cũ>` (`--base` dùng lại clip trùng khoá, chỉ tạo phần thiếu; không có gói cũ thì bỏ `--base` — ~30 phút cho ~6 000 clip, gói đủ nguồn ~12 000 clip lâu hơn tương ứng) → `content/.build/audio/listening-audio-<ver>.zip` + `.sha256`.
 3. Đăng lên release phụ (pre-release, không ảnh hưởng auto-update): `gh release create listening-audio-<ver> content/.build/audio/listening-audio-<ver>.zip content/.build/audio/listening-audio-<ver>.zip.sha256 --prerelease --title "Listening audio <ver>"`.
 4. Điền `size` + `sha256` thật vào `src/main/audio/packSpec.ts` (bắt buộc: app từ chối gói sai kích thước/sha256), rồi phát hành app như bình thường.
    Đổi nội dung: build lại, tăng `VERSION` trong `packSpec.ts` và tag release mới.
@@ -150,3 +151,4 @@ Tài nguyên bản đồ 3D + âm thanh nền ([19 §6](19-kids-world.md), [deci
 - [ ] Gỡ cài đặt sạch (hỏi có xoá dữ liệu người dùng không).
 - [ ] Màn hình "Giấy phép & ghi công" hiển thị đủ nguồn của các pack.
 - [ ] CHANGELOG cập nhật.
+- [ ] Nội dung có câu đọc to đã đổi → build lại gói âm thanh (§6b, xem trước bằng `--list`) và cập nhật `packSpec.ts`.

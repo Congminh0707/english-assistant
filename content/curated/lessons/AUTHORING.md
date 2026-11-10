@@ -53,11 +53,19 @@ Không dùng HTML. Đoạn cách nhau bằng dòng trống (`\n\n`); dòng bắt
 1. **Đúng**: ngữ pháp, phiên âm IPA (Mỹ, trong dấu `/ /`), quy tắc phát âm. Không chắc thì bỏ ý đó, đừng bịa.
    Chỉ nêu quy tắc khi nó đủ ổn định; ghi rõ "thường" / "ngoại lệ" khi có ngoại lệ phổ biến.
 2. **Sư phạm**: mỗi bài một mục tiêu rõ; đi từ ví dụ → quy tắc → lỗi người Việt hay mắc (`tip`) → luyện tập.
-   Mỗi bài có 3–6 khối nội dung, phần giải thích tổng cộng khoảng 150–400 từ tiếng Việt (không dài hơn).
+   Mỗi bài có 4–8 khối nội dung, phần giải thích tổng cộng khoảng 200–550 từ tiếng Việt (không dài hơn).
+   - **Hướng dẫn nói**: bài nào cũng nên có một khối giúp người học *phát âm được* nội dung của bài — khối `sounds`
+     (bấm nghe + nút micro) cho dạng viết tắt, đuôi từ, từ bất quy tắc đổi âm; hoặc bảng "tập từng bước" (môi, lưỡi, hơi)
+     ở bài phát âm. Cặp từ chỉ khác một âm viết thành một ô: `"text": "ship – sheep"`, `"say": "ship. sheep."`.
+   - **Trường hợp đặc biệt**: thêm một khối "điều thú vị / chỗ sách ít nói" — ngoại lệ hay gặp và lý do của nó
+     (vd `an hour` vì h câm, `a university` vì u đọc /ju/), khác biệt với tiếng Việt, cách người Mỹ nói ngoài đời.
+     Chỉ đưa điều chắc chắn đúng.
+   - IPA theo cách ghi của chương chữ cái: không dùng dấu dài `ː`; viết /ɜr/, /ər/ (không dùng ɝ, ɚ).
 3. **Ví dụ**: câu tự nhiên, ngắn (≤ 12 từ), có bản dịch tiếng Việt tự nhiên (không dịch từng chữ). Mỗi bài có ít nhất
    một khối `examples` (6–10 câu) để người học nghe và đọc theo.
-4. **Bài tập**: mỗi bài **8–10 bài tập**, trộn ít nhất 3 dạng, xếp từ dễ đến khó. Bài phát âm dùng nhiều `listen`
-   và `sounds`; bài ngữ pháp dùng `gap`, `order`, `mcq`.
+4. **Bài tập**: mỗi bài **10–12 bài tập** (tối đa 12), trộn ít nhất 3 dạng, xếp từ dễ đến khó. Bài phát âm dùng nhiều
+   `listen` và `sounds`; bài ngữ pháp dùng `gap`, `order`, `mcq`. Mỗi bài nên kết thúc bằng 1–2 câu `speak` (hoặc
+   `listen`) để người học nói thành tiếng điều vừa học.
    - `gap`: đúng **một** `___`; `answers` liệt kê mọi đáp án hợp lệ (ví dụ cả dạng viết tắt nếu chấp nhận được).
      Nên có `choices` (2–4 lựa chọn, gồm đáp án đúng) ở các bài đầu; bài khó hơn để người học tự gõ.
    - `order`: câu 3–12 từ và **chỉ có MỘT cách sắp xếp đúng** (tránh trạng từ có thể đứng nhiều chỗ). Hệ thống so khớp

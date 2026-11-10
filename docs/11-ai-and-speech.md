@@ -89,7 +89,27 @@ flowchart TD
 
 Tuỳ chọn người dùng: giọng US/UK, tốc độ 0.5x–1.5x.
 
-> ✅ **Gói âm thanh bài nghe tạo sẵn (2026-10-21, [decisions #26](decisions.md))** — tải thêm (~10 MB, MP3) trong Cài đặt hoặc ở trang Nghe; có gói thì mọi câu trong bài nghe phát tức thì bằng giọng tự nhiên, không cần model Kokoro. Thứ tự phát: **gói tạo sẵn → giọng tự nhiên (Kokoro) → giọng Windows**. Khi chờ Kokoro tạo âm thanh, giao diện hiện vòng xoay "Đang tạo giọng đọc…" (cửa sổ Học tập, popup và cả mascot). Mã: `src/main/audio/`, `src/main/services/AudioPackService.ts`, `src/shared/audioPack.ts`, `useTts.ts` (`tryPack`).
+> ✅ **Gói âm thanh bài nghe tạo sẵn (2026-10-21, [decisions #26](decisions.md))** — tải thêm (MP3; gói 1.5.0 ~145 MB) trong Cài đặt hoặc ở trang Nghe; có gói thì mọi câu có trong gói (bảng nguồn bên dưới) phát tức thì bằng giọng tự nhiên, không cần model Kokoro. Thứ tự phát: **gói tạo sẵn → giọng tự nhiên (Kokoro) → giọng Windows**. Khi chờ Kokoro tạo âm thanh, giao diện hiện vòng xoay "Đang tạo giọng đọc…" (cửa sổ Học tập, popup và cả mascot). Mã: `src/main/audio/`, `src/main/services/AudioPackService.ts`, `src/shared/audioPack.ts`, `useTts.ts` (`tryPack`).
+
+> ✅ **Gói phủ mọi câu tĩnh app đọc to (2026-11-10, chờ build gói mới)** — `scripts/audio/build-listening-audio.mjs` gom theo từng nguồn (mỗi nguồn một bộ gom, `--list` in bảng số câu/clip/dung lượng ước lượng):
+>
+> | Nguồn | Chỗ gọi | Giọng × tốc độ |
+> |---|---|---|
+> | Bài nghe `content/curated/listening` (khối audio) | `ListeningPlayer` | Mỹ + Anh × 0,6 / 0,8 / 1 |
+> | Chế độ trẻ em (kids, world/places, từ của hình) | giao diện bé | Mỹ × 0,7 / 0,8 / 0,85 / 0,9 |
+> | Bài học / ngữ pháp / bài đọc / bài nghe — khối `examples` | `LessonViewer` | cả hai × 0,9 |
+> | — khối `sounds` (`say ?? text`) | `LessonViewer` (0,8) + `SpeakPractice` luyện âm (0,9) | cả hai × 0,8 / 0,9 |
+> | — khối `passage`: từng câu (`splitSentences`) + "Nghe cả bài" (các đoạn nối bằng dấu cách, cắt theo `clipForTts`) | `ReadingPassage` | cả hai × 0,85 |
+> | — bài tập `listen` (`say`), `picture` có `listen` (`word`) | `LessonExercises` + `AudioPrompt` | cả hai × 0,9 / 0,6 |
+> | — lời giải đọc sau khi chấm: `gap` (`prompt` thay `___` đầu bằng `answers[0]`), `order` (`answer`) | `LessonExercises` (`speaksSolution`) | cả hai × 0,9 |
+> | — bài tập `speak` (`say`) | `SpeakPractice` "Nghe mẫu" | cả hai × 0,9 |
+> | TOEIC Part 1–4 | `ToeicPage.play` → `src/shared/toeicAudio.ts` (`toeicAudioLines`, dùng chung với script) | theo dòng (Mỹ/Anh) × 0,95 |
+> | Bài kiểm tra trình độ — câu nghe `say` | `PlacementTest` | Mỹ × 0,9 / 0,6 |
+> | Sổ tay mẫu câu `p.en` | `PhrasebookPage` | cả hai × 0,9 |
+> | Câu thử giọng `tts.testText` | Cài đặt → Giọng đọc | Mỹ + Anh × 0,9 |
+> | Bản thu thật VOA (`realAudioText(id)`) | `RealAudioPlayer` | MP3 nguyên bản |
+>
+> "Cả hai" = chỗ gọi để giọng mặc định (theo cài đặt `tts.accent`) nên tạo cả giọng Mỹ lẫn Anh. Khoá clip = `packClipKey(giọng, tốc độ, clipForTts(văn bản))`: đổi văn bản/tốc độ/giọng ở chỗ gọi thì phải sửa bộ gom tương ứng trong script, không thì câu đó rơi về Kokoro/giọng Windows. **Không** gồm từ điển (lemma + ví dụ ở ôn từ, luyện tập, danh sách từ, popup, QuizCard; lemma câu từ vựng của bài kiểm tra trình độ; từ tra trong `ReadingPassage`) — quá lớn và phụ thuộc kết quả tra từ lúc chạy. Đo `--list` ngày 2026-11-10: 11 870 clip (gồm 12 bản thu thật), ước lượng ~305 MB (24 KB/clip); gói 1.5.0 hiện phát hành có 6 074 clip (chỉ bài nghe + trẻ em).
 
 ## 4. Nhận dạng giọng nói (STT) & chấm phát âm
 

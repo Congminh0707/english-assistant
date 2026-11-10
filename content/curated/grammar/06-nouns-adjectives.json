@@ -13,11 +13,11 @@
       "title": "Mạo từ a, an, the",
       "summary": "Khi nào dùng a/an, the hay không dùng gì.",
       "level": "A1_2",
-      "minutes": 6,
+      "minutes": 10,
       "blocks": [
         {
           "type": "text",
-          "md": "- **a/an**: một (lần đầu nhắc, chưa xác định). **an** trước âm nguyên âm: *an apple, an hour*.\n- **the**: đã xác định (cả người nói và người nghe đều biết), duy nhất (*the sun*), so sánh nhất (*the best*).\n- **không dùng mạo từ**: danh từ số nhiều/không đếm được nói chung (*I like music*), tên người, bữa ăn, ngôn ngữ."
+          "md": "- **a/an**: “một” — nhắc lần đầu, chưa xác định; nói nghề nghiệp (*She is a nurse*). Chọn theo **âm đầu**, không theo chữ: *an apple*, *an hour* (h câm), *a university* (u đọc /ju/).\n- **the**: đã xác định (cả người nói và người nghe đều biết), duy nhất (*the sun*), so sánh nhất (*the best*), số thứ tự (*the first day*).\n- **không dùng mạo từ**: danh từ số nhiều/không đếm được nói chung (*I like music*), tên người, bữa ăn, ngôn ngữ, môn thể thao."
         },
         {
           "type": "table",
@@ -45,8 +45,51 @@
             [
               "Bữa ăn / môn học",
               "We have lunch at noon."
+            ],
+            [
+              "So sánh nhất / số thứ tự",
+              "She is the best student. It is the first day."
+            ],
+            [
+              "Nhạc cụ",
+              "He plays the piano."
+            ],
+            [
+              "Thể thao / ngôn ngữ",
+              "I play soccer. I speak English."
+            ],
+            [
+              "Phương tiện với by",
+              "I go to work by bus."
+            ]
+          ],
+          "title": "Khi nào dùng gì"
+        },
+        {
+          "type": "table",
+          "title": "The với tên riêng",
+          "head": [
+            "Có the",
+            "Không có the"
+          ],
+          "rows": [
+            [
+              "Tên nước có States, Kingdom hoặc số nhiều: the United States, the Philippines",
+              "Đa số tên nước: Vietnam, Japan, France"
+            ],
+            [
+              "Sông, biển, đại dương: the Mekong, the Pacific",
+              "Hồ, núi đơn lẻ: Hoan Kiem Lake, Mount Everest"
+            ],
+            [
+              "Dãy núi, quần đảo: the Alps",
+              "Châu lục, thành phố: Asia, Hanoi"
             ]
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Cụm cố định không có mạo từ** (nói về *mục đích* của nơi đó, không phải một nơi cụ thể): *go to school*, *go to bed*, *go to work*, *at home*, *at night*, *by bus*, *have breakfast*.\n\nSo sánh: *He is in bed* (đang nằm ngủ) – *The cat is on the bed* (cái giường cụ thể)."
         },
         {
           "type": "examples",
@@ -62,12 +105,32 @@
             {
               "en": "I love music, but I don’t play the piano.",
               "vi": "Tôi yêu âm nhạc nhưng không chơi piano."
+            },
+            {
+              "en": "We waited for an hour and a half.",
+              "vi": "Chúng tôi đã chờ một tiếng rưỡi."
+            },
+            {
+              "en": "It is the tallest building in the city.",
+              "vi": "Đó là toà nhà cao nhất thành phố."
+            },
+            {
+              "en": "The Mekong is a very long river.",
+              "vi": "Sông Mê Kông là một con sông rất dài."
+            },
+            {
+              "en": "I go to school by bus.",
+              "vi": "Tôi đi học bằng xe buýt."
+            },
+            {
+              "en": "He lives in the United States.",
+              "vi": "Anh ấy sống ở Mỹ."
             }
           ]
         },
         {
           "type": "tip",
-          "md": "Chơi nhạc cụ dùng **the** (*play the guitar*), chơi thể thao thì không (*play football*)."
+          "md": "Chơi nhạc cụ dùng **the** (*play the guitar*), chơi thể thao thì không (*play football*).\n\nMột chữ *the* đổi nghĩa: *I go to school* (tôi đi học) – *I go to the school* (tôi đến ngôi trường đó, ví dụ để đón con)."
         }
       ],
       "exercises": [
@@ -132,12 +195,62 @@
             "He is the honest man always."
           ],
           "answer": 1,
-          "explain": "Honest đọc /ˈɒnɪst/, âm h câm → an."
+          "explain": "Honest đọc /ˈɑnɪst/, chữ h câm → an."
         },
         {
           "type": "order",
           "hint": "Tôi nhìn thấy một con chó. Con chó rất to.",
           "answer": "I saw a dog The dog was big"
+        },
+        {
+          "type": "gap",
+          "prompt": "It takes ___ hour and a half.",
+          "answers": [
+            "an"
+          ],
+          "choices": [
+            "a",
+            "an",
+            "the"
+          ],
+          "explain": "h trong hour câm → an."
+        },
+        {
+          "type": "gap",
+          "prompt": "This is ___ best pizza in town.",
+          "answers": [
+            "the"
+          ],
+          "choices": [
+            "a",
+            "the",
+            "an"
+          ],
+          "explain": "So sánh nhất luôn đi với the."
+        },
+        {
+          "type": "gap",
+          "prompt": "He lives in ___ United States.",
+          "answers": [
+            "the"
+          ],
+          "choices": [
+            "a",
+            "-",
+            "the"
+          ],
+          "explain": "Tên nước có States → the United States."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "I go to school by the bus.",
+            "I go to school by bus.",
+            "I go to the school by a bus."
+          ],
+          "answer": 1,
+          "explain": "by + phương tiện không dùng mạo từ; go to school = đi học."
         }
       ]
     },
@@ -146,7 +259,7 @@
       "title": "Danh từ số nhiều",
       "summary": "Quy tắc -s, -es, -ies và các dạng bất quy tắc.",
       "level": "A1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -207,8 +320,24 @@
             {
               "en": "Many people like pizza.",
               "vi": "Nhiều người thích pizza."
+            },
+            {
+              "en": "The news is good.",
+              "vi": "Tin tốt đấy."
+            },
+            {
+              "en": "These jeans are too small.",
+              "vi": "Cái quần bò này chật quá."
+            },
+            {
+              "en": "I need two tomatoes and three potatoes.",
+              "vi": "Tôi cần hai quả cà chua và ba củ khoai tây."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: đuôi số nhiều có ba cách đọc — /s/ `cats`, /z/ `dogs`, /ɪz/ `boxes`. Vài từ đổi cả âm bên trong: `woman` /ˈwʊmən/ → `women` /ˈwɪmɪn/; `house` → `houses` /ˈhaʊzɪz/.\n\n**Mở rộng:**\n\n- Tận cùng -o: `potatoes`, `tomatoes` nhưng `photos`, `pianos`.\n- Tận cùng -f giữ nguyên: `roofs`, `chefs`.\n- Luôn ở số nhiều: `jeans`, `glasses`, `scissors` → `These jeans are new.`\n- Trông như số nhiều nhưng là số ít: `The news is good.`"
         },
         {
           "type": "tip",
@@ -288,6 +417,27 @@
           "statement": "The plural of “foot” is “foots”.",
           "answer": "false",
           "explain": "Số nhiều của foot là feet."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`women` đọc là gì?",
+          "choices": [
+            "/ˈwʊmənz/",
+            "/ˈwɪmɪn/"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "The news ___ good.",
+          "answers": [
+            "is"
+          ],
+          "choices": [
+            "are",
+            "is"
+          ],
+          "explain": "news là danh từ không đếm được, động từ số ít."
         }
       ]
     },
@@ -296,7 +446,7 @@
       "title": "So sánh hơn và so sánh nhất",
       "summary": "Taller, more beautiful, the best.",
       "level": "A2_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "text",
@@ -356,8 +506,24 @@
             {
               "en": "She is as tall as her mother.",
               "vi": "Cô ấy cao bằng mẹ."
+            },
+            {
+              "en": "It's getting better and better.",
+              "vi": "Mọi thứ đang ngày càng tốt hơn."
+            },
+            {
+              "en": "This one is a little cheaper.",
+              "vi": "Cái này rẻ hơn một chút."
+            },
+            {
+              "en": "The test was less difficult than I expected.",
+              "vi": "Bài kiểm tra ít khó hơn tôi nghĩ."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: `than` đọc nhẹ /ðən/; `better` giọng Mỹ nghe gần “be-đờ”; `worse` /wɜrs/.\n\n**Mở rộng:**\n\n- Nhấn mạnh: `much / a lot / far` + so sánh hơn — `much better` (không dùng `very`).\n- Giảm nhẹ: `a little / a bit` — `a little taller`.\n- Kém hơn: `less + tính từ + than` hoặc `not as … as`.\n- Tăng dần: `better and better`, `more and more expensive`.\n- Tính từ hai âm tiết tận cùng -y dùng -er: `happier`, `easier`."
         },
         {
           "type": "tip",
@@ -436,6 +602,27 @@
             "It is the cheaper."
           ],
           "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "My English is getting better and ___.",
+          "answers": [
+            "better"
+          ],
+          "choices": [
+            "best",
+            "better",
+            "good"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào đúng?",
+          "choices": [
+            "This is very better.",
+            "This is much better."
+          ],
+          "answer": 1
         }
       ]
     },
@@ -444,7 +631,7 @@
       "title": "Trạng từ chỉ cách thức",
       "summary": "Adj + -ly: quickly, well, hard.",
       "level": "A2_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -497,8 +684,24 @@
             {
               "en": "She works hard every day.",
               "vi": "Cô ấy làm việc chăm chỉ mỗi ngày."
+            },
+            {
+              "en": "You look tired.",
+              "vi": "Trông bạn mệt đấy."
+            },
+            {
+              "en": "This soup smells good.",
+              "vi": "Món súp này thơm quá."
+            },
+            {
+              "en": "I haven't seen him lately.",
+              "vi": "Gần đây tôi không gặp anh ấy."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Sau động từ cảm giác dùng tính từ**, không dùng trạng từ: `look`, `feel`, `sound`, `smell`, `taste` — `You look happy.` `It smells good.`\n\n**Cặp từ đổi nghĩa:**\n\n- `hard` (chăm chỉ, mạnh) – `hardly` (hầu như không)\n- `late` (muộn) – `lately` (gần đây)\n- `near` (gần) – `nearly` (gần như, suýt)\n\nMột số **tính từ** đã có đuôi -ly: `friendly`, `lovely`, `lonely` — không thêm -ly nữa, nói `in a friendly way`.\n\n`I feel good.` = tôi thấy vui, ổn · `I feel well.` = tôi thấy khoẻ."
         },
         {
           "type": "tip",
@@ -562,6 +765,27 @@
           "statement": "“Hardly” means “in a hard way”.",
           "answer": "false",
           "explain": "Hardly = hầu như không."
+        },
+        {
+          "type": "gap",
+          "prompt": "This soup smells ___.",
+          "answers": [
+            "good"
+          ],
+          "choices": [
+            "well",
+            "good"
+          ],
+          "explain": "Sau smell dùng tính từ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`I haven't seen him lately.` — `lately` nghĩa là:",
+          "choices": [
+            "muộn",
+            "gần đây"
+          ],
+          "answer": 1
         }
       ]
     }

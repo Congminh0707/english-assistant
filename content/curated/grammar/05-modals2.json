@@ -13,7 +13,7 @@
       "title": "Can, could, may: xin phép và khả năng",
       "summary": "Hỏi xin phép, đề nghị và nói khả năng.",
       "level": "A2_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -62,8 +62,24 @@
             {
               "en": "He can’t come today. He is ill.",
               "vi": "Hôm nay anh ấy không đến được. Anh ấy ốm."
+            },
+            {
+              "en": "I will be able to come tomorrow.",
+              "vi": "Ngày mai tôi sẽ đến được."
+            },
+            {
+              "en": "I was able to find my keys.",
+              "vi": "Tôi đã tìm được chìa khoá."
+            },
+            {
+              "en": "It might rain later.",
+              "vi": "Lát nữa có thể mưa."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: `can` đọc nhẹ /kən/, `can't` /kænt/ đọc rõ; `could` /kʊd/ — chữ l câm; `Could you` nối thành “cu-ju”.\n\n**Mở rộng:**\n\n- `be able to` thay `can` ở các thì khác: `I will be able to come.` · `I haven't been able to sleep.`\n- Làm được **một lần cụ thể** trong quá khứ → `was able to`, không dùng `could`: `I was able to find my keys.` (phủ định `couldn't` thì dùng được).\n- `might` = có thể, ít chắc hơn `may` và phổ biến hơn trong hội thoại.\n- Trong đời thường `Can I…?` đã đủ lịch sự; `May I…?` trang trọng."
         },
         {
           "type": "tip",
@@ -134,6 +150,28 @@
             "He can to swim well."
           ],
           "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "I will ___ to come tomorrow.",
+          "answers": [
+            "be able"
+          ],
+          "choices": [
+            "can",
+            "be able"
+          ],
+          "explain": "Sau will không dùng can → be able to."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`could` đọc là gì?",
+          "choices": [
+            "/kʊld/",
+            "/kʊd/"
+          ],
+          "answer": 1,
+          "explain": "Chữ l câm, như trong would và should."
         }
       ]
     },
@@ -142,7 +180,7 @@
       "title": "Would: lời mời, đề nghị, thói quen cũ",
       "summary": "Would you like, would rather, would = từng.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -192,8 +230,24 @@
             {
               "en": "Every Sunday, my father would cook breakfast.",
               "vi": "Chủ nhật nào bố tôi cũng nấu bữa sáng."
+            },
+            {
+              "en": "Would you mind opening the window?",
+              "vi": "Phiền bạn mở cửa sổ giúp được không?"
+            },
+            {
+              "en": "I'd rather walk.",
+              "vi": "Tôi thích đi bộ hơn."
+            },
+            {
+              "en": "I used to have a dog.",
+              "vi": "Ngày trước tôi có nuôi một con chó."
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: `I would` → `I'd` /aɪd/; `would` /wʊd/ — chữ l câm, đọc giống `wood`; `Would you` nối thành “wu-ju”.\n\n**Mở rộng:**\n\n- `I like coffee.` = tôi thích cà phê (nói chung) · `I'd like a coffee.` = tôi muốn một ly (bây giờ).\n- `Would you mind + V-ing?` = phiền bạn… được không? Đồng ý thì đáp `Not at all.` — đáp `Yes` nghĩa là **có phiền**!\n- `would rather + V` (không có `to`): `I'd rather walk.`\n- `would` cho thói quen cũ chỉ đi với **hành động**; với trạng thái dùng `used to`: `I used to have a dog.`"
         },
         {
           "type": "tip",
@@ -262,6 +316,25 @@
             "Give me water."
           ],
           "answer": 1
+        },
+        {
+          "type": "mcq",
+          "prompt": "A: Would you mind helping me?\nBạn sẵn lòng giúp. Đáp:",
+          "choices": [
+            "Yes, I would.",
+            "Not at all."
+          ],
+          "answer": 1,
+          "explain": "mind = thấy phiền; Not at all = không phiền gì."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Gọi món ở quán:",
+          "choices": [
+            "I like a coffee, please.",
+            "I'd like a coffee, please."
+          ],
+          "answer": 1
         }
       ]
     },
@@ -270,7 +343,7 @@
       "title": "Must / can’t: suy đoán chắc chắn",
       "summary": "Đoán từ bằng chứng: must be, can’t be, might be.",
       "level": "B1_2",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "text",
@@ -315,8 +388,24 @@
             {
               "en": "She might be late because of the traffic.",
               "vi": "Cô ấy có thể đến muộn vì kẹt xe."
+            },
+            {
+              "en": "You must be tired after the trip.",
+              "vi": "Đi đường xa chắc bạn mệt lắm."
+            },
+            {
+              "en": "She must be sleeping.",
+              "vi": "Chắc cô ấy đang ngủ."
+            },
+            {
+              "en": "That can't be true!",
+              "vi": "Không thể nào!"
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Khi nói**: nhấn vào modal — `He MUST be tired.` `That CAN'T be right!`\n\n**Mở rộng:**\n\n- Việc đang diễn ra: `must be + V-ing` — `She must be sleeping.`\n- Suy đoán về quá khứ: `must have + V3`, `can't have + V3` — `He must have forgotten.` Khi nói: `must've` /ˈmʌstəv/.\n- Câu cảm thán thường gặp: `You must be joking!` (Chắc bạn đùa!) · `You must be tired.` (thể hiện sự cảm thông) · `That can't be true!`"
         },
         {
           "type": "tip",
@@ -382,6 +471,26 @@
           "statement": "“Mustn’t” is the opposite of “must” in deductions.",
           "answer": "false",
           "explain": "Với suy đoán, phủ định của must là can't."
+        },
+        {
+          "type": "gap",
+          "prompt": "The lights are off. They ___ be sleeping.",
+          "answers": [
+            "must"
+          ],
+          "choices": [
+            "can't",
+            "must"
+          ]
+        },
+        {
+          "type": "mcq",
+          "prompt": "`You must be joking!` nghĩa là:",
+          "choices": [
+            "Bạn bắt buộc phải nói đùa.",
+            "Chắc là bạn đang đùa!"
+          ],
+          "answer": 1
         }
       ]
     }

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import PicText from '@renderer/shared/components/PicText.vue'
 
 // Ghép cặp: chọn một mục bên trái rồi một mục bên phải để nối; một mục bên phải chỉ nối với một mục bên trái.
@@ -12,16 +13,41 @@ const props = defineProps<{
 }>()
 const emit = defineEmits<{ 'update:modelValue': [value: Array<number | null>] }>()
 
+const { t } = useI18n()
 const selectedLeft = ref<number | null>(null)
 
 function selectLeft(i: number): void {
   if (props.locked) return
+  // Bấm mục trái đã nối (khi chưa chọn gì) → gỡ nối để chọn lại
+  if (selectedLeft.value === null && props.modelValue[i] !== null) {
+    const next = [...props.modelValue]
+    next[i] = null
+    emit('update:modelValue', next)
+    selectedLeft.value = i
+    return
+  }
   selectedLeft.value = selectedLeft.value === i ? null : i
+}
+
+function resetAll(): void {
+  if (props.locked) return
+  emit('update:modelValue', props.modelValue.map(() => null))
+  selectedLeft.value = null
 }
 
 function selectRight(pos: number): void {
   const i = selectedLeft.value
-  if (props.locked || i === null) return
+  if (props.locked) return
+  // Bấm mục phải đã nối (khi chưa chọn gì) → gỡ nối
+  if (i === null) {
+    const from = props.modelValue.indexOf(pos)
+    if (from >= 0) {
+      const next = [...props.modelValue]
+      next[from] = null
+      emit('update:modelValue', next)
+    }
+    return
+  }
   // Một mục bên phải chỉ nối với một mục bên trái: gỡ nối cũ của nó
   const next = props.modelValue.map((m) => (m === pos ? null : m))
   next[i] = pos
@@ -65,6 +91,14 @@ const owner = (pos: number): number | null => {
         <PicText :text="r" :size="40" />
       </button>
     </div>
+    <button
+      v-if="!locked && modelValue.some((m) => m !== null)"
+      type="button"
+      class="btn reset"
+      @click="resetAll"
+    >
+      {{ t('study.practice.pairsReset') }}
+    </button>
   </div>
 </template>
 
@@ -73,6 +107,10 @@ const owner = (pos: number): number | null => {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--sp-4);
+}
+.reset {
+  grid-column: 1 / -1;
+  justify-self: start;
 }
 .col {
   display: grid;

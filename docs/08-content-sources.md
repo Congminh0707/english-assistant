@@ -129,7 +129,7 @@ Ký hiệu: ✅ dùng được (đóng gói vào app) · ⚠️ dùng được n
 
 ### 7b. Ảnh TOEIC Part 1 (Pexels)
 
-> ✅ **2026-11-06**: 12 ảnh Part 1 (`src/renderer/study/art/toeic/t1-g001…g012.webp`, 800×500, cắt 8:5) lấy từ **Pexels** theo [Pexels License](https://www.pexels.com/license/): dùng thương mại, không bắt buộc ghi công, **cấm** bán/phát lại ảnh như kho ảnh — chỉ nhúng trong app, không đưa file gốc lên repo công khai dưới dạng bộ ảnh. Chưa đọc lại điều khoản hiện hành — cần chủ dự án rà. Tên file = id nhóm trong `content/curated/toeic/part1-01.json`. Ảnh t1-g006 (đám đông ở sảnh), t1-g012 (kỹ thuật viên, máy không rõ là photocopier) lệch nhẹ so với `scene` — nên thay khi có ảnh tốt hơn.
+> ✅ **2026-11-06**: 12 ảnh Part 1 (`src/renderer/study/art/toeic/t1-g001…g012.webp`, 800×500, cắt 8:5) lấy từ **Pexels** theo [Pexels License](https://www.pexels.com/license/): dùng thương mại, không bắt buộc ghi công, **cấm** bán/phát lại ảnh như kho ảnh — chỉ nhúng trong app, không đưa file gốc lên repo công khai dưới dạng bộ ảnh. Chưa đọc lại điều khoản hiện hành — cần chủ dự án rà. Tên file = id nhóm trong `content/curated/toeic/part1-01.json`. Ảnh t1-g012 (kỹ thuật viên, máy không rõ là photocopier) lệch nhẹ so với `scene` — nên thay khi có ảnh tốt hơn. t1-g006: 2026-11-10 đã sửa `scene`/lựa chọn theo ảnh thật (đám đông chờ trước dãy quầy, không thấy vali).
 
 | Nhóm | Pexels ID | Nhóm | Pexels ID |
 | ---- | --------- | ---- | --------- |

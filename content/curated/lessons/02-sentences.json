@@ -13,7 +13,7 @@
       "title": "Động từ to be: am / is / are",
       "summary": "Nói “là”, “thì”, “ở” bằng am / is / are: khẳng định, phủ định, câu hỏi và trả lời ngắn.",
       "level": "PA1_2",
-      "minutes": 10,
+      "minutes": 12,
       "blocks": [
         {
           "type": "text",
@@ -90,6 +90,59 @@
               "vi": "Anh ấy là anh trai bạn à? Không phải."
             }
           ]
+        },
+        {
+          "type": "sounds",
+          "title": "Dạng viết tắt đọc thế nào?",
+          "items": [
+            {
+              "text": "I'm",
+              "ipa": "/aɪm/",
+              "note": "một âm tiết, khép môi ở cuối"
+            },
+            {
+              "text": "you're",
+              "ipa": "/jʊr/",
+              "note": "đọc giống your"
+            },
+            {
+              "text": "he's",
+              "ipa": "/hiz/",
+              "note": "i dài; khác his /hɪz/"
+            },
+            {
+              "text": "she's",
+              "ipa": "/ʃiz/"
+            },
+            {
+              "text": "it's",
+              "ipa": "/ɪts/",
+              "note": "đọc giống its"
+            },
+            {
+              "text": "we're",
+              "ipa": "/wɪr/"
+            },
+            {
+              "text": "they're",
+              "ipa": "/ðɛr/",
+              "note": "đọc giống their, there"
+            },
+            {
+              "text": "isn't",
+              "ipa": "/ˈɪzənt/",
+              "note": "2 âm tiết"
+            },
+            {
+              "text": "aren't",
+              "ipa": "/ɑrnt/",
+              "note": "1 âm tiết"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Tiếng Anh dùng be ở những chỗ tiếng Việt dùng từ khác:**\n\n- Tuổi: `I am twenty.` — không nói `I have twenty years.`\n- Cảm giác: `I'm hungry.` `I'm cold.` `I'm thirsty.` — tiếng Việt nói “tôi đói”, không có “là”.\n- Thời tiết, giờ giấc: `It is hot.` `It is seven o'clock.` — chủ ngữ `it` bắt buộc phải có, dù không chỉ vật gì.\n- Đúng, sai, muộn: `You are right.` `I'm late.`"
         },
         {
           "type": "tip",
@@ -213,6 +266,21 @@
           "hint": "Mẹ của bạn có ở nhà không?",
           "answer": "Is your mother at home?",
           "explain": "Câu hỏi Yes/No: đưa is lên trước chủ ngữ."
+        },
+        {
+          "type": "listen",
+          "say": "She isn't here.",
+          "prompt": "Bạn nghe được câu nào?",
+          "choices": [
+            "She is here.",
+            "She isn't here."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "speak",
+          "say": "I'm not hungry.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -221,7 +289,7 @@
       "title": "Đại từ nhân xưng và tính từ sở hữu",
       "summary": "I / you / he / she / it / we / they, my / your / his / her…, và me / him / her / us / them.",
       "level": "PA1_2",
-      "minutes": 10,
+      "minutes": 12,
       "blocks": [
         {
           "type": "text",
@@ -322,6 +390,46 @@
               "vi": "Con trai họ là bác sĩ."
             }
           ]
+        },
+        {
+          "type": "sounds",
+          "title": "Viết khác nhau, đọc giống hệt nhau",
+          "items": [
+            {
+              "text": "their – there – they're",
+              "ipa": "/ðɛr/",
+              "note": "của họ – ở đó – họ là",
+              "say": "their. there. they're."
+            },
+            {
+              "text": "your – you're",
+              "ipa": "/jʊr/",
+              "note": "của bạn – bạn là",
+              "say": "your. you're."
+            },
+            {
+              "text": "its – it's",
+              "ipa": "/ɪts/",
+              "note": "của nó – nó là",
+              "say": "its. it's."
+            },
+            {
+              "text": "our – hour",
+              "ipa": "/ˈaʊər/",
+              "note": "của chúng tôi – giờ",
+              "say": "our. hour."
+            },
+            {
+              "text": "his – he's",
+              "ipa": "/hɪz/ – /hiz/",
+              "note": "KHÁC nhau: ngắn – dài",
+              "say": "his. he's."
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Vài điều thú vị:**\n\n- `I` **luôn viết hoa**, kể cả ở giữa câu: `My friend and I`.\n- `you` dùng cho cả một người lẫn nhiều người. Muốn rõ là nhiều người, người Mỹ hay nói `you guys`, `you all`.\n- `they` còn dùng cho **một người** khi không biết hoặc không cần nói giới tính: `Someone left their bag here.`\n- Trả lời “Ai đấy?”: `It's me.` — dùng `me`, không nói `It's I.`"
         },
         {
           "type": "tip",
@@ -451,6 +559,21 @@
           "type": "order",
           "hint": "Cô giáo của chúng tôi giúp đỡ chúng tôi.",
           "answer": "Our teacher helps us."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Nhóm nào gồm các từ đọc **giống hệt** nhau?",
+          "choices": [
+            "he – his – him",
+            "their – there – they're",
+            "we – us – our"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "speak",
+          "say": "Their son is a doctor.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -459,11 +582,125 @@
       "title": "Mạo từ a / an / the",
       "summary": "Khi nào dùng a, an, the — và khi nào không cần mạo từ.",
       "level": "A1_1",
-      "minutes": 10,
+      "minutes": 14,
       "blocks": [
         {
           "type": "text",
           "md": "Tiếng Việt nói “Tôi là học sinh”, nhưng tiếng Anh cần thêm một từ nhỏ: `I am a student.` Đó là **mạo từ**.\n\n**`a` / `an`** = “một”, đi với danh từ **số ít, đếm được**, khi nói tới một cái bất kỳ hoặc nhắc lần đầu. Nói nghề nghiệp cũng cần a/an: `She is a nurse.`\n\nChọn a hay an theo **âm đầu** (cách đọc), không theo chữ cái:\n\n- `a` trước phụ âm: `a book`, `a car`, `a university` (đọc /ju/), `a uniform`\n- `an` trước nguyên âm: `an apple`, `an egg`, `an umbrella`, `an hour` (chữ h câm)"
+        },
+        {
+          "type": "table",
+          "title": "Chọn theo âm, không theo chữ",
+          "head": [
+            "Từ",
+            "Âm đầu",
+            "Dùng",
+            "Vì sao"
+          ],
+          "rows": [
+            [
+              "hour",
+              "nguyên âm /aʊ/",
+              "an hour",
+              "h câm"
+            ],
+            [
+              "honest",
+              "nguyên âm /ɑ/",
+              "an honest man",
+              "h câm"
+            ],
+            [
+              "house, hotel",
+              "phụ âm /h/",
+              "a house, a hotel",
+              "h có đọc"
+            ],
+            [
+              "university, uniform",
+              "phụ âm /j/",
+              "a university",
+              "u đọc /ju/"
+            ],
+            [
+              "umbrella, uncle",
+              "nguyên âm /ʌ/",
+              "an umbrella",
+              "u đọc /ʌ/"
+            ],
+            [
+              "European",
+              "phụ âm /j/",
+              "a European city",
+              "eu đọc /jʊ/"
+            ],
+            [
+              "one",
+              "phụ âm /w/",
+              "a one-way street",
+              "o đọc /wʌ/"
+            ],
+            [
+              "MP3, X-ray",
+              "nguyên âm /ɛ/",
+              "an MP3, an X-ray",
+              "tên chữ M là /ɛm/, X là /ɛks/"
+            ],
+            [
+              "USB, UFO",
+              "phụ âm /j/",
+              "a USB, a UFO",
+              "tên chữ U là /ju/"
+            ]
+          ]
+        },
+        {
+          "type": "sounds",
+          "title": "Nghe: a hay an?",
+          "items": [
+            {
+              "text": "an hour",
+              "note": "h câm"
+            },
+            {
+              "text": "a house",
+              "note": "h có đọc"
+            },
+            {
+              "text": "an honest man",
+              "note": "h câm"
+            },
+            {
+              "text": "a university",
+              "note": "u = /ju/"
+            },
+            {
+              "text": "an umbrella",
+              "note": "u = /ʌ/"
+            },
+            {
+              "text": "a one-way street",
+              "note": "o = /wʌ/"
+            },
+            {
+              "text": "an MP3 player",
+              "note": "M = /ɛm/"
+            },
+            {
+              "text": "the apple",
+              "ipa": "/ði/",
+              "note": "the trước nguyên âm"
+            },
+            {
+              "text": "the book",
+              "ipa": "/ðə/",
+              "note": "the trước phụ âm"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Cách đọc mạo từ.** Trong câu, `a` và `an` đọc rất nhẹ: /ə/, /ən/. Âm /n/ của `an` nối sang từ sau: `an apple` nghe như “ơ-napple”.\n\n`the` cũng theo âm đầu của từ sau:\n\n- trước **âm phụ âm** đọc /ðə/: `the book`, `the university`\n- trước **âm nguyên âm** đọc /ði/: `the apple`, `the hour`"
         },
         {
           "type": "text",
@@ -544,7 +781,7 @@
         },
         {
           "type": "tip",
-          "md": "Lỗi người Việt hay mắc:\n\n- **Bỏ mạo từ** trước danh từ số ít: `I am student.` → `I am a student.`; `He is doctor.` → `He is a doctor.`\n- **Chọn a/an theo chữ cái**: `an university` → `a university`; `a hour` → `an hour`.\n- **Thêm the khi nói chung**: `I like the music.` nghĩa là “thích bản nhạc (cụ thể) này”. Muốn nói thích âm nhạc nói chung: `I like music.`"
+          "md": "Lỗi người Việt hay mắc:\n\n- **Bỏ mạo từ** trước danh từ số ít: `I am student.` → `I am a student.`; `He is doctor.` → `He is a doctor.`\n- **Chọn a/an theo chữ cái**: `an university` → `a university`; `a hour` → `an hour`.\n- **Thêm the khi nói chung**: `I like the music.` nghĩa là “thích bản nhạc (cụ thể) này”. Muốn nói thích âm nhạc nói chung: `I like music.`\n\n**Mẹo**: không chắc thì **nói to** từ đó lên. Nếu âm đầu tiên phát ra là một nguyên âm → `an`; nếu là phụ âm → `a`. Đừng nhìn chữ."
         }
       ],
       "exercises": [
@@ -620,6 +857,28 @@
         },
         {
           "type": "gap",
+          "prompt": "She has ___ MP3 player.",
+          "answers": [
+            "an"
+          ],
+          "choices": [
+            "a",
+            "an"
+          ],
+          "explain": "Tên chữ M đọc /ɛm/, bắt đầu bằng nguyên âm → an."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Từ `the` trong `the apple` đọc là gì?",
+          "choices": [
+            "/ðə/",
+            "/ði/"
+          ],
+          "answer": 1,
+          "explain": "Trước âm nguyên âm, the đọc /ði/."
+        },
+        {
+          "type": "gap",
           "prompt": "I have a dog and a cat. ___ dog is black.",
           "answers": [
             "The"
@@ -660,7 +919,7 @@
       "title": "Số ít, số nhiều và danh từ không đếm được",
       "summary": "Thêm -s/-es/-ies, các dạng bất quy tắc, danh từ không đếm được và much / many / some / any.",
       "level": "A1_1",
-      "minutes": 12,
+      "minutes": 14,
       "blocks": [
         {
           "type": "text",
@@ -781,6 +1040,51 @@
               "vi": "Bạn có câu hỏi nào không?"
             }
           ]
+        },
+        {
+          "type": "sounds",
+          "title": "Số nhiều đọc bất ngờ",
+          "items": [
+            {
+              "text": "woman – women",
+              "ipa": "/ˈwʊmən/ – /ˈwɪmɪn/",
+              "note": "đổi cả âm đầu: “wi-min”",
+              "say": "woman. women."
+            },
+            {
+              "text": "child – children",
+              "ipa": "/tʃaɪld/ – /ˈtʃɪldrən/",
+              "note": "“ai” thành “i” ngắn",
+              "say": "child. children."
+            },
+            {
+              "text": "knife – knives",
+              "ipa": "/naɪf/ – /naɪvz/",
+              "note": "k câm; f thành v",
+              "say": "knife. knives."
+            },
+            {
+              "text": "house – houses",
+              "ipa": "/haʊs/ – /ˈhaʊzɪz/",
+              "note": "s thành z",
+              "say": "house. houses."
+            },
+            {
+              "text": "month – months",
+              "ipa": "/mʌnθ/ – /mʌnθs/",
+              "note": "giữ cả /θ/ và /s/",
+              "say": "month. months."
+            },
+            {
+              "text": "clothes",
+              "ipa": "/kloʊz/",
+              "note": "đọc gần như close; 1 âm tiết"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Những danh từ “khó chiều”:**\n\n- **Luôn ở số nhiều** (vì có hai phần): `jeans`, `pants`, `shorts`, `glasses`, `scissors`. Nói `These jeans are new.` Muốn đếm: `a pair of jeans`.\n- **Không đếm được dù tiếng Việt đếm được**: `hair` (`Her hair is long.`), `homework`, `furniture`, `bread`, `fruit`. Đếm bằng đơn vị: `a slice of bread`, `a piece of furniture`.\n- Hai con cá vẫn là `two fish`; hai con cừu là `two sheep`."
         },
         {
           "type": "tip",
@@ -907,6 +1211,22 @@
           "type": "order",
           "hint": "Tôi muốn một cốc nước.",
           "answer": "I want a glass of water."
+        },
+        {
+          "type": "mcq",
+          "prompt": "`women` đọc là gì?",
+          "choices": [
+            "/ˈwʊmən/",
+            "/ˈwɪmɪn/",
+            "/ˈwoʊmɛn/"
+          ],
+          "answer": 1,
+          "explain": "Số nhiều đổi cả âm đầu: “wi-min”."
+        },
+        {
+          "type": "speak",
+          "say": "My children love cats.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -915,7 +1235,7 @@
       "title": "This / that / these / those",
       "summary": "Chỉ đồ vật, người ở gần hay ở xa, số ít hay số nhiều; hỏi “What's this?”, “Who is that?”.",
       "level": "A1_1",
-      "minutes": 8,
+      "minutes": 10,
       "blocks": [
         {
           "type": "text",
@@ -985,8 +1305,47 @@
           ]
         },
         {
+          "type": "sounds",
+          "title": "Nghe kỹ bốn từ",
+          "items": [
+            {
+              "text": "this",
+              "ipa": "/ðɪs/",
+              "note": "i ngắn, kết thúc /s/"
+            },
+            {
+              "text": "these",
+              "ipa": "/ðiz/",
+              "note": "i dài, kết thúc /z/"
+            },
+            {
+              "text": "that",
+              "ipa": "/ðæt/",
+              "note": "hạ hàm cho /æ/"
+            },
+            {
+              "text": "those",
+              "ipa": "/ðoʊz/",
+              "note": "kết thúc /z/"
+            },
+            {
+              "text": "this is",
+              "note": "nối: “thi-siz”"
+            },
+            {
+              "text": "that's",
+              "ipa": "/ðæts/",
+              "note": "= that is"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "md": "**Không chỉ để chỉ đồ vật:**\n\n- Gọi điện thoại: `Hi, this is Lan.` (tự giới thiệu) · `Is this Nam?` (hỏi người nghe).\n- Giới thiệu người: `This is my friend, Mai.` — không nói `She is my friend Mai` khi vừa gặp.\n- Thời gian: `this morning` (sáng nay), `these days` (dạo này), `in those days` (hồi đó).\n- Phản hồi nhanh: `That's great!` `That's right.` `That's OK.`"
+        },
+        {
           "type": "tip",
-          "md": "Lỗi người Việt hay mắc:\n\n- **Không hợp số**: `this books`, `these book` → `these books`. Động từ cũng phải hợp: `These are…`, không phải `These is…`.\n- **Đọc this và these giống nhau**: `this` có âm i ngắn /ðɪs/, `these` có âm i dài /ðiːz/ và kết thúc bằng âm /z/. Âm /ð/ đọc bằng cách đặt đầu lưỡi giữa hai hàm răng, không đọc thành “đ”.\n- Trả lời `What are these?` bằng `They're…`, không phải `It's…`."
+          "md": "Lỗi người Việt hay mắc:\n\n- **Không hợp số**: `this books`, `these book` → `these books`. Động từ cũng phải hợp: `These are…`, không phải `These is…`.\n- **Đọc this và these giống nhau**: `this` có âm i ngắn /ðɪs/, `these` có âm i dài /ðiz/ và kết thúc bằng âm /z/. Âm /ð/ đọc bằng cách đặt đầu lưỡi giữa hai hàm răng, không đọc thành “đ”.\n- Trả lời `What are these?` bằng `They're…`, không phải `It's…`."
         }
       ],
       "exercises": [
@@ -1106,6 +1465,21 @@
           "type": "order",
           "hint": "Cô gái kia là ai?",
           "answer": "Who is that girl?"
+        },
+        {
+          "type": "mcq",
+          "prompt": "Gọi điện thoại, cách tự giới thiệu tự nhiên nhất là:",
+          "choices": [
+            "Here is Lan.",
+            "Hi, this is Lan.",
+            "That is Lan."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "speak",
+          "say": "These shoes are new.",
+          "prompt": "Đọc to câu này"
         }
       ]
     },
@@ -1114,7 +1488,7 @@
       "title": "There is / There are",
       "summary": "Nói “có cái gì ở đâu”: khẳng định, phủ định, câu hỏi; phân biệt với It is và I have.",
       "level": "A1_2",
-      "minutes": 10,
+      "minutes": 12,
       "blocks": [
         {
           "type": "text",
@@ -1196,6 +1570,10 @@
               "vi": "Nhà bạn có mấy người?"
             }
           ]
+        },
+        {
+          "type": "text",
+          "md": "**Mấy điều sách ít nói:**\n\n- Khi nói, `There's` đọc /ðɛrz/; `There are` đọc nhẹ, nghe gần “the-rơ”.\n- Liệt kê nhiều thứ: động từ theo danh từ **đứng gần nhất**: `There is a pen and two books.` · `There are two books and a pen.`\n- Trong hội thoại thân mật, người bản ngữ hay nói `There's two cats.` Khi viết và đi thi, hãy dùng `There are`.\n- Quá khứ: `There was` / `There were`. Tương lai: `There will be`.\n- `there` (ở đó), `their` (của họ), `they're` (họ là) đọc giống hệt nhau."
         },
         {
           "type": "tip",
@@ -1307,6 +1685,23 @@
           "type": "order",
           "hint": "Không còn chút đường nào cả.",
           "answer": "There isn't any sugar."
+        },
+        {
+          "type": "gap",
+          "prompt": "There ___ a pen and two books on the desk.",
+          "answers": [
+            "is"
+          ],
+          "choices": [
+            "are",
+            "is"
+          ],
+          "explain": "Động từ theo danh từ gần nhất: a pen (số ít)."
+        },
+        {
+          "type": "speak",
+          "say": "Is there a bank near here?",
+          "prompt": "Đọc to câu này"
         }
       ]
     }

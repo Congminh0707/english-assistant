@@ -20,11 +20,11 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 | Hạng mục                                       | Giá trị                                                                                     | Đo bằng      | Đo ngày    |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
 | Phiên bản app                                  | 2.2.0                                                                                       | `pnpm stats` | 2026-11-09 |
-| Test (Vitest)                                  | 539 test / 57 file                                                                          | `pnpm test`  | 2026-11-09 |
+| Test (Vitest)                                  | 549 test / 59 file                                                                          | `pnpm test`  | 2026-11-10 |
 | Kênh IPC                                       | 107 invoke · 4 send · 13 event                                                              | `pnpm stats` | 2026-11-09 |
 | Migration DB (Drizzle)                         | 9 (`0000`–`0008`)                                                                           | `pnpm stats` | 2026-11-05 |
 | Nhân vật thú cưng                              | 5 (Bi, Lupo, Draco, Robo, Kitsu)                                                           | `pnpm stats` | 2026-10-22 |
-| Dáng vector mỗi nhân vật | 19 dáng × 4 giai đoạn vẽ riêng + trứng = 77 hình mỗi con (mascot v3, xem 05)                | `pnpm stats` | 2026-11-09 |
+| Dáng vector mỗi nhân vật | 19 dáng × 4 giai đoạn vẽ riêng + trứng = 77 hình mỗi con (mascot v4, xem 05)                | `pnpm stats` | 2026-11-10 |
 | Vật phẩm cửa hàng                              | 46 = 17 đồ ăn + 25 phụ kiện (5 vị trí, vẽ riêng cho từng con) + 4 nhân vật                  | `pnpm stats` | 2026-11-09 |
 
 ## 2. Nội dung tự soạn (`content/curated/`)
@@ -77,6 +77,6 @@ Các bản trước (1.0.0 → 1.2.0) ghi ở [09 §10.3](09-content-pipeline.md
 | Gói audio bài nghe         | 145,3 MB (6062 đoạn: bài nghe Anh + Mỹ gồm B2–C2, 972 từ/câu trẻ em × 4 tốc độ, 12 bản thu thật) | release `listening-audio-1.5.0` (đo 2026-11-06)                                                 |
 | Gói bản đồ bé `kids-world` | 📋 chưa build — đo khi build ([19 §6](19-kids-world.md))            | mục tiêu ≤ 50 MB                                                                                |
 | Bản đồ bé: fps đo trong app thật (2026-11-01, 1600×900, máy dev, hồ sơ trẻ em mới) | 2D cao 56, 2D thấp 56, 3D cao 56, 3D thấp 56, quả cầu cao 56 | đếm `requestAnimationFrame` trong 5 giây; chưa đo trên máy yếu thật. Tự hạ khi dưới 24 fps ([19](19-kids-world.md)) |
-| Gói sprite thú cưng 288px  | đã bỏ 2026-11-01 (decisions #45); bộ cài không còn sprite pixel, thú cưng vector `art/pets` ≈ 260 KB | `pnpm stats` | 2026-11-01 |
+| Gói sprite thú cưng 288px  | đã bỏ 2026-11-01 (decisions #45); bộ cài không còn sprite pixel, thú cưng vector `art/pets` 5 file = 5.399 KB (mascot v4: bi 837, kitsu 1.853, draco 1.145, robo 580, lupo 984) | `pnpm mascot` | 2026-11-10 |
 
 > Các kích thước model lấy từ `modelFiles.ts` / manifest; đổi model → đo lại và sửa bảng.

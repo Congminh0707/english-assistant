@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import { isAccessoryId } from '@shared/shop'
 import PetFigure from './PetFigure.vue'
 
-// Thú cưng chibi vector (mascot v3, docs/05), có thể đeo phụ kiện, đứng yên hoặc đi bộ.
+// Thú cưng chibi vector (mascot v4, docs/05), có thể đeo phụ kiện, đứng yên hoặc đi bộ.
 // `size` là cạnh vùng hiển thị. Hình vẽ và phụ kiện (vẽ riêng theo từng con) đều ở PetFigure.
 const props = withDefaults(
   defineProps<{
@@ -22,6 +22,8 @@ const props = withDefaults(
     silhouette?: boolean
     /** Trạng thái khác (idle, walk, run, jump, sit, sleep, eat, drink, read, listen, say, hello, happy, sad, surprised, levelup, car, boat, plane) */
     pose?: string
+    /** Chuyển động cả thân chồng lên dáng (xem PetFigure) */
+    motion?: string
   }>(),
   {
     accessories: () => [],
@@ -30,7 +32,8 @@ const props = withDefaults(
     walking: false,
     flip: false,
     silhouette: false,
-    pose: ''
+    pose: '',
+    motion: ''
   }
 )
 
@@ -54,6 +57,7 @@ const worn = computed(() => props.accessories.filter(isAccessoryId))
       :stage="stage"
       :pose="state"
       :animate="live"
+      :motion="motion"
       :accessories="worn"
     />
   </div>
@@ -69,9 +73,16 @@ const worn = computed(() => props.accessories.filter(isAccessoryId))
 .fig {
   position: relative;
   z-index: 1;
+  /* Quay mặt: xoay nhanh qua trục dọc thay vì lật tức thì */
+  transition: transform 0.26s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.flip {
+.flip .fig {
   transform: scaleX(-1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fig {
+    transition: none;
+  }
 }
 .silhouette {
   filter: brightness(0) opacity(0.35);

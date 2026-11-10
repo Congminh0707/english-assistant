@@ -5,6 +5,11 @@ import type { Animator } from './PoseAnimator'
 const FIDGETS = ['look', 'wag', 'yawn', 'stretch', 'wave', 'dance', 'spin', 'think'] as const
 type Fidget = (typeof FIDGETS)[number]
 
+/** Phản ứng khi người dùng chơi với mascot: để ý (rê chuột tới), cười khúc khích/dụi (bấm), làm trò (bấm đúp),
+ * chóng mặt (bấm dồn), khoái chí (vuốt ve), nhún nhảy theo nhạc (lăn chuột) */
+const INTERACTIONS = ['notice', 'giggle', 'nuzzle', 'trick', 'dizzy', 'purr', 'groove'] as const
+type Interaction = (typeof INTERACTIONS)[number]
+
 export type MascotState =
   | 'idle'
   | 'walk'
@@ -19,6 +24,7 @@ export type MascotState =
   | 'angry'
   | 'love'
   | 'levelup'
+  | Interaction
   | Fidget
   /** Hoạt ảnh đặc trưng của từng nhân vật (tên bắt đầu bằng `quirk_`, có trong sheet.json) */
   | `quirk_${string}`
@@ -39,10 +45,11 @@ export type MascotReactionAnim =
   | 'yawn'
   | 'think'
   | 'levelup'
+  | Interaction
 
 const QUIRK_PREFIX = 'quirk_'
 const CLICK_PREFIX = 'click_'
-/** Khi bấm vào: mỗi phản ứng riêng của nhân vật có trọng số này, happy/love chung có trọng số 2 */
+/** Khi bấm vào: mỗi phản ứng riêng của nhân vật có trọng số này; happy/love/giggle chung trọng số 2, nuzzle 1 */
 const CLICK_WEIGHT = 3
 /** Mỗi hoạt ảnh đặc trưng có trọng số này khi chọn động tác tự chơi (xấp xỉ 1/3 số lần tự chơi) */
 const QUIRK_WEIGHT = 3
@@ -56,6 +63,7 @@ const ONE_SHOT_STATES: MascotState[] = [
   'angry',
   'love',
   'levelup',
+  ...INTERACTIONS,
   ...FIDGETS
 ]
 
@@ -75,6 +83,12 @@ const WALK_SPEED = 30 // px/s
 const WALK_CHANCE = 0.55
 /** Xác suất làm một hoạt ảnh tự chơi thay vì đi/đứng yên khi hết thời gian nghỉ */
 const FIDGET_CHANCE = 0.35
+/** Sau khi "để ý" con trỏ, nghỉ bấy nhiêu giây mới để ý lần nữa */
+const NOTICE_COOLDOWN = 6
+/** Con trỏ phải ở yên một bên bấy nhiêu giây mascot mới quay mặt theo (khỏi lật qua lật lại) */
+const LOOK_HOLD = 0.6
+/** Vừa quay mặt xong thì bấy nhiêu giây sau mới quay tiếp */
+const TURN_COOLDOWN = 2.5
 
 const randomBetween = (min: number, max: number): number => min + Math.random() * (max - min)
 
@@ -91,6 +105,10 @@ export class MascotBrain {
   private stateTimeLeft = randomBetween(2, 5)
   private pendingDx = 0
   private walkInFlight = false
+  private noticeCooldown = 0
+  private lookDir: 1 | -1 | null = null
+  private lookHeld = 0
+  private turnCooldown = 0
 
   constructor(
     private readonly animator: Animator,
@@ -111,6 +129,9 @@ export class MascotBrain {
   }
 
   tick(dt: number): void {
+    this.noticeCooldown = Math.max(0, this.noticeCooldown - dt)
+    this.turnCooldown = Math.max(0, this.turnCooldown - dt)
+    this.followPointer(dt)
     // Đang ngủ: nằm yên (chỉ bị kéo/rơi mới tỉnh tạm, xong lại ngủ tiếp)
     if (this.sleeping && (this.state === 'idle' || this.state === 'walk')) this.enter('sleep')
     if (this.state === 'idle' || this.state === 'walk') {
@@ -127,6 +148,35 @@ export class MascotBrain {
   pointerUp(isClick: boolean, falling: boolean): void {
     if (isClick) this.enter(this.sleeping ? 'sleep' : this.pickClickReaction())
     else this.enter(falling ? 'fall' : 'land')
+  }
+
+  /** Con trỏ vừa rê tới nhân vật: giật mình để ý (chỉ khi đang rảnh, có thời gian nghỉ giữa hai lần) */
+  hover(): void {
+    if (this.sleeping || this.noticeCooldown > 0) return
+    if (this.state !== 'idle' && this.state !== 'walk') return
+    this.noticeCooldown = NOTICE_COOLDOWN
+    this.enter('notice')
+  }
+
+  /** Con trỏ đang ở bên nào của nhân vật (null = ở gần giữa hoặc đã rời đi); `tick` mới quyết định có quay mặt không */
+  lookAt(dir: 1 | -1 | null): void {
+    if (dir === this.lookDir) return
+    this.lookDir = dir
+    this.lookHeld = 0
+  }
+
+  /** Đang đứng yên và con trỏ ở yên một bên đủ lâu thì quay mặt về phía đó, không quay liên tục */
+  private followPointer(dt: number): void {
+    if (this.lookDir === null || this.lookDir === this.facing) return
+    if (this.state !== 'idle' || this.sleeping) {
+      this.lookHeld = 0
+      return
+    }
+    this.lookHeld += dt
+    if (this.lookHeld < LOOK_HOLD || this.turnCooldown > 0) return
+    this.facing = this.lookDir
+    this.turnCooldown = TURN_COOLDOWN
+    this.lookHeld = 0
   }
 
   landed(): void {
@@ -177,12 +227,14 @@ export class MascotBrain {
     this.enter(Math.random() < WALK_CHANCE ? 'walk' : 'idle')
   }
 
-  /** Chọn phản ứng khi bị bấm: phản ứng riêng của nhân vật (click_*) hoặc happy/love chung */
+  /** Chọn phản ứng khi bị bấm: phản ứng riêng của nhân vật (click_*) hoặc happy/love/giggle/nuzzle chung */
   private pickClickReaction(): MascotState {
     const own = this.animator.names().filter((n) => n.startsWith(CLICK_PREFIX))
     const options: Array<[MascotState, number]> = [
       ['happy', 2],
       ['love', 2],
+      ['giggle', 2],
+      ['nuzzle', 1],
       ...own.map((n): [MascotState, number] => [n as MascotState, CLICK_WEIGHT])
     ]
     let roll = Math.random() * options.reduce((sum, [, w]) => sum + w, 0)

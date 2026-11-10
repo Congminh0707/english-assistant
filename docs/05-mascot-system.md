@@ -1,5 +1,7 @@
 # 05 — Hệ thống Mascot
 
+> **Mascot v4 (2026-11-10, [decisions #55](decisions.md)).** Giữ mặt, tỉ lệ chibi, tay cố định và chỗ đeo phụ kiện của v3; đổi phần phụ thành **chuỗi khớp lắc lư** (overlapping action: khúc sau lồng trong khúc trước, trễ pha 0,12 s, biên độ tăng dần về chóp) cho mọi giai đoạn: đuôi cáo/sói/rồng 7 khúc tô gradient ngang thân có túm lông mép, từng lá của Bi rung lệch nhịp, bờm lửa Draco lắc từng ngọn, cánh Draco vỗ trễ nửa ngoài, ăng-ten lò xo và ô lục giác sáng lần lượt của Robo. Mắt mới (mống chuyển màu, mi cong, 3 điểm sáng; Robo giữ mắt đèn), Kitsu và Lupo có ria. **Ánh sáng Huyền thoại nhỏ lại**: quầng nền r 78 độ đục 34% + vòng chấm mảnh xoay 48 s (v3: r 100, 80%), đốm sáng r 1–2,5 trôi chậm, sao 4 cánh mảnh, lửa ma (kitsunebi) nhỏ; bỏ `fg` to của v3. Thiên Hồ: 9 đuôi xoè quạt chóp xanh băng, đai vàng nạm hồng ngọc; Nguyệt Lang: đuôi ngân hà, trăng khuyết mảnh, chòm sao (bỏ bờm cực quang); cánh Thần Rừng, Long Thần, Thần Cơ Giáp thu nhỏ. Nguồn: `fx4.py` (CSS `.sg .mt .tk .kb .hl .pu` + `chain`), `detail4.py` (`plume`, đuôi, `eyes4`), `chars4.py` (ghép trên `chars2/chars3`), `build4.py` (nền Huyền thoại); `export.py` dùng `chars4.CHARS4`. Bảng duyệt: `boards4.py`, xem nhanh khung hình đứng yên: `preview4.py`. Canvas: https://claude.ai/artifact/WQjkL5Rc57N5oKQeBLgu2b. Khi `animate` tắt (`.still`) các đốm sáng ẩn, đuôi đứng yên.
+
 > **Mascot v3 (2026-11-09, [decisions #53](decisions.md)).** Vẽ lại cả 5 con kiểu chibi mềm: không viền mực, khối tròn đổ bóng gradient, mắt to có lòng màu + 2 điểm sáng, má hồng mờ, miệng "w"; chi tiết riêng từng con (lông tơ tai, má xù, ngón chân, vân sừng, ốc vít). **Mỗi giai đoạn vẽ riêng** (không còn dùng chung hình + CSS): Bé/Thiếu niên/Trưởng thành thêm dần phụ kiện đặc trưng (mầm → nụ hoa, đuôi 1→3→5, cánh, khăn...), **Huyền thoại** đổi hẳn bóng dáng: Bi Thần Rừng (vương miện cành hoa, cánh lá vàng, mặt trời), Kitsu Thiên Hồ (lông trắng, 9 đuôi chóp lửa ma), Draco Long Thần (sừng vàng phân nhánh, bờm lửa, cánh hoàng hôn, mây lành, ngọc rồng), Robo Thần Cơ Giáp (giáp trắng viền vàng, mào V, cánh lục giác, vòng bánh răng), Lupo Nguyệt Lang (trăng khuyết, bờm cực quang, đuôi ngân hà). **Tay cố định độ dài** (khúc dài 24, chỉ xoay quanh vai: vẫy 125°, cổ vũ 135°, lên cấp 140°, giật mình 100°, cầm đồ −50°) — sửa lỗi tay bị kéo dài khi giơ (hàm cũ vẽ tới toạ độ bàn tay). Một bộ vector dùng chung cho 48/96/144 px, không gói tải thêm.
 >
 > **Nguồn & xuất:** `scripts/design-data/mascot/` (`chars*.py` nhân vật, `acc2.py` phụ kiện, `export.py` → `pnpm mascot`), xem nhanh `preview_pets.py`. `pets/<id>.pet.json` = `css`, `vb`, `egg`, `stages{baby|teen|adult|legend: {scale, defs, bg, fg, states{19 dáng}}}`, `acc{25 phụ kiện: slot, defs, b, f}`. `PetFigure` ráp defs + nền Huyền thoại + `<g scale giai đoạn>[phụ kiện sau thân + dáng + phụ kiện trước thân]`. Thiết kế duyệt trên canvas https://claude.ai/artifact/XxBFjpKLhPvmFRhCpA4En8. Đoạn "Thú cưng chibi đã áp dụng (2026-11-01)" dưới đây là bản v2 cũ.
@@ -226,15 +228,26 @@ Lưu trong main (`pet_state` — xem [10](10-data-model.md)), main tính toán, 
 
 ## 7. Tương tác của người dùng
 
-| Hành động                              | Phản ứng                                                             |
-| -------------------------------------- | -------------------------------------------------------------------- |
-| Click 1 lần                            | `wave` + câu chào/câu đùa; mood +1 (tối đa 10 lần/giờ để tránh spam) |
-| Double-click                           | Mở cửa sổ Học tập                                                    |
-| Chuột phải                             | Menu ngữ cảnh (xem [01](01-features.md) A5)                          |
-| Kéo thả                                | `drag` → thả ra `fall` → `land`                                      |
-| Vuốt (di chuột qua lại nhanh trên đầu) | `happy`, mood +2                                                     |
-| Thả đồ ăn từ túi đồ lên nhân vật       | `eat`                                                                |
-| Hover lâu                              | Hiện tooltip chỉ số nhỏ                                              |
+Cập nhật 2026-11-10 (đúng với `mascot/App.vue`). Mọi phản ứng dùng lại 19 dáng vector; trạng thái của não → dáng + **chuyển động cả thân** (`PoseAnimator`: bảng `POSE` và `MOTION`; `PetFigure` prop `motion` → lớp CSS `m-*` trên khung, đổi lớp không dựng lại hình).
+
+| Hành động                                   | Trạng thái não | Dáng + chuyển động        | Ghi chú                                                                 |
+| ------------------------------------------- | -------------- | ------------------------- | ----------------------------------------------------------------------- |
+| Rê chuột tới nhân vật                       | `notice`       | `idle` + `perk`           | Nhún lên, đuôi vẫy nhanh; nghỉ 6 giây giữa hai lần; chỉ khi đang rảnh   |
+| Con trỏ ở gần, lệch một bên                 | (vẫn `idle`)   | quay mặt theo             | Lệch quá 0,8 bề ngang; con trỏ phải ở yên bên đó 0,6 giây, hai lần quay cách nhau ≥ 2,5 giây (`MascotBrain.followPointer`); quay bằng transition 0,26 giây |
+| Bấm 1 lần                                   | `happy` / `love` / `giggle` / `nuzzle` | `happy`, `happy` + `sway`, `happy` + `wiggle`, `sit` + `squash` | Vuốt ve: gọi `pet:pat`, nói câu `pat`/`patTired` |
+| Bấm đúp (2 lần trong 1,6 giây)              | `trick`        | `hello` + `bounce`        | Nhún lấy đà rồi nhảy cẫng hai nhịp, vẫy tay; câu `trick`; không gọi `pet:pat` lần hai |
+| Bấm dồn (≥ 4 lần trong 1,6 giây)            | `dizzy`        | `surprised` + `dizzy`     | Lảo đảo; câu `dizzy`                                                    |
+| Rê qua lại trên nhân vật, không bấm         | `purr`         | `happy` + `sway`          | ≥ 3 lần đổi chiều, quãng đường ≥ 1,2 bề ngang trong 2 giây; nghỉ 6 giây; câu `stroke` |
+| Lăn chuột trên nhân vật                     | `groove`       | `listen` + `shimmy`       | Đeo tai nghe, bước ngang trái phải theo nhạc                            |
+| Kéo thả                                     | `drag` → `fall` → `land` | `surprised` → `sit` |                                                                         |
+| Chuột phải                                  |                |                           | Menu ngữ cảnh (xem [01](01-features.md) A5)                             |
+| Giữ chuột trên nhân vật 0,9 giây            |                |                           | Thẻ chỉ số                                                              |
+
+Động tác tự chơi cũng có chuyển động: `look` = `peek` (nghiêng đầu), `wag` = đuôi/lá vẫy nhanh, `dance` = `sway`, `spin` = dáng `walk` + `shimmy`. Không dùng xoay 360° hay lật ngang cả thân (hình 2D trông giả). Mọi chuyển động `m-*` bắt đầu và kết thúc ở tư thế nghỉ với số vòng hữu hạn; `PetFigure` đặt `--f` = đồng hồ chung nên đổi dáng (dựng lại hình) đuôi vẫn lắc tiếp đúng nhịp. Đang ngủ thì chỉ bấm 1 lần có phản hồi (câu `sleepyPat`).
+
+**Vùng bấm** (`engine/hitRegion.ts`): hình nằm trong Shadow DOM nên không đọc được alpha; mỗi con ở mỗi giai đoạn được phủ bằng vài elip trong toạ độ hình vẽ (đầu + thân chung, rồi tai/sừng/mầm, đuôi, cánh; Huyền thoại có quạt đuôi Thiên Hồ, cánh Long Thần/Thần Rừng/Thần Cơ Giáp, đuôi ngân hà). Con trỏ được đổi sang toạ độ hình theo viewBox (`xMidYMax meet`), tỉ lệ giai đoạn và hướng lật. Đổi hình trong `chars4.py` hoặc `vb`/`scale` trong `export.py` thì phải sửa bảng `EXTRA`/`VIEW_BOX`/`STAGE_SCALE` ở đây.
+
+Cử chỉ (`engine/gestures.ts`): `ClickBurst` đếm bấm liên tiếp, `StrokeDetector` nhận vuốt ve.
 
 ## 8. Chế độ yên lặng (Quiet mode)
 

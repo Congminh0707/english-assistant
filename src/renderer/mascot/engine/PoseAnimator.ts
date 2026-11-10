@@ -30,9 +30,35 @@ const POSE: Record<string, string> = {
   stretch: 'listen',
   wave: 'hello',
   dance: 'jump',
-  spin: 'run',
+  spin: 'walk',
   think: 'read',
-  levelup: 'levelup'
+  levelup: 'levelup',
+  notice: 'idle',
+  giggle: 'happy',
+  nuzzle: 'sit',
+  trick: 'hello',
+  dizzy: 'surprised',
+  purr: 'happy',
+  groove: 'listen'
+}
+
+/**
+ * Chuyển động cả thân chồng lên dáng (lớp CSS `m-*` trong PetFigure): cùng 19 dáng nhưng thêm nghiêng, lắc, lộn vòng...
+ * Không có trong bảng = chỉ có hoạt ảnh sẵn của dáng.
+ */
+const MOTION: Record<string, string> = {
+  look: 'peek',
+  wag: 'wag',
+  dance: 'sway',
+  spin: 'shimmy',
+  love: 'sway',
+  notice: 'perk',
+  giggle: 'wiggle',
+  nuzzle: 'squash',
+  trick: 'bounce',
+  dizzy: 'dizzy',
+  purr: 'sway',
+  groove: 'shimmy'
 }
 
 /** Thời gian giữ dáng (giây) của hoạt ảnh một lần; không có trong bảng = lặp tới khi não đổi trạng thái */
@@ -52,18 +78,26 @@ const ONE_SHOT_SECONDS: Record<string, number> = {
   dance: 2.6,
   spin: 2,
   think: 3,
-  levelup: 3.6
+  levelup: 3.6,
+  notice: 1.2,
+  giggle: 2.2,
+  nuzzle: 2,
+  trick: 1.4,
+  dizzy: 2.5,
+  purr: 2.8,
+  groove: 2.2
 }
 
 export const poseOf = (state: string): string => POSE[state] ?? 'idle'
+export const motionOf = (state: string): string => MOTION[state] ?? ''
 
 export class PoseAnimator implements Animator {
   onFinish: ((name: string) => void) | null = null
   private current = 'idle'
   private elapsed = 0
 
-  /** `onPose` được gọi khi dáng hiển thị đổi */
-  constructor(private readonly onPose: (pose: string) => void) {}
+  /** `onPose` được gọi khi dáng hoặc chuyển động hiển thị đổi */
+  constructor(private readonly onPose: (pose: string, motion: string) => void) {}
 
   get animation(): string {
     return this.current
@@ -77,7 +111,7 @@ export class PoseAnimator implements Animator {
     if (name === this.current && !restart) return
     this.current = name
     this.elapsed = 0
-    this.onPose(poseOf(name))
+    this.onPose(poseOf(name), motionOf(name))
   }
 
   update(dt: number): void {

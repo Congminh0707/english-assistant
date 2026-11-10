@@ -7,6 +7,8 @@ import { usePetStore } from '@renderer/shared/stores/pet'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { PoseAnimator } from './engine/PoseAnimator'
 import { MascotBrain } from './engine/MascotBrain'
+import { isOverPet } from './engine/hitRegion'
+import { ClickBurst, StrokeDetector } from './engine/gestures'
 import { BubblePriority, useBubble } from './composables/useBubble'
 import { useLines } from './composables/useLines'
 import SpeechBubble from './components/SpeechBubble.vue'
@@ -30,19 +32,14 @@ const { line, greetingTopic } = useLines()
 
 /** Kích thước vùng thú cưng = 48 × scale × hệ số này (chibi to hơn sprite cũ cùng scale) */
 const SIZE_FACTOR = 1.5
-/** Phần hình chiếm trong khung theo giai đoạn (khớp tỉ lệ trong PetFigure) để xác định vùng bấm */
-const STAGE_FILL: Record<string, number> = {
-  egg: 0.8,
-  baby: 0.72,
-  teen: 0.84,
-  adult: 0.92,
-  legend: 1
-}
+/** Con trỏ lệch tâm quá bấy nhiêu lần bề ngang nhân vật thì mascot quay mặt theo */
+const LOOK_AT_FACTOR = 0.8
 
 const sprite = ref<InstanceType<typeof PetSprite>>()
 const dragging = ref(false)
 const overSprite = ref(false)
 const pose = ref('idle')
+const motion = ref('')
 const flipped = ref(false)
 
 let brain: MascotBrain | null = null
@@ -53,6 +50,8 @@ let downAt = { x: 0, y: 0 }
 let tickTimer = 0
 let hoverTimer = 0
 let lastTime = 0
+const clicks = new ClickBurst()
+const stroke = new StrokeDetector()
 const cleanups: Array<() => void> = []
 
 function setClickThrough(enabled: boolean): void {
@@ -61,20 +60,17 @@ function setClickThrough(enabled: boolean): void {
   window.api.send('mascot:set-click-through', enabled)
 }
 
+function spriteBox(): DOMRect | null {
+  return (sprite.value?.$el as HTMLElement | undefined)?.getBoundingClientRect() ?? null
+}
+
 /**
  * Con trỏ có nằm trên thú cưng không. Hình vector nằm trong Shadow DOM nên không đọc được alpha từng điểm:
- * dùng hình elip bao thân (đầu + thân, bỏ phần đất và đuôi xa) co theo giai đoạn tiến hoá.
+ * dùng các elip phủ bóng dáng của từng con ở từng giai đoạn (đuôi, cánh, sừng của Huyền thoại), xem engine/hitRegion.
  */
 function isOverSprite(point: { x: number; y: number }): boolean {
-  const el = (sprite.value?.$el as HTMLElement | undefined) ?? null
-  if (!el) return false
-  const r = el.getBoundingClientRect()
-  const fill = STAGE_FILL[petStore.pet?.stage ?? 'baby'] ?? 0.9
-  const cx = r.left + r.width / 2
-  const cy = r.bottom - r.height * 0.5 * fill - r.height * 0.06
-  const rx = r.width * 0.36 * fill
-  const ry = r.height * 0.46 * fill
-  return ((point.x - cx) / rx) ** 2 + ((point.y - cy) / ry) ** 2 <= 1
+  const r = spriteBox()
+  return !!r && isOverPet(point, r, character.value, stage.value, flipped.value)
 }
 
 /** Con trỏ có nằm trên bong bóng thoại không (bấm vào để đóng) */
@@ -95,17 +91,40 @@ function updateHitTest(): void {
 
 function onHoverChange(over: boolean): void {
   window.clearTimeout(hoverTimer)
-  if (over) hoverTimer = window.setTimeout(() => bubble.showStats(), HOVER_STATS_MS)
-  else bubble.hideStats()
+  if (over) {
+    hoverTimer = window.setTimeout(() => bubble.showStats(), HOVER_STATS_MS)
+    brain?.hover()
+  } else {
+    bubble.hideStats()
+    stroke.reset()
+  }
 }
 
 function onMouseMove(e: MouseEvent): void {
   lastPointer = { x: e.clientX, y: e.clientY }
   updateHitTest()
+  if (!brain) return
+  const r = spriteBox()
+  if (dragging.value || !r) {
+    brain.lookAt(null)
+    return
+  }
+  if (overSprite.value) {
+    // Rê qua lại trên nhân vật mà không bấm = vuốt ve
+    if (!brain.sleeping && stroke.move(e.clientX, performance.now(), r.width)) {
+      brain.react('purr')
+      bubble.say(line('stroke'))
+    }
+    brain.lookAt(null)
+    return
+  }
+  const dx = e.clientX - (r.left + r.width / 2)
+  brain.lookAt(Math.abs(dx) > r.width * LOOK_AT_FACTOR ? (dx < 0 ? -1 : 1) : null)
 }
 
 function onMouseLeave(): void {
   lastPointer = null
+  brain?.lookAt(null)
   updateHitTest()
 }
 
@@ -125,7 +144,7 @@ async function onMouseUp(e: MouseEvent): Promise<void> {
   const isClick = Math.hypot(e.screenX - downAt.x, e.screenY - downAt.y) < CLICK_THRESHOLD
   const { falling } = await invoke('mascot:drag-end')
   brain?.pointerUp(isClick, falling)
-  if (isClick) void onPat()
+  if (isClick) onClick(clicks.hit(performance.now()))
   updateHitTest()
 }
 
@@ -134,6 +153,26 @@ function onContextMenu(e: MouseEvent): void {
   if (!overSprite.value) return
   bubble.hideStats()
   window.api.send('mascot:context-menu')
+}
+
+/** Bấm một lần = vuốt ve; bấm đúp = nhảy cẫng vẫy tay; bấm dồn 4 lần = chóng mặt */
+function onClick(count: number): void {
+  if (count === 1 || brain?.sleeping) {
+    void onPat()
+  } else if (count === 2) {
+    brain?.react('trick')
+    bubble.say(line('trick'))
+  } else if (count >= 4) {
+    clicks.reset()
+    brain?.react('dizzy')
+    bubble.say(line('dizzy'))
+  }
+}
+
+/** Lăn chuột trên nhân vật = đeo tai nghe nhún nhảy */
+function onWheel(): void {
+  if (!overSprite.value || dragging.value || !brain || brain.sleeping) return
+  if (brain.state !== 'groove') brain.react('groove')
 }
 
 /** Click vào nhân vật = vuốt ve */
@@ -272,7 +311,10 @@ onMounted(async () => {
 
   shown = `${character.value}/${stage.value}`
   const scale = settings['mascot.scale']
-  animator = new PoseAnimator((p) => (pose.value = p))
+  animator = new PoseAnimator((p, m) => {
+    pose.value = p
+    motion.value = m
+  })
   brain = new MascotBrain(animator, (dx) => invoke('mascot:walk', dx), onWindowMoved, scale)
 
   window.addEventListener('mousemove', onMouseMove)
@@ -354,10 +396,12 @@ onUnmounted(() => {
       :accessories="petStore.pet?.equipped ?? []"
       :size="size"
       :pose="pose"
+      :motion="motion"
       :flip="flipped"
       animate
       @mousedown="onMouseDown"
       @contextmenu="onContextMenu"
+      @wheel.passive="onWheel"
       @dragstart.prevent
     />
   </div>
@@ -373,7 +417,7 @@ onUnmounted(() => {
   justify-content: flex-end;
 }
 .sprite {
-  /* Chỉ vùng thân (elip trong isOverSprite) mới nhận chuột; phần còn lại của khung vẫn xuyên qua nhờ click-through */
+  /* Chỉ bóng dáng nhân vật (các elip trong engine/hitRegion) mới nhận chuột; phần còn lại của khung vẫn xuyên qua nhờ click-through */
   user-select: none;
 }
 .grab {

@@ -1,4 +1,4 @@
-# Xuất mascot v3 sang asset của app: src/renderer/shared/art/pets/<id>.pet.json
+# Xuất mascot v4 (chars4: khớp nối lắc lư + chi tiết detail4) sang asset của app: src/renderer/shared/art/pets/<id>.pet.json
 #   python scripts/design-data/mascot/export.py
 # Mỗi file: css (hoạt ảnh chung), vb (khung nhìn), egg {defs, svg}, stages {baby|teen|adult|legend: {scale, defs, bg, fg, states{dáng: svg}}},
 # acc {id phụ kiện: {slot, defs, b (sau thân), f (trước thân)}}. PetFigure ráp: defs + bg + <g stage scale>[b + dáng + f] + fg.
@@ -10,7 +10,10 @@ ROOT = os.path.abspath(os.path.join(HERE, '..', '..', '..'))
 OUT = os.path.join(ROOT, 'src', 'renderer', 'shared', 'art', 'pets')
 
 import build                       # noqa: E402  (nạp chars2/chars3: bản vẽ v3 cho cả 5 con)
-from chars import CHARS, NECK, egg, star   # noqa: E402
+from chars import NECK, star   # noqa: E402
+import build4                      # noqa: E402  (v4: nền Huyền thoại nhỏ)
+from chars4 import CHARS4 as CHARS, egg   # noqa: E402
+from fx4 import CSS4               # noqa: E402
 import acc2                        # noqa: E402
 
 POSE_IDS = ['idle', 'walk', 'run', 'jump', 'sit', 'sleep', 'eat', 'drink', 'read', 'listen', 'say', 'hello', 'happy', 'sad', 'surprised', 'levelup', 'car', 'boat', 'plane']
@@ -182,7 +185,7 @@ def figure(n, stage, pose, p):
     return d, tag_neck(full, bare)
 
 def export(n):
-    out = {'css': build.CSS + EXTRA_CSS, 'vb': VB, 'stages': {}, 'acc': {}}
+    out = {'css': build.CSS + CSS4 + EXTRA_CSS, 'vb': VB, 'stages': {}, 'acc': {}}
     ed, ef = egg(n, n[0] + 'e')
     out['egg'] = {'defs': ed, 'svg': ef}
     for st in STAGES:
@@ -207,11 +210,9 @@ def export(n):
             states[pose] = b + body + top
         entry = {'scale': sc, 'defs': defs, 'states': states}
         if st == 'legend':
-            col, bd = build.BACKDROP[n]
-            entry['defs'] += (f'<radialGradient id="{p}gl"><stop offset="0" stop-color="{col}" stop-opacity=".8"/><stop offset=".6" stop-color="{col}" stop-opacity=".22"/>'
-                              f'<stop offset="1" stop-color="{col}" stop-opacity="0"/></radialGradient>')
-            entry['bg'] = f'<circle cx="80" cy="84" r="100" fill="url(#{p}gl)"/>' + bd
-            entry['fg'] = build.FRONT[n]
+            bd, bg = build4.backdrop(n, p)
+            entry['defs'] += bd
+            entry['bg'] = bg
         out['stages'][st] = entry
     for a in acc2.ACC:
         aid = a[0]

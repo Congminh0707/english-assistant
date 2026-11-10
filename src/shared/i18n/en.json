@@ -144,6 +144,21 @@
       "patTired": [
         "%PET% needs a little break~"
       ],
+      "trick": [
+        "Watch %PET% flip! ✨",
+        "Ta-da! One more time?",
+        "Hup!"
+      ],
+      "dizzy": [
+        "Whoa, so dizzy... 😵",
+        "Slow down, %PET% is seeing stars~",
+        "Everything is spinning..."
+      ],
+      "stroke": [
+        "That feels nice, keep going~ 💕",
+        "So cozy... %PET% might fall asleep~",
+        "Purr~"
+      ],
       "fed": [
         "Yummy! Thank you 😋",
         "Delicious!",

@@ -144,6 +144,21 @@
       "patTired": [
         "%PET% hơi mỏi rồi, để lát nhé~"
       ],
+      "trick": [
+        "Xem %PET% lộn vòng nè! ✨",
+        "Ta-da! Thêm lần nữa không?",
+        "Hấp! One more time?"
+      ],
+      "dizzy": [
+        "Ui ui, chóng mặt quá... 😵",
+        "Từ từ thôi, %PET% hoa mắt rồi~",
+        "So dizzy..."
+      ],
+      "stroke": [
+        "Thích quá, vuốt nữa đi~ 💕",
+        "Êm ghê... %PET% buồn ngủ luôn rồi~",
+        "That feels nice~"
+      ],
       "fed": [
         "Ngon quá! Cảm ơn nha 😋",
         "Yummy! Thank you!",

@@ -38,17 +38,51 @@ const brain = (
 
 afterEach(() => vi.restoreAllMocks())
 
+describe('MascotBrain: quay mặt theo con trỏ', () => {
+  it('con trỏ phải ở yên một bên đủ lâu mới quay, và không quay liên tục', () => {
+    vi.spyOn(Math, 'random').mockReturnValue(0.99)
+    const { b } = brain(BASE)
+    expect(b.facing).toBe(1)
+    // Lướt qua lại nhanh: không quay
+    for (let i = 0; i < 6; i++) {
+      b.lookAt(i % 2 ? 1 : -1)
+      b.tick(0.1)
+    }
+    expect(b.facing).toBe(1)
+    b.lookAt(-1)
+    b.tick(0.3)
+    expect(b.facing).toBe(1)
+    b.tick(0.4)
+    expect(b.facing).toBe(-1)
+    // Vừa quay xong: sang bên kia ngay thì chờ hết thời gian nghỉ
+    b.lookAt(1)
+    b.tick(0.1)
+    b.tick(0.1)
+    b.tick(0.1)
+    b.tick(0.1)
+    b.tick(0.1)
+    b.tick(0.1)
+    b.tick(0.1)
+    expect(b.facing).toBe(-1)
+    b.lookAt(null)
+    b.tick(0.1)
+    expect(b.facing).toBe(-1)
+  })
+})
+
 describe('MascotBrain: phản ứng khi bấm', () => {
   it('có click_* riêng trong sheet thì nằm trong các phản ứng được chọn cùng happy/love', () => {
     const states = new Set<string>()
-    for (const roll of [0.01, 0.2, 0.3, 0.45, 0.6, 0.75, 0.9, 0.99]) {
+    for (const roll of [0.01, 0.2, 0.4, 0.5, 0.6, 0.75, 0.9, 0.99]) {
       vi.spyOn(Math, 'random').mockReturnValue(roll)
       const { b } = brain([...BASE, 'click_spidey', 'click_flip'])
       b.pointerUp(true, false)
       states.add(b.state)
       vi.restoreAllMocks()
     }
-    expect(states).toEqual(new Set(['happy', 'love', 'click_spidey', 'click_flip']))
+    expect(states).toEqual(
+      new Set(['happy', 'love', 'giggle', 'nuzzle', 'click_spidey', 'click_flip'])
+    )
   })
 
   it('sheet không có click_* thì chỉ happy/love; đang ngủ thì vẫn ngủ', () => {
@@ -60,7 +94,7 @@ describe('MascotBrain: phản ứng khi bấm', () => {
       states.add(b.state)
       vi.restoreAllMocks()
     }
-    expect(states).toEqual(new Set(['happy', 'love']))
+    expect(states).toEqual(new Set(['happy', 'love', 'giggle', 'nuzzle']))
 
     const { b } = brain([...BASE, 'click_flip'])
     b.setSleeping(true)

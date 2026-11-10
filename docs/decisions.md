@@ -381,3 +381,14 @@ Mẫu:
   4. Dịch online Google Cloud Translation v2 → Azure Translator v3 (`CloudTranslator`), **key do người dùng tự nhập** trong Cài đặt → Dịch, lưu mã hoá bằng `safeStorage` (`SecretStore`: `google-translate`, `azure-translator`, `azure-translator-region`). Kênh `translate:set-cloud-key` / `translate:clear-cloud-key`; `translate:online-status` trả thêm `cloud` + `cloudKeys`. Thứ tự: Claude → Google → Azure → offline. Không có key thì nhà cung cấp đó không tồn tại; key sai (401/403) thì tắt tới khi đổi key; lỗi tạm (mạng, 429, 5xx, rỗng) thì nghỉ 5 phút. Không bao giờ báo lỗi cho người dùng vì online. Cài đặt `translate.cloud` mặc định bật.
      - *Đã cân nhắc và bỏ*: nhúng key của chủ dự án lúc build (`MAIN_VITE_*` + GitHub secrets, làm thử trong ngày). Key nằm dạng chữ trong `app.asar`, ai có bản cài cũng trích ra được (mã hoá trong app vô ích vì app phải tự giải mã được). Muốn khách dùng được ngay mà không cần key thì phải có server trung gian giữ key + giới hạn theo máy, để sau.
 - **Hệ quả**: lúc rảnh app còn ~335 MB (đo bản dev 2026-11-09: main 70, gpu 98, renderer 91 + 61, network 15). Key là của người dùng nên chủ dự án không chịu phí hay rủi ro lộ key. Văn bản người dùng bôi đen được gửi tới Google/Microsoft khi đã có key và `translate.cloud` bật. Chưa đo NLLB với arena tắt trong chính Electron, vì chủ dự án đã xoá model trên máy dev.
+
+## #55 — Mascot v4: phần phụ nối khớp lắc lư, ánh sáng Huyền thoại nhỏ (2026-11-10) — Đã quyết định
+
+- **Bối cảnh**: chủ dự án thấy mascot v3 "chưa đủ đỉnh": đuôi Kitsu to và thô, cả quạt đuôi chỉ phồng lên xuống cùng lúc, không lắc lư như hồ ly chín đuôi; ánh sáng Huyền thoại to, che nhân vật. Yêu cầu research trước, sửa cả giai đoạn thấp, chăm chút Huyền thoại.
+- **Quyết định**:
+  1. Phần phụ (đuôi, lá, bờm, cánh, ăng-ten) thành chuỗi `<g>` lồng nhau, mỗi khúc một hoạt ảnh `rotate` cùng chu kỳ, `animation-delay` âm tăng dần và biên độ tăng dần về chóp (overlapping action). Chỉ CSS, không JS.
+  2. Đuôi 7 khúc, một lượt vẽ, tô `linearGradient` ngang thân (objectBoundingBox) nên khớp nối không lộ; túm lông ở mép; chóp vẽ nhiều lớp.
+  3. Ánh sáng: quầng gradient nhỏ thay `feGaussianBlur` động; đốm r 1–2,5; không còn lớp `fg` trước nhân vật.
+  4. Giữ nguyên định dạng `pet.json`, `PetFigure.vue`, mặt, tay, vị trí phụ kiện, id vật phẩm.
+- **Đánh đổi**: `art/pets/*.pet.json` tăng từ 3,1 MB lên 5,3 MB (Kitsu 1,85 MB vì 19 dáng × 4 giai đoạn đều chứa đủ chuỗi đuôi); nạp lười theo nhân vật nên chỉ tốn khi chọn con đó. Thiên Hồ có 72 khúc đuôi cùng chuyển động: chưa đo CPU cửa sổ mascot. Ở 48 px đốm sáng gần như không thấy.
+- **Thay thế đã cân nhắc**: SMIL/JS uốn path đuôi (mượt hơn nhưng phải chạy script trong Shadow DOM mỗi khung hình); sprite sheet (trái với quyết định #45 bỏ pixel).

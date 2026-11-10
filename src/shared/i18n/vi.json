@@ -108,7 +108,11 @@
     "listen": "Nghe",
     "examples": "Ví dụ",
     "otherResults": "Kết quả khác",
-    "footer": "Esc đóng · Enter tra · Ctrl+S lưu"
+    "footer": "Esc đóng · Enter tra · Ctrl+S lưu",
+    "explain": "Giải thích ngữ pháp",
+    "explaining": "Đang hỏi AI…",
+    "explainTitle": "Ngữ pháp",
+    "aiExplainHint": "Giải thích do Claude (AI) viết bằng key của bạn; có thể chưa chính xác."
   },
   "mascot": {
     "achievementOne": "Thành tựu mới: {name}! 🏅",
@@ -526,7 +530,8 @@
           "Nhớ uống nước nha! 💧"
         ]
       }
-    }
+    },
+    "diaryPrompt": "Hôm nay bạn làm gì? Viết 2–3 câu tiếng Anh nhé."
   },
   "errors": {
     "validation": "Dữ liệu không hợp lệ.",
@@ -554,7 +559,11 @@
     "sttNotReady": "Chưa tải model nhận dạng giọng nói.",
     "sttFailed": "Không nhận dạng được giọng nói. Hãy thử lại.",
     "pronNotReady": "Chưa tải model chấm phát âm.",
-    "pronFailed": "Không chấm được phát âm. Hãy thử lại."
+    "pronFailed": "Không chấm được phát âm. Hãy thử lại.",
+    "aiFailed": "Không hỏi được AI. Thử lại sau.",
+    "aiOff": "Bật AI trong Cài đặt và nhập key Claude.",
+    "aiKeyRejected": "Key Claude bị từ chối. Kiểm tra lại key trong Cài đặt → Dịch online.",
+    "forbidden": "Hồ sơ này không dùng được tính năng này."
   },
   "quiz": {
     "reviewTitle": "Ôn từ",
@@ -593,18 +602,16 @@
       "phrasebook": "Mẫu câu",
       "listening": "Nghe",
       "courses": "Lộ trình",
-      "pet": "Thú cưng"
+      "pet": "Thú cưng",
+      "diary": "Nhật ký"
     },
     "home": {
       "welcome": "Chào bạn, hôm nay học gì nào?",
-      "due": "Thẻ đến hạn",
       "total": "Tổng số thẻ",
       "learned": "Đã vào ôn dài hạn",
       "today": "Đã ôn hôm nay",
       "streak": "Chuỗi ngày ôn",
       "streakDays": "{n} ngày",
-      "start": "Bắt đầu ôn ({count} thẻ)",
-      "nothingDue": "Hôm nay hết thẻ để ôn 🎉",
       "noCards": "Chưa có từ nào trong sổ. Copy một từ rồi bấm {shortcut} để tra và lưu nhé!",
       "packMissing": "Chưa cài gói từ điển nên chưa ôn được.",
       "search": "Tìm từ",
@@ -709,6 +716,36 @@
         "alpha": "A–Z"
       }
     },
+    "diary": {
+      "title": "Nhật ký tiếng Anh",
+      "placeholder": "Viết 2–3 câu tiếng Anh về hôm nay…",
+      "words": "{n} từ",
+      "minWords": "viết từ {n} từ để nhận thưởng",
+      "saved": "Đã lưu",
+      "save": "Lưu",
+      "correct": "Sửa bằng AI",
+      "correcting": "Đang sửa…",
+      "corrected": "Bản AI sửa",
+      "noChanges": "Không cần sửa gì, viết tốt lắm!",
+      "history": "30 ngày gần đây",
+      "empty": "Chưa có trang nhật ký nào trước hôm nay.",
+      "aiHint": "Bật AI trong Cài đặt và nhập key Claude để AI sửa bài viết cho bạn.",
+      "prompts": {
+        "1": "Hôm nay bạn đã làm gì?",
+        "2": "Điều gì làm bạn mỉm cười hôm nay?",
+        "3": "Một điều bạn học được hôm nay?",
+        "4": "Kể về bữa trưa của bạn.",
+        "5": "Ngày mai bạn mong chờ điều gì?",
+        "6": "Hôm nay bạn đã nói chuyện với ai?",
+        "7": "Hôm nay có gì khó khăn?",
+        "8": "Tả thời tiết và tâm trạng của bạn.",
+        "9": "Bạn đã đọc hoặc xem gì?",
+        "10": "Một thành công nhỏ hôm nay?",
+        "11": "Bạn muốn làm khác đi điều gì?",
+        "12": "Ba từ cho hôm nay, rồi giải thích."
+      },
+      "staleCorrection": "Bạn đã sửa nội dung trong lúc chờ, bấm Sửa bằng AI lần nữa."
+    },
     "missions": {
       "title": "Nhiệm vụ hôm nay",
       "goal": "Mục tiêu ôn mỗi ngày",
@@ -719,6 +756,25 @@
       "reward": "+{xp} XP · +{coins} xu",
       "done": "Đã nhận",
       "bonus": "Xong cả ba: thưởng thêm"
+    },
+    "plan": {
+      "title": "Hôm nay",
+      "target": "Mục tiêu {n} phút",
+      "minutes": "{n} phút",
+      "do": "Làm",
+      "redo": "Làm lại",
+      "review": "Ôn {n} thẻ đến hạn",
+      "reviewDone": "Thẻ đến hạn đã ôn xong",
+      "weakSkill": "Kỹ năng yếu: {skill}",
+      "practice": "Luyện tập nhanh",
+      "skill": {
+        "vocab": "Từ vựng",
+        "grammar": "Ngữ pháp",
+        "reading": "Đọc",
+        "listening": "Nghe"
+      },
+      "empty": "Hôm nay xong rồi. Giỏi lắm!",
+      "allDone": "Xong cả lộ trình hôm nay. Giỏi lắm!"
     },
     "tracks": {
       "preschool": "Mầm non (3–6 tuổi)",
@@ -778,6 +834,19 @@
       "checkpointFailed": "Chưa đạt ({n}% mới qua). Ôn thêm rồi thử lại nhé!"
     },
     "settings": {
+      "ai": {
+        "title": "AI (Claude)",
+        "hint": "Tuỳ chọn, mặc định tắt. Bật thì câu bạn bấm \"Giải thích ngữ pháp\" trong popup được gửi tới Anthropic; tính phí theo mức dùng của key bạn.",
+        "toggle": "Dùng AI giải thích ngữ pháp",
+        "model": "Model",
+        "models": {
+          "claude-haiku-5-5": "Claude Haiku (nhanh, rẻ)",
+          "claude-sonnet-5-5": "Claude Sonnet (kỹ hơn, đắt hơn)"
+        },
+        "sharedKey": "Dùng chung key Claude ở mục Dịch online.",
+        "noKey": "Chưa có key: nhập key Claude ở mục Dịch online.",
+        "calls": "Đã gọi {n} lượt tháng này."
+      },
       "sect": {
         "profile": "Hồ sơ và học tập",
         "review": "Ôn thẻ",
@@ -831,6 +900,8 @@
       "dirCloze": "Thẻ điền từ vào câu",
       "typing": "Gõ đáp án (tắt = chỉ lật thẻ rồi tự chấm)",
       "autoPlay": "Tự đọc từ khi hiện thẻ",
+      "autoSaveReading": "Tự lưu từ khó của bài đọc",
+      "autoSaveReadingHint": "Lần đầu đạt một bài đọc, app tự lưu tối đa 8 từ khó hơn trình độ của bạn (kèm câu trong bài) vào sổ từ để ôn.",
       "backfill": "Tạo thẻ cho từ đã thuộc",
       "backfillHint": "Bật thêm loại thẻ? Tạo bù thẻ phụ cho các từ bạn đã thuộc.",
       "backfillDone": "Đã tạo {n} thẻ mới.",
@@ -856,7 +927,8 @@
       "devGrantCoins": "Cộng 1.000.000 xu",
       "devGranted": "Đã cộng 1.000.000 xu",
       "devLevelUp": "Tăng 10 level",
-      "devLeveled": "Đã tăng 10 level"
+      "devLeveled": "Đã tăng 10 level",
+      "diaryHour": "Nhật ký: mascot nhắc viết lúc"
     },
     "leave": {
       "title": "Thoát giữa chừng?",
@@ -1212,7 +1284,8 @@
       "toList": "Danh sách bài",
       "speakHelp": "Bấm micro và đọc to câu này.",
       "speakWordHelp": "Bấm micro và đọc to từ này.",
-      "skipSpeak": "Bỏ qua câu này"
+      "skipSpeak": "Bỏ qua câu này",
+      "autoSaved": "Đã lưu {n} từ mới của bài vào sổ từ"
     },
     "courses": {
       "title": "Lộ trình học",

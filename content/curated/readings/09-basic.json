@@ -63,12 +63,14 @@
           "type": "tf",
           "statement": "Nam lives far from the writer.",
           "answer": "false",
+          "ng": true,
           "explain": "Nam sống cạnh nhà tác giả."
         },
         {
           "type": "tf",
           "statement": "They ride bikes to the park at weekends.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
@@ -132,12 +134,14 @@
         {
           "type": "tf",
           "statement": "There are three bedrooms.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The writer's mother grows vegetables.",
           "answer": "false",
+          "ng": true,
           "explain": "Mẹ trồng hoa, bố trồng rau."
         },
         {
@@ -202,12 +206,14 @@
         {
           "type": "tf",
           "statement": "Mum brings them hot chocolate.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The rain does not stop all day.",
           "answer": "false",
+          "ng": true,
           "explain": "Buổi chiều mưa tạnh."
         },
         {
@@ -272,12 +278,14 @@
         {
           "type": "tf",
           "statement": "Older people read newspapers at the café.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The park is far from the city centre.",
           "answer": "false",
+          "ng": true,
           "explain": "Công viên nằm giữa thành phố."
         },
         {
@@ -342,12 +350,14 @@
         {
           "type": "tf",
           "statement": "Pho is a noodle soup.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "She uses chicken in the pho.",
           "answer": "false",
+          "ng": true,
           "explain": "Bà dùng thịt bò."
         },
         {
@@ -412,12 +422,14 @@
         {
           "type": "tf",
           "statement": "The writer stayed at home for four days.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The doctor said to go to school the next day.",
           "answer": "false",
+          "ng": true,
           "explain": "Bác sĩ dặn nằm nghỉ."
         },
         {
@@ -552,12 +564,14 @@
         {
           "type": "tf",
           "statement": "The second pair was too expensive.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The first pair was comfortable.",
           "answer": "false",
+          "ng": true,
           "explain": "Đôi đầu quá chật."
         },
         {

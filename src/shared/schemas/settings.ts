@@ -1,6 +1,7 @@
 import { z } from 'zod'
 import { LevelCode } from './content/level'
 import { UK_VOICE_IDS, US_VOICE_IDS } from '../tts'
+import { AiModelSchema } from './ai'
 
 /** Giờ trong ngày dạng 'HH:MM' */
 const ClockTime = z.string().regex(/^([01]?\d|2[0-3]):[0-5]\d$/)
@@ -31,16 +32,28 @@ export const settingDefinitions = {
   'learning.dailyGoal': z
     .union([z.literal(5), z.literal(10), z.literal(20), z.literal(30)])
     .default(10),
+  /** Mục tiêu phút học mỗi ngày — lộ trình hôm nay thêm bài cho tới khi đủ (docs/07 §13) */
+  'learning.dailyMinutes': z
+    .union([z.literal(10), z.literal(20), z.literal(30), z.literal(60)])
+    .default(20),
   /** Mascot tự hỏi ôn/giới thiệu từ mới mỗi N phút; 0 = tắt */
   'mascot.quizMinutes': z
     .union([z.literal(0), z.literal(15), z.literal(25), z.literal(45)])
     .default(25),
+  /** Giờ (cục bộ, 0–23) mascot nhắc viết nhật ký tiếng Anh, một lần mỗi ngày; null = tắt (docs/07 §14) */
+  'diary.hour': z.number().int().min(0).max(23).nullable().default(21),
   /** Dịch câu/đoạn: ưu tiên model chất lượng cao (NLLB-200) khi đã tải; tắt = luôn dùng bản nhanh opus-mt */
   'translate.highQuality': z.boolean().default(true),
   /** Dịch online bằng Claude (cần API key của người dùng; văn bản được gửi tới Anthropic). Mặc định tắt */
   'translate.online': z.boolean().default(false),
   /** Dịch online bằng Google/Azure khi người dùng đã nhập key (văn bản được gửi tới Google/Microsoft). Mặc định bật */
   'translate.cloud': z.boolean().default(true),
+  /** AI (Claude, dùng chung key của Dịch online): giải thích ngữ pháp… — câu được gửi tới Anthropic. Mặc định tắt */
+  'ai.enabled': z.boolean().default(false),
+  /** Model Claude cho AI (docs/decisions.md #56) */
+  'ai.model': AiModelSchema.default('claude-haiku-5-5'),
+  /** Bộ đếm lượt gọi AI trong tháng (nội bộ, do AiService quản lý): 'YYYY-MM:n' */
+  'ai.usage': z.string().max(32).default(''),
   /** Ôn thẻ: số từ mới đưa vào ôn mỗi ngày (0 = không giới hạn) */
   'review.newPerDay': z
     .union([z.literal(0), z.literal(5), z.literal(10), z.literal(20), z.literal(50)])
@@ -68,6 +81,8 @@ export const settingDefinitions = {
   'review.typing': z.boolean().default(true),
   /** Tự đọc từ khi hiện thẻ (thẻ nghe-gõ luôn tự đọc) */
   'review.autoPlay': z.boolean().default(true),
+  /** Lần đầu đạt một bài đọc: tự lưu tối đa 8 từ khó của bài (kèm câu ngữ cảnh) vào sổ từ */
+  'review.autoSaveReading': z.boolean().default(true),
   /** Chế độ trẻ em: giới hạn phút dùng app mỗi ngày (0 = không giới hạn) */
   'kids.dailyMinutes': z
     .union([

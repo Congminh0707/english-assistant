@@ -149,6 +149,10 @@ onMounted(async () => {
       <p v-else-if="result.score < LESSON_PASS_PERCENT" class="muted">
         {{ t('study.lessons.needMore', { n: LESSON_PASS_PERCENT }) }}
       </p>
+      <p v-if="result.savedWords" class="chip chip--primary">
+        <UiIcon name="saved" />
+        {{ t('study.lessons.autoSaved', { n: result.savedWords }, result.savedWords) }}
+      </p>
       <div class="row">
         <button
           v-if="!courseMode && result.nextLessonId && result.score >= LESSON_PASS_PERCENT"

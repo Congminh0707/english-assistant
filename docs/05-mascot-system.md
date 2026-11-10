@@ -186,6 +186,8 @@ Nằm trong cùng cửa sổ mascot, phía trên đầu nhân vật. Các loại
 
 Quy tắc: **tối đa 1 bong bóng** tại một thời điểm, có hàng đợi ưu tiên (`quiz` < `reward` < phản hồi trực tiếp của người dùng). Không hiện bong bóng chủ động khi ở chế độ yên lặng.
 
+> Code hiện tại (`src/renderer/mascot/composables/useBubble.ts`, cập nhật 2026-11-11): `BubblePriority` = `stats 0 < ambient 1 < reaction 2 < quiz 2.5 < important 3`, hàng đợi tối đa 3. Quiz đang mở chỉ bị thay bởi bong bóng ưu tiên **cao hơn** quiz; ngang hoặc thấp hơn thì xếp hàng và hiện sau khi quiz đóng. Bong bóng có `action` (bấm để mở, vd nhắc nhật ký `diary`) giữ **60 giây** thay vì tự đóng theo độ dài chữ (vẫn đóng khi bấm), **không bao giờ đè quiz đang mở** và không bị bỏ khỏi hàng đợi: hàng đầy thì bỏ bong bóng thường cũ nhất.
+
 Câu thoại lưu ở `src/renderer/mascot/dialogue/<characterId>.json`, phân theo ngữ cảnh và level ngôn ngữ:
 
 ```json

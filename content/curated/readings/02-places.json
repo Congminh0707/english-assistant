@@ -62,12 +62,14 @@
         {
           "type": "tf",
           "statement": "It often rains a lot from September to December.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "About ten million people live in Da Nang.",
           "answer": "false",
+          "ng": true,
           "explain": "Khoảng one million = một triệu."
         },
         {
@@ -127,12 +129,14 @@
           "type": "tf",
           "statement": "The owner of the hotel was unfriendly.",
           "answer": "false",
+          "ng": true,
           "explain": "Bà chủ very kind = rất tốt bụng."
         },
         {
           "type": "tf",
           "statement": "They rented motorbikes.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "mcq",
@@ -148,6 +152,7 @@
           "type": "tf",
           "statement": "They went to Da Lat in summer.",
           "answer": "false",
+          "ng": true,
           "explain": "Họ đi vào Last December = tháng Mười hai."
         },
         {
@@ -212,12 +217,14 @@
         {
           "type": "tf",
           "statement": "A heavy bag may cost extra money.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The gate number never changes.",
           "answer": "false",
+          "ng": true,
           "explain": "Bài viết nói gates sometimes change at the last minute."
         },
         {

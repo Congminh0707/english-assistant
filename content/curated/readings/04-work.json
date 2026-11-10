@@ -66,12 +66,14 @@
         {
           "type": "tf",
           "statement": "The writer stopped worrying about mistakes.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The writer learned English by watching films only.",
           "answer": "false",
+          "ng": true,
           "explain": "Tác giả xem bản tin bóng đá và nghe podcast, không chỉ xem phim."
         },
         {
@@ -149,12 +151,14 @@
           "type": "tf",
           "statement": "The writer arrived late.",
           "answer": "false",
+          "ng": true,
           "explain": "Tác giả đến sớm fifteen minutes early."
         },
         {
           "type": "tf",
           "statement": "The writer got a job offer by email.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",

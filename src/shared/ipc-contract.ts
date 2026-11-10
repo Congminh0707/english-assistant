@@ -113,6 +113,7 @@ import {
   TranslateStatusSchema
 } from './schemas/translate'
 import {
+  DailyPlanSchema,
   MissionsStateSchema,
   SaveManyInputSchema,
   SaveManyResultSchema,
@@ -123,6 +124,13 @@ import {
   StudyRateResultSchema,
   WordListItemSchema
 } from './schemas/study'
+import { AiExplainInputSchema, AiStatusSchema, GrammarExplainSchema } from './schemas/ai'
+import {
+  DiaryCorrectResultSchema,
+  DiaryEntrySchema,
+  DiarySaveInputSchema,
+  DiaryTodaySchema
+} from './schemas/diary'
 
 export const WalkResultSchema = z.object({ blocked: z.enum(['left', 'right']).nullable() })
 export const DragEndResultSchema = z.object({ falling: z.boolean() })
@@ -156,6 +164,7 @@ export const invokeContract = {
   'study:undo': { input: z.void(), output: StudyNextSchema },
   'study:backfill': { input: z.void(), output: StudyBackfillResultSchema },
   'study:missions': { input: z.void(), output: MissionsStateSchema },
+  'study:plan': { input: z.void(), output: DailyPlanSchema },
   /** input: bật/tắt; output: trạng thái toàn màn hình sau khi đổi */
   'study:fullscreen': { input: z.boolean(), output: z.boolean() },
   'vocab:list': { input: z.void(), output: z.array(WordListItemSchema) },
@@ -209,6 +218,12 @@ export const invokeContract = {
     input: TranslateClearCloudKeyInputSchema,
     output: TranslateOnlineStatusSchema
   },
+  'ai:status': { input: z.void(), output: AiStatusSchema },
+  'ai:explain': { input: AiExplainInputSchema, output: GrammarExplainSchema },
+  'diary:today': { input: z.void(), output: DiaryTodaySchema },
+  'diary:save': { input: DiarySaveInputSchema, output: DiaryEntrySchema },
+  'diary:correct': { input: z.void(), output: DiaryCorrectResultSchema },
+  'diary:list': { input: z.void(), output: z.array(DiaryEntrySchema) },
   'practice:start': { input: PracticeStartInputSchema, output: PracticeStartResultSchema },
   'practice:answer': { input: PracticeAnswerInputSchema, output: PracticeAnswerResultSchema },
   'shop:state': { input: z.void(), output: ShopStateSchema },
@@ -276,6 +291,7 @@ export const sendContract = {
   'mascot:set-click-through': { input: z.boolean() },
   'mascot:drag-start': { input: z.void() },
   'mascot:context-menu': { input: z.void() },
+  'mascot:open-diary': { input: z.void() },
   'popup:hide': { input: z.void() }
 } satisfies Record<SendChannel, { input: z.ZodType }>
 
@@ -292,7 +308,8 @@ export const eventContract = {
   'tts:status-changed': TranslateStatusSchema,
   'audio:status-changed': TranslateStatusSchema,
   'stt:status-changed': TranslateStatusSchema,
-  'pron:status-changed': PronunciationStatusSchema
+  'pron:status-changed': PronunciationStatusSchema,
+  'study:open-page': z.object({ page: z.string().min(1).max(32) })
 } satisfies Record<EventName, z.ZodType>
 
 // --- Kiểu suy ra từ hợp đồng ---

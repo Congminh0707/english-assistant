@@ -212,7 +212,18 @@ function onReaction({ kind, achievementId, count }: MascotReaction): void {
   } else if (kind === 'level-up') {
     brain?.react('levelup')
     bubble.say(line('levelUp'), BubblePriority.important)
+  } else if (kind === 'diary') {
+    brain?.react('wave')
+    // Ưu tiên ngang câu hỏi ôn: main đã tính "đã nhắc hôm nay" nên bong bóng không được bị bỏ khỏi hàng đợi.
+    // Quiz đang mở thì xếp hàng sau quiz; bong bóng có action giữ 60 giây (useBubble)
+    bubble.say(t('mascot.diaryPrompt'), BubblePriority.quiz, 'diary')
   }
+}
+
+/** Bấm vào bong bóng: đóng; bong bóng nhắc nhật ký thì mở luôn trang nhật ký */
+function onBubbleClick(): void {
+  if (bubble.current.value?.action === 'diary') window.api.send('mascot:open-diary')
+  bubble.dismiss()
 }
 
 function onSleep({ sleeping }: MascotSleep): void {
@@ -383,7 +394,7 @@ onUnmounted(() => {
       v-if="bubble.current.value"
       :bubble="bubble.current.value"
       :pet="petStore.pet"
-      @dismiss="bubble.dismiss()"
+      @dismiss="onBubbleClick"
       @quiz-result="onQuizResult"
     />
     <TtsIndicator compact />

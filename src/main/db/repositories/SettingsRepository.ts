@@ -1,4 +1,4 @@
-import { and, eq } from 'drizzle-orm'
+import { and, eq, sql } from 'drizzle-orm'
 import type { UserDb } from '../client'
 import { settings } from '../schema'
 
@@ -23,7 +23,9 @@ export class SettingsRepository {
       .run()
   }
 
-  set(key: string, value: unknown, now: number, scope = GLOBAL_SCOPE): void {
+  set(key: string, raw: unknown, now: number, scope = GLOBAL_SCOPE): void {
+    // Cột json NOT NULL: drizzle đổi null thành SQL NULL → ghi thẳng chuỗi JSON 'null' (đọc lại ra null), vd diary.hour = tắt
+    const value = raw === null ? sql`${'null'}` : raw
     this.db
       .insert(settings)
       .values({ scope, key, value, updatedAt: now })

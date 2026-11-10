@@ -22,6 +22,8 @@ export const INVOKE_CHANNELS = [
   'study:undo',
   'study:backfill',
   'study:missions',
+  /** Lộ trình hôm nay: ôn thẻ, bài kế tiếp của khoá, kỹ năng yếu nhất (docs/07 §13) */
+  'study:plan',
   /** Cửa sổ Học tập vào/thoát toàn màn hình (chỉ khi người dùng bấm — màn game của bé) */
   'study:fullscreen',
   'vocab:list',
@@ -59,6 +61,14 @@ export const INVOKE_CHANNELS = [
   'translate:clear-key',
   'translate:set-cloud-key',
   'translate:clear-cloud-key',
+  /** AI dùng key Claude của người dùng (docs/11 §5): trạng thái, giải thích ngữ pháp một câu */
+  'ai:status',
+  'ai:explain',
+  /** Nhật ký tiếng Anh buổi tối (docs/07 §14): hôm nay, lưu, AI sửa, 30 ngày gần nhất */
+  'diary:today',
+  'diary:save',
+  'diary:correct',
+  'diary:list',
   'practice:start',
   'practice:answer',
   'shop:state',
@@ -120,6 +130,8 @@ export const SEND_CHANNELS = [
   'mascot:set-click-through',
   'mascot:drag-start',
   'mascot:context-menu',
+  /** Bấm bong bóng nhắc viết nhật ký → mở cửa sổ Học tập ở trang nhật ký */
+  'mascot:open-diary',
   'popup:hide'
 ] as const
 
@@ -137,7 +149,9 @@ export const EVENT_NAMES = [
   'tts:status-changed',
   'audio:status-changed',
   'stt:status-changed',
-  'pron:status-changed'
+  'pron:status-changed',
+  /** Mở cửa sổ Học tập ở một trang cụ thể (vd 'diary' khi bấm bong bóng nhắc nhật ký) */
+  'study:open-page'
 ] as const
 
 export type InvokeChannel = (typeof INVOKE_CHANNELS)[number]

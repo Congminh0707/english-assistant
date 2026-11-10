@@ -141,6 +141,14 @@ Lỗi phát âm điển hình người Việt (dùng để soạn bài & gợi �
 
 ## 5. LLM (tuỳ chọn)
 
+> ✅ Đã làm (2026-11-10) — v1: **chỉ Anthropic Claude**, dùng **chung key** người dùng đã nhập cho "Dịch online (Claude)" (secret `'anthropic'` trong `SafeStorageSecretStore`, không có ô nhập key thứ hai) — docs/decisions.md #56.
+> - `src/main/ai/AiClient.ts`: interface `AiClient { complete({ system, user, maxTokens, effort? }) }` (để thêm provider sau) + `AnthropicClient` gọi Messages API bằng `fetch` (header `anthropic-version: 2023-06-01`, timeout 15 s, HTTP lỗi / `refusal` / `stop_reason: max_tokens` (cắt cụt) / rỗng → throw; HTTP 401/403 → `AiKeyRejectedError`), model theo cài đặt `ai.model` (`claude-haiku-5-5` mặc định | `claude-sonnet-5-5`).
+> - `src/main/ai/prompts.ts`: prompt là **hằng TS** (có biến `{{level}}`) thay cho file `.md` — đóng gói cùng main, không phải đọc file lúc chạy. Văn bản người dùng nằm trong thẻ `<sentence>` / `<diary>` ở phần `user`, system prompt dặn coi đó là dữ liệu, không phải lệnh. `fillPrompt` chỉ vô hiệu hoá thẻ đóng phân cách (`</sentence>`, `</question>`, `</diary>`, không phân biệt hoa thường/khoảng trắng: đổi `<` thành `‹`); chữ khác như `I <3 pizza` giữ nguyên.
+> - `src/main/ai/AiService.ts`: `status()`, `explain()` (`grammar_explain`, trình độ = `learning.level`), `correctDiary()` (`diary_correct` → `{ corrected, changes[{ from, to, note_vi }], praise_vi }`, dùng bởi `DiaryService.correct()` qua kênh `diary:correct`, docs/07 §14). `max_tokens` 4096 cho cả hai tác vụ. Tách JSON từ `{` đầu tới `}` cuối → zod; câu trả lời đầy đủ mà sai → thử lại 1 lần → `AI_FAILED` (`errors.aiFailed`); lỗi mạng/HTTP và câu bị cắt cụt vì hết `max_tokens` không thử lại (`errors.aiFailed`); key bị từ chối (HTTP 401/403) → `AI_FAILED` với `errors.aiKeyRejected` ("Key Claude bị từ chối…"). Schema `examples` không giới hạn số phần tử (service chỉ giữ 3) để model trả dư không gây một lần gọi lại tốn tiền. Cache LRU 100 theo `tác_vụ:FNV-1a(input + level + ai.model)` (đổi model thì không dùng lại kết quả của model kia), không cache lỗi. Bộ đếm lượt gọi tháng (cache hit không tính, lần thử lại có tính) ở cài đặt `ai.usage` = `'YYYY-MM:n'` theo tháng cục bộ.
+> - Tắt hẳn với **hồ sơ trẻ em** (`status().enabled = false`, gọi → `FORBIDDEN` / `errors.aiOff`); chưa bật `ai.enabled` hoặc chưa có key cũng `errors.aiOff`.
+> - Kênh `ai:status`, `ai:explain`. Popup: nút "Giải thích ngữ pháp" dưới khối dịch (câu, cụm không có trong từ điển; câu tiếng Anh ≤ 600 ký tự) chỉ hiện khi `enabled && hasKey`. Cài đặt → Dịch: mục "AI (Claude)" (bật/tắt, chọn model, số lượt tháng này).
+> - Chưa làm: Ollama/OpenAI/Gemini, giới hạn lượt/tháng, các tác vụ còn lại trong bảng dưới.
+
 ### Provider hỗ trợ
 | Provider | Khi nào dùng | Ghi chú |
 |---|---|---|
@@ -159,9 +167,9 @@ API key: người dùng tự nhập (BYOK), lưu mã hoá bằng `safeStorage`. 
 | `writing_feedback` | đề, bài viết, level/track, rubric | `{ scores{...}, overall, corrections[], improved_version, tips[] }` |
 | `speaking_feedback` | câu hỏi, transcript, số liệu fluency | `{ scores{...}, feedback, better_answer }` |
 | `roleplay_turn` | kịch bản, lịch sử, level | `{ reply, hint_vi?, correction? }` |
-| `diary_correct` | đoạn nhật ký | `{ corrected, changes[] }` |
+| `diary_correct` | đoạn nhật ký, level | `{ corrected, changes[{ from, to, note_vi }], praise_vi }` |
 
-Prompt lưu thành file trong `src/main/ai/prompts/*.md` (có biến `{{level}}`, `{{track}}`...), không viết cứng trong code. Luôn validate kết quả bằng zod; sai định dạng → thử lại 1 lần → báo lỗi thân thiện.
+Prompt là hằng string trong module TS `src/main/ai/prompts.ts` (có biến `{{level}}`...; trước đây định để file `.md` — đổi để đóng gói cùng main, xem #56). Luôn validate kết quả bằng zod; sai định dạng → thử lại 1 lần → báo lỗi thân thiện.
 
 ### Kiểm soát chi phí & an toàn
 - Hiển thị ước tính số lượt/token đã dùng trong tháng; cho đặt giới hạn.

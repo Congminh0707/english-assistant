@@ -1,6 +1,7 @@
 import { BrowserWindow, type WebContents } from 'electron'
 import { join } from 'path'
 import icon from '../../../resources/icon.png?asset'
+import { sendTo } from '../ipc/broadcast'
 import { loadPage } from './loadPage'
 import { forwardConsoleInDev } from './devConsole'
 
@@ -11,12 +12,13 @@ import { forwardConsoleInDev } from './devConsole'
 export class StudyWindow {
   private win: BrowserWindow | null = null
 
-  /** Mở cửa sổ; đã mở thì đưa lên trước */
-  open(): void {
+  /** Mở cửa sổ; đã mở thì đưa lên trước. `page`: mở thẳng trang đó (sự kiện study:open-page) */
+  open(page?: string): void {
     if (this.win && !this.win.isDestroyed()) {
       if (this.win.isMinimized()) this.win.restore()
       this.win.show()
       this.win.focus()
+      if (page) this.sendPage(this.win, page)
       return
     }
     const win = new BrowserWindow({
@@ -45,8 +47,18 @@ export class StudyWindow {
       this.onClosed?.()
     })
     forwardConsoleInDev(win, 'study')
+    // Cửa sổ mới: chờ trang nạp xong (App.vue đã đăng ký lắng nghe) rồi mới gửi trang cần mở
+    if (page)
+      win.webContents.once('did-finish-load', () => sendTo(win, 'study:open-page', { page }))
     loadPage(win, 'study')
     this.win = win
+  }
+
+  /** Gửi study:open-page; cửa sổ đang nạp dở (vd vừa mở lần trước) thì chờ nạp xong mới gửi */
+  private sendPage(win: BrowserWindow, page: string): void {
+    if (win.webContents.isLoading())
+      win.webContents.once('did-finish-load', () => sendTo(win, 'study:open-page', { page }))
+    else sendTo(win, 'study:open-page', { page })
   }
 
   /** Gọi khi cửa sổ đóng (vd đóng giữa lúc chơi game → hiện lại mascot) */

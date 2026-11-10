@@ -2,7 +2,7 @@
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ClipboardList, Coins, Flame, Search, Settings, TrendingUp } from 'lucide-vue-next'
-import type { MissionsState, StudyOverview } from '@shared/schemas/study'
+import type { DailyPlan, DailyPlanItem, MissionsState, StudyOverview } from '@shared/schemas/study'
 import { normalizeCharacterId } from '@shared/characters'
 import type { PetState } from '@shared/schemas/pet'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
@@ -18,6 +18,7 @@ const props = defineProps<{
   due: number
   overview: StudyOverview | null
   missions: MissionsState | null
+  plan: DailyPlan | null
   pet: PetState | null
   /** Giao diện tối: luôn dùng tranh làng ban đêm */
   dark?: boolean
@@ -28,6 +29,8 @@ const emit = defineEmits<{
   settings: []
   search: []
   goal: [value: number]
+  minutes: [value: number]
+  open: [item: DailyPlanItem]
 }>()
 const drawer = ref(false)
 const { t } = useI18n()
@@ -137,8 +140,10 @@ onUnmounted(() => {
       v-if="drawer"
       :overview="overview"
       :missions="missions"
-      @start="emit('start')"
+      :plan="plan"
       @goal="emit('goal', $event)"
+      @minutes="emit('minutes', $event)"
+      @open="emit('open', $event)"
       @close="drawer = false"
     />
     <button v-if="due > 0" type="button" class="btn btn--primary btn--lg go" @click="emit('start')">

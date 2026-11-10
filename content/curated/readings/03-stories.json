@@ -53,12 +53,14 @@
           "type": "tf",
           "statement": "Tom found his key in his bag.",
           "answer": "false",
+          "ng": true,
           "explain": "Trong cặp chỉ có bút và chuối; chìa khóa nằm trong tay cậu."
         },
         {
           "type": "tf",
           "statement": "The key was in his hand.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "mcq",
@@ -137,12 +139,14 @@
           "type": "tf",
           "statement": "The crow could reach the water with his beak at first.",
           "answer": "false",
+          "ng": true,
           "explain": "Lúc đầu nước too low, quạ không với tới."
         },
         {
           "type": "tf",
           "statement": "The crow felt happy at the end.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
@@ -219,12 +223,14 @@
           "type": "tf",
           "statement": "Mai knew about the party before she arrived.",
           "answer": "false",
+          "ng": true,
           "explain": "Mai thấy confused (khó hiểu) và bật khóc vì bất ngờ."
         },
         {
           "type": "tf",
           "statement": "The writer took Mai to the cinema.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",

@@ -20,3 +20,18 @@ describe('tên thú cưng trong chuỗi giao diện', () => {
     expect(rendered.every((l) => !/\bBi\b/.test(l))).toBe(true)
   })
 })
+
+describe('số nhiều', () => {
+  it('study.lessons.autoSaved: en đổi dạng theo n, vi một dạng', () => {
+    const en = createAppI18n('en').global
+    expect(en.t('study.lessons.autoSaved', { n: 1 }, 1)).toBe(
+      'Saved 1 new word from this lesson to your word list'
+    )
+    expect(en.t('study.lessons.autoSaved', { n: 3 }, 3)).toBe(
+      'Saved 3 new words from this lesson to your word list'
+    )
+    const vi = createAppI18n('vi').global
+    expect(vi.t('study.lessons.autoSaved', { n: 1 }, 1)).toBe('Đã lưu 1 từ mới của bài vào sổ từ')
+    expect(vi.t('study.lessons.autoSaved', { n: 3 }, 3)).toBe('Đã lưu 3 từ mới của bài vào sổ từ')
+  })
+})

@@ -302,7 +302,9 @@ export const LessonCompleteResultSchema = z.object({
   xp: z.number().int(),
   coins: z.number().int(),
   /** Bài kế tiếp trong lộ trình (null nếu là bài cuối) */
-  nextLessonId: z.string().nullable()
+  nextLessonId: z.string().nullable(),
+  /** Bài đọc lần đầu đạt: số từ khó đã tự lưu vào sổ từ (không có = không áp dụng) */
+  savedWords: z.number().int().optional()
 })
 export type LessonCompleteResult = z.infer<typeof LessonCompleteResultSchema>
 

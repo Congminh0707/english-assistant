@@ -49,6 +49,7 @@ import { TtsCache } from './tts/TtsCache'
 import { Scheduler } from './jobs/Scheduler'
 import { schedulePetJobs } from './jobs/petJobs'
 import { scheduleQuizJob } from './jobs/quizJobs'
+import { scheduleDiaryJob } from './jobs/diaryJob'
 
 const APP_ID = 'net.gonbi.englishassistant'
 
@@ -94,7 +95,12 @@ if (!app.requestSingleInstanceLock()) {
 
     // Dữ liệu: mở user.db (tự migrate) và dựng các service
     conn = openUserDb(paths.userDb(), paths.migrations())
-    const c = createContainer(conn, systemClock, { packsDir: paths.packs() })
+    // Key người dùng nhập (mã hoá bằng safeStorage): key Claude 'anthropic' dùng chung cho Dịch online và AI (#56)
+    const secrets = new SafeStorageSecretStore(paths.secrets())
+    const c = createContainer(conn, systemClock, {
+      packsDir: paths.packs(),
+      ai: { getKey: () => secrets.get('anthropic') }
+    })
     c.profiles.active() // lần đầu chạy: tạo profile + thú cưng + túi đồ khởi đầu
     container = c
     // Cài gói nội dung đi kèm (từ điển...) ở nền — lần đầu mất vài giây để giải nén
@@ -113,7 +119,6 @@ if (!app.requestSingleInstanceLock()) {
     const s = new StudyWindow()
     study = s
     // Dịch câu offline: model tải về userData/models khi người dùng đồng ý, chạy trong utilityProcess
-    const secrets = new SafeStorageSecretStore(paths.secrets())
     const onlineTranslator = new OnlineTranslator({ getKey: () => secrets.get('anthropic') })
     // Google/Azure: key người dùng nhập trong Cài đặt (mã hoá bằng safeStorage); không có key thì không bao giờ gọi mạng
     const CLOUD_SECRET = { google: 'google-translate', azure: 'azure-translator' } as const
@@ -235,12 +240,21 @@ if (!app.requestSingleInstanceLock()) {
     scheduler.every('sleep-check', 15_000, () => sleepService.check(), true)
     scheduler.every('sleep-rest', 60_000, () => sleepService.rest(60_000))
     // Micro-learning: mascot hỏi ôn thẻ đến hạn / giới thiệu từ mới định kỳ
+    const mascotFree = (): boolean =>
+      m.win.isVisible() && !p.win.isVisible() && !sleepService.sleeping
     const quizJob = scheduleQuizJob(scheduler, c, {
-      canShow: () => m.win.isVisible() && !p.win.isVisible() && !sleepService.sleeping,
+      canShow: mascotFree,
       show: (quiz) => sendTo(m.win, 'mascot:quiz', quiz)
     })
-    registerMascotIpc(m, () =>
-      showMascotMenu(c, m, { quizNow: () => quizJob.trigger(), openStudy: () => s.open() })
+    // Nhắc viết nhật ký tối: cùng điều kiện hiện như câu hỏi ôn (mascot ẩn khi yên lặng → không nhắc)
+    scheduleDiaryJob(scheduler, c, {
+      canShow: mascotFree,
+      show: () => sendTo(m.win, 'mascot:react', { kind: 'diary' })
+    })
+    registerMascotIpc(
+      m,
+      () => showMascotMenu(c, m, { quizNow: () => quizJob.trigger(), openStudy: () => s.open() }),
+      () => s.open('diary')
     )
     registerPopupIpc(p)
     registerStudyIpc(s, m)

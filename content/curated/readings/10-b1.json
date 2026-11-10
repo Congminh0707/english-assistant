@@ -62,12 +62,14 @@
         {
           "type": "tf",
           "statement": "The class travelled by coach.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "It rained all day at the beach.",
           "answer": "false",
+          "ng": true,
           "explain": "Thời tiết rất đẹp."
         },
         {
@@ -132,12 +134,14 @@
         {
           "type": "tf",
           "statement": "The writer says many students feel the same way.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The writer thinks conversations are a waste of time.",
           "answer": "false",
+          "ng": true,
           "explain": "Cuộc trò chuyện ngắn có thể là khởi đầu tình bạn."
         },
         {
@@ -214,12 +218,14 @@
         {
           "type": "tf",
           "statement": "One ticket can be used on buses, metro and boats.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "Buses are never late.",
           "answer": "false",
+          "ng": true,
           "explain": "Bài viết nói xe buýt có thể đông và trễ."
         },
         {
@@ -284,12 +290,14 @@
         {
           "type": "tf",
           "statement": "The writer invited friends for dinner.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The friends did not like the soup.",
           "answer": "false",
+          "ng": true,
           "explain": "Họ khen món súp rất ngon."
         },
         {
@@ -366,12 +374,14 @@
         {
           "type": "tf",
           "statement": "The lecture had already started when he arrived.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The writer was the only nervous student.",
           "answer": "false",
+          "ng": true,
           "explain": "Phần lớn sinh viên cũng lo lắng."
         },
         {
@@ -436,12 +446,14 @@
         {
           "type": "tf",
           "statement": "Mai refused the reward.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The owner was a young woman.",
           "answer": "false",
+          "ng": true,
           "explain": "Chủ ví là một cụ ông."
         },
         {
@@ -518,12 +530,14 @@
         {
           "type": "tf",
           "statement": "Eating less meat can reduce your carbon footprint.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The writer thinks only governments can help.",
           "answer": "false",
+          "ng": true,
           "explain": "Tác giả nói thói quen ở nhà cũng quan trọng."
         },
         {
@@ -600,12 +614,14 @@
         {
           "type": "tf",
           "statement": "Experts recommend setting time limits.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The writer says social media has no benefits.",
           "answer": "false",
+          "ng": true,
           "explain": "Bài nêu nhiều lợi ích."
         },
         {
@@ -670,12 +686,14 @@
         {
           "type": "tf",
           "statement": "Coffee reached Europe by the seventeenth century.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "Vietnam is the largest coffee producer in the world.",
           "answer": "false",
+          "ng": true,
           "explain": "Việt Nam là nước sản xuất lớn thứ hai."
         },
         {

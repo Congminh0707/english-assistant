@@ -10,6 +10,8 @@ import { useTts } from '@renderer/shared/composables/useTts'
 import TtsIndicator from '@renderer/shared/components/TtsIndicator.vue'
 import { useTranslateModels } from '@renderer/shared/composables/useTranslateModels'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
+import { AI_EXPLAIN_MAX_CHARS } from '@shared/schemas/ai'
+import ExplainBlock from './ExplainBlock.vue'
 
 // Popup tra từ offline (docs/12-ui-ux-guidelines.md#popup-dịch-nhanh).
 // Mở bằng phím tắt: main đọc clipboard rồi gửi 'popup:query'; người dùng cũng có thể gõ để tra.
@@ -54,6 +56,16 @@ const onlineReady = computed(
   () =>
     (onlineHasKey.value && !!settingsStore.settings['translate.online']) ||
     (cloudAvailable.value && !!settingsStore.settings['translate.cloud'])
+)
+/** AI đã bật (không phải hồ sơ trẻ em) và có key Claude → hiện nút giải thích ngữ pháp */
+const aiReady = ref(false)
+/** Câu/cụm tiếng Anh đủ ngắn để hỏi AI giải thích ngữ pháp */
+const canExplain = computed(
+  () =>
+    aiReady.value &&
+    !!result.value &&
+    !looksVietnamese(result.value.query) &&
+    result.value.query.length <= AI_EXPLAIN_MAX_CHARS
 )
 /** Dịch được ngay: dịch online, model chất lượng cao, hoặc opus-mt của chiều này */
 const canTranslate = computed(
@@ -119,7 +131,14 @@ async function translate(text: string): Promise<void> {
         onlineHasKey.value = st.hasKey
         cloudAvailable.value = st.cloud
       })
-      .catch(() => undefined)
+      .catch(() => undefined),
+    invoke('ai:status')
+      .then((st) => {
+        aiReady.value = st.enabled && st.hasKey
+      })
+      .catch(() => {
+        aiReady.value = false
+      })
   ])
   if (seq !== translateSeq) return
   if (!canTranslate.value) {
@@ -355,6 +374,7 @@ onUnmounted(() => {
             </button>
           </p>
         </div>
+        <ExplainBlock v-if="canExplain" :key="result.query" :sentence="result.query" />
         <div class="tokens">
           <button
             v-for="w in sentenceTokens"
@@ -436,6 +456,11 @@ onUnmounted(() => {
             </button>
           </p>
         </div>
+        <ExplainBlock
+          v-if="canExplain && showTranslation && result.kind === 'phrase'"
+          :key="result.query"
+          :sentence="result.query"
+        />
       </div>
 
       <article v-else class="entry">

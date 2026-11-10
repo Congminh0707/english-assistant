@@ -62,12 +62,14 @@
         {
           "type": "tf",
           "statement": "Clouds are made of tiny drops of water.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The cycle stops when it rains.",
           "answer": "false",
+          "ng": true,
           "explain": "Nước chảy về sông biển và vòng tuần hoàn lặp lại."
         },
         {
@@ -132,12 +134,14 @@
         {
           "type": "tf",
           "statement": "A colony can have up to fifty thousand bees.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The number of bees is increasing in many countries.",
           "answer": "false",
+          "ng": true,
           "explain": "Số lượng ong đang giảm."
         },
         {
@@ -214,12 +218,14 @@
         {
           "type": "tf",
           "statement": "The Moon is Earth's only natural satellite.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The Moon is bigger than the Earth.",
           "answer": "false",
+          "ng": true,
           "explain": "Mặt Trăng nhỏ hơn Trái Đất khoảng bốn lần."
         },
         {
@@ -284,12 +290,14 @@
         {
           "type": "tf",
           "statement": "Rainforests contain more than half of all species.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "Trees are cut down only for wood.",
           "answer": "false",
+          "ng": true,
           "explain": "Còn để làm trang trại và đường sá."
         },
         {

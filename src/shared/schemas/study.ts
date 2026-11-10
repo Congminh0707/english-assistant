@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { DictExampleSchema, DictSenseSchema } from './dictionary'
+import { LessonKindSchema } from './lesson'
 
 /** Số liệu trang chủ cửa sổ Học tập */
 export const StudyOverviewSchema = z.object({
@@ -98,6 +99,36 @@ export const MissionsStateSchema = z.object({
   allDone: z.boolean()
 })
 export type MissionsState = z.infer<typeof MissionsStateSchema>
+
+/** Một mục trong lộ trình hôm nay (docs/07 §13) */
+export const DailyPlanItemSchema = z.object({
+  kind: z.enum(['review', 'lesson', 'skill', 'practice']),
+  /** Bài học/đọc/nghe/ngữ pháp: loại + id để mở thẳng */
+  lessonKind: LessonKindSchema.optional(),
+  lessonId: z.string().optional(),
+  /** Tên bài (lesson/skill); mục review/practice để trống — giao diện tự dịch theo kind */
+  title: z.string(),
+  /** Phụ đề: tên khoá, hoặc "kỹ năng yếu: Nghe" */
+  subtitle: z.string().optional(),
+  minutes: z.number().int().min(1),
+  done: z.boolean(),
+  /** Số thẻ đến hạn (chỉ kind review) */
+  count: z.number().int().optional(),
+  /** Kỹ năng (chỉ kind skill/practice) */
+  skill: z.enum(['vocab', 'grammar', 'reading', 'listening']).optional()
+})
+export type DailyPlanItem = z.infer<typeof DailyPlanItemSchema>
+/** Lộ trình hôm nay: suy ra từ dữ liệu mỗi lần hỏi, không lưu bảng riêng */
+export const DailyPlanSchema = z.object({
+  /** Ngày cục bộ YYYY-MM-DD */
+  day: z.string(),
+  /** Mục tiêu phút mỗi ngày (`learning.dailyMinutes`) */
+  targetMinutes: z.number().int(),
+  items: z.array(DailyPlanItemSchema),
+  doneCount: z.number().int(),
+  totalMinutes: z.number().int()
+})
+export type DailyPlan = z.infer<typeof DailyPlanSchema>
 
 /** Một từ trong sổ từ */
 export const WordListItemSchema = z.object({

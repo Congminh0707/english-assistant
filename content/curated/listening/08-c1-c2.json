@@ -104,12 +104,14 @@
           "type": "tf",
           "statement": "The lecturer describes the explanation as surprisingly ordinary.",
           "answer": "true",
+          "ng": true,
           "explain": "\"Almost embarrassingly mundane\" = tầm thường đến mức gần như ngượng ngùng."
         },
         {
           "type": "tf",
           "statement": "The lecturer believes a well-designed default can be completely neutral.",
           "answer": "false",
+          "ng": true,
           "explain": "\"A default is never neutral\" — luôn có người quyết định và hàm chứa phán xét."
         },
         {

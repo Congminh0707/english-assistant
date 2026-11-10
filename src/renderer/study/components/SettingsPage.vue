@@ -12,6 +12,7 @@ import { useTts, useTtsModel } from '@renderer/shared/composables/useTts'
 import { useStt } from '@renderer/shared/composables/useStt'
 import { useTranslateModels } from '@renderer/shared/composables/useTranslateModels'
 import type { TranslateOnlineStatus } from '@shared/schemas/translate'
+import { AI_MODELS } from '@shared/schemas/ai'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useUpdateStatus } from '@renderer/shared/composables/useUpdateStatus'
 import AudioPackPanel from '@renderer/shared/components/AudioPackPanel.vue'
@@ -86,6 +87,16 @@ async function clearCloudKey(provider: CloudProvider): Promise<void> {
   onlineStatus.value = await invoke('translate:clear-cloud-key', { provider })
   cloudKeyMessage.value[provider] = ''
 }
+// AI (Claude): dùng chung key của Dịch online; chỉ hiện số lượt gọi tháng này
+const aiCalls = ref(0)
+async function loadAiStatus(): Promise<void> {
+  try {
+    aiCalls.value = (await invoke('ai:status')).callsThisMonth
+  } catch {
+    // Không đọc được: giữ số cũ
+  }
+}
+
 const MB = 1024 * 1024
 const toMb = (bytes: number | undefined): number => Math.round((bytes ?? 0) / MB)
 const ttsSizeMb = computed(() => Math.round((ttsModel.status.value?.sizeBytes ?? 0) / MB))
@@ -115,6 +126,8 @@ const CREDIT_KEYS = [
 ] as const
 
 const profiles = ref<ProfileInfo[]>([])
+/** Hồ sơ trẻ em không dùng AI (docs/11 §5) */
+const activeIsChild = computed(() => profiles.value.find((p) => p.active)?.isChild ?? false)
 const newName = ref('')
 const newTrack = ref<Track>('general')
 
@@ -192,7 +205,8 @@ const REVIEW_TOGGLES = [
   { key: 'review.dirCloze', label: 'dirCloze' },
   { key: 'review.choices', label: 'choices' },
   { key: 'review.typing', label: 'typing' },
-  { key: 'review.autoPlay', label: 'autoPlay' }
+  { key: 'review.autoPlay', label: 'autoPlay' },
+  { key: 'review.autoSaveReading', label: 'autoSaveReading' }
 ] as const
 
 const update = useUpdateStatus()
@@ -244,6 +258,7 @@ const sect = ref<Sect>('profile')
 
 onMounted(async () => {
   void loadProfiles()
+  void loadAiStatus()
   try {
     onlineStatus.value = await invoke('translate:online-status')
   } catch {
@@ -417,6 +432,26 @@ onMounted(async () => {
               </option>
             </select>
           </label>
+          <label v-if="!activeIsChild" class="row">
+            {{ t('study.settings.diaryHour') }}
+            <!-- 'off' thay cho null: <option :value="null"> mất thuộc tính value -->
+            <select
+              :value="settingsStore.settings['diary.hour'] ?? 'off'"
+              @change="
+                setSetting(
+                  'diary.hour',
+                  ($event.target as HTMLSelectElement).value === 'off'
+                    ? null
+                    : Number(($event.target as HTMLSelectElement).value)
+                )
+              "
+            >
+              <option value="off">{{ t('study.settings.quizOff') }}</option>
+              <option v-for="h in [19, 20, 21, 22, 23]" :key="h" :value="h">
+                {{ `${h}:00` }}
+              </option>
+            </select>
+          </label>
         </section>
 
         <section v-show="sect === 'translate'" class="card block">
@@ -584,6 +619,36 @@ onMounted(async () => {
           </p>
         </section>
 
+        <section v-if="!activeIsChild" v-show="sect === 'translate'" class="card block">
+          <h2>{{ t('study.settings.ai.title') }}</h2>
+          <p class="muted">{{ t('study.settings.ai.hint') }}</p>
+          <label class="row">
+            {{ t('study.settings.ai.toggle') }}
+            <input
+              type="checkbox"
+              :checked="settingsStore.settings['ai.enabled']"
+              @change="setSetting('ai.enabled', ($event.target as HTMLInputElement).checked)"
+            />
+          </label>
+          <label class="row">
+            {{ t('study.settings.ai.model') }}
+            <select
+              :value="settingsStore.settings['ai.model']"
+              @change="setSetting('ai.model', ($event.target as HTMLSelectElement).value as never)"
+            >
+              <option v-for="m in AI_MODELS" :key="m" :value="m">
+                {{ t(`study.settings.ai.models.${m}`) }}
+              </option>
+            </select>
+          </label>
+          <p class="muted">
+            {{
+              onlineStatus.hasKey ? t('study.settings.ai.sharedKey') : t('study.settings.ai.noKey')
+            }}
+          </p>
+          <p class="muted">{{ t('study.settings.ai.calls', { n: aiCalls }) }}</p>
+        </section>
+
         <section v-show="sect === 'review'" class="card block">
           <h2>{{ t('study.settings.review') }}</h2>
           <label class="row">
@@ -647,6 +712,7 @@ onMounted(async () => {
               @change="setSetting(d.key, ($event.target as HTMLInputElement).checked as never)"
             />
           </label>
+          <p class="muted">{{ t('study.settings.autoSaveReadingHint') }}</p>
           <div class="row">
             <span class="muted">{{ backfillMessage || t('study.settings.backfillHint') }}</span>
             <button type="button" class="btn btn--sm" :disabled="backfilling" @click="backfill">

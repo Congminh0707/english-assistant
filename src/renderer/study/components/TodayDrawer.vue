@@ -1,14 +1,48 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n'
 import { CircleCheck, Flame, Layers, Sprout, X } from 'lucide-vue-next'
-import type { MissionsState, StudyOverview } from '@shared/schemas/study'
+import type { DailyPlan, DailyPlanItem, MissionsState, StudyOverview } from '@shared/schemas/study'
+import UiIcon, { type UiIconName } from '@renderer/shared/components/UiIcon.vue'
 import MissionList from './MissionList.vue'
 
-defineProps<{ overview: StudyOverview | null; missions: MissionsState | null }>()
-defineEmits<{ start: []; goal: [value: number]; close: [] }>()
+defineProps<{
+  overview: StudyOverview | null
+  missions: MissionsState | null
+  /** Lộ trình hôm nay (docs/07 §13) */
+  plan: DailyPlan | null
+}>()
+defineEmits<{
+  goal: [value: number]
+  minutes: [value: number]
+  open: [item: DailyPlanItem]
+  close: []
+}>()
 
 const { t } = useI18n()
 const SHORTCUT = 'Ctrl + Alt + T'
+const TARGETS = [10, 20, 30, 60]
+// UiIcon chưa có book/target/dumbbell → dùng icon gần nhất có sẵn
+const KIND_ICON: Record<DailyPlanItem['kind'], UiIconName> = {
+  review: 'cards',
+  lesson: 'write',
+  skill: 'star',
+  practice: 'repeat'
+}
+
+function itemTitle(item: DailyPlanItem): string {
+  if (item.kind === 'review') {
+    return item.count ? t('study.plan.review', { n: item.count }) : t('study.plan.reviewDone')
+  }
+  if (item.kind === 'practice') return t('study.plan.practice')
+  return item.title
+}
+
+function itemSubtitle(item: DailyPlanItem): string | undefined {
+  if (item.kind === 'skill' && item.skill) {
+    return t('study.plan.weakSkill', { skill: t(`study.plan.skill.${item.skill}`) })
+  }
+  return item.subtitle
+}
 </script>
 
 <template>
@@ -28,21 +62,61 @@ const SHORTCUT = 'Ctrl + Alt + T'
     <template v-if="overview">
       <p v-if="overview.packMissing" class="warn">{{ t('study.home.packMissing') }}</p>
 
-      <div class="cta" :class="{ idle: overview.dueCount === 0 }">
-        <template v-if="overview.dueCount > 0">
-          <div class="cta-text">
-            <span class="cta-label">{{ t('study.home.due') }}</span>
-            <strong class="cta-num">{{ overview.dueCount }}</strong>
-          </div>
-          <button type="button" class="btn btn--success" @click="$emit('start')">
-            {{ t('study.home.start', { count: overview.dueCount }) }}
-          </button>
-        </template>
-        <span v-else-if="overview.totalCards === 0">
-          {{ t('study.home.noCards', { shortcut: SHORTCUT }) }}
-        </span>
-        <span v-else>{{ t('study.home.nothingDue') }}</span>
-      </div>
+      <section v-if="plan" class="card plan">
+        <header class="plan-head">
+          <h2>{{ t('study.plan.title') }}</h2>
+          <span class="chip" :class="plan.doneCount === plan.items.length ? 'chip--success' : ''">
+            {{ plan.doneCount }}/{{ plan.items.length }}
+          </span>
+          <select
+            class="target"
+            :value="plan.targetMinutes"
+            :aria-label="t('study.plan.target', { n: plan.targetMinutes })"
+            @change="$emit('minutes', Number(($event.target as HTMLSelectElement).value))"
+          >
+            <option v-for="m in TARGETS" :key="m" :value="m">
+              {{ t('study.plan.target', { n: m }) }}
+            </option>
+          </select>
+        </header>
+
+        <p v-if="plan.items.length === 0" class="plan-note">{{ t('study.plan.empty') }}</p>
+        <ul v-else class="plan-list">
+          <li
+            v-for="(item, i) in plan.items"
+            :key="`${item.kind}:${item.lessonId ?? i}`"
+            class="plan-row"
+            :class="{ done: item.done }"
+          >
+            <span class="plan-icon" :class="{ ok: item.done }">
+              <UiIcon :name="item.done ? 'check' : KIND_ICON[item.kind]" :size="18" />
+            </span>
+            <div class="plan-main">
+              <div class="plan-name">{{ itemTitle(item) }}</div>
+              <div v-if="itemSubtitle(item)" class="plan-sub">{{ itemSubtitle(item) }}</div>
+            </div>
+            <span class="chip">{{ t('study.plan.minutes', { n: item.minutes }) }}</span>
+            <!-- Ôn thẻ đã xong mà không còn thẻ đến hạn: không có gì để làm lại, chỉ giữ dấu hoàn thành -->
+            <button
+              v-if="!(item.kind === 'review' && item.done && item.count === 0)"
+              type="button"
+              class="btn btn--sm"
+              :class="item.done ? 'btn--ghost' : 'btn--primary'"
+              :aria-label="`${item.done ? t('study.plan.redo') : t('study.plan.do')}: ${itemTitle(item)}`"
+              @click="$emit('open', item)"
+            >
+              {{ item.done ? t('study.plan.redo') : t('study.plan.do') }}
+            </button>
+          </li>
+        </ul>
+        <p v-if="plan.items.length > 0 && plan.doneCount === plan.items.length" class="plan-note">
+          {{ t('study.plan.allDone') }}
+        </p>
+      </section>
+
+      <p v-if="overview.totalCards === 0" class="hint">
+        {{ t('study.home.noCards', { shortcut: SHORTCUT }) }}
+      </p>
 
       <div class="stats">
         <div class="card stat">
@@ -111,38 +185,82 @@ const SHORTCUT = 'Ctrl + Alt + T'
   background: var(--c-warning-soft);
   color: var(--c-warning);
 }
-.cta {
+.plan {
+  margin-top: var(--sp-3);
+}
+.plan-head {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-4);
-  min-height: 72px;
-  margin-top: var(--sp-3);
-  padding: var(--sp-3) var(--sp-4);
-  border-radius: var(--r-lg);
-  background: var(--c-primary);
-  box-shadow: var(--shadow-md);
-  color: var(--c-on-primary);
-  font-size: var(--fs-lg);
-  font-weight: 600;
+  gap: var(--sp-2);
+  margin-bottom: var(--sp-2);
 }
-.cta.idle {
-  background: var(--c-surface);
-  border: 1px solid var(--c-line);
-  box-shadow: var(--shadow-sm);
+.plan-head h2 {
+  margin: 0;
+  font-size: var(--fs-lg);
+}
+.target {
+  margin-left: auto;
+  font-size: var(--fs-xs);
+}
+.plan-list {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.plan-row {
+  display: grid;
+  grid-template-columns: 32px 1fr auto auto;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-2) 0;
+  border-top: 1px solid var(--c-line);
+}
+.plan-row:first-child {
+  border-top: 0;
+}
+.plan-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-md);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
+.plan-icon.ok {
+  background: var(--c-success-soft);
+  color: var(--c-success);
+}
+.plan-main {
+  min-width: 0;
+}
+.plan-name {
+  overflow: hidden;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.plan-sub {
+  overflow: hidden;
+  font-size: var(--fs-xs);
+  color: var(--c-ink-soft);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.plan-row.done .plan-name {
   color: var(--c-ink-soft);
 }
-.cta-text {
-  display: flex;
-  align-items: baseline;
-  gap: var(--sp-3);
+.plan-note {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--c-success);
+  font-weight: 600;
 }
-.cta-label {
-  opacity: 0.9;
-}
-.cta-num {
-  font-size: 34px;
-  line-height: 1;
+.hint {
+  margin: var(--sp-3) 0 0;
+  font-size: var(--fs-sm);
+  color: var(--c-ink-soft);
 }
 .stats {
   display: grid;

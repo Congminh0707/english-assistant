@@ -392,3 +392,15 @@ Mẫu:
   4. Giữ nguyên định dạng `pet.json`, `PetFigure.vue`, mặt, tay, vị trí phụ kiện, id vật phẩm.
 - **Đánh đổi**: `art/pets/*.pet.json` tăng từ 3,1 MB lên 5,3 MB (Kitsu 1,85 MB vì 19 dáng × 4 giai đoạn đều chứa đủ chuỗi đuôi); nạp lười theo nhân vật nên chỉ tốn khi chọn con đó. Thiên Hồ có 72 khúc đuôi cùng chuyển động: chưa đo CPU cửa sổ mascot. Ở 48 px đốm sáng gần như không thấy.
 - **Thay thế đã cân nhắc**: SMIL/JS uốn path đuôi (mượt hơn nhưng phải chạy script trong Shadow DOM mỗi khung hình); sprite sheet (trái với quyết định #45 bỏ pixel).
+
+## #56 — AI BYOK v1 chỉ Anthropic, dùng chung key dịch online (2026-11-10) — Đã quyết định
+
+- **Bối cảnh**: docs/11 §5 thiết kế LLM nhiều nhà cung cấp (Ollama, Claude, OpenAI, Gemini) với ô nhập key riêng. Người dùng đã có thể nhập key Claude cho "Dịch online (Claude)" (secret `'anthropic'` trong `SafeStorageSecretStore`). Tính năng AI đầu tiên cần làm là giải thích ngữ pháp trong popup (B8), sau đó là sửa nhật ký (Task 5). Thêm ô key thứ hai cho cùng một nhà cung cấp làm người dùng bối rối, còn nhiều nhà cung cấp thì phải viết và thử nhiều client, nhiều kiểu prompt.
+- **Quyết định**:
+  1. v1 chỉ có Anthropic. `AnthropicClient` gọi Messages API bằng `fetch` như `OnlineTranslator` (không thêm SDK), timeout 15 s. Phía sau là interface `AiClient.complete({ system, user, maxTokens, effort? })` nên thêm nhà cung cấp sau không phải đổi `AiService`.
+  2. Dùng **chung key** `'anthropic'` với Dịch online. Cài đặt riêng `ai.enabled` (mặc định tắt) và `ai.model` (`claude-haiku-5-5` mặc định | `claude-sonnet-5-5`). Có key nhưng chưa bật `ai.enabled` thì không gửi gì.
+  3. Prompt là hằng string trong `src/main/ai/prompts.ts` (biến `{{level}}`), không phải file `.md`. Đóng gói cùng main, không đọc file lúc chạy, sửa prompt có typecheck và review như code.
+  4. Kết quả luôn là JSON: tách từ `{` đầu tới `}` cuối, validate zod, sai thì thử lại 1 lần, rồi báo `AI_FAILED`. Cache LRU 100 trong bộ nhớ, theo hash FNV-1a của input + trình độ. Đếm lượt gọi theo tháng trong cài đặt `ai.usage` (`'YYYY-MM:n'`).
+  5. Hồ sơ trẻ em: tắt hẳn (`enabled: false`, gọi thì `FORBIDDEN`). Không dùng trong giao diện bé.
+- **Đánh đổi**: người không có key Claude chưa dùng được AI (Ollama local, OpenAI, Gemini để sau). Tắt Dịch online không tắt AI và ngược lại, vì hai cài đặt độc lập dù chung key. Xoá key ở mục Dịch online thì AI cũng mất key. Cache mất khi tắt app. Bộ đếm chỉ để xem, chưa có giới hạn lượt. Mỗi lần thử lại cũng tính là một lượt.
+- **Thay thế đã cân nhắc**: dùng SDK `@anthropic-ai/sdk` (thêm dependency, trong khi chỉ cần một request POST); ô key riêng cho AI (trùng với key Dịch online); làm nhiều nhà cung cấp ngay (nhiều việc mà chưa có người dùng cần); prompt dạng file `.md` (phải copy vào bản đóng gói, đọc file lúc chạy, không có kiểm tra kiểu).

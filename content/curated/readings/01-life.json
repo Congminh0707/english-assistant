@@ -53,12 +53,14 @@
           "type": "tf",
           "statement": "Lan eats breakfast alone.",
           "answer": "false",
+          "ng": true,
           "explain": "Cô ấy ăn sáng cùng gia đình (with my family)."
         },
         {
           "type": "tf",
           "statement": "Lan's brother likes rice and fish.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "mcq",
@@ -134,12 +136,14 @@
           "type": "tf",
           "statement": "Mai is twelve years old.",
           "answer": "false",
+          "ng": true,
           "explain": "Mai ten years old = mười tuổi."
         },
         {
           "type": "tf",
           "statement": "The grandmother cooks good food.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
@@ -206,12 +210,14 @@
           "type": "tf",
           "statement": "The market is quiet.",
           "answer": "false",
+          "ng": true,
           "explain": "Chợ busy and noisy = đông và ồn."
         },
         {
           "type": "tf",
           "statement": "The fish costs fifty thousand dong.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "mcq",
@@ -286,12 +292,14 @@
           "type": "tf",
           "statement": "The writer saw the aunt last week.",
           "answer": "false",
+          "ng": true,
           "explain": "Họ chưa gặp nhau for two months (hai tháng)."
         },
         {
           "type": "tf",
           "statement": "The writer will go back to the city on Sunday.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",

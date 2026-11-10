@@ -1,6 +1,7 @@
 import { totalXpForLevel } from '@shared/pet'
 import type { LessonKind } from '@shared/schemas/lesson'
 import type { Container } from '../container'
+import { wordLevels } from '../content/hardWords'
 import type { LessonService } from '../services/LessonService'
 import type { TranslationService } from '../services/TranslationService'
 import type { TtsService } from '../services/TtsService'
@@ -32,15 +33,9 @@ export function registerAppIpc(
       childSafe: c.profiles.active().isChild
     })
   )
-  handle('dictionary:levels', ({ words }) => {
-    const options = { childSafe: c.profiles.active().isChild }
-    const out: Record<string, string> = {}
-    for (const word of new Set(words.map((w) => w.toLowerCase()))) {
-      const entry = c.dictionary.lookup(word, undefined, options).entries[0]
-      if (entry && entry.via !== 'search') out[word] = entry.level
-    }
-    return out
-  })
+  handle('dictionary:levels', ({ words }) =>
+    wordLevels(c.dictionary, words, c.profiles.active().isChild)
+  )
   handle('vocab:save', (input) => c.vocab.save(input))
   handle('quiz:answer', ({ quizId, choiceIndex, elapsedMs }) =>
     c.micro.answer(quizId, choiceIndex, elapsedMs)
@@ -52,6 +47,7 @@ export function registerAppIpc(
   handle('study:undo', () => c.study.undo())
   handle('study:backfill', () => ({ created: c.study.backfill() }))
   handle('study:missions', () => c.missions.state())
+  handle('study:plan', () => c.dailyPlan.plan())
   handle('profile:list', () => c.profiles.listInfo())
   handle('profile:setup', (input) => c.profiles.setup(input))
   handle('profile:create', (input) => c.profiles.createFromInput(input))
@@ -104,6 +100,12 @@ export function registerAppIpc(
     translation.setCloudKey(provider, key, region || undefined)
   )
   handle('translate:clear-cloud-key', ({ provider }) => translation.clearCloudKey(provider))
+  handle('ai:status', () => c.ai.status())
+  handle('ai:explain', (input) => c.ai.explain(input))
+  handle('diary:today', () => c.diary.todayView())
+  handle('diary:save', ({ text }) => c.diary.save(text))
+  handle('diary:correct', () => c.diary.correct())
+  handle('diary:list', () => c.diary.list())
   handle('practice:start', ({ mode }) => ({ exercise: c.practice.start(mode) }))
   handle('practice:answer', ({ sessionId, exerciseId, answer }) =>
     c.practice.answer(sessionId, exerciseId, answer)

@@ -38,6 +38,8 @@ export class LessonService {
       progress?: ProgressService
       /** Loại nội dung của dịch vụ này (quyết định kỹ năng của từng dạng bài) */
       source?: ProgressSource
+      /** Gọi khi lần đầu đạt bài (sau khi ghi kết quả); trả số từ đã tự lưu vào sổ từ (bài đọc) */
+      onFirstPass?: (lesson: Lesson) => number
     }
   ) {}
 
@@ -89,7 +91,7 @@ export class LessonService {
     const passed = score >= LESSON_PASS_PERCENT
     this.logProgress(lesson.level, byType)
 
-    return transaction(() => {
+    const result = transaction(() => {
       const profileId = profiles.activeId()
       const previous = repo.list(profileId).find((r) => r.lessonId === lessonId)
       repo.record(profileId, lessonId, score, passed, clock.now())
@@ -112,6 +114,10 @@ export class LessonService {
         nextLessonId: library.nextLessonId(lessonId)
       }
     })
+    // Ngoài transaction: việc lưu từ (có transaction, XP, sự kiện riêng) không ảnh hưởng kết quả bài đã ghi
+    const { onFirstPass } = this.deps
+    if (!result.firstCompletion || !onFirstPass) return result
+    return { ...result, savedWords: onFirstPass(lesson) }
   }
 
   /** Ghi kết quả theo dạng bài; dữ liệu không hợp lệ (tổng vượt số bài tập, đúng > tổng) bị bỏ qua */

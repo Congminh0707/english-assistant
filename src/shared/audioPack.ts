@@ -12,8 +12,11 @@ export type PackAccent = 'us' | 'uk'
 /** Chuẩn hoá văn bản như TtsCache: gom khoảng trắng, bỏ khoảng trắng đầu/cuối */
 export const normalizePackText = (text: string): string => text.replace(/\s+/g, ' ').trim()
 
-/** FNV-1a 64-bit (hai nửa 32-bit) → 16 ký tự hex; không cần thư viện băm, giống nhau ở main/renderer/script */
-function fnv1a64(input: string): string {
+/**
+ * FNV-1a 64-bit (hai nửa 32-bit) → 16 ký tự hex; không cần thư viện băm, giống nhau ở main/renderer/script.
+ * Cũng dùng làm khoá cache của AiService (src/main/ai/AiService.ts).
+ */
+export function fnv1a64(input: string): string {
   let h1 = 0x811c9dc5
   let h2 = 0xcbf29ce4
   for (let i = 0; i < input.length; i++) {

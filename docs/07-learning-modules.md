@@ -109,6 +109,7 @@ Lộ trình học từ đầu cho người Việt, **tự soạn** (`proprietary
   - Nút 🔊 đọc cả câu/đoạn (TTS hoặc audio gốc nếu có), câu đang đọc được highlight.
   - Chế độ song ngữ: hiện bản dịch tiếng Việt theo từng đoạn (bật/tắt).
 - **Sau khi đọc**: 3–8 câu hỏi đọc hiểu (`mcq`, `true_false_ng`, `gap_fill` tóm tắt) + từ mới của bài vào SRS.
+  - ✅ **Đã làm (2026-11-10)** — từ mới của bài vào SRS tự động: lần đầu đạt một bài đọc (`passed && firstCompletion`), main tự lưu tối đa **8** từ khó của bài vào sổ từ (tạo thẻ ôn) kèm câu đầu tiên chứa từ làm ngữ cảnh. Chọn từ ở `src/main/content/hardWords.ts` (`pickHardWords`): tách câu (`splitSentences`) và từ (`tokenizeWords`) mọi đoạn `passage`, bỏ tên riêng, tra level bằng cùng hàm với kênh `dictionary:levels` (`wordLevel`), giữ từ có level > `learning.level`, bỏ từ đã có trong sổ (theo `contentId`, gộp các dạng của một mục từ), theo thứ tự xuất hiện. `container.ts` nối callback `onFirstPass` cho `LessonService` của bài đọc, lưu qua `StudyService.saveMany` (cùng đường với `vocab:save-many`); kết quả `lesson:complete` có thêm `savedWords`, thẻ kết quả hiện chip "Đã lưu N từ mới". Không áp dụng cho hồ sơ trẻ em; tắt được bằng cài đặt `review.autoSaveReading` (mặc định bật, mục Ôn thẻ trong Cài đặt). Nút "Lưu N từ khó" thủ công trong trình đọc vẫn giữ.
 - **Bậc thấp**: truyện tranh/picture book, mỗi trang 1–2 câu, có audio.
 - **Bậc cao**: bài báo, văn bản học thuật, dạng bài IELTS Reading.
 - 💡 Đọc web: dán URL → lấy nội dung sạch → ước lượng level → đọc với các công cụ trên.
@@ -224,6 +225,25 @@ Thuật toán gợi ý mỗi ngày (chạy trong `DailyPlanService`):
 5. Tổng thời gian theo mục tiêu người dùng đặt: 10 / 20 / 30 / 60 phút.
 
 Mascot nhắc lộ trình vào giờ người dùng chọn, và hiển thị tiến độ hôm nay khi hover.
+
+> ✅ **Đã làm (2026-11-10)** — `DailyPlanService.plan()` (kênh `study:plan`, khối "Hôm nay" trên cùng ngăn kéo `TodayDrawer` của bản đồ làng). Suy ra mỗi lần hỏi, không lưu bảng riêng, tối đa 5 mục:
+> 1. **Ôn thẻ** (`review`, luôn đứng đầu): `count = dueCount`, `minutes = min(8, max(2, ceil(count/4)))`, xong khi hết thẻ đến hạn (`count = 0`, vẫn hiện mục, tiêu đề "Thẻ đến hạn đã ôn xong"); người chưa có thẻ nào thì bỏ mục.
+> 2. **Bài kế tiếp trong khoá** (`lesson`): khoá đang theo = khoá học dở (có bước xong, còn bước chưa xong) có tỉ lệ xong cao nhất; chưa học khoá nào thì khoá đầu tiên có `levelFrom ≤ learning.level`. Bước hiện ra là bước đầu tiên chưa xong **hoặc đã xong trong hôm nay** (để vẫn thấy dấu ✓ tới hết ngày; sang ngày sau chuyển sang bước kế); khoá vừa xong bước cuối trong hôm nay vẫn được tính là khoá đang theo. Phụ đề = tên khoá.
+> 3. **Kỹ năng yếu nhất** (`skill`): rating Elo thấp nhất trong ngữ pháp / đọc / nghe (bằng nhau thì theo thứ tự đó; bỏ từ vựng vì đã có ôn thẻ); bài đầu tiên chưa xong (hoặc xong hôm nay) của kho tương ứng có level ≤ `learning.level` + 1 bậc và khác bài ở mục 2. Không có bài → mục `practice` (Luyện tập nhanh, 5 phút), xong khi hôm nay đã có ≥ 1 phiên luyện tập được ghi sổ XP (`exercise.session`; chỉ 5 phiên đầu/ngày ghi sổ).
+> 4. Tổng phút < mục tiêu `learning.dailyMinutes` (10/20/30/60, mặc định 20, chọn ngay trong khối) → thêm tối đa 2 bước tiếp theo của cùng khoá (chưa xong, hoặc xong hôm nay thì giữ lại với dấu ✓).
+>
+> "Xong" của mục bài học = `lesson_progress.completedAt` nằm trong ngày cục bộ hôm nay. Bấm "Làm" mở thẳng: ôn thẻ → Giếng làng, luyện tập → Hội trường, bài → trang của loại bài với `startId`. Khối CTA ôn thẻ cũ trong ngăn kéo bỏ (mục ôn thẻ thay thế). Chưa có: bước "từ mới" (2), mascot nhắc lộ trình theo giờ và tiến độ khi hover.
+
+## 14. Nhật ký tiếng Anh — ✅ 2026-11-10
+
+Ý tưởng [01 G3](01-features.md): mỗi tối mascot hỏi "Hôm nay bạn làm gì?", người dùng viết 2–3 câu tiếng Anh, AI sửa nhẹ. Là nguồn Writing đầu tiên của app. **Chỉ người lớn** (hồ sơ trẻ em không có tab, không nhắc, `diary:save` bị chặn `FORBIDDEN`).
+
+- **Trang**: tab "Nhật ký" ở **Thư viện** (cạnh Sổ từ), `DiaryPage.vue` (chỉ hiển thị, logic ở `DiaryService`). Câu gợi ý của ngày (1 trong 12 câu `study.diary.prompts.1..12`, chọn bằng 32 bit đầu của băm `fnv1a64(ngày)` `% 12 + 1` nên cố định trong ngày), ô viết (tối đa 1.200 ký tự, đếm từ), nút "Lưu" và "Sửa bằng AI" (chỉ hiện khi AI đã bật + có key, xem [11 §5](11-ai-and-speech.md)). Sau khi sửa: bản `corrected`, danh sách `cũ → mới` kèm lý do tiếng Việt, một câu khen. Dưới cùng: 30 ngày gần nhất (ngày + dòng đầu).
+- **Lưu**: mỗi hồ sơ một entry mỗi ngày cục bộ (bảng `diary_entries`, [10](10-data-model.md)); lưu lại cùng ngày thì cập nhật chữ, đổi chữ thì xoá bản AI sửa cũ.
+- **Thưởng**: lần đầu trong ngày entry có ≥ 10 từ → +10 XP, +3 xu (`xp_events.reason = 'diary.written'`, `ref_id` = ngày; idempotent). Sửa bằng AI không cho XP.
+- **AI**: `AiService.correctDiary({ text, level: learning.level })` (prompt `diary_correct`); kết quả `{changes, praise_vi}` lưu ở cột `changes_json`. Người dùng sửa chữ trong lúc chờ AI thì bỏ kết quả cũ (`diary:correct` trả `stale: true`, trang báo bấm sửa lại).
+- **Mascot nhắc**: cài đặt `diary.hour` (0–23, mặc định 21, `null` = tắt; Cài đặt → Hồ sơ và học tập: Tắt, 19:00…23:00). Job `diaryJob.ts` mỗi 5 phút: đã tới giờ, hôm nay chưa viết, chưa nhắc hôm nay, mascot đang hiện (không yên lặng/ẩn/ngủ, popup đóng), hồ sơ người lớn → mascot nói `mascot.diaryPrompt` (ưu tiên ngang thẻ hỏi ôn để không bị rơi khỏi hàng đợi); tối đa một lần mỗi ngày (nhớ trong bộ nhớ). Bấm bong bóng → mở cửa sổ Học tập ở trang nhật ký (`mascot:open-diary` → `StudyWindow.open('diary')` → sự kiện `study:open-page`).
+- Chưa có: dạng bài `translate_sentence`, lưu từ AI sửa vào sổ từ, thống kê Writing.
 
 ## Bài nói (`speak`) — 2026-10-21
 

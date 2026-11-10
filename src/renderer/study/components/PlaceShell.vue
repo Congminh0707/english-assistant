@@ -14,8 +14,11 @@ const focus = ref(false)
 provide(SHELL_FOCUS, focus)
 
 const scene = computed(() => `place-${PLACE_SCENE[props.place]}${props.dark ? '-dark' : ''}`)
+// parentTab = hồ sơ đang dùng là trẻ em (phụ huynh đang xem): có tab Phụ huynh, không có Nhật ký (chỉ người lớn)
 const tabs = computed(() =>
-  PLACE_PAGES[props.place].filter((p) => p !== 'parent' || props.parentTab)
+  PLACE_PAGES[props.place].filter((p) =>
+    p === 'parent' ? props.parentTab : p !== 'diary' || !props.parentTab
+  )
 )
 
 function onKey(e: KeyboardEvent): void {

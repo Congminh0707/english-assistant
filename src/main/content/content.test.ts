@@ -1609,3 +1609,205 @@ describe('lộ trình học', () => {
     expect(() => c.courses.get('khong-co')).toThrow(/NOT_FOUND/)
   })
 })
+
+describe('lộ trình hằng ngày', () => {
+  let clock: FakeClock
+
+  beforeEach(async () => {
+    conn.close()
+    conn = openUserDb(':memory:', MIGRATIONS)
+    clock = new FakeClock()
+    c = createContainer(conn, clock, { packsDir: join(tmp, 'packs') })
+    legacyReview(c)
+    await c.packs.install(buildFixturePack(tmp))
+  })
+
+  const finish = (kind: 'lesson' | 'grammar' | 'reading' | 'listening', id: string): void => {
+    const svc = {
+      lesson: c.lessons,
+      grammar: c.grammar,
+      reading: c.readings,
+      listening: c.listening
+    }[kind]
+    const n = svc.get(id).exercises.length
+    svc.complete(id, n, n)
+  }
+
+  it('chưa có thẻ, chưa học: bài kế tiếp của khoá đầu hợp trình độ, không có mục ôn thẻ', () => {
+    const plan = c.dailyPlan.plan()
+    expect(plan.items.some((i) => i.kind === 'review')).toBe(false)
+    const lesson = plan.items.find((i) => i.kind === 'lesson')!
+    const course = c.courses.list()[0]
+    expect(lesson).toMatchObject({
+      lessonId: course.next!.id,
+      lessonKind: course.next!.kind,
+      subtitle: course.title,
+      done: false
+    })
+    expect(plan.targetMinutes).toBe(20)
+    expect(plan.doneCount).toBe(0)
+    expect(plan.totalMinutes).toBe(plan.items.reduce((n, i) => n + i.minutes, 0))
+  })
+
+  it('6 thẻ đến hạn → mục ôn thẻ đứng đầu, count 6, 2 phút; ôn hết → vẫn hiện, done, count 0', () => {
+    for (const w of ['go', 'apple', 'left', 'leave', 'ponder', 'went'])
+      c.vocab.save({ contentId: `word:en:${w}`, text: w })
+    const plan = c.dailyPlan.plan()
+    expect(plan.items[0]).toMatchObject({ kind: 'review', count: 6, minutes: 2, done: false })
+
+    for (let i = 0; i < 20; i++) {
+      const { card } = c.study.next()
+      if (!card) break
+      c.study.rate(card.cardId, 3, 1000)
+    }
+    expect(c.dailyPlan.plan().items[0]).toMatchObject({
+      kind: 'review',
+      count: 0,
+      minutes: 2,
+      done: true
+    })
+  })
+
+  it('có thẻ, không thẻ nào đến hạn, hôm nay chưa ôn → mục ôn thẻ done, count 0, 2 phút', () => {
+    // Không tự tạo thẻ phụ khi từ đã thuộc, để chỉ còn đúng một thẻ
+    for (const k of ['review.dirViEn', 'review.dirAudio', 'review.dirCloze'] as const)
+      c.settings.set(k, false)
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    c.study.rate(c.study.next().card!.cardId, 4, 1000) // Dễ → hạn ôn sau vài ngày
+    clock.advance(24 * 3_600_000)
+    expect(c.study.overview()).toMatchObject({ dueCount: 0, reviewedToday: 0, totalCards: 1 })
+    expect(c.dailyPlan.plan().items[0]).toMatchObject({
+      kind: 'review',
+      count: 0,
+      minutes: 2,
+      done: true
+    })
+  })
+
+  it('không còn thẻ nào (dù hôm nay đã ôn rồi xoá từ) → không có mục ôn thẻ', () => {
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    c.study.rate(c.study.next().card!.cardId, 3, 1000)
+    c.study.removeWord('word:en:go')
+    expect(c.study.overview()).toMatchObject({ totalCards: 0, reviewedToday: 1 })
+    expect(c.dailyPlan.plan().items.some((i) => i.kind === 'review')).toBe(false)
+  })
+
+  it('kỹ năng nghe yếu nhất → mục kỹ năng là bài nghe chưa xong, khác bài của khoá', () => {
+    c.settings.set('learning.levelListening', 'A1_1')
+    const plan = c.dailyPlan.plan()
+    const skill = plan.items.find((i) => i.kind === 'skill')!
+    const lesson = plan.items.find((i) => i.kind === 'lesson')!
+    expect(skill).toMatchObject({ skill: 'listening', lessonKind: 'listening', done: false })
+    expect(skill.lessonId).not.toBe(lesson.lessonId)
+    expect(c.listening.get(skill.lessonId!).title).toBe(skill.title)
+  })
+
+  it('hoàn thành bài của khoá hôm nay → mục đó done, doneCount tăng; sang ngày mới thì là bài sau', () => {
+    const before = c.dailyPlan.plan()
+    const lesson = before.items.find((i) => i.kind === 'lesson')!
+    finish(lesson.lessonKind!, lesson.lessonId!)
+    const after = c.dailyPlan.plan()
+    expect(after.items.find((i) => i.kind === 'lesson')).toMatchObject({
+      lessonId: lesson.lessonId,
+      done: true
+    })
+    expect(after.doneCount).toBe(before.doneCount + 1)
+
+    clock.advance(24 * 3_600_000)
+    const tomorrow = c.dailyPlan.plan().items.find((i) => i.kind === 'lesson')!
+    expect(tomorrow.lessonId).not.toBe(lesson.lessonId)
+    expect(tomorrow.done).toBe(false)
+  })
+
+  it('mục tiêu 60 phút → thêm bài kế tiếp của khoá, tối đa 5 mục, không trùng bài', () => {
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    c.settings.set('learning.dailyMinutes', 60)
+    const plan = c.dailyPlan.plan()
+    expect(plan.targetMinutes).toBe(60)
+    expect(plan.items).toHaveLength(5)
+    expect(plan.items.filter((i) => i.kind === 'lesson')).toHaveLength(3)
+    const ids = plan.items.filter((i) => i.lessonId).map((i) => i.lessonId)
+    expect(new Set(ids).size).toBe(ids.length)
+  })
+
+  it('xong một bài thêm của khoá hôm nay → bài đó vẫn trong lộ trình, done, được đếm', () => {
+    c.settings.set('learning.dailyMinutes', 60)
+    const before = c.dailyPlan.plan()
+    const extra = before.items.filter((i) => i.kind === 'lesson')[1]
+    finish(extra.lessonKind!, extra.lessonId!)
+    const after = c.dailyPlan.plan()
+    expect(after.items.find((i) => i.lessonId === extra.lessonId)).toMatchObject({
+      kind: 'lesson',
+      done: true
+    })
+    expect(after.doneCount).toBe(before.doneCount + 1)
+  })
+
+  it('xong bước cuối của khoá hôm nay → vẫn hiện bước đó với dấu ✓', () => {
+    const course = c.courses.list()[0]
+    const steps = c.courses.get(course.id).units.flatMap((u) => u.steps)
+    for (const s of steps.slice(0, -1)) finish(s.kind, s.id)
+    clock.advance(24 * 3_600_000)
+    const last = steps[steps.length - 1]
+    finish(last.kind, last.id)
+    expect(c.courses.list()[0].next).toBeNull()
+    const lesson = c.dailyPlan.plan().items.find((i) => i.kind === 'lesson')
+    expect(lesson).toMatchObject({ lessonId: last.id, subtitle: course.title, done: true })
+  })
+})
+
+describe('Bài đọc: tự lưu từ khó khi lần đầu đạt bài', () => {
+  const LESSON = 'readlife.my-morning'
+  const savedRows = (): Array<{ text: string; context: string | null }> =>
+    conn.sqlite.prepare('SELECT text, context FROM saved_words ORDER BY rowid').all() as Array<{
+      text: string
+      context: string | null
+    }>
+  const pass = (): ReturnType<Container['readings']['complete']> => {
+    const n = c.readings.get(LESSON).exercises.length
+    return c.readings.complete(LESSON, n, n)
+  }
+
+  beforeEach(async () => {
+    await c.packs.install(buildFixturePack(tmp))
+    // Mọi từ của gói mẫu ở A1_1 → người học PA1_1 thấy chúng là từ khó
+    c.settings.set('learning.level', 'PA1_1')
+  })
+
+  it('lần đầu đạt lưu các từ khó (≤ 8) kèm câu ngữ cảnh; làm lại không lưu thêm', () => {
+    const first = pass()
+    expect(first).toMatchObject({ firstCompletion: true, savedWords: 4 })
+    expect(savedRows()).toEqual([
+      { text: 'eat', context: 'Then I eat breakfast with my family.' },
+      { text: 'go', context: "At seven o'clock, I go to school by bike." },
+      { text: 'school', context: "At seven o'clock, I go to school by bike." },
+      { text: 'house', context: 'The school is not far from my house.' }
+    ])
+    expect(c.study.words()).toHaveLength(4) // mỗi từ có thẻ ôn
+
+    const again = pass()
+    expect(again.firstCompletion).toBe(false)
+    expect(again.savedWords ?? 0).toBe(0)
+    expect(savedRows()).toHaveLength(4)
+  })
+
+  it('từ đã có trong sổ không lưu lại (giữ nguyên ngữ cảnh cũ)', () => {
+    c.vocab.save({ contentId: 'word:en:school', text: 'school' })
+    expect(pass().savedWords).toBe(3)
+    expect(savedRows().find((r) => r.text === 'school')?.context).toBeNull()
+    expect(savedRows()).toHaveLength(4)
+  })
+
+  it('tắt cài đặt hoặc hồ sơ trẻ em → không tự lưu', () => {
+    c.settings.set('review.autoSaveReading', false)
+    expect(pass()).toMatchObject({ firstCompletion: true })
+    expect(savedRows()).toHaveLength(0)
+
+    const kid = c.profiles.create({ name: 'Bé', track: 'primary', isChild: true })
+    c.profiles.switchTo(kid.id)
+    c.settings.set('review.autoSaveReading', true)
+    c.settings.set('learning.level', 'PA1_1')
+    expect(pass()).toMatchObject({ firstCompletion: true })
+    expect(savedRows()).toHaveLength(0)
+  })
+})

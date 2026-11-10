@@ -410,12 +410,14 @@
           "type": "tf",
           "statement": "Tickets will be free for the first month.",
           "answer": "false",
+          "ng": true,
           "explain": "Vé miễn phí trong \"the first two weeks\" (hai tuần đầu), không phải một tháng."
         },
         {
           "type": "tf",
           "statement": "Some shop owners want money from the city.",
           "answer": "true",
+          "ng": true,
           "explain": "Họ \"are asking the city for compensation\" (đòi bồi thường)."
         },
         {
@@ -1023,6 +1025,7 @@
           "type": "tf",
           "statement": "There have already been widespread blackouts across the region.",
           "answer": "false",
+          "ng": true,
           "explain": "Mới chỉ có \"short, planned power cuts\", chủ yếu ở nông thôn; việc chuyển ca là để tránh mất điện diện rộng."
         },
         {
@@ -1041,6 +1044,7 @@
           "type": "tf",
           "statement": "Some libraries are being used as cooling spaces.",
           "answer": "true",
+          "ng": true,
           "explain": "Các thành phố mở \"libraries and community centers, as cooling spaces\"."
         },
         {

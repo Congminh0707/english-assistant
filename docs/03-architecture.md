@@ -117,8 +117,10 @@ english-assistant/
 │  │  │  ├─ SrsService.ts
 │  │  │  ├─ DictionaryService.ts
 │  │  │  ├─ TranslateService.ts
-│  │  │  ├─ LessonService.ts       # bài học/ngữ pháp/đọc/nghe dùng chung (theo `kind`)
+│  │  │  ├─ LessonService.ts       # bài học/ngữ pháp/đọc/nghe dùng chung (theo `kind`); bài đọc lần đầu đạt → `onFirstPass` tự lưu ≤ 8 từ khó (`content/hardWords.ts`)
 │  │  │  ├─ CourseService.ts       # khoá học Course → Unit → Lesson
+│  │  │  ├─ DailyPlanService.ts    # lộ trình hôm nay (kênh `study:plan`): ôn thẻ → bài kế tiếp của khoá → kỹ năng yếu nhất; suy ra, không ghi DB
+│  │  │  ├─ DiaryService.ts        # nhật ký tiếng Anh (kênh `diary:today|save|correct|list`, bảng `diary_entries`, AI sửa qua `AiService.correctDiary`, chỉ người lớn — docs/07 §14)
 │  │  │  ├─ ProgressService.ts     # Elo theo kỹ năng, độ chính xác, thời gian học
 │  │  │  ├─ PlacementService.ts    # kiểm tra đầu vào + bài kiểm tra lên cấp (checkpoint)
 │  │  │  ├─ PracticeService.ts, StatsService.ts, KidsService.ts, KidsWorldService.ts (bản đồ thế giới của bé, docs/19), ParentService.ts
@@ -133,7 +135,7 @@ english-assistant/
 │  │  ├─ events/                # event bus có kiểu (~ app/Events + Listeners)
 │  │  ├─ jobs/                  # tác vụ định kỳ (~ app/Console/Kernel schedule)
 │  │  ├─ system/                # tray, globalShortcut, clipboard, activeWindow, autostart, UpdateManager (cập nhật app)
-│  │  ├─ ai/                    # provider LLM, TTS, STT, dịch (interface + implementations)
+│  │  ├─ ai/                    # LLM BYOK (docs/11 §5): AiClient.ts (interface + AnthropicClient), prompts.ts (prompt TS có {{level}}), AiService.ts (kênh `ai:status`, `ai:explain`; tách JSON + zod, thử lại 1 lần, cache LRU 100, đếm lượt tháng `ai.usage`, tắt với hồ sơ trẻ em)
 │  │  └─ utility/               # code chạy trong utilityProcess (AI local nặng)
 │  ├─ preload/
 │  │  └─ index.ts               # contextBridge.exposeInMainWorld('api', {...})
@@ -211,6 +213,7 @@ Chạy trong main bằng `setInterval` được quản lý tập trung ở `src/
 | `QuietModeJob`   | 2 giây           | Kiểm tra cửa sổ active: fullscreen? app họp (Zoom, Teams, Meet trên trình duyệt)? → bật/tắt chế độ yên lặng.                   |
 | `PetDecayJob`    | 1 phút           | Giảm nhẹ hunger/mood/energy theo thời gian thực (tính theo `last_tick_at`, nên tắt máy vẫn đúng — có giới hạn sàn).            |
 | `MicroLessonJob` | 1 phút           | Đến giờ nhắc & không ở chế độ yên lặng & người dùng không gõ phím liên tục → yêu cầu mascot hiện "Từ của khoảnh khắc"/thẻ SRS. |
+| `DiaryReminderJob` (`diaryJob.ts`) | 5 phút | Tới giờ `diary.hour`, hôm nay chưa viết nhật ký, mascot đang hiện, hồ sơ người lớn → mascot nhắc (`mascot:react` kind `diary`), tối đa 1 lần/ngày; bấm bong bóng → `mascot:open-diary` → cửa sổ Học tập mở trang nhật ký (`study:open-page`). |
 | `DailyResetJob`  | khi qua ngày mới | Reset nhiệm vụ ngày, tính streak.                                                                                              |
 | `BackupJob`      | 1 ngày           | Sao lưu `user.db` (giữ 7 bản gần nhất).                                                                                        |
 

@@ -108,7 +108,11 @@
     "listen": "Listen",
     "examples": "Examples",
     "otherResults": "Other results",
-    "footer": "Esc close · Enter search · Ctrl+S save"
+    "footer": "Esc close · Enter search · Ctrl+S save",
+    "explain": "Explain grammar",
+    "explaining": "Asking the AI…",
+    "explainTitle": "Grammar",
+    "aiExplainHint": "Written by Claude (AI) with your key; it may not be fully accurate."
   },
   "mascot": {
     "achievementOne": "New achievement: {name}! 🏅",
@@ -526,7 +530,8 @@
           "Remember to drink water! 💧"
         ]
       }
-    }
+    },
+    "diaryPrompt": "What did you do today? Write 2–3 sentences in English."
   },
   "errors": {
     "validation": "Invalid data.",
@@ -554,7 +559,11 @@
     "sttNotReady": "The speech recognition model is not installed yet.",
     "sttFailed": "Could not recognise the speech. Please try again.",
     "pronNotReady": "The pronunciation model is not installed yet.",
-    "pronFailed": "Could not score the pronunciation. Please try again."
+    "pronFailed": "Could not score the pronunciation. Please try again.",
+    "aiFailed": "Could not reach the AI. Please try again later.",
+    "aiOff": "Turn on AI in Settings and enter your Claude key.",
+    "aiKeyRejected": "Claude key rejected. Check the key in Settings → Online translation.",
+    "forbidden": "This profile can't use this feature."
   },
   "quiz": {
     "reviewTitle": "Review",
@@ -593,18 +602,16 @@
       "phrasebook": "Phrasebook",
       "listening": "Listening",
       "courses": "Courses",
-      "pet": "Pets"
+      "pet": "Pets",
+      "diary": "Diary"
     },
     "home": {
       "welcome": "Hi, what shall we learn today?",
-      "due": "Cards due",
       "total": "Total cards",
       "learned": "In long-term review",
       "today": "Reviewed today",
       "streak": "Review streak",
       "streakDays": "{n} days",
-      "start": "Start review ({count} cards)",
-      "nothingDue": "Nothing left to review today 🎉",
       "noCards": "No words yet. Copy a word and press {shortcut} to look it up and save it!",
       "packMissing": "The dictionary pack is not installed yet, so reviewing is unavailable.",
       "search": "Search",
@@ -709,6 +716,36 @@
         "alpha": "A–Z"
       }
     },
+    "diary": {
+      "title": "English diary",
+      "placeholder": "Write 2–3 English sentences about today…",
+      "words": "{n} words",
+      "minWords": "write {n} words to earn a reward",
+      "saved": "Saved",
+      "save": "Save",
+      "correct": "Correct with AI",
+      "correcting": "Correcting…",
+      "corrected": "AI correction",
+      "noChanges": "Nothing to fix, great writing!",
+      "history": "Last 30 days",
+      "empty": "No diary pages before today yet.",
+      "aiHint": "Turn on AI in Settings and enter a Claude key to get corrections.",
+      "prompts": {
+        "1": "What did you do today?",
+        "2": "What made you smile today?",
+        "3": "One thing you learned today?",
+        "4": "Describe your lunch.",
+        "5": "What are you looking forward to tomorrow?",
+        "6": "Who did you talk to today?",
+        "7": "What was difficult today?",
+        "8": "Describe the weather and your mood.",
+        "9": "What did you read or watch?",
+        "10": "A small win today?",
+        "11": "What would you do differently?",
+        "12": "Three words for today, then explain."
+      },
+      "staleCorrection": "You edited the text while waiting; press Correct with AI again."
+    },
     "missions": {
       "title": "Today's missions",
       "goal": "Daily review goal",
@@ -719,6 +756,25 @@
       "reward": "+{xp} XP · +{coins} coins",
       "done": "Claimed",
       "bonus": "All three done: bonus reward"
+    },
+    "plan": {
+      "title": "Today",
+      "target": "Goal {n} min",
+      "minutes": "{n} min",
+      "do": "Start",
+      "redo": "Redo",
+      "review": "Review {n} due cards",
+      "reviewDone": "Due cards all reviewed",
+      "weakSkill": "Weak skill: {skill}",
+      "practice": "Quick practice",
+      "skill": {
+        "vocab": "Vocabulary",
+        "grammar": "Grammar",
+        "reading": "Reading",
+        "listening": "Listening"
+      },
+      "empty": "All done for today. Great job!",
+      "allDone": "Today's plan is complete. Great job!"
     },
     "tracks": {
       "preschool": "Preschool (3–6 years)",
@@ -778,6 +834,19 @@
       "checkpointFailed": "Not yet ({n}% needed). Review a bit and try again!"
     },
     "settings": {
+      "ai": {
+        "title": "AI (Claude)",
+        "hint": "Optional, off by default. When on, the sentence you click \"Explain grammar\" on in the popup is sent to Anthropic; usage is billed to your key.",
+        "toggle": "Use AI to explain grammar",
+        "model": "Model",
+        "models": {
+          "claude-haiku-5-5": "Claude Haiku (fast, cheap)",
+          "claude-sonnet-5-5": "Claude Sonnet (more thorough, costlier)"
+        },
+        "sharedKey": "Uses the same Claude key as Online translation.",
+        "noKey": "No key yet: enter your Claude key under Online translation.",
+        "calls": "{n} calls this month."
+      },
       "sect": {
         "profile": "Profile and learning",
         "review": "Review",
@@ -831,6 +900,8 @@
       "dirCloze": "Fill-the-blank cards",
       "typing": "Type answers (off = just flip and self-rate)",
       "autoPlay": "Say the word when a card appears",
+      "autoSaveReading": "Auto-save hard words from readings",
+      "autoSaveReadingHint": "The first time you pass a reading, up to 8 words above your level (with their sentence) go into your word list for review.",
       "backfill": "Create cards for known words",
       "backfillHint": "Turned on another card type? Create the extra cards for words you already know.",
       "backfillDone": "Created {n} new cards.",
@@ -856,7 +927,8 @@
       "devGrantCoins": "Add 1,000,000 coins",
       "devGranted": "Added 1,000,000 coins",
       "devLevelUp": "Add 10 levels",
-      "devLeveled": "Added 10 levels"
+      "devLeveled": "Added 10 levels",
+      "diaryHour": "Diary: mascot reminder at"
     },
     "leave": {
       "title": "Leave now?",
@@ -1212,7 +1284,8 @@
       "toList": "Lesson list",
       "speakHelp": "Tap the microphone and read this sentence aloud.",
       "speakWordHelp": "Tap the microphone and say this word aloud.",
-      "skipSpeak": "Skip this one"
+      "skipSpeak": "Skip this one",
+      "autoSaved": "Saved {n} new word from this lesson to your word list | Saved {n} new words from this lesson to your word list"
     },
     "courses": {
       "title": "Courses",

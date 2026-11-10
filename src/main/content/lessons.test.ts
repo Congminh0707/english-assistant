@@ -12,6 +12,7 @@ import {
 import { PhrasebookFileSchema } from '@shared/schemas/phrasebook'
 import { CourseFileSchema } from '@shared/schemas/course'
 import { KidsFileSchema } from '@shared/schemas/kids'
+import { LEVEL_CODES } from '@shared/schemas/content/level'
 import { PICTURE_IDS } from '@shared/pictures'
 import { PlacementBankFileSchema } from '@shared/schemas/placement'
 import type { z } from 'zod'
@@ -76,6 +77,40 @@ function problems(ex: LessonExercise, where: string): string[] {
   return out
 }
 
+/** Level bài phải nằm trong dải CEFR ghi ở tên chương (hoặc đúng một bậc con ngay dưới). */
+function levelBandErrors(
+  unitTitle: string,
+  lessons: Array<{ id: string; level: string }>
+): string[] {
+  const codes = unitTitle.match(/\b(A1|A2|B1|B2|C1|C2)\b/g)
+  if (!codes) return []
+  const inBand = (x: string): string[] => LEVEL_CODES.filter((c) => c.startsWith(x))
+  const first = codes[0]
+  const allowed = new Set<string>(inBand(first))
+  const firstIdx = LEVEL_CODES.findIndex((c) => c.startsWith(first))
+  if (firstIdx > 0) allowed.add(LEVEL_CODES[firstIdx - 1])
+  // Chương ghi hai mã (vd "C1–C2"): cho phép cả dải từ mã đầu tới hết mã sau.
+  if (codes.length > 1) {
+    const lastIdx = LEVEL_CODES.map((c, i) => (c.startsWith(codes[1]) ? i : -1)).filter(
+      (i) => i >= 0
+    )
+    const end = lastIdx.length ? Math.max(...lastIdx) : firstIdx
+    for (let i = firstIdx; i <= end; i++) allowed.add(LEVEL_CODES[i])
+  }
+  return lessons
+    .filter((l) => !allowed.has(l.level))
+    .map((l) => `${l.id}: level ${l.level} ngoài dải ${first} của chương`)
+}
+
+/** Một bài không trộn câu tf 2 lựa chọn và 3 lựa chọn (ng: true). */
+function tfNgErrors(lesson: { id: string; exercises: LessonExercise[] }): string[] {
+  const tfs = lesson.exercises.filter((e) => e.type === 'tf')
+  const withNg = tfs.filter((e) => e.type === 'tf' && e.ng).length
+  return withNg > 0 && withNg < tfs.length
+    ? [`${lesson.id}: các câu tf phải cùng có hoặc cùng không có "ng"`]
+    : []
+}
+
 describe('nội dung bài học', () => {
   it('có ít nhất một file nội dung', () => {
     expect(files.length).toBeGreaterThan(0)
@@ -111,7 +146,9 @@ describe('nội dung bài học', () => {
           if (lesson.exercises.length < 6) errors.push(`${lesson.id}: cần ít nhất 6 bài tập`)
           const types = new Set(lesson.exercises.map((e) => e.type))
           if (types.size < 2) errors.push(`${lesson.id}: nên trộn ít nhất 2 dạng bài tập`)
+          errors.push(...tfNgErrors(lesson))
         }
+        errors.push(...levelBandErrors(parsed.unit.title, parsed.lessons))
         expect(errors).toEqual([])
       })
     })
@@ -175,8 +212,10 @@ function lessonKindSuite(
           )
           if (/<\/?[a-z][^>]*>/i.test(JSON.stringify(lesson)))
             errors.push(`${lesson.id}: không dùng thẻ HTML`)
+          errors.push(...tfNgErrors(lesson))
           errors.push(...extra(lesson))
         }
+        errors.push(...levelBandErrors(parsed.data.unit.title, parsed.data.lessons))
         expect(errors).toEqual([])
       })
     }

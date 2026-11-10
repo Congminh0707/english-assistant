@@ -63,12 +63,14 @@
           "type": "tf",
           "statement": "Scientists agree on why we dream.",
           "answer": "false",
+          "ng": true,
           "explain": "Họ vẫn bất đồng."
         },
         {
           "type": "tf",
           "statement": "Many people forget their dreams quickly.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
@@ -145,12 +147,14 @@
           "type": "tf",
           "statement": "Gig work always includes sick pay.",
           "answer": "false",
+          "ng": true,
           "explain": "Người làm gig thường thiếu phúc lợi như trợ cấp ốm đau."
         },
         {
           "type": "tf",
           "statement": "The internet has made it easier to find customers.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
@@ -215,12 +219,14 @@
           "type": "tf",
           "statement": "Cities are always cheaper than the countryside.",
           "answer": "false",
+          "ng": true,
           "explain": "Bài viết nói thành phố thường đắt đỏ."
         },
         {
           "type": "tf",
           "statement": "Rural areas may have public services far away.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
@@ -296,12 +302,14 @@
         {
           "type": "tf",
           "statement": "AI already helps doctors read scans.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The writer thinks workers should avoid AI tools.",
           "answer": "false",
+          "ng": true,
           "explain": "Tác giả cho rằng người biết dùng công cụ sẽ có giá trị hơn."
         },
         {
@@ -378,12 +386,14 @@
         {
           "type": "tf",
           "statement": "Minimalists often spend less time cleaning.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "Everyone can easily afford extreme minimalism.",
           "answer": "false",
+          "ng": true,
           "explain": "Bài nêu tối giản cực đoan có thể là đặc quyền."
         },
         {

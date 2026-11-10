@@ -62,12 +62,14 @@
         {
           "type": "tf",
           "statement": "Families clean their houses before Tet.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "Apricot blossoms are popular in the north.",
           "answer": "false",
+          "ng": true,
           "explain": "Hoa mai ở miền Nam, hoa đào ở miền Bắc."
         },
         {
@@ -132,12 +134,14 @@
         {
           "type": "tf",
           "statement": "Every student eats the same school lunch.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "Students go home before the food is finished.",
           "answer": "false",
+          "ng": true,
           "explain": "Không ai rời đi cho đến khi ăn xong."
         },
         {
@@ -214,12 +218,14 @@
         {
           "type": "tf",
           "statement": "The volunteers collected over 200 kilograms of rubbish.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The writer felt sad at the end of the day.",
           "answer": "false",
+          "ng": true,
           "explain": "Tác giả cảm thấy mệt nhưng tự hào."
         },
         {

@@ -62,12 +62,14 @@
         {
           "type": "tf",
           "statement": "A good breakfast keeps you full until lunch.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The writer says you must cook breakfast every morning.",
           "answer": "false",
+          "ng": true,
           "explain": "Tác giả gợi ý chuẩn bị từ tối hôm trước."
         },
         {
@@ -132,12 +134,14 @@
         {
           "type": "tf",
           "statement": "Students who sleep well often make fewer mistakes.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "The writer advises using your phone in bed.",
           "answer": "false",
+          "ng": true,
           "explain": "Nên cất điện thoại trước khi ngủ ít nhất 30 phút."
         },
         {
@@ -214,12 +218,14 @@
         {
           "type": "tf",
           "statement": "Three ten-minute walks count as much as one long walk.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",
           "statement": "You need a gym to stay active.",
           "answer": "false",
+          "ng": true,
           "explain": "Bài viết nói không cần phòng tập."
         },
         {
@@ -285,12 +291,14 @@
           "type": "tf",
           "statement": "Sugary drinks are a good way to get water.",
           "answer": "false",
+          "ng": true,
           "explain": "Bài viết nói đồ uống nhiều đường không phải lựa chọn tốt."
         },
         {
           "type": "tf",
           "statement": "You should drink more in hot weather.",
-          "answer": "true"
+          "answer": "true",
+          "ng": true
         },
         {
           "type": "tf",

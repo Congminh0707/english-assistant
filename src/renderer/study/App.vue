@@ -2,13 +2,14 @@
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { ProfileInfo } from '@shared/schemas/profile'
-import type { MissionsState, StudyOverview } from '@shared/schemas/study'
+import type { LessonKind } from '@shared/schemas/lesson'
+import type { DailyPlan, DailyPlanItem, MissionsState, StudyOverview } from '@shared/schemas/study'
 import { invoke } from '@renderer/shared/ipc'
 import { usePetStore } from '@renderer/shared/stores/pet'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import VillageMap from './components/VillageMap.vue'
 import PlaceShell from './components/PlaceShell.vue'
-import { PLACE_PAGES, placeOf, type Place, type StudyPage } from './places'
+import { isStudyPage, PLACE_PAGES, placeOf, type Place, type StudyPage } from './places'
 import ReviewSession from './components/ReviewSession.vue'
 import WordList from './components/WordList.vue'
 import PlacementTest from './components/PlacementTest.vue'
@@ -20,6 +21,7 @@ import StatsPage from './components/StatsPage.vue'
 import CoursesPage from './components/CoursesPage.vue'
 import LessonsPage from './components/LessonsPage.vue'
 import PhrasebookPage from './components/PhrasebookPage.vue'
+import DiaryPage from './components/DiaryPage.vue'
 import SettingsPage from './components/SettingsPage.vue'
 import Onboarding from './components/Onboarding.vue'
 import ParentReport from './components/ParentReport.vue'
@@ -57,6 +59,9 @@ watch(
   }
 )
 const missions = ref<MissionsState | null>(null)
+const plan = ref<DailyPlan | null>(null)
+/** Bài mở thẳng từ lộ trình hôm nay; đổi trang là xoá */
+const startLesson = ref<{ kind: LessonKind; id: string } | null>(null)
 /** Bài kiểm tra mở từ màn hình chào thì tự bắt đầu ngay */
 const autostartTest = ref(false)
 /** Kiểm tra lên cấp thay vì kiểm tra đầu vào */
@@ -72,10 +77,16 @@ async function refresh(): Promise<void> {
   try {
     const profiles = await invoke('profile:list')
     activeProfile.value = profiles.find((p) => p.active) ?? null
+    // Lộ trình lỗi thì chỉ mất khối "Hôm nay", không làm trống thống kê/nhiệm vụ
+    const planReq = invoke('study:plan').catch((err) => {
+      console.warn('[study] plan failed', err)
+      return null
+    })
     ;[overview.value, missions.value] = await Promise.all([
       invoke('study:overview'),
       invoke('study:missions')
     ])
+    plan.value = await planReq
   } catch (err) {
     console.warn('[study] overview failed', err)
   }
@@ -85,20 +96,21 @@ function goPlace(p: Place): void {
   go(PLACE_PAGES[p][0])
 }
 
-function go(next: StudyPage): void {
+function go(next: StudyPage, start: { kind: LessonKind; id: string } | null = null): void {
   // Đang làm dở một phiên thì hỏi trước; không có gì dở thì đi ngay (không await) để thứ tự gọi cũ không đổi
   if (isLeaveGuarded()) {
     void confirmLeave().then((ok) => {
-      if (ok) goNow(next)
+      if (ok) goNow(next, start)
     })
     return
   }
-  goNow(next)
+  goNow(next, start)
 }
 
-function goNow(next: StudyPage): void {
+function goNow(next: StudyPage, start: { kind: LessonKind; id: string } | null = null): void {
   autostartTest.value = false
   checkpointMode.value = false
+  startLesson.value = start
   page.value = next
   void refresh()
 }
@@ -134,6 +146,27 @@ async function setGoal(value: number): Promise<void> {
   void refresh()
 }
 
+const LESSON_PAGE: Record<LessonKind, StudyPage> = {
+  lesson: 'lessons',
+  grammar: 'grammar',
+  reading: 'reading',
+  listening: 'listening'
+}
+
+/** Bấm "Làm" ở một mục của lộ trình hôm nay: ôn thẻ, luyện tập, hoặc mở thẳng bài học */
+function openPlanItem(item: DailyPlanItem): void {
+  if (item.kind === 'review') return go('review')
+  if (item.kind === 'practice') return go('practice')
+  if (item.lessonKind && item.lessonId) {
+    go(LESSON_PAGE[item.lessonKind], { kind: item.lessonKind, id: item.lessonId })
+  }
+}
+
+async function setMinutes(value: number): Promise<void> {
+  await settingsStore.set('learning.dailyMinutes', value as 10 | 20 | 30 | 60)
+  void refresh()
+}
+
 /** Ctrl K: mở ô tìm từ ở mọi màn (trừ giao diện của bé) */
 function onGlobalKey(e: KeyboardEvent): void {
   if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -159,6 +192,12 @@ watch(
 const onFocus = (): void => void refresh()
 
 onMounted(async () => {
+  // Đăng ký trước mọi await: main gửi study:open-page ngay khi trang vừa nạp xong (bấm bong bóng nhắc nhật ký)
+  cleanups.push(
+    window.api.on('study:open-page', ({ page: next }) => {
+      if (isStudyPage(next)) go(next)
+    })
+  )
   window.addEventListener('focus', onFocus)
   window.addEventListener('keydown', onGlobalKey)
   // Thời gian học (người lớn): báo định kỳ khi cửa sổ đang hiện và được chọn; trẻ em đếm riêng ở KidsApp
@@ -191,6 +230,7 @@ onUnmounted(() => {
       :due="overview?.dueCount ?? 0"
       :overview="overview"
       :missions="missions"
+      :plan="plan"
       :pet="petStore.pet"
       :dark="dark"
       @go="goPlace"
@@ -198,6 +238,8 @@ onUnmounted(() => {
       @settings="go('settings')"
       @search="searching = true"
       @goal="setGoal"
+      @minutes="setMinutes"
+      @open="openPlanItem"
     />
     <PlaceShell
       v-else-if="loaded && !kidsMode"
@@ -216,14 +258,35 @@ onUnmounted(() => {
       </p>
       <ParentReport v-if="page === 'parent'" />
       <CoursesPage v-else-if="page === 'courses'" @changed="refresh" />
-      <LessonsPage v-else-if="page === 'lessons'" kind="lesson" @changed="refresh" />
-      <LessonsPage v-else-if="page === 'reading'" kind="reading" @changed="refresh" />
-      <LessonsPage v-else-if="page === 'listening'" kind="listening" @changed="refresh" />
-      <LessonsPage v-else-if="page === 'grammar'" kind="grammar" @changed="refresh" />
+      <LessonsPage
+        v-else-if="page === 'lessons'"
+        kind="lesson"
+        :start-id="startLesson?.kind === 'lesson' ? startLesson.id : undefined"
+        @changed="refresh"
+      />
+      <LessonsPage
+        v-else-if="page === 'reading'"
+        kind="reading"
+        :start-id="startLesson?.kind === 'reading' ? startLesson.id : undefined"
+        @changed="refresh"
+      />
+      <LessonsPage
+        v-else-if="page === 'listening'"
+        kind="listening"
+        :start-id="startLesson?.kind === 'listening' ? startLesson.id : undefined"
+        @changed="refresh"
+      />
+      <LessonsPage
+        v-else-if="page === 'grammar'"
+        kind="grammar"
+        :start-id="startLesson?.kind === 'grammar' ? startLesson.id : undefined"
+        @changed="refresh"
+      />
       <PhrasebookPage v-else-if="page === 'phrasebook'" />
       <ReviewSession v-else-if="page === 'review'" @exit="go('home')" @changed="refresh" />
       <PracticeSession v-else-if="page === 'practice'" @changed="refresh" />
       <WordList v-else-if="page === 'words'" @changed="refresh" />
+      <DiaryPage v-else-if="page === 'diary'" @changed="refresh" />
       <PetPage v-else-if="page === 'pet'" @changed="refresh" />
       <ShopPage v-else-if="page === 'shop'" @changed="refresh" />
       <StatsPage v-else-if="page === 'stats'" @checkpoint="startCheckpoint" />

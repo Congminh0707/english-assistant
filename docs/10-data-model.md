@@ -114,6 +114,19 @@ erDiagram
 
 Index `(profile_id, finished_at)`. Ngân hàng câu không nằm trong DB: đọc từ `content/curated/toeic/*.json`.
 
+### diary_entries (nhật ký tiếng Anh — migration 0009)
+
+| Cột | Ghi chú |
+|---|---|
+| id, profile_id | UUID v7, hồ sơ viết (chỉ người lớn) |
+| day | ngày cục bộ `YYYY-MM-DD` |
+| text | đoạn người dùng viết (1–1.200 ký tự) |
+| corrected | bản AI sửa (null = chưa sửa; đổi chữ thì về null) |
+| changes_json | JSON `{changes: [{from, to, note_vi}], praise_vi}` của lần sửa gần nhất (null = chưa sửa) |
+| created_at, updated_at | ms |
+
+Unique `(profile_id, day)`. Thưởng viết ghi ở `xp_events` (`reason = 'diary.written'`, `ref_id` = ngày). Logic: `DiaryService` (docs/07 §14).
+
 ### usage_days (thời gian dùng app mỗi ngày — chế độ trẻ em)
 
 | Cột | Ghi chú |
@@ -213,7 +226,11 @@ Tổng XP/xu luôn tính lại được từ bảng này → tránh lỗi cộng
 `id (pack id) PK, version, path, schema_version, installed_at, enabled`.
 
 ### settings
+
 Key–value: `scope ('global' hoặc id profile), key, value (JSON), updated_at`. PRIMARY KEY(scope, key).
+
+> Giá trị `null` (vd `diary.hour` = tắt nhắc) được ghi là chuỗi JSON `'null'` vì cột `value` NOT NULL (`SettingsRepository.set`).
+
 (Không dùng `profile_id NULL` làm khoá chính vì SQLite coi các giá trị NULL là khác nhau.)
 Danh sách khoá + kiểu + mặc định định nghĩa bằng zod ở `src/shared/schemas/settings.ts`; giá trị lưu sai/cũ tự rơi về mặc định.
 Ví dụ key: `hotkeys.translate`, `mascot.scale`, `mascot.reminderMinutes`, `quiet.apps`, `quiet.dndHours`, `tts.voice`, `ai.provider`, `clipboard.watch`.

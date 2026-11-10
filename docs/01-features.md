@@ -36,7 +36,7 @@ Lộ trình chi tiết: [14-roadmap.md](14-roadmap.md).
 | B5 | Lưu vào sổ từ | P0 | Một click → thêm vào flashcard SRS, kèm câu ngữ cảnh đã copy. |
 | B6 | Dịch câu/đoạn | P0 | Offline (model nhỏ) hoặc online (LLM/BYOK) cho chất lượng cao hơn. |
 | B7 | OCR vùng màn hình | P1 | Phím tắt → kéo chọn vùng màn hình → nhận chữ → dịch. Dùng cho ảnh, video, game, PDF scan. |
-| B8 | Giải thích ngữ pháp câu | P1 | "Vì sao câu này dùng thì hiện tại hoàn thành?" — cần LLM. |
+| B8 | Giải thích ngữ pháp câu | P1 | "Vì sao câu này dùng thì hiện tại hoàn thành?" — cần LLM. ✅ (2026-11-10) nút "Giải thích ngữ pháp" trong popup, Claude dùng chung key Dịch online (docs/11 §5). |
 | B9 | Dịch Việt → Anh & gợi ý viết | P1 | Gõ tiếng Việt → gợi ý câu tiếng Anh tự nhiên, nhiều mức trang trọng. |
 | B10 | Kiểm tra ngữ pháp đoạn văn | P1 | Dán đoạn tiếng Anh (email, bài viết) → gạch lỗi + giải thích. |
 
@@ -64,6 +64,7 @@ Chi tiết từng module ở [07-learning-modules.md](07-learning-modules.md).
 > C4 (50 bài đọc), C5 (30 bài nghe: TTS + gói audio tạo sẵn tải thêm), C8 (phonics + chế độ trẻ em), C12 (sổ mẫu câu),
 > khoá học Course → Unit → Lesson, thống kê nâng cao (Elo theo kỹ năng, độ chính xác theo dạng bài, thời gian học).
 > Chưa làm: C6, C7, C9, C10, C11. Bảng theo dõi chi tiết ở [14-roadmap.md](14-roadmap.md).
+> **C13 (2026-11-10):** đã làm — `DailyPlanService` + khối "Hôm nay" trong ngăn kéo của bản đồ làng (ôn thẻ → bài kế tiếp của khoá → kỹ năng yếu nhất, mục tiêu 10/20/30/60 phút). Chưa có mascot nhắc theo giờ. Chi tiết [07 §13](07-learning-modules.md).
 
 ## D. Micro-learning (mascot chủ động)
 
@@ -93,7 +94,7 @@ Chi tiết từng module ở [07-learning-modules.md](07-learning-modules.md).
 | F1 | Cài đặt | P0 | Phím tắt, tần suất nhắc, giọng đọc, kích thước mascot, ngôn ngữ, khởi động cùng Windows. |
 | F2 | Gói nội dung (content pack) | P0 | Nội dung đóng gói thành file, cài thêm/cập nhật không cần cập nhật app. |
 | F3 | Auto-update | P1 | Tự cập nhật app qua GitHub Releases. |
-| F4 | Cấu hình AI | P1 | Chọn provider: Không dùng / Local (Ollama) / Claude / OpenAI / Gemini; nhập API key (lưu mã hoá). |
+| F4 | Cấu hình AI | P1 | Chọn provider: Không dùng / Local (Ollama) / Claude / OpenAI / Gemini; nhập API key (lưu mã hoá). 🟡 (2026-11-10) v1 chỉ Claude: Cài đặt → Dịch → "AI (Claude)" (bật/tắt, chọn Haiku/Sonnet, số lượt tháng), key dùng chung với Dịch online; chưa có Ollama/OpenAI/Gemini (#56). |
 | F5 | Đồng bộ cloud (Laravel) | P2 | Đăng nhập, đồng bộ tiến độ nhiều máy. |
 | F6 | Chế độ hiệu năng thấp | P1 | Giảm FPS animation, tắt hiệu ứng khi chạy pin/máy yếu. |
 
@@ -103,7 +104,7 @@ Chi tiết từng module ở [07-learning-modules.md](07-learning-modules.md).
 
 1. **Đọc web có hỗ trợ**: dán URL bài báo → app tải bản text sạch (Readability), tô màu từ trên level người dùng, bấm để tra. Biến mọi bài báo thành bài đọc.
 2. **Phụ đề kép cho video**: với video có phụ đề hợp lệ, hiển thị Anh + Việt, bấm vào từ để lưu.
-3. **Nhật ký tiếng Anh**: mỗi tối mascot hỏi "Hôm nay bạn làm gì?" → người dùng viết 2–3 câu → AI sửa nhẹ nhàng. Rất hiệu quả cho Writing.
+3. **Nhật ký tiếng Anh**: mỗi tối mascot hỏi "Hôm nay bạn làm gì?" → người dùng viết 2–3 câu → AI sửa nhẹ nhàng. Rất hiệu quả cho Writing. ✅ **Đã làm (2026-11-10)** — tab Nhật ký ở Thư viện, mascot nhắc theo `diary.hour`, AI sửa bằng key Claude của người dùng; chỉ người lớn (docs/07 §14).
 4. **Chế độ "Gõ phím luyện từ"**: gõ lại câu tiếng Anh nghe được (luyện nghe + chính tả + gõ phím).
 5. **Từ vựng theo nghề**: bộ từ IT, kế toán, y tế, khách sạn... — hữu ích cho người đi làm.
 6. **Tích hợp "nghe thụ động"**: phát podcast/bài nghe ở nền theo level khi người dùng làm việc nhẹ.

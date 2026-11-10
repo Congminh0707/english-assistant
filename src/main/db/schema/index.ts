@@ -283,3 +283,24 @@ export const examAttempts = sqliteTable(
   },
   (t) => [index('exam_attempts_profile_finished').on(t.profileId, t.finishedAt)]
 )
+
+/** Nhật ký tiếng Anh buổi tối (docs/07 §14): mỗi hồ sơ một đoạn mỗi ngày, AI sửa khi người dùng bấm */
+export const diaryEntries = sqliteTable(
+  'diary_entries',
+  {
+    id: text('id').primaryKey(), // UUID v7
+    profileId: text('profile_id')
+      .notNull()
+      .references(() => profiles.id),
+    /** Ngày cục bộ YYYY-MM-DD */
+    day: text('day').notNull(),
+    text: text('text').notNull(),
+    /** Bản AI sửa (null = chưa sửa) */
+    corrected: text('corrected'),
+    /** JSON {changes: [{from, to, note_vi}], praise_vi} của lần sửa gần nhất (null = chưa sửa) */
+    changesJson: text('changes_json'),
+    createdAt: integer('created_at').notNull(),
+    updatedAt: integer('updated_at').notNull()
+  },
+  (t) => [uniqueIndex('diary_entries_profile_day').on(t.profileId, t.day)]
+)

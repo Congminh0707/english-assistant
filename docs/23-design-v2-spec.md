@@ -71,8 +71,8 @@ Generator ở `scripts/design-data/`, cách dùng ở [22 §1, §12](22-redesign
 - ✅ (2026-11-01) `PHcmc`, `PPhuquoc`, `PCantho` đã vẽ dày thêm (lớp nền, người, xe, thuyền, nhà sàn, hoạt ảnh nhẹ); xem lại bằng mắt trong app.
 - Nhà sàn, cây bẹo, cây sao, mặt tiền nhà ống, nhà người Mông vẽ theo hiểu biết chung vì thiếu ảnh. Ngọ Môn, tháp Bà, ga Đà Lạt ghép gần cảnh khác, không đúng địa lý.
 - ✅ (2026-11-01) Mô hình 3D Hội An và Đà Nẵng đã dựng lại cho bệ tròn (nền đĩa bán kính ~4.9, sông chạy dọc z; Đà Nẵng cầu cong chéo qua sông); chủ dự án đã thử tay trên bản đồ thật, ổn (2026-11-02).
-- Biến thể thời tiết đã có (2026-11-01): `SceneWeather.vue` phủ mưa / nắng / đêm lên cảnh địa điểm (đêm theo giờ máy 19h–6h, ban ngày chọn theo ngày + nơi, `sceneWeather.ts`), tắt hoạt ảnh khi `prefers-reduced-motion`; chưa thử tay.
-- Cửa sổ nhỏ 900×640 (2026-11-01): `KidsGame.vue` đặt `--hz` = clamp(0.8 / tỉ lệ co, 1, 1.5) trên sân khấu; `.hud > *`, `HexLabel`, `.face`/`.panel`/`.dock-btn` của `PlaceScene` dùng `zoom: var(--hz)` để nút và chữ không nhỏ hơn ~0.8 cỡ thật; chưa thử tay.
+- Biến thể thời tiết đã có (2026-11-01): `SceneWeather.vue` phủ mưa / nắng / đêm lên cảnh địa điểm (đêm theo giờ máy 19h–6h, ban ngày chọn theo ngày + nơi, `sceneWeather.ts`), tắt hoạt ảnh khi `prefers-reduced-motion`; đã thử tay OK (2026-11-11).
+- Cửa sổ nhỏ 900×640 (2026-11-01): `KidsGame.vue` đặt `--hz` = clamp(0.8 / tỉ lệ co, 1, 1.5) trên sân khấu; `.hud > *`, `HexLabel`, `.face`/`.panel`/`.dock-btn` của `PlaceScene` dùng `zoom: var(--hz)` để nút và chữ không nhỏ hơn ~0.8 cỡ thật; đã thử tay OK (2026-11-11).
 - ✅ (2026-11-01) 20 phụ kiện + 18 đồ ăn có icon vẽ riêng (`art/items/`, `ItemEmoji :id`); phụ kiện đeo trên thú cưng dùng cùng hình này thay cho emoji, chủ dự án đã thử tay, ổn (2026-11-02).
 - Kiểm tra tương phản đã có (2026-11-01): `pnpm ui:contrast` đo các cặp chữ/nền trong `tokens.css` (sáng + tối), 0 cặp trượt; để đạt, nền `primary-soft` #FBE0DA→#FFF2EF và `xp-soft` #D4F3F2→#EDFAF9 (đã sửa cả `design-data/sync/tokens.json`). Viền `--c-line` là đường kẻ trang trí nên không tính.
 - Hoạt ảnh chưa xem chạy liên tục trên canvas; `prefers-reduced-motion` chưa thử.

@@ -38,7 +38,7 @@ Bản rà soát toàn app (tính năng, bài học, chất lượng nội dung) 
 - [x] (2026-11-10) **Gắn level lệch.** Unit `readb1` ([readings/10-b1.json](../content/curated/readings/10-b1.json)) có bài `A2_2`. Đã thêm quy tắc vào `src/main/content/lessons.test.ts` (chạy trong `pnpm test`): nếu tên chương chứa mã CEFR thì level bài phải thuộc dải đó hoặc đúng một bậc con ngay dưới (bắc cầu); hiện nội dung không còn vi phạm (`A2_2` ở `readb1` là bậc bắc cầu hợp lệ).
 - [ ] **Câu hỏi đọc hiểu nông.** Phần lớn là `mcq` 3 lựa chọn + `tf` hỏi chi tiết bề mặt. B1+ cần `true_false_ng` chuẩn, `matching_headings`, suy luận, từ trong ngữ cảnh (đã thiết kế ở [07 §2](07-learning-modules.md), chưa làm).
 - [x] (2026-11-10) **Cờ `ng`.** `ng: true` nghĩa là bài tập có lựa chọn "Không có thông tin" (nên đi với câu `false`/`true` cũng hợp lệ); quy tắc mới là nhất quán trong một bài: đã có câu `tf` `ng: true` thì mọi câu `tf` của bài đó phải `ng: true` (không trộn 2 và 3 lựa chọn). Không đổi tên cờ. Kiểm tra trong `src/main/content/lessons.test.ts`; đã thêm `ng: true` cho các câu `tf` còn thiếu ở 49 bài đọc/nghe (đáp án giữ nguyên).
-- [ ] **Nợ "chưa thử tay".** Speaking/Whisper, phụ kiện, placement, phrasebook, mini-game, nhiều màn trẻ em. **Việc:** trước bản 2.3, một phiên QA tay theo checklist, không thêm tính năng.
+- [x] (2026-11-11) **Nợ "chưa thử tay".** Speaking/Whisper, phụ kiện, placement, phrasebook, mini-game, nhiều màn trẻ em. **Việc:** trước bản 2.3, một phiên QA tay theo checklist, không thêm tính năng. Chủ dự án xác nhận đã thử tay hết (2026-11-11); các dòng "chưa thử tay" ở [14](14-roadmap.md), [07](07-learning-modules.md), [11](11-ai-and-speech.md), [19](19-kids-world.md), [23](23-design-v2-spec.md) đã đổi. Phát video YouTube thật trong app cũng đã chạy được (2026-11-11, [decisions #51](decisions.md)).
 
 ## 5. PHÁT TRIỂN THÊM (theo đòn bẩy, làm từ trên xuống)
 
@@ -47,7 +47,7 @@ Bản rà soát toàn app (tính năng, bài học, chất lượng nội dung) 
 3. [x] (2026-11-10) **LLM BYOK tổng quát (F4) + `grammar_explain` trong popup (B8).** Đã có `SecretStore` và `CloudTranslator`; cần thêm provider chung + một prompt. Đúng persona "Minh đi làm" đọc tài liệu. v1 chỉ Anthropic, dùng chung key Dịch online, interface `AiClient` để thêm provider sau; `diary_correct` sẵn cho mục 4 — xem [11 §5](11-ai-and-speech.md), [decisions #56](decisions.md).
 4. [x] (2026-11-10) **Nhật ký tiếng Anh (G3) + dạng bài `translate_sentence`.** Writing hiện bằng 0. Nhật ký 3 câu mỗi tối qua LLM là cách rẻ nhất có Writing, hợp với mascot ("Hôm nay bạn làm gì?"). Đã làm phần nhật ký: tab Nhật ký ở Thư viện, mascot nhắc theo `diary.hour`, AI sửa — xem [07 §14](07-learning-modules.md). Dạng bài `translate_sentence` chưa làm.
 5. [ ] **Dạng bài đọc nâng cao cho B1+** (`true_false_ng`, `matching_headings`, điền tóm tắt) trên registry `exercises/lessonExercises.ts` đã có.
-6. [ ] **TOEIC: ước lượng điểm + mini test tính giờ.** Ngân hàng đủ, thiếu lớp "thi thử" để người học thấy tiến bộ.
+6. [x] (đã có từ 2026-11-05, đối chiếu lại 2026-11-11) **TOEIC: ước lượng điểm + mini test tính giờ.** Mục này ghi nhầm là thiếu: `ToeicService` đã có mini test + full test tính giờ (`timeLimitSec`), `estimateScore` (`src/shared/toeic.ts`) và bảng `exam_attempts`; `ToeicPage.vue` hiện "≈ điểm / 990" — xem [14 Phase 4](14-roadmap.md).
 7. [ ] **Phân tầng tuổi cho ABC và lượt 5 bước** (mini-game đã có `kids.ageBand`, phần còn lại chưa).
 
 ## 6. Số liệu lúc rà (2026-11-10, trích [17](17-metrics.md))

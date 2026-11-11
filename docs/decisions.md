@@ -355,7 +355,7 @@ Mẫu:
 **Bối cảnh:** cửa sổ Học tập chạy từ `file://`, YouTube từ chối phát (lỗi 153, thiếu Referer hợp lệ). Roadmap 306 cần video library ([07 §10](07-learning-modules.md), [11 §8](11-ai-and-speech.md)).
 **Quyết định:** không đổi cách nạp renderer. Đăng ký giao thức `eaplayer://` (standard + secure), main phục vụ một trang máy phát nhỏ (`src/main/system/videoPlayerPage.ts`) có CSP riêng (`default-src 'none'`, script chỉ của nó + `youtube.com`, khung chỉ `youtube-nocookie.com`); cửa sổ Học tập nhúng trang này bằng iframe (`frame-src eaplayer:` trong CSP của `study/index.html`) và nói chuyện bằng `postMessage` (chỉ thời gian/trạng thái, kiểm `event.source`). Yêu cầu `…/embed/*` được gắn `Referer: https://english-assistant.app/` qua `webRequest.onBeforeSendHeaders`.
 **Giữ nguyên:** `contextIsolation`, `sandbox`, `nodeIntegration: false`, chặn mở cửa sổ/điều hướng ngoài.
-**Rủi ro:** **chưa thử phát thật** trong app (môi trường dev không chạy được YouTube). Nếu vẫn lỗi 153 thì thử đổi Referer hoặc `origin` trong `playerVars`.
+**Rủi ro:** lúc quyết định chưa thử phát thật trong app (môi trường dev không chạy được YouTube); nếu lỗi 153 thì thử đổi Referer hoặc `origin` trong `playerVars`. **Cập nhật 2026-11-11:** chủ dự án đã thử phát thật trong app, video chạy được.
 **Hệ quả:** mốc dừng theo giây cần transcript có thời gian thật; hiện mỗi video chỉ có 1 câu ở cuối (`at: "end"`). Kết quả lưu ở `exam_attempts` với `exam = 'video'`.
 
 ## #52 — Bản thu thật VOA đi chung gói `listening-audio` (2026-11-06) — Đã quyết định

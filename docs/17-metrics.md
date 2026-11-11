@@ -21,7 +21,7 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
 | Phiên bản app                                  | 2.2.0                                                                                       | `pnpm stats` | 2026-11-09 |
 | Test (Vitest)                                  | 656 test / 68 file                                                                          | `pnpm test`  | 2026-11-11 |
-| Kênh IPC                                       | 115 invoke · 5 send · 14 event                                                              | `pnpm stats` | 2026-11-11 |
+| Kênh IPC                                       | 115 invoke · 6 send · 14 event                                                              | `pnpm stats` | 2026-11-11 |
 | Migration DB (Drizzle)                         | 10 (`0000`–`0009`)                                                                          | `pnpm stats` | 2026-11-10 |
 | Nhân vật thú cưng                              | 5 (Bi, Lupo, Draco, Robo, Kitsu)                                                           | `pnpm stats` | 2026-10-22 |
 | Dáng vector mỗi nhân vật | 19 dáng × 4 giai đoạn vẽ riêng + trứng = 77 hình mỗi con (mascot v4, xem 05)                | `pnpm stats` | 2026-11-10 |

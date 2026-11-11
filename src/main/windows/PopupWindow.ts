@@ -4,6 +4,8 @@ import { loadPage } from './loadPage'
 import { forwardConsoleInDev } from './devConsole'
 
 const SIZE = { width: 400, height: 360 }
+/** Cỡ khi đang xem giải thích ngữ pháp (docs/11 §5): đủ đọc đoạn giải thích + 3 ví dụ không phải cuộn nhiều */
+const EXPANDED = { width: 520, height: 600 }
 /** Khoảng cách từ con trỏ chuột tới góc popup */
 const CURSOR_GAP = 12
 
@@ -61,6 +63,19 @@ export class PopupWindow {
     this.win.setBounds({ x: Math.round(x), y: Math.round(y), ...SIZE })
     this.win.show()
     this.win.focus()
+  }
+
+  /** Nới rộng / thu về cỡ gốc, giữ góc trên-trái nếu còn chỗ, luôn nằm trong vùng làm việc của màn hình */
+  setExpanded(on: boolean): void {
+    if (this.win.isDestroyed() || !this.win.isVisible()) return
+    const size = on ? EXPANDED : SIZE
+    const cur = this.win.getBounds()
+    const area = screen.getDisplayMatching(cur).workArea
+    const width = Math.min(size.width, area.width)
+    const height = Math.min(size.height, area.height)
+    const x = Math.min(Math.max(cur.x, area.x), area.x + area.width - width)
+    const y = Math.min(Math.max(cur.y, area.y), area.y + area.height - height)
+    this.win.setBounds({ x: Math.round(x), y: Math.round(y), width, height })
   }
 
   hide(): void {

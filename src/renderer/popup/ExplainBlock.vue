@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { GrammarExplain } from '@shared/schemas/ai'
 import { invoke, IpcError } from '@renderer/shared/ipc'
@@ -25,12 +25,19 @@ async function explain(): Promise<void> {
     if (mine !== seq) return
     result.value = res
     phase.value = 'done'
+    // Phần giải thích dài: nới popup ra cho dễ đọc (main tự thu về cỡ gốc lần mở sau)
+    window.api.send('popup:expand', true)
   } catch (err) {
     if (mine !== seq) return
     errorKey.value = err instanceof IpcError ? err.info.messageKey : 'errors.aiFailed'
     phase.value = 'error'
   }
 }
+
+// Tra câu khác (khối bị thay) → popup về cỡ gốc
+onUnmounted(() => {
+  if (phase.value === 'done') window.api.send('popup:expand', false)
+})
 </script>
 
 <template>
@@ -53,7 +60,7 @@ async function explain(): Promise<void> {
         }}</span>
       </div>
       <p class="ex-text">{{ result.explanation_vi }}</p>
-      <span v-if="result.pattern" class="chip">{{ result.pattern }}</span>
+      <span v-if="result.pattern" class="chip pattern">{{ result.pattern }}</span>
       <div v-if="result.examples.length" class="examples">
         <div v-for="(ex, i) in result.examples" :key="i" class="example">
           <button
@@ -78,9 +85,24 @@ async function explain(): Promise<void> {
 <style scoped>
 .explain-wrap {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--sp-2);
   justify-items: start;
+  min-width: 0;
   margin: var(--sp-2) 0;
+}
+/* Không để chữ dài (công thức, ví dụ) đẩy popup cuộn ngang */
+.explain > *,
+.example > div {
+  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.modern .chip.pattern {
+  white-space: normal;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  line-height: 1.4;
 }
 .muted {
   margin: 0;
@@ -94,6 +116,7 @@ async function explain(): Promise<void> {
 }
 .explain {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--sp-2);
   justify-items: start;
   width: 100%;

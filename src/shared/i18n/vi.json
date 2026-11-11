@@ -607,7 +607,8 @@
       "listening": "Nghe",
       "courses": "Lộ trình",
       "pet": "Thú cưng",
-      "diary": "Nhật ký"
+      "diary": "Nhật ký",
+      "writing": "Viết tự do"
     },
     "home": {
       "welcome": "Chào bạn, hôm nay học gì nào?",
@@ -750,6 +751,46 @@
       },
       "staleCorrection": "Bạn đã sửa nội dung trong lúc chờ, bấm Sửa bằng AI lần nữa."
     },
+    "freeWriting": {
+      "title": "Viết tự do",
+      "intro": "Chọn một đề (hoặc tự đặt đề), viết bằng tiếng Anh rồi nhờ AI nhận xét.",
+      "reward": "Bài đầu tiên từ {n} từ trở lên mỗi ngày được +15 XP, +5 xu.",
+      "topic": "Đề bài",
+      "band": "Trình độ của đề",
+      "custom": "Tự đặt đề",
+      "customPlaceholder": "Bạn muốn viết về điều gì?",
+      "customHint": "Độ dài tính theo trình độ {band}",
+      "another": "Đề khác",
+      "hints": "Gợi ý (không bắt buộc)",
+      "noTopics": "Chưa có đề ở trình độ này.",
+      "write": "Bài viết",
+      "length": "Độ dài",
+      "lengthOption": "{name} · {min}–{max} từ",
+      "lengths": {
+        "short": "Ngắn",
+        "medium": "Vừa",
+        "long": "Dài"
+      },
+      "save": "Lưu",
+      "saveFeedback": "Lưu và nhận xét bằng AI",
+      "feedback": "Nhận xét bằng AI",
+      "feedbackBusy": "AI đang nhận xét bài… (bài đã được lưu)",
+      "minFeedback": "Cần ít nhất {n} từ để AI nhận xét.",
+      "aiHint": "Bật AI trong Cài đặt, rồi nhập key Claude hoặc đăng nhập Claude Code để AI nhận xét bài.",
+      "noFeedback": "Chưa có nhận xét AI.",
+      "retryHint": "Bài đã được lưu, bấm \"Nhận xét bằng AI\" để thử lại sau.",
+      "stale": "Bạn đã sửa bài trong lúc chờ, bấm \"Nhận xét bằng AI\" lần nữa.",
+      "newEntry": "Viết bài mới",
+      "edit": "Sửa",
+      "cancel": "Huỷ",
+      "delete": "Xoá",
+      "confirmDelete": "Xoá bài viết này? Không hoàn tác được.",
+      "history": "Bài đã viết ({n})",
+      "empty": "Chưa có bài nào. Bài bạn lưu sẽ hiện ở đây.",
+      "more": "Xem thêm",
+      "words": "{n} từ",
+      "score": "{n}/100"
+    },
     "missions": {
       "title": "Nhiệm vụ hôm nay",
       "goal": "Mục tiêu ôn mỗi ngày",
@@ -868,6 +909,9 @@
         "perDay": "{n} lượt/ngày",
         "cliOff": "Tắt",
         "cliToday": "Hôm nay đã dùng {n}/{max}.",
+        "cliUnlimited": "Không giới hạn",
+        "cliUnlimitedNote": "Không giới hạn: mỗi lượt vẫn trừ vào hạn mức gói Claude của bạn; gói hết lượt thì AI tạm ngừng tới khi gói hồi lại.",
+        "cliTodayUnlimited": "Hôm nay đã dùng {n} lượt (không giới hạn).",
         "cliNote": "Dùng hạn mức gói Claude của bạn, chung với Claude Code và claude.ai."
       },
       "sect": {

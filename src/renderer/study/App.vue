@@ -22,6 +22,7 @@ import CoursesPage from './components/CoursesPage.vue'
 import LessonsPage from './components/LessonsPage.vue'
 import PhrasebookPage from './components/PhrasebookPage.vue'
 import DiaryPage from './components/DiaryPage.vue'
+import FreeWritingPage from './components/FreeWritingPage.vue'
 import SettingsPage from './components/SettingsPage.vue'
 import Onboarding from './components/Onboarding.vue'
 import ParentReport from './components/ParentReport.vue'
@@ -287,6 +288,7 @@ onUnmounted(() => {
       <PracticeSession v-else-if="page === 'practice'" @changed="refresh" />
       <WordList v-else-if="page === 'words'" @changed="refresh" />
       <DiaryPage v-else-if="page === 'diary'" @changed="refresh" />
+      <FreeWritingPage v-else-if="page === 'writing'" @changed="refresh" />
       <PetPage v-else-if="page === 'pet'" @changed="refresh" />
       <ShopPage v-else-if="page === 'shop'" @changed="refresh" />
       <StatsPage v-else-if="page === 'stats'" @checkpoint="startCheckpoint" />

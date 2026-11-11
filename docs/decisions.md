@@ -438,3 +438,21 @@ Mẫu:
   5. Elo: cả hai tính vào **ngữ pháp** (chưa có kỹ năng Viết); `write` chấm không AI không vào Elo, chỉ vào điểm bài.
   6. Chưa dùng LanguageTool (thêm server/thư viện lớn), không lưu bài viết/kết quả AI, không cache riêng ngoài cache LRU sẵn có của `AiService`.
 - **Đánh đổi**: khi tắt AI, bản dịch đúng mà không có trong danh sách bị tính sai; `write` không AI chỉ kiểm độ dài (dễ "qua" bằng chữ bất kỳ — chấp nhận vì không ảnh hưởng Elo, chỉ điểm bài); mỗi câu dịch không khớp và mỗi bài viết tốn 1 lượt AI (thêm 1 lượt nếu model trả sai định dạng).
+
+## #60 — Hạn mức AI "Không giới hạn" + Viết tự do theo đề (2026-11-11) — Đã quyết định
+
+- **Bối cảnh**: chủ dự án thử luyện viết trong bài học (#59) và muốn (1) hạn mức AI cao hơn, có tuỳ chọn không giới hạn; (2) viết tự do theo đề để không bị giới hạn trong 6 bài "Luyện viết" cố định.
+- **Quyết định (phần A — hạn mức)**:
+  1. Cài đặt boolean riêng `ai.cliUnlimited` (mặc định `false`) thay vì một giá trị đặc biệt của `ai.cliDailyLimit` (giữ nguyên schema 0–200, không phải chuyển dữ liệu cũ). Không giới hạn = `AiService` bỏ kiểm tra hạn mức nhưng vẫn đếm `ai.cliUsage`.
+  2. **`ai.cliDailyLimit = 0` (tắt CLI) luôn thắng**: `pickProvider`/`cliRelevant` không đổi, `cliUnlimitedActive(limit, unlimited) = unlimited && limit > 0`. Ô chọn duy nhất ở Cài đặt gộp hai cài đặt (`src/shared/aiLimit.ts`) và ghi theo thứ tự an toàn nên không tạo được "0 + không giới hạn"; nếu DB có trạng thái đó thì CLI vẫn tắt.
+  3. Mặc định hạn mức 30 → 60; các mức 10/30/60/100/150/200 + Không giới hạn + Tắt (giữ 10 và 30 để giá trị đã chọn vẫn hiện đúng). Cài đặt chỉ được ghi khi người dùng chọn → ai chưa đổi nhận 60, ai đã chọn giữ giá trị cũ.
+- **Đánh đổi (A)**: không giới hạn thì chỉ còn hạn mức gói Claude của người dùng chặn (hết gói → `errors.aiPlanLimit`); giao diện ghi rõ điều này. Đường key API vẫn chưa có trần.
+- **Quyết định (phần B — Viết tự do)**:
+  1. Tab "Viết tự do" ở **Hội trường** cạnh "Luyện tập" (trang `writing` trong `PLACE_PAGES.hall`), không đụng luồng luyện tập nhanh; ẩn với hồ sơ trẻ em, main chặn `FORBIDDEN` như nhật ký.
+  2. Đề tự soạn trong `content/curated/free-writing/` (30 đề A1–B2) + đề tự đặt ≤ 200 ký tự. Renderer chỉ gửi **mã đề** (main lấy chữ đề từ nội dung) hoặc đề tự đặt; chữ đề luôn là dữ liệu trong thẻ `<task>` của `writing_feedback` (dùng lại, không thêm tác vụ/prompt).
+  3. **Bảng riêng** `free_writing_entries` (migration `0010`), nhiều bài mỗi ngày; lưu cả khoảng số từ lúc viết để nhận xét lại sau đúng khoảng đã hiện. **Lưu trước, nhận xét sau** (hai kênh `create` + `feedback`) → AI chậm/lỗi không mất bài, bài đã lưu có nút nhận xét lại.
+  4. **Không có ngưỡng đạt** (khác bài `write`): `WritingFeedback.vue` thêm prop `graded` (mặc định `true` để bài học không đổi). Không Elo.
+  5. Thưởng giống nhật ký: bài đầu tiên ≥ 20 từ mỗi ngày → +15 XP, +5 xu (`free-writing.written`, idempotent theo ngày). Sửa chữ chỉ tính khi bài được tạo hôm nay (mở bài cũ ra lưu lại không phải bài mới).
+  6. Khoảng số từ 3 mức theo bậc, dài nhất 300 từ (vừa `max_tokens` 4096 của `writing_feedback`); ô viết 3.000 ký tự (`FREE_WRITING_MAX_CHARS`, kiểm ở zod IPC).
+- **Đánh đổi (B)**: mỗi lần nhận xét tốn 1 lượt AI (đã có nhận xét thì không gọi lại); bản nháp chưa lưu chỉ nằm trong bộ nhớ của cửa sổ (đóng cửa sổ là mất); không chặn lưu khi lệch khoảng số từ (chỉ gợi ý + tiêu chí "đúng đề" của AI); đề chưa có giáo viên duyệt.
+- **Thay thế đã cân nhắc**: gộp vào bảng `diary_entries` (unique theo ngày, khác ngữ nghĩa); một kênh "lưu + nhận xét" duy nhất (lỗi AI dễ làm mất bài hoặc phải lưu ở renderer); đặt trong Thư viện cạnh Nhật ký (chủ dự án muốn ở khu luyện tập).

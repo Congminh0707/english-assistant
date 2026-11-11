@@ -561,6 +561,43 @@ describe('AiService: nhà cung cấp Claude Code CLI', () => {
     expect(c.ai.status().cliCallsToday).toBe(10)
   })
 
+  it('mặc định 60 lượt/ngày, không giới hạn = tắt', () => {
+    setupCli({ key: null })
+    expect(c.settings.get('ai.cliDailyLimit')).toBe(60)
+    expect(c.settings.get('ai.cliUnlimited')).toBe(false)
+    expect(c.ai.status()).toMatchObject({ cliDailyLimit: 60, cliUnlimited: false })
+  })
+
+  it('không giới hạn: vượt hạn mức số vẫn chạy và vẫn đếm lượt', async () => {
+    setupCli({ key: null })
+    c.settings.set('ai.cliDailyLimit', 10)
+    c.settings.set('ai.cliUnlimited', true)
+    c.settings.set('ai.cliUsage', '2026-01-15:10')
+    await c.ai.explain({ sentence: 'over the limit' })
+    expect(cli.calls).toHaveLength(1)
+    expect(c.ai.status()).toMatchObject({ cliCallsToday: 11, cliUnlimited: true })
+    expect(c.settings.get('ai.cliUsage')).toBe('2026-01-15:11')
+    // Tắt lại không giới hạn → hạn mức 10 có hiệu lực ngay
+    c.settings.set('ai.cliUnlimited', false)
+    await expectAppError(c.ai.explain({ sentence: 'blocked' }), 'AI_LIMIT', 'errors.aiDailyLimit')
+  })
+
+  it('hạn mức 0 thắng không giới hạn: CLI vẫn tắt, status báo cliUnlimited false', async () => {
+    setupCli({ key: null })
+    c.settings.set('ai.cliDailyLimit', 0)
+    c.settings.set('ai.cliUnlimited', true)
+    const st = await c.ai.refreshStatus()
+    expect(st).toMatchObject({ ready: false, cliUnlimited: false })
+    expect(authRuns).toBe(0)
+    await expectAppError(c.ai.explain({ sentence: 'x y' }), 'FORBIDDEN', 'errors.aiOff')
+    expect(cli.calls).toHaveLength(0)
+  })
+
+  it('renderer ghi được ai.cliUnlimited', () => {
+    setupCli({ key: null })
+    expect(c.settings.setFromRenderer('ai.cliUnlimited', true)['ai.cliUnlimited']).toBe(true)
+  })
+
   it('API không bị hạn mức ngày của CLI', async () => {
     setupCli({ key: 'sk-ant-test' })
     c.settings.set('ai.cliDailyLimit', 10)

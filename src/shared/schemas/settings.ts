@@ -57,7 +57,12 @@ export const settingDefinitions = {
   /** Nhà cung cấp AI: auto = có key API thì dùng API, không thì Claude Code CLI nếu đã cài + đăng nhập (docs/11 §5) */
   'ai.provider': AiProviderSettingSchema.default('auto'),
   /** Hạn mức lượt gọi Claude Code CLI mỗi ngày (dùng chung hạn mức gói Claude của người dùng); 0 = tắt CLI */
-  'ai.cliDailyLimit': z.number().int().min(0).max(200).default(30),
+  'ai.cliDailyLimit': z.number().int().min(0).max(200).default(60),
+  /**
+   * Bỏ hạn mức ngày của CLI (vẫn đếm lượt để hiển thị). Chỉ có hiệu lực khi `ai.cliDailyLimit` > 0: hạn mức 0 = tắt CLI
+   * luôn thắng (docs/11 §5, src/shared/aiLimit.ts)
+   */
+  'ai.cliUnlimited': z.boolean().default(false),
   /** Bộ đếm lượt gọi CLI trong ngày cục bộ (nội bộ, do AiService quản lý): 'YYYY-MM-DD:n' */
   'ai.cliUsage': z.string().max(32).default(''),
   /** Ôn thẻ: số từ mới đưa vào ôn mỗi ngày (0 = không giới hạn) */

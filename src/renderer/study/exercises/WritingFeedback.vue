@@ -6,14 +6,19 @@ import type { TranslateCheckResult, WritingResult } from '@shared/schemas/writin
 import { WRITE_PASS } from '@shared/writing'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
-defineProps<{
-  translate?: TranslateCheckResult | null
-  write?: WritingResult | null
-  /** Câu dịch đúng nhưng khác đáp án mẫu (AI chấp nhận): vẫn cho xem đáp án mẫu */
-  modelAnswer?: string
-  /** Bài mẫu của đề viết */
-  sample?: string
-}>()
+withDefaults(
+  defineProps<{
+    translate?: TranslateCheckResult | null
+    write?: WritingResult | null
+    /** Câu dịch đúng nhưng khác đáp án mẫu (AI chấp nhận): vẫn cho xem đáp án mẫu */
+    modelAnswer?: string
+    /** Bài mẫu của đề viết */
+    sample?: string
+    /** false = không có ngưỡng đạt (viết tự do): điểm tổng màu trung tính, không hiện dòng "đạt từ 60" */
+    graded?: boolean
+  }>(),
+  { translate: null, write: null, modelAnswer: undefined, sample: undefined, graded: true }
+)
 const { t } = useI18n()
 
 const SCORE_KEYS = ['task', 'grammar', 'vocabulary', 'coherence'] as const
@@ -45,10 +50,13 @@ const SCORE_KEYS = ['task', 'grammar', 'vocabulary', 'coherence'] as const
   <div v-else-if="write" class="wf">
     <template v-if="write.feedback">
       <div class="scores">
-        <span class="chip" :class="write.passed ? 'chip--success' : 'chip--danger'">
+        <span
+          class="chip"
+          :class="!graded ? 'chip--primary' : write.passed ? 'chip--success' : 'chip--danger'"
+        >
           {{ t('study.lessons.writing.overall', { n: write.feedback.overall }) }}
         </span>
-        <span class="muted small">{{
+        <span v-if="graded" class="muted small">{{
           t('study.lessons.writing.passMark', { n: WRITE_PASS })
         }}</span>
         <span v-for="key in SCORE_KEYS" :key="key" class="chip chip--primary">

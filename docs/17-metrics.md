@@ -20,9 +20,9 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 | Hạng mục                                       | Giá trị                                                                                     | Đo bằng      | Đo ngày    |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
 | Phiên bản app                                  | 2.3.0                                                                                       | `pnpm stats` | 2026-11-11 |
-| Test (Vitest)                                  | 702 test / 72 file                                                                          | `pnpm test`  | 2026-11-11 |
-| Kênh IPC                                       | 117 invoke · 6 send · 14 event                                                              | `pnpm stats` | 2026-11-11 |
-| Migration DB (Drizzle)                         | 10 (`0000`–`0009`)                                                                          | `pnpm stats` | 2026-11-10 |
+| Test (Vitest)                                  | 735 test / 76 file                                                                          | `pnpm test`  | 2026-11-11 |
+| Kênh IPC                                       | 124 invoke · 6 send · 14 event                                                              | `pnpm stats` | 2026-11-11 |
+| Migration DB (Drizzle)                         | 11 (`0000`–`0010`)                                                                          | `pnpm stats` | 2026-11-11 |
 | Nhân vật thú cưng                              | 5 (Bi, Lupo, Draco, Robo, Kitsu)                                                           | `pnpm stats` | 2026-10-22 |
 | Dáng vector mỗi nhân vật | 19 dáng × 4 giai đoạn vẽ riêng + trứng = 77 hình mỗi con (mascot v4, xem 05)                | `pnpm stats` | 2026-11-10 |
 | Vật phẩm cửa hàng                              | 46 = 17 đồ ăn + 25 phụ kiện (5 vị trí, vẽ riêng cho từng con) + 4 nhân vật                  | `pnpm stats` | 2026-11-09 |
@@ -36,6 +36,7 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 | Bài đọc                | 74                                               |                                                                                  | 2026-11-05 |
 | Bài nghe               | 58                                               | đọc bằng TTS; có gói audio MP3 tạo sẵn tải thêm (12 bài VOA dùng bản thu thật)   | 2026-11-11 |
 | Sổ mẫu câu             | 108 mẫu câu                                      |                                                                                  | 2026-10-22 |
+| Đề viết tự do          | 30 đề (A1 8 · A2 8 · B1 7 · B2 7)                | `content/curated/free-writing/topics.json`, tự soạn, xem 07 "Viết tự do"          | 2026-11-11 |
 | Câu kiểm tra đầu vào   | 60                                               |                                                                                  | 2026-10-22 |
 | Hoạt động trẻ em       | 25                                               |                                                                                  | 2026-10-22 |
 | Bản đồ thế giới của bé | 37 nơi / 337 từ / 21 công trình voxel            | tầng 1 VN 12×10, 6 nước 6×7, 9 kỳ quan 9×3, Làng của bé 7×16, Màu-số-hình 3×12 (docs/28); cả 37 nơi đã duyệt; 10 nơi `town`/`basics` được chủ dự án duyệt 2026-11-06 (`reviewed: true`) | 2026-11-05 |

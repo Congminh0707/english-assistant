@@ -53,7 +53,8 @@ function make(opts: {
         cliAvailable: false,
         cliState: 'unknown',
         cliCallsToday: 0,
-        cliDailyLimit: 30,
+        cliDailyLimit: 60,
+        cliUnlimited: false,
         callsThisMonth: 0
       }),
       checkTranslation: (input) => {

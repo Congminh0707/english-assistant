@@ -1,4 +1,5 @@
 import type { z } from 'zod'
+import { cliUnlimitedActive } from '@shared/aiLimit'
 import { fnv1a64 } from '@shared/audioPack'
 import {
   DiaryCorrectSchema,
@@ -60,8 +61,8 @@ function extractJson(text: string): unknown {
  * rồi báo AI_FAILED; client lỗi (kể cả bị cắt cụt vì max_tokens) không thử lại, key bị từ chối → errors.aiKeyRejected,
  * lỗi có kiểu của client (AppError: hết hạn mức gói, CLI chưa đăng nhập) đi thẳng ra UI.
  * CLI: mỗi lúc 1 tiến trình (tối đa 2 yêu cầu chờ), hạn mức lượt/ngày `ai.cliDailyLimit` (đếm `ai.cliUsage`; cache hit
- * không tính, lượt thử lại có tính). Cache LRU trong bộ nhớ theo nhà cung cấp + model; đếm lượt gọi theo tháng
- * (`ai.usage`). Tắt với hồ sơ trẻ em. Không ghi log nội dung câu, kết quả hay key.
+ * không tính, lượt thử lại có tính); `ai.cliUnlimited` bỏ hạn mức nhưng vẫn đếm, hạn mức 0 = tắt CLI luôn thắng.
+ * Cache LRU trong bộ nhớ theo nhà cung cấp + model; đếm lượt gọi theo tháng (`ai.usage`). Tắt với hồ sơ trẻ em. Không ghi log nội dung câu, kết quả hay key.
  */
 export class AiService {
   private readonly cache = new Map<string, unknown>()
@@ -92,6 +93,7 @@ export class AiService {
       cliState,
       cliCallsToday: this.cliUsage().count,
       cliDailyLimit: this.deps.settings.get('ai.cliDailyLimit'),
+      cliUnlimited: this.cliUnlimited(),
       callsThisMonth: this.usage().count
     }
   }
@@ -292,7 +294,17 @@ export class AiService {
     return pref === 'cli' || (pref === 'auto' && !this.deps.getKey())
   }
 
+  /** Không giới hạn lượt CLI (chỉ khi hạn mức > 0; hạn mức 0 = tắt CLI, xem pickProvider) */
+  private cliUnlimited(): boolean {
+    return cliUnlimitedActive(
+      this.deps.settings.get('ai.cliDailyLimit'),
+      this.deps.settings.get('ai.cliUnlimited')
+    )
+  }
+
+  /** Hết lượt hôm nay → AI_LIMIT; không giới hạn thì bỏ qua (lượt vẫn được đếm ở countCliCall) */
   private assertCliQuota(): void {
+    if (this.cliUnlimited()) return
     if (this.cliUsage().count >= this.deps.settings.get('ai.cliDailyLimit'))
       throw new AppError('AI_LIMIT', 'errors.aiDailyLimit')
   }

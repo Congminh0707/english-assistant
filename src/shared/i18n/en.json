@@ -607,7 +607,8 @@
       "listening": "Listening",
       "courses": "Courses",
       "pet": "Pets",
-      "diary": "Diary"
+      "diary": "Diary",
+      "writing": "Free writing"
     },
     "home": {
       "welcome": "Hi, what shall we learn today?",
@@ -750,6 +751,46 @@
       },
       "staleCorrection": "You edited the text while waiting; press Correct with AI again."
     },
+    "freeWriting": {
+      "title": "Free writing",
+      "intro": "Pick a topic (or set your own), write in English, then ask AI for feedback.",
+      "reward": "Your first piece of {n}+ words each day earns +15 XP and +5 coins.",
+      "topic": "Topic",
+      "band": "Topic level",
+      "custom": "My own topic",
+      "customPlaceholder": "What would you like to write about?",
+      "customHint": "Length follows level {band}",
+      "another": "Another topic",
+      "hints": "Ideas (optional)",
+      "noTopics": "No topics at this level yet.",
+      "write": "Your writing",
+      "length": "Length",
+      "lengthOption": "{name} · {min}–{max} words",
+      "lengths": {
+        "short": "Short",
+        "medium": "Medium",
+        "long": "Long"
+      },
+      "save": "Save",
+      "saveFeedback": "Save and get AI feedback",
+      "feedback": "Get AI feedback",
+      "feedbackBusy": "AI is reviewing your writing… (it is already saved)",
+      "minFeedback": "Write at least {n} words to get AI feedback.",
+      "aiHint": "Turn on AI in Settings, then enter a Claude key or sign in to Claude Code to get feedback.",
+      "noFeedback": "No AI feedback yet.",
+      "retryHint": "Your writing is saved; press \"Get AI feedback\" to try again later.",
+      "stale": "You edited the text while waiting; press \"Get AI feedback\" again.",
+      "newEntry": "New piece",
+      "edit": "Edit",
+      "cancel": "Cancel",
+      "delete": "Delete",
+      "confirmDelete": "Delete this piece? This cannot be undone.",
+      "history": "My writing ({n})",
+      "empty": "Nothing yet. Pieces you save will appear here.",
+      "more": "Show more",
+      "words": "{n} words",
+      "score": "{n}/100"
+    },
     "missions": {
       "title": "Today's missions",
       "goal": "Daily review goal",
@@ -868,6 +909,9 @@
         "perDay": "{n} calls/day",
         "cliOff": "Off",
         "cliToday": "Used today: {n}/{max}.",
+        "cliUnlimited": "Unlimited",
+        "cliUnlimitedNote": "Unlimited: every call still counts against your Claude plan quota; when the plan runs out, AI pauses until it resets.",
+        "cliTodayUnlimited": "Used today: {n} calls (no daily limit).",
         "cliNote": "Uses your Claude plan limits, shared with Claude Code and claude.ai."
       },
       "sect": {

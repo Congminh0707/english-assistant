@@ -304,3 +304,35 @@ export const diaryEntries = sqliteTable(
   },
   (t) => [uniqueIndex('diary_entries_profile_day').on(t.profileId, t.day)]
 )
+
+/** Viết tự do theo đề (docs/07 "Viết tự do"): nhiều bài mỗi ngày, AI nhận xét khi người dùng bấm */
+export const freeWritingEntries = sqliteTable(
+  'free_writing_entries',
+  {
+    id: text('id').primaryKey(), // UUID v7
+    profileId: text('profile_id')
+      .notNull()
+      .references(() => profiles.id),
+    /** Mã đề tự soạn (content/curated/free-writing); null = đề tự đặt */
+    topicId: text('topic_id'),
+    /** Tên hiện trong danh sách (tên đề, hoặc đề tự đặt) */
+    title: text('title').notNull(),
+    /** Chữ đề như đã hiện cho người học (gửi cho AI trong thẻ <task>) */
+    task: text('task').notNull(),
+    /** Bậc A1/A2/B1/B2 */
+    band: text('band').notNull(),
+    /** short | medium | long */
+    length: text('length').notNull(),
+    minWords: integer('min_words').notNull(),
+    maxWords: integer('max_words').notNull(),
+    text: text('text').notNull(),
+    wordCount: integer('word_count').notNull(),
+    /** JSON kết quả writing_feedback gần nhất (null = chưa có / đã sửa chữ sau lần nhận xét) */
+    feedbackJson: text('feedback_json'),
+    /** Điểm tổng 0–100 của lần nhận xét gần nhất */
+    score: integer('score'),
+    createdAt: integer('created_at').notNull(),
+    updatedAt: integer('updated_at').notNull()
+  },
+  (t) => [index('free_writing_entries_profile_created').on(t.profileId, t.createdAt)]
+)

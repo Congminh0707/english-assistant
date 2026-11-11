@@ -5,12 +5,19 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { WRITE_MAX_CHARS, writeLength } from '@shared/writing'
 
-const props = defineProps<{
-  modelValue: string
-  minWords: number
-  maxWords?: number
-  locked?: boolean
-}>()
+const props = withDefaults(
+  defineProps<{
+    modelValue: string
+    minWords: number
+    maxWords?: number
+    locked?: boolean
+    /** Giới hạn ký tự (mặc định WRITE_MAX_CHARS của bài học; viết tự do dùng FREE_WRITING_MAX_CHARS) */
+    maxChars?: number
+    /** Nhãn cho trình đọc màn hình (mặc định nhãn bài viết trong bài học) */
+    label?: string
+  }>(),
+  { maxWords: undefined, maxChars: WRITE_MAX_CHARS, label: undefined }
+)
 const emit = defineEmits<{ 'update:modelValue': [value: string] }>()
 const { t } = useI18n()
 
@@ -22,11 +29,11 @@ const length = computed(() => writeLength(props.modelValue, props.minWords, prop
     <textarea
       :value="modelValue"
       rows="6"
-      :maxlength="WRITE_MAX_CHARS"
+      :maxlength="maxChars"
       spellcheck="false"
       :disabled="locked"
       :placeholder="t('study.lessons.writing.placeholder')"
-      :aria-label="t('study.lessons.writeHelp')"
+      :aria-label="label ?? t('study.lessons.writeHelp')"
       @input="emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)"
     />
     <p class="count" :class="{ warn: length.status === 'long' }" aria-live="polite">

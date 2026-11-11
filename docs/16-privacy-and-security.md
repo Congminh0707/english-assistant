@@ -58,6 +58,11 @@ App chạy thường trực trên máy, có thể đọc clipboard, nghe micro, 
 
 - Khi AI đã bật (người lớn): câu dịch không khớp đáp án mẫu và bài viết theo đề được gửi lên nhà cung cấp AI đang dùng (key API hoặc Claude Code CLI), kèm câu Việt/đáp án mẫu/đề lấy từ nội dung bài và trình độ `learning.level`; câu dịch khớp đáp án mẫu không gửi đi. Không lưu bài viết hay kết quả xuống đĩa (chỉ cache trong bộ nhớ của `AiService`), không log chữ người học.
 
+### Viết tự do (2026-11-11, docs/07 "Viết tự do", decisions #60)
+
+- **Lưu trên máy**: bài viết tự do, đề (cả đề tự đặt) và nhận xét AI được lưu trong `user.db` (bảng `free_writing_entries`) của hồ sơ người lớn đang dùng; người học xoá được từng bài (có hỏi xác nhận). Không gửi đi đâu khi chỉ bấm "Lưu".
+- **Gửi AI chỉ khi bấm** "Lưu và nhận xét bằng AI" / "Nhận xét bằng AI" và AI đã bật: chữ đề + bài viết + khoảng số từ + `learning.level` được gửi tới nhà cung cấp AI đang dùng (key API hoặc Claude Code CLI). Đề tự đặt chỉ nằm trong thẻ dữ liệu `<task>`, không vào system prompt. Không log chữ người học, đề hay nhận xét. Hồ sơ trẻ em không dùng được (`FORBIDDEN`).
+
 ### AI qua Claude Code CLI (2026-11-11, docs/11 §5, decisions #57)
 
 App chạy `claude -p` của người dùng như một tiến trình con. Quy tắc bắt buộc (có test ở `src/main/ai/*.test.ts`):
@@ -66,7 +71,7 @@ App chạy `claude -p` của người dùng như một tiến trình con. Quy t�
 - **Không qua shell**: `spawn(exe, args, { shell: false, windowsHide: true })`; exe là đường dẫn tuyệt đối `claude.exe` (không nhận `.cmd`/`.bat`/`.ps1`); `where.exe`/`taskkill.exe` gọi bằng đường dẫn System32. Prompt hệ thống là chuỗi cố định; **văn bản người dùng chỉ đi qua stdin**, không bao giờ nằm trong args.
 - **Env tối thiểu**: bỏ `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_BASE_URL`, `ANTHROPIC_CUSTOM_HEADERS`, `ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, `ANTHROPIC_BEDROCK_BASE_URL`, `ANTHROPIC_VERTEX_*`, `CLAUDE_CODE_USE_BEDROCK`, `CLAUDE_CODE_USE_VERTEX`, `CLAUDE_CODE_USE_FOUNDRY`, `CLAUDECODE`, `NODE_OPTIONS`, `ELECTRON_RUN_AS_NODE` (giữ biến proxy và `CLAUDE_CONFIG_DIR`).
 - **Giới hạn**: timeout 45 s (auth status 10 s) → `taskkill /pid <pid> /T /F` trước (tiến trình gốc còn sống nên lần được cả con cháu), chỉ khi taskkill hỏng mới `kill()` gốc; stdout ≤ 512 KB; stderr giữ 4 KB. Không log prompt, kết quả, stderr hay env (chỉ log mã lỗi / mã thoát). Nút "Kiểm tra lại" không chạy gì khi AI tắt / hồ sơ trẻ em, tối đa 1 lần mỗi 5 s.
-- **Không lạm dụng**: 1 tiến trình mỗi lúc (tối đa 2 yêu cầu chờ), hạn mức lượt/ngày (mặc định 30), chỉ gọi khi người dùng bấm; bộ đếm `ai.usage`/`ai.cliUsage` renderer không ghi được.
+- **Không lạm dụng**: 1 tiến trình mỗi lúc (tối đa 2 yêu cầu chờ), hạn mức lượt/ngày (mặc định 60 từ 2026-11-11, trước đó 30; người dùng có thể chọn "Không giới hạn" — khi đó chỉ còn hạn mức gói Claude của chính họ, lượt vẫn được đếm), chỉ gọi khi người dùng bấm; bộ đếm `ai.usage`/`ai.cliUsage` renderer không ghi được.
 
 ## 6. Nội dung tải về
 

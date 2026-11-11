@@ -75,6 +75,7 @@ const rows: Array<[string, string | number]> = [
   ['readings (bài đọc)', countItems('readings', 'lessons').items],
   ['listening (bài nghe)', countItems('listening', 'lessons').items],
   ['phrasebook (mẫu câu)', countItems('phrasebook', 'phrases').items],
+  ['free-writing topics (đề viết tự do)', countItems('free-writing', 'topics').items],
   ['placement (câu kiểm tra đầu vào)', countItems('placement', 'items').items],
   ['kids (hoạt động trẻ em)', countItems('kids', 'activities').items],
   ['kids world places (nơi trên bản đồ)', countItems('kids/world/places', 'words').files],

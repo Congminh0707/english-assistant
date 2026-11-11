@@ -49,9 +49,13 @@ import {
   bundledPlacementFiles,
   bundledToeicFiles,
   bundledVideoFiles,
-  bundledReadingFiles
+  bundledReadingFiles,
+  bundledFreeWritingFiles
 } from './content/bundledLessons'
 import { PhrasebookLibrary } from './content/PhrasebookLibrary'
+import { FreeWritingTopics } from './content/FreeWritingTopics'
+import { FreeWritingRepository } from './db/repositories/FreeWritingRepository'
+import { FreeWritingService } from './services/FreeWritingService'
 import { CourseLibrary } from './content/CourseLibrary'
 import { KidsLibrary } from './content/KidsLibrary'
 import { KidsWorldLibrary } from './content/KidsWorldLibrary'
@@ -119,6 +123,8 @@ export interface Container {
   diary: DiaryService
   /** Chấm dạng bài luyện viết trong bài học: dịch câu, viết theo đề (docs/07 "Luyện viết") */
   writing: WritingService
+  /** Viết tự do theo đề, có lưu bài + nhận xét AI (docs/07 "Viết tự do") */
+  freeWriting: FreeWritingService
 }
 
 export interface ContainerOptions {
@@ -166,7 +172,8 @@ export function createContainer(
     exam: new ExamRepository(db),
     progress: new ProgressRepository(db),
     packs: new InstalledPackRepository(db),
-    diary: new DiaryRepository(db)
+    diary: new DiaryRepository(db),
+    freeWriting: new FreeWritingRepository(db)
   }
 
   const settings = new SettingsService(repos.settings, clock, bus)
@@ -485,6 +492,16 @@ export function createContainer(
     lessons: (kind) => lessonServices[kind],
     settings
   })
+  const freeWriting = new FreeWritingService({
+    repo: repos.freeWriting,
+    xpRepo: repos.xp,
+    xp,
+    topics: new FreeWritingTopics(bundledFreeWritingFiles),
+    ai,
+    profiles,
+    settings,
+    clock
+  })
 
   return {
     clock,
@@ -521,6 +538,7 @@ export function createContainer(
     dailyPlan,
     ai,
     diary,
-    writing
+    writing,
+    freeWriting
   }
 }

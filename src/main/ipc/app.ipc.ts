@@ -113,6 +113,17 @@ export function registerAppIpc(
   handle('diary:list', () => c.diary.list())
   handle('writing:check-translation', (input) => c.writing.checkTranslation(input))
   handle('writing:feedback', (input) => c.writing.feedback(input))
+  handle('free-writing:view', async () => {
+    // Như diary:today: không chờ dò CLI lần đầu; trang đọc lại khi focus / settings:changed
+    await c.ai.refreshStatus({ wait: false })
+    return c.freeWriting.view()
+  })
+  handle('free-writing:create', (input) => c.freeWriting.create(input))
+  handle('free-writing:update', (input) => c.freeWriting.update(input))
+  handle('free-writing:get', ({ id }) => c.freeWriting.get(id))
+  handle('free-writing:delete', ({ id }) => c.freeWriting.remove(id))
+  handle('free-writing:list', ({ offset }) => c.freeWriting.list(offset))
+  handle('free-writing:feedback', ({ id }) => c.freeWriting.feedback(id))
   handle('practice:start', ({ mode }) => ({ exercise: c.practice.start(mode) }))
   handle('practice:answer', ({ sessionId, exerciseId, answer }) =>
     c.practice.answer(sessionId, exerciseId, answer)

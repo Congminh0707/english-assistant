@@ -13,6 +13,12 @@ import { useStt } from '@renderer/shared/composables/useStt'
 import { useTranslateModels } from '@renderer/shared/composables/useTranslateModels'
 import type { TranslateOnlineStatus } from '@shared/schemas/translate'
 import { AI_MODELS, AI_PROVIDER_SETTINGS, type AiStatus } from '@shared/schemas/ai'
+import {
+  CLI_LIMIT_CHOICES,
+  cliLimitChoice,
+  cliLimitUpdates,
+  parseCliLimitChoice
+} from '@shared/aiLimit'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useUpdateStatus } from '@renderer/shared/composables/useUpdateStatus'
 import AudioPackPanel from '@renderer/shared/components/AudioPackPanel.vue'
@@ -116,7 +122,23 @@ async function setAiSetting<K extends keyof Settings>(key: K, value: Settings[K]
   await loadAiStatus()
 }
 
-const CLI_LIMITS = [10, 30, 60, 0] as const
+/** Lựa chọn đang hiện của ô hạn mức CLI (gộp `ai.cliDailyLimit` + `ai.cliUnlimited`, src/shared/aiLimit.ts) */
+const cliChoice = computed(() =>
+  cliLimitChoice(
+    settingsStore.settings['ai.cliDailyLimit'],
+    settingsStore.settings['ai.cliUnlimited']
+  )
+)
+
+/** Áp lựa chọn hạn mức CLI: ghi lần lượt hai cài đặt theo thứ tự an toàn rồi đọc lại trạng thái AI */
+async function setCliLimit(raw: string): Promise<void> {
+  const choice = parseCliLimitChoice(raw)
+  if (choice === null) return
+  for (const [key, value] of cliLimitUpdates(choice, settingsStore.settings['ai.cliDailyLimit'])) {
+    await setSetting(key, value as never)
+  }
+  await loadAiStatus()
+}
 
 const MB = 1024 * 1024
 const toMb = (bytes: number | undefined): number => Math.round((bytes ?? 0) / MB)
@@ -690,27 +712,31 @@ onMounted(async () => {
             <label class="row">
               {{ t('study.settings.ai.cliLimit') }}
               <select
-                :value="settingsStore.settings['ai.cliDailyLimit']"
-                @change="
-                  setAiSetting(
-                    'ai.cliDailyLimit',
-                    Number(($event.target as HTMLSelectElement).value) as never
-                  )
-                "
+                :value="String(cliChoice)"
+                @change="setCliLimit(($event.target as HTMLSelectElement).value)"
               >
-                <option v-for="n in CLI_LIMITS" :key="n" :value="n">
+                <option v-for="n in CLI_LIMIT_CHOICES" :key="n" :value="String(n)">
                   {{
-                    n === 0 ? t('study.settings.ai.cliOff') : t('study.settings.ai.perDay', { n })
+                    n === 'unlimited'
+                      ? t('study.settings.ai.cliUnlimited')
+                      : n === 0
+                        ? t('study.settings.ai.cliOff')
+                        : t('study.settings.ai.perDay', { n })
                   }}
                 </option>
               </select>
             </label>
-            <p class="muted">
+            <p v-if="cliChoice === 'unlimited'" class="muted">
+              {{ t('study.settings.ai.cliUnlimitedNote') }}
+            </p>
+            <p v-if="cliChoice !== 0" class="muted">
               {{
-                t('study.settings.ai.cliToday', {
-                  n: aiStatus?.cliCallsToday ?? 0,
-                  max: settingsStore.settings['ai.cliDailyLimit']
-                })
+                cliChoice === 'unlimited'
+                  ? t('study.settings.ai.cliTodayUnlimited', { n: aiStatus?.cliCallsToday ?? 0 })
+                  : t('study.settings.ai.cliToday', {
+                      n: aiStatus?.cliCallsToday ?? 0,
+                      max: cliChoice
+                    })
               }}
             </p>
             <p class="muted">{{ t('study.settings.ai.cliNote') }}</p>

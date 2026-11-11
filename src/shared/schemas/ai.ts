@@ -27,6 +27,8 @@ export const AiStatusSchema = z.object({
   cliState: AiCliStateSchema,
   cliCallsToday: z.number().int().nonnegative(),
   cliDailyLimit: z.number().int().nonnegative(),
+  /** Không giới hạn lượt CLI mỗi ngày (chỉ true khi hạn mức > 0; hạn mức 0 = tắt CLI thắng) */
+  cliUnlimited: z.boolean(),
   callsThisMonth: z.number().int().nonnegative()
 })
 export type AiStatus = z.infer<typeof AiStatusSchema>

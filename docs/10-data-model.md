@@ -127,6 +127,25 @@ Index `(profile_id, finished_at)`. Ngân hàng câu không nằm trong DB: đọ
 
 Unique `(profile_id, day)`. Thưởng viết ghi ở `xp_events` (`reason = 'diary.written'`, `ref_id` = ngày). Logic: `DiaryService` (docs/07 §14).
 
+### free_writing_entries (viết tự do theo đề — migration 0010, 2026-11-11)
+
+| Cột | Ghi chú |
+|---|---|
+| id, profile_id | UUID v7, hồ sơ viết (chỉ người lớn); mọi truy vấn theo id đều lọc thêm `profile_id` |
+| topic_id | mã đề trong `content/curated/free-writing/*.json`; null = đề tự đặt |
+| title | tên hiện trong danh sách (tên đề tiếng Việt, hoặc chính đề tự đặt) |
+| task | chữ đề như đã hiện cho người học (đề tự soạn: `prompt`; đề tự đặt: chữ người học, ≤ 200 ký tự) — gửi cho AI trong thẻ `<task>` |
+| band | `A1`/`A2`/`B1`/`B2` (bậc của đề, hoặc bậc đang lọc khi tự đặt đề) |
+| length | `short`/`medium`/`long` |
+| min_words, max_words | khoảng số từ lúc viết (giữ lại để nhận xét lại sau vẫn theo đúng khoảng đã hiện) |
+| text | bài viết (1–3.000 ký tự, `FREE_WRITING_MAX_CHARS`) |
+| word_count | số từ (cách đếm như nhật ký) |
+| feedback_json | JSON kết quả `writing_feedback` gần nhất (null = chưa có; đổi chữ thì về null) |
+| score | điểm tổng 0–100 của lần nhận xét đó (null cùng lúc với `feedback_json`) |
+| created_at, updated_at | ms |
+
+Index `(profile_id, created_at)`. Nhiều bài mỗi ngày. Thưởng ghi ở `xp_events` (`reason = 'free-writing.written'`, `ref_id` = ngày cục bộ; chỉ bài tạo trong ngày đó, kể cả khi sửa chữ cho đủ từ). Logic: `FreeWritingService` (docs/07 "Viết tự do").
+
 ### usage_days (thời gian dùng app mỗi ngày — chế độ trẻ em)
 
 | Cột | Ghi chú |

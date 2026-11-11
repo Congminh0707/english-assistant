@@ -1,0 +1,365 @@
+{
+  "license": "proprietary-own",
+  "topics": [
+    {
+      "id": "a1-about-me",
+      "level": "A1_1",
+      "title": "Giới thiệu bản thân",
+      "prompt": "Viết vài câu giới thiệu bản thân: tên, tuổi, bạn sống ở đâu và làm gì.",
+      "hints": [
+        "My name is ...",
+        "I am ... years old.",
+        "I live in ...",
+        "I am a student / I work as ..."
+      ]
+    },
+    {
+      "id": "a1-my-family",
+      "level": "A1_1",
+      "title": "Gia đình tôi",
+      "prompt": "Kể về gia đình bạn: có những ai, mỗi người bao nhiêu tuổi và làm nghề gì.",
+      "hints": [
+        "There are ... people in my family.",
+        "My father is a ...",
+        "I have one brother and ...",
+        "We live together in ..."
+      ]
+    },
+    {
+      "id": "a1-my-room",
+      "level": "A1_1",
+      "title": "Căn phòng của tôi",
+      "prompt": "Tả căn phòng của bạn: trong phòng có gì, đồ vật màu gì và ở đâu.",
+      "hints": [
+        "In my room, there is ...",
+        "There are two ...",
+        "My bed is next to ...",
+        "I like my room because ..."
+      ]
+    },
+    {
+      "id": "a1-favourite-food",
+      "level": "A1_2",
+      "title": "Món ăn yêu thích",
+      "prompt": "Viết về món ăn bạn thích nhất: món đó là gì, có những gì, bạn hay ăn khi nào.",
+      "hints": [
+        "My favourite food is ...",
+        "It has rice, egg and ...",
+        "I usually eat it for ...",
+        "It is delicious / sweet / spicy."
+      ]
+    },
+    {
+      "id": "a1-daily-routine",
+      "level": "A1_2",
+      "title": "Một ngày của tôi",
+      "prompt": "Kể một ngày bình thường của bạn từ sáng đến tối, có giờ giấc.",
+      "hints": [
+        "I get up at ...",
+        "Then I have breakfast.",
+        "In the afternoon, I ...",
+        "I go to bed at ..."
+      ]
+    },
+    {
+      "id": "a1-best-friend",
+      "level": "A1_2",
+      "title": "Người bạn thân",
+      "prompt": "Viết về một người bạn thân: tên, ngoại hình, tính cách và hai bạn hay làm gì cùng nhau.",
+      "hints": [
+        "My best friend is ...",
+        "She/He has short hair and ...",
+        "She/He is kind and funny.",
+        "We often ... together."
+      ]
+    },
+    {
+      "id": "a1-weekend",
+      "level": "A1_2",
+      "title": "Cuối tuần của tôi",
+      "prompt": "Bạn thường làm gì vào thứ Bảy và Chủ nhật? Viết vài câu.",
+      "hints": [
+        "On Saturday, I ...",
+        "On Sunday morning, I ...",
+        "Sometimes I visit ...",
+        "I like weekends because ..."
+      ]
+    },
+    {
+      "id": "a1-my-city",
+      "level": "A1_2",
+      "title": "Nơi tôi sống",
+      "prompt": "Giới thiệu thành phố hoặc làng quê nơi bạn sống: ở đâu, có gì, bạn thích điều gì ở đó.",
+      "hints": [
+        "I live in ...",
+        "It is in the north / south of Vietnam.",
+        "There is a big market and ...",
+        "I like it because ..."
+      ]
+    },
+    {
+      "id": "a2-last-holiday",
+      "level": "A2_1",
+      "title": "Kỳ nghỉ vừa rồi",
+      "prompt": "Kể về một kỳ nghỉ gần đây: bạn đi đâu, với ai, đã làm gì và cảm thấy thế nào (dùng thì quá khứ).",
+      "hints": [
+        "Last summer, I went to ...",
+        "I travelled with ...",
+        "We visited ... and ate ...",
+        "It was a wonderful trip because ..."
+      ]
+    },
+    {
+      "id": "a2-hobby",
+      "level": "A2_1",
+      "title": "Sở thích của tôi",
+      "prompt": "Viết về một sở thích của bạn: bắt đầu từ khi nào, làm như thế nào, vì sao bạn thích.",
+      "hints": [
+        "In my free time, I enjoy ...",
+        "I started ... when I was ...",
+        "I usually do it ... times a week.",
+        "It helps me relax because ..."
+      ]
+    },
+    {
+      "id": "a2-invite-friend",
+      "level": "A2_1",
+      "title": "Tin nhắn mời bạn",
+      "prompt": "Viết tin nhắn mời một người bạn đi ăn hoặc đi xem phim: thời gian, địa điểm và lý do bạn muốn đi.",
+      "hints": [
+        "Are you free on ...?",
+        "Would you like to ...?",
+        "Let's meet at ... at ...",
+        "Let me know if you can come!"
+      ]
+    },
+    {
+      "id": "a2-shopping",
+      "level": "A2_1",
+      "title": "Một lần đi mua sắm",
+      "prompt": "Kể về lần gần nhất bạn đi mua sắm: mua gì, ở đâu, giá bao nhiêu, bạn có hài lòng không.",
+      "hints": [
+        "Last week, I went to ...",
+        "I wanted to buy ...",
+        "It cost ... dong.",
+        "I was happy / disappointed because ..."
+      ]
+    },
+    {
+      "id": "a2-healthy-habits",
+      "level": "A2_2",
+      "title": "Thói quen lành mạnh",
+      "prompt": "Bạn làm gì để giữ sức khoẻ? Kể các thói quen về ăn uống, ngủ nghỉ, vận động của bạn.",
+      "hints": [
+        "I try to eat more ...",
+        "I usually sleep ... hours a night.",
+        "I go jogging / swimming ...",
+        "I should ... more often."
+      ]
+    },
+    {
+      "id": "a2-memorable-day",
+      "level": "A2_2",
+      "title": "Một ngày đáng nhớ",
+      "prompt": "Kể về một ngày bạn nhớ mãi: chuyện gì đã xảy ra và vì sao ngày đó đặc biệt.",
+      "hints": [
+        "I will never forget the day when ...",
+        "First, ...",
+        "After that, ...",
+        "That day was special because ..."
+      ]
+    },
+    {
+      "id": "a2-dream-job",
+      "level": "A2_2",
+      "title": "Công việc mơ ước",
+      "prompt": "Bạn muốn làm công việc gì trong tương lai? Công việc đó cần gì và vì sao bạn muốn làm.",
+      "hints": [
+        "In the future, I want to be ...",
+        "This job needs ...",
+        "I think I am good at ...",
+        "I would like to ... because ..."
+      ]
+    },
+    {
+      "id": "a2-email-teacher",
+      "level": "A2_2",
+      "title": "Email xin nghỉ học",
+      "prompt": "Viết email ngắn cho giáo viên báo bạn sẽ nghỉ một buổi học: lý do và hỏi về bài tập.",
+      "hints": [
+        "Dear Ms/Mr ...,",
+        "I am writing to tell you that ...",
+        "Could you tell me what homework ...?",
+        "Best regards,"
+      ]
+    },
+    {
+      "id": "b1-learning-english",
+      "level": "B1_1",
+      "title": "Học tiếng Anh",
+      "prompt": "Describe how you learn English: what works for you, what is difficult, and what you want to improve next. (Bạn học tiếng Anh thế nào, cái gì hiệu quả, cái gì khó?)",
+      "hints": [
+        "One method that really works for me is ...",
+        "The hardest part for me is ...",
+        "I have noticed that ...",
+        "My next goal is to ..."
+      ]
+    },
+    {
+      "id": "b1-technology-life",
+      "level": "B1_1",
+      "title": "Công nghệ và đời sống",
+      "prompt": "How has your phone or the internet changed your daily life? Give good and bad examples. (Điện thoại / internet đã thay đổi cuộc sống của bạn ra sao?)",
+      "hints": [
+        "Thanks to my phone, I can ...",
+        "On the other hand, ...",
+        "For example, ...",
+        "Overall, I think ..."
+      ]
+    },
+    {
+      "id": "b1-place-to-visit",
+      "level": "B1_1",
+      "title": "Gợi ý nơi nên đến",
+      "prompt": "Recommend a place in Vietnam to a foreign friend: why they should go, what to do there and the best time to visit. (Giới thiệu một nơi ở Việt Nam cho bạn nước ngoài.)",
+      "hints": [
+        "If you visit Vietnam, you should definitely go to ...",
+        "It is famous for ...",
+        "The best time to go is ...",
+        "Don't forget to try ..."
+      ]
+    },
+    {
+      "id": "b1-complaint-email",
+      "level": "B1_2",
+      "title": "Email phàn nàn",
+      "prompt": "Write an email to a shop about a product you bought online that arrived damaged. Explain the problem and say what you want them to do. (Viết email phàn nàn về món hàng bị hỏng.)",
+      "hints": [
+        "I am writing to complain about ...",
+        "When the package arrived, I found that ...",
+        "I would like a refund / a replacement.",
+        "I look forward to hearing from you."
+      ]
+    },
+    {
+      "id": "b1-change-mind",
+      "level": "B1_2",
+      "title": "Một lần đổi ý",
+      "prompt": "Write about a time you changed your opinion about something or someone. What did you think before, and what made you change? (Kể về một lần bạn thay đổi suy nghĩ.)",
+      "hints": [
+        "At first, I thought that ...",
+        "However, after ...",
+        "I realised that ...",
+        "Now I believe ..."
+      ]
+    },
+    {
+      "id": "b1-ideal-weekend",
+      "level": "B1_2",
+      "title": "Cuối tuần lý tưởng",
+      "prompt": "Describe your perfect weekend if you had no limits on time or money. Explain your choices. (Cuối tuần lý tưởng của bạn sẽ thế nào?)",
+      "hints": [
+        "If I could do anything, I would ...",
+        "I would start the day by ...",
+        "In the evening, I would ...",
+        "This would make me happy because ..."
+      ]
+    },
+    {
+      "id": "b1-living-alone",
+      "level": "B1_2",
+      "title": "Ở riêng hay ở cùng gia đình",
+      "prompt": "Is it better for young adults to live with their parents or on their own? Give your opinion with reasons and examples. (Người trẻ nên ở với bố mẹ hay ở riêng?)",
+      "hints": [
+        "In my opinion, ...",
+        "One advantage of ... is that ...",
+        "However, it can be difficult to ...",
+        "To sum up, ..."
+      ]
+    },
+    {
+      "id": "b2-remote-work",
+      "level": "B2_1",
+      "title": "Làm việc từ xa",
+      "prompt": "Many companies now let employees work from home. Discuss the advantages and disadvantages of remote work for both employees and employers, and give your own view.",
+      "hints": [
+        "It is often argued that ...",
+        "From an employer's point of view, ...",
+        "A major drawback is ...",
+        "On balance, I believe ..."
+      ]
+    },
+    {
+      "id": "b2-social-media",
+      "level": "B2_1",
+      "title": "Mạng xã hội",
+      "prompt": "Some people say social media brings people closer, while others think it makes them lonelier. Discuss both views and explain which you agree with.",
+      "hints": [
+        "Supporters of social media point out that ...",
+        "Critics, however, claim that ...",
+        "Personally, I tend to agree with ...",
+        "This is mainly because ..."
+      ]
+    },
+    {
+      "id": "b2-tourism-impact",
+      "level": "B2_1",
+      "title": "Du lịch và địa phương",
+      "prompt": "Mass tourism can help local economies but also damage the places people visit. Using an example you know, explain the effects and suggest how they could be balanced.",
+      "hints": [
+        "A good example of this is ...",
+        "On the positive side, tourism has ...",
+        "At the same time, it has led to ...",
+        "One possible solution would be to ..."
+      ]
+    },
+    {
+      "id": "b2-skill-to-learn",
+      "level": "B2_2",
+      "title": "Kỹ năng đáng học",
+      "prompt": "Which skill do you think everyone should learn before the age of 25, and why? Support your answer with reasons and a personal example.",
+      "hints": [
+        "If I had to choose one skill, it would be ...",
+        "This skill is essential because ...",
+        "In my own experience, ...",
+        "Without it, people may ..."
+      ]
+    },
+    {
+      "id": "b2-cities-future",
+      "level": "B2_2",
+      "title": "Thành phố tương lai",
+      "prompt": "Big cities in Vietnam face traffic jams and air pollution. Describe what a city could look like in 20 years if these problems were tackled, and what steps would be needed.",
+      "hints": [
+        "In twenty years' time, ...",
+        "Public transport would need to ...",
+        "The government could encourage ...",
+        "Citizens themselves should ..."
+      ]
+    },
+    {
+      "id": "b2-failure-lesson",
+      "level": "B2_2",
+      "title": "Bài học từ thất bại",
+      "prompt": "Write about a failure or mistake that taught you something important. Describe what happened, how you felt, and how it changed the way you act now.",
+      "hints": [
+        "Looking back, ...",
+        "At the time, I felt ...",
+        "What I learned from this was ...",
+        "Since then, I have ..."
+      ]
+    },
+    {
+      "id": "b2-reading-habits",
+      "level": "B2_2",
+      "title": "Thói quen đọc",
+      "prompt": "Fewer people read long books today than in the past. Why do you think this is happening, and does it matter? Give your opinion with clear reasons.",
+      "hints": [
+        "There are several reasons for this trend.",
+        "Firstly, ...",
+        "Some would argue that it does not matter, since ...",
+        "Nevertheless, I am convinced that ..."
+      ]
+    }
+  ]
+}

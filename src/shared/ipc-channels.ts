@@ -73,6 +73,14 @@ export const INVOKE_CHANNELS = [
   /** Luyện viết trong bài học (docs/07 "Luyện viết"): chấm câu dịch, chấm bài viết theo đề (so khớp / AI) */
   'writing:check-translation',
   'writing:feedback',
+  /** Viết tự do theo đề (docs/07 "Viết tự do"): đề + trạng thái AI, lưu/sửa/xem/xoá bài, danh sách, nhận xét AI */
+  'free-writing:view',
+  'free-writing:create',
+  'free-writing:update',
+  'free-writing:get',
+  'free-writing:delete',
+  'free-writing:list',
+  'free-writing:feedback',
   'practice:start',
   'practice:answer',
   'shop:state',

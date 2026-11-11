@@ -48,6 +48,13 @@ export const bundledListeningFiles: unknown[] = load(
 export const bundledCourseFiles: unknown[] = load(
   import.meta.glob('../../../content/curated/courses/*.json', { eager: true, import: 'default' })
 )
+// Đề viết tự do tự soạn (docs/07 "Viết tự do")
+export const bundledFreeWritingFiles: unknown[] = load(
+  import.meta.glob('../../../content/curated/free-writing/*.json', {
+    eager: true,
+    import: 'default'
+  })
+)
 // Ngân hàng câu TOEIC tự soạn (docs/29): mỗi file một Part, tên part<N>-<số>.json
 export const bundledToeicFiles: unknown[] = load(
   import.meta.glob('../../../content/curated/toeic/*.json', { eager: true, import: 'default' })

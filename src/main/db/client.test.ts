@@ -141,3 +141,56 @@ describe('migration 0007: Webby thành Lupo', () => {
     db.close()
   })
 })
+
+describe('migration 0010: bảng viết tự do', () => {
+  it('nâng cấp từ 0009 thêm free_writing_entries + index, giữ nguyên nhật ký', () => {
+    const file = join(dir, 'user.db')
+    const old = openUserDb(file, partialMigrations(10))
+    expect(
+      old.sqlite
+        .prepare(
+          "SELECT name FROM sqlite_master WHERE type = 'table' AND name = 'free_writing_entries'"
+        )
+        .get()
+    ).toBeUndefined()
+    old.sqlite
+      .prepare(
+        "INSERT INTO profiles (id, name, track, created_at, updated_at) VALUES ('p', 'p', 'general', 1, 1)"
+      )
+      .run()
+    old.sqlite
+      .prepare(
+        "INSERT INTO diary_entries (id, profile_id, day, text, created_at, updated_at) VALUES ('d', 'p', '2026-11-10', 'Hello diary.', 1, 1)"
+      )
+      .run()
+    old.close()
+
+    const db = openUserDb(file, FULL)
+    const cols = (
+      db.sqlite.prepare('PRAGMA table_info(free_writing_entries)').all() as Array<{
+        name: string
+      }>
+    ).map((c) => c.name)
+    expect(cols).toEqual(
+      expect.arrayContaining([
+        'profile_id',
+        'topic_id',
+        'task',
+        'min_words',
+        'feedback_json',
+        'score'
+      ])
+    )
+    expect(
+      db.sqlite
+        .prepare(
+          "SELECT name FROM sqlite_master WHERE type = 'index' AND name = 'free_writing_entries_profile_created'"
+        )
+        .get()
+    ).toBeTruthy()
+    expect(db.sqlite.prepare('SELECT id, text FROM diary_entries').all()).toEqual([
+      { id: 'd', text: 'Hello diary.' }
+    ])
+    db.close()
+  })
+})

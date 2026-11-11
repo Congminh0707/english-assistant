@@ -137,6 +137,16 @@ import {
   DiarySaveInputSchema,
   DiaryTodaySchema
 } from './schemas/diary'
+import {
+  FreeWritingCreateInputSchema,
+  FreeWritingEntrySchema,
+  FreeWritingFeedbackResultSchema,
+  FreeWritingIdInputSchema,
+  FreeWritingListInputSchema,
+  FreeWritingListSchema,
+  FreeWritingUpdateInputSchema,
+  FreeWritingViewSchema
+} from './schemas/freeWriting'
 
 export const WalkResultSchema = z.object({ blocked: z.enum(['left', 'right']).nullable() })
 export const DragEndResultSchema = z.object({ falling: z.boolean() })
@@ -236,6 +246,16 @@ export const invokeContract = {
     output: TranslateCheckResultSchema
   },
   'writing:feedback': { input: WritingFeedbackRequestSchema, output: WritingResultSchema },
+  'free-writing:view': { input: z.void(), output: FreeWritingViewSchema },
+  'free-writing:create': { input: FreeWritingCreateInputSchema, output: FreeWritingEntrySchema },
+  'free-writing:update': { input: FreeWritingUpdateInputSchema, output: FreeWritingEntrySchema },
+  'free-writing:get': { input: FreeWritingIdInputSchema, output: FreeWritingEntrySchema },
+  'free-writing:delete': { input: FreeWritingIdInputSchema, output: z.void() },
+  'free-writing:list': { input: FreeWritingListInputSchema, output: FreeWritingListSchema },
+  'free-writing:feedback': {
+    input: FreeWritingIdInputSchema,
+    output: FreeWritingFeedbackResultSchema
+  },
   'practice:start': { input: PracticeStartInputSchema, output: PracticeStartResultSchema },
   'practice:answer': { input: PracticeAnswerInputSchema, output: PracticeAnswerResultSchema },
   'shop:state': { input: z.void(), output: ShopStateSchema },

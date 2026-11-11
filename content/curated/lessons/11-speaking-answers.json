@@ -1,0 +1,522 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "respond",
+    "title": "Trả lời câu hỏi bằng giọng nói",
+    "summary": "Nghe câu hỏi rồi nói câu trả lời của bạn (tối đa 30 giây): giới thiệu bản thân, một ngày của bạn, thời gian rảnh, kế hoạch, nêu ý kiến, kể trải nghiệm.",
+    "icon": "🗣️",
+    "order": 11
+  },
+  "lessons": [
+    {
+      "id": "respond.about-me",
+      "title": "Nói: giới thiệu bản thân",
+      "summary": "Trả lời các câu hỏi đầu tiên về tên, tuổi, gia đình và nơi bạn sống.",
+      "level": "A1_1",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Bài này luyện **trả lời câu hỏi bằng giọng nói**. Bấm nút nghe để nghe câu hỏi, bấm **Bấm để nói** rồi trả lời (tối đa 30 giây). Máy nhận dạng giọng nói ngay trên máy tính của bạn và hiện chữ nó nghe được; nghe nhầm thì bấm **Ghi lại**.\n\nNếu đã bật AI trong Cài đặt, bạn có thể bấm **Nhận xét bằng AI**: chỉ **chữ** máy nghe được được gửi đi, không gửi âm thanh. Không bật AI thì câu trả lời đạt khi bạn nói đủ số từ yêu cầu.\n\nCách trả lời dễ nhất: **nhắc lại ý của câu hỏi + thêm một chi tiết**.\n\n- `What's your name?` → `My name is Lan. My friends call me Lanny.`\n- `Where do you live?` → `I live in Hue, near the river.`"
+        },
+        {
+          "type": "examples",
+          "title": "Câu trả lời mẫu",
+          "items": [
+            {
+              "en": "My name is Minh. I am fourteen years old.",
+              "vi": "Tên mình là Minh. Mình mười bốn tuổi."
+            },
+            { "en": "I live in Da Nang with my parents.", "vi": "Mình sống ở Đà Nẵng với bố mẹ." },
+            { "en": "There are four people in my family.", "vi": "Gia đình mình có bốn người." },
+            { "en": "I have one sister. She is ten.", "vi": "Mình có một em gái. Em ấy mười tuổi." }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Đừng chỉ nói một từ (`Lan.`, `Hue.`). Hãy nói **cả câu** có chủ ngữ và động từ: `My name is Lan.`, `I live in Hue.` Nói chậm và rõ, không cần vội — 30 giây là nhiều thời gian."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "There ___ four people in my family.",
+          "answers": ["are"],
+          "choices": ["is", "are", "am"],
+          "explain": "`four people` là số nhiều nên dùng `there are`."
+        },
+        {
+          "type": "order",
+          "hint": "Mình sống ở Huế với gia đình.",
+          "answer": "I live in Hue with my family."
+        },
+        {
+          "type": "respond",
+          "question": "What's your name, and how old are you?",
+          "vi": "Bạn tên là gì, và bạn bao nhiêu tuổi?",
+          "minWords": 5,
+          "sample": "My name is Lan. I am twelve years old.",
+          "explain": "Trả lời đủ cả hai ý: tên và tuổi."
+        },
+        {
+          "type": "respond",
+          "question": "Where do you live?",
+          "vi": "Bạn sống ở đâu?",
+          "minWords": 5,
+          "sample": "I live in Hanoi, in a small house near my school."
+        },
+        {
+          "type": "respond",
+          "question": "Tell me about your family.",
+          "vi": "Hãy kể về gia đình bạn.",
+          "minWords": 8,
+          "sample": "There are four people in my family: my mother, my father, my sister and me. My sister is ten.",
+          "explain": "Bắt đầu bằng `There are … people in my family`, rồi kể từng người."
+        },
+        {
+          "type": "respond",
+          "question": "What do you like doing?",
+          "vi": "Bạn thích làm gì?",
+          "minWords": 6,
+          "sample": "I like drawing and playing football with my friends."
+        }
+      ]
+    },
+    {
+      "id": "respond.my-day",
+      "title": "Nói: một ngày của bạn",
+      "summary": "Trả lời câu hỏi về giờ giấc, việc hằng ngày và món ăn bạn thích.",
+      "level": "A1_2",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Khi kể việc **hằng ngày**, dùng thì hiện tại đơn: `I get up at six.`, `I have breakfast at home.` Với `he/she`, động từ thêm `-s`: `My mother cooks dinner.`\n\nCâu trả lời hay có **thứ tự thời gian**. Dùng các từ nối:\n\n- `First, …` (Đầu tiên)\n- `Then, …` / `After that, …` (Sau đó)\n- `In the evening, …` (Buổi tối)"
+        },
+        {
+          "type": "examples",
+          "title": "Câu trả lời mẫu",
+          "items": [
+            { "en": "I usually get up at six o'clock.", "vi": "Mình thường dậy lúc sáu giờ." },
+            {
+              "en": "First, I have breakfast. Then, I go to school by bike.",
+              "vi": "Đầu tiên, mình ăn sáng. Sau đó, mình đi học bằng xe đạp."
+            },
+            {
+              "en": "In the evening, I do my homework.",
+              "vi": "Buổi tối, mình làm bài tập về nhà."
+            },
+            {
+              "en": "My favourite food is fried rice because it is tasty.",
+              "vi": "Món mình thích nhất là cơm chiên vì nó ngon."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Người Việt hay bỏ âm cuối: `get up` nghe thành `ge up`, `six` thành `si`. Máy nhận dạng có thể nghe nhầm vì vậy — hãy đọc rõ âm cuối. Nếu dòng \"Máy nghe được\" sai nhiều, bấm **Ghi lại**."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Which answer fits the question \"What time do you get up?\"",
+          "choices": ["I get up at six.", "I am six.", "I like six.", "Yes, I do."],
+          "answer": 0,
+          "explain": "Câu hỏi `What time…?` hỏi giờ: trả lời `at + giờ`."
+        },
+        {
+          "type": "gap",
+          "prompt": "First, I have breakfast. ___, I go to school.",
+          "answers": ["Then"],
+          "choices": ["Then", "Because", "But"],
+          "explain": "`Then` nối việc làm tiếp theo."
+        },
+        {
+          "type": "respond",
+          "question": "What time do you get up in the morning?",
+          "vi": "Buổi sáng bạn dậy lúc mấy giờ?",
+          "minWords": 6,
+          "sample": "I usually get up at six thirty in the morning."
+        },
+        {
+          "type": "respond",
+          "question": "How do you go to school or to work?",
+          "vi": "Bạn đi học hoặc đi làm bằng gì?",
+          "minWords": 6,
+          "sample": "I go to school by bike. It takes about fifteen minutes."
+        },
+        {
+          "type": "respond",
+          "question": "What do you do in the evening?",
+          "vi": "Buổi tối bạn làm gì?",
+          "minWords": 8,
+          "sample": "In the evening, I have dinner with my family. Then I do my homework and watch TV.",
+          "explain": "Dùng `then` / `after that` để nối hai, ba việc theo thứ tự."
+        },
+        {
+          "type": "respond",
+          "question": "What is your favourite food? Why?",
+          "vi": "Món ăn bạn thích nhất là gì? Vì sao?",
+          "minWords": 8,
+          "sample": "My favourite food is pho. I like it because it is hot and very tasty.",
+          "explain": "Trả lời câu hỏi `Why?` bằng `because + câu`."
+        }
+      ]
+    },
+    {
+      "id": "respond.free-time",
+      "title": "Nói: thời gian rảnh và cuối tuần",
+      "summary": "Nói về sở thích và kể lại cuối tuần vừa rồi bằng thì quá khứ đơn.",
+      "level": "A2_1",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Câu trả lời ở trình độ A2 nên có **2–3 câu**: trả lời thẳng câu hỏi, rồi thêm **chi tiết** (với ai, ở đâu, bao lâu một lần).\n\n- Sở thích (hiện tại đơn): `I often play badminton with my brother on Sundays.`\n- Cuối tuần vừa rồi (quá khứ đơn): `Last Saturday, I went to the market with my mother.`\n\nĐộng từ bất quy tắc hay dùng: `go → went`, `have → had`, `see → saw`, `eat → ate`, `buy → bought`."
+        },
+        {
+          "type": "examples",
+          "title": "Câu trả lời mẫu",
+          "items": [
+            {
+              "en": "In my free time, I like reading comics and listening to music.",
+              "vi": "Lúc rảnh, mình thích đọc truyện tranh và nghe nhạc."
+            },
+            {
+              "en": "I play badminton about twice a week.",
+              "vi": "Mình chơi cầu lông khoảng hai lần một tuần."
+            },
+            {
+              "en": "Last weekend, I visited my grandparents in the countryside.",
+              "vi": "Cuối tuần trước, mình về quê thăm ông bà."
+            },
+            {
+              "en": "We had lunch together and I helped my grandmother in the garden.",
+              "vi": "Cả nhà ăn trưa cùng nhau và mình giúp bà làm vườn."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Câu hỏi có `did` (`What did you do…?`) thì câu trả lời dùng **quá khứ**: `I went…`, không nói `I go…`. Đuôi `-ed` (`visited`, `watched`) nhớ đọc rõ, không thì máy và người nghe đều tưởng bạn nói hiện tại."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "Last Sunday, I ___ to the park with my friends.",
+          "answers": ["went"],
+          "choices": ["go", "went", "going"],
+          "explain": "`Last Sunday` là quá khứ: `go → went`."
+        },
+        {
+          "type": "order",
+          "hint": "Mình chơi cầu lông hai lần một tuần.",
+          "answer": "I play badminton twice a week."
+        },
+        {
+          "type": "respond",
+          "question": "What do you like doing in your free time?",
+          "vi": "Lúc rảnh bạn thích làm gì?",
+          "minWords": 10,
+          "sample": "In my free time, I like listening to music and playing badminton. I usually play with my brother after school."
+        },
+        {
+          "type": "respond",
+          "question": "How often do you do sport or exercise?",
+          "vi": "Bạn chơi thể thao hoặc tập thể dục bao lâu một lần?",
+          "minWords": 10,
+          "sample": "I go swimming about twice a week. I also walk to school every day, so I get some exercise."
+        },
+        {
+          "type": "respond",
+          "question": "What did you do last weekend?",
+          "vi": "Cuối tuần trước bạn đã làm gì?",
+          "minWords": 12,
+          "sample": "Last weekend, I visited my grandparents in the countryside. We had lunch together, and in the afternoon I helped my grandmother in the garden.",
+          "explain": "Câu hỏi dùng `did` nên kể bằng quá khứ đơn: `visited`, `had`, `helped`."
+        },
+        {
+          "type": "respond",
+          "question": "Tell me about a good film or video you watched recently.",
+          "vi": "Hãy kể về một bộ phim hoặc video hay mà bạn xem gần đây.",
+          "minWords": 12,
+          "sample": "Last week I watched a cartoon about a brave little dog. It was funny and a bit sad, and I watched it with my sister."
+        }
+      ]
+    },
+    {
+      "id": "respond.plans",
+      "title": "Nói: việc học, công việc và kế hoạch",
+      "summary": "Nói về việc học hoặc công việc hiện tại và kế hoạch sắp tới với going to / will.",
+      "level": "A2_2",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Nói về **kế hoạch đã định** dùng `be going to + V`: `I'm going to visit Da Lat next month.` Ý định nảy ra lúc nói, hoặc dự đoán: `I think I will stay at home.`\n\nCấu trúc câu trả lời 3 bước dễ nhớ:\n\n- **Trả lời**: `Next summer, I'm going to learn to swim.`\n- **Lý do**: `because I want to be healthier.`\n- **Chi tiết**: `My uncle is going to teach me.`"
+        },
+        {
+          "type": "examples",
+          "title": "Câu trả lời mẫu",
+          "items": [
+            {
+              "en": "I'm a student at Nguyen Hue High School. I'm in grade ten.",
+              "vi": "Mình là học sinh trường THPT Nguyễn Huệ. Mình học lớp mười."
+            },
+            {
+              "en": "I work in an office. I answer emails and talk to customers.",
+              "vi": "Mình làm văn phòng. Mình trả lời email và nói chuyện với khách hàng."
+            },
+            {
+              "en": "This weekend, I'm going to clean my room and meet my friends.",
+              "vi": "Cuối tuần này, mình sẽ dọn phòng và gặp bạn bè."
+            },
+            {
+              "en": "In the future, I want to be a doctor because I like helping people.",
+              "vi": "Sau này mình muốn làm bác sĩ vì mình thích giúp người khác."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Khi nói nhanh, `going to` thường nghe như `gonna` — bạn nói `going to` rõ ràng là tốt nhất. Đừng quên động từ `be`: `I'm going to…`, không nói `I going to…`."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "Next month, I ___ going to visit my aunt in Da Lat.",
+          "answers": ["am"],
+          "choices": ["am", "will", "do"],
+          "explain": "`be going to`: với `I` dùng `am`."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence gives a reason?",
+          "choices": [
+            "I'm going to learn English because I want to travel.",
+            "I'm going to learn English next year.",
+            "I'm going to learn English with my friend.",
+            "I'm going to learn English at a centre."
+          ],
+          "answer": 0,
+          "explain": "`because + câu` nêu lý do."
+        },
+        {
+          "type": "respond",
+          "question": "Do you study or work? Tell me about it.",
+          "vi": "Bạn đi học hay đi làm? Hãy kể về việc đó.",
+          "minWords": 12,
+          "sample": "I'm a student. I study at a high school near my house. My favourite subject is English because the lessons are fun."
+        },
+        {
+          "type": "respond",
+          "question": "What are you going to do this weekend?",
+          "vi": "Cuối tuần này bạn định làm gì?",
+          "minWords": 12,
+          "sample": "This weekend, I'm going to clean my room on Saturday morning. On Sunday, I'm going to meet my friends and we are going to play football."
+        },
+        {
+          "type": "respond",
+          "question": "Where would you like to travel, and why?",
+          "vi": "Bạn muốn đi du lịch ở đâu, và vì sao?",
+          "minWords": 14,
+          "sample": "I would like to travel to Japan because I love Japanese food and I want to see the cherry blossoms in spring.",
+          "explain": "Trả lời nơi muốn đến + `because` + lý do."
+        },
+        {
+          "type": "respond",
+          "question": "What do you want to do in the future?",
+          "vi": "Sau này bạn muốn làm gì?",
+          "minWords": 15,
+          "sample": "In the future, I want to be a nurse because I like helping people. I'm going to study hard and practise English every day."
+        },
+        {
+          "type": "respond",
+          "question": "What is something new you want to learn this year?",
+          "vi": "Năm nay bạn muốn học điều gì mới?",
+          "minWords": 15,
+          "sample": "This year I want to learn to cook some simple dishes. My mother is going to teach me, and I think it will be useful when I live alone."
+        }
+      ]
+    },
+    {
+      "id": "respond.opinions",
+      "title": "Nói: nêu ý kiến của bạn",
+      "summary": "Nêu ý kiến, đưa lý do và ví dụ trong khoảng 30 giây.",
+      "level": "B1_1",
+      "minutes": 15,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Ở trình độ B1, câu trả lời cho câu hỏi ý kiến nên theo khung **ý kiến + lý do + ví dụ** (khoảng 4–5 câu, vừa 30 giây):\n\n- **Ý kiến**: `In my opinion, …` / `I think …` / `Personally, I prefer …`\n- **Lý do**: `The main reason is that …` / `This is because …`\n- **Ví dụ**: `For example, …` / `For instance, when I …`\n- (Kết, nếu còn thời gian): `So overall, I think …`"
+        },
+        {
+          "type": "examples",
+          "title": "Cụm từ hữu ích",
+          "items": [
+            {
+              "en": "In my opinion, students should do some sport every day.",
+              "vi": "Theo mình, học sinh nên chơi thể thao mỗi ngày."
+            },
+            {
+              "en": "The main reason is that it keeps us healthy.",
+              "vi": "Lý do chính là nó giúp chúng ta khoẻ mạnh."
+            },
+            {
+              "en": "For example, when I play football, I feel less stressed.",
+              "vi": "Ví dụ, khi mình chơi bóng đá, mình thấy bớt căng thẳng."
+            },
+            {
+              "en": "On the other hand, too much screen time can be bad for our eyes.",
+              "vi": "Mặt khác, dùng màn hình quá nhiều có thể hại mắt."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Không biết nói gì tiếp? Đừng im lặng lâu — dùng cụm câu giờ tự nhiên như `Let me think…`, `That's a good question.` thay vì `ừm…`. Máy đếm các quãng ngừng dài (> 0,8 giây) và từ đệm `um, uh` để nhận xét độ trôi chảy."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Which phrase introduces an example?",
+          "choices": [
+            "For instance,",
+            "In my opinion,",
+            "The main reason is",
+            "On the other hand,"
+          ],
+          "answer": 0,
+          "explain": "`For instance` = `For example`: đưa ví dụ."
+        },
+        {
+          "type": "order",
+          "hint": "Theo mình, đọc sách tốt hơn xem TV.",
+          "answer": "In my opinion, reading is better than watching TV."
+        },
+        {
+          "type": "respond",
+          "question": "Do you think students should have homework every day? Why or why not?",
+          "vi": "Bạn có nghĩ học sinh nên có bài tập về nhà mỗi ngày không? Vì sao?",
+          "minWords": 20,
+          "sample": "In my opinion, a little homework every day is useful. The main reason is that it helps us remember the lesson. For example, when I do English exercises at home, I learn new words faster. But too much homework is stressful."
+        },
+        {
+          "type": "respond",
+          "question": "Is it better to live in a city or in the countryside? Give reasons.",
+          "vi": "Sống ở thành phố hay ở nông thôn thì tốt hơn? Hãy nêu lý do.",
+          "minWords": 22,
+          "sample": "Personally, I prefer living in the countryside. This is because the air is cleaner and life is quieter. For example, at my grandparents' house I can sleep well and ride my bike safely. However, cities have better schools and hospitals."
+        },
+        {
+          "type": "respond",
+          "question": "What do you think about using smartphones in class?",
+          "vi": "Bạn nghĩ gì về việc dùng điện thoại thông minh trong lớp học?",
+          "minWords": 22,
+          "sample": "I think smartphones can be helpful in class, but only for learning. For instance, we can look up new words or watch a short video about the lesson. On the other hand, some students play games, so teachers need clear rules."
+        },
+        {
+          "type": "respond",
+          "question": "Should people learn a foreign language when they are young? Why?",
+          "vi": "Mọi người có nên học ngoại ngữ từ khi còn nhỏ không? Vì sao?",
+          "minWords": 22,
+          "sample": "Yes, I think children should start learning a foreign language early. The main reason is that young children copy sounds easily, so their pronunciation is better. For example, my little cousin learns English songs very quickly."
+        },
+        {
+          "type": "respond",
+          "question": "Which is more important for a job: money or interest? Explain your view.",
+          "vi": "Với một công việc, tiền lương hay sự yêu thích quan trọng hơn? Hãy giải thích quan điểm của bạn.",
+          "minWords": 25,
+          "sample": "In my opinion, interest is more important than money, but we still need enough money to live. If you enjoy your job, you work harder and feel happier. For example, my aunt earns less as a teacher, but she loves her students and never wants to change jobs."
+        }
+      ]
+    },
+    {
+      "id": "respond.experiences",
+      "title": "Nói: kể trải nghiệm và so sánh",
+      "summary": "Kể một trải nghiệm đáng nhớ, so sánh xưa và nay, nói về điều bạn muốn thay đổi.",
+      "level": "B1_2",
+      "minutes": 15,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Kể một **trải nghiệm** trong 30 giây: nói **khi nào, ở đâu, chuyện gì xảy ra, bạn cảm thấy thế nào**.\n\n- Mở đầu: `I'll never forget the day when …` / `One time, …`\n- Diễn biến (quá khứ đơn + quá khứ tiếp diễn): `While we were walking, it started to rain.`\n- Cảm xúc / bài học: `I felt really proud.` / `I learned that …`\n\nSo sánh xưa và nay: `When I was a child, I used to …, but now I …`."
+        },
+        {
+          "type": "examples",
+          "title": "Câu trả lời mẫu",
+          "items": [
+            {
+              "en": "I'll never forget my first trip to the beach with my class.",
+              "vi": "Mình sẽ không bao giờ quên chuyến đi biển đầu tiên cùng lớp."
+            },
+            {
+              "en": "While we were swimming, a big wave knocked my friend over.",
+              "vi": "Khi tụi mình đang bơi thì một con sóng lớn làm bạn mình ngã."
+            },
+            {
+              "en": "When I was younger, I used to be very shy, but now I enjoy talking to new people.",
+              "vi": "Hồi nhỏ mình rất nhút nhát, nhưng giờ mình thích nói chuyện với người mới."
+            },
+            {
+              "en": "If I could change one thing in my town, I would build more parks.",
+              "vi": "Nếu có thể thay đổi một điều ở thị trấn của mình, mình sẽ xây thêm công viên."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Đừng cố nói hết mọi chi tiết — chọn **một** chuyện và kể có đầu có cuối. Câu điều kiện loại 2 (`If I could…, I would…`) giúp nói về điều tưởng tượng; nói `I would`, đừng nói `I will` sau `If I could`."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "When I was a child, I ___ to be afraid of dogs.",
+          "answers": ["used"],
+          "choices": ["used", "use", "was"],
+          "explain": "`used to + V` nói về thói quen/trạng thái trong quá khứ, nay không còn."
+        },
+        {
+          "type": "gap",
+          "prompt": "If I could live anywhere, I ___ live near the sea.",
+          "answers": ["would"],
+          "choices": ["will", "would", "am"],
+          "explain": "Điều kiện loại 2: `If + quá khứ, … would + V`."
+        },
+        {
+          "type": "respond",
+          "question": "Tell me about a day you will never forget.",
+          "vi": "Hãy kể về một ngày bạn sẽ không bao giờ quên.",
+          "minWords": 25,
+          "sample": "I'll never forget the day I won a drawing competition at school. I was very nervous while the teachers were looking at the pictures. When they called my name, I felt so proud, and my parents took me out for ice cream."
+        },
+        {
+          "type": "respond",
+          "question": "How is your life different now from when you were a child?",
+          "vi": "Cuộc sống của bạn bây giờ khác thế nào so với hồi nhỏ?",
+          "minWords": 25,
+          "sample": "When I was a child, I used to play outside all afternoon with my neighbours. Now I spend more time studying and using my phone. I have less free time, but I can do more things by myself, like cooking and going to town."
+        },
+        {
+          "type": "respond",
+          "question": "If you could change one thing about your town or city, what would it be?",
+          "vi": "Nếu có thể thay đổi một điều ở thị trấn hay thành phố của bạn, bạn sẽ thay đổi điều gì?",
+          "minWords": 25,
+          "sample": "If I could change one thing about my city, I would plant more trees and build more parks. The streets are very hot in summer, and children don't have many safe places to play. More green spaces would make people healthier and happier."
+        },
+        {
+          "type": "respond",
+          "question": "Describe a person who has helped you a lot.",
+          "vi": "Hãy miêu tả một người đã giúp bạn rất nhiều.",
+          "minWords": 28,
+          "sample": "My English teacher in secondary school helped me a lot. I used to be afraid of speaking, but she always encouraged me and gave me small speaking tasks every week. Because of her, I became more confident, and now I really enjoy learning languages."
+        }
+      ]
+    }
+  ]
+}

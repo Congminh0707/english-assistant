@@ -15,6 +15,7 @@ import { useStt } from '../composables/useStt'
 import { useTts } from '../composables/useTts'
 import { MicOff, TriangleAlert } from 'lucide-vue-next'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
+import SttModelSetup from './SttModelSetup.vue'
 
 // Luyện nói: ghi âm → chấm. Hai chế độ:
 //  • "từ": Whisper nhận dạng offline → so với câu mẫu theo từng từ (mặc định);
@@ -72,11 +73,6 @@ const setupStatus = computed(() =>
   needs.value === 'pron' ? stt.pronunciation.value : stt.status.value
 )
 const downloading = computed(() => setupStatus.value?.state === 'downloading')
-const percent = computed(() => {
-  const s = setupStatus.value
-  return s && s.sizeBytes ? Math.min(100, Math.round((s.receivedBytes / s.sizeBytes) * 100)) : 0
-})
-const sizeMb = computed(() => Math.round((setupStatus.value?.sizeBytes ?? 0) / MB))
 const pronSizeMb = computed(() => Math.round((stt.pronunciation.value?.sizeBytes ?? 0) / MB))
 
 const micError = computed(() =>
@@ -176,49 +172,12 @@ async function scoreByPhonemes(audio: Float32Array): Promise<void> {
 function retry(): void {
   reset()
 }
-
-async function install(): Promise<void> {
-  failure.value = ''
-  if (needs.value === 'pron') await stt.installPronunciation()
-  else await stt.install()
-}
-
-function cancelInstall(): void {
-  if (needs.value === 'pron') stt.cancelPronunciation()
-  else stt.cancel()
-}
 </script>
 
 <template>
   <div class="speak">
     <!-- Chưa có model cần thiết: mời tải -->
-    <div v-if="needs" class="setup">
-      <p v-if="needs === 'pron' && !pronAvailable">{{ t('speech.pronSoon') }}</p>
-      <template v-else>
-        <p>
-          {{
-            needs === 'pron'
-              ? t('speech.pronNeed', { mb: sizeMb })
-              : t('speech.needModel', { mb: sizeMb })
-          }}
-        </p>
-        <template v-if="downloading">
-          <div class="bar" role="progressbar" :aria-valuenow="percent">
-            <div class="fill" :style="{ width: `${percent}%` }" />
-          </div>
-          <span class="muted">{{ t('speech.downloading', { pct: percent }) }}</span>
-          <button type="button" class="btn" @click="cancelInstall">{{ t('speech.cancel') }}</button>
-        </template>
-        <template v-else>
-          <button type="button" class="btn btn--primary" @click="install">
-            {{ t('speech.download', { mb: sizeMb }) }}
-          </button>
-          <span v-if="setupStatus?.state === 'error'" class="alert">{{
-            t(setupStatus.errorKey ?? 'errors.modelDownload')
-          }}</span>
-        </template>
-      </template>
-    </div>
+    <SttModelSetup v-if="needs" :model="needs" @install="failure = ''" />
 
     <template v-else>
       <div class="actions">
@@ -343,24 +302,6 @@ function cancelInstall(): void {
   gap: var(--sp-3);
   justify-items: center;
   text-align: center;
-}
-.setup {
-  display: grid;
-  gap: var(--sp-2);
-  justify-items: center;
-}
-.bar {
-  width: min(320px, 100%);
-  height: 8px;
-  overflow: hidden;
-  border-radius: var(--r-pill);
-  background: var(--c-surface-2);
-}
-.fill {
-  height: 100%;
-  border-radius: var(--r-pill);
-  background: var(--c-primary);
-  transition: width 0.3s ease;
 }
 .actions {
   display: flex;

@@ -113,6 +113,7 @@ export function registerAppIpc(
   handle('diary:list', () => c.diary.list())
   handle('writing:check-translation', (input) => c.writing.checkTranslation(input))
   handle('writing:feedback', (input) => c.writing.feedback(input))
+  handle('speaking:feedback', (input) => c.speaking.feedback(input))
   handle('free-writing:view', async () => {
     // Như diary:today: không chờ dò CLI lần đầu; trang đọc lại khi focus / settings:changed
     await c.ai.refreshStatus({ wait: false })

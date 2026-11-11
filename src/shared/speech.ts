@@ -172,6 +172,57 @@ export function fluencyStats(words: TimedWord[]): FluencyStats {
   }
 }
 
+/**
+ * Từ đệm (ngập ngừng) được đếm: chỉ các âm không bao giờ là từ thật. Không đếm `like`, `so`, `well`… vì dễ là từ có
+ * nghĩa trong câu.
+ */
+export const FILLER_WORDS: ReadonlySet<string> = new Set(['um', 'uh', 'er', 'erm', 'hmm'])
+
+/** Số từ đã nói (bỏ dấu câu và từ đệm) — dùng chung cho ngưỡng `minWords` ở main, renderer và test */
+export function spokenWordCount(text: string): number {
+  return normalizeSpeech(text).filter((w) => !FILLER_WORDS.has(w)).length
+}
+
+export interface AnswerFluency {
+  /** Số từ đã nói (không tính từ đệm) */
+  wordCount: number
+  /** Số giây nói, từ từ đầu tiên tới từ cuối cùng; null khi quá ít từ để đo */
+  speakingSec: number | null
+  /** Số từ mỗi phút; null khi quá ít từ để đo */
+  wpm: number | null
+  /** Số quãng ngừng dài (> 0,8 giây, như `fluencyStats`); null khi quá ít từ để đo */
+  longPauses: number | null
+  /** Số lần lặp ngay một từ ("I I went") */
+  repetitions: number
+  /** Số từ đệm um/uh/er/erm/hmm */
+  fillers: number
+}
+
+/** Dưới số từ có mốc thời gian này thì không đo tốc độ/ngừng (như SpeakPractice: > 2 từ mới hiện tốc độ) */
+export const FLUENCY_MIN_TIMED_WORDS = 3
+
+/**
+ * Số liệu trôi chảy của một câu trả lời nói (dạng bài `respond`), từ mốc thời gian từng từ của Whisper: thời lượng,
+ * tốc độ và quãng ngừng lấy từ `fluencyStats`, thêm số từ, số lần lặp từ liền nhau, số từ đệm. Từ được chuẩn hoá
+ * (`normalizeSpeech`) trước khi đếm vì token Whisper có khoảng trắng/dấu câu (" um,").
+ */
+export function answerFluency(words: TimedWord[]): AnswerFluency {
+  const tokens = words.flatMap((w) => normalizeSpeech(w.word))
+  const fillers = tokens.filter((w) => FILLER_WORDS.has(w)).length
+  const spoken = tokens.filter((w) => !FILLER_WORDS.has(w))
+  let repetitions = 0
+  for (let k = 1; k < spoken.length; k++) if (spoken[k] === spoken[k - 1]) repetitions++
+  const timed = words.length >= FLUENCY_MIN_TIMED_WORDS ? fluencyStats(words) : null
+  return {
+    wordCount: spoken.length,
+    speakingSec: timed ? timed.durationSec : null,
+    wpm: timed ? timed.wpm : null,
+    longPauses: timed ? timed.longPauses : null,
+    repetitions,
+    fillers
+  }
+}
+
 /** Hạ mẫu PCM từ `fromRate` về 16 kHz mono (nội suy tuyến tính) */
 export function resampleTo16k(input: Float32Array, fromRate: number): Float32Array {
   if (fromRate === STT_SAMPLE_RATE) return input

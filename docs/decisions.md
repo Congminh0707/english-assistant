@@ -456,3 +456,18 @@ Mẫu:
   6. Khoảng số từ 3 mức theo bậc, dài nhất 300 từ (vừa `max_tokens` 4096 của `writing_feedback`); ô viết 3.000 ký tự (`FREE_WRITING_MAX_CHARS`, kiểm ở zod IPC).
 - **Đánh đổi (B)**: mỗi lần nhận xét tốn 1 lượt AI (đã có nhận xét thì không gọi lại); bản nháp chưa lưu chỉ nằm trong bộ nhớ của cửa sổ (đóng cửa sổ là mất); không chặn lưu khi lệch khoảng số từ (chỉ gợi ý + tiêu chí "đúng đề" của AI); đề chưa có giáo viên duyệt.
 - **Thay thế đã cân nhắc**: gộp vào bảng `diary_entries` (unique theo ngày, khác ngữ nghĩa); một kênh "lưu + nhận xét" duy nhất (lỗi AI dễ làm mất bài hoặc phải lưu ở renderer); đặt trong Thư viện cạnh Nhật ký (chủ dự án muốn ở khu luyện tập).
+
+## #61 — Trả lời câu hỏi bằng giọng nói: gửi chữ nhận dạng (không âm thanh) cho AI khi người học bấm, không chấm phát âm (2026-11-11) — Đã quyết định
+
+- **Bối cảnh**: bảng dạng bài (docs/07 §2) có `speak_answer` và docs/11 có tác vụ `speaking_feedback` từ đầu. Docs/16 hứa lời nhận dạng không rời máy. Whisper base.en nghe nhầm giọng có trọng âm và tự "làm đẹp" ngữ pháp; AI không nghe được âm thanh.
+- **Quyết định**:
+  1. Tên dạng bài trong schema là **`respond`** (`speak` đã là đọc to/shadowing); docs/07 ghi `respond` = `speak_answer`. Chỉ có AI method + dạng bài + nội dung; không trang nói tự do, không lịch sử, không bảng DB/migration, không Elo, không cài đặt/nhà cung cấp/model mới.
+  2. **Riêng tư**: âm thanh không bao giờ rời đường renderer → main → Whisper, không lưu, không log. Lời nhận dạng (chữ) hiện cho người học trước; chỉ gửi cho Claude khi bấm **"Nhận xét bằng AI"** (kênh mang cờ `useAi`, main không gọi AI khi `false` dù AI đang bật; Enter không gửi), cạnh nút có dòng báo gửi chữ, không gửi âm thanh. Không lưu lời nhận dạng. Docs/16 sửa cùng lúc.
+  3. **ASR không phải sự thật**: system prompt nói rõ là bản ghi máy, có thể sai, không có dấu câu/hoa thường tin cậy; cấm sửa chính tả/dấu câu/viết hoa, không trừ điểm từ có vẻ nghe nhầm. Ghi lại bao nhiêu lần tuỳ ý trước khi gửi; kết quả ghi "tham khảo".
+  4. **Không điểm phát âm từ AI**: 4 tiêu chí `task`, `grammar`, `vocabulary`, `fluency` (0–5) + `overall` (0–100); giao diện ghi "không chấm phát âm — luyện ở các bài đọc to".
+  5. **Số liệu trôi chảy tính tại máy** (`answerFluency`, gọi lại `fluencyStats`, cùng ngưỡng ngừng > 0,8 s), main tính lại từ `words[]` (không tin số renderer), đưa cho AI làm dữ liệu; từ đệm chỉ `um/uh/er/erm/hmm`.
+  6. **Giới hạn 30 giây giữ nguyên** (một cửa sổ Whisper), không chia đoạn; chạm giới hạn thì tự dừng và nhận dạng phần đã ghi. Giới hạn kênh: lời nhận dạng ≤ 1.500 ký tự, ≤ 200 từ, mỗi từ ≤ 40 ký tự, mốc thời gian 0–35 s, `end ≥ start` (renderer cắt về giới hạn trước khi gửi bằng `boundAnswer`).
+  7. **Đạt**: có AI → `overall ≥ 60` (`RESPOND_PASS`, cùng mức `WRITE_PASS`); không AI → nói đủ `minWords` từ. AI lỗi sau khi bấm → chưa chốt câu, cho thử lại hoặc chấm không cần AI. Không micro/không model → như `speak` (mời tải model, "Bỏ qua câu này" = chưa đạt). Không vào Elo (chỉ điểm bài).
+  8. Dịch vụ riêng **`SpeakingService`** (không gộp vào `WritingService`): đầu vào là lời nói (mốc thời gian, số liệu trôi chảy), deps hẹp (`ai.status` + `ai.speakingFeedback`).
+- **Đánh đổi**: chấm không AI chỉ đếm từ (nói lan man vẫn "đạt" — chấp nhận vì không vào Elo); lời Whisper "làm đẹp" có thể che lỗi ngữ pháp thật; AI không chấm được phát âm/ngữ điệu; mỗi lần nhận xét tốn 1 lượt AI.
+- **Thay thế đã cân nhắc**: gửi âm thanh cho mô hình nghe được (vi phạm cam kết riêng tư, tốn hơn); tự gửi AI ngay sau khi ghi âm (người học chưa kịp thấy lời nhận dạng); chia đoạn để nói > 30 giây (phức tạp, Whisper base.en dễ lặp vòng).

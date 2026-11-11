@@ -81,6 +81,7 @@ import { ClaudeCliLocator, NO_CLI, type CliProbe } from './ai/resolveClaudeCli'
 import { DiaryRepository } from './db/repositories/DiaryRepository'
 import { DiaryService } from './services/DiaryService'
 import { WritingService } from './services/WritingService'
+import { SpeakingService } from './services/SpeakingService'
 
 export interface Container {
   clock: Clock
@@ -123,6 +124,8 @@ export interface Container {
   diary: DiaryService
   /** Chấm dạng bài luyện viết trong bài học: dịch câu, viết theo đề (docs/07 "Luyện viết") */
   writing: WritingService
+  /** Chấm dạng bài trả lời câu hỏi bằng giọng nói trong bài học (docs/07) */
+  speaking: SpeakingService
   /** Viết tự do theo đề, có lưu bài + nhận xét AI (docs/07 "Viết tự do") */
   freeWriting: FreeWritingService
 }
@@ -492,6 +495,11 @@ export function createContainer(
     lessons: (kind) => lessonServices[kind],
     settings
   })
+  const speaking = new SpeakingService({
+    ai,
+    lessons: (kind) => lessonServices[kind],
+    settings
+  })
   const freeWriting = new FreeWritingService({
     repo: repos.freeWriting,
     xpRepo: repos.xp,
@@ -539,6 +547,7 @@ export function createContainer(
     ai,
     diary,
     writing,
+    speaking,
     freeWriting
   }
 }

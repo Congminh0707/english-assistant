@@ -1355,6 +1355,7 @@
       "autoSaved": "Đã lưu {n} từ mới của bài vào sổ từ",
       "translateHelp": "Dịch câu sau sang tiếng Anh.",
       "writeHelp": "Viết bằng tiếng Anh theo đề bài.",
+      "respondHelp": "Trả lời câu hỏi bằng tiếng Anh (nói, tối đa 30 giây).",
       "grading": "Đang chấm…",
       "gradingAi": "AI đang chấm bài, chờ một chút nhé…",
       "writing": {
@@ -1379,8 +1380,33 @@
           "task": "Đúng đề",
           "grammar": "Ngữ pháp",
           "vocabulary": "Từ vựng",
-          "coherence": "Mạch lạc"
+          "coherence": "Mạch lạc",
+          "fluency": "Trôi chảy"
         }
+      },
+      "respond": {
+        "showVi": "Xem nghĩa tiếng Việt",
+        "hideVi": "Ẩn nghĩa tiếng Việt",
+        "recording": "Đang nghe… còn {s} giây",
+        "recordHint": "Bấm để nói, tối đa {max} giây. Bạn ghi lại được bao nhiêu lần tuỳ thích trước khi chấm.",
+        "transcribing": "Đang nhận dạng…",
+        "heard": "Máy nghe được:",
+        "again": "Ghi lại",
+        "wpm": "{n} từ/phút",
+        "pauses": "{n} lần ngừng lâu",
+        "fillers": "{n} từ đệm (um, uh…)",
+        "repeats": "{n} lần lặp từ",
+        "asrNote": "Máy nhận dạng có thể nghe nhầm. Nếu sai nhiều, hãy ghi lại.",
+        "askAi": "Nhận xét bằng AI",
+        "retryAi": "Thử lại nhận xét AI",
+        "gradeLocal": "Chấm không cần AI",
+        "privacy": "Chỉ gửi chữ máy nghe được cho Claude, không gửi âm thanh.",
+        "aiFailed": "Chưa nhận xét được bằng AI.",
+        "noAi": "Chấm tại máy (không có nhận xét AI): đạt khi nói đủ {n} từ.",
+        "better": "Câu trả lời tốt hơn",
+        "sample": "Câu trả lời mẫu",
+        "noPronunciation": "Phần này không chấm phát âm — luyện phát âm ở các bài đọc to (Luyện nói).",
+        "seconds": "nói {n} giây"
       }
     },
     "courses": {
@@ -1967,7 +1993,7 @@
       "failed": "Không ghi âm được."
     },
     "settingsTitle": "Nhận dạng giọng nói (bài nói)",
-    "settingsHint": "Dùng để chấm bài luyện nói. Chạy hoàn toàn trên máy bạn; âm thanh không được lưu và không gửi đi đâu.",
+    "settingsHint": "Dùng để chấm bài luyện nói. Chạy hoàn toàn trên máy bạn; âm thanh không được lưu và không gửi đi đâu. Chữ máy nghe được chỉ được gửi cho AI khi bạn bấm “Nhận xét bằng AI” ở bài trả lời câu hỏi.",
     "whisperReady": "Model Whisper base.en đã sẵn sàng ({size} MB)",
     "whisperNeed": "Cần tải model Whisper base.en (~{size} MB) để chấm bài nói.",
     "pronTitle": "Chấm phát âm chi tiết (tuỳ chọn)",

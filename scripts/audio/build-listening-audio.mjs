@@ -189,6 +189,10 @@ function addLesson(add, lesson) {
       case 'speak': // SpeakPractice can-listen: "Nghe mẫu" 0,9
         both(ex.say, 0.9)
         break
+      case 'respond': // AudioPrompt câu hỏi 0,9 / 0,6 + WritingFeedback nút nghe câu trả lời mẫu 0,9
+        both(ex.question, 0.9, 0.6)
+        if (ex.sample) both(ex.sample, 0.9)
+        break
       // mcq / tf / match: không đọc to
     }
   }

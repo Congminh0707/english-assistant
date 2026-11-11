@@ -60,7 +60,8 @@ describe('registry dạng bài của bài học', () => {
         'speak',
         'tf',
         'translate',
-        'write'
+        'write',
+        'respond'
       ].sort()
     )
   })
@@ -119,8 +120,27 @@ describe('registry dạng bài của bài học', () => {
     expect(gradedRemotely(MCQ)).toBe(false)
   })
 
-  it('Elo: bài viết chỉ tính khi AI chấm; dạng khác luôn tính', () => {
+  it('trả lời nói: chỉ chấm được khi đã có lời nhận dạng thật (không chỉ từ đệm); đúng/sai theo kết luận main', () => {
+    const ex: LessonExercise = { type: 'respond', question: 'Q?', minWords: 3, sample: 'S.' }
+    const st = newState()
+    expect(canCheck(ex, st)).toBe(false)
+    st.answer = { text: 'um, uh…', words: [] }
+    expect(canCheck(ex, st)).toBe(false)
+    st.answer = { text: 'I like tea', words: [] }
+    expect(canCheck(ex, st)).toBe(true)
+    expect(isCorrect(ex, st)).toBe(false)
+    st.verdict = true
+    expect(isCorrect(ex, st)).toBe(true)
+    expect(solutionOf(ex, tf)).toBe('S.')
+    expect(gradedRemotely(ex)).toBe(true)
+    expect(speaksSolution(ex)).toBe(false)
+  })
+
+  it('Elo: bài viết chỉ tính khi AI chấm; trả lời nói không bao giờ tính; dạng khác luôn tính', () => {
     const write: LessonExercise = { type: 'write', prompt: 'p', minWords: 3 }
+    const respond: LessonExercise = { type: 'respond', question: 'Q?', minWords: 3 }
+    expect(countsForSkill(respond, 'ai')).toBe(false)
+    expect(countsForSkill(respond, 'local')).toBe(false)
     expect(countsForSkill(write, 'ai')).toBe(true)
     expect(countsForSkill(write, 'local')).toBe(false)
     expect(countsForSkill({ type: 'translate', vi: 'x', answers: ['y'] }, 'local')).toBe(true)

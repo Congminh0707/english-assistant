@@ -4,6 +4,7 @@
 import { z } from 'zod'
 import { LevelCode } from './content/level'
 import { TRANSLATE_MAX_CHARS, WRITE_MAX_CHARS } from '../writing'
+import { RESPOND_QUESTION_MAX_CHARS, RESPOND_SAMPLE_MAX_CHARS } from '../speaking'
 
 const Text = z.string().trim().min(1)
 
@@ -172,6 +173,22 @@ export const LessonExerciseSchema = z.discriminatedUnion('type', [
     maxWords: z.number().int().min(5).max(250).optional(),
     /** Bài mẫu (hiện sau khi nộp) */
     sample: Text.max(WRITE_MAX_CHARS).optional(),
+    explain: Text.optional()
+  }),
+  /**
+   * Trả lời câu hỏi bằng giọng nói (speak_answer — tên `speak` đã dùng cho đọc to/shadowing): ghi âm ≤ 30 giây, Whisper
+   * nhận dạng tại máy, người học bấm "Nhận xét bằng AI" thì lời nhận dạng (chữ) được AI chấm (`speaking_feedback`,
+   * đạt ≥ RESPOND_PASS); không có AI thì đạt khi nói đủ `minWords` từ (SpeakingService, docs/07)
+   */
+  z.object({
+    type: z.literal('respond'),
+    /** Câu hỏi tiếng Anh (hiển thị + nút nghe) */
+    question: Text.max(RESPOND_QUESTION_MAX_CHARS),
+    /** Nghĩa tiếng Việt của câu hỏi (bấm để hiện) */
+    vi: Text.max(RESPOND_QUESTION_MAX_CHARS).optional(),
+    minWords: z.number().int().min(3).max(60),
+    /** Câu trả lời mẫu (hiện sau khi chấm, có nút nghe) */
+    sample: Text.max(RESPOND_SAMPLE_MAX_CHARS).optional(),
     explain: Text.optional()
   }),
   /** Nghe rồi chọn */

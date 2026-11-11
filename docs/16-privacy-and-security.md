@@ -16,7 +16,7 @@ App chạy thường trực trên máy, có thể đọc clipboard, nghe micro, 
 | Đọc clipboard khi bấm phím tắt dịch | Bật (chỉ khi người dùng bấm) | Văn bản vừa copy | Không lưu, trừ khi bật "Lịch sử dịch" | Chỉ khi dùng dịch online (LLM) |
 | Theo dõi clipboard liên tục | **Tắt** | Văn bản copy | Không lưu | Không (chỉ phát hiện tiếng Anh local) |
 | Biết cửa sổ đang active | Bật (cho chế độ yên lặng) | Tên process + trạng thái fullscreen | Không lưu (chỉ dùng tức thời) | Không |
-| Micro | Hỏi khi dùng module Nói | Audio | `recordings/`, tự xoá sau 7 ngày | Chỉ khi dùng STT/chấm online |
+| Micro | Hỏi khi dùng module Nói | Audio (PCM trong bộ nhớ) → lời nhận dạng (chữ) | Âm thanh: không lưu (chỉ trong bộ nhớ đến khi Whisper nhận dạng xong); lời nhận dạng: không lưu | Âm thanh: **không bao giờ**. Lời nhận dạng (chữ): chỉ khi người học bấm "Nhận xét bằng AI" ở câu trả lời nói, gửi cho nhà cung cấp AI đang dùng |
 | Chụp màn hình (OCR) | Chỉ khi người dùng bấm phím tắt & chọn vùng | Ảnh vùng chọn | Không lưu | Không (OCR local) |
 | Lịch sử dịch | Bật, có thể tắt | Văn bản + bản dịch | `user.db`, xoá được | Không |
 | Gửi lên LLM | Chỉ khi người dùng cấu hình AI | Văn bản/bài viết/transcript cần xử lý | Theo chính sách của provider | Có — hiện cảnh báo lần đầu |
@@ -99,7 +99,8 @@ App chạy `claude -p` của người dùng như một tiến trình con. Quy t�
 ## Micro & bài nói
 
 - Quyền micro chỉ được cấp cho trang của chính app và chỉ cho âm thanh (không camera/màn hình) — `applyPermissionPolicy` trong `src/main/system/security.ts`; mọi quyền thiết bị khác bị từ chối.
-- Âm thanh ghi chỉ nằm trong bộ nhớ trong lúc nhận dạng (PCM 16 kHz): **không lưu file, không gửi mạng, không log** (kể cả lời nhận dạng). Model Whisper chạy trên máy (utilityProcess, `allowRemoteModels = false`).
+- Âm thanh ghi chỉ nằm trong bộ nhớ trong lúc nhận dạng (PCM 16 kHz), chỉ đi renderer → main → Whisper: **không lưu file, không gửi mạng, không log**. Lời nhận dạng (chữ) cũng không lưu và không log (ở main, worker lẫn thông báo lỗi); nó chỉ rời máy trong đúng một trường hợp ở mục dưới. Model Whisper chạy trên máy (utilityProcess, `allowRemoteModels = false`).
+- **Ngoại lệ duy nhất — trả lời câu hỏi bằng giọng nói (dạng `respond`, 2026-11-11, decisions #61)**: lời nhận dạng (**chữ**, không phải âm thanh) được gửi cho Claude (key API hoặc Claude Code CLI) **chỉ khi người học bấm "Nhận xét bằng AI"** sau khi đã thấy chữ máy nghe được; không bao giờ tự gửi sau khi ghi âm, phím Enter không gửi. Cạnh nút luôn có dòng "Chỉ gửi chữ máy nghe được cho Claude, không gửi âm thanh". Gửi kèm câu hỏi (lấy từ nội dung bài), số liệu trôi chảy (số từ, tốc độ, quãng ngừng, từ đệm, lặp từ — do main tính) và `learning.level`. Lời nhận dạng không lưu ở đâu (không DB, không cài đặt; chỉ cache trong bộ nhớ của `AiService` như mọi tác vụ AI), không log. AI tắt / hồ sơ trẻ em / người học chọn "Chấm không cần AI" → không gửi gì, chấm tại máy theo số từ.
 - Model tải về từ Hugging Face khi người dùng đồng ý, ghim revision và kiểm tra sha256 từng file.
 
 ## Lấy chữ đang bôi đen (Ctrl+Alt+T)

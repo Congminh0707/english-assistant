@@ -237,6 +237,7 @@ Phần lớn bài học có cấu trúc (lesson, bài tập ngữ pháp, hội t
 - Định nghĩa tiếng Anh từ Wiktionary (CC BY-SA) được đưa vào prompt sinh nghĩa Việt **chỉ làm ngữ cảnh phân biệt nghĩa** (dịch từ, không dịch câu định nghĩa). Nghĩa sinh ra hiện nằm trong pack CC BY-SA nên không phát sinh vấn đề; ⚠️ nếu tách ra pack khác license, rà lại.
 - **Track B2–C2 (2026-11-05)**: 12 bài học, 16 điểm ngữ pháp, 24 bài đọc, 16 bài nghe và 2 khoá mới do `claude-opus-5-5` sinh, tự soạn hoàn toàn, `license: proprietary-own`, AI tự duyệt (chưa có người thật duyệt).
 - Mô phỏng **format** đề TOEIC/IELTS là được; sao chép câu hỏi thật là không.
+- **Trả lời câu hỏi bằng giọng nói (2026-11-11)**: `content/curated/lessons/11-speaking-answers.json`, 6 bài A1_1 → B1_2, 26 câu `respond` (câu hỏi đời thường tự nghĩ ra: bản thân, gia đình, giờ giấc, món ăn, sở thích, cuối tuần, kế hoạch, ý kiến, trải nghiệm) + câu trả lời mẫu, do `claude-opus-5-5` soạn, `license: proprietary-own`; **không** chép câu hỏi thi IELTS/TOEIC thật. Chưa có giáo viên người thật duyệt ([07](07-learning-modules.md#trả-lời-câu-hỏi-bằng-giọng-nói-respond--2026-11-11)).
 - **Ngân hàng TOEIC (2026-11-05)**: `content/curated/toeic/*.json`, 267 câu / 7 Part, do `claude-opus-5-5` sinh và tự duyệt (chủ dự án chốt: AI tự sinh, tự duyệt), `license: proprietary-own`, `generator` + `reviewed` ghi ở đầu mỗi file. Part 1 chưa có ảnh (dùng `scene` làm chú thích).
 
 ## 11. Quy trình thêm một nguồn mới

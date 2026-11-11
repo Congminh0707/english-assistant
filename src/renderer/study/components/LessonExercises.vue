@@ -2,10 +2,12 @@
 import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Lesson, LessonKind } from '@shared/schemas/lesson'
+import type { SpeakingResult } from '@shared/schemas/speaking'
 import type { TranslateCheckResult, WritingResult } from '@shared/schemas/writing'
 import { TRANSLATE_MAX_CHARS } from '@shared/writing'
 import type { SpeechScore } from '@shared/speech'
 import { useTts } from '@renderer/shared/composables/useTts'
+import { useSpeakingStore } from '@renderer/shared/stores/speaking'
 import { useWritingStore } from '@renderer/shared/stores/writing'
 import PicText from '@renderer/shared/components/PicText.vue'
 import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
@@ -14,6 +16,7 @@ import { confirmLeave, useLeaveGuard } from '../leaveGuard'
 import AudioPrompt from '../exercises/AudioPrompt.vue'
 import ChoiceList from '../exercises/ChoiceList.vue'
 import MatchBoard from '../exercises/MatchBoard.vue'
+import RespondBoard from '../exercises/RespondBoard.vue'
 import WordOrderBoard from '../exercises/WordOrderBoard.vue'
 import WriteBoard from '../exercises/WriteBoard.vue'
 import WritingFeedback from '../exercises/WritingFeedback.vue'
@@ -48,6 +51,7 @@ const emit = defineEmits<{
 const { t } = useI18n()
 const { speak, prefetch } = useTts()
 const writing = useWritingStore()
+const speaking = useSpeakingStore()
 
 // Đang làm bài tập thì thoát (về bài đọc, danh sách, làng) phải hỏi; xong bài thì trang cha tháo màn này
 useLeaveGuard(() => true)
@@ -71,10 +75,18 @@ const correctCount = ref(0)
 /** Kết quả theo dạng bài (gửi lên main để thống kê độ chính xác và Elo theo kỹ năng) */
 const typeResults = ref<Record<string, { correct: number; total: number }>>({})
 const typedInput = ref<HTMLInputElement>()
-/** Dịch câu / viết theo đề: đang chờ main (có thể là AI) chấm — khoá nút và ô nhập, giữ nguyên chữ */
+/** Dịch câu / viết theo đề / trả lời nói: đang chờ main (có thể là AI) chấm — khoá nút và ô nhập, giữ nguyên chữ */
 const grading = ref(false)
+/** Lần chấm đang chạy có dùng AI không (dòng trạng thái "AI đang chấm") */
+const gradingWithAi = ref(false)
 const translateResult = ref<TranslateCheckResult | null>(null)
 const writeResult = ref<WritingResult | null>(null)
+const respondResult = ref<SpeakingResult | null>(null)
+/**
+ * Trả lời nói: đã bấm "Nhận xét bằng AI" mà AI không nhận xét được (tắt, hết lượt, bận, lỗi) → chưa chốt câu, cho thử
+ * lại AI hoặc chấm không cần AI (kết quả chấm tại máy main đã trả kèm)
+ */
+const respondPending = ref<SpeakingResult | null>(null)
 
 const total = computed(() => props.lesson.exercises.length)
 const ex = computed(() => props.lesson.exercises[idx.value])
@@ -88,6 +100,8 @@ function enter(): void {
   correct.value = false
   translateResult.value = null
   writeResult.value = null
+  respondResult.value = null
+  respondPending.value = null
   Object.assign(state, initState(e, shuffle))
   if (e.type === 'listen') window.setTimeout(() => speak(e.say, undefined, 0.9), 250)
   if (e.type === 'picture' && e.listen) window.setTimeout(() => speak(e.word, undefined, 0.9), 250)
@@ -101,8 +115,11 @@ const canCheck = computed(() => !checked.value && !grading.value && canCheckEx(e
 /** Hiện nút nghe: nghe chọn, hoặc chọn hình dạng nghe từ */
 const audioText = computed(() => {
   const e = ex.value
+  if (e.type === 'respond') return e.question
   return e.type === 'listen' ? e.say : e.type === 'picture' && e.listen ? e.word : null
 })
+/** Trả lời nói, AI dùng được: nút chính là "Nhận xét bằng AI" (kèm dòng báo gửi chữ cho Claude) */
+const respondAi = computed(() => ex.value.type === 'respond' && writing.aiReady === true)
 /** Hai cột của bài ghép cặp (cột phải theo thứ tự đã xáo) */
 const matchColumns = computed(() => {
   const e = ex.value
@@ -149,12 +166,47 @@ function skipSpeak(): void {
   check()
 }
 
-/** Dịch câu / viết theo đề: nhờ main chấm (so khớp đáp án mẫu, AI nếu có); store không ném lỗi nên luôn có kết luận */
-async function gradeRemote(): Promise<string | null> {
+/** Trả lời nói không làm được (không có micro, chưa tải model…): bỏ qua câu này, tính là chưa đạt — như skipSpeak */
+function skipRespond(): void {
+  if (checked.value || grading.value) return
+  state.verdict = false
+  respondResult.value = null
+  respondPending.value = null
+  commit(null)
+}
+
+/** Trả lời nói: AI không nhận xét được → dùng kết quả chấm tại máy main đã trả */
+function acceptLocal(): void {
+  const r = respondPending.value
+  if (!r || checked.value || grading.value) return
+  respondPending.value = null
+  respondResult.value = r
+  state.verdict = r.passed
+  commit(r.gradedBy)
+}
+
+/**
+ * Dịch câu / viết theo đề / trả lời nói: nhờ main chấm (so khớp đáp án mẫu, AI nếu có); store không ném lỗi nên luôn có
+ * kết luận. Trả lời nói chỉ dùng AI khi `useAi` (người học bấm "Nhận xét bằng AI"); AI lỗi → 'hold' (chưa chốt câu).
+ */
+async function gradeRemote(useAi: boolean): Promise<string | null> {
   const e = ex.value
   const at = { kind: props.kind, lessonId: props.lesson.id, index: idx.value }
   grading.value = true
+  gradingWithAi.value = e.type === 'respond' ? useAi : writing.aiReady === true
   try {
+    if (e.type === 'respond') {
+      if (!state.answer) return 'hold'
+      const r = await speaking.feedback(at, state.answer, e.minWords, useAi)
+      if (useAi && r.gradedBy === 'local' && r.aiReason) {
+        respondPending.value = r
+        return 'hold'
+      }
+      respondPending.value = null
+      respondResult.value = r
+      state.verdict = r.passed
+      return r.gradedBy
+    }
     if (e.type === 'translate') {
       const r = await writing.checkTranslation(at, state.typed, e.answers)
       translateResult.value = r
@@ -173,10 +225,17 @@ async function gradeRemote(): Promise<string | null> {
   }
 }
 
-async function check(): Promise<void> {
+async function check(useAi = false): Promise<void> {
   if (!canCheck.value) return
   const e = ex.value
-  const gradedBy = gradedRemotely(e) ? await gradeRemote() : null
+  const gradedBy = gradedRemotely(e) ? await gradeRemote(useAi) : null
+  if (gradedBy === 'hold') return
+  commit(gradedBy)
+}
+
+/** Chốt kết quả câu hiện tại (đếm điểm bài, Elo theo dạng bài, đọc lời giải) */
+function commit(gradedBy: string | null): void {
+  const e = ex.value
   correct.value = isCorrectEx(e, state)
   if (correct.value) correctCount.value++
   // Bài viết chỉ chấm theo số từ (không có AI) không tính vào Elo, chỉ tính vào điểm bài
@@ -211,7 +270,8 @@ function onKeyDown(event: KeyboardEvent): void {
   if (event.key === 'Enter') {
     event.preventDefault()
     if (checked.value) next()
-    else void check()
+    // Trả lời nói: chỉ chấm/gửi AI khi bấm nút (không gửi lời nhận dạng bằng một phím Enter lỡ tay)
+    else if (ex.value.type !== 'respond') void check()
     return
   }
   const n = Number(event.key)
@@ -238,9 +298,11 @@ onMounted(() => {
           ? [e.answer]
           : e.type === 'speak'
             ? [e.say]
-            : e.type === 'picture' && e.listen
-              ? [e.word]
-              : []
+            : e.type === 'respond'
+              ? [e.question, ...(e.sample ? [e.sample] : [])]
+              : e.type === 'picture' && e.listen
+                ? [e.word]
+                : []
     ),
     undefined,
     0.9
@@ -277,6 +339,9 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
         {{ t('study.lessons.translateHelp') }}
       </p>
       <p v-else-if="ex.type === 'write'" class="instruction">{{ t('study.lessons.writeHelp') }}</p>
+      <p v-else-if="ex.type === 'respond'" class="instruction">
+        {{ t('study.lessons.respondHelp') }}
+      </p>
       <p v-else-if="ex.type === 'order'" class="instruction">{{ t('study.lessons.orderHelp') }}</p>
       <p v-else-if="ex.type === 'match'" class="instruction">
         {{ ex.prompt ?? t('study.lessons.matchHelp') }}
@@ -288,6 +353,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       <p v-else-if="ex.type === 'order'" class="prompt vi">{{ ex.hint }}</p>
       <p v-else-if="ex.type === 'translate'" class="prompt vi">{{ ex.vi }}</p>
       <p v-else-if="ex.type === 'write'" class="prompt task">{{ ex.prompt }}</p>
+      <p v-else-if="ex.type === 'respond'" class="prompt task">{{ ex.question }}</p>
       <p v-else-if="ex.type === 'gap'" class="prompt">
         {{ promptParts[0]
         }}<span class="blank">{{
@@ -332,6 +398,15 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
         :locked="checked || grading"
       />
 
+      <RespondBoard
+        v-else-if="ex.type === 'respond'"
+        :key="idx"
+        v-model="state.answer"
+        :vi="ex.vi"
+        :min-words="ex.minWords"
+        :locked="checked || grading || respondPending !== null"
+      />
+
       <WordOrderBoard
         v-else-if="ex.type === 'order'"
         v-model="state.picked"
@@ -358,8 +433,16 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 
       <p v-if="grading" class="grading" role="status" aria-live="polite">
         <UiIcon name="write" />
-        {{ writing.aiReady ? t('study.lessons.gradingAi') : t('study.lessons.grading') }}
+        {{ gradingWithAi ? t('study.lessons.gradingAi') : t('study.lessons.grading') }}
       </p>
+
+      <div v-if="respondPending && !grading" class="pending" role="alert">
+        <UiIcon name="hint" />
+        <span
+          >{{ t('study.lessons.respond.aiFailed') }}
+          <template v-if="respondPending.aiReason">{{ t(respondPending.aiReason) }}</template></span
+        >
+      </div>
 
       <div v-if="checked" class="feedback" :class="{ ok: correct }">
         <strong class="verdict"
@@ -367,7 +450,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
             correct ? t('study.lessons.correct') : t('study.lessons.wrong')
           }}</strong
         >
-        <div v-if="!correct && ex.type !== 'write'" class="solution">
+        <div v-if="!correct && ex.type !== 'write' && ex.type !== 'respond'" class="solution">
           <PicText v-if="ex.type === 'picture'" :text="ex.choices[ex.answer]" :size="48" ids />
           {{ solution }}
         </div>
@@ -377,16 +460,24 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       </div>
 
       <WritingFeedback
-        v-if="checked && (translateResult || writeResult)"
+        v-if="checked && (translateResult || writeResult || respondResult)"
         :translate="translateResult"
         :write="writeResult"
+        :speak="respondResult"
         :model-answer="ex.type === 'translate' ? ex.answers[0] : undefined"
-        :sample="ex.type === 'write' ? ex.sample : undefined"
+        :sample="ex.type === 'write' || ex.type === 'respond' ? ex.sample : undefined"
+        :min-words="ex.type === 'respond' ? ex.minWords : undefined"
       />
+      <p v-else-if="checked && ex.type === 'respond' && ex.sample" class="sample">
+        <strong>{{ t('study.lessons.respond.sample') }}:</strong> {{ ex.sample }}
+      </p>
     </div>
 
     <div class="foot">
-      <p class="keys">{{ t('study.lessons.keysHint') }}</p>
+      <p v-if="respondAi && !checked" class="keys privacy">
+        <UiIcon name="lock" /> {{ t('study.lessons.respond.privacy') }}
+      </p>
+      <p v-else class="keys">{{ t('study.lessons.keysHint') }}</p>
       <div class="actions">
         <button
           v-if="ex.type === 'speak' && !checked"
@@ -396,12 +487,65 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
         >
           {{ t('study.lessons.skipSpeak') }}
         </button>
+        <template v-if="ex.type === 'respond' && !checked">
+          <button
+            v-if="!respondPending"
+            type="button"
+            class="btn btn--ghost btn--sm"
+            :disabled="grading"
+            @click="skipRespond"
+          >
+            {{ t('study.lessons.skipSpeak') }}
+          </button>
+          <button
+            v-if="respondPending"
+            type="button"
+            class="btn"
+            :disabled="grading"
+            @click="acceptLocal"
+          >
+            {{ t('study.lessons.respond.gradeLocal') }}
+          </button>
+          <button
+            v-else-if="respondAi"
+            type="button"
+            class="btn"
+            :disabled="!canCheck"
+            @click="check(false)"
+          >
+            {{ t('study.lessons.respond.gradeLocal') }}
+          </button>
+          <button
+            v-if="respondAi || respondPending"
+            type="button"
+            class="btn btn--primary"
+            :disabled="!canCheck"
+            @click="check(true)"
+          >
+            {{
+              grading
+                ? t('study.lessons.grading')
+                : respondPending
+                  ? t('study.lessons.respond.retryAi')
+                  : t('study.lessons.respond.askAi')
+            }}
+          </button>
+          <button
+            v-else
+            type="button"
+            class="btn btn--primary"
+            :disabled="!canCheck"
+            @click="check(false)"
+          >
+            {{ grading ? t('study.lessons.grading') : t('study.lessons.check') }}
+          </button>
+        </template>
         <button
-          v-if="!checked"
+          v-else-if="!checked"
           type="button"
           class="btn btn--primary"
           :disabled="!canCheck"
-          @click="check"
+          @click="check()"
         >
           {{ grading ? t('study.lessons.grading') : t('study.lessons.check') }}
         </button>
@@ -445,6 +589,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 }
 .foot {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-3);
@@ -547,6 +692,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 }
 .actions {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: var(--sp-2);
 }
@@ -554,5 +700,25 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
   margin: 0;
   color: var(--c-ink-soft);
   font-size: var(--fs-xs);
+}
+.keys.privacy {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+}
+.pending {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-3);
+  color: var(--c-warning);
+  background: var(--c-warning-soft);
+  border-radius: var(--r-md);
+  font-weight: 600;
+}
+.sample {
+  margin: 0;
 }
 </style>

@@ -1355,6 +1355,7 @@
       "autoSaved": "Saved {n} new word from this lesson to your word list | Saved {n} new words from this lesson to your word list",
       "translateHelp": "Translate this sentence into English.",
       "writeHelp": "Write in English for this task.",
+      "respondHelp": "Answer the question in English (speak, up to 30 seconds).",
       "grading": "Checking…",
       "gradingAi": "The AI is marking your answer, one moment…",
       "writing": {
@@ -1379,8 +1380,33 @@
           "task": "Task",
           "grammar": "Grammar",
           "vocabulary": "Vocabulary",
-          "coherence": "Coherence"
+          "coherence": "Coherence",
+          "fluency": "Fluency"
         }
+      },
+      "respond": {
+        "showVi": "Show Vietnamese meaning",
+        "hideVi": "Hide Vietnamese meaning",
+        "recording": "Listening… {s} seconds left",
+        "recordHint": "Press to speak, up to {max} seconds. You can record again as many times as you like before checking.",
+        "transcribing": "Recognising…",
+        "heard": "The app heard:",
+        "again": "Record again",
+        "wpm": "{n} words/min",
+        "pauses": "{n} long pauses",
+        "fillers": "{n} fillers (um, uh…)",
+        "repeats": "{n} repeated words",
+        "asrNote": "Speech recognition can mishear. If it is very wrong, record again.",
+        "askAi": "Get AI feedback",
+        "retryAi": "Try AI feedback again",
+        "gradeLocal": "Check without AI",
+        "privacy": "Only the recognised text is sent to Claude, never the audio.",
+        "aiFailed": "AI feedback is not available right now.",
+        "noAi": "Checked on this computer (no AI feedback): passes with at least {n} words.",
+        "better": "A better answer",
+        "sample": "Sample answer",
+        "noPronunciation": "Pronunciation is not assessed here; practise it in the read-aloud lessons (Speaking practice).",
+        "seconds": "{n} s of speech"
       }
     },
     "courses": {
@@ -1967,7 +1993,7 @@
       "failed": "Could not record."
     },
     "settingsTitle": "Speech recognition (speaking practice)",
-    "settingsHint": "Used to score speaking practice. Runs entirely on your computer; audio is never saved or sent anywhere.",
+    "settingsHint": "Used to score speaking practice. Runs entirely on your computer; audio is never saved or sent anywhere. The recognised text is sent to the AI only when you press “Get AI feedback” in an answer-the-question exercise.",
     "whisperReady": "Whisper base.en model is ready ({size} MB)",
     "whisperNeed": "Download the Whisper base.en model (~{size} MB) to score speaking practice.",
     "pronTitle": "Detailed pronunciation scoring (optional)",

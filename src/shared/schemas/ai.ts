@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import type { AnswerFluency } from '../speech'
 
 /** Model Claude người dùng chọn cho AI (docs/11 §5, docs/decisions.md #56) */
 export const AI_MODELS = ['claude-haiku-5-5', 'claude-sonnet-5-5'] as const
@@ -107,3 +108,33 @@ export const WritingFeedbackSchema = z.object({
   tips_vi: z.array(z.string())
 })
 export type WritingFeedback = z.infer<typeof WritingFeedbackSchema>
+
+/**
+ * Đầu vào tác vụ speaking_feedback (SpeakingService.feedback): câu hỏi lấy từ nội dung bài, lời nhận dạng Whisper,
+ * số liệu trôi chảy main tự tính lại từ mốc thời gian từng từ
+ */
+export interface SpeakingFeedbackInput {
+  question: string
+  transcript: string
+  minWords: number
+  fluency: AnswerFluency
+  level: string
+}
+
+/**
+ * Kết quả tác vụ speaking_feedback: điểm 4 tiêu chí (0–5: trả lời đúng câu hỏi, ngữ pháp, từ vựng, trôi chảy — không có
+ * phát âm vì AI không nghe âm thanh), điểm tổng (0–100), các chỗ sửa, câu trả lời tốt hơn, mẹo tiếng Việt
+ */
+export const SpeakingFeedbackSchema = z.object({
+  scores: z.object({
+    task: RubricScore,
+    grammar: RubricScore,
+    vocabulary: RubricScore,
+    fluency: RubricScore
+  }),
+  overall: z.number().int().min(0).max(100),
+  corrections: z.array(z.object({ from: z.string(), to: z.string(), note_vi: z.string() })),
+  better_answer: z.string(),
+  tips_vi: z.array(z.string())
+})
+export type SpeakingFeedback = z.infer<typeof SpeakingFeedbackSchema>

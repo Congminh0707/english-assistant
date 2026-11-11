@@ -17,6 +17,7 @@ import { PICTURE_IDS } from '@shared/pictures'
 import { PlacementBankFileSchema } from '@shared/schemas/placement'
 import { translationForms } from '@shared/translationMatch'
 import { writingWordCount } from '@shared/writing'
+import { respondWordCount } from '@shared/speaking'
 import type { z } from 'zod'
 
 // Kiểm tra toàn bộ nội dung bài học trong content/curated/lessons/*.json:
@@ -88,6 +89,18 @@ function problems(ex: LessonExercise, where: string): string[] {
         if (n < ex.minWords || (ex.maxWords !== undefined && n > ex.maxWords))
           out.push(`${where}: bài mẫu ${n} từ, ngoài khoảng yêu cầu`)
       }
+      break
+    }
+    case 'respond': {
+      // Câu trả lời mẫu phải đạt chính ngưỡng chấm tại máy và nói được trong 30 giây (~140 từ/phút → ≤ 70 từ)
+      if (ex.sample) {
+        const n = respondWordCount(ex.sample)
+        if (n < ex.minWords) out.push(`${where}: câu mẫu ${n} từ, ít hơn minWords ${ex.minWords}`)
+        if (n > 70) out.push(`${where}: câu mẫu ${n} từ, quá dài để nói trong 30 giây`)
+      }
+      if (ex.minWords > 30) out.push(`${where}: minWords ${ex.minWords} quá nhiều cho 30 giây nói`)
+      if (ex.vi && !/[ăâđêôơưàáảãạèéẻẽẹìíỉĩịòóỏõọùúủũụỳýỷỹỵ]/i.test(ex.vi))
+        out.push(`${where}: nghĩa tiếng Việt thiếu dấu`)
       break
     }
     case 'match': {

@@ -4,6 +4,7 @@ import { fnv1a64 } from '@shared/audioPack'
 import {
   DiaryCorrectSchema,
   GrammarExplainSchema,
+  SpeakingFeedbackSchema,
   TranslationCheckSchema,
   WritingFeedbackSchema,
   type AiExplainInput,
@@ -12,6 +13,8 @@ import {
   type DiaryCorrect,
   type DiaryCorrectInput,
   type GrammarExplain,
+  type SpeakingFeedback,
+  type SpeakingFeedbackInput,
   type TranslationCheck,
   type TranslationCheckInput,
   type WritingFeedback,
@@ -30,6 +33,8 @@ import {
   fillPrompt,
   GRAMMAR_EXPLAIN_SYSTEM,
   GRAMMAR_EXPLAIN_USER,
+  SPEAKING_FEEDBACK_SYSTEM,
+  SPEAKING_FEEDBACK_USER,
   TRANSLATION_CHECK_SYSTEM,
   TRANSLATION_CHECK_USER,
   WRITING_FEEDBACK_SYSTEM,
@@ -54,8 +59,22 @@ function extractJson(text: string): unknown {
   }
 }
 
+/** Số liệu trôi chảy dạng dòng `tên: giá trị` cho thẻ <fluency> (null = quá ít từ để đo → "unknown") */
+function fluencyLines(f: SpeakingFeedbackInput['fluency']): string {
+  const v = (n: number | null): string => (n === null ? 'unknown' : String(n))
+  return [
+    `words: ${f.wordCount}`,
+    `words_per_minute: ${v(f.wpm)}`,
+    `long_pauses_over_0.8s: ${v(f.longPauses)}`,
+    `immediate_repetitions: ${f.repetitions}`,
+    `fillers: ${f.fillers}`,
+    `speaking_seconds: ${v(f.speakingSec)}`
+  ].join('\n')
+}
+
 /**
- * Tác vụ AI (docs/11 §5, docs/decisions.md #56, #57): giải thích ngữ pháp, sửa nhật ký, xét câu dịch, chấm bài viết. Hai nhà cung cấp: key API của
+ * Tác vụ AI (docs/11 §5, docs/decisions.md #56, #57, #61): giải thích ngữ pháp, sửa nhật ký, xét câu dịch, chấm bài viết,
+ * nhận xét câu trả lời nói (chữ nhận dạng). Hai nhà cung cấp: key API của
  * người dùng (AnthropicClient) hoặc Claude Code CLI đã đăng nhập gói Pro/Max (ClaudeCliClient), chọn theo `ai.provider`.
  * Mỗi tác vụ: ghép prompt → gọi client → tách JSON → validate zod; câu trả lời đầy đủ mà sai định dạng thì thử lại 1 lần
  * rồi báo AI_FAILED; client lỗi (kể cả bị cắt cụt vì max_tokens) không thử lại, key bị từ chối → errors.aiKeyRejected,
@@ -191,6 +210,37 @@ export class AiService {
       WritingFeedbackSchema
     )
     return { ...out, corrections: out.corrections.slice(0, 8), tips_vi: out.tips_vi.slice(0, 3) }
+  }
+
+  /**
+   * Nhận xét câu trả lời nói (SpeakingService.feedback, kênh speaking:feedback): chỉ gửi chữ nhận dạng + số liệu trôi
+   * chảy main đã tính, không bao giờ gửi âm thanh; giữ tối đa 6 chỗ sửa, 3 mẹo
+   */
+  async speakingFeedback(input: SpeakingFeedbackInput): Promise<SpeakingFeedback> {
+    const fluency = fluencyLines(input.fluency)
+    const minWords = String(input.minWords)
+    const out = await this.run(
+      'speaking_feedback',
+      {
+        question: input.question,
+        transcript: input.transcript,
+        fluency,
+        minWords,
+        level: input.level
+      },
+      {
+        system: fillPrompt(SPEAKING_FEEDBACK_SYSTEM, { level: input.level, minWords }),
+        user: fillPrompt(SPEAKING_FEEDBACK_USER, {
+          question: input.question,
+          transcript: input.transcript,
+          fluency
+        }),
+        maxTokens: 4096,
+        effort: 'low'
+      },
+      SpeakingFeedbackSchema
+    )
+    return { ...out, corrections: out.corrections.slice(0, 6), tips_vi: out.tips_vi.slice(0, 3) }
   }
 
   private async run<S extends z.ZodTypeAny>(

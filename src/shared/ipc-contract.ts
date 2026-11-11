@@ -131,6 +131,7 @@ import {
   WritingFeedbackRequestSchema,
   WritingResultSchema
 } from './schemas/writing'
+import { SpeakingFeedbackRequestSchema, SpeakingResultSchema } from './schemas/speaking'
 import {
   DiaryCorrectResultSchema,
   DiaryEntrySchema,
@@ -246,6 +247,7 @@ export const invokeContract = {
     output: TranslateCheckResultSchema
   },
   'writing:feedback': { input: WritingFeedbackRequestSchema, output: WritingResultSchema },
+  'speaking:feedback': { input: SpeakingFeedbackRequestSchema, output: SpeakingResultSchema },
   'free-writing:view': { input: z.void(), output: FreeWritingViewSchema },
   'free-writing:create': { input: FreeWritingCreateInputSchema, output: FreeWritingEntrySchema },
   'free-writing:update': { input: FreeWritingUpdateInputSchema, output: FreeWritingEntrySchema },

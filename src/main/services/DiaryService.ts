@@ -98,7 +98,7 @@ export class DiaryService {
     return {
       entry: this.today(),
       promptKey: this.prompt(),
-      aiReady: adult && ai.enabled && ai.hasKey
+      aiReady: adult && ai.enabled && ai.ready
     }
   }
 

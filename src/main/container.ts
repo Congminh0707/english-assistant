@@ -71,6 +71,9 @@ import { ProgressRepository } from './db/repositories/ProgressRepository'
 import { LessonRepository } from './db/repositories/LessonRepository'
 import { AnthropicClient, type AiClient } from './ai/AiClient'
 import { AiService } from './ai/AiService'
+import { ClaudeCliClient } from './ai/ClaudeCliClient'
+import type { CliRunner } from './ai/cliRunner'
+import { ClaudeCliLocator, NO_CLI, type CliProbe } from './ai/resolveClaudeCli'
 import { DiaryRepository } from './db/repositories/DiaryRepository'
 import { DiaryService } from './services/DiaryService'
 
@@ -122,9 +125,20 @@ export interface ContainerOptions {
   kidsWorld?: boolean
   /**
    * AI (docs/11 §5): `getKey` đọc key Anthropic (index.ts truyền cùng secret 'anthropic' với Dịch online; bỏ trống = không
-   * có key); `client` thay client thật (test truyền client giả)
+   * có key); `client` / `cliClient` thay client thật (test truyền client giả). `cli`: cách chạy + tìm Claude Code CLI
+   * (index.ts truyền runCli + findClaudeCandidates; bỏ trống = không có CLI, không chạy tiến trình nào — mặc định của test)
    */
-  ai?: { getKey?: () => string | null; client?: AiClient }
+  ai?: {
+    getKey?: () => string | null
+    client?: AiClient
+    cliClient?: AiClient
+    cli?: {
+      run: CliRunner
+      findCandidates: () => Promise<string[]>
+      fallbackCandidates?: () => string[]
+      isFile?: (path: string) => boolean
+    }
+  }
 }
 
 export function createContainer(
@@ -424,10 +438,30 @@ export function createContainer(
   parentService = parent
 
   const aiKey = options.ai?.getKey ?? ((): string | null => null)
+  const cliOpts = options.ai?.cli
+  const cliProbe: CliProbe = cliOpts
+    ? new ClaudeCliLocator({
+        run: cliOpts.run,
+        findCandidates: cliOpts.findCandidates,
+        fallbackCandidates: cliOpts.fallbackCandidates,
+        isFile: cliOpts.isFile,
+        now: () => clock.now()
+      })
+    : NO_CLI
   const ai = new AiService({
-    client:
-      options.ai?.client ??
-      new AnthropicClient({ getKey: aiKey, getModel: () => settings.get('ai.model') }),
+    clients: {
+      api:
+        options.ai?.client ??
+        new AnthropicClient({ getKey: aiKey, getModel: () => settings.get('ai.model') }),
+      cli:
+        options.ai?.cliClient ??
+        new ClaudeCliClient({
+          run: cliOpts?.run ?? (() => Promise.reject(new Error('ai-cli: not available'))),
+          getExe: () => cliProbe.exe(),
+          getModel: () => settings.get('ai.model')
+        })
+    },
+    cli: cliProbe,
     getKey: aiKey,
     settings,
     profiles,

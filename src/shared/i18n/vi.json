@@ -561,8 +561,12 @@
     "pronNotReady": "Chưa tải model chấm phát âm.",
     "pronFailed": "Không chấm được phát âm. Hãy thử lại.",
     "aiFailed": "Không hỏi được AI. Thử lại sau.",
-    "aiOff": "Bật AI trong Cài đặt và nhập key Claude.",
+    "aiOff": "Bật AI trong Cài đặt và nhập key Claude hoặc đăng nhập Claude Code.",
     "aiKeyRejected": "Key Claude bị từ chối. Kiểm tra lại key trong Cài đặt → Dịch online.",
+    "aiBusy": "AI đang bận trả lời câu trước. Đợi một chút rồi thử lại.",
+    "aiDailyLimit": "Đã dùng hết số lượt Claude Code hôm nay. Tăng hạn mức trong Cài đặt hoặc thử lại ngày mai.",
+    "aiPlanLimit": "Đã hết hạn mức của gói Claude. Thử lại sau.",
+    "aiCliLogin": "Claude Code chưa đăng nhập. Chạy `claude` trong terminal để đăng nhập.",
     "forbidden": "Hồ sơ này không dùng được tính năng này."
   },
   "quiz": {
@@ -729,7 +733,7 @@
       "noChanges": "Không cần sửa gì, viết tốt lắm!",
       "history": "30 ngày gần đây",
       "empty": "Chưa có trang nhật ký nào trước hôm nay.",
-      "aiHint": "Bật AI trong Cài đặt và nhập key Claude để AI sửa bài viết cho bạn.",
+      "aiHint": "Bật AI trong Cài đặt, rồi nhập key Claude hoặc đăng nhập Claude Code để AI sửa bài.",
       "prompts": {
         "1": "Hôm nay bạn đã làm gì?",
         "2": "Điều gì làm bạn mỉm cười hôm nay?",
@@ -836,7 +840,7 @@
     "settings": {
       "ai": {
         "title": "AI (Claude)",
-        "hint": "Tuỳ chọn, mặc định tắt. Bật thì câu bạn bấm \"Giải thích ngữ pháp\" trong popup được gửi tới Anthropic; tính phí theo mức dùng của key bạn.",
+        "hint": "Tuỳ chọn, mặc định tắt. Bật thì câu bạn bấm \"Giải thích ngữ pháp\" trong popup (và nhật ký khi bấm \"Nhờ AI sửa\") được gửi tới Anthropic: tính phí theo key của bạn, hoặc trừ vào hạn mức gói Claude nếu dùng Claude Code.",
         "toggle": "Dùng AI giải thích ngữ pháp",
         "model": "Model",
         "models": {
@@ -845,7 +849,26 @@
         },
         "sharedKey": "Dùng chung key Claude ở mục Dịch online.",
         "noKey": "Chưa có key: nhập key Claude ở mục Dịch online.",
-        "calls": "Đã gọi {n} lượt tháng này."
+        "calls": "Đã gọi {n} lượt tháng này.",
+        "provider": "Nhà cung cấp",
+        "providers": {
+          "auto": "Tự động",
+          "api": "Key API",
+          "cli": "Claude Code CLI"
+        },
+        "cliState": {
+          "unknown": "Claude Code: chưa kiểm tra.",
+          "ready": "Claude Code: đã phát hiện và đã đăng nhập.",
+          "missing": "Claude Code: chưa cài (cần claude.exe trong PATH).",
+          "loggedOut": "Claude Code: chưa đăng nhập. Chạy `claude` trong terminal để đăng nhập.",
+          "error": "Claude Code: không kiểm tra được."
+        },
+        "recheck": "Kiểm tra lại",
+        "cliLimit": "Hạn mức Claude Code mỗi ngày",
+        "perDay": "{n} lượt/ngày",
+        "cliOff": "Tắt",
+        "cliToday": "Hôm nay đã dùng {n}/{max}.",
+        "cliNote": "Dùng hạn mức gói Claude của bạn, chung với Claude Code và claude.ai."
       },
       "sect": {
         "profile": "Hồ sơ và học tập",

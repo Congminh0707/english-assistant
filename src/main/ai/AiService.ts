@@ -4,6 +4,7 @@ import {
   DiaryCorrectSchema,
   GrammarExplainSchema,
   type AiExplainInput,
+  type AiProvider,
   type AiStatus,
   type DiaryCorrect,
   type DiaryCorrectInput,
@@ -15,6 +16,7 @@ import { localDayKey } from '../core/localDay'
 import type { ProfileService } from '../services/ProfileService'
 import type { SettingsService } from '../services/SettingsService'
 import { AiKeyRejectedError, type AiClient, type AiRequest } from './AiClient'
+import type { CliProbe } from './resolveClaudeCli'
 import {
   DIARY_CORRECT_SYSTEM,
   DIARY_CORRECT_USER,
@@ -24,6 +26,10 @@ import {
 } from './prompts'
 
 const CACHE_SIZE = 100
+/** Số yêu cầu CLI được chờ khi đã có một tiến trình đang chạy; quá → AI_BUSY */
+const CLI_MAX_WAITING = 2
+/** Nút "Kiểm tra lại" dò lại CLI tối đa 1 lần mỗi 5 s */
+const RECHECK_MIN_MS = 5000
 
 /** Lấy đoạn từ '{' đầu tới '}' cuối rồi JSON.parse; không có / hỏng → undefined */
 function extractJson(text: string): unknown {
@@ -38,18 +44,25 @@ function extractJson(text: string): unknown {
 }
 
 /**
- * Tác vụ AI dùng key Claude của người dùng (docs/11 §5, docs/decisions.md #56): giải thích ngữ pháp, sửa nhật ký.
+ * Tác vụ AI (docs/11 §5, docs/decisions.md #56, #57): giải thích ngữ pháp, sửa nhật ký. Hai nhà cung cấp: key API của
+ * người dùng (AnthropicClient) hoặc Claude Code CLI đã đăng nhập gói Pro/Max (ClaudeCliClient), chọn theo `ai.provider`.
  * Mỗi tác vụ: ghép prompt → gọi client → tách JSON → validate zod; câu trả lời đầy đủ mà sai định dạng thì thử lại 1 lần
- * rồi báo AI_FAILED; client lỗi (kể cả bị cắt cụt vì max_tokens) không thử lại, key bị từ chối → errors.aiKeyRejected.
- * Cache LRU trong bộ nhớ; đếm lượt gọi theo tháng (cài đặt `ai.usage`). Tắt với hồ sơ trẻ em.
- * Không ghi log nội dung câu, kết quả hay key.
+ * rồi báo AI_FAILED; client lỗi (kể cả bị cắt cụt vì max_tokens) không thử lại, key bị từ chối → errors.aiKeyRejected,
+ * lỗi có kiểu của client (AppError: hết hạn mức gói, CLI chưa đăng nhập) đi thẳng ra UI.
+ * CLI: mỗi lúc 1 tiến trình (tối đa 2 yêu cầu chờ), hạn mức lượt/ngày `ai.cliDailyLimit` (đếm `ai.cliUsage`; cache hit
+ * không tính, lượt thử lại có tính). Cache LRU trong bộ nhớ theo nhà cung cấp + model; đếm lượt gọi theo tháng
+ * (`ai.usage`). Tắt với hồ sơ trẻ em. Không ghi log nội dung câu, kết quả hay key.
  */
 export class AiService {
   private readonly cache = new Map<string, unknown>()
+  private cliBusy = false
+  private readonly cliWaiting: Array<() => void> = []
+  private lastRecheck: number | null = null
 
   constructor(
     private readonly deps: {
-      client: AiClient
+      clients: { api: AiClient; cli: AiClient }
+      cli: CliProbe
       getKey: () => string | null
       settings: Pick<SettingsService, 'get' | 'set'>
       profiles: Pick<ProfileService, 'active'>
@@ -57,12 +70,47 @@ export class AiService {
     }
   ) {}
 
+  /** Trạng thái đồng bộ (trạng thái CLI lấy từ cache của CliProbe, không chạy tiến trình) */
   status(): AiStatus {
+    const cliState = this.deps.cli.peek()
+    const provider = this.pickProvider()
     return {
-      enabled: this.deps.settings.get('ai.enabled') && !this.deps.profiles.active().isChild,
-      hasKey: !!this.deps.getKey(),
+      enabled: this.enabled(),
+      ready: provider !== null,
+      provider,
+      cliAvailable: cliState === 'ready',
+      cliState,
+      cliCallsToday: this.cliUsage().count,
+      cliDailyLimit: this.deps.settings.get('ai.cliDailyLimit'),
       callsThisMonth: this.usage().count
     }
+  }
+
+  /**
+   * Trạng thái cho kênh ai:status: chỉ dò CLI khi CLI có thể được dùng (AI bật, không phải hồ sơ trẻ em, hạn mức > 0,
+   * provider `cli` hoặc `auto` mà không có key). Chưa dò lần nào → chờ dò (trừ khi `wait: false`); đã dò mà quá 10 phút
+   * → trả trạng thái cũ ngay và làm mới phía sau (chỉ `claude auth status`, không gọi model).
+   * `wait: false` (diary:today): không bao giờ chờ, dò phía sau; trang đọc lại khi focus / settings:changed.
+   */
+  async refreshStatus(opts: { wait?: boolean } = {}): Promise<AiStatus> {
+    if (this.cliRelevant()) {
+      if (opts.wait !== false && this.deps.cli.peek() === 'unknown') await this.deps.cli.check()
+      else void this.deps.cli.check().catch(() => undefined)
+    }
+    return this.status()
+  }
+
+  /**
+   * Nút "Kiểm tra lại" (kênh ai:recheck-cli): phân giải lại exe + hỏi lại đăng nhập. AI tắt / hồ sơ trẻ em → không chạy
+   * gì; bấm liên tục → tối đa 1 lần mỗi 5 s (trong khoảng đó trả trạng thái đang có).
+   */
+  async recheckCli(): Promise<AiStatus> {
+    if (!this.enabled()) return this.status()
+    const now = this.deps.clock.now()
+    if (this.lastRecheck !== null && now - this.lastRecheck < RECHECK_MIN_MS) return this.status()
+    this.lastRecheck = now
+    await this.deps.cli.check({ force: true })
+    return this.status()
   }
 
   async explain(input: AiExplainInput): Promise<GrammarExplain> {
@@ -103,25 +151,53 @@ export class AiService {
     req: AiRequest,
     schema: S
   ): Promise<z.output<S>> {
+    if (this.cliRelevant() && this.deps.cli.peek() === 'unknown') await this.deps.cli.check()
     const st = this.status()
-    if (!st.enabled || !st.hasKey) throw new AppError('FORBIDDEN', 'errors.aiOff')
-    // Model nằm trong khoá: đổi model thì không trả kết quả cache của model kia
+    if (!st.enabled || !st.provider) throw new AppError('FORBIDDEN', 'errors.aiOff')
+    const provider = st.provider
+    // Nhà cung cấp + model nằm trong khoá: đổi một trong hai thì không trả kết quả cache của cái kia
     const model = this.deps.settings.get('ai.model')
-    const cacheKey = `${task}:${fnv1a64(JSON.stringify({ ...keyInput, model }))}`
-    if (this.cache.has(cacheKey)) {
-      const hit = this.cache.get(cacheKey)
-      // LRU: đưa lên cuối (mới dùng nhất)
-      this.cache.delete(cacheKey)
-      this.cache.set(cacheKey, hit)
-      return hit as z.output<S>
+    const cacheKey = `${task}:${fnv1a64(JSON.stringify({ ...keyInput, model, provider }))}`
+    const hit = this.cacheGet(cacheKey)
+    if (hit !== undefined) return hit as z.output<S>
+    if (provider === 'api') return this.attempts(task, cacheKey, req, schema, 'api')
+    // CLI: báo hết hạn mức ngay (khỏi xếp hàng), rồi chờ tới lượt; tới lượt thì xét lại cache (bấm 2 lần cùng câu)
+    this.assertCliQuota()
+    await this.acquireCli()
+    try {
+      const again = this.cacheGet(cacheKey)
+      if (again !== undefined) return again as z.output<S>
+      return await this.attempts(task, cacheKey, req, schema, 'cli')
+    } finally {
+      this.releaseCli()
     }
+  }
+
+  private async attempts<S extends z.ZodTypeAny>(
+    task: string,
+    cacheKey: string,
+    req: AiRequest,
+    schema: S,
+    provider: AiProvider
+  ): Promise<z.output<S>> {
     for (let attempt = 0; attempt < 2; attempt++) {
       let text: string
+      if (provider === 'cli') {
+        // Mỗi lượt gọi CLI (kể cả lượt thử lại) là một tiến trình, tính vào hạn mức ngày
+        this.assertCliQuota()
+        this.countCliCall()
+      }
       this.countCall()
       try {
-        text = await this.deps.client.complete(req)
+        text = await this.deps.clients[provider].complete(req)
       } catch (err) {
-        // Lỗi mạng/HTTP/từ chối/cắt cụt (max_tokens): không thử lại; thông điệp lỗi của client không chứa key hay nội dung
+        if (err instanceof AppError) {
+          // CLI báo chưa đăng nhập: bỏ trạng thái "sẵn sàng" đã cache để lần sau dò lại
+          if (err.messageKey === 'errors.aiCliLogin') this.deps.cli.invalidate()
+          console.warn(`[ai] ${task} request failed: ${err.code}`)
+          throw err
+        }
+        // Lỗi mạng/HTTP/từ chối/cắt cụt (max_tokens)/tiến trình: không thử lại; thông điệp lỗi của client không chứa key hay nội dung
         console.warn(`[ai] ${task} request failed: ${err instanceof Error ? err.message : 'error'}`)
         throw new AppError(
           'AI_FAILED',
@@ -138,6 +214,70 @@ export class AiService {
     }
     console.warn(`[ai] ${task}: reply did not match schema twice`)
     throw new AppError('AI_FAILED', 'errors.aiFailed')
+  }
+
+  /** Lấy từ cache (LRU: đưa lên cuối = mới dùng nhất); không có → undefined */
+  private cacheGet(cacheKey: string): unknown {
+    if (!this.cache.has(cacheKey)) return undefined
+    const hit = this.cache.get(cacheKey)
+    this.cache.delete(cacheKey)
+    this.cache.set(cacheKey, hit)
+    return hit
+  }
+
+  private enabled(): boolean {
+    return this.deps.settings.get('ai.enabled') && !this.deps.profiles.active().isChild
+  }
+
+  /** Nhà cung cấp dùng được theo `ai.provider`; CLI cần đã cài + đăng nhập (theo cache) và hạn mức ngày > 0 */
+  private pickProvider(): AiProvider | null {
+    const pref = this.deps.settings.get('ai.provider')
+    const hasKey = !!this.deps.getKey()
+    const cliOk = this.deps.cli.peek() === 'ready' && this.deps.settings.get('ai.cliDailyLimit') > 0
+    if (pref === 'api') return hasKey ? 'api' : null
+    if (pref === 'cli') return cliOk ? 'cli' : null
+    return hasKey ? 'api' : cliOk ? 'cli' : null
+  }
+
+  /** CLI có thể được dùng → mới đáng chạy `claude auth status` */
+  private cliRelevant(): boolean {
+    if (!this.enabled() || this.deps.settings.get('ai.cliDailyLimit') <= 0) return false
+    const pref = this.deps.settings.get('ai.provider')
+    return pref === 'cli' || (pref === 'auto' && !this.deps.getKey())
+  }
+
+  private assertCliQuota(): void {
+    if (this.cliUsage().count >= this.deps.settings.get('ai.cliDailyLimit'))
+      throw new AppError('AI_LIMIT', 'errors.aiDailyLimit')
+  }
+
+  /** Hàng đợi 1 tiến trình CLI: đang chạy → chờ (tối đa CLI_MAX_WAITING), quá → AI_BUSY */
+  private async acquireCli(): Promise<void> {
+    if (!this.cliBusy) {
+      this.cliBusy = true
+      return
+    }
+    if (this.cliWaiting.length >= CLI_MAX_WAITING) throw new AppError('AI_BUSY', 'errors.aiBusy')
+    await new Promise<void>((resolve) => this.cliWaiting.push(resolve))
+  }
+
+  /** Nhường lượt cho yêu cầu chờ kế tiếp (vẫn giữ cờ bận); không còn ai thì nhả */
+  private releaseCli(): void {
+    const next = this.cliWaiting.shift()
+    if (next) next()
+    else this.cliBusy = false
+  }
+
+  /** Ngày cục bộ hiện tại + số lượt CLI đã gọi hôm nay (giá trị của ngày khác / hỏng → 0) */
+  private cliUsage(): { day: string; count: number } {
+    const day = localDayKey(this.deps.clock.now())
+    const m = /^(\d{4}-\d{2}-\d{2}):(\d+)$/.exec(this.deps.settings.get('ai.cliUsage'))
+    return { day, count: m && m[1] === day ? Number(m[2]) : 0 }
+  }
+
+  private countCliCall(): void {
+    const { day, count } = this.cliUsage()
+    this.deps.settings.set('ai.cliUsage', `${day}:${count + 1}`)
   }
 
   /** Tháng cục bộ hiện tại + số lượt đã gọi (giá trị cũ của tháng trước / hỏng → 0) */

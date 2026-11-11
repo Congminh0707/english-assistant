@@ -219,6 +219,7 @@ export const invokeContract = {
     output: TranslateOnlineStatusSchema
   },
   'ai:status': { input: z.void(), output: AiStatusSchema },
+  'ai:recheck-cli': { input: z.void(), output: AiStatusSchema },
   'ai:explain': { input: AiExplainInputSchema, output: GrammarExplainSchema },
   'diary:today': { input: z.void(), output: DiaryTodaySchema },
   'diary:save': { input: DiarySaveInputSchema, output: DiaryEntrySchema },

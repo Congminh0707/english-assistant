@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { LevelCode } from './content/level'
 import { UK_VOICE_IDS, US_VOICE_IDS } from '../tts'
-import { AiModelSchema } from './ai'
+import { AiModelSchema, AiProviderSettingSchema } from './ai'
 
 /** Giờ trong ngày dạng 'HH:MM' */
 const ClockTime = z.string().regex(/^([01]?\d|2[0-3]):[0-5]\d$/)
@@ -54,6 +54,12 @@ export const settingDefinitions = {
   'ai.model': AiModelSchema.default('claude-haiku-5-5'),
   /** Bộ đếm lượt gọi AI trong tháng (nội bộ, do AiService quản lý): 'YYYY-MM:n' */
   'ai.usage': z.string().max(32).default(''),
+  /** Nhà cung cấp AI: auto = có key API thì dùng API, không thì Claude Code CLI nếu đã cài + đăng nhập (docs/11 §5) */
+  'ai.provider': AiProviderSettingSchema.default('auto'),
+  /** Hạn mức lượt gọi Claude Code CLI mỗi ngày (dùng chung hạn mức gói Claude của người dùng); 0 = tắt CLI */
+  'ai.cliDailyLimit': z.number().int().min(0).max(200).default(30),
+  /** Bộ đếm lượt gọi CLI trong ngày cục bộ (nội bộ, do AiService quản lý): 'YYYY-MM-DD:n' */
+  'ai.cliUsage': z.string().max(32).default(''),
   /** Ôn thẻ: số từ mới đưa vào ôn mỗi ngày (0 = không giới hạn) */
   'review.newPerDay': z
     .union([z.literal(0), z.literal(5), z.literal(10), z.literal(20), z.literal(50)])
@@ -134,5 +140,8 @@ export const SettingUpdateSchema = z.object({
   value: z.unknown()
 })
 export type SettingUpdate = z.infer<typeof SettingUpdateSchema>
+
+/** Bộ đếm do main quản lý: renderer không được ghi qua settings:set (để hạn mức ngày của CLI không bị đặt lại) */
+export const MAIN_ONLY_SETTING_KEYS: readonly SettingKey[] = ['ai.usage', 'ai.cliUsage']
 
 export const defaultSettings = (): Settings => SettingsSchema.parse({})

@@ -12,7 +12,7 @@ import { useTts, useTtsModel } from '@renderer/shared/composables/useTts'
 import { useStt } from '@renderer/shared/composables/useStt'
 import { useTranslateModels } from '@renderer/shared/composables/useTranslateModels'
 import type { TranslateOnlineStatus } from '@shared/schemas/translate'
-import { AI_MODELS } from '@shared/schemas/ai'
+import { AI_MODELS, AI_PROVIDER_SETTINGS, type AiStatus } from '@shared/schemas/ai'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import { useUpdateStatus } from '@renderer/shared/composables/useUpdateStatus'
 import AudioPackPanel from '@renderer/shared/components/AudioPackPanel.vue'
@@ -87,15 +87,36 @@ async function clearCloudKey(provider: CloudProvider): Promise<void> {
   onlineStatus.value = await invoke('translate:clear-cloud-key', { provider })
   cloudKeyMessage.value[provider] = ''
 }
-// AI (Claude): dùng chung key của Dịch online; chỉ hiện số lượt gọi tháng này
-const aiCalls = ref(0)
+// AI (Claude): key API dùng chung với Dịch online, hoặc Claude Code CLI (gói Pro/Max) — trạng thái do main tính
+const aiStatus = ref<AiStatus | null>(null)
+const aiChecking = ref(false)
 async function loadAiStatus(): Promise<void> {
   try {
-    aiCalls.value = (await invoke('ai:status')).callsThisMonth
+    aiStatus.value = await invoke('ai:status')
   } catch {
-    // Không đọc được: giữ số cũ
+    // Không đọc được: giữ trạng thái cũ
   }
 }
+
+/** Nút "Kiểm tra lại": main phân giải lại claude.exe + hỏi lại đăng nhập (không gọi model) */
+async function recheckCli(): Promise<void> {
+  aiChecking.value = true
+  try {
+    aiStatus.value = await invoke('ai:recheck-cli')
+  } catch {
+    // giữ trạng thái cũ
+  } finally {
+    aiChecking.value = false
+  }
+}
+
+/** Đổi cài đặt AI rồi đọc lại trạng thái (nhà cung cấp đang dùng có thể đổi) */
+async function setAiSetting<K extends keyof Settings>(key: K, value: Settings[K]): Promise<void> {
+  await setSetting(key, value)
+  await loadAiStatus()
+}
+
+const CLI_LIMITS = [10, 30, 60, 0] as const
 
 const MB = 1024 * 1024
 const toMb = (bytes: number | undefined): number => Math.round((bytes ?? 0) / MB)
@@ -627,8 +648,21 @@ onMounted(async () => {
             <input
               type="checkbox"
               :checked="settingsStore.settings['ai.enabled']"
-              @change="setSetting('ai.enabled', ($event.target as HTMLInputElement).checked)"
+              @change="setAiSetting('ai.enabled', ($event.target as HTMLInputElement).checked)"
             />
+          </label>
+          <label class="row">
+            {{ t('study.settings.ai.provider') }}
+            <select
+              :value="settingsStore.settings['ai.provider']"
+              @change="
+                setAiSetting('ai.provider', ($event.target as HTMLSelectElement).value as never)
+              "
+            >
+              <option v-for="p in AI_PROVIDER_SETTINGS" :key="p" :value="p">
+                {{ t(`study.settings.ai.providers.${p}`) }}
+              </option>
+            </select>
           </label>
           <label class="row">
             {{ t('study.settings.ai.model') }}
@@ -646,7 +680,44 @@ onMounted(async () => {
               onlineStatus.hasKey ? t('study.settings.ai.sharedKey') : t('study.settings.ai.noKey')
             }}
           </p>
-          <p class="muted">{{ t('study.settings.ai.calls', { n: aiCalls }) }}</p>
+          <template v-if="settingsStore.settings['ai.provider'] !== 'api'">
+            <div class="row">
+              <span>{{ t(`study.settings.ai.cliState.${aiStatus?.cliState ?? 'unknown'}`) }}</span>
+              <button type="button" class="btn btn--sm" :disabled="aiChecking" @click="recheckCli">
+                {{ t('study.settings.ai.recheck') }}
+              </button>
+            </div>
+            <label class="row">
+              {{ t('study.settings.ai.cliLimit') }}
+              <select
+                :value="settingsStore.settings['ai.cliDailyLimit']"
+                @change="
+                  setAiSetting(
+                    'ai.cliDailyLimit',
+                    Number(($event.target as HTMLSelectElement).value) as never
+                  )
+                "
+              >
+                <option v-for="n in CLI_LIMITS" :key="n" :value="n">
+                  {{
+                    n === 0 ? t('study.settings.ai.cliOff') : t('study.settings.ai.perDay', { n })
+                  }}
+                </option>
+              </select>
+            </label>
+            <p class="muted">
+              {{
+                t('study.settings.ai.cliToday', {
+                  n: aiStatus?.cliCallsToday ?? 0,
+                  max: settingsStore.settings['ai.cliDailyLimit']
+                })
+              }}
+            </p>
+            <p class="muted">{{ t('study.settings.ai.cliNote') }}</p>
+          </template>
+          <p class="muted">
+            {{ t('study.settings.ai.calls', { n: aiStatus?.callsThisMonth ?? 0 }) }}
+          </p>
         </section>
 
         <section v-show="sect === 'review'" class="card block">

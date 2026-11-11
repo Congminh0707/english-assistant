@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import {
   DIARY_MAX_CHARS,
@@ -82,7 +82,29 @@ const correct = (): Promise<void> =>
     stale.value = changed
   })
 
-onMounted(load)
+/**
+ * Bật AI / đổi nhà cung cấp ở Cài đặt (hoặc đăng nhập Claude Code ở terminal) → đọc lại aiReady khi cửa sổ được focus
+ * hoặc cài đặt đổi; chỉ cập nhật cờ AI, không đụng chữ đang gõ
+ */
+async function refreshAi(): Promise<void> {
+  try {
+    const today = await invoke('diary:today')
+    if (view.value) view.value = { ...view.value, aiReady: today.aiReady }
+  } catch {
+    // giữ trạng thái cũ
+  }
+}
+
+let offSettings: (() => void) | undefined
+onMounted(() => {
+  void load()
+  window.addEventListener('focus', refreshAi)
+  offSettings = window.api.on('settings:changed', () => void refreshAi())
+})
+onUnmounted(() => {
+  window.removeEventListener('focus', refreshAi)
+  offSettings?.()
+})
 </script>
 
 <template>

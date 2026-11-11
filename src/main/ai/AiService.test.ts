@@ -144,7 +144,12 @@ describe('AiService.explain', () => {
   it('chưa bật AI hoặc chưa có key → từ chối với errors.aiOff', async () => {
     setup([JSON.stringify(GOOD)])
     key = null
-    expect(c.ai.status()).toEqual({ enabled: true, hasKey: false, callsThisMonth: 0 })
+    expect(c.ai.status()).toMatchObject({
+      enabled: true,
+      ready: false,
+      provider: null,
+      callsThisMonth: 0
+    })
     await expectAppError(c.ai.explain({ sentence: 'x y' }), 'FORBIDDEN', 'errors.aiOff')
     key = 'sk-ant-test'
     c.settings.set('ai.enabled', false)
@@ -325,5 +330,247 @@ describe('AnthropicClient', () => {
         )
       }).complete(req)
     ).rejects.toThrow('max_tokens')
+  })
+})
+
+describe('AiService: nhà cung cấp Claude Code CLI', () => {
+  let api: FakeClient
+  let cli: FakeClient
+  let authRuns: number
+  let loggedIn: boolean
+  let candidates: string[]
+
+  /** Container có cả 2 client giả; CLI "đã cài + đăng nhập" qua runner giả (không chạy claude thật) */
+  function setupCli(opts: { key?: string | null; replies?: string[] } = {}): void {
+    conn = openUserDb(':memory:', MIGRATIONS)
+    clock = new FakeClock(Date.UTC(2026, 0, 15, 12))
+    api = new FakeClient(opts.replies ?? [JSON.stringify(GOOD)])
+    cli = new FakeClient(opts.replies ?? [JSON.stringify(GOOD)])
+    authRuns = 0
+    loggedIn = true
+    candidates = ['C:\\Tools\\claude.exe']
+    key = opts.key === undefined ? null : opts.key
+    c = createContainer(conn, clock, {
+      packsDir: PACKS,
+      ai: {
+        getKey: () => key,
+        client: api,
+        cliClient: cli,
+        cli: {
+          findCandidates: async () => candidates,
+          isFile: () => true,
+          run: async () => {
+            authRuns++
+            return { code: 0, stdout: JSON.stringify({ loggedIn }), stderr: '' }
+          }
+        }
+      }
+    })
+    c.settings.set('ai.enabled', true)
+  }
+
+  it('auto: có key → API; không key + CLI sẵn sàng → CLI; không gì → chưa sẵn sàng', async () => {
+    setupCli({ key: 'sk-ant-test' })
+    expect((await c.ai.refreshStatus()).provider).toBe('api')
+    expect(authRuns).toBe(0) // có key: không cần dò CLI
+    await c.ai.explain({ sentence: 'one' })
+    expect(api.calls).toHaveLength(1)
+    expect(cli.calls).toHaveLength(0)
+
+    key = null
+    const st = await c.ai.refreshStatus()
+    expect(st).toMatchObject({
+      ready: true,
+      provider: 'cli',
+      cliAvailable: true,
+      cliState: 'ready'
+    })
+    await c.ai.explain({ sentence: 'two' })
+    expect(cli.calls).toHaveLength(1)
+
+    loggedIn = false
+    await c.ai.recheckCli()
+    expect(c.ai.status()).toMatchObject({ ready: false, provider: null, cliState: 'loggedOut' })
+    await expectAppError(c.ai.explain({ sentence: 'three' }), 'FORBIDDEN', 'errors.aiOff')
+  })
+
+  it('provider api: không key thì chưa sẵn sàng dù có CLI; provider cli: dùng CLI dù có key', async () => {
+    setupCli({ key: null })
+    c.settings.set('ai.provider', 'api')
+    expect((await c.ai.refreshStatus()).ready).toBe(false)
+    expect(authRuns).toBe(0)
+    key = 'sk-ant-test'
+    c.settings.set('ai.provider', 'cli')
+    expect((await c.ai.refreshStatus()).provider).toBe('cli')
+    await c.ai.explain({ sentence: 'x y' })
+    expect(cli.calls).toHaveLength(1)
+    expect(api.calls).toHaveLength(0)
+  })
+
+  it('AI tắt → không dò CLI (không chạy tiến trình nào)', async () => {
+    setupCli({ key: null })
+    c.settings.set('ai.enabled', false)
+    await c.ai.refreshStatus()
+    expect(authRuns).toBe(0)
+    expect(c.ai.status().cliState).toBe('unknown')
+  })
+
+  it('cliDailyLimit 0 = tắt CLI', async () => {
+    setupCli({ key: null })
+    c.settings.set('ai.cliDailyLimit', 0)
+    expect((await c.ai.refreshStatus()).ready).toBe(false)
+    await expectAppError(c.ai.explain({ sentence: 'x y' }), 'FORBIDDEN', 'errors.aiOff')
+    expect(cli.calls).toHaveLength(0)
+  })
+
+  it('hạn mức ngày: chặn ở lần N+1, cache hit không tính, sang ngày mới reset', async () => {
+    setupCli({ key: null })
+    c.settings.set('ai.cliDailyLimit', 10)
+    for (let i = 0; i < 10; i++) await c.ai.explain({ sentence: `s${i}` })
+    await c.ai.explain({ sentence: 's0' }) // cache hit
+    expect(cli.calls).toHaveLength(10)
+    expect(c.ai.status()).toMatchObject({ cliCallsToday: 10, cliDailyLimit: 10 })
+    await expectAppError(c.ai.explain({ sentence: 'new' }), 'AI_LIMIT', 'errors.aiDailyLimit')
+    expect(cli.calls).toHaveLength(10)
+    expect(c.settings.get('ai.cliUsage')).toBe('2026-01-15:10')
+    clock.set(Date.UTC(2026, 0, 16, 12))
+    expect(c.ai.status().cliCallsToday).toBe(0)
+    await c.ai.explain({ sentence: 'new' })
+    expect(cli.calls).toHaveLength(11)
+    expect(c.settings.get('ai.cliUsage')).toBe('2026-01-16:1')
+  })
+
+  it('lượt thử lại (sai schema) cũng tính vào hạn mức; hết hạn mức giữa chừng → AI_LIMIT', async () => {
+    setupCli({ key: null, replies: ['not json', JSON.stringify(GOOD)] })
+    c.settings.set('ai.cliDailyLimit', 10)
+    c.settings.set('ai.cliUsage', '2026-01-15:9')
+    await expectAppError(c.ai.explain({ sentence: 'x y' }), 'AI_LIMIT', 'errors.aiDailyLimit')
+    expect(cli.calls).toHaveLength(1)
+    expect(c.ai.status().cliCallsToday).toBe(10)
+  })
+
+  it('API không bị hạn mức ngày của CLI', async () => {
+    setupCli({ key: 'sk-ant-test' })
+    c.settings.set('ai.cliDailyLimit', 10)
+    c.settings.set('ai.cliUsage', '2026-01-15:10')
+    await c.ai.explain({ sentence: 'x y' })
+    expect(api.calls).toHaveLength(1)
+  })
+
+  it('hàng đợi: CLI chạy tuần tự, tối đa 2 yêu cầu chờ, quá → AI_BUSY', async () => {
+    setupCli({ key: null })
+    let active = 0
+    let maxActive = 0
+    const gates: Array<() => void> = []
+    cli.complete = async (req) => {
+      cli.calls.push(req)
+      active++
+      maxActive = Math.max(maxActive, active)
+      await new Promise<void>((r) => gates.push(r))
+      active--
+      return JSON.stringify(GOOD)
+    }
+    await c.ai.refreshStatus()
+    const p1 = c.ai.explain({ sentence: 'a1' })
+    const p2 = c.ai.explain({ sentence: 'a2' })
+    const p3 = c.ai.explain({ sentence: 'a3' })
+    const p4 = c.ai.explain({ sentence: 'a4' })
+    await expectAppError(p4, 'AI_BUSY', 'errors.aiBusy')
+    for (let i = 0; i < 3; i++) {
+      await new Promise((r) => setTimeout(r, 0))
+      expect(gates).toHaveLength(1)
+      gates.shift()!()
+    }
+    await Promise.all([p1, p2, p3])
+    expect(maxActive).toBe(1)
+    expect(cli.calls).toHaveLength(3)
+  })
+
+  it('bấm 2 lần cùng câu khi đang chạy → chỉ 1 tiến trình (cache được xét lại sau khi chờ)', async () => {
+    setupCli({ key: null })
+    await c.ai.refreshStatus()
+    const [a, b] = await Promise.all([
+      c.ai.explain({ sentence: 'same' }),
+      c.ai.explain({ sentence: 'same' })
+    ])
+    expect(a).toEqual(b)
+    expect(cli.calls).toHaveLength(1)
+  })
+
+  it('lỗi có kiểu từ CLI (hết gói, chưa đăng nhập) đi thẳng ra UI; lỗi đăng nhập làm mới trạng thái', async () => {
+    setupCli({ key: null })
+    await c.ai.refreshStatus()
+    cli.complete = async () => {
+      throw new AppError('AI_LIMIT', 'errors.aiPlanLimit')
+    }
+    await expectAppError(c.ai.explain({ sentence: 'x' }), 'AI_LIMIT', 'errors.aiPlanLimit')
+    cli.complete = async () => {
+      throw new AppError('AI_FAILED', 'errors.aiCliLogin')
+    }
+    await expectAppError(c.ai.explain({ sentence: 'y' }), 'AI_FAILED', 'errors.aiCliLogin')
+    expect(c.ai.status().cliState).toBe('unknown')
+  })
+
+  it('cache tách theo nhà cung cấp', async () => {
+    setupCli({ key: 'sk-ant-test' })
+    await c.ai.explain({ sentence: 'Same sentence.' })
+    c.settings.set('ai.provider', 'cli')
+    await c.ai.explain({ sentence: 'Same sentence.' })
+    expect(api.calls).toHaveLength(1)
+    expect(cli.calls).toHaveLength(1)
+  })
+
+  it('Kiểm tra lại: AI tắt / hồ sơ trẻ em → không chạy gì; bấm liên tục → tối đa 1 lần mỗi 5 s', async () => {
+    setupCli({ key: null })
+    c.settings.set('ai.enabled', false)
+    await c.ai.recheckCli()
+    expect(authRuns).toBe(0)
+    c.settings.set('ai.enabled', true)
+    const adultId = c.profiles.active().id
+    const kid = c.profiles.create({ name: 'Bé', track: 'primary', isChild: true })
+    c.profiles.switchTo(kid.id)
+    await c.ai.recheckCli()
+    expect(authRuns).toBe(0)
+    c.profiles.switchTo(adultId)
+    await c.ai.recheckCli()
+    await c.ai.recheckCli()
+    clock.set(Date.UTC(2026, 0, 15, 12, 0, 4))
+    await c.ai.recheckCli()
+    expect(authRuns).toBe(1)
+    clock.set(Date.UTC(2026, 0, 15, 12, 0, 6))
+    expect((await c.ai.recheckCli()).cliState).toBe('ready')
+    expect(authRuns).toBe(2)
+  })
+
+  it('refreshStatus({ wait: false }) (diary:today) không chờ lần dò đầu, dò phía sau', async () => {
+    setupCli({ key: null })
+    const st = await c.ai.refreshStatus({ wait: false })
+    expect(st.ready).toBe(false)
+    expect(st.cliState).toBe('unknown')
+    await new Promise((r) => setTimeout(r, 0))
+    expect(authRuns).toBe(1)
+    expect(c.ai.status()).toMatchObject({ ready: true, provider: 'cli' })
+  })
+
+  it('renderer không ghi được bộ đếm ai.usage / ai.cliUsage (settings:set → FORBIDDEN)', () => {
+    setupCli({ key: null })
+    for (const key of ['ai.usage', 'ai.cliUsage'] as const) {
+      let err: unknown = null
+      try {
+        c.settings.setFromRenderer(key, '')
+      } catch (e) {
+        err = e
+      }
+      expect(err).toBeInstanceOf(AppError)
+      expect((err as AppError).code).toBe('FORBIDDEN')
+    }
+    expect(c.settings.setFromRenderer('ai.cliDailyLimit', 60)['ai.cliDailyLimit']).toBe(60)
+  })
+
+  it('CLI chỉ có claude.cmd → missing, chưa sẵn sàng', async () => {
+    setupCli({ key: null })
+    candidates = ['C:\\npm\\claude.cmd']
+    expect(await c.ai.refreshStatus()).toMatchObject({ ready: false, cliState: 'missing' })
+    expect(authRuns).toBe(0)
   })
 })

@@ -1,5 +1,6 @@
 import {
   defaultSettings,
+  MAIN_ONLY_SETTING_KEYS,
   settingDefinitions,
   SETTING_KEYS,
   type SettingKey,
@@ -37,6 +38,12 @@ export class SettingsService {
     this.cache = { ...this.cache, [key]: parsed.data }
     this.bus.emit('settings.changed', { key, settings: this.all() })
     return this.all()
+  }
+
+  /** Ghi từ renderer (kênh settings:set): bộ đếm do main quản lý (MAIN_ONLY_SETTING_KEYS) → FORBIDDEN */
+  setFromRenderer(key: SettingKey, value: unknown): Settings {
+    if (MAIN_ONLY_SETTING_KEYS.includes(key)) throw new AppError('FORBIDDEN', 'errors.forbidden')
+    return this.set(key, value)
   }
 
   private load(): Settings {

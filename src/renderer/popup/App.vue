@@ -134,7 +134,7 @@ async function translate(text: string): Promise<void> {
       .catch(() => undefined),
     invoke('ai:status')
       .then((st) => {
-        aiReady.value = st.enabled && st.hasKey
+        aiReady.value = st.enabled && st.ready
       })
       .catch(() => {
         aiReady.value = false

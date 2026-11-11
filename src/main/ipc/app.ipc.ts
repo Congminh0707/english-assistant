@@ -27,7 +27,7 @@ export function registerAppIpc(
   handle('pet:feed', ({ itemId }) => c.pet.feed(itemId))
   handle('inventory:list', () => c.inventory.list())
   handle('settings:get-all', () => c.settings.all())
-  handle('settings:set', ({ key, value }) => c.settings.set(key, value))
+  handle('settings:set', ({ key, value }) => c.settings.setFromRenderer(key, value))
   handle('dictionary:lookup', ({ text }) =>
     c.dictionary.lookup(text, (ids) => c.vocab.savedContentIds(ids), {
       childSafe: c.profiles.active().isChild
@@ -100,9 +100,14 @@ export function registerAppIpc(
     translation.setCloudKey(provider, key, region || undefined)
   )
   handle('translate:clear-cloud-key', ({ provider }) => translation.clearCloudKey(provider))
-  handle('ai:status', () => c.ai.status())
+  handle('ai:status', () => c.ai.refreshStatus())
+  handle('ai:recheck-cli', () => c.ai.recheckCli())
   handle('ai:explain', (input) => c.ai.explain(input))
-  handle('diary:today', () => c.diary.todayView())
+  handle('diary:today', async () => {
+    // Không chờ dò CLI lần đầu: trả trạng thái đang có, dò phía sau; trang đọc lại khi focus / settings:changed
+    await c.ai.refreshStatus({ wait: false })
+    return c.diary.todayView()
+  })
   handle('diary:save', ({ text }) => c.diary.save(text))
   handle('diary:correct', () => c.diary.correct())
   handle('diary:list', () => c.diary.list())

@@ -5,10 +5,28 @@ export const AI_MODELS = ['claude-haiku-5-5', 'claude-sonnet-5-5'] as const
 export const AiModelSchema = z.enum(AI_MODELS)
 export type AiModel = z.infer<typeof AiModelSchema>
 
-/** Trạng thái AI cho renderer: đã bật (và không phải hồ sơ trẻ em), đã có key Claude, số lượt gọi tháng này */
+/** Cài đặt `ai.provider`: tự chọn / chỉ key API / chỉ Claude Code CLI (gói Pro/Max, docs/decisions.md #57) */
+export const AI_PROVIDER_SETTINGS = ['auto', 'api', 'cli'] as const
+export const AiProviderSettingSchema = z.enum(AI_PROVIDER_SETTINGS)
+/** Nhà cung cấp đang dùng thật */
+export const AiProviderSchema = z.enum(['api', 'cli'])
+export type AiProvider = z.infer<typeof AiProviderSchema>
+/** Trạng thái Claude Code CLI: chưa kiểm tra / sẵn sàng / chưa cài (hoặc chỉ có .cmd) / chưa đăng nhập / lỗi khi kiểm tra */
+export const AiCliStateSchema = z.enum(['unknown', 'ready', 'missing', 'loggedOut', 'error'])
+export type AiCliState = z.infer<typeof AiCliStateSchema>
+
+/**
+ * Trạng thái AI cho renderer: đã bật (và không phải hồ sơ trẻ em), có nhà cung cấp dùng được (`ready`) và đó là gì,
+ * trạng thái CLI, lượt CLI hôm nay / hạn mức ngày, tổng lượt gọi tháng này
+ */
 export const AiStatusSchema = z.object({
   enabled: z.boolean(),
-  hasKey: z.boolean(),
+  ready: z.boolean(),
+  provider: AiProviderSchema.nullable(),
+  cliAvailable: z.boolean(),
+  cliState: AiCliStateSchema,
+  cliCallsToday: z.number().int().nonnegative(),
+  cliDailyLimit: z.number().int().nonnegative(),
   callsThisMonth: z.number().int().nonnegative()
 })
 export type AiStatus = z.infer<typeof AiStatusSchema>

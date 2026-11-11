@@ -10,6 +10,8 @@ import { OnlineTranslator } from './translate/OnlineTranslator'
 import { SafeStorageSecretStore } from './system/SecretStore'
 import { openUserDb, type UserDbConnection } from './db/client'
 import { createContainer } from './container'
+import { runCli } from './ai/cliRunner'
+import { claudeFallbackCandidates, findClaudeCandidates } from './ai/resolveClaudeCli'
 import { MascotWindow } from './windows/MascotWindow'
 import { PopupWindow } from './windows/PopupWindow'
 import { StudyWindow } from './windows/StudyWindow'
@@ -99,7 +101,15 @@ if (!app.requestSingleInstanceLock()) {
     const secrets = new SafeStorageSecretStore(paths.secrets())
     const c = createContainer(conn, systemClock, {
       packsDir: paths.packs(),
-      ai: { getKey: () => secrets.get('anthropic') }
+      // AI qua Claude Code CLI (gói Pro/Max, #57): chạy không shell, env tối thiểu, thư mục tạm riêng (cliRunner.ts)
+      ai: {
+        getKey: () => secrets.get('anthropic'),
+        cli: {
+          run: runCli,
+          findCandidates: () => findClaudeCandidates(),
+          fallbackCandidates: claudeFallbackCandidates
+        }
+      }
     })
     c.profiles.active() // lần đầu chạy: tạo profile + thú cưng + túi đồ khởi đầu
     container = c

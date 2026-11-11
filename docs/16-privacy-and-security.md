@@ -54,6 +54,16 @@ App chạy thường trực trên máy, có thể đọc clipboard, nghe micro, 
 - Chỉ main process đọc và gọi API; renderer chỉ biết "đã cấu hình / chưa".
 - Không bao giờ commit key vào repo. File `.env` (nếu có, cho script nội dung) nằm trong `.gitignore`; có `.env.example`.
 
+### AI qua Claude Code CLI (2026-11-11, docs/11 §5, decisions #57)
+
+App chạy `claude -p` của người dùng như một tiến trình con. Quy tắc bắt buộc (có test ở `src/main/ai/*.test.ts`):
+- **Không tool**: luôn `--tools ""` (theo `claude --help`: chuỗi rỗng tắt mọi tool built-in), thêm `--disable-slash-commands`, `--strict-mcp-config`, `--safe-mode` (tắt CLAUDE.md, skill, plugin, hook, MCP). Không bao giờ truyền `--bare`, `--dangerously-skip-permissions`, `--permission-mode`, `--add-dir`, `--mcp-config`, `--settings`, `--plugin-dir`, `--resume`, `--continue`.
+- **Cô lập cấu hình**: `--setting-sources ""`, `--no-session-persistence`, cwd = thư mục `mkdtemp(<temp>/english-assistant-ai-XXXXXX)` tạo một lần mỗi tiến trình (tên ngẫu nhiên, mới tạo nên rỗng; không xoá đệ quy) để không nạp CLAUDE.md/`.claude` của dự án nào.
+- **Không qua shell**: `spawn(exe, args, { shell: false, windowsHide: true })`; exe là đường dẫn tuyệt đối `claude.exe` (không nhận `.cmd`/`.bat`/`.ps1`); `where.exe`/`taskkill.exe` gọi bằng đường dẫn System32. Prompt hệ thống là chuỗi cố định; **văn bản người dùng chỉ đi qua stdin**, không bao giờ nằm trong args.
+- **Env tối thiểu**: bỏ `ANTHROPIC_API_KEY`, `ANTHROPIC_AUTH_TOKEN`, `ANTHROPIC_BASE_URL`, `ANTHROPIC_CUSTOM_HEADERS`, `ANTHROPIC_MODEL`, `ANTHROPIC_DEFAULT_*_MODEL`, `ANTHROPIC_BEDROCK_BASE_URL`, `ANTHROPIC_VERTEX_*`, `CLAUDE_CODE_USE_BEDROCK`, `CLAUDE_CODE_USE_VERTEX`, `CLAUDE_CODE_USE_FOUNDRY`, `CLAUDECODE`, `NODE_OPTIONS`, `ELECTRON_RUN_AS_NODE` (giữ biến proxy và `CLAUDE_CONFIG_DIR`).
+- **Giới hạn**: timeout 45 s (auth status 10 s) → `taskkill /pid <pid> /T /F` trước (tiến trình gốc còn sống nên lần được cả con cháu), chỉ khi taskkill hỏng mới `kill()` gốc; stdout ≤ 512 KB; stderr giữ 4 KB. Không log prompt, kết quả, stderr hay env (chỉ log mã lỗi / mã thoát). Nút "Kiểm tra lại" không chạy gì khi AI tắt / hồ sơ trẻ em, tối đa 1 lần mỗi 5 s.
+- **Không lạm dụng**: 1 tiến trình mỗi lúc (tối đa 2 yêu cầu chờ), hạn mức lượt/ngày (mặc định 30), chỉ gọi khi người dùng bấm; bộ đếm `ai.usage`/`ai.cliUsage` renderer không ghi được.
+
 ## 6. Nội dung tải về
 
 - Content pack & model: chỉ tải từ nguồn chính thức cấu hình sẵn (GitHub Releases / backend của dự án / Hugging Face cho model), kiểm tra **sha256** trước khi dùng.

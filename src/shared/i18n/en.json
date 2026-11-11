@@ -561,8 +561,12 @@
     "pronNotReady": "The pronunciation model is not installed yet.",
     "pronFailed": "Could not score the pronunciation. Please try again.",
     "aiFailed": "Could not reach the AI. Please try again later.",
-    "aiOff": "Turn on AI in Settings and enter your Claude key.",
+    "aiOff": "Turn on AI in Settings and enter your Claude key or sign in to Claude Code.",
     "aiKeyRejected": "Claude key rejected. Check the key in Settings → Online translation.",
+    "aiBusy": "The AI is still answering the previous request. Wait a moment and try again.",
+    "aiDailyLimit": "You've used today's Claude Code calls. Raise the limit in Settings or try again tomorrow.",
+    "aiPlanLimit": "Your Claude plan limit is used up. Try again later.",
+    "aiCliLogin": "Claude Code is not signed in. Run `claude` in a terminal to sign in.",
     "forbidden": "This profile can't use this feature."
   },
   "quiz": {
@@ -729,7 +733,7 @@
       "noChanges": "Nothing to fix, great writing!",
       "history": "Last 30 days",
       "empty": "No diary pages before today yet.",
-      "aiHint": "Turn on AI in Settings and enter a Claude key to get corrections.",
+      "aiHint": "Turn on AI in Settings, then enter a Claude key or sign in to Claude Code to get corrections.",
       "prompts": {
         "1": "What did you do today?",
         "2": "What made you smile today?",
@@ -836,7 +840,7 @@
     "settings": {
       "ai": {
         "title": "AI (Claude)",
-        "hint": "Optional, off by default. When on, the sentence you click \"Explain grammar\" on in the popup is sent to Anthropic; usage is billed to your key.",
+        "hint": "Optional, off by default. When on, the sentence you click \"Explain grammar\" on in the popup (and your diary when you ask for corrections) is sent to Anthropic: billed to your key, or counted against your Claude plan when using Claude Code.",
         "toggle": "Use AI to explain grammar",
         "model": "Model",
         "models": {
@@ -845,7 +849,26 @@
         },
         "sharedKey": "Uses the same Claude key as Online translation.",
         "noKey": "No key yet: enter your Claude key under Online translation.",
-        "calls": "{n} calls this month."
+        "calls": "{n} calls this month.",
+        "provider": "Provider",
+        "providers": {
+          "auto": "Automatic",
+          "api": "API key",
+          "cli": "Claude Code CLI"
+        },
+        "cliState": {
+          "unknown": "Claude Code: not checked yet.",
+          "ready": "Claude Code: found and signed in.",
+          "missing": "Claude Code: not installed (claude.exe must be on PATH).",
+          "loggedOut": "Claude Code: not signed in. Run `claude` in a terminal to sign in.",
+          "error": "Claude Code: could not check."
+        },
+        "recheck": "Check again",
+        "cliLimit": "Claude Code daily limit",
+        "perDay": "{n} calls/day",
+        "cliOff": "Off",
+        "cliToday": "Used today: {n}/{max}.",
+        "cliNote": "Uses your Claude plan limits, shared with Claude Code and claude.ai."
       },
       "sect": {
         "profile": "Profile and learning",

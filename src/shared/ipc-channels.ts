@@ -63,6 +63,7 @@ export const INVOKE_CHANNELS = [
   'translate:clear-cloud-key',
   /** AI dùng key Claude của người dùng (docs/11 §5): trạng thái, giải thích ngữ pháp một câu */
   'ai:status',
+  'ai:recheck-cli',
   'ai:explain',
   /** Nhật ký tiếng Anh buổi tối (docs/07 §14): hôm nay, lưu, AI sửa, 30 ngày gần nhất */
   'diary:today',

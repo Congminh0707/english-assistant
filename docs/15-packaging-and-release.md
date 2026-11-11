@@ -114,6 +114,7 @@ Release này là `--prerelease` và tag `content-pack-*` không bị `check-vers
 
 Không nằm trong bộ cài. Gói chứa mọi câu tĩnh app đọc to (bài nghe, bài học/ngữ pháp/bài đọc, TOEIC Part 1–4, câu nghe của bài kiểm tra trình độ, sổ tay mẫu câu, chế độ trẻ em, câu thử giọng — bảng nguồn ở [11 §3](11-ai-and-speech.md#3-đọc-to-tts)). Tạo và đăng khi một trong các nội dung đó đổi (hoặc lần đầu):
 
+0. Có bản thu thật mới/thay thế trong `content/curated/listening-audio/` thì chuẩn hoá âm lượng trước (cần ffmpeg): `node scripts/audio/normalize-recordings.mjs` (đích -22 LUFS như giọng Kokoro, true peak <= -1,5 dBTP; `--check` chỉ đo; chạy lại an toàn). Xem [decisions #58](decisions.md).
 1. Bật "Giọng tự nhiên" trong app một lần để có model Kokoro trong `%APPDATA%/english-assistant/models`.
 2. Xem trước số clip theo từng nguồn (không tạo âm thanh, vài giây): `node scripts/audio/build-listening-audio.mjs --list`.
    Build: `node scripts/audio/build-listening-audio.mjs <ver> --base <zip gói cũ>` (`--base` dùng lại clip trùng khoá, chỉ tạo phần thiếu; không có gói cũ thì bỏ `--base` — ~30 phút cho ~6 000 clip, gói đủ nguồn ~12 000 clip lâu hơn tương ứng) → `content/.build/audio/listening-audio-<ver>.zip` + `.sha256`.

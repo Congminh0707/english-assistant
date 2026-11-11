@@ -1,4 +1,4 @@
-import { app, powerMonitor, screen } from 'electron'
+import { app, powerMonitor, screen, utilityProcess } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import { existsSync, rmSync } from 'node:fs'
 import { join } from 'path'
@@ -10,7 +10,11 @@ import { OnlineTranslator } from './translate/OnlineTranslator'
 import { SafeStorageSecretStore } from './system/SecretStore'
 import { openUserDb, type UserDbConnection } from './db/client'
 import { createContainer } from './container'
-import { runCli } from './ai/cliRunner'
+import {
+  createWorkerCliRunner,
+  type CliWorkerPort,
+  type WorkerCliRunner
+} from './ai/cliWorkerClient'
 import { claudeFallbackCandidates, findClaudeCandidates } from './ai/resolveClaudeCli'
 import { MascotWindow } from './windows/MascotWindow'
 import { PopupWindow } from './windows/PopupWindow'
@@ -79,6 +83,7 @@ let translation: TranslationService | null = null
 let speech: TtsService | null = null
 let recognition: SttService | null = null
 let pronunciation: PronunciationService | null = null
+let aiCli: WorkerCliRunner | null = null
 const scheduler = new Scheduler()
 
 // Chỉ cho chạy 1 instance: mở lần 2 thì hiện lại mascot đang có
@@ -99,14 +104,24 @@ if (!app.requestSingleInstanceLock()) {
     conn = openUserDb(paths.userDb(), paths.migrations())
     // Key người dùng nhập (mã hoá bằng safeStorage): key Claude 'anthropic' dùng chung cho Dịch online và AI (#56)
     const secrets = new SafeStorageSecretStore(paths.secrets())
+    // Mọi lần chạy CLI (claude -p, auth status, where.exe) đi qua utilityProcess aiCliWorker: spawn claude.exe từ main
+    // chặn luồng main ~1 giây và làm đơ chuột qua global mouse hook của mascot (docs/11 §5)
+    const cli = createWorkerCliRunner({
+      fork: () =>
+        utilityProcess.fork(join(__dirname, 'aiCliWorker.js'), [], {
+          serviceName: 'English Assistant AI CLI',
+          stdio: 'ignore'
+        }) as unknown as CliWorkerPort
+    })
+    aiCli = cli
     const c = createContainer(conn, systemClock, {
       packsDir: paths.packs(),
       // AI qua Claude Code CLI (gói Pro/Max, #57): chạy không shell, env tối thiểu, thư mục tạm riêng (cliRunner.ts)
       ai: {
         getKey: () => secrets.get('anthropic'),
         cli: {
-          run: runCli,
-          findCandidates: () => findClaudeCandidates(),
+          run: cli.run,
+          findCandidates: () => findClaudeCandidates(cli.run),
           fallbackCandidates: claudeFallbackCandidates
         }
       }
@@ -363,6 +378,7 @@ if (!app.requestSingleInstanceLock()) {
     speech?.dispose()
     recognition?.dispose()
     pronunciation?.dispose()
+    aiCli?.dispose()
     tray?.tray.destroy()
     tray = null
     container?.packs.closeAll()

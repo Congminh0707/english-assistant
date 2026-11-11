@@ -42,7 +42,7 @@ flowchart LR
     CDB[("content/*.db<br/>gói nội dung")]
   end
 
-  UP["Utility process<br/>(AI local: Whisper, dịch, OCR)"]
+  UP["Utility process<br/>(AI local: Whisper, dịch, OCR;<br/>aiCliWorker chạy Claude Code CLI)"]
   NET["Internet (tuỳ chọn):<br/>LLM API, LanguageTool,<br/>YouTube, Laravel sync"]
 
   M & S & P & O <--> PL <--> IPC
@@ -135,7 +135,7 @@ english-assistant/
 │  │  ├─ events/                # event bus có kiểu (~ app/Events + Listeners)
 │  │  ├─ jobs/                  # tác vụ định kỳ (~ app/Console/Kernel schedule)
 │  │  ├─ system/                # tray, globalShortcut, clipboard, activeWindow, autostart, UpdateManager (cập nhật app)
-│  │  ├─ ai/                    # LLM BYOK (docs/11 §5): AiClient.ts (interface + AnthropicClient), prompts.ts (prompt TS có {{level}}), AiService.ts (kênh `ai:status`, `ai:recheck-cli`, `ai:explain`; chọn nhà cung cấp `ai.provider` auto/api/cli, tách JSON + zod, thử lại 1 lần, cache LRU 100 theo provider + model, đếm lượt tháng `ai.usage`, CLI: 1 tiến trình + tối đa 2 chờ, hạn mức ngày `ai.cliDailyLimit`/`ai.cliUsage`, tắt với hồ sơ trẻ em), ClaudeCliClient.ts (`claude -p` không tool, dữ liệu qua stdin), cliRunner.ts (spawn không shell, env tối thiểu, cwd mkdtemp riêng, timeout 45 s + taskkill cả cây, stdout ≤ 512 KB), resolveClaudeCli.ts (where.exe → claude.exe, `claude auth status`, cache 10 phút) — #57
+│  │  ├─ ai/                    # LLM BYOK (docs/11 §5): AiClient.ts (interface + AnthropicClient), prompts.ts (prompt TS có {{level}}), AiService.ts (kênh `ai:status`, `ai:recheck-cli`, `ai:explain`; chọn nhà cung cấp `ai.provider` auto/api/cli, tách JSON + zod, thử lại 1 lần, cache LRU 100 theo provider + model, đếm lượt tháng `ai.usage`, CLI: 1 tiến trình + tối đa 2 chờ, hạn mức ngày `ai.cliDailyLimit`/`ai.cliUsage`, tắt với hồ sơ trẻ em), ClaudeCliClient.ts (`claude -p` không tool, dữ liệu qua stdin), cliRunner.ts (spawn không shell, env tối thiểu, cwd mkdtemp riêng, timeout 45 s + taskkill cả cây, stdout ≤ 512 KB), resolveClaudeCli.ts (where.exe → claude.exe, `claude auth status`, cache 10 phút), cliWorker.ts (entry utilityProcess `aiCliWorker.js`, serviceName "English Assistant AI CLI": mọi lần chạy CLI gọi `runCli` ở đây, không bao giờ spawn trên main), cliWorkerClient.ts (runner phía main: gọi–trả lời theo id, watchdog `timeoutMs + 5 s` → kill + tạo lại worker, tắt khi rảnh 5 phút) — #57
 │  │  └─ utility/               # code chạy trong utilityProcess (AI local nặng)
 │  ├─ preload/
 │  │  └─ index.ts               # contextBridge.exposeInMainWorld('api', {...})

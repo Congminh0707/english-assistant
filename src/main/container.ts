@@ -126,7 +126,8 @@ export interface ContainerOptions {
   /**
    * AI (docs/11 §5): `getKey` đọc key Anthropic (index.ts truyền cùng secret 'anthropic' với Dịch online; bỏ trống = không
    * có key); `client` / `cliClient` thay client thật (test truyền client giả). `cli`: cách chạy + tìm Claude Code CLI
-   * (index.ts truyền runCli + findClaudeCandidates; bỏ trống = không có CLI, không chạy tiến trình nào — mặc định của test)
+   * (index.ts truyền runner của utilityProcess aiCliWorker — cliWorkerClient.ts — + findClaudeCandidates; bỏ trống = không
+   * có CLI, không chạy tiến trình nào — mặc định của test)
    */
   ai?: {
     getKey?: () => string | null

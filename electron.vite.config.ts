@@ -15,7 +15,9 @@ export default defineConfig({
           translateWorker: resolve('src/main/translate/worker.ts'),
           ttsWorker: resolve('src/main/tts/worker.ts'),
           sttWorker: resolve('src/main/stt/worker.ts'),
-          phonemeWorker: resolve('src/main/stt/phonemeWorker.ts')
+          phonemeWorker: resolve('src/main/stt/phonemeWorker.ts'),
+          // aiCliWorker: chạy Claude Code CLI ngoài luồng main (spawn từ main làm đơ chuột, docs/11 §5)
+          aiCliWorker: resolve('src/main/ai/cliWorker.ts')
         }
       }
     }

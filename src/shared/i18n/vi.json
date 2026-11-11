@@ -1308,7 +1308,36 @@
       "speakHelp": "Bấm micro và đọc to câu này.",
       "speakWordHelp": "Bấm micro và đọc to từ này.",
       "skipSpeak": "Bỏ qua câu này",
-      "autoSaved": "Đã lưu {n} từ mới của bài vào sổ từ"
+      "autoSaved": "Đã lưu {n} từ mới của bài vào sổ từ",
+      "translateHelp": "Dịch câu sau sang tiếng Anh.",
+      "writeHelp": "Viết bằng tiếng Anh theo đề bài.",
+      "grading": "Đang chấm…",
+      "gradingAi": "AI đang chấm bài, chờ một chút nhé…",
+      "writing": {
+        "placeholder": "Viết bài của bạn bằng tiếng Anh…",
+        "words": "{n} từ",
+        "minWords": "cần ít nhất {n} từ",
+        "maxWords": "tối đa {n} từ",
+        "tooLong": "Bài dài quá, hãy rút gọn còn tối đa {n} từ.",
+        "modelAnswer": "Đáp án mẫu",
+        "aiAccepted": "AI chấp nhận câu dịch của bạn.",
+        "aiNote": "Nhận xét của AI",
+        "aiCorrected": "Gợi ý sửa",
+        "noAiTranslate": "Câu của bạn khác các đáp án mẫu và chưa được AI xét nên tính là chưa đúng.",
+        "noAiWrite": "Chưa có nhận xét của AI: bài được tính đạt vì đủ số từ.",
+        "sample": "Bài mẫu",
+        "overall": "Điểm AI: {n}/100",
+        "passMark": "đạt từ {n}",
+        "corrections": "Chỗ cần sửa",
+        "improved": "Bản viết lại",
+        "tips": "Mẹo",
+        "scores": {
+          "task": "Đúng đề",
+          "grammar": "Ngữ pháp",
+          "vocabulary": "Từ vựng",
+          "coherence": "Mạch lạc"
+        }
+      }
     },
     "courses": {
       "title": "Lộ trình học",

@@ -426,3 +426,15 @@ Mẫu:
   3. Giữ 44100 Hz và số kênh của từng file; mã hoá libmp3lame CBR **mono 64k, stereo 96k** (nguồn stereo 64k bị mã hoá lại nên cho thêm bit để giảm hao hụt thế hệ). Giữ metadata (`-map_metadata 0`).
   4. Script `scripts/audio/normalize-recordings.mjs` chạy lại được (bỏ qua file đã trong ±0,5 LU và true peak <= -1,0), `--check` chỉ đo, ghi file tạm rồi thay bản gốc sau khi đo lại đạt; lệch thời lượng > 0,1 s thì từ chối.
 - **Đánh đổi**: gói âm thanh tăng ~3,4 MB (stereo 96k); mã hoá lại 64k → 64k/96k có hao hụt nhẹ; cần ffmpeg khi thêm/thay bản thu (chỉ lúc soạn nội dung, không đóng vào app).
+
+## #59 — Chấm luyện viết trong bài học: so khớp đáp án mẫu trước, AI sau, không AI vẫn học được (2026-11-11) — Đã quyết định
+
+- **Bối cảnh**: cần luyện Viết thật trong bài học (dịch câu Việt → Anh, viết đoạn theo đề) trong khi AI là tuỳ chọn (key API hoặc Claude Code CLI có hạn mức ngày, tắt với hồ sơ trẻ em) và mỗi lượt gọi tốn tiền/lượt. Docs/07 §2 định dùng LanguageTool + AI cho `write_free`.
+- **Quyết định**:
+  1. Hai dạng bài `translate`, `write` trong `LessonExerciseSchema` (tên ngắn như `gap`, `speak`); không thêm `LessonKind`, không đổi schema DB.
+  2. **`translate`: so khớp tại máy trước** (`shared/translationMatch.ts`, chuẩn hoá hoa/thường, dấu câu, nháy, khai triển viết tắt; `'s`/`'d` mơ hồ thì thử cả hai nghĩa). Khớp → đúng, không gọi AI. Không khớp → AI `translation_check` quyết định nếu dùng được; không thì **sai + hiện đáp án mẫu**. Nội dung phải liệt kê đủ bản dịch hợp lý vì khi tắt AI đó là cách chấm duy nhất.
+  3. **`write`: AI `writing_feedback` đạt khi `overall ≥ 60`** (`WRITE_PASS`; 60 = "đạt yêu cầu đề ở trình độ này" theo prompt). Không có AI → **đạt khi đủ `minWords`** + hiện bài mẫu + lý do không có AI. `minWords`/`maxWords` khoá nút nộp ở cả hai chế độ (main kiểm lại), tối đa 1.200 ký tự như nhật ký.
+  4. Chấm ở **main** (`WritingService`): renderer chỉ gửi `kind + lessonId + index + chữ`, main tự lấy đề/đáp án từ nội dung nên phần đề trong prompt là nội dung tin cậy. Mọi lỗi AI (tắt, trẻ em, hết lượt, bận, lỗi mạng/định dạng) quy về chấm không AI kèm `aiReason`, **không bao giờ chặn bài**; kênh IPC lỗi thì store chấm tại chỗ bằng cùng hàm thuần.
+  5. Elo: cả hai tính vào **ngữ pháp** (chưa có kỹ năng Viết); `write` chấm không AI không vào Elo, chỉ vào điểm bài.
+  6. Chưa dùng LanguageTool (thêm server/thư viện lớn), không lưu bài viết/kết quả AI, không cache riêng ngoài cache LRU sẵn có của `AiService`.
+- **Đánh đổi**: khi tắt AI, bản dịch đúng mà không có trong danh sách bị tính sai; `write` không AI chỉ kiểm độ dài (dễ "qua" bằng chữ bất kỳ — chấp nhận vì không ảnh hưởng Elo, chỉ điểm bài); mỗi câu dịch không khớp và mỗi bài viết tốn 1 lượt AI (thêm 1 lượt nếu model trả sai định dạng).

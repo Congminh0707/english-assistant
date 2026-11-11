@@ -111,6 +111,8 @@ export function registerAppIpc(
   handle('diary:save', ({ text }) => c.diary.save(text))
   handle('diary:correct', () => c.diary.correct())
   handle('diary:list', () => c.diary.list())
+  handle('writing:check-translation', (input) => c.writing.checkTranslation(input))
+  handle('writing:feedback', (input) => c.writing.feedback(input))
   handle('practice:start', ({ mode }) => ({ exercise: c.practice.start(mode) }))
   handle('practice:answer', ({ sessionId, exerciseId, answer }) =>
     c.practice.answer(sessionId, exerciseId, answer)

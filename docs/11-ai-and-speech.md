@@ -159,6 +159,8 @@ Lỗi phát âm điển hình người Việt (dùng để soạn bài & gợi �
 > - Cài đặt → Dịch → "AI (Claude)": chọn nhà cung cấp, dòng trạng thái Claude Code + nút "Kiểm tra lại", hạn mức/ngày (10/30/60/Tắt), "Hôm nay đã dùng n/N", ghi chú dùng chung hạn mức gói Claude.
 > - Đo thử (2026-11-11, Claude Code 2.1.317, haiku, prompt 1 dòng): ~2,8–3,1 s mỗi lần; 651 token đầu vào, như nhau có/không `--safe-mode` (không tool, không MCP/CLAUDE.md nào bị nạp). Vẫn thêm `--safe-mode` (tắt CLAUDE.md, skill, plugin, hook, MCP) làm lớp chặn thứ hai; đăng nhập OAuth vẫn chạy với cờ này.
 
+> ✅ Đã làm (2026-11-11) — **luyện viết trong bài học** (docs/07 "Luyện viết", decisions #59): `AiService.checkTranslation()` (`translation_check`) và `AiService.writingFeedback()` (`writing_feedback`) cạnh `explain`/`correctDiary`, cùng đường `run()` (thử lại 1 lần khi sai định dạng, zod, cache LRU theo toàn bộ đầu vào + provider + model, đếm lượt tháng, hạn mức ngày CLI, tắt với hồ sơ trẻ em), `max_tokens` 4096, `effort: 'low'`; `writingFeedback` chỉ giữ 8 chỗ sửa và 3 mẹo. Prompt ở `prompts.ts`: câu người học (và đề/đáp án mẫu) chỉ nằm trong phần `user`, trong thẻ `<source>` / `<reference>` (mỗi đáp án một dòng) / `<translation>` và `<task>` / `<writing>`; system prompt dặn coi là dữ liệu; `neutralizeDelimiters` vô hiệu hoá thêm thẻ đóng của 5 thẻ này. Gọi qua `WritingService` (kênh `writing:check-translation`, `writing:feedback`), không phải từ renderer: câu dịch khớp đáp án mẫu thì không gọi AI; mọi lỗi AI quy về chấm không AI. Không thêm nhà cung cấp, cài đặt hay lựa chọn model.
+
 ### Provider hỗ trợ
 | Provider | Khi nào dùng | Ghi chú |
 |---|---|---|
@@ -175,7 +177,8 @@ API key: người dùng tự nhập (BYOK), lưu mã hoá bằng `safeStorage`. 
 |---|---|---|
 | `translate_explain` | văn bản, level người dùng | `{ translation, notes[] }` |
 | `grammar_explain` | câu, câu hỏi | `{ explanation_vi, pattern, examples[] }` |
-| `writing_feedback` | đề, bài viết, level/track, rubric | `{ scores{...}, overall, corrections[], improved_version, tips[] }` |
+| `writing_feedback` (✅ 2026-11-11) | đề, bài viết, khoảng số từ, `learning.level` | `{ scores{ task, grammar, vocabulary, coherence: int 0–5 }, overall: int 0–100, corrections[{ from, to, note_vi }], improved_version, tips_vi[] }` |
+| `translation_check` (✅ 2026-11-11) | câu Việt, các đáp án mẫu, câu người học dịch, `learning.level` | `{ ok, corrected, note_vi }` |
 | `speaking_feedback` | câu hỏi, transcript, số liệu fluency | `{ scores{...}, feedback, better_answer }` |
 | `roleplay_turn` | kịch bản, lịch sử, level | `{ reply, hint_vi?, correction? }` |
 | `diary_correct` | đoạn nhật ký, level | `{ corrected, changes[{ from, to, note_vi }], praise_vi }` |

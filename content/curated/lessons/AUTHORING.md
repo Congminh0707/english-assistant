@@ -91,3 +91,9 @@ Lệnh này kiểm tra schema và các quy tắc trên cho **mọi file** trong 
 ## Dạng bài `speak` (nói)
 
 `{ "type": "speak", "say": "Nice to meet you.", "prompt": "Giới thiệu…", "word": true }` — người học đọc to `say`, được chấm bằng nhận dạng giọng nói offline (đạt khi ≥ 70%). `word: true` cho một từ đơn (pronounce_word). Không cần `answer`; `explain` tuỳ chọn.
+
+## Dạng bài `translate` (dịch Việt → Anh) và `write` (viết theo đề)
+
+`{ "type": "translate", "vi": "Tôi tên là Nam.", "answers": ["My name is Nam.", "I am Nam."], "explain": "…" }` — người học gõ bản dịch tiếng Anh. Chấm bằng so khớp với `answers` sau chuẩn hoá (`src/shared/translationMatch.ts`: bỏ qua hoa/thường, khoảng trắng, dấu câu, nháy cong; `I'm` = `I am`, `don't` = `do not`, `can't` = `cannot` = `can not`, `'s` sau đại từ = is/has, `'d` = would/had). Không khớp mà người học đã bật AI thì AI xét câu có chấp nhận được không; **tắt AI thì `answers` là cách chấm duy nhất** — liệt kê mọi bản dịch tự nhiên (đổi từ đồng nghĩa, đổi vị trí trạng ngữ thời gian, có/không `o'clock`, chữ số/chữ). Không cần ghi lại biến thể chỉ khác viết tắt hay dấu câu (test báo trùng). Tối đa 20 đáp án, câu Việt có dấu đầy đủ.
+
+`{ "type": "write", "prompt": "Viết 3–5 câu…", "minWords": 15, "maxWords": 60, "sample": "…" }` — đề bằng tiếng Việt; người học phải viết đủ `minWords` (và không quá `maxWords`) mới nộp được. AI chấm (đạt khi điểm tổng ≥ 60); tắt AI thì đạt khi đủ số từ và hiện `sample`. `sample` phải nằm trong khoảng số từ của đề (test kiểm tra).

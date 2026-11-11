@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, reactive, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type { Lesson } from '@shared/schemas/lesson'
+import type { Lesson, LessonKind } from '@shared/schemas/lesson'
+import type { TranslateCheckResult, WritingResult } from '@shared/schemas/writing'
+import { TRANSLATE_MAX_CHARS } from '@shared/writing'
 import type { SpeechScore } from '@shared/speech'
 import { useTts } from '@renderer/shared/composables/useTts'
+import { useWritingStore } from '@renderer/shared/stores/writing'
 import PicText from '@renderer/shared/components/PicText.vue'
 import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
 import { ChevronLeft } from 'lucide-vue-next'
@@ -12,9 +15,13 @@ import AudioPrompt from '../exercises/AudioPrompt.vue'
 import ChoiceList from '../exercises/ChoiceList.vue'
 import MatchBoard from '../exercises/MatchBoard.vue'
 import WordOrderBoard from '../exercises/WordOrderBoard.vue'
+import WriteBoard from '../exercises/WriteBoard.vue'
+import WritingFeedback from '../exercises/WritingFeedback.vue'
 import {
   canCheck as canCheckEx,
   choiceTexts,
+  countsForSkill,
+  gradedRemotely,
   hasChoices as hasChoicesEx,
   initState,
   isCorrect as isCorrectEx,
@@ -26,7 +33,9 @@ import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
 // Bài tập của một bài học: chấm tại chỗ (đáp án là nội dung bài, không phải bí mật), xong gửi điểm lên main.
 // Logic từng dạng bài nằm ở exercises/lessonExercises.ts (registry), phần hiển thị dùng các thành phần chung ở exercises/.
-const props = defineProps<{ lesson: Lesson }>()
+const props = withDefaults(defineProps<{ lesson: Lesson; kind?: LessonKind }>(), {
+  kind: 'lesson'
+})
 const emit = defineEmits<{
   finish: [
     correct: number,
@@ -38,6 +47,7 @@ const emit = defineEmits<{
 
 const { t } = useI18n()
 const { speak, prefetch } = useTts()
+const writing = useWritingStore()
 
 // Đang làm bài tập thì thoát (về bài đọc, danh sách, làng) phải hỏi; xong bài thì trang cha tháo màn này
 useLeaveGuard(() => true)
@@ -61,6 +71,10 @@ const correctCount = ref(0)
 /** Kết quả theo dạng bài (gửi lên main để thống kê độ chính xác và Elo theo kỹ năng) */
 const typeResults = ref<Record<string, { correct: number; total: number }>>({})
 const typedInput = ref<HTMLInputElement>()
+/** Dịch câu / viết theo đề: đang chờ main (có thể là AI) chấm — khoá nút và ô nhập, giữ nguyên chữ */
+const grading = ref(false)
+const translateResult = ref<TranslateCheckResult | null>(null)
+const writeResult = ref<WritingResult | null>(null)
 
 const total = computed(() => props.lesson.exercises.length)
 const ex = computed(() => props.lesson.exercises[idx.value])
@@ -72,15 +86,18 @@ function enter(): void {
   const e = ex.value
   checked.value = false
   correct.value = false
+  translateResult.value = null
+  writeResult.value = null
   Object.assign(state, initState(e, shuffle))
   if (e.type === 'listen') window.setTimeout(() => speak(e.say, undefined, 0.9), 250)
   if (e.type === 'picture' && e.listen) window.setTimeout(() => speak(e.word, undefined, 0.9), 250)
-  if (e.type === 'gap' && !e.choices) void nextTick(() => typedInput.value?.focus())
+  if ((e.type === 'gap' && !e.choices) || e.type === 'translate')
+    void nextTick(() => typedInput.value?.focus())
 }
 
 const choices = computed(() => choiceTexts(ex.value, tfLabel))
 const hasChoices = computed(() => hasChoicesEx(ex.value))
-const canCheck = computed(() => !checked.value && canCheckEx(ex.value, state))
+const canCheck = computed(() => !checked.value && !grading.value && canCheckEx(ex.value, state))
 /** Hiện nút nghe: nghe chọn, hoặc chọn hình dạng nghe từ */
 const audioText = computed(() => {
   const e = ex.value
@@ -132,14 +149,42 @@ function skipSpeak(): void {
   check()
 }
 
-function check(): void {
+/** Dịch câu / viết theo đề: nhờ main chấm (so khớp đáp án mẫu, AI nếu có); store không ném lỗi nên luôn có kết luận */
+async function gradeRemote(): Promise<string | null> {
+  const e = ex.value
+  const at = { kind: props.kind, lessonId: props.lesson.id, index: idx.value }
+  grading.value = true
+  try {
+    if (e.type === 'translate') {
+      const r = await writing.checkTranslation(at, state.typed, e.answers)
+      translateResult.value = r
+      state.verdict = r.correct
+      return r.gradedBy
+    }
+    if (e.type === 'write') {
+      const r = await writing.feedback(at, state.typed, e)
+      writeResult.value = r
+      state.verdict = r.passed
+      return r.gradedBy
+    }
+    return null
+  } finally {
+    grading.value = false
+  }
+}
+
+async function check(): Promise<void> {
   if (!canCheck.value) return
   const e = ex.value
+  const gradedBy = gradedRemotely(e) ? await gradeRemote() : null
   correct.value = isCorrectEx(e, state)
   if (correct.value) correctCount.value++
-  const tally = (typeResults.value[e.type] ??= { correct: 0, total: 0 })
-  tally.total++
-  if (correct.value) tally.correct++
+  // Bài viết chỉ chấm theo số từ (không có AI) không tính vào Elo, chỉ tính vào điểm bài
+  if (countsForSkill(e, gradedBy)) {
+    const tally = (typeResults.value[e.type] ??= { correct: 0, total: 0 })
+    tally.total++
+    if (correct.value) tally.correct++
+  }
   checked.value = true
   if (speaksSolution(e)) speak(solution.value, undefined, 0.9)
 }
@@ -160,14 +205,16 @@ function next(): void {
 
 function onKeyDown(event: KeyboardEvent): void {
   if (event.ctrlKey || event.altKey || event.metaKey) return
+  const target = event.target as HTMLElement | null
+  // Ô viết bài: Enter là xuống dòng; đang chấm thì bỏ qua phím
+  if (target?.tagName === 'TEXTAREA' || grading.value) return
   if (event.key === 'Enter') {
     event.preventDefault()
     if (checked.value) next()
-    else check()
+    else void check()
     return
   }
   const n = Number(event.key)
-  const target = event.target as HTMLElement | null
   if (
     hasChoices.value &&
     !checked.value &&
@@ -181,6 +228,7 @@ function onKeyDown(event: KeyboardEvent): void {
 
 onMounted(() => {
   window.addEventListener('keydown', onKeyDown)
+  if (props.lesson.exercises.some(gradedRemotely)) void writing.refreshAi()
   // Giọng tự nhiên: tạo trước âm thanh các câu nghe và lời giải của bài tập
   prefetch(
     props.lesson.exercises.flatMap((e) =>
@@ -225,6 +273,10 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
         {{ ex.word ? t('study.lessons.speakWordHelp') : t('study.lessons.speakHelp') }}
       </p>
       <p v-else-if="ex.type === 'gap'" class="instruction">{{ t('study.lessons.gapHelp') }}</p>
+      <p v-else-if="ex.type === 'translate'" class="instruction">
+        {{ t('study.lessons.translateHelp') }}
+      </p>
+      <p v-else-if="ex.type === 'write'" class="instruction">{{ t('study.lessons.writeHelp') }}</p>
       <p v-else-if="ex.type === 'order'" class="instruction">{{ t('study.lessons.orderHelp') }}</p>
       <p v-else-if="ex.type === 'match'" class="instruction">
         {{ ex.prompt ?? t('study.lessons.matchHelp') }}
@@ -234,6 +286,8 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       <p v-else-if="ex.type === 'picture' && !ex.listen" class="prompt">{{ ex.word }}</p>
       <p v-else-if="ex.type === 'speak'" class="prompt">{{ ex.prompt ?? ex.say }}</p>
       <p v-else-if="ex.type === 'order'" class="prompt vi">{{ ex.hint }}</p>
+      <p v-else-if="ex.type === 'translate'" class="prompt vi">{{ ex.vi }}</p>
+      <p v-else-if="ex.type === 'write'" class="prompt task">{{ ex.prompt }}</p>
       <p v-else-if="ex.type === 'gap'" class="prompt">
         {{ promptParts[0]
         }}<span class="blank">{{
@@ -258,15 +312,24 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       />
 
       <input
-        v-if="ex.type === 'gap' && !ex.choices"
+        v-if="(ex.type === 'gap' && !ex.choices) || ex.type === 'translate'"
         ref="typedInput"
         v-model="state.typed"
         type="text"
         class="typed"
         spellcheck="false"
         autocomplete="off"
-        :disabled="checked"
+        :maxlength="ex.type === 'translate' ? TRANSLATE_MAX_CHARS : undefined"
+        :disabled="checked || grading"
         :placeholder="t('study.lessons.typeHere')"
+      />
+
+      <WriteBoard
+        v-else-if="ex.type === 'write'"
+        v-model="state.typed"
+        :min-words="ex.minWords"
+        :max-words="ex.maxWords"
+        :locked="checked || grading"
       />
 
       <WordOrderBoard
@@ -293,13 +356,18 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
         :pictures="ex.type === 'picture'"
       />
 
+      <p v-if="grading" class="grading" role="status" aria-live="polite">
+        <UiIcon name="write" />
+        {{ writing.aiReady ? t('study.lessons.gradingAi') : t('study.lessons.grading') }}
+      </p>
+
       <div v-if="checked" class="feedback" :class="{ ok: correct }">
         <strong class="verdict"
           ><UiIcon :name="correct ? 'done' : 'close'" />{{
             correct ? t('study.lessons.correct') : t('study.lessons.wrong')
           }}</strong
         >
-        <div v-if="!correct" class="solution">
+        <div v-if="!correct && ex.type !== 'write'" class="solution">
           <PicText v-if="ex.type === 'picture'" :text="ex.choices[ex.answer]" :size="48" ids />
           {{ solution }}
         </div>
@@ -307,6 +375,14 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           <UiIcon name="hint" /> {{ ex.explain }}
         </div>
       </div>
+
+      <WritingFeedback
+        v-if="checked && (translateResult || writeResult)"
+        :translate="translateResult"
+        :write="writeResult"
+        :model-answer="ex.type === 'translate' ? ex.answers[0] : undefined"
+        :sample="ex.type === 'write' ? ex.sample : undefined"
+      />
     </div>
 
     <div class="foot">
@@ -327,7 +403,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           :disabled="!canCheck"
           @click="check"
         >
-          {{ t('study.lessons.check') }}
+          {{ grading ? t('study.lessons.grading') : t('study.lessons.check') }}
         </button>
         <button v-else type="button" class="btn btn--primary" @click="next">
           {{ idx + 1 >= total ? t('study.lessons.finish') : t('study.lessons.next') }}
@@ -399,6 +475,19 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 }
 .prompt.vi {
   font-size: var(--fs-lg);
+}
+.prompt.task {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  line-height: 1.5;
+}
+.grading {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin: 0;
+  color: var(--c-ink-soft);
+  font-weight: 600;
 }
 .blank {
   display: inline-block;

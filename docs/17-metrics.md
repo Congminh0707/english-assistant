@@ -20,8 +20,8 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 | Hạng mục                                       | Giá trị                                                                                     | Đo bằng      | Đo ngày    |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
 | Phiên bản app                                  | 2.3.0                                                                                       | `pnpm stats` | 2026-11-11 |
-| Test (Vitest)                                  | 664 test / 69 file                                                                          | `pnpm test`  | 2026-11-11 |
-| Kênh IPC                                       | 115 invoke · 6 send · 14 event                                                              | `pnpm stats` | 2026-11-11 |
+| Test (Vitest)                                  | 702 test / 72 file                                                                          | `pnpm test`  | 2026-11-11 |
+| Kênh IPC                                       | 117 invoke · 6 send · 14 event                                                              | `pnpm stats` | 2026-11-11 |
 | Migration DB (Drizzle)                         | 10 (`0000`–`0009`)                                                                          | `pnpm stats` | 2026-11-10 |
 | Nhân vật thú cưng                              | 5 (Bi, Lupo, Draco, Robo, Kitsu)                                                           | `pnpm stats` | 2026-10-22 |
 | Dáng vector mỗi nhân vật | 19 dáng × 4 giai đoạn vẽ riêng + trứng = 77 hình mỗi con (mascot v4, xem 05)                | `pnpm stats` | 2026-11-10 |
@@ -31,7 +31,7 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 
 | Hạng mục               | Số lượng                                         | Ghi chú                                                                          | Đo ngày    |
 | ---------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------- | ---------- |
-| Bài học nền tảng       | 58 bài / 9 chương / 645 bài tập                  | chữ cái–phát âm, mẫu câu, các thì, cấu trúc, giao tiếp, hình minh hoạ, luyện nói | 2026-11-10 |
+| Bài học nền tảng       | 64 bài / 10 chương / 688 bài tập                 | chữ cái–phát âm, mẫu câu, các thì, cấu trúc, giao tiếp, hình minh hoạ, luyện nói, luyện viết (6 bài: 25 câu dịch + 6 đề viết) | 2026-11-11 |
 | Điểm ngữ pháp          | 56                                               |                                                                                  | 2026-11-05 |
 | Bài đọc                | 74                                               |                                                                                  | 2026-11-05 |
 | Bài nghe               | 58                                               | đọc bằng TTS; có gói audio MP3 tạo sẵn tải thêm (12 bài VOA dùng bản thu thật)   | 2026-11-11 |
@@ -75,6 +75,7 @@ Các bản trước (1.0.0 → 1.2.0) ghi ở [09 §10.3](09-content-pipeline.md
 | Whisper base.en            | ~80 MB                                                              | chấm nói                                                                                        |
 | wav2vec2 phoneme int8      | ~355 MB                                                             | chấm âm vị, tuỳ chọn                                                                            |
 | Gói audio bài nghe         | 267,8 MB (11 888 đoạn: bài nghe Anh + Mỹ gồm B2–C2, 972 từ/câu trẻ em × 4 tốc độ, bài học + ngữ pháp + bài đọc + cụm từ + TOEIC Part 1–4 + kiểm tra nghe, 12 bản thu thật) | gói `listening-audio-1.7.0` đã đăng 2026-11-11 (đo 2026-11-11)                                        |
+| Đoạn âm thanh cần cho gói (`--list`) | 11 966 (+78 so với gói 1.7.0: ví dụ + lời giải `gap`/`order` của 6 bài Luyện viết; chưa build lại gói — câu thiếu trong gói được đọc bằng giọng tự nhiên/giọng Windows) | `node scripts/audio/build-listening-audio.mjs --list`, đo 2026-11-11 |
 | Gói bản đồ bé `kids-world` | 📋 chưa build — đo khi build ([19 §6](19-kids-world.md))            | mục tiêu ≤ 50 MB                                                                                |
 | Bản đồ bé: fps đo trong app thật (2026-11-01, 1600×900, máy dev, hồ sơ trẻ em mới) | 2D cao 56, 2D thấp 56, 3D cao 56, 3D thấp 56, quả cầu cao 56 | đếm `requestAnimationFrame` trong 5 giây; chưa đo trên máy yếu thật. Tự hạ khi dưới 24 fps ([19](19-kids-world.md)) |
 | Gói sprite thú cưng 288px  | đã bỏ 2026-11-01 (decisions #45); bộ cài không còn sprite pixel, thú cưng vector `art/pets` 5 file = 5.399 KB (mascot v4: bi 837, kitsu 1.853, draco 1.145, robo 580, lupo 984) | `pnpm mascot` | 2026-11-10 |

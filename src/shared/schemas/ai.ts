@@ -63,3 +63,45 @@ export const DiaryCorrectSchema = z.object({
   praise_vi: z.string()
 })
 export type DiaryCorrect = z.infer<typeof DiaryCorrectSchema>
+
+/** Đầu vào tác vụ translation_check (WritingService.checkTranslation): câu Việt, các đáp án mẫu, câu người học dịch */
+export interface TranslationCheckInput {
+  vi: string
+  answers: string[]
+  text: string
+  level: string
+}
+
+/** Kết quả tác vụ translation_check: câu dịch có chấp nhận được không, bản sửa, nhận xét tiếng Việt */
+export const TranslationCheckSchema = z.object({
+  ok: z.boolean(),
+  corrected: z.string(),
+  note_vi: z.string()
+})
+export type TranslationCheck = z.infer<typeof TranslationCheckSchema>
+
+/** Đầu vào tác vụ writing_feedback (WritingService.feedback) */
+export interface WritingFeedbackInput {
+  prompt: string
+  text: string
+  minWords: number
+  maxWords?: number
+  level: string
+}
+
+const RubricScore = z.number().int().min(0).max(5)
+
+/** Kết quả tác vụ writing_feedback: điểm 4 tiêu chí (0–5), điểm tổng (0–100), các chỗ sửa, bản viết lại, mẹo tiếng Việt */
+export const WritingFeedbackSchema = z.object({
+  scores: z.object({
+    task: RubricScore,
+    grammar: RubricScore,
+    vocabulary: RubricScore,
+    coherence: RubricScore
+  }),
+  overall: z.number().int().min(0).max(100),
+  corrections: z.array(z.object({ from: z.string(), to: z.string(), note_vi: z.string() })),
+  improved_version: z.string(),
+  tips_vi: z.array(z.string())
+})
+export type WritingFeedback = z.infer<typeof WritingFeedbackSchema>

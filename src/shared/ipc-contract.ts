@@ -126,6 +126,12 @@ import {
 } from './schemas/study'
 import { AiExplainInputSchema, AiStatusSchema, GrammarExplainSchema } from './schemas/ai'
 import {
+  TranslateCheckInputSchema,
+  TranslateCheckResultSchema,
+  WritingFeedbackRequestSchema,
+  WritingResultSchema
+} from './schemas/writing'
+import {
   DiaryCorrectResultSchema,
   DiaryEntrySchema,
   DiarySaveInputSchema,
@@ -225,6 +231,11 @@ export const invokeContract = {
   'diary:save': { input: DiarySaveInputSchema, output: DiaryEntrySchema },
   'diary:correct': { input: z.void(), output: DiaryCorrectResultSchema },
   'diary:list': { input: z.void(), output: z.array(DiaryEntrySchema) },
+  'writing:check-translation': {
+    input: TranslateCheckInputSchema,
+    output: TranslateCheckResultSchema
+  },
+  'writing:feedback': { input: WritingFeedbackRequestSchema, output: WritingResultSchema },
   'practice:start': { input: PracticeStartInputSchema, output: PracticeStartResultSchema },
   'practice:answer': { input: PracticeAnswerInputSchema, output: PracticeAnswerResultSchema },
   'shop:state': { input: z.void(), output: ShopStateSchema },

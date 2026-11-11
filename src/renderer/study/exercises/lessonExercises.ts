@@ -1,8 +1,9 @@
-// Registry các dạng bài tập của bài học (mcq, gap, order, match, listen, tf, picture, speak): khởi tạo trạng thái nhập, kiểm tra
+// Registry các dạng bài tập của bài học (mcq, gap, order, match, listen, tf, picture, speak, translate, write): khởi tạo trạng thái nhập, kiểm tra
 // đã đủ để chấm chưa, chấm đúng/sai, lời giải. Thuần dữ liệu (không Vue, không IPC) → test được ở Node và dùng chung cho
 // mọi trang bài tập. Thêm dạng bài mới = thêm một mục vào `HANDLERS` (+ schema trong shared/schemas/lesson.ts).
 import { sameSentence } from '@shared/practice'
 import type { LessonExercise } from '@shared/schemas/lesson'
+import { writeLength } from '@shared/writing'
 import { isGapCorrect } from '../lessonText'
 
 /** Thứ tự lựa chọn của dạng đúng/sai: Đúng, Sai, (Không có thông tin) */
@@ -15,7 +16,7 @@ export const SPEAK_PASS = 70
 export interface ExerciseState {
   /** Lựa chọn đã chọn (mcq, listen, gap có lựa chọn, tf, picture) */
   chosen: number | null
-  /** Đáp án gõ (gap không có lựa chọn) */
+  /** Đáp án gõ (gap không có lựa chọn), câu dịch (translate), bài viết (write) */
   typed: string
   /** Sắp xếp câu: các từ đã xáo và thứ tự chỉ số người dùng chọn */
   tokens: string[]
@@ -25,6 +26,8 @@ export interface ExerciseState {
   rightOrder: number[]
   /** Bài nói: độ chính xác (0–100) của lần nói gần nhất; null nếu chưa nói */
   spoken: number | null
+  /** Dịch câu / viết theo đề: kết luận đúng/sai do main chấm (so khớp, AI) trước khi chốt; null nếu chưa chấm */
+  verdict: boolean | null
 }
 
 type Shuffle = <T>(items: T[]) => T[]
@@ -103,6 +106,23 @@ const HANDLERS: { [T in LessonExercise['type']]: Handler<Of<T>> } = {
     isCorrect: (_ex, st) => st.spoken !== null && st.spoken >= SPEAK_PASS,
     solution: (ex) => ex.say
   },
+  translate: {
+    hasChoices: () => false,
+    choices: () => [],
+    init: () => undefined,
+    canCheck: (_ex, st) => st.typed.trim().length > 0,
+    isCorrect: (_ex, st) => st.verdict === true,
+    solution: (ex) => ex.answers[0]
+  },
+  write: {
+    hasChoices: () => false,
+    choices: () => [],
+    init: () => undefined,
+    // Đủ số từ tối thiểu, không quá số từ tối đa (cả khi có AI lẫn không)
+    canCheck: (ex, st) => writeLength(st.typed, ex.minWords, ex.maxWords).status === 'ok',
+    isCorrect: (_ex, st) => st.verdict === true,
+    solution: (ex) => ex.sample ?? ''
+  },
   match: {
     hasChoices: () => false,
     choices: () => [],
@@ -128,7 +148,8 @@ export function newState(): ExerciseState {
     picked: [],
     pairMap: [],
     rightOrder: [],
-    spoken: null
+    spoken: null,
+    verdict: null
   }
 }
 
@@ -156,6 +177,17 @@ export const solutionOf = (
 /** Các dạng bài mà lời giải được đọc to sau khi chấm */
 export const speaksSolution = (ex: LessonExercise): boolean =>
   ex.type === 'gap' || ex.type === 'order'
+
+/** Các dạng bài được main chấm (bất đồng bộ, có thể dùng AI) trước khi chốt kết quả */
+export const gradedRemotely = (ex: LessonExercise): boolean =>
+  ex.type === 'translate' || ex.type === 'write'
+
+/**
+ * Có tính kết quả câu này vào thống kê kỹ năng (Elo) không: bài viết chỉ được chấm theo số từ (không có AI) không phải
+ * bằng chứng về kỹ năng nên chỉ tính vào điểm bài, không vào Elo
+ */
+export const countsForSkill = (ex: LessonExercise, gradedBy: string | null): boolean =>
+  !(ex.type === 'write' && gradedBy !== 'ai')
 
 /** Mọi dạng bài đã đăng ký */
 export const EXERCISE_TYPES = Object.keys(HANDLERS) as LessonExercise['type'][]

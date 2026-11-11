@@ -76,6 +76,7 @@ import type { CliRunner } from './ai/cliRunner'
 import { ClaudeCliLocator, NO_CLI, type CliProbe } from './ai/resolveClaudeCli'
 import { DiaryRepository } from './db/repositories/DiaryRepository'
 import { DiaryService } from './services/DiaryService'
+import { WritingService } from './services/WritingService'
 
 export interface Container {
   clock: Clock
@@ -116,6 +117,8 @@ export interface Container {
   ai: AiService
   /** Nhật ký tiếng Anh buổi tối (docs/07 §14) */
   diary: DiaryService
+  /** Chấm dạng bài luyện viết trong bài học: dịch câu, viết theo đề (docs/07 "Luyện viết") */
+  writing: WritingService
 }
 
 export interface ContainerOptions {
@@ -477,6 +480,11 @@ export function createContainer(
     settings,
     clock
   })
+  const writing = new WritingService({
+    ai,
+    lessons: (kind) => lessonServices[kind],
+    settings
+  })
 
   return {
     clock,
@@ -512,6 +520,7 @@ export function createContainer(
     courses,
     dailyPlan,
     ai,
-    diary
+    diary,
+    writing
   }
 }

@@ -15,6 +15,8 @@ import { KidsFileSchema } from '@shared/schemas/kids'
 import { LEVEL_CODES } from '@shared/schemas/content/level'
 import { PICTURE_IDS } from '@shared/pictures'
 import { PlacementBankFileSchema } from '@shared/schemas/placement'
+import { translationForms } from '@shared/translationMatch'
+import { writingWordCount } from '@shared/writing'
 import type { z } from 'zod'
 
 // Kiểm tra toàn bộ nội dung bài học trong content/curated/lessons/*.json:
@@ -63,6 +65,29 @@ function problems(ex: LessonExercise, where: string): string[] {
     case 'order': {
       const words = ex.answer.trim().split(/\s+/).length
       if (words < 3 || words > 12) out.push(`${where}: câu sắp xếp cần 3–12 từ (có ${words})`)
+      break
+    }
+    case 'translate': {
+      // Hai đáp án chuẩn hoá giống nhau (vd chỉ khác viết tắt/dấu câu) là thừa
+      const seen = new Set<string>()
+      ex.answers.forEach((a) => {
+        const forms = translationForms(a)
+        if (forms.length === 0) out.push(`${where}: đáp án rỗng sau chuẩn hoá`)
+        if (forms.some((f) => seen.has(f))) out.push(`${where}: đáp án trùng sau chuẩn hoá: "${a}"`)
+        forms.forEach((f) => seen.add(f))
+      })
+      if (!/[ăâđêôơưàáảãạèéẻẽẹìíỉĩịòóỏõọùúủũụỳýỷỹỵ]/i.test(ex.vi))
+        out.push(`${where}: câu tiếng Việt thiếu dấu`)
+      break
+    }
+    case 'write': {
+      if (ex.maxWords !== undefined && ex.maxWords < ex.minWords)
+        out.push(`${where}: maxWords nhỏ hơn minWords`)
+      if (ex.sample) {
+        const n = writingWordCount(ex.sample)
+        if (n < ex.minWords || (ex.maxWords !== undefined && n > ex.maxWords))
+          out.push(`${where}: bài mẫu ${n} từ, ngoài khoảng yêu cầu`)
+      }
       break
     }
     case 'match': {
@@ -275,9 +300,10 @@ describe('bài nghe bản thu thật (VOA)', () => {
         expect(rec?.sourceUrl).toMatch(/^https:\/\/learningenglish\.voanews\.com\//)
         expect(existsSync(join(MP3_DIR, `${rec?.id}.mp3`)), `${lesson.id}: thiếu MP3`).toBe(true)
         const text = JSON.stringify(lesson) + (rec?.credit ?? '')
-        expect(/\b(AP|Reuters|AFP)\b|Associated Press/.test(text), `${lesson.id}: lẫn tin hãng`).toBe(
-          false
-        )
+        expect(
+          /\b(AP|Reuters|AFP)\b|Associated Press/.test(text),
+          `${lesson.id}: lẫn tin hãng`
+        ).toBe(false)
       }
     })
   }

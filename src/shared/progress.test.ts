@@ -17,6 +17,10 @@ describe('progress', () => {
     expect(lessonExerciseSkill('reading', 'listen')).toBe('listening')
     expect(lessonExerciseSkill('grammar', 'mcq')).toBe('grammar')
     expect(lessonExerciseSkill('listening', 'mcq')).toBe('listening')
+    // Luyện viết (dịch câu, viết theo đề): chưa có kỹ năng Viết riêng → ngữ pháp, ở mọi loại bài
+    expect(lessonExerciseSkill('lesson', 'translate')).toBe('grammar')
+    expect(lessonExerciseSkill('lesson', 'write')).toBe('grammar')
+    expect(lessonExerciseSkill('reading', 'write')).toBe('grammar')
     expect(practiceKindSkill('dictation')).toBe('listening')
     expect(practiceKindSkill('word_order')).toBe('grammar')
     expect(practiceKindSkill('cloze')).toBe('vocab')

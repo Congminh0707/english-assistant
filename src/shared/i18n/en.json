@@ -1308,7 +1308,36 @@
       "speakHelp": "Tap the microphone and read this sentence aloud.",
       "speakWordHelp": "Tap the microphone and say this word aloud.",
       "skipSpeak": "Skip this one",
-      "autoSaved": "Saved {n} new word from this lesson to your word list | Saved {n} new words from this lesson to your word list"
+      "autoSaved": "Saved {n} new word from this lesson to your word list | Saved {n} new words from this lesson to your word list",
+      "translateHelp": "Translate this sentence into English.",
+      "writeHelp": "Write in English for this task.",
+      "grading": "Checking…",
+      "gradingAi": "The AI is marking your answer, one moment…",
+      "writing": {
+        "placeholder": "Write your answer in English…",
+        "words": "{n} word | {n} words",
+        "minWords": "at least {n} words",
+        "maxWords": "at most {n} words",
+        "tooLong": "Too long. Cut it down to {n} words or fewer.",
+        "modelAnswer": "Model answer",
+        "aiAccepted": "The AI accepted your translation.",
+        "aiNote": "AI comment",
+        "aiCorrected": "Suggested fix",
+        "noAiTranslate": "Your sentence differs from the model answers and was not checked by the AI, so it counts as not correct.",
+        "noAiWrite": "No AI feedback: your answer passes because it has enough words.",
+        "sample": "Sample answer",
+        "overall": "AI score: {n}/100",
+        "passMark": "pass from {n}",
+        "corrections": "Corrections",
+        "improved": "Improved version",
+        "tips": "Tips",
+        "scores": {
+          "task": "Task",
+          "grammar": "Grammar",
+          "vocabulary": "Vocabulary",
+          "coherence": "Coherence"
+        }
+      }
     },
     "courses": {
       "title": "Courses",

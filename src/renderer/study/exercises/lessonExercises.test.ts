@@ -3,7 +3,9 @@ import type { LessonExercise } from '@shared/schemas/lesson'
 import {
   canCheck,
   choiceTexts,
+  countsForSkill,
   EXERCISE_TYPES,
+  gradedRemotely,
   hasChoices,
   initState,
   isCorrect,
@@ -48,7 +50,18 @@ const LISTEN: LessonExercise = { type: 'listen', say: 'hi', choices: ['x', 'y'],
 describe('registry dạng bài của bài học', () => {
   it('đăng ký đủ mọi dạng bài trong schema', () => {
     expect([...EXERCISE_TYPES].sort()).toEqual(
-      ['gap', 'listen', 'match', 'mcq', 'order', 'picture', 'speak', 'tf'].sort()
+      [
+        'gap',
+        'listen',
+        'match',
+        'mcq',
+        'order',
+        'picture',
+        'speak',
+        'tf',
+        'translate',
+        'write'
+      ].sort()
     )
   })
 
@@ -62,6 +75,56 @@ describe('registry dạng bài của bài học', () => {
     st.spoken = SPEAK_PASS
     expect(isCorrect(ex, st)).toBe(true)
     expect(solutionOf(ex, (k) => k)).toBe('Nice to meet you.')
+  })
+
+  it('dịch câu: chấm được khi đã gõ; đúng/sai theo kết luận main trả về; lời giải là đáp án đầu', () => {
+    const ex: LessonExercise = {
+      type: 'translate',
+      vi: 'Tôi là học sinh.',
+      answers: ['I am a student.']
+    }
+    const st = newState()
+    expect(canCheck(ex, st)).toBe(false)
+    st.typed = '  '
+    expect(canCheck(ex, st)).toBe(false)
+    st.typed = 'I am a pupil.'
+    expect(canCheck(ex, st)).toBe(true)
+    expect(isCorrect(ex, st)).toBe(false)
+    st.verdict = true
+    expect(isCorrect(ex, st)).toBe(true)
+    expect(solutionOf(ex, tf)).toBe('I am a student.')
+    expect(gradedRemotely(ex)).toBe(true)
+    expect(speaksSolution(ex)).toBe(false)
+  })
+
+  it('viết theo đề: chỉ nộp được khi số từ trong khoảng min–max; đúng/sai theo kết luận main', () => {
+    const ex: LessonExercise = {
+      type: 'write',
+      prompt: 'p',
+      minWords: 3,
+      maxWords: 5,
+      sample: 'S.'
+    }
+    const st = newState()
+    st.typed = 'one two'
+    expect(canCheck(ex, st)).toBe(false)
+    st.typed = 'one two three four five six'
+    expect(canCheck(ex, st)).toBe(false)
+    st.typed = 'one two three'
+    expect(canCheck(ex, st)).toBe(true)
+    expect(isCorrect(ex, st)).toBe(false)
+    st.verdict = true
+    expect(isCorrect(ex, st)).toBe(true)
+    expect(solutionOf(ex, tf)).toBe('S.')
+    expect(gradedRemotely(MCQ)).toBe(false)
+  })
+
+  it('Elo: bài viết chỉ tính khi AI chấm; dạng khác luôn tính', () => {
+    const write: LessonExercise = { type: 'write', prompt: 'p', minWords: 3 }
+    expect(countsForSkill(write, 'ai')).toBe(true)
+    expect(countsForSkill(write, 'local')).toBe(false)
+    expect(countsForSkill({ type: 'translate', vi: 'x', answers: ['y'] }, 'local')).toBe(true)
+    expect(countsForSkill(MCQ, null)).toBe(true)
   })
 
   it('trắc nghiệm / nghe / chọn hình: cần chọn mới chấm được, đúng khi trùng đáp án', () => {

@@ -54,6 +54,10 @@ App chạy thường trực trên máy, có thể đọc clipboard, nghe micro, 
 - Chỉ main process đọc và gọi API; renderer chỉ biết "đã cấu hình / chưa".
 - Không bao giờ commit key vào repo. File `.env` (nếu có, cho script nội dung) nằm trong `.gitignore`; có `.env.example`.
 
+### Luyện viết gửi AI (2026-11-11, docs/07 "Luyện viết", decisions #59)
+
+- Khi AI đã bật (người lớn): câu dịch không khớp đáp án mẫu và bài viết theo đề được gửi lên nhà cung cấp AI đang dùng (key API hoặc Claude Code CLI), kèm câu Việt/đáp án mẫu/đề lấy từ nội dung bài và trình độ `learning.level`; câu dịch khớp đáp án mẫu không gửi đi. Không lưu bài viết hay kết quả xuống đĩa (chỉ cache trong bộ nhớ của `AiService`), không log chữ người học.
+
 ### AI qua Claude Code CLI (2026-11-11, docs/11 §5, decisions #57)
 
 App chạy `claude -p` của người dùng như một tiến trình con. Quy tắc bắt buộc (có test ở `src/main/ai/*.test.ts`):

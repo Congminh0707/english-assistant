@@ -127,6 +127,7 @@ onMounted(async () => {
       v-else-if="mode === 'exercise' && lesson"
       :key="lesson.id + ':' + (result?.score ?? 'n')"
       :lesson="lesson"
+      :kind="kind"
       @back="mode = 'read'"
       @finish="finish"
     />

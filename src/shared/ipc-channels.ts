@@ -70,6 +70,9 @@ export const INVOKE_CHANNELS = [
   'diary:save',
   'diary:correct',
   'diary:list',
+  /** Luyện viết trong bài học (docs/07 "Luyện viết"): chấm câu dịch, chấm bài viết theo đề (so khớp / AI) */
+  'writing:check-translation',
+  'writing:feedback',
   'practice:start',
   'practice:answer',
   'shop:state',

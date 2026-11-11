@@ -1,0 +1,879 @@
+{
+  "license": "proprietary-own",
+  "unit": {
+    "id": "write",
+    "title": "Luyện viết",
+    "summary": "Dịch câu Việt → Anh và viết đoạn ngắn theo đề: giới thiệu bản thân, một ngày của bạn, cuối tuần, lời mời, nêu ý kiến, email lịch sự.",
+    "icon": "✍️",
+    "order": 10
+  },
+  "lessons": [
+    {
+      "id": "write.about-me",
+      "title": "Viết: giới thiệu bản thân",
+      "summary": "Viết các câu đầu tiên về tên, tuổi, nơi sống và sở thích.",
+      "level": "A1_1",
+      "minutes": 10,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Bài này luyện **viết câu tiếng Anh**. Phần dịch câu được chấm bằng cách so với các đáp án mẫu (viết hoa/thường, dấu chấm cuối câu, `I'm` hay `I am` đều được). Nếu bạn đã bật AI trong Cài đặt, câu viết khác đáp án mẫu sẽ được AI xem có chấp nhận được không, và đoạn văn cuối bài được AI chấm điểm, sửa lỗi.\n\nCâu giới thiệu đơn giản nhất có dạng **chủ ngữ + động từ + phần còn lại**:\n\n- `I am` + tuổi / nghề: `I am twelve.`\n- `I live in` + nơi chốn: `I live in Hue.`\n- `I like` + V-ing / danh từ: `I like drawing.`"
+        },
+        {
+          "type": "examples",
+          "title": "Câu mẫu",
+          "items": [
+            {
+              "en": "My name is Lan.",
+              "vi": "Tên tôi là Lan."
+            },
+            {
+              "en": "I am twelve years old.",
+              "vi": "Tôi mười hai tuổi."
+            },
+            {
+              "en": "I live in Hue with my family.",
+              "vi": "Tôi sống ở Huế cùng gia đình."
+            },
+            {
+              "en": "I have one brother.",
+              "vi": "Tôi có một anh trai / em trai."
+            },
+            {
+              "en": "I like drawing and reading comics.",
+              "vi": "Tôi thích vẽ và đọc truyện tranh."
+            },
+            {
+              "en": "My favorite food is pho.",
+              "vi": "Món ăn tôi thích nhất là phở."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Tiếng Việt nói \"Tôi mười hai tuổi\" không có động từ, nhưng tiếng Anh **luôn cần động từ**: `I am twelve`, không viết `I twelve`. Tên thành phố viết hoa chữ đầu: `Da Nang`, `Hanoi`."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "I ___ a student.",
+          "answers": [
+            "am"
+          ],
+          "choices": [
+            "is",
+            "am",
+            "are"
+          ],
+          "explain": "Với `I` dùng `am`."
+        },
+        {
+          "type": "order",
+          "hint": "Tôi sống ở Hà Nội.",
+          "answer": "I live in Hanoi."
+        },
+        {
+          "type": "translate",
+          "vi": "Tôi tên là Nam.",
+          "answers": [
+            "My name is Nam.",
+            "I am Nam.",
+            "Nam is my name."
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Tôi mười lăm tuổi.",
+          "answers": [
+            "I am fifteen years old.",
+            "I am fifteen.",
+            "I am 15 years old.",
+            "I am 15."
+          ],
+          "explain": "Tuổi đi với `am/is/are`: `I am fifteen (years old)`."
+        },
+        {
+          "type": "translate",
+          "vi": "Tôi sống ở Đà Nẵng.",
+          "answers": [
+            "I live in Da Nang.",
+            "I live in Danang.",
+            "I live in Đà Nẵng."
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Tôi thích đọc sách.",
+          "answers": [
+            "I like reading books.",
+            "I like to read books.",
+            "I like reading.",
+            "I like to read.",
+            "I enjoy reading books.",
+            "I enjoy reading."
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Em gái tôi là học sinh.",
+          "answers": [
+            "My younger sister is a student.",
+            "My little sister is a student.",
+            "My sister is a student.",
+            "My younger sister is a pupil.",
+            "My little sister is a pupil.",
+            "My sister is a pupil."
+          ],
+          "explain": "Nghề / vai trò số ít cần `a`: `a student`."
+        },
+        {
+          "type": "write",
+          "prompt": "Viết 3–5 câu giới thiệu bản thân: tên, tuổi, nơi bạn sống và một điều bạn thích.",
+          "minWords": 15,
+          "maxWords": 60,
+          "sample": "Hi, my name is Lan. I am twelve years old. I live in Hue with my parents and my brother. I like drawing and reading comics."
+        }
+      ]
+    },
+    {
+      "id": "write.my-day",
+      "title": "Viết: một ngày của tôi",
+      "summary": "Kể việc làm hằng ngày bằng thì hiện tại đơn, có giờ giấc.",
+      "level": "A1_2",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Kể thói quen hằng ngày dùng **thì hiện tại đơn**. Với `he / she / it` (và một người như `my mom`), động từ thêm **-s / -es**: `she gets up`, `he watches TV`.\n\nGiờ giấc dùng `at`: `at six`, `at 6:30`, `at seven o'clock`. Buổi trong ngày dùng `in`: `in the morning`, `in the evening`; riêng ban đêm là `at night`."
+        },
+        {
+          "type": "table",
+          "title": "Từ chỉ tần suất (đứng trước động từ thường)",
+          "head": [
+            "Tiếng Anh",
+            "Nghĩa",
+            "Ví dụ"
+          ],
+          "rows": [
+            [
+              "always",
+              "luôn luôn",
+              "I always have breakfast."
+            ],
+            [
+              "usually",
+              "thường",
+              "She usually walks to school."
+            ],
+            [
+              "often",
+              "hay, thường",
+              "We often play football."
+            ],
+            [
+              "sometimes",
+              "thỉnh thoảng",
+              "He sometimes cooks dinner."
+            ],
+            [
+              "never",
+              "không bao giờ",
+              "I never drink coffee."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Câu mẫu",
+          "items": [
+            {
+              "en": "I get up at six o'clock.",
+              "vi": "Tôi thức dậy lúc sáu giờ."
+            },
+            {
+              "en": "My mom makes breakfast for us.",
+              "vi": "Mẹ tôi làm bữa sáng cho chúng tôi."
+            },
+            {
+              "en": "I go to school by bike.",
+              "vi": "Tôi đi học bằng xe đạp."
+            },
+            {
+              "en": "We have lunch at twelve.",
+              "vi": "Chúng tôi ăn trưa lúc mười hai giờ."
+            },
+            {
+              "en": "In the evening, I do my homework.",
+              "vi": "Buổi tối tôi làm bài tập về nhà."
+            },
+            {
+              "en": "I go to bed at ten.",
+              "vi": "Tôi đi ngủ lúc mười giờ."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Lỗi hay gặp: quên **-s** sau `he / she`. Viết `She reads`, không viết `She read`. Câu phủ định dùng `don't / doesn't` + động từ nguyên mẫu: `He doesn't watch TV`, không viết `He doesn't watches`."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "She ___ up at six every day.",
+          "answers": [
+            "gets"
+          ],
+          "choices": [
+            "get",
+            "getting",
+            "gets"
+          ],
+          "explain": "`she` → động từ thêm -s: `gets`."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Chọn câu đúng.",
+          "choices": [
+            "He go to school by bus.",
+            "He goes to school by bus.",
+            "He going to school by bus."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "translate",
+          "vi": "Tôi thức dậy lúc sáu giờ.",
+          "answers": [
+            "I get up at six.",
+            "I get up at six o'clock.",
+            "I wake up at six.",
+            "I wake up at six o'clock.",
+            "I get up at 6.",
+            "I wake up at 6.",
+            "I get up at 6 o'clock.",
+            "I wake up at 6 o'clock.",
+            "I get up at 6:00.",
+            "I wake up at 6:00."
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Anh ấy ăn sáng lúc bảy giờ.",
+          "answers": [
+            "He has breakfast at seven.",
+            "He has breakfast at seven o'clock.",
+            "He eats breakfast at seven.",
+            "He eats breakfast at seven o'clock.",
+            "He has breakfast at 7.",
+            "He eats breakfast at 7.",
+            "He has breakfast at 7 o'clock.",
+            "He eats breakfast at 7 o'clock."
+          ],
+          "explain": "`he` → `has` (không phải `have`), `eats`."
+        },
+        {
+          "type": "translate",
+          "vi": "Chúng tôi không đi học vào Chủ nhật.",
+          "answers": [
+            "We don't go to school on Sunday.",
+            "We don't go to school on Sundays."
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Cô ấy thường đọc sách trước khi đi ngủ.",
+          "answers": [
+            "She usually reads before bed.",
+            "She usually reads before going to bed.",
+            "She usually reads before she goes to bed.",
+            "She usually reads books before bed.",
+            "She usually reads books before going to bed.",
+            "She usually reads books before she goes to bed.",
+            "She usually reads a book before bed.",
+            "She often reads before bed.",
+            "She often reads before going to bed.",
+            "She often reads before she goes to bed.",
+            "She often reads books before bed.",
+            "She often reads books before going to bed.",
+            "She often reads books before she goes to bed.",
+            "She often reads a book before bed."
+          ],
+          "explain": "Từ tần suất đứng trước động từ thường: `She usually reads`."
+        },
+        {
+          "type": "write",
+          "prompt": "Viết 4–6 câu về một ngày bình thường của bạn: mấy giờ bạn thức dậy, buổi sáng, buổi chiều và buổi tối bạn làm gì.",
+          "minWords": 20,
+          "maxWords": 70,
+          "sample": "I usually get up at six o'clock. I have breakfast with my family and then I go to school by bike. In the afternoon, I play badminton with my friends. In the evening, I do my homework and watch TV. I go to bed at ten."
+        }
+      ]
+    },
+    {
+      "id": "write.weekend",
+      "title": "Viết: cuối tuần vừa rồi",
+      "summary": "Kể chuyện đã xảy ra bằng thì quá khứ đơn.",
+      "level": "A2_1",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Kể chuyện đã xong trong quá khứ dùng **thì quá khứ đơn**. Động từ có quy tắc thêm **-ed** (`visit` → `visited`, `watch` → `watched`); động từ bất quy tắc phải học thuộc (`go` → `went`, `see` → `saw`, `eat` → `ate`, `buy` → `bought`).\n\nCâu hỏi và phủ định dùng `did` + động từ nguyên mẫu: `What did you do?`, `I didn't go out.`\n\nTừ chỉ thời gian quá khứ: `yesterday`, `last weekend`, `last Saturday`, `two days ago`."
+        },
+        {
+          "type": "examples",
+          "title": "Câu mẫu",
+          "items": [
+            {
+              "en": "Last weekend I visited my grandparents.",
+              "vi": "Cuối tuần trước tôi về thăm ông bà."
+            },
+            {
+              "en": "We went to the beach on Sunday.",
+              "vi": "Chủ nhật chúng tôi đi biển."
+            },
+            {
+              "en": "I bought a new pair of shoes.",
+              "vi": "Tôi đã mua một đôi giày mới."
+            },
+            {
+              "en": "It rained all afternoon.",
+              "vi": "Trời mưa cả buổi chiều."
+            },
+            {
+              "en": "What did you do yesterday?",
+              "vi": "Hôm qua bạn đã làm gì?"
+            },
+            {
+              "en": "We didn't watch TV.",
+              "vi": "Chúng tôi không xem ti vi."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Tiếng Việt không đổi động từ theo thời gian (\"hôm qua tôi **đi**\"), nên người Việt hay quên chia quá khứ. Thấy `yesterday`, `last`, `ago` là phải dùng quá khứ: `Yesterday I went`, không viết `Yesterday I go`. Sau `did / didn't` thì động từ **về nguyên mẫu**: `I didn't go`, không viết `I didn't went`."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "Last Sunday we ___ to the beach.",
+          "answers": [
+            "went"
+          ],
+          "choices": [
+            "go",
+            "gone",
+            "went"
+          ],
+          "explain": "`go` là động từ bất quy tắc: quá khứ là `went`."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Quá khứ của `buy` là gì?",
+          "choices": [
+            "buyed",
+            "bought",
+            "brought"
+          ],
+          "answer": 1,
+          "explain": "`buy` → `bought`; `brought` là quá khứ của `bring`."
+        },
+        {
+          "type": "translate",
+          "vi": "Hôm qua tôi đã xem một bộ phim.",
+          "answers": [
+            "I watched a movie yesterday.",
+            "Yesterday I watched a movie.",
+            "I watched a film yesterday.",
+            "Yesterday I watched a film.",
+            "I saw a movie yesterday.",
+            "Yesterday I saw a movie.",
+            "I saw a film yesterday.",
+            "Yesterday I saw a film."
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Cuối tuần trước chúng tôi đã về thăm ông bà.",
+          "answers": [
+            "Last weekend we visited our grandparents.",
+            "We visited our grandparents last weekend.",
+            "Last weekend we went to visit our grandparents.",
+            "We went to visit our grandparents last weekend.",
+            "Last weekend we went to see our grandparents.",
+            "We went to see our grandparents last weekend.",
+            "Last weekend we went home to visit our grandparents.",
+            "We went home to visit our grandparents last weekend."
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Bạn đã làm gì vào thứ Bảy?",
+          "answers": [
+            "What did you do on Saturday?",
+            "What did you do last Saturday?"
+          ],
+          "explain": "Câu hỏi quá khứ: `What did you do...?`, không viết `What you did...?`."
+        },
+        {
+          "type": "translate",
+          "vi": "Tôi không đi ra ngoài vì trời mưa.",
+          "answers": [
+            "I didn't go out because it rained.",
+            "I didn't go out because it was raining.",
+            "I didn't go out because it was rainy."
+          ]
+        },
+        {
+          "type": "write",
+          "prompt": "Kể về cuối tuần vừa rồi của bạn (5–7 câu): bạn đã đi đâu, làm gì, với ai và cảm thấy thế nào.",
+          "minWords": 30,
+          "maxWords": 90,
+          "sample": "Last weekend was great. On Saturday morning, I helped my mom clean the house. In the afternoon, I went to the park with my best friend and we played badminton. On Sunday, my family visited my grandparents in the countryside. My grandmother cooked a big lunch for us. I felt tired but very happy."
+        }
+      ]
+    },
+    {
+      "id": "write.invitation",
+      "title": "Viết: lời mời và kế hoạch",
+      "summary": "Viết tin nhắn mời bạn đi chơi, hẹn giờ, nhận lời hoặc từ chối.",
+      "level": "A2_2",
+      "minutes": 12,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Nói về kế hoạch tương lai có ba cách hay dùng:\n\n- `be going to` + V: việc đã định sẵn — `I'm going to visit my aunt.`\n- `will` + V: quyết định ngay lúc nói, lời hứa — `I'll call you later.`\n- Hiện tại tiếp diễn: lịch hẹn đã chốt — `We're meeting at five.`\n\nMời ai đó: `Do you want to...?` (thân mật) hoặc `Would you like to...?` (lịch sự hơn). Nhận lời: `Sure, I'd love to!`; từ chối nhẹ nhàng: `Sorry, I can't...` + lý do."
+        },
+        {
+          "type": "examples",
+          "title": "Câu mẫu",
+          "items": [
+            {
+              "en": "Would you like to come to my party?",
+              "vi": "Bạn có muốn đến bữa tiệc của mình không?"
+            },
+            {
+              "en": "We're going to have a picnic on Saturday.",
+              "vi": "Thứ Bảy chúng mình sẽ đi dã ngoại."
+            },
+            {
+              "en": "Let's meet at the bus stop at nine.",
+              "vi": "Gặp nhau ở trạm xe buýt lúc chín giờ nhé."
+            },
+            {
+              "en": "Sure, I'd love to!",
+              "vi": "Được chứ, mình rất muốn!"
+            },
+            {
+              "en": "Sorry, I can't. I have a test tomorrow.",
+              "vi": "Xin lỗi, mình không đi được. Mai mình có bài kiểm tra."
+            },
+            {
+              "en": "Don't forget to bring a hat.",
+              "vi": "Đừng quên mang mũ nhé."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Sau `want` và `would like` dùng **to + động từ**: `Do you want to go?`, không viết `Do you want go?`. Sau `Let's` dùng động từ nguyên mẫu, không có `to`: `Let's go`."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "gap",
+          "prompt": "We are ___ to have a picnic on Saturday.",
+          "answers": [
+            "going"
+          ],
+          "choices": [
+            "go",
+            "going",
+            "went"
+          ],
+          "explain": "Kế hoạch đã định: `be going to` + động từ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Câu nào là lời mời lịch sự?",
+          "choices": [
+            "You come to my party.",
+            "I came to your party.",
+            "Would you like to come to my party?"
+          ],
+          "answer": 2
+        },
+        {
+          "type": "translate",
+          "vi": "Tối nay tôi sẽ học bài.",
+          "answers": [
+            "I am going to study tonight.",
+            "Tonight I am going to study.",
+            "I will study tonight.",
+            "Tonight I will study.",
+            "I am studying tonight.",
+            "I am going to do my homework tonight.",
+            "Tonight I am going to do my homework.",
+            "I will do my homework tonight.",
+            "Tonight I will do my homework."
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Bạn có muốn đi xem phim với mình không?",
+          "answers": [
+            "Do you want to go to the movies with me?",
+            "Would you like to go to the movies with me?",
+            "Do you want to go to the cinema with me?",
+            "Would you like to go to the cinema with me?",
+            "Do you want to see a movie with me?",
+            "Would you like to see a movie with me?",
+            "Do you want to watch a movie with me?",
+            "Would you like to watch a movie with me?",
+            "Do you want to see a film with me?",
+            "Would you like to see a film with me?",
+            "Do you want to go see a movie with me?",
+            "Would you like to go see a movie with me?"
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Mình sẽ gặp bạn ở trước cổng trường lúc năm giờ.",
+          "answers": [
+            "I will meet you in front of the school gate at five.",
+            "I will meet you in front of the school gate at five o'clock.",
+            "I will meet you in front of the school gate at 5.",
+            "I will meet you at the school gate at five.",
+            "I will meet you at the school gate at five o'clock.",
+            "I will meet you at the school gate at 5.",
+            "I will meet you in front of the school gate at 5 o'clock.",
+            "I will meet you at the school gate at 5 o'clock."
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Xin lỗi, mình không đến được vì mình bị ốm.",
+          "answers": [
+            "Sorry, I can't come because I am sick.",
+            "Sorry, I can't come because I am ill.",
+            "I'm sorry, I can't come because I am sick.",
+            "I'm sorry, I can't come because I am ill.",
+            "Sorry, I can't come because I feel sick.",
+            "Sorry, I won't be able to come because I am sick.",
+            "Sorry, I won't be able to come because I am ill."
+          ]
+        },
+        {
+          "type": "write",
+          "prompt": "Viết tin nhắn ngắn (4–6 câu) mời một người bạn đi chơi cuối tuần này: đi đâu, khi nào, gặp nhau ở đâu và nên mang theo gì.",
+          "minWords": 25,
+          "maxWords": 80,
+          "sample": "Hi Minh! Are you free this Saturday? My brother and I are going to have a picnic at the lake. Would you like to come with us? Let's meet at the park gate at eight in the morning. Don't forget to bring a hat and some water. See you!"
+        }
+      ]
+    },
+    {
+      "id": "write.opinions",
+      "title": "Viết: nêu ý kiến và lý do",
+      "summary": "Đưa ra ý kiến, giải thích lý do và nối ý bằng because, so, however.",
+      "level": "B1_1",
+      "minutes": 15,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Một đoạn nêu ý kiến tốt có ba phần: **câu ý kiến** → **lý do** (kèm ví dụ) → **câu kết**.\n\n- Mở ý kiến: `I think...`, `In my opinion,...`, `I believe...`\n- Thêm lý do: `because...`, `First,...`, `Also,...`\n- Nêu kết quả: `so...`\n- Ý trái ngược: `However,...`, `but...`\n- Kết: `That's why I think...`"
+        },
+        {
+          "type": "examples",
+          "title": "Câu mẫu",
+          "items": [
+            {
+              "en": "In my opinion, reading is better than watching TV.",
+              "vi": "Theo tôi, đọc sách tốt hơn xem ti vi."
+            },
+            {
+              "en": "I think students should learn to cook.",
+              "vi": "Tôi nghĩ học sinh nên học nấu ăn."
+            },
+            {
+              "en": "First, it helps you save money.",
+              "vi": "Thứ nhất, nó giúp bạn tiết kiệm tiền."
+            },
+            {
+              "en": "The city is noisy, so I prefer the countryside.",
+              "vi": "Thành phố ồn ào nên tôi thích nông thôn hơn."
+            },
+            {
+              "en": "However, there are fewer jobs in small towns.",
+              "vi": "Tuy nhiên, ở thị trấn nhỏ có ít việc làm hơn."
+            },
+            {
+              "en": "That's why I think we should walk more.",
+              "vi": "Vì vậy tôi nghĩ chúng ta nên đi bộ nhiều hơn."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "Tiếng Việt nói \"**Tuy** trời mưa **nhưng** tôi vẫn đi\", tiếng Anh chỉ dùng **một** từ: `Although it rained, I went.` hoặc `It rained, but I went.` — không viết `Although... but...`. Tương tự, không dùng cả `because` và `so` trong một câu."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Từ nào dùng để đưa ra ý trái ngược?",
+          "choices": [
+            "Because",
+            "However",
+            "So"
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "I like living in the city ___ there are many things to do.",
+          "answers": [
+            "because"
+          ],
+          "choices": [
+            "so",
+            "but",
+            "because"
+          ],
+          "explain": "Vế sau là lý do → `because`."
+        },
+        {
+          "type": "translate",
+          "vi": "Tôi nghĩ học tiếng Anh rất quan trọng.",
+          "answers": [
+            "I think learning English is very important.",
+            "I think learning English is really important.",
+            "I think that learning English is very important.",
+            "I think that learning English is really important.",
+            "I think studying English is very important.",
+            "I think studying English is really important.",
+            "I think that studying English is very important.",
+            "I think it is very important to learn English.",
+            "I think it is very important to study English.",
+            "In my opinion, learning English is very important."
+          ],
+          "explain": "Chủ ngữ là một hoạt động → dùng V-ing: `Learning English is...`."
+        },
+        {
+          "type": "translate",
+          "vi": "Theo tôi, đi xe đạp tốt hơn đi xe máy.",
+          "answers": [
+            "In my opinion, cycling is better than riding a motorbike.",
+            "In my opinion, cycling is better than riding a motorcycle.",
+            "In my opinion, riding a bike is better than riding a motorbike.",
+            "In my opinion, riding a bike is better than riding a motorcycle.",
+            "In my opinion, riding a bicycle is better than riding a motorbike.",
+            "In my opinion, going by bike is better than going by motorbike.",
+            "I think cycling is better than riding a motorbike."
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Mạng xã hội có ích, nhưng chúng ta không nên dùng quá nhiều.",
+          "answers": [
+            "Social media is useful, but we shouldn't use it too much.",
+            "Social media is helpful, but we shouldn't use it too much.",
+            "Social networks are useful, but we shouldn't use them too much.",
+            "Social media is useful, but we shouldn't spend too much time on it.",
+            "Social media is helpful, but we shouldn't spend too much time on it."
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Tôi không đồng ý với ý kiến đó.",
+          "answers": [
+            "I don't agree with that opinion.",
+            "I disagree with that opinion.",
+            "I don't agree with that idea.",
+            "I disagree with that idea.",
+            "I don't agree with that view.",
+            "I disagree with that view.",
+            "I don't agree with that.",
+            "I disagree with that."
+          ]
+        },
+        {
+          "type": "write",
+          "prompt": "Bạn thích sống ở thành phố hay ở nông thôn? Viết một đoạn 60–120 từ nêu ý kiến của bạn và ít nhất hai lý do.",
+          "minWords": 60,
+          "maxWords": 120,
+          "sample": "In my opinion, living in the countryside is better than living in a big city. First, the air in the countryside is much cleaner, so people are usually healthier. Also, life there is quiet and slow, and neighbors know and help each other. However, there are fewer good schools and jobs in small villages. That is a real problem for young people. Still, I would choose the countryside because I care more about health and peace than about shopping malls."
+        }
+      ]
+    },
+    {
+      "id": "write.polite-email",
+      "title": "Viết: email hỏi thông tin lịch sự",
+      "summary": "Cấu trúc một email ngắn, câu đề nghị lịch sự và câu kết thư.",
+      "level": "B1_2",
+      "minutes": 15,
+      "blocks": [
+        {
+          "type": "text",
+          "md": "Email gửi một nơi bạn không quen (trường học, trung tâm, cửa hàng) cần **lịch sự** và **rõ ràng**:\n\n- Lời chào: `Dear Sir or Madam,` (không biết tên) hoặc `Dear Ms. Hoa,`\n- Lý do viết: `I am writing to ask about...`\n- Đề nghị lịch sự: `Could you...?`, `I would like to know...`, `I would be grateful if you could...`\n- Kết: `I look forward to hearing from you.`\n- Ký tên: `Best regards,` + tên của bạn"
+        },
+        {
+          "type": "table",
+          "title": "Nói thẳng → nói lịch sự",
+          "head": [
+            "Thẳng (nên tránh)",
+            "Lịch sự"
+          ],
+          "rows": [
+            [
+              "I want the timetable.",
+              "Could you send me the timetable, please?"
+            ],
+            [
+              "Tell me the price.",
+              "I would like to know the price."
+            ],
+            [
+              "Answer me quickly.",
+              "I would be grateful if you could reply soon."
+            ]
+          ]
+        },
+        {
+          "type": "examples",
+          "title": "Câu mẫu",
+          "items": [
+            {
+              "en": "Dear Sir or Madam,",
+              "vi": "Kính gửi Quý ông/bà,"
+            },
+            {
+              "en": "I am writing to ask about your summer course.",
+              "vi": "Tôi viết thư này để hỏi về khóa học hè của quý trung tâm."
+            },
+            {
+              "en": "Could you tell me when the classes start?",
+              "vi": "Xin cho tôi biết khi nào các lớp bắt đầu?"
+            },
+            {
+              "en": "I would like to know how much the course costs.",
+              "vi": "Tôi muốn biết khóa học giá bao nhiêu."
+            },
+            {
+              "en": "I would be grateful if you could reply soon.",
+              "vi": "Tôi rất cảm ơn nếu quý vị có thể trả lời sớm."
+            },
+            {
+              "en": "I look forward to hearing from you.",
+              "vi": "Tôi mong nhận được hồi âm."
+            }
+          ]
+        },
+        {
+          "type": "tip",
+          "md": "`I want...` dịch sát \"tôi muốn\" nhưng nghe khá **cộc** trong email; hãy dùng `I would like...`. Sau `look forward to` là **V-ing**: `I look forward to hearing from you`, không viết `to hear`."
+        }
+      ],
+      "exercises": [
+        {
+          "type": "mcq",
+          "prompt": "Câu nào lịch sự nhất?",
+          "choices": [
+            "Send me the timetable.",
+            "Could you send me the timetable, please?",
+            "I want the timetable now."
+          ],
+          "answer": 1
+        },
+        {
+          "type": "gap",
+          "prompt": "I would be grateful ___ you could reply soon.",
+          "answers": [
+            "if"
+          ],
+          "choices": [
+            "that",
+            "when",
+            "if"
+          ],
+          "explain": "Cấu trúc cố định: `I would be grateful if you could...`."
+        },
+        {
+          "type": "translate",
+          "vi": "Tôi viết thư này để hỏi về khóa học tiếng Anh buổi tối.",
+          "answers": [
+            "I am writing to ask about the evening English course.",
+            "I am writing to ask about your evening English course.",
+            "I am writing to ask about the evening English class.",
+            "I am writing to ask about your evening English class.",
+            "I am writing to enquire about the evening English course.",
+            "I am writing to enquire about your evening English course.",
+            "I am writing to inquire about the evening English course.",
+            "I am writing to inquire about your evening English course.",
+            "I am writing this email to ask about the evening English course.",
+            "I am writing this letter to ask about the evening English course."
+          ],
+          "explain": "Câu mở email quen thuộc: `I am writing to + động từ`."
+        },
+        {
+          "type": "translate",
+          "vi": "Bạn có thể gửi cho tôi lịch học được không?",
+          "answers": [
+            "Could you send me the timetable?",
+            "Could you send me the schedule?",
+            "Could you please send me the timetable?",
+            "Could you please send me the schedule?",
+            "Could you send me the timetable, please?",
+            "Could you send me the schedule, please?",
+            "Could you send me the class schedule?",
+            "Could you send me the class timetable?",
+            "Could you send the timetable to me?",
+            "Could you send the schedule to me?",
+            "Can you send me the timetable?",
+            "Can you send me the schedule?"
+          ]
+        },
+        {
+          "type": "translate",
+          "vi": "Tôi muốn biết học phí là bao nhiêu.",
+          "answers": [
+            "I would like to know how much the course costs.",
+            "I would like to know how much it costs.",
+            "I would like to know how much the fee is.",
+            "I would like to know how much the fees are.",
+            "I would like to know how much the tuition fee is.",
+            "I would like to know what the fee is.",
+            "I would like to know the course fee.",
+            "I want to know how much the course costs.",
+            "I would like to know how much the tuition is."
+          ],
+          "explain": "Câu hỏi nằm trong câu khác không đảo ngữ: `how much the fee is`, không viết `how much is the fee`."
+        },
+        {
+          "type": "translate",
+          "vi": "Cảm ơn bạn và tôi mong sớm nhận được hồi âm.",
+          "answers": [
+            "Thank you, and I look forward to hearing from you soon.",
+            "Thank you, and I am looking forward to hearing from you soon.",
+            "Thanks, and I look forward to hearing from you soon.",
+            "Thank you, and I look forward to your reply.",
+            "Thank you, and I look forward to your early reply.",
+            "Thank you, and I hope to hear from you soon.",
+            "Thank you, and I hope to receive your reply soon."
+          ]
+        },
+        {
+          "type": "write",
+          "prompt": "Viết một email ngắn (70–130 từ) gửi một trung tâm ngoại ngữ: giới thiệu bạn là ai, hỏi về giờ học và học phí của một khóa học, và nhờ họ gửi thêm thông tin.",
+          "minWords": 70,
+          "maxWords": 130,
+          "sample": "Dear Sir or Madam,\n\nMy name is Tran Van An, and I am a university student in Hanoi. I am writing to ask about your evening English course for adults. Could you tell me which days the classes are held and what time they start? I would also like to know how much the course costs and whether I need to take a placement test first. I would be grateful if you could send me a timetable and any other information about the course.\n\nI look forward to hearing from you.\n\nBest regards,\nTran Van An"
+        }
+      ]
+    }
+  ]
+}

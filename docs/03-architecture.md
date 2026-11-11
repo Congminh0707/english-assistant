@@ -121,6 +121,7 @@ english-assistant/
 │  │  │  ├─ CourseService.ts       # khoá học Course → Unit → Lesson
 │  │  │  ├─ DailyPlanService.ts    # lộ trình hôm nay (kênh `study:plan`): ôn thẻ → bài kế tiếp của khoá → kỹ năng yếu nhất; suy ra, không ghi DB
 │  │  │  ├─ DiaryService.ts        # nhật ký tiếng Anh (kênh `diary:today|save|correct|list`, bảng `diary_entries`, AI sửa qua `AiService.correctDiary`, chỉ người lớn — docs/07 §14)
+│  │  │  ├─ WritingService.ts      # chấm dạng bài luyện viết trong bài học (kênh `writing:check-translation|feedback`): lấy đề/đáp án từ nội dung theo `kind + lessonId + index`, so khớp câu dịch (`shared/translationMatch.ts`) rồi mới gọi `AiService.checkTranslation`; bài viết gọi `AiService.writingFeedback`; lỗi AI → chấm không AI kèm `aiReason`, không ném — docs/07 "Luyện viết", #59
 │  │  │  ├─ ProgressService.ts     # Elo theo kỹ năng, độ chính xác, thời gian học
 │  │  │  ├─ PlacementService.ts    # kiểm tra đầu vào + bài kiểm tra lên cấp (checkpoint)
 │  │  │  ├─ PracticeService.ts, StatsService.ts, KidsService.ts, KidsWorldService.ts (bản đồ thế giới của bé, docs/19), ParentService.ts
@@ -135,7 +136,7 @@ english-assistant/
 │  │  ├─ events/                # event bus có kiểu (~ app/Events + Listeners)
 │  │  ├─ jobs/                  # tác vụ định kỳ (~ app/Console/Kernel schedule)
 │  │  ├─ system/                # tray, globalShortcut, clipboard, activeWindow, autostart, UpdateManager (cập nhật app)
-│  │  ├─ ai/                    # LLM BYOK (docs/11 §5): AiClient.ts (interface + AnthropicClient), prompts.ts (prompt TS có {{level}}), AiService.ts (kênh `ai:status`, `ai:recheck-cli`, `ai:explain`; chọn nhà cung cấp `ai.provider` auto/api/cli, tách JSON + zod, thử lại 1 lần, cache LRU 100 theo provider + model, đếm lượt tháng `ai.usage`, CLI: 1 tiến trình + tối đa 2 chờ, hạn mức ngày `ai.cliDailyLimit`/`ai.cliUsage`, tắt với hồ sơ trẻ em), ClaudeCliClient.ts (`claude -p` không tool, dữ liệu qua stdin), cliRunner.ts (spawn không shell, env tối thiểu, cwd mkdtemp riêng, timeout 45 s + taskkill cả cây, stdout ≤ 512 KB), resolveClaudeCli.ts (where.exe → claude.exe, `claude auth status`, cache 10 phút), cliWorker.ts (entry utilityProcess `aiCliWorker.js`, serviceName "English Assistant AI CLI": mọi lần chạy CLI gọi `runCli` ở đây, không bao giờ spawn trên main), cliWorkerClient.ts (runner phía main: gọi–trả lời theo id, watchdog `timeoutMs + 5 s` → kill + tạo lại worker, tắt khi rảnh 5 phút) — #57
+│  │  ├─ ai/                    # LLM BYOK (docs/11 §5): AiClient.ts (interface + AnthropicClient), prompts.ts (prompt TS có {{level}}), AiService.ts (kênh `ai:status`, `ai:recheck-cli`, `ai:explain`; tác vụ `grammar_explain`, `diary_correct`, `translation_check`, `writing_feedback`; chọn nhà cung cấp `ai.provider` auto/api/cli, tách JSON + zod, thử lại 1 lần, cache LRU 100 theo provider + model, đếm lượt tháng `ai.usage`, CLI: 1 tiến trình + tối đa 2 chờ, hạn mức ngày `ai.cliDailyLimit`/`ai.cliUsage`, tắt với hồ sơ trẻ em), ClaudeCliClient.ts (`claude -p` không tool, dữ liệu qua stdin), cliRunner.ts (spawn không shell, env tối thiểu, cwd mkdtemp riêng, timeout 45 s + taskkill cả cây, stdout ≤ 512 KB), resolveClaudeCli.ts (where.exe → claude.exe, `claude auth status`, cache 10 phút), cliWorker.ts (entry utilityProcess `aiCliWorker.js`, serviceName "English Assistant AI CLI": mọi lần chạy CLI gọi `runCli` ở đây, không bao giờ spawn trên main), cliWorkerClient.ts (runner phía main: gọi–trả lời theo id, watchdog `timeoutMs + 5 s` → kill + tạo lại worker, tắt khi rảnh 5 phút) — #57
 │  │  └─ utility/               # code chạy trong utilityProcess (AI local nặng)
 │  ├─ preload/
 │  │  └─ index.ts               # contextBridge.exposeInMainWorld('api', {...})
@@ -148,8 +149,8 @@ english-assistant/
 │  │     ├─ art/                # hình từ vector vẽ bằng canvas: kit.ts (bộ nét chung), pictures/<nhóm>.ts, index.ts (vectorPictureUrl, PictureImage ưu tiên) — docs/19 §5.5
 │  │     ├─ components/         # PixelButton, PixelPanel, AudioPlayer, ...
 │  │     ├─ composables/        # useTts, useRecorder, useHotkeys...
-│  │     ├─ stores/             # Pinia stores (đồng bộ với main qua sự kiện)
-│  │     ├─ exercises/          # (thực tế nằm ở renderer/study/exercises/: registry lessonExercises.ts + ChoiceList, WordOrderBoard, MatchBoard, AudioPrompt)
+│  │     ├─ stores/             # Pinia stores (đồng bộ với main qua sự kiện); `writing.ts`: gọi `writing:*`, kênh lỗi → chấm tại chỗ như không có AI
+│  │     ├─ exercises/          # (thực tế nằm ở renderer/study/exercises/: registry lessonExercises.ts + ChoiceList, WordOrderBoard, MatchBoard, AudioPrompt, WriteBoard (ô viết + đếm từ), WritingFeedback (nhận xét AI / đáp án mẫu))
 │  │     ├─ i18n/               # vi.json, en.json
 │  │     └─ styles/
 │  └─ shared/                   # ===== DÙNG CHUNG main + renderer =====

@@ -14,6 +14,8 @@ export function lessonExerciseSkill(source: ProgressSource, type: string): Skill
   if (type === 'listen') return 'listening'
   // Bài nói chưa có kỹ năng riêng trong Elo (4 kỹ năng hiện có): tính vào từ vựng/phát âm
   if (type === 'speak') return 'vocab'
+  // Luyện viết (dịch câu, viết theo đề) cũng chưa có kỹ năng riêng: tự đặt câu chủ yếu rèn cấu trúc câu → ngữ pháp
+  if (type === 'translate' || type === 'write') return 'grammar'
   if (source === 'listening') return 'listening'
   if (source === 'reading') return 'reading'
   if (source === 'grammar') return 'grammar'

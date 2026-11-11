@@ -3,12 +3,18 @@ import { fnv1a64 } from '@shared/audioPack'
 import {
   DiaryCorrectSchema,
   GrammarExplainSchema,
+  TranslationCheckSchema,
+  WritingFeedbackSchema,
   type AiExplainInput,
   type AiProvider,
   type AiStatus,
   type DiaryCorrect,
   type DiaryCorrectInput,
-  type GrammarExplain
+  type GrammarExplain,
+  type TranslationCheck,
+  type TranslationCheckInput,
+  type WritingFeedback,
+  type WritingFeedbackInput
 } from '@shared/schemas/ai'
 import { AppError } from '../core/AppError'
 import type { Clock } from '../core/Clock'
@@ -22,7 +28,11 @@ import {
   DIARY_CORRECT_USER,
   fillPrompt,
   GRAMMAR_EXPLAIN_SYSTEM,
-  GRAMMAR_EXPLAIN_USER
+  GRAMMAR_EXPLAIN_USER,
+  TRANSLATION_CHECK_SYSTEM,
+  TRANSLATION_CHECK_USER,
+  WRITING_FEEDBACK_SYSTEM,
+  WRITING_FEEDBACK_USER
 } from './prompts'
 
 const CACHE_SIZE = 100
@@ -44,7 +54,7 @@ function extractJson(text: string): unknown {
 }
 
 /**
- * Tác vụ AI (docs/11 §5, docs/decisions.md #56, #57): giải thích ngữ pháp, sửa nhật ký. Hai nhà cung cấp: key API của
+ * Tác vụ AI (docs/11 §5, docs/decisions.md #56, #57): giải thích ngữ pháp, sửa nhật ký, xét câu dịch, chấm bài viết. Hai nhà cung cấp: key API của
  * người dùng (AnthropicClient) hoặc Claude Code CLI đã đăng nhập gói Pro/Max (ClaudeCliClient), chọn theo `ai.provider`.
  * Mỗi tác vụ: ghép prompt → gọi client → tách JSON → validate zod; câu trả lời đầy đủ mà sai định dạng thì thử lại 1 lần
  * rồi báo AI_FAILED; client lỗi (kể cả bị cắt cụt vì max_tokens) không thử lại, key bị từ chối → errors.aiKeyRejected,
@@ -143,6 +153,42 @@ export class AiService {
       },
       DiaryCorrectSchema
     )
+  }
+
+  /** Xét câu dịch Việt → Anh không khớp đáp án mẫu (WritingService.checkTranslation, kênh writing:check-translation) */
+  async checkTranslation(input: TranslationCheckInput): Promise<TranslationCheck> {
+    const answers = input.answers.join('\n')
+    return this.run(
+      'translation_check',
+      { vi: input.vi, answers, text: input.text, level: input.level },
+      {
+        system: fillPrompt(TRANSLATION_CHECK_SYSTEM, { level: input.level }),
+        user: fillPrompt(TRANSLATION_CHECK_USER, { vi: input.vi, answers, text: input.text }),
+        maxTokens: 4096,
+        effort: 'low'
+      },
+      TranslationCheckSchema
+    )
+  }
+
+  /** Chấm bài viết theo đề (WritingService.feedback, kênh writing:feedback); giữ tối đa 8 chỗ sửa, 3 mẹo */
+  async writingFeedback(input: WritingFeedbackInput): Promise<WritingFeedback> {
+    const length =
+      input.maxWords !== undefined
+        ? `${input.minWords}-${input.maxWords} words`
+        : `at least ${input.minWords} words`
+    const out = await this.run(
+      'writing_feedback',
+      { prompt: input.prompt, text: input.text, length, level: input.level },
+      {
+        system: fillPrompt(WRITING_FEEDBACK_SYSTEM, { level: input.level, length }),
+        user: fillPrompt(WRITING_FEEDBACK_USER, { prompt: input.prompt, text: input.text }),
+        maxTokens: 4096,
+        effort: 'low'
+      },
+      WritingFeedbackSchema
+    )
+    return { ...out, corrections: out.corrections.slice(0, 8), tips_vi: out.tips_vi.slice(0, 3) }
   }
 
   private async run<S extends z.ZodTypeAny>(

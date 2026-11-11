@@ -3,6 +3,7 @@
 // Giải thích bằng tiếng Việt; ví dụ tiếng Anh nghe được bằng TTS; bài tập chấm tại chỗ.
 import { z } from 'zod'
 import { LevelCode } from './content/level'
+import { TRANSLATE_MAX_CHARS, WRITE_MAX_CHARS } from '../writing'
 
 const Text = z.string().trim().min(1)
 
@@ -148,6 +149,29 @@ export const LessonExerciseSchema = z.discriminatedUnion('type', [
     prompt: Text.optional(),
     /** Một từ đơn (pronounce_word) thay vì cả câu (speak_repeat) */
     word: z.boolean().optional(),
+    explain: Text.optional()
+  }),
+  /**
+   * Dịch câu Việt → Anh (translate_sentence): so khớp với các đáp án mẫu sau chuẩn hoá (shared/translationMatch.ts);
+   * không khớp mà AI dùng được thì AI xét câu có chấp nhận được không (WritingService, docs/07 "Luyện viết")
+   */
+  z.object({
+    type: z.literal('translate'),
+    /** Câu tiếng Việt cần dịch */
+    vi: Text.max(TRANSLATE_MAX_CHARS),
+    /** Mọi bản dịch tiếng Anh chấp nhận được (cái đầu là đáp án hiện khi sai) — khi tắt AI đây là cách chấm duy nhất */
+    answers: z.array(Text.max(TRANSLATE_MAX_CHARS)).min(1).max(20),
+    explain: Text.optional()
+  }),
+  /** Viết theo đề (write_free): đạt khi AI chấm ≥ WRITE_PASS; tắt AI thì đạt khi đủ `minWords` từ */
+  z.object({
+    type: z.literal('write'),
+    /** Đề bài (tiếng Việt, có thể kèm cụm tiếng Anh trong `...`) */
+    prompt: Text.max(600),
+    minWords: z.number().int().min(3).max(200),
+    maxWords: z.number().int().min(5).max(250).optional(),
+    /** Bài mẫu (hiện sau khi nộp) */
+    sample: Text.max(WRITE_MAX_CHARS).optional(),
     explain: Text.optional()
   }),
   /** Nghe rồi chọn */

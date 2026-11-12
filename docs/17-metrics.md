@@ -20,8 +20,8 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 | Hạng mục                                       | Giá trị                                                                                     | Đo bằng      | Đo ngày    |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
 | Phiên bản app                                  | 2.4.0                                                                                       | `pnpm stats` | 2026-11-12 |
-| Test (Vitest)                                  | 777 test / 79 file                                                                          | `pnpm test`  | 2026-11-12 |
-| Kênh IPC                                       | 125 invoke · 7 send · 14 event                                                              | `pnpm stats` | 2026-11-12 |
+| Test (Vitest)                                  | 854 test / 82 file                                                                          | `pnpm test`  | 2026-11-12 |
+| Kênh IPC                                       | 126 invoke · 7 send · 14 event                                                              | `pnpm stats` | 2026-11-12 |
 | Migration DB (Drizzle)                         | 12 (`0000`–`0011`)                                                                          | `pnpm stats` | 2026-11-11 |
 | Nhân vật thú cưng                              | 5 (Bi, Lupo, Draco, Robo, Kitsu)                                                           | `pnpm stats` | 2026-10-22 |
 | Dáng vector mỗi nhân vật | 19 dáng × 4 giai đoạn vẽ riêng + trứng = 77 hình mỗi con (mascot v4, xem 05)                | `pnpm stats` | 2026-11-10 |
@@ -33,7 +33,7 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 | ---------------------- | ------------------------------------------------ | -------------------------------------------------------------------------------- | ---------- |
 | Bài học nền tảng       | 70 bài / 11 chương / 726 bài tập                 | chữ cái–phát âm, mẫu câu, các thì, cấu trúc, giao tiếp, hình minh hoạ, luyện nói, luyện viết (6 bài: 25 câu dịch + 6 đề viết), trả lời câu hỏi bằng giọng nói (6 bài: 26 câu `respond`) | 2026-11-11 |
 | Điểm ngữ pháp          | 56                                               |                                                                                  | 2026-11-05 |
-| Bài đọc                | 74                                               |                                                                                  | 2026-11-05 |
+| Bài đọc                | 74 bài; 51 bài B1–C2 có 481 bài tập              | 51 bài B1–C2 soạn lại 2026-11-12: 46 `headings`, 51 `summary`, 199 `mcq` (61 suy luận, 51 từ trong ngữ cảnh, 40 mục đích, 31 ý chính), 145 `tf`, 40 `gap`; đáp án được giải độc lập khớp 481/481 | 2026-11-12 |
 | Bài nghe               | 58                                               | đọc bằng TTS; có gói audio MP3 tạo sẵn tải thêm (12 bài VOA dùng bản thu thật)   | 2026-11-11 |
 | Sổ mẫu câu             | 108 mẫu câu                                      |                                                                                  | 2026-10-22 |
 | Đề viết tự do          | 30 đề (A1 8 · A2 8 · B1 7 · B2 7)                | `content/curated/free-writing/topics.json`, tự soạn, xem 07 "Viết tự do"          | 2026-11-11 |
@@ -72,9 +72,9 @@ Các bản trước (1.0.0 → 1.2.0) ghi ở [09 §10.3](09-content-pipeline.md
 | Model                      | Kích thước tải                                                      | Ghi chú                                                                                         |
 | -------------------------- | ------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
 | opus-mt en→vi / vi→en      | ~107 MB (102 MiB) mỗi chiều                                         | dịch nhanh, chất lượng trung bình                                                               |
-| NLLB-200 (chất lượng cao)  | ~870 MB (831 MiB), dùng cả hai chiều; CC-BY-NC                      | `translate.highQuality`                                                                         |
+| NLLB-200 (chất lượng cao)  | ~870 MB (831 MiB); **không còn dùng từ 2026-11-12** ([decisions #65](decisions.md)), chỉ còn nút xoá nếu file còn trên máy | đã bỏ `translate.highQuality`                                                                       |
 | Whisper base.en            | ~80 MB                                                              | chấm nói                                                                                        |
-| wav2vec2 phoneme int8      | ~355 MB                                                             | chấm âm vị, tuỳ chọn                                                                            |
+| wav2vec2 phoneme int8      | ~355 MB; **không còn mời tải từ 2026-11-12** ([decisions #65](decisions.md)), ai đã tải vẫn dùng và xoá được | chấm âm vị                                                                          |
 | Gói audio bài nghe         | 274,4 MB (274.441.897 byte, 12 176 đoạn: bài nghe Anh + Mỹ gồm B2–C2, 972 từ/câu trẻ em × 4 tốc độ, bài học + ngữ pháp + bài đọc + cụm từ + TOEIC Part 1–4 + kiểm tra nghe + Luyện viết + Trả lời câu hỏi, 12 bản thu thật) | gói `listening-audio-1.8.0` đã đăng 2026-11-12 (đo 2026-11-12)                                        |
 | Đoạn âm thanh cần cho gói (`--list`) | 12 176 (+288 so với gói 1.7.0: +78 ví dụ + lời giải `gap`/`order` của 6 bài Luyện viết, +210 của 6 bài Trả lời câu hỏi — câu hỏi 0,9/0,6, câu trả lời mẫu, ví dụ, lời giải; gói 1.8.0 build 2026-11-12 có đủ 12 176 đoạn) | `node scripts/audio/build-listening-audio.mjs --list`, đo 2026-11-12 |
 | Gói bản đồ bé `kids-world` | 📋 chưa build — đo khi build ([19 §6](19-kids-world.md))            | mục tiêu ≤ 50 MB                                                                                |

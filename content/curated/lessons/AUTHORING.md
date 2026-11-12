@@ -73,7 +73,10 @@ Không dùng HTML. Đoạn cách nhau bằng dòng trống (`\n\n`); dòng bắt
    - `listen`: đưa cặp/nhóm từ dễ nhầm (ship/sheep, cat/cut); TTS đọc `say`. Chỉ dùng khi phân biệt được bằng tai.
    - `match`: 3–6 cặp, không trùng vế.
    - `explain` (một câu ngắn) ở các câu dễ sai.
-   - Đáp án đúng **không** luôn ở vị trí đầu; `answer` là chỉ số (từ 0) trong `choices`.
+   - Đáp án đúng **không** luôn ở vị trí đầu; `answer` là chỉ số (từ 0) trong `choices`. App xáo lựa chọn của `mcq`,
+     `listen`, `picture`, `gap` khi hiển thị (`tf` không xáo). Nếu một lựa chọn nhắc tới lựa chọn khác hoặc vị trí
+     ("Both together", "All of the above", "cả hai", "cả A và B") hay là cặp Có/Không, đặt `"keepOrder": true`
+     (mcq, gap, listen) để giữ đúng thứ tự đã soạn.
 5. **Không đạo văn / không bản quyền**: tự viết. Không đưa tên thương hiệu, người thật nhạy cảm, nội dung chính trị/tôn giáo/18+.
    Phù hợp cả trẻ em lớn và người lớn.
 6. **Định dạng**: JSON hợp lệ UTF-8, thụt 2 dấu cách, tiếng Việt có đủ dấu. `level` ∈ `PA1_1, PA1_2, A1_1, A1_2, A2_1,
@@ -97,6 +100,47 @@ Lệnh này kiểm tra schema và các quy tắc trên cho **mọi file** trong 
 `{ "type": "translate", "vi": "Tôi tên là Nam.", "answers": ["My name is Nam.", "I am Nam."], "explain": "…" }` — người học gõ bản dịch tiếng Anh. Chấm bằng so khớp với `answers` sau chuẩn hoá (`src/shared/translationMatch.ts`: bỏ qua hoa/thường, khoảng trắng, dấu câu, nháy cong; `I'm` = `I am`, `don't` = `do not`, `can't` = `cannot` = `can not`, `'s` sau đại từ = is/has, `'d` = would/had). Không khớp mà người học đã bật AI thì AI xét câu có chấp nhận được không; **tắt AI thì `answers` là cách chấm duy nhất** — liệt kê mọi bản dịch tự nhiên (đổi từ đồng nghĩa, đổi vị trí trạng ngữ thời gian, có/không `o'clock`, chữ số/chữ). Không cần ghi lại biến thể chỉ khác viết tắt hay dấu câu (test báo trùng). Tối đa 20 đáp án, câu Việt có dấu đầy đủ.
 
 `{ "type": "write", "prompt": "Viết 3–5 câu…", "minWords": 15, "maxWords": 60, "sample": "…" }` — đề bằng tiếng Việt; người học phải viết đủ `minWords` (và không quá `maxWords`) mới nộp được. AI chấm (đạt khi điểm tổng ≥ 60); tắt AI thì đạt khi đủ số từ và hiện `sample`. `sample` phải nằm trong khoảng số từ của đề (test kiểm tra).
+
+## Dạng bài đọc nâng cao: `headings`, `summary`, `mcq.focus`
+
+`{ "type": "headings", "prompt": "…(tuỳ chọn)", "headings": ["…", "…", "…", "…", "…"], "answers": [2, 0, 4, 1], "explain": "…" }` —
+ghép tiêu đề với đoạn. `answers[i]` là chỉ số (từ 0) trong `headings` của tiêu đề **đoạn i** của block `passage` đầu
+tiên, nên `answers` có đúng bằng số đoạn (test kiểm). 3–8 tiêu đề, ít nhất **một tiêu đề thừa**, mỗi tiêu đề dùng một
+lần, không trùng nhau (schema kiểm). App xáo danh sách tiêu đề.
+
+`{ "type": "summary", "text": "… ___ … ___ …", "answers": ["…", "…"], "distractors": ["…"], "explain": "…" }` — hoàn
+thành tóm tắt bằng ngân hàng từ. Số `___` trong `text` bằng số `answers` (2–6, theo thứ tự chỗ trống), 1–4 từ nhiễu;
+đáp án và từ nhiễu không trùng nhau (không phân biệt hoa/thường). Chấm không phân biệt hoa/thường.
+
+Hai dạng này chấm **tất cả hoặc không** (sai một mục là sai cả câu; sau khi chấm app tô đúng/sai từng mục) và **không
+đọc to** (không vào gói âm thanh).
+
+`mcq` có thể thêm `"focus"`: `"detail"` (chi tiết — mặc định, không hiện nhãn), `"main_idea"` (ý chính),
+`"inference"` (suy luận), `"vocab"` (từ trong ngữ cảnh), `"purpose"` (mục đích của tác giả). Nhãn hiện trên câu hỏi;
+cách chấm không đổi.
+
+## Bài đọc từ B1_1 (`content/curated/readings`)
+
+Bài mẫu: `readb1.making-new-friends` (B1) và `readc1.nudges` (C1) — đọc hai bài này trước khi soạn.
+
+1. **Không đổi** block `passage`, `id`, `title`, `summary`, `level` của bài đã phát hành.
+2. **Câu `gap` có sẵn**: giữ nguyên từng byte hoặc xoá; không sửa, không thêm `gap`, `order`, `listen`, `speak`,
+   `respond` mới — chữ của chúng nằm trong gói âm thanh đã phát hành. Kiểm tra:
+   `node scripts/audio/build-listening-audio.mjs --list` phải in cùng `TOTAL` như trước khi sửa.
+3. **Số câu**: 7–10 bài tập (schema tối đa 12), gồm ít nhất 1 `summary`, ít nhất 1 `mcq` `"focus": "inference"`, ít
+   nhất 1 `mcq` `"focus": "vocab"` dạng `In paragraph 2, the word "X" is closest in meaning to …`. Từ **B2_1** trở
+   lên có **đúng 1** `headings`; B1 tuỳ chọn.
+4. Giữ các `mcq`/`tf` tốt có sẵn; xoá hoặc viết lại câu chỉ bắt tìm một cụm chữ y nguyên trong bài. Nếu một câu `tf`
+   có `ng: true` thì mọi câu `tf` của bài đều có.
+5. `mcq` mới: B2 trở lên **4 lựa chọn**, B1 3–4. Lựa chọn nhiễu hợp lý nhưng bài đọc cho thấy rõ là sai; chỉ **một**
+   đáp án bảo vệ được.
+6. `summary.text` **diễn đạt lại** bài (không chép câu của bài); đáp án là một từ hoặc cụm ≤ 3 từ; từ nhiễu hợp ngữ
+   pháp với chỗ trống (người học không loại được chỉ nhờ ngữ pháp).
+7. Tiêu đề (`headings`) nêu ý chính của đoạn bằng lời mới; tiêu đề sai vẫn đúng chủ đề nhưng chỉ là một chi tiết hoặc
+   điều bài không nói.
+8. `explain`: tiếng Việt cho B1, tiếng Anh từ B2; mọi câu mới đều có và **nêu đoạn chứng minh** đáp án ("Đoạn 2: …" /
+   "Paragraph 2: …").
+9. Số câu tăng từ 3 trở lên thì tăng `minutes` thêm 2 (tối đa 30).
 
 ## Dạng bài `respond` (trả lời câu hỏi bằng giọng nói = `speak_answer`)
 

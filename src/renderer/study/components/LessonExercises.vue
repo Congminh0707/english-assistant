@@ -15,19 +15,23 @@ import { ChevronLeft } from 'lucide-vue-next'
 import { confirmLeave, useLeaveGuard } from '../leaveGuard'
 import AudioPrompt from '../exercises/AudioPrompt.vue'
 import ChoiceList from '../exercises/ChoiceList.vue'
+import HeadingsBoard from '../exercises/HeadingsBoard.vue'
 import MatchBoard from '../exercises/MatchBoard.vue'
 import RespondBoard from '../exercises/RespondBoard.vue'
+import SummaryBoard from '../exercises/SummaryBoard.vue'
 import WordOrderBoard from '../exercises/WordOrderBoard.vue'
 import WriteBoard from '../exercises/WriteBoard.vue'
 import WritingFeedback from '../exercises/WritingFeedback.vue'
 import {
   canCheck as canCheckEx,
   choiceTexts,
+  correctChoice,
   countsForSkill,
   gradedRemotely,
   hasChoices as hasChoicesEx,
   initState,
   isCorrect as isCorrectEx,
+  itemResults,
   solutionOf,
   speaksSolution,
   TF_ORDER
@@ -109,7 +113,7 @@ function enter(): void {
     void nextTick(() => typedInput.value?.focus())
 }
 
-const choices = computed(() => choiceTexts(ex.value, tfLabel))
+const choices = computed(() => choiceTexts(ex.value, state, tfLabel))
 const hasChoices = computed(() => hasChoicesEx(ex.value))
 const canCheck = computed(() => !checked.value && !grading.value && canCheckEx(ex.value, state))
 /** Hiện nút nghe: nghe chọn, hoặc chọn hình dạng nghe từ */
@@ -127,16 +131,28 @@ const matchColumns = computed(() => {
     ? { left: e.pairs.map((p) => p.left), right: state.rightOrder.map((i) => e.pairs[i].right) }
     : null
 })
-/** Chỉ số đáp án đúng của dạng có lựa chọn (để tô xanh/đỏ sau khi chấm) */
-const answerIndex = computed<number | null>(() => {
+/** Vị trí hiển thị của đáp án đúng (lựa chọn đã xáo) để tô xanh/đỏ sau khi chấm */
+const answerIndex = computed<number | null>(() => correctChoice(ex.value, state, tfLabel))
+/** Ghép tiêu đề / hoàn thành tóm tắt: đúng/sai từng đoạn / chỗ trống, chỉ có sau khi chấm */
+const items = computed(() => (checked.value ? itemResults(ex.value, state) : null))
+/** Đoạn văn của block `passage` đầu tiên (ghép tiêu đề cần hiện đoạn) */
+const passageParagraphs = computed(() => {
+  const block = props.lesson.blocks.find((b) => b.type === 'passage')
+  return block?.type === 'passage' ? block.paragraphs.map((p) => p.en) : []
+})
+/** Ghép tiêu đề: tiêu đề theo thứ tự hiển thị (đã xáo) và tiêu đề đúng của từng đoạn */
+const headingsView = computed(() => {
   const e = ex.value
-  if (e.type === 'mcq' || e.type === 'listen' || e.type === 'picture') return e.answer
-  if (e.type === 'tf') return TF_ORDER.indexOf(e.answer)
-  if (e.type === 'gap' && e.choices) {
-    const hit = e.choices.findIndex((_, i) => isCorrectEx(e, { ...state, chosen: i }))
-    return hit >= 0 ? hit : null
-  }
-  return null
+  return e.type === 'headings'
+    ? { shown: state.order.map((i) => e.headings[i]), answers: e.answers.map((a) => e.headings[a]) }
+    : { shown: [], answers: [] }
+})
+/** Nhãn loại câu hỏi đọc hiểu trên câu trắc nghiệm (không hiện với câu chi tiết) */
+const focusLabel = computed(() => {
+  const e = ex.value
+  return e.type === 'mcq' && e.focus && e.focus !== 'detail'
+    ? t(`study.lessons.focus.${e.focus}`)
+    : null
 })
 const promptParts = computed(() => (ex.value.type === 'gap' ? ex.value.prompt.split('___') : []))
 const solution = computed(() => solutionOf(ex.value, tfLabel))
@@ -346,7 +362,14 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       <p v-else-if="ex.type === 'match'" class="instruction">
         {{ ex.prompt ?? t('study.lessons.matchHelp') }}
       </p>
+      <p v-else-if="ex.type === 'headings'" class="instruction">
+        {{ ex.prompt ?? t('study.lessons.headingsHelp') }}
+      </p>
+      <p v-else-if="ex.type === 'summary'" class="instruction">
+        {{ t('study.lessons.summaryHelp') }}
+      </p>
 
+      <span v-if="focusLabel" class="chip chip--primary focus">{{ focusLabel }}</span>
       <p v-if="heading" class="prompt">{{ heading }}</p>
       <p v-else-if="ex.type === 'picture' && !ex.listen" class="prompt">{{ ex.word }}</p>
       <p v-else-if="ex.type === 'speak'" class="prompt">{{ ex.prompt ?? ex.say }}</p>
@@ -360,7 +383,7 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
           checked
             ? ex.answers[0]
             : state.chosen !== null && ex.choices
-              ? ex.choices[state.chosen]
+              ? choices[state.chosen]
               : '＿＿＿'
         }}</span
         >{{ promptParts[1] }}
@@ -422,6 +445,28 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
         :locked="checked"
       />
 
+      <HeadingsBoard
+        v-else-if="ex.type === 'headings'"
+        :key="`h${idx}`"
+        v-model="state.slots"
+        :paragraphs="passageParagraphs"
+        :headings="headingsView.shown"
+        :answers="headingsView.answers"
+        :results="items"
+        :locked="checked"
+      />
+
+      <SummaryBoard
+        v-else-if="ex.type === 'summary'"
+        :key="`s${idx}`"
+        v-model="state.slots"
+        :text="ex.text"
+        :bank="state.tokens"
+        :answers="ex.answers"
+        :results="items"
+        :locked="checked"
+      />
+
       <ChoiceList
         v-if="hasChoices"
         v-model="state.chosen"
@@ -447,10 +492,27 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
       <div v-if="checked" class="feedback" :class="{ ok: correct }">
         <strong class="verdict"
           ><UiIcon :name="correct ? 'done' : 'close'" />{{
-            correct ? t('study.lessons.correct') : t('study.lessons.wrong')
+            correct
+              ? t('study.lessons.correct')
+              : items?.length
+                ? t('study.lessons.wrongItems', {
+                    n: items.filter(Boolean).length,
+                    total: items.length
+                  })
+                : t('study.lessons.wrong')
           }}</strong
         >
-        <div v-if="!correct && ex.type !== 'write' && ex.type !== 'respond'" class="solution">
+        <!-- Ghép tiêu đề / tóm tắt: đáp án đúng đã hiện ngay ở từng đoạn / chỗ trống sai -->
+        <div
+          v-if="
+            !correct &&
+            ex.type !== 'write' &&
+            ex.type !== 'respond' &&
+            ex.type !== 'headings' &&
+            ex.type !== 'summary'
+          "
+          class="solution"
+        >
           <PicText v-if="ex.type === 'picture'" :text="ex.choices[ex.answer]" :size="48" ids />
           {{ solution }}
         </div>
@@ -620,6 +682,9 @@ onUnmounted(() => window.removeEventListener('keydown', onKeyDown))
 }
 .prompt.vi {
   font-size: var(--fs-lg);
+}
+.focus {
+  justify-self: start;
 }
 .prompt.task {
   font-size: var(--fs-lg);

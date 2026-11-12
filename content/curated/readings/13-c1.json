@@ -13,7 +13,7 @@
       "title": "Cú hích hành vi",
       "summary": "Kinh tế học hành vi và thiết kế lựa chọn.",
       "level": "C1",
-      "minutes": 8,
+      "minutes": 10,
       "blocks": [
         {
           "type": "tip",
@@ -44,16 +44,34 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "Why the starting point of a choice matters",
+            "Healthier food choices in school cafeterias",
+            "A challenge to the idea of the rational decision-maker",
+            "A debate about the ethics of designing choices",
+            "Evidence that nudges save governments money",
+            "Guiding behavior without taking options away"
+          ],
+          "answers": [
+            2,
+            5,
+            0,
+            3
+          ],
+          "explain": "Paragraph 1 contrasts classical rational choice with behavioral economics; paragraph 2 defines the nudge (the cafeteria is only an example); paragraph 3 is about default options; paragraph 4 sets critics against defenders. The passage never mentions saving government money."
+        },
+        {
           "type": "mcq",
           "prompt": "Which of the following best defines a \"nudge\" as described in the text?",
           "choices": [
             "A financial reward for making healthy choices",
             "A rule that forbids harmful options",
-            "A small design change that steers behavior without removing options",
+            "A subtle change to how a choice is arranged that leaves every option open",
             "A campaign that explains the benefits of saving"
           ],
           "answer": 2,
-          "explain": "Đoạn 2: thay đổi nhỏ trong thiết kế lựa chọn, không cấm phương án nào, không đổi đáng kể động cơ."
+          "explain": "Paragraph 2: a nudge is a small change in the design of a choice that does not forbid any option or significantly alter incentives, so it is neither a reward, a ban nor an information campaign."
         },
         {
           "type": "mcq",
@@ -65,28 +83,55 @@
             "Higher salaries increase participation."
           ],
           "answer": 0,
-          "explain": "Đoạn 3: lựa chọn như nhau, chỉ điểm xuất phát khác — nhưng tỷ lệ tham gia chênh lệch lớn."
+          "explain": "Paragraph 3: the choice is the same in both cases and only the starting point differs, yet participation is far higher — the default itself changes the outcome.",
+          "focus": "purpose"
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"steers\" is closest in meaning to …",
+          "choices": [
+            "forces",
+            "guides",
+            "slows",
+            "reveals"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Paragraph 2: a nudge \"steers behavior without forbidding any option\", so it guides people in a direction rather than forcing them."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What can be inferred from paragraph 3 about employees?",
+          "choices": [
+            "They are legally required to stay in the retirement plan.",
+            "Many of them tend to keep whatever option has already been chosen for them.",
+            "Most of them compare plans carefully before deciding.",
+            "Retirement plans cost them less when enrollment is automatic."
+          ],
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Paragraph 3: the choice is identical and opting out is possible, yet participation is far higher under automatic enrollment, so many people simply stay with the default. If they compared plans carefully, the starting point would not matter."
         },
         {
           "type": "tf",
           "statement": "In the cafeteria example, chocolate is removed to encourage students to eat fruit.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 2: sô-cô-la vẫn có sẵn (remains available)."
+          "explain": "Paragraph 2: the chocolate \"remains available\"; only the position of the fruit changes."
         },
         {
           "type": "tf",
-          "statement": "Defenders of nudges argue that no choice design is truly neutral.",
+          "statement": "Defenders of nudges claim that options can be presented without influencing people.",
           "ng": true,
-          "answer": "true",
-          "explain": "Đoạn 4: \"there is no neutral design\"."
+          "answer": "false",
+          "explain": "Paragraph 4: defenders say \"there is no neutral design\" — every menu and form puts options in some order, so some influence is unavoidable."
         },
         {
           "type": "tf",
           "statement": "Nudges have been shown to work better in schools than in workplaces.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không so sánh hiệu quả giữa trường học và nơi làm việc."
+          "explain": "The passage gives one school example and one workplace example but never compares how well nudges work in the two settings."
         },
         {
           "type": "gap",
@@ -100,6 +145,23 @@
             "generous"
           ],
           "explain": "Đoạn 1: \"rests on the assumption that people are rational\"."
+        },
+        {
+          "type": "summary",
+          "text": "Behavioral economics rejects the classical view that choices result from a careful ___ of costs and benefits. A nudge changes the way options are ___, yet every alternative stays available. Defaults are a striking case: making enrollment automatic sharply increases ___. Critics worry that hidden nudges threaten personal ___, but defenders reply that no design is ever neutral.",
+          "answers": [
+            "calculation",
+            "presented",
+            "participation",
+            "autonomy"
+          ],
+          "distractors": [
+            "avoidance",
+            "prohibited",
+            "salaries",
+            "wealth"
+          ],
+          "explain": "Paragraph 1: people are assumed to \"weigh costs against benefits\"; paragraph 2: a nudge changes the design of a choice \"without forbidding any option\"; paragraph 3: automatic enrollment gives \"far higher\" participation; paragraph 4: critics see a conflict with \"autonomous citizens\"."
         }
       ]
     },

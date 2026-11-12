@@ -17,6 +17,9 @@ describe('progress', () => {
     expect(lessonExerciseSkill('lesson', 'gap')).toBe('grammar')
     expect(lessonExerciseSkill('lesson', 'match')).toBe('vocab')
     expect(lessonExerciseSkill('reading', 'tf')).toBe('reading')
+    // Dạng bài đọc nâng cao trong bài đọc tính vào kỹ năng Đọc như mcq/tf
+    expect(lessonExerciseSkill('reading', 'headings')).toBe('reading')
+    expect(lessonExerciseSkill('reading', 'summary')).toBe('reading')
     expect(lessonExerciseSkill('reading', 'listen')).toBe('listening')
     expect(lessonExerciseSkill('grammar', 'mcq')).toBe('grammar')
     expect(lessonExerciseSkill('listening', 'mcq')).toBe('listening')

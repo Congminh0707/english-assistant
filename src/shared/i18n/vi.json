@@ -1143,7 +1143,9 @@
         "translate": "Dịch câu",
         "write": "Viết theo đề",
         "speak": "Đọc to",
-        "free": "Viết tự do"
+        "free": "Viết tự do",
+        "headings": "Ghép tiêu đề",
+        "summary": "Hoàn thành tóm tắt"
       },
       "reviewKind": {
         "en_vi": "Thẻ: nhận diện",
@@ -1386,6 +1388,30 @@
       "respondHelp": "Trả lời câu hỏi bằng tiếng Anh (nói, tối đa 30 giây).",
       "grading": "Đang chấm…",
       "gradingAi": "AI đang chấm bài, chờ một chút nhé…",
+      "headingsHelp": "Chọn tiêu đề phù hợp cho từng đoạn. Có tiêu đề thừa; mỗi tiêu đề chỉ dùng một lần.",
+      "summaryHelp": "Điền từ vào các chỗ trống để hoàn thành đoạn tóm tắt. Có từ thừa; mỗi từ chỉ dùng một lần.",
+      "wrongItems": "Chưa đúng hết — đúng {n}/{total}, xem đáp án ở các mục sai.",
+      "itemRight": "đúng",
+      "itemWrong": "sai",
+      "headings": {
+        "paragraph": "Đoạn {n}",
+        "choose": "Chọn tiêu đề…",
+        "list": "Danh sách tiêu đề",
+        "showPara": "Xem cả đoạn",
+        "hidePara": "Ẩn đoạn"
+      },
+      "summary": {
+        "blank": "Chỗ trống {n}",
+        "clear": "Bấm để gỡ từ",
+        "bank": "Ngân hàng từ"
+      },
+      "focus": {
+        "detail": "Chi tiết",
+        "main_idea": "Ý chính",
+        "inference": "Suy luận",
+        "vocab": "Từ trong ngữ cảnh",
+        "purpose": "Mục đích của tác giả"
+      },
       "writing": {
         "placeholder": "Viết bài của bạn bằng tiếng Anh…",
         "words": "{n} từ",

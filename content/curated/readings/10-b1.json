@@ -85,7 +85,7 @@
       "title": "Kết bạn mới",
       "summary": "Vài cách làm quen khi chuyển trường.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "tip",
@@ -119,23 +119,16 @@
             "Wait for others to talk first.",
             "Change schools again."
           ],
-          "answer": 0
-        },
-        {
-          "type": "mcq",
-          "prompt": "Why is joining a club a good idea?",
-          "choices": [
-            "You meet people with the same interests.",
-            "It is free.",
-            "It is easy."
-          ],
-          "answer": 0
+          "answer": 0,
+          "focus": "main_idea",
+          "explain": "Đoạn 2: \"The best advice is to start with something small\" — mỉm cười, chào, hỏi một câu đơn giản."
         },
         {
           "type": "tf",
-          "statement": "The writer says many students feel the same way.",
-          "answer": "true",
-          "ng": true
+          "statement": "The writer suggests that feeling nervous at a new school is unusual.",
+          "answer": "false",
+          "ng": true,
+          "explain": "Đoạn 1: \"many students have felt exactly the same way\" — cảm giác lo lắng ở trường mới rất phổ biến, không phải điều bất thường."
         },
         {
           "type": "tf",
@@ -151,6 +144,45 @@
           "ng": true
         },
         {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"probably\" is closest in meaning to …",
+          "choices": [
+            "certainly",
+            "likely",
+            "never",
+            "quickly"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Đoạn 3: \"you will probably be surprised\" — probably = có lẽ, nhiều khả năng (likely); không chắc chắn hoàn toàn như certainly."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention the question \"Where did you get that bag?\"",
+          "choices": [
+            "To show that bags are popular with students",
+            "To suggest buying a new bag before school starts",
+            "To give an example of an easy way to start a conversation",
+            "To explain why some students do not talk to newcomers"
+          ],
+          "answer": 2,
+          "focus": "purpose",
+          "explain": "Đoạn 2: câu hỏi về cái cặp đi sau \"such as\" — chỉ là ví dụ cho \"a simple question\" để bắt chuyện."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What can we infer about students who feel lonely at a new school?",
+          "choices": [
+            "They should ask their teachers to find friends for them.",
+            "They will never feel comfortable in a club.",
+            "They are less friendly than other students.",
+            "Their feeling is common and usually does not last long."
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Đoạn 1: nhiều học sinh cũng từng cảm thấy y như vậy; đoạn 3: sau vài tuần bạn sẽ ngạc nhiên vì đã có nhiều bạn → cảm giác này phổ biến và không kéo dài."
+        },
+        {
           "type": "gap",
           "prompt": "A short conversation can be the beginning of a ___.",
           "answers": [
@@ -161,6 +193,22 @@
             "quarrel",
             "lesson"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "Starting at a new school often feels ___, but almost everyone has felt this way. To make friends, take a small step first, such as a smile or an easy ___. You can also join a club, where people share your ___. After a few ___, you may have more friends than you expected.",
+          "answers": [
+            "scary",
+            "question",
+            "interests",
+            "weeks"
+          ],
+          "distractors": [
+            "relaxing",
+            "gift",
+            "months"
+          ],
+          "explain": "Đoạn 1: frightening (đáng sợ = scary); đoạn 2: hỏi một câu đơn giản (a simple question); đoạn 3: cùng sở thích (the same interests), sau vài tuần (a few weeks)."
         }
       ]
     },

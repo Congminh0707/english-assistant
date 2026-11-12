@@ -152,7 +152,7 @@ english-assistant/
 │  │     ├─ components/         # PixelButton, PixelPanel, AudioPlayer, ...
 │  │     ├─ composables/        # useTts, useRecorder, useHotkeys...
 │  │     ├─ stores/             # Pinia stores (đồng bộ với main qua sự kiện); `writing.ts`: gọi `writing:*`, kênh lỗi → chấm tại chỗ như không có AI; `speaking.ts`: gọi `speaking:feedback` (cắt lời nhận dạng về giới hạn bằng `boundAnswer`, kênh lỗi → chấm theo số từ)
-│  │     ├─ exercises/          # (thực tế nằm ở renderer/study/exercises/: registry lessonExercises.ts + ChoiceList, WordOrderBoard, MatchBoard, AudioPrompt, WriteBoard (ô viết + đếm từ), RespondBoard (ghi âm ≤ 30 s → Whisper → "Máy nghe được" + số liệu trôi chảy + Ghi lại), WritingFeedback (nhận xét AI / đáp án mẫu, dùng chung cho bài viết và câu trả lời nói)); shared/components/SttModelSetup.vue: mời tải model Whisper/wav2vec2, dùng chung SpeakPractice + RespondBoard
+│  │     ├─ exercises/          # (thực tế nằm ở renderer/study/exercises/: registry lessonExercises.ts (cả xáo lựa chọn khi hiển thị) + ChoiceList, WordOrderBoard, MatchBoard, HeadingsBoard (ghép tiêu đề với đoạn), SummaryBoard (tóm tắt + ngân hàng từ), AudioPrompt, WriteBoard (ô viết + đếm từ), RespondBoard (ghi âm ≤ 30 s → Whisper → "Máy nghe được" + số liệu trôi chảy + Ghi lại), WritingFeedback (nhận xét AI / đáp án mẫu, dùng chung cho bài viết và câu trả lời nói)); shared/components/SttModelSetup.vue: mời tải model Whisper/wav2vec2, dùng chung SpeakPractice + RespondBoard
 │  │     ├─ i18n/               # vi.json, en.json
 │  │     └─ styles/
 │  └─ shared/                   # ===== DÙNG CHUNG main + renderer =====

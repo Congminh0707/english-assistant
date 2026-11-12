@@ -267,7 +267,8 @@
             "She called",
             "Both together"
           ],
-          "answer": 0
+          "answer": 0,
+          "keepOrder": true
         },
         {
           "type": "gap",
@@ -304,6 +305,7 @@
             "Không"
           ],
           "answer": 1,
+          "keepOrder": true,
           "explain": "Phim đã bắt đầu trước khi tôi đến."
         },
         {

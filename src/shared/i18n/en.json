@@ -1143,7 +1143,9 @@
         "translate": "Translate",
         "write": "Writing task",
         "speak": "Read aloud",
-        "free": "Free writing"
+        "free": "Free writing",
+        "headings": "Matching headings",
+        "summary": "Summary completion"
       },
       "reviewKind": {
         "en_vi": "Cards: recognition",
@@ -1386,6 +1388,30 @@
       "respondHelp": "Answer the question in English (speak, up to 30 seconds).",
       "grading": "Checking…",
       "gradingAi": "The AI is marking your answer, one moment…",
+      "headingsHelp": "Choose the best heading for each paragraph. There are extra headings; use each heading once.",
+      "summaryHelp": "Fill the gaps to complete the summary. There are extra words; use each word once.",
+      "wrongItems": "Not all correct — {n}/{total} right, see the answers at the wrong items.",
+      "itemRight": "correct",
+      "itemWrong": "wrong",
+      "headings": {
+        "paragraph": "Paragraph {n}",
+        "choose": "Choose a heading…",
+        "list": "Headings",
+        "showPara": "Show paragraph",
+        "hidePara": "Hide paragraph"
+      },
+      "summary": {
+        "blank": "Gap {n}",
+        "clear": "Click to remove the word",
+        "bank": "Word bank"
+      },
+      "focus": {
+        "detail": "Detail",
+        "main_idea": "Main idea",
+        "inference": "Inference",
+        "vocab": "Word in context",
+        "purpose": "Author's purpose"
+      },
       "writing": {
         "placeholder": "Write your answer in English…",
         "words": "{n} word | {n} words",

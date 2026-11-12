@@ -3,6 +3,7 @@ import { join, resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
   GrammarUnitFileSchema,
+  LessonExerciseSchema,
   LessonSchema,
   LessonUnitFileSchema,
   ListeningUnitFileSchema,
@@ -140,6 +141,32 @@ function levelBandErrors(
     .map((l) => `${l.id}: level ${l.level} ngoài dải ${first} của chương`)
 }
 
+/**
+ * Dạng bài gắn với đoạn văn của bài: `headings` cần block `passage` và mỗi đoạn (của block passage đầu tiên) đúng một
+ * tiêu đề. Các quy tắc tự thân (tiêu đề thừa, không trùng, số "___" của `summary`…) nằm ở superRefine của schema.
+ */
+function passageExerciseErrors(lesson: {
+  id: string
+  blocks: Array<{ type: string; paragraphs?: unknown[] }>
+  exercises: LessonExercise[]
+}): string[] {
+  const out: string[] = []
+  const passage = lesson.blocks.find((b) => b.type === 'passage')
+  lesson.exercises.forEach((ex, i) => {
+    if (ex.type !== 'headings') return
+    const where = `${lesson.id} bài tập #${i + 1} (headings)`
+    if (!passage?.paragraphs) {
+      out.push(`${where}: bài cần có block passage`)
+      return
+    }
+    if (ex.answers.length !== passage.paragraphs.length)
+      out.push(
+        `${where}: ${ex.answers.length} đáp án nhưng passage có ${passage.paragraphs.length} đoạn`
+      )
+  })
+  return out
+}
+
 /** Một bài không trộn câu tf 2 lựa chọn và 3 lựa chọn (ng: true). */
 function tfNgErrors(lesson: { id: string; exercises: LessonExercise[] }): string[] {
   const tfs = lesson.exercises.filter((e) => e.type === 'tf')
@@ -185,6 +212,7 @@ describe('nội dung bài học', () => {
           const types = new Set(lesson.exercises.map((e) => e.type))
           if (types.size < 2) errors.push(`${lesson.id}: nên trộn ít nhất 2 dạng bài tập`)
           errors.push(...tfNgErrors(lesson))
+          errors.push(...passageExerciseErrors(lesson))
         }
         errors.push(...levelBandErrors(parsed.unit.title, parsed.lessons))
         expect(errors).toEqual([])
@@ -251,6 +279,7 @@ function lessonKindSuite(
           if (/<\/?[a-z][^>]*>/i.test(JSON.stringify(lesson)))
             errors.push(`${lesson.id}: không dùng thẻ HTML`)
           errors.push(...tfNgErrors(lesson))
+          errors.push(...passageExerciseErrors(lesson))
           errors.push(...extra(lesson))
         }
         errors.push(...levelBandErrors(parsed.data.unit.title, parsed.data.lessons))
@@ -499,6 +528,85 @@ describe('nội dung lộ trình', () => {
         }
       }
       expect(errors).toEqual([])
+    })
+  }
+})
+
+describe('schema dạng bài đọc nâng cao (headings, summary, focus, keepOrder)', () => {
+  const ok = (ex: unknown): boolean => LessonExerciseSchema.safeParse(ex).success
+  const H = { type: 'headings', headings: ['A', 'B', 'C', 'D'], answers: [1, 0, 3] }
+  const S = { type: 'summary', text: 'X ___ and ___.', answers: ['a', 'b'], distractors: ['c'] }
+
+  it('headings: hợp lệ; sai khi đáp án ngoài phạm vi, trùng, thiếu tiêu đề thừa, tiêu đề trùng', () => {
+    expect(ok(H)).toBe(true)
+    expect(ok({ ...H, answers: [1, 0, 4] })).toBe(false)
+    expect(ok({ ...H, answers: [1, 1, 3] })).toBe(false)
+    expect(ok({ ...H, headings: ['A', 'B', 'C'] })).toBe(false)
+    expect(ok({ ...H, headings: ['A', 'B', 'c', 'C '] })).toBe(false)
+    expect(ok({ ...H, answers: [0] })).toBe(false)
+  })
+
+  it('summary: hợp lệ; sai khi số "___" khác số đáp án hoặc ngân hàng từ trùng (không phân biệt hoa/thường)', () => {
+    expect(ok(S)).toBe(true)
+    expect(ok({ ...S, text: 'X ___ and ___ or ___.' })).toBe(false)
+    expect(ok({ ...S, distractors: ['A'] })).toBe(false)
+    expect(ok({ ...S, distractors: [] })).toBe(false)
+  })
+
+  it('mcq: focus thuộc danh sách; keepOrder cho mcq/gap/listen', () => {
+    const mcq = { type: 'mcq', prompt: 'Q', choices: ['a', 'b'], answer: 0 }
+    expect(ok({ ...mcq, focus: 'inference', keepOrder: true })).toBe(true)
+    expect(ok({ ...mcq, focus: 'opinion' })).toBe(false)
+    expect(
+      ok({ type: 'gap', prompt: '___ x', answers: ['a'], choices: ['a', 'b'], keepOrder: true })
+    ).toBe(true)
+    expect(ok({ type: 'listen', say: 's', choices: ['a', 'b'], answer: 1, keepOrder: true })).toBe(
+      true
+    )
+  })
+
+  it('headings cần passage và số đáp án bằng số đoạn', () => {
+    const ex = LessonExerciseSchema.parse(H)
+    const para = { en: 'p' }
+    expect(passageExerciseErrors({ id: 'x.y', blocks: [], exercises: [ex] })).toHaveLength(1)
+    expect(
+      passageExerciseErrors({
+        id: 'x.y',
+        blocks: [{ type: 'passage', paragraphs: [para, para] }],
+        exercises: [ex]
+      })
+    ).toHaveLength(1)
+    expect(
+      passageExerciseErrors({
+        id: 'x.y',
+        blocks: [{ type: 'passage', paragraphs: [para, para, para] }],
+        exercises: [ex]
+      })
+    ).toEqual([])
+  })
+})
+
+describe('bài đọc mẫu B1+ (AUTHORING.md: bài đọc từ B1_1)', () => {
+  // Hai bài làm chuẩn cho người soạn; các bài khác sẽ được soạn lại dần theo cùng quy tắc
+  const PILOTS = ['readb1.making-new-friends', 'readc1.nudges']
+  const lessons = loadDir('readings').flatMap(({ raw }) => ReadingUnitFileSchema.parse(raw).lessons)
+  for (const id of PILOTS) {
+    it(`${id}: 7–10 câu, có summary + mcq suy luận + mcq từ trong ngữ cảnh (+ headings từ B2), có explain`, () => {
+      const lesson = lessons.find((l) => l.id === id)
+      expect(lesson, id).toBeTruthy()
+      if (!lesson) return
+      const ex = lesson.exercises
+      const count = (pred: (e: LessonExercise) => boolean): number => ex.filter(pred).length
+      expect(ex.length).toBeGreaterThanOrEqual(7)
+      expect(ex.length).toBeLessThanOrEqual(10)
+      expect(count((e) => e.type === 'summary')).toBeGreaterThanOrEqual(1)
+      expect(count((e) => e.type === 'mcq' && e.focus === 'inference')).toBeGreaterThanOrEqual(1)
+      expect(count((e) => e.type === 'mcq' && e.focus === 'vocab')).toBeGreaterThanOrEqual(1)
+      const b2Plus = LEVEL_CODES.indexOf(lesson.level) >= LEVEL_CODES.indexOf('B2_1')
+      if (b2Plus) expect(count((e) => e.type === 'headings')).toBe(1)
+      for (const e of ex)
+        if (e.type === 'summary' || e.type === 'headings' || (e.type === 'mcq' && e.focus))
+          expect('explain' in e && e.explain, `${id}: ${e.type} thiếu explain`).toBeTruthy()
     })
   }
 })

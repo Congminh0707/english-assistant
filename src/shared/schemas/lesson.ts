@@ -86,15 +86,82 @@ export const LessonBlockSchema = z.discriminatedUnion('type', [
 ])
 export type LessonBlock = z.infer<typeof LessonBlockSchema>
 
+/** Loại câu hỏi đọc hiểu của `mcq` (nhãn nhỏ trên câu hỏi; `detail` = chi tiết, không hiện nhãn) */
+export const MCQ_FOCUS = ['detail', 'main_idea', 'inference', 'vocab', 'purpose'] as const
+export type McqFocus = (typeof MCQ_FOCUS)[number]
+
+/** Số chỗ trống "___" trong một chuỗi */
+export const blankCount = (text: string): number => text.split('___').length - 1
+
+const lower = (s: string): string => s.trim().toLowerCase()
+
 export const LessonExerciseSchema = z.discriminatedUnion('type', [
-  /** Trắc nghiệm */
+  /** Trắc nghiệm (lựa chọn được xáo khi hiển thị, trừ khi `keepOrder`) */
   z.object({
     type: z.literal('mcq'),
     prompt: Text,
     choices: z.array(Text).min(2).max(4),
     answer: z.number().int().min(0).max(3),
+    /** Loại câu hỏi đọc hiểu (ý chính, suy luận, từ trong ngữ cảnh, mục đích tác giả) */
+    focus: z.enum(MCQ_FOCUS).optional(),
+    /** Giữ nguyên thứ tự lựa chọn (lựa chọn nhắc tới lựa chọn khác, vd "Both together", hoặc Có/Không) */
+    keepOrder: z.boolean().optional(),
     explain: Text.optional()
   }),
+  /**
+   * Ghép tiêu đề với đoạn (matching_headings): `answers[i]` = chỉ số trong `headings` của tiêu đề đoạn i (từ 0) trong
+   * block `passage` đầu tiên của bài; có tiêu đề thừa (gây nhiễu). Số đoạn khớp `answers` kiểm ở test nội dung.
+   */
+  z
+    .object({
+      type: z.literal('headings'),
+      prompt: Text.optional(),
+      headings: z.array(Text).min(3).max(8),
+      answers: z.array(z.number().int().min(0)).min(2).max(6),
+      explain: Text.optional()
+    })
+    .superRefine((ex, ctx) => {
+      if (ex.answers.some((a) => a >= ex.headings.length))
+        ctx.addIssue({
+          code: 'custom',
+          path: ['answers'],
+          message: 'answers ngoài phạm vi headings'
+        })
+      if (new Set(ex.answers).size !== ex.answers.length)
+        ctx.addIssue({ code: 'custom', path: ['answers'], message: 'mỗi tiêu đề chỉ dùng một lần' })
+      if (ex.headings.length < ex.answers.length + 1)
+        ctx.addIssue({
+          code: 'custom',
+          path: ['headings'],
+          message: 'cần ít nhất một tiêu đề thừa'
+        })
+      if (new Set(ex.headings.map(lower)).size !== ex.headings.length)
+        ctx.addIssue({ code: 'custom', path: ['headings'], message: 'tiêu đề trùng nhau' })
+    }),
+  /**
+   * Hoàn thành tóm tắt bằng ngân hàng từ: `text` có 2–6 chỗ "___", `answers` theo thứ tự chỗ trống; ngân hàng =
+   * answers + distractors, xáo khi hiển thị
+   */
+  z
+    .object({
+      type: z.literal('summary'),
+      text: Text,
+      answers: z.array(Text).min(2).max(6),
+      distractors: z.array(Text).min(1).max(4),
+      explain: Text.optional()
+    })
+    .superRefine((ex, ctx) => {
+      const blanks = blankCount(ex.text)
+      if (blanks !== ex.answers.length)
+        ctx.addIssue({
+          code: 'custom',
+          path: ['text'],
+          message: `số "___" (${blanks}) khác số answers (${ex.answers.length})`
+        })
+      const bank = [...ex.answers, ...ex.distractors].map(lower)
+      if (new Set(bank).size !== bank.length)
+        ctx.addIssue({ code: 'custom', path: ['distractors'], message: 'ngân hàng từ có từ trùng' })
+    }),
   /** Điền chỗ trống "___" (gõ, hoặc chọn nếu có `choices`) */
   z.object({
     type: z.literal('gap'),
@@ -103,6 +170,8 @@ export const LessonExerciseSchema = z.discriminatedUnion('type', [
     /** Các đáp án chấp nhận (không phân biệt hoa/thường) */
     answers: z.array(Text).min(1),
     choices: z.array(Text).min(2).max(4).optional(),
+    /** Giữ nguyên thứ tự `choices` (mặc định xáo khi hiển thị) */
+    keepOrder: z.boolean().optional(),
     explain: Text.optional()
   }),
   /** Sắp xếp các từ thành câu đúng */
@@ -199,6 +268,8 @@ export const LessonExerciseSchema = z.discriminatedUnion('type', [
     prompt: Text.optional(),
     choices: z.array(Text).min(2).max(4),
     answer: z.number().int().min(0).max(3),
+    /** Giữ nguyên thứ tự `choices` (mặc định xáo khi hiển thị) */
+    keepOrder: z.boolean().optional(),
     explain: Text.optional()
   })
 ])
@@ -228,9 +299,12 @@ export const LessonUnitSchema = z.object({
   order: z.number().int().min(1)
 })
 
-/** Bài đọc: như bài học nhưng ít bài tập hơn (câu hỏi đọc hiểu) và phải có đoạn `passage` */
+/**
+ * Bài đọc: câu hỏi đọc hiểu, phải có đoạn `passage`. Tối đa 12 như bài học (trước 2026-11-12 là 8; bài B1+ soạn theo
+ * AUTHORING.md có 7–10 câu gồm `summary`/`headings`)
+ */
 export const ReadingSchema = LessonSchema.extend({
-  exercises: z.array(LessonExerciseSchema).min(3).max(8)
+  exercises: z.array(LessonExerciseSchema).min(3).max(12)
 })
 /** Điểm ngữ pháp: giải thích + vài bài tập nhanh */
 export const GrammarPointSchema = LessonSchema.extend({

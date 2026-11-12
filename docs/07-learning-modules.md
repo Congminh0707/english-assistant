@@ -33,14 +33,15 @@ Thêm dạng bài mới = thêm đủ 3 thứ này + đăng ký vào `exerciseRe
 |---|---|---|---|---|
 | `picture_choice` | Nghe/đọc từ → chọn hình | vocab, listening | PA1–A1 | đúng/sai |
 | `tap_pairs` | Nối cặp (từ–hình, từ–nghĩa, âm–chữ) | vocab, phonics | PA1–B1 | tỉ lệ cặp đúng |
-| `mcq` | Trắc nghiệm 1 đáp án | mọi kỹ năng | mọi bậc | đúng/sai |
+| `mcq` | Trắc nghiệm 1 đáp án — từ 2026-11-12 có `focus` tuỳ chọn (ý chính / suy luận / từ trong ngữ cảnh / mục đích tác giả, hiện nhãn) và lựa chọn được xáo khi hiển thị (`keepOrder` để giữ thứ tự), xem [Dạng bài đọc nâng cao](#dạng-bài-đọc-nâng-cao-headings-summary-focus--2026-11-12) | mọi kỹ năng | mọi bậc | đúng/sai |
 | `multi_select` | Chọn nhiều đáp án | reading, listening | A2+ | điểm từng phần |
 | `gap_fill` | Điền từ vào chỗ trống (gõ hoặc chọn từ ngân hàng) | grammar, vocab | A1+ | so khớp, chấp nhận biến thể |
 | `word_order` | Sắp xếp từ thành câu | grammar, writing | PA1_2–B1 | so khớp với các đáp án hợp lệ |
 | `dictation` | Nghe chép chính tả | listening | A1+ | khoảng cách chỉnh sửa theo từ (WER) |
 | `listen_choice` | Nghe đoạn → trả lời câu hỏi | listening | PA1+ | đúng/sai |
 | `true_false_ng` | Đúng / Sai / Không có thông tin | reading | B1+ | đúng/sai |
-| `matching_headings` | Nối tiêu đề với đoạn | reading | B2+ | tỉ lệ đúng |
+| `matching_headings` | Nối tiêu đề với đoạn — ✅ 2026-11-12, `type: 'headings'` ([Dạng bài đọc nâng cao](#dạng-bài-đọc-nâng-cao-headings-summary-focus--2026-11-12)) | reading | B2+ (B1 tuỳ chọn) | ~~tỉ lệ đúng~~ tất cả hoặc không ([decisions #64](decisions.md)), tô đúng/sai từng đoạn |
+| `summary_completion` | Hoàn thành tóm tắt bằng ngân hàng từ — ✅ 2026-11-12, `type: 'summary'` | reading | B1+ | tất cả hoặc không, tô đúng/sai từng chỗ trống |
 | `error_spotting` | Tìm lỗi sai trong câu | grammar | A2+ | đúng/sai |
 | `transform` | Viết lại câu không đổi nghĩa | grammar, writing | B1+ | so khớp mẫu + (tuỳ chọn) AI |
 | `translate_sentence` | Dịch câu Việt → Anh — ✅ 2026-11-11, `type: 'translate'` ([Luyện viết](#luyện-viết-translate-write--2026-11-11)) | writing (Elo: writing từ 2026-11-11, trước đó grammar) | A1+ | so khớp đáp án mẫu (chuẩn hoá viết tắt/dấu câu) → không khớp thì AI `translation_check` nếu có |
@@ -108,7 +109,7 @@ Lộ trình học từ đầu cho người Việt, **tự soạn** (`proprietary
   - Tô màu nhẹ các từ **trên level** người dùng (tuỳ chọn bật/tắt).
   - Nút 🔊 đọc cả câu/đoạn (TTS hoặc audio gốc nếu có), câu đang đọc được highlight.
   - Chế độ song ngữ: hiện bản dịch tiếng Việt theo từng đoạn (bật/tắt).
-- **Sau khi đọc**: 3–8 câu hỏi đọc hiểu (`mcq`, `true_false_ng`, `gap_fill` tóm tắt) + từ mới của bài vào SRS.
+- **Sau khi đọc**: 3–12 câu hỏi đọc hiểu (`mcq`, `true_false_ng`, `gap_fill`; từ 2026-11-12 thêm `headings`, `summary` và `mcq` có `focus` — bài từ B1_1 soạn theo quy tắc 7–10 câu ở [Dạng bài đọc nâng cao](#dạng-bài-đọc-nâng-cao-headings-summary-focus--2026-11-12); trước đó tối đa 8) + từ mới của bài vào SRS.
   - ✅ **Đã làm (2026-11-10)** — từ mới của bài vào SRS tự động: lần đầu đạt một bài đọc (`passed && firstCompletion`), main tự lưu tối đa **8** từ khó của bài vào sổ từ (tạo thẻ ôn) kèm câu đầu tiên chứa từ làm ngữ cảnh. Chọn từ ở `src/main/content/hardWords.ts` (`pickHardWords`): tách câu (`splitSentences`) và từ (`tokenizeWords`) mọi đoạn `passage`, bỏ tên riêng, tra level bằng cùng hàm với kênh `dictionary:levels` (`wordLevel`), giữ từ có level > `learning.level`, bỏ từ đã có trong sổ (theo `contentId`, gộp các dạng của một mục từ), theo thứ tự xuất hiện. `container.ts` nối callback `onFirstPass` cho `LessonService` của bài đọc, lưu qua `StudyService.saveMany` (cùng đường với `vocab:save-many`); kết quả `lesson:complete` có thêm `savedWords`, thẻ kết quả hiện chip "Đã lưu N từ mới". Không áp dụng cho hồ sơ trẻ em; tắt được bằng cài đặt `review.autoSaveReading` (mặc định bật, mục Ôn thẻ trong Cài đặt). Nút "Lưu N từ khó" thủ công trong trình đọc vẫn giữ.
 - **Bậc thấp**: truyện tranh/picture book, mỗi trang 1–2 câu, có audio.
 - **Bậc cao**: bài báo, văn bản học thuật, dạng bài IELTS Reading.
@@ -285,6 +286,19 @@ Dạng bài `speak_answer` của bảng §2, tên trong schema là **`respond`**
 - **Nội dung**: chương `respond` "Trả lời câu hỏi bằng giọng nói" (`content/curated/lessons/11-speaking-answers.json`, order 11, không thuộc khoá nào): 6 bài A1_1 → B1_2 (giới thiệu bản thân, một ngày của bạn, thời gian rảnh và cuối tuần, việc học/công việc và kế hoạch, nêu ý kiến, kể trải nghiệm và so sánh), mỗi bài 3 khối dạy (cụm câu hữu ích, khung trả lời: trả lời + lý do + ví dụ), 2 câu khởi động (`gap`/`order`/`mcq`) và 4–5 câu `respond` (tổng 26; `minWords` A1 5–8, A2 10–15, B1 20–28). Test nội dung: câu mẫu ≥ `minWords` và ≤ 70 từ, `minWords` ≤ 30, nghĩa Việt có dấu.
 - **Âm thanh**: câu hỏi (0,9 / 0,6) và câu trả lời mẫu (0,9) được đưa vào danh sách gói `listening-audio` (`--list` 11 966 → 12 176; đã có trong gói 1.8.0, build 2026-11-12).
 - Chưa có (ngoài phạm vi): trang nói tự do, lịch sử câu trả lời, rubric IELTS Speaking, `roleplay`, kỹ năng Nói trong Elo.
+
+## Dạng bài đọc nâng cao (`headings`, `summary`, `focus`) — 2026-11-12
+
+Câu hỏi đọc hiểu cho người học B1+ ([decisions #64](decisions.md)). Schema: `src/shared/schemas/lesson.ts`; logic: registry `src/renderer/study/exercises/lessonExercises.ts`; quy tắc soạn: `content/curated/lessons/AUTHORING.md` (mục "Bài đọc từ B1_1").
+
+- **`headings`** (`{ type: 'headings', prompt?, headings[3..8], answers[2..6], explain? }`): `answers[i]` = chỉ số trong `headings` của tiêu đề đoạn i (từ 0) của block `passage` **đầu tiên**. Giao diện `exercises/HeadingsBoard.vue`: mỗi đoạn một hàng "Đoạn N" + 7 chữ đầu (nút "Xem cả đoạn" mở toàn đoạn, vì trang bài tập không hiện bài đọc), danh sách tiêu đề đã xáo bên dưới; chọn hàng (mặc định hàng trống đầu tiên) rồi bấm tiêu đề để gán, bấm hàng đã gán để gỡ; tiêu đề đã dùng có viền đứt + chip "Đoạn N", bấm lại thì chuyển sang hàng đang chọn (mỗi tiêu đề một đoạn). Schema (`superRefine`) kiểm: đáp án trong phạm vi, không trùng, có ít nhất một tiêu đề thừa, tiêu đề không trùng (không phân biệt hoa/thường); test nội dung (`passageExerciseErrors`) kiểm bài có `passage` và số đáp án = số đoạn.
+- **`summary`** (`{ type: 'summary', text, answers[2..6], distractors[1..4], explain? }`): `text` có đúng `answers.length` chỗ `___` (schema kiểm), ngân hàng từ = đáp án + từ nhiễu (không trùng, không phân biệt hoa/thường), xáo khi hiển thị. Giao diện `exercises/SummaryBoard.vue`: chỗ trống là nút nằm trong dòng (đánh số); bấm một từ trong ngân hàng → điền vào chỗ trống đang chọn hoặc chỗ trống còn trống đầu tiên; bấm chỗ trống đã điền → gỡ từ; từ đã dùng bị gạch và khoá. So khớp không phân biệt hoa/thường.
+- **Chấm**: cả hai **tất cả hoặc không** (một kết quả đúng/sai mỗi bài tập như mọi dạng khác); nút "Kiểm tra" bật khi mọi hàng/chỗ trống đã điền. Sau khi chấm, từng hàng/chỗ trống có biểu tượng đúng/sai (kèm nhãn cho trình đọc màn hình) và hiện đáp án đúng ở mục sai; dòng kết quả "Chưa đúng hết — đúng n/tổng". `solutionOf` trả khoá đầy đủ (`1: tiêu đề · 2: …` / đoạn tóm tắt đã điền). Không đọc to, không chấm ở main; Elo như dạng chấm tại chỗ: trong bài đọc → kỹ năng Đọc (`lessonExerciseSkill`), nhãn thống kê "Ghép tiêu đề" / "Hoàn thành tóm tắt".
+- **`mcq.focus`** (`detail | main_idea | inference | vocab | purpose`, tuỳ chọn): khác `detail` thì hiện `.chip` nhỏ trên câu hỏi ("Ý chính", "Suy luận", "Từ trong ngữ cảnh", "Mục đích của tác giả"). Không đổi cách chấm.
+- **Xáo lựa chọn khi hiển thị**: `mcq`, `listen`, `picture` và `gap` có `choices` — `initState` lưu thứ tự hiển thị ở `ExerciseState.order` (vị trí hiển thị → chỉ số nội dung); `choiceTexts(ex, state, tfLabel)` trả lựa chọn theo thứ tự hiển thị; `state.chosen` và phím 1–4 là vị trí hiển thị; `isCorrect` và `correctChoice` (tô xanh/đỏ) quy về chỉ số nội dung. `tf` không xáo. `keepOrder: true` (mcq, gap, listen) giữ thứ tự nội dung — đặt cho lựa chọn nhắc tới lựa chọn khác ("Both together") hoặc cặp Có/Không: `gramtense.past-perfect` câu 3 và câu 7 (`content/curated/grammar/04-tenses2.json`). Luyện tập (`PracticeSession`) dùng `ChoiceList` với lựa chọn riêng, không đổi.
+- **Bài mẫu**: `readb1.making-new-friends` (B1_1, 9 câu: 4 `mcq` ý chính/từ trong ngữ cảnh/mục đích/suy luận, 3 `tf`, 1 `gap` giữ nguyên, 1 `summary`; 7 phút) và `readc1.nudges` (C1, 10 câu: `headings`, 4 `mcq`, 3 `tf`, `gap` giữ nguyên, `summary`; 10 phút). Test `bài đọc mẫu B1+` trong `lessons.test.ts` giữ hai bài này đúng quy tắc. Các bài đọc khác soạn lại dần theo AUTHORING.md.
+- **Âm thanh**: không đổi danh sách gói `listening-audio` (`--list` vẫn 12 176): câu `gap` của hai bài mẫu giữ nguyên từng byte.
+- Chưa có (ngoài phạm vi): chấm tỉ lệ, kéo-thả, hiện bài đọc cạnh trang bài tập, `multi_select`.
 
 ## Viết tự do theo đề — 2026-11-11
 

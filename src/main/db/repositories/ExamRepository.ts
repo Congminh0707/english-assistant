@@ -1,4 +1,4 @@
-import { and, desc, eq, isNull } from 'drizzle-orm'
+import { and, count, desc, eq, gte, isNull } from 'drizzle-orm'
 import { uuidv7 } from '@shared/ids'
 import type { UserDb } from '../client'
 import { examAttempts } from '../schema'
@@ -47,5 +47,22 @@ export class ExamRepository {
       .orderBy(desc(examAttempts.finishedAt))
       .limit(limit)
       .all()
+  }
+
+  /** Số lần đã nộp bài (mọi chế độ) từ thời điểm `since` (epoch ms) — lộ trình hôm nay dùng để đánh dấu xong */
+  countSince(profileId: string, exam: string, since: number): number {
+    const row = this.db
+      .select({ n: count() })
+      .from(examAttempts)
+      .where(
+        and(
+          eq(examAttempts.profileId, profileId),
+          eq(examAttempts.exam, exam),
+          gte(examAttempts.finishedAt, since),
+          isNull(examAttempts.deletedAt)
+        )
+      )
+      .get()
+    return row?.n ?? 0
   }
 }

@@ -146,6 +146,8 @@ export const SEND_CHANNELS = [
   'mascot:context-menu',
   /** Bấm bong bóng nhắc viết nhật ký → mở cửa sổ Học tập ở trang nhật ký */
   'mascot:open-diary',
+  /** Bấm bong bóng nhắc lộ trình hôm nay → mở cửa sổ Học tập ở trang chủ */
+  'mascot:open-study',
   'popup:hide',
   /** Popup có phần giải thích ngữ pháp → nới rộng (true) / về cỡ gốc (false) */
   'popup:expand'

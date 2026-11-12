@@ -326,6 +326,7 @@ export const sendContract = {
   'mascot:drag-start': { input: z.void() },
   'mascot:context-menu': { input: z.void() },
   'mascot:open-diary': { input: z.void() },
+  'mascot:open-study': { input: z.void() },
   'popup:hide': { input: z.void() },
   'popup:expand': { input: z.boolean() }
 } satisfies Record<SendChannel, { input: z.ZodType }>

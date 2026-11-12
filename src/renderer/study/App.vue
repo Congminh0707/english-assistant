@@ -10,6 +10,7 @@ import { useSettingsStore } from '@renderer/shared/stores/settings'
 import VillageMap from './components/VillageMap.vue'
 import PlaceShell from './components/PlaceShell.vue'
 import { isStudyPage, PLACE_PAGES, placeOf, type Place, type StudyPage } from './places'
+import { nextPlanItem, planItemTarget } from './planItem'
 import ReviewSession from './components/ReviewSession.vue'
 import WordList from './components/WordList.vue'
 import PlacementTest from './components/PlacementTest.vue'
@@ -147,20 +148,26 @@ async function setGoal(value: number): Promise<void> {
   void refresh()
 }
 
-const LESSON_PAGE: Record<LessonKind, StudyPage> = {
-  lesson: 'lessons',
-  grammar: 'grammar',
-  reading: 'reading',
-  listening: 'listening'
+/**
+ * Bấm "Làm" ở một mục của lộ trình hôm nay: ôn thẻ, luyện tập, luyện TOEIC, hoặc mở thẳng bài học
+ * (loại lạ/thiếu id bài → trang Lộ trình, không bao giờ là nút chết)
+ */
+function openPlanItem(item: DailyPlanItem): void {
+  const { page: next, start } = planItemTarget(item)
+  go(next, start)
 }
 
-/** Bấm "Làm" ở một mục của lộ trình hôm nay: ôn thẻ, luyện tập, hoặc mở thẳng bài học */
-function openPlanItem(item: DailyPlanItem): void {
-  if (item.kind === 'review') return go('review')
-  if (item.kind === 'practice') return go('practice')
-  if (item.lessonKind && item.lessonId) {
-    go(LESSON_PAGE[item.lessonKind], { kind: item.lessonKind, id: item.lessonId })
+/** Xong bài kiểm tra đầu vào: mở luôn mục đầu tiên chưa làm của lộ trình mới (theo trình độ vừa đo) */
+async function startAfterPlacement(): Promise<void> {
+  try {
+    const fresh = await invoke('study:plan')
+    plan.value = fresh
+    const first = nextPlanItem(fresh)
+    if (first) return openPlanItem(first)
+  } catch (err) {
+    console.warn('[study] plan failed', err)
   }
+  go('home')
 }
 
 async function setMinutes(value: number): Promise<void> {
@@ -297,6 +304,7 @@ onUnmounted(() => {
         :autostart="autostartTest"
         :mode="checkpointMode ? 'checkpoint' : 'placement'"
         @done="go('home')"
+        @start="startAfterPlacement"
       />
       <ToeicPage v-else-if="page === 'toeic'" />
       <VideosPage v-else-if="page === 'videos'" />

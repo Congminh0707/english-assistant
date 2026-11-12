@@ -13,6 +13,9 @@
     "openStudy": "Mở cửa sổ Học tập"
   },
   "menu": {
+    "planToday": "Hôm nay: còn {n} việc · {m} phút",
+    "planDone": "Hôm nay: xong rồi",
+    "planReminder": "Nhắc lộ trình hôm nay",
     "studyNow": "📚 Mở cửa sổ Học tập",
     "feed": "Cho ăn",
     "bagEmpty": "Túi đồ trống",
@@ -531,7 +534,8 @@
         ]
       }
     },
-    "diaryPrompt": "Hôm nay bạn làm gì? Viết 2–3 câu tiếng Anh nhé."
+    "diaryPrompt": "Hôm nay bạn làm gì? Viết 2–3 câu tiếng Anh nhé.",
+    "planPrompt": "Hôm nay còn {n} việc, khoảng {m} phút. Học nhé?"
   },
   "errors": {
     "validation": "Dữ liệu không hợp lệ.",
@@ -622,7 +626,10 @@
       "search": "Tìm từ",
       "goReview": "Tới Giếng làng, ôn {n} từ",
       "todayPanel": "Hôm nay",
-      "close": "Đóng"
+      "close": "Đóng",
+      "continue": "Học tiếp",
+      "begin": "Bắt đầu",
+      "fullPlan": "Xem cả lộ trình"
     },
     "search": {
       "title": "Tìm từ",
@@ -819,7 +826,8 @@
         "listening": "Nghe"
       },
       "empty": "Hôm nay xong rồi. Giỏi lắm!",
-      "allDone": "Xong cả lộ trình hôm nay. Giỏi lắm!"
+      "allDone": "Xong cả lộ trình hôm nay. Giỏi lắm!",
+      "toeic": "Luyện TOEIC"
     },
     "tracks": {
       "preschool": "Mầm non (3–6 tuổi)",
@@ -873,6 +881,8 @@
       "resultBody": "Bạn trả lời đúng {correct}/{total} câu. %PET% đã chọn từ vừa sức với bạn.",
       "retry": "Làm lại",
       "done": "Bắt đầu học",
+      "startFirst": "Bắt đầu bài đầu tiên",
+      "home": "Về trang chủ",
       "checkpointTitle": "Kiểm tra lên cấp",
       "checkpointIntro": "10 câu ở bậc kế tiếp (từ vựng, ngữ pháp, đọc, nghe). Đúng từ 80% là lên một bậc — lần đầu qua mỗi bậc có thưởng. Không đạt cũng không sao, bạn có thể thử lại sau.",
       "checkpointPassed": "Chúc mừng! Bạn đã lên level {level}",
@@ -995,7 +1005,9 @@
       "devGranted": "Đã cộng 1.000.000 xu",
       "devLevelUp": "Tăng 10 level",
       "devLeveled": "Đã tăng 10 level",
-      "diaryHour": "Nhật ký: mascot nhắc viết lúc"
+      "diaryHour": "Nhật ký: mascot nhắc viết lúc",
+      "planReminderHour": "Nhắc lộ trình hôm nay",
+      "planReminderHint": "Mascot nhắc một lần mỗi ngày khi lộ trình còn việc chưa xong"
     },
     "leave": {
       "title": "Thoát giữa chừng?",
@@ -1476,6 +1488,22 @@
       "market": "Chợ quê",
       "home": "Nhà thú cưng",
       "office": "Nhà làng"
+    },
+    "placeHint": {
+      "school": "Bài học, lộ trình",
+      "library": "Sổ từ, nhật ký",
+      "hall": "Luyện tập, viết",
+      "well": "Ôn từ",
+      "tower": "Thống kê, kiểm tra",
+      "pier": "Mẫu câu",
+      "market": "Cửa hàng",
+      "home": "Thú cưng",
+      "office": "Cài đặt"
+    },
+    "navGroup": {
+      "path": "Lộ trình",
+      "bank": "Kho bài",
+      "exam": "Luyện thi"
     }
   },
   "translate": {

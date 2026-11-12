@@ -495,6 +495,26 @@ onMounted(async () => {
               </option>
             </select>
           </label>
+          <label v-if="!activeIsChild" class="row">
+            {{ t('study.settings.planReminderHour') }}
+            <select
+              :value="settingsStore.settings['plan.reminderHour'] ?? 'off'"
+              @change="
+                setSetting(
+                  'plan.reminderHour',
+                  ($event.target as HTMLSelectElement).value === 'off'
+                    ? null
+                    : Number(($event.target as HTMLSelectElement).value)
+                )
+              "
+            >
+              <option value="off">{{ t('study.settings.quizOff') }}</option>
+              <option v-for="h in [7, 8, 9, 10, 12, 14, 18, 20]" :key="h" :value="h">
+                {{ `${h}:00` }}
+              </option>
+            </select>
+          </label>
+          <p v-if="!activeIsChild" class="muted">{{ t('study.settings.planReminderHint') }}</p>
         </section>
 
         <section v-show="sect === 'translate'" class="card block">

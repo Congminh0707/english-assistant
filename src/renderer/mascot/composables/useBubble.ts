@@ -8,8 +8,11 @@ export interface Bubble {
   kind: BubbleKind
   text?: string
   quiz?: Quiz
-  /** Bấm vào bong bóng thì làm việc này (vd 'diary': mở trang nhật ký) thay vì chỉ đóng */
-  action?: 'diary'
+  /**
+   * Bấm vào bong bóng thì làm việc này thay vì chỉ đóng:
+   * 'diary' mở trang nhật ký, 'plan' mở trang chủ cửa sổ Học tập (lộ trình hôm nay)
+   */
+  action?: 'diary' | 'plan'
   /** Độ ưu tiên: bong bóng mới chỉ thay được bong bóng đang hiện nếu ưu tiên ≥ */
   priority: number
 }

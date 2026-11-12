@@ -102,11 +102,12 @@ export type MissionsState = z.infer<typeof MissionsStateSchema>
 
 /** Một mục trong lộ trình hôm nay (docs/07 §13) */
 export const DailyPlanItemSchema = z.object({
-  kind: z.enum(['review', 'lesson', 'skill', 'practice']),
+  /** 'toeic': luyện TOEIC (chỉ hồ sơ có mục tiêu track = toeic) */
+  kind: z.enum(['review', 'lesson', 'skill', 'practice', 'toeic']),
   /** Bài học/đọc/nghe/ngữ pháp: loại + id để mở thẳng */
   lessonKind: LessonKindSchema.optional(),
   lessonId: z.string().optional(),
-  /** Tên bài (lesson/skill); mục review/practice để trống — giao diện tự dịch theo kind */
+  /** Tên bài (lesson/skill); mục review/practice/toeic để trống — giao diện tự dịch theo kind */
   title: z.string(),
   /** Phụ đề: tên khoá, hoặc "kỹ năng yếu: Nghe" */
   subtitle: z.string().optional(),

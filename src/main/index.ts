@@ -56,6 +56,7 @@ import { Scheduler } from './jobs/Scheduler'
 import { schedulePetJobs } from './jobs/petJobs'
 import { scheduleQuizJob } from './jobs/quizJobs'
 import { scheduleDiaryJob } from './jobs/diaryJob'
+import { schedulePlanJob } from './jobs/planJob'
 
 const APP_ID = 'net.gonbi.englishassistant'
 
@@ -276,10 +277,21 @@ if (!app.requestSingleInstanceLock()) {
       canShow: mascotFree,
       show: () => sendTo(m.win, 'mascot:react', { kind: 'diary' })
     })
+    // Nhắc lộ trình hôm nay còn dở (người lớn), cùng điều kiện hiện như nhắc nhật ký
+    schedulePlanJob(scheduler, c, {
+      canShow: mascotFree,
+      show: ({ count, minutes }) => sendTo(m.win, 'mascot:react', { kind: 'plan', count, minutes })
+    })
     registerMascotIpc(
       m,
-      () => showMascotMenu(c, m, { quizNow: () => quizJob.trigger(), openStudy: () => s.open() }),
-      () => s.open('diary')
+      () =>
+        showMascotMenu(c, m, {
+          quizNow: () => quizJob.trigger(),
+          openStudy: () => s.open(),
+          openStudyHome: () => s.open('home')
+        }),
+      () => s.open('diary'),
+      () => s.open('home')
     )
     registerPopupIpc(p)
     registerStudyIpc(s, m)

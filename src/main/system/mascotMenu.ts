@@ -2,10 +2,14 @@ import { app, Menu, type MenuItemConstructorOptions } from 'electron'
 import { FOODS, isFoodId, itemI18nKey } from '@shared/pet'
 import { t } from '@shared/i18n'
 import type { LevelCode } from '@shared/schemas/content'
+import { settingDefinitions } from '@shared/schemas/settings'
 import type { Container } from '../container'
+import { planRemaining, type PlanRemaining } from '../jobs/planJob'
 import type { MascotWindow } from '../windows/MascotWindow'
 
 const MINUTE_MS = 60_000
+/** Bật lại nhắc lộ trình từ menu → về giờ mặc định của cài đặt */
+const PLAN_REMINDER_DEFAULT_HOUR = settingDefinitions['plan.reminderHour'].parse(undefined) ?? 10
 
 /** Khung giờ không làm phiền chọn nhanh */
 const DND_PRESETS: Array<{ from: string; to: string }> = [
@@ -29,9 +33,10 @@ const LEVEL_CHOICES: Array<{ level: LevelCode; label: string }> = [
 export function showMascotMenu(
   c: Container,
   mascot: MascotWindow,
-  actions: { quizNow: () => void; openStudy: () => void }
+  actions: { quizNow: () => void; openStudy: () => void; openStudyHome: () => void }
 ): void {
   const lang = c.settings.get('ui.language')
+  const isChild = c.profiles.active().isChild
   const scale = c.settings.get('mascot.scale')
   const food = c.inventory.list().filter((item) => isFoodId(item.itemId))
 
@@ -92,7 +97,33 @@ export function showMascotMenu(
     ]
   }
 
+  // Lối vào lộ trình hôm nay cho người lớn ("không biết bắt đầu từ đâu"); hồ sơ trẻ em có bản đồ riêng nên ẩn
+  const planLeft = isChild ? null : safePlan(() => planRemaining(c.dailyPlan.plan()))
+  const planItems: MenuItemConstructorOptions[] = planLeft
+    ? [
+        {
+          label: planLeft.count
+            ? t(lang, 'menu.planToday', { n: planLeft.count, m: planLeft.minutes })
+            : t(lang, 'menu.planDone'),
+          click: actions.openStudyHome
+        },
+        { type: 'separator' }
+      ]
+    : []
+  const planReminder: MenuItemConstructorOptions[] = isChild
+    ? []
+    : [
+        {
+          label: t(lang, 'menu.planReminder'),
+          type: 'checkbox',
+          checked: c.settings.get('plan.reminderHour') !== null,
+          click: (item) =>
+            c.settings.set('plan.reminderHour', item.checked ? PLAN_REMINDER_DEFAULT_HOUR : null)
+        }
+      ]
+
   const menu = Menu.buildFromTemplate([
+    ...planItems,
     {
       label: dueCount
         ? t(lang, 'menu.reviewNowDue', { count: dueCount })
@@ -106,6 +137,7 @@ export function showMascotMenu(
       label: t(lang, 'menu.quizInterval'),
       submenu: [intervalItem(15), intervalItem(25), intervalItem(45), intervalItem(0)]
     },
+    ...planReminder,
     {
       label: t(lang, 'menu.level'),
       submenu: LEVEL_CHOICES.map((choice) => ({
@@ -178,5 +210,15 @@ function safeCount(fn: () => number): number {
     return fn()
   } catch {
     return 0
+  }
+}
+
+/** Lộ trình lỗi (vd nội dung hỏng) thì chỉ bỏ mục trạng thái, menu vẫn mở được */
+function safePlan(fn: () => PlanRemaining): PlanRemaining | null {
+  try {
+    return fn()
+  } catch (err) {
+    console.warn('[mascot-menu] plan', err)
+    return null
   }
 }

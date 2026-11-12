@@ -4,7 +4,8 @@ import { handle, onSend } from './handle'
 export function registerMascotIpc(
   mascot: MascotWindow,
   showContextMenu: () => void,
-  openDiary: () => void
+  openDiary: () => void,
+  openStudyHome: () => void
 ): void {
   // Chỉ nhận lệnh từ chính cửa sổ mascot
   const from = (): Electron.WebContents => mascot.win.webContents
@@ -13,6 +14,7 @@ export function registerMascotIpc(
   onSend('mascot:drag-start', () => mascot.startDrag(), { from })
   onSend('mascot:context-menu', () => showContextMenu(), { from })
   onSend('mascot:open-diary', () => openDiary(), { from })
+  onSend('mascot:open-study', () => openStudyHome(), { from })
   handle('mascot:drag-end', () => mascot.endDrag(), { from })
   handle('mascot:walk', (dx) => mascot.walk(dx), { from })
 }

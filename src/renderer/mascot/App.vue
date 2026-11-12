@@ -190,7 +190,7 @@ async function onPat(): Promise<void> {
   }
 }
 
-function onReaction({ kind, achievementId, count }: MascotReaction): void {
+function onReaction({ kind, achievementId, count, minutes }: MascotReaction): void {
   if (kind === 'eat') {
     brain?.react('eat')
     bubble.say(line('fed'))
@@ -217,12 +217,18 @@ function onReaction({ kind, achievementId, count }: MascotReaction): void {
     // Ưu tiên ngang câu hỏi ôn: main đã tính "đã nhắc hôm nay" nên bong bóng không được bị bỏ khỏi hàng đợi.
     // Quiz đang mở thì xếp hàng sau quiz; bong bóng có action giữ 60 giây (useBubble)
     bubble.say(t('mascot.diaryPrompt'), BubblePriority.quiz, 'diary')
+  } else if (kind === 'plan' && count) {
+    brain?.react('wave')
+    // Giống nhắc nhật ký: main đã tính "đã nhắc hôm nay" nên bong bóng có action, không bị bỏ khỏi hàng đợi
+    bubble.say(t('mascot.planPrompt', { n: count, m: minutes ?? 0 }), BubblePriority.quiz, 'plan')
   }
 }
 
-/** Bấm vào bong bóng: đóng; bong bóng nhắc nhật ký thì mở luôn trang nhật ký */
+/** Bấm vào bong bóng: đóng; bong bóng nhắc nhật ký/lộ trình thì mở luôn trang tương ứng */
 function onBubbleClick(): void {
-  if (bubble.current.value?.action === 'diary') window.api.send('mascot:open-diary')
+  const action = bubble.current.value?.action
+  if (action === 'diary') window.api.send('mascot:open-diary')
+  else if (action === 'plan') window.api.send('mascot:open-study')
   bubble.dismiss()
 }
 

@@ -397,6 +397,7 @@ export function createContainer(
     progress,
     services: lessonServices,
     lessonRepo: repos.lessons,
+    exams: repos.exam,
     settings,
     profiles,
     clock

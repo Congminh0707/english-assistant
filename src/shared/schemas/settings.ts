@@ -42,6 +42,13 @@ export const settingDefinitions = {
     .default(25),
   /** Giờ (cục bộ, 0–23) mascot nhắc viết nhật ký tiếng Anh, một lần mỗi ngày; null = tắt (docs/07 §14) */
   'diary.hour': z.number().int().min(0).max(23).nullable().default(21),
+  /**
+   * Giờ (cục bộ, 0–23) mascot nhắc lộ trình hôm nay còn dở ("Hôm nay còn N việc…"), một lần mỗi ngày; null = tắt.
+   * Mặc định khác giờ nhật ký để hai bong bóng có action không chồng nhau
+   */
+  'plan.reminderHour': z.number().int().min(0).max(23).nullable().default(10),
+  /** Ngày cục bộ 'YYYY-MM-DD' đã nhắc lộ trình (nội bộ, do PlanReminderJob quản lý; giữ qua lần mở lại app) */
+  'plan.remindedDay': z.string().max(10).default(''),
   /** Dịch câu/đoạn: ưu tiên model chất lượng cao (NLLB-200) khi đã tải; tắt = luôn dùng bản nhanh opus-mt */
   'translate.highQuality': z.boolean().default(true),
   /** Dịch online bằng Claude (cần API key của người dùng; văn bản được gửi tới Anthropic). Mặc định tắt */
@@ -146,7 +153,11 @@ export const SettingUpdateSchema = z.object({
 })
 export type SettingUpdate = z.infer<typeof SettingUpdateSchema>
 
-/** Bộ đếm do main quản lý: renderer không được ghi qua settings:set (để hạn mức ngày của CLI không bị đặt lại) */
-export const MAIN_ONLY_SETTING_KEYS: readonly SettingKey[] = ['ai.usage', 'ai.cliUsage']
+/** Bộ đếm/trạng thái do main quản lý: renderer không được ghi qua settings:set (để hạn mức ngày của CLI không bị đặt lại) */
+export const MAIN_ONLY_SETTING_KEYS: readonly SettingKey[] = [
+  'ai.usage',
+  'ai.cliUsage',
+  'plan.remindedDay'
+]
 
 export const defaultSettings = (): Settings => SettingsSchema.parse({})

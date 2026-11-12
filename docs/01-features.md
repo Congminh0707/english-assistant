@@ -64,7 +64,7 @@ Chi tiết từng module ở [07-learning-modules.md](07-learning-modules.md).
 > C4 (50 bài đọc), C5 (30 bài nghe: TTS + gói audio tạo sẵn tải thêm), C8 (phonics + chế độ trẻ em), C12 (sổ mẫu câu),
 > khoá học Course → Unit → Lesson, thống kê nâng cao (Elo theo kỹ năng, độ chính xác theo dạng bài, thời gian học).
 > Chưa làm: C6, C7, C9, C10, C11. Bảng theo dõi chi tiết ở [14-roadmap.md](14-roadmap.md).
-> **C13 (2026-11-10):** đã làm — `DailyPlanService` + khối "Hôm nay" trong ngăn kéo của bản đồ làng (ôn thẻ → bài kế tiếp của khoá → kỹ năng yếu nhất, mục tiêu 10/20/30/60 phút). Chưa có mascot nhắc theo giờ. Chi tiết [07 §13](07-learning-modules.md).
+> **C13 (2026-11-10):** đã làm — `DailyPlanService` + khối "Hôm nay" trong ngăn kéo của bản đồ làng (ôn thẻ → bài kế tiếp của khoá → kỹ năng yếu nhất, mục tiêu 10/20/30/60 phút). Cập nhật 2026-11-11: thẻ "Hôm nay" cố định ở trang chủ, mục Luyện TOEIC cho mục tiêu TOEIC, mascot nhắc theo giờ. Chi tiết [07 §13](07-learning-modules.md).
 
 ## D. Micro-learning (mascot chủ động)
 

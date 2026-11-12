@@ -2,8 +2,9 @@
 import { useI18n } from 'vue-i18n'
 import { CircleCheck, Flame, Layers, Sprout, X } from 'lucide-vue-next'
 import type { DailyPlan, DailyPlanItem, MissionsState, StudyOverview } from '@shared/schemas/study'
-import UiIcon, { type UiIconName } from '@renderer/shared/components/UiIcon.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import MissionList from './MissionList.vue'
+import { planItemIcon, planItemSubtitle, planItemTitle } from '../planItem'
 
 defineProps<{
   overview: StudyOverview | null
@@ -21,28 +22,8 @@ defineEmits<{
 const { t } = useI18n()
 const SHORTCUT = 'Ctrl + Alt + T'
 const TARGETS = [10, 20, 30, 60]
-// UiIcon chưa có book/target/dumbbell → dùng icon gần nhất có sẵn
-const KIND_ICON: Record<DailyPlanItem['kind'], UiIconName> = {
-  review: 'cards',
-  lesson: 'write',
-  skill: 'star',
-  practice: 'repeat'
-}
-
-function itemTitle(item: DailyPlanItem): string {
-  if (item.kind === 'review') {
-    return item.count ? t('study.plan.review', { n: item.count }) : t('study.plan.reviewDone')
-  }
-  if (item.kind === 'practice') return t('study.plan.practice')
-  return item.title
-}
-
-function itemSubtitle(item: DailyPlanItem): string | undefined {
-  if (item.kind === 'skill' && item.skill) {
-    return t('study.plan.weakSkill', { skill: t(`study.plan.skill.${item.skill}`) })
-  }
-  return item.subtitle
-}
+const itemTitle = (item: DailyPlanItem): string => planItemTitle(item, t)
+const itemSubtitle = (item: DailyPlanItem): string | undefined => planItemSubtitle(item, t)
 </script>
 
 <template>
@@ -89,7 +70,7 @@ function itemSubtitle(item: DailyPlanItem): string | undefined {
             :class="{ done: item.done }"
           >
             <span class="plan-icon" :class="{ ok: item.done }">
-              <UiIcon :name="item.done ? 'check' : KIND_ICON[item.kind]" :size="18" />
+              <UiIcon :name="item.done ? 'check' : planItemIcon(item)" :size="18" />
             </span>
             <div class="plan-main">
               <div class="plan-name">{{ itemTitle(item) }}</div>

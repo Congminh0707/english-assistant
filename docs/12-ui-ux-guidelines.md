@@ -38,7 +38,8 @@ Từ + IPA + nút phát âm US/UK, nhãn level và loại từ, nghĩa chính to
 
 ### Cửa sổ Học tập
 
-- **Bản đồ làng** là trang chủ (`VillageMap`): 8 địa điểm là 8 nhóm trang (Trường làng = Lộ trình, Bài học, Bài đọc, Nghe, Ngữ pháp, Kiểm tra; Thư các = Sổ từ; Đình làng = Luyện tập; Giếng làng = Ôn tập; Tháp Bút = Thống kê; Bến thuyền = Mẫu câu; Chợ quê = Cửa hàng; Nhà thú cưng = Thú cưng). Làng đổi theo giờ (ngày, chiều, đêm). Thanh trên: chuỗi ngày, xu, level; nút Hôm nay (ngăn kéo nhiệm vụ, mục tiêu), Tìm từ (Ctrl K), Cài đặt.
+- **Bản đồ làng** là trang chủ (`VillageMap`): 8 địa điểm là 8 nhóm trang (Trường làng = 3 nhóm tab: Lộ trình / Kho bài [Bài học, Ngữ pháp, Bài đọc, Nghe, Video] / Luyện thi [TOEIC]; Thư các = Sổ từ; Đình làng = Luyện tập; Giếng làng = Ôn tập; Tháp Bút = Thống kê + Kiểm tra trình độ; Bến thuyền = Mẫu câu; Chợ quê = Cửa hàng; Nhà thú cưng = Thú cưng). Làng đổi theo giờ (ngày, chiều, đêm). Thanh trên: chuỗi ngày, xu, level; nút Hôm nay (ngăn kéo nhiệm vụ, mục tiêu), Tìm từ (Ctrl K), Cài đặt.
+- **Thẻ "Hôm nay"** (cập nhật 2026-11-11): luôn hiện ở giữa phía dưới trang chủ khi có lộ trình (chip xong/tổng, mục kế tiếp, một nút chính "Bắt đầu"/"Học tiếp" + Enter, nút phụ "Xem cả lộ trình"). Mỗi ghim địa điểm có thêm một dòng chức năng (`study.placeHint.*`); ghim của nơi có mục kế tiếp được làm nổi bật kèm mũi tên; vị trí ghim bị kẹp để không đè thẻ.
 - **Vào một địa điểm** (`PlaceShell`): cột trái là cảnh địa điểm có nút "Về làng" (Esc), cột phải là nội dung trên nền giấy; nhiều trang thì có hàng tab. Khi đang học một bài (đọc bài, làm bài tập, kết quả) tab ẩn, chỉ còn nút quay lại.
 - Cỡ cửa sổ hỗ trợ từ 680×520 (cột cảnh thu còn 128 px, thanh trên của làng chỉ còn icon) đến toàn màn hình.
 - Màn làm bài: một câu mỗi màn hình, thanh tiến trình trên cùng, nút "Kiểm tra" to ở dưới, phản hồi đúng/sai có màu + icon, hàng phím tắt (`Enter`, `1-4`, `R`, `Z`, `/`).

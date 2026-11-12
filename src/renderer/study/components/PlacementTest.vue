@@ -11,7 +11,7 @@ import { useLeaveGuard } from '../leaveGuard'
 
 // Bài kiểm tra đầu vào: 20 câu xen kẽ từ vựng / ngữ pháp / đọc hiểu, độ khó thích nghi; chấm ở main.
 const props = defineProps<{ autostart?: boolean; mode?: 'placement' | 'checkpoint' }>()
-const emit = defineEmits<{ done: [] }>()
+const emit = defineEmits<{ done: []; start: [] }>()
 
 const { t } = useI18n()
 const { speak } = useTts()
@@ -255,7 +255,19 @@ onUnmounted(() => {
           <span class="muted">{{ s.correct }}/{{ s.total }}</span>
         </li>
       </ul>
-      <div class="row">
+      <!-- Đầu vào: đi thẳng vào bài đầu tiên của lộ trình (người mới không phải tự tìm chỗ bắt đầu) -->
+      <div v-if="!checkpoint" class="row">
+        <button type="button" class="btn btn--primary" @click="emit('start')">
+          {{ t('study.placement.startFirst') }}
+        </button>
+        <button type="button" class="btn" @click="emit('done')">
+          {{ t('study.placement.home') }}
+        </button>
+        <button type="button" class="btn btn--ghost btn--sm" @click="start">
+          {{ t('study.placement.retry') }}
+        </button>
+      </div>
+      <div v-else class="row">
         <button type="button" class="btn btn--primary" @click="emit('done')">
           {{ t('study.placement.done') }}
         </button>
@@ -424,6 +436,7 @@ kbd {
 .row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
   gap: var(--sp-4);
 }

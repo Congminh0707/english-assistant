@@ -5,6 +5,7 @@ import type { LessonKind } from '@shared/schemas/lesson'
 import type { DailyPlan, DailyPlanItem } from '@shared/schemas/study'
 import type { Clock } from '../core/Clock'
 import { localDayKey, startOfLocalDay } from '../core/localDay'
+import type { ExamRepository } from '../db/repositories/ExamRepository'
 import type { LessonRepository } from '../db/repositories/LessonRepository'
 import type { VocabRepository } from '../db/repositories/VocabRepository'
 import type { XpRepository } from '../db/repositories/XpRepository'
@@ -21,6 +22,8 @@ const MAX_ITEMS = 5
 /** Tối đa số bài thêm (sau bài kế tiếp của khoá) khi chưa đủ phút mục tiêu */
 const MAX_EXTRA_LESSONS = 2
 const PRACTICE_MINUTES = 5
+/** Mục luyện TOEIC: ước lượng một lượt luyện ngắn (một Part); bất kỳ bài TOEIC nào nộp hôm nay đều tính là xong */
+const TOEIC_MINUTES = 10
 /**
  * Kỹ năng yếu tìm bài ở kho tương ứng (mỗi kỹ năng phải là một `LessonKind`). Liệt kê tường minh thay vì lọc `SKILLS`:
  * bỏ từ vựng vì đã có mục ôn thẻ, bỏ Viết vì chưa có kho bài/mục lộ trình riêng (decisions #62).
@@ -32,6 +35,7 @@ const WEAK_SKILLS = ['grammar', 'reading', 'listening'] as const satisfies reado
  * Lộ trình hằng ngày (docs/07 §13): ôn thẻ đến hạn → bài kế tiếp của khoá đang theo → một bài của kỹ năng yếu nhất,
  * thêm bài của khoá cho tới khi đủ phút mục tiêu. Suy ra hoàn toàn từ dữ liệu sẵn có, không ghi DB.
  * Một mục bài học "xong" khi `lesson_progress.completedAt` nằm trong hôm nay (ngày cục bộ).
+ * Hồ sơ chọn mục tiêu TOEIC (track = toeic) có thêm một mục luyện TOEIC ngay sau bài của khoá.
  */
 export class DailyPlanService {
   constructor(
@@ -43,6 +47,7 @@ export class DailyPlanService {
       progress: ProgressService
       services: Record<LessonKind, LessonService>
       lessonRepo: LessonRepository
+      exams: ExamRepository
       settings: SettingsService
       profiles: ProfileService
       clock: Clock
@@ -71,7 +76,12 @@ export class DailyPlanService {
     const main = mainIndex >= 0 ? steps[mainIndex] : null
     if (course && main) items.push(this.lessonItem(main, course.title, doneToday(main.id)))
 
-    items.push(this.weakSkill(main?.id ?? null, doneToday) ?? this.practice(profileId, since))
+    // Mục tiêu học chọn lúc làm quen phải có tác dụng: người luyện TOEIC có một mục luyện TOEIC mỗi ngày
+    if (profiles.active().track === 'toeic') items.push(this.toeic(profileId, since))
+
+    // Mục kỹ năng yếu/luyện tập chỉ thêm khi còn chỗ (không để lộ trình vượt MAX_ITEMS)
+    if (items.length < MAX_ITEMS)
+      items.push(this.weakSkill(main?.id ?? null, doneToday) ?? this.practice(profileId, since))
 
     // Chưa đủ phút mục tiêu → thêm các bước tiếp theo trong cùng khoá (chưa xong, hoặc xong hôm nay để giữ dấu ✓)
     const used = new Set(items.map((i) => i.lessonId).filter(Boolean))
@@ -169,6 +179,16 @@ export class DailyPlanService {
       minutes: lesson.minutes,
       done: doneToday(lesson.id),
       skill
+    }
+  }
+
+  /** Luyện TOEIC: xong khi hôm nay (ngày cục bộ) đã nộp ít nhất một bài TOEIC, chế độ nào cũng tính */
+  private toeic(profileId: string, since: number): DailyPlanItem {
+    return {
+      kind: 'toeic',
+      title: '',
+      minutes: TOEIC_MINUTES,
+      done: this.deps.exams.countSince(profileId, 'toeic', since) > 0
     }
   }
 

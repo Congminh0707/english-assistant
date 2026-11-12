@@ -3,7 +3,15 @@ import { computed, onMounted, onUnmounted, provide, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ArrowLeft } from 'lucide-vue-next'
 import ArtScene from '@renderer/shared/components/ArtScene.vue'
-import { PLACE_PAGES, PLACE_SCENE, SHELL_FOCUS, type Place, type StudyPage } from '../places'
+import {
+  PLACE_GROUPS,
+  PLACE_PAGES,
+  PLACE_SCENE,
+  SHELL_FOCUS,
+  type PageGroup,
+  type Place,
+  type StudyPage
+} from '../places'
 
 // Khung màn trong v2: cảnh địa điểm bên trái, nội dung trên nền giấy bên phải (docs/23 §1).
 const props = defineProps<{ place: Place; page: StudyPage; dark: boolean; parentTab: boolean }>()
@@ -17,11 +25,29 @@ const scene = computed(() => `place-${PLACE_SCENE[props.place]}${props.dark ? '-
 // parentTab = hồ sơ đang dùng là trẻ em (phụ huynh đang xem): có tab Phụ huynh, không có Nhật ký / Viết tự do (chỉ
 // người lớn)
 const ADULT_ONLY: readonly StudyPage[] = ['diary', 'writing']
-const tabs = computed(() =>
-  PLACE_PAGES[props.place].filter((p) =>
-    p === 'parent' ? props.parentTab : !ADULT_ONLY.includes(p) || !props.parentTab
-  )
+const visible = (p: StudyPage): boolean =>
+  p === 'parent' ? props.parentTab : !ADULT_ONLY.includes(p) || !props.parentTab
+/** Địa điểm có nhóm (Trường làng): hàng tab chính là nhóm; địa điểm khác: mỗi trang là một nhóm một trang */
+const grouped = computed(() => !!PLACE_GROUPS[props.place])
+const groups = computed<PageGroup[]>(() =>
+  (PLACE_GROUPS[props.place] ?? PLACE_PAGES[props.place].map((p) => ({ id: p, pages: [p] })))
+    .map((g) => ({ id: g.id, pages: g.pages.filter(visible) }))
+    .filter((g) => g.pages.length > 0)
 )
+const activeGroup = computed(() => groups.value.find((g) => g.pages.includes(props.page)) ?? null)
+/** Hàng tab con: chỉ khi nhóm đang mở có nhiều trang */
+const subTabs = computed(() =>
+  activeGroup.value && activeGroup.value.pages.length > 1 ? activeGroup.value.pages : []
+)
+const groupLabel = (g: PageGroup): string =>
+  grouped.value ? t(`study.navGroup.${g.id}`) : t(`study.nav.${g.pages[0]}`)
+// data-nav giữ tên trang (scripts/ui-shot `nav('<trang>')`): nhóm một trang và nhóm chưa mở mang tên trang đầu;
+// nhóm nhiều trang đang mở nhường data-nav cho hàng tab con để không trùng
+const groupNav = (g: PageGroup): string =>
+  g.pages.length > 1 && g.id === activeGroup.value?.id ? `group-${g.id}` : g.pages[0]
+function openGroup(g: PageGroup): void {
+  if (g.id !== activeGroup.value?.id) emit('go', g.pages[0])
+}
 
 function onKey(e: KeyboardEvent): void {
   if (e.key !== 'Escape' || e.defaultPrevented) return
@@ -44,19 +70,38 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
       </div>
     </aside>
     <main class="paper">
-      <nav v-if="tabs.length > 1 && !focus" class="tabs">
-        <button
-          v-for="p in tabs"
-          :key="p"
-          type="button"
-          class="tab"
-          :class="{ on: p === page }"
-          :data-nav="p"
-          @click="emit('go', p)"
+      <template v-if="!focus">
+        <nav v-if="groups.length > 1" class="tabs" :class="{ 'has-sub': subTabs.length > 0 }">
+          <button
+            v-for="g in groups"
+            :key="g.id"
+            type="button"
+            class="tab"
+            :class="{ on: g.id === activeGroup?.id }"
+            :data-nav="groupNav(g)"
+            @click="openGroup(g)"
+          >
+            {{ groupLabel(g) }}
+          </button>
+        </nav>
+        <nav
+          v-if="subTabs.length > 0"
+          class="tabs sub"
+          :aria-label="activeGroup ? groupLabel(activeGroup) : undefined"
         >
-          {{ t(`study.nav.${p}`) }}
-        </button>
-      </nav>
+          <button
+            v-for="p in subTabs"
+            :key="p"
+            type="button"
+            class="tab"
+            :class="{ on: p === page }"
+            :data-nav="p"
+            @click="emit('go', p)"
+          >
+            {{ t(`study.nav.${p}`) }}
+          </button>
+        </nav>
+      </template>
       <slot />
     </main>
   </div>
@@ -155,6 +200,27 @@ onUnmounted(() => window.removeEventListener('keydown', onKey))
   background: var(--c-surface);
   color: var(--c-ink);
   box-shadow: var(--shadow-sm);
+}
+.tabs.has-sub {
+  margin-bottom: var(--sp-2);
+}
+/* Hàng tab con (trang trong nhóm): nhỏ hơn, không nền khung, tab đang chọn tô màu nhạt */
+.tabs.sub {
+  padding: 0;
+  background: transparent;
+}
+.tabs.sub .tab {
+  min-height: 24px;
+  padding: 0 var(--sp-2);
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-xs);
+}
+.tabs.sub .tab.on {
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+  box-shadow: none;
 }
 /* Cửa sổ hẹp: nhường chỗ cho nội dung */
 @media (max-width: 820px) {

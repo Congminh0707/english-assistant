@@ -11,6 +11,7 @@ import type { PlacementResult } from '@shared/schemas/placement'
 import type { Exercise, PracticeAnswer, PracticeSummary } from '@shared/schemas/practice'
 import { FakeClock } from '../core/Clock'
 import { openUserDb, type UserDbConnection } from '../db/client'
+import { ExamRepository } from '../db/repositories/ExamRepository'
 import { FreeWritingRepository } from '../db/repositories/FreeWritingRepository'
 import { createContainer, type Container } from '../container'
 import { compareVersions } from './ContentPackService'
@@ -1864,6 +1865,76 @@ describe('lộ trình hằng ngày', () => {
     expect(c.courses.list()[0].next).toBeNull()
     const lesson = c.dailyPlan.plan().items.find((i) => i.kind === 'lesson')
     expect(lesson).toMatchObject({ lessonId: last.id, subtitle: course.title, done: true })
+  })
+
+  const setTrack = (track: 'general' | 'toeic' | 'ielts'): void => {
+    c.profiles.update({ id: c.profiles.activeId(), track })
+  }
+  const addToeicAttempt = (finishedAt: number): void => {
+    new ExamRepository(conn.db).add(
+      {
+        profileId: c.profiles.activeId(),
+        exam: 'toeic',
+        mode: 'mini',
+        part: null,
+        correct: 10,
+        total: 20,
+        estListening: 200,
+        estReading: 200,
+        estTotal: 400,
+        partResults: '[]',
+        elapsedSec: 600,
+        finishedAt
+      },
+      finishedAt
+    )
+  }
+
+  it('mục tiêu TOEIC → có mục luyện TOEIC ngay sau bài của khoá, 10 phút, chưa xong', () => {
+    setTrack('toeic')
+    const { items } = c.dailyPlan.plan()
+    const lessonAt = items.findIndex((i) => i.kind === 'lesson')
+    expect(lessonAt).toBeGreaterThanOrEqual(0)
+    expect(items[lessonAt + 1]).toMatchObject({
+      kind: 'toeic',
+      title: '',
+      minutes: 10,
+      done: false
+    })
+    expect(items.filter((i) => i.kind === 'toeic')).toHaveLength(1)
+    // Vẫn còn mục kỹ năng yếu/luyện tập phía sau
+    expect(items.some((i) => i.kind === 'skill' || i.kind === 'practice')).toBe(true)
+  })
+
+  it('mục tiêu chung hoặc IELTS → không có mục TOEIC', () => {
+    expect(c.dailyPlan.plan().items.some((i) => i.kind === 'toeic')).toBe(false)
+    setTrack('ielts')
+    expect(c.dailyPlan.plan().items.some((i) => i.kind === 'toeic')).toBe(false)
+  })
+
+  it('nộp bài TOEIC hôm nay → mục TOEIC done, doneCount tăng; bài hôm qua không tính', () => {
+    setTrack('toeic')
+    addToeicAttempt(clock.now() - 24 * 3_600_000)
+    const before = c.dailyPlan.plan()
+    expect(before.items.find((i) => i.kind === 'toeic')?.done).toBe(false)
+    addToeicAttempt(clock.now())
+    const after = c.dailyPlan.plan()
+    expect(after.items.find((i) => i.kind === 'toeic')?.done).toBe(true)
+    expect(after.doneCount).toBe(before.doneCount + 1)
+    // Sang ngày mới → lại chưa xong
+    clock.advance(24 * 3_600_000)
+    expect(c.dailyPlan.plan().items.find((i) => i.kind === 'toeic')?.done).toBe(false)
+  })
+
+  it('mục tiêu TOEIC + 60 phút + có thẻ → vẫn tối đa 5 mục, không trùng bài', () => {
+    setTrack('toeic')
+    c.vocab.save({ contentId: 'word:en:go', text: 'go' })
+    c.settings.set('learning.dailyMinutes', 60)
+    const { items } = c.dailyPlan.plan()
+    expect(items.length).toBeLessThanOrEqual(5)
+    expect(items.map((i) => i.kind).slice(0, 3)).toEqual(['review', 'lesson', 'toeic'])
+    const ids = items.filter((i) => i.lessonId).map((i) => i.lessonId)
+    expect(new Set(ids).size).toBe(ids.length)
   })
 })
 

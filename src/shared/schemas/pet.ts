@@ -26,11 +26,17 @@ export type InventoryItem = z.infer<typeof InventoryItemSchema>
 
 /** Phản ứng một lần của mascot do main yêu cầu (renderer chọn animation + câu thoại) */
 export const MascotReactionSchema = z.object({
-  /** 'diary': nhắc viết nhật ký tối (bấm bong bóng → mở trang nhật ký) */
-  kind: z.enum(['eat', 'hungry', 'level-up', 'mission', 'achievement', 'diary']),
+  /**
+   * 'diary': nhắc viết nhật ký tối (bấm bong bóng → mở trang nhật ký)
+   * 'plan': nhắc lộ trình hôm nay còn dở (bấm bong bóng → trang chủ cửa sổ Học tập)
+   */
+  kind: z.enum(['eat', 'hungry', 'level-up', 'mission', 'achievement', 'diary', 'plan']),
   /** kind = 'achievement': thành tựu nổi bật nhất vừa mở khoá và số thành tựu mới */
   achievementId: z.string().optional(),
-  count: z.number().int().optional()
+  /** kind = 'achievement': số thành tựu mới; kind = 'plan': số mục chưa xong */
+  count: z.number().int().optional(),
+  /** kind = 'plan': tổng phút của các mục chưa xong */
+  minutes: z.number().int().optional()
 })
 export type MascotReaction = z.infer<typeof MascotReactionSchema>
 

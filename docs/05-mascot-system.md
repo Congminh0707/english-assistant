@@ -242,10 +242,12 @@ Cập nhật 2026-11-10 (đúng với `mascot/App.vue`). Mọi phản ứng dùn
 | Rê qua lại trên nhân vật, không bấm         | `purr`         | `happy` + `sway`          | ≥ 3 lần đổi chiều, quãng đường ≥ 1,2 bề ngang trong 2 giây; nghỉ 6 giây; câu `stroke` |
 | Lăn chuột trên nhân vật                     | `groove`       | `listen` + `shimmy`       | Đeo tai nghe, bước ngang trái phải theo nhạc                            |
 | Kéo thả                                     | `drag` → `fall` → `land` | `surprised` → `sit` |                                                                         |
-| Chuột phải                                  |                |                           | Menu ngữ cảnh (xem [01](01-features.md) A5)                             |
+| Chuột phải                                  |                |                           | Menu ngữ cảnh (xem [01](01-features.md) A5); hồ sơ người lớn có đầu menu "Hôm nay: còn N việc · M phút" / "Hôm nay: xong rồi" (mở trang chủ cửa sổ Học tập) và ô "Nhắc lộ trình hôm nay" (`plan.reminderHour` 10 giờ / tắt) |
 | Giữ chuột trên nhân vật 0,9 giây            |                |                           | Thẻ chỉ số                                                              |
 
 Động tác tự chơi cũng có chuyển động: `look` = `peek` (nghiêng đầu), `wag` = đuôi/lá vẫy nhanh, `dance` = `sway`, `spin` = dáng `walk` + `shimmy`. Không dùng xoay 360° hay lật ngang cả thân (hình 2D trông giả). Mọi chuyển động `m-*` bắt đầu và kết thúc ở tư thế nghỉ với số vòng hữu hạn; `PetFigure` đặt `--f` = đồng hồ chung nên đổi dáng (dựng lại hình) đuôi vẫn lắc tiếp đúng nhịp. Đang ngủ thì chỉ bấm 1 lần có phản hồi (câu `sleepyPat`).
+
+> **Nhắc lộ trình hôm nay (2026-11-11):** `planJob.ts` gửi `mascot:react {kind:'plan', count, minutes}` một lần mỗi ngày vào giờ `plan.reminderHour`; bong bóng có `action: 'plan'` (giữ 60 giây như nhật ký), bấm → `mascot:open-study` → cửa sổ Học tập ở trang chủ. **Không dùng bấm đúp để mở cửa sổ Học tập**: lần bấm thứ hai của bấm đúp đã là cử chỉ `trick` ở bảng trên.
 
 **Vùng bấm** (`engine/hitRegion.ts`): hình nằm trong Shadow DOM nên không đọc được alpha; mỗi con ở mỗi giai đoạn được phủ bằng vài elip trong toạ độ hình vẽ (đầu + thân chung, rồi tai/sừng/mầm, đuôi, cánh; Huyền thoại có quạt đuôi Thiên Hồ, cánh Long Thần/Thần Rừng/Thần Cơ Giáp, đuôi ngân hà). Con trỏ được đổi sang toạ độ hình theo viewBox (`xMidYMax meet`), tỉ lệ giai đoạn và hướng lật. Đổi hình trong `chars4.py` hoặc `vb`/`scale` trong `export.py` thì phải sửa bảng `EXTRA`/`VIEW_BOX`/`STAGE_SCALE` ở đây.
 

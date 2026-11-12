@@ -224,7 +224,7 @@ Thuật toán gợi ý mỗi ngày (chạy trong `DailyPlanService`):
 4. **Kỹ năng yếu nhất** (rating thấp nhất hoặc lâu chưa luyện): 1 bài ngắn.
 5. Tổng thời gian theo mục tiêu người dùng đặt: 10 / 20 / 30 / 60 phút.
 
-Mascot nhắc lộ trình vào giờ người dùng chọn, và hiển thị tiến độ hôm nay khi hover.
+Mascot nhắc lộ trình vào giờ người dùng chọn (đã làm 2026-11-11), và hiển thị tiến độ hôm nay khi hover (chưa làm).
 
 > ✅ **Đã làm (2026-11-10)** — `DailyPlanService.plan()` (kênh `study:plan`, khối "Hôm nay" trên cùng ngăn kéo `TodayDrawer` của bản đồ làng). Suy ra mỗi lần hỏi, không lưu bảng riêng, tối đa 5 mục:
 > 1. **Ôn thẻ** (`review`, luôn đứng đầu): `count = dueCount`, `minutes = min(8, max(2, ceil(count/4)))`, xong khi hết thẻ đến hạn (`count = 0`, vẫn hiện mục, tiêu đề "Thẻ đến hạn đã ôn xong"); người chưa có thẻ nào thì bỏ mục.
@@ -232,7 +232,13 @@ Mascot nhắc lộ trình vào giờ người dùng chọn, và hiển thị ti�
 > 3. **Kỹ năng yếu nhất** (`skill`): rating Elo thấp nhất trong ngữ pháp / đọc / nghe (bằng nhau thì theo thứ tự đó; bỏ từ vựng vì đã có ôn thẻ); bài đầu tiên chưa xong (hoặc xong hôm nay) của kho tương ứng có level ≤ `learning.level` + 1 bậc và khác bài ở mục 2. Không có bài → mục `practice` (Luyện tập nhanh, 5 phút), xong khi hôm nay đã có ≥ 1 phiên luyện tập được ghi sổ XP (`exercise.session`; chỉ 5 phiên đầu/ngày ghi sổ).
 > 4. Tổng phút < mục tiêu `learning.dailyMinutes` (10/20/30/60, mặc định 20, chọn ngay trong khối) → thêm tối đa 2 bước tiếp theo của cùng khoá (chưa xong, hoặc xong hôm nay thì giữ lại với dấu ✓).
 >
-> "Xong" của mục bài học = `lesson_progress.completedAt` nằm trong ngày cục bộ hôm nay. Bấm "Làm" mở thẳng: ôn thẻ → Giếng làng, luyện tập → Hội trường, bài → trang của loại bài với `startId`. Khối CTA ôn thẻ cũ trong ngăn kéo bỏ (mục ôn thẻ thay thế). Chưa có: bước "từ mới" (2), mascot nhắc lộ trình theo giờ và tiến độ khi hover.
+> "Xong" của mục bài học = `lesson_progress.completedAt` nằm trong ngày cục bộ hôm nay. Bấm "Làm" mở thẳng: ôn thẻ → Giếng làng, luyện tập → Hội trường, bài → trang của loại bài với `startId`. Khối CTA ôn thẻ cũ trong ngăn kéo bỏ (mục ôn thẻ thay thế). Chưa có: bước "từ mới" (2), tiến độ lộ trình khi hover mascot.
+>
+> **Cập nhật 2026-11-11 (nhánh `feat/start-here`, "bắt đầu từ đâu" cho người lớn):**
+> - **Mục TOEIC** (`kind = 'toeic'`): hồ sơ có `track = toeic` có thêm mục "Luyện TOEIC" (10 phút, một lượt luyện ngắn một Part) đặt ngay sau bài của khoá; xong khi hôm nay đã nộp **bất kỳ** bài TOEIC nào (mọi chế độ: Part / mini / full — `ExamRepository.countSince`, `DailyPlanService` có dep `exams`). Mục kỹ năng yếu/luyện tập chỉ thêm khi còn dưới `MAX_ITEMS`. Bấm "Làm" mở trang Luyện thi TOEIC.
+> - **Thẻ "Hôm nay" trên trang chủ** (`VillageMap`): luôn hiện ở giữa phía dưới khi có lộ trình: chip tiến độ xong/tổng, mục kế tiếp chưa xong (icon, tên, phút · phụ đề), một nút chính ("Bắt đầu" nếu hôm nay chưa xong gì, ngược lại "Học tiếp") nhận phím Enter, nút phụ "Xem cả lộ trình" mở `TodayDrawer`. Xong hết → dòng chúc mừng; chưa có lộ trình mà có thẻ đến hạn → nút ôn thẻ như cũ. Enter mở mục kế tiếp (bỏ qua khi có hộp thoại mở, đang gõ trong ô nhập, hoặc có phím bổ trợ). Hàm dùng chung (tên/phụ đề/đích mở của mục, mục kế tiếp) ở `src/renderer/study/planItem.ts`.
+> - **Kiểm tra trình độ → bài đầu tiên**: màn kết quả của chế độ placement có nút chính "Bắt đầu bài đầu tiên" (mở mục chưa xong đầu tiên của lộ trình mới tính), "Về trang chủ", "Làm lại"; chế độ checkpoint giữ nguyên.
+> - **Mascot nhắc lộ trình**: cài đặt `plan.reminderHour` (0–23, mặc định 10, `null` = tắt; chỉnh ở menu chuột phải của mascot và Cài đặt → Hồ sơ và học tập). `planJob.ts` mỗi lần tới giờ, một lần mỗi ngày cục bộ (`plan.remindedDay`), chỉ hồ sơ người lớn, cùng điều kiện `canShow` như nhật ký/thẻ hỏi, chỉ khi lộ trình còn việc → bong bóng "còn N việc · M phút"; bấm → cửa sổ Học tập ở trang chủ. Xem [05](05-mascot-system.md).
 
 ## 14. Nhật ký tiếng Anh — ✅ 2026-11-10
 

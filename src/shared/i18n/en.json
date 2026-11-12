@@ -13,6 +13,9 @@
     "openStudy": "Open Study window"
   },
   "menu": {
+    "planToday": "Today: {n} left · {m} min",
+    "planDone": "Today: all done",
+    "planReminder": "Remind me of today's plan",
     "studyNow": "📚 Open Study window",
     "feed": "Feed",
     "bagEmpty": "Bag is empty",
@@ -531,7 +534,8 @@
         ]
       }
     },
-    "diaryPrompt": "What did you do today? Write 2–3 sentences in English."
+    "diaryPrompt": "What did you do today? Write 2–3 sentences in English.",
+    "planPrompt": "{n} things left today, about {m} min. Shall we study?"
   },
   "errors": {
     "validation": "Invalid data.",
@@ -622,7 +626,10 @@
       "search": "Search",
       "goReview": "To the well, review {n} words",
       "todayPanel": "Today",
-      "close": "Close"
+      "close": "Close",
+      "continue": "Continue",
+      "begin": "Start",
+      "fullPlan": "See full plan"
     },
     "search": {
       "title": "Search words",
@@ -819,7 +826,8 @@
         "listening": "Listening"
       },
       "empty": "All done for today. Great job!",
-      "allDone": "Today's plan is complete. Great job!"
+      "allDone": "Today's plan is complete. Great job!",
+      "toeic": "TOEIC practice"
     },
     "tracks": {
       "preschool": "Preschool (3–6 years)",
@@ -873,6 +881,8 @@
       "resultBody": "You answered {correct}/{total} correctly. %PET% will pick words that suit you.",
       "retry": "Take it again",
       "done": "Start learning",
+      "startFirst": "Start the first lesson",
+      "home": "Back to home",
       "checkpointTitle": "Level-up check",
       "checkpointIntro": "10 questions at the next level (vocabulary, grammar, reading, listening). 80% or more moves you up a level — the first pass of each level earns a reward. If you miss it, you can try again later.",
       "checkpointPassed": "Congratulations! You reached level {level}",
@@ -995,7 +1005,9 @@
       "devGranted": "Added 1,000,000 coins",
       "devLevelUp": "Add 10 levels",
       "devLeveled": "Added 10 levels",
-      "diaryHour": "Diary: mascot reminder at"
+      "diaryHour": "Diary: mascot reminder at",
+      "planReminderHour": "Today's plan reminder",
+      "planReminderHint": "The mascot reminds you once a day while the plan still has unfinished items"
     },
     "leave": {
       "title": "Leave now?",
@@ -1476,6 +1488,22 @@
       "market": "Market",
       "home": "Pet house",
       "office": "Village office"
+    },
+    "placeHint": {
+      "school": "Lessons, learning path",
+      "library": "Word book, diary",
+      "hall": "Practice, writing",
+      "well": "Review words",
+      "tower": "Stats, level test",
+      "pier": "Phrases",
+      "market": "Shop",
+      "home": "Pet",
+      "office": "Settings"
+    },
+    "navGroup": {
+      "path": "Learning path",
+      "bank": "Lesson library",
+      "exam": "Exam prep"
     }
   },
   "translate": {

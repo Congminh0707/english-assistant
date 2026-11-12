@@ -217,6 +217,7 @@ Chạy trong main bằng `setInterval` được quản lý tập trung ở `src/
 | `PetDecayJob`    | 1 phút           | Giảm nhẹ hunger/mood/energy theo thời gian thực (tính theo `last_tick_at`, nên tắt máy vẫn đúng — có giới hạn sàn).            |
 | `MicroLessonJob` | 1 phút           | Đến giờ nhắc & không ở chế độ yên lặng & người dùng không gõ phím liên tục → yêu cầu mascot hiện "Từ của khoảnh khắc"/thẻ SRS. |
 | `DiaryReminderJob` (`diaryJob.ts`) | 5 phút | Tới giờ `diary.hour`, hôm nay chưa viết nhật ký, mascot đang hiện, hồ sơ người lớn → mascot nhắc (`mascot:react` kind `diary`), tối đa 1 lần/ngày; bấm bong bóng → `mascot:open-diary` → cửa sổ Học tập mở trang nhật ký (`study:open-page`). |
+| `PlanReminderJob` (`planJob.ts`) | 5 phút | Tới giờ `plan.reminderHour` (mặc định 10, `null` = tắt), chưa nhắc hôm nay (`plan.remindedDay`, khoá nội bộ chỉ main), hồ sơ người lớn, `canShow` như nhật ký/thẻ hỏi, lộ trình còn việc (`planRemaining`) → `mascot:react` kind `plan` `{count, minutes}`; bấm bong bóng → kênh send `mascot:open-study` → cửa sổ Học tập ở trang chủ. |
 | `DailyResetJob`  | khi qua ngày mới | Reset nhiệm vụ ngày, tính streak.                                                                                              |
 | `BackupJob`      | 1 ngày           | Sao lưu `user.db` (giữ 7 bản gần nhất).                                                                                        |
 
@@ -260,5 +261,5 @@ Mẹo: cửa sổ Study chỉ tạo khi mở và có thể huỷ khi đóng (gi�
 
 ## Khung cửa sổ Học tập v2
 
-`App.vue`: `page === 'home'` hiện `VillageMap`; trang khác nằm trong `PlaceShell` (cảnh + giấy + tab). Trang nào thuộc địa điểm nào ở `src/renderer/study/places.ts`. `pnpm ui:shot` chụp app thật, chạy dữ liệu riêng qua biến `EA_USER_DATA`; cờ `--open-study` mở thẳng cửa sổ Học tập.
+`App.vue`: `page === 'home'` hiện `VillageMap`; trang khác nằm trong `PlaceShell` (cảnh + giấy + tab). Trang nào thuộc địa điểm nào ở `src/renderer/study/places.ts` (cập nhật 2026-11-11: `PLACE_GROUPS` gom tab Trường làng thành 3 nhóm Lộ trình [courses] / Kho bài [lessons, grammar, reading, listening, videos] / Luyện thi [toeic], `PlaceShell` vẽ hàng nhóm + hàng tab con; `placement` chuyển sang Tháp Bút: `tower = [stats, placement]`; `data-nav` của nút nhóm nhiều trang là `lessons` khi chưa chọn, `group-bank` khi đang chọn). Hàm dùng chung của lộ trình hôm nay (thẻ ở trang chủ, `TodayDrawer`, `App.vue`) ở `src/renderer/study/planItem.ts`. `pnpm ui:shot` chụp app thật, chạy dữ liệu riêng qua biến `EA_USER_DATA`; cờ `--open-study` mở thẳng cửa sổ Học tập.
 nCửa sổ Học tập luôn mở **phóng to** (`StudyWindow.open` gọi `maximize()`, thanh tác vụ vẫn hiện); cỡ 900×640 chỉ là cỡ khi người dùng bấm thu nhỏ lại.

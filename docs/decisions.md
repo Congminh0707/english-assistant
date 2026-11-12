@@ -488,3 +488,10 @@ Mẫu:
   10. **Thống kê**: mở rộng kênh có sẵn `study:stats` (không thêm kênh/trang): dòng kỹ năng Viết + khối "Viết tự do" ở tab Trình độ (số bài, số từ, bài 30 ngày, bài có nhận xét AI, điểm AI trung bình), tính bằng một truy vấn `FreeWritingRepository.summary`.
 - **Đánh đổi**: một bài viết tự do chỉ là 1 câu Elo dù dài (tránh "cày" bằng sửa/nhận xét lại, và K đã giảm theo căn số câu); điểm AI có độ nhiễu nên rating Viết chỉ để xem, không dùng gợi ý lên cấp; 30 ngày đầu bảng độ chính xác có thể hiện "Dịch câu" hai dòng (ngữ pháp cũ + Viết mới); đề tự đặt lấy bậc người học chọn khi lọc nên độ khó chỉ gần đúng.
 - **Thay thế đã cân nhắc**: chuyển dữ liệu cũ sang `writing` (không tách được phần rating ngữ pháp đã cộng, và sửa lịch sử); cài đặt `learning.levelWriting` (thêm cài đặt không có bài kiểm tra nào ghi); tính Elo mỗi lần nhận xét (dễ cày bằng sửa chữ); kênh IPC/trang thống kê Viết riêng (thừa so với kênh `study:stats`).
+
+## #63 — Mục tiêu TOEIC có mục trong lộ trình hằng ngày; Trường làng gom tab, Kiểm tra trình độ chuyển sang Tháp Bút (2026-11-11) — Đã quyết định
+
+- **Bối cảnh**: rà UI/UX cho người lớn: lộ trình bị giấu trong ngăn kéo, người mới không biết bắt đầu từ đâu, Trường làng có 8 tab ngang hàng, `track = toeic` chọn lúc làm quen chưa có tác dụng.
+- **Quyết định**: (1) hồ sơ `track = toeic` có mục `toeic` "Luyện TOEIC" 10 phút trong lộ trình, xong khi hôm nay có bất kỳ bài TOEIC nào (không đòi mini test 30 phút vì vượt mục tiêu ngày 20 phút mặc định); (2) tab Trường làng gom thành Lộ trình / Kho bài / Luyện thi (`PLACE_GROUPS`), `placement` chuyển sang Tháp Bút cạnh Thống kê (kết quả trình độ thuộc về "theo dõi tiến bộ"); (3) thẻ "Hôm nay" cố định ở trang chủ + nhắc lộ trình qua mascot (`plan.reminderHour`).
+- **Đánh đổi**: người quen đường cũ phải tìm Kiểm tra trình độ ở Tháp Bút; nút nhóm nhiều trang cần thêm một cú bấm; mục TOEIC không phân biệt Part nên luyện 1 phút vẫn tính là xong.
+- **Thay thế đã cân nhắc**: mục TOEIC mini test 30 phút; bấm đúp mascot để mở Học tập (trùng cử chỉ `trick`).

@@ -401,10 +401,10 @@
           "type": "mcq",
           "prompt": "Why are many cheap garments a problem for the environment?",
           "choices": [
-            "They are too heavy to transport.",
+            "They are too heavy and bulky to transport over long distances.",
             "They are made from fibers that do not break down easily.",
-            "They contain dangerous colors.",
-            "They cannot be sold second-hand."
+            "They contain dangerous colors that harm the people who wear them.",
+            "They cannot be sold again in second-hand shops later."
           ],
           "answer": 1,
           "explain": "Paragraph 2: many cheap garments are made from synthetic fibers that do not break down easily, and a large share ends up in landfills."
@@ -413,10 +413,10 @@
           "type": "mcq",
           "prompt": "In paragraph 4, the word \"disposable\" is closest in meaning to …",
           "choices": [
-            "easily available",
-            "fashionable",
-            "made to be thrown away after short use",
-            "expensive"
+            "easy to find in many shops",
+            "very popular with young people",
+            "meant to be thrown away soon",
+            "too expensive for most buyers"
           ],
           "answer": 2,
           "focus": "vocab",
@@ -749,10 +749,10 @@
           "type": "mcq",
           "prompt": "Why do projects probably ask several volunteers to check the same item?",
           "choices": [
-            "Because each volunteer is paid for every item checked",
-            "Because there are not enough items for everyone",
-            "Because scientists want to test volunteers' memory",
-            "Because an answer that several people agree on is less likely to be wrong"
+            "Because each volunteer is paid a small fee for every item checked",
+            "Because there are too few items for every volunteer to have their own",
+            "Because scientists want to test how well the volunteers remember things",
+            "Because an answer several people agree on is more likely to be correct"
           ],
           "answer": 3,
           "focus": "inference",
@@ -886,9 +886,9 @@
           "prompt": "Why did productivity often stay the same during the trials?",
           "choices": [
             "Staff wasted less time in meetings and felt rested.",
-            "Employees worked longer each day.",
-            "Companies hired more managers.",
-            "Salaries were increased."
+            "Employees took shorter lunch breaks to finish their work.",
+            "Companies hired more managers to check the staff's work.",
+            "Salaries were increased to keep the staff motivated."
           ],
           "answer": 0,
           "explain": "Paragraph 2: staff wasted less time in unnecessary meetings and returned to work feeling rested."
@@ -897,10 +897,10 @@
           "type": "mcq",
           "prompt": "In paragraph 3, the word \"squeezing\" is closest in meaning to …",
           "choices": [
-            "spreading out",
+            "spreading out over more time",
             "pressing into a smaller space",
-            "handing over",
-            "putting off"
+            "handing over to other people",
+            "putting off until a later day"
           ],
           "answer": 1,
           "focus": "vocab",
@@ -923,10 +923,10 @@
           "type": "mcq",
           "prompt": "What is the purpose of the final paragraph?",
           "choices": [
-            "To shift attention from the number of days to how work is organized",
-            "To conclude that the four-day week has failed",
-            "To give more examples of successful trials",
-            "To list the industries that should avoid the model"
+            "To move the focus from the number of days to how work is organized",
+            "To conclude that the four-day week has failed in most of the trials",
+            "To give more examples of companies whose trials were very successful",
+            "To list the industries that should not try the four-day week at all"
           ],
           "answer": 0,
           "focus": "purpose",
@@ -1210,10 +1210,10 @@
           "type": "mcq",
           "prompt": "What would the writer most likely say to someone who criticizes themselves after missing a deadline?",
           "choices": [
-            "Make your schedule even stricter next time.",
-            "You are simply lazy and need more discipline.",
-            "Missing a deadline never really matters.",
-            "Being kinder to yourself may make you less likely to delay next time."
+            "Make your schedule even stricter so that it does not happen again.",
+            "Accept that you are simply lazy and need much more discipline.",
+            "Forget about deadlines, since missing one never has any real cost.",
+            "Being kinder to yourself may make you less likely to delay again."
           ],
           "answer": 3,
           "focus": "inference",
@@ -1223,10 +1223,10 @@
           "type": "mcq",
           "prompt": "Why does the writer mention tidying a desk in paragraph 1?",
           "choices": [
-            "As an example of a less useful activity people do instead of an important task",
-            "To recommend a good way to prepare for work",
-            "To show that people who procrastinate are usually tidy",
-            "To explain how to manage time better"
+            "To give an example of something less useful done instead of a key task",
+            "To recommend tidying as a good way to prepare for important work",
+            "To show that people who procrastinate are usually very tidy and organized",
+            "To explain how people can manage their time better at their desks"
           ],
           "answer": 0,
           "focus": "purpose",
@@ -1354,10 +1354,10 @@
           "type": "mcq",
           "prompt": "In paragraph 2, the word \"converted\" is closest in meaning to …",
           "choices": [
-            "sold quickly",
+            "sold quickly to new owners",
             "changed into something else",
-            "repaired",
-            "rented cheaply"
+            "repaired and made like new",
+            "rented out cheaply to locals"
           ],
           "answer": 1,
           "focus": "vocab",
@@ -1512,9 +1512,9 @@
           "prompt": "Why can a coin-sized fragment be dangerous?",
           "choices": [
             "It travels at extremely high speeds.",
-            "It is radioactive.",
-            "It is very heavy.",
-            "It blocks radio signals."
+            "It gives off harmful radiation in space.",
+            "It is made of unusually heavy metal.",
+            "It blocks the radio signals of satellites."
           ],
           "answer": 0,
           "explain": "Paragraph 2: because these pieces travel at extremely high speeds, even a fragment the size of a coin can seriously damage a satellite or spacecraft."
@@ -1538,20 +1538,20 @@
             "optional",
             "expensive",
             "difficult",
-            "absolutely necessary"
+            "necessary"
           ],
           "answer": 3,
           "focus": "vocab",
-          "explain": "Paragraph 4: \"International cooperation will be essential, since no single country owns space\" — cooperation is absolutely necessary because no country can act alone."
+          "explain": "Paragraph 4: \"International cooperation will be essential, since no single country owns space\" — cooperation is necessary because no country can act alone."
         },
         {
           "type": "mcq",
           "prompt": "What can be inferred about satellites designed to lower themselves into the atmosphere?",
           "choices": [
-            "They travel more slowly than other satellites.",
-            "They will not stay in orbit as debris once they stop working.",
-            "They are used only for weather forecasts.",
-            "They can capture larger pieces of debris."
+            "They travel more slowly than other satellites while in orbit.",
+            "They will not remain as debris after they stop working.",
+            "They are designed to be used only for weather forecasts.",
+            "They can also capture larger pieces of debris in orbit."
           ],
           "answer": 1,
           "focus": "inference",

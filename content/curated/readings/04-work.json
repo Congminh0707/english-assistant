@@ -78,10 +78,10 @@
           "type": "mcq",
           "prompt": "In paragraph 2, the word \"Gradually\" is closest in meaning to …",
           "choices": [
-            "suddenly",
-            "easily",
-            "rarely",
-            "slowly, little by little"
+            "all at once",
+            "without effort",
+            "only sometimes",
+            "step by step"
           ],
           "answer": 3,
           "focus": "vocab",

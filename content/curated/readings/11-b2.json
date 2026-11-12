@@ -59,10 +59,10 @@
           "type": "mcq",
           "prompt": "What is the writer's main conclusion?",
           "choices": [
-            "Dreams are simply random brain activity.",
-            "Whatever dreams mean, the sleep in which they occur matters a great deal.",
-            "Dreams mainly help us organise memories.",
-            "Scientists will soon discover why we dream."
+            "Dreams have now been proven to be nothing but random brain activity.",
+            "Whatever dreams mean, the sleep in which they occur is vital.",
+            "Dreams mainly exist so that the brain can organise our memories.",
+            "Scientists are now close to discovering exactly why we dream."
           ],
           "answer": 1,
           "focus": "main_idea",
@@ -196,10 +196,10 @@
           "type": "mcq",
           "prompt": "Which statement best summarises the passage?",
           "choices": [
-            "Gig work is replacing all traditional jobs.",
+            "Gig work is quickly replacing all traditional jobs with a regular employer.",
             "Gig work offers flexibility but raises concerns about workers' security.",
-            "Gig work should be banned because it is unfair.",
-            "Gig work is only suitable for students."
+            "Gig work should be banned because it treats workers so unfairly.",
+            "Gig work is only really suitable for students and parents of young children."
           ],
           "answer": 1,
           "focus": "main_idea",
@@ -209,10 +209,10 @@
           "type": "mcq",
           "prompt": "Why does the writer mention students and parents with young children?",
           "choices": [
-            "To show that gig work is mostly done by young people",
-            "To argue that these groups need more regulation",
-            "To give examples of people for whom flexible hours are especially useful",
-            "To explain why gig workers lack sick pay"
+            "To show that gig work is mostly done by young people with families",
+            "To argue that these groups need more protection than other workers",
+            "To give examples of people who especially value flexible hours",
+            "To explain why many gig workers do not receive sick pay or pensions"
           ],
           "answer": 2,
           "focus": "purpose",
@@ -235,10 +235,10 @@
           "type": "mcq",
           "prompt": "Which of the following would the critics in paragraph 3 most likely support?",
           "choices": [
-            "Banning ride-hailing apps completely",
-            "Leaving gig work without any rules",
-            "Forcing all gig workers to accept fixed working hours",
-            "Laws that give gig workers some benefits while keeping flexible hours"
+            "Banning ride-hailing and food delivery apps across the country",
+            "Leaving gig work without any rules so that it stays flexible",
+            "Forcing all gig workers to accept fixed hours in exchange for benefits",
+            "Laws that give gig workers benefits but keep their flexible hours"
           ],
           "answer": 3,
           "focus": "inference",
@@ -471,10 +471,10 @@
           "type": "mcq",
           "prompt": "Which statement best expresses the writer's position?",
           "choices": [
-            "AI will soon replace most human workers.",
+            "AI will soon replace most human workers in offices and hospitals.",
             "AI works best when it supports people rather than replaces them.",
-            "Workers should avoid AI to protect their jobs.",
-            "AI is still a technology of the distant future."
+            "Workers should avoid using AI tools in order to protect their jobs.",
+            "AI is still a technology that belongs to the distant future."
           ],
           "answer": 1,
           "focus": "main_idea",
@@ -497,10 +497,10 @@
           "type": "mcq",
           "prompt": "What does the reference to \"earlier technologies\" in paragraph 2 suggest?",
           "choices": [
-            "Earlier technologies created no new jobs.",
-            "AI is less powerful than earlier technologies.",
-            "Economists were wrong about earlier technologies.",
-            "New technologies have tended to change jobs rather than simply destroy them."
+            "Earlier technologies destroyed old jobs and created no new ones.",
+            "AI is a less powerful tool than the technologies that came before it.",
+            "Economists made wrong predictions about earlier technologies.",
+            "New technologies have tended to change jobs rather than destroy them."
           ],
           "answer": 3,
           "focus": "inference",
@@ -511,9 +511,9 @@
           "prompt": "Based on paragraph 2, which workers are likely to face the greatest risk?",
           "choices": [
             "Those who have no opportunity to learn new skills",
-            "Doctors who use AI to read scans",
-            "Employees who use AI tools wisely",
-            "Economists who study technology"
+            "Doctors who already use AI to help them read scans",
+            "Employees who learn to use AI tools wisely at work",
+            "Economists who study the effects of new technology"
           ],
           "answer": 0,
           "focus": "inference",
@@ -661,10 +661,10 @@
           "type": "mcq",
           "prompt": "According to the critics, why is extreme minimalism not an option for everyone?",
           "choices": [
-            "Most people enjoy shopping too much.",
-            "Not everyone can afford to discard things and buy them again later.",
-            "Small homes are hard to find.",
-            "It takes too much time to clean."
+            "Most people enjoy shopping far too much to give up buying things.",
+            "Not everyone can afford to discard things and rebuy them later.",
+            "Small homes that suit a minimalist lifestyle are hard to find.",
+            "It takes too much time to sort and clean everything you own."
           ],
           "answer": 1,
           "focus": "detail",

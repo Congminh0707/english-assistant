@@ -134,13 +134,16 @@ Bài mẫu: `readb1.making-new-friends` (B1) và `readc1.nudges` (C1) — đọc
    có `ng: true` thì mọi câu `tf` của bài đều có.
 5. `mcq` mới: B2 trở lên **4 lựa chọn**, B1 3–4. Lựa chọn nhiễu hợp lý nhưng bài đọc cho thấy rõ là sai; chỉ **một**
    đáp án bảo vệ được.
-6. `summary.text` **diễn đạt lại** bài (không chép câu của bài); đáp án là một từ hoặc cụm ≤ 3 từ; từ nhiễu hợp ngữ
+6. Đáp án đúng của `mcq` **không được nổi bật nhờ độ dài** hay mức chi tiết: viết lựa chọn nhiễu dài và cụ thể như đáp
+   án (câu `vocab`: mọi lựa chọn cùng một kiểu — cùng là từ đơn, hoặc cùng là cụm ngắn dài tương đương). Quy tắc nhanh:
+   đáp án đúng không bao giờ dài hơn 1,3 lần lựa chọn nhiễu dài nhất.
+7. `summary.text` **diễn đạt lại** bài (không chép câu của bài); đáp án là một từ hoặc cụm ≤ 3 từ; từ nhiễu hợp ngữ
    pháp với chỗ trống (người học không loại được chỉ nhờ ngữ pháp).
-7. Tiêu đề (`headings`) nêu ý chính của đoạn bằng lời mới; tiêu đề sai vẫn đúng chủ đề nhưng chỉ là một chi tiết hoặc
+8. Tiêu đề (`headings`) nêu ý chính của đoạn bằng lời mới; tiêu đề sai vẫn đúng chủ đề nhưng chỉ là một chi tiết hoặc
    điều bài không nói.
-8. `explain`: tiếng Việt cho B1, tiếng Anh từ B2; mọi câu mới đều có và **nêu đoạn chứng minh** đáp án ("Đoạn 2: …" /
+9. `explain`: tiếng Việt cho B1, tiếng Anh từ B2; mọi câu mới đều có và **nêu đoạn chứng minh** đáp án ("Đoạn 2: …" /
    "Paragraph 2: …").
-9. Số câu tăng từ 3 trở lên thì tăng `minutes` thêm 2 (tối đa 30).
+10. Số câu tăng từ 3 trở lên thì tăng `minutes` thêm 2 (tối đa 30).
 
 ## Dạng bài `respond` (trả lời câu hỏi bằng giọng nói = `speak_answer`)
 

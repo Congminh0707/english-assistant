@@ -65,10 +65,10 @@
           "type": "mcq",
           "prompt": "Which of the following best defines a \"nudge\" as described in the text?",
           "choices": [
-            "A financial reward for making healthy choices",
-            "A rule that forbids harmful options",
-            "A subtle change to how a choice is arranged that leaves every option open",
-            "A campaign that explains the benefits of saving"
+            "A financial reward offered to people who make healthier choices",
+            "A rule that forbids the harmful options but keeps the healthy ones available",
+            "A small change in how options are arranged that removes none of them",
+            "A campaign that explains the long-term benefits of saving money"
           ],
           "answer": 2,
           "explain": "Paragraph 2: a nudge is a small change in the design of a choice that does not forbid any option or significantly alter incentives, so it is neither a reward, a ban nor an information campaign."
@@ -78,9 +78,9 @@
           "prompt": "What point does the retirement savings example illustrate?",
           "choices": [
             "The starting point of a choice can strongly affect outcomes.",
-            "Employees dislike saving money.",
-            "Opting out should be made illegal.",
-            "Higher salaries increase participation."
+            "Most employees dislike saving money for their retirement.",
+            "Opting out of a retirement plan should be made illegal.",
+            "Offering higher salaries increases participation in savings plans."
           ],
           "answer": 0,
           "explain": "Paragraph 3: the choice is the same in both cases and only the starting point differs, yet participation is far higher — the default itself changes the outcome.",
@@ -222,9 +222,9 @@
           "type": "mcq",
           "prompt": "According to the text, how does intelligence relate to confirmation bias?",
           "choices": [
-            "It largely eliminates the bias.",
-            "It has no connection to reasoning at all.",
-            "It makes people more open to opposing views.",
+            "It largely eliminates the bias in people who reason well.",
+            "It is unrelated to the bias, since the bias affects only memory.",
+            "It makes people more open to views that oppose their own.",
             "It helps people justify conclusions reached for other reasons."
           ],
           "answer": 3,
@@ -417,10 +417,10 @@
           "type": "mcq",
           "prompt": "Which statement best expresses the main argument of the passage?",
           "choices": [
-            "Free digital platforms are a generous public service.",
-            "Users can easily protect themselves by changing their settings.",
-            "Advertising is the only possible way to fund digital services.",
-            "A business model based on selling attention rewards design that may harm users and society."
+            "Free digital platforms are a generous public service, kindly paid for by advertisers.",
+            "Users can easily protect themselves by changing their notification settings.",
+            "Advertising is the only possible way to pay for free digital services.",
+            "A model built on selling attention rewards designs that can harm users and society."
           ],
           "answer": 3,
           "focus": "main_idea",
@@ -536,10 +536,10 @@
           "type": "mcq",
           "prompt": "What can be inferred from the comparison between an expensive-looking tablet and an identical one that looks cheap?",
           "choices": [
-            "Expensive tablets contain more of the active ingredient.",
-            "Cheap tablets are produced less carefully.",
-            "Patients' beliefs about a treatment can change how well it seems to work.",
-            "Patients generally prefer pills to injections."
+            "Expensive-looking tablets contain more of the active ingredient.",
+            "Cheap-looking tablets are produced less carefully than expensive ones.",
+            "What patients expect from a treatment can change how well it works.",
+            "Patients respond better to pills than to injections of any kind."
           ],
           "answer": 2,
           "focus": "inference",
@@ -731,10 +731,10 @@
           "type": "mcq",
           "prompt": "Which statement best reflects the writer's conclusion about the fifteen-minute city?",
           "choices": [
-            "It should replace city-wide planning altogether.",
-            "It can be a useful part of city planning but cannot work on its own.",
-            "It has failed wherever it has been tried.",
-            "It matters only for households without cars."
+            "It should replace older forms of city-wide planning altogether.",
+            "It can support city-wide planning but cannot replace it.",
+            "It has failed in most of the cities where it has been tried.",
+            "It matters only to the households in a city that do not own cars."
           ],
           "answer": 1,
           "focus": "main_idea",
@@ -889,10 +889,10 @@
           "type": "mcq",
           "prompt": "Which statement best summarizes the writer's argument?",
           "choices": [
-            "Algorithms should replace human officials because they never get tired.",
-            "Treating everyone by the same rules does not by itself make automated decisions fair, so oversight is needed.",
-            "Automated systems are unfair mainly because they are badly programmed.",
-            "Fairness can be achieved simply by deleting sensitive data."
+            "Algorithms should replace human officials, because they never get tired or careless.",
+            "Consistent rules alone do not make automated decisions fair, so outside checks are needed.",
+            "Automated systems are unfair mainly because their programmers design them badly or carelessly.",
+            "Fairness can be achieved simply by deleting sensitive data such as gender and ethnicity."
           ],
           "answer": 1,
           "focus": "main_idea",
@@ -1007,10 +1007,10 @@
           "type": "mcq",
           "prompt": "Which statement best summarizes the current consensus?",
           "choices": [
-            "Language has no effect on thought.",
-            "Language completely determines thought.",
-            "Language directs attention through habits but does not imprison thought.",
-            "Only bilingual people are influenced by language."
+            "Language has no measurable effect at all on the way people think or see.",
+            "Language completely determines what its speakers are able to think.",
+            "Language shapes attention through habit but does not imprison thought.",
+            "Only bilingual speakers are influenced by the language they use."
           ],
           "answer": 2,
           "focus": "main_idea",

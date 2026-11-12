@@ -245,10 +245,10 @@
           "type": "mcq",
           "prompt": "In paragraph 2, the word \"suspicious\" is closest in meaning to …",
           "choices": [
-            "very happy",
-            "unsure that something was true",
-            "angry",
-            "tired"
+            "very happy and excited",
+            "not sure it was true",
+            "angry with the writer",
+            "too tired to go out"
           ],
           "answer": 1,
           "focus": "vocab",

@@ -115,10 +115,10 @@
           "type": "mcq",
           "prompt": "What is the main idea of the passage?",
           "choices": [
-            "Teenagers should study late at night before exams.",
-            "Sleep is important for teenagers, and there are easy ways to sleep better.",
-            "Phones are the main reason students fail exams.",
-            "Adults need less sleep than teenagers."
+            "Teenagers should study late at night so they remember more in exams.",
+            "Teenagers need good sleep, and simple habits can help them get it.",
+            "Phones are the main reason why teenagers fail their exams at school.",
+            "Adults need more sleep than teenagers, so they should go to bed early."
           ],
           "answer": 1,
           "focus": "main_idea",

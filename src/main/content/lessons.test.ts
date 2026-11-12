@@ -607,6 +607,16 @@ describe('bài đọc B1+ (AUTHORING.md: bài đọc từ B1_1)', () => {
       expect(count((e) => e.type === 'mcq' && e.focus === 'vocab')).toBeGreaterThanOrEqual(1)
       const b2Plus = LEVEL_CODES.indexOf(lesson.level) >= LEVEL_CODES.indexOf('B2_1')
       if (b2Plus) expect(count((e) => e.type === 'headings')).toBe(1)
+      // Đáp án đúng không được lộ vì dài hơn hẳn: không quá 1,3 lần lựa chọn sai dài nhất (bỏ qua chênh dưới 10 ký tự)
+      ex.forEach((e, i) => {
+        if (e.type !== 'mcq') return
+        const right = e.choices[e.answer].length
+        const wrong = Math.max(...e.choices.filter((_, n) => n !== e.answer).map((c) => c.length))
+        expect(
+          right > wrong * 1.3 && right - wrong >= 10,
+          `${id} câu ${i + 1}: đáp án đúng dài hơn hẳn các lựa chọn sai`
+        ).toBe(false)
+      })
       for (const e of ex)
         if (e.type === 'summary' || e.type === 'headings' || (e.type === 'mcq' && e.focus))
           expect('explain' in e && e.explain, `${id}: ${e.type} thiếu explain`).toBeTruthy()

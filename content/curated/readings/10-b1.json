@@ -116,8 +116,8 @@
           "prompt": "What is the writer's main advice?",
           "choices": [
             "Start with something small, like saying hello.",
-            "Wait for others to talk first.",
-            "Change schools again."
+            "Wait until other students come and talk to you first.",
+            "Ask your teacher to move you to another class."
           ],
           "answer": 0,
           "focus": "main_idea",
@@ -247,10 +247,10 @@
           "type": "mcq",
           "prompt": "What is the main idea of the text?",
           "choices": [
-            "The metro is the only good way to travel in the city.",
-            "Public transport has some problems, but it is useful and getting better.",
-            "Most people in the city prefer to drive their own cars.",
-            "Public transport is too crowded to be useful."
+            "The metro is the only good way to travel around the city.",
+            "Public transport has problems, but it is useful and improving.",
+            "Most people in the city still prefer to drive their own cars.",
+            "Public transport is far too crowded and late to be really useful."
           ],
           "answer": 1,
           "focus": "main_idea",
@@ -287,9 +287,9 @@
           "prompt": "What can we infer about people who live in areas with only a few routes?",
           "choices": [
             "Public transport may be less convenient for them.",
-            "They do not need a ticket.",
-            "They always travel by boat.",
-            "They never have traffic jams."
+            "They do not need to buy a ticket for the bus.",
+            "They usually travel to work by boat on the river.",
+            "They never have problems with traffic jams there."
           ],
           "answer": 0,
           "focus": "inference",
@@ -411,10 +411,10 @@
           "type": "mcq",
           "prompt": "What does the writer's notebook tell us about how the writer learned?",
           "choices": [
-            "The writer only cooked dishes that friends liked.",
-            "The writer learned from mistakes and tried to do better each time.",
-            "The writer never followed recipes.",
-            "The writer planned to write a cookbook."
+            "The writer only cooked the dishes that friends said they liked.",
+            "The writer learned from mistakes to do better next time.",
+            "The writer never followed recipes and just guessed every time.",
+            "The writer planned to write a cookbook to sell to other people."
           ],
           "answer": 1,
           "focus": "inference",
@@ -532,10 +532,10 @@
           "type": "mcq",
           "prompt": "Why did the writer arrive late for the first lecture?",
           "choices": [
-            "The writer missed the bus.",
-            "The writer woke up too late.",
+            "The writer missed the bus and had to walk there.",
+            "The writer woke up too late after a bad night.",
             "The campus was so big that the writer got lost.",
-            "The lecturer changed the room."
+            "The lecturer had moved the class to another room."
           ],
           "answer": 2,
           "focus": "detail",
@@ -571,9 +571,9 @@
           "type": "mcq",
           "prompt": "In paragraph 3, the word \"relieved\" is closest in meaning to …",
           "choices": [
-            "angry",
-            "bored",
-            "still afraid",
+            "angry because of a problem",
+            "bored because nothing happened",
+            "still afraid of the next day",
             "happy because a worry has gone"
           ],
           "answer": 3,
@@ -696,10 +696,10 @@
           "type": "mcq",
           "prompt": "What does Mai's answer to the old man show about her?",
           "choices": [
-            "She thought the reward was too small.",
-            "She was angry that he called so late.",
-            "She helped because it was right, not to get something back.",
-            "She wanted to meet his grandson."
+            "She thought the reward he offered her was far too small.",
+            "She was angry that he had waited two days to call her.",
+            "She helped him because it was right, not for a reward.",
+            "She wanted to meet his grandson and help him at school."
           ],
           "answer": 2,
           "focus": "inference",
@@ -723,9 +723,9 @@
           "prompt": "Why does the writer tell us that the money was for school fees?",
           "choices": [
             "To show how important the wallet was to its owner",
-            "To explain that Mai was a student",
-            "To show that the old man was rich",
-            "To explain why the wallet was brown"
+            "To explain that Mai was a student who also paid fees",
+            "To show that the grandson had lost the wallet himself",
+            "To explain why Mai was waiting for the bus in the rain"
           ],
           "answer": 0,
           "focus": "purpose",
@@ -817,10 +817,10 @@
           "type": "mcq",
           "prompt": "What is the writer's main message?",
           "choices": [
-            "Only governments can solve climate change.",
-            "Families should stop using air conditioners.",
+            "Only governments and big companies can solve climate change.",
+            "Families should stop using their air conditioners in hot weather.",
             "Small changes at home, made by many families, can really help.",
-            "Big companies use more electricity than homes."
+            "Big companies use more electricity than all homes together."
           ],
           "answer": 2,
           "focus": "main_idea",
@@ -856,10 +856,10 @@
           "type": "mcq",
           "prompt": "In paragraph 3, the word \"households\" is closest in meaning to …",
           "choices": [
-            "companies",
+            "big companies and their workers",
             "homes and the families in them",
-            "cities",
-            "countries"
+            "cities and the people in them",
+            "countries and their governments"
           ],
           "answer": 1,
           "focus": "vocab",
@@ -994,9 +994,9 @@
           "type": "mcq",
           "prompt": "What is the writer's main opinion about social media?",
           "choices": [
-            "It should be banned for teenagers.",
-            "It is only good for sharing photos.",
-            "It is safer than talking to adults.",
+            "It should be banned for all teenagers because of the risks.",
+            "It is only really good for sharing photos with friends.",
+            "It is safer than talking to adults about your problems.",
             "It has good and bad sides, and how you use it matters."
           ],
           "answer": 3,

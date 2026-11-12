@@ -365,9 +365,9 @@
           "type": "mcq",
           "prompt": "Why does the writer say rainforests are called \"the lungs of the planet\"?",
           "choices": [
-            "To warn that forests can easily get sick",
-            "To say that forests are shaped like lungs",
-            "To describe the colour of the trees",
+            "To warn that forests can get sick just like people do",
+            "To say that from the sky the forests look like lungs",
+            "To describe how the trees move in the wind as if breathing",
             "To show how important forests are for the air we breathe"
           ],
           "answer": 3,

@@ -85,10 +85,10 @@
           "type": "mcq",
           "prompt": "In paragraph 3, the word \"suspicious\" is closest in meaning to …",
           "choices": [
-            "very interesting",
-            "beautiful",
-            "brand new",
-            "possibly dishonest or dangerous"
+            "interesting and worth clicking",
+            "official and completely safe",
+            "brand new and very popular",
+            "maybe dishonest or dangerous"
           ],
           "answer": 3,
           "focus": "vocab",
@@ -455,10 +455,10 @@
           "type": "mcq",
           "prompt": "What does the writer suggest about practising with real people?",
           "choices": [
-            "It should replace apps completely.",
-            "It is only necessary for advanced learners.",
+            "It should replace apps completely after the first few months.",
+            "It matters only for learners who are already advanced.",
             "It prepares learners for replies that an app cannot predict.",
-            "It is more motivating than games and points."
+            "It keeps learners more motivated than an app's games and points."
           ],
           "answer": 2,
           "focus": "inference",

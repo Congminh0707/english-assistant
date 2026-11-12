@@ -65,10 +65,10 @@
           "type": "mcq",
           "prompt": "Which statement most accurately reflects the writer's central claim?",
           "choices": [
-            "Repetitive labor is a hidden source of creativity.",
-            "Brief, low-stakes boredom should be tolerated rather than instantly cured.",
-            "All boredom should be encouraged.",
-            "Boredom has been proved to cause creative insights."
+            "Repetitive labor is a hidden and undervalued source of creative thought.",
+            "Brief, low-stakes boredom should be tolerated, not instantly cured.",
+            "All boredom, whatever its cause, should be welcomed and encouraged.",
+            "Boredom has been shown to be the direct cause of creative insights."
           ],
           "answer": 1,
           "focus": "main_idea",
@@ -78,9 +78,9 @@
           "type": "mcq",
           "prompt": "What does the writer imply by saying that people reach for a screen \"half-consciously\"?",
           "choices": [
-            "People feel ashamed of being bored in public.",
-            "Screens are making people less intelligent.",
-            "Most people wait for buses impatiently.",
+            "People feel ashamed of being seen to be bored in public places.",
+            "Screens are gradually making people less intelligent and less able.",
+            "Most people wait for buses impatiently and resent every minute.",
             "Filling boredom has become a habit rather than a deliberate choice."
           ],
           "answer": 3,
@@ -222,9 +222,9 @@
           "type": "mcq",
           "prompt": "What does the hospital example illustrate?",
           "choices": [
-            "Hospitals are generally inefficient.",
-            "Staff always work faster when rewarded.",
-            "Waiting times cannot be measured accurately.",
+            "Hospitals are generally less efficient than other public services.",
+            "Staff always work faster when they are rewarded for their results.",
+            "Waiting times in hospitals cannot be measured with any accuracy.",
             "A figure can improve while the underlying reality does not."
           ],
           "answer": 3,
@@ -248,10 +248,10 @@
           "type": "mcq",
           "prompt": "What does the writer mean by \"never mistake the map for the territory\"?",
           "choices": [
-            "Indicators should always be presented visually.",
-            "A measurement is only a simplified picture of the reality it describes.",
-            "Local knowledge matters more than national policy.",
-            "Professionals should visit the places they manage."
+            "Indicators should always be presented visually, as charts or maps.",
+            "A measurement is only a simplified picture of the reality behind it.",
+            "Local knowledge always matters more than decisions about national policy.",
+            "Professionals should visit in person the places that they manage."
           ],
           "answer": 1,
           "focus": "inference",
@@ -261,10 +261,10 @@
           "type": "mcq",
           "prompt": "In paragraph 4, the word \"mastered\" is closest in meaning to …",
           "choices": [
-            "officially approved",
-            "learned well enough to be exploited",
-            "completely forgotten",
-            "widely published"
+            "officially approved by managers",
+            "learned well enough to exploit",
+            "completely forgotten by staff",
+            "published widely to the public"
           ],
           "answer": 1,
           "focus": "vocab",
@@ -391,10 +391,10 @@
           "type": "mcq",
           "prompt": "Why did the researchers most likely ask participants to comment on extracts of their own speech?",
           "choices": [
-            "To test their proficiency in both languages",
-            "To compare the speakers' own accounts with the functions the researchers had coded",
-            "To teach them to avoid unnecessary switching",
-            "To record more natural conversations"
+            "To test how proficient each participant was in both of the languages they spoke",
+            "To set the speakers' own view of their switches beside the researchers' coding",
+            "To teach the participants to avoid switching languages when it was not necessary",
+            "To record more natural conversations for the researchers to code by function"
           ],
           "answer": 1,
           "focus": "inference",
@@ -536,9 +536,9 @@
           "prompt": "What did the narrator realize about the father's later maps after his death?",
           "choices": [
             "They were meant to record a town that no longer existed.",
-            "They were commissioned by the town council.",
-            "They contained serious errors.",
-            "They were copies of satellite images."
+            "They had been commissioned by the town council before he died.",
+            "They contained serious errors that he had tried to hide.",
+            "They were careful copies of images taken by satellites."
           ],
           "answer": 0,
           "explain": "Paragraph 3: spread out, the sheets formed a single plan of \"a town that no longer existed\", so they \"had never been meant for finding anything\"."
@@ -560,10 +560,10 @@
           "type": "mcq",
           "prompt": "What does the narrator suggest about the father's careful labeling in paragraph 2?",
           "choices": [
-            "It was required by his former clients.",
-            "It helped strangers find their way around the town.",
-            "It may have been a way of giving value to maps that no one would use.",
-            "It shows that he hoped to sell the maps."
+            "It was required by the clients who had once paid for his maps.",
+            "It helped strangers to find their way around the town more easily.",
+            "It may have been a way to give worth to maps no one would use.",
+            "It shows that he still hoped to sell the maps to someone one day."
           ],
           "answer": 2,
           "focus": "inference",
@@ -691,9 +691,9 @@
           "type": "mcq",
           "prompt": "What is the writer's real attitude toward the advice given?",
           "choices": [
-            "Enthusiastic support",
-            "Neutral description",
-            "Scientific evaluation",
+            "Enthusiastic support for a disciplined way of working",
+            "Neutral description of habits common among the successful",
+            "Scientific evaluation of the evidence for early rising",
             "Ironic criticism of an obsessive productivity culture"
           ],
           "answer": 3,
@@ -704,10 +704,10 @@
           "type": "mcq",
           "prompt": "What is implied by the phrase \"or at least by those who write books about the highly successful\"?",
           "choices": [
-            "Successful people never write books.",
-            "The claim about four o'clock may come more from productivity authors than from successful people themselves.",
-            "Writing books is the best way to become successful.",
-            "All successful people wake up at four o'clock."
+            "Successful people rarely have the time or the desire to write books about their own lives.",
+            "The four o'clock claim may owe more to productivity writers than to successful people.",
+            "Writing books about success is the surest way of becoming successful yourself.",
+            "All successful people, without exception, begin their working day at four o'clock."
           ],
           "answer": 1,
           "focus": "inference",
@@ -743,10 +743,10 @@
           "type": "mcq",
           "prompt": "What does the final suggestion to schedule the question \"for a later quarter\" imply?",
           "choices": [
-            "The writer plans to publish a follow-up guide.",
-            "Reflection is best done at the end of a financial year.",
-            "The question of purpose is unimportant.",
-            "The productivity mindset keeps postponing the question of what all the efficiency is for."
+            "The writer is already planning to publish a follow-up guide during the next financial quarter.",
+            "Serious reflection on one's goals is best left until the end of each financial year.",
+            "The question of purpose is unimportant and can be ignored without any cost.",
+            "The productivity mindset keeps postponing the question of what its efficiency is for."
           ],
           "answer": 3,
           "focus": "inference",
@@ -867,10 +867,10 @@
           "type": "mcq",
           "prompt": "What is the main function of paragraph 3?",
           "choices": [
-            "To present new evidence that memory is unreliable",
-            "To explain how eyewitness procedures work",
+            "To present new evidence that human memory is generally unreliable",
+            "To explain how eyewitness procedures work in courts of law",
             "To prevent the reader from drawing an overly negative conclusion",
-            "To reject the reconstructive model of memory"
+            "To reject the reconstructive model of memory as fundamentally mistaken"
           ],
           "answer": 2,
           "focus": "purpose",
@@ -880,10 +880,10 @@
           "type": "mcq",
           "prompt": "The phrase \"would seem to favor\" in paragraph 4 shows that the writer …",
           "choices": [
-            "considers the evidence conclusive",
-            "rejects the procedures mentioned",
-            "is quoting eyewitnesses directly",
-            "presents the recommendation tentatively rather than as settled fact"
+            "considers the evidence for these procedures to be conclusive",
+            "rejects the procedures that are mentioned in the same sentence",
+            "is directly quoting the words used by eyewitnesses in their accounts",
+            "offers the recommendation tentatively rather than as settled fact"
           ],
           "answer": 3,
           "focus": "inference",

@@ -2079,7 +2079,7 @@
     "whisperReady": "Whisper base.en model is ready ({size} MB)",
     "whisperNeed": "Download the Whisper base.en model (~{size} MB) to score speaking practice.",
     "pronTitle": "Detailed pronunciation scoring (wav2vec2)",
-    "pronHint": "A sound-by-sound recognition model downloaded in an earlier version: it is still used to show which sounds are wrong. The app no longer offers this download; speaking is scored word by word with Whisper. You can remove it to free disk space.",
+    "pronHint": "A sound-by-sound recognition model downloaded in an earlier version: it is still used to show which sounds are wrong. The app no longer offers this download; speaking is scored word by word with Whisper. You can remove it to free disk space; once removed it cannot be downloaded again.",
     "pronReady": "Downloaded ({size} MB)",
     "pronRemove": "Remove model",
     "expectedIpa": "Target:",

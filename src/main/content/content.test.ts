@@ -7,6 +7,7 @@ import { strToU8, unzipSync, zipSync } from 'fflate'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { CONTENT_DB_SCHEMA } from '../../../scripts/content/build/schema'
 import { normalizeQuery } from '@shared/schemas/dictionary'
+import { LessonCompleteInputSchema } from '@shared/schemas/lesson'
 import type { PlacementResult } from '@shared/schemas/placement'
 import type { Exercise, PracticeAnswer, PracticeSummary } from '@shared/schemas/practice'
 import { FakeClock } from '../core/Clock'
@@ -1508,6 +1509,29 @@ describe('tiến bộ theo kỹ năng', () => {
     const after = stats.skills.find((s) => s.skill === 'reading')!
     expect(after.games).toBe(n)
     expect(after.rating).toBeGreaterThan(before.rating)
+  })
+
+  it('bài đọc B1+ (headings, summary) nộp qua được schema IPC và ghi thống kê theo dạng bài', () => {
+    const lesson = c.readings.get('readc1.nudges')
+    const byType = [...new Set(lesson.exercises.map((e) => e.type))].map((type) => {
+      const total = lesson.exercises.filter((e) => e.type === type).length
+      return { type, correct: total, total }
+    })
+    const n = lesson.exercises.length
+    expect(byType.map((b) => b.type)).toEqual(expect.arrayContaining(['headings', 'summary']))
+    // Đúng dữ liệu renderer gửi cho kênh lesson:complete
+    const input = LessonCompleteInputSchema.parse({ lessonId: lesson.id, correct: n, total: n, byType })
+    const res = c.readings.complete(input.lessonId, input.correct, input.total, input.byType)
+    expect(res.score).toBe(100)
+    const accuracy = c.stats.stats().accuracy
+    for (const kind of ['headings', 'summary'])
+      expect(accuracy.find((a) => a.kind === kind)).toMatchObject({
+        group: 'exercise',
+        skill: 'reading',
+        correct: 1,
+        total: 1
+      })
+    expect(c.stats.stats().skills.find((s) => s.skill === 'reading')!.games).toBe(n)
   })
 
   it('byType không hợp lệ bị bỏ qua, không làm hỏng việc chấm bài', () => {

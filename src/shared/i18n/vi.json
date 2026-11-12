@@ -2079,7 +2079,7 @@
     "whisperReady": "Model Whisper base.en đã sẵn sàng ({size} MB)",
     "whisperNeed": "Cần tải model Whisper base.en (~{size} MB) để chấm bài nói.",
     "pronTitle": "Chấm phát âm chi tiết (wav2vec2)",
-    "pronHint": "Model nhận dạng từng âm đã tải ở bản trước: vẫn được dùng để chỉ ra âm nào sai. App không còn cung cấp bản tải về; bài nói được chấm theo từ bằng Whisper. Có thể xoá để lấy lại dung lượng.",
+    "pronHint": "Model nhận dạng từng âm đã tải ở bản trước: vẫn được dùng để chỉ ra âm nào sai. App không còn cung cấp bản tải về; bài nói được chấm theo từ bằng Whisper. Có thể xoá để lấy lại dung lượng; đã xoá thì không tải lại được.",
     "pronReady": "Đã tải ({size} MB)",
     "pronRemove": "Xoá model",
     "expectedIpa": "Âm chuẩn:",

@@ -195,53 +195,96 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "Where do you get a boarding pass?",
-          "choices": [
-            "At security",
-            "At the airline counter",
-            "At the gate"
+          "type": "headings",
+          "headings": [
+            "Getting through the security check",
+            "Waiting for your flight at the gate",
+            "Checking in and leaving your suitcase",
+            "How to find a cheap flight",
+            "Buying food at the airport"
           ],
-          "answer": 1
+          "answers": [
+            2,
+            0,
+            1
+          ],
+          "explain": "Đoạn 1: làm thủ tục ở quầy hãng bay, cân hành lý, nhận thẻ lên máy bay; đoạn 2: qua cửa an ninh; đoạn 3: tìm cửa ra máy bay và chờ. Mua đồ ăn chỉ là một chi tiết nhỏ của đoạn 3; bài không nói về vé rẻ."
         },
         {
           "type": "mcq",
-          "prompt": "What must you take out of your bag at security?",
+          "prompt": "Why does the writer use the words \"First\", \"After that\" and \"Finally\"?",
           "choices": [
-            "Your passport",
-            "Your laptop and liquids",
-            "Your shoes only"
+            "To compare three different airports",
+            "To list three problems that passengers often have",
+            "To show the order of the steps at the airport",
+            "To show which step is the most important"
           ],
-          "answer": 1
+          "answer": 2,
+          "focus": "purpose",
+          "explain": "Đoạn 1–3: \"First\" (làm thủ tục), \"After that\" (qua an ninh), \"Finally\" (ra cửa chờ) — các từ này cho biết thứ tự các bước."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What can we infer about a passenger who never looks at the screens?",
+          "choices": [
+            "They will have to pay an extra fee.",
+            "They will have to go through security again.",
+            "They cannot buy snacks or coffee.",
+            "They may wait at the wrong gate."
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Đoạn 3: phải xem màn hình thường xuyên vì cửa ra máy bay đôi khi đổi vào phút chót → không xem thì có thể ngồi chờ sai cửa."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"regularly\" is closest in meaning to …",
+          "choices": [
+            "carefully",
+            "often",
+            "once",
+            "quickly"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Đoạn 3: \"check the screens regularly\" — xem màn hình đều đặn, nhiều lần (often), vì cửa có thể đổi bất cứ lúc nào."
         },
         {
           "type": "tf",
-          "statement": "A heavy bag may cost extra money.",
+          "statement": "A passenger with a 25-kilo suitcase may need to pay more.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 1: hành lý nặng hơn 20 kg có thể phải trả thêm phí; 25 kg nặng hơn 20 kg."
         },
         {
           "type": "tf",
-          "statement": "The gate number never changes.",
+          "statement": "At security, you can leave your laptop inside your bag.",
           "answer": "false",
           "ng": true,
-          "explain": "Bài viết nói gates sometimes change at the last minute."
+          "explain": "Đoạn 2: \"You must take out your laptop\" — phải lấy máy tính xách tay ra khỏi túi."
         },
         {
           "type": "tf",
           "statement": "Coffee at the airport is cheap.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 3 chỉ nói nhiều hành khách mua đồ ăn vặt hoặc cà phê, không nói giá rẻ hay đắt."
         },
         {
-          "type": "mcq",
-          "prompt": "What should you do with your phone on the plane?",
-          "choices": [
-            "Turn it off completely",
-            "Switch it to flight mode",
-            "Leave it in your suitcase"
+          "type": "summary",
+          "text": "It is wise to reach the airport early, because there are several ___ before you can fly. At the airline counter, staff weigh your bag, and a very heavy one costs ___. At security, you take out your laptop and liquids, and it helps to stay ___ if the line is long. At the gate, keep watching the screens, because your gate might ___ suddenly.",
+          "answers": [
+            "steps",
+            "more",
+            "relaxed",
+            "change"
           ],
-          "answer": 1
+          "distractors": [
+            "shops",
+            "less",
+            "angry"
+          ],
+          "explain": "Đoạn 1: làm thủ tục rồi mới tới các bước khác; hành lý quá 20 kg phải trả thêm phí (more); đoạn 2: nên giữ bình tĩnh (calm = relaxed); đoạn 3: cửa ra máy bay đôi khi đổi (change) vào phút chót."
         }
       ]
     }

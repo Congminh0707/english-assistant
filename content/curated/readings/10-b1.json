@@ -217,7 +217,7 @@
       "title": "Giao thông công cộng",
       "summary": "Ưu điểm của xe buýt và tàu điện.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "tip",
@@ -245,42 +245,105 @@
       "exercises": [
         {
           "type": "mcq",
-          "prompt": "What is one advantage of public transport?",
+          "prompt": "What is the main idea of the text?",
           "choices": [
-            "It is cheaper than owning a car.",
-            "It is always empty.",
-            "It never stops."
+            "The metro is the only good way to travel in the city.",
+            "Public transport has some problems, but it is useful and getting better.",
+            "Most people in the city prefer to drive their own cars.",
+            "Public transport is too crowded to be useful."
           ],
-          "answer": 0
+          "answer": 1,
+          "focus": "main_idea",
+          "explain": "Đoạn 2 nêu ưu điểm (rẻ, giảm kẹt xe, ô nhiễm); đoạn 3 nêu vấn đề (xe buýt đông, trễ) nhưng thành phố đang xây tuyến mới và ngày càng nhiều người để xe ở nhà → có vấn đề nhưng hữu ích và đang tốt lên."
         },
         {
           "type": "mcq",
-          "prompt": "Why is the metro often faster?",
+          "prompt": "According to paragraph 2, why is the metro often faster than other ways to travel during rush hour?",
           "choices": [
-            "It does not stop at traffic lights.",
-            "It has no passengers.",
-            "It is a train."
+            "Its tickets are cheaper than bus tickets.",
+            "It has more seats than a bus.",
+            "It travels along the river.",
+            "It does not have to wait at traffic lights."
           ],
-          "answer": 0
+          "answer": 3,
+          "focus": "detail",
+          "explain": "Đoạn 2: tàu điện nhanh hơn vào giờ cao điểm \"because it does not stop at traffic lights\" — không phải chờ đèn giao thông."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"Nevertheless\" is closest in meaning to …",
+          "choices": [
+            "Because",
+            "For example",
+            "However",
+            "Finally"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Đoạn 3: sau khi kể các vấn đề, \"Nevertheless, the city is building new lines\" — Nevertheless = tuy nhiên (However), đưa ra ý trái với ý trước."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What can we infer about people who live in areas with only a few routes?",
+          "choices": [
+            "Public transport may be less convenient for them.",
+            "They do not need a ticket.",
+            "They always travel by boat.",
+            "They never have traffic jams."
+          ],
+          "answer": 0,
+          "focus": "inference",
+          "explain": "Đoạn 3: \"some areas have only a few routes\" được nêu như một vấn đề → người sống ở đó khó dùng giao thông công cộng hơn. Bài không nói họ đi thuyền hay không cần vé."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer say that one ticket can be used on buses, the metro and boats?",
+          "choices": [
+            "To complain that tickets are expensive",
+            "To explain why buses are often late",
+            "To show that the system is easy to use",
+            "To say that boats are faster than buses"
+          ],
+          "answer": 2,
+          "focus": "purpose",
+          "explain": "Đoạn 1: một vé đi được cả xe buýt, tàu điện và thuyền → tác giả muốn cho thấy hệ thống tiện, dễ dùng. Bài không phàn nàn giá vé hay so sánh tốc độ thuyền."
         },
         {
           "type": "tf",
-          "statement": "One ticket can be used on buses, metro and boats.",
+          "statement": "With one ticket, you can change from a bus to a boat.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 1: \"a single ticket can be used on all of them\" — một vé dùng được cho xe buýt, tàu điện và thuyền."
         },
         {
           "type": "tf",
-          "statement": "Buses are never late.",
+          "statement": "Every part of the city has a lot of bus routes.",
           "answer": "false",
           "ng": true,
-          "explain": "Bài viết nói xe buýt có thể đông và trễ."
+          "explain": "Đoạn 3: \"some areas have only a few routes\" — một số khu vực chỉ có ít tuyến."
         },
         {
           "type": "tf",
           "statement": "The metro was built last year.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài không nói tuyến tàu điện được xây khi nào; đoạn 3 chỉ nói thành phố đang xây thêm tuyến mới."
+        },
+        {
+          "type": "summary",
+          "text": "Millions of people in the writer's city travel by bus, metro or boat, and one ___ works for all of them. Public transport costs less than having a ___, and it helps cut traffic and dirty air. However, buses are sometimes full and ___. The city is adding new ___, so more people are using it.",
+          "answers": [
+            "ticket",
+            "car",
+            "late",
+            "lines"
+          ],
+          "distractors": [
+            "bike",
+            "early",
+            "roads"
+          ],
+          "explain": "Đoạn 1: một vé (a single ticket) cho mọi phương tiện; đoạn 2: rẻ hơn sở hữu ô tô (owning a car); đoạn 3: xe buýt đông và trễ (crowded and late), thành phố đang xây tuyến mới (new lines)."
         }
       ]
     },
@@ -289,7 +352,7 @@
       "title": "Học nấu ăn",
       "summary": "Từ cháy bếp đến nấu được bữa tối.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "tip",
@@ -316,43 +379,93 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What was the first dinner?",
-          "choices": [
-            "Burnt rice and an egg",
-            "Soup",
-            "Pasta"
+          "type": "headings",
+          "headings": [
+            "A plan to get better step by step",
+            "Learning to cook from parents",
+            "A difficult start in the kitchen",
+            "The writer's favourite soup recipe",
+            "Real progress and a hobby to enjoy"
           ],
-          "answer": 0
+          "answers": [
+            2,
+            0,
+            4
+          ],
+          "explain": "Đoạn 1: bữa tối đầu tiên bị cháy — khởi đầu khó khăn; đoạn 2: xem video, mỗi tuần học một món, ghi sổ — kế hoạch tiến bộ dần; đoạn 3: sau sáu tháng nấu được mười món, mời bạn bè, nấu ăn thành cách thư giãn. Bài không nói học nấu từ bố mẹ hay đưa công thức súp."
         },
         {
           "type": "mcq",
-          "prompt": "How did the writer improve?",
+          "prompt": "What is the text mainly about?",
           "choices": [
-            "By learning one new dish every week",
-            "By eating out",
-            "By buying a cookbook only"
+            "Why cooking videos are better than cookbooks",
+            "How to cook rice without burning it",
+            "Why the writer left the parents' house",
+            "How the writer went from a bad cook to a good one"
           ],
-          "answer": 0
+          "answer": 3,
+          "focus": "main_idea",
+          "explain": "Đoạn 1: lúc đầu hầu như không nấu được gì; đoạn 2: cách tác giả luyện tập; đoạn 3: nấu được mười món, bạn bè khen → bài kể quá trình từ nấu dở thành nấu giỏi."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the writer's notebook tell us about how the writer learned?",
+          "choices": [
+            "The writer only cooked dishes that friends liked.",
+            "The writer learned from mistakes and tried to do better each time.",
+            "The writer never followed recipes.",
+            "The writer planned to write a cookbook."
+          ],
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Đoạn 2: tác giả ghi công thức và ghi điều sẽ thay đổi lần sau (ít muối, nhiều tỏi) → học từ lỗi của mình để lần sau làm tốt hơn. Tác giả có ghi công thức nên không phải \"never followed recipes\"."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 1, the word \"hardly\" is closest in meaning to …",
+          "choices": [
+            "with great effort",
+            "very well",
+            "almost not",
+            "sometimes"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Đoạn 1: \"I could hardly cook anything\" — hardly = hầu như không (almost not); bữa đầu tiên bị cháy. Đừng nhầm với hard (vất vả)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which of these is NOT mentioned as a way the writer improved?",
+          "choices": [
+            "Watching cooking videos",
+            "Taking lessons at a cooking school",
+            "Learning one new dish every week",
+            "Writing recipes in a notebook"
+          ],
+          "answer": 1,
+          "focus": "detail",
+          "explain": "Đoạn 2 kể: xem video nấu ăn, mỗi tuần học một món mới, ghi công thức vào sổ. Bài không nhắc tới lớp học nấu ăn."
         },
         {
           "type": "tf",
-          "statement": "The writer invited friends for dinner.",
+          "statement": "The writer's friends said good things about the soup.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 3: \"They said the soup was delicious\" — bạn bè khen súp ngon."
         },
         {
           "type": "tf",
-          "statement": "The friends did not like the soup.",
+          "statement": "The writer learned to cook ten meals in just one month.",
           "answer": "false",
           "ng": true,
-          "explain": "Họ khen món súp rất ngon."
+          "explain": "Đoạn 3: \"After six months, I could cook ten different meals\" — mất sáu tháng, không phải một tháng."
         },
         {
           "type": "tf",
           "statement": "The writer wants to become a professional chef.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài chỉ nói nấu ăn là cách thư giãn sau giờ làm (đoạn 3); không nói tác giả có muốn làm đầu bếp chuyên nghiệp hay không."
         },
         {
           "type": "gap",
@@ -365,6 +478,22 @@
             "work",
             "travel"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "At first, the writer was a very ___ cook, and the first meal went badly wrong. To get better, the writer learned a new ___ every week and wrote down what to ___ on the next try. Half a year later, the writer cooked dinner for some ___, and they loved the soup.",
+          "answers": [
+            "poor",
+            "dish",
+            "change",
+            "friends"
+          ],
+          "distractors": [
+            "skilled",
+            "language",
+            "parents"
+          ],
+          "explain": "Đoạn 1: hầu như không nấu được gì (nấu dở = poor); đoạn 2: mỗi tuần học một món mới (one new dish), ghi điều sẽ thay đổi (what I would change); đoạn 3: sau sáu tháng mời bạn bè (friends) ăn tối."
         }
       ]
     },
@@ -373,7 +502,7 @@
       "title": "Ngày đầu đại học",
       "summary": "Cảm xúc và bài học ngày đầu tiên.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "tip",
@@ -401,42 +530,105 @@
       "exercises": [
         {
           "type": "mcq",
-          "prompt": "Why was the writer late?",
+          "prompt": "Why did the writer arrive late for the first lecture?",
           "choices": [
-            "He got lost on campus.",
-            "The bus was late.",
-            "He overslept."
+            "The writer missed the bus.",
+            "The writer woke up too late.",
+            "The campus was so big that the writer got lost.",
+            "The lecturer changed the room."
           ],
-          "answer": 0
+          "answer": 2,
+          "focus": "detail",
+          "explain": "Đoạn 1: \"The campus was huge, and I got lost twice\" — khuôn viên rộng, bị lạc hai lần nên đến khi buổi giảng đã bắt đầu."
         },
         {
           "type": "mcq",
-          "prompt": "Who helped the writer?",
+          "prompt": "Why did Lan probably give the writer a map of the campus?",
           "choices": [
-            "Lan",
-            "The lecturer only",
-            "Nobody"
+            "So the writer would not get lost again",
+            "Because the writer wanted to buy one",
+            "Because Lan was the writer's teacher",
+            "Because the cafeteria was closed"
           ],
-          "answer": 0
+          "answer": 0,
+          "focus": "inference",
+          "explain": "Đoạn 1: tác giả bị lạc hai lần; đoạn 2: Lan đưa bản đồ khuôn viên → để tác giả không bị lạc nữa. Lan ngồi cạnh tác giả trong lớp, không phải giảng viên."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer say that most students had been just as worried?",
+          "choices": [
+            "To complain about the other students",
+            "To show that feeling nervous on the first day is normal",
+            "To explain why the lecture started late",
+            "To say that the writer was more worried than anyone else"
+          ],
+          "answer": 1,
+          "focus": "purpose",
+          "explain": "Đoạn 3: tác giả nhận ra phần lớn sinh viên cũng lo lắng như mình → hồi hộp ngày đầu là chuyện bình thường, ai cũng vậy."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"relieved\" is closest in meaning to …",
+          "choices": [
+            "angry",
+            "bored",
+            "still afraid",
+            "happy because a worry has gone"
+          ],
+          "answer": 3,
+          "focus": "vocab",
+          "explain": "Đoạn 3: \"tired but relieved\" — sau một ngày lo lắng, mọi việc ổn → relieved = nhẹ nhõm, vui vì nỗi lo đã qua."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the main idea of the text?",
+          "choices": [
+            "Universities should put more signs on campus.",
+            "The writer made many friends on the first day.",
+            "A difficult first day ended better than the writer expected.",
+            "The lecturer was angry because the writer was late."
+          ],
+          "answer": 2,
+          "focus": "main_idea",
+          "explain": "Đoạn 1: rất hồi hộp, bị lạc, đến muộn; đoạn 2–3: giảng viên thân thiện, Lan giúp đỡ, cuối ngày nhẹ nhõm → ngày đầu khó khăn nhưng kết thúc tốt hơn mong đợi. Bài chỉ nhắc một người bạn là Lan."
         },
         {
           "type": "tf",
-          "statement": "The lecture had already started when he arrived.",
-          "answer": "true",
-          "ng": true
-        },
-        {
-          "type": "tf",
-          "statement": "The writer was the only nervous student.",
+          "statement": "The lecturer was unkind to the writer for arriving late.",
           "answer": "false",
           "ng": true,
-          "explain": "Phần lớn sinh viên cũng lo lắng."
+          "explain": "Đoạn 2: \"the lecturer was friendly. She smiled and pointed to an empty seat\" — giảng viên thân thiện, mỉm cười chỉ chỗ ngồi."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer plans to do some things differently next time.",
+          "answer": "true",
+          "ng": true,
+          "explain": "Đoạn 3: lần sau tác giả sẽ xem thời khoá biểu từ tối hôm trước và ra khỏi nhà sớm hơn."
         },
         {
           "type": "tf",
           "statement": "The university is in Hanoi.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài không nói trường đại học ở thành phố nào."
+        },
+        {
+          "type": "summary",
+          "text": "On the first day, the writer felt very ___ and got lost on the big campus, so the class had already begun when the writer arrived. Luckily, the teacher was kind, and a student named Lan showed the writer around and gave the writer a ___. By evening, the writer understood that this feeling was ___ among new students, and decided to check the ___ the evening before next time.",
+          "answers": [
+            "nervous",
+            "map",
+            "common",
+            "timetable"
+          ],
+          "distractors": [
+            "calm",
+            "rare",
+            "menu"
+          ],
+          "explain": "Đoạn 1: cực kỳ hồi hộp (extremely nervous); đoạn 2: Lan đưa bản đồ (a map); đoạn 3: phần lớn sinh viên cũng lo lắng → cảm giác này phổ biến (common), lần sau sẽ xem thời khoá biểu (timetable) từ tối hôm trước."
         }
       ]
     },
@@ -445,7 +637,7 @@
       "title": "Chiếc ví bị mất",
       "summary": "Truyện về sự trung thực.",
       "level": "B1_2",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "tip",
@@ -472,43 +664,93 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What did Mai do with the wallet?",
-          "choices": [
-            "She took it to the police station.",
-            "She kept it.",
-            "She threw it away."
+          "type": "headings",
+          "headings": [
+            "A long wait in the rain",
+            "Doing the right thing without delay",
+            "Searching for the owner's house",
+            "A grateful owner and a kind refusal",
+            "An unexpected find at the bus stop"
           ],
-          "answer": 0
+          "answers": [
+            4,
+            1,
+            3
+          ],
+          "explain": "Đoạn 1: đang chờ xe buýt thì thấy chiếc ví — một phát hiện bất ngờ; đoạn 2: không do dự, mang ngay đến đồn công an; đoạn 3: cụ ông gọi cảm ơn, Mai từ chối phần thưởng. Bài không nói Mai đi tìm nhà chủ ví hay phải chờ lâu."
         },
         {
           "type": "mcq",
-          "prompt": "What was the money for?",
+          "prompt": "Why did Mai probably leave her phone number at the police station?",
           "choices": [
-            "School fees",
-            "A holiday",
-            "A new car"
+            "So the police could send her a reward",
+            "So the owner could contact her",
+            "Because she wanted to keep the money later",
+            "Because the police asked her to pay a fee"
           ],
-          "answer": 0
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Đoạn 2: Mai để lại số điện thoại; đoạn 3: hai ngày sau cụ ông gọi điện cảm ơn cô → số điện thoại giúp chủ ví liên lạc. Mai từ chối phần thưởng nên không phải để nhận thưởng."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does Mai's answer to the old man show about her?",
+          "choices": [
+            "She thought the reward was too small.",
+            "She was angry that he called so late.",
+            "She helped because it was right, not to get something back.",
+            "She wanted to meet his grandson."
+          ],
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Đoạn 3: \"Knowing that I helped you is enough\" — Mai thấy giúp được người khác là đủ, cô không cần nhận lại gì."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"refused\" is closest in meaning to …",
+          "choices": [
+            "accepted",
+            "asked for",
+            "forgot about",
+            "said no to"
+          ],
+          "answer": 3,
+          "focus": "vocab",
+          "explain": "Đoạn 3: \"He offered her a reward, but Mai refused\" — refused = từ chối (said no to); chữ \"but\" cho thấy cô không nhận."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer tell us that the money was for school fees?",
+          "choices": [
+            "To show how important the wallet was to its owner",
+            "To explain that Mai was a student",
+            "To show that the old man was rich",
+            "To explain why the wallet was brown"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Đoạn 3: số tiền là học phí của cháu nội cụ → cho thấy chiếc ví rất quan trọng với chủ, nên việc Mai trả lại càng có ý nghĩa."
         },
         {
           "type": "tf",
-          "statement": "Mai refused the reward.",
-          "answer": "true",
-          "ng": true
+          "statement": "Mai took the wallet home first and then went to the police.",
+          "answer": "false",
+          "ng": true,
+          "explain": "Đoạn 2: \"Instead of going home, she walked to the nearest police station\" — cô không về nhà mà đi thẳng đến đồn công an."
         },
         {
           "type": "tf",
           "statement": "The owner was a young woman.",
           "answer": "false",
           "ng": true,
-          "explain": "Chủ ví là một cụ ông."
+          "explain": "Đoạn 3: người gọi điện cảm ơn và là chủ ví là \"an old man\" — một cụ ông."
         },
         {
           "type": "tf",
-          "statement": "The wallet contained a credit card.",
+          "statement": "The old man lost the wallet on his way to the bank.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài không nói cụ ông làm rơi ví khi đang đi đâu."
         },
         {
           "type": "gap",
@@ -521,6 +763,22 @@
             "laugh",
             "sleep"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "On a wet evening, Mai found a wallet with a lot of ___ in it. She imagined how ___ the owner must be, so she took it to the police straight away. Later, an old man phoned to thank her and said the money was for his grandson's ___. Mai did not accept the ___ he offered.",
+          "answers": [
+            "money",
+            "worried",
+            "education",
+            "reward"
+          ],
+          "distractors": [
+            "photos",
+            "happy",
+            "holiday"
+          ],
+          "explain": "Đoạn 1: trong ví có nhiều tiền (a lot of money); đoạn 2: Mai biết chủ ví sẽ rất lo lắng (very worried); đoạn 3: tiền là học phí của cháu (school fees = education), Mai từ chối phần thưởng (a reward)."
         }
       ]
     },
@@ -529,7 +787,7 @@
       "title": "Biến đổi khí hậu và gia đình",
       "summary": "Những việc nhỏ ở nhà giúp giảm khí thải.",
       "level": "B1_2",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -557,42 +815,76 @@
       "exercises": [
         {
           "type": "mcq",
-          "prompt": "Which is one way to save electricity?",
+          "prompt": "What is the writer's main message?",
           "choices": [
-            "Unplug chargers when not in use",
-            "Leave lights on",
-            "Buy more appliances"
+            "Only governments can solve climate change.",
+            "Families should stop using air conditioners.",
+            "Small changes at home, made by many families, can really help.",
+            "Big companies use more electricity than homes."
           ],
-          "answer": 0
+          "answer": 2,
+          "focus": "main_idea",
+          "explain": "Đoạn 1: thói quen ở nhà cũng quan trọng; đoạn 3: các thay đổi đều không khó nhưng hàng triệu hộ gia đình cộng lại tạo hiệu quả thực sự. Đoạn 2 chỉ khuyên đặt máy lạnh ấm hơn, không bảo bỏ hẳn."
         },
         {
           "type": "mcq",
-          "prompt": "What does the writer say about the air conditioner?",
+          "prompt": "What can we infer about appliances with a high energy rating?",
           "choices": [
-            "Set it a little warmer",
-            "Never use it",
-            "Turn it to the coldest"
+            "They use less electricity.",
+            "They are cheaper to buy.",
+            "They make rooms warmer.",
+            "They are bigger than other appliances."
           ],
-          "answer": 0
+          "answer": 0,
+          "focus": "inference",
+          "explain": "Đoạn 2: lời khuyên chọn thiết bị có xếp hạng năng lượng cao nằm trong phần \"To save electricity\" → các thiết bị này tốn ít điện hơn. Bài không nói về giá hay kích thước."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer say \"even one degree helps\"?",
+          "choices": [
+            "To say that air conditioners are dangerous",
+            "To explain how to repair an air conditioner",
+            "To show that hot weather is getting worse",
+            "To show that a small change is still worth making"
+          ],
+          "answer": 3,
+          "focus": "purpose",
+          "explain": "Đoạn 2: đặt máy lạnh ấm hơn một chút, \"even one degree helps\" → thay đổi rất nhỏ cũng có ích, đáng làm."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"households\" is closest in meaning to …",
+          "choices": [
+            "companies",
+            "homes and the families in them",
+            "cities",
+            "countries"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Đoạn 3: \"millions of households can have a real effect\" — bài nói về thói quen ở nhà, nên households = hộ gia đình (các nhà và người sống trong đó)."
         },
         {
           "type": "tf",
-          "statement": "Eating less meat can reduce your carbon footprint.",
-          "answer": "true",
-          "ng": true
-        },
-        {
-          "type": "tf",
-          "statement": "The writer thinks only governments can help.",
+          "statement": "The writer believes that changes at home are too small to matter.",
           "answer": "false",
           "ng": true,
-          "explain": "Tác giả nói thói quen ở nhà cũng quan trọng."
+          "explain": "Đoạn 1: \"our daily habits at home also matter\"; đoạn 3: cộng lại, hàng triệu hộ gia đình tạo hiệu quả thực sự."
+        },
+        {
+          "type": "tf",
+          "statement": "Throwing away less food is one way to cut your carbon footprint.",
+          "answer": "true",
+          "ng": true,
+          "explain": "Đoạn 3: \"throwing away less food can also reduce your carbon footprint\" — bỏ ít thức ăn hơn giúp giảm khí thải."
         },
         {
           "type": "tf",
           "statement": "Solar panels are cheap now.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài không nhắc tới tấm pin mặt trời."
         },
         {
           "type": "gap",
@@ -605,6 +897,23 @@
             "party",
             "cost"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "Climate change is not only a job for governments and big ___; families can help too. At home, people can switch off lights, ___ chargers and keep the air conditioner a bit warmer. Eating less ___, walking more and wasting less food also help. These steps are ___, and when millions of families take them, the result is real.",
+          "answers": [
+            "companies",
+            "unplug",
+            "meat",
+            "easy"
+          ],
+          "distractors": [
+            "schools",
+            "buy",
+            "rice",
+            "difficult"
+          ],
+          "explain": "Đoạn 1: không chỉ là việc của chính phủ và công ty lớn (big companies); đoạn 2: rút sạc (unplug chargers); đoạn 3: ăn ít thịt (less meat), các thay đổi không khó (None of these changes is difficult → easy)."
         }
       ]
     },
@@ -613,7 +922,7 @@
       "title": "Mạng xã hội và thanh thiếu niên",
       "summary": "Lợi và hại của mạng xã hội.",
       "level": "B1_2",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -640,43 +949,96 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What is one benefit mentioned?",
-          "choices": [
-            "Staying in touch with friends",
-            "Better grades",
-            "More free time"
+          "type": "headings",
+          "headings": [
+            "Ways to use social media safely",
+            "Why teenagers prefer photos to words",
+            "Good things social media can bring",
+            "How strangers find young people online",
+            "Possible dangers of spending time online"
           ],
-          "answer": 0
+          "answers": [
+            2,
+            4,
+            0
+          ],
+          "explain": "Đoạn 1: lợi ích (giữ liên lạc, chia sẻ ảnh, dễ bắt chuyện); đoạn 2: rủi ro (giấc ngủ, việc học, tự tin, bình luận ác ý); đoạn 3: lời khuyên để dùng an toàn, khôn ngoan. Bài không nói vì sao thích ảnh hơn chữ hay người lạ tìm ra người trẻ thế nào."
         },
         {
           "type": "mcq",
-          "prompt": "What can comparing yourself with perfect photos do?",
+          "prompt": "In paragraph 3, the word \"upsets\" is closest in meaning to …",
           "choices": [
-            "Lower self-confidence",
-            "Improve sleep",
-            "Save time"
+            "makes you laugh",
+            "makes you unhappy",
+            "helps you",
+            "bores you"
           ],
-          "answer": 0
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Đoạn 3: \"talking to an adult if something upsets you\" — chỉ cần nói với người lớn khi có chuyện làm mình buồn, khó chịu → upsets = makes you unhappy."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why do experts suggest following people who make you feel good?",
+          "choices": [
+            "Because it helps you get more followers",
+            "Because it saves time",
+            "Because some posts can make you feel worse about yourself",
+            "Because strangers cannot see your photos then"
+          ],
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Đoạn 2: so sánh mình với những bức ảnh hoàn hảo có thể làm giảm tự tin; đoạn 3: vì vậy chuyên gia khuyên theo dõi người khiến mình thấy tích cực."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the writer's main opinion about social media?",
+          "choices": [
+            "It should be banned for teenagers.",
+            "It is only good for sharing photos.",
+            "It is safer than talking to adults.",
+            "It has good and bad sides, and how you use it matters."
+          ],
+          "answer": 3,
+          "focus": "main_idea",
+          "explain": "Đoạn 1 nêu lợi ích, đoạn 2 nêu rủi ro, đoạn 3 kết: \"Used wisely, social media can be a useful tool rather than a problem\" — có lợi có hại, quan trọng là cách dùng."
         },
         {
           "type": "tf",
-          "statement": "Experts recommend setting time limits.",
-          "answer": "true",
-          "ng": true
-        },
-        {
-          "type": "tf",
-          "statement": "The writer says social media has no benefits.",
+          "statement": "The text says social media can only harm teenagers.",
           "answer": "false",
           "ng": true,
-          "explain": "Bài nêu nhiều lợi ích."
+          "explain": "Đoạn 1 nêu nhiều lợi ích: giữ liên lạc với bạn, chia sẻ ảnh, giúp người nhút nhát bắt chuyện."
+        },
+        {
+          "type": "tf",
+          "statement": "Spending too much time online can make schoolwork suffer.",
+          "answer": "true",
+          "ng": true,
+          "explain": "Đoạn 2: \"Spending too much time online can affect sleep and schoolwork\" — ảnh hưởng xấu tới việc học."
         },
         {
           "type": "tf",
           "statement": "Teenagers spend six hours a day online.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài chỉ nói hầu hết thanh thiếu niên dùng mạng xã hội mỗi ngày (đoạn 1), không nói bao nhiêu giờ."
+        },
+        {
+          "type": "summary",
+          "text": "Social media helps young people keep in ___ with their friends, and it can make talking to others easier for ___ people. But there are risks: hours online can hurt sleep, and photos that look perfect may make teenagers feel less ___. Experts advise teenagers to ___ their screen time and to tell an adult when something is wrong.",
+          "answers": [
+            "touch",
+            "shy",
+            "confident",
+            "limit"
+          ],
+          "distractors": [
+            "rude",
+            "tired",
+            "increase"
+          ],
+          "explain": "Đoạn 1: giữ liên lạc (stay in touch), người nhút nhát (shy people) dễ bắt chuyện hơn; đoạn 2: ảnh hoàn hảo làm giảm tự tin (self-confidence); đoạn 3: đặt giới hạn thời gian (setting time limits)."
         }
       ]
     },
@@ -685,7 +1047,7 @@
       "title": "Lịch sử cà phê",
       "summary": "Từ dê Ethiopia đến ly cà phê hôm nay.",
       "level": "B1_2",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -712,43 +1074,96 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "Where does the legend say coffee was discovered?",
-          "choices": [
-            "Ethiopia",
-            "Brazil",
-            "Vietnam"
+          "type": "headings",
+          "headings": [
+            "How coffee beans are roasted",
+            "Coffee around the world today",
+            "A story about how coffee was found",
+            "Why goats love red berries",
+            "Coffee's journey to new lands"
           ],
-          "answer": 0
+          "answers": [
+            2,
+            4,
+            1
+          ],
+          "explain": "Đoạn 1: truyền thuyết về việc phát hiện cà phê; đoạn 2: cà phê lan từ châu Phi sang Ả Rập rồi châu Âu; đoạn 3: cà phê ngày nay trên thế giới và ở Việt Nam. Việc rang hạt chỉ là một chi tiết của đoạn 2; bài không nói vì sao dê thích quả mọng."
         },
         {
           "type": "mcq",
-          "prompt": "Who noticed the effect of the berries?",
+          "prompt": "In paragraph 1, the word \"lively\" is closest in meaning to …",
           "choices": [
-            "A goat herder",
-            "A king",
-            "A doctor"
+            "sleepy",
+            "full of energy",
+            "hungry",
+            "sick"
           ],
-          "answer": 0
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Đoạn 1: đàn dê \"became very lively after eating the red berries\" — lively = hăng hái, đầy năng lượng (full of energy); đây là tác dụng của cà phê."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer begin with \"According to a popular legend\"?",
+          "choices": [
+            "To show that the story may not be completely true",
+            "To prove that coffee was first grown in Vietnam",
+            "To explain how to make coffee",
+            "To say that goats are dangerous"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Đoạn 1: \"legend\" là truyền thuyết — câu chuyện được kể lại, không chắc chắn là thật → tác giả cho biết chuyện người chăn dê có thể không hoàn toàn đúng."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What can we infer about coffee in Vietnam from paragraph 3?",
+          "choices": [
+            "Vietnam grows more coffee than any other country.",
+            "People in Vietnam drink only black coffee.",
+            "Coffee is an important product for Vietnam.",
+            "Vietnam discovered coffee before Ethiopia."
+          ],
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Đoạn 3: cà phê là mặt hàng buôn bán hàng đầu thế giới và Việt Nam là nước sản xuất lớn thứ hai → cà phê là sản phẩm quan trọng của Việt Nam. Việt Nam đứng thứ hai (không phải nhất) và có cả cà phê sữa đặc."
         },
         {
           "type": "tf",
-          "statement": "Coffee reached Europe by the seventeenth century.",
-          "answer": "true",
-          "ng": true
-        },
-        {
-          "type": "tf",
-          "statement": "Vietnam is the largest coffee producer in the world.",
+          "statement": "Coffee reached Europe before it reached the Arab world.",
           "answer": "false",
           "ng": true,
-          "explain": "Việt Nam là nước sản xuất lớn thứ hai."
+          "explain": "Đoạn 2: cà phê lan từ châu Phi sang thế giới Ả Rập trước, rồi đến thế kỷ mười bảy mới tới châu Âu."
         },
         {
           "type": "tf",
-          "statement": "The first coffee house opened in Paris.",
+          "statement": "The goat herder noticed a change in his animals after they ate the berries.",
+          "answer": "true",
+          "ng": true,
+          "explain": "Đoạn 1: người chăn dê thấy đàn dê trở nên rất hăng hái sau khi ăn quả mọng đỏ."
+        },
+        {
+          "type": "tf",
+          "statement": "The goat herder became rich by selling coffee.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài không nói gì về việc người chăn dê bán cà phê hay trở nên giàu có."
+        },
+        {
+          "type": "summary",
+          "text": "A famous story says that coffee was first found in ___, when a man saw that his goats were very active after eating some red berries. Later, people in the Arab world began to ___ the beans and make a drink, and coffee houses became places to ___. Today coffee is sold around the world, and Vietnam is the ___ biggest grower.",
+          "answers": [
+            "Ethiopia",
+            "roast",
+            "meet",
+            "second"
+          ],
+          "distractors": [
+            "Brazil",
+            "sleep",
+            "third"
+          ],
+          "explain": "Đoạn 1: phát hiện ở Ethiopia; đoạn 2: người Ả Rập bắt đầu rang hạt (roasting the beans), quán cà phê là nơi gặp gỡ (meeting places); đoạn 3: Việt Nam là nước sản xuất lớn thứ hai (second largest producer)."
         }
       ]
     }

@@ -200,24 +200,59 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "How long had the friends been planning the party?",
-          "choices": [
-            "For two days",
-            "For two weeks",
-            "For two months"
+          "type": "headings",
+          "headings": [
+            "Bringing Mai home without telling her why",
+            "A happy evening full of surprises",
+            "Preparing a secret celebration",
+            "Choosing the perfect birthday present",
+            "A film that Mai did not enjoy"
           ],
-          "answer": 1
+          "answers": [
+            2,
+            0,
+            1
+          ],
+          "explain": "Đoạn 1: các bạn chuẩn bị bữa tiệc bí mật trong hai tuần; đoạn 2: tác giả rủ Mai đi xem phim rồi đưa Mai về nhà; đoạn 3: bữa tiệc bất ngờ và niềm vui của Mai. Bài không nói về quà hay việc Mai có thích bộ phim không."
         },
         {
           "type": "mcq",
-          "prompt": "Who bought the decorations?",
+          "prompt": "What can we infer about the writer's invitation to the cinema?",
           "choices": [
-            "Linh",
-            "Nam",
-            "The writer"
+            "The writer really wanted to see that film.",
+            "Mai had asked to see a film for her birthday.",
+            "It was a plan to keep Mai away from her flat.",
+            "The writer goes to the cinema every week."
           ],
-          "answer": 1
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Đoạn 1: nhiệm vụ của tác giả là giữ Mai tránh xa căn hộ; đoạn 2: tác giả rủ Mai đi xem phim → lời mời là một kế hoạch. Tác giả \"rarely go to the cinema\" nên không đi mỗi tuần."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What was the real reason the writer wanted to stop at Mai's flat?",
+          "choices": [
+            "To pick up Mai's umbrella",
+            "To meet Mai's parents",
+            "To get warmer clothes because it was cold",
+            "To bring Mai to the party her friends had prepared"
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Đoạn 2–3: tác giả nói là về lấy ô, nhưng khi mở cửa thì đèn bật và mọi người hô \"Happy birthday!\" → lý do thật là đưa Mai tới bữa tiệc; cái ô chỉ là cái cớ."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"suspicious\" is closest in meaning to …",
+          "choices": [
+            "very happy",
+            "unsure that something was true",
+            "angry",
+            "tired"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Đoạn 2: Mai \"suspicious at first, because I rarely go to the cinema\" — Mai nghi ngờ, thấy lạ vì tác giả hiếm khi đi xem phim."
         },
         {
           "type": "tf",
@@ -228,25 +263,33 @@
         },
         {
           "type": "tf",
-          "statement": "The writer took Mai to the cinema.",
+          "statement": "The writer believes that all the planning was worth it.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 3: \"I think the secret was worth the effort\" — tác giả thấy công sức bỏ ra là xứng đáng."
         },
         {
           "type": "tf",
           "statement": "Mai received a present from her parents.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài không nhắc tới bố mẹ Mai hay quà của họ."
         },
         {
-          "type": "mcq",
-          "prompt": "Why did the writer say they should go to her flat?",
-          "choices": [
-            "To pick up her umbrella",
-            "To watch another film",
-            "To meet her parents"
+          "type": "summary",
+          "text": "Mai's friends spent two weeks ___ a secret party for her birthday, and each of them had a different ___. The writer kept Mai busy by taking her to see a ___. When they got back to her flat, Mai was so ___ that she cried, and she said it was her best birthday ever.",
+          "answers": [
+            "organising",
+            "task",
+            "movie",
+            "happy"
           ],
-          "answer": 0
+          "distractors": [
+            "cancelling",
+            "present",
+            "sad"
+          ],
+          "explain": "Đoạn 1: lên kế hoạch hai tuần, mỗi người một việc (Linh làm bánh, Nam mua đồ trang trí); đoạn 2: đi xem phim (film = movie); đoạn 3: Mai khóc vì hạnh phúc (from happiness)."
         }
       ]
     }

@@ -13,7 +13,7 @@
       "title": "Vườn trên mái nhà",
       "summary": "Trồng rau giữa lòng thành phố.",
       "level": "B2_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -44,6 +44,37 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "Practical difficulties of farming high above the street",
+            "From neglected space to growing space",
+            "Benefits for buildings and streets, not only for the kitchen",
+            "A shared garden that brings neighbors together",
+            "How restaurants profit from selling rooftop vegetables",
+            "Choosing the right crops for a sunny roof"
+          ],
+          "answers": [
+            1,
+            2,
+            0,
+            3
+          ],
+          "explain": "Paragraph 1 describes rooftops changing from places for machines into vegetable gardens; paragraph 2 lists benefits beyond food (cooler floors, lower bills, less flooding); paragraph 3 explains the difficulties (weight, wind, sunlight); paragraph 4 says the biggest reward is social. Restaurants are only mentioned as one type of gardener, and crops that are hard to grow are only one detail in paragraph 3."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the main idea of the passage?",
+          "choices": [
+            "Rooftop gardens are spreading in cities and bring practical and social benefits, though they are not easy to set up.",
+            "Rooftop gardens are usually too heavy and too windy to be safe on most city buildings today.",
+            "Growing vegetables on roofs has become the cheapest and quickest way to feed a whole city.",
+            "Restaurants have led the rise of rooftop gardens because they want to sell fresh local food."
+          ],
+          "answer": 0,
+          "focus": "main_idea",
+          "explain": "The passage moves from the spread of rooftop gardens (paragraph 1) to their benefits (paragraph 2), their difficulties (paragraph 3) and their social reward (paragraph 4). The other choices exaggerate one detail or add claims the passage never makes."
+        },
+        {
           "type": "mcq",
           "prompt": "How can a green roof reduce electricity bills?",
           "choices": [
@@ -53,40 +84,60 @@
             "By replacing air-conditioning units"
           ],
           "answer": 2,
-          "explain": "Đoạn 2: cây hấp thụ nhiệt nên các tầng dưới mát hơn, giảm tiền điện."
+          "explain": "Paragraph 2: plants absorb heat, so the floors below stay noticeably cooler in summer and electricity bills fall."
         },
         {
           "type": "mcq",
-          "prompt": "What must engineers check before a rooftop garden is built?",
+          "prompt": "In paragraph 2, the word \"absorb\" is closest in meaning to …",
           "choices": [
-            "Whether the building can carry the extra weight",
-            "Whether residents want to join",
-            "How much sunlight the roof receives",
-            "Which crops sell best"
+            "release",
+            "produce",
+            "take in",
+            "measure"
           ],
-          "answer": 0,
-          "explain": "Đoạn 3: đất và nước nặng nên kỹ sư phải kiểm tra sức chịu tải của toà nhà."
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Paragraph 2: \"Plants absorb heat, so a green roof can keep the floors below noticeably cooler\" — the plants take in the heat, which keeps the rooms below cool."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What can be inferred from paragraph 4 about many of the neighbors before they started gardening?",
+          "choices": [
+            "They had argued about how the roof should be used.",
+            "They hardly knew each other.",
+            "They already met every weekend for other activities.",
+            "They had worked as professional gardeners."
+          ],
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Paragraph 4: \"neighbors who had never spoken now meet every weekend\", so before the gardens many of them did not know each other. Nothing suggests arguments or professional experience."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer begin paragraph 3 with \"However\"?",
+          "choices": [
+            "To change the topic from city roofs to farms in the countryside",
+            "To disagree with the people who run rooftop gardens",
+            "To show that green roofs do not really cool buildings",
+            "To introduce the difficulties after describing the advantages"
+          ],
+          "answer": 3,
+          "focus": "purpose",
+          "explain": "Paragraph 2 lists advantages; paragraph 3 starts with \"However\" to turn to the problems: weight, strong winds and intense sunlight. The writer does not deny the cooling effect or criticize the gardeners."
         },
         {
           "type": "tf",
           "statement": "Rooftop gardens can help reduce flooding in the streets.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 2: vườn làm chậm nước mưa, giúp đường phố đỡ ngập."
-        },
-        {
-          "type": "tf",
-          "statement": "Strong winds make every crop easy to grow on rooftops.",
-          "ng": true,
-          "answer": "false",
-          "explain": "Đoạn 3 nói gió mạnh và nắng gắt khiến một số cây khó trồng."
+          "explain": "Paragraph 2: gardens slow down rainwater, which helps prevent streets from flooding during heavy storms."
         },
         {
           "type": "tf",
           "statement": "Rooftop gardens produce more vegetables than farms of the same size.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không so sánh sản lượng với trang trại."
+          "explain": "The passage never compares how much rooftop gardens produce with what farms produce."
         },
         {
           "type": "gap",
@@ -100,6 +151,22 @@
             "medical"
           ],
           "explain": "Câu cuối: \"the biggest reward is social\" — hàng xóm gặp gỡ, chia nhau thu hoạch."
+        },
+        {
+          "type": "summary",
+          "text": "Flat city roofs that once had almost no purpose are increasingly being ___ into vegetable plots. Apart from food, these gardens keep the rooms underneath cooler and help prevent ___ in the streets. Before anything is planted, engineers must confirm that the building can bear the additional ___. For many gardeners, however, the greatest benefit is that former ___ now meet regularly to work together.",
+          "answers": [
+            "converted",
+            "flooding",
+            "weight",
+            "strangers"
+          ],
+          "distractors": [
+            "traffic",
+            "noise",
+            "colleagues"
+          ],
+          "explain": "Paragraph 1: rooftops are being \"turned into\" gardens; paragraph 2: gardens help prevent streets from flooding; paragraph 3: engineers check that the building \"can carry the extra weight\"; paragraph 4: neighbors \"who had never spoken\" now meet every weekend."
         }
       ]
     },
@@ -108,7 +175,7 @@
       "title": "Học ngoại ngữ khi đã lớn",
       "summary": "Người lớn có thật sự học ngoại ngữ kém hơn trẻ em?",
       "level": "B2_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -139,6 +206,37 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "An encouraging message for late starters",
+            "The grain of truth in a popular belief",
+            "Strengths that adult learners bring",
+            "Hours of contact: the real gap between children and adults",
+            "Why flashcards work better than textbooks",
+            "The best age to move abroad"
+          ],
+          "answers": [
+            1,
+            2,
+            3,
+            0
+          ],
+          "explain": "Paragraph 1 admits that the popular belief is partly true (accent); paragraph 2 lists adults' advantages; paragraph 3 says the real difference is time and exposure; paragraph 4 gives an encouraging conclusion for people who start late. Flashcards are only one example in paragraph 2, and the passage never names a best age to move abroad."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which statement best expresses the writer's main argument?",
+          "choices": [
+            "Children are better than adults at every part of language learning, especially grammar.",
+            "Adults should focus on grammar rules and accept that their accent will never improve.",
+            "Moving abroad is the only realistic way for an adult to learn a foreign language well.",
+            "Adults can learn a language very well if they get enough regular practice and exposure."
+          ],
+          "answer": 3,
+          "focus": "main_idea",
+          "explain": "Paragraphs 2–4 argue that adults have their own strengths, that the real difference is time and exposure, and that regular practice matters more than age. Moving abroad is only an example in paragraph 3, and paragraph 2 contradicts the idea that children are better at everything."
+        },
+        {
           "type": "mcq",
           "prompt": "What do young children usually achieve that most adults do not?",
           "choices": [
@@ -148,40 +246,60 @@
             "A native-like accent"
           ],
           "answer": 3,
-          "explain": "Đoạn 1: trẻ thường có giọng như người bản xứ, điều hầu hết người lớn không đạt trọn vẹn."
+          "explain": "Paragraph 1: children who grow up hearing a language usually develop a native-like accent, which most adult learners never fully achieve."
         },
         {
           "type": "mcq",
-          "prompt": "According to the writer, what may be the real difference between children and adults?",
+          "prompt": "In paragraph 3, the word \"exposure\" is closest in meaning to …",
           "choices": [
-            "Intelligence",
-            "Time and exposure",
-            "Motivation",
-            "The quality of teachers"
+            "danger",
+            "contact with the language",
+            "public attention",
+            "explanation of rules"
           ],
           "answer": 1,
-          "explain": "Đoạn 3: \"The real difference may be time and exposure.\""
+          "focus": "vocab",
+          "explain": "Paragraph 3: a child \"hears the language for many hours every day\" — exposure here means how much contact a learner has with the language, not danger or public attention."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the passage suggest about the popular belief that children simply learn languages better?",
+          "choices": [
+            "It contains some truth, but the difference may come mostly from time and exposure.",
+            "It is completely false, because adults always learn faster than children.",
+            "It is true for grammar but not for accent.",
+            "It shows that age matters more than regular practice."
+          ],
+          "answer": 0,
+          "focus": "inference",
+          "explain": "Paragraph 1 says there is \"some truth\" in the belief (accent), but paragraph 3 says the real difference \"may be time and exposure\". Adults are faster only in the first months (paragraph 2), and paragraph 4 says practice matters more than age."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention adults who move abroad in paragraph 3?",
+          "choices": [
+            "To recommend that every adult learner should leave their country",
+            "To explain why children develop better accents than adults",
+            "To show that adults can reach a high level when they have plenty of exposure",
+            "To argue that studying after work is a waste of time"
+          ],
+          "answer": 2,
+          "focus": "purpose",
+          "explain": "Paragraph 3: moving abroad is an example of adults being \"surrounded by a language\", after which \"they can reach a very high level\". It supports the point about exposure; it is not a recommendation for everyone."
         },
         {
           "type": "tf",
           "statement": "Adults often progress faster than children at the beginning.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 2: trong vài tháng đầu người lớn thường tiến bộ nhanh hơn."
-        },
-        {
-          "type": "tf",
-          "statement": "Adults cannot reach a high level in a foreign language.",
-          "ng": true,
-          "answer": "false",
-          "explain": "Đoạn 3: khi sống trong môi trường ngôn ngữ, người lớn có thể đạt trình độ rất cao."
+          "explain": "Paragraph 2: in the first months of study, adults often make faster progress than children."
         },
         {
           "type": "tf",
           "statement": "Flashcards are the most effective learning strategy.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài chỉ nêu flashcards là một chiến lược, không nói nó hiệu quả nhất."
+          "explain": "Paragraph 2 only mentions flashcards as one strategy; it never says which strategy is the most effective."
         },
         {
           "type": "gap",
@@ -195,6 +313,21 @@
             "teacher"
           ],
           "explain": "Câu cuối: \"regular practice matters far more than your age\"."
+        },
+        {
+          "type": "summary",
+          "text": "People often believe adults are poor language learners, and it is true that few adults ever sound like ___ speakers. However, adults can make sense of grammar explanations and use study ___, so they often move ahead faster at first. The key difference seems to be how much ___ each group has with the language. The lesson for late starters is not to worry about their ___, as long as they keep practicing.",
+          "answers": [
+            "native",
+            "strategies",
+            "contact",
+            "age"
+          ],
+          "distractors": [
+            "foreign",
+            "teachers"
+          ],
+          "explain": "Paragraph 1: most adults never fully achieve a \"native-like accent\"; paragraph 2: adults use \"strategies such as making flashcards\"; paragraph 3: the real difference is time and exposure (contact with the language); paragraph 4: regular practice matters far more than age."
         }
       ]
     },
@@ -203,7 +336,7 @@
       "title": "Thời trang nhanh",
       "summary": "Quần áo rẻ và cái giá ẩn phía sau.",
       "level": "B2_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -234,6 +367,37 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "What shoppers can do to slow the trend",
+            "Damage to the natural world",
+            "Clothes made fast and sold cheap",
+            "The human cost inside factories",
+            "Why second-hand shops are becoming fashionable",
+            "How designers invent a new style every week"
+          ],
+          "answers": [
+            2,
+            1,
+            3,
+            0
+          ],
+          "explain": "Paragraph 1 defines fast fashion (quick production, low prices, frequent buying); paragraph 2 describes the environmental cost; paragraph 3 the working conditions; paragraph 4 what consumers can do. Second-hand clothes are only one suggestion in paragraph 4, and the passage never explains how designers work."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the passage mainly about?",
+          "choices": [
+            "How fast-fashion companies manage to design and deliver new styles every week",
+            "The environmental and human costs of cheap, quickly made clothes, and how buyers can help",
+            "Why clothes made from synthetic fibers are better value than clothes made from natural ones",
+            "How clothing factories have improved wages and working hours in recent years"
+          ],
+          "answer": 1,
+          "focus": "main_idea",
+          "explain": "Paragraphs 2 and 3 describe the environmental and human costs, and paragraph 4 says what consumers can do. Weekly styles are only part of the definition in paragraph 1, and the passage says nothing positive about synthetic fibers or factory conditions."
+        },
+        {
           "type": "mcq",
           "prompt": "Why are many cheap garments a problem for the environment?",
           "choices": [
@@ -243,40 +407,60 @@
             "They cannot be sold second-hand."
           ],
           "answer": 1,
-          "explain": "Đoạn 2: nhiều quần áo rẻ làm từ sợi tổng hợp khó phân huỷ."
+          "explain": "Paragraph 2: many cheap garments are made from synthetic fibers that do not break down easily, and a large share ends up in landfills."
         },
         {
           "type": "mcq",
-          "prompt": "Which action does the writer NOT suggest?",
+          "prompt": "In paragraph 4, the word \"disposable\" is closest in meaning to …",
           "choices": [
-            "Buying second-hand clothes",
-            "Repairing clothes",
-            "Buying better-made items",
-            "Avoiding all clothing shops"
+            "easily available",
+            "fashionable",
+            "made to be thrown away after short use",
+            "expensive"
           ],
-          "answer": 3,
-          "explain": "Đoạn 4 nêu mua đồ chất lượng, mua đồ cũ, sửa đồ — không khuyên tránh mọi cửa hàng."
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Paragraph 4: \"disposable fashion\" refers to the clothes described earlier, which are replaced before they wear out and thrown away after a few wears (paragraphs 1–2)."
         },
         {
-          "type": "tf",
-          "statement": "Fast-fashion shops may offer new styles almost every week.",
-          "ng": true,
-          "answer": "true",
-          "explain": "Đoạn 1: cửa hàng có mẫu mới gần như mỗi tuần."
+          "type": "mcq",
+          "prompt": "Which of the following would the writer most likely approve of?",
+          "choices": [
+            "Buying a new outfit for every party",
+            "Choosing the cheapest shirt in the shop",
+            "Throwing away clothes once they go out of style",
+            "Having a favorite jacket repaired instead of buying a new one"
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Paragraph 4 recommends \"repairing what we already own\" and buying fewer items. The other choices increase demand for fast fashion, which the writer criticizes in paragraphs 1–3."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer describe factory conditions in paragraph 3?",
+          "choices": [
+            "To show that cheap clothing has a cost for people as well as for the environment",
+            "To explain how factories manage to produce clothes so quickly",
+            "To argue that every clothing factory in the world is dangerous",
+            "To suggest that factory workers should buy fewer clothes"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Paragraph 3 opens with \"There are also concerns about working conditions\": after the environmental cost (paragraph 2), the writer adds a human cost — low wages, long hours and little protection. It says \"some factories\", not every factory."
         },
         {
           "type": "tf",
           "statement": "Fast-fashion clothes are usually worn for many years.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 2: nhiều đồ bị vứt sau khi chỉ mặc vài lần."
+          "explain": "Paragraph 2: a large share of these clothes is thrown away after being worn only a few times, and paragraph 1 says shoppers replace items before they wear out."
         },
         {
           "type": "tf",
           "statement": "Most fast-fashion factories are located in one country.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không nói nhà máy đặt ở đâu."
+          "explain": "The passage does not say where the factories are."
         },
         {
           "type": "gap",
@@ -290,6 +474,21 @@
             "prices"
           ],
           "explain": "Đoạn 3: \"pay very low wages and require long hours\"."
+        },
+        {
+          "type": "summary",
+          "text": "Fast fashion depends on producing new designs quickly and selling them at low ___, so people are tempted to shop often. Production uses huge amounts of water and energy, and many cheap garments end up in ___ after only a few wears. In some factories, staff receive low wages, work long hours and are poorly ___ if they are injured. Shoppers can cut demand by buying better-quality clothes, choosing used items and ___ the clothes they already have.",
+          "answers": [
+            "prices",
+            "landfills",
+            "protected",
+            "mending"
+          ],
+          "distractors": [
+            "museums",
+            "replacing"
+          ],
+          "explain": "Paragraph 1: prices are low and shoppers buy often; paragraph 2: many clothes end up in landfills after a few wears; paragraph 3: workers may have little protection if they are injured; paragraph 4: repairing (mending) what we already own reduces demand."
         }
       ]
     },
@@ -298,7 +497,7 @@
       "title": "Thói quen hình thành thế nào",
       "summary": "Vòng lặp tín hiệu – hành động – phần thưởng.",
       "level": "B2_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -329,6 +528,37 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "The three stages of the habit loop",
+            "Swapping the behavior while keeping the trigger",
+            "Everyday actions we perform without thinking",
+            "Patience and small steps",
+            "Why willpower is the key to change",
+            "How the brain stores long-term memories"
+          ],
+          "answers": [
+            2,
+            0,
+            1,
+            3
+          ],
+          "explain": "Paragraph 1: many daily actions are automatic habits; paragraph 2: cue, routine and reward; paragraph 3: change the routine but keep the cue and reward; paragraph 4: new habits take time, so small steps work best. Paragraph 3 says willpower alone is less effective, and memory is not discussed."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which sentence best summarizes the passage?",
+          "choices": [
+            "Most habits are harmful, so people should use strong willpower to remove them quickly.",
+            "Psychologists still disagree strongly about how and why everyday habits are formed.",
+            "Habits follow a cue–routine–reward pattern, and knowing it can help people change gradually.",
+            "Snacking when bored is the most common bad habit, and walking is the only cure for it."
+          ],
+          "answer": 2,
+          "focus": "main_idea",
+          "explain": "Paragraph 2 describes the cue–routine–reward loop, paragraph 3 explains how understanding it helps people change, and paragraph 4 recommends small, consistent steps. The passage does not say most habits are harmful, and the snacking example is only an illustration."
+        },
+        {
           "type": "mcq",
           "prompt": "What is the correct order of the habit loop?",
           "choices": [
@@ -338,40 +568,60 @@
             "Cue, reward, routine"
           ],
           "answer": 0,
-          "explain": "Đoạn 2: tín hiệu (cue) → hành động (routine) → phần thưởng (reward)."
+          "explain": "Paragraph 2: first there is a cue, which triggers a routine, and finally there is a reward."
         },
         {
           "type": "mcq",
-          "prompt": "What does the writer recommend for changing a habit?",
+          "prompt": "In paragraph 2, the word \"triggers\" is closest in meaning to …",
           "choices": [
-            "Relying only on willpower",
-            "Removing all rewards",
-            "Keeping the cue and reward but replacing the routine",
-            "Changing many habits at once"
+            "prevents",
+            "rewards",
+            "repeats",
+            "sets off"
           ],
-          "answer": 2,
-          "explain": "Đoạn 3: giữ tín hiệu và phần thưởng, thay hành động."
+          "answer": 3,
+          "focus": "vocab",
+          "explain": "Paragraph 2: \"The cue triggers a routine\" — the cue starts the behavior, so triggers means sets off."
         },
         {
-          "type": "tf",
-          "statement": "A feeling can act as a cue.",
-          "ng": true,
-          "answer": "true",
-          "explain": "Đoạn 2: tín hiệu có thể là thời điểm, nơi chốn hay cảm xúc."
+          "type": "mcq",
+          "prompt": "In the example in paragraph 3, what is most likely the cue?",
+          "choices": [
+            "Going for a short walk",
+            "Feeling bored",
+            "Eating the snack",
+            "Feeling full after eating"
+          ],
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Paragraph 2 says a cue can be a feeling, and paragraph 3 describes someone \"who snacks when bored\": boredom comes first and starts the routine. Eating the snack is the old routine, and the walk is the new routine."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention brushing teeth and checking phones in paragraph 1?",
+          "choices": [
+            "To give familiar examples of things people do almost automatically",
+            "To warn readers that checking phones too often is harmful",
+            "To show that all habits are healthy",
+            "To compare good routines with bad ones"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Paragraph 1: these are examples of behaviors that happen \"almost automatically\", without conscious thought. The writer does not judge them as good or bad."
         },
         {
           "type": "tf",
           "statement": "Dramatic changes are usually better than small steps.",
           "ng": true,
           "answer": "false",
-          "explain": "Câu cuối: bước nhỏ, đều đặn thường hiệu quả hơn thay đổi đột ngột."
+          "explain": "Paragraph 4: small, consistent steps usually work better than dramatic changes."
         },
         {
           "type": "tf",
           "statement": "It takes exactly 21 days to form a new habit.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài chỉ nói cần thời gian, không nêu con số cụ thể."
+          "explain": "Paragraph 4 only says that new habits take time to form; it gives no number of days."
         },
         {
           "type": "gap",
@@ -385,6 +635,22 @@
             "drive"
           ],
           "explain": "Đoạn 3: \"might go for a short walk instead\"."
+        },
+        {
+          "type": "summary",
+          "text": "Many of our daily actions are performed ___, without deliberate thought. According to psychologists, each habit begins with a signal, continues with the behavior itself and ends with a pleasant ___ that makes us want to do it again. To break a bad habit, it often works better to ___ only the behavior than to depend on willpower. Because new habits develop slowly, ___ steps tend to succeed more than sudden changes.",
+          "answers": [
+            "automatically",
+            "reward",
+            "swap",
+            "small"
+          ],
+          "distractors": [
+            "consciously",
+            "punishment",
+            "keep"
+          ],
+          "explain": "Paragraph 1: behaviors happen \"almost automatically\"; paragraph 2: a reward makes the brain want to repeat the routine; paragraph 3: keep the cue and reward but replace (swap) the routine; paragraph 4: small, consistent steps work better than dramatic changes."
         }
       ]
     },
@@ -393,7 +659,7 @@
       "title": "Khoa học công dân",
       "summary": "Người bình thường góp dữ liệu cho nghiên cứu.",
       "level": "B2_2",
-      "minutes": 7,
+      "minutes": 9,
       "blocks": [
         {
           "type": "tip",
@@ -424,6 +690,37 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "Ways to keep amateur data reliable",
+            "Research that is not only for professionals",
+            "A wide variety of tasks on a huge scale",
+            "What volunteers gain in return",
+            "Why scientists prefer to work in laboratories",
+            "Paying the public to collect data"
+          ],
+          "answers": [
+            1,
+            2,
+            0,
+            3
+          ],
+          "explain": "Paragraph 1 introduces volunteers doing research outside laboratories; paragraph 2 shows the range of projects and the large areas covered; paragraph 3 explains how projects deal with mistakes; paragraph 4 describes the benefits for participants and the public. Payment and a preference for laboratories are never mentioned."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the main idea of the passage?",
+          "choices": [
+            "Data collected by volunteers contains so many mistakes that scientists cannot use it.",
+            "Smartphones have now replaced laboratories as the main place where science happens.",
+            "Ordinary volunteers make useful contributions to research, and they benefit from taking part too.",
+            "Most new discoveries are now made by members of the public without help from scientists."
+          ],
+          "answer": 2,
+          "focus": "main_idea",
+          "explain": "The passage explains how volunteers help collect and analyze data (paragraphs 1–2), how mistakes are handled (paragraph 3) and how participants benefit (paragraph 4). Paragraph 3 says errors can be managed, so the data is not useless."
+        },
+        {
           "type": "mcq",
           "prompt": "What is the main advantage of having thousands of volunteers?",
           "choices": [
@@ -433,40 +730,60 @@
             "Data can be gathered across very large areas."
           ],
           "answer": 3,
-          "explain": "Đoạn 2: nhờ hàng nghìn người, dữ liệu thu được trên vùng rộng hơn nhiều so với nhóm nhỏ."
+          "explain": "Paragraph 2: because thousands of people take part, researchers can gather information across areas far larger than any small team could cover."
         },
         {
           "type": "mcq",
-          "prompt": "How do projects reduce errors in volunteer data?",
+          "prompt": "In paragraph 2, the word \"remarkably\" is closest in meaning to …",
           "choices": [
-            "They only accept data from scientists.",
-            "They ask several volunteers to check the same item.",
-            "They pay volunteers for accuracy.",
-            "They limit each project to one country."
+            "slightly",
+            "surprisingly",
+            "officially",
+            "recently"
           ],
           "answer": 1,
-          "explain": "Đoạn 3: cung cấp tài liệu, nhờ nhiều người kiểm tra cùng mục, dùng thống kê."
+          "focus": "vocab",
+          "explain": "Paragraph 2: \"The range of projects is remarkably wide\" — the examples, from birds to galaxies, show that the range is surprisingly (unusually) wide."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why do projects probably ask several volunteers to check the same item?",
+          "choices": [
+            "Because each volunteer is paid for every item checked",
+            "Because there are not enough items for everyone",
+            "Because scientists want to test volunteers' memory",
+            "Because an answer that several people agree on is less likely to be wrong"
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Paragraph 3 lists this as a way to deal with mistakes in non-expert data: if several people independently give the same answer, it is less likely to be an error. The passage mentions no payment and no shortage of items."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention counting birds and classifying galaxies?",
+          "choices": [
+            "To show how wide the range of projects is",
+            "To show that volunteers need expensive equipment",
+            "To suggest that astronomy projects are the most popular",
+            "To explain how volunteers are trained"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Paragraph 2 begins \"The range of projects is remarkably wide\" and then gives these very different examples to support that point."
         },
         {
           "type": "tf",
-          "statement": "Some volunteers classify images of galaxies online.",
+          "statement": "Some citizen science tasks can be done without going outdoors.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 2 nêu ví dụ phân loại ảnh thiên hà trên mạng."
-        },
-        {
-          "type": "tf",
-          "statement": "The writer claims volunteer data is always perfectly accurate.",
-          "ng": true,
-          "answer": "false",
-          "explain": "Đoạn 3: dữ liệu của người không chuyên có thể có sai sót."
+          "explain": "Paragraph 2: volunteers can \"classify images of distant galaxies online\", which does not require going outside."
         },
         {
           "type": "tf",
           "statement": "Most citizen science volunteers are retired people.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không nói về độ tuổi tình nguyện viên."
+          "explain": "The passage does not mention the age of the volunteers."
         },
         {
           "type": "gap",
@@ -480,6 +797,21 @@
             "government"
           ],
           "explain": "Câu cuối: \"brings science closer to the public\"."
+        },
+        {
+          "type": "summary",
+          "text": "In citizen science, members of the public help researchers by gathering or examining ___, often with nothing more than a phone. Because so many people take part, studies can cover much larger ___ than a small professional team could. Since volunteers may make errors, projects provide ___, have several people review each item and use statistics to spot strange results. Participants say they observe nature more closely and feel that their work has a real ___.",
+          "answers": [
+            "data",
+            "regions",
+            "training",
+            "purpose"
+          ],
+          "distractors": [
+            "salaries",
+            "deadline"
+          ],
+          "explain": "Paragraph 1: volunteers collect or analyze data; paragraph 2: they cover areas far larger than a small team could; paragraph 3: projects provide training materials; paragraph 4: participants feel \"a sense of purpose\"."
         }
       ]
     },
@@ -488,7 +820,7 @@
       "title": "Tuần làm việc bốn ngày",
       "summary": "Làm ít ngày hơn có giảm năng suất?",
       "level": "B2_2",
-      "minutes": 7,
+      "minutes": 9,
       "blocks": [
         {
           "type": "tip",
@@ -519,6 +851,37 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "Limits and drawbacks of a shorter week",
+            "A challenge to a long-standing working pattern",
+            "Trial results that surprised many",
+            "The bigger question behind the debate",
+            "Why governments are making the four-day week law",
+            "Cutting the number of unnecessary meetings"
+          ],
+          "answers": [
+            1,
+            2,
+            0,
+            3
+          ],
+          "explain": "Paragraph 1: the five-day week was standard, but companies are testing four days; paragraph 2: the trials gave surprisingly good results; paragraph 3: the model does not suit every industry or every worker; paragraph 4: the real question is how to organize work. Meetings are only one reason in paragraph 2, and laws are never mentioned."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the writer's overall view of the four-day week?",
+          "choices": [
+            "It works so well that it should replace the five-day week in every industry soon.",
+            "It lowers productivity so much that the companies testing it should give it up.",
+            "It can bring real benefits but does not suit every job, and better organization matters most.",
+            "It mainly helps employers save money, while employees end up feeling more stressed."
+          ],
+          "answer": 2,
+          "focus": "main_idea",
+          "explain": "Paragraph 2 reports benefits, paragraph 3 says the model \"does not suit every industry\", and paragraph 4 says the debate is really about organizing work more intelligently. Paragraph 2 contradicts the claims about lower productivity and more stress."
+        },
+        {
           "type": "mcq",
           "prompt": "Why did productivity often stay the same during the trials?",
           "choices": [
@@ -528,40 +891,60 @@
             "Salaries were increased."
           ],
           "answer": 0,
-          "explain": "Đoạn 2: ít lãng phí thời gian họp và quay lại làm việc khi đã nghỉ ngơi."
+          "explain": "Paragraph 2: staff wasted less time in unnecessary meetings and returned to work feeling rested."
         },
         {
           "type": "mcq",
-          "prompt": "What problem might hospitals face with a four-day week?",
+          "prompt": "In paragraph 3, the word \"squeezing\" is closest in meaning to …",
           "choices": [
-            "They would need to close one day a week.",
-            "Patients would refuse treatment.",
-            "They may need to hire additional staff.",
-            "Doctors would earn less."
+            "spreading out",
+            "pressing into a smaller space",
+            "handing over",
+            "putting off"
           ],
-          "answer": 2,
-          "explain": "Đoạn 3: các ngành hoạt động hằng ngày có thể phải tuyển thêm nhân sự."
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Paragraph 3: \"squeezing their work into four days makes those days more intense\" — the same work is pressed into less time, so each day is busier."
         },
         {
-          "type": "tf",
-          "statement": "In the trials described, employees kept the same salary.",
-          "ng": true,
-          "answer": "true",
-          "explain": "Đoạn 1: làm ít giờ hơn với cùng mức lương."
+          "type": "mcq",
+          "prompt": "Why might a four-day week be easier to introduce in an office than in a hospital?",
+          "choices": [
+            "Office workers usually earn lower salaries than hospital staff.",
+            "Hospitals hold far more unnecessary meetings than offices.",
+            "Office work is never as intense as work in a hospital.",
+            "An office does not usually need to stay open every day of the week."
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Paragraph 1 describes the five-day week of office workers, while paragraph 3 says hospitals \"must operate every day\", so a shorter week there may require more staff. The passage does not compare salaries, meetings or intensity between the two."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the purpose of the final paragraph?",
+          "choices": [
+            "To shift attention from the number of days to how work is organized",
+            "To conclude that the four-day week has failed",
+            "To give more examples of successful trials",
+            "To list the industries that should avoid the model"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Paragraph 4: the debate is \"less about whether a four-day week is good or bad and more about how work can be organized more intelligently, whatever the number of days\"."
         },
         {
           "type": "tf",
           "statement": "Every employee finds the four-day week less intense.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 3: một số người thấy những ngày làm căng thẳng hơn."
+          "explain": "Paragraph 3: some employees find that squeezing their work into four days makes those days more intense."
         },
         {
           "type": "tf",
           "statement": "The four-day week is now required by law in some countries.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không đề cập luật pháp."
+          "explain": "The passage does not mention any laws."
         },
         {
           "type": "gap",
@@ -575,6 +958,21 @@
             "quickly"
           ],
           "explain": "Câu cuối: \"how work can be organized more intelligently\"."
+        },
+        {
+          "type": "summary",
+          "text": "For decades, office staff have normally worked five days a week, but some firms have tested a shorter week with no cut in ___. Many found that output did not fall, partly because employees spent less time in pointless ___ and came back refreshed. Staff also felt less ___ and could handle family duties more easily. However, services that run every day may have to hire extra ___, and some employees find their remaining days more intense.",
+          "answers": [
+            "pay",
+            "meetings",
+            "stressed",
+            "workers"
+          ],
+          "distractors": [
+            "hours",
+            "rested"
+          ],
+          "explain": "Paragraph 1: employees work fewer hours \"for the same salary\"; paragraph 2: staff wasted less time in unnecessary meetings and reported lower stress; paragraph 3: services that operate every day may need to hire additional staff."
         }
       ]
     },
@@ -583,7 +981,7 @@
       "title": "Vi nhựa",
       "summary": "Những mảnh nhựa nhỏ có mặt khắp nơi.",
       "level": "B2_2",
-      "minutes": 7,
+      "minutes": 9,
       "blocks": [
         {
           "type": "tip",
@@ -614,49 +1012,95 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "How are most microplastics created?",
-          "choices": [
-            "They are made for face scrubs.",
-            "They form in drinking water.",
-            "Larger plastic items break apart.",
-            "Animals produce them."
+          "type": "headings",
+          "headings": [
+            "Why prevention matters more than cleaning up",
+            "Tiny particles found almost everywhere",
+            "What microplastics are and where they come from",
+            "Harm to wildlife and open questions about people",
+            "New machines that clean plastic from the ocean",
+            "Why face scrubs were banned"
           ],
-          "answer": 2,
-          "explain": "Đoạn 1: phần lớn hình thành khi đồ nhựa lớn dần vỡ ra."
+          "answers": [
+            2,
+            1,
+            3,
+            0
+          ],
+          "explain": "Paragraph 1 defines microplastics and explains where they come from; paragraph 2 shows how far they travel and names washing as another source; paragraph 3 covers the effects on animals and the limited evidence about humans; paragraph 4 explains why prevention is the priority. Paragraph 4 says removal is almost impossible, and the passage never mentions a ban on face scrubs."
         },
         {
           "type": "mcq",
-          "prompt": "What do most experts see as the priority?",
+          "prompt": "Which statement best summarizes the passage?",
           "choices": [
-            "Prevention",
-            "Studying deep trenches",
-            "Cleaning the oceans",
-            "Banning washing machines"
+            "Microplastics are mainly a problem caused by face scrubs, which are now less common.",
+            "Scientists have shown that microplastics are now the biggest threat to human health.",
+            "Washing machines are the main source of microplastics, so filters will solve the problem.",
+            "Microplastics spread widely and harm wildlife, so preventing them is the priority."
+          ],
+          "answer": 3,
+          "focus": "main_idea",
+          "explain": "The passage defines microplastics (paragraph 1), shows how widely they spread (paragraph 2), describes harm to marine animals (paragraph 3) and says prevention is the priority (paragraph 4). Face scrubs and washing are only examples of sources, and paragraph 3 says the evidence on human health is limited."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"mistake\" is closest in meaning to …",
+          "choices": [
+            "confuse",
+            "refuse",
+            "search for",
+            "notice"
           ],
           "answer": 0,
-          "explain": "Đoạn 4: loại bỏ gần như không thể nên ưu tiên là phòng ngừa."
+          "focus": "vocab",
+          "explain": "Paragraph 3: \"Marine animals frequently mistake these particles for food\" — they confuse the plastic with food and swallow it."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What can be inferred from paragraph 1 about the tiny beads in face scrubs?",
+          "choices": [
+            "They are the main source of microplastics today.",
+            "They are less common now than they used to be.",
+            "They are larger than five millimeters.",
+            "They break down quickly in sea water."
+          ],
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Paragraph 1: the beads were \"once common in face scrubs\", which suggests they are less common now. The same paragraph says most microplastics come from larger items breaking apart, so the beads are not the main source."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention deep ocean trenches and remote mountain tops?",
+          "choices": [
+            "To describe where most plastic waste is dumped",
+            "To explain where drinking water comes from",
+            "To show how far microplastics can travel",
+            "To show that microplastics are heavier than expected"
+          ],
+          "answer": 2,
+          "focus": "purpose",
+          "explain": "Paragraph 2: \"Because they are so small and light, microplastics travel easily\"; the trenches and mountain tops are examples of how far they reach."
         },
         {
           "type": "tf",
-          "statement": "Microplastics have been found on remote mountain tops.",
+          "statement": "Swallowed microplastics can fill an animal's stomach without feeding it.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 2 nêu đỉnh núi hẻo lánh."
+          "explain": "Paragraph 3: once swallowed, plastic can fill marine animals' stomachs \"without providing any nutrition\"."
         },
         {
           "type": "tf",
           "statement": "Scientists have proved that microplastics seriously damage human health.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 3: bằng chứng về sức khoẻ con người còn hạn chế."
+          "explain": "Paragraph 3: scientists are still investigating the effects on human health, and so far the evidence is limited."
         },
         {
           "type": "tf",
           "statement": "Plastic bottles break apart faster than plastic bags.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không so sánh tốc độ phân rã của chai và túi."
+          "explain": "The passage does not compare how fast bottles and bags break apart."
         },
         {
           "type": "gap",
@@ -670,6 +1114,22 @@
             "bottles"
           ],
           "explain": "Đoạn 2: \"each wash can release thousands of fibers\"."
+        },
+        {
+          "type": "summary",
+          "text": "Microplastics are plastic fragments under five millimeters long. A few are made at that size on purpose, but most appear as bigger objects gradually ___. Being tiny and light, they spread to places as distant as ocean trenches, and laundry adds more because synthetic clothes shed ___ in the wash. Sea creatures often swallow them as if they were ___, while their effect on people is still unclear. Since cleaning them up is almost impossible, experts focus on ___.",
+          "answers": [
+            "fall apart",
+            "fibers",
+            "food",
+            "prevention"
+          ],
+          "distractors": [
+            "beads",
+            "medicine",
+            "removal"
+          ],
+          "explain": "Paragraph 1: most microplastics form when larger items break apart; paragraph 2: each wash releases thousands of fibers; paragraph 3: animals mistake them for food; paragraph 4: removal is almost impossible, so the priority is prevention."
         }
       ]
     },
@@ -678,7 +1138,7 @@
       "title": "Vì sao ta trì hoãn",
       "summary": "Trì hoãn là chuyện cảm xúc hơn là lười biếng.",
       "level": "B2_2",
-      "minutes": 7,
+      "minutes": 9,
       "blocks": [
         {
           "type": "tip",
@@ -705,49 +1165,93 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "According to many psychologists, what is procrastination mainly about?",
-          "choices": [
-            "Laziness",
-            "Lack of intelligence",
-            "Poor time management",
-            "Avoiding unpleasant emotions"
+          "type": "headings",
+          "headings": [
+            "Practical ways to stop putting things off",
+            "A familiar habit with a common explanation",
+            "An emotional escape that does not last",
+            "Why strict timetables are the best solution",
+            "How social media is designed to distract us"
           ],
-          "answer": 3,
-          "explain": "Đoạn 2: chủ yếu là cách né tránh cảm xúc khó chịu."
+          "answers": [
+            1,
+            2,
+            0
+          ],
+          "explain": "Paragraph 1 describes procrastination and the usual explanation (laziness or poor time management); paragraph 2 presents it as an escape from unpleasant emotions that brings only short relief; paragraph 3 suggests practical strategies. Paragraph 3 says strict schedules alone will not solve the problem, and social media is only an example in paragraph 1."
         },
         {
           "type": "mcq",
-          "prompt": "Which strategy is mentioned in the text?",
+          "prompt": "What is the main point of the passage?",
           "choices": [
-            "Working all night before a deadline",
-            "Starting with just five minutes of work",
-            "Punishing yourself after falling behind",
-            "Removing all deadlines"
+            "Procrastination is caused by laziness and can be cured with a stricter daily plan.",
+            "Procrastination is mostly emotional, so kind, practical strategies help more than strict schedules.",
+            "Social media has become the main reason why people delay important tasks today.",
+            "Deadlines make difficult tasks less stressful and easier to finish on time."
           ],
           "answer": 1,
-          "explain": "Đoạn 3 nêu bắt đầu chỉ với năm phút làm việc."
+          "focus": "main_idea",
+          "explain": "Paragraph 2 says many psychologists see procrastination as a way of avoiding unpleasant emotions, and paragraph 3 recommends small steps and self-kindness rather than strict schedules alone. Paragraph 1 mentions laziness only as the common explanation that the passage questions."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"harshly\" is closest in meaning to …",
+          "choices": [
+            "gently",
+            "quickly",
+            "severely",
+            "secretly"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Paragraph 3: \"treating oneself kindly rather than harshly\" — harshly is the opposite of kindly, so it means severely or strictly."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What would the writer most likely say to someone who criticizes themselves after missing a deadline?",
+          "choices": [
+            "Make your schedule even stricter next time.",
+            "You are simply lazy and need more discipline.",
+            "Missing a deadline never really matters.",
+            "Being kinder to yourself may make you less likely to delay next time."
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Paragraph 3: people who forgive themselves for procrastinating are less likely to do it again, and the writer advises treating oneself kindly rather than harshly. The writer questions both strict schedules alone and the laziness explanation."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention tidying a desk in paragraph 1?",
+          "choices": [
+            "As an example of a less useful activity people do instead of an important task",
+            "To recommend a good way to prepare for work",
+            "To show that people who procrastinate are usually tidy",
+            "To explain how to manage time better"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Paragraph 1: people delay an important task \"while doing something less useful, such as tidying a desk\"."
+        },
+        {
+          "type": "tf",
+          "statement": "Feeling bored by a task can lead a person to put it off.",
+          "ng": true,
+          "answer": "true",
+          "explain": "Paragraph 2: when a task makes us feel anxious, bored or afraid of failing, putting it off brings immediate relief."
         },
         {
           "type": "tf",
           "statement": "The relief from putting off a task lasts a long time.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 2: sự nhẹ nhõm ngắn ngủi (short-lived)."
-        },
-        {
-          "type": "tf",
-          "statement": "People who forgive themselves are less likely to procrastinate again.",
-          "ng": true,
-          "answer": "true",
-          "explain": "Câu cuối đoạn 3 nói vậy."
+          "explain": "Paragraph 2: the relief is short-lived, and the task usually becomes more stressful as the deadline approaches."
         },
         {
           "type": "tf",
           "statement": "Students procrastinate more than office workers.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không so sánh các nhóm người."
+          "explain": "The passage does not compare different groups of people."
         },
         {
           "type": "gap",
@@ -761,6 +1265,22 @@
             "rules"
           ],
           "explain": "Đoạn 3: \"breaking a large task into small, clear steps\"."
+        },
+        {
+          "type": "summary",
+          "text": "People often explain procrastination as ___ or bad planning. Many psychologists, however, believe we delay tasks to escape uncomfortable ___ such as worry or boredom. Putting a task off feels good at first, but the pressure ___ as the deadline gets closer. Instead of relying only on strict timetables, it helps to divide big jobs into smaller parts, begin with a few minutes, and avoid being ___ on yourself.",
+          "answers": [
+            "laziness",
+            "feelings",
+            "grows",
+            "hard"
+          ],
+          "distractors": [
+            "intelligence",
+            "disappears",
+            "easy"
+          ],
+          "explain": "Paragraph 1: procrastination is commonly blamed on laziness; paragraph 2: it is a way of avoiding unpleasant emotions, and the task becomes more stressful as the deadline approaches; paragraph 3: treat yourself kindly rather than harshly."
         }
       ]
     },
@@ -769,7 +1289,7 @@
       "title": "Du lịch quá tải",
       "summary": "Khi điểm đến bị khách du lịch nhấn chìm.",
       "level": "B2_2",
-      "minutes": 7,
+      "minutes": 9,
       "blocks": [
         {
           "type": "tip",
@@ -800,49 +1320,95 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "What visitors themselves can do",
+            "When visitors become a burden",
+            "How daily life changes for residents",
+            "Official responses and their limits",
+            "The rise of cheap flights",
+            "Why souvenir shops earn the most money"
+          ],
+          "answers": [
+            1,
+            2,
+            3,
+            0
+          ],
+          "explain": "Paragraph 1 defines overtourism as tourism that damages places and residents' lives; paragraph 2 describes its effects on residents in historic towns; paragraph 3 covers the authorities' solutions and their mixed results; paragraph 4 says what travelers can do. Flights and souvenir-shop profits are never discussed."
+        },
+        {
           "type": "mcq",
-          "prompt": "Why do rents rise in some historic towns?",
+          "prompt": "What is the passage mainly about?",
           "choices": [
-            "Hotels are closing.",
-            "Apartments become short-term holiday rentals.",
-            "Tourist taxes are added to rents.",
-            "Residents buy souvenir stores."
+            "Why tourism damages every destination and should be strictly limited everywhere",
+            "How travelers can find cheap holiday rentals in small and popular historic towns",
+            "How too many visitors can harm places and residents, and what can be done about it",
+            "How traditional shops in historic towns have changed over the last hundred years"
+          ],
+          "answer": 2,
+          "focus": "main_idea",
+          "explain": "Paragraph 1 defines overtourism, paragraph 2 describes its effects, and paragraphs 3–4 describe what authorities and travelers can do. Paragraph 1 also says tourism brings money and jobs, so it does not damage every destination."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"converted\" is closest in meaning to …",
+          "choices": [
+            "sold quickly",
+            "changed into something else",
+            "repaired",
+            "rented cheaply"
           ],
           "answer": 1,
-          "explain": "Đoạn 2: tiền thuê tăng khi căn hộ chuyển thành chỗ cho thuê ngắn hạn."
+          "focus": "vocab",
+          "explain": "Paragraph 2: \"apartments are converted into short-term holiday rentals\" — homes are changed into rentals for tourists."
         },
         {
           "type": "mcq",
-          "prompt": "Why have the results of local solutions been mixed?",
+          "prompt": "What can be inferred about some residents mentioned in paragraph 2?",
           "choices": [
-            "Tourists ignore the limits.",
-            "The campaigns were never launched.",
-            "Taxes are too low.",
-            "Reducing crowds can also reduce business income."
+            "Most of them now own souvenir stores.",
+            "They are pleased that traditional shops are disappearing.",
+            "They earn much more from tourism than before.",
+            "They may no longer be able to afford to live in their neighborhoods."
           ],
           "answer": 3,
-          "explain": "Đoạn 3: giảm đám đông cũng có thể giảm thu nhập doanh nghiệp."
+          "focus": "inference",
+          "explain": "Paragraph 2: rents rise and some residents feel \"pushed out of their own neighborhoods\", which suggests that housing is becoming too expensive for them. Nothing suggests they own souvenir stores or welcome the changes."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer point out that reducing crowds can also reduce income?",
+          "choices": [
+            "To explain why the solutions have had mixed results",
+            "To argue that tourist taxes should be removed",
+            "To show that businesses support daily visitor limits",
+            "To suggest that overtourism is not a real problem"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Paragraph 3: \"Results have been mixed, as reducing crowds can also reduce income for businesses that depend on tourists.\" The point explains why the measures are only partly successful."
         },
         {
           "type": "tf",
-          "statement": "Some destinations have introduced daily limits on visitor numbers.",
+          "statement": "Some measures try to spread tourists across different places and times of the year.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 3 nêu giới hạn số khách mỗi ngày."
+          "explain": "Paragraph 3: campaigns encourage travelers to visit lesser-known areas or to come outside the peak season."
         },
         {
           "type": "tf",
-          "statement": "The writer advises travelers to visit as many places as possible in a short time.",
+          "statement": "The writer advises travelers to spend only a short time in each place.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 4 khuyên ở lâu hơn tại một nơi."
+          "explain": "Paragraph 4: the writer advises travelers to stay longer in one place."
         },
         {
           "type": "tf",
           "statement": "Overtourism first became a problem in the 1990s.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không nói vấn đề bắt đầu khi nào."
+          "explain": "The passage does not say when the problem began."
         },
         {
           "type": "gap",
@@ -856,6 +1422,22 @@
             "borders"
           ],
           "explain": "Câu cuối: \"respecting the customs of the communities\"."
+        },
+        {
+          "type": "summary",
+          "text": "Tourism can support local economies, but in some places the sheer number of visitors damages the environment and makes life harder for ___. In small old towns, streets fill up, housing becomes more ___ as flats are turned into holiday lets, and traditional shops give way to souvenir sellers. Authorities have tried visitor caps, special ___ and campaigns to spread tourists out, with mixed success. Visitors can also help by staying longer, supporting ___ businesses and respecting the traditions of their hosts.",
+          "answers": [
+            "residents",
+            "expensive",
+            "taxes",
+            "local"
+          ],
+          "distractors": [
+            "affordable",
+            "discounts",
+            "international"
+          ],
+          "explain": "Paragraph 1: overtourism harms the quality of life of local residents; paragraph 2: rents rise as apartments become holiday rentals; paragraph 3: authorities use daily limits, tourist taxes and campaigns; paragraph 4: travelers can spend money in locally owned businesses."
         }
       ]
     },
@@ -864,7 +1446,7 @@
       "title": "Rác vũ trụ",
       "summary": "Quỹ đạo quanh Trái Đất đang đông đúc.",
       "level": "B2_2",
-      "minutes": 7,
+      "minutes": 9,
       "blocks": [
         {
           "type": "tip",
@@ -895,6 +1477,37 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "The risk of a spiral of collisions",
+            "Engineering fixes and shared responsibility",
+            "The first satellite of the 1950s",
+            "Small pieces, serious damage",
+            "A crowded orbit of working and abandoned objects",
+            "Why astronauts are refusing to fly"
+          ],
+          "answers": [
+            4,
+            3,
+            0,
+            1
+          ],
+          "explain": "Paragraph 1: thousands of objects orbit the Earth, some working and many now debris; paragraph 2: what debris is and why even tiny pieces are dangerous; paragraph 3: the fear of a chain reaction of collisions; paragraph 4: engineering solutions and international cooperation. The first satellite is only a detail, and astronauts refusing to fly is never mentioned."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the main idea of the passage?",
+          "choices": [
+            "Satellites are no longer needed for weather forecasts, navigation and communications.",
+            "Growing debris threatens the use of orbit, and solving it needs new technology and cooperation.",
+            "Space debris is mainly a danger to people and buildings on the ground below it.",
+            "One wealthy country has already taken full responsibility for cleaning up space."
+          ],
+          "answer": 1,
+          "focus": "main_idea",
+          "explain": "Paragraphs 1–3 describe the growing debris and the danger of collisions, and paragraph 4 describes engineering solutions and the need for international cooperation. Paragraph 1 says many satellites still provide useful services, and paragraph 4 says no single country owns space."
+        },
+        {
           "type": "mcq",
           "prompt": "Why can a coin-sized fragment be dangerous?",
           "choices": [
@@ -904,7 +1517,7 @@
             "It blocks radio signals."
           ],
           "answer": 0,
-          "explain": "Đoạn 2: mảnh vụn bay với tốc độ cực cao."
+          "explain": "Paragraph 2: because these pieces travel at extremely high speeds, even a fragment the size of a coin can seriously damage a satellite or spacecraft."
         },
         {
           "type": "mcq",
@@ -916,28 +1529,47 @@
             "Countries compete to launch more satellites."
           ],
           "answer": 2,
-          "explain": "Đoạn 3: mỗi va chạm tạo thêm mảnh vụn, làm tăng khả năng va chạm tiếp."
+          "explain": "Paragraph 3: each collision produces more fragments, which then increase the chance of further collisions."
         },
         {
-          "type": "tf",
-          "statement": "Some satellites provide navigation services.",
-          "ng": true,
-          "answer": "true",
-          "explain": "Đoạn 1 nêu định vị (navigation)."
+          "type": "mcq",
+          "prompt": "In paragraph 4, the word \"essential\" is closest in meaning to …",
+          "choices": [
+            "optional",
+            "expensive",
+            "difficult",
+            "absolutely necessary"
+          ],
+          "answer": 3,
+          "focus": "vocab",
+          "explain": "Paragraph 4: \"International cooperation will be essential, since no single country owns space\" — cooperation is absolutely necessary because no country can act alone."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What can be inferred about satellites designed to lower themselves into the atmosphere?",
+          "choices": [
+            "They travel more slowly than other satellites.",
+            "They will not stay in orbit as debris once they stop working.",
+            "They are used only for weather forecasts.",
+            "They can capture larger pieces of debris."
+          ],
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Paragraph 4: these satellites burn up at the end of their lives, so they will not remain in space as debris (paragraph 1). Capturing larger pieces is a separate method mentioned in the same paragraph."
         },
         {
           "type": "tf",
           "statement": "All objects sent into orbit are still working.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 1: nhiều vật thể không còn tác dụng."
+          "explain": "Paragraph 1: many objects are no longer useful and simply remain in space as debris."
         },
         {
           "type": "tf",
           "statement": "Cleaning up space debris will be paid for by private companies.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không nói ai sẽ chi trả."
+          "explain": "The passage does not say who will pay for cleaning up space debris."
         },
         {
           "type": "gap",
@@ -951,6 +1583,22 @@
             "tourism"
           ],
           "explain": "Câu cuối: \"International cooperation will be essential\"."
+        },
+        {
+          "type": "summary",
+          "text": "Since the 1950s, thousands of objects have been sent into orbit; many still provide useful ___, but many others are now just junk. This junk includes old satellites, rocket parts and small fragments produced by ___. Even a coin-sized piece can do serious harm because of its enormous ___. Experts fear that each crash could create more pieces and eventually make some orbits ___. Engineers are working on solutions, but no nation can solve the problem alone.",
+          "answers": [
+            "services",
+            "collisions",
+            "speed",
+            "unusable"
+          ],
+          "distractors": [
+            "weight",
+            "safer",
+            "storms"
+          ],
+          "explain": "Paragraph 1: working satellites provide services such as weather forecasts and navigation; paragraph 2: fragments are created when objects collide, and they are dangerous because of their extremely high speeds; paragraph 3: some orbits could become too dangerous to use."
         }
       ]
     }

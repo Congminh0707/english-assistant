@@ -85,7 +85,7 @@
       "title": "Giấc ngủ quan trọng thế nào",
       "summary": "Ngủ đủ giúp học và nhớ tốt hơn.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "tip",
@@ -113,29 +113,62 @@
       "exercises": [
         {
           "type": "mcq",
-          "prompt": "How much sleep do most teenagers need?",
+          "prompt": "What is the main idea of the passage?",
           "choices": [
-            "About six hours",
-            "About nine hours",
-            "About twelve hours"
+            "Teenagers should study late at night before exams.",
+            "Sleep is important for teenagers, and there are easy ways to sleep better.",
+            "Phones are the main reason students fail exams.",
+            "Adults need less sleep than teenagers."
           ],
-          "answer": 1
+          "answer": 1,
+          "focus": "main_idea",
+          "explain": "Đoạn 1–2: giấc ngủ quan trọng (giúp nhớ bài, ít lỗi); đoạn 3: cách để ngủ ngon hơn. Các lựa chọn khác sai hoặc không được nói tới."
         },
         {
           "type": "mcq",
-          "prompt": "What does the brain do during sleep?",
+          "prompt": "What can we infer about a student who uses a phone in bed until very late before an exam?",
           "choices": [
-            "It stops working.",
-            "It organises what you learned.",
-            "It forgets everything."
+            "They will probably remember more of what they studied.",
+            "They will need less sleep than other students.",
+            "They may remember less and make more mistakes.",
+            "They will sleep better because they are tired."
           ],
-          "answer": 1
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Đoạn 1: thức khuya dùng điện thoại gây ra vấn đề; đoạn 2: ngủ đủ thì nhớ nhiều hơn và ít lỗi hơn → ngủ ít thì có thể nhớ kém và mắc nhiều lỗi hơn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 1, the word \"common\" is closest in meaning to …",
+          "choices": [
+            "rare",
+            "usual",
+            "dangerous",
+            "boring"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Đoạn 1: \"Staying up late … is common\" — thức khuya là chuyện thường gặp, phổ biến (usual)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention exams in paragraph 2?",
+          "choices": [
+            "To show a real benefit of good sleep for students",
+            "To say that exams cause teenagers to sleep badly",
+            "To give advice on how to study for exams",
+            "To explain why teenagers stay up late"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Đoạn 2: học sinh ngủ đủ thường nhớ nhiều hơn và ít lỗi hơn khi thi — kỳ thi là ví dụ cho lợi ích của giấc ngủ."
         },
         {
           "type": "tf",
-          "statement": "Students who sleep well often make fewer mistakes.",
+          "statement": "Many teenagers sleep less than they need.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 1: thiếu niên cần khoảng chín tiếng, \"but many get much less\"."
         },
         {
           "type": "tf",
@@ -148,7 +181,8 @@
           "type": "tf",
           "statement": "Adults need more sleep than teenagers.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài chỉ nói về thiếu niên, không nói người lớn cần ngủ bao nhiêu."
         },
         {
           "type": "gap",
@@ -161,6 +195,20 @@
             "warm",
             "bright"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "Many teenagers do not get ___ sleep, often because they stay awake to study or use their phones. Sleep helps the brain store new ___, so students who rest well usually do better in exams. Good habits include a regular ___, a dark bedroom and no phone for half an hour before sleeping.",
+          "answers": [
+            "enough",
+            "information",
+            "bedtime"
+          ],
+          "distractors": [
+            "breakfast",
+            "games"
+          ],
+          "explain": "Đoạn 1: cần khoảng chín tiếng nhưng nhiều bạn ngủ ít hơn nhiều (không đủ); đoạn 2: não sắp xếp những gì đã học trong ngày (information); đoạn 3: đi ngủ cùng giờ mỗi tối (a regular bedtime)."
         }
       ]
     },

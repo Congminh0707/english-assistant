@@ -586,15 +586,18 @@ describe('schema dạng bài đọc nâng cao (headings, summary, focus, keepOrd
   })
 })
 
-describe('bài đọc mẫu B1+ (AUTHORING.md: bài đọc từ B1_1)', () => {
-  // Hai bài làm chuẩn cho người soạn; các bài khác sẽ được soạn lại dần theo cùng quy tắc
-  const PILOTS = ['readb1.making-new-friends', 'readc1.nudges']
-  const lessons = loadDir('readings').flatMap(({ raw }) => ReadingUnitFileSchema.parse(raw).lessons)
-  for (const id of PILOTS) {
+describe('bài đọc B1+ (AUTHORING.md: bài đọc từ B1_1)', () => {
+  // Mọi bài đọc từ B1_1 trở lên (51 bài, soạn lại 2026-11-12); hai bài mẫu cho người soạn: readb1.making-new-friends, readc1.nudges
+  const b1 = LEVEL_CODES.indexOf('B1_1')
+  const lessons = loadDir('readings')
+    .flatMap(({ raw }) => ReadingUnitFileSchema.parse(raw).lessons)
+    .filter((l) => LEVEL_CODES.indexOf(l.level) >= b1)
+  it('có đủ 51 bài B1+', () => {
+    expect(lessons.length).toBeGreaterThanOrEqual(51)
+  })
+  for (const lesson of lessons) {
+    const id = lesson.id
     it(`${id}: 7–10 câu, có summary + mcq suy luận + mcq từ trong ngữ cảnh (+ headings từ B2), có explain`, () => {
-      const lesson = lessons.find((l) => l.id === id)
-      expect(lesson, id).toBeTruthy()
-      if (!lesson) return
       const ex = lesson.exercises
       const count = (pred: (e: LessonExercise) => boolean): number => ex.filter(pred).length
       expect(ex.length).toBeGreaterThanOrEqual(7)

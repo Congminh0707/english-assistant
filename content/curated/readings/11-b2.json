@@ -13,7 +13,7 @@
       "title": "Vì sao ta mơ",
       "summary": "Các giả thuyết khoa học về giấc mơ.",
       "level": "B2_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -40,43 +40,80 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What does one theory say about dreams?",
-          "choices": [
-            "They help process emotions and memories.",
-            "They predict the future.",
-            "They are always meaningful."
+          "type": "headings",
+          "headings": [
+            "Two competing explanations for dreaming",
+            "Dreams as a source of creative ideas",
+            "A universal experience that science cannot yet explain",
+            "How to remember your dreams after waking",
+            "Why the sleep behind dreams matters either way"
           ],
-          "answer": 0
+          "answers": [
+            2,
+            0,
+            4
+          ],
+          "explain": "Paragraph 1: everybody dreams, but scientists still disagree about why; paragraph 2 sets out two theories; paragraph 3 argues that dream-rich sleep is essential whatever dreams mean. The passage says nothing about creativity or techniques for remembering dreams."
         },
         {
           "type": "mcq",
-          "prompt": "What happens to people deprived of dream-rich sleep?",
+          "prompt": "What is the writer's main conclusion?",
           "choices": [
-            "They struggle to concentrate.",
-            "They sleep less.",
-            "They dream more."
+            "Dreams are simply random brain activity.",
+            "Whatever dreams mean, the sleep in which they occur matters a great deal.",
+            "Dreams mainly help us organise memories.",
+            "Scientists will soon discover why we dream."
           ],
-          "answer": 0
+          "answer": 1,
+          "focus": "main_idea",
+          "explain": "Paragraph 3: \"even if dreams have no meaning, the sleep that produces them is essential.\" The two theories in paragraph 2 are presented, not chosen between, and paragraph 1 says scientists still disagree."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"deprived\" is closest in meaning to …",
+          "choices": [
+            "given extra",
+            "warned about",
+            "prevented from having",
+            "cured by"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Paragraph 3: people \"deprived of dream-rich sleep\" have trouble concentrating, so they are kept from getting that sleep — prevented from having it."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the second theory in paragraph 2 imply about the stories we experience in dreams?",
+          "choices": [
+            "They are carefully planned by the brain to solve problems.",
+            "They help us control our mood.",
+            "They predict events in our future.",
+            "They may not carry any real meaning."
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Paragraph 2: dreams are \"simply a by-product of random brain activity\" which the mind turns into a story, so the story is built from noise and need not mean anything. \"Random\" rules out careful planning."
         },
         {
           "type": "tf",
-          "statement": "Scientists agree on why we dream.",
+          "statement": "Researchers now agree on the purpose of dreaming.",
           "answer": "false",
           "ng": true,
-          "explain": "Họ vẫn bất đồng."
+          "explain": "Paragraph 1: after more than a century of study, scientists \"still disagree about why we dream at all\"."
         },
         {
           "type": "tf",
-          "statement": "Many people forget their dreams quickly.",
+          "statement": "It is common for people to forget a dream soon after waking.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Paragraph 1: \"many people forget their dreams within minutes of waking up\"."
         },
         {
           "type": "tf",
           "statement": "Children dream more than adults.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "The passage never compares children and adults."
         },
         {
           "type": "gap",
@@ -89,6 +126,22 @@
             "optional",
             "short"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "Although everyone dreams, scientists still cannot ___ on the reason. Some think dreams help the brain handle feelings and sort ___, while others regard them as a side effect of ___ activity that the mind shapes into a narrative. Either way, people who lose dream-rich sleep find it harder to ___ and to manage their mood.",
+          "answers": [
+            "agree",
+            "memories",
+            "random",
+            "concentrate"
+          ],
+          "distractors": [
+            "planned",
+            "predictions",
+            "sleep"
+          ],
+          "explain": "Paragraph 1: scientists \"still disagree\"; paragraph 2: dreams may \"organise memories\" or be a by-product of \"random brain activity\"; paragraph 3: deprived people have \"difficulty concentrating\"."
         }
       ]
     },
@@ -97,7 +150,7 @@
       "title": "Kinh tế làm thuê tự do",
       "summary": "Làm việc theo từng đơn thay vì công việc cố định.",
       "level": "B2_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -124,43 +177,109 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What do supporters say gig work offers?",
-          "choices": [
-            "Freedom to choose when and where to work",
-            "Guaranteed income",
-            "Paid holidays"
+          "type": "headings",
+          "headings": [
+            "The appeal of flexible work",
+            "How much gig workers earn",
+            "A new way of working made possible by technology",
+            "Why ride-hailing apps are so popular",
+            "Concerns about security and calls for rules"
           ],
-          "answer": 0
+          "answers": [
+            2,
+            0,
+            4
+          ],
+          "explain": "Paragraph 1 introduces gig work and credits the internet; paragraph 2 gives the supporters' case for freedom and flexibility; paragraph 3 gives the critics' worries and their call for regulation. Ride-hailing is only one example, and the passage gives no earnings figures."
         },
         {
           "type": "mcq",
-          "prompt": "What do critics warn about?",
+          "prompt": "Which statement best summarises the passage?",
           "choices": [
-            "Lack of benefits and unstable income",
-            "Too many holidays",
-            "Too much regulation"
+            "Gig work is replacing all traditional jobs.",
+            "Gig work offers flexibility but raises concerns about workers' security.",
+            "Gig work should be banned because it is unfair.",
+            "Gig work is only suitable for students."
           ],
-          "answer": 0
+          "answer": 1,
+          "focus": "main_idea",
+          "explain": "Paragraph 2 presents the freedom gig work offers; paragraph 3 presents the lack of benefits and unstable income. Even the critics want to keep the flexibility, so nobody calls for a ban."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention students and parents with young children?",
+          "choices": [
+            "To show that gig work is mostly done by young people",
+            "To argue that these groups need more regulation",
+            "To give examples of people for whom flexible hours are especially useful",
+            "To explain why gig workers lack sick pay"
+          ],
+          "answer": 2,
+          "focus": "purpose",
+          "explain": "Paragraph 2: \"For students and parents with young children, this flexibility can be very valuable\" — they illustrate who benefits most from choosing when to work."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"dramatically\" is closest in meaning to …",
+          "choices": [
+            "slightly",
+            "greatly",
+            "regularly",
+            "slowly"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Paragraph 3: income \"can change dramatically from month to month\" is listed as a serious risk, so the changes are large — greatly."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which of the following would the critics in paragraph 3 most likely support?",
+          "choices": [
+            "Banning ride-hailing apps completely",
+            "Leaving gig work without any rules",
+            "Forcing all gig workers to accept fixed working hours",
+            "Laws that give gig workers some benefits while keeping flexible hours"
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Paragraph 3: critics want regulation \"to protect workers without destroying the flexibility\". Fixed hours would destroy the flexibility, and no rules at all would not protect workers."
         },
         {
           "type": "tf",
-          "statement": "Gig work always includes sick pay.",
+          "statement": "Gig workers usually receive pensions from their employers.",
           "answer": "false",
           "ng": true,
-          "explain": "Người làm gig thường thiếu phúc lợi như trợ cấp ốm đau."
+          "explain": "Paragraph 3: gig workers \"often lack benefits such as paid holidays, sick pay and pensions\"; paragraph 1 adds that they find customers without an employer."
         },
         {
           "type": "tf",
-          "statement": "The internet has made it easier to find customers.",
+          "statement": "Supporters note that some people do gig work alongside a main job.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Paragraph 2: workers \"can earn extra money besides their main job\"."
         },
         {
           "type": "tf",
           "statement": "Most gig workers are under twenty.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "The passage mentions students as one group who value flexibility but gives no information about the age of most gig workers."
+        },
+        {
+          "type": "summary",
+          "text": "With the help of the internet, many people now take on short-term ___ without working for a single employer. Supporters value the ___ to choose their own hours and place of work. Critics, however, point out that gig workers often have no paid leave or sick pay and that their ___ can vary widely. They call for ___ that protects workers without removing the flexibility.",
+          "answers": [
+            "jobs",
+            "freedom",
+            "income",
+            "regulation"
+          ],
+          "distractors": [
+            "pressure",
+            "pension",
+            "competition"
+          ],
+          "explain": "Paragraph 1: gigs are \"short-term jobs\"; paragraph 2: gig work \"offers freedom\"; paragraph 3: \"their income can change dramatically\" and critics argue \"regulation is necessary\"."
         }
       ]
     },
@@ -169,7 +288,7 @@
       "title": "Thành phố hay nông thôn",
       "summary": "So sánh hai lối sống.",
       "level": "B2_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -196,43 +315,80 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What do people in the countryside value?",
-          "choices": [
-            "Space and clean air",
-            "Nightlife",
-            "Public transport"
+          "type": "headings",
+          "headings": [
+            "The downsides of both ways of life",
+            "A shortage of hospitals in villages",
+            "What each way of life has to offer",
+            "The rising cost of rural housing",
+            "New possibilities and a personal decision"
           ],
-          "answer": 0
+          "answers": [
+            2,
+            0,
+            4
+          ],
+          "explain": "Paragraph 1 lists what cities and the countryside each offer; paragraph 2 (\"On the other hand\") lists the drawbacks of both; paragraph 3 describes remote work and concludes that the choice depends on personal values. Distant hospitals are only one detail of paragraph 2, and rural housing costs are not mentioned."
         },
         {
           "type": "mcq",
-          "prompt": "Why are more people leaving big cities?",
+          "prompt": "What is the writer's overall view?",
           "choices": [
-            "Remote work and better internet",
-            "Cheaper flights",
-            "New universities"
+            "City life is clearly better because of job opportunities.",
+            "Everyone should move to the countryside to escape noise.",
+            "There is no single best choice; it depends on personal priorities.",
+            "Remote work will soon empty big cities."
           ],
-          "answer": 0
+          "answer": 2,
+          "focus": "main_idea",
+          "explain": "Paragraph 3: \"the best choice depends less on location and more on what each person values most\". The writer gives both sides fairly and predicts no mass exodus."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 1, the word \"dwellers\" is closest in meaning to …",
+          "choices": [
+            "residents",
+            "visitors",
+            "workers",
+            "builders"
+          ],
+          "answer": 0,
+          "focus": "vocab",
+          "explain": "Paragraph 1: \"City dwellers\" are contrasted with \"people in the countryside\", so dwellers are the people who live there — residents."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does paragraph 3 suggest was often true before remote work became common?",
+          "choices": [
+            "Rural areas had better internet than cities.",
+            "Few people worked in cities.",
+            "Remote work was more common than it is now.",
+            "Leaving a big city often meant giving up one's career."
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Paragraph 3: thanks to remote work, people can now move out \"without giving up their careers\", which implies that moving out used to cost many people their careers. Better internet is presented as new."
         },
         {
           "type": "tf",
-          "statement": "Cities are always cheaper than the countryside.",
+          "statement": "Long journeys to work are a problem for many people in cities.",
+          "answer": "true",
+          "ng": true,
+          "explain": "Paragraph 2: \"many residents spend hours commuting\"."
+        },
+        {
+          "type": "tf",
+          "statement": "The passage claims that young people in rural areas always have plenty of opportunities.",
           "answer": "false",
           "ng": true,
-          "explain": "Bài viết nói thành phố thường đắt đỏ."
-        },
-        {
-          "type": "tf",
-          "statement": "Rural areas may have public services far away.",
-          "answer": "true",
-          "ng": true
+          "explain": "Paragraph 2: in rural areas \"young people sometimes find fewer opportunities\"."
         },
         {
           "type": "tf",
           "statement": "The writer lives in the countryside.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "The passage compares both ways of life but never says where the writer lives."
         },
         {
           "type": "gap",
@@ -245,6 +401,22 @@
             "buys",
             "hears"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "People have long argued about whether cities or the countryside offer a better life. Cities provide plenty of jobs and ___, while rural areas offer space, fresh air and a close ___. Yet cities can be noisy and costly, and in the countryside, services such as hospitals may be ___. Now that many people can work ___, more of them are leaving big cities.",
+          "answers": [
+            "entertainment",
+            "community",
+            "distant",
+            "remotely"
+          ],
+          "distractors": [
+            "pollution",
+            "nearby",
+            "overtime"
+          ],
+          "explain": "Paragraph 1: cities offer jobs, restaurants and \"entertainment\"; the countryside offers \"a stronger sense of community\"; paragraph 2: public services \"may be far away\"; paragraph 3: \"remote work\" lets people leave cities."
         }
       ]
     },
@@ -253,7 +425,7 @@
       "title": "Trí tuệ nhân tạo ở nơi làm việc",
       "summary": "AI thay đổi công việc thế nào.",
       "level": "B2_2",
-      "minutes": 7,
+      "minutes": 9,
       "blocks": [
         {
           "type": "tip",
@@ -280,43 +452,93 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What do most economists believe?",
-          "choices": [
-            "Some jobs will disappear but new ones will emerge.",
-            "No jobs will change.",
-            "All jobs will disappear."
+          "type": "headings",
+          "headings": [
+            "How AI detects bank fraud",
+            "Humans and machines working side by side",
+            "Why AI will never make mistakes",
+            "A technology already in everyday use",
+            "Job losses, job gains and the need to retrain"
           ],
-          "answer": 0
+          "answers": [
+            3,
+            4,
+            1
+          ],
+          "explain": "Paragraph 1: AI is \"no longer a technology of the future\" and already helps many professions; paragraph 2: some jobs disappear, new ones emerge, and learning new skills matters; paragraph 3: collaboration between AI and people. Fraud detection is only one example, and the passage never claims AI is error-free."
         },
         {
           "type": "mcq",
-          "prompt": "What do people contribute in collaboration with AI?",
+          "prompt": "Which statement best expresses the writer's position?",
           "choices": [
-            "Judgement, creativity and empathy",
-            "Speed only",
-            "Data storage"
+            "AI will soon replace most human workers.",
+            "AI works best when it supports people rather than replaces them.",
+            "Workers should avoid AI to protect their jobs.",
+            "AI is still a technology of the distant future."
           ],
-          "answer": 0
+          "answer": 1,
+          "focus": "main_idea",
+          "explain": "Paragraph 3: \"the most effective approach seems to be collaboration\", and employees who use AI wisely become \"more valuable, not less\". Paragraph 1 says AI is already here, not in the future."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"emerge\" is closest in meaning to …",
+          "choices": [
+            "vanish",
+            "decline",
+            "appear",
+            "combine"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Paragraph 2: \"some jobs will disappear, but new ones will emerge\" — the contrast with \"disappear\" shows that emerge means come into existence, appear."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the reference to \"earlier technologies\" in paragraph 2 suggest?",
+          "choices": [
+            "Earlier technologies created no new jobs.",
+            "AI is less powerful than earlier technologies.",
+            "Economists were wrong about earlier technologies.",
+            "New technologies have tended to change jobs rather than simply destroy them."
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Paragraph 2: new jobs will emerge \"as happened with earlier technologies\", so history shows jobs being lost and created, not just destroyed."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Based on paragraph 2, which workers are likely to face the greatest risk?",
+          "choices": [
+            "Those who have no opportunity to learn new skills",
+            "Doctors who use AI to read scans",
+            "Employees who use AI tools wisely",
+            "Economists who study technology"
+          ],
+          "answer": 0,
+          "focus": "inference",
+          "explain": "Paragraph 2: \"What matters is whether workers have the chance to learn new skills\", so those without that chance are most exposed. Paragraph 3 says employees who use AI wisely become more valuable."
         },
         {
           "type": "tf",
-          "statement": "AI already helps doctors read scans.",
+          "statement": "The passage mentions uses of AI in healthcare, finance and education.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Paragraph 1: AI helps \"doctors read scans, banks detect fraud and teachers prepare materials\"."
         },
         {
           "type": "tf",
           "statement": "The writer thinks workers should avoid AI tools.",
           "answer": "false",
           "ng": true,
-          "explain": "Tác giả cho rằng người biết dùng công cụ sẽ có giá trị hơn."
+          "explain": "Paragraph 3: employees who learn to use these tools wisely \"are likely to become more valuable, not less\"."
         },
         {
           "type": "tf",
           "statement": "AI will be cheaper than teachers within five years.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "The passage says AI helps teachers prepare materials but says nothing about cost or a five-year timescale."
         },
         {
           "type": "gap",
@@ -329,6 +551,23 @@
             "coffee",
             "music"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "AI is already common at work, completing ___ tasks much faster than people once could. Economists expect some jobs to vanish and others to be ___, so the real issue is whether workers get the chance to learn new ___. The most effective model is a partnership in which machines take on repetitive work while humans contribute ___, imagination and understanding of others.",
+          "answers": [
+            "routine",
+            "created",
+            "skills",
+            "judgement"
+          ],
+          "distractors": [
+            "complex",
+            "protected",
+            "languages",
+            "speed"
+          ],
+          "explain": "Paragraph 1: \"routine tasks\" now take minutes; paragraph 2: new jobs \"will emerge\" and workers need to \"learn new skills\"; paragraph 3: people contribute \"judgement, creativity and empathy\"."
         }
       ]
     },
@@ -337,7 +576,7 @@
       "title": "Lối sống tối giản",
       "summary": "Sống với ít đồ hơn để có nhiều thời gian hơn.",
       "level": "B2_2",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -364,43 +603,109 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What do followers ask about each item?",
-          "choices": [
-            "Whether it adds value to their lives",
-            "How much it costs",
-            "Who made it"
+          "type": "headings",
+          "headings": [
+            "Why minimalists dislike cleaning",
+            "What people gain from simplifying",
+            "The environmental cost of shopping",
+            "The basic principle behind owning less",
+            "A criticism and a more balanced approach"
           ],
-          "answer": 0
+          "answers": [
+            3,
+            1,
+            4
+          ],
+          "explain": "Paragraph 1 defines minimalism; paragraph 2 lists its benefits; paragraph 3 gives the critics' view and a more realistic approach. Less cleaning is only one benefit, and the passage never discusses the environment."
         },
         {
           "type": "mcq",
-          "prompt": "What is a more realistic approach according to the text?",
+          "prompt": "What is the main purpose of paragraph 3?",
           "choices": [
-            "Buy thoughtfully and keep what you use or love",
-            "Throw away everything",
-            "Never buy anything"
+            "To question an extreme form of minimalism and suggest a moderate alternative",
+            "To list the financial benefits of minimalism",
+            "To explain how minimalism began",
+            "To encourage readers to throw away most of their belongings"
           ],
-          "answer": 0
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Paragraph 3: critics call \"extreme minimalism\" a privilege, and the writer then offers \"a more realistic approach\": buy thoughtfully, repair and keep what you use or love."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"considerable\" is closest in meaning to …",
+          "choices": [
+            "minor",
+            "unexpected",
+            "significant",
+            "temporary"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Paragraph 2: \"The benefits can be considerable\", followed by a list of savings, time and control, so the benefits are large — significant."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which person's behaviour best matches the \"more realistic approach\" in paragraph 3?",
+          "choices": [
+            "Someone who throws away anything not used in the past week",
+            "Someone who keeps every gift they have ever received",
+            "Someone who often buys cheap items and replaces them",
+            "Someone who fixes a broken chair instead of buying a new one"
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Paragraph 3: the realistic approach is to \"buy thoughtfully, repair what you can, and keep only what you use or love\". Fixing a chair is repairing; keeping everything or replacing items often goes against it."
+        },
+        {
+          "type": "mcq",
+          "prompt": "According to the critics, why is extreme minimalism not an option for everyone?",
+          "choices": [
+            "Most people enjoy shopping too much.",
+            "Not everyone can afford to discard things and buy them again later.",
+            "Small homes are hard to find.",
+            "It takes too much time to clean."
+          ],
+          "answer": 1,
+          "focus": "detail",
+          "explain": "Paragraph 3: \"not everyone can afford to throw things away and replace them later\", which is why critics call it a privilege."
         },
         {
           "type": "tf",
-          "statement": "Minimalists often spend less time cleaning.",
+          "statement": "People who own fewer things tend to have more time for other people.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Paragraph 2: they \"tend to have more time for relationships and experiences instead of possessions\"."
         },
         {
           "type": "tf",
           "statement": "Everyone can easily afford extreme minimalism.",
           "answer": "false",
           "ng": true,
-          "explain": "Bài nêu tối giản cực đoan có thể là đặc quyền."
+          "explain": "Paragraph 3: critics say extreme minimalism \"can be a privilege, since not everyone can afford\" it."
         },
         {
           "type": "tf",
           "statement": "Minimalism started in Japan.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "The passage does not say where or when minimalism began."
+        },
+        {
+          "type": "summary",
+          "text": "Minimalism is based on the belief that having fewer ___ can reduce stress. Its followers often save money and feel more in ___ of their lives. Critics, however, note that only people with enough money can easily discard items and ___ them later. A sensible middle path is to shop carefully, ___ broken things and keep only what is truly useful or loved.",
+          "answers": [
+            "possessions",
+            "control",
+            "replace",
+            "repair"
+          ],
+          "distractors": [
+            "friends",
+            "fear",
+            "sell"
+          ],
+          "explain": "Paragraph 1: \"owning fewer things\"; paragraph 2: people feel \"more in control\"; paragraph 3: not everyone can \"throw things away and replace them later\", and the realistic approach is to \"repair what you can\"."
         }
       ]
     }

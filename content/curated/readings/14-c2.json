@@ -13,7 +13,7 @@
       "title": "Ca ngợi sự buồn chán",
       "summary": "Tiểu luận: vì sao ta nên để mình buồn chán.",
       "level": "C2",
-      "minutes": 9,
+      "minutes": 11,
       "blocks": [
         {
           "type": "tip",
@@ -44,49 +44,95 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "How does the writer reinterpret boredom in the second paragraph?",
-          "choices": [
-            "As a sign of laziness",
-            "As a medical condition requiring treatment",
-            "As a signal that something else is wanted",
-            "As the natural result of using smartphones"
+          "type": "headings",
+          "headings": [
+            "A cautious case for wandering minds",
+            "Why repetitive work breeds creativity",
+            "A feeling we rush to get rid of",
+            "Narrowing the argument to harmless idleness",
+            "The hidden dangers of smartphone addiction",
+            "What we lose by silencing a warning"
           ],
-          "answer": 2,
-          "explain": "Đoạn 2: buồn chán là tín hiệu cho thấy việc đang làm không còn cuốn hút và cần điều khác."
+          "answers": [
+            2,
+            5,
+            0,
+            3
+          ],
+          "explain": "Paragraph 1 describes how quickly we fill boredom; paragraph 2 recasts boredom as a signal we risk no longer hearing; paragraph 3 links idle time to creativity while hedging; paragraph 4 limits the claim to brief, low-stakes boredom. Paragraph 4 rejects the idea that repetitive labor is creative, and phones are only the setting of paragraph 1, not its argument."
         },
         {
           "type": "mcq",
-          "prompt": "Which statement most accurately reflects the writer's claim in the final paragraph?",
+          "prompt": "Which statement most accurately reflects the writer's central claim?",
           "choices": [
-            "Brief, low-stakes boredom should be tolerated rather than instantly cured.",
             "Repetitive labor is a hidden source of creativity.",
+            "Brief, low-stakes boredom should be tolerated rather than instantly cured.",
             "All boredom should be encouraged.",
             "Boredom has been proved to cause creative insights."
           ],
-          "answer": 0,
-          "explain": "Đoạn 4: \"My claim is narrower\" — chỉ sự buồn chán ngắn, ít hệ trọng nên được chịu đựng."
+          "answer": 1,
+          "focus": "main_idea",
+          "explain": "Paragraph 4: \"My claim is narrower: that the brief, low-stakes boredom of an empty afternoon deserves to be tolerated rather than instantly cured.\" The same paragraph rejects romanticizing repetitive labor, and paragraph 3 refuses to claim proof."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the writer imply by saying that people reach for a screen \"half-consciously\"?",
+          "choices": [
+            "People feel ashamed of being bored in public.",
+            "Screens are making people less intelligent.",
+            "Most people wait for buses impatiently.",
+            "Filling boredom has become a habit rather than a deliberate choice."
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Paragraph 1: the reach for a screen happens \"half-consciously\" and almost without effort, so it is closer to a reflex than a decision. Shame and intelligence are not mentioned."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer add \"I would not want to overstate the case\" in paragraph 3?",
+          "choices": [
+            "To admit that the creativity argument is false",
+            "To acknowledge that the link between boredom and creativity is uncertain",
+            "To dismiss the reports of people who have ideas in the shower",
+            "To suggest that unstructured time is harmful"
+          ],
+          "answer": 1,
+          "focus": "purpose",
+          "explain": "Paragraph 3: whether boredom \"causes such insights or merely clears space for them is difficult to establish\". The writer still supports the link but limits how strongly it is claimed — a hedge, not a retraction."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 4, the word \"glib\" is closest in meaning to …",
+          "choices": [
+            "cruel",
+            "illegal",
+            "superficial",
+            "nostalgic"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Paragraph 4: it would be \"glib to romanticize\" exhausting, repetitive labor — that is, too easy and shallow, ignoring that such work is \"a burden\"."
         },
         {
           "type": "tf",
           "statement": "The writer states that boredom has been proven to cause creative insights.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 3: việc buồn chán gây ra hay chỉ dọn chỗ cho ý tưởng \"khó xác định\" và tác giả không muốn phóng đại."
+          "explain": "Paragraph 3: whether boredom causes insights or merely clears space for them \"is difficult to establish\"."
         },
         {
           "type": "tf",
-          "statement": "The writer considers it glib to romanticize exhausting, repetitive work.",
+          "statement": "The writer accepts that boredom is an unpleasant experience.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 4: \"it would be glib to romanticize it\"."
+          "explain": "Paragraph 2: \"Boredom, uncomfortable as it is, functions less as an absence than as a signal.\""
         },
         {
           "type": "tf",
           "statement": "The writer has given up using a smartphone.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không nói về thói quen dùng điện thoại của chính tác giả."
+          "explain": "The passage never describes the writer's own phone habits."
         },
         {
           "type": "gap",
@@ -100,6 +146,22 @@
             "call"
           ],
           "explain": "Đoạn 3: \"in the shower or on a long walk\"."
+        },
+        {
+          "type": "summary",
+          "text": "Boredom is usually treated as a problem to be ___ at once, and phones make that effortless. The writer argues that it is better understood as a ___ that our current activity has stopped engaging us. Unstructured time may also encourage ___, although the writer admits this is hard to prove. The claim is deliberately ___: exhausting, repetitive work is excluded.",
+          "answers": [
+            "solved",
+            "signal",
+            "creativity",
+            "limited"
+          ],
+          "distractors": [
+            "punishment",
+            "anxiety",
+            "universal"
+          ],
+          "explain": "Paragraph 1: boredom is \"a gap to be filled as swiftly as possible\"; paragraph 2: it functions \"as a signal\"; paragraph 3: idle time is linked with creativity, but the causal link is \"difficult to establish\"; paragraph 4: \"My claim is narrower\" and repetitive labor is not included."
         }
       ]
     },
@@ -108,7 +170,7 @@
       "title": "Khi con số thành ông chủ",
       "summary": "Xã luận: chỉ số đo lường bóp méo điều nó đo.",
       "level": "C2",
-      "minutes": 9,
+      "minutes": 11,
       "blocks": [
         {
           "type": "tip",
@@ -139,6 +201,24 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "Using numbers wisely rather than abandoning them",
+            "How hospitals reduced emergency waiting times",
+            "A persuasive chain of reasoning, and where it goes wrong",
+            "An economic law and its spread into public life",
+            "Why anecdotes are more reliable than statistics",
+            "Cases where the figures improve but the service does not"
+          ],
+          "answers": [
+            3,
+            2,
+            5,
+            0
+          ],
+          "explain": "Paragraph 1 states the law and the spread of indicators; paragraph 2 sets out the appealing logic and where trouble begins; paragraph 3 gives the hospital and school examples; paragraph 4 defends measurement used with judgment. Paragraph 3 shows waiting-time figures improving without real change, and paragraph 4 says numbers reveal what anecdote conceals."
+        },
+        {
           "type": "mcq",
           "prompt": "What does the hospital example illustrate?",
           "choices": [
@@ -148,40 +228,68 @@
             "A figure can improve while the underlying reality does not."
           ],
           "answer": 3,
-          "explain": "Đoạn 3: con số đẹp lên trong khi thực tế giữ nguyên hoặc tệ đi."
+          "focus": "purpose",
+          "explain": "Paragraph 3: admitting patients to a corridor stops the clock, so \"the figure improves while the underlying reality stays the same, or deteriorates\"."
         },
         {
           "type": "mcq",
-          "prompt": "What is the writer's position on measurement?",
+          "prompt": "What does the question \"Who could object?\" in paragraph 2 suggest?",
           "choices": [
-            "It should be abandoned in public services.",
-            "It should inform, not replace, professional judgment.",
-            "It should replace professional judgment.",
-            "It is only useful in factories."
+            "The writer fully accepts the case for performance indicators.",
+            "Nobody has ever criticized performance indicators.",
+            "The writer is about to challenge reasoning that seems hard to dispute.",
+            "Public money is usually spent irresponsibly."
+          ],
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Paragraph 2: the logic is only \"superficially compelling\", and the next sentence begins \"The trouble begins…\". The question voices the obvious reaction so that the writer can then show its weakness."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the writer mean by \"never mistake the map for the territory\"?",
+          "choices": [
+            "Indicators should always be presented visually.",
+            "A measurement is only a simplified picture of the reality it describes.",
+            "Local knowledge matters more than national policy.",
+            "Professionals should visit the places they manage."
           ],
           "answer": 1,
-          "explain": "Đoạn 4: \"indicators should inform professional judgment, not replace it\"."
+          "focus": "inference",
+          "explain": "Paragraph 4: the metaphor closes the argument that indicators should inform judgment, not replace it. As a map is not the land itself, a number is not the purpose it was meant to reflect (paragraph 2)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 4, the word \"mastered\" is closest in meaning to …",
+          "choices": [
+            "officially approved",
+            "learned well enough to be exploited",
+            "completely forgotten",
+            "widely published"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Paragraph 4: \"change the measures before they are mastered\" — before people learn how to improve the number without improving the reality, as in the corridor and exam examples of paragraph 3."
         },
         {
           "type": "tf",
           "statement": "The writer argues against all forms of measurement.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 4: \"None of this is an argument against measurement as such.\""
+          "explain": "Paragraph 4: \"None of this is an argument against measurement as such.\""
         },
         {
           "type": "tf",
-          "statement": "The writer recommends measuring several things and changing measures over time.",
+          "statement": "The writer thinks that relying on impressions alone would be worse than using numbers.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 4: \"measure several things, change the measures before they are mastered\"."
+          "explain": "Paragraph 4: numbers reveal problems that anecdote conceals, and abandoning them \"would merely return us to rule by impression\"."
         },
         {
           "type": "tf",
           "statement": "The writer works in a hospital emergency department.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài dùng bệnh viện làm ví dụ, không nói nghề của tác giả."
+          "explain": "The hospital is only an example in paragraph 3; the writer's own job is never mentioned."
         },
         {
           "type": "gap",
@@ -195,6 +303,22 @@
             "setting"
           ],
           "explain": "Đoạn 3: \"discourage weaker students from sitting the exam\" (sit an exam = dự thi)."
+        },
+        {
+          "type": "summary",
+          "text": "Once a number is turned into a ___, people begin working to improve the number itself rather than the purpose behind it. A hospital may move patients into corridors and a school may keep weaker students away from exams, so that the figures look better while real ___ does not. The writer does not reject measurement but wants it to support professional ___, using several indicators that are ___ before people learn to game them.",
+          "answers": [
+            "target",
+            "quality",
+            "judgment",
+            "changed"
+          ],
+          "distractors": [
+            "spending",
+            "ambition",
+            "published"
+          ],
+          "explain": "Paragraph 1: \"once a measure becomes a target\"; paragraph 3: the figure improves while the underlying reality does not; paragraph 4: indicators should \"inform professional judgment\", and measures should be changed \"before they are mastered\"."
         }
       ]
     },
@@ -203,7 +327,7 @@
       "title": "Tóm tắt nghiên cứu: chuyển mã ngôn ngữ",
       "summary": "Đọc văn phong tóm tắt học thuật (abstract).",
       "level": "C2",
-      "minutes": 9,
+      "minutes": 11,
       "blocks": [
         {
           "type": "tip",
@@ -234,6 +358,24 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "How the speech data were collected and analyzed",
+            "Evidence that bilingual teenagers lack vocabulary",
+            "A cautious interpretation and a call for more work",
+            "Language switches as social signals",
+            "Differences between language use at school and at home",
+            "Competing explanations for mixing languages"
+          ],
+          "answers": [
+            5,
+            0,
+            3,
+            2
+          ],
+          "explain": "Paragraph 1 (Background) contrasts traditional explanations with the identity view; paragraph 2 (Method) describes recordings, coding and interviews; paragraph 3 (Results) shows switches marking jokes, solidarity, closeness and distance; paragraph 4 (Conclusions) interprets the results cautiously. The results contradict a lack of vocabulary, and school and leisure settings are never compared."
+        },
+        {
           "type": "mcq",
           "prompt": "Which finding contradicts the \"deficit hypothesis\"?",
           "choices": [
@@ -243,40 +385,67 @@
             "Some participants switched without conscious intention."
           ],
           "answer": 1,
-          "explain": "Đoạn Results: \"Contrary to the deficit hypothesis\" — phần lớn chuyển mã xảy ra khi đã có cách diễn đạt tương đương, nên không phải do thiếu từ."
+          "explain": "Paragraph 3: \"Contrary to the deficit hypothesis, the majority of switches occurred at points where an equivalent expression was readily available\", so speakers were not switching because they lacked the words."
         },
         {
           "type": "mcq",
-          "prompt": "Why do the authors advise caution about generalizing their results?",
+          "prompt": "Why did the researchers most likely ask participants to comment on extracts of their own speech?",
           "choices": [
-            "The interviews were not recorded.",
-            "The coding method was rejected by reviewers.",
-            "The participants were not truly bilingual.",
-            "The sample was modest and limited to one urban community."
+            "To test their proficiency in both languages",
+            "To compare the speakers' own accounts with the functions the researchers had coded",
+            "To teach them to avoid unnecessary switching",
+            "To record more natural conversations"
           ],
-          "answer": 3,
-          "explain": "Đoạn Conclusions: \"Given the modest sample and its restriction to a single urban community\"."
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Paragraph 2: switches were first coded by \"apparent function\", and participants \"subsequently\" commented on extracts; paragraph 3 then reports how participants themselves described switching. The interviews add the speakers' view to the researchers' coding; the natural conversations had already been recorded."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the report that several participants switched \"without conscious intention\" suggest?",
+          "choices": [
+            "Those participants were less proficient than the others.",
+            "The recordings for those participants were unreliable.",
+            "Speakers' own explanations may not account for every switch.",
+            "Switching is never a social act."
+          ],
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Paragraph 3: most participants described switching as signaling closeness or distance, \"although several also reported doing so without conscious intention\". So not every switch can be explained by what speakers say they intend, though the study still sees switching as mainly social (paragraph 4)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 4, the word \"warranted\" is closest in meaning to …",
+          "choices": [
+            "guaranteed",
+            "forbidden",
+            "justified",
+            "funded"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Paragraph 4: because the sample is modest and limited to one community, \"further research … is warranted\" — there is good reason for it. \"Guaranteed\" confuses the word with \"warranty\"."
         },
         {
           "type": "tf",
           "statement": "All participants said they switched languages deliberately.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn Results: một số cho biết họ chuyển mã mà không có chủ ý."
+          "explain": "Paragraph 3: several reported switching \"without conscious intention\"."
         },
         {
           "type": "tf",
-          "statement": "Switches were often found around jokes and moments of disagreement.",
+          "statement": "Switches tended to occur at socially significant moments rather than at random.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn Results: \"Switches clustered around jokes, expressions of solidarity and moments of disagreement.\""
+          "explain": "Paragraph 3: switches \"clustered around jokes, expressions of solidarity and moments of disagreement\"."
         },
         {
           "type": "tf",
           "statement": "Girls in the study switched languages more often than boys.",
           "ng": true,
           "answer": "ng",
-          "explain": "Tóm tắt không phân tích theo giới tính."
+          "explain": "The abstract gives no results by gender."
         },
         {
           "type": "gap",
@@ -290,6 +459,22 @@
             "academic"
           ],
           "explain": "Đoạn Conclusions: \"a social rather than a compensatory resource\"."
+        },
+        {
+          "type": "summary",
+          "text": "Code-switching has often been explained either as a sign of limited ___ or as a practical way to fill gaps in vocabulary. This study of 48 bilingual teenagers found that most switches happened even when the current language offered a suitable ___. Switching appeared to signal closeness to friends or ___ from adults. Since the sample came from a single urban community, the authors urge ___ before generalizing.",
+          "answers": [
+            "proficiency",
+            "expression",
+            "distance",
+            "caution"
+          ],
+          "distractors": [
+            "intelligence",
+            "respect",
+            "confidence"
+          ],
+          "explain": "Paragraph 1: switching was seen as \"incomplete proficiency\" or a way of filling lexical gaps; paragraph 3: an equivalent expression was usually available, and switching signaled closeness to peers or \"distance from adult authority\"; paragraph 4: \"generalization should be undertaken with caution\"."
         }
       ]
     },
@@ -298,7 +483,7 @@
       "title": "Con gái người vẽ bản đồ",
       "summary": "Truyện ngắn: đọc ẩn ý và hình ảnh.",
       "level": "C2",
-      "minutes": 9,
+      "minutes": 11,
       "blocks": [
         {
           "type": "tip",
@@ -329,6 +514,24 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "A new way of judging precision",
+            "The father's struggle to find new clients",
+            "Mapping places nobody had asked for",
+            "How the town was rebuilt",
+            "Holding on to a craft that technology had replaced",
+            "The hidden purpose of the maps revealed"
+          ],
+          "answers": [
+            4,
+            2,
+            5,
+            0
+          ],
+          "explain": "Paragraph 1 shows the father continuing mapmaking after satellites and software took over; paragraph 2 describes the unrequested personal maps; paragraph 3 reveals after his death that they form a lost town; paragraph 4 redefines accuracy as measuring what was lost. Paragraph 2 says clients stopped calling, not that he looked for new ones, and the rebuilding of the town is never described."
+        },
+        {
           "type": "mcq",
           "prompt": "What did the narrator realize about the father's later maps after his death?",
           "choices": [
@@ -338,7 +541,7 @@
             "They were copies of satellite images."
           ],
           "answer": 0,
-          "explain": "Đoạn 3: các tờ ghép thành bản đồ một thị trấn không còn tồn tại — chúng không dùng để tìm đường."
+          "explain": "Paragraph 3: spread out, the sheets formed a single plan of \"a town that no longer existed\", so they \"had never been meant for finding anything\"."
         },
         {
           "type": "mcq",
@@ -350,28 +553,55 @@
             "The narrator plans to sell the maps."
           ],
           "answer": 2,
-          "explain": "Câu cuối: chính xác đo bằng \"những gì đã mất\" — giá trị của bản đồ là lưu giữ ký ức."
+          "focus": "inference",
+          "explain": "Paragraph 4: he was the most accurate cartographer \"if accuracy is measured not by distance but by what was lost\" — the maps faithfully recorded a vanished past, not physical distances."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the narrator suggest about the father's careful labeling in paragraph 2?",
+          "choices": [
+            "It was required by his former clients.",
+            "It helped strangers find their way around the town.",
+            "It may have been a way of giving value to maps that no one would use.",
+            "It shows that he hoped to sell the maps."
+          ],
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Paragraph 2: he labeled everything precisely \"as if precision might compensate for the fact that nobody would ever consult these maps\". These maps were of places \"no one had asked for\", so clients did not require them, and no one used them to find the way."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"obsolescence\" is closest in meaning to …",
+          "choices": [
+            "great age",
+            "being out of date",
+            "poor health",
+            "loneliness"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Paragraph 2: right after \"his own obsolescence\" we read that \"clients stopped calling\" — his skill was no longer needed now that mapmaking had passed to satellites and software (paragraph 1). It refers to his work, not his age."
         },
         {
           "type": "tf",
-          "statement": "By the time the narrator was older, much mapmaking work had moved to satellites and software.",
+          "statement": "The father continued drawing maps even after most of the work had passed to technology.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 1 nói rõ điều này."
+          "explain": "Paragraph 1: the work had largely passed to satellites and software, but \"He kept at it anyway\"."
         },
         {
           "type": "tf",
-          "statement": "The father's clients continued to call him regularly until his death.",
+          "statement": "The father's later maps were made at the request of local clients.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 2: \"When clients stopped calling\"."
+          "explain": "Paragraph 2: when clients stopped calling, he mapped \"places no one had asked for\"."
         },
         {
           "type": "tf",
           "statement": "The narrator's mother was born in the same town as the father.",
           "ng": true,
           "answer": "ng",
-          "explain": "Truyện không nói mẹ sinh ra ở đâu."
+          "explain": "The story never says where either parent was born."
         },
         {
           "type": "gap",
@@ -385,6 +615,22 @@
             "school"
           ],
           "explain": "Đoạn 3: \"the cinema that had become a parking lot\"."
+        },
+        {
+          "type": "summary",
+          "text": "The narrator's father was a mapmaker whose trade had largely been taken over by ___. When work dried up, he drew places of personal ___ instead. Only after his death did the narrator see that the sheets formed one map of a town that had ___, recording what had been ___ rather than how to find the way.",
+          "answers": [
+            "technology",
+            "significance",
+            "vanished",
+            "lost"
+          ],
+          "distractors": [
+            "competitors",
+            "expanded",
+            "planned"
+          ],
+          "explain": "Paragraph 1: the work passed to satellites and software; paragraph 2: he mapped the creek, the old street and the mother's route; paragraph 3: the sheets showed \"a town that no longer existed\"; paragraph 4: accuracy measured \"by what was lost\"."
         }
       ]
     },
@@ -393,7 +639,7 @@
       "title": "Cẩm nang năng suất \"khiêm tốn\"",
       "summary": "Châm biếm: nhận ra giọng mỉa mai.",
       "level": "C2",
-      "minutes": 9,
+      "minutes": 11,
       "blocks": [
         {
           "type": "tip",
@@ -424,6 +670,24 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "Turning free time and family into work",
+            "The scientific case for waking early",
+            "An invitation to cut out ordinary pleasures",
+            "Efficiency achieved, purpose forgotten",
+            "Tips for eating more healthily",
+            "A punishing start to the day"
+          ],
+          "answers": [
+            2,
+            5,
+            0,
+            3
+          ],
+          "explain": "Paragraph 1 invites the reader to eliminate sleep, slow meals and friendship; paragraph 2 prescribes a four o'clock start; paragraph 3 makes leisure and family \"useful\"; paragraph 4 describes joyless efficiency and the postponed question of purpose. No scientific evidence is offered for waking early, and eating slowly is mentioned only as a \"waste\"."
+        },
+        {
           "type": "mcq",
           "prompt": "What is the writer's real attitude toward the advice given?",
           "choices": [
@@ -433,7 +697,8 @@
             "Ironic criticism of an obsessive productivity culture"
           ],
           "answer": 3,
-          "explain": "Giọng châm biếm xuyên suốt (vd \"none of them is enjoyed\", lên lịch họp gia đình) cho thấy tác giả mỉa mai văn hoá năng suất cực đoan."
+          "focus": "main_idea",
+          "explain": "The satire runs through every paragraph, for example scheduling family \"meetings\" with minutes (paragraph 3) and a perfect efficiency in which no minute \"is enjoyed\" (paragraph 4), so the writer is mocking the advice, not recommending it."
         },
         {
           "type": "mcq",
@@ -445,28 +710,61 @@
             "All successful people wake up at four o'clock."
           ],
           "answer": 1,
-          "explain": "Đoạn 2: câu chêm mỉa mai ý rằng giờ dậy bốn giờ có thể chỉ là chuyện của người viết sách năng suất."
+          "focus": "inference",
+          "explain": "Paragraph 2: the afterthought undercuts the claim — the evidence for the four o'clock habit may be the books, not the successful people."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer describe sleeping, eating slowly and talking to friends as \"unprofitable activities\"?",
+          "choices": [
+            "To recommend that readers give them up",
+            "To show that these activities cost money",
+            "To mock a mindset that values only measurable output",
+            "To criticize people who sleep too much"
+          ],
+          "answer": 2,
+          "focus": "purpose",
+          "explain": "Paragraph 1: calling basic human needs and friendship \"unprofitable\" applies business language where it plainly does not belong. In a satire this exposes the absurd values of productivity culture rather than sincerely advising readers."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"circulate\" is closest in meaning to …",
+          "choices": [
+            "rewrite",
+            "distribute",
+            "discuss",
+            "file"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Paragraph 3: \"circulate minutes afterward so that action points are not forgotten\" — send the notes round to everyone, as after a business meeting."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the final suggestion to schedule the question \"for a later quarter\" imply?",
+          "choices": [
+            "The writer plans to publish a follow-up guide.",
+            "Reflection is best done at the end of a financial year.",
+            "The question of purpose is unimportant.",
+            "The productivity mindset keeps postponing the question of what all the efficiency is for."
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Paragraph 4: even the most important question — \"what all the time you saved was for\" — is pushed into the schedule, so the system never stops long enough to ask why it exists. The joke presents the question as essential and endlessly delayed."
         },
         {
           "type": "tf",
-          "statement": "The guide literally recommends sending meeting minutes after seeing one's family.",
+          "statement": "The guide tells readers to send out minutes after a meeting with their family.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 3: \"circulate minutes afterward\" — đúng theo câu chữ (dù là châm biếm)."
-        },
-        {
-          "type": "tf",
-          "statement": "According to the final paragraph, the state of perfect efficiency is described as deeply enjoyable.",
-          "ng": true,
-          "answer": "false",
-          "explain": "Đoạn 4: mỗi phút được tính toán nhưng \"none of them is enjoyed\"."
+          "explain": "Paragraph 3: \"circulate minutes afterward\" — the guide does give this instruction, even though the advice is satirical."
         },
         {
           "type": "tf",
           "statement": "The writer has published several other productivity guides.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không nói gì về các tác phẩm khác của tác giả."
+          "explain": "The passage says nothing about the writer's other work."
         },
         {
           "type": "gap",
@@ -480,6 +778,22 @@
             "forgiven"
           ],
           "explain": "Đoạn 2: \"a lack of discipline that has not yet been optimized\"."
+        },
+        {
+          "type": "summary",
+          "text": "Written as a cheerful self-help guide, the text is in fact a ___ of extreme productivity culture. It treats sleep and friendship as ___, recommends rising at four, and even suggests running family visits like business ___. Its final point is that a life in which every minute is used may contain no ___, and leaves no time to ask what the saved time is for.",
+          "answers": [
+            "satire",
+            "inefficiencies",
+            "meetings",
+            "enjoyment"
+          ],
+          "distractors": [
+            "celebration",
+            "rewards",
+            "planning"
+          ],
+          "explain": "Paragraph 1: sleeping and talking to friends are \"inefficiencies\"; paragraph 3: family visits are scheduled with minutes; paragraph 4: every minute is accounted for \"and none of them is enjoyed\". The ironic tone throughout makes the whole text a satire."
         }
       ]
     },
@@ -488,7 +802,7 @@
       "title": "Trí nhớ là sự tái dựng",
       "summary": "Văn khoa học rào đón: đọc mức độ chắc chắn.",
       "level": "C2",
-      "minutes": 9,
+      "minutes": 11,
       "blocks": [
         {
           "type": "tip",
@@ -519,49 +833,95 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "According to the text, what is the relationship between confidence and accuracy in memory?",
-          "choices": [
-            "Confidence is at best a loose guide to accuracy.",
-            "Confidence reliably indicates accuracy.",
-            "Confident memories are always false.",
-            "Accuracy increases confidence over time."
+          "type": "headings",
+          "headings": [
+            "Practical consequences for eyewitness accounts",
+            "Techniques for improving everyday memory",
+            "From archive to rebuilding: a new model of memory",
+            "Why memory remains broadly reliable, and even useful",
+            "The link between confidence and intelligence",
+            "How later information can rewrite the past"
           ],
-          "answer": 0,
-          "explain": "Đoạn 2: \"Confidence, it seems, is at best a loose guide to accuracy.\""
+          "answers": [
+            2,
+            5,
+            3,
+            0
+          ],
+          "explain": "Paragraph 1 replaces the archive model with reconstruction; paragraph 2 shows memories altered by misleading questions; paragraph 3 argues against concluding that memory is untrustworthy and notes its adaptive value; paragraph 4 draws implications for eyewitness testimony. The passage gives no memory-improvement techniques and does not link confidence to intelligence."
         },
         {
           "type": "mcq",
-          "prompt": "Which statement best reflects the writer's degree of certainty about everyday memories?",
+          "prompt": "Based on paragraph 2, what can be inferred about a witness who is very sure of a detail?",
           "choices": [
-            "They are completely reliable.",
-            "They are generally untrustworthy.",
-            "Their core is probably reasonably accurate, while peripheral details are more easily distorted.",
-            "Nothing can be said about them."
+            "They are probably lying.",
+            "Their certainty alone is not good evidence that the detail is correct.",
+            "Their memory cannot have been influenced by questions.",
+            "They must have seen the event directly."
+          ],
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Paragraph 2: participants reported details that never occurred \"often with considerable confidence\", and confidence is \"at best a loose guide to accuracy\". Certainty therefore cannot confirm a detail on its own, but it does not mean the witness is lying."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the main function of paragraph 3?",
+          "choices": [
+            "To present new evidence that memory is unreliable",
+            "To explain how eyewitness procedures work",
+            "To prevent the reader from drawing an overly negative conclusion",
+            "To reject the reconstructive model of memory"
           ],
           "answer": 2,
-          "explain": "Đoạn 3: từ rào đón \"probably reasonably accurate\"; méo mó ảnh hưởng chi tiết ngoại vi hơn ý chính."
+          "focus": "purpose",
+          "explain": "Paragraph 3 opens \"It would be a mistake, though, to conclude that memory is generally untrustworthy\", then argues that the core of memories is probably accurate and that reconstruction may be adaptive. It qualifies the reconstructive model; it does not reject it."
+        },
+        {
+          "type": "mcq",
+          "prompt": "The phrase \"would seem to favor\" in paragraph 4 shows that the writer …",
+          "choices": [
+            "considers the evidence conclusive",
+            "rejects the procedures mentioned",
+            "is quoting eyewitnesses directly",
+            "presents the recommendation tentatively rather than as settled fact"
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Paragraph 4: \"the evidence would seem to favor procedures that minimize suggestion\" — the double hedge (\"would\", \"seem\") supports the procedures but stops short of claiming certainty, in line with the cautious tone of the whole passage."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"peripheral\" is closest in meaning to …",
+          "choices": [
+            "visual",
+            "invented",
+            "secondary",
+            "recent"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Paragraph 3: distortions affect \"peripheral details more than the central gist\" — the contrast with \"central\" shows that peripheral details are the minor ones at the edges of a memory."
         },
         {
           "type": "tf",
           "statement": "The writer concludes that memory is generally untrustworthy.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 3: \"It would be a mistake... to conclude that memory is generally untrustworthy.\""
+          "explain": "Paragraph 3: \"It would be a mistake … to conclude that memory is generally untrustworthy.\""
         },
         {
           "type": "tf",
-          "statement": "Some researchers suggest a reconstructive memory may help people plan for the future.",
+          "statement": "According to some researchers, the flexibility of memory may bring advantages.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 3: hệ thống tái dựng có thể giúp hình dung và lập kế hoạch tương lai."
+          "explain": "Paragraph 3: some researchers argue a reconstructive system \"may be adaptive\", helping us imagine and plan for the future."
         },
         {
           "type": "tf",
           "statement": "Memory distortions are more common in older adults.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không đề cập tuổi tác."
+          "explain": "The passage never mentions age."
         },
         {
           "type": "gap",
@@ -575,6 +935,22 @@
             "written"
           ],
           "explain": "Đoạn 4: \"avoiding leading questions\" (câu hỏi dẫn dắt)."
+        },
+        {
+          "type": "summary",
+          "text": "Rather than replaying stored ___, the brain seems to rebuild each memory from fragments, filling the gaps with reasonable guesses. Misleading information met after an event can therefore ___ what people recall, and confidence says little about accuracy. Even so, the ___ of most memories is probably sound, and a flexible system may help us plan. Where a single account matters greatly, as with eyewitnesses, interviewers should keep ___ to a minimum.",
+          "answers": [
+            "recordings",
+            "alter",
+            "core",
+            "suggestion"
+          ],
+          "distractors": [
+            "strengthen",
+            "detail",
+            "writing"
+          ],
+          "explain": "Paragraph 1: memory is not like replaying \"a recording\" but a reconstruction; paragraph 2: memories \"may be altered by information encountered after the event\"; paragraph 3: \"the core of most everyday memories is probably reasonably accurate\"; paragraph 4: procedures should \"minimize suggestion\"."
         }
       ]
     }

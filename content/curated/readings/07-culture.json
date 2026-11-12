@@ -85,7 +85,7 @@
       "title": "Một ngày ở trường Nhật",
       "summary": "Học sinh Nhật tự dọn dẹp lớp học.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "tip",
@@ -112,30 +112,66 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "Who cleans the classrooms?",
-          "choices": [
-            "The students",
-            "Cleaners",
-            "Parents"
+          "type": "headings",
+          "headings": [
+            "Students keep their school clean",
+            "Sharing the work at lunchtime",
+            "What these daily jobs teach",
+            "Homework in Japanese schools",
+            "A menu of popular school meals"
           ],
-          "answer": 0
+          "answers": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Đoạn 1: học sinh tự dọn lớp, hành lang, nhà vệ sinh; đoạn 2: học sinh thay phiên chia thức ăn và cùng ăn; đoạn 3: thầy cô nói các thói quen này dạy học sinh điều gì. Bài không nói về bài tập về nhà hay thực đơn."
         },
         {
           "type": "mcq",
-          "prompt": "What do students wear when they serve lunch?",
+          "prompt": "Why would students in these schools probably try not to make their classrooms dirty?",
           "choices": [
-            "White aprons and hats",
-            "School uniforms only",
-            "Sports clothes"
+            "Because cleaners complain to their parents",
+            "Because they will have to clean the rooms themselves",
+            "Because teachers give them bad marks",
+            "Because the school buildings are very old"
           ],
-          "answer": 0
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Đoạn 1: học sinh tự dọn lớp sau bữa trưa và không có lao công làm việc này → làm bẩn thì chính mình phải dọn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"effort\" is closest in meaning to …",
+          "choices": [
+            "money",
+            "luck",
+            "hard work",
+            "rules"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Đoạn 3: một nơi sạch sẽ là kết quả \"of everyone's effort\" — công sức, sự cố gắng (hard work) của mọi người."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention teachers in paragraph 3?",
+          "choices": [
+            "To show that teachers do most of the cleaning",
+            "To complain about lazy students",
+            "To compare Japanese and Vietnamese teachers",
+            "To explain the reason for these school habits"
+          ],
+          "answer": 3,
+          "focus": "purpose",
+          "explain": "Đoạn 3: \"Teachers say these habits teach…\" — tác giả dùng lời thầy cô để giải thích vì sao trường có những thói quen này."
         },
         {
           "type": "tf",
-          "statement": "Every student eats the same school lunch.",
+          "statement": "At lunchtime, students give out the food to their classmates.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 2: \"Students serve food to each other in turns\" — học sinh thay phiên chia thức ăn cho nhau."
         },
         {
           "type": "tf",
@@ -148,7 +184,8 @@
           "type": "tf",
           "statement": "Japanese students have no homework.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài không nhắc tới bài tập về nhà."
         },
         {
           "type": "gap",
@@ -161,6 +198,22 @@
             "speed",
             "fear"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "In many Japanese schools, students ___ the classrooms and toilets themselves, because the school has no cleaners for this work. At lunchtime, they take turns ___ the food, and nobody leaves until the meal is ___. These habits show students that a pleasant school depends on ___, not only on a few people.",
+          "answers": [
+            "clean",
+            "serving",
+            "eaten",
+            "everyone"
+          ],
+          "distractors": [
+            "decorate",
+            "cooking",
+            "teachers"
+          ],
+          "explain": "Đoạn 1: học sinh tự dọn (clean); đoạn 2: thay phiên chia thức ăn (serve), không ai đi cho tới khi ăn hết (finished = eaten); đoạn 3: nơi sạch đẹp là công sức của mọi người (everyone)."
         }
       ]
     },
@@ -169,7 +222,7 @@
       "title": "Làm tình nguyện",
       "summary": "Một ngày làm tình nguyện dọn bãi biển.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "tip",
@@ -196,30 +249,79 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What did volunteers receive?",
-          "choices": [
-            "Gloves and a large bag",
-            "Food and water",
-            "T-shirts"
+          "type": "headings",
+          "headings": [
+            "Getting ready for a morning of cleaning",
+            "A tough job done in good spirits",
+            "What the day taught the writer",
+            "Where plastic rubbish comes from",
+            "How to find new volunteers"
           ],
-          "answer": 0
+          "answers": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Đoạn 1: gặp nhau buổi sáng, nhận găng tay và túi; đoạn 2: nhặt rác vất vả dưới nắng nhưng mọi người vui vẻ; đoạn 3: cảm xúc và bài học của tác giả. Bài không nói rác nhựa từ đâu tới hay cách tìm tình nguyện viên."
         },
         {
           "type": "mcq",
-          "prompt": "What was most of the rubbish?",
+          "prompt": "What is the main message of the passage?",
           "choices": [
-            "Plastic",
-            "Paper",
-            "Metal"
+            "Beaches are dangerous in hot weather.",
+            "Plastic bottles are the worst kind of rubbish.",
+            "Many people doing small things together can make a big difference.",
+            "Volunteers should always start work early."
           ],
-          "answer": 0
+          "answer": 2,
+          "focus": "main_idea",
+          "explain": "Đoạn 3: \"small actions, when many people do them together, can really change a place\" — đây là bài học chính của tác giả."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What can we infer about the beach before the volunteers came?",
+          "choices": [
+            "It was already quite clean.",
+            "It was closed to visitors.",
+            "It was far from the city.",
+            "It was very dirty."
+          ],
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Đoạn 2: nhặt được hơn 200 kg rác, có rác nằm trong cát nhiều năm; đoạn 3: bãi biển trông khác hẳn → trước đó rất bẩn. Bãi biển ở gần thành phố (đoạn 1)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"cheerful\" is closest in meaning to …",
+          "choices": [
+            "tired",
+            "happy",
+            "quiet",
+            "worried"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Đoạn 2: công việc vất vả, trời nắng, \"but everybody was cheerful\" — nhưng mọi người vẫn vui vẻ (happy)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer say that some rubbish had been in the sand for years?",
+          "choices": [
+            "To show that the rubbish problem on the beach was an old one",
+            "To explain why the volunteers wore gloves",
+            "To complain that the city does not care about beaches",
+            "To show that plastic is good for the sand"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Đoạn 2: có rác đã nằm trong cát nhiều năm → vấn đề rác ở bãi biển này đã có từ lâu, không phải mới xuất hiện."
         },
         {
           "type": "tf",
-          "statement": "The volunteers collected over 200 kilograms of rubbish.",
+          "statement": "The writer was proud of what the group had done.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 3: cuối ngày tác giả \"tired but proud\", vì bãi biển trông khác hẳn."
         },
         {
           "type": "tf",
@@ -230,9 +332,27 @@
         },
         {
           "type": "tf",
-          "statement": "The beach is in another country.",
+          "statement": "The volunteers were given lunch by the city.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 1 chỉ nói mỗi người nhận găng tay và túi lớn; bài không nói gì về bữa trưa."
+        },
+        {
+          "type": "summary",
+          "text": "The writer took part in a beach ___ with a group of volunteers. In a few hours under the hot sun, they picked up a huge amount of ___, much of it plastic. Although the work was ___, everyone stayed in a good mood. The writer learned that when many people ___, even small actions can change a place.",
+          "answers": [
+            "clean-up",
+            "waste",
+            "tiring",
+            "work together"
+          ],
+          "distractors": [
+            "party",
+            "sand",
+            "easy",
+            "give up"
+          ],
+          "explain": "Đoạn 1: cùng nhóm tình nguyện dọn bãi biển (clean-up); đoạn 2: hơn 200 kg rác (rubbish = waste), công việc vất vả (hard work = tiring) nhưng ai cũng vui; đoạn 3: việc nhỏ khi nhiều người cùng làm (work together) có thể thay đổi một nơi."
         }
       ]
     },
@@ -241,7 +361,7 @@
       "title": "Ẩm thực đường phố",
       "summary": "Vì sao đồ ăn đường phố được yêu thích.",
       "level": "B1_2",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "tip",
@@ -268,29 +388,65 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "Why is street food usually fresh?",
-          "choices": [
-            "It is eaten as soon as it is cooked.",
-            "It comes from a factory.",
-            "It is cooked a day earlier."
+          "type": "headings",
+          "headings": [
+            "A cheap and important part of city life",
+            "Why the food is fresh and well made",
+            "Advice for first-time visitors",
+            "How to cook street food at home",
+            "The history of Asian markets"
           ],
-          "answer": 0
+          "answers": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Đoạn 1: đồ ăn đường phố là một phần lớn của đời sống, bán cả ngày, giá rẻ; đoạn 2: vì sao đồ ăn tươi và được nấu khéo (đầu bếp nhiều năm kinh nghiệm, ăn ngay khi vừa nấu); đoạn 3: lời khuyên cho người mới. Bài không nói cách nấu ở nhà hay lịch sử chợ."
         },
         {
           "type": "mcq",
-          "prompt": "What does a busy stall usually mean?",
+          "prompt": "Why might a stall with no customers be a bad choice?",
           "choices": [
-            "The food is good and safe.",
-            "The food is expensive.",
-            "The cook is new."
+            "Its food may not be good or safe.",
+            "Its prices are always too low.",
+            "It only sells very spicy food.",
+            "It is open only late at night."
           ],
-          "answer": 0
+          "answer": 0,
+          "focus": "inference",
+          "explain": "Đoạn 3: hàng đông khách thường có nghĩa là đồ ăn ngon và an toàn → hàng vắng khách thì chưa chắc ngon, an toàn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"mild\" is closest in meaning to …",
+          "choices": [
+            "very cheap",
+            "cold",
+            "not very spicy",
+            "sweet"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Đoạn 3: nên bắt đầu với loại không cay lắm (mild) rồi mới thêm ớt từ từ, vì có loại nước sốt cay hơn vẻ ngoài."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the main purpose of paragraph 3?",
+          "choices": [
+            "To describe the most popular kinds of street food",
+            "To warn people never to eat spicy sauces",
+            "To explain why street food is cheap",
+            "To give advice to people trying street food for the first time"
+          ],
+          "answer": 3,
+          "focus": "purpose",
+          "explain": "Đoạn 3 bắt đầu bằng \"If you are new to street food\" rồi đưa ra lời khuyên: chọn hàng đông khách, ăn món ít cay trước."
         },
         {
           "type": "tf",
-          "statement": "Prices at street stalls are usually low.",
-          "answer": "true"
+          "statement": "You can usually see how your street food is made.",
+          "answer": "true",
+          "explain": "Đoạn 2: \"you can watch everything being prepared in front of you\"."
         },
         {
           "type": "tf",
@@ -315,6 +471,22 @@
             "drinks",
             "tickets"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "In many Asian cities, small stalls sell food from early morning until late at night, usually at ___ prices. Because most cooks focus on a very small menu, they are highly ___. The food is fresh, and customers can watch it being ___. Newcomers should look for a ___ stall and be careful with spicy sauces.",
+          "answers": [
+            "low",
+            "experienced",
+            "made",
+            "crowded"
+          ],
+          "distractors": [
+            "high",
+            "young",
+            "quiet"
+          ],
+          "explain": "Đoạn 1: giá thường thấp (low); đoạn 2: chỉ bán một hai món nên đầu bếp có nhiều năm kinh nghiệm (experienced), khách xem món được chế biến (made); đoạn 3: chọn hàng đông khách (busy = crowded)."
         }
       ]
     }

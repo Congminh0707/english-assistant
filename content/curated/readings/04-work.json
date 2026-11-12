@@ -13,7 +13,7 @@
       "title": "Cách tôi học tiếng Anh",
       "summary": "Chia sẻ thói quen học đều mỗi ngày và học qua điều mình thích.",
       "level": "B1_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -44,43 +44,82 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "According to the writer, what matters most in learning a language?",
-          "choices": [
-            "Talent",
-            "Regular practice",
-            "A good textbook"
+          "type": "headings",
+          "headings": [
+            "Practice counts more than talent",
+            "A short daily habit and a new attitude to mistakes",
+            "Learning through a favourite hobby",
+            "Final tips for new learners",
+            "The best textbooks for beginners",
+            "Why football is popular around the world"
           ],
-          "answer": 1
+          "answers": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "explain": "Đoạn 1: luyện tập đều quan trọng hơn năng khiếu; đoạn 2: học 20 phút mỗi ngày và không sợ lỗi sai; đoạn 3: học qua sở thích (bóng đá); đoạn 4: lời khuyên cho người mới. Bài không giới thiệu sách giáo khoa hay nói vì sao bóng đá phổ biến."
         },
         {
           "type": "mcq",
-          "prompt": "How long did the writer study each day?",
+          "prompt": "What can we infer the writer would tell a learner who loves cooking?",
           "choices": [
-            "Twenty minutes",
-            "One hour",
-            "Two hours"
+            "Study cooking words from a long list in a textbook.",
+            "Watch or read things about cooking in English.",
+            "Stop cooking until your English is better.",
+            "Wait until you have a talent for languages."
           ],
-          "answer": 0
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Đoạn 3: tác giả thích bóng đá nên xem và nghe về bóng đá bằng tiếng Anh, và nhớ từ tốt hơn học danh sách từ trong sách → với người thích nấu ăn, tác giả sẽ khuyên đọc/xem về nấu ăn bằng tiếng Anh."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"Gradually\" is closest in meaning to …",
+          "choices": [
+            "suddenly",
+            "easily",
+            "rarely",
+            "slowly, little by little"
+          ],
+          "answer": 3,
+          "focus": "vocab",
+          "explain": "Đoạn 2: học mỗi ngày một ít, \"gradually\" từ mới trở nên quen — dần dần, từng chút một."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention football?",
+          "choices": [
+            "To show that sport is more useful than study",
+            "To give an example of linking English with a hobby",
+            "To explain why the writer has little time to study",
+            "To say that podcasts are the only good way to learn"
+          ],
+          "answer": 1,
+          "focus": "purpose",
+          "explain": "Đoạn 3: \"connect English with things you enjoy. I like football, so…\" — bóng đá là ví dụ cho cách gắn tiếng Anh với sở thích."
         },
         {
           "type": "tf",
-          "statement": "The writer stopped worrying about mistakes.",
-          "answer": "true",
-          "ng": true
-        },
-        {
-          "type": "tf",
-          "statement": "The writer learned English by watching films only.",
+          "statement": "The writer ignored the mistakes made while learning.",
           "answer": "false",
           "ng": true,
-          "explain": "Tác giả xem bản tin bóng đá và nghe podcast, không chỉ xem phim."
+          "explain": "Đoạn 2: mỗi lần sai, tác giả ghi lại và sau đó kiểm tra cách viết đúng, không bỏ qua."
+        },
+        {
+          "type": "tf",
+          "statement": "The writer remembered football words better than words from textbook lists.",
+          "answer": "true",
+          "ng": true,
+          "explain": "Đoạn 3: vì thích bóng đá nên tác giả \"remembered much more vocabulary than I did from lists in a textbook\"."
         },
         {
           "type": "tf",
           "statement": "The writer studied English at a language school.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài không nói tác giả học ở đâu, chỉ nói thói quen tự học mỗi ngày."
         },
         {
           "type": "gap",
@@ -93,6 +132,22 @@
             "up",
             "out"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "The writer believes that steady ___ is more important than natural talent. Studying for a short time every day made new words feel ___. Learning through a ___, such as football, also made vocabulary easier to remember. For beginners, the key is to be ___ and to enjoy learning.",
+          "answers": [
+            "practice",
+            "familiar",
+            "hobby",
+            "patient"
+          ],
+          "distractors": [
+            "strange",
+            "textbook",
+            "nervous"
+          ],
+          "explain": "Đoạn 1: \"regular practice matters much more\"; đoạn 2: từ mới dần trở nên quen (familiar); đoạn 3: học qua bóng đá — một sở thích (hobby); đoạn 4: \"be patient\"."
         }
       ]
     },
@@ -101,7 +156,7 @@
       "title": "Buổi phỏng vấn đầu tiên",
       "summary": "Chuẩn bị và trải qua buổi phỏng vấn xin việc.",
       "level": "B1_2",
-      "minutes": 7,
+      "minutes": 9,
       "blocks": [
         {
           "type": "tip",
@@ -128,53 +183,109 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "How did the writer prepare for the interview?",
-          "choices": [
-            "By asking a friend to go too",
-            "By researching the company and practising answers",
-            "By buying a new laptop"
+          "type": "headings",
+          "headings": [
+            "Getting ready for a big day",
+            "Questions and answers in the interview room",
+            "Ending well and getting good news",
+            "Choosing what to study at university",
+            "Problems with a broken website"
           ],
-          "answer": 1
+          "answers": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Đoạn 1: chuẩn bị cho buổi phỏng vấn; đoạn 2: diễn biến buổi phỏng vấn và các câu hỏi; đoạn 3: cuối buổi, nhận tin vui và bài học. Trang web hỏng chỉ là chi tiết trong đoạn 2."
         },
         {
           "type": "mcq",
-          "prompt": "What made the writer feel more relaxed?",
+          "prompt": "What is the main message of the story?",
           "choices": [
-            "The interviewer's warm smile",
-            "A cup of coffee",
-            "A short test"
+            "Software companies prefer people with work experience.",
+            "You should always ask many questions in an interview.",
+            "Interviewers are usually unfriendly.",
+            "Good preparation can make a stressful situation easier."
           ],
-          "answer": 0
+          "answer": 3,
+          "focus": "main_idea",
+          "explain": "Đoạn 1: tác giả lo lắng nên chuẩn bị kỹ; đoạn 3: \"preparation is the best way to reduce stress\" — đây là thông điệp chính."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why did the writer feel proud before knowing the result?",
+          "choices": [
+            "Ms. Hanh had told the writer about the job offer.",
+            "The writer felt that the interview had gone well.",
+            "The writer's school project had won a prize.",
+            "The writer had arrived before all the other people."
+          ],
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Đoạn 3: chưa biết kết quả ngay nhưng vẫn tự hào → tác giả thấy mình đã làm tốt trong buổi phỏng vấn. Ms. Hanh chưa báo kết quả (email đến một tuần sau); bài không nói về giải thưởng hay người khác."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 1, the word \"neat\" is closest in meaning to …",
+          "choices": [
+            "expensive",
+            "colourful",
+            "tidy",
+            "old"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Đoạn 1: \"chose a neat shirt to wear\" cho buổi phỏng vấn — áo gọn gàng, chỉn chu (tidy)."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention the school project?",
+          "choices": [
+            "To answer a question about solving a difficult problem",
+            "To show that the writer studied computer science",
+            "To explain why the writer was nervous",
+            "To complain about the team members"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Đoạn 2: Ms. Hanh hỏi về \"a time when I solved a difficult problem\", và tác giả kể dự án ở trường để trả lời câu đó."
         },
         {
           "type": "tf",
-          "statement": "The writer arrived late.",
+          "statement": "The writer found out the result on the day of the interview.",
           "answer": "false",
           "ng": true,
-          "explain": "Tác giả đến sớm fifteen minutes early."
+          "explain": "Đoạn 3: tác giả không biết kết quả ngay; một tuần sau mới nhận email mời làm việc."
         },
         {
           "type": "tf",
-          "statement": "The writer got a job offer by email.",
+          "statement": "At the end of the interview, the writer asked Ms. Hanh a question.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 3: khi được hỏi có câu hỏi nào không, tác giả hỏi một ngày làm việc điển hình của nhóm ra sao."
         },
         {
           "type": "tf",
           "statement": "The company is in Ho Chi Minh City.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài chỉ nói đó là một công ty phần mềm, không nói công ty ở đâu."
         },
         {
-          "type": "mcq",
-          "prompt": "What did the writer learn from the experience?",
-          "choices": [
-            "Interviews are always easy.",
-            "Preparation reduces stress.",
-            "It is better to arrive late."
+          "type": "summary",
+          "text": "Before the interview, the writer felt very ___ and spent time getting ready. The interviewer's friendly manner helped the writer feel ___. To show how they deal with ___, the writer talked about a team project. Seven days later, the writer was ___ the job.",
+          "answers": [
+            "anxious",
+            "calmer",
+            "challenges",
+            "offered"
           ],
-          "answer": 1
+          "distractors": [
+            "bored",
+            "worse",
+            "refused"
+          ],
+          "explain": "Đoạn 1: lo lắng nhiều ngày (nervous = anxious); đoạn 2: nụ cười của Ms. Hanh giúp bớt căng thẳng (more relaxed = calmer), kể dự án để nói về giải quyết vấn đề khó; đoạn 3: một tuần sau nhận email mời làm việc (offered)."
         }
       ]
     }

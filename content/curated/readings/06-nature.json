@@ -85,7 +85,7 @@
       "title": "Loài ong mật",
       "summary": "Ong làm mật và giúp cây ra quả.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "tip",
@@ -112,43 +112,80 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What does the queen bee do?",
-          "choices": [
-            "Lays eggs",
-            "Collects nectar",
-            "Makes honey"
+          "type": "headings",
+          "headings": [
+            "How a bee colony is organised",
+            "Why bees matter to plants",
+            "A worrying problem and what we can do",
+            "How to keep bees at home",
+            "The taste of different kinds of honey"
           ],
-          "answer": 0
+          "answers": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Đoạn 1: đàn ong và công việc của từng loại ong; đoạn 2: ong thợ lấy mật và mang phấn hoa giúp cây ra hạt, ra quả; đoạn 3: số ong giảm, nguyên nhân và cách giúp. Bài không nói về nuôi ong hay vị mật."
         },
         {
           "type": "mcq",
-          "prompt": "How do bees help plants make fruit?",
+          "prompt": "What would probably happen to fruit farms if there were far fewer bees?",
           "choices": [
-            "By carrying pollen",
-            "By eating leaves",
-            "By digging soil"
+            "They would need fewer workers.",
+            "They would produce more honey.",
+            "Nothing would change.",
+            "They might grow less fruit."
           ],
-          "answer": 0
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Đoạn 2: ong mang phấn hoa giúp cây ra hạt và quả; đoạn 3: số ong đang giảm → ít ong thì có thể ít quả hơn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"falling\" is closest in meaning to …",
+          "choices": [
+            "dropping to the ground",
+            "getting smaller",
+            "staying the same",
+            "getting bigger"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Đoạn 3: \"the number of bees is falling\" — con số đang giảm (getting smaller), không phải rơi xuống đất."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the purpose of the last sentence of paragraph 3?",
+          "choices": [
+            "To show an easy way that people can help bees",
+            "To explain where bees build their homes",
+            "To describe how honey is made",
+            "To say that gardens are more beautiful than forests"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Đoạn 3: sau khi nêu vấn đề, tác giả viết đây là \"a simple way to help\" — một cách đơn giản để giúp loài ong."
         },
         {
           "type": "tf",
-          "statement": "A colony can have up to fifty thousand bees.",
-          "answer": "true",
-          "ng": true
-        },
-        {
-          "type": "tf",
-          "statement": "The number of bees is increasing in many countries.",
+          "statement": "All the bees in a colony do the same job.",
           "answer": "false",
           "ng": true,
-          "explain": "Số lượng ong đang giảm."
+          "explain": "Đoạn 1: mỗi con ong có một việc: ong chúa đẻ trứng, ong thợ kiếm thức ăn, ong đực giúp ong chúa."
         },
         {
           "type": "tf",
-          "statement": "Honey bees only live in Europe.",
+          "statement": "Worker bees help plants while they are collecting food.",
+          "answer": "true",
+          "ng": true,
+          "explain": "Đoạn 2: khi bay từ bông này sang bông khác để lấy mật, ong thợ mang theo phấn hoa, giúp cây ra hạt và quả."
+        },
+        {
+          "type": "tf",
+          "statement": "Drones live longer than worker bees.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 1 chỉ nói ong đực giúp ong chúa; bài không nói con ong nào sống lâu hơn."
         },
         {
           "type": "gap",
@@ -161,6 +198,21 @@
             "trees",
             "grass"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "In a bee colony, each bee has its own ___: the queen lays eggs, while the others collect food or help her. Worker bees turn nectar into honey, and the ___ they carry helps plants make seeds and fruit. Sadly, bee numbers are dropping, partly because of ___ used to kill insects.",
+          "answers": [
+            "role",
+            "pollen",
+            "chemicals"
+          ],
+          "distractors": [
+            "home",
+            "honey",
+            "water"
+          ],
+          "explain": "Đoạn 1: mỗi con ong có một việc (job = role); đoạn 2: ong mang phấn hoa (pollen) giúp cây ra hạt và quả; đoạn 3: thuốc trừ sâu (pesticides = chemicals) là một nguyên nhân chính."
         }
       ]
     },
@@ -241,7 +293,7 @@
       "title": "Rừng nhiệt đới",
       "summary": "Vì sao rừng nhiệt đới quan trọng.",
       "level": "B1_2",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -268,30 +320,66 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "How much of the Earth do rainforests cover?",
-          "choices": [
-            "About 6%",
-            "About 30%",
-            "About 60%"
+          "type": "headings",
+          "headings": [
+            "A small area with a huge variety of life",
+            "How these forests help the climate",
+            "The danger of losing forests and how to help",
+            "The largest rainforest in the world",
+            "Animals that live at the top of trees"
           ],
-          "answer": 0
+          "answers": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Đoạn 1: rừng mưa chiếm ít diện tích nhưng có hơn một nửa số loài; đoạn 2: rừng giúp điều hoà khí hậu; đoạn 3: rừng bị chặt và cách bảo vệ. Bài không nói rừng nào lớn nhất hay động vật trên ngọn cây."
         },
         {
           "type": "mcq",
-          "prompt": "Why are rainforests called the lungs of the planet?",
+          "prompt": "What can we infer would happen if many more rainforests were cut down?",
           "choices": [
-            "Trees take in carbon dioxide and release oxygen.",
-            "They are shaped like lungs.",
-            "They are very quiet."
+            "More animal species would appear.",
+            "There would be more carbon dioxide in the air.",
+            "The Earth would have more oxygen.",
+            "Rainforests would cover more of the Earth."
           ],
-          "answer": 0
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Đoạn 2: cây hấp thụ khí CO2 và thải ra oxy → mất rừng thì ít cây hấp thụ CO2, nên CO2 trong không khí nhiều hơn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 1, the word \"single\" is closest in meaning to …",
+          "choices": [
+            "not married",
+            "large",
+            "just one",
+            "special"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Đoạn 1: \"A single hectare can contain hundreds of different kinds of trees\" — chỉ một héc-ta thôi (just one), không phải nghĩa \"độc thân\"."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer say rainforests are called \"the lungs of the planet\"?",
+          "choices": [
+            "To warn that forests can easily get sick",
+            "To say that forests are shaped like lungs",
+            "To describe the colour of the trees",
+            "To show how important forests are for the air we breathe"
+          ],
+          "answer": 3,
+          "focus": "purpose",
+          "explain": "Đoạn 2: cây hấp thụ CO2 và thải oxy \"For this reason\" rừng được gọi là lá phổi — để nhấn mạnh vai trò của rừng với không khí."
         },
         {
           "type": "tf",
-          "statement": "Rainforests contain more than half of all species.",
+          "statement": "Rainforests have a much larger share of the world's species than of its surface.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 1: rừng mưa chỉ chiếm khoảng 6% bề mặt Trái Đất nhưng có hơn một nửa số loài động thực vật."
         },
         {
           "type": "tf",
@@ -304,7 +392,8 @@
           "type": "tf",
           "statement": "Most rainforests are in Africa.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Bài không nói rừng mưa nằm ở châu lục nào."
         },
         {
           "type": "gap",
@@ -317,6 +406,23 @@
             "colour",
             "name"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "Although rainforests take up only a ___ part of the planet, they hold most of its plant and animal species. Their trees take in carbon dioxide, give out ___ and store a lot of water, which helps to control the climate. However, huge areas are ___ every year for farms and roads, so we need to ___ the forests that are left.",
+          "answers": [
+            "small",
+            "oxygen",
+            "cleared",
+            "protect"
+          ],
+          "distractors": [
+            "large",
+            "smoke",
+            "planted",
+            "destroy"
+          ],
+          "explain": "Đoạn 1: chỉ khoảng 6% bề mặt (small) nhưng có hơn một nửa số loài; đoạn 2: cây thải oxy (oxygen); đoạn 3: nhiều vùng bị chặt phá (cut down = cleared), cần bảo vệ (protect) phần rừng còn lại."
         }
       ]
     }

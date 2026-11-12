@@ -13,7 +13,7 @@
       "title": "An toàn trên mạng",
       "summary": "Những quy tắc đơn giản để dùng Internet an toàn.",
       "level": "B1_1",
-      "minutes": 5,
+      "minutes": 7,
       "blocks": [
         {
           "type": "tip",
@@ -40,43 +40,96 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What should a good password be like?",
-          "choices": [
-            "Long, with letters, numbers and symbols",
-            "Short and easy",
-            "The same everywhere"
+          "type": "headings",
+          "headings": [
+            "Dangers you can meet online",
+            "Keeping your passwords and details private",
+            "What to do with strange messages",
+            "How to buy things safely online",
+            "Choosing the best computer"
           ],
-          "answer": 0
+          "answers": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Đoạn 1: những rủi ro trên Internet; đoạn 2: mật khẩu và thông tin cá nhân; đoạn 3: cẩn thận với email, tin nhắn đáng ngờ. Bài không nói về mua sắm hay chọn máy tính."
         },
         {
           "type": "mcq",
-          "prompt": "What should you do with a suspicious link?",
+          "prompt": "What is the passage mainly about?",
           "choices": [
-            "Not click it",
-            "Click it quickly",
-            "Send it to friends"
+            "How to make new friends online",
+            "Simple ways to stay safe on the Internet",
+            "Why the Internet is useful for students",
+            "How to write a good email"
           ],
-          "answer": 0
+          "answer": 1,
+          "focus": "main_idea",
+          "explain": "Đoạn 1 nêu rủi ro, đoạn 2–3 đưa ra cách tự bảo vệ (mật khẩu, thông tin cá nhân, đường link lạ) → cách giữ an toàn trên mạng."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Ana gets a message: \"Click this link in ten minutes or you will lose your account!\" What would the writer tell her to do?",
+          "choices": [
+            "Click the link quickly to save her account.",
+            "Send her password back to check the account.",
+            "Not click, and go to the official website herself.",
+            "Forward the message to all her friends."
+          ],
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Đoạn 3: cẩn thận với tin nhắn bắt bấm link nhanh; nếu đáng ngờ thì đừng bấm, hãy tự vào trang web chính thức hoặc hỏi người lớn tin cậy."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"suspicious\" is closest in meaning to …",
+          "choices": [
+            "very interesting",
+            "beautiful",
+            "brand new",
+            "possibly dishonest or dangerous"
+          ],
+          "answer": 3,
+          "focus": "vocab",
+          "explain": "Đoạn 3: \"If something looks suspicious, do not click\" — trông đáng ngờ, có thể lừa đảo hoặc nguy hiểm."
         },
         {
           "type": "tf",
-          "statement": "You should use a different password for each account.",
-          "answer": "true",
-          "ng": true
-        },
-        {
-          "type": "tf",
-          "statement": "It is fine to share your password with a close friend.",
+          "statement": "A short password with only letters is a good choice.",
           "answer": "false",
           "ng": true,
-          "explain": "Bài viết nói không chia sẻ mật khẩu, kể cả với bạn bè."
+          "explain": "Đoạn 2: mật khẩu nên dài, có chữ cái, chữ số và ký hiệu."
         },
         {
           "type": "tf",
-          "statement": "The writer recommends one specific antivirus program.",
+          "statement": "The writer warns that some people online lie about who they are.",
+          "answer": "true",
+          "ng": true,
+          "explain": "Đoạn 1: \"others pretend to be someone they are not\" — có người giả làm người khác."
+        },
+        {
+          "type": "tf",
+          "statement": "Most online thieves live in other countries.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "Đoạn 1 chỉ nói có người tìm cách lấy mật khẩu hoặc tiền; bài không nói họ sống ở đâu."
+        },
+        {
+          "type": "summary",
+          "text": "The Internet can be ___ because some people try to steal from others or lie about who they are. Make each password long and ___, and never tell it to anyone. Do not give your address to ___. If a message pushes you to click a link fast, visit the official website or talk to an adult you ___.",
+          "answers": [
+            "risky",
+            "different",
+            "strangers",
+            "trust"
+          ],
+          "distractors": [
+            "helpful",
+            "simple",
+            "teachers"
+          ],
+          "explain": "Đoạn 1: Internet có rủi ro (risks = risky); đoạn 2: mỗi tài khoản một mật khẩu khác nhau (different), không đưa địa chỉ cho người lạ (strangers); đoạn 3: hỏi người lớn bạn tin tưởng (trust)."
         }
       ]
     },
@@ -85,7 +138,7 @@
       "title": "Xe điện",
       "summary": "Ưu và nhược điểm của ô tô điện.",
       "level": "B1_2",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -112,29 +165,65 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "Why can electric cars make the air cleaner?",
-          "choices": [
-            "They produce no smoke from the exhaust.",
-            "They are small.",
-            "They are slow."
+          "type": "headings",
+          "headings": [
+            "Cleaner air in our cities",
+            "Cheaper and quieter to use",
+            "Problems that are slowly being solved",
+            "How electric engines work",
+            "The fastest cars on the road"
           ],
-          "answer": 0
+          "answers": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Đoạn 1: xe điện không xả khói nên không khí sạch hơn; đoạn 2: chi phí sử dụng thấp và xe rất êm; đoạn 3: nhược điểm nhưng giá đang giảm, trạm sạc mới mở thêm. Bài không giải thích động cơ hay tốc độ xe."
         },
         {
           "type": "mcq",
-          "prompt": "Which is a disadvantage mentioned?",
+          "prompt": "What can we infer about electric cars from the end of paragraph 3?",
           "choices": [
-            "They are still expensive to buy.",
-            "They are very loud.",
-            "They need more repair."
+            "They will soon become more expensive.",
+            "Charging stations will start to close.",
+            "People will stop buying them.",
+            "Some of their problems may become less serious."
           ],
-          "answer": 0
+          "answer": 3,
+          "focus": "inference",
+          "explain": "Đoạn 3: giá đang giảm và mỗi tháng có trạm sạc mới → hai nhược điểm (giá cao, thiếu trạm sạc) có thể bớt dần."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"reduces\" is closest in meaning to …",
+          "choices": [
+            "increases",
+            "lowers",
+            "creates",
+            "hides"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Đoạn 2: xe điện rất êm, \"which reduces noise in busy streets\" — làm giảm (lowers) tiếng ồn."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer use \"On the other hand\" in paragraph 3?",
+          "choices": [
+            "To introduce some good news after the problems",
+            "To add another disadvantage of electric cars",
+            "To compare electric cars with bicycles",
+            "To give an example of a charging station"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Đoạn 3: sau các nhược điểm (đắt, sạc lâu, thiếu trạm), \"On the other hand\" mở ra mặt tích cực: giá giảm, trạm mới mở."
         },
         {
           "type": "tf",
-          "statement": "Electricity is usually cheaper than petrol.",
-          "answer": "true"
+          "statement": "Using an electric car usually costs less than using a petrol car.",
+          "answer": "true",
+          "explain": "Đoạn 2: điện thường rẻ hơn xăng, nên chi phí sử dụng xe điện thấp hơn."
         },
         {
           "type": "tf",
@@ -159,6 +248,23 @@
             "noise",
             "smoke"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "Electric cars are growing in popularity. Because they burn no petrol, they help make city air ___. They are cheaper to run and much ___ than petrol cars. On the downside, they cost a lot to ___, take a long time to charge, and some areas have too few charging stations. Still, prices are ___ and more stations keep opening.",
+          "answers": [
+            "cleaner",
+            "quieter",
+            "buy",
+            "dropping"
+          ],
+          "distractors": [
+            "dirtier",
+            "louder",
+            "park",
+            "rising"
+          ],
+          "explain": "Đoạn 1: không đốt xăng nên không khí sạch hơn (cleaner); đoạn 2: rẻ hơn khi dùng và rất êm (quieter); đoạn 3: vẫn đắt khi mua (buy), sạc lâu, thiếu trạm, nhưng giá đang giảm (falling = dropping)."
         }
       ]
     },
@@ -167,7 +273,7 @@
       "title": "Làm việc từ xa",
       "summary": "Lợi ích và thách thức khi làm việc tại nhà.",
       "level": "B2_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -194,41 +300,78 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What do many employees say is the biggest benefit?",
-          "choices": [
-            "Flexibility",
-            "Higher pay",
-            "More meetings"
+          "type": "headings",
+          "headings": [
+            "The appeal of a flexible schedule",
+            "The downsides of working from home",
+            "Practical ways to get the balance right",
+            "Why commuting has become more expensive",
+            "Companies abandoning the traditional office",
+            "A shared living room as an office"
           ],
-          "answer": 0
+          "answers": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Paragraph 1 presents flexibility as the main benefit; paragraph 2 describes the drawbacks (isolation, blurred work and home life); paragraph 3 gives practical advice and describes the hybrid model. The living room is only a detail of paragraph 2, and companies are not abandoning offices: hybrid workers still go in two or three days a week."
         },
         {
           "type": "mcq",
-          "prompt": "Why do some people feel isolated?",
+          "prompt": "What can be inferred about companies that choose the hybrid model?",
           "choices": [
-            "They miss casual talks with colleagues.",
-            "They work too fast.",
-            "They have no computer."
+            "They want employees to work fewer hours.",
+            "They believe working only from home may weaken team spirit.",
+            "They introduced it before the pandemic.",
+            "They require employees to stay at home every day."
           ],
-          "answer": 0
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Paragraph 3: companies bring staff in two or three days a week \"hoping to keep both productivity and team spirit\"; paragraph 2 says remote workers miss casual talks and feel isolated. So they fear fully remote work could harm team spirit."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"isolated\" is closest in meaning to …",
+          "choices": [
+            "bored with routine tasks",
+            "unable to concentrate",
+            "cut off from other people",
+            "paid less than others"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Paragraph 2: people feel isolated \"because they miss casual conversations with colleagues\", so the word means separated or cut off from others."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention the living room in paragraph 2?",
+          "choices": [
+            "To suggest that homes are too small for remote work",
+            "To recommend a good place for a home office",
+            "To show that remote workers spend more on furniture",
+            "To illustrate why work and private life can be hard to separate"
+          ],
+          "answer": 3,
+          "focus": "purpose",
+          "explain": "Paragraph 2: it is hard to separate work from private life \"when the office is also the living room\" — the room is an example of how the two overlap."
         },
         {
           "type": "tf",
-          "statement": "A hybrid model combines home and office work.",
-          "answer": "true"
+          "statement": "According to the passage, remote workers spend more time travelling than office workers.",
+          "answer": "false",
+          "explain": "Paragraph 1: people working from home \"save hours of travelling\"."
         },
         {
           "type": "tf",
           "statement": "Experts say you should work without any fixed hours.",
           "answer": "false",
-          "explain": "Chuyên gia khuyên giờ giấc đều đặn."
+          "explain": "Paragraph 3: experts recommend \"regular hours\", not working without a schedule."
         },
         {
           "type": "tf",
-          "statement": "Most companies have stopped using offices completely.",
-          "answer": "false",
-          "explain": "Nhiều công ty ưu tiên mô hình kết hợp, không bỏ văn phòng."
+          "statement": "Some remote workers find it difficult to keep their work and home life apart.",
+          "answer": "true",
+          "explain": "Paragraph 2: \"it can be hard to separate work from private life\"."
         },
         {
           "type": "gap",
@@ -239,8 +382,24 @@
           "choices": [
             "boundaries",
             "prices",
-            "rules of football"
+            "salaries"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "Since the pandemic, working from home has become common. Its main attraction is ___: people avoid long journeys and plan their day around personal needs. On the other hand, some workers feel ___ without everyday chats with colleagues, and home and work life can ___. To deal with this, experts recommend a fixed workspace and set hours, while many employers now choose a ___ arrangement.",
+          "answers": [
+            "flexibility",
+            "lonely",
+            "overlap",
+            "hybrid"
+          ],
+          "distractors": [
+            "higher pay",
+            "productive",
+            "full-time office"
+          ],
+          "explain": "Paragraph 1: the biggest benefit is flexibility; paragraph 2: people feel isolated (lonely) and work and private life are hard to separate (they overlap); paragraph 3: many companies prefer a hybrid model."
         }
       ]
     },
@@ -249,7 +408,7 @@
       "title": "Học ngôn ngữ bằng ứng dụng",
       "summary": "Ứng dụng học tập giúp được gì và chưa giúp được gì.",
       "level": "B2_1",
-      "minutes": 6,
+      "minutes": 8,
       "blocks": [
         {
           "type": "tip",
@@ -276,43 +435,81 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What helps users stay motivated?",
-          "choices": [
-            "Games, reminders and points",
-            "Long lectures",
-            "Exams"
+          "type": "headings",
+          "headings": [
+            "Convenient lessons that keep learners going",
+            "What apps cannot do on their own",
+            "A mix of methods for better results",
+            "Comparing the prices of popular apps",
+            "Learning while travelling to work",
+            "Why grammar books are out of date"
           ],
-          "answer": 0
+          "answers": [
+            0,
+            1,
+            2
+          ],
+          "explain": "Paragraph 1 describes how convenient and motivating apps are; paragraph 2 explains their limits; paragraph 3 recommends combining several methods. Studying on the bus is only a detail of paragraph 1, and prices and grammar books are not discussed."
         },
         {
           "type": "mcq",
-          "prompt": "What cannot an app fully replace?",
+          "prompt": "What does the writer suggest about practising with real people?",
           "choices": [
-            "Conversation with real people",
-            "Learning vocabulary",
-            "Daily practice"
+            "It should replace apps completely.",
+            "It is only necessary for advanced learners.",
+            "It prepares learners for replies that an app cannot predict.",
+            "It is more motivating than games and points."
           ],
-          "answer": 0
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Paragraph 2: real people \"react in unexpected ways and use language naturally\", which an app cannot fully copy. Paragraph 3 recommends using apps together with speaking, not replacing them."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"Nevertheless\" is closest in meaning to …",
+          "choices": [
+            "Therefore",
+            "For example",
+            "In addition",
+            "However"
+          ],
+          "answer": 3,
+          "focus": "vocab",
+          "explain": "Paragraph 2 opens with \"Nevertheless\" to contrast with paragraph 1: apps are convenient, but an app alone is rarely enough — the word means \"however\"."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer mention the bus in paragraph 1?",
+          "choices": [
+            "To show that app lessons are short enough to fit into small gaps in the day",
+            "To suggest that learners should only study while travelling",
+            "To complain that buses are too noisy for studying",
+            "To explain why many learners give up after a few months"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Paragraph 1: \"Lessons fit into a few minutes on the bus\" — an example of how convenient short app lessons are."
         },
         {
           "type": "tf",
           "statement": "The writer thinks an app alone is usually enough.",
           "answer": "false",
           "ng": true,
-          "explain": "Tác giả viết ứng dụng riêng lẻ hiếm khi đủ."
+          "explain": "Paragraph 2: \"an app on its own is rarely enough\"."
         },
         {
           "type": "tf",
-          "statement": "Successful learners often combine several methods.",
+          "statement": "The writer believes that apps can teach vocabulary well.",
           "answer": "true",
-          "ng": true
+          "ng": true,
+          "explain": "Paragraph 2: an app \"can teach vocabulary and basic sentences effectively\"."
         },
         {
           "type": "tf",
           "statement": "The most popular app is free.",
           "answer": "ng",
-          "ng": true
+          "ng": true,
+          "explain": "The passage never names a most popular app or mentions prices."
         },
         {
           "type": "gap",
@@ -325,6 +522,22 @@
             "slower",
             "no"
           ]
+        },
+        {
+          "type": "summary",
+          "text": "Language apps make studying ___, since lessons are short and features such as games and points keep users ___. However, an app is seldom ___ by itself, because it cannot take the place of talking with real people. The best results come from ___ apps with other resources and regular speaking practice, even though this demands more work.",
+          "answers": [
+            "convenient",
+            "engaged",
+            "sufficient",
+            "combining"
+          ],
+          "distractors": [
+            "difficult",
+            "bored",
+            "replacing"
+          ],
+          "explain": "Paragraph 1: lessons fit into a few minutes and keep users motivated (engaged); paragraph 2: an app on its own is rarely enough (sufficient); paragraph 3: successful learners combine several methods."
         }
       ]
     }

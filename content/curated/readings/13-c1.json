@@ -170,7 +170,7 @@
       "title": "Thiên kiến xác nhận",
       "summary": "Vì sao ta chỉ thấy điều mình muốn tin.",
       "level": "C1",
-      "minutes": 8,
+      "minutes": 10,
       "blocks": [
         {
           "type": "tip",
@@ -201,6 +201,24 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "Why clever people are not safe from it",
+            "Training people to switch the bias off",
+            "What the bias is, and how widespread it is",
+            "Building safeguards into the way decisions are made",
+            "Bias at every stage of handling information",
+            "How scientists publish their results"
+          ],
+          "answers": [
+            2,
+            4,
+            0,
+            3
+          ],
+          "explain": "Paragraph 1 defines the bias and calls it the most pervasive; paragraph 2 shows it at the stages of choosing, interpreting and remembering; paragraph 3 says intelligence and expertise give little protection; paragraph 4 describes procedural remedies. Paragraph 4 says the bias cannot be switched off, and publishing is never discussed."
+        },
+        {
           "type": "mcq",
           "prompt": "According to the text, how does intelligence relate to confirmation bias?",
           "choices": [
@@ -210,40 +228,67 @@
             "It helps people justify conclusions reached for other reasons."
           ],
           "answer": 3,
-          "explain": "Đoạn 3: người lập luận giỏi chỉ giỏi hơn trong việc biện minh cho kết luận đã có."
+          "explain": "Paragraph 3: people with strong reasoning skills are \"better at constructing justifications for conclusions they reached for other reasons\", so intelligence offers little protection."
         },
         {
           "type": "mcq",
-          "prompt": "Why does the writer describe the best remedies as \"procedural rather than personal\"?",
+          "prompt": "What can be inferred about a highly knowledgeable expert who holds a firm opinion?",
           "choices": [
-            "Because individuals are not responsible for their beliefs",
-            "Because the bias cannot simply be switched off by an individual",
-            "Because organizations are always more rational than people",
-            "Because procedures are cheaper than training"
+            "They are more willing than others to change their mind when shown contrary evidence.",
+            "They do not need procedures such as pre-registration.",
+            "Their expertise may make their bias harder to spot.",
+            "Their conclusions are always reached by careful reasoning alone."
+          ],
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Paragraph 3: expertise \"can make the bias harder, not easier, to detect\", because skilled reasoners build better justifications. Paragraph 4 recommends procedures for everyone, and paragraph 3 says conclusions are often reached \"for other reasons\"."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 1, the word \"pervasive\" is closest in meaning to …",
+          "choices": [
+            "harmful",
+            "widespread",
+            "obvious",
+            "recent"
           ],
           "answer": 1,
-          "explain": "Đoạn 4 mở đầu: \"Since the bias cannot be switched off\" — nên cần quy trình bên ngoài."
+          "focus": "vocab",
+          "explain": "Paragraph 1: of all mental shortcuts, confirmation bias is \"perhaps the most pervasive\", meaning it is found everywhere; paragraph 2 then shows it at every stage of handling information."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer end with the question \"What would convince me that I am wrong?\"",
+          "choices": [
+            "To show that individuals can switch the bias off completely",
+            "To offer a personal habit that works against looking only for support",
+            "To criticize scientists for not questioning their hypotheses",
+            "To argue that personal remedies work better than procedural ones"
+          ],
+          "answer": 1,
+          "focus": "purpose",
+          "explain": "Paragraph 4: after the procedural remedies, the writer gives \"one useful habit\" at an individual level, which reverses the search for supporting evidence. The same paragraph says the bias \"cannot be switched off\" and that procedural remedies are the most effective."
         },
         {
           "type": "tf",
-          "statement": "People tend to remember arguments that support their position more accurately.",
+          "statement": "According to the text, people remember the arguments on their own side of a debate better than those against it.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 2: thí nghiệm cho thấy điều này."
+          "explain": "Paragraph 2: experiments suggest people \"recall the arguments that favored their position more accurately than those that opposed it\"."
         },
         {
           "type": "tf",
           "statement": "The writer believes experts are immune to confirmation bias.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 3: chuyên môn có thể khiến thiên kiến khó phát hiện hơn."
+          "explain": "Paragraph 3: intelligence offers little protection, and expertise can make the bias \"harder, not easier, to detect\"."
         },
         {
           "type": "tf",
           "statement": "Confirmation bias is stronger in older people than in younger people.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không đề cập tuổi tác."
+          "explain": "The passage never mentions age, so this cannot be checked against the text."
         },
         {
           "type": "gap",
@@ -257,6 +302,22 @@
             "abandon"
           ],
           "explain": "Đoạn 4: \"Scientists pre-register their hypotheses before collecting data\"."
+        },
+        {
+          "type": "summary",
+          "text": "Confirmation bias makes people favor information that ___ what they already think. It affects what we choose to read, how we judge unclear ___, and even what we remember. A sharp mind gives little ___ against it, so the most reliable defenses are built into ___ rather than left to the individual.",
+          "answers": [
+            "supports",
+            "evidence",
+            "protection",
+            "procedures"
+          ],
+          "distractors": [
+            "challenges",
+            "motivation",
+            "emotions"
+          ],
+          "explain": "Paragraph 1: we look for information that supports existing beliefs; paragraph 2: ambiguous data is interpreted to suit us; paragraph 3: \"intelligence offers little protection\"; paragraph 4: the best remedies are \"procedural rather than personal\"."
         }
       ]
     },
@@ -265,7 +326,7 @@
       "title": "Kinh tế của sự chú ý",
       "summary": "Khi sự chú ý của bạn là món hàng.",
       "level": "C1",
-      "minutes": 8,
+      "minutes": 10,
       "blocks": [
         {
           "type": "tip",
@@ -296,49 +357,95 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "Why are many digital platforms offered free of charge?",
-          "choices": [
-            "They are funded by governments.",
-            "Their real product is users' attention sold to advertisers.",
-            "They want to reduce information overload.",
-            "Users pay through subscriptions later."
+          "type": "headings",
+          "headings": [
+            "A gap between what holds attention and what is good for us",
+            "Evidence that people now read less news",
+            "Why users' attention is what is really being sold",
+            "Rules, new business models and the limits of self-help",
+            "How advertisers choose their target audiences",
+            "Features designed to keep people scrolling"
           ],
-          "answer": 1,
-          "explain": "Đoạn 1: sản phẩm thật là sự chú ý của người dùng, bán cho nhà quảng cáo."
+          "answers": [
+            2,
+            5,
+            0,
+            3
+          ],
+          "explain": "Paragraph 1 explains that attention is the real product; paragraph 2 lists features built to maximize engagement; paragraph 3 says attention-grabbing content does not necessarily serve users; paragraph 4 surveys responses and the burden on individuals. Targeted audiences are only a detail of paragraph 1, and reading habits are never measured."
         },
         {
           "type": "mcq",
-          "prompt": "What is the writer's view of individual strategies such as disabling notifications?",
+          "prompt": "In the writer's view, who is the real customer of a free platform?",
           "choices": [
-            "They are useless.",
-            "They solve the problem completely.",
-            "They should be required by law.",
-            "They help but unfairly place the burden on users."
+            "Its users",
+            "Governments",
+            "Advertisers",
+            "Subscribers"
+          ],
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Paragraph 1: the platforms' \"real product is the attention of their users, which is sold to advertisers\". If users' attention is the product being sold, the paying customers are the advertisers, not the users."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the writer imply by describing the systems as \"engineered by teams of specialists to be irresistible\"?",
+          "choices": [
+            "Specialists should be banned from designing apps.",
+            "Individual willpower is a weak defense against such systems.",
+            "Disabling notifications is pointless.",
+            "Users enjoy the challenge of resisting well-designed apps."
+          ],
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Paragraph 4: individual strategies \"help\", but they leave ordinary users to resist systems built by experts to be irresistible, so self-control alone is an unequal contest. Because they \"help\", they are not pointless."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"erode\" is closest in meaning to …",
+          "choices": [
+            "suddenly destroy",
+            "accurately measure",
+            "gradually wear away",
+            "openly reveal"
+          ],
+          "answer": 2,
+          "focus": "vocab",
+          "explain": "Paragraph 3: \"Over time\" an engagement-driven environment \"may erode the capacity for sustained concentration\" — a slow weakening, not a sudden destruction."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which statement best expresses the main argument of the passage?",
+          "choices": [
+            "Free digital platforms are a generous public service.",
+            "Users can easily protect themselves by changing their settings.",
+            "Advertising is the only possible way to fund digital services.",
+            "A business model based on selling attention rewards design that may harm users and society."
           ],
           "answer": 3,
-          "explain": "Đoạn 4: có ích nhưng đặt gánh nặng lên người dùng."
+          "focus": "main_idea",
+          "explain": "Paragraphs 1–3 trace a line from selling attention, to engagement-maximizing features, to content that does not serve users and may damage concentration. Paragraph 4 mentions subscriptions as an alternative and says individual strategies place an unfair burden on users."
         },
         {
           "type": "tf",
-          "statement": "Content that provokes outrage often spreads faster than careful reporting.",
+          "statement": "The writer suggests that the content that spreads most widely is not always the most useful to users.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 3 nói vậy."
+          "explain": "Paragraph 3: content that captures attention \"is not necessarily content that serves users well\", and outrage often spreads faster than careful reporting."
         },
         {
           "type": "tf",
           "statement": "According to the text, attention is now more abundant than information.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 1: thông tin dư thừa, sự chú ý mới là nguồn lực khan hiếm."
+          "explain": "Paragraph 1: information is abundant; attention is the scarce resource."
         },
         {
           "type": "tf",
-          "statement": "Subscription-based platforms have already replaced most advertising-based ones.",
+          "statement": "Most users are unaware that their attention is sold to advertisers.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài chỉ nêu thuê bao là mô hình thay thế được đề xuất, không nói đã thay thế."
+          "explain": "Paragraph 1 explains the business model, but the passage never says what users know or do not know about it."
         },
         {
           "type": "gap",
@@ -352,6 +459,23 @@
             "place"
           ],
           "explain": "Đoạn 2: \"endless feeds that never reach a natural stopping point\"."
+        },
+        {
+          "type": "summary",
+          "text": "When information is plentiful, human attention becomes the ___ resource. Free platforms make money by selling that attention to ___, so they build features that keep users ___ for as long as possible. Emotionally charged material tends to win, which, critics fear, may weaken our ability to ___ for long periods.",
+          "answers": [
+            "scarce",
+            "advertisers",
+            "engaged",
+            "concentrate"
+          ],
+          "distractors": [
+            "abundant",
+            "governments",
+            "informed",
+            "relax"
+          ],
+          "explain": "Paragraph 1: attention is the scarce resource and is sold to advertisers; paragraph 2: features \"maximize engagement\"; paragraph 3: critics argue this may erode \"the capacity for sustained concentration\"."
         }
       ]
     },
@@ -360,7 +484,7 @@
       "title": "Hiệu ứng giả dược",
       "summary": "Niềm tin có thể chữa bệnh đến đâu.",
       "level": "C1",
-      "minutes": 8,
+      "minutes": 10,
       "blocks": [
         {
           "type": "tip",
@@ -391,49 +515,95 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "What does brain imaging suggest about the placebo effect?",
-          "choices": [
-            "Expectation can trigger the release of natural pain-reducing chemicals.",
-            "It is entirely imaginary.",
-            "It only works on people who are not ill.",
-            "It damages certain areas of the brain."
+          "type": "headings",
+          "headings": [
+            "A hurdle for drug testing, and where the effect stops",
+            "Biological and contextual evidence that the effect is real",
+            "Why injections are more popular than pills",
+            "Real improvements from a treatment with nothing in it",
+            "How doctors decide when to prescribe placebos",
+            "Benefits that survive honesty about the treatment"
           ],
-          "answer": 0,
-          "explain": "Đoạn 2: kỳ vọng có thể kích hoạt cơ thể tiết chất giảm đau tự nhiên."
+          "answers": [
+            3,
+            1,
+            5,
+            0
+          ],
+          "explain": "Paragraph 1 defines the placebo and its genuine effects; paragraph 2 gives brain-imaging and context evidence; paragraph 3 describes placebos that work even when patients are told the truth; paragraph 4 presents the effect as an obstacle for trials and sets its limits. Injections are only a detail of paragraph 2, and prescribing decisions are not discussed."
         },
         {
           "type": "mcq",
-          "prompt": "Why is the placebo effect described as an obstacle for medical science?",
+          "prompt": "What can be inferred from the comparison between an expensive-looking tablet and an identical one that looks cheap?",
           "choices": [
-            "It makes drugs more expensive.",
-            "Patients refuse real medicine.",
-            "New drugs must be shown to outperform a placebo.",
-            "Doctors cannot legally prescribe placebos."
+            "Expensive tablets contain more of the active ingredient.",
+            "Cheap tablets are produced less carefully.",
+            "Patients' beliefs about a treatment can change how well it seems to work.",
+            "Patients generally prefer pills to injections."
           ],
           "answer": 2,
-          "explain": "Đoạn 4: để chứng minh thuốc mới có tác dụng, phải cho thấy nó tốt hơn giả dược."
+          "focus": "inference",
+          "explain": "Paragraph 2: the two tablets are \"identical\", so the only difference is how they look; a better result for the expensive-looking one must come from what patients expect, which fits the point that \"expecting relief\" triggers real effects."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the finding about patients who are told openly that their pill is inactive suggest?",
+          "choices": [
+            "The benefit cannot depend only on patients being deceived.",
+            "Those patients secretly believed the pills were real medicine.",
+            "Caring practitioners make real drugs unnecessary.",
+            "Telling patients the truth makes treatment less effective."
+          ],
+          "answer": 0,
+          "focus": "inference",
+          "explain": "Paragraph 3: placebos helped \"even when patients are told openly\" that the pill is inactive, so deception is not the whole explanation; researchers point instead to the ritual of treatment and a caring practitioner."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 4, the word \"ease\" is closest in meaning to …",
+          "choices": [
+            "explain",
+            "relieve",
+            "disguise",
+            "worsen"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Paragraph 4: \"placebos may ease symptoms, but … no evidence that they shrink tumors or cure infections\" — they can make symptoms less severe without curing the disease."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer point out that placebos do not shrink tumors or cure infections?",
+          "choices": [
+            "To show that placebos are useless",
+            "To explain why drug trials use placebos",
+            "To argue that placebos should replace real medicine for minor conditions",
+            "To warn against overstating what placebos can do"
+          ],
+          "answer": 3,
+          "focus": "purpose",
+          "explain": "Paragraph 4: \"It is important, too, to recognize the limits\" — after three paragraphs on the surprising power of placebos, the writer marks where that power ends. Placebos are not useless, since they \"may ease symptoms\"."
         },
         {
           "type": "tf",
-          "statement": "Placebos can sometimes help even when patients know they are inactive.",
+          "statement": "Deceiving patients is not always necessary for a placebo to have an effect.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 3: một số thử nghiệm cho thấy điều này."
+          "explain": "Paragraph 3: some trials found placebos helped even when patients knew the pill was inactive."
         },
         {
           "type": "tf",
-          "statement": "There is evidence that placebos can cure infections.",
+          "statement": "The writer presents the placebo effect as helpful to medical science in every respect.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 4: không có bằng chứng giả dược chữa nhiễm trùng."
+          "explain": "Paragraph 4: \"For medical science, however, the placebo effect is also an obstacle\", because new drugs must outperform it in trials."
         },
         {
           "type": "tf",
           "statement": "Women respond more strongly to placebos than men.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không đề cập giới tính."
+          "explain": "The passage never compares men and women."
         },
         {
           "type": "gap",
@@ -447,6 +617,21 @@
             "bitter"
           ],
           "explain": "Đoạn 2: \"an identical one that appears cheap\"."
+        },
+        {
+          "type": "summary",
+          "text": "A placebo contains no active ___, yet patients often feel genuinely better after taking one. Brain scans show that the mere ___ of relief can release the body's own painkillers. Because a new drug must ___ a placebo in controlled trials, the effect also makes research harder; and while placebos can soothe symptoms, nothing suggests they can cure ___.",
+          "answers": [
+            "ingredient",
+            "expectation",
+            "outperform",
+            "infections"
+          ],
+          "distractors": [
+            "memory",
+            "imitate"
+          ],
+          "explain": "Paragraph 1: a placebo has \"no active ingredient\"; paragraph 2: \"expecting relief\" triggers pain-reducing chemicals; paragraph 4: a drug must perform \"better than a placebo\", and there is no evidence placebos \"cure infections\"."
         }
       ]
     },
@@ -455,7 +640,7 @@
       "title": "Thành phố 15 phút",
       "summary": "Quy hoạch để mọi thứ trong tầm đi bộ.",
       "level": "C1",
-      "minutes": 8,
+      "minutes": 10,
       "blocks": [
         {
           "type": "tip",
@@ -486,49 +671,95 @@
       ],
       "exercises": [
         {
+          "type": "headings",
+          "headings": [
+            "Everyday needs within easy reach",
+            "Why suburbs became more popular than city centers",
+            "Practical obstacles and the model's proper place",
+            "A past built around driving",
+            "Gains for health, community and fairness",
+            "The rising cost of public transport"
+          ],
+          "answers": [
+            3,
+            0,
+            4,
+            2
+          ],
+          "explain": "Paragraph 1 describes car-centered planning; paragraph 2 sets out the core idea of nearby daily needs; paragraph 3 lists the benefits, including equity; paragraph 4 covers problems of implementation and concludes that the model complements city-wide planning. The popularity of suburbs and the cost of transport are never discussed."
+        },
+        {
           "type": "mcq",
-          "prompt": "How did twentieth-century planning in many countries shape cities?",
+          "prompt": "What can be inferred from the warning that improving a neighborhood may \"displace the very residents it was meant to serve\"?",
           "choices": [
-            "It mixed homes, offices and shops in each neighborhood.",
-            "It concentrated all housing in the center.",
-            "It prioritized public transport over roads.",
-            "It separated different functions and favored driving."
+            "Property prices usually fall when parks and clinics are added.",
+            "Planners deliberately aim to replace poorer residents.",
+            "The benefits of an improvement could go mainly to newer, wealthier residents.",
+            "Residents generally oppose improvements to their neighborhoods."
+          ],
+          "answer": 2,
+          "focus": "inference",
+          "explain": "Paragraph 4: improvements \"push up property prices\", so original residents who cannot afford them may have to leave, and the people who enjoy the improved area may be newcomers who can. The improvement was \"meant to serve\" the original residents, so it is not a deliberate aim."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 3, the word \"equity\" is closest in meaning to …",
+          "choices": [
+            "ownership",
+            "efficiency",
+            "value",
+            "fairness"
           ],
           "answer": 3,
-          "explain": "Đoạn 1: các khu chức năng bị tách biệt, nối bằng đường rộng thuận tiện cho lái xe."
+          "focus": "vocab",
+          "explain": "Paragraph 3: the \"equity dimension\" is explained by the fact that households without cars are the most disadvantaged by car-centered design — a question of fairness, not of ownership or financial value."
         },
         {
           "type": "mcq",
-          "prompt": "What does the writer conclude about the fifteen-minute model?",
+          "prompt": "Why does the writer mention specialized jobs and services in paragraph 4?",
           "choices": [
-            "It makes public transport unnecessary.",
-            "It complements city-wide planning rather than replacing it.",
-            "It should replace city-wide planning.",
-            "It only works in small towns."
+            "To explain why good links between neighborhoods are still needed",
+            "To argue that the model only suits highly skilled workers",
+            "To show that every district can become self-sufficient",
+            "To criticize planners for ignoring employment"
+          ],
+          "answer": 0,
+          "focus": "purpose",
+          "explain": "Paragraph 4: specialized jobs and services \"cannot exist in every district, so good public transport between neighborhoods remains essential\". The point is a limit of the model, which leads to the conclusion that it complements city-wide planning."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which statement best reflects the writer's conclusion about the fifteen-minute city?",
+          "choices": [
+            "It should replace city-wide planning altogether.",
+            "It can be a useful part of city planning but cannot work on its own.",
+            "It has failed wherever it has been tried.",
+            "It matters only for households without cars."
           ],
           "answer": 1,
-          "explain": "Câu cuối đoạn 4."
+          "focus": "main_idea",
+          "explain": "Paragraph 4: \"The model, in other words, complements city-wide planning rather than replacing it.\" The passage reports no failed trials, and paragraph 3 lists benefits for everyone, not only households without cars."
         },
         {
           "type": "tf",
-          "statement": "The concept is said to benefit households without cars.",
+          "statement": "Twentieth-century planning made it harder to get around on foot.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 3: hộ không có xe chịu thiệt nhất từ thiết kế lấy ô tô làm trung tâm."
+          "explain": "Paragraph 1: wide roads made driving convenient and \"walking impractical\"."
         },
         {
           "type": "tf",
-          "statement": "According to the text, every specialized service can be provided in every district.",
+          "statement": "According to the writer, a well-designed neighborhood can make travel to other districts unnecessary.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 4: việc làm và dịch vụ chuyên biệt không thể có ở mọi quận."
+          "explain": "Paragraph 4: specialized jobs and services cannot exist in every district, so public transport between neighborhoods \"remains essential\"."
         },
         {
           "type": "tf",
           "statement": "The fifteen-minute city was first tested in a European capital.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không nói mô hình được thử nghiệm ở đâu đầu tiên."
+          "explain": "The passage never says where the model was first tried."
         },
         {
           "type": "gap",
@@ -542,6 +773,23 @@
             "employ"
           ],
           "explain": "Đoạn 4: \"displace the very residents it was meant to serve\"."
+        },
+        {
+          "type": "summary",
+          "text": "Twentieth-century planning kept homes, offices and shops ___, which suited drivers rather than pedestrians. The fifteen-minute city instead imagines a network of ___ neighborhoods where daily needs are close at hand. Supporters expect cleaner air and closer communities, but rising property prices could push out ___, and transport between districts remains ___.",
+          "answers": [
+            "apart",
+            "mixed-use",
+            "existing residents",
+            "essential"
+          ],
+          "distractors": [
+            "together",
+            "identical",
+            "tourists",
+            "optional"
+          ],
+          "explain": "Paragraph 1: functions were \"deliberately separated\"; paragraph 2: \"complete, mixed-use neighborhoods\"; paragraph 4: improvements can \"displace the very residents it was meant to serve\", and public transport \"remains essential\"."
         }
       ]
     },
@@ -550,7 +798,7 @@
       "title": "Thuật toán có công bằng?",
       "summary": "Đạo đức của máy ra quyết định.",
       "level": "C1",
-      "minutes": 8,
+      "minutes": 10,
       "blocks": [
         {
           "type": "tip",
@@ -581,49 +829,95 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "Why might a hiring tool trained on past employees be unfair?",
-          "choices": [
-            "It may favor candidates who resemble previous employees, regardless of ability.",
-            "It works too slowly.",
-            "It ignores all historical data.",
-            "It is too expensive for small companies."
+          "type": "headings",
+          "headings": [
+            "Why there is no simple technical fix",
+            "Proof that human officials are fairer than machines",
+            "Why automated decisions seem attractive",
+            "How banks calculate loan risk",
+            "Safeguards that experts are calling for",
+            "How past prejudice can be built into a system"
           ],
-          "answer": 0,
-          "explain": "Đoạn 2: có thể ưu ái ứng viên giống nhân viên cũ bất kể năng lực."
+          "answers": [
+            2,
+            5,
+            0,
+            4
+          ],
+          "explain": "Paragraph 1 explains the appeal of algorithms; paragraph 2 shows how biased historical data can be reproduced; paragraph 3 explains why deleting sensitive data and choosing a definition of fairness are not purely technical; paragraph 4 lists the safeguards experts want. Loans are only an example in paragraph 1, and humans are never shown to be fairer."
         },
         {
           "type": "mcq",
-          "prompt": "What does the existence of conflicting definitions of fairness imply, according to the text?",
+          "prompt": "Why does the writer give the example of a hiring tool trained on previous employees?",
           "choices": [
-            "Fairness is impossible to discuss.",
-            "Algorithms should not be used at all.",
-            "Designers must make value judgments, not only technical ones.",
-            "Only mathematicians should design algorithms."
+            "To prove that hiring tools are less accurate than human recruiters",
+            "To argue that companies should stop keeping employee profiles",
+            "To show that algorithms get tired of repetitive tasks",
+            "To show how a system can repeat past unfairness while applying its rules consistently"
+          ],
+          "answer": 3,
+          "focus": "purpose",
+          "explain": "Paragraph 2 opens with \"Consistency, however, is not the same as fairness\", and the hiring tool illustrates this: it treats everyone by the same learned pattern, yet favors people who resemble past employees \"regardless of ability\". Paragraph 1 says algorithms do not get tired."
+        },
+        {
+          "type": "mcq",
+          "prompt": "A company removes gender from its hiring data, but its system still favors men. Based on the passage, which explanation is most likely?",
+          "choices": [
+            "Other variables in the data are closely linked to gender.",
+            "The system was told the applicants' gender by mistake.",
+            "The system became tired after processing many applications.",
+            "Consistent rules always produce unfair results."
+          ],
+          "answer": 0,
+          "focus": "inference",
+          "explain": "Paragraph 3: even when a system \"is not told an applicant's gender\", variables such as postal code or club membership \"can act as indirect substitutes\". Paragraph 1 rules out tiredness, and the passage says consistency does not guarantee fairness, not that it always produces unfairness."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"faithfully\" is closest in meaning to …",
+          "choices": [
+            "loyally",
+            "hopefully",
+            "exactly",
+            "reluctantly"
           ],
           "answer": 2,
-          "explain": "Đoạn 3: người thiết kế phải đưa ra phán đoán giá trị."
+          "focus": "vocab",
+          "explain": "Paragraph 2: the system \"may faithfully reproduce\" past prejudice — it copies it exactly. \"Loyally\" is another meaning of the word, but it does not fit a system copying patterns."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Which statement best summarizes the writer's argument?",
+          "choices": [
+            "Algorithms should replace human officials because they never get tired.",
+            "Treating everyone by the same rules does not by itself make automated decisions fair, so oversight is needed.",
+            "Automated systems are unfair mainly because they are badly programmed.",
+            "Fairness can be achieved simply by deleting sensitive data."
+          ],
+          "answer": 1,
+          "focus": "main_idea",
+          "explain": "Paragraph 2: consistency is not fairness; paragraph 3: deleting sensitive data is \"rarely a complete solution\" and value judgments are unavoidable; paragraph 4: experts therefore call for transparency, audits and a right to challenge. The problem lies in data and values, not bad programming."
         },
         {
           "type": "tf",
-          "statement": "A postal code can act as an indirect substitute for sensitive information.",
+          "statement": "Information that seems neutral can still reveal sensitive characteristics indirectly.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 3 nêu mã bưu chính là biến thay thế gián tiếp."
+          "explain": "Paragraph 3: variables such as postal code or club membership \"can act as indirect substitutes\" for gender or ethnicity."
         },
         {
           "type": "tf",
           "statement": "The writer argues that consistency guarantees fairness.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 2: \"Consistency, however, is not the same as fairness.\""
+          "explain": "Paragraph 2: \"Consistency, however, is not the same as fairness.\""
         },
         {
           "type": "tf",
-          "statement": "Most banks have stopped using automated systems for loans.",
+          "statement": "Automated hiring tools are cheaper to run than human recruiters.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không nói ngân hàng ngừng dùng hệ thống tự động."
+          "explain": "Paragraph 1 says algorithms do not get tired and apply the same rules, but the passage never compares costs."
         },
         {
           "type": "gap",
@@ -637,6 +931,22 @@
             "advertisements"
           ],
           "explain": "Đoạn 4: \"regular independent audits\"."
+        },
+        {
+          "type": "summary",
+          "text": "Automated systems appeal because they never tire and treat everyone by the same ___. Yet if they learn from records shaped by ___, they may copy past unfairness. Deleting sensitive details seldom solves this, since other information can serve as a ___. And because competing definitions of fairness cannot all be met at once, designers must make choices about ___ as well as technique.",
+          "answers": [
+            "rules",
+            "prejudice",
+            "substitute",
+            "values"
+          ],
+          "distractors": [
+            "accuracy",
+            "reward",
+            "costs"
+          ],
+          "explain": "Paragraph 1: algorithms \"apply the same rules to everyone\"; paragraph 2: past decisions \"shaped by prejudice\" can be reproduced; paragraph 3: other variables act as \"indirect substitutes\", and designers must make \"value judgments, not merely technical ones\"."
         }
       ]
     },
@@ -645,7 +955,7 @@
       "title": "Ngôn ngữ và tư duy",
       "summary": "Ngôn ngữ có định hình cách ta nghĩ?",
       "level": "C1",
-      "minutes": 8,
+      "minutes": 10,
       "blocks": [
         {
           "type": "tip",
@@ -676,49 +986,95 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "Why has the strong version of linguistic relativity been largely abandoned?",
-          "choices": [
-            "It was never tested experimentally.",
-            "It applied only to color.",
-            "People can think about things their language has no word for.",
-            "Most languages have the same words."
+          "type": "headings",
+          "headings": [
+            "Language as a guide to attention, not a prison",
+            "Why some languages have more color words than others",
+            "How describing space can sharpen a sense of direction",
+            "An extreme claim that has fallen out of favor",
+            "Teaching children to use a compass",
+            "Small but real effects on color perception"
           ],
-          "answer": 2,
-          "explain": "Đoạn 1: con người rõ ràng có thể nghĩ về điều mà ngôn ngữ không có từ."
+          "answers": [
+            3,
+            2,
+            5,
+            0
+          ],
+          "explain": "Paragraph 1 explains why the strong version has been abandoned; paragraph 2 gives the evidence on fixed directions; paragraph 3 reports modest color effects; paragraph 4 states the nuanced consensus. The passage does not explain why languages differ in color words and never mentions children."
         },
         {
           "type": "mcq",
           "prompt": "Which statement best summarizes the current consensus?",
           "choices": [
-            "Language directs attention through habits but does not imprison thought.",
             "Language has no effect on thought.",
             "Language completely determines thought.",
+            "Language directs attention through habits but does not imprison thought.",
             "Only bilingual people are influenced by language."
           ],
+          "answer": 2,
+          "focus": "main_idea",
+          "explain": "Paragraph 4: \"Language does not imprison thought, but it acts as a set of habits, directing attention toward some distinctions and away from others.\""
+        },
+        {
+          "type": "mcq",
+          "prompt": "What does the word \"presumably\" in paragraph 2 show about the explanation that follows it?",
+          "choices": [
+            "It has been disproved by later studies.",
+            "It is a likely interpretation rather than a proven fact.",
+            "It applies only to people indoors.",
+            "It is the explanation preferred by the speakers themselves."
+          ],
+          "answer": 1,
+          "focus": "inference",
+          "explain": "Paragraph 2: speakers track compass directions accurately, \"presumably because their everyday speech requires it\". The writer offers this cause as reasonable but unproven; nothing says it was disproved or that the speakers gave it."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 1, the word \"turbulent\" is closest in meaning to …",
+          "choices": [
+            "brief",
+            "respected",
+            "forgotten",
+            "troubled"
+          ],
+          "answer": 3,
+          "focus": "vocab",
+          "explain": "Paragraph 1: the idea has had a \"turbulent history\" — its strongest form was claimed and then \"largely abandoned\", a history full of conflict and change."
+        },
+        {
+          "type": "mcq",
+          "prompt": "Why does the writer include the example of languages that use fixed compass directions?",
+          "choices": [
+            "To provide evidence for a weaker version of linguistic relativity",
+            "To show that the strong version is correct after all",
+            "To explain how languages develop words for direction",
+            "To argue that \"left\" and \"right\" are unnecessary words"
+          ],
           "answer": 0,
-          "explain": "Đoạn 4: ngôn ngữ không giam cầm tư duy mà như tập thói quen hướng sự chú ý."
+          "focus": "purpose",
+          "explain": "Paragraph 2 begins \"A weaker version, however, has found considerable experimental support\", and the compass example is that support. Paragraph 1 has already said the strong version was abandoned."
         },
         {
           "type": "tf",
-          "statement": "Speakers of languages that use fixed directions often track compass directions accurately indoors.",
+          "statement": "The writer suggests that everyday speech habits can train a particular mental skill.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 2: \"even indoors\"."
+          "explain": "Paragraph 2: speakers of fixed-direction languages track compass directions accurately, \"presumably because their everyday speech requires it\"."
         },
         {
           "type": "tf",
           "statement": "People cannot perceive a color if their language has no word for it.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 3: không ai mất khả năng nhìn màu chỉ vì thiếu từ."
+          "explain": "Paragraph 3: \"no one is unable to perceive a color simply because they lack a word for it.\""
         },
         {
           "type": "tf",
           "statement": "Languages with more color words are easier for children to learn.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài không bàn chuyện trẻ em học ngôn ngữ."
+          "explain": "The passage never discusses how children learn languages."
         },
         {
           "type": "gap",
@@ -732,6 +1088,22 @@
             "permanent"
           ],
           "explain": "Đoạn 3: \"The differences are measurable but modest\"."
+        },
+        {
+          "type": "summary",
+          "text": "The bold claim that language ___ thought has been largely abandoned. A weaker version fares better: people whose language relies on fixed directions keep track of ___ with striking accuracy, and having separate words for two shades makes people slightly quicker to ___ them. These effects are real but small; rather than a prison, language is better seen as a set of ___ that guide attention.",
+          "answers": [
+            "determines",
+            "direction",
+            "distinguish",
+            "habits"
+          ],
+          "distractors": [
+            "reflects",
+            "time",
+            "pronounce"
+          ],
+          "explain": "Paragraph 1: the strong form said language \"determines thought\"; paragraph 2: speakers track compass directions accurately; paragraph 3: speakers are faster at \"distinguishing\" shades; paragraph 4: language acts as \"a set of habits, directing attention\"."
         }
       ]
     },
@@ -740,7 +1112,7 @@
       "title": "Ý niệm về tiến bộ",
       "summary": "Lịch sử của niềm tin rằng tương lai sẽ tốt hơn.",
       "level": "C1",
-      "minutes": 8,
+      "minutes": 10,
       "blocks": [
         {
           "type": "tip",
@@ -771,49 +1143,95 @@
       ],
       "exercises": [
         {
-          "type": "mcq",
-          "prompt": "How did many earlier societies understand time, according to the text?",
-          "choices": [
-            "As a straight line toward improvement",
-            "As unimportant to daily life",
-            "As controlled entirely by science",
-            "As cyclical, or as a decline from a golden age"
+          "type": "headings",
+          "headings": [
+            "Science as the model for wider advance",
+            "How ancient societies measured time",
+            "Progress as something to be maintained, not guaranteed",
+            "A modern assumption with few historical parallels",
+            "The environmental costs of modern industry",
+            "A century that shook confidence"
           ],
-          "answer": 3,
-          "explain": "Đoạn 1: thời gian theo vòng tuần hoàn hoặc sa sút từ thời hoàng kim."
+          "answers": [
+            3,
+            0,
+            5,
+            2
+          ],
+          "explain": "Paragraph 1 shows that expecting a better future is historically unusual; paragraph 2 links the idea to cumulative science; paragraph 3 describes how the twentieth century tested this optimism; paragraph 4 presents progress as an achievement to sustain. Environmental damage is only one detail of paragraph 3, and ancient methods of measuring time are not discussed."
         },
         {
           "type": "mcq",
-          "prompt": "What encouraged the hope that moral and political life might also advance?",
+          "prompt": "What role does the reference to the natural sciences play in paragraph 2?",
           "choices": [
-            "The end of all wars",
-            "The cumulative results of the natural sciences",
-            "The spread of cyclical thinking",
-            "A decline in education"
+            "It shows that science and morality are unrelated.",
+            "It proves that political life advanced as quickly as science.",
+            "It explains why people began to expect improvement in other areas of life.",
+            "It criticizes scientists for neglecting education."
+          ],
+          "answer": 2,
+          "focus": "purpose",
+          "explain": "Paragraph 2: because researchers could build on earlier discoveries, \"it seemed reasonable to hope\" that moral and political life might advance in the same way. Science is the model, and the paragraph speaks only of hope, not proof."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What can be inferred from paragraphs 2 and 3 about the optimism that the twentieth century \"severely tested\"?",
+          "choices": [
+            "It had predicted the environmental damage caused by industry.",
+            "It rested on the expectation that moral life would advance alongside knowledge.",
+            "It was based on a cyclical view of history.",
+            "It was abandoned by every philosopher after the wars."
           ],
           "answer": 1,
-          "explain": "Đoạn 2: khoa học tự nhiên tạo kết quả tích luỹ khiến người ta hy vọng điều tương tự."
+          "focus": "inference",
+          "explain": "Paragraph 2: people hoped moral and political life would advance like science; paragraph 3: technological sophistication \"proved entirely compatible with devastating wars\", which tested that hope. Earlier thinkers had \"barely imagined\" the environmental damage, and only \"some philosophers\" rejected progress."
+        },
+        {
+          "type": "mcq",
+          "prompt": "In paragraph 2, the word \"momentum\" is closest in meaning to …",
+          "choices": [
+            "critics",
+            "strength",
+            "funding",
+            "precision"
+          ],
+          "answer": 1,
+          "focus": "vocab",
+          "explain": "Paragraph 2: the idea of progress took shape gradually, \"gaining momentum\" as science produced cumulative results — it grew stronger and spread faster."
+        },
+        {
+          "type": "mcq",
+          "prompt": "What is the passage mainly about?",
+          "choices": [
+            "Why modern societies are better than earlier ones",
+            "How science replaced philosophy",
+            "Why wars became more destructive in the twentieth century",
+            "How the belief in progress arose, was challenged and has been reconsidered"
+          ],
+          "answer": 3,
+          "focus": "main_idea",
+          "explain": "Paragraph 1 places the belief in history, paragraph 2 shows how it arose, paragraph 3 how it was challenged, and paragraph 4 the more cautious view held today. Wars are only one piece of evidence in paragraph 3."
         },
         {
           "type": "tf",
-          "statement": "Some philosophers considered the belief in progress potentially dangerous.",
+          "statement": "Some thinkers feared that faith in a better future could be used to excuse harm in the present.",
           "ng": true,
           "answer": "true",
-          "explain": "Đoạn 3: niềm tin có thể bị dùng để biện minh cho việc hy sinh sinh mạng hiện tại."
+          "explain": "Paragraph 3: the belief \"could be used to justify sacrificing present lives for a promised future\"."
         },
         {
           "type": "tf",
           "statement": "The cautious view holds that improvements in life expectancy are inevitable.",
           "ng": true,
           "answer": "false",
-          "explain": "Đoạn 4: chúng không tất yếu (neither inevitable nor irreversible)."
+          "explain": "Paragraph 4: such improvements are real but \"neither inevitable nor irreversible\"."
         },
         {
           "type": "tf",
           "statement": "Literacy rates have doubled over the last fifty years.",
           "ng": true,
           "answer": "ng",
-          "explain": "Bài chỉ nói tỷ lệ biết chữ có cải thiện, không đưa số liệu hay mốc thời gian."
+          "explain": "Paragraph 4 says literacy has measurably improved but gives no figures or time period."
         },
         {
           "type": "gap",
@@ -827,6 +1245,22 @@
             "reject"
           ],
           "explain": "Câu cuối: \"an achievement that each generation must work to sustain\"."
+        },
+        {
+          "type": "summary",
+          "text": "Expecting the future to improve on the past feels obvious today, but it is historically ___: many earlier cultures saw time as repeating, or as a fall from a golden age. The idea grew as scientific discoveries ___ from one generation to the next. After the wars and environmental harm of the twentieth century, some philosophers judged it ___ or even dangerous. Many thinkers now see progress as real but ___, something each generation must protect.",
+          "answers": [
+            "unusual",
+            "accumulated",
+            "naive",
+            "fragile"
+          ],
+          "distractors": [
+            "universal",
+            "disappeared",
+            "inevitable"
+          ],
+          "explain": "Paragraph 1: the expectation is \"relatively unusual\"; paragraph 2: science produced \"cumulative results\"; paragraph 3: some philosophers called the belief \"naive, or even dangerous\"; paragraph 4: improvements are \"neither inevitable nor irreversible\"."
         }
       ]
     }

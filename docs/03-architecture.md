@@ -255,11 +255,13 @@ flowchart LR
 | CPU khi mascot idle        | < 1–2% (animation 12 fps cho pixel art là đủ, dừng hẳn khi ẩn)                         |
 | Mở popup dịch              | < 300 ms (cửa sổ tạo sẵn, ẩn/hiện)                                                     |
 | Khởi động app              | < 3 giây tới khi mascot xuất hiện                                                      |
-| Model AI local             | Chỉ tải khi dùng lần đầu, chạy trong utilityProcess, giải phóng khi không dùng 10 phút (worker dịch đã nạp NLLB: 3 phút; không nạp sẵn lúc khởi động — decisions #54) |
+| Model AI local             | Chỉ tải khi dùng lần đầu, chạy trong utilityProcess, giải phóng khi không dùng 10 phút (không nạp sẵn lúc khởi động — decisions #54). Model đã ngừng (NLLB-200) hay không còn mời tải (wav2vec2) chỉ được xoá khi người dùng bấm, không bao giờ tự xoá (decisions #65) |
 
 Mẹo: cửa sổ Study chỉ tạo khi mở và có thể huỷ khi đóng (giải phóng RAM); cửa sổ Mascot và Popup luôn tồn tại.
 
 ## Khung cửa sổ Học tập v2
 
-`App.vue`: `page === 'home'` hiện `VillageMap`; trang khác nằm trong `PlaceShell` (cảnh + giấy + tab). Trang nào thuộc địa điểm nào ở `src/renderer/study/places.ts` (cập nhật 2026-11-11: `PLACE_GROUPS` gom tab Trường làng thành 3 nhóm Lộ trình [courses] / Kho bài [lessons, grammar, reading, listening, videos] / Luyện thi [toeic], `PlaceShell` vẽ hàng nhóm + hàng tab con; `placement` chuyển sang Tháp Bút: `tower = [stats, placement]`; `data-nav` của nút nhóm nhiều trang là `lessons` khi chưa chọn, `group-bank` khi đang chọn). Hàm dùng chung của lộ trình hôm nay (thẻ ở trang chủ, `TodayDrawer`, `App.vue`) ở `src/renderer/study/planItem.ts`. `pnpm ui:shot` chụp app thật, chạy dữ liệu riêng qua biến `EA_USER_DATA`; cờ `--open-study` mở thẳng cửa sổ Học tập.
+`App.vue`: `page === 'home'` hiện `VillageMap`; trang khác nằm trong `PlaceShell` (cảnh + giấy + tab). Trang nào thuộc địa điểm nào ở `src/renderer/study/places.ts` (cập nhật 2026-11-11: `PLACE_GROUPS` gom tab Trường làng thành 3 nhóm Lộ trình [courses] / Kho bài [lessons, grammar, reading, listening] / Luyện thi [toeic], `PlaceShell` vẽ hàng nhóm + hàng tab con; `placement` chuyển sang Tháp Bút: `tower = [stats, placement]`; `data-nav` của nút nhóm nhiều trang là `lessons` khi chưa chọn, `group-bank` khi đang chọn). Hàm dùng chung của lộ trình hôm nay (thẻ ở trang chủ, `TodayDrawer`, `App.vue`) ở `src/renderer/study/planItem.ts`. `pnpm ui:shot` chụp app thật, chạy dữ liệu riêng qua biến `EA_USER_DATA`; cờ `--open-study` mở thẳng cửa sổ Học tập.
+
+Cập nhật 2026-11-12 ([decisions #65](decisions.md)): trang `videos` bỏ khỏi `StudyPage`/`PLACE_GROUPS`; trang Nghe là `ListeningPage.vue` (khung "Bài nghe" = `LessonsPage kind="listening"`, khung "Video" = `VideoLibrary.vue`, đổi bằng hàng tab kiểu `ShopPage`; ẩn khi đang học bài/đang xem video). `resolveStudyPage()` (`places.ts`) đổi tên trang main gửi qua `study:open-page`: `'videos'` cũ → Nghe + khung Video, tên lạ → bỏ qua. Kênh `pron:remove` mới (xoá model âm vị đã tải).
 nCửa sổ Học tập luôn mở **phóng to** (`StudyWindow.open` gọi `maximize()`, thanh tác vụ vẫn hiện); cỡ 900×640 chỉ là cỡ khi người dùng bấm thu nhỏ lại.

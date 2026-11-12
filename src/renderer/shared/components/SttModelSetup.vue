@@ -3,17 +3,17 @@ import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useStt } from '../composables/useStt'
 
-// Mời tải model giọng nói còn thiếu (Whisper nhận dạng từ, hoặc wav2vec2 chấm âm vị): thanh tiến độ, huỷ, lỗi.
-// Dùng chung cho SpeakPractice (đọc to) và RespondBoard (trả lời câu hỏi bằng giọng nói). Chỉ tải khi người dùng bấm.
-const props = defineProps<{ model: 'whisper' | 'pron' }>()
+// Mời tải model nhận dạng giọng nói Whisper còn thiếu: thanh tiến độ, huỷ, lỗi. Model chấm âm vị (wav2vec2) không
+// còn được mời tải (docs/decisions.md #65). Dùng chung cho SpeakPractice (đọc to) và RespondBoard (trả lời câu hỏi
+// bằng giọng nói). Chỉ tải khi người dùng bấm.
+defineProps<{ model: 'whisper' }>()
 const emit = defineEmits<{ install: [] }>()
 
 const { t } = useI18n()
 const stt = useStt()
 const MB = 1_048_576
 
-const status = computed(() => (props.model === 'pron' ? stt.pronunciation.value : stt.status.value))
-const pronAvailable = computed(() => stt.pronunciation.value?.available === true)
+const status = computed(() => stt.status.value)
 const downloading = computed(() => status.value?.state === 'downloading')
 const percent = computed(() => {
   const s = status.value
@@ -23,42 +23,31 @@ const sizeMb = computed(() => Math.round((status.value?.sizeBytes ?? 0) / MB))
 
 async function install(): Promise<void> {
   emit('install')
-  if (props.model === 'pron') await stt.installPronunciation()
-  else await stt.install()
+  await stt.install()
 }
 
 function cancel(): void {
-  if (props.model === 'pron') stt.cancelPronunciation()
-  else stt.cancel()
+  stt.cancel()
 }
 </script>
 
 <template>
   <div class="setup">
-    <p v-if="model === 'pron' && !pronAvailable">{{ t('speech.pronSoon') }}</p>
+    <p>{{ t('speech.needModel', { mb: sizeMb }) }}</p>
+    <template v-if="downloading">
+      <div class="bar" role="progressbar" :aria-valuenow="percent">
+        <div class="fill" :style="{ width: `${percent}%` }" />
+      </div>
+      <span class="muted">{{ t('speech.downloading', { pct: percent }) }}</span>
+      <button type="button" class="btn" @click="cancel">{{ t('speech.cancel') }}</button>
+    </template>
     <template v-else>
-      <p>
-        {{
-          model === 'pron'
-            ? t('speech.pronNeed', { mb: sizeMb })
-            : t('speech.needModel', { mb: sizeMb })
-        }}
-      </p>
-      <template v-if="downloading">
-        <div class="bar" role="progressbar" :aria-valuenow="percent">
-          <div class="fill" :style="{ width: `${percent}%` }" />
-        </div>
-        <span class="muted">{{ t('speech.downloading', { pct: percent }) }}</span>
-        <button type="button" class="btn" @click="cancel">{{ t('speech.cancel') }}</button>
-      </template>
-      <template v-else>
-        <button type="button" class="btn btn--primary" @click="install">
-          {{ t('speech.download', { mb: sizeMb }) }}
-        </button>
-        <span v-if="status?.state === 'error'" class="alert">{{
-          t(status.errorKey ?? 'errors.modelDownload')
-        }}</span>
-      </template>
+      <button type="button" class="btn btn--primary" @click="install">
+        {{ t('speech.download', { mb: sizeMb }) }}
+      </button>
+      <span v-if="status?.state === 'error'" class="alert">{{
+        t(status.errorKey ?? 'errors.modelDownload')
+      }}</span>
     </template>
   </div>
 </template>

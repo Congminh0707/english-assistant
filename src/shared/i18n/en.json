@@ -596,7 +596,6 @@
       "home": "Home",
       "review": "Review",
       "words": "Word list",
-      "videos": "Videos",
       "toeic": "TOEIC practice",
       "placement": "Level test",
       "settings": "Settings",
@@ -1228,7 +1227,12 @@
     },
     "listening": {
       "title": "Listening",
-      "intro": "Listen to short dialogues and talks at your level: change the speed, loop a section (A–B), type what you hear and compare. Comprehension questions follow."
+      "intro": "Listen to short dialogues and talks at your level: change the speed, loop a section (A–B), type what you hear and compare. Comprehension questions follow.",
+      "views": "Listening page views",
+      "view": {
+        "lessons": "Listening lessons",
+        "video": "Videos"
+      }
     },
     "reading": {
       "title": "Reading",
@@ -1553,17 +1557,15 @@
     "retry": "Try again",
     "translateBtn": "Translate sentence",
     "modelsTitle": "Offline sentence translation",
-    "modelsHint": "Each direction needs a one-time model download that runs entirely on your device. You can delete it to free disk space. The high-quality model is NLLB-200 (Meta, CC-BY-NC 4.0 — non-commercial use only).",
+    "modelsHint": "Each direction needs a one-time model download that runs entirely on your device. You can delete it to free disk space.",
     "dir": {
       "en-vi": "English → Vietnamese",
-      "vi-en": "Vietnamese → English",
-      "high": "High quality NLLB-200 (both English ↔ Vietnamese)"
+      "vi-en": "Vietnamese → English"
     },
     "notInstalled": "Not downloaded ({size} MB)",
     "remove": "Delete model",
-    "downloadHigh": "Download the high-quality model ({size} MB)",
-    "upgradeHint": "This is the fast translation (average quality). For a more accurate result, download the high-quality model:",
-    "preferHigh": "Prefer the high-quality model when installed (slower, more accurate)",
+    "oldHigh": "The high-quality translation model (NLLB-200) is no longer used",
+    "oldHighHint": "{size} MB still on this device. The app no longer translates with this model; remove it to free disk space.",
     "onlineTitle": "Online translation (Claude)",
     "onlineHint": "Optional, off by default. When on, the text you select is sent to Anthropic for better, faster translation; it needs your own API key (billed to you by usage). On network/key errors the app falls back to the offline model.",
     "onlineToggle": "Translate with Claude when a key is set",
@@ -1626,10 +1628,9 @@
     "kokoroData": "Kokoro was partly trained on CC BY data: Koniwa (CC BY 3.0), SIWIS (CC BY 4.0).",
     "espeak": "Phonemizer: eSpeak-NG via phonemizer — GPL-3.0.",
     "opusmt": "Sentence translation: opus-mt en→vi (Helsinki-NLP) — Apache-2.0.",
-    "nllb": "High-quality translation: NLLB-200 distilled 600M (Meta AI; ONNX q8 by Xenova) — CC-BY-NC 4.0 (non-commercial).",
     "tatoeba": "Example sentences: Tatoeba — CC BY 2.0 FR.",
     "whisper": "Whisper base.en (OpenAI, Apache-2.0; ONNX build by Xenova) — offline speech recognition for speaking practice",
-    "wav2vec2": "wav2vec2 phoneme (Meta/Facebook, Apache-2.0; int8 ONNX build by duyentq) — optional phoneme-level pronunciation scoring",
+    "wav2vec2": "wav2vec2 phoneme (Meta/Facebook, Apache-2.0; int8 ONNX build by duyentq) — phoneme-level pronunciation scoring, used only if downloaded in an earlier version",
     "twemoji": "Extra illustrations: Twemoji (Twitter, Inc. and other contributors; jdecked/twemoji fork) — CC-BY 4.0, https://creativecommons.org/licenses/by/4.0/. Images resized."
   },
   "kids": {
@@ -1732,6 +1733,8 @@
       "dailyLimit": "Daily limit",
       "newPerDay": "New words per day",
       "newWords": "{n} words",
+      "map3d": "3D map (experimental)",
+      "map3dHint": "Shows a 3D/2D map button on the child's game screen. Needs reasonable graphics; when off, the map is always 2D.",
       "limitMinutes": "{n} min",
       "limitOff": "No limit",
       "extend": "Give 10 more minutes",
@@ -2075,13 +2078,10 @@
     "settingsHint": "Used to score speaking practice. Runs entirely on your computer; audio is never saved or sent anywhere. The recognised text is sent to the AI only when you press “Get AI feedback” in an answer-the-question exercise.",
     "whisperReady": "Whisper base.en model is ready ({size} MB)",
     "whisperNeed": "Download the Whisper base.en model (~{size} MB) to score speaking practice.",
-    "pronTitle": "Detailed pronunciation scoring (optional)",
-    "pronHint": "A phoneme recognition model (wav2vec2) can show which sounds are wrong. Optional extra download.",
-    "pronDownload": "Download model ({size} MB)",
-    "pronReady": "Downloaded",
-    "pronSoon": "Coming soon — no download released yet.",
-    "pronNeed": "Download the detailed pronunciation model (~{mb} MB, runs offline) to see which sounds are wrong.",
-    "pronBanner": "Want to know exactly which sound is wrong? Download the sound-scoring model ({mb} MB).",
+    "pronTitle": "Detailed pronunciation scoring (wav2vec2)",
+    "pronHint": "A sound-by-sound recognition model downloaded in an earlier version: it is still used to show which sounds are wrong. The app no longer offers this download; speaking is scored word by word with Whisper. You can remove it to free disk space.",
+    "pronReady": "Downloaded ({size} MB)",
+    "pronRemove": "Remove model",
     "expectedIpa": "Target:",
     "heardIpa": "You said:",
     "practiceSound": "Practise pronunciation",

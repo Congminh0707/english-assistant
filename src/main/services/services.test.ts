@@ -4,6 +4,7 @@ import { FakeClock } from '../core/Clock'
 import { AppError } from '../core/AppError'
 import { openUserDb, type UserDbConnection } from '../db/client'
 import { createContainer, type Container } from '../container'
+import { SettingsRepository } from '../db/repositories/SettingsRepository'
 import { SleepService } from './SleepService'
 
 const MIGRATIONS = resolve('src/main/db/migrations')
@@ -115,6 +116,25 @@ describe('SettingsService', () => {
     c.bus.on('settings.changed', ({ key }) => changed.push(key))
     c.settings.set('app.launchAtLogin', true)
     expect(changed).toEqual(['app.launchAtLogin'])
+  })
+
+  it('khoá đã bỏ còn lưu trong DB (translate.highQuality) không làm hỏng đọc/ghi cài đặt', () => {
+    const repo = new SettingsRepository(conn.db)
+    repo.set('translate.highQuality', true, clock.now())
+    repo.set('ui.language', 'en', clock.now())
+    const again = createContainer(conn, clock, OPTIONS)
+    expect(again.settings.get('ui.language')).toBe('en')
+    expect('translate.highQuality' in again.settings.all()).toBe(false)
+    expect(again.settings.set('ui.theme', 'dark')['ui.theme']).toBe('dark')
+    expect(createContainer(conn, clock, OPTIONS).settings.get('ui.theme')).toBe('dark')
+    // Dòng cũ vẫn nằm yên trong DB (không tự xoá dữ liệu người dùng), chỉ bị bỏ qua
+    expect(repo.all().some((r) => r.key === 'translate.highQuality')).toBe(true)
+  })
+
+  it('kids.map3d (bản đồ 3D thử nghiệm) mặc định tắt', () => {
+    expect(c.settings.get('kids.map3d')).toBe(false)
+    expect(c.settings.set('kids.map3d', true)['kids.map3d']).toBe(true)
+    expect(() => c.settings.set('kids.map3d', 'yes')).toThrowError(AppError)
   })
 })
 

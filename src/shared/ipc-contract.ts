@@ -104,6 +104,7 @@ import {
 import {
   TranslateDirectionInputSchema,
   TranslateInputSchema,
+  TranslateInstallInputSchema,
   TranslateOnlineStatusSchema,
   TranslateSetKeyInputSchema,
   TranslateSetCloudKeyInputSchema,
@@ -220,8 +221,8 @@ export const invokeContract = {
   'video:play': { input: VideoPlayInputSchema, output: VideoPlaySchema },
   'video:submit': { input: VideoSubmitInputSchema, output: VideoResultSchema },
   'translate:status': { input: TranslateDirectionInputSchema, output: TranslateStatusSchema },
-  'translate:install': { input: TranslateDirectionInputSchema, output: TranslateStatusSchema },
-  'translate:cancel': { input: TranslateDirectionInputSchema, output: z.void() },
+  'translate:install': { input: TranslateInstallInputSchema, output: TranslateStatusSchema },
+  'translate:cancel': { input: TranslateInstallInputSchema, output: z.void() },
   'translate:remove': { input: TranslateDirectionInputSchema, output: TranslateStatusSchema },
   'translate:text': { input: TranslateInputSchema, output: TranslateResultSchema },
   'translate:online-status': { input: z.void(), output: TranslateOnlineStatusSchema },
@@ -318,6 +319,7 @@ export const invokeContract = {
   'pron:status': { input: z.void(), output: PronunciationStatusSchema },
   'pron:install': { input: z.void(), output: PronunciationStatusSchema },
   'pron:cancel': { input: z.void(), output: z.void() },
+  'pron:remove': { input: z.void(), output: PronunciationStatusSchema },
   'pron:evaluate': { input: PronEvaluateInputSchema, output: PronunciationEvaluationSchema }
 } satisfies Record<InvokeChannel, { input: z.ZodType; output: z.ZodType }>
 

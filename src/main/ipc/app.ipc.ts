@@ -199,6 +199,7 @@ export function registerAppIpc(
   handle('pron:status', () => pronunciation.status())
   handle('pron:install', () => pronunciation.install())
   handle('pron:cancel', () => pronunciation.cancel())
+  handle('pron:remove', () => pronunciation.remove())
   handle('pron:evaluate', ({ audio, text }) => pronunciation.evaluate(audio, text))
   handle('vocab:list', () => c.study.words())
   handle('vocab:remove', ({ contentId }) => c.study.removeWord(contentId))

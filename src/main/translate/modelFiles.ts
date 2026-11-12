@@ -91,47 +91,15 @@ export const OPUS_MT_VI_EN: ModelSpec = {
 }
 
 /**
- * Model dịch chất lượng cao: NLLB-200 distilled 600M (Meta AI, CC-BY-NC-4.0 — phi thương mại), bản ONNX lượng tử hoá 8-bit của Xenova.
- * MỘT model dịch cả Anh→Việt và Việt→Anh (mã ngôn ngữ eng_Latn / vie_Latn), ~870 MB (831 MiB) — tuỳ chọn tải thêm, chuẩn hơn rõ rệt
- * so với mBART-50 (đã đo: docs/decisions.md #34). Không đóng gói kèm app — xem docs/08-content-sources.md.
+ * NLLB-200 distilled 600M (Meta AI, CC-BY-NC-4.0) — ĐÃ NGỪNG DÙNG (docs/decisions.md #65): app không dịch bằng nó và
+ * không tải được nữa. Chỉ giữ id thư mục để Cài đặt hiện dung lượng file cũ còn trên đĩa và cho người dùng bấm xoá
+ * (không bao giờ tự xoá). Không có danh sách file → không thể tải lại.
  */
-export const NLLB_200: ModelSpec = {
+export const NLLB_200_RETIRED: ModelSpec = {
   id: 'Xenova/nllb-200-distilled-600M',
   revision: '261c31d1a5732c67cdd16d80e8d6088507c7ccea',
-  files: [
-    {
-      path: 'config.json',
-      size: 873,
-      sha256: '52f035acb54ac80e5ef7fe78d6967f8ddf8e8799f078d1a92a2c8168d8ff4a20'
-    },
-    {
-      path: 'generation_config.json',
-      size: 189,
-      sha256: '1ce846259ae04c572ae1863e358534bbc376ff3d3f100b1494feda6200b51de8'
-    },
-    {
-      path: 'tokenizer_config.json',
-      size: 544,
-      sha256: 'ddf411c9f790d081e72de76bb8e8b714d74e160e61bc10c9bd8f56022dcd7fd7'
-    },
-    {
-      path: 'tokenizer.json',
-      size: 17331224,
-      sha256: '8ac789ad7dabea44d41537822d48c516ba358374c51813e2cba78c006e150c94'
-    },
-    {
-      path: 'onnx/encoder_model_quantized.onnx',
-      size: 419120483,
-      sha256: '5cde664eacba07a62f198857ec6c06e09572b1ebb77c8137f1fa99ac604a3a28'
-    },
-    {
-      path: 'onnx/decoder_model_merged_quantized.onnx',
-      size: 475505771,
-      sha256: 'dd66608c2a4194e78f95548fa0e64f24302303698c5b09fa8e1f9e16ec00676b'
-    }
-  ]
+  files: []
 }
-
 
 export const modelBaseUrl = (spec: ModelSpec): string =>
   `https://huggingface.co/${spec.id}/resolve/${spec.revision}/`

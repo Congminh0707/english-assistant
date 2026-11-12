@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Check, Play, X } from 'lucide-vue-next'
 import type { VideoPlay, VideoResult, VideoSummary } from '@shared/schemas/video'
@@ -7,11 +7,15 @@ import { invoke } from '@renderer/shared/ipc'
 import { useLeaveGuard } from '../leaveGuard'
 
 // Thư viện video (docs/29 bước 3): nhúng YouTube qua eaplayer://, dừng ở mốc để hỏi; đáp án chấm ở main.
+// Là khung "Video" trong trang Nghe (ListeningPage.vue, docs/07 §10), không còn là trang riêng.
+const emit = defineEmits<{ phase: [phase: 'list' | 'watch' | 'result'] }>()
 const { t } = useI18n()
 
 type Phase = 'list' | 'watch' | 'result'
 const phase = ref<Phase>('list')
 useLeaveGuard(() => phase.value === 'watch')
+// Báo trang Nghe: đang xem/kết quả thì ẩn nút đổi khung (đổi khung giữa chừng sẽ bỏ qua hỏi rời trang)
+watch(phase, (p) => emit('phase', p))
 
 const videos = ref<VideoSummary[]>([])
 const play = ref<VideoPlay | null>(null)
@@ -103,7 +107,8 @@ async function finish(): Promise<void> {
   if (!p || busy.value) return
   busy.value = true
   try {
-    result.value = await invoke('video:submit', { playId: p.playId, answers: answers.value })
+    // Bản sao thường: mảng reactive (Proxy) không qua được structured clone của IPC ("An object could not be cloned")
+    result.value = await invoke('video:submit', { playId: p.playId, answers: [...answers.value] })
     phase.value = 'result'
     void load()
   } finally {
@@ -149,8 +154,6 @@ onUnmounted(() => window.removeEventListener('message', onMessage))
 
 <template>
   <section class="videos">
-    <h1>{{ t('study.videos.title') }}</h1>
-
     <template v-if="phase === 'list'">
       <p class="muted">{{ t('study.videos.intro') }}</p>
       <p v-if="!videos.length" class="card box">{{ t('study.videos.empty') }}</p>
@@ -275,12 +278,7 @@ onUnmounted(() => window.removeEventListener('message', onMessage))
 .videos {
   display: grid;
   gap: var(--sp-3);
-  max-width: 900px;
-  margin: 0 auto;
-}
-h1 {
-  margin: 0;
-  font-size: var(--fs-2xl);
+  max-width: 980px;
 }
 h2 {
   margin: 0;

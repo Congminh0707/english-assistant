@@ -8,18 +8,24 @@ export const TranslateDirectionSchema = z.enum(['en-vi', 'vi-en'])
 export type TranslateDirection = z.infer<typeof TranslateDirectionSchema>
 
 /**
- * Model dịch có thể tải: opus-mt từng chiều (nhanh, nhỏ) hoặc 'high' = NLLB-200 một model cho cả hai chiều
- * (chậm hơn, ~890 MB (848 MiB), chuẩn hơn rõ rệt)
+ * Model dịch offline trên đĩa: opus-mt từng chiều ('en-vi' | 'vi-en'), hoặc 'high' = NLLB-200 ĐÃ NGỪNG DÙNG
+ * (docs/decisions.md #65): app không dịch bằng nó và không tải được nữa; chỉ còn xem trạng thái + xoá file cũ
  */
 export const TranslateModelKeySchema = z.enum(['en-vi', 'vi-en', 'high'])
 export type TranslateModelKey = z.infer<typeof TranslateModelKeySchema>
 
-/** Đầu vào các kênh quản lý model (trường `direction` nay nhận cả 'high') */
+/** Đầu vào kênh xem trạng thái / xoá model (nhận cả 'high' để xoá NLLB-200 cũ còn trên đĩa) */
 export const TranslateDirectionInputSchema = z.object({ direction: TranslateModelKeySchema })
+
+/** Đầu vào kênh tải / huỷ tải: chỉ opus-mt từng chiều ('high' bị từ chối — NLLB-200 không tải được nữa) */
+export const TranslateInstallInputSchema = z.object({ direction: TranslateDirectionSchema })
 
 export const TranslateStateSchema = z.enum(['not-installed', 'downloading', 'ready', 'error'])
 
-/** Trạng thái một model offline (dịch opus-mt, giọng đọc Kokoro) */
+/**
+ * Trạng thái một model offline (dịch opus-mt, giọng đọc Kokoro). Riêng NLLB-200 đã ngừng ('high'): 'ready' = còn file
+ * trên đĩa, `sizeBytes` = dung lượng đang chiếm; 'not-installed' = không còn gì
+ */
 export const TranslateStatusSchema = z.object({
   state: TranslateStateSchema,
   /** Dung lượng cần tải (byte) */
@@ -46,10 +52,10 @@ export const TranslateInputSchema = z.object({ text: z.string().min(1).max(TRANS
 export const TranslateResultSchema = z.object({
   text: z.string(),
   /**
-   * Engine đã dịch: 'opus-mt' (nhanh, chất lượng trung bình), 'nllb-200' (chất lượng cao, offline) hoặc 'claude' /
-   * 'google' / 'azure' (online, key người dùng nhập)
+   * Engine đã dịch: 'opus-mt' (offline) hoặc 'claude' / 'google' / 'azure' (online, key người dùng nhập).
+   * 'nllb-200' đã bỏ (docs/decisions.md #65): kết quả dịch chỉ nhớ trong bộ nhớ, không lưu DB nên không còn giá trị cũ
    */
-  engine: z.enum(['opus-mt', 'nllb-200', 'claude', 'google', 'azure']),
+  engine: z.enum(['opus-mt', 'claude', 'google', 'azure']),
   cached: z.boolean(),
   /** Chiều đã dịch (tự nhận từ văn bản) */
   direction: TranslateDirectionSchema

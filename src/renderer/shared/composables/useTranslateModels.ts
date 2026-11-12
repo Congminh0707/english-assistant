@@ -1,8 +1,13 @@
 import { ref, type Ref } from 'vue'
-import type { TranslateModelKey, TranslateStatus } from '@shared/schemas/translate'
+import type {
+  TranslateDirection,
+  TranslateModelKey,
+  TranslateStatus
+} from '@shared/schemas/translate'
 import { invoke } from '../ipc'
 
-// Trạng thái các model dịch (opus-mt từng chiều + 'high' = NLLB-200 chất lượng cao): dùng chung trong cả cửa sổ
+// Trạng thái các model dịch (opus-mt từng chiều + 'high' = file NLLB-200 cũ đã ngừng dùng, chỉ để xoá):
+// dùng chung trong cả cửa sổ
 const statuses: Record<TranslateModelKey, Ref<TranslateStatus | null>> = {
   'en-vi': ref(null),
   'vi-en': ref(null),
@@ -35,12 +40,12 @@ function start(): void {
   })
 }
 
-/** Trạng thái các model dịch + hành động tải/huỷ/xoá (dùng trong popup và Cài đặt) */
+/** Trạng thái các model dịch + tải/huỷ (chỉ opus-mt) + xoá (cả NLLB-200 cũ) — dùng trong popup và Cài đặt */
 export function useTranslateModels(): {
   statuses: Record<TranslateModelKey, Ref<TranslateStatus | null>>
   refresh: () => Promise<void>
-  install: (direction: TranslateModelKey) => Promise<TranslateStatus>
-  cancel: (direction: TranslateModelKey) => void
+  install: (direction: TranslateDirection) => Promise<TranslateStatus>
+  cancel: (direction: TranslateDirection) => void
   remove: (direction: TranslateModelKey) => Promise<void>
 } {
   start()

@@ -21,7 +21,8 @@ const { t } = useI18n()
 const { speak, speakAsync } = useTts()
 const stt = useStt()
 
-// Chấm phát âm theo âm vị (model tuỳ chọn, phụ huynh tải trong Cài đặt): có thì bé nói thật và được chấm, chưa có thì như cũ
+// Chấm phát âm theo âm vị (chỉ máy đã tải model wav2vec2 từ bản trước — app không còn mời tải, docs/decisions.md #65):
+// có thì bé nói thật và được chấm, chưa có thì như cũ
 const pronReady = computed(() => stt.pronunciation.value?.state === 'ready')
 /** Kết quả lần nói đầu của mục hiện tại: null = chưa nói; true = đạt (verdict không phải 'retry') */
 const scoredFirst = ref<boolean | null>(null)

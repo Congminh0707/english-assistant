@@ -1,12 +1,14 @@
 import { createHash } from 'node:crypto'
-import { existsSync, mkdtempSync, readdirSync, rmSync } from 'node:fs'
+import { existsSync, mkdirSync, mkdtempSync, readdirSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
-import type {
-  TranslateDirection,
-  TranslateModelKey,
-  TranslateStatus
+import { invokeContract } from '@shared/ipc-contract'
+import {
+  TranslateResultSchema,
+  type TranslateDirection,
+  type TranslateModelKey,
+  type TranslateStatus
 } from '@shared/schemas/translate'
 import { TranslationService } from '../services/TranslationService'
 import type { TranslationEngine } from './engine'
@@ -112,6 +114,17 @@ describe('ModelManager', () => {
     models.remove()
     expect(models.isInstalled()).toBe(false)
   })
+
+  it('diskBytes: đếm cả file tải dở trong thư mục con; không có thư mục → 0', () => {
+    const models = new ModelManager({ modelsDir: dir, spec: SPEC })
+    expect(models.diskBytes()).toBe(0)
+    mkdirSync(join(models.dir, 'onnx'), { recursive: true })
+    writeFileSync(join(models.dir, 'tokenizer.json'), 'x'.repeat(10))
+    writeFileSync(join(models.dir, 'onnx', 'encoder.onnx.part'), 'y'.repeat(25))
+    expect(models.diskBytes()).toBe(35)
+    models.remove()
+    expect(models.diskBytes()).toBe(0)
+  })
 })
 
 describe('TranslationService', () => {
@@ -123,23 +136,17 @@ describe('TranslationService', () => {
     engine: TranslationEngine & { calls: string[]; disposed: number }
     statuses: Array<[TranslateModelKey, TranslateStatus]>
     models: Record<TranslateModelKey, ModelManager>
-    setPreferHigh: (value: boolean) => void
   } {
     const calls: string[] = []
     const engine = {
       calls,
       disposed: 0,
-      translate: async (
-        text: string,
-        direction: TranslateDirection,
-        quality: 'fast' | 'high'
-      ): Promise<string> => {
-        calls.push(`${quality}:${direction}:${text}`)
-        const tag = quality === 'high' ? 'HQ' : ''
-        return direction === 'en-vi' ? `VI${tag}(${text})` : `EN${tag}(${text})`
+      translate: async (text: string, direction: TranslateDirection): Promise<string> => {
+        calls.push(`fast:${direction}:${text}`)
+        return direction === 'en-vi' ? `VI(${text})` : `EN(${text})`
       },
-      warmup: async (direction: TranslateDirection, quality: 'fast' | 'high'): Promise<void> => {
-        calls.push(`warmup:${quality}:${direction}`)
+      warmup: async (direction: TranslateDirection): Promise<void> => {
+        calls.push(`warmup:fast:${direction}`)
       },
       dispose(): void {
         engine.disposed++
@@ -151,15 +158,13 @@ describe('TranslationService', () => {
       high: new ModelManager({ modelsDir: dir, spec: SPEC_HIGH, fetch: fakeFetch() })
     }
     const statuses: Array<[TranslateModelKey, TranslateStatus]> = []
-    let preferHigh = true
     const service = new TranslationService({
       models,
       engine,
-      preferHigh: () => preferHigh,
       onStatus: (d, s) => statuses.push([d, s]),
       now: () => 0
     })
-    return { service, engine, statuses, models, setPreferHigh: (v) => (preferHigh = v) }
+    return { service, engine, statuses, models }
   }
 
   it('chưa tải model → báo chưa sẵn sàng; tải xong thì dịch được', async () => {
@@ -429,37 +434,59 @@ describe('TranslationService', () => {
     await expect(service.translate('Hello')).rejects.toThrow(/TRANSLATE_NOT_READY/)
   })
 
-  it('đã tải model chất lượng cao: dùng cho cả hai chiều, không cần opus-mt; tắt ưu tiên thì quay về opus-mt', async () => {
-    const { service, engine, setPreferHigh } = setup()
-    await expect(service.translate('Hello')).rejects.toThrow(/TRANSLATE_NOT_READY/)
-    await service.install('high')
-    const vi = await service.translate('She wants to buy a present for him.')
-    expect(vi).toMatchObject({ engine: 'nllb-200', direction: 'en-vi' })
-    expect(vi.text).toBe('VIHQ(She wants to buy a present for him.)')
-    const en = await service.translate('Tôi đang học tiếng Anh')
-    expect(en).toMatchObject({ engine: 'nllb-200', direction: 'vi-en' })
-    expect(engine.calls).toEqual([
-      'high:en-vi:She wants to buy a present for him.',
-      'high:vi-en:Tôi đang học tiếng Anh'
-    ])
+  /** Đặt file NLLB-200 cũ vào thư mục 'high' như máy người dùng đã tải ở bản trước (không có cách tải từ app nữa) */
+  const placeOldNllb = (models: Record<TranslateModelKey, ModelManager>, bytes = 40): void => {
+    mkdirSync(join(models.high.dir, 'onnx'), { recursive: true })
+    writeFileSync(join(models.high.dir, 'onnx', 'encoder_model_quantized.onnx'), 'n'.repeat(bytes))
+  }
 
-    // Tắt "ưu tiên chất lượng cao" mà chưa có opus-mt → báo chưa sẵn sàng; có rồi thì dùng bản nhanh
-    setPreferHigh(false)
-    await expect(service.translate('Hello world')).rejects.toThrow(/TRANSLATE_NOT_READY/)
+  it('NLLB-200 cũ còn trên đĩa: không bao giờ dùng để dịch — chỉ opus-mt', async () => {
+    const { service, engine, models } = setup()
+    placeOldNllb(models)
+    // Chỉ có NLLB → coi như chưa có model dịch offline
+    await expect(service.translate('Hello')).rejects.toThrow(/TRANSLATE_NOT_READY/)
+    service.warmup('Hello')
+    expect(engine.calls).toEqual([])
     await service.install('en-vi')
-    expect((await service.translate('Hello world')).engine).toBe('opus-mt')
+    const res = await service.translate('She wants to buy a present for him.')
+    expect(res).toMatchObject({ engine: 'opus-mt', direction: 'en-vi' })
+    await expect(service.translate('Tôi đang học tiếng Anh')).rejects.toThrow(/TRANSLATE_NOT_READY/)
+    expect(engine.calls).toEqual(['fast:en-vi:She wants to buy a present for him.'])
   })
 
-  it('cache tách theo engine; xoá model chất lượng cao chỉ bỏ cache của nó', async () => {
-    const { service, engine } = setup()
-    await service.install('en-vi')
-    await service.install('high')
-    await service.translate('Good morning.') // high
-    await service.translate('Good morning.') // cache của high
-    expect(engine.calls).toEqual(['high:en-vi:Good morning.'])
-    service.remove('high')
-    const res = await service.translate('Good morning.') // quay về opus-mt, chưa có trong cache
-    expect(res).toMatchObject({ engine: 'opus-mt', cached: false })
+  it('NLLB-200 cũ: trạng thái báo dung lượng trên đĩa; chỉ xoá khi gọi remove (không tắt engine)', () => {
+    const { service, engine, models, statuses } = setup()
+    expect(service.status('high')).toEqual({
+      state: 'not-installed',
+      sizeBytes: 0,
+      receivedBytes: 0,
+      errorKey: null
+    })
+    placeOldNllb(models, 40)
+    expect(service.status('high')).toMatchObject({ state: 'ready', sizeBytes: 40 })
+    // Không có gì tự xoá: tạo service mới vẫn thấy file
+    expect(existsSync(models.high.dir)).toBe(true)
+    const status = service.remove('high')
+    expect(status).toMatchObject({ state: 'not-installed', sizeBytes: 0 })
+    expect(existsSync(models.high.dir)).toBe(false)
+    expect(engine.disposed).toBe(0)
+    expect(statuses).toEqual([['high', status]])
+  })
+
+  it('kênh translate:install / translate:cancel từ chối "high"; status / remove vẫn nhận', () => {
+    for (const ch of ['translate:install', 'translate:cancel'] as const) {
+      expect(invokeContract[ch].input.safeParse({ direction: 'high' }).success).toBe(false)
+      expect(invokeContract[ch].input.safeParse({ direction: 'en-vi' }).success).toBe(true)
+    }
+    for (const ch of ['translate:status', 'translate:remove'] as const) {
+      expect(invokeContract[ch].input.safeParse({ direction: 'high' }).success).toBe(true)
+    }
+  })
+
+  it('kết quả dịch không còn engine "nllb-200"', () => {
+    const base = { text: 'x', cached: false, direction: 'en-vi' }
+    expect(TranslateResultSchema.safeParse({ ...base, engine: 'nllb-200' }).success).toBe(false)
+    expect(TranslateResultSchema.safeParse({ ...base, engine: 'opus-mt' }).success).toBe(true)
   })
 
   it('tải lỗi → trạng thái error có khoá i18n, cho phép thử lại', async () => {

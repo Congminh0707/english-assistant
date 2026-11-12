@@ -49,8 +49,6 @@ export const settingDefinitions = {
   'plan.reminderHour': z.number().int().min(0).max(23).nullable().default(10),
   /** Ngày cục bộ 'YYYY-MM-DD' đã nhắc lộ trình (nội bộ, do PlanReminderJob quản lý; giữ qua lần mở lại app) */
   'plan.remindedDay': z.string().max(10).default(''),
-  /** Dịch câu/đoạn: ưu tiên model chất lượng cao (NLLB-200) khi đã tải; tắt = luôn dùng bản nhanh opus-mt */
-  'translate.highQuality': z.boolean().default(true),
   /** Dịch online bằng Claude (cần API key của người dùng; văn bản được gửi tới Anthropic). Mặc định tắt */
   'translate.online': z.boolean().default(false),
   /** Dịch online bằng Google/Azure khi người dùng đã nhập key (văn bản được gửi tới Google/Microsoft). Mặc định bật */
@@ -121,6 +119,11 @@ export const settingDefinitions = {
   'kids.ageBand': z.enum(['3-4', '5-6', '7-8']).default('5-6'),
   /** Chế độ trẻ em: tiếng động của màn game (chạm, đi, rương…); giọng đọc từ vẫn luôn bật */
   'kids.gameSound': z.boolean().default(true),
+  /**
+   * Chế độ trẻ em (thử nghiệm): hiện nút đổi bản đồ 3D/2D trên HUD màn game. Tắt (mặc định) = luôn bản đồ 2D, không có
+   * nút, bỏ qua lựa chọn cũ trong localStorage (docs/19 §5.2, docs/decisions.md #65)
+   */
+  'kids.map3d': z.boolean().default(false),
   /** Giọng đọc: 'system' = giọng Windows có sẵn; 'kokoro' = giọng tự nhiên offline (cần tải model) */
   'tts.engine': z.enum(['system', 'kokoro']).default('system'),
   /** Giọng mặc định khi đọc bài học, bài tập, câu hỏi (nút có ghi rõ Mỹ/Anh vẫn đọc đúng giọng đó) */

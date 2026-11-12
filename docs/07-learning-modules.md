@@ -127,6 +127,8 @@ Lộ trình học từ đầu cho người Việt, **tự soạn** (`proprietary
 
 **Bản thu thật (VOA)**: block `audio` có `recording` thì dùng `RealAudioPlayer`: phát cả file MP3 trong gói âm thanh (không TTS, không căn giờ từng câu), chỉnh tốc độ 0,6–1×, lời thoại hiện theo đoạn kèm bản dịch, dòng ghi công + link trang gốc. Chưa cài gói → hiện lời thoại và nút tải gói. Xem [decisions #52](decisions.md).
 
+**Khung Video (2026-11-12)**: trang Nghe có thêm khung "Video" (thư viện video có câu hỏi ở mốc, xem §10); vào trang Nghe từ tab/lộ trình thì mặc định khung "Bài nghe".
+
 ## 7. Module Nói — Speaking (P2)
 
 Chi tiết kỹ thuật: [11-ai-and-speech.md](11-ai-and-speech.md#4-nhận-dạng-giọng-nói-stt--chấm-phát-âm).
@@ -175,6 +177,8 @@ Chi tiết kỹ thuật: [11-ai-and-speech.md](11-ai-and-speech.md#4-nhận-dạ
 - Giới hạn phiên ≤ 10 phút, sau đó mascot "buồn ngủ" và gợi ý nghỉ.
 
 ## 10. Video (P2)
+
+> **Gộp vào trang Nghe (2026-11-12, [decisions #65](decisions.md))**: 12 video quá ít cho một trang riêng. Video không còn là tab/trang riêng; trang Nghe (`ListeningPage.vue`) có hàng tab "Bài nghe" / "Video", khung Video dùng lại thư viện + trình phát cũ (`VideoLibrary.vue`, trước là `VideosPage.vue`). Hàng tab ẩn khi đang xem video hoặc đang học một bài nghe. Mọi lối cũ mở trang `videos` (`study:open-page`) → trang Nghe, khung Video. `VideoService`, `VideoBank`, kênh IPC và DB giữ nguyên.
 
 - Chỉ dùng **YouTube IFrame Player API** để nhúng (không tải video về). Danh mục video do người làm nội dung chọn, lưu `videoId`, đoạn bắt đầu/kết thúc, level, câu hỏi, từ vựng.
 - Phụ đề: chỉ hiển thị phụ đề nếu nội dung có transcript hợp lệ (tự soạn hoặc nguồn mở); không cào phụ đề YouTube.

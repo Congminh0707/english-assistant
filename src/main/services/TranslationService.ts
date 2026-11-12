@@ -18,22 +18,22 @@ const CACHE_SIZE = 200
 type Engine = TranslateResult['engine']
 
 /**
- * Dịch câu offline: opus-mt (nhanh, mỗi chiều một model) hoặc NLLB-200 'high' (chất lượng cao, một model cho cả hai chiều,
- * được ưu tiên khi đã tải và bật trong cài đặt). Có mạng thì dịch online trước: Claude → Google → Azure
+ * Dịch câu offline bằng opus-mt (mỗi chiều một model). Có mạng thì dịch online trước: Claude → Google → Azure
  * (key người dùng nhập, lưu mã hoá). Quản lý trạng thái/tải/xoá model (qua ModelInstaller),
- * tự nhận chiều dịch theo văn bản, dịch qua engine, nhớ kết quả gần đây.
+ * tự nhận chiều dịch theo văn bản, dịch qua engine, nhớ kết quả gần đây (chỉ trong bộ nhớ).
+ * NLLB-200 ('high') đã ngừng (docs/decisions.md #65): không bao giờ dịch bằng nó, không tải được; chỉ còn báo
+ * dung lượng file cũ trên đĩa và xoá khi người dùng bấm (không bao giờ tự xoá).
  * Không bao giờ ghi nội dung dịch ra log. docs/11-ai-and-speech.md#2-dịch--tra-từ
  */
 export class TranslationService {
-  private readonly installers: Record<TranslateModelKey, ModelInstaller>
+  private readonly installers: Record<TranslateDirection, ModelInstaller>
   private readonly cache = new Map<string, { text: string; engine: Engine }>()
 
   constructor(
     private readonly deps: {
+      /** opus-mt từng chiều + 'high' = thư mục NLLB-200 cũ (chỉ để báo dung lượng và xoá) */
       models: Record<TranslateModelKey, ModelManager>
       engine: TranslationEngine
-      /** Có ưu tiên model chất lượng cao khi đã tải không (cài đặt translate.highQuality) */
-      preferHigh?: () => boolean
       /** Dịch online (Claude), tuỳ chọn: bật trong cài đặt + có key; lỗi thì rơi về model offline */
       online?: {
         enabled: () => boolean
@@ -67,36 +67,52 @@ export class TranslationService {
       now?: () => number
     }
   ) {
-    const make = (model: TranslateModelKey): ModelInstaller =>
+    const make = (model: TranslateDirection): ModelInstaller =>
       new ModelInstaller({
         models: deps.models[model],
         onStatus: (status) => deps.onStatus?.(model, status),
         now: deps.now
       })
-    this.installers = { 'en-vi': make('en-vi'), 'vi-en': make('vi-en'), high: make('high') }
+    this.installers = { 'en-vi': make('en-vi'), 'vi-en': make('vi-en') }
   }
 
   status(direction: TranslateModelKey): TranslateStatus {
+    if (direction === 'high') return this.retiredStatus()
     return this.installers[direction].status()
   }
 
-  /** Tải model (người dùng đã đồng ý). Gọi lại khi đang tải thì dùng chung lần tải đó. */
-  install(direction: TranslateModelKey): Promise<TranslateStatus> {
+  /** NLLB-200 đã ngừng: 'ready' = còn file trên đĩa (kể cả bản tải dở), sizeBytes = dung lượng đang chiếm */
+  private retiredStatus(): TranslateStatus {
+    const bytes = this.deps.models.high.diskBytes()
+    return {
+      state: bytes > 0 ? 'ready' : 'not-installed',
+      sizeBytes: bytes,
+      receivedBytes: 0,
+      errorKey: null
+    }
+  }
+
+  /** Tải model opus-mt (người dùng đã đồng ý). Gọi lại khi đang tải thì dùng chung lần tải đó. */
+  install(direction: TranslateDirection): Promise<TranslateStatus> {
     return this.installers[direction].install()
   }
 
-  cancelInstall(direction: TranslateModelKey): void {
+  cancelInstall(direction: TranslateDirection): void {
     this.installers[direction].cancel()
   }
 
-  /** Xoá model đã tải (giải phóng đĩa). Tắt tiến trình nền trước để nó nhả file đang mở. */
+  /** Xoá model đã tải (giải phóng đĩa) — chỉ khi người dùng bấm xoá. */
   remove(direction: TranslateModelKey): TranslateStatus {
-    if (this.status(direction).state === 'downloading') return this.status(direction)
-    this.deps.engine.dispose()
-    this.deps.models[direction].remove()
-    // Cache theo engine: xoá model nào thì bỏ kết quả của engine đó
-    const engine = direction === 'high' ? 'nllb-200' : 'opus-mt'
-    for (const key of this.cache.keys()) if (key.startsWith(`${engine}:`)) this.cache.delete(key)
+    if (direction === 'high') {
+      // Tiến trình nền không bao giờ mở file NLLB nữa → không cần tắt nó
+      this.deps.models.high.remove()
+    } else {
+      if (this.status(direction).state === 'downloading') return this.status(direction)
+      // Tắt tiến trình nền trước để nó nhả file đang mở; bỏ kết quả opus-mt đã nhớ
+      this.deps.engine.dispose()
+      this.deps.models[direction].remove()
+      for (const key of this.cache.keys()) if (key.startsWith('opus-mt:')) this.cache.delete(key)
+    }
     const status = this.status(direction)
     this.deps.onStatus?.(direction, status)
     return status
@@ -152,21 +168,18 @@ export class TranslationService {
     return !!this.deps.cloud?.enabled() && this.deps.cloud.available()
   }
 
-  /** Chọn chiều dịch + engine cho văn bản; null nếu chưa có model nào dùng được */
-  private plan(input: string): { direction: TranslateDirection; high: boolean } | null {
+  /** Chiều dịch cho văn bản nếu đã có opus-mt của chiều đó; null nếu chưa (NLLB-200 cũ trên đĩa không tính) */
+  private plan(input: string): TranslateDirection | null {
     const direction: TranslateDirection = looksVietnamese(input) ? 'vi-en' : 'en-vi'
-    // Ưu tiên model chất lượng cao nếu đã tải và được bật; không thì dùng opus-mt của chiều đó
-    const high = (this.deps.preferHigh?.() ?? true) && this.deps.models.high.isInstalled()
-    if (!high && !this.deps.models[direction].isInstalled()) return null
-    return { direction, high }
+    return this.deps.models[direction].isInstalled() ? direction : null
   }
 
   /** Nạp sẵn model cho văn bản sắp dịch (gọi khi popup mở). Lỗi bị bỏ qua: lần dịch thật sẽ báo. */
   warmup(text: string): void {
     const input = text.replace(/\s+/g, ' ').trim()
-    const plan = input && !this.onlineReady() && !this.cloudReady() ? this.plan(input) : null
-    if (!plan || !this.deps.engine.warmup) return
-    void this.deps.engine.warmup(plan.direction, plan.high ? 'high' : 'fast').catch(() => undefined)
+    const direction = input && !this.onlineReady() && !this.cloudReady() ? this.plan(input) : null
+    if (!direction || !this.deps.engine.warmup) return
+    void this.deps.engine.warmup(direction).catch(() => undefined)
   }
 
   async translate(text: string): Promise<TranslateResult> {
@@ -202,16 +215,13 @@ export class TranslationService {
       }
     }
 
-    const plan = this.plan(input)
-    if (!plan) {
+    if (!this.plan(input)) {
       // Online lỗi (mạng/key/hạn mức) mà chưa có model offline → báo lỗi dịch, không đòi tải model
       throw online || cloud
         ? new AppError('TRANSLATE_FAILED', 'errors.translateFailed')
         : new AppError('TRANSLATE_NOT_READY', 'errors.translateNotReady')
     }
-    const { high } = plan
-    const engine = high ? 'nllb-200' : 'opus-mt'
-
+    const engine = 'opus-mt'
     const key = `${engine}:${direction}:${input}`
     const cached = this.cache.get(key)
     if (cached !== undefined) {
@@ -221,7 +231,7 @@ export class TranslationService {
       return { ...cached, cached: true, direction }
     }
 
-    const out = await this.deps.engine.translate(input, direction, high ? 'high' : 'fast')
+    const out = await this.deps.engine.translate(input, direction)
     if (!out) throw new AppError('TRANSLATE_FAILED', 'errors.translateFailed')
     this.remember(key, { text: out, engine })
     return { text: out, engine, cached: false, direction }
@@ -235,7 +245,6 @@ export class TranslationService {
   dispose(): void {
     this.cancelInstall('en-vi')
     this.cancelInstall('vi-en')
-    this.cancelInstall('high')
     this.deps.engine.dispose()
   }
 }

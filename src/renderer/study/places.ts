@@ -20,7 +20,6 @@ export type StudyPage =
   | 'stats'
   | 'placement'
   | 'toeic'
-  | 'videos'
   | 'settings'
 
 export type Place =
@@ -37,7 +36,7 @@ export interface PageGroup {
 export const PLACE_GROUPS: Partial<Record<Place, PageGroup[]>> = {
   school: [
     { id: 'path', pages: ['courses'] },
-    { id: 'bank', pages: ['lessons', 'grammar', 'reading', 'listening', 'videos'] },
+    { id: 'bank', pages: ['lessons', 'grammar', 'reading', 'listening'] },
     { id: 'exam', pages: ['toeic'] }
   ]
 }
@@ -77,6 +76,20 @@ export function isStudyPage(value: string): value is StudyPage {
     value === 'home' ||
     Object.values(PLACE_PAGES).some((pages) => pages.includes(value as StudyPage))
   )
+}
+
+/** Hai khung nhìn của trang Nghe: danh sách bài nghe hoặc thư viện video (docs/07 §6, §10) */
+export type ListeningView = 'lessons' | 'video'
+
+/**
+ * Trang đích cho một tên trang main/bản cũ gửi tới (study:open-page): trang thật giữ nguyên; trang 'videos' cũ
+ * (đã gộp vào Nghe — docs/decisions.md #65) → Nghe, mở sẵn khung Video; tên lạ → null (bỏ qua, không lỗi)
+ */
+export function resolveStudyPage(
+  value: string
+): { page: StudyPage; listeningView?: ListeningView } | null {
+  if (value === 'videos') return { page: 'listening', listeningView: 'video' }
+  return isStudyPage(value) ? { page: value } : null
 }
 
 export function placeOf(page: StudyPage): Place {

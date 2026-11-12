@@ -136,6 +136,7 @@ export const INVOKE_CHANNELS = [
   'pron:status',
   'pron:install',
   'pron:cancel',
+  'pron:remove',
   'pron:evaluate'
 ] as const
 

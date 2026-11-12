@@ -237,6 +237,8 @@ Cả hai dùng chung dữ liệu (`kids:world`) và luồng (§3); bé không m�
 
 ### 5.2 Bản đồ 3D (three.js)
 
+> ⛔ **Đóng băng (2026-11-12, [decisions #65](decisions.md))**: ngừng đầu tư vào bản đồ 3D, giữ code. Nút đổi 3D/2D trên HUD (`KidsGame.vue`) chỉ hiện khi phụ huynh bật cài đặt **`kids.map3d`** ("Bản đồ 3D (thử nghiệm)", mặc định tắt, ở trang Phụ huynh → khối điều chỉnh). Tắt (mọi người dùng cũ và mới): không có nút, bản đồ luôn 2D, lựa chọn cũ trong `localStorage` `kids.map3d` bị bỏ qua (không đọc, không ghi, không xoá). Bật: nút hiện và chạy như trước, vẫn tự về 2D khi WebGL lỗi; đổi cài đặt thì màn game đổi ngay (store cài đặt nghe `settings:changed`). Logic quyết định ở `game/map3dPref.ts` (có test).
+
 **Phong cách**: mô hình thu nhỏ (diorama) sống động — địa hình cách điệu (đồi, sông, biển, ruộng), cây mọc dày (instancing), nước có sóng, mây trôi, thuyền/xe/người nhỏ di chuyển, ngày–đêm và thời tiết. Công trình mỗi nơi là điểm nhấn lớn, nhìn là nhận ra.
 
 **Kiểu vẽ: VOXEL ("pixel 3D") — chủ dự án chốt 2026-10-29.** Công trình, nhà, cây, người, xe, thuyền dựng bằng khối lập phương (kiểu MagicaVoxel), xoay nhìn được mọi phía. Địa hình cũng là voxel (lưới độ cao) để cả cảnh cùng một phong cách; nước, mây, ánh sáng, bóng là hiệu ứng 3D thường. (Phương án sprite pixel "HD-2D" đã cân nhắc và không chọn — xem [decisions #36](decisions.md).)

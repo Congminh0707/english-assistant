@@ -1,5 +1,13 @@
 import { createHash } from 'node:crypto'
-import { createWriteStream, existsSync, mkdirSync, readFileSync, rmSync, statSync } from 'node:fs'
+import {
+  createWriteStream,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  statSync
+} from 'node:fs'
 import { rename, writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
 import { Transform } from 'node:stream'
@@ -86,6 +94,26 @@ export class ModelManager {
 
   remove(): void {
     rmSync(this.dir, { recursive: true, force: true })
+  }
+
+  /**
+   * Số byte thư mục model đang chiếm trên đĩa (0 nếu không có), kể cả file tải dở/huỷ giữa chừng.
+   * Dùng cho model đã ngừng (NLLB-200) để người dùng thấy và xoá — không bao giờ tự xoá.
+   */
+  diskBytes(): number {
+    const walk = (dir: string): number => {
+      let total = 0
+      for (const entry of readdirSync(dir, { withFileTypes: true })) {
+        const path = join(dir, entry.name)
+        total += entry.isDirectory() ? walk(path) : entry.isFile() ? statSync(path).size : 0
+      }
+      return total
+    }
+    try {
+      return existsSync(this.dir) ? walk(this.dir) : 0
+    } catch {
+      return 0
+    }
   }
 
   private async download(

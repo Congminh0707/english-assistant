@@ -3,6 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { Lesson } from '@shared/schemas/lesson'
 import { useTts } from '@renderer/shared/composables/useTts'
+import { useStt } from '@renderer/shared/composables/useStt'
 import { ChevronLeft } from 'lucide-vue-next'
 import { cefrLabel } from '@shared/placement'
 import SpeakPractice from '@renderer/shared/components/SpeakPractice.vue'
@@ -27,6 +28,13 @@ const mainBlocks = computed(() =>
 const sideBlocks = computed(() =>
   props.lesson.blocks.map((block, i) => ({ block, i })).filter((x) => x.block.type === 'examples')
 )
+
+/**
+ * Nút micro luyện từng âm chỉ hiện khi máy đã có model chấm âm vị (tải từ bản trước): Whisper không chấm được âm đơn,
+ * và app không còn mời tải model âm vị (docs/decisions.md #65)
+ */
+const stt = useStt()
+const pronReady = computed(() => stt.pronunciation.value?.state === 'ready')
 
 /** Ô âm đang luyện phát âm (bấm nút micro): chữ hiển thị và chuỗi để chấm */
 const practicing = ref<{ block: number; label: string; text: string } | null>(null)
@@ -98,6 +106,7 @@ onMounted(() => {
                   <span v-if="item.note" class="sound-note">{{ item.note }}</span>
                 </button>
                 <button
+                  v-if="pronReady"
                   type="button"
                   class="btn btn--xs btn--icon btn--ghost sound-mic"
                   :title="t('speech.practiceSound')"
@@ -109,10 +118,12 @@ onMounted(() => {
               </div>
             </div>
             <p class="hint">
-              <UiIcon name="volume" /> {{ t('study.lessons.tapToHear') }} · <UiIcon name="mic" />
-              {{ t('speech.practiceSound') }}
+              <UiIcon name="volume" /> {{ t('study.lessons.tapToHear') }}
+              <template v-if="pronReady">
+                · <UiIcon name="mic" /> {{ t('speech.practiceSound') }}
+              </template>
             </p>
-            <div v-if="practicing && practicing.block === i" class="practice">
+            <div v-if="pronReady && practicing && practicing.block === i" class="practice">
               <div class="practice-head">
                 <strong>{{ practicing.label }}</strong>
                 <button type="button" class="btn btn--ghost btn--sm" @click="practicing = null">

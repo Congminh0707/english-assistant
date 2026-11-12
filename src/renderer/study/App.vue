@@ -9,13 +9,20 @@ import { usePetStore } from '@renderer/shared/stores/pet'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
 import VillageMap from './components/VillageMap.vue'
 import PlaceShell from './components/PlaceShell.vue'
-import { isStudyPage, PLACE_PAGES, placeOf, type Place, type StudyPage } from './places'
+import {
+  PLACE_PAGES,
+  placeOf,
+  resolveStudyPage,
+  type ListeningView,
+  type Place,
+  type StudyPage
+} from './places'
 import { nextPlanItem, planItemTarget } from './planItem'
 import ReviewSession from './components/ReviewSession.vue'
 import WordList from './components/WordList.vue'
 import PlacementTest from './components/PlacementTest.vue'
 import ToeicPage from './components/ToeicPage.vue'
-import VideosPage from './components/VideosPage.vue'
+import ListeningPage from './components/ListeningPage.vue'
 import PracticeSession from './components/PracticeSession.vue'
 import ShopPage from './components/ShopPage.vue'
 import StatsPage from './components/StatsPage.vue'
@@ -64,6 +71,8 @@ const missions = ref<MissionsState | null>(null)
 const plan = ref<DailyPlan | null>(null)
 /** Bài mở thẳng từ lộ trình hôm nay; đổi trang là xoá */
 const startLesson = ref<{ kind: LessonKind; id: string } | null>(null)
+/** Khung đang xem của trang Nghe (bài nghe / video); vào trang Nghe từ nơi khác thì về danh sách bài */
+const listeningView = ref<ListeningView>('lessons')
 /** Bài kiểm tra mở từ màn hình chào thì tự bắt đầu ngay */
 const autostartTest = ref(false)
 /** Kiểm tra lên cấp thay vì kiểm tra đầu vào */
@@ -98,21 +107,30 @@ function goPlace(p: Place): void {
   go(PLACE_PAGES[p][0])
 }
 
-function go(next: StudyPage, start: { kind: LessonKind; id: string } | null = null): void {
+function go(
+  next: StudyPage,
+  start: { kind: LessonKind; id: string } | null = null,
+  view: ListeningView = 'lessons'
+): void {
   // Đang làm dở một phiên thì hỏi trước; không có gì dở thì đi ngay (không await) để thứ tự gọi cũ không đổi
   if (isLeaveGuarded()) {
     void confirmLeave().then((ok) => {
-      if (ok) goNow(next, start)
+      if (ok) goNow(next, start, view)
     })
     return
   }
-  goNow(next, start)
+  goNow(next, start, view)
 }
 
-function goNow(next: StudyPage, start: { kind: LessonKind; id: string } | null = null): void {
+function goNow(
+  next: StudyPage,
+  start: { kind: LessonKind; id: string } | null = null,
+  view: ListeningView = 'lessons'
+): void {
   autostartTest.value = false
   checkpointMode.value = false
   startLesson.value = start
+  listeningView.value = view
   page.value = next
   void refresh()
 }
@@ -203,7 +221,9 @@ onMounted(async () => {
   // Đăng ký trước mọi await: main gửi study:open-page ngay khi trang vừa nạp xong (bấm bong bóng nhắc nhật ký)
   cleanups.push(
     window.api.on('study:open-page', ({ page: next }) => {
-      if (isStudyPage(next)) go(next)
+      // Tên trang cũ 'videos' → Nghe, khung Video; tên lạ thì bỏ qua (places.ts)
+      const target = resolveStudyPage(next)
+      if (target) go(target.page, null, target.listeningView)
     })
   )
   window.addEventListener('focus', onFocus)
@@ -278,9 +298,9 @@ onUnmounted(() => {
         :start-id="startLesson?.kind === 'reading' ? startLesson.id : undefined"
         @changed="refresh"
       />
-      <LessonsPage
+      <ListeningPage
         v-else-if="page === 'listening'"
-        kind="listening"
+        v-model:view="listeningView"
         :start-id="startLesson?.kind === 'listening' ? startLesson.id : undefined"
         @changed="refresh"
       />
@@ -307,7 +327,6 @@ onUnmounted(() => {
         @start="startAfterPlacement"
       />
       <ToeicPage v-else-if="page === 'toeic'" />
-      <VideosPage v-else-if="page === 'videos'" />
       <SettingsPage v-else @retest="go('placement')" @changed="refresh" />
     </PlaceShell>
 

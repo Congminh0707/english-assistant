@@ -73,8 +73,8 @@ export const WHISPER_BASE_EN: ModelSpec = {
 }
 
 /**
- * Model nhận dạng âm vị (wav2vec2 phoneme CTC) — TUỲ CHỌN, người dùng tự chọn tải thêm (355 MB; có thể thành gói trả
- * phí về sau). Là bản ONNX int8 của `facebook/wav2vec2-lv-60-espeak-cv-ft` (Apache-2.0) do `duyentq` công bố kèm
+ * Model nhận dạng âm vị (wav2vec2 phoneme CTC, 355 MB) — giao diện KHÔNG còn mời tải (docs/decisions.md #65); máy đã
+ * tải từ bản trước vẫn dùng và xoá được. Là bản ONNX int8 của `facebook/wav2vec2-lv-60-espeak-cv-ft` (Apache-2.0) do `duyentq` công bố kèm
  * quy trình chuyển đổi; URL ghim theo commit + sha256 (đã đối chiếu). Bảng âm (`wav2vec2-vocab.json`) lấy từ bản gốc
  * facebook, rev `ae45363` (sha256 d732ab24…). Ngưỡng điểm hiệu chỉnh trên đúng file này, đừng thay bằng file khác.
  */

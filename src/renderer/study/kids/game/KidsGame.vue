@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { STAGE_H, STAGE_W } from '@shared/kidsWorldLayout'
 import type { KidsWorldView } from '@shared/schemas/kidsWorld'
@@ -20,6 +20,7 @@ import WorldMap3D from './WorldMap3D.vue'
 import { playSfx, setSfxEnabled } from './sfx'
 import { confirmLeave } from '../../leaveGuard'
 import { pickWeather, type Weather } from './sceneWeather'
+import { can3dMap, readMap3dChoice, saveMap3dChoice, show3dMap } from './map3dPref'
 
 // Màn game toàn màn hình của bé (docs/19-kids-world.md §5.4): bấm ô Chơi → cửa sổ Học tập toàn màn hình (kênh
 // study:fullscreen, chỉ khi bé bấm), sân khấu 16:9 co giãn vừa màn hình (viền màu trời), HUD kiểu game phủ trên.
@@ -39,15 +40,14 @@ const placeId = ref<string | null>(null)
 const overviewId = ref<string | null>(null)
 const aboutOpen = ref(false)
 const scale = ref(1)
-/** Bản đồ 3D (chỉ tầng có bản đồ địa lý); nhớ lựa chọn, tự về 2D nếu máy không dựng được WebGL */
-const prefs3d = ((): boolean => {
-  try {
-    return localStorage.getItem('kids.map3d') === '1'
-  } catch {
-    return false
-  }
-})()
-const want3d = ref(prefs3d)
+/**
+ * Bản đồ 3D (thử nghiệm, chỉ tầng có bản đồ địa lý): nút HUD chỉ có khi phụ huynh bật cài đặt `kids.map3d`
+ * (map3dPref.ts). Bật thì nhớ lựa chọn trên máy, tự về 2D nếu máy không dựng được WebGL; tắt thì luôn 2D.
+ */
+const allow3d = computed(() => settings.settings['kids.map3d'])
+const want3d = ref(false)
+// Cài đặt đổi (settings:changed) → đọc lại lựa chọn đã nhớ khi bật; tắt thì không đụng localStorage
+watch(allow3d, (on) => (want3d.value = on ? readMap3dChoice() : false), { immediate: true })
 const webglFailed = ref(false)
 const globeFailed = ref(false)
 
@@ -58,16 +58,15 @@ const currentPlace = computed(
 const overviewPlace = computed(
   () => world.value?.tiers.flatMap((x) => x.places).find((p) => p.id === overviewId.value) ?? null
 )
-const can3d = computed(() => tier.value?.scene === 'vn' && !webglFailed.value)
-const show3d = computed(() => can3d.value && want3d.value)
+const can3d = computed(() =>
+  can3dMap({ setting: allow3d.value, scene: tier.value?.scene, webglFailed: webglFailed.value })
+)
+const show3d = computed(() => show3dMap(can3d.value, want3d.value))
 
 function toggle3d(): void {
+  if (!allow3d.value) return
   want3d.value = !want3d.value
-  try {
-    localStorage.setItem('kids.map3d', want3d.value ? '1' : '0')
-  } catch {
-    /* không lưu được thì thôi */
-  }
+  saveMap3dChoice(want3d.value)
 }
 
 const sound = computed(() => settings.settings['kids.gameSound'])

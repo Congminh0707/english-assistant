@@ -8,7 +8,8 @@ import type {
 import type { TranslateStatus } from '@shared/schemas/translate'
 import { invoke } from '../ipc'
 
-// Trạng thái model nhận dạng giọng nói (Whisper) và model phát âm tuỳ chọn: dùng chung trong cả cửa sổ
+// Trạng thái model nhận dạng giọng nói (Whisper) và model chấm âm vị (wav2vec2 — không còn mời tải, máy đã tải từ
+// bản trước vẫn dùng được và xoá được; docs/decisions.md #65): dùng chung trong cả cửa sổ
 const sttStatus = ref<TranslateStatus | null>(null)
 const pronStatus = ref<PronunciationStatus | null>(null)
 let started = false
@@ -32,8 +33,8 @@ export function useStt(): {
   pronunciation: Ref<PronunciationStatus | null>
   install: () => Promise<void>
   cancel: () => void
-  installPronunciation: () => Promise<void>
-  cancelPronunciation: () => void
+  /** Xoá model chấm âm vị đã tải (nút xoá trong Cài đặt) */
+  removePronunciation: () => Promise<void>
   transcribe: (audio: Float32Array) => Promise<SttTranscribeResult>
   /** Chấm phát âm theo âm vị: âm mong đợi của `text` và âm nghe được (cần model wav2vec2 đã tải) */
   evaluatePronunciation: (audio: Float32Array, text: string) => Promise<PronunciationEvaluation>
@@ -46,10 +47,9 @@ export function useStt(): {
       sttStatus.value = await invoke('stt:install')
     },
     cancel: () => void invoke('stt:cancel'),
-    installPronunciation: async () => {
-      pronStatus.value = await invoke('pron:install')
+    removePronunciation: async () => {
+      pronStatus.value = await invoke('pron:remove')
     },
-    cancelPronunciation: () => void invoke('pron:cancel'),
     transcribe: (audio) => invoke('stt:transcribe', { audio }),
     evaluatePronunciation: (audio, text) => invoke('pron:evaluate', { audio, text })
   }

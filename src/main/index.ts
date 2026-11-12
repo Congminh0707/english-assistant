@@ -38,7 +38,7 @@ import { QuietModeService } from './services/QuietModeService'
 import { SleepService } from './services/SleepService'
 import { TranslationService } from './services/TranslationService'
 import { ModelManager } from './translate/ModelManager'
-import { NLLB_200, OPUS_MT_EN_VI, OPUS_MT_VI_EN } from './translate/modelFiles'
+import { NLLB_200_RETIRED, OPUS_MT_EN_VI, OPUS_MT_VI_EN } from './translate/modelFiles'
 import { OpusMtEngine } from './translate/OpusMtEngine'
 import { TtsService } from './services/TtsService'
 import { AudioPackService } from './services/AudioPackService'
@@ -159,10 +159,10 @@ if (!app.requestSingleInstanceLock()) {
       models: {
         'en-vi': new ModelManager({ modelsDir: paths.models(), spec: OPUS_MT_EN_VI }),
         'vi-en': new ModelManager({ modelsDir: paths.models(), spec: OPUS_MT_VI_EN }),
-        high: new ModelManager({ modelsDir: paths.models(), spec: NLLB_200 })
+        // NLLB-200 đã ngừng (docs/decisions.md #65): chỉ để Cài đặt báo file cũ còn trên đĩa và xoá khi người dùng bấm
+        high: new ModelManager({ modelsDir: paths.models(), spec: NLLB_200_RETIRED })
       },
       engine: new OpusMtEngine(paths.models()),
-      preferHigh: () => c.settings.get('translate.highQuality'),
       online: {
         enabled: () => c.settings.get('translate.online'),
         translate: (text, direction) => onlineTranslator.translate(text, direction)
@@ -199,8 +199,8 @@ if (!app.requestSingleInstanceLock()) {
     // mBART-50 (~890 MB) đã được thay bằng NLLB-200 (docs/decisions.md #34): xoá bản cũ còn sót trên đĩa
     const oldMbart = join(paths.models(), 'Xenova', 'mbart-large-50-many-to-many-mmt')
     if (existsSync(oldMbart)) rmSync(oldMbart, { recursive: true, force: true })
-    // Không nạp sẵn model dịch lúc khởi động (NLLB-200 giữ ~1,7–3,7 GB RAM dù không dùng — docs/decisions.md #54):
-    // chỉ nạp khi mở popup tra (quickTranslate bên dưới)
+    // Không nạp sẵn model dịch lúc khởi động (opus-mt giữ ~400 MB RAM dù không dùng): chỉ nạp khi mở popup tra
+    // (quickTranslate bên dưới)
     // Giọng đọc tự nhiên offline (Kokoro): model tải khi người dùng đồng ý, chạy trong utilityProcess riêng
     const ttsService = new TtsService({
       models: new ModelManager({ modelsDir: paths.models(), spec: KOKORO }),

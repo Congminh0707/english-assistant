@@ -2,7 +2,11 @@
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import type { DictEntry, LookupResult } from '@shared/schemas/dictionary'
-import { TRANSLATE_MAX_CHARS, type TranslateDirection } from '@shared/schemas/translate'
+import {
+  TRANSLATE_MAX_CHARS,
+  type TranslateDirection,
+  type TranslateResult
+} from '@shared/schemas/translate'
 import { looksVietnamese } from '@shared/sentences'
 import { invoke, IpcError } from '@renderer/shared/ipc'
 import { useSettingsStore } from '@renderer/shared/stores/settings'
@@ -36,18 +40,13 @@ const translation = ref<{
   phase: 'idle' | 'loading' | 'done' | 'error'
   text: string
   errorKey: string
-  /** Engine đã dịch (để gợi ý nâng cấp khi dùng bản nhanh) */
-  engine: 'opus-mt' | 'nllb-200' | 'claude' | 'google' | 'azure' | null
+  /** Engine đã dịch (nhãn "dịch máy" / online) */
+  engine: TranslateResult['engine'] | null
 }>({ phase: 'idle', text: '', errorKey: '', engine: null })
 const models = useTranslateModels()
 /** Chiều dịch của văn bản đang tra (tự nhận: có dấu tiếng Việt → Việt→Anh) */
 const direction = computed<TranslateDirection>(() =>
   looksVietnamese(result.value?.query ?? '') ? 'vi-en' : 'en-vi'
-)
-/** Model chất lượng cao đã tải và đang được ưu tiên (cài đặt translate.highQuality) */
-const highReady = computed(
-  () =>
-    models.statuses.high.value?.state === 'ready' && settingsStore.settings['translate.highQuality']
 )
 /** Dịch online đã bật trong cài đặt và có key: Claude hoặc Google/Azure (key người dùng nhập) */
 const onlineHasKey = ref(false)
@@ -67,27 +66,12 @@ const canExplain = computed(
     !looksVietnamese(result.value.query) &&
     result.value.query.length <= AI_EXPLAIN_MAX_CHARS
 )
-/** Dịch được ngay: dịch online, model chất lượng cao, hoặc opus-mt của chiều này */
+/** Dịch được ngay: dịch online, hoặc opus-mt của chiều này (NLLB-200 đã ngừng — docs/decisions.md #65) */
 const canTranslate = computed(
-  () =>
-    onlineReady.value ||
-    highReady.value ||
-    models.statuses[direction.value].value?.state === 'ready'
+  () => onlineReady.value || models.statuses[direction.value].value?.state === 'ready'
 )
-/** Model đang hiển thị trạng thái tải: bản chất lượng cao nếu đang tải, ngược lại opus-mt của chiều này */
-const downloadKey = computed<'high' | TranslateDirection>(() =>
-  models.statuses.high.value?.state === 'downloading' ? 'high' : direction.value
-)
-const modelStatus = computed(() => models.statuses[downloadKey.value].value)
-const highStatus = computed(() => models.statuses.high.value)
-const highSizeMb = computed(() => Math.round((highStatus.value?.sizeBytes ?? 0) / MB))
-/** Gợi ý nâng cấp: vừa dịch bằng bản nhanh và chưa có bản chất lượng cao */
-const canUpgrade = computed(
-  () =>
-    translation.value.phase === 'done' &&
-    translation.value.engine === 'opus-mt' &&
-    highStatus.value?.state === 'not-installed'
-)
+/** Trạng thái tải model opus-mt của chiều này */
+const modelStatus = computed(() => models.statuses[direction.value].value)
 /** Văn bản đang chờ dịch (đợi người dùng tải model) */
 let pendingText: string | null = null
 let translateSeq = 0
@@ -167,16 +151,8 @@ async function installModel(): Promise<void> {
   }
 }
 
-async function installHigh(): Promise<void> {
-  try {
-    await models.install('high')
-  } catch (err) {
-    console.warn('[popup] install high-quality model failed', err)
-  }
-}
-
 function cancelInstall(): void {
-  models.cancel(downloadKey.value)
+  models.cancel(direction.value)
 }
 
 async function lookup(text: string): Promise<void> {
@@ -271,7 +247,7 @@ onMounted(async () => {
     window.api.on('popup:query', onQuery),
     // Tải xong từ nơi khác (Cài đặt) trong lúc popup đang chờ → dịch luôn
     window.api.on('translate:status-changed', ({ direction: dir, status }) => {
-      if ((dir === direction.value || dir === 'high') && status.state === 'ready' && pendingText) {
+      if (dir === direction.value && status.state === 'ready' && pendingText) {
         void translate(pendingText)
       }
     })
@@ -360,18 +336,9 @@ onUnmounted(() => {
             <button type="button" class="btn btn--sm btn--success" @click="installModel">
               {{ modelStatus.errorKey ? t('translate.retry') : t('translate.download') }}
             </button>
-            <button type="button" class="btn btn--xs btn--pill" @click="installHigh">
-              {{ t('translate.downloadHigh', { size: highSizeMb }) }}
-            </button>
           </div>
           <p v-if="truncated" class="tr-upgrade">
             {{ t('translate.truncated', { max: TRANSLATE_MAX_CHARS }) }}
-          </p>
-          <p v-if="canUpgrade" class="tr-upgrade">
-            {{ t('translate.upgradeHint') }}
-            <button type="button" class="btn btn--xs btn--pill" @click="installHigh">
-              {{ t('translate.downloadHigh', { size: highSizeMb }) }}
-            </button>
           </p>
         </div>
         <ExplainBlock v-if="canExplain" :key="result.query" :sentence="result.query" />
@@ -442,18 +409,9 @@ onUnmounted(() => {
             <button type="button" class="btn btn--sm btn--success" @click="installModel">
               {{ t('translate.download') }}
             </button>
-            <button type="button" class="btn btn--xs btn--pill" @click="installHigh">
-              {{ t('translate.downloadHigh', { size: highSizeMb }) }}
-            </button>
           </div>
           <p v-if="truncated" class="tr-upgrade">
             {{ t('translate.truncated', { max: TRANSLATE_MAX_CHARS }) }}
-          </p>
-          <p v-if="canUpgrade" class="tr-upgrade">
-            {{ t('translate.upgradeHint') }}
-            <button type="button" class="btn btn--xs btn--pill" @click="installHigh">
-              {{ t('translate.downloadHigh', { size: highSizeMb }) }}
-            </button>
           </p>
         </div>
         <ExplainBlock

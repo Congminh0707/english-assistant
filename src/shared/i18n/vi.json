@@ -596,7 +596,6 @@
       "home": "Trang chủ",
       "review": "Ôn từ",
       "words": "Sổ từ",
-      "videos": "Video",
       "toeic": "Luyện thi TOEIC",
       "placement": "Kiểm tra trình độ",
       "settings": "Cài đặt",
@@ -1228,7 +1227,12 @@
     },
     "listening": {
       "title": "Bài nghe",
-      "intro": "Nghe các đoạn hội thoại và bài nói ngắn theo trình độ: chỉnh tốc độ, lặp lại một đoạn (A–B), tự chép lời rồi đối chiếu. Cuối bài có câu hỏi nghe hiểu."
+      "intro": "Nghe các đoạn hội thoại và bài nói ngắn theo trình độ: chỉnh tốc độ, lặp lại một đoạn (A–B), tự chép lời rồi đối chiếu. Cuối bài có câu hỏi nghe hiểu.",
+      "views": "Khung xem của trang Nghe",
+      "view": {
+        "lessons": "Bài nghe",
+        "video": "Video"
+      }
     },
     "reading": {
       "title": "Bài đọc",
@@ -1553,17 +1557,15 @@
     "retry": "Thử lại",
     "translateBtn": "Dịch cả câu",
     "modelsTitle": "Dịch câu offline",
-    "modelsHint": "Mỗi chiều dịch cần một model tải một lần, chạy hoàn toàn trên máy bạn. Có thể xoá để lấy lại dung lượng. Bản chất lượng cao dùng NLLB-200 (Meta, CC-BY-NC 4.0 — chỉ dùng phi thương mại).",
+    "modelsHint": "Mỗi chiều dịch cần một model tải một lần, chạy hoàn toàn trên máy bạn. Có thể xoá để lấy lại dung lượng.",
     "dir": {
       "en-vi": "Anh → Việt",
-      "vi-en": "Việt → Anh",
-      "high": "Chất lượng cao NLLB-200 (cả hai chiều Anh ↔ Việt)"
+      "vi-en": "Việt → Anh"
     },
     "notInstalled": "Chưa tải ({size} MB)",
     "remove": "Xoá model",
-    "downloadHigh": "Tải bản chất lượng cao ({size} MB)",
-    "upgradeHint": "Đây là bản dịch nhanh (chất lượng trung bình). Muốn dịch chuẩn hơn, tải bản chất lượng cao:",
-    "preferHigh": "Ưu tiên bản chất lượng cao khi đã tải (chậm hơn, chuẩn hơn)",
+    "oldHigh": "Model dịch chất lượng cao (NLLB-200) không còn được dùng",
+    "oldHighHint": "Còn {size} MB trên máy. App không dịch bằng model này nữa; bấm xoá để lấy lại dung lượng.",
     "onlineTitle": "Dịch online (Claude)",
     "onlineHint": "Tuỳ chọn, mặc định tắt. Bật thì văn bản bạn bôi đen được gửi tới Anthropic để dịch chuẩn hơn và nhanh hơn; cần API key của chính bạn (tính phí theo mức dùng của bạn). Lỗi mạng/key thì app tự dịch bằng model offline.",
     "onlineToggle": "Dịch bằng Claude khi có key",
@@ -1626,10 +1628,9 @@
     "kokoroData": "Kokoro được huấn luyện một phần trên dữ liệu CC BY: Koniwa (CC BY 3.0), SIWIS (CC BY 4.0).",
     "espeak": "Phiên âm: eSpeak-NG qua phonemizer — GPL-3.0.",
     "opusmt": "Dịch câu: opus-mt en→vi (Helsinki-NLP) — Apache-2.0.",
-    "nllb": "Dịch chất lượng cao: NLLB-200 distilled 600M (Meta AI; bản ONNX q8 của Xenova) — CC-BY-NC 4.0 (phi thương mại).",
     "tatoeba": "Câu ví dụ: Tatoeba — CC BY 2.0 FR.",
     "whisper": "Whisper base.en (OpenAI, Apache-2.0; bản ONNX của Xenova) — nhận dạng giọng nói offline cho bài nói",
-    "wav2vec2": "wav2vec2 phoneme (Meta/Facebook, Apache-2.0; bản ONNX int8 của duyentq) — chấm phát âm theo âm vị, tải tuỳ chọn",
+    "wav2vec2": "wav2vec2 phoneme (Meta/Facebook, Apache-2.0; bản ONNX int8 của duyentq) — chấm phát âm theo âm vị, chỉ dùng khi máy đã tải từ bản trước",
     "twemoji": "Hình minh hoạ bổ sung: Twemoji (Twitter, Inc. và những người đóng góp; bản jdecked/twemoji) — CC-BY 4.0, https://creativecommons.org/licenses/by/4.0/. Hình đã đổi kích thước."
   },
   "kids": {
@@ -1732,6 +1733,8 @@
       "dailyLimit": "Giới hạn mỗi ngày",
       "newPerDay": "Từ mới mỗi ngày",
       "newWords": "{n} từ",
+      "map3d": "Bản đồ 3D (thử nghiệm)",
+      "map3dHint": "Hiện nút đổi bản đồ 3D/2D trên màn chơi của bé. Cần máy có đồ hoạ khá; tắt thì bản đồ luôn là 2D.",
       "limitMinutes": "{n} phút",
       "limitOff": "Không giới hạn",
       "extend": "Cho dùng thêm 10 phút",
@@ -2075,13 +2078,10 @@
     "settingsHint": "Dùng để chấm bài luyện nói. Chạy hoàn toàn trên máy bạn; âm thanh không được lưu và không gửi đi đâu. Chữ máy nghe được chỉ được gửi cho AI khi bạn bấm “Nhận xét bằng AI” ở bài trả lời câu hỏi.",
     "whisperReady": "Model Whisper base.en đã sẵn sàng ({size} MB)",
     "whisperNeed": "Cần tải model Whisper base.en (~{size} MB) để chấm bài nói.",
-    "pronTitle": "Chấm phát âm chi tiết (tuỳ chọn)",
-    "pronHint": "Model nhận dạng từng âm (wav2vec2) giúp chỉ ra âm nào sai. Tải thêm, không bắt buộc.",
-    "pronDownload": "Tải model ({size} MB)",
-    "pronReady": "Đã tải",
-    "pronSoon": "Sắp có — chưa phát hành bản tải về.",
-    "pronNeed": "Cần tải model chấm phát âm chi tiết (~{mb} MB, chạy offline) để biết âm nào sai.",
-    "pronBanner": "Muốn biết chính xác âm nào sai? Tải model chấm âm ({mb} MB).",
+    "pronTitle": "Chấm phát âm chi tiết (wav2vec2)",
+    "pronHint": "Model nhận dạng từng âm đã tải ở bản trước: vẫn được dùng để chỉ ra âm nào sai. App không còn cung cấp bản tải về; bài nói được chấm theo từ bằng Whisper. Có thể xoá để lấy lại dung lượng.",
+    "pronReady": "Đã tải ({size} MB)",
+    "pronRemove": "Xoá model",
     "expectedIpa": "Âm chuẩn:",
     "heardIpa": "Bạn nói:",
     "practiceSound": "Luyện phát âm",

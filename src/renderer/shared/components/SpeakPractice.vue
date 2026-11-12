@@ -19,16 +19,17 @@ import SttModelSetup from './SttModelSetup.vue'
 
 // Luyện nói: ghi âm → chấm. Hai chế độ:
 //  • "từ": Whisper nhận dạng offline → so với câu mẫu theo từng từ (mặc định);
-//  • "âm vị": wav2vec2 (model tuỳ chọn tải thêm ~355 MB) → so từng âm, chỉ ra âm nào sai + mẹo tiếng Việt.
+//  • "âm vị": wav2vec2 (~355 MB) → so từng âm, chỉ ra âm nào sai + mẹo tiếng Việt. Chỉ khi máy đã tải model này
+//    từ bản trước: app không còn mời tải (docs/decisions.md #65).
 // Âm thanh chỉ ở trong bộ nhớ, không lưu và không log.
 const props = defineProps<{
   /** Câu/từ/chữ mẫu cần nói */
   expected: string
   /** Hiện nút "Nghe mẫu" */
   canListen?: boolean
-  /** Ưu tiên chấm theo âm vị khi model đã tải (nếu chưa tải thì chấm theo từ + gợi ý tải model) */
+  /** Ưu tiên chấm theo âm vị khi model đã có trên máy (chưa có thì chấm theo từ) */
   phonemes?: boolean
-  /** Chỉ chấm theo âm vị (vd chữ cái, âm đơn): chưa có model thì mời tải model phát âm */
+  /** Chấm theo âm vị (vd chữ cái, âm đơn) khi model đã có; chưa có thì chấm theo từ bằng Whisper */
   phonemeOnly?: boolean
   /** Giao diện cho bé: kết quả chỉ là sao + lời khen (không hiện ký hiệu âm vị/mẹo) */
   kids?: boolean
@@ -50,30 +51,17 @@ const heardIpa = ref('')
 
 const recorder = useRecorder({ onLimit: () => void finish() })
 const recording = computed(() => recorder.state.value === 'recording')
-const MB = 1_048_576
 
 const pronReady = computed(() => stt.pronunciation.value?.state === 'ready')
-const pronAvailable = computed(() => stt.pronunciation.value?.available === true)
 const whisperReady = computed(() => stt.status.value?.state === 'ready')
-/** Chế độ chấm đang dùng */
+/** Chế độ chấm đang dùng: âm vị chỉ khi model đã có trên máy */
 const mode = computed<'phoneme' | 'words'>(() =>
   (props.phonemeOnly || props.phonemes) && pronReady.value ? 'phoneme' : 'words'
 )
-/** Model cần tải trước khi dùng được; null = đã sẵn sàng */
-const needs = computed<'pron' | 'whisper' | null>(() => {
-  if (props.phonemeOnly) return pronReady.value ? null : 'pron'
-  return whisperReady.value || (props.phonemes && pronReady.value) ? null : 'whisper'
-})
-/** Gợi ý tải model âm vị khi đang chấm theo từ */
-const suggestPron = computed(
-  () => !!props.phonemes && !props.phonemeOnly && pronAvailable.value && !pronReady.value
+/** Cần tải Whisper trước khi chấm theo từ; null = đã sẵn sàng */
+const needs = computed<'whisper' | null>(() =>
+  whisperReady.value || mode.value === 'phoneme' ? null : 'whisper'
 )
-
-const setupStatus = computed(() =>
-  needs.value === 'pron' ? stt.pronunciation.value : stt.status.value
-)
-const downloading = computed(() => setupStatus.value?.state === 'downloading')
-const pronSizeMb = computed(() => Math.round((stt.pronunciation.value?.sizeBytes ?? 0) / MB))
 
 const micError = computed(() =>
   recorder.error.value ? t(`speech.error.${recorder.error.value}`) : ''
@@ -177,7 +165,7 @@ function retry(): void {
 <template>
   <div class="speak">
     <!-- Chưa có model cần thiết: mời tải -->
-    <SttModelSetup v-if="needs" :model="needs" @install="failure = ''" />
+    <SttModelSetup v-if="needs" model="whisper" @install="failure = ''" />
 
     <template v-else>
       <div class="actions">
@@ -274,24 +262,6 @@ function retry(): void {
         </p>
         <p class="muted small">{{ t('speech.disclaimer') }}</p>
       </div>
-
-      <p v-if="suggestPron && !downloading" class="suggest">
-        {{ t('speech.pronBanner', { mb: pronSizeMb }) }}
-        <button type="button" class="btn btn--sm" @click="stt.installPronunciation()">
-          {{ t('speech.download', { mb: pronSizeMb }) }}
-        </button>
-      </p>
-      <p v-else-if="suggestPron" class="suggest">
-        {{
-          t('speech.downloading', {
-            pct: stt.pronunciation.value?.sizeBytes
-              ? Math.round(
-                  (stt.pronunciation.value.receivedBytes / stt.pronunciation.value.sizeBytes) * 100
-                )
-              : 0
-          })
-        }}
-      </p>
     </template>
   </div>
 </template>
@@ -458,11 +428,6 @@ function retry(): void {
   font-weight: 600;
   background: var(--c-warning-soft);
   border-radius: var(--r-md);
-}
-.suggest {
-  margin: 0;
-  font-size: var(--fs-xs);
-  color: var(--c-ink-soft);
 }
 .muted {
   margin: 0;

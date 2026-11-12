@@ -46,6 +46,11 @@ async function setNewLimit(value: number): Promise<void> {
   await settingsStore.set('kids.newPerDay', value as never)
 }
 
+/** Bản đồ 3D của bé (thử nghiệm): bật thì màn game có nút đổi 3D/2D (docs/19 §5.2) */
+async function setMap3d(on: boolean): Promise<void> {
+  await settingsStore.set('kids.map3d', on)
+}
+
 async function setAgeBand(value: string): Promise<void> {
   await settingsStore.set('kids.ageBand', value as never)
 }
@@ -237,6 +242,15 @@ onBeforeUnmount(() => {
               </option>
             </select>
           </label>
+          <label class="row">
+            {{ t('kids.report.map3d') }}
+            <input
+              type="checkbox"
+              :checked="settingsStore.settings['kids.map3d']"
+              @change="setMap3d(($event.target as HTMLInputElement).checked)"
+            />
+          </label>
+          <p class="muted small">{{ t('kids.report.map3dHint') }}</p>
           <div class="stack-btns">
             <button type="button" class="btn btn--primary btn--block" @click="gate = 'extend'">
               {{ t('kids.report.extend') }}

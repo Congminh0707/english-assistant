@@ -119,5 +119,5 @@ Lớp: `.btn` + một biến thể màu (`--primary` hành động chính, `--su
 **Quy trình rà soát**
 
 1. `pnpm landmarks3d:sheet --ids a,b --out x.png` xuất ảnh các công trình (toàn cảnh + cận cảnh) để soi, so với ảnh thật.
-2. Kiểm tra trên bản đồ: `KIDS_UNLOCK_ALL=1 pnpm dev`, bật 3D, đi tới từng nơi.
+2. Kiểm tra trên bản đồ: `KIDS_UNLOCK_ALL=1 pnpm dev`, bật cài đặt "Bản đồ 3D (thử nghiệm)" (`kids.map3d`, trang Phụ huynh) rồi bấm nút 3D trên HUD, đi tới từng nơi.
 3. Ngân sách: mỗi công trình ≤ ~60 nghìn tam giác; toàn bản đồ giữ ≥ 30 fps trên GPU tích hợp ở 1080p.

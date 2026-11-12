@@ -34,7 +34,11 @@ const { speak, naturalVoice } = useTts()
 const ttsModel = useTtsModel()
 const trModels = useTranslateModels()
 const stt = useStt()
-const TR_DIRECTIONS = ['high', 'en-vi', 'vi-en'] as const
+const TR_DIRECTIONS = ['en-vi', 'vi-en'] as const
+/** File NLLB-200 cũ còn trên đĩa (model đã ngừng dùng — docs/decisions.md #65): chỉ cho xoá */
+const oldNllb = computed(() =>
+  trModels.statuses.high.value?.state === 'ready' ? trModels.statuses.high.value : null
+)
 
 // Dịch online (Claude): chỉ biết đã có key chưa — key nhập xong là gửi thẳng sang main, không giữ lại ở renderer
 const onlineStatus = ref<TranslateOnlineStatus>({
@@ -148,6 +152,8 @@ const wantsNatural = computed(() => settingsStore.settings['tts.engine'] === 'ko
 
 const sttSizeMb = computed(() => Math.round((stt.status.value?.sizeBytes ?? 0) / MB))
 const sttDoneMb = computed(() => Math.round((stt.status.value?.receivedBytes ?? 0) / MB))
+/** Model chấm âm vị (wav2vec2) đã tải từ bản trước: vẫn dùng, chỉ cho xoá — không còn mời tải (docs/decisions.md #65) */
+const pronInstalled = computed(() => stt.pronunciation.value?.state === 'ready')
 const pronSizeMb = computed(() => Math.round((stt.pronunciation.value?.sizeBytes ?? 0) / MB))
 
 /** 10 → "10 phút", 60 → "1 giờ", 720 → "12 giờ" */
@@ -161,7 +167,6 @@ const CREDIT_KEYS = [
   'kokoroData',
   'espeak',
   'opusmt',
-  'nllb',
   'whisper',
   'wav2vec2',
   'tatoeba',
@@ -520,16 +525,6 @@ onMounted(async () => {
         <section v-show="sect === 'translate'" class="card block">
           <h2>{{ t('translate.modelsTitle') }}</h2>
           <p class="muted">{{ t('translate.modelsHint') }}</p>
-          <label class="row">
-            {{ t('translate.preferHigh') }}
-            <input
-              type="checkbox"
-              :checked="settingsStore.settings['translate.highQuality']"
-              @change="
-                setSetting('translate.highQuality', ($event.target as HTMLInputElement).checked)
-              "
-            />
-          </label>
           <div v-for="dir in TR_DIRECTIONS" :key="dir" class="model">
             <strong>{{ t(`translate.dir.${dir}`) }}</strong>
             <template v-if="trModels.statuses[dir].value">
@@ -586,6 +581,17 @@ onMounted(async () => {
                 </button>
               </span>
             </template>
+          </div>
+          <div v-if="oldNllb" class="model">
+            <strong>{{ t('translate.oldHigh') }}</strong>
+            <span class="muted">{{
+              t('translate.oldHighHint', { size: toMb(oldNllb.sizeBytes) })
+            }}</span>
+            <span class="controls">
+              <button type="button" class="btn btn--sm" @click="trModels.remove('high')">
+                {{ t('translate.remove') }}
+              </button>
+            </span>
           </div>
         </section>
 
@@ -989,23 +995,17 @@ onMounted(async () => {
               {{ stt.status.value.errorKey ? t('tts.retry') : t('tts.download') }}
             </button>
           </div>
-          <div class="download">
+          <div v-if="pronInstalled" class="download">
             <strong>{{ t('speech.pronTitle') }}</strong>
             <span class="muted">{{ t('speech.pronHint') }}</span>
-            <template v-if="stt.pronunciation.value?.available">
-              <progress
-                v-if="stt.pronunciation.value.state === 'downloading'"
-                :value="stt.pronunciation.value.receivedBytes"
-                :max="stt.pronunciation.value.sizeBytes"
-              />
-              <span v-else-if="stt.pronunciation.value.state === 'ready'" class="muted"
-                ><UiIcon name="check" /> {{ t('speech.pronReady') }}</span
-              >
-              <button v-else type="button" class="btn btn--sm" @click="stt.installPronunciation()">
-                {{ t('speech.pronDownload', { size: pronSizeMb }) }}
+            <span class="muted"
+              ><UiIcon name="check" /> {{ t('speech.pronReady', { size: pronSizeMb }) }}</span
+            >
+            <span class="controls">
+              <button type="button" class="btn btn--sm" @click="stt.removePronunciation()">
+                {{ t('speech.pronRemove') }}
               </button>
-            </template>
-            <span v-else class="muted">{{ t('speech.pronSoon') }}</span>
+            </span>
           </div>
         </section>
 

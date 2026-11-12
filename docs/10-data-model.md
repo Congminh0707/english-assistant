@@ -83,7 +83,7 @@ erDiagram
 | Cột | Ghi chú |
 |---|---|
 | id, profile_id, created_at, updated_at, deleted_at | |
-| skill | `vocab`/`grammar`/`reading`/`listening` (xem `shared/progress.ts`) |
+| skill | `vocab`/`grammar`/`reading`/`listening`/`writing` (xem `shared/progress.ts`; `writing` từ 2026-11-11, không cần migration vì cột là text — [decisions #62](decisions.md)) |
 | rating | REAL 0–1199, Elo theo kỹ năng |
 | games | INTEGER — số câu đã làm, để giảm hệ số K (24 → 12 sau 30 câu) |
 | UNIQUE(profile_id, skill) | |
@@ -93,9 +93,9 @@ erDiagram
 |---|---|
 | id, profile_id, created_at, updated_at, deleted_at | |
 | day | ngày cục bộ `YYYY-MM-DD` |
-| source | nguồn: `lesson`/`grammar`/`reading`/`listening`/`practice`/`checkpoint` |
+| source | nguồn: `lesson`/`grammar`/`reading`/`listening`/`practice`/`checkpoint`/`free-writing` (viết tự do, `kind = 'free'`, từ 2026-11-11) |
 | kind | dạng bài (mcq, gap, order, ...) hoặc hướng thẻ |
-| skill | kỹ năng được gán cho dạng bài |
+| skill | kỹ năng được gán cho dạng bài (`translate`/`write` → `writing` từ 2026-11-11; các dòng cũ của hai dạng này vẫn là `grammar`, không chuyển dữ liệu) |
 | correct, total | số câu đúng / tổng, cộng dồn |
 | UNIQUE(profile_id, day, source, kind, skill) | |
 
@@ -142,9 +142,10 @@ Unique `(profile_id, day)`. Thưởng viết ghi ở `xp_events` (`reason = 'dia
 | word_count | số từ (cách đếm như nhật ký) |
 | feedback_json | JSON kết quả `writing_feedback` gần nhất (null = chưa có; đổi chữ thì về null) |
 | score | điểm tổng 0–100 của lần nhận xét đó (null cùng lúc với `feedback_json`) |
+| rated_at | **migration 0011** (2026-11-11): lúc bài được tính vào rating Viết (ms), null = chưa. Ghi trong cùng transaction với lưu nhận xét + ghi `exercise_stats`/`skill_ratings`; chỉ ghi khi đang null (`WHERE rated_at IS NULL`) → mỗi bài tính Elo tối đa một lần. Sửa chữ xoá `feedback_json`/`score` nhưng **không** xoá cột này ([decisions #62](decisions.md)) |
 | created_at, updated_at | ms |
 
-Index `(profile_id, created_at)`. Nhiều bài mỗi ngày. Thưởng ghi ở `xp_events` (`reason = 'free-writing.written'`, `ref_id` = ngày cục bộ; chỉ bài tạo trong ngày đó, kể cả khi sửa chữ cho đủ từ). Logic: `FreeWritingService` (docs/07 "Viết tự do").
+Index `(profile_id, created_at)`. Nhiều bài mỗi ngày. Trang Thống kê đọc tổng số bài/từ/bài có nhận xét/điểm trung bình/số bài 30 ngày qua `FreeWritingRepository.summary`. Thưởng ghi ở `xp_events` (`reason = 'free-writing.written'`, `ref_id` = ngày cục bộ; chỉ bài tạo trong ngày đó, kể cả khi sửa chữ cho đủ từ). Logic: `FreeWritingService` (docs/07 "Viết tự do").
 
 ### usage_days (thời gian dùng app mỗi ngày — chế độ trẻ em)
 

@@ -7,6 +7,7 @@ import {
   type Skill
 } from '@shared/progress'
 import { levelMidRating, type LevelCode } from '@shared/schemas/content/level'
+import type { SettingKey } from '@shared/schemas/settings'
 import type { Clock } from '../core/Clock'
 import { localDayKey } from '../core/localDay'
 import type { AccuracyRow, ProgressRepository } from '../db/repositories/ProgressRepository'
@@ -23,16 +24,22 @@ export interface SkillRating {
   reliable: boolean
 }
 
+/**
+ * Cài đặt trình độ dùng làm rating khởi đầu của từng kỹ năng. Viết chưa có bài kiểm tra đầu vào (và không có cài đặt
+ * `learning.levelWriting`) → lấy trình độ chung `learning.level` (decisions #62).
+ */
 const SKILL_LEVEL_SETTING = {
   vocab: 'learning.levelVocab',
   grammar: 'learning.levelGrammar',
   reading: 'learning.levelReading',
-  listening: 'learning.levelListening'
-} as const
+  listening: 'learning.levelListening',
+  writing: 'learning.level'
+} as const satisfies Record<Skill, SettingKey>
 
 /**
  * Ghi kết quả bài tập theo dạng bài/kỹ năng (cho thống kê độ chính xác) và cập nhật rating Elo của kỹ năng đó.
- * Độ khó của câu hỏi lấy từ level của bài/nội dung; rating khởi đầu lấy từ trình độ theo kỹ năng của bài kiểm tra đầu vào.
+ * Độ khó của câu hỏi lấy từ level của bài/nội dung; rating khởi đầu lấy từ trình độ theo kỹ năng của bài kiểm tra đầu vào
+ * (Viết: trình độ chung).
  */
 export class ProgressService {
   constructor(

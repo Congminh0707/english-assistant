@@ -1,4 +1,4 @@
-import { SKILLS } from '@shared/progress'
+import type { Skill } from '@shared/progress'
 import { levelIndex } from '@shared/schemas/content/level'
 import type { CourseStepState, CourseSummary } from '@shared/schemas/course'
 import type { LessonKind } from '@shared/schemas/lesson'
@@ -21,10 +21,12 @@ const MAX_ITEMS = 5
 /** Tối đa số bài thêm (sau bài kế tiếp của khoá) khi chưa đủ phút mục tiêu */
 const MAX_EXTRA_LESSONS = 2
 const PRACTICE_MINUTES = 5
-/** Kỹ năng yếu tìm bài ở kho tương ứng; bỏ từ vựng vì đã có mục ôn thẻ */
-const WEAK_SKILLS = SKILLS.filter((s) => s !== 'vocab') as Array<
-  'grammar' | 'reading' | 'listening'
->
+/**
+ * Kỹ năng yếu tìm bài ở kho tương ứng (mỗi kỹ năng phải là một `LessonKind`). Liệt kê tường minh thay vì lọc `SKILLS`:
+ * bỏ từ vựng vì đã có mục ôn thẻ, bỏ Viết vì chưa có kho bài/mục lộ trình riêng (decisions #62).
+ */
+const WEAK_SKILLS = ['grammar', 'reading', 'listening'] as const satisfies readonly (Skill &
+  LessonKind)[]
 
 /**
  * Lộ trình hằng ngày (docs/07 §13): ôn thẻ đến hạn → bài kế tiếp của khoá đang theo → một bài của kỹ năng yếu nhất,

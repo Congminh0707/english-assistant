@@ -49,7 +49,7 @@ export const StatsSchema = z.object({
       total: z.number().int()
     })
   ),
-  /** Rating Elo theo kỹ năng (đã đổi ra level) */
+  /** Rating Elo theo kỹ năng (đã đổi ra level); hồ sơ trẻ em không có `writing` */
   skills: z.array(
     z.object({
       skill: z.string(),
@@ -58,10 +58,26 @@ export const StatsSchema = z.object({
       games: z.number().int(),
       /** Đủ dữ liệu để tin rating */
       reliable: z.boolean(),
-      /** Rating vượt level hiện tại bấy nhiêu bậc (từ 1 trở lên → gợi ý làm bài kiểm tra lên cấp) */
+      /**
+       * Rating vượt level hiện tại bấy nhiêu bậc (từ 1 trở lên → gợi ý làm bài kiểm tra lên cấp). Luôn 0 với `writing`:
+       * bài kiểm tra lên cấp không đo Viết (decisions #62).
+       */
       ahead: z.number().int()
     })
   ),
+  /** Viết tự do của hồ sơ đang dùng (bảng free_writing_entries); null với hồ sơ trẻ em */
+  writing: z
+    .object({
+      entries: z.number().int(),
+      words: z.number().int(),
+      /** Số bài đang có nhận xét AI */
+      withFeedback: z.number().int(),
+      /** Điểm AI trung bình 0–100 của các bài đang có nhận xét; null nếu chưa có */
+      averageScore: z.number().int().nullable(),
+      /** Số bài viết trong 30 ngày gần nhất */
+      recent: z.number().int()
+    })
+    .nullable(),
   /** Thời gian dùng app */
   time: z.object({
     todayMinutes: z.number().int(),

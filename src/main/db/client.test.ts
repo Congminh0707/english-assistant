@@ -194,3 +194,33 @@ describe('migration 0010: bảng viết tự do', () => {
     db.close()
   })
 })
+
+describe('migration 0011: đánh dấu bài viết tự do đã tính Elo', () => {
+  it('nâng cấp từ 0010 thêm cột rated_at (null), giữ nguyên bài đã viết', () => {
+    const file = join(dir, 'user.db')
+    const old = openUserDb(file, partialMigrations(11))
+    old.sqlite
+      .prepare(
+        "INSERT INTO profiles (id, name, track, created_at, updated_at) VALUES ('p', 'p', 'general', 1, 1)"
+      )
+      .run()
+    old.sqlite
+      .prepare(
+        "INSERT INTO free_writing_entries (id, profile_id, title, task, band, length, min_words, max_words, text, word_count, score, feedback_json, created_at, updated_at) VALUES ('w', 'p', 't', 't', 'A1', 'short', 20, 40, 'Hello.', 1, 70, '{}', 1, 1)"
+      )
+      .run()
+    const before = (
+      old.sqlite.prepare('PRAGMA table_info(free_writing_entries)').all() as Array<{
+        name: string
+      }>
+    ).map((c) => c.name)
+    expect(before).not.toContain('rated_at')
+    old.close()
+
+    const db = openUserDb(file, FULL)
+    expect(
+      db.sqlite.prepare('SELECT id, text, score, rated_at FROM free_writing_entries').all()
+    ).toEqual([{ id: 'w', text: 'Hello.', score: 70, rated_at: null }])
+    db.close()
+  })
+})

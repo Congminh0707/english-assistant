@@ -2,20 +2,36 @@
 // renderer và test. docs/06-levels-and-progression.md
 import { LEVEL_CODES, type LevelCode } from './schemas/content/level'
 
-export const SKILLS = ['vocab', 'grammar', 'reading', 'listening'] as const
+export const SKILLS = ['vocab', 'grammar', 'reading', 'listening', 'writing'] as const
 export type Skill = (typeof SKILLS)[number]
+
+/**
+ * Kỹ năng được bài kiểm tra đầu vào / lên cấp đo và dùng cho gợi ý lên cấp (decisions #62). `writing` không nằm ở đây:
+ * chưa bài kiểm tra nào đo Viết, nên rating Viết chỉ để xem, không bao giờ gợi ý hay chặn lên cấp.
+ */
+export const LEVEL_UP_SKILLS = [
+  'vocab',
+  'grammar',
+  'reading',
+  'listening'
+] as const satisfies readonly Skill[]
+export type LevelUpSkill = (typeof LEVEL_UP_SKILLS)[number]
+
+export function isLevelUpSkill(skill: string): skill is LevelUpSkill {
+  return (LEVEL_UP_SKILLS as readonly string[]).includes(skill)
+}
 
 /** Nguồn của kết quả bài tập */
 export type ProgressSource =
-  'lesson' | 'grammar' | 'reading' | 'listening' | 'practice' | 'checkpoint'
+  'lesson' | 'grammar' | 'reading' | 'listening' | 'practice' | 'checkpoint' | 'free-writing'
 
 /** Kỹ năng mà một dạng bài của bài học (lesson/grammar/reading/listening) rèn luyện */
 export function lessonExerciseSkill(source: ProgressSource, type: string): Skill {
   if (type === 'listen') return 'listening'
-  // Bài nói chưa có kỹ năng riêng trong Elo (4 kỹ năng hiện có): tính vào từ vựng/phát âm
+  // Bài nói chưa có kỹ năng riêng trong Elo (chưa có kỹ năng Nói): tính vào từ vựng/phát âm
   if (type === 'speak') return 'vocab'
-  // Luyện viết (dịch câu, viết theo đề) cũng chưa có kỹ năng riêng: tự đặt câu chủ yếu rèn cấu trúc câu → ngữ pháp
-  if (type === 'translate' || type === 'write') return 'grammar'
+  // Luyện viết (dịch câu, viết theo đề) → kỹ năng Viết (decisions #62; trước đó tính vào ngữ pháp, dữ liệu cũ giữ nguyên)
+  if (type === 'translate' || type === 'write') return 'writing'
   if (source === 'listening') return 'listening'
   if (source === 'reading') return 'reading'
   if (source === 'grammar') return 'grammar'

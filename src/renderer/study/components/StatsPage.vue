@@ -10,6 +10,7 @@ import { useSettingsStore } from '@renderer/shared/stores/settings'
 import MissionList from './MissionList.vue'
 import BadgeImage from '@renderer/shared/components/BadgeImage.vue'
 import PxBar from '@renderer/shared/components/PxBar.vue'
+import UiIcon from '@renderer/shared/components/UiIcon.vue'
 import {
   Award,
   CalendarDays,
@@ -304,6 +305,34 @@ onMounted(load)
               </li>
             </ul>
             <p class="muted small">{{ t('study.stats.skillsHint') }}</p>
+            <p v-if="stats.writing" class="muted small">{{ t('study.stats.writingSkillHint') }}</p>
+          </section>
+
+          <section v-if="stats.writing" class="card block">
+            <h2 class="writing-title">
+              <UiIcon name="write" :size="18" />{{ t('study.stats.writing.title') }}
+            </h2>
+            <p v-if="!stats.writing.entries" class="muted">{{ t('study.stats.writing.empty') }}</p>
+            <div v-else class="week">
+              <div>
+                <strong>{{ stats.writing.entries }}</strong> {{ t('study.stats.writing.entries') }}
+              </div>
+              <div>
+                <strong>{{ stats.writing.words }}</strong> {{ t('study.stats.writing.words') }}
+              </div>
+              <div>
+                <strong>{{ stats.writing.recent }}</strong> {{ t('study.stats.writing.recent') }}
+              </div>
+              <div>
+                <strong>{{ stats.writing.withFeedback }}</strong>
+                {{ t('study.stats.writing.withFeedback') }}
+              </div>
+              <div>
+                <strong>{{ stats.writing.averageScore ?? '—' }}</strong>
+                {{ t('study.stats.writing.averageScore') }}
+              </div>
+            </div>
+            <p class="muted small">{{ t('study.stats.writing.hint') }}</p>
           </section>
 
           <section class="card block">
@@ -745,6 +774,11 @@ h2 {
 }
 
 /* ---- Kỹ năng, độ chính xác ---- */
+.writing-title {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
 .skill-levels {
   display: flex;
   flex-wrap: wrap;

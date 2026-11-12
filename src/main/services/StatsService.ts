@@ -1,10 +1,11 @@
 import { evaluateAchievements, MIN_REVIEWS_FOR_RETENTION } from '@shared/achievements'
-import { levelsAhead } from '@shared/progress'
+import { isLevelUpSkill, levelsAhead } from '@shared/progress'
 import { dayRange, longestStreak } from '@shared/stats'
 import type { Stats, StatsDay } from '@shared/schemas/stats'
 import type { Clock } from '../core/Clock'
 import { localDayKey, localOffsetSeconds } from '../core/localDay'
 import type { DictionaryService } from '../content/DictionaryService'
+import type { FreeWritingRepository } from '../db/repositories/FreeWritingRepository'
 import type { LessonRepository } from '../db/repositories/LessonRepository'
 import type { UsageRepository } from '../db/repositories/UsageRepository'
 import type { VocabRepository } from '../db/repositories/VocabRepository'
@@ -16,7 +17,7 @@ import { computeStreak } from './StudyService'
 
 /** Số ngày trong lịch hoạt động: 16 tuần */
 export const STATS_DAYS = 112
-/** Độ chính xác tính trong ngần này ngày gần nhất */
+/** Độ chính xác (và số bài viết tự do gần đây) tính trong ngần này ngày gần nhất */
 const ACCURACY_DAYS = 30
 /** Số từ hay quên hiển thị */
 const HARDEST_LIMIT = 8
@@ -26,6 +27,7 @@ const STATE_NAMES = ['new', 'learning', 'review', 'relearning'] as const
 /**
  * Thống kê học tập: lịch hoạt động theo ngày, streak, tỉ lệ nhớ, thẻ theo trạng thái, từ theo level.
  * Tính trực tiếp từ nhật ký ôn (srs_reviews) và sổ XP — không có bảng thống kê riêng.
+ * Viết là tính năng người lớn: hồ sơ trẻ em không có dòng kỹ năng Viết, độ chính xác Viết, khối viết tự do.
  */
 export class StatsService {
   constructor(
@@ -37,6 +39,7 @@ export class StatsService {
       settings: SettingsService
       xpRepo: XpRepository
       dictionary: DictionaryService
+      freeWriting: FreeWritingRepository
       profiles: ProfileService
       clock: Clock
     }
@@ -45,7 +48,9 @@ export class StatsService {
   stats(): Stats {
     const deps = this.deps
     const { vocab, xpRepo, dictionary, profiles, clock } = deps
-    const profileId = profiles.activeId()
+    const profile = profiles.active()
+    const profileId = profile.id
+    const adult = !profile.isChild
     const now = clock.now()
     const tz = localOffsetSeconds(now)
     const today = localDayKey(now)
@@ -110,11 +115,18 @@ export class StatsService {
       cardStates: states,
       levels,
       hardest: vocab.hardestWords(profileId, HARDEST_LIMIT),
-      accuracy: this.accuracy(profileId, now, today),
-      skills: deps.progress.ratings().map((r) => ({
-        ...r,
-        ahead: levelsAhead(r.rating, deps.settings.get('learning.level'))
-      })),
+      accuracy: this.accuracy(profileId, now, today).filter((a) => adult || a.skill !== 'writing'),
+      skills: deps.progress
+        .ratings()
+        .filter((r) => adult || r.skill !== 'writing')
+        .map((r) => ({
+          ...r,
+          // Chỉ các kỹ năng bài kiểm tra lên cấp đo mới được gợi ý lên cấp
+          ahead: isLevelUpSkill(r.skill)
+            ? levelsAhead(r.rating, deps.settings.get('learning.level'))
+            : 0
+        })),
+      writing: adult ? deps.freeWriting.summary(profileId, now - ACCURACY_DAYS * DAY_MS) : null,
       time: {
         todayMinutes: days.at(-1)?.minutes ?? 0,
         weekMinutes: days.slice(-7).reduce((n, d) => n + d.minutes, 0),

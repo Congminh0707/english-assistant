@@ -1,0 +1,1 @@
+ALTER TABLE `free_writing_entries` ADD `rated_at` integer;

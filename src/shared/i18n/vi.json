@@ -1084,11 +1084,23 @@
       "levels": "Từ trong sổ theo level",
       "skills": "Trình độ theo kỹ năng",
       "skillsHint": "Cập nhật sau mỗi lần làm bài kiểm tra trình độ.",
+      "writingSkillHint": "Viết: tính từ bài dịch câu, bài viết có AI chấm và Viết tự do (mỗi bài một lần); không dùng để gợi ý lên cấp.",
+      "writing": {
+        "title": "Viết tự do",
+        "empty": "Chưa có bài nào — vào Hội trường, tab Viết tự do để viết bài đầu tiên.",
+        "entries": "bài",
+        "words": "từ đã viết",
+        "recent": "bài trong 30 ngày",
+        "withFeedback": "bài có nhận xét AI",
+        "averageScore": "điểm AI trung bình",
+        "hint": "Điểm trung bình tính trên các bài đang có nhận xét AI (0–100)."
+      },
       "skill": {
         "vocab": "Từ vựng",
         "grammar": "Ngữ pháp",
         "reading": "Đọc hiểu",
-        "listening": "Nghe"
+        "listening": "Nghe",
+        "writing": "Viết"
       },
       "games": "{n} câu",
       "ready": "Sẵn sàng lên cấp",
@@ -1115,7 +1127,11 @@
         "listen_choice": "Nghe chọn nghĩa",
         "dictation": "Nghe chép",
         "match_pairs": "Ghép từ–nghĩa",
-        "checkpoint": "Kiểm tra lên cấp"
+        "checkpoint": "Kiểm tra lên cấp",
+        "translate": "Dịch câu",
+        "write": "Viết theo đề",
+        "speak": "Đọc to",
+        "free": "Viết tự do"
       },
       "reviewKind": {
         "en_vi": "Thẻ: nhận diện",

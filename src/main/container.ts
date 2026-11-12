@@ -326,6 +326,7 @@ export function createContainer(
     settings,
     xpRepo: repos.xp,
     dictionary,
+    freeWriting: repos.freeWriting,
     profiles,
     clock
   })
@@ -508,6 +509,8 @@ export function createContainer(
     ai,
     profiles,
     settings,
+    progress,
+    transaction,
     clock
   })
 

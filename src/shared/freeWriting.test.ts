@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import {
+  bandDifficultyLevel,
   bandOfLevel,
   FREE_WRITING_BANDS,
   FREE_WRITING_LENGTHS,
@@ -49,6 +50,13 @@ describe('viết tự do: bậc mặc định theo trình độ', () => {
     expect(bandOfLevel('B1_2')).toBe('B1')
     expect(bandOfLevel('B2_1')).toBe('B2')
     expect(bandOfLevel('C2')).toBe('B2')
+  })
+})
+
+describe('viết tự do: độ khó Elo theo bậc đề', () => {
+  it('bậc con đầu của bậc CEFR, nằm trong đúng bậc đó', () => {
+    expect(FREE_WRITING_BANDS.map(bandDifficultyLevel)).toEqual(['A1_1', 'A2_1', 'B1_1', 'B2_1'])
+    for (const band of FREE_WRITING_BANDS) expect(bandOfLevel(bandDifficultyLevel(band))).toBe(band)
   })
 })
 

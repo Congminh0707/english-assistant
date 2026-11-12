@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest'
 import {
   eloExpected,
+  isLevelUpSkill,
+  LEVEL_UP_SKILLS,
+  SKILLS,
   eloUpdate,
   lessonExerciseSkill,
   levelsAhead,
@@ -17,13 +20,23 @@ describe('progress', () => {
     expect(lessonExerciseSkill('reading', 'listen')).toBe('listening')
     expect(lessonExerciseSkill('grammar', 'mcq')).toBe('grammar')
     expect(lessonExerciseSkill('listening', 'mcq')).toBe('listening')
-    // Luyện viết (dịch câu, viết theo đề): chưa có kỹ năng Viết riêng → ngữ pháp, ở mọi loại bài
-    expect(lessonExerciseSkill('lesson', 'translate')).toBe('grammar')
-    expect(lessonExerciseSkill('lesson', 'write')).toBe('grammar')
-    expect(lessonExerciseSkill('reading', 'write')).toBe('grammar')
+    // Luyện viết (dịch câu, viết theo đề) → kỹ năng Viết, ở mọi loại bài (decisions #62)
+    expect(lessonExerciseSkill('lesson', 'translate')).toBe('writing')
+    expect(lessonExerciseSkill('lesson', 'write')).toBe('writing')
+    expect(lessonExerciseSkill('reading', 'write')).toBe('writing')
+    expect(lessonExerciseSkill('grammar', 'translate')).toBe('writing')
+    // Nói chưa có kỹ năng riêng: vẫn tính vào từ vựng
+    expect(lessonExerciseSkill('lesson', 'speak')).toBe('vocab')
     expect(practiceKindSkill('dictation')).toBe('listening')
     expect(practiceKindSkill('word_order')).toBe('grammar')
     expect(practiceKindSkill('cloze')).toBe('vocab')
+  })
+
+  it('Viết là kỹ năng thứ năm nhưng không dùng cho lên cấp', () => {
+    expect(SKILLS).toContain('writing')
+    expect(LEVEL_UP_SKILLS).toEqual(['vocab', 'grammar', 'reading', 'listening'])
+    expect(isLevelUpSkill('writing')).toBe(false)
+    expect(isLevelUpSkill('grammar')).toBe(true)
   })
 
   it('Elo: kỳ vọng 50% khi cùng rating; đúng nhiều hơn kỳ vọng thì tăng, sai thì giảm', () => {

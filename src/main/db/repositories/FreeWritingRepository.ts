@@ -1,4 +1,4 @@
-import { and, count, desc, eq, type SQL } from 'drizzle-orm'
+import { and, avg, count, desc, eq, isNull, sql, sum, type SQL } from 'drizzle-orm'
 import { uuidv7 } from '@shared/ids'
 import type { UserDb } from '../client'
 import { freeWritingEntries } from '../schema'
@@ -6,8 +6,20 @@ import { freeWritingEntries } from '../schema'
 export type FreeWritingRow = typeof freeWritingEntries.$inferSelect
 export type FreeWritingNew = Omit<
   FreeWritingRow,
-  'id' | 'feedbackJson' | 'score' | 'createdAt' | 'updatedAt'
+  'id' | 'feedbackJson' | 'score' | 'ratedAt' | 'createdAt' | 'updatedAt'
 >
+
+/** Số liệu viết tự do của một hồ sơ (trang Thống kê) */
+export interface FreeWritingSummary {
+  entries: number
+  words: number
+  /** Số bài đang có nhận xét AI */
+  withFeedback: number
+  /** Điểm AI trung bình (làm tròn) của các bài đang có nhận xét; null nếu chưa có */
+  averageScore: number | null
+  /** Số bài tạo từ `since` trở đi */
+  recent: number
+}
 
 /** Bài viết tự do: mọi truy vấn theo id đều lọc thêm profile_id (hồ sơ khác không đọc/sửa/xoá được) */
 export class FreeWritingRepository {
@@ -27,6 +39,7 @@ export class FreeWritingRepository {
       id: uuidv7(now),
       feedbackJson: null,
       score: null,
+      ratedAt: null,
       createdAt: now,
       updatedAt: now
     }
@@ -58,6 +71,44 @@ export class FreeWritingRepository {
       .set({ feedbackJson: json, score, updatedAt: now })
       .where(this.where(profileId, id))
       .run()
+  }
+
+  /**
+   * Đánh dấu bài đã tính vào rating Viết. Chỉ ghi khi chưa đánh dấu; trả true nếu lần này mới đánh dấu (hai lần nhận xét
+   * chồng nhau thì chỉ một lần được tính).
+   */
+  markRated(profileId: string, id: string, now: number): boolean {
+    return (
+      this.db
+        .update(freeWritingEntries)
+        .set({ ratedAt: now })
+        .where(and(this.where(profileId, id), isNull(freeWritingEntries.ratedAt)))
+        .run().changes > 0
+    )
+  }
+
+  /** Tổng số bài, số từ, số bài có nhận xét AI, điểm trung bình và số bài tạo từ `since` (ms) */
+  summary(profileId: string, since: number): FreeWritingSummary {
+    const t = freeWritingEntries
+    const row = this.db
+      .select({
+        entries: count(),
+        words: sum(t.wordCount),
+        withFeedback: count(t.score),
+        averageScore: avg(t.score),
+        recent: sql<number>`sum(case when ${t.createdAt} >= ${since} then 1 else 0 end)`
+      })
+      .from(t)
+      .where(eq(t.profileId, profileId))
+      .get()
+    const average = row?.averageScore == null ? null : Math.round(Number(row.averageScore))
+    return {
+      entries: row?.entries ?? 0,
+      words: Number(row?.words ?? 0),
+      withFeedback: row?.withFeedback ?? 0,
+      averageScore: average,
+      recent: Number(row?.recent ?? 0)
+    }
   }
 
   /** Xoá; trả true nếu có bài bị xoá */

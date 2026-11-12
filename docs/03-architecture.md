@@ -121,12 +121,12 @@ english-assistant/
 │  │  │  ├─ CourseService.ts       # khoá học Course → Unit → Lesson
 │  │  │  ├─ DailyPlanService.ts    # lộ trình hôm nay (kênh `study:plan`): ôn thẻ → bài kế tiếp của khoá → kỹ năng yếu nhất; suy ra, không ghi DB
 │  │  │  ├─ DiaryService.ts        # nhật ký tiếng Anh (kênh `diary:today|save|correct|list`, bảng `diary_entries`, AI sửa qua `AiService.correctDiary`, chỉ người lớn — docs/07 §14)
-│  │  │  ├─ FreeWritingService.ts  # viết tự do theo đề (kênh `free-writing:view|create|update|get|delete|list|feedback`, bảng `free_writing_entries`, đề từ `FreeWritingTopics` (content/curated/free-writing), nhận xét qua `AiService.writingFeedback`, lưu trước rồi mới gọi AI, thưởng ngày `free-writing.written`, chỉ người lớn — docs/07 "Viết tự do")
+│  │  │  ├─ FreeWritingService.ts  # viết tự do theo đề (kênh `free-writing:view|create|update|get|delete|list|feedback`, bảng `free_writing_entries`, đề từ `FreeWritingTopics` (content/curated/free-writing), nhận xét qua `AiService.writingFeedback`, lưu trước rồi mới gọi AI, thưởng ngày `free-writing.written`, nhận xét mới đầu tiên mỗi bài ghi Elo kỹ năng Viết một lần qua `ProgressService` (`rated_at`, decisions #62), chỉ người lớn — docs/07 "Viết tự do")
 │  │  │  ├─ WritingService.ts      # chấm dạng bài luyện viết trong bài học (kênh `writing:check-translation|feedback`): lấy đề/đáp án từ nội dung theo `kind + lessonId + index`, so khớp câu dịch (`shared/translationMatch.ts`) rồi mới gọi `AiService.checkTranslation`; bài viết gọi `AiService.writingFeedback`; lỗi AI → chấm không AI kèm `aiReason`, không ném — docs/07 "Luyện viết", #59
 │  │  │  ├─ SpeakingService.ts     # chấm dạng bài `respond` (trả lời câu hỏi bằng giọng nói, kênh `speaking:feedback`): lấy câu hỏi/`minWords` từ nội dung theo `kind + lessonId + index`, tự tính lại số liệu trôi chảy từ `words[]` (`shared/speech.ts` `answerFluency`), chỉ gọi `AiService.speakingFeedback` khi `useAi` (người học bấm "Nhận xét bằng AI"); lỗi AI → chấm theo số từ kèm `aiReason`; không lưu/log lời nhận dạng — docs/07, #61
 │  │  │  ├─ ProgressService.ts     # Elo theo kỹ năng, độ chính xác, thời gian học
 │  │  │  ├─ PlacementService.ts    # kiểm tra đầu vào + bài kiểm tra lên cấp (checkpoint)
-│  │  │  ├─ PracticeService.ts, StatsService.ts, KidsService.ts, KidsWorldService.ts (bản đồ thế giới của bé, docs/19), ParentService.ts
+│  │  │  ├─ PracticeService.ts, StatsService.ts (kênh `study:stats`; từ 2026-11-11 có dòng kỹ năng Viết + khối viết tự do từ `FreeWritingRepository.summary`, ẩn với trẻ em), KidsService.ts, KidsWorldService.ts (bản đồ thế giới của bé, docs/19), ParentService.ts
 │  │  │  └─ ...
 │  │  ├─ content/               # thư viện nội dung đóng gói sẵn: LessonLibrary, CourseLibrary, KidsLibrary,
 │  │  │                         #   PhrasebookLibrary, FreeWritingTopics, PlacementBank, bundledLessons (glob content/curated/**)

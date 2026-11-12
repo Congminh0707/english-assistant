@@ -11,6 +11,7 @@ import type { PlacementResult } from '@shared/schemas/placement'
 import type { Exercise, PracticeAnswer, PracticeSummary } from '@shared/schemas/practice'
 import { FakeClock } from '../core/Clock'
 import { openUserDb, type UserDbConnection } from '../db/client'
+import { FreeWritingRepository } from '../db/repositories/FreeWritingRepository'
 import { createContainer, type Container } from '../container'
 import { compareVersions } from './ContentPackService'
 import { computeStreak } from '../services/StudyService'
@@ -878,6 +879,74 @@ describe('StatsService', () => {
       longestStreak: 0
     })
     expect(s.levels).toEqual([])
+    expect(s.writing).toEqual({
+      entries: 0,
+      words: 0,
+      withFeedback: 0,
+      averageScore: null,
+      recent: 0
+    })
+  })
+
+  it('Viết: dòng kỹ năng không bao giờ gợi ý lên cấp; khối viết tự do đếm bài/từ/nhận xét/30 ngày', () => {
+    c.settings.set('learning.level', 'A1_1')
+    for (let i = 0; i < 30; i++) {
+      c.progress.record({
+        source: 'free-writing',
+        kind: 'free',
+        skill: 'writing',
+        level: 'C2',
+        correct: 1,
+        total: 1
+      })
+    }
+    const writing = c.stats.stats().skills.find((s) => s.skill === 'writing')!
+    expect(writing.reliable).toBe(true)
+    expect(writing.level).not.toBe('A1_1')
+    expect(writing.ahead).toBe(0)
+
+    const profileId = c.profiles.activeId()
+    const base = {
+      profileId,
+      topicId: null,
+      title: 't',
+      task: 't',
+      band: 'A1',
+      length: 'short',
+      minWords: 20,
+      maxWords: 40,
+      text: 'x'
+    }
+    const repo = new FreeWritingRepository(conn.db)
+    repo.insert({ ...base, wordCount: 30 }, clock.now() - 40 * DAY)
+    const scored = repo.insert({ ...base, wordCount: 50 }, clock.now() - DAY)
+    const scored2 = repo.insert({ ...base, wordCount: 25 }, clock.now())
+    repo.setFeedback(profileId, scored.id, '{}', 70, clock.now())
+    repo.setFeedback(profileId, scored2.id, '{}', 81, clock.now())
+    expect(c.stats.stats().writing).toEqual({
+      entries: 3,
+      words: 105,
+      withFeedback: 2,
+      averageScore: 76,
+      recent: 2
+    })
+  })
+
+  it('hồ sơ trẻ em: không có dòng Viết, độ chính xác Viết, khối viết tự do', () => {
+    const kid = c.profiles.create({ name: 'Bé', track: 'primary', isChild: true })
+    c.profiles.switchTo(kid.id)
+    c.progress.record({
+      source: 'lesson',
+      kind: 'translate',
+      skill: 'writing',
+      level: 'A1_1',
+      correct: 1,
+      total: 1
+    })
+    const s = c.stats.stats()
+    expect(s.skills.map((r) => r.skill)).toEqual(['vocab', 'grammar', 'reading', 'listening'])
+    expect(s.accuracy.some((a) => a.skill === 'writing')).toBe(false)
+    expect(s.writing).toBeNull()
   })
 
   it('đếm lượt ôn, từ mới, tỉ lệ nhớ, thẻ theo trạng thái và từ theo level', () => {
@@ -1467,6 +1536,24 @@ describe('tiến bộ theo kỹ năng', () => {
     expect(c.stats.stats().time.weekMinutes).toBe(3)
   })
 
+  it('Viết: rating khởi đầu lấy từ trình độ chung; dịch câu/viết theo đề cập nhật Viết, không đổi ngữ pháp', () => {
+    c.settings.set('learning.level', 'B1_1')
+    c.settings.set('learning.levelGrammar', 'A2_1')
+    const writing = c.progress.ratings().find((r) => r.skill === 'writing')!
+    expect(writing).toMatchObject({ rating: 650, level: 'B1_1', games: 0, reliable: false })
+    const grammarBefore = c.progress.ratings().find((r) => r.skill === 'grammar')!
+    const lesson = c.lessons.catalog().units[0].lessons[0]
+    c.lessons.complete(lesson.id, 3, 4, [
+      { type: 'translate', correct: 2, total: 3 },
+      { type: 'write', correct: 1, total: 1 }
+    ])
+    const after = c.progress.ratings()
+    expect(after.find((r) => r.skill === 'writing')!.games).toBe(4)
+    expect(after.find((r) => r.skill === 'grammar')).toEqual(grammarBefore)
+    const acc = c.stats.stats().accuracy.find((a) => a.kind === 'translate')!
+    expect(acc).toMatchObject({ group: 'exercise', skill: 'writing', correct: 2, total: 3 })
+  })
+
   it('bài kiểm tra đầu vào đặt rating khởi đầu của từng kỹ năng', () => {
     c.settings.set('learning.levelGrammar', 'B1_1')
     expect(c.progress.ratings().find((r) => r.skill === 'grammar')!.level).toBe('B1_1')
@@ -1700,6 +1787,30 @@ describe('lộ trình hằng ngày', () => {
     expect(skill).toMatchObject({ skill: 'listening', lessonKind: 'listening', done: false })
     expect(skill.lessonId).not.toBe(lesson.lessonId)
     expect(c.listening.get(skill.lessonId!).title).toBe(skill.title)
+  })
+
+  it('rating Viết rất thấp không đổi lộ trình (Viết không có mục lộ trình)', () => {
+    c.settings.set('learning.levelListening', 'A1_1')
+    const before = c.dailyPlan.plan()
+    // Hạ Viết xuống thấp nhất bằng nhiều lần viết sai ở độ khó cao
+    for (let i = 0; i < 10; i++) {
+      c.progress.record({
+        source: 'free-writing',
+        kind: 'free',
+        skill: 'writing',
+        level: 'C2',
+        correct: 0,
+        total: 1
+      })
+    }
+    c.progress.setLevel('writing', 'PA1_1')
+    const writing = c.progress.ratings().find((r) => r.skill === 'writing')!
+    const others = c.progress.ratings().filter((r) => r.skill !== 'writing')
+    expect(others.every((r) => r.rating > writing.rating)).toBe(true)
+    expect(c.dailyPlan.plan()).toEqual(before)
+    expect(c.dailyPlan.plan().items.find((i) => i.kind === 'skill')).toMatchObject({
+      skill: 'listening'
+    })
   })
 
   it('hoàn thành bài của khoá hôm nay → mục đó done, doneCount tăng; sang ngày mới thì là bài sau', () => {

@@ -331,6 +331,11 @@ export const freeWritingEntries = sqliteTable(
     feedbackJson: text('feedback_json'),
     /** Điểm tổng 0–100 của lần nhận xét gần nhất */
     score: integer('score'),
+    /**
+     * Lúc bài đã được tính vào rating Viết (ms, migration 0011); null = chưa. Mỗi bài tính một lần: sửa chữ xoá nhận
+     * xét nhưng không xoá cột này (decisions #62).
+     */
+    ratedAt: integer('rated_at'),
     createdAt: integer('created_at').notNull(),
     updatedAt: integer('updated_at').notNull()
   },

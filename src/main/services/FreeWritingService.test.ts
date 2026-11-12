@@ -26,11 +26,13 @@ class FakeClient implements AiClient {
   /** Chạy trong lúc "chờ AI" (vd người dùng sửa chữ) */
   during: (() => void) | null = null
   fail = false
+  /** Điểm tổng trả về (mặc định 72 của REPLY) */
+  overall = REPLY.overall
   async complete(req: AiRequest): Promise<string> {
     this.calls.push(req)
     this.during?.()
     if (this.fail) throw new Error('network down')
-    return JSON.stringify(REPLY)
+    return JSON.stringify({ ...REPLY, overall: this.overall })
   }
 }
 
@@ -249,5 +251,106 @@ describe('FreeWritingService.list / delete / hồ sơ', () => {
     expect(await code(() => c.freeWriting.feedback(e.id))).toBe('FORBIDDEN')
     c.profiles.switchTo(adult)
     expect(c.freeWriting.get(e.id).id).toBe(e.id)
+  })
+})
+
+describe('FreeWritingService: rating Viết (decisions #62)', () => {
+  const writing = (): { rating: number; games: number } =>
+    c.progress.ratings().find((r) => r.skill === 'writing')!
+  const statRows = (): Array<{
+    source: string
+    kind: string
+    skill: string
+    correct: number
+    total: number
+  }> =>
+    conn.sqlite
+      .prepare('SELECT source, kind, skill, correct, total FROM exercise_stats')
+      .all() as Array<{
+      source: string
+      kind: string
+      skill: string
+      correct: number
+      total: number
+    }>
+  const ratedAt = (id: string): number | null =>
+    (
+      conn.sqlite.prepare('SELECT rated_at FROM free_writing_entries WHERE id = ?').get(id) as {
+        rated_at: number | null
+      }
+    ).rated_at
+
+  it('nhận xét mới đạt (≥ 60) → một câu đúng ở độ khó của bậc đề, đánh dấu rated_at', async () => {
+    c.settings.set('learning.level', 'A2_1')
+    expect(writing()).toMatchObject({ rating: 450, games: 0 })
+    const e = c.freeWriting.create({ topic: topicRef, length: 'short', text: TEXT })
+    await c.freeWriting.feedback(e.id)
+    expect(statRows()).toEqual([
+      { source: 'free-writing', kind: 'free', skill: 'writing', correct: 1, total: 1 }
+    ])
+    expect(writing().games).toBe(1)
+    expect(writing().rating).toBeGreaterThan(450)
+    expect(ratedAt(e.id)).toBe(clock.now())
+    // Bấm lại (đã có nhận xét) không tính thêm
+    await c.freeWriting.feedback(e.id)
+    expect(writing().games).toBe(1)
+  })
+
+  it('điểm < 60 → câu sai, rating giảm; ngữ pháp không đổi', async () => {
+    client.overall = 59
+    const grammar = c.progress.ratings().find((r) => r.skill === 'grammar')
+    const e = c.freeWriting.create({
+      topic: { kind: 'custom', text: 'My best friend', band: 'B2' },
+      length: 'short',
+      text: TEXT
+    })
+    const before = writing().rating
+    await c.freeWriting.feedback(e.id)
+    expect(statRows()[0]).toMatchObject({ correct: 0, total: 1, skill: 'writing' })
+    expect(writing().rating).toBeLessThan(before)
+    expect(c.progress.ratings().find((r) => r.skill === 'grammar')).toEqual(grammar)
+  })
+
+  it('sửa chữ rồi xin nhận xét lại → lưu nhận xét/điểm mới nhưng không tính Elo lần hai', async () => {
+    const e = c.freeWriting.create({ topic: topicRef, length: 'short', text: TEXT })
+    await c.freeWriting.feedback(e.id)
+    const first = ratedAt(e.id)
+    clock.advance(1000)
+    c.freeWriting.update({ id: e.id, text: `${TEXT} We are happy.` })
+    client.overall = 90
+    const again = await c.freeWriting.feedback(e.id)
+    expect(again.entry.score).toBe(90)
+    expect(client.calls).toHaveLength(2)
+    expect(writing().games).toBe(1)
+    expect(statRows()).toHaveLength(1)
+    expect(ratedAt(e.id)).toBe(first)
+  })
+
+  it('AI tắt / lỗi / chữ đổi trong lúc chờ → không tính Elo', async () => {
+    const e = c.freeWriting.create({ topic: topicRef, length: 'short', text: TEXT })
+    c.settings.set('ai.enabled', false)
+    await c.freeWriting.feedback(e.id)
+    c.settings.set('ai.enabled', true)
+    client.fail = true
+    await c.freeWriting.feedback(e.id)
+    client.fail = false
+    client.during = () => c.freeWriting.update({ id: e.id, text: `${TEXT} New.` })
+    expect((await c.freeWriting.feedback(e.id)).stale).toBe(true)
+    expect(writing().games).toBe(0)
+    expect(statRows()).toEqual([])
+    expect(ratedAt(e.id)).toBeNull()
+  })
+
+  it('đổi hồ sơ trong lúc chờ AI → lưu nhận xét, không tính Elo cho hồ sơ nào', async () => {
+    const adult = c.profiles.active().id
+    const e = c.freeWriting.create({ topic: topicRef, length: 'short', text: TEXT })
+    const other = c.profiles.create({ name: 'B', track: 'general', isChild: false })
+    client.during = () => c.profiles.switchTo(other.id)
+    expect((await c.freeWriting.feedback(e.id)).entry.score).toBe(72)
+    expect(statRows()).toEqual([])
+    expect(writing().games).toBe(0)
+    c.profiles.switchTo(adult)
+    expect(writing().games).toBe(0)
+    expect(ratedAt(e.id)).toBeNull()
   })
 })

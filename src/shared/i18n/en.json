@@ -1084,11 +1084,23 @@
       "levels": "Saved words by level",
       "skills": "Level by skill",
       "skillsHint": "Updated each time you take the level test.",
+      "writingSkillHint": "Writing: counts sentence translations, AI-graded writing tasks and Free writing (each entry once); never used for level-up suggestions.",
+      "writing": {
+        "title": "Free writing",
+        "empty": "No entries yet — open the Hall, Free writing tab, to write your first one.",
+        "entries": "entries",
+        "words": "words written",
+        "recent": "in the last 30 days",
+        "withFeedback": "with AI feedback",
+        "averageScore": "average AI score",
+        "hint": "The average covers entries that currently have AI feedback (0–100)."
+      },
       "skill": {
         "vocab": "Vocabulary",
         "grammar": "Grammar",
         "reading": "Reading",
-        "listening": "Listening"
+        "listening": "Listening",
+        "writing": "Writing"
       },
       "games": "{n} questions",
       "ready": "Ready to level up",
@@ -1115,7 +1127,11 @@
         "listen_choice": "Listen & pick meaning",
         "dictation": "Dictation",
         "match_pairs": "Match word–meaning",
-        "checkpoint": "Level-up check"
+        "checkpoint": "Level-up check",
+        "translate": "Translate",
+        "write": "Writing task",
+        "speak": "Read aloud",
+        "free": "Free writing"
       },
       "reviewKind": {
         "en_vi": "Cards: recognition",

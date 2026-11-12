@@ -74,6 +74,13 @@ item.difficulty -= K_ITEM * (score - expected)
 - Bài **quá dễ** (expected > 0.9) gần như không tăng rating → khuyến khích làm bài đúng sức.
 - Bài ôn SRS **không** ảnh hưởng rating (đó là ôn tập, không phải đo năng lực) — chỉ ảnh hưởng XP.
 
+> ✅ **Đã làm (2026-11-11) — kỹ năng thứ năm `writing`** ([decisions #62](decisions.md)). Code có 5 kỹ năng Elo: `vocab`, `grammar`, `reading`, `listening`, `writing` (`SKILLS` trong `src/shared/progress.ts`; Nói vẫn chưa có Elo riêng). Cột `skill` của `skill_ratings`/`exercise_stats` là text nên không cần migration.
+> - **Vào Viết**: dạng bài `translate` và `write` trong mọi loại bài học (`lessonExerciseSkill`; trước đó tính vào ngữ pháp, decisions #59). Quy tắc `countsForSkill` giữ nguyên: `write` chỉ tính khi AI chấm, `respond` không bao giờ tính, `speak` vẫn tính vào từ vựng. **Viết tự do** cũng tính: nhận xét AI mới đầu tiên của mỗi bài = 1 câu (`source = 'free-writing'`, `kind = 'free'`), đúng khi `overall ≥ 60` (`WRITE_PASS`), độ khó theo bậc đề qua `bandDifficultyLevel` (`src/shared/freeWriting.ts`): **A1 → A1_1, A2 → A2_1, B1 → B1_1, B2 → B2_1** (bậc con đầu của bậc CEFR, đề viết cho người "vào" bậc đó; đề tự đặt dùng bậc đang lọc). Mỗi bài tính tối đa một lần (`free_writing_entries.rated_at`, migration 0011): sửa chữ rồi xin nhận xét lại vẫn lưu nhận xét/điểm mới nhưng không ghi Elo lần hai; nhận xét đã có, AI tắt/lỗi, chữ đổi trong lúc chờ (`stale`), đổi hồ sơ trong lúc chờ → không ghi.
+> - **Rating khởi đầu**: chưa có bài kiểm tra nào đo Viết và không có cài đặt `learning.levelWriting` → lấy **giữa bậc của `learning.level`** (trình độ chung) khi chưa có dòng `skill_ratings`.
+> - **Lịch sử**: các dòng `exercise_stats` cũ của `translate`/`write` (trước 2026-11-11) **vẫn ở `grammar`**, không chuyển dữ liệu, và các câu đó đã cộng vào rating ngữ pháp. Trong 30 ngày đầu, bảng độ chính xác có thể hiện "Dịch câu" hai dòng (một dòng ngữ pháp cũ, một dòng Viết mới).
+> - **Không dùng cho lộ trình và lên cấp**: `DailyPlanService` chỉ chọn kỹ năng yếu trong danh sách tường minh ngữ pháp/đọc/nghe (Viết không có kho bài/mục lộ trình riêng). Gợi ý lên cấp chỉ xét `LEVEL_UP_SKILLS` (4 kỹ năng mà bài kiểm tra đo): `StatsService` trả `ahead = 0` cho Viết nên nút "Sẵn sàng lên cấp" không bao giờ hiện ở dòng Viết; bài kiểm tra đầu vào/lên cấp (`PlacementService`) dùng danh sách kỹ năng riêng, không đụng Viết. Rating/level Viết chỉ để xem.
+> - **Chỉ người lớn**: hồ sơ trẻ em không thấy dòng Viết, độ chính xác Viết, khối viết tự do ở trang Thống kê (lọc ở `StatsService`).
+
 ### Chọn bài tiếp theo
 
 Ưu tiên item có `difficulty` trong khoảng `rating − 50 … rating + 100` (hơi khó hơn một chút — "vùng phát triển gần"), mục tiêu tỉ lệ đúng ~ 70–80%.
@@ -95,6 +102,7 @@ item.difficulty -= K_ITEM * (score - expected)
 - Đạt ≥ 80% → lên cấp chính thức: hiệu ứng ăn mừng, huy hiệu pixel, mascot nhận phụ kiện đặc biệt.
 - Chưa đạt → không mất gì, gợi ý ôn các điểm sai, thử lại sau 24 giờ.
 - Level hiển thị trên hồ sơ = level đã **qua checkpoint** (ổn định, không nhảy lên xuống); rating thì thay đổi liên tục ở bên dưới.
+- Kỹ năng Viết (2026-11-11) không mở thử thách lên cấp và không ảnh hưởng quyết định lên cấp (xem §2, decisions #62).
 
 ## 5. Khung chương trình theo bậc (curriculum skeleton)
 

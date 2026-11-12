@@ -1,4 +1,5 @@
 import {
+  bandDifficultyLevel,
   bandOfLevel,
   FREE_WRITING_FEEDBACK_MIN_WORDS,
   FREE_WRITING_PAGE_SIZE,
@@ -7,6 +8,7 @@ import {
   lengthRange
 } from '@shared/freeWriting'
 import { WritingFeedbackSchema, type WritingFeedback } from '@shared/schemas/ai'
+import { WRITE_PASS } from '@shared/writing'
 import {
   FreeWritingBandSchema,
   FreeWritingLengthSchema,
@@ -28,12 +30,16 @@ import type {
 } from '../db/repositories/FreeWritingRepository'
 import type { XpRepository } from '../db/repositories/XpRepository'
 import type { ProfileService } from './ProfileService'
+import type { ProgressService } from './ProgressService'
 import type { SettingsService } from './SettingsService'
+import type { Transaction } from './types'
 import type { XpService } from './XpService'
 
 export const FREE_WRITING_REASON = 'free-writing.written'
 const XP_WRITTEN = 15
 const COINS_WRITTEN = 5
+/** Dạng bài ghi ở exercise_stats cho viết tự do (nguồn `free-writing`, kỹ năng `writing`) */
+export const FREE_WRITING_KIND = 'free'
 
 function parseFeedback(json: string | null): WritingFeedback | null {
   if (!json) return null
@@ -74,8 +80,8 @@ function aiReasonOf(err: unknown): string {
 /**
  * Viết tự do theo đề (docs/07 "Viết tự do", decisions #60). Đề tự soạn lấy từ nội dung theo mã (renderer không gửi chữ
  * đề), hoặc đề tự đặt ≤ 200 ký tự; chữ đề luôn vào prompt AI như dữ liệu trong thẻ <task> (writing_feedback).
- * Lưu trước rồi mới xin nhận xét → AI tắt/hết lượt/lỗi không làm mất bài, bấm lại sau được. Không chấm đạt/trượt,
- * không đổi Elo. Bài đầu tiên ≥ 20 từ mỗi ngày: +15 XP, +5 xu (một lần/ngày). Chỉ hồ sơ người lớn; mọi truy vấn theo
+ * Lưu trước rồi mới xin nhận xét → AI tắt/hết lượt/lỗi không làm mất bài, bấm lại sau được. Không chấm đạt/trượt
+ * trên giao diện; nhận xét AI đầu tiên của mỗi bài được tính một lần vào rating Viết (decisions #62). Bài đầu tiên ≥ 20 từ mỗi ngày: +15 XP, +5 xu (một lần/ngày). Chỉ hồ sơ người lớn; mọi truy vấn theo
  * id lọc theo hồ sơ đang dùng. Không ghi log chữ người học.
  */
 export class FreeWritingService {
@@ -86,8 +92,10 @@ export class FreeWritingService {
       xp: XpService
       topics: FreeWritingTopics
       ai: Pick<AiService, 'writingFeedback' | 'status'>
-      profiles: Pick<ProfileService, 'active'>
+      profiles: Pick<ProfileService, 'active' | 'activeId'>
       settings: Pick<SettingsService, 'get'>
+      progress: Pick<ProgressService, 'record'>
+      transaction: Transaction
       clock: Clock
     }
   ) {}
@@ -219,12 +227,39 @@ export class FreeWritingService {
     if (current.text !== row.text) return { entry: toEntry(current), aiReason: null, stale: true }
     const now = this.deps.clock.now()
     const json = JSON.stringify(feedback)
-    this.deps.repo.setFeedback(profileId, id, json, feedback.overall, now)
+    this.deps.transaction(() => {
+      this.deps.repo.setFeedback(profileId, id, json, feedback.overall, now)
+      this.rate(profileId, id, current, feedback.overall, now)
+    })
     return {
       entry: toEntry({ ...current, feedbackJson: json, score: feedback.overall, updatedAt: now }),
       aiReason: null,
       stale: false
     }
+  }
+
+  /**
+   * Tính bài vào rating Viết, tối đa một lần mỗi bài (cột `rated_at`): một "câu" ở độ khó theo bậc đề, đúng khi
+   * `overall ≥ WRITE_PASS`. `ProgressService` ghi cho hồ sơ đang dùng → đổi hồ sơ trong lúc chờ AI thì bỏ qua (chỉ lưu
+   * nhận xét, `rated_at` vẫn null). Gọi trong transaction cùng lúc lưu nhận xét.
+   */
+  private rate(
+    profileId: string,
+    id: string,
+    row: FreeWritingRow,
+    overall: number,
+    now: number
+  ): void {
+    if (this.deps.profiles.activeId() !== profileId) return
+    if (!this.deps.repo.markRated(profileId, id, now)) return
+    this.deps.progress.record({
+      source: 'free-writing',
+      kind: FREE_WRITING_KIND,
+      skill: 'writing',
+      level: bandDifficultyLevel(FreeWritingBandSchema.catch('A1').parse(row.band)),
+      correct: overall >= WRITE_PASS ? 1 : 0,
+      total: 1
+    })
   }
 
   /** Bài đầu tiên đủ từ trong ngày cục bộ: +15 XP, +5 xu (idempotent theo ngày) */

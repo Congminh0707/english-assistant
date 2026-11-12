@@ -44,6 +44,21 @@ export function bandOfLevel(level: LevelCode): FreeWritingBand {
   return 'B2'
 }
 
+/**
+ * Độ khó Elo của một bài viết tự do theo bậc của đề (decisions #62): bậc con đầu của bậc CEFR đó
+ * (A1 → A1_1, A2 → A2_1, B1 → B1_1, B2 → B2_1). Đề là "đúng sức người ở bậc này", nên lấy mức vào bậc chứ không phải
+ * mức cao nhất; ngược với `bandOfLevel`: `bandOfLevel(bandDifficultyLevel(b)) === b`.
+ */
+export function bandDifficultyLevel(band: FreeWritingBand): LevelCode {
+  const levels: Record<FreeWritingBand, LevelCode> = {
+    A1: 'A1_1',
+    A2: 'A2_1',
+    B1: 'B1_1',
+    B2: 'B2_1'
+  }
+  return levels[band]
+}
+
 /** Khoảng số từ của một bậc + độ dài */
 export function lengthRange(
   band: FreeWritingBand,

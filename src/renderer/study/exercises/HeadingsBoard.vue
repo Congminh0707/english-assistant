@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import UiIcon from '@renderer/shared/components/UiIcon.vue'
 
-// Ghép tiêu đề với đoạn: mỗi hàng là một đoạn của bài đọc ("Đoạn N" + vài chữ đầu, mở được cả đoạn), danh sách tiêu đề
+// Ghép tiêu đề với đoạn: mỗi hàng là một đoạn của bài đọc ("Đoạn N" + vài chữ đầu; cả bài đọc mở bằng nút "Xem bài đọc" của trang bài tập), danh sách tiêu đề
 // (đã xáo, có tiêu đề thừa) nằm dưới. Chọn một hàng rồi bấm một tiêu đề để gán; mỗi tiêu đề chỉ gán cho một đoạn.
 // `modelValue[i]` = vị trí (trong `headings` đang hiển thị) của tiêu đề gán cho đoạn i, hoặc null. Chỉ hiển thị — chấm ở
 // registry (lessonExercises.ts), `results` là đúng/sai từng đoạn sau khi chấm.
@@ -23,7 +23,6 @@ const emit = defineEmits<{ 'update:modelValue': [value: Array<number | null>] }>
 const { t } = useI18n()
 /** Đoạn đang chọn để gán tiêu đề (mặc định: đoạn trống đầu tiên) */
 const active = ref<number | null>(null)
-const expanded = ref<boolean[]>([])
 
 const EXCERPT_WORDS = 7
 const excerpts = computed(() =>
@@ -65,17 +64,13 @@ function pick(pos: number): void {
   emit('update:modelValue', next)
   active.value = null
 }
-
-function toggle(i: number): void {
-  expanded.value[i] = !expanded.value[i]
-}
 </script>
 
 <template>
   <div class="board">
     <ol class="rows">
       <li
-        v-for="(para, i) in paragraphs"
+        v-for="(_para, i) in paragraphs"
         :key="i"
         class="row"
         :class="{
@@ -114,20 +109,6 @@ function toggle(i: number): void {
           </span>
         </div>
         <p v-if="results && !results[i]" class="fix"><UiIcon name="check" /> {{ answers[i] }}</p>
-        <button
-          v-if="para !== excerpts[i]"
-          type="button"
-          class="btn btn--xs btn--ghost more"
-          :aria-expanded="!!expanded[i]"
-          @click="toggle(i)"
-        >
-          {{
-            expanded[i]
-              ? t('study.lessons.headings.hidePara')
-              : t('study.lessons.headings.showPara')
-          }}
-        </button>
-        <p v-if="expanded[i]" class="full">{{ para }}</p>
       </li>
     </ol>
 
@@ -250,18 +231,6 @@ function toggle(i: number): void {
   margin: 0;
   color: var(--c-ink);
   font-weight: 700;
-}
-.more {
-  justify-self: start;
-}
-.full {
-  margin: 0;
-  padding: var(--sp-2) var(--sp-3);
-  color: var(--c-ink);
-  background: var(--c-surface-2);
-  font-size: var(--fs-sm);
-  line-height: 1.6;
-  border-radius: var(--r-sm);
 }
 .bank-title {
   margin: 0;

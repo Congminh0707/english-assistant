@@ -11,6 +11,8 @@ import {
   initState,
   isCorrect,
   itemResults,
+  keyHints,
+  lessonPassage,
   newState,
   SPEAK_PASS,
   solutionOf,
@@ -327,6 +329,28 @@ describe('ghép tiêu đề (headings)', () => {
     expect(solutionOf(HEADINGS, tf)).toBe('1: H2 · 2: H0 · 3: H3')
     expect(gradedRemotely(HEADINGS)).toBe(false)
     expect(countsForSkill(HEADINGS, null)).toBe(true)
+  })
+})
+
+describe('bài đọc trong lúc làm bài tập', () => {
+  it('lessonPassage lấy block passage đầu tiên; bài không có passage → null', () => {
+    const p1 = { type: 'passage' as const, title: 'T', paragraphs: [{ en: 'a' }, { en: 'b' }] }
+    const p2 = { type: 'passage' as const, paragraphs: [{ en: 'c' }] }
+    expect(lessonPassage([{ type: 'text', md: 'x' }, p1, p2])).toEqual({
+      title: 'T',
+      paragraphs: p1.paragraphs
+    })
+    expect(lessonPassage([{ type: 'text', md: 'x' }])).toBeNull()
+  })
+
+  it('dòng gợi ý phím: 1–4 chỉ với dạng có lựa chọn đánh số; phím bài đọc khi có passage', () => {
+    expect(keyHints(MCQ, false)).toEqual(['enter', 'choices'])
+    expect(keyHints(TF2, true)).toEqual(['enter', 'choices', 'passage'])
+    expect(keyHints(GAP_CHOICE, true)).toEqual(['enter', 'choices', 'passage'])
+    expect(keyHints(GAP_TYPED, true)).toEqual(['enter', 'passage'])
+    expect(keyHints(SUMMARY, true)).toEqual(['enter', 'passage'])
+    expect(keyHints(HEADINGS, true)).toEqual(['enter', 'passage'])
+    expect(keyHints(MATCH, false)).toEqual(['enter'])
   })
 })
 

@@ -35,6 +35,7 @@ import {
   Repeat,
   RotateCcw,
   Shuffle,
+  BookOpen,
   Square,
   Star,
   FlaskConical,
@@ -90,7 +91,8 @@ const ICONS = {
   chat: MessageCircle,
   ear: Ear,
   moon: Moon,
-  shuffle: Shuffle
+  shuffle: Shuffle,
+  book: BookOpen
 } as const satisfies Record<string, Component>
 
 export type UiIconName = keyof typeof ICONS

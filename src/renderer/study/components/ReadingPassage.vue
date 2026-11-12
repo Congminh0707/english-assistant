@@ -16,6 +16,11 @@ import { tokenizeWords } from '@shared/properNouns'
 const props = defineProps<{
   title?: string
   paragraphs: Array<{ en: string; vi?: string }>
+  /**
+   * Bản gọn trong trang bài tập (cột bên / ngăn kéo): đánh số "Đoạn N" để tìm "paragraph N" của câu hỏi, khung tra từ
+   * nằm dưới thay vì cột bên, không có tiêu đề (khung chứa đã có)
+   */
+  compact?: boolean
 }>()
 
 const { t } = useI18n()
@@ -156,10 +161,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="reader">
+  <div class="reader" :class="{ compact }">
     <div class="card passage">
       <header class="head">
-        <h2 v-if="title">{{ title }}</h2>
+        <h2 v-if="title && !compact">{{ title }}</h2>
         <div class="tools">
           <button
             type="button"
@@ -176,6 +181,9 @@ onMounted(async () => {
       <p class="hint">{{ t('study.reading.hint') }}</p>
 
       <div v-for="(p, i) in parsed" :key="i" class="para">
+        <span v-if="compact" class="para-num">{{
+          t('study.reading.paragraph', { n: i + 1 })
+        }}</span>
         <p class="en">
           <span v-for="(s, si) in p.sentences" :key="si" class="sentence">
             <button
@@ -350,6 +358,29 @@ h2 {
   top: 0;
   display: grid;
   gap: var(--sp-3);
+}
+/* Bản gọn: một cột (khung tra từ dưới đoạn văn), chữ nhỏ hơn cho cột hẹp */
+.reader.compact {
+  grid-template-columns: minmax(0, 1fr);
+}
+.reader.compact .side {
+  position: static;
+}
+.reader.compact .passage {
+  padding: var(--sp-3) var(--sp-4);
+}
+.reader.compact .en {
+  font-size: var(--fs-lg);
+  line-height: 1.8;
+}
+.para-num {
+  justify-self: start;
+  padding: 0 var(--sp-2);
+  color: var(--c-xp);
+  background: var(--c-xp-soft);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  border-radius: var(--r-pill);
 }
 .lookup {
   display: grid;

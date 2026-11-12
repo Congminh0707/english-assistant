@@ -2,7 +2,7 @@
 // nhập (kể cả xáo thứ tự lựa chọn khi hiển thị), kiểm tra đã đủ để chấm chưa, chấm đúng/sai, lời giải. Thuần dữ liệu (không Vue, không IPC) → test được ở Node và dùng chung cho
 // mọi trang bài tập. Thêm dạng bài mới = thêm một mục vào `HANDLERS` (+ schema trong shared/schemas/lesson.ts).
 import { sameSentence } from '@shared/practice'
-import type { LessonExercise } from '@shared/schemas/lesson'
+import type { LessonBlock, LessonExercise } from '@shared/schemas/lesson'
 import { respondWordCount } from '@shared/speaking'
 import type { TimedWord } from '@shared/speech'
 import { writeLength } from '@shared/writing'
@@ -298,6 +298,32 @@ export function correctChoice(
 }
 export const solutionOf = (ex: LessonExercise, tfLabel: TfLabel): string =>
   handlerOf(ex).solution(ex, tfLabel)
+
+/** Đoạn văn của block `passage` đầu tiên của bài (bài đọc); null nếu bài không có bài đọc */
+export function lessonPassage(
+  blocks: LessonBlock[]
+): { title?: string; paragraphs: Array<{ en: string; vi?: string }> } | null {
+  const block = blocks.find((b) => b.type === 'passage')
+  return block?.type === 'passage' ? { title: block.title, paragraphs: block.paragraphs } : null
+}
+
+/** Phím tắt mở/đóng bài đọc trong lúc làm bài tập */
+export const PASSAGE_KEY = 'r'
+
+/**
+ * Các phần của dòng gợi ý phím (khoá `study.lessons.keys.*`): Enter luôn có; 1–4 chỉ khi có danh sách lựa chọn đánh số
+ * (không có ở ghép tiêu đề / tóm tắt / ghép cặp…); phím mở bài đọc khi bài có đoạn `passage`
+ */
+export function keyHints(
+  ex: LessonExercise,
+  hasPassage: boolean
+): Array<'enter' | 'choices' | 'passage'> {
+  return [
+    'enter',
+    ...(hasChoices(ex) ? (['choices'] as const) : []),
+    ...(hasPassage ? (['passage'] as const) : [])
+  ]
+}
 
 /** Các dạng bài mà lời giải được đọc to sau khi chấm */
 export const speaksSolution = (ex: LessonExercise): boolean =>

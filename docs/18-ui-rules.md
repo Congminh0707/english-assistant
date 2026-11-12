@@ -39,7 +39,7 @@ Lớp: `.btn` + một biến thể màu (`--primary` hành động chính, `--su
 ## 4. Icon
 
 - Component duy nhất: `shared/components/UiIcon.vue` (`<UiIcon name="volume" />`, `size` mặc định 16, nét 2.2). Thêm icon mới = thêm vào bảng `ICONS` trong file đó (không import lucide rải rác trong component, trừ icon trang trí cố định trong một trang như thẻ thống kê).
-- Tên đang có: `volume` (loa), `slow` (nghe chậm), `mic`, `stop`, `save`, `saved`, `check`, `done`, `dot`, `play`, `pause`, `trash`, `reset`, `hint`, `lock`, `close`, `repeat`, `star`, `headphones`, `test`, `home`, `game`, `pencil`, `write`, `party`, `pet`, `backspace`.
+- Tên đang có: `volume` (loa), `slow` (nghe chậm), `mic`, `stop`, `save`, `saved`, `check`, `done`, `dot`, `play`, `pause`, `trash`, `reset`, `hint`, `lock`, `close`, `repeat`, `star`, `headphones`, `test`, `home`, `game`, `pencil`, `write`, `party`, `pet`, `backspace`, `book` (bài đọc).
 - Cùng một hành động phải dùng cùng một icon ở mọi trang (loa = nghe, bookmark = lưu từ/câu, mic = nói).
 - Thư viện: `lucide-vue-next` (ISC, ghi ở [08](08-content-sources.md)).
 

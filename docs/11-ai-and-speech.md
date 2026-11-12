@@ -89,9 +89,9 @@ flowchart TD
 
 Tuỳ chọn người dùng: giọng US/UK, tốc độ 0.5x–1.5x.
 
-> ✅ **Gói âm thanh bài nghe tạo sẵn (2026-10-21, [decisions #26](decisions.md))** — tải thêm (MP3; gói 1.7.0 267,8 MB (267.760.884 byte, build 2026-11-11)) trong Cài đặt hoặc ở trang Nghe; có gói thì mọi câu có trong gói (bảng nguồn bên dưới) phát tức thì bằng giọng tự nhiên, không cần model Kokoro. Thứ tự phát: **gói tạo sẵn → giọng tự nhiên (Kokoro) → giọng Windows**. Khi chờ Kokoro tạo âm thanh, giao diện hiện vòng xoay "Đang tạo giọng đọc…" (cửa sổ Học tập, popup và cả mascot). Mã: `src/main/audio/`, `src/main/services/AudioPackService.ts`, `src/shared/audioPack.ts`, `useTts.ts` (`tryPack`).
+> ✅ **Gói âm thanh bài nghe tạo sẵn (2026-10-21, [decisions #26](decisions.md))** — tải thêm (MP3; gói 1.8.0 274,4 MB (274.441.897 byte, 12 176 đoạn, build 2026-11-12)) trong Cài đặt hoặc ở trang Nghe; có gói thì mọi câu có trong gói (bảng nguồn bên dưới) phát tức thì bằng giọng tự nhiên, không cần model Kokoro. Thứ tự phát: **gói tạo sẵn → giọng tự nhiên (Kokoro) → giọng Windows**. Khi chờ Kokoro tạo âm thanh, giao diện hiện vòng xoay "Đang tạo giọng đọc…" (cửa sổ Học tập, popup và cả mascot). Mã: `src/main/audio/`, `src/main/services/AudioPackService.ts`, `src/shared/audioPack.ts`, `useTts.ts` (`tryPack`).
 
-> ✅ **Gói phủ mọi câu tĩnh app đọc to (2026-11-10; gói 1.7.0 đã build 2026-11-11)** — `scripts/audio/build-listening-audio.mjs` gom theo từng nguồn (mỗi nguồn một bộ gom, `--list` in bảng số câu/clip/dung lượng ước lượng):
+> ✅ **Gói phủ mọi câu tĩnh app đọc to (2026-11-10; gói 1.8.0 đã build 2026-11-12)** — `scripts/audio/build-listening-audio.mjs` gom theo từng nguồn (mỗi nguồn một bộ gom, `--list` in bảng số câu/clip/dung lượng ước lượng):
 >
 > | Nguồn | Chỗ gọi | Giọng × tốc độ |
 > |---|---|---|
@@ -103,6 +103,7 @@ Tuỳ chọn người dùng: giọng US/UK, tốc độ 0.5x–1.5x.
 > | — bài tập `listen` (`say`), `picture` có `listen` (`word`) | `LessonExercises` + `AudioPrompt` | cả hai × 0,9 / 0,6 |
 > | — lời giải đọc sau khi chấm: `gap` (`prompt` thay `___` đầu bằng `answers[0]`), `order` (`answer`) | `LessonExercises` (`speaksSolution`) | cả hai × 0,9 |
 > | — bài tập `speak` (`say`) | `SpeakPractice` "Nghe mẫu" | cả hai × 0,9 |
+> | — bài tập `respond`: câu hỏi (`question`) + câu trả lời mẫu (`sample`) | `AudioPrompt` (0,9 / 0,6) + `WritingFeedback` nút nghe mẫu (0,9) | cả hai × 0,9 / 0,6 (mẫu: 0,9) |
 > | TOEIC Part 1–4 | `ToeicPage.play` → `src/shared/toeicAudio.ts` (`toeicAudioLines`, dùng chung với script) | theo dòng (Mỹ/Anh) × 0,95 |
 > | Bài kiểm tra trình độ — câu nghe `say` | `PlacementTest` | Mỹ × 0,9 / 0,6 |
 > | Sổ tay mẫu câu `p.en` | `PhrasebookPage` | cả hai × 0,9 |

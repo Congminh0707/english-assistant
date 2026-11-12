@@ -3,12 +3,12 @@
 import { LISTENING_PACK_ID } from '@shared/audioPack'
 import type { AudioPackSpec } from './AudioPackManager'
 
-const VERSION = '1.7.0'
+const VERSION = '1.8.0'
 
 export const LISTENING_AUDIO_PACK: AudioPackSpec = {
   id: LISTENING_PACK_ID,
   version: VERSION,
   url: `https://github.com/Congminh0707/english-assistant/releases/download/listening-audio-${VERSION}/listening-audio-${VERSION}.zip`,
-  size: 267760884,
-  sha256: '6c81104b611db8b475af542af82bc462b71d1da4e7d52289fa308f55219d88c5'
+  size: 274441897,
+  sha256: 'dd46347d5b9c6270a7ca38b0f8174af444b00c7f9639c08e0f319c725cd1bb4f'
 }

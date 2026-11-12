@@ -197,7 +197,7 @@ Mỗi nơi: chat Hà Nội (hoặc chat mới có `hanoi-v6-bg.png` do chủ d�
 
 ## Tiến độ 11 cảnh (2026-11-04, tối)
 
-Đã vẽ trong chat Hà Nội (ChatGPT Image), **chưa nhúng vào app**. Lưu ở `scripts/design-data/review/kids-games/` (đã gitignore `*.png`); `*-WRONG.png` là bản tải nhầm, bỏ qua; dùng `sapa-sprites-B-fixed`, `phuquoc-sprites-A-fixed`.
+Đã vẽ trong chat Hà Nội (ChatGPT Image), **chưa nhúng vào app**. Lưu ở `scripts/design-data/review/kids-games/` (đã gitignore `*.png`); dùng `sapa-sprites-B-fixed`, `phuquoc-sprites-A-fixed` (bản tải nhầm `*-WRONG.png`, nền cũ không còn cấu hình nào dùng và `out/` đã xoá 2026-11-12; `out/` tạo lại bằng `scene_build.py <nơi>`). Các PNG còn lại trong thư mục này là **bản duy nhất của ảnh gốc**, không xoá.
 
 - Nền: `hcm-bg`, `halong-bg`, `hoian-bg` (không đèn lồng, đèn lồng là sprite riêng), `ninhbinh-bg`, `sapa-bg`, `danang-bg`, `hue-bg`, `nhatrang-bg`, `dalat-bg`, `cantho-bg`, `phuquoc-bg`.
 - Sprite (6×3): `<nơi>-sprites-A` (vật đứng yên) và `-B` (xe/thuyền/sóng/khói); riêng `hcm-sprites-A/B`, `hoian-lanterns` (đèn lồng lắc, glow bằng code), `danang-fx` (lửa, nước phun từ miệng rồng, hướng phun cần lật theo đầu rồng), `cantho-sprites-C` (xuồng chèo 2 mái hai bên, thay hàng 3 của B), `phuquoc-sprites-A` (dùng bản `-fixed`).

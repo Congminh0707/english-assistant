@@ -7,7 +7,7 @@ Bản rà soát toàn app (tính năng, bài học, chất lượng nội dung) 
 - App đã rất **rộng** so với một dev part-time: 107 kênh IPC, 38 service, 553 test, nội dung PA1 → C2, TOEIC 7 Part, thế giới 3D cho bé, 5 mascot vẽ tay, 4 engine dịch.
 - Điểm mạnh: vòng lặp cốt lõi (popup dịch → lưu từ → SRS → mascot hỏi) và nền tảng kỹ thuật sạch.
 - Điểm yếu: **độ rộng vượt độ sâu**. Nhiều mục còn ghi "chưa thử tay"; 100 % nội dung do AI soạn, chưa có giáo viên duyệt; phần lớn công sức gần đây đổ vào art/3D thay vì vào việc người học cần.
-- Tính năng P0 duy nhất chưa làm: **Lộ trình hằng ngày** (C13, [01](01-features.md)).
+- Tính năng P0 duy nhất chưa làm lúc rà: **Lộ trình hằng ngày** (C13, [01](01-features.md)). Đã làm xong 2026-11-10, xem §5 mục 1.
 
 ## 2. GIỮ (lõi, đang chạy tốt)
 
@@ -45,7 +45,7 @@ Bản rà soát toàn app (tính năng, bài học, chất lượng nội dung) 
 1. [x] (2026-11-10) **Lộ trình hằng ngày (C13, P0).** Chưa có `DailyPlanService`; người lớn mở cửa sổ Học tập thấy thống kê, không thấy "hôm nay làm gì". Gộp: ôn đến hạn → bài tiếp trong khoá → một bài của kỹ năng yếu nhất (Elo đã có trong `ProgressService`). Thiết kế ở [07 §13](07-learning-modules.md).
 2. [x] (2026-11-10) **Từ mới của bài đọc tự vào SRS** (ghi "còn" từ Phase 2). Rẻ, nối Đọc với Ôn. Lần đầu đạt bài đọc tự lưu tối đa 8 từ khó kèm câu ngữ cảnh, cài đặt `review.autoSaveReading` — xem [07 §5](07-learning-modules.md).
 3. [x] (2026-11-10) **LLM BYOK tổng quát (F4) + `grammar_explain` trong popup (B8).** Đã có `SecretStore` và `CloudTranslator`; cần thêm provider chung + một prompt. Đúng persona "Minh đi làm" đọc tài liệu. v1 chỉ Anthropic, dùng chung key Dịch online, interface `AiClient` để thêm provider sau; `diary_correct` sẵn cho mục 4 — xem [11 §5](11-ai-and-speech.md), [decisions #56](decisions.md).
-4. [x] (2026-11-10) **Nhật ký tiếng Anh (G3) + dạng bài `translate_sentence`.** Writing hiện bằng 0. Nhật ký 3 câu mỗi tối qua LLM là cách rẻ nhất có Writing, hợp với mascot ("Hôm nay bạn làm gì?"). Đã làm phần nhật ký: tab Nhật ký ở Thư viện, mascot nhắc theo `diary.hour`, AI sửa — xem [07 §14](07-learning-modules.md). Dạng bài `translate_sentence` chưa làm.
+4. [x] (2026-11-10) **Nhật ký tiếng Anh (G3) + dạng bài `translate_sentence`.** Writing hiện bằng 0. Nhật ký 3 câu mỗi tối qua LLM là cách rẻ nhất có Writing, hợp với mascot ("Hôm nay bạn làm gì?"). Đã làm phần nhật ký: tab Nhật ký ở Thư viện, mascot nhắc theo `diary.hour`, AI sửa — xem [07 §14](07-learning-modules.md). Dạng bài `translate_sentence` đã làm 2026-11-11 (tên `translate`, cùng `write`; [14 Phase 3](14-roadmap.md)).
 5. [ ] **Dạng bài đọc nâng cao cho B1+** (`true_false_ng`, `matching_headings`, điền tóm tắt) trên registry `exercises/lessonExercises.ts` đã có.
 6. [x] (đã có từ 2026-11-05, đối chiếu lại 2026-11-11) **TOEIC: ước lượng điểm + mini test tính giờ.** Mục này ghi nhầm là thiếu: `ToeicService` đã có mini test + full test tính giờ (`timeLimitSec`), `estimateScore` (`src/shared/toeic.ts`) và bảng `exam_attempts`; `ToeicPage.vue` hiện "≈ điểm / 990" — xem [14 Phase 4](14-roadmap.md).
 7. [ ] **Phân tầng tuổi cho ABC và lượt 5 bước** (mini-game đã có `kids.ageBand`, phần còn lại chưa).
@@ -57,7 +57,7 @@ Bản rà soát toàn app (tính năng, bài học, chất lượng nội dung) 
 | Nội dung AI soạn chưa người duyệt | 100 % bài học / đọc / nghe / ngữ pháp / TOEIC |
 | Code 3D bé | ≈ 7.700 dòng (`kids/game/*.ts`, `landmarks3d/*.ts`) |
 | Model tải thêm | opus-mt 107 + 107 MB, NLLB 870 MB, Whisper 80 MB, wav2vec2 355 MB, audio 145 MB |
-| Tính năng P0 chưa làm | 1 (Lộ trình hằng ngày C13) |
+| Tính năng P0 chưa làm | 1 (Lộ trình hằng ngày C13; đã xong 2026-11-10) |
 
 ## 7. Cách theo dõi
 

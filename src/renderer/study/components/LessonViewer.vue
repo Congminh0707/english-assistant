@@ -397,9 +397,10 @@ th {
 }
 .actions {
   display: flex;
-  justify-content: stretch;
-}
-.cols.single .actions {
   justify-content: flex-end;
+}
+/* Nút không dài quá bề rộng cột phụ (340px): ở bố cục một cột (bài nghe, cửa sổ hẹp) nó nằm gọn bên phải thay vì kéo hết hàng */
+.actions .btn {
+  max-width: 340px;
 }
 </style>

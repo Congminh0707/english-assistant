@@ -7,7 +7,8 @@ import { cefrLabel } from '@shared/placement'
 import { isChildTrack, type ProfileInfo } from '@shared/schemas/profile'
 import type { Settings } from '@shared/schemas/settings'
 import { UK_VOICES, US_VOICES } from '@shared/tts'
-import { invoke } from '@renderer/shared/ipc'
+import { invoke, IpcError } from '@renderer/shared/ipc'
+import type { CharacterPackInfo } from '@shared/schemas/characterPack'
 import { useTts, useTtsModel } from '@renderer/shared/composables/useTts'
 import { useStt } from '@renderer/shared/composables/useStt'
 import { useTranslateModels } from '@renderer/shared/composables/useTranslateModels'
@@ -304,9 +305,37 @@ const SECTIONS = [
 ] as const
 const sect = ref<Sect>('profile')
 
+// Gói nhân vật (.eapack) cài thủ công: main mở hộp chọn file, kiểm tra, rồi nạp lại mọi cửa sổ
+const characterPacks = ref<CharacterPackInfo[]>([])
+const packMessage = ref('')
+const packBusy = ref(false)
+async function loadCharacterPacks(): Promise<void> {
+  try {
+    characterPacks.value = (await invoke('characters:packs')).packs
+  } catch {
+    // Không đọc được: giữ danh sách cũ
+  }
+}
+async function packAction(run: () => Promise<{ packs: CharacterPackInfo[] }>): Promise<void> {
+  packBusy.value = true
+  packMessage.value = ''
+  try {
+    characterPacks.value = (await run()).packs
+  } catch (err) {
+    packMessage.value = t(err instanceof IpcError ? err.info.messageKey : 'errors.unknown')
+  } finally {
+    packBusy.value = false
+  }
+}
+const installCharacterPack = (): Promise<void> =>
+  packAction(() => invoke('characters:install-pack'))
+const removeCharacterPack = (packId: string): Promise<void> =>
+  packAction(() => invoke('characters:remove-pack', { packId }))
+
 onMounted(async () => {
   void loadProfiles()
   void loadAiStatus()
+  void loadCharacterPacks()
   try {
     onlineStatus.value = await invoke('translate:online-status')
   } catch {
@@ -1096,6 +1125,47 @@ onMounted(async () => {
               @change="setSetting('app.launchAtLogin', ($event.target as HTMLInputElement).checked)"
             />
           </label>
+        </section>
+
+        <section v-show="sect === 'mascot'" class="card block">
+          <h2>{{ t('study.settings.characterPacks.title') }}</h2>
+          <p class="muted">{{ t('study.settings.characterPacks.hint') }}</p>
+          <ul v-if="characterPacks.length" class="profiles">
+            <li v-for="pack in characterPacks" :key="pack.id" class="profile">
+              <div>
+                <strong>{{ pack.name }}</strong>
+                <span class="muted">
+                  ·
+                  {{
+                    t('study.settings.characterPacks.summary', {
+                      version: pack.version,
+                      count: pack.characters.length
+                    })
+                  }}</span
+                >
+              </div>
+              <button
+                type="button"
+                class="btn btn--sm"
+                :disabled="packBusy"
+                @click="removeCharacterPack(pack.id)"
+              >
+                <UiIcon name="trash" /> {{ t('study.settings.characterPacks.remove') }}
+              </button>
+            </li>
+          </ul>
+          <p v-else class="muted">{{ t('study.settings.characterPacks.empty') }}</p>
+          <p v-if="packMessage" class="error">{{ packMessage }}</p>
+          <div>
+            <button
+              type="button"
+              class="btn btn--sm"
+              :disabled="packBusy"
+              @click="installCharacterPack"
+            >
+              <UiIcon name="box" /> {{ t('study.settings.characterPacks.install') }}
+            </button>
+          </div>
         </section>
 
         <section v-show="sect === 'update'" class="card block">

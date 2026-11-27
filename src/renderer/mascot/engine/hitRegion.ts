@@ -72,6 +72,17 @@ const EXTRA: Record<string, Record<string, Ellipse[]>> = {
   }
 }
 
+/** Vùng bấm thêm của nhân vật từ gói nhân vật: `hit` trong file gói, mỗi elip [cx, cy, rx, ry] */
+export function registerHitRegions(
+  character: string,
+  hit: Partial<Record<string, readonly (readonly [number, number, number, number])[]>>
+): void {
+  const own: Record<string, Ellipse[]> = {}
+  for (const [key, list] of Object.entries(hit))
+    own[key] = (list ?? []).map(([cx, cy, rx, ry]) => e(cx, cy, rx, ry))
+  EXTRA[character] = own
+}
+
 /** Các elip phủ bóng dáng của nhân vật ở giai đoạn này (toạ độ hình vẽ, chưa co theo giai đoạn) */
 export function hitShapes(character: string, stage: string): Ellipse[] {
   if (stage === 'egg') return EGG

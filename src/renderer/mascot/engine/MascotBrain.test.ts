@@ -75,13 +75,13 @@ describe('MascotBrain: phản ứng khi bấm', () => {
     const states = new Set<string>()
     for (const roll of [0.01, 0.2, 0.4, 0.5, 0.6, 0.75, 0.9, 0.99]) {
       vi.spyOn(Math, 'random').mockReturnValue(roll)
-      const { b } = brain([...BASE, 'click_spidey', 'click_flip'])
+      const { b } = brain([...BASE, 'click_wave', 'click_flip'])
       b.pointerUp(true, false)
       states.add(b.state)
       vi.restoreAllMocks()
     }
     expect(states).toEqual(
-      new Set(['happy', 'love', 'giggle', 'nuzzle', 'click_spidey', 'click_flip'])
+      new Set(['happy', 'love', 'giggle', 'nuzzle', 'click_wave', 'click_flip'])
     )
   })
 

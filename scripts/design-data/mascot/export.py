@@ -2,6 +2,9 @@
 #   python scripts/design-data/mascot/export.py
 # Mỗi file: css (hoạt ảnh chung), vb (khung nhìn), egg {defs, svg}, stages {baby|teen|adult|legend: {scale, defs, bg, fg, states{dáng: svg}}},
 # acc {id phụ kiện: {slot, defs, b (sau thân), f (trước thân)}}. PetFigure ráp: defs + bg + <g stage scale>[b + dáng + f] + fg.
+# Nhân vật có thể thêm hoạt ảnh tự do (QUIRKS của module nhân vật): states có thêm khoá `quirk_*`, pet.json có `hideAcc` (các khoá ẩn phụ kiện),
+# và file nhỏ <id>.quirks.json {walk: chuyển động cả khung khi đi, quirks: {tên: {seconds, variants}}} cho PoseAnimator/PetSprite đọc.
+# Nhân vật bổ sung ngoài mã nguồn (gói nhân vật riêng): đặt MASCOT_EXTRA_DIR, xem extra.py; hình của chúng ghi ra extra.OUT, không vào src/.
 # Đồ cổ mặc định của giai đoạn (khăn, chuông, dây thừng) nằm trong <g class="nk"> để ẩn khi đeo phụ kiện cổ.
 import json, os, sys
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -11,13 +14,15 @@ OUT = os.path.join(ROOT, 'src', 'renderer', 'shared', 'art', 'pets')
 
 import build                       # noqa: E402  (nạp chars2/chars3: bản vẽ v3 cho cả 5 con)
 from chars import NECK, star   # noqa: E402
-import build4                      # noqa: E402  (v4: nền Huyền thoại nhỏ)
+import build4                      # noqa: E402  (v4: nền Huyền thoại nhỏ; đăng ký nhân vật bổ sung của extra.py)
+import extra                       # noqa: E402  (nhân vật bổ sung ngoài mã nguồn, tuỳ chọn: MASCOT_EXTRA_DIR)
 from chars4 import CHARS4 as CHARS, egg   # noqa: E402
 from fx4 import CSS4               # noqa: E402
 import acc2                        # noqa: E402
 
 POSE_IDS = ['idle', 'walk', 'run', 'jump', 'sit', 'sleep', 'eat', 'drink', 'read', 'listen', 'say', 'hello', 'happy', 'sad', 'surprised', 'levelup', 'car', 'boat', 'plane']
 VEHICLES = ('car', 'boat', 'plane')
+MV = '<!--MV-->'   # trong hình của một dáng: phần trước dấu này là cảnh đứng yên, phần sau là thân (WALK của module nhân vật)
 STAGES = ('baby', 'teen', 'adult', 'legend')
 VB = {'fig': '-16 -8 192 168', 'legend': '-40 -36 240 196', 'veh': '-40 -50 240 210'}
 ROOT_CLS = {'idle': 'br', 'walk': 'bob', 'run': 'run', 'jump': 'jmp', 'sit': '', 'sleep': 'slp', 'eat': 'br', 'drink': 'br', 'read': 'br', 'listen': 'br',
@@ -96,8 +101,14 @@ def dust(fast=False):
         o += '<path d="M-20 70H0M-26 96H-6M-18 122H2" stroke="#D9C49A" stroke-width="3" stroke-linecap="round"/>'
     return o
 
-def props(n, pose, p):
-    """(sau thân, trong khối thân, trên cùng) cho một dáng"""
+def props(n, pose, p, stage='adult'):
+    """(sau thân, trong khối thân, trên cùng) cho một dáng.
+    Module nhân vật bổ sung có thể tự vẽ đạo cụ: props(stage, pose, p) trả bộ ba này, hoặc None để dùng đạo cụ chung."""
+    own = getattr(extra.MODS.get(n), 'props', None)
+    if own:
+        r = own(stage, pose, p)
+        if r is not None:
+            return r
     a = acc2.ANCHOR[n]
     behind = inner = top = ''
     if pose == 'walk': behind = dust()
@@ -178,6 +189,8 @@ def tag_neck(full, bare):
 
 def figure(n, stage, pose, p):
     fn = CHARS[n]
+    if n in extra.MODS:   # nhân vật bổ sung tự bọc đồ cổ trong <g class="nk">
+        return fn(stage, pose, p)
     d, full = fn(stage, pose, p)
     NECK['on'] = False
     _, bare = fn(stage, pose, p)
@@ -185,15 +198,22 @@ def figure(n, stage, pose, p):
     return d, tag_neck(full, bare)
 
 def export(n):
-    out = {'css': build.CSS + CSS4 + EXTRA_CSS, 'vb': VB, 'stages': {}, 'acc': {}}
+    out = {'css': build.CSS + CSS4 + getattr(extra.MODS.get(n), 'CSS', '') + EXTRA_CSS, 'vb': VB, 'stages': {}, 'acc': {}}
+    quirks = extra.quirk_keys(n)
+    root = extra.root_cls(n, ROOT_CLS)
+    hide = [key for key, _, q in quirks if not q.get('acc', True)]
+    if hide:
+        out['hideAcc'] = hide
     ed, ef = egg(n, n[0] + 'e')
+    ef = extra.egg_svg(n, ef)
     out['egg'] = {'defs': ed, 'svg': ef}
     for st in STAGES:
         p = n[0] + st[0]
         sc = build.SC[st]
         defs = ''
         states = {}
-        for pose in POSE_IDS:
+        still = {}
+        for pose in POSE_IDS + [key for key, _, _ in quirks]:
             if pose in VEHICLES:
                 d, f = figure(n, st, 'idle', p)
                 defs = defs or d
@@ -201,14 +221,21 @@ def export(n):
                 states[pose] = VEH[pose](fig)
                 continue
             d, f = figure(n, st, pose, p)
+            if n in extra.MODS and defs and d != defs:
+                # pet.json chỉ giữ một bộ <defs> cho mỗi giai đoạn: dáng nào cũng phải trả cùng defs
+                raise SystemExit(f'{n}/{st}/{pose}: defs khác dáng idle — mọi dáng của một giai đoạn phải trả cùng một chuỗi defs')
             defs = defs or d
-            b, inn, top = props(n, pose, p)
-            rc = ROOT_CLS[pose]
+            if MV in f:   # phần cảnh đứng yên (trước dấu MV) tách ra khỏi phần thân chuyển động (sau dấu MV)
+                still[pose], f = f.split(MV, 1)
+            b, inn, top = props(n, pose, p, st)
+            rc = root.get(pose, '')
             body = f'<g class="{rc}" style="transform-origin:80px 150px">{f}{inn}</g>'
             if pose == 'sit':
                 body = f'<g transform="translate(80 150) scale(1.04 .9) translate(-80 -150)">{f}{inn}</g>'
             states[pose] = b + body + top
         entry = {'scale': sc, 'defs': defs, 'states': states}
+        if still:
+            entry['still'] = still
         if st == 'legend':
             bd, bg = build4.backdrop(n, p)
             entry['defs'] += bd
@@ -218,12 +245,22 @@ def export(n):
         aid = a[0]
         d, b, f = acc2.draw(aid, n, 'a' + aid.replace('-', ''))
         out['acc']['acc:' + aid] = {'slot': a[2], 'defs': d, 'b': b, 'f': f}
-    path = os.path.join(OUT, n + '.pet.json')
+    out_dir = extra.OUT if n in extra.MODS else OUT
+    path = os.path.join(out_dir, n + '.pet.json')
     with open(path, 'w', encoding='utf-8') as fh:
         json.dump(out, fh, ensure_ascii=False, separators=(',', ':'))
     print(n, os.path.getsize(path) // 1024, 'KB')
+    mod = extra.MODS.get(n)
+    if mod and (quirks or getattr(mod, 'WALK', '')):
+        meta = {'walk': getattr(mod, 'WALK', ''),
+                'quirks': {name: {'seconds': q['seconds'], 'variants': q.get('variants', 1)} for name, q in mod.QUIRKS.items()} if quirks else {}}
+        with open(os.path.join(out_dir, n + '.quirks.json'), 'w', encoding='utf-8') as fh:
+            json.dump(meta, fh, ensure_ascii=False, indent=2)
+            fh.write(chr(10))
 
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
-    for n in (sys.argv[1:] or ['bi', 'kitsu', 'draco', 'robo', 'lupo']):
+    if extra.OUT:
+        os.makedirs(extra.OUT, exist_ok=True)
+    for n in (sys.argv[1:] or ['bi', 'kitsu', 'draco', 'robo', 'lupo'] + extra.IDS):
         export(n)

@@ -1,7 +1,7 @@
 // Cửa hàng: đồ ăn (đã có trong pet.ts) và phụ kiện cho mascot — định nghĩa thuần, dùng ở main, renderer và test.
 // docs/06-levels-and-progression.md (cửa hàng), docs/05-mascot-system.md (phụ kiện)
 
-import { CHARACTERS, characterItemId, CHARACTER_IDS, isCharacterItem } from './characters'
+import { allCharacterIds, characterDef, characterItemId, isCharacterItem } from './characters'
 import { FOODS, isFoodId } from './pet'
 
 /** Vị trí đeo: mỗi vị trí chỉ đeo được một món. `hand` = cầm ở tay phải (mascot v3) */
@@ -86,14 +86,22 @@ export function shopCatalog(): ShopEntry[] {
     minLevel: def.minLevel,
     slot: def.slot
   }))
-  const characters = CHARACTER_IDS.filter((id) => CHARACTERS[id].price > 0).map((id) => ({
-    id: characterItemId(id),
-    kind: 'character' as const,
-    price: CHARACTERS[id].price,
-    emoji: CHARACTERS[id].emoji,
-    minLevel: CHARACTERS[id].minLevel,
-    slot: null
-  }))
+  // Nhân vật gốc rồi nhân vật của gói đã cài (sổ đăng ký trong ./characters)
+  const characters = allCharacterIds().flatMap((id) => {
+    const def = characterDef(id)!
+    return def.price > 0
+      ? [
+          {
+            id: characterItemId(id),
+            kind: 'character' as const,
+            price: def.price,
+            emoji: def.emoji,
+            minLevel: def.minLevel,
+            slot: null
+          }
+        ]
+      : []
+  })
   return [...foods, ...accessories, ...characters]
 }
 

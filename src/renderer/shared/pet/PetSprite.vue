@@ -2,6 +2,7 @@
 import { computed } from 'vue'
 import { isAccessoryId } from '@shared/shop'
 import PetFigure from './PetFigure.vue'
+import { walkMotionOf } from './quirks'
 
 // Thú cưng chibi vector (mascot v4, docs/05), có thể đeo phụ kiện, đứng yên hoặc đi bộ.
 // `size` là cạnh vùng hiển thị. Hình vẽ và phụ kiện (vẽ riêng theo từng con) đều ở PetFigure.
@@ -39,6 +40,10 @@ const props = withDefaults(
 
 const state = computed(() => props.pose || (props.walking ? 'walk' : 'idle'))
 const live = computed(() => props.animate || props.walking || !!props.pose)
+/** Đang đi: cách di chuyển riêng của nhân vật (bay, nhảy bốn chân...) chỉ áp lên thân + phụ kiện, không áp lên nền; trứng thì không */
+const travel = computed(() =>
+  state.value === 'walk' && props.stage !== 'egg' ? walkMotionOf(props.character) : ''
+)
 
 const worn = computed(() => props.accessories.filter(isAccessoryId))
 </script>
@@ -58,6 +63,7 @@ const worn = computed(() => props.accessories.filter(isAccessoryId))
       :pose="state"
       :animate="live"
       :motion="motion"
+      :travel="travel"
       :accessories="worn"
     />
   </div>

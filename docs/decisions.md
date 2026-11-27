@@ -518,3 +518,39 @@ Mẫu:
   5. **Không bao giờ tự xoá model đã tải**: model bị bỏ hay ngừng mời tải chỉ bị xoá khi người dùng bấm nút xoá. Không thêm bước tự xoá lúc khởi động như mBART (#34) — bước mBART giữ nguyên vì đã phát hành.
 - **Đánh đổi**: người chỉ có NLLB (chưa tải opus-mt) nay thấy popup mời tải opus-mt (~100 MB/chiều) hoặc phải bật dịch online; người chưa có wav2vec2 mất cách xem âm nào sai và nút luyện âm đơn trong bài phonics; 870 MB file NLLB nằm lại trên đĩa tới khi người dùng tự xoá; bản đồ 3D gần như không ai thấy; kênh `pron:install`/`pron:cancel` còn trong contract dù không giao diện nào gọi.
 - **Thay thế đã cân nhắc**: tự xoá NLLB/wav2vec2 lúc khởi động (mất dữ liệu người dùng không hỏi — loại); giữ NLLB nhưng tắt mặc định (vẫn vướng giấy phép); bỏ hẳn kênh `pron:install` (đụng contract, không cần cho mục tiêu "không mời tải"); ẩn Video tới khi ≥ 40 video có checkpoint giữa bài (mất 12 video đã làm).
+
+## #66 — Nội dung nhân vật ngoài giấy phép MIT (2026-11-13) — Bị thay thế bởi #69
+
+- **Bối cảnh**: chủ dự án muốn cửa hàng có thêm nhân vật khách mời. Bản ghi chi tiết nằm ngoài repo.
+- **Quyết định**: không đưa nhân vật có bản quyền của bên khác vào repo công khai hay bộ cài; cách đóng gói theo #69.
+
+## #67 — Hoạt ảnh tự do và cách di chuyển riêng của nhân vật: dùng lại khe `quirk_*` của não, dòng thời gian bằng CSS trong hình (2026-11-14) — Đã quyết định
+
+- **Bối cảnh**: một số nhân vật cần màn diễn riêng lúc rảnh và cách di chuyển riêng (bay, nhảy). Hình vector chỉ có 19 dáng lặp; `MascotBrain` còn sẵn khe `quirk_*` nhưng `PoseAnimator.names()` trả rỗng.
+- **Quyết định**:
+  1. **Không thêm hệ thống mới**: module nhân vật khai `QUIRKS` (tên → `seconds`, `variants`, `acc`), `export.py` xuất thêm dáng `quirk_*` vào `pet.json` và ghi `<id>.quirks.json`; `PoseAnimator` đọc (qua `shared/pet/quirks.ts`) để trả tên cho não và giữ dáng đúng `seconds`. Độ dài hoạt ảnh CSS và thời gian giữ dáng cùng một nguồn (module Python).
+  2. **Màn diễn là hoạt ảnh CSS chạy một lần từ t = 0** (`animation … 1 both`), khung đầu và cuối trùng dáng idle. Không dùng JavaScript điều khiển từng khung.
+  3. **"Ngẫu nhiên" = biến thể**: module vẽ 2–3 biến thể (`quirk_x_1.._N`), `PoseAnimator` chọn ngẫu nhiên mỗi lần diễn; xuất lại cho kết quả giống hệt.
+  4. **Di chuyển = vẽ lại dáng `walk` + chuyển động của lớp thân**: module khai `WALK`, `PetSprite` truyền `travel` cho `PetFigure`, lớp `tv-<WALK>` lên `<svg>`; chỉ nhấc nhóm `.mv` (thân + phụ kiện), phần cảnh đứng yên (`still` trong `pet.json`, tách bằng `<!--MV-->`). Não và cửa sổ không đổi.
+  5. **Quy tắc chuyển động 2D**: chỉ nhấc/hạ, đu đưa (≤ ±6°, hoặc con lắc quanh điểm treo), bẹp/giãn dọc, tay/chân/đuôi quay quanh khớp. Cấm lật ngang giả 3D, lộn vòng, treo ngược.
+  6. **Phụ kiện**: quirk mà thân rời chỗ (`acc=False`) thì `PetFigure` ẩn phụ kiện trong lúc diễn (`hideAcc`); đồ cầm tay ẩn ở mọi quirk.
+  7. Tắt khi `prefers-reduced-motion` và ở giai đoạn trứng. Trọng số chọn quirk tăng từ 3 lên 6.
+- **Đánh đổi**: mỗi dáng quirk lặp lại cả hình thân nên `pet.json` nặng thêm; vùng bấm chuột không đi theo khung khi bay/nhảy.
+- **Thay thế đã cân nhắc**: biến CSS đặt vị trí ngẫu nhiên lúc dựng hình (khó xem trước, khó kiểm); điều khiển bằng Web Animations (phải đọc vào Shadow DOM).
+
+## #68 — Thay một nhân vật khách mời (2026-11-15) — Đã quyết định
+
+- Nội dung liên quan riêng tới gói ngoài repo (#69); bản ghi chi tiết nằm ngoài repo.
+
+## #69 — Nhân vật ngoài giấy phép MIT chuyển sang gói riêng cài bằng tay (2026-11-16) — Đã quyết định
+
+- **Bối cảnh**: các nhân vật khách mời là fan art của nhân vật có bản quyền (#66, #68), không thể mang giấy phép MIT của repo công khai. Chủ dự án: "vì các nhân vật này không thể MIT nên hãy build nó thành 1 gói private để chỉ cài được thủ công (đơn giản)". Nhánh `feat/shop-characters` chưa commit, chưa push nên chưa có hình nào vào lịch sử git.
+- **Quyết định**:
+  1. **Repo công khai không chứa nhân vật có bản quyền**: không mã vẽ, hình, lời thoại, vùng bấm hay id của chúng trong `src/`, `scripts/`. App công khai chỉ có 5 nhân vật gốc và cơ chế "gói nhân vật" dùng chung.
+  2. **Một gói = một file JSON `.eapack`** (sơ đồ zod `src/shared/schemas/characterPack.ts`), đặt vào `userData/character-packs/` bằng nút "Cài gói nhân vật…" trong Cài đặt (main mở hộp thoại chọn file, service kiểm rồi chép). Nạp lúc khởi động, cài/gỡ xong thì nạp lại mọi cửa sổ; không tải qua mạng, không kênh cập nhật, không nạp nóng.
+  3. **Nguồn nằm ngoài git**: `private/guest-pack/` (`.gitignore` có `/private/`) giữ mã vẽ (`fan*.py`), hình đã xuất, lời thoại, vùng bấm và thiết kế; gói đã đóng ở `private/guest-pack/dist/`. Công cụ đóng gói chung là `pnpm pack:characters`; `export.py` chỉ nạp module ngoài khi đặt `MASCOT_EXTRA_DIR`.
+  4. **Gói là dữ liệu không tin cậy**: svg/css đi vào `innerHTML` và `<style>` của Shadow DOM, nên main kiểm bằng sơ đồ zod, giới hạn 30 MB, danh sách cấm (thẻ chủ động, thuộc tính `on…`, URL ngoài, `data:`, `@import`, escape CSS, thực thể HTML, bình luận/CDATA, `<style>`/`<set>`/`<animate>`/`<image>` trong svg, `:host`, thẻ bị cắt) và id không trùng nhân vật gốc hay tên thiết bị Windows. Danh sách cấm là lớp thứ nhất, CSP của các trang là lớp thứ hai (không đổi); checker độc lập đã thử các mẫu độc hại và các lỗ hổng tìm được đã bịt, có test.
+  5. **Gỡ gói không đụng dữ liệu người dùng**: `pet_states.character_id` và túi đồ giữ nguyên; id lạ hiện như Bi, cài lại thì trở lại. Nhân vật chưa từng phát hành không cần mục hoàn xu trong `RETIRED_ACCESSORIES`.
+  6. **Phát hành**: chỉ chủ dự án tự đưa file gói cho người được phép; không đưa vào bộ cài, không commit `private/`.
+- **Đánh đổi**: `private/guest-pack/` là **bản duy nhất, chưa có quản lý phiên bản hay sao lưu** (một bản chép tạm nằm trong thư mục tạm của phiên làm việc) — cần chủ dự án quyết một kho git riêng hoặc sao lưu; thêm mã cơ chế công khai (loader, kiểm tra, UI, công cụ đóng gói); `CharacterId` thành `string` nên mất kiểm tra kiểu theo danh sách cố định cho id của gói; ai cài gói thì tên thú cưng mặc định của nhân vật gói giữ lại sau khi gỡ.
+- **Thay thế đã cân nhắc**: xoá hẳn nhân vật khỏi app (mất công vẽ, trái ý chủ dự án); giữ trong repo nhưng chặn lúc build (hình vẫn nằm trong lịch sử git công khai); gói tải riêng có kênh cập nhật (quá phức tạp so với "đơn giản", cần máy chủ); đặt file gói ngay trong `userData` mà không có giao diện (khó dùng).

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue'
+import { invoke } from '@renderer/shared/ipc'
 
 // Thú cưng chibi vector (mascot v4: phần phụ nối khớp lắc lư, xem docs/05). Hình sinh từ scripts/design-data/mascot/export.py vào shared/art/pets/<id>.pet.json;
 // nhúng vào Shadow DOM để id/lớp CSS không đụng trang. Mỗi giai đoạn vẽ riêng (19 dáng); phụ kiện vẽ riêng cho từng con
@@ -10,6 +11,8 @@ interface StageArt {
   bg?: string
   fg?: string
   states: Record<string, string>
+  /** Phần cảnh đứng yên của một dáng (vd cảnh Huyền thoại khi bay/nhảy): vẽ dưới thân, không chuyển động theo thân */
+  still?: Record<string, string>
 }
 interface PetArt {
   css: string
@@ -17,15 +20,23 @@ interface PetArt {
   egg: { defs: string; svg: string }
   stages: Record<string, StageArt>
   acc: Record<string, { slot: string; defs: string; b: string; f: string }>
+  /** Các dáng `quirk_*` mà thân rời chỗ đứng: không vẽ phụ kiện để khỏi lơ lửng */
+  hideAcc?: string[]
 }
 const arts = import.meta.glob<PetArt>('../art/pets/*.pet.json', { import: 'default' })
 const cache = new Map<string, Promise<PetArt | null>>()
 
+/** Hình có sẵn trong app trước; không có thì hỏi main (nhân vật của gói nhân vật đã cài, main đã kiểm tra khi cài) */
 function loadArt(character: string): Promise<PetArt | null> {
   let p = cache.get(character)
   if (!p) {
     const load = arts[`../art/pets/${character}.pet.json`]
-    p = load ? load() : Promise.resolve(null)
+    p = load
+      ? load()
+      : invoke('characters:art', { id: character }).then(
+          (art) => art,
+          () => null
+        )
     cache.set(character, p)
   }
   return p
@@ -35,20 +46,26 @@ const props = withDefaults(
   defineProps<{
     character: string
     stage: string
-    /** Trạng thái: idle, walk, run, jump, sit, sleep, eat, drink, read, listen, say, hello, happy, sad, surprised, levelup, car, boat, plane */
+    /** Trạng thái: idle, walk, run, jump, sit, sleep, eat, drink, read, listen, say, hello, happy, sad, surprised, levelup, car, boat, plane; hoặc `quirk_*` (hoạt ảnh tự do của nhân vật, xem ./quirks) */
     pose?: string
     animate?: boolean
     /** Phụ kiện đang đeo ('acc:bow'...) */
     accessories?: string[]
-    /** Chuyển động cả thân chồng lên dáng: perk, peek, wag, wiggle, squash, bounce, dizzy, sway, shimmy */
+    /** Chuyển động cả thân chồng lên dáng: perk, peek, wag, wiggle, squash, bounce, dizzy, sway, shimmy; hoặc cách di chuyển riêng của nhân vật (lớp `m-*` trong css của pet.json) */
     motion?: string
+    /**
+     * Cách di chuyển riêng của nhân vật khi đi (xem ./quirks): chỉ nhấc/đu đưa lớp thân + phụ kiện (`.mv`), nền và cảnh Huyền thoại
+     * đứng yên. CSS của nó nằm trong css của pet.json, viết `.tv-<tên> .mv{...}` (đơn vị hình, không dùng %).
+     */
+    travel?: string
   }>(),
-  { pose: 'idle', animate: false, accessories: () => [], motion: '' }
+  { pose: 'idle', animate: false, accessories: () => [], motion: '', travel: '' }
 )
 
-/** Chuyển động cả thân (lớp `m-*` trên khung `.w`); mọi chuyển động bắt đầu và kết thúc ở tư thế nghỉ, số vòng hữu hạn, để không giật khi hết; `wag`/`perk`/`wiggle`/`sway` còn làm đuôi, lá vẫy nhanh hơn */
+/** Chuyển động cả thân (lớp `m-*` trên khung `.w`); mọi chuyển động bắt đầu và kết thúc ở tư thế nghỉ, số vòng hữu hạn, để không giật khi hết; `wag`/`perk`/`wiggle`/`sway` còn làm đuôi, lá vẫy nhanh hơn.
+ * Cách di chuyển riêng của nhân vật (bay, nhảy bốn chân: lớp `m-*` trong css của pet.json) lặp tới khi dừng đi; `transition` để nhấc lên và hạ xuống mượt */
 const MOTION_CSS =
-  '.w{transform-origin:50% 100%}' +
+  '.w{transform-origin:50% 100%;transition:transform .3s ease,translate .3s ease,rotate .3s ease}' +
   '.m-perk{animation:m-perk .55s ease-out 1}@keyframes m-perk{35%{transform:translateY(-5%) scale(.97,1.05)}70%{transform:scale(1.03,.97)}}' +
   '.m-peek{animation:m-peek 2s ease-in-out 1}@keyframes m-peek{25%{transform:rotate(-5deg)}65%{transform:rotate(5deg)}}' +
   '.m-wiggle{animation:m-wiggle .5s ease-in-out 4}@keyframes m-wiggle{25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}' +
@@ -61,7 +78,8 @@ const MOTION_CSS =
   '.m-shimmy{animation:m-shimmy 1s ease-in-out 2}' +
   '@keyframes m-shimmy{20%{transform:translateX(-5%) rotate(-4deg)}40%{transform:translateY(-3%)}60%{transform:translateX(5%) rotate(4deg)}80%{transform:translateY(-3%)}}' +
   '.m-wag .sg,.m-perk .sg,.m-wiggle .sg,.m-sway .sg,.m-shimmy .sg{--d:1.1s!important}' +
-  '.w.still{animation:none!important}'
+  '.mv{transition:transform .3s ease,translate .3s ease,rotate .3s ease}' + // chỉ có tác dụng khi lớp thay đổi trên .mv đang tồn tại; vào/ra dáng walk dựng lại hình nên thân nhảy thẳng tới tư thế mới
+  '.w.still,.w.still .mv{animation:none!important;transition:none}'
 
 /** Đồng hồ chung cho đuôi, lá, đốm sáng (`--f` trong fx4.CSS4): đổi dáng dựng lại hình mà đuôi vẫn lắc tiếp đúng nhịp, không giật về đầu */
 const phase = (): string => ((performance.now() / 1000) % 3600).toFixed(2)
@@ -87,7 +105,7 @@ function figure(art: PetArt, stage: string, pose: string, accessories: string[])
   let back = ''
   let front = ''
   const cls: string[] = []
-  for (const id of accessories) {
+  for (const id of art.hideAcc?.includes(pose) ? [] : accessories) {
     const a = art.acc[id]
     if (!a) continue
     const hand = a.slot === 'hand' ? ' class="acc-hand"' : ''
@@ -96,12 +114,16 @@ function figure(art: PetArt, stage: string, pose: string, accessories: string[])
     front += `<g${hand}>${a.f}</g>`
     if (a.slot === 'neck') cls.push('no-nk')
   }
-  if (HIDE_HAND.includes(pose)) cls.push('hide-hand')
+  if (HIDE_HAND.includes(pose) || pose.startsWith('quirk_')) cls.push('hide-hand')
   const vb = stage === 'legend' ? art.vb.legend : art.vb.fig
+  const still = st.still?.[pose] ?? ''
+  const scale = `translate(80 150) scale(${st.scale}) translate(-80 -150)`
+  if (props.travel && pose === 'walk') cls.push(`tv-${props.travel}`)
   return (
     `<svg class="ps ${cls.join(' ')}" viewBox="${vb}" preserveAspectRatio="xMidYMax meet" aria-hidden="true">` +
     `<defs>${st.defs}${defs}</defs>${st.bg ?? ''}` +
-    `<g transform="translate(80 150) scale(${st.scale}) translate(-80 -150)">${back}${body}${front}</g>${st.fg ?? ''}</svg>`
+    (still ? `<g transform="${scale}">${still}</g>` : '') +
+    `<g class="mv"><g transform="${scale}">${back}${body}${front}</g></g>${st.fg ?? ''}</svg>`
   )
 }
 
@@ -121,7 +143,14 @@ async function render(): Promise<void> {
 
 onMounted(render)
 watch(
-  () => [props.character, props.stage, props.pose, props.animate, props.accessories.join(',')],
+  () => [
+    props.character,
+    props.stage,
+    props.pose,
+    props.animate,
+    props.travel,
+    props.accessories.join(',')
+  ],
   render
 )
 // Đổi chuyển động thì chỉ đổi lớp của khung, không dựng lại hình (dựng lại sẽ khởi động lại mọi hoạt ảnh)

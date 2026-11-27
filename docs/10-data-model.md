@@ -66,7 +66,7 @@ erDiagram
 | Cột | Kiểu | Ghi chú |
 |---|---|---|
 | id, profile_id | TEXT | |
-| character_id | TEXT | `bi`/`lupo`/`draco`/`robo`/`kitsu` (bản cũ lưu `placeholder` = `bi`; code dùng `normalizeCharacterId`). Nhân vật đã mua nằm ở `inventory` dạng `char:<id>`. **Migration 0007 (2026-11-01):** Lupo thay Webby — `pet_states.character_id` `webster` → `lupo` (tên `Webby` → `Lupo`, tên tự đặt giữ nguyên) và `inventory_items.item_id` `char:webster` → `char:lupo`; test ở `src/main/db/client.test.ts` |
+| character_id | TEXT | `bi`/`lupo`/`draco`/`robo`/`kitsu` + id nhân vật của gói nhân vật đã cài ([05 §12](05-mascot-system.md), [decisions #69](decisions.md); gỡ gói thì giá trị này giữ nguyên và id lạ hiện như `bi` qua `normalizeCharacterId`, cài lại là trở lại; bản cũ lưu `placeholder` = `bi`; code dùng `normalizeCharacterId`). Nhân vật đã mua nằm ở `inventory` dạng `char:<id>`. **Migration 0007 (2026-11-01):** Lupo thay Webby — `pet_states.character_id` `webster` → `lupo` (tên `Webby` → `Lupo`, tên tự đặt giữ nguyên) và `inventory_items.item_id` `char:webster` → `char:lupo`; test ở `src/main/db/client.test.ts` |
 | name | TEXT | Người dùng đặt tên |
 | level, xp | INTEGER | XP trong level hiện tại |
 | total_xp | INTEGER | |

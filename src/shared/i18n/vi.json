@@ -571,7 +571,8 @@
     "aiDailyLimit": "Đã dùng hết số lượt Claude Code hôm nay. Tăng hạn mức trong Cài đặt hoặc thử lại ngày mai.",
     "aiPlanLimit": "Đã hết hạn mức của gói Claude. Thử lại sau.",
     "aiCliLogin": "Claude Code chưa đăng nhập. Chạy `claude` trong terminal để đăng nhập.",
-    "forbidden": "Hồ sơ này không dùng được tính năng này."
+    "forbidden": "Hồ sơ này không dùng được tính năng này.",
+    "characterPackInvalid": "File gói nhân vật không hợp lệ hoặc không an toàn, chưa cài."
   },
   "quiz": {
     "reviewTitle": "Ôn từ",
@@ -1006,7 +1007,15 @@
       "devLeveled": "Đã tăng 10 level",
       "diaryHour": "Nhật ký: mascot nhắc viết lúc",
       "planReminderHour": "Nhắc lộ trình hôm nay",
-      "planReminderHint": "Mascot nhắc một lần mỗi ngày khi lộ trình còn việc chưa xong"
+      "planReminderHint": "Mascot nhắc một lần mỗi ngày khi lộ trình còn việc chưa xong",
+      "characterPacks": {
+        "title": "Gói nhân vật",
+        "hint": "Gói nhân vật (file .eapack) thêm thú cưng mới vào Cửa hàng. Chỉ cài gói từ người bạn tin. Cài hoặc gỡ xong, các cửa sổ sẽ tải lại.",
+        "empty": "Chưa cài gói nào.",
+        "summary": "Phiên bản {version} · {count} nhân vật",
+        "install": "Cài gói nhân vật…",
+        "remove": "Gỡ"
+      }
     },
     "leave": {
       "title": "Thoát giữa chừng?",
@@ -1620,7 +1629,14 @@
       "filter": "Lọc theo vị trí đeo",
       "empty": "Trống"
     },
-    "characterTitle": "Thú cưng mới"
+    "characterTitle": "Thú cưng mới",
+    "group": {
+      "original": "Bạn đồng hành",
+      "guest": "Khách mời đặc biệt"
+    },
+    "use": "Dùng",
+    "using": "Đang dùng",
+    "evolution": "Tiến hoá"
   },
   "credits": {
     "title": "Giấy phép & ghi công",

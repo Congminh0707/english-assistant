@@ -6,12 +6,17 @@ from build import SC
 from chars4 import CHARS4, egg
 from fx4 import CSS4, halo, glow, twinkles
 
-ALL_CSS = build.CSS.replace('@media (prefers-reduced-motion:reduce){*{animation:none !important}}', '') + CSS4 + '@media (prefers-reduced-motion:reduce){*{animation:none !important}}'
+import extra   # nhân vật bổ sung ngoài mã nguồn (tuỳ chọn: MASCOT_EXTRA_DIR, xem extra.py)
+
+ALL_CSS = build.CSS.replace('@media (prefers-reduced-motion:reduce){*{animation:none !important}}', '') + CSS4 + extra.CSS + '@media (prefers-reduced-motion:reduce){*{animation:none !important}}'
+
+BACKDROP = {'kitsu': ('#9FE0FF', '#BDEBFF', '#FFD34D'), 'bi': ('#FFE9A8', '#FFF3C4', '#F2B53A'), 'draco': ('#FFB36B', '#FFD9A8', '#FFD34D'),
+            'robo': ('#9FF6FF', '#BFF8FF', '#FFC93C'), 'lupo': ('#C9D4FF', '#E6EBFF', '#FFE07A')}
+extra.register(CHARS4, BACKDROP)
 
 # Nền Huyền thoại v4: quầng nhỏ, mờ + vòng mảnh (thay quầng r=100–120 của v3)
 def backdrop(n, p):
-    col, ring, dot = {'kitsu': ('#9FE0FF', '#BDEBFF', '#FFD34D'), 'bi': ('#FFE9A8', '#FFF3C4', '#F2B53A'), 'draco': ('#FFB36B', '#FFD9A8', '#FFD34D'),
-                      'robo': ('#9FF6FF', '#BFF8FF', '#FFC93C'), 'lupo': ('#C9D4FF', '#E6EBFF', '#FFE07A')}[n]
+    col, ring, dot = BACKDROP[n]
     d, g = glow(p, 80, 78, 78, col, .34)
     if n == 'lupo':   # trăng khuyết mảnh sau đầu thay vòng tròn
         d += f'<linearGradient id="{p}mn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFBE0"/><stop offset="1" stop-color="#FFD866"/></linearGradient>'

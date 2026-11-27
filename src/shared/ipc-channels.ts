@@ -89,6 +89,11 @@ export const INVOKE_CHANNELS = [
   'shop:buy',
   'shop:equip',
   'shop:select-character',
+  /** Gói nhân vật (.eapack) người dùng tự cài: danh sách (không có hình), hình một nhân vật, cài (main mở hộp chọn file), gỡ */
+  'characters:packs',
+  'characters:art',
+  'characters:install-pack',
+  'characters:remove-pack',
   'study:stats',
   'lesson:catalog',
   'phrasebook:list',

@@ -2,8 +2,8 @@
 import { computed, onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import {
-  CHARACTER_IDS,
-  CHARACTERS,
+  allCharacterIds,
+  characterDef,
   characterItemId,
   DEFAULT_CHARACTER_ID,
   normalizeCharacterId,
@@ -44,6 +44,8 @@ async function saveRename(): Promise<void> {
   emit('changed')
 }
 const viewing = ref<CharacterId>(DEFAULT_CHARACTER_ID)
+/** Nhân vật gốc + nhân vật của gói đã cài (đăng ký trước khi mount, xem shared/characterPacks) */
+const characterIds = allCharacterIds()
 const message = ref('')
 const busy = ref(false)
 let messageTimer = 0
@@ -192,7 +194,7 @@ onMounted(load)
     <h2>{{ t('study.pet.chooseTitle') }}</h2>
     <div class="chars">
       <article
-        v-for="id in CHARACTER_IDS"
+        v-for="id in characterIds"
         :key="id"
         class="card char"
         :class="{ active: viewing === id, selected: current === id }"
@@ -207,7 +209,7 @@ onMounted(load)
         <div class="note">
           <template v-if="current !== id && !owned(id)">
             <span class="chip price"
-              ><Coins :size="13" :stroke-width="2.4" />{{ CHARACTERS[id].price }}</span
+              ><Coins :size="13" :stroke-width="2.4" />{{ characterDef(id)?.price }}</span
             >
             <span v-if="lockText(id)">{{ lockText(id) }}</span>
           </template>

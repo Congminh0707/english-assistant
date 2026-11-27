@@ -150,6 +150,14 @@ import {
   FreeWritingViewSchema
 } from './schemas/freeWriting'
 
+import {
+  CharacterArtInputSchema,
+  CharacterInstallResultSchema,
+  CharacterPacksSchema,
+  CharacterRemovePackInputSchema,
+  PetArtSchema
+} from './schemas/characterPack'
+
 export const WalkResultSchema = z.object({ blocked: z.enum(['left', 'right']).nullable() })
 export const DragEndResultSchema = z.object({ falling: z.boolean() })
 export type WalkResult = z.infer<typeof WalkResultSchema>
@@ -265,6 +273,10 @@ export const invokeContract = {
   'shop:buy': { input: ShopBuyInputSchema, output: ShopStateSchema },
   'shop:equip': { input: ShopEquipInputSchema, output: ShopStateSchema },
   'shop:select-character': { input: ShopSelectCharacterInputSchema, output: ShopStateSchema },
+  'characters:packs': { input: z.void(), output: CharacterPacksSchema },
+  'characters:art': { input: CharacterArtInputSchema, output: PetArtSchema.nullable() },
+  'characters:install-pack': { input: z.void(), output: CharacterInstallResultSchema },
+  'characters:remove-pack': { input: CharacterRemovePackInputSchema, output: CharacterPacksSchema },
   'study:stats': { input: z.void(), output: StatsSchema },
   'phrasebook:list': { input: z.void(), output: PhrasebookSchema },
   'update:status': { input: z.void(), output: UpdateStatusSchema },

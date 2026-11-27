@@ -35,3 +35,6 @@ scripts/design-data/review/kids-games/*.webp
 scripts/design-data/review/kids-games/out/
 scripts/design-data/review/scene-preview/sa.js
 scripts/design-data/review/scene-preview/sky/
+
+# Gói nhân vật riêng (không thuộc mã nguồn MIT): nguồn + bản build .eapack, cài thủ công trong Cài đặt
+/private/

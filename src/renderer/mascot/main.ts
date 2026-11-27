@@ -5,7 +5,14 @@ import '@renderer/shared/styles/tokens.css'
 import '@renderer/shared/styles/ui.css'
 import { createAppI18n } from '@renderer/shared/i18n'
 import { initTheme } from '@renderer/shared/theme'
+import { loadCharacterPacks } from '@renderer/shared/characterPacks'
 import App from './App.vue'
+import { registerHitRegions } from './engine/hitRegion'
 
-createApp(App).use(createPinia()).use(createAppI18n()).mount('#app')
-initTheme()
+// Gói nhân vật đã cài phải đăng ký trước khi mount (lỗi không chặn app)
+const i18n = createAppI18n()
+void loadCharacterPacks(i18n).then((characters) => {
+  for (const c of characters) if (c.hit) registerHitRegions(c.id, c.hit)
+  createApp(App).use(createPinia()).use(i18n).mount('#app')
+  initTheme()
+})

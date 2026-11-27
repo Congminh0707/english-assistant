@@ -571,7 +571,8 @@
     "aiDailyLimit": "You've used today's Claude Code calls. Raise the limit in Settings or try again tomorrow.",
     "aiPlanLimit": "Your Claude plan limit is used up. Try again later.",
     "aiCliLogin": "Claude Code is not signed in. Run `claude` in a terminal to sign in.",
-    "forbidden": "This profile can't use this feature."
+    "forbidden": "This profile can't use this feature.",
+    "characterPackInvalid": "This character pack file is invalid or unsafe and was not installed."
   },
   "quiz": {
     "reviewTitle": "Review",
@@ -1006,7 +1007,15 @@
       "devLeveled": "Added 10 levels",
       "diaryHour": "Diary: mascot reminder at",
       "planReminderHour": "Today's plan reminder",
-      "planReminderHint": "The mascot reminds you once a day while the plan still has unfinished items"
+      "planReminderHint": "The mascot reminds you once a day while the plan still has unfinished items",
+      "characterPacks": {
+        "title": "Character packs",
+        "hint": "A character pack (.eapack file) adds new pets to the Shop. Only install packs from people you trust. After you install or remove a pack, the windows reload.",
+        "empty": "No packs installed.",
+        "summary": "Version {version} · {count} characters",
+        "install": "Install character pack…",
+        "remove": "Remove"
+      }
     },
     "leave": {
       "title": "Leave now?",
@@ -1620,7 +1629,14 @@
       "filter": "Filter by slot",
       "empty": "Empty"
     },
-    "characterTitle": "New pets"
+    "characterTitle": "New pets",
+    "group": {
+      "original": "Companions",
+      "guest": "Special guests"
+    },
+    "use": "Use",
+    "using": "In use",
+    "evolution": "Evolution"
   },
   "credits": {
     "title": "Licenses & credits",

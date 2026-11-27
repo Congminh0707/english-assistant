@@ -12,6 +12,8 @@ export const paths = {
   models: (): string => join(app.getPath('userData'), 'models'),
   /** Gói âm thanh tạo sẵn đã tải (bài nghe): userData/audio-packs */
   audioPacks: (): string => join(app.getPath('userData'), 'audio-packs'),
+  /** Gói nhân vật (.eapack) người dùng tự cài: userData/character-packs */
+  characterPacks: (): string => join(app.getPath('userData'), 'character-packs'),
   /** Gói sprite độ phân giải cao đã tải: userData/sprite-packs */
   spritePacks: (): string => join(app.getPath('userData'), 'sprite-packs'),
   /** Content pack đã giải nén */

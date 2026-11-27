@@ -1,4 +1,4 @@
-import { app, powerMonitor, screen, utilityProcess } from 'electron'
+import { app, BrowserWindow, powerMonitor, screen, utilityProcess } from 'electron'
 import { autoUpdater } from 'electron-updater'
 import { existsSync, rmSync } from 'node:fs'
 import { join } from 'path'
@@ -23,6 +23,7 @@ import { registerAppIpc } from './ipc/app.ipc'
 import { registerMascotIpc } from './ipc/mascot.ipc'
 import { registerPopupIpc } from './ipc/popup.ipc'
 import { registerStudyIpc } from './ipc/study.ipc'
+import { registerCharacterIpc } from './ipc/characters.ipc'
 import { broadcast, sendTo } from './ipc/broadcast'
 import { createTray, type AppTray } from './system/tray'
 import { showMascotMenu } from './system/mascotMenu'
@@ -35,6 +36,8 @@ import { readClipboardForLookup } from './system/clipboard'
 import { readSelectionOrClipboard } from './system/selection'
 import { getForegroundInfo, getUserNotificationState, monitorOfNativeHandle } from './system/win32'
 import { QuietModeService } from './services/QuietModeService'
+import { CharacterPackService } from './services/CharacterPackService'
+import { clearRegisteredCharacters, registerCharacters } from '@shared/characters'
 import { SleepService } from './services/SleepService'
 import { TranslationService } from './services/TranslationService'
 import { ModelManager } from './translate/ModelManager'
@@ -103,6 +106,10 @@ if (!app.requestSingleInstanceLock()) {
 
     // Dữ liệu: mở user.db (tự migrate) và dựng các service
     conn = openUserDb(paths.userDb(), paths.migrations())
+    // Gói nhân vật người dùng tự cài: đăng ký trước khi dựng service/cửa sổ để cửa hàng, chọn nhân vật biết các id này
+    const characterPacks = new CharacterPackService({ dir: paths.characterPacks() })
+    characterPacks.load()
+    registerCharacters(characterPacks.characters())
     // Key người dùng nhập (mã hoá bằng safeStorage): key Claude 'anthropic' dùng chung cho Dịch online và AI (#56)
     const secrets = new SafeStorageSecretStore(paths.secrets())
     // Mọi lần chạy CLI (claude -p, auth status, where.exe) đi qua utilityProcess aiCliWorker: spawn claude.exe từ main
@@ -295,6 +302,15 @@ if (!app.requestSingleInstanceLock()) {
     )
     registerPopupIpc(p)
     registerStudyIpc(s, m)
+    // Cài/gỡ gói nhân vật: đăng ký lại rồi nạp lại mọi cửa sổ (sau khi trả kết quả cho renderer), không thay nóng
+    registerCharacterIpc(characterPacks, s, () => {
+      clearRegisteredCharacters()
+      registerCharacters(characterPacks.characters())
+      setTimeout(() => {
+        for (const win of BrowserWindow.getAllWindows())
+          if (!win.isDestroyed()) win.webContents.reload()
+      }, 300)
+    })
     registerShortcuts({
       // Bôi đen chữ (hoặc đã Ctrl+C) rồi bấm phím tắt → popup tra từ cạnh con trỏ
       quickTranslate: async () => {

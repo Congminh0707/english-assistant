@@ -1,9 +1,11 @@
+import { quirkPose, type QuirkDef } from '@renderer/shared/pet/quirks'
+
 /** Phần của "cơ thể" mà MascotBrain cần: chọn hoạt ảnh theo tên và biết khi hoạt ảnh một lần chạy xong */
 export interface Animator {
   /** Gọi khi một hoạt ảnh không lặp chạy xong */
   onFinish: ((name: string) => void) | null
   play(name: string, restart?: boolean): void
-  /** Tên các hoạt ảnh riêng của nhân vật (quirk_*, click_*); thú cưng vector không có */
+  /** Tên các hoạt ảnh riêng của nhân vật: `quirk_*` (hoạt ảnh tự do, xem shared/pet/quirks); `click_*` thú cưng vector không có */
   names(): string[]
 }
 
@@ -91,31 +93,51 @@ const ONE_SHOT_SECONDS: Record<string, number> = {
 export const poseOf = (state: string): string => POSE[state] ?? 'idle'
 export const motionOf = (state: string): string => MOTION[state] ?? ''
 
+const QUIRK_PREFIX = 'quirk_'
+
 export class PoseAnimator implements Animator {
   onFinish: ((name: string) => void) | null = null
   private current = 'idle'
   private elapsed = 0
+  /** Thời gian giữ dáng hiện tại (giây); undefined = lặp tới khi não đổi trạng thái */
+  private limit: number | undefined
 
-  /** `onPose` được gọi khi dáng hoặc chuyển động hiển thị đổi */
-  constructor(private readonly onPose: (pose: string, motion: string) => void) {}
+  /**
+   * `onPose` được gọi khi dáng hoặc chuyển động hiển thị đổi.
+   * `quirks` trả các hoạt ảnh tự do của nhân vật đang hiện (rỗng = không có); `random` để chọn biến thể.
+   */
+  constructor(
+    private readonly onPose: (pose: string, motion: string) => void,
+    private readonly quirks: () => Record<string, QuirkDef> = () => ({}),
+    private readonly random: () => number = Math.random
+  ) {}
 
   get animation(): string {
     return this.current
   }
 
   names(): string[] {
-    return []
+    return Object.keys(this.quirks())
   }
 
   play(name: string, restart = false): void {
     if (name === this.current && !restart) return
     this.current = name
     this.elapsed = 0
+    if (name.startsWith(QUIRK_PREFIX)) {
+      // Hoạt ảnh tự do: dáng riêng trong pet.json, giữ đúng độ dài màn diễn. Quirk không còn (vừa đổi nhân vật) thì
+      // đứng idle và báo xong ngay ở lần update kế, để não không kẹt ở trạng thái này.
+      const def = this.quirks()[name]
+      this.limit = def?.seconds ?? 0
+      this.onPose(def ? quirkPose(name, def, this.random()) : 'idle', '')
+      return
+    }
+    this.limit = ONE_SHOT_SECONDS[name]
     this.onPose(poseOf(name), motionOf(name))
   }
 
   update(dt: number): void {
-    const limit = ONE_SHOT_SECONDS[this.current]
+    const limit = this.limit
     if (limit === undefined) return
     this.elapsed += dt
     if (this.elapsed >= limit) {

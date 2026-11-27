@@ -1,6 +1,7 @@
 import {
+  allCharacterIds,
+  characterDef,
   characterFromItem,
-  CHARACTERS,
   characterItemId,
   DEFAULT_CHARACTER_ID,
   isCharacterId,
@@ -105,9 +106,9 @@ export class ShopService {
       throw new AppError('ITEM_NOT_OWNED', 'errors.itemNotOwned')
     }
     const row = petService.row()
-    const name = CHARACTERS[characterId].name
+    const name = characterDef(characterId)!.name
     // Đổi tên theo nhân vật nếu người dùng chưa đặt tên riêng (đang là tên mặc định của nhân vật cũ)
-    const defaultNames = Object.values(CHARACTERS).map((c) => c.name as string)
+    const defaultNames = allCharacterIds().map((id) => characterDef(id)!.name)
     const rename = defaultNames.includes(row.name) ? { name } : {}
     pets.update(row.id, { characterId, ...rename }, clock.now())
     bus.emit('pet.updated', petService.get())

@@ -51,8 +51,11 @@ const QUIRK_PREFIX = 'quirk_'
 const CLICK_PREFIX = 'click_'
 /** Khi bấm vào: mỗi phản ứng riêng của nhân vật có trọng số này; happy/love/giggle chung trọng số 2, nuzzle 1 */
 const CLICK_WEIGHT = 3
-/** Mỗi hoạt ảnh đặc trưng có trọng số này khi chọn động tác tự chơi (xấp xỉ 1/3 số lần tự chơi) */
-const QUIRK_WEIGHT = 3
+/**
+ * Mỗi hoạt ảnh tự do của nhân vật (`quirk_*`, xem shared/pet/quirks) có trọng số này khi chọn động tác tự chơi; các động tác chung
+ * cộng lại là 17. Một quirk ≈ 1/4 số lần tự chơi (khoảng 1,5–2 phút diễn một lần), hai quirk ≈ 2/5.
+ */
+const QUIRK_WEIGHT = 6
 
 const ONE_SHOT_STATES: MascotState[] = [
   'land',

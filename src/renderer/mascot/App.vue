@@ -14,6 +14,7 @@ import { useLines } from './composables/useLines'
 import SpeechBubble from './components/SpeechBubble.vue'
 import TtsIndicator from '@renderer/shared/components/TtsIndicator.vue'
 import PetSprite from '@renderer/shared/pet/PetSprite.vue'
+import { quirksOf } from '@renderer/shared/pet/quirks'
 import { normalizeCharacterId } from '@shared/characters'
 
 /** Di chuột dưới ngưỡng này (px) giữa lúc nhấn và thả thì tính là click, không phải kéo */
@@ -328,10 +329,16 @@ onMounted(async () => {
 
   shown = `${character.value}/${stage.value}`
   const scale = settings['mascot.scale']
-  animator = new PoseAnimator((p, m) => {
-    pose.value = p
-    motion.value = m
-  })
+  // Hoạt ảnh tự do của nhân vật đang dùng (nếu có, xem shared/pet/quirks). Trứng chưa có hình để diễn;
+  // người dùng tắt chuyển động thì hình đứng yên nên cũng bỏ qua.
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+  animator = new PoseAnimator(
+    (p, m) => {
+      pose.value = p
+      motion.value = m
+    },
+    () => (stage.value === 'egg' || reducedMotion.matches ? {} : quirksOf(character.value))
+  )
   brain = new MascotBrain(animator, (dx) => invoke('mascot:walk', dx), onWindowMoved, scale)
 
   window.addEventListener('mousemove', onMouseMove)

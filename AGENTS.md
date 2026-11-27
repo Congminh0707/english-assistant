@@ -34,7 +34,7 @@ pnpm build:win      # build installer
 - Giữ `contextIsolation: true`, `nodeIntegration: false`, `sandbox: true`. Không bao giờ hạ cấu hình bảo mật để "cho chạy được".
 - Đổi schema DB → migration mới (không sửa migration đã phát hành) + cập nhật [docs/10-data-model.md](docs/10-data-model.md).
 - Thêm thư viện lớn → cập nhật [docs/02-tech-stack.md](docs/02-tech-stack.md) + [docs/decisions.md](docs/decisions.md).
-- **Nội dung**: không đưa nội dung có bản quyền vào repo. Mỗi bản ghi nội dung phải có `source.license`. Nguồn mới phải được ghi vào [docs/08-content-sources.md](docs/08-content-sources.md) trước.
+- **Nội dung**: không đưa nội dung có bản quyền vào repo. Mỗi bản ghi nội dung phải có `source.license`. Nguồn mới phải được ghi vào [docs/08-content-sources.md](docs/08-content-sources.md) trước. **Nhân vật có bản quyền của bên khác (fan art) không bao giờ vào repo MIT**: chúng nằm trong gói riêng `private/guest-pack/` (bị `.gitignore`, chủ dự án tự giữ) và chỉ cài bằng tay qua file `.eapack` trong Cài đặt — [docs/05 §12](docs/05-mascot-system.md), [docs/decisions.md #69](docs/decisions.md). Không đưa mã vẽ, hình, lời thoại hay tên các nhân vật đó vào `src/`, `scripts/`; không commit `private/`, không phát hành gói nếu chủ dự án chưa ra lệnh.
 - Chuỗi giao diện qua i18n (`vi.json`/`en.json`), không viết cứng.
 - **Giao diện** (cửa sổ Học tập, component dùng chung) theo [docs/18-ui-rules.md](docs/18-ui-rules.md): dùng `.btn/.card/.chip` + `<UiIcon>` (không emoji làm icon), bo góc đúng bậc, màu/khoảng cách theo token; xong chạy `pnpm ui:audit` (0 lỗi).
 - Không log clipboard, API key, audio người dùng.

@@ -109,10 +109,12 @@ english-assistant/
 │  │  │  ├─ index.ts            # đăng ký tất cả handler
 │  │  │  ├─ pet.ipc.ts
 │  │  │  ├─ dictionary.ipc.ts
+│  │  │  ├─ characters.ipc.ts   # characters:packs|art|install-pack|remove-pack — gói nhân vật (.eapack); cài/gỡ chỉ nhận từ cửa sổ Học tập, main mở hộp thoại chọn file
 │  │  │  ├─ study.ipc.ts        # study:fullscreen — toàn màn hình cửa sổ Học tập (màn game bé), chỉ nhận từ cửa sổ đó
 │  │  │  └─ ...
 │  │  ├─ services/              # nghiệp vụ (~ app/Services)
 │  │  │  ├─ PetService.ts
+│  │  │  ├─ CharacterPackService.ts # nạp/kiểm tra/cài/gỡ gói nhân vật ngoài giấy phép MIT từ userData/character-packs/ (không import electron; dựng ở index.ts trước container); xem 05 §12
 │  │  │  ├─ XpService.ts
 │  │  │  ├─ SrsService.ts
 │  │  │  ├─ DictionaryService.ts

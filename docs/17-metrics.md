@@ -19,13 +19,13 @@ Sau khi sửa bảng, cập nhật cột **Đo ngày** và (nếu đổi) nhắc
 
 | Hạng mục                                       | Giá trị                                                                                     | Đo bằng      | Đo ngày    |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------- | ------------ | ---------- |
-| Phiên bản app                                  | 2.4.0                                                                                       | `pnpm stats` | 2026-11-12 |
-| Test (Vitest)                                  | 855 test / 82 file                                                                          | `pnpm test`  | 2026-11-12 |
-| Kênh IPC                                       | 126 invoke · 7 send · 14 event                                                              | `pnpm stats` | 2026-11-12 |
+| Phiên bản app                                  | 2.5.0                                                                                       | `pnpm stats` | 2026-11-27 |
+| Test (Vitest)                                  | 874 test / 84 file                                                                          | `pnpm test`  | 2026-11-27 |
+| Kênh IPC                                       | 130 invoke · 7 send · 14 event                                                              | `pnpm stats` | 2026-11-16 |
 | Migration DB (Drizzle)                         | 12 (`0000`–`0011`)                                                                          | `pnpm stats` | 2026-11-11 |
-| Nhân vật thú cưng                              | 5 (Bi, Lupo, Draco, Robo, Kitsu)                                                           | `pnpm stats` | 2026-10-22 |
-| Dáng vector mỗi nhân vật | 19 dáng × 4 giai đoạn vẽ riêng + trứng = 77 hình mỗi con (mascot v4, xem 05)                | `pnpm stats` | 2026-11-10 |
-| Vật phẩm cửa hàng                              | 46 = 17 đồ ăn + 25 phụ kiện (5 vị trí, vẽ riêng cho từng con) + 4 nhân vật                  | `pnpm stats` | 2026-11-09 |
+| Nhân vật thú cưng                              | 5 gốc (Bi, Lupo, Draco, Robo, Kitsu) + nhân vật của gói nhân vật cài bằng tay (không nằm trong repo: [05 §12](05-mascot-system.md), [decisions #69](decisions.md)) | `pnpm stats` | 2026-11-15 |
+| Dáng vector mỗi nhân vật | 19 dáng × 4 giai đoạn vẽ riêng + trứng = 77 hình mỗi con (mascot v4, xem 05; nhân vật của gói cũng đủ 19 dáng, kiểm lúc đóng gói) | `pnpm stats` | 2026-11-13 |
+| Vật phẩm cửa hàng                              | 46 = 17 đồ ăn + 25 phụ kiện (5 vị trí, vẽ riêng cho từng con) + 4 nhân vật bán (gốc); nhân vật của gói cài thêm vào cửa hàng lúc chạy | `pnpm stats` | 2026-11-13 |
 
 ## 2. Nội dung tự soạn (`content/curated/`)
 
@@ -79,6 +79,6 @@ Các bản trước (1.0.0 → 1.2.0) ghi ở [09 §10.3](09-content-pipeline.md
 | Đoạn âm thanh cần cho gói (`--list`) | 12 176 (+288 so với gói 1.7.0: +78 ví dụ + lời giải `gap`/`order` của 6 bài Luyện viết, +210 của 6 bài Trả lời câu hỏi — câu hỏi 0,9/0,6, câu trả lời mẫu, ví dụ, lời giải; gói 1.8.0 build 2026-11-12 có đủ 12 176 đoạn) | `node scripts/audio/build-listening-audio.mjs --list`, đo 2026-11-12 |
 | Gói bản đồ bé `kids-world` | 📋 chưa build — đo khi build ([19 §6](19-kids-world.md))            | mục tiêu ≤ 50 MB                                                                                |
 | Bản đồ bé: fps đo trong app thật (2026-11-01, 1600×900, máy dev, hồ sơ trẻ em mới) | 2D cao 56, 2D thấp 56, 3D cao 56, 3D thấp 56, quả cầu cao 56 | đếm `requestAnimationFrame` trong 5 giây; chưa đo trên máy yếu thật. Tự hạ khi dưới 24 fps ([19](19-kids-world.md)) |
-| Gói sprite thú cưng 288px  | đã bỏ 2026-11-01 (decisions #45); bộ cài không còn sprite pixel, thú cưng vector `art/pets` 5 file = 5.399 KB (mascot v4: bi 837, kitsu 1.853, draco 1.145, robo 580, lupo 984) | `pnpm mascot` | 2026-11-10 |
+| Gói sprite thú cưng 288px  | đã bỏ 2026-11-01 (decisions #45); bộ cài không còn sprite pixel, thú cưng vector `art/pets` 5 file = 5.402 KB (bi 837, kitsu 1.854, draco 1.146, robo 581, lupo 984); nhân vật của gói nhân vật không nằm trong bộ cài (gói riêng của chủ dự án: 5,37 MB, không công khai) | `pnpm mascot` | 2026-11-15 |
 
 > Các kích thước model lấy từ `modelFiles.ts` / manifest; đổi model → đo lại và sửa bảng.

@@ -2,6 +2,18 @@
 
 Mỗi lần phát hành ghi một mục (tiếng Việt). `scripts/release/check-version.mjs` yêu cầu mục cho phiên bản mới nếu file này tồn tại.
 
+## 2.5.0 — 2026-11-27
+
+- Bài đọc B1–C2: soạn lại bài tập 51 bài, thêm hai dạng mới là nối tiêu đề với đoạn văn và điền tóm tắt từ ngân hàng từ; thêm câu hỏi suy luận và đoán nghĩa từ theo ngữ cảnh
+- Khi làm bài đọc vẫn xem lại được bài đọc: cột bên phải trên màn hình rộng, ngăn kéo trên màn hình hẹp (phím R)
+- Câu trắc nghiệm được xáo thứ tự lựa chọn, độ dài các lựa chọn được cân lại để khó đoán đáp án
+- Cửa hàng thiết kế mới: tab Thú cưng mới, Phụ kiện, Đồ ăn; xem trước thú cưng chuyển động và các giai đoạn tiến hoá
+- Gói nhân vật: có thể cài thêm nhân vật từ file `.eapack` trong Cài đặt, gỡ lúc nào cũng được
+- Dịch offline chỉ dùng opus-mt (bỏ tuỳ chọn NLLB); không còn mời tải model chấm âm vị wav2vec2. Model đã tải không bị tự xoá, Cài đặt có nút xoá
+- Video chuyển vào trang Nghe; bản đồ 3D của bé chỉ hiện khi phụ huynh bật
+- Sửa lỗi không nộp được câu hỏi của video
+- Nút "Làm bài tập" ở bài chỉ có một cột không còn kéo hết chiều ngang
+
 ## 2.4.0 — 2026-11-12
 
 - Luyện viết trong bài học: dạng bài dịch Việt → Anh (so với đáp án mẫu, không khớp thì AI kiểm tra) và viết theo đề (AI nhận xét, đạt từ 60/100; không có AI thì đạt khi đủ số từ); chương "Luyện viết" 6 bài A1–B1
